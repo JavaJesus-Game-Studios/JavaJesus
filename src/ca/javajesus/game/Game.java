@@ -17,6 +17,7 @@ import ca.javajesus.game.gfx.Font;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.RandomLevel;
 
 public class Game extends Canvas implements Runnable {
 
@@ -79,7 +80,8 @@ public class Game extends Canvas implements Runnable {
 
 		screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/sprite_sheet.png"));
 		input = new InputHandler(this);
-		level = new Level("/levels/water_test_level.png");
+		//level = new Level("/levels/water_test_level.png");
+		level = new RandomLevel(WIDTH, HEIGHT);
 		player = new Player(level, 0, 0, input);
 		level.addEntity(player);
 	}
