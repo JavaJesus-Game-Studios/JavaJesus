@@ -1,4 +1,4 @@
-package ca.northway.game;
+package ca.javajesus.game;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
@@ -11,12 +11,12 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-import ca.northway.game.entities.Player;
-import ca.northway.game.gfx.Colours;
-import ca.northway.game.gfx.Font;
-import ca.northway.game.gfx.Screen;
-import ca.northway.game.gfx.SpriteSheet;
-import ca.northway.level.Level;
+import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.gfx.Colours;
+import ca.javajesus.game.gfx.Font;
+import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.level.Level;
 
 public class Game extends Canvas implements Runnable {
 
@@ -25,7 +25,7 @@ public class Game extends Canvas implements Runnable {
 	public static final int WIDTH = 300;
 	public static final int HEIGHT = WIDTH / 12 * 9;
 	public static final int SCALE = 3;
-	public static final String NAME = "Java Jesus";
+	public static final String NAME = "Java Jesus by the Coders of Anarchy";
 
 	public boolean running = false;
 
@@ -43,6 +43,7 @@ public class Game extends Canvas implements Runnable {
 	public Level level;
 	public Player player;
 
+	/** This starts the game */
 	public Game() {
 		setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));

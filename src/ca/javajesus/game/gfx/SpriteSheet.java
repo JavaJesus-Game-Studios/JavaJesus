@@ -1,4 +1,4 @@
-package ca.northway.game.gfx;
+package ca.javajesus.game.gfx;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

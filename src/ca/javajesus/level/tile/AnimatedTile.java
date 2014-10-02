@@ -1,4 +1,4 @@
-package ca.northway.level.tile;
+package ca.javajesus.level.tile;
 
 
 public class AnimatedTile extends BaseTile{

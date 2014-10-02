@@ -1,4 +1,4 @@
-package ca.northway.game.gfx;
+package ca.javajesus.game.gfx;
 
 public class Font 
 {

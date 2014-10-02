@@ -1,7 +1,7 @@
-package ca.northway.game.entities;
+package ca.javajesus.game.entities;
 
-import ca.northway.game.gfx.Screen;
-import ca.northway.level.Level;
+import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.level.Level;
 
 public abstract class Entity {
 	public int x, y;

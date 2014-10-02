@@ -1,7 +1,7 @@
-package ca.northway.level.tile;
+package ca.javajesus.level.tile;
 
-import ca.northway.game.gfx.Screen;
-import ca.northway.level.Level;
+import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.level.Level;
 
 public class BaseTile extends Tile
 {

@@ -1,4 +1,4 @@
-package ca.northway.level;
+package ca.javajesus.level;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,9 +8,9 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import ca.northway.game.entities.Entity;
-import ca.northway.game.gfx.Screen;
-import ca.northway.level.tile.Tile;
+import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.level.tile.Tile;
 
 public class Level {
 	private byte[] tiles;

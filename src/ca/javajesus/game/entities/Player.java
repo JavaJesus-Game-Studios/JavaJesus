@@ -1,9 +1,9 @@
-package ca.northway.game.entities;
+package ca.javajesus.game.entities;
 
-import ca.northway.game.InputHandler;
-import ca.northway.game.gfx.Colours;
-import ca.northway.game.gfx.Screen;
-import ca.northway.level.Level;
+import ca.javajesus.game.InputHandler;
+import ca.javajesus.game.gfx.Colours;
+import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.level.Level;
 
 public class Player extends Mob {
 

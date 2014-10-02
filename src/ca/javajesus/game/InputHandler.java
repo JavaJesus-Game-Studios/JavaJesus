@@ -1,4 +1,4 @@
-package ca.northway.game;
+package ca.javajesus.game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

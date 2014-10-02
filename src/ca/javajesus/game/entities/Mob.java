@@ -1,7 +1,7 @@
-package ca.northway.game.entities;
+package ca.javajesus.game.entities;
 
-import ca.northway.level.Level;
-import ca.northway.level.tile.Tile;
+import ca.javajesus.level.Level;
+import ca.javajesus.level.tile.Tile;
 
 public abstract class Mob extends Entity{
 	

@@ -1,8 +1,8 @@
-package ca.northway.level.tile;
+package ca.javajesus.level.tile;
 
-import ca.northway.game.gfx.Colours;
-import ca.northway.game.gfx.Screen;
-import ca.northway.level.Level;
+import ca.javajesus.game.gfx.Colours;
+import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.level.Level;
 
 public abstract class Tile {
 
