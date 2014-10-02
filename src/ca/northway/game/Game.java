@@ -22,7 +22,7 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int WIDTH = 160;
+	public static final int WIDTH = 300;
 	public static final int HEIGHT = WIDTH / 12 * 9;
 	public static final int SCALE = 3;
 	public static final String NAME = "Java Jesus";
@@ -59,6 +59,7 @@ public class Game extends Canvas implements Runnable {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		frame.requestFocus();
 	}
 
 	public void init() {
@@ -154,10 +155,10 @@ public class Game extends Canvas implements Runnable {
 		level.renderTile(screen, xOffset, yOffset);
 
 		for (int x = 0; x < level.width; x++) {
-			int colour = Colours.get(-1, -1, -1, 000);
+			int color = Colours.get(-1, -1, -1, 000);
 			if (x % 10 == 0 && x != 0) {
-				colour = Colours.get(-1, -1, -1, 500);
-			}
+				color = Colours.get(-1, -1, -1, 500);
+			} 
 		}
 
 		level.renderEntities(screen);
