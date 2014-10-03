@@ -19,7 +19,7 @@ public class Level {
     protected List<Entity> entities = new ArrayList<Entity>();
     private String imagePath;
     private BufferedImage image;
-    
+
     /** temporary ints */
     protected byte grass = 0;
     protected byte sand = 1;
@@ -152,14 +152,24 @@ public class Level {
         switch (tiles[x + y * width]) {
         case 0:
             return Tile.GRASS;
+        case 1:
+            return Tile.GRASS;
         case 2:
+            return Tile.STONE;
+        case 3:
             return Tile.STONE;
         case 4:
             return Tile.WATER;
+        case 5:
+            return Tile.WATER;
+        case 6:
+            return Tile.WATER;
+        case 7:
+            return Tile.GRASS;
         default:
             return Tile.VOID;
         }
-        //return Tile.tiles[tiles[x + y * width]];
+        // return Tile.tiles[tiles[x + y * width]];
 
     }
 
