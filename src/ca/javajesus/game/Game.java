@@ -1,18 +1,18 @@
 package ca.javajesus.game;
 
+import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
-import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.SplashScreen;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Colours;
@@ -32,7 +32,7 @@ public class Game extends Canvas implements Runnable {
 
     public boolean running = false;
 
-    private JFrame frame;
+    private static JFrame frame;
     public int tickCount = 0;
 
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
@@ -43,11 +43,10 @@ public class Game extends Canvas implements Runnable {
 
     private Screen screen;
     public InputHandler input;
-    public Level level;
     public Player player;
-    JPanel gameFrame;
-    private final String LEVEL_DISPLAY = "level";
-    private final String LOADING_DISPLAY = "loading";
+
+    public Level level1;
+    public Level randomLevel;
 
     /** This starts the game */
     public Game() {
@@ -57,35 +56,19 @@ public class Game extends Canvas implements Runnable {
 
         frame = new JFrame(NAME);
 
-        // Eventually set the labels to an image of our logo
-        JLabel label = new JLabel("CODERS OF ANARCHY");
-        label.setFont(new Font("Verdana", 0, 50));
-        JLabel label2 = new JLabel("Loading...");
-        label2.setFont(new Font("Verdana", 0, 25));
-
-        JPanel mainGame = new JPanel();
-        mainGame.add(this, BorderLayout.CENTER);
-        JPanel loadingScreen = new JPanel();
-        loadingScreen.add(label, BorderLayout.CENTER);
-        loadingScreen.add(label2, BorderLayout.CENTER);
-
-        gameFrame = new JPanel(new CardLayout());
-
-        gameFrame.add(mainGame, LEVEL_DISPLAY);
-        gameFrame.add(loadingScreen, LOADING_DISPLAY);
-        CardLayout cl = (CardLayout) (gameFrame.getLayout());
-        cl.show(gameFrame, LOADING_DISPLAY);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        frame.getContentPane().add(gameFrame);
+        frame.getContentPane().add(this);
         frame.pack();
+        frame.requestFocus();
 
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        frame.requestFocus();
+        
+        loadScreen();
+
     }
 
     public void init() {
@@ -104,10 +87,14 @@ public class Game extends Canvas implements Runnable {
 
         screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/sprite_sheet.png"));
         input = new InputHandler(this);
-        // level = new Level("/levels/water_test_level.png");
-        level = new RandomLevel(WIDTH, HEIGHT);
-        player = new Player(level, 0, 0, input);
-        level.addEntity(player);
+        initLevels();
+        player = new Player(getLevel(), 0, 0, input);
+        getLevel().addEntity(player);
+    }
+
+    private void initLevels() {
+        level1 = new Level("/levels/water_test_level.png");
+        randomLevel = new RandomLevel(WIDTH, HEIGHT);
     }
 
     public synchronized void start() {
@@ -127,8 +114,6 @@ public class Game extends Canvas implements Runnable {
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }
-        CardLayout cl = (CardLayout) (gameFrame.getLayout());
-        cl.show(gameFrame, LEVEL_DISPLAY);
 
         long lastTime = System.nanoTime();
         double nsPerTick = 1000000000D / 60D;
@@ -176,7 +161,12 @@ public class Game extends Canvas implements Runnable {
 
     public void tick() {
         tickCount++;
-        level.tick();
+        getLevel().tick();
+    }
+
+    /** Returns the instance of the current Level */
+    private Level getLevel() {
+        return level1;
     }
 
     private void render() {
@@ -188,16 +178,16 @@ public class Game extends Canvas implements Runnable {
 
         int xOffset = player.x - (screen.width / 2);
         int yOffset = player.y - (screen.height / 2);
-        level.renderTile(screen, xOffset, yOffset);
+        getLevel().renderTile(screen, xOffset, yOffset);
 
-        for (int x = 0; x < level.width; x++) {
+        for (int x = 0; x < getLevel().width; x++) {
             int color = Colours.get(-1, -1, -1, 000);
             if (x % 10 == 0 && x != 0) {
                 color = Colours.get(-1, -1, -1, 500);
             }
         }
 
-        level.renderEntities(screen);
+        getLevel().renderEntities(screen);
 
         for (int y = 0; y < screen.height; y++) {
             for (int x = 0; x < screen.width; x++) {
@@ -211,6 +201,41 @@ public class Game extends Canvas implements Runnable {
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         g.dispose();
         bs.show();
+    }
+
+    /** Initializes a load screen */
+    public static void loadScreen() {
+        final SplashScreen loadingScreen = SplashScreen.getSplashScreen();
+        if (loadingScreen == null) {
+            System.out.println("Loading Screen is Null");
+            return;
+        }
+        Graphics2D g = loadingScreen.createGraphics();
+        if (g == null) {
+            System.out.println("Loading Screen Graphis is Null");
+            return;
+        }
+        for (int i = 0; i < 100; i++) {
+            renderSplashFrame(g, i);
+            loadingScreen.update();
+            try {
+                Thread.sleep(90);
+            } catch (InterruptedException e) {
+
+            }
+        }
+        loadingScreen.close();
+        frame.setVisible(true);
+
+    }
+
+    private static void renderSplashFrame(Graphics2D g, int frame) {
+        final String[] comps = { "foo", "bar", "baz" };
+        g.setComposite(AlphaComposite.Clear);
+        g.fillRect(120, 140, 200, 40);
+        g.setPaintMode();
+        g.setColor(Color.BLACK);
+        g.drawString("Loading " + comps[(frame / 5) % 3] + "...", 120, 150);
     }
 
     // Main Method Creation

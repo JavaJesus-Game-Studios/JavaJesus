@@ -2,8 +2,10 @@ package ca.javajesus.level;
 
 import java.util.Random;
 
+import ca.javajesus.level.tile.Tile;
+
 public class RandomLevel extends Level {
-    
+
     private static final Random random = new Random();
     protected int[] grid;
 
@@ -42,13 +44,12 @@ public class RandomLevel extends Level {
 
                 // Sets default tiles to grass
                 if (tiles[tile] == 0) {
-                   /* int rand = random.nextInt(5);
-                    if (rand == 0) {
-                        type = grass;
-                        tiles[tile] = grass;
-                    } else if (rand == 1) {
-
-                    }*/
+                    /*
+                     * int rand = random.nextInt(5); if (rand == 0) { type =
+                     * grass; tiles[tile] = grass; } else if (rand == 1) {
+                     * 
+                     * }
+                     */
                 }
 
                 getTile(x, y);
@@ -328,6 +329,33 @@ public class RandomLevel extends Level {
             }
             radius--;
         }
+
+    }
+
+    public Tile getTile(int x, int y) {
+        if (0 > x || x >= width || 0 > y || y >= height)
+            return Tile.VOID;
+        switch (tiles[x + y * width]) {
+        case 0:
+            return Tile.GRASS;
+        case 1:
+            return Tile.GRASS;
+        case 2:
+            return Tile.STONE;
+        case 3:
+            return Tile.STONE;
+        case 4:
+            return Tile.WATER;
+        case 5:
+            return Tile.WATER;
+        case 6:
+            return Tile.WATER;
+        case 7:
+            return Tile.GRASS;
+        default:
+            return Tile.VOID;
+        }
+        // return Tile.tiles[tiles[x + y * width]];
 
     }
 

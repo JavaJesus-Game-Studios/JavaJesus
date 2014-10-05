@@ -61,7 +61,7 @@ public class Level {
         }
     }
 
-    private void loadTiles() {
+    protected void loadTiles() {
         int[] tileColours = this.image.getRGB(0, 0, width, height, null, 0,
                 width);
         for (int y = 0; y < height; y++) {
@@ -92,7 +92,7 @@ public class Level {
 
     }
 
-    private void saveLevelToFile() {
+    protected void saveLevelToFile() {
         try {
             ImageIO.write(image, "png",
                     new File(Level.class.getResource(this.imagePath).getFile()));
@@ -149,27 +149,7 @@ public class Level {
     public Tile getTile(int x, int y) {
         if (0 > x || x >= width || 0 > y || y >= height)
             return Tile.VOID;
-        switch (tiles[x + y * width]) {
-        case 0:
-            return Tile.GRASS;
-        case 1:
-            return Tile.GRASS;
-        case 2:
-            return Tile.STONE;
-        case 3:
-            return Tile.STONE;
-        case 4:
-            return Tile.WATER;
-        case 5:
-            return Tile.WATER;
-        case 6:
-            return Tile.WATER;
-        case 7:
-            return Tile.GRASS;
-        default:
-            return Tile.VOID;
-        }
-        // return Tile.tiles[tiles[x + y * width]];
+        return Tile.tiles[tiles[x + y * width]];
 
     }
 
