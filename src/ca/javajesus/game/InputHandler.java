@@ -40,6 +40,7 @@ public class InputHandler implements KeyListener
 	public Key down = new Key();
 	public Key left = new Key();
 	public Key right = new Key();
+	public Key shift = new Key();
 
 	public void keyPressed(KeyEvent e) 
 	{
@@ -67,6 +68,9 @@ public class InputHandler implements KeyListener
 			{left.toggle(isPressed);}
 		if (keyCode == KeyEvent.VK_RIGHT||keyCode == KeyEvent.VK_D)
 			{right.toggle(isPressed);}
+		if (keyCode == KeyEvent.VK_SHIFT) {
+		    shift.toggle(isPressed);
+		}
 
 
 	}

@@ -4,7 +4,7 @@ import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public abstract class Entity {
-	public int x, y;
+	public double x, y;
 	protected Level level;
 	
 	

@@ -25,8 +25,9 @@ import ca.javajesus.level.RandomLevel;
 public class Game extends Canvas implements Runnable {
 
     private static final long serialVersionUID = 1L;
+    private final static int LOAD_SPEED = 20;
 
-    public static final int WIDTH = 180;
+    public static final int WIDTH = 300;
     public static final int HEIGHT = WIDTH / 12 * 9;
     public static final int SCALE = 3;
     public static final String NAME = "Java Jesus by the Coders of Anarchy";
@@ -48,6 +49,7 @@ public class Game extends Canvas implements Runnable {
 
     public Level level1;
     public Level randomLevel;
+    
 
     /** This starts the game */
     public Game() {
@@ -162,8 +164,8 @@ public class Game extends Canvas implements Runnable {
             return;
         }
 
-        int xOffset = player.x - (screen.width / 2);
-        int yOffset = player.y - (screen.height / 2);
+        int xOffset = (int) player.x - (screen.width / 2);
+        int yOffset = (int) player.y - (screen.height / 2);
         getLevel().renderTile(screen, xOffset, yOffset);
 
         for (int x = 0; x < getLevel().width; x++) {
@@ -185,6 +187,7 @@ public class Game extends Canvas implements Runnable {
         }
         Graphics g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+        g.drawString("Speed is " + player.getPlayerVelocity(), 50, 50);
         g.dispose();
         bs.show();
     }
@@ -203,7 +206,7 @@ public class Game extends Canvas implements Runnable {
         }
 
         g.setFont(new Font("Verdana", 0, 50));
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < LOAD_SPEED; i++) {
             renderSplashFrame(g, i);
             loadingScreen.update();
             try {
@@ -233,5 +236,6 @@ public class Game extends Canvas implements Runnable {
         new Game().start();
 
     }
+    
 
 }

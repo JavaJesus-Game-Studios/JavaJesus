@@ -26,10 +26,10 @@ public class Screen {
             pixels = new int[width * height];
            
     }
-    public void render(int xPos, int yPos, int tile, int colour, int mirrorDir, int scale)
+    public void render(double d, double yOffset2, int tile, int colour, int mirrorDir, int scale)
     {
-		xPos -= xOffset;
-		yPos -= yOffset;
+		d -= xOffset;
+		yOffset2 -= yOffset;
 		
 		boolean mirrorX = (mirrorDir & BIT_MIRROR_X) > 0;
 		boolean mirrorY = (mirrorDir & BIT_MIRROR_Y) > 0;
@@ -42,10 +42,10 @@ public class Screen {
 		{
 			int ySheet = y;			
 			if (mirrorY) ySheet = 7 - y;
-			int yPixel = y + yPos + (y * scaleMap) - ((scaleMap << 3) / 2);
+			int yPixel = (int) (y + yOffset2 + (y * scaleMap) - ((scaleMap << 3) / 2));
 		for (int x = 0; x < 8; x++)
 		{		
-			int xPixel = x + xPos + (x * scaleMap) - ((scaleMap << 3) / 2);
+			int xPixel = (int) (x + d + (x * scaleMap) - ((scaleMap << 3) / 2));
 			int xSheet = x;
 			if (mirrorX) xSheet = 7 - x;
 			int col = (colour >> (sheet.pixels[xSheet + ySheet * sheet.width + tileOffset] * 8)) & 255;
@@ -54,7 +54,7 @@ public class Screen {
 				if (yPixel + yScale < 0 || yPixel + yScale >= height) 
 					continue;
 					for (int xScale = 0; xScale < scale; xScale++){
-						if (x + xPos < 0 || x + xPos >= width) 
+						if (x + d < 0 || x + d >= width) 
 							continue;
 						pixels[(xPixel + xScale) + (yPixel + yScale) * width] = col;
 
