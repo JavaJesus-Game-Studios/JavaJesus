@@ -31,6 +31,7 @@ public class Game extends Canvas implements Runnable {
     public static final int HEIGHT = WIDTH / 12 * 9;
     public static final int SCALE = 3;
     public static final String NAME = "Java Jesus by the Coders of Anarchy";
+    //test
 
     public boolean running = false;
 
