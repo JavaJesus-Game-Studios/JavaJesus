@@ -34,6 +34,34 @@ public class Player extends Mob {
 		if (input.right.isPressed()) {
 			xa++;
 		}
+		if (input.right.isPressed() & input.down.isPressed()){
+			xa--;
+		}
+		if (input.right.isPressed() & input.up.isPressed()){
+			xa--;
+		}
+		if (input.left.isPressed() & input.down.isPressed()){
+			xa++;
+		}
+		if (input.left.isPressed() & input.up.isPressed()){
+			xa++;
+		}
+		if (input.up.isPressed() & input.left.isPressed()){
+			ya++;
+			xa--;
+		}
+		if (input.up.isPressed() & input.right.isPressed()){
+			ya++;
+			xa++;
+		}
+		if (input.down.isPressed() & input.left.isPressed()){
+			ya--;
+			xa--;
+		}
+		if (input.down.isPressed() & input.right.isPressed()){
+			ya--;
+			xa++;
+		}
 
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);
@@ -58,6 +86,9 @@ public class Player extends Mob {
 		int flipTop = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
 
+		if (!isMoving){
+			xTile +=0;
+		}
 		if (movingDir == 0) {
 			xTile += 10;
 		}
@@ -91,8 +122,7 @@ public class Player extends Mob {
 			screen.render(xOffset + 8, yOffset + 3, 0 + 26 * 32, waterColour,
 					0x01, 1);
 		}
-
-		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
+			screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
 				* 32, colour, flipTop, scale);// upper body
 		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
 				(xTile + 1) + yTile * 32, colour, flipTop, scale);// upper body
@@ -103,6 +133,8 @@ public class Player extends Mob {
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
 					+ modifier, (xTile + 1) + (yTile + 1) * 32, colour,
 					flipBottom, scale);// lower body
+			
+		
 		}
 	}
 
