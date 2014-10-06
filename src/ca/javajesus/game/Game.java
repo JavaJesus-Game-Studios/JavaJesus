@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.SplashScreen;
@@ -66,8 +67,8 @@ public class Game extends Canvas implements Runnable {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        
-        loadScreen();
+        frame.toFront();
+        frame.repaint();
 
     }
 
@@ -88,7 +89,7 @@ public class Game extends Canvas implements Runnable {
         screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/sprite_sheet.png"));
         input = new InputHandler(this);
         initLevels();
-        player = new Player(getLevel(), 0, 0, input);
+        player = new Player(getLevel(), 50, 50, input);
         getLevel().addEntity(player);
     }
 
@@ -109,12 +110,6 @@ public class Game extends Canvas implements Runnable {
 
     public void run() {
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        }
-
         long lastTime = System.nanoTime();
         double nsPerTick = 1000000000D / 60D;
 
@@ -130,28 +125,19 @@ public class Game extends Canvas implements Runnable {
             long now = System.nanoTime();
             delta += (now - lastTime) / nsPerTick;
             lastTime = now;
-            boolean shouldRender = true;
 
             while (delta >= 1) {
                 ticks++;
                 tick();
-                delta -= 1;
-                shouldRender = true;
+                delta--;
             }
-            try {
-                Thread.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if (shouldRender) {
-                frames++;
-                render();
-            }
+            frames++;
+            render();
 
             if (System.currentTimeMillis() - lastTimer >= 1000) {
                 lastTimer += 1000;
-                System.out.println(ticks + " ticks," + frames + " frames");
+                frame.setTitle(NAME + "  |   " + ticks + " tps, " + frames
+                        + " fps");
                 frames = 0;
                 ticks = 0;
             }
@@ -215,7 +201,9 @@ public class Game extends Canvas implements Runnable {
             System.out.println("Loading Screen Graphis is Null");
             return;
         }
-        for (int i = 0; i < 100; i++) {
+
+        g.setFont(new Font("Verdana", 0, 50));
+        for (int i = 0; i < 50; i++) {
             renderSplashFrame(g, i);
             loadingScreen.update();
             try {
@@ -225,21 +213,23 @@ public class Game extends Canvas implements Runnable {
             }
         }
         loadingScreen.close();
-        frame.setVisible(true);
 
     }
 
     private static void renderSplashFrame(Graphics2D g, int frame) {
-        final String[] comps = { "foo", "bar", "baz" };
+        final String[] comps = { "Coders", "of", "Anarchy" };
         g.setComposite(AlphaComposite.Clear);
-        g.fillRect(120, 140, 200, 40);
+        g.fillRect(0, 0, 900, 675);
         g.setPaintMode();
         g.setColor(Color.BLACK);
-        g.drawString("Loading " + comps[(frame / 5) % 3] + "...", 120, 150);
+        g.drawString("Loading " + comps[(frame / 5) % 3] + "...", WIDTH * SCALE
+                / 5, HEIGHT * SCALE / 2);
+        g.fillRect(WIDTH * SCALE / 5, HEIGHT * SCALE / 2, 10 * frame, 50);
     }
 
     // Main Method Creation
     public static void main(String[] args) {
+        loadScreen();
         new Game().start();
 
     }
