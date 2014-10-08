@@ -24,32 +24,58 @@ import ca.javajesus.level.RandomLevel;
 
 public class Game extends Canvas implements Runnable {
 
+    /** Does something */
     private static final long serialVersionUID = 1L;
-    private final static int LOAD_SPEED = 20;
 
+    /** Determines how long the loading screen lasts */
+    private static final int LOAD_SPEED = 20;
+
+    /** Width of the game */
     public static final int WIDTH = 300;
+
+    /** Height of the game */
     public static final int HEIGHT = WIDTH / 12 * 9;
+
+    /** Scales the size of the screen */
     public static final int SCALE = 3;
+
+    /** Title of JFrame */
     public static final String NAME = "Java Jesus by the Coders of Anarchy";
 
+    /** Determines whether the game is running or not */
     public boolean running = false;
 
+    /** Creates the JFrame */
     private static JFrame frame;
-    public int tickCount = 0;
 
+    /** Creates the tickCount var */
+    public int tickCount;
+
+    /** Loads an image from a file */
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
             BufferedImage.TYPE_INT_RGB);
+
+    /** Pixel data of an image */
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
             .getData();
+
+    /** Does something */
     private int[] colours = new int[6 * 6 * 6];
 
+    /** Creates instance of the screen */
     private Screen screen;
+
+    /** Creates instance of the input */
     public InputHandler input;
+
+    /** Creates instance of the player */
     public Player player;
 
+    /** Creates instance of hte first level */
     public Level level1;
+
+    /** Creates instance of the random level */
     public Level randomLevel;
-    
 
     /** This starts the game */
     public Game() {
@@ -74,6 +100,7 @@ public class Game extends Canvas implements Runnable {
 
     }
 
+    /** Initializes the image on the screen */
     public void init() {
         int index = 0;
         for (int r = 0; r < 6; r++) {
@@ -88,28 +115,48 @@ public class Game extends Canvas implements Runnable {
             }
         }
 
-        screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/sprite_sheet.png"));
+        screen = new Screen(WIDTH, HEIGHT,
+                new SpriteSheet("/sprite_sheet.png"), this);
         input = new InputHandler(this);
         initLevels();
         player = new Player(getLevel(), 50, 50, input);
         getLevel().addEntity(player);
     }
 
+    public void changeLevel(Level level) {
+        int index = 0;
+        for (int r = 0; r < 6; r++) {
+            for (int g = 0; g < 6; g++) {
+                for (int b = 0; b < 6; b++) {
+                    int rr = (r * 255 / 5);
+                    int gg = (g * 255 / 5);
+                    int bb = (b * 255 / 5);
+
+                    colours[index++] = rr << 16 | gg << 8 | bb;
+                }
+            }
+        }
+    }
+
+    /** Initializes the level data */
     private void initLevels() {
         level1 = new Level("/levels/water_test_level.png");
         randomLevel = new RandomLevel(WIDTH, HEIGHT);
     }
 
+    /** Starts the game */
     public synchronized void start() {
         running = true;
         new Thread(this).start();
 
     }
 
+    /** Stops the game */
     public synchronized void stop() {
         running = false;
     }
 
+    /** Code executed during runtime */
     public void run() {
 
         long lastTime = System.nanoTime();
@@ -147,6 +194,7 @@ public class Game extends Canvas implements Runnable {
 
     }
 
+    /** Ticks the game */
     public void tick() {
         tickCount++;
         getLevel().tick();
@@ -154,9 +202,13 @@ public class Game extends Canvas implements Runnable {
 
     /** Returns the instance of the current Level */
     private Level getLevel() {
-        return level1;
+        if (player == null) {
+            return level1;
+        }
+        return player.getLevel();
     }
 
+    /** Renders the screen */
     private void render() {
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
@@ -188,6 +240,7 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         g.drawString("Speed is " + player.getPlayerVelocity(), 50, 50);
+        g.drawString("Player: " + player.x + ", " + player.y, 50, 100);
         g.dispose();
         bs.show();
     }
@@ -219,6 +272,7 @@ public class Game extends Canvas implements Runnable {
 
     }
 
+    /** Renders the loading screen */
     private static void renderSplashFrame(Graphics2D g, int frame) {
         final String[] comps = { "Coders", "of", "Anarchy" };
         g.setComposite(AlphaComposite.Clear);
@@ -230,12 +284,11 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(WIDTH * SCALE / 5, HEIGHT * SCALE / 2, 10 * frame, 50);
     }
 
-    // Main Method Creation
+    /** Main Method Creation */
     public static void main(String[] args) {
         loadScreen();
         new Game().start();
 
     }
-    
 
 }

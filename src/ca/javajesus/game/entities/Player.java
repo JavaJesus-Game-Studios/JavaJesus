@@ -1,9 +1,11 @@
 package ca.javajesus.game.entities;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.gfx.Colours;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.RandomLevel;
 
 public class Player extends Mob {
 
@@ -12,20 +14,31 @@ public class Player extends Mob {
     private int scale = 1;
     protected boolean isSwimming = false;
     private int tickCount = 0;
+    private boolean changeLevel;
 
     public Player(Level level, double x, double y, InputHandler input) {
         super(level, "player", x, y, 1);
         this.input = input;
-
     }
 
     public double getPlayerVelocity() {
         return velocity;
     }
 
+    public Level getLevel() {
+        if (level == null) {
+            return new Level("/levels/water_test_level.png");
+        }
+        return level;
+    }
+
     public void tick() {
         int xa = 0;
         int ya = 0;
+        if (input.space.isPressed()) {
+            init((Level) new RandomLevel(Game.WIDTH, Game.HEIGHT));
+            changeLevel = true;
+        }
         if (input.up.isPressed()) {
             ya--;
         }
@@ -40,10 +53,9 @@ public class Player extends Mob {
         }
         if (isSwimming) {
             scaledSpeed = 0.35;
-        } else if(input.shift.isPressed()) {
+        } else if (input.shift.isPressed()) {
             scaledSpeed = 3;
-        }
-        else {
+        } else {
             scaledSpeed = 1;
         }
 
@@ -66,13 +78,18 @@ public class Player extends Mob {
     }
 
     public void render(Screen screen) {
+        if (changeLevel) {
+            screen.getGame().changeLevel(level);
+            level.addEntity(this);
+            changeLevel = false;
+        }
+        
         int xTile = 0;
         int yTile = 27;
         int walkingSpeed = 4;
         int flipTop = (numSteps >> walkingSpeed) & 1;
         int flipBottom = (numSteps >> walkingSpeed) & 1;
 
-        
         if (movingDir == 0) {
             xTile += 10;
         }
