@@ -36,7 +36,6 @@ public class Player extends Mob {
         int xa = 0;
         int ya = 0;
         if (input.space.isPressed()) {
-            init((Level) new RandomLevel(Game.WIDTH, Game.HEIGHT));
             changeLevel = true;
         }
         if (input.up.isPressed()) {
@@ -79,9 +78,11 @@ public class Player extends Mob {
 
     public void render(Screen screen) {
         if (changeLevel) {
-            screen.getGame().changeLevel(level);
-            level.addEntity(this);
+            level.remEntity(this);
+            init(screen.getGame().randomLevel);
+            screen.getGame().updateLevel();
             changeLevel = false;
+            level.addEntity(this);
         }
         
         int xTile = 0;

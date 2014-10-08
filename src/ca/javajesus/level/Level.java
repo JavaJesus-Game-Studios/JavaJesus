@@ -4,7 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -16,7 +18,7 @@ public class Level {
     protected byte[] tiles;
     public int width;
     public int height;
-    protected List<Entity> entities = new ArrayList<Entity>();
+    protected List<Entity> entities = new CopyOnWriteArrayList<Entity>();
     private String imagePath;
     private BufferedImage image;
 
@@ -157,6 +159,12 @@ public class Level {
 
     public void addEntity(Entity entity) {
         this.entities.add(entity);
+
     }
-    
+
+    public void remEntity(Entity entity) {
+        this.entities.remove(entity);
+
+    }
+
 }
