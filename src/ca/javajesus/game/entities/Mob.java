@@ -7,7 +7,6 @@ public abstract class Mob extends Entity {
 
     protected String name;
     protected double speed;
-    protected double scaledSpeed;
     protected int numSteps = 0;
     protected boolean isMoving;
     protected int movingDir = 1;
@@ -64,9 +63,22 @@ public abstract class Mob extends Entity {
         int xx = (int) this.x;
         int yy = (int) this.y;
         Tile lastTile = level.getTile((xx + x) >> 3, (yy + y) >> 3);
-        Tile newTile = level.getTile((xx + x + xa) >> 3,
-                (yy + y + ya) >> 3);
+        Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
         if (!lastTile.equals(newTile) && newTile.isSolid()) {
+            return true;
+        }
+        return false;
+    }
+
+    protected boolean isWaterTile(int xa, int ya, int x, int y) {
+        if (level == null) {
+            return false;
+        }
+        int xx = (int) this.x;
+        int yy = (int) this.y;
+        Tile lastTile = level.getTile((xx + x) >> 3, (yy + y) >> 3);
+        Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
+        if (!lastTile.equals(newTile) && newTile.equals(Tile.WATER)) {
             return true;
         }
         return false;

@@ -1,11 +1,9 @@
 package ca.javajesus.game.entities;
 
-import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.gfx.Colours;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.RandomLevel;
 
 public class Player extends Mob {
 
@@ -15,6 +13,7 @@ public class Player extends Mob {
     protected boolean isSwimming = false;
     private int tickCount = 0;
     private boolean changeLevel;
+    private double scaledSpeed;
 
     public Player(Level level, double x, double y, InputHandler input) {
         super(level, "player", x, y, 1);
@@ -84,7 +83,7 @@ public class Player extends Mob {
             changeLevel = false;
             level.addEntity(this);
         }
-        
+
         int xTile = 0;
         int yTile = 27;
         int walkingSpeed = 4;

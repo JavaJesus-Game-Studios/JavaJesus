@@ -3,8 +3,6 @@ package ca.javajesus.level;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -28,7 +26,10 @@ public class Level {
     protected byte rock = 2;
     protected byte dirt = 3;
     protected byte water = 4;
-    protected byte road = 5;
+    
+    protected byte road1 = 5;
+    protected byte road2 = 8;
+    
     protected byte lily = 6;
     protected byte waterSand = 7;
 

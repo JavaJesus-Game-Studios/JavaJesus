@@ -219,15 +219,8 @@ public class Game extends Canvas implements Runnable {
 
         int xOffset = (int) player.x - (screen.width / 2);
         int yOffset = (int) player.y - (screen.height / 2);
+        
         getLevel().renderTile(screen, xOffset, yOffset);
-
-        for (int x = 0; x < getLevel().width; x++) {
-            int color = Colours.get(-1, -1, -1, 000);
-            if (x % 10 == 0 && x != 0) {
-                color = Colours.get(-1, -1, -1, 500);
-            }
-        }
-
         getLevel().renderEntities(screen);
 
         for (int y = 0; y < screen.height; y++) {
@@ -240,8 +233,9 @@ public class Game extends Canvas implements Runnable {
         }
         Graphics g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-        g.drawString("Speed is " + player.getPlayerVelocity(), 50, 50);
-        g.drawString("Player: " + player.x + ", " + player.y, 50, 100);
+        g.setFont(new Font("Verdana", 0, 20));
+        g.setColor(Color.YELLOW);
+        g.drawString("Player: " + (int) player.x + ", " + (int) player.y, 5, 20);
         g.dispose();
         bs.show();
     }

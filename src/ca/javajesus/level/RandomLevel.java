@@ -21,7 +21,7 @@ public class RandomLevel extends Level {
                 int tile = x + y * width;
 
                 // Makes sand borders around the map
-                if (x < 3 || x > 60 || y < 3 || y > 60) {
+                if (x < 3 || x > width - 3 || y < 3 || y > height - 3) {
                     if (tiles[tile] != water) {
                         tiles[tile] = sand;
                     }
@@ -33,12 +33,12 @@ public class RandomLevel extends Level {
                 }
 
                 // Generates roads
-                if (random.nextInt(250) == 0) {
+                if (random.nextInt(600) == 0) {
                     generateRoad(x, y);
                 }
 
                 // Generates water
-                if (random.nextInt(350) == 0) {
+                if (random.nextInt(1500) == 0) {
                     generateWater(x, y);
                 }
 
@@ -89,19 +89,25 @@ public class RandomLevel extends Level {
 
         // Main road generation
         for (int i = 0; i < length; i++) {
-            for (int j = 0; j < 2; j++) {
+            byte type = road1;
+            for (int j = 0; j < 3; j++) {
                 if (i + x + (y + j) * width >= tiles.length
                         || i + x + (y + j) * width <= 0)
                     continue;
                 if (tiles[i + x + (y + j) * width] == water) {
                     tiles[i + x + (y + j) * width] = lily;
                 } else {
-                    tiles[i + x + (y + j) * width] = road;
+                    tiles[i + x + (y + j) * width] = type;
+                }
+                if (j == 0) {
+                    type = road2;
+                } else {
+                    type = road1;
                 }
             }
 
             // Chance of road breaking north or south
-            if (random.nextInt(15) == 0) {
+            if (random.nextInt(50) == 0) {
                 switch (random.nextInt(3)) {
                 case 0:
                     generateNorthRoad(i + x, y - 1);
@@ -123,7 +129,7 @@ public class RandomLevel extends Level {
         }
 
         // Chance of road to continue once it ends
-        if (random.nextInt(5) == 0) {
+        if (random.nextInt(2) == 0) {
             generateRoad(x + length, y);
         }
 
@@ -138,19 +144,25 @@ public class RandomLevel extends Level {
 
         // Main road generation
         for (int i = length; i > 0; i--) {
-            for (int j = 0; j < 2; j++) {
+            byte type = road1;
+            for (int j = 0; j < 3; j++) {
                 if (i + x + (y + j) * width <= 0
                         || i + x + (y + j) * width >= tiles.length)
                     continue;
                 if (tiles[i + x + (y + j) * width] == water) {
                     tiles[i + x + (y + j) * width] = lily;
                 } else {
-                    tiles[i + x + (y + j) * width] = road;
+                    tiles[i + x + (y + j) * width] = type;
+                }
+                if (j == 0) {
+                    type = road2;
+                } else {
+                    type = road1;
                 }
             }
 
             // Chance of road breaking north or south
-            if (random.nextInt(15) == 0) {
+            if (random.nextInt(50) == 0) {
                 switch (random.nextInt(3)) {
                 case 0:
                     generateNorthRoad(i + x, y - 1);
@@ -172,7 +184,7 @@ public class RandomLevel extends Level {
         }
 
         // Chance of road to continue once it ends
-        if (random.nextInt(5) == 0) {
+        if (random.nextInt(2) == 0) {
             generateRoad(x + length, y);
         }
 
@@ -187,19 +199,25 @@ public class RandomLevel extends Level {
 
         // Main road generation
         for (int i = length; i > 0; i--) {
-            for (int j = 0; j < 2; j++) {
+            byte type = road1;
+            for (int j = 0; j < 3; j++) {
                 if (x + j + (y + i) * width <= 0
                         || x + j + (y + i) * width >= tiles.length)
                     continue;
                 if (tiles[x + j + (y + i) * width] == water) {
                     tiles[x + j + (y + i) * width] = lily;
                 } else {
-                    tiles[x + j + (y + i) * width] = road;
+                    tiles[x + j + (y + i) * width] = type;
+                }
+                if (j == 0) {
+                    type = road2;
+                } else {
+                    type = road1;
                 }
             }
 
             // Chance of road breaking east or west
-            if (random.nextInt(15) == 0) {
+            if (random.nextInt(50) == 0) {
                 switch (random.nextInt(3)) {
                 case 0:
                     generateEastRoad(x + 1, y + i);
@@ -219,7 +237,7 @@ public class RandomLevel extends Level {
 
         }
         // Chance of road to continue once it ends
-        if (random.nextInt(5) == 0) {
+        if (random.nextInt(2) == 0) {
             generateRoad(x, y + length);
         }
 
@@ -233,19 +251,25 @@ public class RandomLevel extends Level {
 
         // Main road generation
         for (int i = 0; i < length; i++) {
-            for (int j = 0; j < 2; j++) {
+            byte type = road1;
+            for (int j = 0; j < 3; j++) {
                 if (x + j + (y + i) * width >= tiles.length
                         || x + j + (y + i) * width <= 0)
                     continue;
                 if (tiles[x + j + (y + i) * width] == water) {
                     tiles[x + j + (y + i) * width] = lily;
                 } else {
-                    tiles[x + j + (y + i) * width] = road;
+                    tiles[x + j + (y + i) * width] = type;
+                }
+                if (j == 0) {
+                    type = road2;
+                } else {
+                    type = road1;
                 }
             }
 
             // Chance of road breaking east or west
-            if (random.nextInt(15) == 0) {
+            if (random.nextInt(50) == 0) {
                 switch (random.nextInt(3)) {
                 case 0:
                     generateEastRoad(x + 1, y + i);
@@ -265,7 +289,7 @@ public class RandomLevel extends Level {
 
         }
         // Chance of road to continue once it ends
-        if (random.nextInt(5) == 0) {
+        if (random.nextInt(2) == 0) {
             generateRoad(x, y + length);
         }
 
@@ -274,8 +298,6 @@ public class RandomLevel extends Level {
     private void generateDirt(int x, int y) {
 
         int radius = random.nextInt(5) + 8;
-        if (radius % 2 == 1)
-            radius++;
 
         for (int i = radius; i > 1; i--) {
             for (int angle = 0; angle < 360; angle++) {
@@ -301,14 +323,17 @@ public class RandomLevel extends Level {
     private void generateWater(int x, int y) {
 
         byte type;
-        int radius = random.nextInt(5) + 8;
+        int radius = random.nextInt(25) + 10;
         int outerCircle = radius;
 
         for (int i = radius; i > 1; i--) {
             if (i == outerCircle) {
                 type = sand;
             } else if (i == outerCircle - 1) {
+                type = sand;
+            } else if (i == outerCircle - 2) {
                 type = waterSand;
+                y++;
             } else {
                 type = water;
             }
@@ -321,7 +346,7 @@ public class RandomLevel extends Level {
 
                 if (tile <= 0 || tile >= width * height) {
                     break;
-                } else if (tiles[tile] == road) {
+                } else if (tiles[tile] == road1 || tiles[tile] == road2) {
                     tiles[tile] = lily;
                 } else {
                     tiles[tile] = type;
@@ -337,9 +362,9 @@ public class RandomLevel extends Level {
             return Tile.VOID;
         switch (tiles[x + y * width]) {
         case 0:
-            return Tile.GRASS;
+            return Tile.SPAWNER;
         case 1:
-            return Tile.GRASS;
+            return Tile.SAND;
         case 2:
             return Tile.STONE;
         case 3:
@@ -347,15 +372,16 @@ public class RandomLevel extends Level {
         case 4:
             return Tile.WATER;
         case 5:
-            return Tile.WATER;
+            return Tile.ROAD1;
         case 6:
-            return Tile.WATER;
+            return Tile.FIRE;
         case 7:
-            return Tile.GRASS;
+            return Tile.WATERSAND;
+        case 8:
+            return Tile.ROAD2;
         default:
             return Tile.VOID;
         }
-        // return Tile.tiles[tiles[x + y * width]];
 
     }
 
