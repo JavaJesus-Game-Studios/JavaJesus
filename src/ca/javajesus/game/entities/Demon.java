@@ -74,7 +74,7 @@ public class Demon extends Mob {
 
     public void render(Screen screen) {
         int xTile = 0;
-        int yTile = 27;
+        int yTile = 11;
         int walkingSpeed = 4;
         int flipTop = (numSteps >> walkingSpeed) & 1;
         int flipBottom = (numSteps >> walkingSpeed) & 1;
@@ -93,16 +93,33 @@ public class Demon extends Mob {
         int modifier = 8 * scale;
         double xOffset = x - modifier / 2.0;
         double yOffset = y - modifier / 2.0 - 4;
+        
+        // Upper body
         screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
-                * 32, colour, flipTop, scale);// upper body
+                * 32, colour, flipTop, scale);
+        
+        // Upper body
         screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-                (xTile + 1) + yTile * 32, colour, flipTop, scale);// upper body
+                (xTile + 1) + yTile * 32, colour, flipTop, scale);
+        
+        
+        // Middle Body
         screen.render(xOffset + (modifier * flipBottom), yOffset + modifier,
-                xTile + (yTile + 1) * 32, colour, flipBottom, scale);// lower
-                                                                     // body
+                xTile + (yTile + 1) * 32, colour, flipBottom, scale);
+                                                                     
+        // Middle Body
         screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
                 + modifier, (xTile + 1) + (yTile + 1) * 32, colour, flipBottom,
-                scale);// lower body
+                scale);
+        
+        // Lower Body
+        screen.render(xOffset + (modifier * flipBottom), yOffset +  2 * modifier,
+                xTile + (yTile + 2) * 32, colour, flipBottom, scale);
+                                                                     
+        // Lower Body
+        screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+                + 2 * modifier, (xTile + 1) + (yTile + 2) * 32, colour, flipBottom,
+                scale);
 
     }
 

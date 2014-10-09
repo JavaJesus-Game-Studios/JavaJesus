@@ -24,13 +24,13 @@ public class SpawnerTile extends Tile {
 
     }
 
-    public void spawnMob(Entity entity) {
+    public void spawnMob(Entity entity, Screen screen) {
 
     }
 
     public void render(Screen screen, Level level, int x, int y) {
         screen.render(x, y, tileId, tileColour, 0x00, 1);
-        if (random.nextInt(15000) == 0) {
+        if (random.nextInt(20000) == 0) {
             demon = new Demon(level, "Demon", x, y, 1, screen.getGame().player);
             screen.getGame().player.getLevel().addEntity(demon);
 
