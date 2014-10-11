@@ -12,13 +12,18 @@ public abstract class Mob extends Entity {
     protected int movingDir = 1;
     protected int scale = 1;
     public double velocity;
+    public int width;
+    public int height;
 
-    public Mob(Level level, String name, double x, double y, int speed) {
+    public Mob(Level level, String name, double x, double y, int speed,
+            int width, int height) {
         super(level);
         this.name = name;
         this.x = x;
         this.y = y;
         this.speed = speed;
+        this.width = width;
+        this.height = height;
 
     }
 
@@ -80,6 +85,38 @@ public abstract class Mob extends Entity {
         Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
         if (!lastTile.equals(newTile) && newTile.equals(Tile.WATER)) {
             return true;
+        }
+        return false;
+    }
+
+    protected boolean isMobCollision() {
+        if (level == null) {
+            return false;
+        }
+        for (int i = 0; i < level.getEntities().size(); i++) {
+            Mob entity;
+            if (level.getEntities().get(i) instanceof Mob) {
+                entity = (Mob) level.getEntities().get(i);
+                if (entity == this || entity instanceof Demon) {
+                    continue;
+                }
+            } else {
+                continue;
+            }
+
+            if ((int) this.x == (int) entity.x + entity.width
+                    && (int) this.y == (int) entity.y) {
+                return true;
+            } else if ((int) this.x == (int) entity.x - entity.width
+                    && (int) this.y == (int) entity.y) {
+                return true;
+            } else if ((int) this.x == (int) entity.x
+                    && (int) this.y == (int) entity.y + this.height) {
+                return true;
+            } else if ((int) this.x == (int) entity.x
+                    && (int) this.y == (int) entity.y - entity.height) {
+                return true;
+            }
         }
         return false;
     }

@@ -16,7 +16,7 @@ public class Player extends Mob {
     private double scaledSpeed;
 
     public Player(Level level, double x, double y, InputHandler input) {
-        super(level, "player", x, y, 1);
+        super(level, "player", x, y, 1, 16, 16);
         this.input = input;
     }
 

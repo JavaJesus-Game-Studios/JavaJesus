@@ -16,7 +16,7 @@ public class Level {
     protected byte[] tiles;
     public int width;
     public int height;
-    protected List<Entity> entities = new CopyOnWriteArrayList<Entity>();
+    private List<Entity> entities = new CopyOnWriteArrayList<Entity>();
     private String imagePath;
     private BufferedImage image;
 
@@ -113,7 +113,7 @@ public class Level {
     }
 
     public void tick() {
-        for (Entity e : entities) {
+        for (Entity e : getEntities()) {
             e.tick();
         }
 
@@ -146,7 +146,7 @@ public class Level {
     }
 
     public void renderEntities(Screen screen) {
-        for (Entity e : entities) {
+        for (Entity e : getEntities()) {
             e.render(screen);
         }
     }
@@ -159,13 +159,18 @@ public class Level {
     }
 
     public void addEntity(Entity entity) {
-        this.entities.add(entity);
+        this.getEntities().add(entity);
 
     }
 
     public void remEntity(Entity entity) {
-        this.entities.remove(entity);
+        this.getEntities().remove(entity);
 
     }
+
+    public List<Entity> getEntities() {
+        return entities;
+    }
+
 
 }

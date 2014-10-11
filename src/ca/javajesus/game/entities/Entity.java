@@ -15,7 +15,7 @@ public abstract class Entity {
 	public final void init(Level level){
 		this.level = level;
 	}
-	
+		
 	public abstract void tick();
 	
 	public abstract void render(Screen screen);

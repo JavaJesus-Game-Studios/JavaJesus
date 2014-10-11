@@ -1,7 +1,5 @@
 package ca.javajesus.level.tile;
 
-import ca.javajesus.game.entities.Demon;
-import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.gfx.Colours;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
@@ -52,6 +50,7 @@ public abstract class Tile {
     protected boolean solid;
     protected boolean emitter;
     private int levelColour;
+    private boolean hasMob;
 
     public Tile(int id, boolean isSolid, boolean isEmitter, int levelColour) {
         this.id = (byte) id;
@@ -79,11 +78,12 @@ public abstract class Tile {
         return levelColour;
     }
 
+    public boolean hasMob() {
+        return hasMob;
+    }
+
     public abstract void tick();
 
     public abstract void render(Screen screen, Level level, int x, int y);
 
-    public void spawnMob(Entity entity) {
-
-    }
 }

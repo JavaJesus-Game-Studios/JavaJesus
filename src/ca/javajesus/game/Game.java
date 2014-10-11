@@ -16,7 +16,6 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.gfx.Colours;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -219,7 +218,7 @@ public class Game extends Canvas implements Runnable {
 
         int xOffset = (int) player.x - (screen.width / 2);
         int yOffset = (int) player.y - (screen.height / 2);
-        
+
         getLevel().renderTile(screen, xOffset, yOffset);
         getLevel().renderEntities(screen);
 
