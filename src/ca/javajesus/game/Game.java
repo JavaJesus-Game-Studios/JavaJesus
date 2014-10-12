@@ -15,6 +15,9 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import ca.javajesus.game.entities.Demon;
+import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
@@ -40,6 +43,9 @@ public class Game extends Canvas implements Runnable {
 
     /** Title of JFrame */
     public static final String NAME = "Java Jesus by the Coders of Anarchy";
+
+    /** Entity limit per screen */
+    public final int ENTITY_LIMIT = 2;
 
     /** Determines whether the game is running or not */
     public boolean running = false;
@@ -142,6 +148,8 @@ public class Game extends Canvas implements Runnable {
     private void initLevels() {
         level1 = new Level("/levels/water_test_level.png");
         randomLevel = new RandomLevel(WIDTH, HEIGHT);
+        Demon demon = new Demon(randomLevel, "Demon", 50, 50, 1, player);
+        randomLevel.addSpawner(50, 50, demon, screen);
     }
 
     /** Starts the game */

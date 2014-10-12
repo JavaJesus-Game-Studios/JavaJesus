@@ -1,5 +1,7 @@
 package ca.javajesus.game.entities;
 
+import java.awt.geom.Ellipse2D;
+
 import ca.javajesus.game.gfx.Colours;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
@@ -10,11 +12,15 @@ public class Demon extends Mob {
     // Player the Demon is Aggroed
     private Player player;
     private double scaledSpeed = 0.35;
+    protected Ellipse2D.Double aggroRadius;
+    protected final int RADIUS = 32 * 5;
 
     public Demon(Level level, String name, double x, double y, int speed,
             Player player) {
         super(level, name, x, y, speed, 16, 24);
         this.player = player;
+        this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
+                RADIUS, RADIUS);
     }
 
     public boolean hasCollided(int xa, int ya) {
@@ -23,26 +29,22 @@ public class Demon extends Mob {
         int yMin = 3;
         int yMax = 7;
         for (int x = xMin; x < xMax; x++) {
-            if (isSolidTile(xa, ya, x, yMin) || isWaterTile(xa, ya, x, yMin)
-                    || isMobCollision()) {
+            if (isSolidTile(xa, ya, x, yMin) || isWaterTile(xa, ya, x, yMin)) {
                 return true;
             }
         }
         for (int x = xMin; x < xMax; x++) {
-            if (isSolidTile(xa, ya, x, yMax) || isWaterTile(xa, ya, x, yMax)
-                    || isMobCollision()) {
+            if (isSolidTile(xa, ya, x, yMax) || isWaterTile(xa, ya, x, yMax)) {
                 return true;
             }
         }
         for (int y = yMin; y < yMax; y++) {
-            if (isSolidTile(xa, ya, xMin, y) || isWaterTile(xa, ya, xMin, y)
-                    || isMobCollision()) {
+            if (isSolidTile(xa, ya, xMin, y) || isWaterTile(xa, ya, xMin, y)) {
                 return true;
             }
         }
         for (int y = yMin; y < yMax; y++) {
-            if (isSolidTile(xa, ya, xMax, y) || isWaterTile(xa, ya, xMax, y)
-                    || isMobCollision()) {
+            if (isSolidTile(xa, ya, xMax, y) || isWaterTile(xa, ya, xMax, y)) {
                 return true;
             }
         }
@@ -51,23 +53,35 @@ public class Demon extends Mob {
     }
 
     public void tick() {
+        if (isMobCollision()) {
+            moveRandomly();
+            return;
+        }
         int xa = 0;
         int ya = 0;
+        if (this.aggroRadius.intersects(player.hitBox)) {
 
-        if ((int) player.x > (int) this.x) {
-            xa++;
-        }
-        if ((int) player.x < (int) this.x) {
-            xa--;
-        }
-        if ((int) player.y > (int) this.y) {
-            ya++;
-        }
-        if ((int) player.y < (int) this.y) {
-            ya--;
+            if ((int) player.x > (int) this.x) {
+                xa++;
+            }
+            if ((int) player.x < (int) this.x) {
+                xa--;
+            }
+            if ((int) player.y > (int) this.y) {
+                ya++;
+            }
+            if ((int) player.y < (int) this.y) {
+                ya--;
+            }
         }
 
         if (xa != 0 || ya != 0) {
+            this.hitBox.setLocation(this.hitBox.x + xa, this.hitBox.y + ya);
+            if (isMobCollision()) {
+                this.hitBox.setLocation(this.hitBox.x - xa, this.hitBox.y - ya);
+                isMoving = false;
+                return;
+            }
             move(xa, ya, scaledSpeed);
             isMoving = true;
         } else {
@@ -77,6 +91,9 @@ public class Demon extends Mob {
     }
 
     public void render(Screen screen) {
+        this.hitBox.setLocation((int) this.x, (int) this.y);
+        this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
+                RADIUS);
         int xTile = 0;
         int yTile = 11;
         int walkingSpeed = 4;

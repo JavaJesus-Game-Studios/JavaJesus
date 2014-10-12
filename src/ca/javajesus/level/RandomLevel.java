@@ -362,7 +362,7 @@ public class RandomLevel extends Level {
             return Tile.VOID;
         switch (tiles[x + y * width]) {
         case 0:
-            return Tile.SPAWNER;
+            return Tile.GRASS;
         case 1:
             return Tile.SAND;
         case 2:

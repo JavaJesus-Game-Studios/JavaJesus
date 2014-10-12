@@ -76,6 +76,7 @@ public class Player extends Mob {
     }
 
     public void render(Screen screen) {
+        this.hitBox.setLocation((int) this.x, (int) this.y);
         if (changeLevel) {
             level.remEntity(this);
             init(screen.getGame().randomLevel);

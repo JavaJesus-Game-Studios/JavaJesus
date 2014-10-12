@@ -1,5 +1,8 @@
 package ca.javajesus.game.entities;
 
+import java.awt.Rectangle;
+import java.util.Random;
+
 import ca.javajesus.level.Level;
 import ca.javajesus.level.tile.Tile;
 
@@ -14,6 +17,7 @@ public abstract class Mob extends Entity {
     public double velocity;
     public int width;
     public int height;
+    protected Rectangle hitBox;
 
     public Mob(Level level, String name, double x, double y, int speed,
             int width, int height) {
@@ -24,6 +28,7 @@ public abstract class Mob extends Entity {
         this.speed = speed;
         this.width = width;
         this.height = height;
+        this.hitBox = new Rectangle(width, height);
 
     }
 
@@ -97,28 +102,31 @@ public abstract class Mob extends Entity {
             Mob entity;
             if (level.getEntities().get(i) instanceof Mob) {
                 entity = (Mob) level.getEntities().get(i);
-                if (entity == this || entity instanceof Demon) {
+                if (entity == this) {
                     continue;
                 }
             } else {
                 continue;
             }
-
-            if ((int) this.x == (int) entity.x + entity.width
-                    && (int) this.y == (int) entity.y) {
-                return true;
-            } else if ((int) this.x == (int) entity.x - entity.width
-                    && (int) this.y == (int) entity.y) {
-                return true;
-            } else if ((int) this.x == (int) entity.x
-                    && (int) this.y == (int) entity.y + this.height) {
-                return true;
-            } else if ((int) this.x == (int) entity.x
-                    && (int) this.y == (int) entity.y - entity.height) {
+            if (this.hitBox.intersects(entity.hitBox)) {
                 return true;
             }
+
         }
         return false;
+    }
+
+    protected void moveRandomly() {
+        Random random = new Random();
+        int xa = random.nextInt(3) - 1;
+        int ya = random.nextInt(3) - 1;
+
+        if (xa != 0 || ya != 0) {
+            move(xa, ya, this.speed);
+            isMoving = true;
+        } else {
+            isMoving = false;
+        }
     }
 
     public String getName() {

@@ -43,9 +43,6 @@ public abstract class Tile {
     public static final Tile ROAD2 = new BaseTile(7, 4, 0, Colours.get(-1,
             Colours.toHex("#5C5251"), Colours.toHex("#BFAD47"), -1), 0xFF00FF00);
 
-    public static final Tile SPAWNER = new SpawnerTile(9, 2, 0, Colours.get(-1,
-            131, 141, -1), 0xFF00FF00);
-
     protected byte id;
     protected boolean solid;
     protected boolean emitter;

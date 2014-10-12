@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.imageio.ImageIO;
 
 import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.tile.Tile;
 
@@ -26,10 +27,10 @@ public class Level {
     protected byte rock = 2;
     protected byte dirt = 3;
     protected byte water = 4;
-    
+
     protected byte road1 = 5;
     protected byte road2 = 8;
-    
+
     protected byte lily = 6;
     protected byte waterSand = 7;
 
@@ -172,5 +173,7 @@ public class Level {
         return entities;
     }
 
-
+    public void addSpawner(double x, double y, Entity entity, Screen screen) {
+        this.addEntity(new Spawner(x, y, this, entity, screen));
+    }
 }
