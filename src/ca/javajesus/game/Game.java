@@ -45,7 +45,7 @@ public class Game extends Canvas implements Runnable {
     public static final String NAME = "Java Jesus by the Coders of Anarchy";
 
     /** Entity limit per screen */
-    public final int ENTITY_LIMIT = 2;
+    public final int ENTITY_LIMIT = 10;
 
     /** Determines whether the game is running or not */
     public boolean running = false;

@@ -25,7 +25,7 @@ public class Spawner extends Entity {
         if (level.getEntities().size() > screen.getGame().ENTITY_LIMIT) {
             return;
         }
-        if (random.nextInt(1) == 0) {
+        if (random.nextInt(1000) == 0) {
             spawnMob();
         }
 

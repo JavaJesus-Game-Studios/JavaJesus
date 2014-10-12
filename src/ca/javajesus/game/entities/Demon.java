@@ -13,7 +13,7 @@ public class Demon extends Mob {
     private Player player;
     private double scaledSpeed = 0.35;
     protected Ellipse2D.Double aggroRadius;
-    protected final int RADIUS = 32 * 5;
+    protected final int RADIUS = 32 * 8;
 
     public Demon(Level level, String name, double x, double y, int speed,
             Player player) {
