@@ -8,7 +8,7 @@ import ca.javajesus.level.Level;
 
 public class Demon extends Mob {
 
-    private int colour = Colours.get(-1, 111, 300, 543);
+    private int colour = Colours.get(-1, 111, 300, 550);
     // Player the Demon is Aggroed
     private Player player;
     private double scaledSpeed = 0.35;

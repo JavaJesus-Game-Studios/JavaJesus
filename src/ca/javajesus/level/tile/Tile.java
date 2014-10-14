@@ -39,9 +39,9 @@ public abstract class Tile {
             Colours.toHex("#F7790A"), Colours.toHex("#F51F07"), -1),
             0xFF0000FF, 500);
     public static final Tile ROAD1 = new BaseTile(6, 3, 0, Colours.get(-1,
-            Colours.toHex("#5C5251"), -1, -1), 0xFF00FF00);
+            000, -1, -1), 0xFF00FF00);
     public static final Tile ROAD2 = new BaseTile(7, 4, 0, Colours.get(-1,
-            Colours.toHex("#5C5251"), Colours.toHex("#BFAD47"), -1), 0xFF00FF00);
+            000, Colours.toHex("#BFAD47"), -1), 0xFF00FF00);
 
     protected byte id;
     protected boolean solid;
