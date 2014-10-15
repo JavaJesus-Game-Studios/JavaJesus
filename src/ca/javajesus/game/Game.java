@@ -241,6 +241,7 @@ public class Game extends Canvas implements Runnable {
         g.drawString("Player: " + (int) player.x + ", " + (int) player.y, 5, 20);
         g.dispose();
         bs.show();
+        screen.clear();
     }
 
     /** Initializes a load screen */
