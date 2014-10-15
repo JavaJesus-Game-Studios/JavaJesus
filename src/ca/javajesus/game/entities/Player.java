@@ -120,9 +120,9 @@ public class Player extends Mob {
                 yOffset -= 1;
                 waterColour = Colours.get(-1, 225, 225, -1);
             }
-            screen.render(xOffset, yOffset + 3, 0 + 26 * 32, waterColour, 0x00,
+            screen.render(xOffset, yOffset + 3, 0 + 8 * 32, waterColour, 0x00,
                     1, sheet);
-            screen.render(xOffset + 8, yOffset + 3, 0 + 26 * 32, waterColour,
+            screen.render(xOffset + 8, yOffset + 3, 0 + 8 * 32, waterColour,
                     0x01, 1, sheet);
         }
         screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile

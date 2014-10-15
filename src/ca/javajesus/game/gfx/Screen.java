@@ -27,15 +27,14 @@ public class Screen {
         pixels = new int[width * height];
 
     }
-    
-    public void clear() {
-        for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = 0;
-        }
-    }
 
     public void render(double d, double yOffset2, int tile, int colour,
             int mirrorDir, int scale, SpriteSheet sheet) {
+        
+        // WTF Mode
+        /*sheet.height = 0;
+        sheet.width = 0;*/
+        
         d -= xOffset;
         yOffset2 -= yOffset;
 
