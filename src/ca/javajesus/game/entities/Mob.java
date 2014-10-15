@@ -3,6 +3,7 @@ package ca.javajesus.game.entities;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.tile.Tile;
 
@@ -18,9 +19,10 @@ public abstract class Mob extends Entity {
     public int width;
     public int height;
     protected Rectangle hitBox;
+    protected SpriteSheet sheet;
 
     public Mob(Level level, String name, double x, double y, int speed,
-            int width, int height) {
+            int width, int height, SpriteSheet sheet) {
         super(level);
         this.name = name;
         this.x = x;
@@ -29,7 +31,7 @@ public abstract class Mob extends Entity {
         this.width = width;
         this.height = height;
         this.hitBox = new Rectangle(width, height);
-
+        this.sheet = sheet;
     }
 
     public void move(int xa, int ya, double speed) {

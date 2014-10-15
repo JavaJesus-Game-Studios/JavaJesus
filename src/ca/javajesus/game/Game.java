@@ -16,11 +16,8 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import ca.javajesus.game.entities.Demon;
-import ca.javajesus.game.entities.Entity;
-import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.RandomLevel;
 
@@ -120,8 +117,7 @@ public class Game extends Canvas implements Runnable {
             }
         }
 
-        screen = new Screen(WIDTH, HEIGHT,
-                new SpriteSheet("/sprite_sheet.png"), this);
+        screen = new Screen(WIDTH, HEIGHT, this);
         input = new InputHandler(this);
         initLevels();
         player = new Player(getLevel(), 50, 50, input);
@@ -146,7 +142,7 @@ public class Game extends Canvas implements Runnable {
 
     /** Initializes the level data */
     private void initLevels() {
-        level1 = new Level("/levels/water_test_level.png");
+        level1 = new Level(Level.level1);
         randomLevel = new RandomLevel(WIDTH, HEIGHT);
         Demon demon = new Demon(randomLevel, "Demon", 50, 50, 1, player);
         randomLevel.addSpawner(50, 50, demon, screen);

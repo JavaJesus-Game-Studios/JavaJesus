@@ -34,6 +34,8 @@ public class Level {
     protected byte lily = 6;
     protected byte waterSand = 7;
 
+    public static String level1 = "/Levels/water_test_level.png";
+
     public Level(String imagePath) {
         if (imagePath != null) {
             this.imagePath = imagePath;

@@ -2,6 +2,7 @@ package ca.javajesus.level.tile;
 
 import ca.javajesus.game.gfx.Colours;
 import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public abstract class Tile {
@@ -38,18 +39,20 @@ public abstract class Tile {
             { 1, 3 } }, Colours.get(Colours.toHex("#521B14"),
             Colours.toHex("#F7790A"), Colours.toHex("#F51F07"), -1),
             0xFF0000FF, 500);
-    public static final Tile ROAD1 = new BaseTile(6, 3, 0, Colours.get(-1,
-            000, -1, -1), 0xFF00FF00);
-    public static final Tile ROAD2 = new BaseTile(7, 4, 0, Colours.get(-1,
-            000, Colours.toHex("#BFAD47"), -1), 0xFF00FF00);
+    public static final Tile ROAD1 = new BaseTile(6, 3, 0, Colours.get(-1, 000,
+            -1, -1), 0xFF00FF00);
+    public static final Tile ROAD2 = new BaseTile(7, 4, 0, Colours.get(-1, 000,
+            Colours.toHex("#BFAD47"), -1), 0xFF00FF00);
 
     protected byte id;
     protected boolean solid;
     protected boolean emitter;
     private int levelColour;
     private boolean hasMob;
+    protected SpriteSheet sheet;
 
-    public Tile(int id, boolean isSolid, boolean isEmitter, int levelColour) {
+    public Tile(int id, boolean isSolid, boolean isEmitter, int levelColour,
+            SpriteSheet sheet) {
         this.id = (byte) id;
         if (tiles[id] != null)
             throw new RuntimeException("Duplicate tile id on " + id);
@@ -57,6 +60,7 @@ public abstract class Tile {
         this.emitter = isEmitter;
         this.levelColour = levelColour;
         tiles[id] = this;
+        this.sheet = sheet;
     }
 
     public byte getId() {

@@ -4,6 +4,7 @@ import java.awt.geom.Ellipse2D;
 
 import ca.javajesus.game.gfx.Colours;
 import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Demon extends Mob {
@@ -17,7 +18,7 @@ public class Demon extends Mob {
 
     public Demon(Level level, String name, double x, double y, int speed,
             Player player) {
-        super(level, name, x, y, speed, 16, 24);
+        super(level, name, x, y, speed, 16, 24, SpriteSheet.enemies);
         this.player = player;
         this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
                 RADIUS, RADIUS);
@@ -95,7 +96,7 @@ public class Demon extends Mob {
         this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
                 RADIUS);
         int xTile = 0;
-        int yTile = 11;
+        int yTile = 0;
         int walkingSpeed = 4;
         int flipTop = (numSteps >> walkingSpeed) & 1;
         int flipMiddle = (numSteps >> walkingSpeed) & 1;
@@ -119,30 +120,30 @@ public class Demon extends Mob {
 
         // Upper body
         screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
-                * 32, colour, flipTop, scale);
+                * 32, colour, flipTop, scale, sheet);
 
         // Upper body
         screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-                (xTile + 1) + yTile * 32, colour, flipTop, scale);
+                (xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
 
         // Middle Body
         screen.render(xOffset + (modifier * flipMiddle), yOffset + modifier,
-                xTile + (yTile + 1) * 32, colour, flipBottom, scale);
+                xTile + (yTile + 1) * 32, colour, flipBottom, scale, sheet);
 
         // Middle Body
         screen.render(xOffset + modifier - (modifier * flipMiddle), yOffset
                 + modifier, (xTile + 1) + (yTile + 1) * 32, colour, flipBottom,
-                scale);
+                scale, sheet);
 
         // Lower Body
         screen.render(xOffset + (modifier * flipBottom),
                 yOffset + 2 * modifier, xTile + (yTile + 2) * 32, colour,
-                flipBottom, scale);
+                flipBottom, scale, sheet);
 
         // Lower Body
         screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + 2
                 * modifier, (xTile + 1) + (yTile + 2) * 32, colour, flipBottom,
-                scale);
+                scale, sheet);
 
     }
 

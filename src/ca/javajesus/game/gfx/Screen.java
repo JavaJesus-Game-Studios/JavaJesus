@@ -20,20 +20,16 @@ public class Screen {
     
     private Game game;
 
-    public SpriteSheet sheet;
-
-    public Screen(int width, int height, SpriteSheet sheet, Game game) {
+    public Screen(int width, int height, Game game) {
         this.width = width;
         this.height = height;
-        this.sheet = sheet;
         this.game = game;
-
         pixels = new int[width * height];
 
     }
 
     public void render(double d, double yOffset2, int tile, int colour,
-            int mirrorDir, int scale) {
+            int mirrorDir, int scale, SpriteSheet sheet) {
         d -= xOffset;
         yOffset2 -= yOffset;
 

@@ -3,6 +3,7 @@ package ca.javajesus.game.entities;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.gfx.Colours;
 import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Player extends Mob {
@@ -16,7 +17,7 @@ public class Player extends Mob {
     private double scaledSpeed;
 
     public Player(Level level, double x, double y, InputHandler input) {
-        super(level, "player", x, y, 1, 16, 16);
+        super(level, "player", x, y, 1, 16, 16, SpriteSheet.player);
         this.input = input;
     }
 
@@ -86,7 +87,7 @@ public class Player extends Mob {
         }
 
         int xTile = 0;
-        int yTile = 27;
+        int yTile = 0;
         int walkingSpeed = 4;
         int flipTop = (numSteps >> walkingSpeed) & 1;
         int flipBottom = (numSteps >> walkingSpeed) & 1;
@@ -120,21 +121,22 @@ public class Player extends Mob {
                 waterColour = Colours.get(-1, 225, 225, -1);
             }
             screen.render(xOffset, yOffset + 3, 0 + 26 * 32, waterColour, 0x00,
-                    1);
+                    1, sheet);
             screen.render(xOffset + 8, yOffset + 3, 0 + 26 * 32, waterColour,
-                    0x01, 1);
+                    0x01, 1, sheet);
         }
         screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
-                * 32, colour, flipTop, scale);// upper body
+                * 32, colour, flipTop, scale, sheet);// upper body
         screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-                (xTile + 1) + yTile * 32, colour, flipTop, scale);// upper body
+                (xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);// upper
+                                                                         // body
         if (!isSwimming) {
             screen.render(xOffset + (modifier * flipBottom),
                     yOffset + modifier, xTile + (yTile + 1) * 32, colour,
-                    flipBottom, scale);// lower body
+                    flipBottom, scale, sheet);// lower body
             screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
                     + modifier, (xTile + 1) + (yTile + 1) * 32, colour,
-                    flipBottom, scale);// lower body
+                    flipBottom, scale, sheet);// lower body
 
         }
     }
