@@ -12,9 +12,12 @@ public class Player extends Mob {
     private int colour = Colours.get(-1, 111, 300, 543);
     private int scale = 1;
     protected boolean isSwimming = false;
+    protected boolean isSwinging = false;
     private int tickCount = 0;
     private boolean changeLevel;
     private double scaledSpeed;
+    private int swingTick = 0;
+    private int swingTickCount = 0;
 
     public Player(Level level, double x, double y, InputHandler input) {
         super(level, "player", x, y, 1, 16, 16, SpriteSheet.player);
@@ -36,6 +39,9 @@ public class Player extends Mob {
         int xa = 0;
         int ya = 0;
         if (input.space.isPressed()) {
+            isSwinging = true;
+        }
+        if (input.r.isPressed()) {
             changeLevel = true;
         }
         if (input.up.isPressed()) {
@@ -73,6 +79,14 @@ public class Player extends Mob {
             isSwimming = false;
         }
         tickCount++;
+        if (isSwinging) {
+            swingTickCount++;
+        }
+        if (swingTickCount % 60 <= 15) {
+            swingTick = 0;
+        } else {
+            swingTick = 1;
+        }
 
     }
 
@@ -89,8 +103,16 @@ public class Player extends Mob {
         int xTile = 0;
         int yTile = 0;
         int walkingSpeed = 4;
+        if (scaledSpeed == 3) {
+            numSteps++;
+        }
+
         int flipTop = (numSteps >> walkingSpeed) & 1;
         int flipBottom = (numSteps >> walkingSpeed) & 1;
+
+        int flipSword1 = (swingTick >> walkingSpeed) & 1;
+        int flipSword2 = (swingTick >> walkingSpeed) & 1;
+        int swingModifier = 0;
 
         if (movingDir == 0) {
             xTile += 10;
@@ -100,7 +122,15 @@ public class Player extends Mob {
         } else if (movingDir > 1) {
             xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
             flipTop = (movingDir - 1) % 2;
+        }
 
+        if (movingDir == 2) {
+            flipSword1 = (movingDir - 1) % 2;
+            flipSword2 = (movingDir - 1) % 2;
+        }
+
+        if (swingTick == 1) {
+            swingModifier = 3;
         }
 
         int modifier = 8 * scale;
@@ -125,18 +155,63 @@ public class Player extends Mob {
             screen.render(xOffset + 8, yOffset + 3, 0 + 8 * 32, waterColour,
                     0x01, 1, sheet);
         }
-        screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
-                * 32, colour, flipTop, scale, sheet);// upper body
-        screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-                (xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);// upper
-                                                                         // body
-        if (!isSwimming) {
-            screen.render(xOffset + (modifier * flipBottom),
-                    yOffset + modifier, xTile + (yTile + 1) * 32, colour,
-                    flipBottom, scale, sheet);// lower body
-            screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-                    + modifier, (xTile + 1) + (yTile + 1) * 32, colour,
-                    flipBottom, scale, sheet);// lower body
+        if (!isSwinging) {
+            screen.render(xOffset + (modifier * flipTop), yOffset, xTile
+                    + yTile * 32, colour, flipTop, scale, sheet);// upper body
+            screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
+                    (xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);// upper
+                                                                             // body
+            if (!isSwimming) {
+                screen.render(xOffset + (modifier * flipBottom), yOffset
+                        + modifier, xTile + (yTile + 1) * 32, colour,
+                        flipBottom, scale, sheet);// lower body
+                screen.render(xOffset + modifier - (modifier * flipBottom),
+                        yOffset + modifier, (xTile + 1) + (yTile + 1) * 32,
+                        colour, flipBottom, scale, sheet);// lower body
+
+            }
+        }
+        if (isSwinging) {
+            xTile = 0;
+            yTile = 0;
+
+            // Upper Body 1
+            screen.render(xOffset + (modifier * flipSword1), yOffset, xTile
+                    + (yTile + 4) * 32, colour, flipSword1, scale, sheet);
+
+            // Upper Body 2
+            screen.render(xOffset + modifier - (modifier * flipSword1),
+                    yOffset, (xTile + 1 + swingModifier) + (yTile + 4) * 32,
+                    colour, flipSword1, scale, sheet);
+
+            // Upper Body 3
+            screen.render(xOffset + 2 * modifier - 3 * (modifier * flipSword1),
+                    yOffset, (xTile + 2 + swingModifier) + (yTile + 4) * 32,
+                    colour, flipSword1, scale, sheet);
+
+            // Lower Body 1
+            screen.render(xOffset + (modifier * flipSword2),
+                    yOffset + modifier, xTile + (yTile + 5) * 32, colour,
+                    flipSword2, scale, sheet);
+
+            // Lower Body 2
+            screen.render(xOffset + modifier - (modifier * flipSword2), yOffset
+                    + modifier, (xTile + 1 + swingModifier) + (yTile + 5) * 32,
+                    colour, flipSword2, scale, sheet);
+
+            if (movingDir == 2) {
+                xOffset -= 2 * modifier;
+            }
+            // Lower Body 3
+            screen.render(xOffset + 2 * modifier - (modifier * flipSword2),
+                    yOffset + modifier, (xTile + 2 + swingModifier)
+                            + (yTile + 5) * 32, colour, flipSword2, scale,
+                    sheet);
+
+            if (swingTick == 1 && swingTickCount % 60 == 29) {
+                isSwinging = false;
+                swingTickCount = 0;
+            }
 
         }
     }
