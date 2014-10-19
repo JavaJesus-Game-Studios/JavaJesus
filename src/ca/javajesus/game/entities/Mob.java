@@ -20,9 +20,10 @@ public abstract class Mob extends Entity {
     public int height;
     protected Rectangle hitBox;
     protected SpriteSheet sheet;
+    protected int health;
 
     public Mob(Level level, String name, double x, double y, int speed,
-            int width, int height, SpriteSheet sheet) {
+            int width, int height, SpriteSheet sheet, int defaultHealth) {
         super(level);
         this.name = name;
         this.x = x;
@@ -32,6 +33,7 @@ public abstract class Mob extends Entity {
         this.height = height;
         this.hitBox = new Rectangle(width, height);
         this.sheet = sheet;
+        this.health = defaultHealth;
     }
 
     public void move(int xa, int ya, double speed) {
@@ -130,6 +132,7 @@ public abstract class Mob extends Entity {
             isMoving = false;
         }
     }
+    
 
     public String getName() {
         return name;
