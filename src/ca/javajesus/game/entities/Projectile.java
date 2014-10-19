@@ -1,5 +1,6 @@
 package ca.javajesus.game.entities;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
@@ -24,6 +25,15 @@ public class Projectile extends Particle {
 		this.direction = direction1;
 		this.direction2 = direction2;
 	}
+	
+	public void tick() {
+        if (this.x > Game.WIDTH * Game.SCALE || this.x < 0 || this.y > Game.HEIGHT * Game.SCALE || this.y < 0) {
+            level.remEntity(this);
+        }
+        if (this.speed == 0 || (direction == 4 && direction2 == 4)) {
+            level.remEntity(this);
+        }
+    }
 
 	public void render(Screen screen) {
 		switch (direction) {

@@ -1,5 +1,6 @@
 package ca.javajesus.game.entities;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -18,7 +19,9 @@ public class Particle extends Entity {
 	}
 
 	public void tick() {
-		
+	    if (this.x > Game.WIDTH * Game.SCALE || this.x < 0 || this.y > Game.HEIGHT * Game.SCALE || this.y < 0) {
+            level.remEntity(this);
+        }
 	}
 
 	public void render(Screen screen) {

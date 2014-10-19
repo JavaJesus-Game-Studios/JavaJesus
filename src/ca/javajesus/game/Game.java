@@ -77,9 +77,6 @@ public class Game extends Canvas implements Runnable {
 	/** Creates instance of the player */
 	public Player player;
 
-	/** Creates instance of hte first level */
-	public Level level1;
-
 	/** Creates instance of the random level */
 	public Level randomLevel;
 
@@ -141,7 +138,6 @@ public class Game extends Canvas implements Runnable {
 
 	/** Initializes the level data */
 	private void initLevels() {
-		level1 = new Level(Level.level1);
 		randomLevel = new RandomLevel(WIDTH, HEIGHT);
 		Demon demon = new Demon(randomLevel, "Demon", 50, 50, 1, player);
 		randomLevel.addSpawner(50, 50, demon, screen);
@@ -211,7 +207,7 @@ public class Game extends Canvas implements Runnable {
 	/** Returns the instance of the current Level */
 	private Level getLevel() {
 		if (player == null) {
-			return level1;
+			return Level.level1;
 		}
 		return player.getLevel();
 	}

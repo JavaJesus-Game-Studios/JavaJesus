@@ -238,9 +238,6 @@ public class Player extends Mob {
 			if (swingTick == 1 && swingTickCount % 60 == 29) {
 				isSwinging = false;
 				swingTickCount = 0;
-				if (bullet != null) {
-					level.remEntity(bullet);
-				}
 			}
 
 		}
