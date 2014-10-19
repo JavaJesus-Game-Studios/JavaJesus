@@ -1,5 +1,6 @@
 package ca.javajesus.game.gfx;
 
+
 import ca.javajesus.game.Game;
 
 public class Screen {
