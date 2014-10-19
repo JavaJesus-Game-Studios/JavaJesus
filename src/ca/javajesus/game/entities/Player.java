@@ -1,5 +1,6 @@
 package ca.javajesus.game.entities;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.gfx.Colours;
 import ca.javajesus.game.gfx.Screen;
@@ -20,7 +21,7 @@ public class Player extends Mob {
     private int swingTickCount = 0;
 
     public Player(Level level, double x, double y, InputHandler input) {
-        super(level, "player", x, y, 1, 16, 16, SpriteSheet.player);
+        super(level, Game.PLAYER_NAME, x, y, 1, 16, 16, SpriteSheet.player);
         this.input = input;
     }
 

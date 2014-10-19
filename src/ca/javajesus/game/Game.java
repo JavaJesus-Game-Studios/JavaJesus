@@ -12,6 +12,7 @@ import java.awt.SplashScreen;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 
@@ -22,7 +23,7 @@ import ca.javajesus.level.Level;
 import ca.javajesus.level.RandomLevel;
 
 public class Game extends Canvas implements Runnable {
-
+    
     /** Does something */
     private static final long serialVersionUID = 1L;
 
@@ -52,6 +53,8 @@ public class Game extends Canvas implements Runnable {
 
     /** Creates the tickCount var */
     public int tickCount;
+    
+    public static String PLAYER_NAME;
 
     /** Loads an image from a file */
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
@@ -239,6 +242,7 @@ public class Game extends Canvas implements Runnable {
         g.setFont(new Font("Verdana", 0, 20));
         g.setColor(Color.YELLOW);
         g.drawString("Player: " + (int) player.x + ", " + (int) player.y, 5, 20);
+        g.drawString(PLAYER_NAME, (WIDTH/ 2 * 3) - 10, (HEIGHT /2 * 3) - 20);
         g.dispose();
         bs.show();
     }
@@ -284,6 +288,10 @@ public class Game extends Canvas implements Runnable {
 
     /** Main Method Creation */
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What is your username?");
+        PLAYER_NAME = scanner.nextLine();
+        scanner.close();
         loadScreen();
         new Game().start();
 
