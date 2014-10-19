@@ -30,7 +30,7 @@ public class Game extends Canvas implements Runnable {
 	private static final int LOAD_SPEED = 20;
 
 	/** Width of the game */
-	public static final int WIDTH = 300;
+	public static final int WIDTH = 200;
 
 	/** Height of the game */
 	public static final int HEIGHT = WIDTH / 12 * 9;

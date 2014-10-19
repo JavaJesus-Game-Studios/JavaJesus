@@ -230,7 +230,7 @@ public class Player extends Mob {
 							+ (yTile + 5) * 32, colour, flipSword2, scale,
 					sheet);
 			if (!cooldown) {
-				bullet = new Projectile(level, 0, colour, this.x, this.y, 2,
+				bullet = new Projectile(level, 1, colour, this.x, this.y, 2,
 						movingDir);
 				level.addEntity(bullet);
 			}
