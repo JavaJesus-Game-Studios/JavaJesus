@@ -1,6 +1,6 @@
 package ca.javajesus.game.gfx;
 
-public class Font {
+public class JJFont {
     private static String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ      "
             + "abcdefghijklmnopqrstuvwxyz      "
             + "0123456789.,:;'\"!?$%()-=+/      ";

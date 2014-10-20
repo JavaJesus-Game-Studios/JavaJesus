@@ -20,6 +20,7 @@ import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.RandomLevel;
+import ca.javajesus.game.gfx.JJFont; 
 
 public class Game extends Canvas implements Runnable {
 
@@ -219,7 +220,9 @@ public class Game extends Canvas implements Runnable {
 			createBufferStrategy(3);
 			return;
 		}
-
+		
+		JJFont.render("JavaJesus is A Sweet Codename", screen, 100, 100, 555, 1);
+	    
 		int xOffset = (int) player.x - (screen.width / 2);
 		int yOffset = (int) player.y - (screen.height / 2);
 

@@ -11,6 +11,7 @@ public class Demon extends Mob {
 
 	/** Color of the Demon */
 	private int colour = Colours.get(-1, 111, 300, 550);
+	private int fireballColour = Colours.get(-1, 550,Colours.toHex("#F7790A"), 300);
 	
 	/** The player the demon is chasing */
 	private Player player;
@@ -21,7 +22,7 @@ public class Demon extends Mob {
 	protected Ellipse2D.Double aggroRadius;
 	
 	protected final int RADIUS = 32 * 8;
-	Projectile bullet;
+	Projectile fireball;
 	private boolean cooldown = true;
 	private int tickCount = 0;
 	private int movingHorizontal;
@@ -168,9 +169,9 @@ public class Demon extends Mob {
 				scale, sheet);
 
 		if (!cooldown) {
-			bullet = new Projectile(level, 0, colour, this.x, this.y, 2,
+			fireball = new Projectile(level, 0, fireballColour, this.x, (this.y - 7), 2,
 					movingHorizontal, movingVertical);
-			level.addEntity(bullet);
+			level.addEntity(fireball);
 		}
 		movingHorizontal = 4;
 		movingVertical = 4;
