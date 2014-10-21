@@ -156,6 +156,7 @@ public class Player extends Mob {
 		} else if (movingDir > 1) {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
 			flipTop = (movingDir - 1) % 2;
+			flipBottom = (movingDir -1) % 2;
 		}
 
 		if (movingDir == 2) {

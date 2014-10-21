@@ -277,7 +277,7 @@ public class Game extends Canvas implements Runnable {
 	private static void renderSplashFrame(Graphics2D g, int frame) {
 		final String[] comps = { "Coders", "of", "Anarchy" };
 		g.setComposite(AlphaComposite.Clear);
-		g.fillRect(0, 0, 900, 675);
+		g.fillRect(0, 0, 1000, 1000);
 		g.setPaintMode();
 		g.setColor(Color.BLACK);
 		g.drawString("Loading " + comps[(frame / 5) % 3] + "...", WIDTH * SCALE
