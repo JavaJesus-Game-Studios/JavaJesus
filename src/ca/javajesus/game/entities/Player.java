@@ -21,9 +21,11 @@ public class Player extends Mob {
 	private int swingTick = 0;
 	private int swingTickCount = 0;
 	Projectile bullet;
+	HealthBar bar;
 	private boolean cooldown = true;
 	private boolean demonCooldown;
 	private final int GUN_COOLDOWN = 30;
+	protected double health = 100;
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "player", x, y, 1, 16, 16, SpriteSheet.player, 100);
@@ -138,6 +140,8 @@ public class Player extends Mob {
 		if (scaledSpeed == 3) {
 			numSteps++;
 		}
+		
+		int healthBar = 2;
 
 		int flipTop = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
@@ -212,6 +216,30 @@ public class Player extends Mob {
 			xTile = 0;
 			yTile = 0;
 
+			// Above Body Health Bar
+			if((this.health>80)&&(this.health<=100))
+			{
+			bar = new HealthBar(level, 64, colour, this.x, this.y);
+			}
+			else if((this.health>60)&&(this.health<=80))
+		    {
+	        bar = new HealthBar(level, 65, colour, this.x, this.y);
+	        }
+			else if((this.health>40)&&(this.health<=60))
+            {
+            bar = new HealthBar(level, 66, colour, this.x, this.y);
+            }
+			else if((this.health>20)&&(this.health<=40))
+            {
+            bar = new HealthBar(level, 67, colour, this.x, this.y);
+            }
+			else
+            {
+            bar = new HealthBar(level, 68, colour, this.x, this.y);
+            }
+			
+			level.addEntity(bar);
+			
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flipAttack1), yOffset, xTile
 					+ (yTile + 2) * 32, colour, flipAttack1, scale, sheet);

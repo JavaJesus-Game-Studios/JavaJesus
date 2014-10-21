@@ -21,6 +21,7 @@ public class HealthBar extends Particle
         this.x = player.x;
         this.y = player.y - 18;
         }
-        screen.render(this.x, this.y, tileNumber, color, 1, 1, sheet);
+        screen.render(this.x + 3, this.y, tileNumber, color, 1, 1, sheet);
+        screen.render(this.x - 5, this.y, tileNumber + 1, color, 1, 1, sheet);
     }
 }
