@@ -25,6 +25,8 @@ public class Player extends Mob {
     private boolean cooldown = true;
     private boolean demonCooldown;
     private final int GUN_COOLDOWN = 30;
+    private int healthBarColour = Colours.get(-1, 111, -1, 400);
+    private HealthBar bar;
 
     public Player(Level level, double x, double y, InputHandler input) {
         super(level, "player", x, y, 1, 16, 16, SpriteSheet.player, 100);
@@ -104,7 +106,7 @@ public class Player extends Mob {
         if (swingTickCount % 60 <= 15 && isSwinging) {
             swingTick = 0;
         }
-        //Defaults to this
+        // Defaults to this
         if (swingTickCount % 60 <= 30 && isSwinging) {
             swingTick = 1;
         }
@@ -114,8 +116,6 @@ public class Player extends Mob {
         if (swingTickCount % 60 == 0 && isSwinging) {
             swingTick = 3;
         }
-        System.out.println(swingTick);
-        System.out.println(swingTickCount);
 
         if (swingTickCount % 60 <= 5 && isShooting) {
             swingTick = 0;
@@ -149,6 +149,34 @@ public class Player extends Mob {
             screen.getGame().updateLevel();
             changeLevel = false;
             level.addEntity(this);
+        }
+        
+        HealthBar newBar = bar;
+
+        
+        if (swingTickCount % 10 <= 1) {
+            // Above Body Health Bar
+            if ((health > 600 / 7.0) && (health <= 100)) {
+                newBar = new HealthBar(level, 64, healthBarColour, this.x, this.y);
+            } else if ((health > 500 / 7.0) && (health <= 600 / 7.0)) {
+                newBar = new HealthBar(level, 96, healthBarColour, this.x, this.y);
+            } else if ((health > 400 / 7.0) && (health <= 500 / 7.0)) {
+                newBar = new HealthBar(level, 128, healthBarColour, this.x, this.y);
+            } else if ((health > 300 / 7.0) && (health <= 400 / 7.0)) {
+                newBar = new HealthBar(level, 160, healthBarColour, this.x, this.y);
+            } else if ((health > 200 / 7.0) && (health <= 300 / 7.0)) {
+                newBar = new HealthBar(level, 192, healthBarColour, this.x, this.y);
+            } else if ((health > 100 / 7.0) && (health <= 200 / 7.0)) {
+                newBar = new HealthBar(level, 224, healthBarColour, this.x, this.y);
+            } else {
+                newBar = new HealthBar(level, 256, healthBarColour, this.x, this.y);
+            }
+            
+            if (newBar != bar) {
+                level.remEntity(bar);
+                bar = newBar;
+                level.addEntity(bar);
+            }
         }
 
         int xTile = 0;
@@ -282,24 +310,26 @@ public class Player extends Mob {
             yTile = 0;
 
             // Upper Body 1
-            screen.render(xOffset + (modifier * flipAttack1 * swingModifier), yOffset, xTile
-                    + (yTile + 4) * 32, colour, flipAttack1, scale, sheet);
-
-            // Upper Body 2
-            screen.render(xOffset + modifier - (modifier * flipAttack1 * swingModifier),
-                    yOffset, (xTile + 1) + (yTile + 4) * 32,
-                    colour, flipAttack1, scale, sheet);
-
-            // Lower Body 1
-            screen.render(xOffset + (modifier * flipAttack2 * swingModifier), yOffset
-                    + modifier, xTile + (yTile + 5) * 32, colour, flipAttack2,
+            screen.render(xOffset + (modifier * flipAttack1 * swingModifier),
+                    yOffset, xTile + (yTile + 4) * 32, colour, flipAttack1,
                     scale, sheet);
 
-            // Lower Body 2
-            screen.render(xOffset + modifier - (modifier * flipAttack2 * swingModifier),
-                    yOffset + modifier, (xTile + 1)
-                            + (yTile + 5) * 32, colour, flipAttack2, scale,
+            // Upper Body 2
+            screen.render(xOffset + modifier
+                    - (modifier * flipAttack1 * swingModifier), yOffset,
+                    (xTile + 1) + (yTile + 4) * 32, colour, flipAttack1, scale,
                     sheet);
+
+            // Lower Body 1
+            screen.render(xOffset + (modifier * flipAttack2 * swingModifier),
+                    yOffset + modifier, xTile + (yTile + 5) * 32, colour,
+                    flipAttack2, scale, sheet);
+
+            // Lower Body 2
+            screen.render(xOffset + modifier
+                    - (modifier * flipAttack2 * swingModifier), yOffset
+                    + modifier, (xTile + 1) + (yTile + 5) * 32, colour,
+                    flipAttack2, scale, sheet);
 
         }
 
@@ -337,4 +367,5 @@ public class Player extends Mob {
 
         return false;
     }
+
 }
