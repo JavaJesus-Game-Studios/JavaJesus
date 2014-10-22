@@ -44,7 +44,7 @@ public class Player extends Mob {
 	}
 
 	public void tick() {
-		int xa = 0;
+	    int xa = 0;
 		int ya = 0;
 		if (input.f.isPressed()) {
 			if (!isSwinging) isShooting = true;
@@ -120,7 +120,41 @@ public class Player extends Mob {
 				demonCooldown = false;
 			}
 		}
-
+		
+		if (swingTickCount % 10 <= 1) {
+		// Above Body Health Bar
+		level.remEntity(bar);
+        if((health>600/7.0)&&(health<=100))
+        {
+        bar = new HealthBar(level, 64, colour, this.x, this.y);
+        }
+        else if((health>500/7.0)&&(health<=600/7.0))
+        {
+        bar = new HealthBar(level, 96, colour, this.x, this.y);
+        }
+        else if((health>400/7.0)&&(health<=500/7.0))
+        {
+        bar = new HealthBar(level, 128, colour, this.x, this.y);
+        }
+        else if((health>300/7.0)&&(health<=400/7.0))
+        {
+        bar = new HealthBar(level, 160, colour, this.x, this.y);
+        }
+        else if((health>200/7.0)&&(health<=300/7.0))
+        {
+        bar = new HealthBar(level, 192, colour, this.x, this.y);
+        }
+        else if((health>100/7.0)&&(health<=200/7.0))
+        {
+        bar = new HealthBar(level, 224, colour, this.x, this.y);
+        }
+        else
+        {
+        bar = new HealthBar(level, 256, colour, this.x, this.y);
+        }
+        level.addEntity(bar);
+		}
+        
 	}
 
 	public void render(Screen screen) {
@@ -213,30 +247,6 @@ public class Player extends Mob {
 		if (isShooting && !isSwimming) {
 			xTile = 0;
 			yTile = 0;
-
-			// Above Body Health Bar
-			if((this.health>80)&&(this.health<=100))
-			{
-			bar = new HealthBar(level, 64, colour, this.x, this.y);
-			}
-			else if((this.health>60)&&(this.health<=80))
-		    {
-	        bar = new HealthBar(level, 65, colour, this.x, this.y);
-	        }
-			else if((this.health>40)&&(this.health<=60))
-            {
-            bar = new HealthBar(level, 66, colour, this.x, this.y);
-            }
-			else if((this.health>20)&&(this.health<=40))
-            {
-            bar = new HealthBar(level, 67, colour, this.x, this.y);
-            }
-			else
-            {
-            bar = new HealthBar(level, 68, colour, this.x, this.y);
-            }
-			
-			level.addEntity(bar);
 			
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flipAttack1), yOffset, xTile
