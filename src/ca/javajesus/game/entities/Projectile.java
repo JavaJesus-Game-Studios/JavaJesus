@@ -1,5 +1,7 @@
 package ca.javajesus.game.entities;
 
+import java.awt.Rectangle;
+
 import ca.javajesus.game.Game;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
@@ -9,6 +11,7 @@ public class Projectile extends Particle {
 	private int speed;
 	private int direction;
 	private int direction2;
+	private final Rectangle BOX = new Rectangle(10, 10);
 
 	public Projectile(Level level, int tileNumber, int color, double x, double y, int speed,
 			int direction) {
@@ -33,6 +36,10 @@ public class Projectile extends Particle {
         if (this.speed == 0 || (direction == 4 && direction2 == 4)) {
             level.remEntity(this);
         }
+        
+        
+        
+        
     }
 
 	public void render(Screen screen) {
@@ -77,6 +84,15 @@ public class Projectile extends Particle {
 			break;
 		}
 		screen.render(this.x, this.y, tileNumber, color, 1, 1, sheet);
-	}
+		BOX.setLocation((int) this.x, (int) this.y);
+		for (Entity entity: level.getEntities()) {
+		
+			if (entity instanceof Mob) {
+				if (BOX.intersects(((Mob) entity).hitBox)) {
+					((Mob) entity).health--;
+				}
+			}
+			
+	}}
 
 }

@@ -9,6 +9,8 @@ public class Particle extends Entity {
 	protected final SpriteSheet sheet = SpriteSheet.particles;
 	protected int tileNumber;
 	protected int color;
+	protected int width;
+	protected int height;
 	
 	public Particle(Level level, int tileNumber, int color, double x, double y) {
 		super(level);
