@@ -248,33 +248,6 @@ public class Player extends Mob {
 		if (isShooting && !isSwimming) {
 			xTile = 0;
 			yTile = 0;
-<<<<<<< HEAD
-=======
-
-			// Above Body Health Bar
-			if((this.health>80)&&(this.health<=100))
-			{
-			bar = new HealthBar(level, 64, healthBarColour, this.x, this.y);
-			}
-			else if((this.health>60)&&(this.health<=80))
-		    {
-	        bar = new HealthBar(level, 65, healthBarColour, this.x, this.y);
-	        }
-			else if((this.health>40)&&(this.health<=60))
-            {
-            bar = new HealthBar(level, 66, healthBarColour, this.x, this.y);
-            }
-			else if((this.health>20)&&(this.health<=40))
-            {
-            bar = new HealthBar(level, 67, healthBarColour, this.x, this.y);
-            }
-			else
-            {
-            bar = new HealthBar(level, 68, healthBarColour, this.x, this.y);
-            }
-			
-			level.addEntity(bar);
->>>>>>> FETCH_HEAD
 			
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flipAttack1), yOffset, xTile
