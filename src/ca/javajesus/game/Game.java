@@ -19,8 +19,7 @@ import ca.javajesus.game.entities.Demon;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.RandomLevel;
-import ca.javajesus.game.gfx.JJFont; 
+import ca.javajesus.level.RandomLevel; 
 
 public class Game extends Canvas implements Runnable {
 
@@ -211,6 +210,7 @@ public class Game extends Canvas implements Runnable {
 			return Level.level1;
 		}
 		return player.getLevel();
+		
 	}
 
 	/** Renders the screen */
@@ -221,13 +221,16 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		
-		JJFont.render("JavaJesus is A Sweet Codename", screen, 100, 100, 555, 1);
 	    
 		int xOffset = (int) player.x - (screen.width / 2);
 		int yOffset = (int) player.y - (screen.height / 2);
 
 		getLevel().renderTile(screen, xOffset, yOffset);
 		getLevel().renderEntities(screen);
+		getLevel().renderFont("JavaJesus is A Sweet Codename?!,.;:%$", screen, 10, 10,
+				255, 1);
+		getLevel().renderFont("I fixed CODE!" +
+				"0123456789 teSting", screen, 100, 50, 255, 1);
 
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {

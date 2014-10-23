@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Spawner;
+import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.tile.Tile;
 
@@ -153,7 +154,9 @@ public class Level {
             e.render(screen);
         }
     }
-
+    public void renderFont(String msg, Screen screen, int x, int y, int colour, int scale){
+    	JJFont.render(msg, screen, x, y, colour, scale);
+    }
     public Tile getTile(int x, int y) {
         if (0 > x || x >= width || 0 > y || y >= height)
             return Tile.VOID;
