@@ -7,7 +7,6 @@ public abstract class Entity {
 	public double x, y;
 	protected Level level;
 	
-	
 	public Entity(Level level){
 		init(level);
 	}

@@ -11,18 +11,18 @@ public class Demon extends Mob {
 
 	/** Color of the Demon */
 	private int colour = Colours.get(-1, 111, 300, 550);
-	private int fireballColour = Colours.get(-1, 550,Colours.toHex("#F7790A"), 300);
-	
+	private int fireballColour = Colours.get(-1, 550, Colours.toHex("#F7790A"),
+			300);
+
 	/** The player the demon is chasing */
 	private Player player;
-	
+
 	private double scaledSpeed = 0.35;
-	
+
 	/** Range that the demon can target a player */
 	protected Ellipse2D.Double aggroRadius;
-	
+
 	protected final int RADIUS = 32 * 8;
-	Projectile fireball;
 	private boolean cooldown = true;
 	private int tickCount = 0;
 	private int movingHorizontal;
@@ -30,7 +30,7 @@ public class Demon extends Mob {
 
 	public Demon(Level level, String name, double x, double y, int speed,
 			Player player) {
-		super(level, name, x, y, speed, 16, 24, SpriteSheet.enemies, 50);
+		super(level, name, x, y, speed, 16, 24, SpriteSheet.enemies, 100);
 		this.player = player;
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
 				RADIUS, RADIUS);
@@ -66,6 +66,9 @@ public class Demon extends Mob {
 	}
 
 	public void tick() {
+		
+		updateHealth();
+		
 		if (isMobCollision()) {
 			moveRandomly();
 			return;
@@ -115,6 +118,7 @@ public class Demon extends Mob {
 	}
 
 	public void render(Screen screen) {
+		
 		this.hitBox.setLocation((int) this.x, (int) this.y);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
@@ -169,9 +173,8 @@ public class Demon extends Mob {
 				scale, sheet);
 
 		if (!cooldown) {
-			fireball = new Projectile(level, 0, fireballColour, this.x, (this.y - 7), 2,
-					movingHorizontal, movingVertical);
-			level.addEntity(fireball);
+			level.addEntity(new Projectile(level, 0, fireballColour, this.x + 5,
+					(this.y - 7), 4, movingHorizontal, movingVertical));
 		}
 		movingHorizontal = 4;
 		movingVertical = 4;

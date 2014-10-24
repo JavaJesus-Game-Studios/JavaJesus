@@ -1,17 +1,17 @@
 package ca.javajesus.game.entities;
 
-import ca.javajesus.game.Game;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Particle extends Entity {
+	
 	protected final SpriteSheet sheet = SpriteSheet.particles;
 	protected int tileNumber;
 	protected int color;
 	protected int width;
 	protected int height;
-	
+
 	public Particle(Level level, int tileNumber, int color, double x, double y) {
 		super(level);
 		this.tileNumber = tileNumber;
@@ -21,9 +21,12 @@ public class Particle extends Entity {
 	}
 
 	public void tick() {
-	    if (this.x > Game.WIDTH * Game.SCALE || this.x < 0 || this.y > Game.HEIGHT * Game.SCALE || this.y < 0) {
-            level.remEntity(this);
-        }
+		if (this.x > level.width || this.x < 0 || this.y > level.height
+				|| this.y < 0) {
+			if (!(this instanceof HealthBar)) {
+				level.remEntity(this);
+			}
+		}
 	}
 
 	public void render(Screen screen) {

@@ -15,7 +15,7 @@ import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.tile.Tile;
 
 public class Level {
-    protected byte[] tiles;
+    protected int[] tiles;
     public int width;
     public int height;
     private List<Entity> entities = new CopyOnWriteArrayList<Entity>();
@@ -44,7 +44,7 @@ public class Level {
         } else {
             this.width = 64;
             this.height = 64;
-            tiles = new byte[width * height];
+            tiles = new int[width * height];
             this.generateLevel();
         }
     }
@@ -52,7 +52,7 @@ public class Level {
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
-        tiles = new byte[width * height];
+        tiles = new int[width * height];
         generateLevel();
     }
 
@@ -61,7 +61,7 @@ public class Level {
             this.image = ImageIO.read(Level.class.getResource(this.imagePath));
             this.width = this.image.getWidth();
             this.height = this.image.getHeight();
-            tiles = new byte[width * height];
+            tiles = new int[width * height];
             this.loadTiles();
         } catch (IOException e) {
             e.printStackTrace();
@@ -181,4 +181,5 @@ public class Level {
     public void addSpawner(double x, double y, Entity entity, Screen screen) {
         this.addEntity(new Spawner(x, y, this, entity, screen));
     }
+    
 }

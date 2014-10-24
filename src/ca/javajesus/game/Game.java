@@ -227,10 +227,6 @@ public class Game extends Canvas implements Runnable {
 
 		getLevel().renderTile(screen, xOffset, yOffset);
 		getLevel().renderEntities(screen);
-		getLevel().renderFont("JavaJesus is A Sweet Codename?!,.;:%$", screen, 10, 10,
-				255, 1);
-		getLevel().renderFont("I fixed CODE!" +
-				"0123456789 teSting", screen, 100, 50, 255, 1);
 
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {
@@ -245,6 +241,11 @@ public class Game extends Canvas implements Runnable {
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
 		g.drawString("Player: " + (int) player.x + ", " + (int) player.y, 5, 20);
+		if (player.hasDied) {
+			g.setFont(new Font("Verdana", 0, 50));
+			g.setColor(Color.BLACK);
+			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);
+		}
 		g.dispose();
 		bs.show();
 	}
