@@ -77,6 +77,10 @@ public class Player extends Mob {
 		if (input.right.isPressed()) {
 			xa++;
 		}
+		
+		if (input.h.isPressed()) {
+		    level.addEntity(new HealthPack(level, 1, this.x, this.y));
+		}
 		if (isSwimming) {
 			scaledSpeed = 0.35;
 		} else if (input.shift.isPressed()) {
