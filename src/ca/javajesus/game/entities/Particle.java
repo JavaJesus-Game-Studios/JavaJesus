@@ -5,7 +5,7 @@ import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Particle extends Entity {
-	
+
 	protected final SpriteSheet sheet = SpriteSheet.particles;
 	protected int tileNumber;
 	protected int color;
@@ -21,8 +21,8 @@ public class Particle extends Entity {
 	}
 
 	public void tick() {
-		if (this.x > level.width || this.x < 0 || this.y > level.height
-				|| this.y < 0) {
+		if (this.x > level.width * 32 || this.x < 0
+				|| this.y > level.height * 32 || this.y < 0) {
 			if (!(this instanceof HealthBar)) {
 				level.remEntity(this);
 			}

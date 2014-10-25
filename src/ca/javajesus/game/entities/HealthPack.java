@@ -1,35 +1,39 @@
 package ca.javajesus.game.entities;
 
+import java.awt.Rectangle;
 import java.util.Random;
-import ca.javajesus.game.Game;
+
 import ca.javajesus.game.gfx.Colours;
 import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
-public class HealthPack extends Particle 
+public class HealthPack extends Particle {
+	
+	private Random random = new Random();
+	private static int healthPackColour = Colours.get(-1, 300, -1, -1);
+	private final Rectangle BOX = new Rectangle(10, 10);
 
-{
+	public HealthPack(Level level, double x, double y) {
+		super(level, 8, healthPackColour, x, y);
 
-    private static int healthPackColour = Colours.get(-1, 111, -1, 400);
+		this.x += random.nextInt(400) - 200;
+		this.y += random.nextInt(400) - 200;
+	}
 
-    public HealthPack(Level level, int tileNumber, double x, double y) {
-        super(level, tileNumber, healthPackColour, x, y);
-    }
+	public void render(Screen screen) {
 
-    public void setOffset(int yTileOffset) {
-        this.tileNumber = yTileOffset * 32;
-    }
-    
-    Random rand = new Random();
-    
+		screen.render(this.x, this.y, tileNumber, color, 1, 1, sheet);
+		BOX.setLocation((int) this.x, (int) this.y);
+		for (Entity entity : level.getEntities()) {
 
-    public void render(Screen screen) {
+			if (entity instanceof Mob) {
+				if (BOX.intersects(((Mob) entity).hitBox)) {
+					((Mob) entity).health = 100;
+					level.remEntity(this);
+				}
+			}
 
-        this.x = rand.nextInt(400);
-        this.y = rand.nextInt(400);
+		}
+	}
 
-        screen.render(this.x, this.y, tileNumber, color, 1, 1, sheet);
-    }
-    
 }
