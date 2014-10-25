@@ -33,12 +33,12 @@ public abstract class Tile {
             1000);
     public static final Tile WATER = new AnimatedTile(3, new int[][] {
             { 0, 14 }, { 1, 14 }, { 2, 14 }, { 3, 14 }, { 2, 14 }, { 1, 14 } },
-            Colours.get(-1, 004, 115, -1), 0xFF0000FF, 1000);
+            Colours.get(-1, 004, 115, -1), 0xFF0000FF, 800);
     public static final Tile FIRE = new AnimatedTile(5, new int[][] { { 0, 15 },
             { 1, 15 }, { 2, 15 }, { 3, 15 }, { 4, 15 }, { 3, 15 }, { 2, 15 },
             { 1, 15 } }, Colours.get(Colours.toHex("#F51F07"),
             Colours.toHex("#F7790A"), 540, -1),
-            0xFFFF0000, 500);
+            0xFFFF0000, 100);
     public static final Tile ROAD1 = new BaseTile(6, 0, 2, Colours.get(-1, 000,
             -1, -1), 0xFF565656);
     public static final Tile ROAD2 = new BaseTile(7, 1, 2, Colours.get(-1, 000,

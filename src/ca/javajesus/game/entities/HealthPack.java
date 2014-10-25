@@ -10,11 +10,11 @@ import ca.javajesus.level.Level;
 public class HealthPack extends Particle {
 	
 	private Random random = new Random();
-	private static int healthPackColour = Colours.get(-1, 300, -1, -1);
+	private static int healthPackColour = Colours.get(-1, 0x00FFfffffa, 555, 500);
 	private final Rectangle BOX = new Rectangle(10, 10);
 
 	public HealthPack(Level level, double x, double y) {
-		super(level, 8, healthPackColour, x, y);
+		super(level, 9, healthPackColour, x, y);
 
 		this.x += random.nextInt(400) - 200;
 		this.y += random.nextInt(400) - 200;
