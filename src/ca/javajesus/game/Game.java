@@ -19,7 +19,7 @@ import ca.javajesus.game.entities.Demon;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.RandomLevel; 
+import ca.javajesus.level.RandomLevel;
 
 public class Game extends Canvas implements Runnable {
 
@@ -30,7 +30,7 @@ public class Game extends Canvas implements Runnable {
 	private static final int LOAD_SPEED = 20;
 
 	/** Width of the game */
-	public static final int WIDTH = 200;
+	public static final int WIDTH = 300;
 
 	/** Height of the game */
 	public static final int HEIGHT = WIDTH / 12 * 9;
@@ -210,7 +210,7 @@ public class Game extends Canvas implements Runnable {
 			return Level.level1;
 		}
 		return player.getLevel();
-		
+
 	}
 
 	/** Renders the screen */
@@ -220,8 +220,7 @@ public class Game extends Canvas implements Runnable {
 			createBufferStrategy(3);
 			return;
 		}
-		
-	    
+
 		int xOffset = (int) player.x - (screen.width / 2);
 		int yOffset = (int) player.y - (screen.height / 2);
 

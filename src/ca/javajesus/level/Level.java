@@ -31,11 +31,14 @@ public class Level {
 
     protected byte road1 = 5;
     protected byte road2 = 8;
+    protected byte road3 = 9;
 
     protected byte lily = 6;
     protected byte waterSand = 7;
-
-    public static Level level1 = new Level("/Levels/water_test_level.png");
+    
+    protected byte coniferTrees = 9;
+    protected byte decidiousTrees = 10;
+    public static Level level1 = new Level("/Levels/tile_tester_level.png");
 
     public Level(String imagePath) {
         if (imagePath != null) {

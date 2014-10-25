@@ -82,7 +82,7 @@ public class Player extends Mob {
 		} else if (input.shift.isPressed()) {
 			scaledSpeed = 3;
 		} else {
-			scaledSpeed = 1;
+			scaledSpeed = 10;
 		}
 
 		if (xa != 0 || ya != 0) {
