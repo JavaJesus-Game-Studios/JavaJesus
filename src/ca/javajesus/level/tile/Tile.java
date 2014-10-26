@@ -45,6 +45,8 @@ public abstract class Tile {
             Colours.toHex("#BFAD47"), -1), 0xFFE9E400);
     public static final Tile ROAD3 = new BaseTile(9, 2, 2, Colours.get(-1, 000,
             Colours.toHex("#BFAD47"), -1), 0xFFFFE400);
+    public static final Tile DIRTROAD = new BaseTile(10, 2, 3, 
+    		Colours.get(0xff8e4803, 0xff8e4803, 0xff8e4803, 0xff8e4803), 0xFF8E4803);
    
 
     protected byte id;
