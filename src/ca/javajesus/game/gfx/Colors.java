@@ -2,7 +2,7 @@ package ca.javajesus.game.gfx;
 
 import java.awt.Color;
 
-public class Colours {
+public class Colors {
 
     public static int get(int colour1, int colour2, int colour3, int colour4) {
         return ((get(colour4) << 24) + (get(colour3) << 16)

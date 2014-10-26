@@ -1,7 +1,7 @@
 package ca.javajesus.game.entities;
 
 import ca.javajesus.game.InputHandler;
-import ca.javajesus.game.gfx.Colours;
+import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -9,8 +9,8 @@ import ca.javajesus.level.Level;
 public class Player extends Mob {
 
 	private InputHandler input;
-	private int colour = Colours.get(-1, 111, 300, 543);
-	private int bulletColour = Colours.get(-1, -1, -1, 550);
+	private int colour = Colors.get(-1, 111, 300, 543);
+	private int bulletColour = Colors.get(-1, -1, -1, 550);
 	private int scale = 1;
 	protected boolean isSwimming = false;
 	protected boolean isSwinging = false;
@@ -22,7 +22,6 @@ public class Player extends Mob {
 	private int swingTick = 0;
 	private int swingTickCount = 0;
 	private boolean cooldown = true;
-	private boolean demonCooldown;
 	public int gunType = 4;
 
 	public Player(Level level, double x, double y, InputHandler input) {
@@ -42,9 +41,9 @@ public class Player extends Mob {
 	}
 
 	public void tick() {
-		
+
 		updateHealth();
-		
+
 		int xa = 0;
 		int ya = 0;
 		if (input.f.isPressed()) {
@@ -55,13 +54,7 @@ public class Player extends Mob {
 			if (!isShooting && !isSwimming)
 				isSwinging = true;
 		}
-		if (input.t.isPressed()) {
-			if (!demonCooldown) {
-				level.addEntity(new Demon(level, "Demon", (int) this.x,
-						(int) this.y, 1, this));
-			}
-			demonCooldown = true;
-		}
+
 		if (input.r.isPressed()) {
 			changeLevel = true;
 		}
@@ -77,9 +70,9 @@ public class Player extends Mob {
 		if (input.right.isPressed()) {
 			xa++;
 		}
-		
+
 		if (input.h.isPressed()) {
-		    level.addEntity(new HealthPack(level, this.x, this.y));
+			level.addEntity(new HealthPack(level, this.x, this.y));
 		}
 		if (isSwimming) {
 			scaledSpeed = 0.35;
@@ -133,16 +126,10 @@ public class Player extends Mob {
 			cooldown = true;
 		}
 
-		if (demonCooldown) {
-			if (tickCount % 100 == 0) {
-				demonCooldown = false;
-			}
-		}
-
 	}
 
 	public void render(Screen screen) {
-		
+
 		this.hitBox.setLocation((int) this.x, (int) this.y);
 		if (changeLevel) {
 			level.remEntity(this);
@@ -206,15 +193,15 @@ public class Player extends Mob {
 			int waterColour = 0;
 			yOffset += 4;
 			if (tickCount % 60 < 15) {
-				waterColour = Colours.get(-1, 225, -1, -1);
+				waterColour = Colors.get(-1, 225, -1, -1);
 			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
 				yOffset -= 1;
-				waterColour = Colours.get(-1, 115, 225, -1);
+				waterColour = Colors.get(-1, 115, 225, -1);
 			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
-				waterColour = Colours.get(-1, 115, -1, -1);
+				waterColour = Colors.get(-1, 115, -1, -1);
 			} else {
 				yOffset -= 1;
-				waterColour = Colours.get(-1, 225, 225, -1);
+				waterColour = Colors.get(-1, 225, 225, -1);
 			}
 			screen.render(xOffset, yOffset + 3, 0 + 8 * 32, waterColour, 0x00,
 					1, sheet);
@@ -274,7 +261,8 @@ public class Player extends Mob {
 				}
 
 				level.addEntity(new Projectile(level, 1, bulletColour,
-						(this.x + 10 + bulletOffset), (this.y - 5), 6, movingDir));
+						(this.x + 10 + bulletOffset), (this.y - 5), 6,
+						movingDir));
 				isShooting = false;
 				swingTickCount = 0;
 			}
@@ -283,6 +271,11 @@ public class Player extends Mob {
 
 		// Handles Swinging Animation
 		if (isSwinging) {
+			
+			if (swingTickCount == 1) {
+				level.addEntity(new Sword(level, 0, colour, this.x, this.y, this));
+			}
+			
 			xTile = swingModifier;
 			yTile = 4;
 

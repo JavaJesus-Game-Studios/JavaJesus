@@ -2,7 +2,7 @@ package ca.javajesus.game.entities;
 
 import java.awt.geom.Ellipse2D;
 
-import ca.javajesus.game.gfx.Colours;
+import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -10,8 +10,8 @@ import ca.javajesus.level.Level;
 public class Demon extends Mob {
 
 	/** Color of the Demon */
-	private int colour = Colours.get(-1, 111, 300, 550);
-	private int fireballColour = Colours.get(-1, 550, Colours.toHex("#F7790A"),
+	private int colour = Colors.get(-1, 111, 300, 550);
+	private int fireballColour = Colors.get(-1, 550, Colors.toHex("#F7790A"),
 			300);
 
 	/** The player the demon is chasing */
