@@ -273,7 +273,7 @@ public class Player extends Mob {
 		if (isSwinging) {
 			
 			if (swingTickCount == 1) {
-				level.addEntity(new Sword(level, 1, colour, this.x, this.y, this));
+				level.addEntity(new Sword(level, 0, colour, this.x, this.y, this));
 			}
 			
 			xTile = swingModifier;
