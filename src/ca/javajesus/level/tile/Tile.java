@@ -41,19 +41,11 @@ public abstract class Tile {
             0xFFFF0000, 100);
     public static final Tile ROAD1 = new BaseTile(6, 0, 2, Colors.get(-1, 000,
             -1, -1), 0xFF565656);
-<<<<<<< HEAD
-    public static final Tile ROAD2 = new BaseTile(7, 1, 2, Colours.get(-1, 000,
-            Colours.toHex("#BFAD47"), -1), 0xFFE9E400);
-    public static final Tile ROAD3 = new BaseTile(9, 2, 2, Colours.get(-1, 000,
-            Colours.toHex("#BFAD47"), -1), 0xFFFFE400);
-    public static final Tile DIRTROAD = new BaseTile(10, 2, 3, 
-    		Colours.get(0xff8e4803, 0xff8e4803, 0xff8e4803, 0xff8e4803), 0xFF8E4803);
-=======
     public static final Tile ROAD2 = new BaseTile(7, 1, 2, Colors.get(-1, 000,
             Colors.toHex("#BFAD47"), -1), 0xFFE9E400);
     public static final Tile ROAD3 = new BaseTile(9, 2, 2, Colors.get(-1, 000,
             Colors.toHex("#BFAD47"), -1), 0xFFFFE400);
->>>>>>> FETCH_HEAD
+   
    
 
     protected byte id;
