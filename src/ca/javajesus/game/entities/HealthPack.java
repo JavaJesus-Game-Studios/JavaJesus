@@ -3,14 +3,14 @@ package ca.javajesus.game.entities;
 import java.awt.Rectangle;
 import java.util.Random;
 
-import ca.javajesus.game.gfx.Colours;
+import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class HealthPack extends Particle {
 	
 	private Random random = new Random();
-	private static int healthPackColour = Colours.get(-1, 0x00FFfffffa, 555, 500);
+	private static int healthPackColour = Colors.get(-1, 0x00FFfffffa, 555, 500);
 	private final Rectangle BOX = new Rectangle(10, 10);
 
 	public HealthPack(Level level, double x, double y) {

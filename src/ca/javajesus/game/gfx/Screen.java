@@ -65,10 +65,7 @@ public class Screen {
 				int xSheet = x;
 				if (mirrorX)
 					xSheet = 7 - x;
-				/*
-				if (xSheet + ySheet * sheet.width + tileOffset >= sheet.pixels.length) {
-					continue;
-				}*/
+
 				int col = (colour >> (sheet.pixels[xSheet + ySheet
 						* sheet.width + tileOffset] * 8)) & 255;
 				if (col < 255) {
