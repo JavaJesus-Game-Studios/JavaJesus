@@ -192,12 +192,10 @@ public class Player extends Mob {
 		case 2:
 			swingModifier = 4;
 			break;
-<<<<<<< Updated upstream
-=======
 		/**case 3:
 			swingModifier = 6;
 			break;*/
->>>>>>> Stashed changes
+			
 		default:
 			swingModifier = 0;
 			break;

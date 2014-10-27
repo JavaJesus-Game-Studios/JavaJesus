@@ -12,11 +12,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-<<<<<<< Updated upstream
 import ca.javajesus.game.Game;
-=======
 import ca.javajesus.game.gfx.Colors;
->>>>>>> Stashed changes
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -59,16 +56,22 @@ public class Sword extends Entity {
 	public void tick() {
 
 		tickCount++;
-<<<<<<< HEAD
-		angle-= 5;
+
+		/*angle-= 5;
 		if (angle < 0) {
 			angle = 90;
-=======
+		}*/
+		
 		angle += 10;
-		if ((angle > 135)) {
-			angle = 0;
->>>>>>> origin/master
+		
+		if ((angle < 90)) {
+            angle = 90;
 		}
+            
+		if ((angle > 270)) {
+			angle = 90;
+		}
+		
 		//attackPos1();
 
 	}
@@ -105,9 +108,7 @@ public class Sword extends Entity {
 */
 	public void render(Screen screen) {
 
-<<<<<<< Updated upstream
 		// screen.render(this.x, this.y, tileNumber, color, 1, 1.5, sheet);
-=======
 		/*BufferStrategy bs = screen.getGame().getBufferStrategy();
 		if (bs == null) {
 			screen.getGame().createBufferStrategy(3);
@@ -120,8 +121,7 @@ public class Sword extends Entity {
 		//g.dispose();
 		bs.show();*/
 
-		screen.render(this.x, this.y, tileNumber, SwordColor, 1, 2, sheet);
->>>>>>> Stashed changes
+		/*screen.render(this.x, this.y, tileNumber, SwordColor, 1, 2, sheet);
 
 		hitBox.setLocation((int) this.x, (int) this.y);
 		for (Entity entity : level.getEntities()) {
@@ -131,7 +131,7 @@ public class Sword extends Entity {
 				}
 			}
 
-		}
+		}*/
 	}
 
 	public void draw(Graphics g) {
@@ -160,16 +160,9 @@ public class Sword extends Entity {
         int x = Math.round(width / 2);
         int y = Math.round(height / 2);
 
-<<<<<<< HEAD
-        double rads = Math.toRadians(angle); 
-        // Make 0 point out to the right...
-        
-        int fullLength = Math.round((radius / 2f)) - image.getWidth() + this.width;
-=======
-        double rads = Math.toRadians(angle - 90); // Make 0 point out to the right...
+        double rads = Math.toRadians(angle - 180); // Make 0 point out to the right...
         // If you add sword.getWidth, you might be able to change the above...
         int fullLength = Math.round((radius / 2f)) - image.getWidth();
->>>>>>> origin/master
 
         // Calculate the outter point of the line
         int xPos = Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2);
