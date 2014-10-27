@@ -12,7 +12,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+<<<<<<< Updated upstream
 import ca.javajesus.game.Game;
+=======
+import ca.javajesus.game.gfx.Colors;
+>>>>>>> Stashed changes
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -21,7 +25,7 @@ public class Sword extends Entity {
 
 	protected SpriteSheet sheet = SpriteSheet.swords;
 	protected int tileNumber;
-	protected int color;
+	protected int SwordColor = Colors.get(-1, 000, 0xFFDEDEDE, -1);
 	protected int width = 16;
 	protected int height = 16;
 	private final Rectangle hitBox = new Rectangle(20, 20);
@@ -36,7 +40,7 @@ public class Sword extends Entity {
 			Player player) {
 		super(level);
 		this.tileNumber = tileNumber;
-		this.color = color;
+		this.SwordColor = color;
 		this.x = x;
 		this.y = y - 15;
 		this.player = player;
@@ -95,7 +99,23 @@ public class Sword extends Entity {
 
 	public void render(Screen screen) {
 
+<<<<<<< Updated upstream
 		// screen.render(this.x, this.y, tileNumber, color, 1, 1.5, sheet);
+=======
+		/*BufferStrategy bs = screen.getGame().getBufferStrategy();
+		if (bs == null) {
+			screen.getGame().createBufferStrategy(3);
+			return;
+		}
+
+		Graphics g = image.createGraphics().create();
+		g.drawImage(image, (int) this.x, (int) this.y, width, height, null);
+		((Graphics2D) g).rotate(degrees);
+		//g.dispose();
+		bs.show();*/
+
+		screen.render(this.x, this.y, tileNumber, SwordColor, 1, 2, sheet);
+>>>>>>> Stashed changes
 
 		hitBox.setLocation((int) this.x, (int) this.y);
 		for (Entity entity : level.getEntities()) {
