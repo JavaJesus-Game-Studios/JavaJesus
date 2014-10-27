@@ -59,24 +59,30 @@ public class Sword extends Entity {
 	public void tick() {
 
 		tickCount++;
+<<<<<<< HEAD
 		angle-= 5;
 		if (angle < 0) {
 			angle = 90;
+=======
+		angle += 10;
+		if ((angle > 135)) {
+			angle = 0;
+>>>>>>> origin/master
 		}
-		attackPos1();
+		//attackPos1();
 
 	}
-
+/*
 	// V Slash
 	public void attackPos1() {
 
 		swingTick = tickCount * Math.PI / 60.0;
 
-		/*if (swingTick < 3 * Math.PI / 4.0) {
+		if (swingTick < 3 * Math.PI / 4.0) {
 			this.x += Math.cos(swingTick) / 3.0;
 			this.y += Math.sin(swingTick) / 3.0;
 
-		}*/
+		}
 
 		if (tickCount > 48) {
 			level.remEntity(this);
@@ -96,7 +102,7 @@ public class Sword extends Entity {
 	public void swing() {
 
 	}
-
+*/
 	public void render(Screen screen) {
 
 <<<<<<< Updated upstream
@@ -154,14 +160,20 @@ public class Sword extends Entity {
         int x = Math.round(width / 2);
         int y = Math.round(height / 2);
 
+<<<<<<< HEAD
         double rads = Math.toRadians(angle); 
         // Make 0 point out to the right...
         
         int fullLength = Math.round((radius / 2f)) - image.getWidth() + this.width;
+=======
+        double rads = Math.toRadians(angle - 90); // Make 0 point out to the right...
+        // If you add sword.getWidth, you might be able to change the above...
+        int fullLength = Math.round((radius / 2f)) - image.getWidth();
+>>>>>>> origin/master
 
         // Calculate the outter point of the line
-        int xPos = Math.round((float) (x + Math.cos(rads) * fullLength)) + Game.WIDTH * Game.SCALE / 2;
-        int yPos = Math.round((float) (y - Math.sin(rads) * fullLength)) + Game.HEIGHT * Game.SCALE / 2;
+        int xPos = Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2);
+        int yPos = Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2);
         
         return new Point(xPos, yPos);
 
