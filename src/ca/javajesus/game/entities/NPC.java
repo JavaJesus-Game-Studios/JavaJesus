@@ -11,6 +11,12 @@ public class NPC extends Mob {
 
 	public static NPC npc1 = new NPC(Level.level1, "Knight", 50, 50, 1, 16, 16,
 			100, Colors.get(-1, 300, 500, 100), 0, 2);
+	public static NPC npc2 = new NPC(Level.level1, "Someone", 50, 100, 1, 16, 16,
+			100, Colors.get(-1, 300, 500, 100), 0, 4);
+	public static NPC npc3 = new NPC(Level.level1, "Someone1", 50, 150, 1, 16, 16,
+			100, Colors.get(-1, 300, 500, 100), 0, 6);
+	public static NPC npc4 = new NPC(Level.level1, "Lady?", 50, 200, 1, 16, 16,
+			100, Colors.get(-1, 300, 500, 100), 0, 8);
 
 	private double scaledSpeed = 0.35;
 	/** Range that the NPC can walk */
@@ -72,16 +78,16 @@ public class NPC extends Mob {
 		int ya = 0;
 
 		if ((int) 200 > (int) this.x) {
-			xa++;
+			//xa++;
 		}
 		if ((int) 200 < (int) this.x) {
-			xa--;
+			//xa--;
 		}
 		if ((int) 200 > (int) this.y) {
-			ya++;
+			//ya++;
 		}
 		if ((int) 200 < (int) this.y) {
-			ya--;
+			//ya--;
 		}
 
 		if (xa != 0 || ya != 0) {

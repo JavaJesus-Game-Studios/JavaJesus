@@ -7,6 +7,9 @@ public class Level1 extends Level {
 	public Level1(String imagePath) {
 		super(imagePath);
 		this.addEntity(NPC.npc1);
+		this.addEntity(NPC.npc2);
+		this.addEntity(NPC.npc3);
+		this.addEntity(NPC.npc4);
 	}
 
 }
