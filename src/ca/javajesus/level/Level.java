@@ -38,7 +38,7 @@ public class Level {
     
     protected byte coniferTrees = 9;
     protected byte decidiousTrees = 10;
-    public static Level level1 = new Level("/Levels/tile_tester_level.png");
+    public static Level level1 = new Level1("/Levels/tile_tester_level.png");
 
     public Level(String imagePath) {
         if (imagePath != null) {

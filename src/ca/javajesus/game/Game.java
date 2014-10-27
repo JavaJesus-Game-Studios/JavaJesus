@@ -16,9 +16,11 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import ca.javajesus.game.entities.Demon;
+import ca.javajesus.game.entities.NPC;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.Level1;
 import ca.javajesus.level.RandomLevel;
 
 public class Game extends Canvas implements Runnable {

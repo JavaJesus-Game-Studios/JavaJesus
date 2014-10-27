@@ -34,7 +34,7 @@ public class Sword extends Entity {
 	protected BufferedImage image;
 	protected Player player;
 	protected double swingTick;
-	protected double angle;
+	protected double angle = 90;
 
 	public Sword(Level level, int tileNumber, int color, double x, double y,
 			Player player) {
@@ -50,7 +50,7 @@ public class Sword extends Entity {
 
 	private void getImage() {
 		try {
-			this.image = ImageIO.read(new File("res/Tiles/sword_sheet.png"));
+			this.image = ImageIO.read(new File("res/Tiles/sword1.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -59,9 +59,9 @@ public class Sword extends Entity {
 	public void tick() {
 
 		tickCount++;
-		angle += 10;
-		if (angle > 360) {
-			angle = 0;
+		angle-= 5;
+		if (angle < 0) {
+			angle = 90;
 		}
 		attackPos1();
 
@@ -149,14 +149,15 @@ public class Sword extends Entity {
 	protected Point getSwordHandlePoint() {
 
 		// Player Height
-        int radius = 10;
+        int radius = 30;
 
         int x = Math.round(width / 2);
         int y = Math.round(height / 2);
 
-        double rads = Math.toRadians(angle - 180); // Make 0 point out to the right...
-        // If you add sword.getWidth, you might be able to change the above...
-        int fullLength = Math.round((radius / 2f)) - image.getWidth();
+        double rads = Math.toRadians(angle); 
+        // Make 0 point out to the right...
+        
+        int fullLength = Math.round((radius / 2f)) - image.getWidth() + this.width;
 
         // Calculate the outter point of the line
         int xPos = Math.round((float) (x + Math.cos(rads) * fullLength)) + Game.WIDTH * Game.SCALE / 2;

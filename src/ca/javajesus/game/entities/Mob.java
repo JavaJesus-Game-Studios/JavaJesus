@@ -41,7 +41,9 @@ public abstract class Mob extends Entity {
 		} else {
 			bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
 		}
-		level.addEntity(bar);
+		if (level != null) {
+			level.addEntity(bar);
+		}
 	}
 
 	public void move(int xa, int ya, double speed) {
@@ -174,8 +176,8 @@ public abstract class Mob extends Entity {
 
 	/** Triggers the death animation and closure */
 	public void die() {
-		
+
 		level.remEntity(this);
-		
+
 	}
 }
