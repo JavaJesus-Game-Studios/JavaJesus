@@ -13,7 +13,7 @@ public class Player extends Mob {
 	private int bulletColour = Colors.get(-1, -1, -1, 550);
 	private int scale = 1;
 	protected boolean isSwimming = false;
-	protected boolean isSwinging = false;
+	public boolean isSwinging = false;
 	protected boolean isShooting = false;
 	private int tickCount = 0;
 	private boolean changeLevel;
@@ -23,6 +23,8 @@ public class Player extends Mob {
 	private int swingTickCount = 0;
 	private boolean cooldown = true;
 	public int gunType = 4;
+	private boolean demonCooldown;
+	private Sword sword;
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "player", x, y, 1, 16, 16, SpriteSheet.player, 100);
@@ -31,6 +33,10 @@ public class Player extends Mob {
 
 	public double getPlayerVelocity() {
 		return velocity;
+	}
+
+	public Sword getSword() {
+		return sword;
 	}
 
 	public Level getLevel() {
@@ -46,6 +52,13 @@ public class Player extends Mob {
 
 		int xa = 0;
 		int ya = 0;
+		if (input.t.isPressed()) {
+			if (!demonCooldown) {
+				level.addEntity(new Demon(level, "Demon", (int) this.x,
+						(int) this.y, 1, this));
+			}
+			demonCooldown = true;
+		}
 		if (input.f.isPressed()) {
 			if (!isSwinging && !isSwimming)
 				isShooting = true;
@@ -111,8 +124,6 @@ public class Player extends Mob {
 				swingTick = 1;
 			} else if (swingTickCount % 60 <= 36) {
 				swingTick = 2;
-			} else if (swingTickCount % 60 <= 48) {
-				swingTick = 3;
 			}
 		}
 
@@ -124,6 +135,11 @@ public class Player extends Mob {
 			cooldown = false;
 		} else {
 			cooldown = true;
+		}
+		if (demonCooldown) {
+			if (tickCount % 100 == 0) {
+				demonCooldown = false;
+			}
 		}
 
 	}
@@ -142,16 +158,16 @@ public class Player extends Mob {
 
 		int xTile = 0;
 		int yTile = 0;
-		int walkingSpeed = 4;
+		int walkingAnimationSpeed = 4;
 		if (scaledSpeed == 3) {
 			numSteps++;
 		}
 
-		int flipTop = (numSteps >> walkingSpeed) & 1;
-		int flipBottom = (numSteps >> walkingSpeed) & 1;
+		int flipTop = (numSteps >> walkingAnimationSpeed) & 1;
+		int flipBottom = (numSteps >> walkingAnimationSpeed) & 1;
 
-		int flipAttack1 = (swingTick >> walkingSpeed) & 1;
-		int flipAttack2 = (swingTick >> walkingSpeed) & 1;
+		int flipAttack1 = (swingTick >> walkingAnimationSpeed) & 1;
+		int flipAttack2 = (swingTick >> walkingAnimationSpeed) & 1;
 
 		int swingModifier = 0;
 
@@ -161,7 +177,7 @@ public class Player extends Mob {
 		if (movingDir == 1) {
 			xTile += 2;
 		} else if (movingDir > 1) {
-			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
+			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
 			flipTop = (movingDir - 1) % 2;
 			flipBottom = (movingDir - 1) % 2;
 			flipAttack1 = (movingDir - 1) % 2;
@@ -175,9 +191,6 @@ public class Player extends Mob {
 			break;
 		case 2:
 			swingModifier = 4;
-			break;
-		case 3:
-			swingModifier = 6;
 			break;
 		default:
 			swingModifier = 0;
@@ -271,11 +284,12 @@ public class Player extends Mob {
 
 		// Handles Swinging Animation
 		if (isSwinging) {
-			
+
 			if (swingTickCount == 1) {
-				level.addEntity(new Sword(level, 0, colour, this.x, this.y, this));
+				sword = new Sword(level, 0, colour, this.x, this.y, this);
+				level.addEntity(sword);
 			}
-			
+
 			xTile = swingModifier;
 			yTile = 4;
 
@@ -299,7 +313,7 @@ public class Player extends Mob {
 					flipAttack2, scale, sheet);
 
 			// Stops Sword Animation after this amount of ticks
-			if (swingTickCount % 60 == 59) {
+			if (swingTickCount % 60 == 48) {
 				isSwinging = false;
 				swingTickCount = 0;
 			}
