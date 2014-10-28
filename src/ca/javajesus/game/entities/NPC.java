@@ -23,7 +23,10 @@ public class NPC extends Mob {
 			1, 16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 8, "cross", 30);
 	public static NPC npc5 = new NPC(Level.level1, "Citizen-Male", 200, 500, 1,
 			16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 0, "circle", 20);
-
+	public static NPC npc6 = new NPC(Level.level1, "Fox", 250, 75, 2, 16, 16, 100,
+			Colors.get(-1, 111, Colors.toHex("#ffa800"), 555), 0, 14, "cross", 50);
+	
+	
 	private double scaledSpeed = 0.35;
 	/** Range that the NPC can walk */
 	protected Ellipse2D.Double walkRadius;
