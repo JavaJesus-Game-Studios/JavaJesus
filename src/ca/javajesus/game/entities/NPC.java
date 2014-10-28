@@ -353,8 +353,8 @@ public class NPC extends Mob {
 	private void moveCircle() {
 		
 		// This is obviously wrong. Someone can do the proper math to fix it
-		int xa = (int) (8 * Math.cos(tickCount/10));
-		int ya = (int) (8 * Math.sin(tickCount/10));
+		int xa = (int) Math.cos(tickCount);
+		int ya = (int) Math.sin(tickCount);
 		if (xa != 0 || ya != 0) {
 			this.hitBox.setLocation(this.hitBox.x + xa, this.hitBox.y + ya);
 			if (isMobCollision()) {
