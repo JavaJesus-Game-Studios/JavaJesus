@@ -354,11 +354,19 @@ public class NPC extends Mob {
 	}
 
 	private void moveCircle() {
+<<<<<<< Updated upstream
 		int xa = (int) Math.round(walkDistance
 				* Math.cos(Math.toRadians(tickCount)));
 		int ya = (int) Math.round(walkDistance
 				* Math.sin(Math.toRadians(tickCount)));
 
+=======
+		
+	    double miniTick = tickCount/20.0;
+		// This is obviously wrong. Someone can do the proper math to fix it
+		int xa = (int) (4 * Math.cos(miniTick/4));
+		int ya = (int) (4 * Math.sin(miniTick/4));
+>>>>>>> Stashed changes
 		if (xa != 0 || ya != 0) {
 			this.hitBox.setLocation(this.hitBox.x + xa, this.hitBox.y + ya);
 			if (isMobCollision()) {
