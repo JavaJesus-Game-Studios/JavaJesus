@@ -10,23 +10,23 @@ import ca.javajesus.level.Level;
 
 public class NPC extends Mob {
 
-	public static NPC npc1 = new NPC(Level.level1, "Knight", 200, 100, 1, 16, 16,
-			100, Colors.get(-1, 111, Colors.toHex("#7e7e7e"),
+	public static NPC npc1 = new NPC(Level.level1, "Knight", 200, 100, 1, 16,
+			16, 100, Colors.get(-1, 111, Colors.toHex("#7e7e7e"),
 					Colors.toHex("#FFFFFF")), 0, 2, "linear", 20);
-	public static NPC npc2 = new NPC(Level.level1, "Policeman", 200, 200, 1, 16,
-			16, 100, Colors.get(-1, Colors.toHex("#2a2a2a"),
+	public static NPC npc2 = new NPC(Level.level1, "Policeman", 200, 200, 1,
+			16, 16, 100, Colors.get(-1, Colors.toHex("#2a2a2a"),
 					Colors.toHex("#000046"), 543), 0, 4, "triangle", 20);
-	public static NPC npc3 = new NPC(Level.level1, "Jesus", 200, 300, 1, 16, 16,
-			100, Colors.get(-1, 111, 555, Colors.toHex("#ffd89b")), 0, 6,
+	public static NPC npc3 = new NPC(Level.level1, "Jesus", 200, 300, 1, 16,
+			16, 100, Colors.get(-1, 111, 555, Colors.toHex("#ffd89b")), 0, 6,
 			"square", 30);
 	public static NPC npc4 = new NPC(Level.level1, "Citizen-Female", 200, 400,
 			1, 16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 8, "cross", 30);
 	public static NPC npc5 = new NPC(Level.level1, "Citizen-Male", 200, 500, 1,
-			16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 0, "circle", 20);
-	public static NPC npc6 = new NPC(Level.level1, "Fox", 250, 75, 2, 16, 16, 100,
-			Colors.get(-1, 111, Colors.toHex("#ffa800"), 555), 0, 14, "cross", 50);
-	
-	
+			16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 0, "circle", 2);
+	public static NPC npc6 = new NPC(Level.level1, "Fox", 250, 75, 2, 16, 16,
+			100, Colors.get(-1, 111, Colors.toHex("#ffa800"), 555), 0, 14,
+			"cross", 50);
+
 	private double scaledSpeed = 0.35;
 	/** Range that the NPC can walk */
 	protected Ellipse2D.Double walkRadius;
@@ -98,6 +98,9 @@ public class NPC extends Mob {
 
 		updateHealth();
 		tickCount++;
+		if (tickCount > 360 * 5) {
+			tickCount = 0;
+		}
 
 		if (isMobCollision()) {
 			moveRandomly();
@@ -351,10 +354,11 @@ public class NPC extends Mob {
 	}
 
 	private void moveCircle() {
-		
-		// This is obviously wrong. Someone can do the proper math to fix it
-		int xa = (int) (8 * Math.cos(tickCount/10));
-		int ya = (int) (8 * Math.sin(tickCount/10));
+		int xa = (int) Math.round(walkDistance
+				* Math.cos(Math.toRadians(tickCount)));
+		int ya = (int) Math.round(walkDistance
+				* Math.sin(Math.toRadians(tickCount)));
+
 		if (xa != 0 || ya != 0) {
 			this.hitBox.setLocation(this.hitBox.x + xa, this.hitBox.y + ya);
 			if (isMobCollision()) {
@@ -369,5 +373,4 @@ public class NPC extends Mob {
 		}
 
 	}
-
 }
