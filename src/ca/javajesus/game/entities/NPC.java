@@ -11,15 +11,15 @@ public class NPC extends Mob {
 
 	public static NPC npc1 = new NPC(Level.level1, "Knight", 50, 50, 1, 16, 16,
 			100, Colors.get(-1, 111, Colors.toHex("#7e7e7e"),
-					Colors.toHex("#FFFFFF")), 0, 2);
+					Colors.toHex("#FFFFFF")), 0, 2, "square");
 	public static NPC npc2 = new NPC(Level.level1, "Policeman", 50, 100, 1, 16, 16,
-			100, Colors.get(-1, Colors.toHex("#2a2a2a"), Colors.toHex("#000046"), 543), 0, 4);
+			100, Colors.get(-1, Colors.toHex("#2a2a2a"), Colors.toHex("#000046"), 543), 0, 4, "square");
 	public static NPC npc3 = new NPC(Level.level1, "Jesus", 50, 150, 1, 16, 16,
-			100, Colors.get(-1, 111, 555,Colors.toHex("#ffd89b")), 0, 6);
+			100, Colors.get(-1, 111, 555,Colors.toHex("#ffd89b")), 0, 6, "square");
 	public static NPC npc4 = new NPC(Level.level1, "Citizen-Female", 50, 200, 1, 16, 16,
-			100, Colors.get(-1, 111, 300, 543), 0, 8);
+			100, Colors.get(-1, 111, 300, 543), 0, 8, "square");
 	public static NPC npc5 = new NPC(Level.level1, "Citizen-Male", 50, 250, 1, 16, 16,
-			100, Colors.get(-1, 111, 300, 543), 0, 0);
+			100, Colors.get(-1, 111, 300, 543), 0, 0, "square");
 
 	private double scaledSpeed = 0.35;
 	/** Range that the NPC can walk */
@@ -28,10 +28,11 @@ public class NPC extends Mob {
 	protected int color;
 	protected int xTile;
 	protected int yTile;
+	protected String walkPath;
 
 	public NPC(Level level, String name, double x, double y, int speed,
 			int width, int height, double defaultHealth, int color, int xTile,
-			int yTile) {
+			int yTile, String walkPath) {
 		super(level, name, x, y, speed, width, height, SpriteSheet.npcs,
 				defaultHealth);
 		this.walkRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
@@ -39,6 +40,7 @@ public class NPC extends Mob {
 		this.color = color;
 		this.xTile = xTile;
 		this.yTile = yTile;
+		this.walkPath = walkPath;
 	}
 
 	public boolean hasCollided(int xa, int ya) {
@@ -80,18 +82,7 @@ public class NPC extends Mob {
 		int xa = 0;
 		int ya = 0;
 
-		if ((int) 200 > (int) this.x) {
-			//xa++;
-		}
-		if ((int) 200 < (int) this.x) {
-			//xa--;
-		}
-		if ((int) 200 > (int) this.y) {
-			//ya++;
-		}
-		if ((int) 200 < (int) this.y) {
-			//ya--;
-		}
+		//switch ()
 
 		if (xa != 0 || ya != 0) {
 			this.hitBox.setLocation(this.hitBox.x + xa, this.hitBox.y + ya);

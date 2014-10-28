@@ -168,7 +168,6 @@ public abstract class Mob extends Entity {
 
 		if (health <= 0) {
 			hasDied = true;
-			level.remEntity(bar);
 			die();
 		}
 
@@ -177,6 +176,7 @@ public abstract class Mob extends Entity {
 	/** Triggers the death animation and closure */
 	public void die() {
 
+		level.remEntity(bar);
 		level.remEntity(this);
 
 	}

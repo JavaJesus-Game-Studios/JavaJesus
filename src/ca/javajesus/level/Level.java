@@ -9,180 +9,189 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.imageio.ImageIO;
 
 import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.entities.NPC;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.tile.Tile;
 
 public class Level {
-    protected int[] tiles;
-    public int width;
-    public int height;
-    private List<Entity> entities = new CopyOnWriteArrayList<Entity>();
-    private String imagePath;
-    private BufferedImage image;
+	protected int[] tiles;
+	public int width;
+	public int height;
+	private List<Entity> entities = new CopyOnWriteArrayList<Entity>();
+	private String imagePath;
+	private BufferedImage image;
 
-    /** temporary ints */
-    protected byte grass = 0;
-    protected byte sand = 1;
-    protected byte rock = 2;
-    protected byte dirt = 3;
-    protected byte water = 4;
+	/** temporary ints */
+	protected byte grass = 0;
+	protected byte sand = 1;
+	protected byte rock = 2;
+	protected byte dirt = 3;
+	protected byte water = 4;
 
-    protected byte road1 = 5;
-    protected byte road2 = 8;
-    protected byte road3 = 9;
+	protected byte road1 = 5;
+	protected byte road2 = 8;
+	protected byte road3 = 9;
 
-    protected byte lily = 6;
-    protected byte waterSand = 7;
-    
-    protected byte coniferTrees = 9;
-    protected byte decidiousTrees = 10;
-    public static Level level1 = new Level1("/Levels/tile_tester_level.png");
+	protected byte lily = 6;
+	protected byte waterSand = 7;
 
-    public Level(String imagePath) {
-        if (imagePath != null) {
-            this.imagePath = imagePath;
-            this.loadLevelFromFile();
-        } else {
-            this.width = 64;
-            this.height = 64;
-            tiles = new int[width * height];
-            this.generateLevel();
-        }
-    }
+	protected byte coniferTrees = 9;
+	protected byte decidiousTrees = 10;
 
-    public Level(int width, int height) {
-        this.width = width;
-        this.height = height;
-        tiles = new int[width * height];
-        generateLevel();
-    }
+	public static Level level1 = new Level1("/Levels/tile_tester_level.png");
 
-    private void loadLevelFromFile() {
-        try {
-            this.image = ImageIO.read(Level.class.getResource(this.imagePath));
-            this.width = this.image.getWidth();
-            this.height = this.image.getHeight();
-            tiles = new int[width * height];
-            this.loadTiles();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	public Level(String imagePath) {
+		if (imagePath != null) {
+			this.imagePath = imagePath;
+			this.loadLevelFromFile();
+		} else {
+			this.width = 64;
+			this.height = 64;
+			tiles = new int[width * height];
+			this.generateLevel();
+		}
+	}
 
-    protected void loadTiles() {
-        int[] tileColours = this.image.getRGB(0, 0, width, height, null, 0,
-                width);
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                tileCheck: for (Tile t : Tile.tiles) {
-                    if (t != null
-                            && t.getLevelColour() == tileColours[x + y * width]) {
-                        this.tiles[x + y * width] = t.getId();
-                        break tileCheck;
-                    }
-                }
-            }
-        }
-    }
+	public Level(int width, int height) {
+		this.width = width;
+		this.height = height;
+		tiles = new int[width * height];
+		generateLevel();
+	}
 
-    protected void generateLevel() {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                if (x * y % 10 < 10) {
-                    tiles[x + y * width] = Tile.GRASS.getId();
-                } else {
-                    tiles[x + y * width] = Tile.STONE.getId();
+	private void loadLevelFromFile() {
+		try {
+			this.image = ImageIO.read(Level.class.getResource(this.imagePath));
+			this.width = this.image.getWidth();
+			this.height = this.image.getHeight();
+			tiles = new int[width * height];
+			this.loadTiles();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-                }
+	protected void loadTiles() {
+		int[] tileColours = this.image.getRGB(0, 0, width, height, null, 0,
+				width);
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				tileCheck: for (Tile t : Tile.tiles) {
+					if (t != null
+							&& t.getLevelColour() == tileColours[x + y * width]) {
+						this.tiles[x + y * width] = t.getId();
+						break tileCheck;
+					}
+				}
+			}
+		}
+	}
 
-            }
-        }
+	protected void generateLevel() {
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				if (x * y % 10 < 10) {
+					tiles[x + y * width] = Tile.GRASS.getId();
+				} else {
+					tiles[x + y * width] = Tile.STONE.getId();
 
-    }
+				}
 
-    protected void saveLevelToFile() {
-        try {
-            ImageIO.write(image, "png",
-                    new File(Level.class.getResource(this.imagePath).getFile()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+			}
+		}
 
-    public void alterTile(int x, int y, Tile newTile) {
-        this.tiles[x + y * width] = newTile.getId();
-        if (image != null) {
-            image.setRGB(x, y, newTile.getLevelColour());
-        }
+	}
 
-    }
+	protected void saveLevelToFile() {
+		try {
+			ImageIO.write(image, "png",
+					new File(Level.class.getResource(this.imagePath).getFile()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    public void tick() {
-        for (Entity e : getEntities()) {
-            e.tick();
-        }
+	public void alterTile(int x, int y, Tile newTile) {
+		this.tiles[x + y * width] = newTile.getId();
+		if (image != null) {
+			image.setRGB(x, y, newTile.getLevelColour());
+		}
 
-        for (Tile t : Tile.tiles) {
-            if (t == null) {
-                break;
-            }
-            t.tick();
-        }
-    }
+	}
 
-    public void renderTile(Screen screen, int xOffset, int yOffset) {
-        if (xOffset < 0)
-            xOffset = 0;
-        if (xOffset > ((width << 3) - screen.width))
-            xOffset = ((width << 3) - screen.width);
-        if (yOffset < 0)
-            yOffset = 0;
-        if (yOffset > ((height << 3) - screen.height))
-            yOffset = ((height << 3) - screen.height);
+	public void tick() {
+		for (Entity e : getEntities()) {
+			e.tick();
+		}
 
-        screen.setOffset(xOffset, yOffset);
+		for (Tile t : Tile.tiles) {
+			if (t == null) {
+				break;
+			}
+			t.tick();
+		}
+	}
 
-        for (int y = (yOffset >> 3); y < (yOffset + screen.height >> 3) + 1; y++) {
-            for (int x = (xOffset >> 3); x < (xOffset + screen.width >> 3) + 1; x++) {
-                getTile(x, y).render(screen, this, x << 3, y << 3);
-            }
+	public void renderTile(Screen screen, int xOffset, int yOffset) {
+		if (xOffset < 0)
+			xOffset = 0;
+		if (xOffset > ((width << 3) - screen.width))
+			xOffset = ((width << 3) - screen.width);
+		if (yOffset < 0)
+			yOffset = 0;
+		if (yOffset > ((height << 3) - screen.height))
+			yOffset = ((height << 3) - screen.height);
 
-        }
-    }
+		screen.setOffset(xOffset, yOffset);
 
-    public void renderEntities(Screen screen) {
-        for (Entity e : getEntities()) {
-            e.render(screen);
-        }
-    }
-    public void renderFont(String msg, Screen screen, int x, int y, int colour, int scale){
-    	JJFont.render(msg, screen, x, y, colour, scale);
-    }
-    public Tile getTile(int x, int y) {
-        if (0 > x || x >= width || 0 > y || y >= height)
-            return Tile.VOID;
-        return Tile.tiles[tiles[x + y * width]];
+		for (int y = (yOffset >> 3); y < (yOffset + screen.height >> 3) + 1; y++) {
+			for (int x = (xOffset >> 3); x < (xOffset + screen.width >> 3) + 1; x++) {
+				getTile(x, y).render(screen, this, x << 3, y << 3);
+			}
 
-    }
+		}
+	}
 
-    public void addEntity(Entity entity) {
-        this.getEntities().add(entity);
+	public void renderEntities(Screen screen) {
+		for (Entity e : getEntities()) {
+			e.render(screen);
+		}
+	}
 
-    }
+	public void renderFont(String msg, Screen screen, int x, int y, int colour,
+			int scale) {
+		JJFont.render(msg, screen, x, y, colour, scale);
+	}
 
-    public void remEntity(Entity entity) {
-        this.getEntities().remove(entity);
+	public Tile getTile(int x, int y) {
+		if (0 > x || x >= width || 0 > y || y >= height)
+			return Tile.VOID;
+		return Tile.tiles[tiles[x + y * width]];
 
-    }
+	}
 
-    public List<Entity> getEntities() {
-        return entities;
-    }
+	public void addEntity(Entity entity) {
+		this.getEntities().add(entity);
 
-    public void addSpawner(double x, double y, Entity entity, Screen screen) {
-        this.addEntity(new Spawner(x, y, this, entity, screen));
-    }
-    
+	}
+
+	public void remEntity(Entity entity) {
+		this.getEntities().remove(entity);
+
+	}
+
+	public List<Entity> getEntities() {
+		return entities;
+	}
+
+	public void addSpawner(double x, double y, Entity entity, Screen screen) {
+		this.addEntity(new Spawner(x, y, this, entity, screen));
+	}
+
+	public void initNPCPlacement() {
+
+	}
+
 }
