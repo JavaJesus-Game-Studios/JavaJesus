@@ -354,9 +354,11 @@ public class NPC extends Mob {
 	}
 
 	private void moveCircle() {
-	    double miniTick = tickCount/20.0;
-		int xa = (int) (4 * Math.cos(miniTick/4));
-		int ya = (int) (4 * Math.sin(miniTick/4));
+		
+		// Some random code with some random values. Don't ask me how it works.
+		double miniTick = tickCount / 20.0;
+		int xa = (int) (walkDistance * Math.cos(miniTick / walkDistance));
+		int ya = (int) (walkDistance * Math.sin(miniTick / walkDistance));
 		if (xa != 0 || ya != 0) {
 			this.hitBox.setLocation(this.hitBox.x + xa, this.hitBox.y + ya);
 			if (isMobCollision()) {
