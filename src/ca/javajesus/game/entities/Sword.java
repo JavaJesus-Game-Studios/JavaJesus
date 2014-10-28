@@ -23,8 +23,8 @@ public class Sword extends Entity {
 	protected SpriteSheet sheet = SpriteSheet.swords;
 	protected int tileNumber;
 	protected int SwordColor = Colors.get(-1, 000, 0xFFDEDEDE, -1);
-	protected int width = 16;
-	protected int height = 16;
+	protected int width = 40;
+	protected int height = 40;
 	private final Rectangle hitBox = new Rectangle(20, 20);
 	protected int degrees;
 	protected int tickCount;
@@ -141,14 +141,14 @@ public class Sword extends Entity {
 		Point p = getSwordHandlePoint();
 
 		g2d.setColor(Color.RED);
-		g2d.drawLine(Game.WIDTH * Game.SCALE / 2, Game.HEIGHT * Game.SCALE / 2, p.x, p.y);
+//		g2d.drawLine(Game.WIDTH * Game.SCALE / 2, Game.HEIGHT * Game.SCALE / 2, p.x, p.y);
 
 		AffineTransform at = AffineTransform.getTranslateInstance(p.x, p.y);
 		
 		at.rotate(Math.toRadians(-angle));
 		g2d.setTransform(at);
 		g2d.drawImage(image, 0, 0, width, height, null);
-
+		
 		g2d.dispose();
 	}
 	
@@ -165,8 +165,8 @@ public class Sword extends Entity {
         int fullLength = Math.round((radius / 2f)) - image.getWidth();
 
         // Calculate the outter point of the line
-        int xPos = Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2);
-        int yPos = Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2);
+        int xPos = Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
+        int yPos = Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
         
         return new Point(xPos, yPos);
 
