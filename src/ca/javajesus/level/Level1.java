@@ -10,6 +10,7 @@ public class Level1 extends Level {
 		this.addEntity(NPC.npc2);
 		this.addEntity(NPC.npc3);
 		this.addEntity(NPC.npc4);
+		this.addEntity(NPC.npc5);
 	}
 
 }

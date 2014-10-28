@@ -29,7 +29,7 @@ public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
 	/** Determines how long the loading screen lasts */
-	private static final int LOAD_SPEED = 20;
+	private static final int LOAD_SPEED = 10;
 
 	/** Width of the game */
 	public static final int WIDTH = 300;
@@ -118,7 +118,7 @@ public class Game extends Canvas implements Runnable {
 		screen = new Screen(WIDTH, HEIGHT, this);
 		input = new InputHandler(this);
 		initLevels();
-		player = new Player(getLevel(), 50, 50, input);
+		player = new Player(getLevel(), 25, 50, input);
 		getLevel().addEntity(player);
 	}
 

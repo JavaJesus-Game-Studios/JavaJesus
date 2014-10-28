@@ -10,13 +10,16 @@ import ca.javajesus.level.Level;
 public class NPC extends Mob {
 
 	public static NPC npc1 = new NPC(Level.level1, "Knight", 50, 50, 1, 16, 16,
-			100, Colors.get(-1, 300, 500, 100), 0, 2);
-	public static NPC npc2 = new NPC(Level.level1, "Someone", 50, 100, 1, 16, 16,
-			100, Colors.get(-1, 300, 500, 100), 0, 4);
-	public static NPC npc3 = new NPC(Level.level1, "Someone1", 50, 150, 1, 16, 16,
-			100, Colors.get(-1, 300, 500, 100), 0, 6);
-	public static NPC npc4 = new NPC(Level.level1, "Lady?", 50, 200, 1, 16, 16,
-			100, Colors.get(-1, 300, 500, 100), 0, 8);
+			100, Colors.get(-1, 111, Colors.toHex("#7e7e7e"),
+					Colors.toHex("#FFFFFF")), 0, 2);
+	public static NPC npc2 = new NPC(Level.level1, "Policeman", 50, 100, 1, 16, 16,
+			100, Colors.get(-1, Colors.toHex("#2a2a2a"), Colors.toHex("#000046"), 543), 0, 4);
+	public static NPC npc3 = new NPC(Level.level1, "Jesus", 50, 150, 1, 16, 16,
+			100, Colors.get(-1, 111, 555,Colors.toHex("#ffd89b")), 0, 6);
+	public static NPC npc4 = new NPC(Level.level1, "Citizen-Female", 50, 200, 1, 16, 16,
+			100, Colors.get(-1, 111, 300, 543), 0, 8);
+	public static NPC npc5 = new NPC(Level.level1, "Citizen-Male", 50, 250, 1, 16, 16,
+			100, Colors.get(-1, 111, 300, 543), 0, 0);
 
 	private double scaledSpeed = 0.35;
 	/** Range that the NPC can walk */
