@@ -39,6 +39,8 @@ public class Level {
 
 	protected byte coniferTrees = 9;
 	protected byte decidiousTrees = 10;
+	
+	protected int[] tileColours;
 
 	public static Level level1 = new Level1("/Levels/tile_tester_level.png");
 
@@ -67,6 +69,8 @@ public class Level {
 			this.width = this.image.getWidth();
 			this.height = this.image.getHeight();
 			tiles = new int[width * height];
+			tileColours = this.image.getRGB(0, 0, width, height, null, 0,
+					width);
 			this.loadTiles();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -76,14 +80,12 @@ public class Level {
 	private boolean tempBool = true;
 
 	protected void loadTiles() {
-		int[] tileColours = this.image.getRGB(0, 0, width, height, null, 0,
-				width);
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				tileCheck: for (Tile t : Tile.tiles) {
 					if (tempBool && x == 6 && y == 6) {
 						t = Tile.TREE1;
-						tileColours[x + y * width] = 7;
+						tileColours[x + y * width] = t.getLevelColour();
 						tempBool = false;
 					}
 					if (t != null
@@ -91,6 +93,9 @@ public class Level {
 						if (t instanceof MultiTile) {
 							((MultiTile) t).initMultiBlock(this, x, y);
 						} else {
+							if (x == 7 && y == 6)
+								System.out.println("OVERRIDE: "
+										+ image.getRGB(x, y));
 							this.tiles[x + y * width] = t.getId();
 						}
 						break tileCheck;
@@ -128,8 +133,7 @@ public class Level {
 		this.tiles[x + y * width] = newTile.getId();
 		if (image != null) {
 			image.setRGB(x, y, newTile.getLevelColour());
-			System.out
-					.println("x: " + x + "y: " + y + "id: " + newTile.getId());
+			tileColours[x + y * width] = newTile.getId();
 		}
 
 	}

@@ -23,7 +23,6 @@ public class MultiTile extends Tile {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				level.alterTile(x + j, y + i, multiBlock[j + i * width]);
-				Tile.tiles[multiBlock[j + i * width].getId()] = multiBlock[j + i * width];
 			}
 		}
 	}
