@@ -9,9 +9,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import ca.javajesus.game.Game;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -32,7 +30,7 @@ public class Sword extends Entity {
 	protected BufferedImage image;
 	protected Player player;
 	protected double swingTick;
-	protected double angle = 90;
+	protected double angle;
 		
 	public Sword(Level level, int tileNumber, int color, double x, double y,
 			Player player) {
@@ -48,7 +46,7 @@ public class Sword extends Entity {
 
 	private void getImage() {
 		try {
-			this.image = ImageIO.read(new File("res/Tiles/sword1.png"));
+			this.image = ImageIO.read(new File("res/Swords/FancySword_sheet.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -57,7 +55,7 @@ public class Sword extends Entity {
 	public void tick() {
 
 		tickCount++;
-
+		
 		/*angle-= 5;
 		if (angle < 0) {
 			angle = 90;
@@ -87,27 +85,31 @@ public class Sword extends Entity {
             break;
         }*/
         case 2: {
+            if(tickCount%60==0)
+            angle = 90;
             angle += 10;
             if ((angle < 90)) {
                 angle = 90;
             }
                 
             if ((angle > 270)) {
-                angle = 90;
+                angle = 270;
             }
             break;
         }
         case 3: {
+            if(tickCount%30==0)
+            angle = 270;
             angle -= 10;
-            if ((angle > 270)) {
-                angle = 270;
-            }
-                
             if ((angle < 90)) {
-                angle = 270;
+                angle = 90;
+            }
+            
+            }
+            if ((angle > 270)) {
+            angle = 270;
             }
             break;
-            }
         }
 		
 		//attackPos1();
@@ -260,7 +262,7 @@ public class Sword extends Entity {
             // Calculate the outter point of the line
 
             int xPos = Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
-            int yPos = Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
+            int yPos = Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 20);
             
             return new Point(xPos, yPos);
         }
@@ -278,7 +280,7 @@ public class Sword extends Entity {
             // Calculate the outter point of the line
 
             int xPos = Math.round((float) -((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 10);
-            int yPos = Math.round((float) -((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
+            int yPos = Math.round((float) -((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 20);
             
             return new Point(xPos, yPos);
         }
