@@ -16,8 +16,8 @@ public class NPC extends Mob {
 	public static NPC npc2 = new NPC(Level.level1, "Policeman", 200, 200, 1,
 			16, 16, 100, Colors.get(-1, Colors.toHex("#2a2a2a"),
 					Colors.toHex("#000046"), 543), 0, 4, "triangle", 20);
-	public static NPC npc3 = new NPC(Level.level1, "Jesus", 200, 300, 1, 16,
-			16, 100000, Colors.get(-1, 111, 555, Colors.toHex("#ffd89b")), 0, 6,
+	public static NPC npc3 = new NPC(Level.level1, "Jesus", 300, 400, 1, 16,
+			16, 100, Colors.get(-1, 111, 555, Colors.toHex("#ffd89b")), 0, 6,
 			"square", 30);
 	public static NPC npc4 = new NPC(Level.level1, "Citizen-Female", 200, 400,
 			1, 16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 8, "cross", 30);
@@ -72,22 +72,22 @@ public class NPC extends Mob {
 		int yMin = 3;
 		int yMax = 7;
 		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin) || isWaterTile(xa, ya, x, yMin)) {
+			if (isSolidTile(xa, ya, x, yMin)) {
 				return true;
 			}
 		}
 		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax) || isWaterTile(xa, ya, x, yMax)) {
+			if (isSolidTile(xa, ya, x, yMax)) {
 				return true;
 			}
 		}
 		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y) || isWaterTile(xa, ya, xMin, y)) {
+			if (isSolidTile(xa, ya, xMin, y)) {
 				return true;
 			}
 		}
 		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y) || isWaterTile(xa, ya, xMax, y)) {
+			if (isSolidTile(xa, ya, xMax, y)) {
 				return true;
 			}
 		}

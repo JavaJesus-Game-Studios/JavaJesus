@@ -23,6 +23,8 @@ public abstract class Mob extends Entity {
 	protected SpriteSheet sheet;
 	protected HealthBar bar;
 	public boolean hasDied;
+	protected boolean onFire = false;
+	protected int healthTickCount = 0;
 
 	public Mob(Level level, String name, double x, double y, int speed,
 			int width, int height, SpriteSheet sheet, double defaultHealth) {
@@ -94,6 +96,20 @@ public abstract class Mob extends Entity {
 		return false;
 	}
 
+	protected boolean isDamageTile(int xa, int ya, int x, int y) {
+		if (level == null) {
+			return false;
+		}
+		int xx = (int) this.x;
+		int yy = (int) this.y;
+		Tile lastTile = level.getTile((xx + x) >> 3, (yy + y) >> 3);
+		Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
+		if (!lastTile.equals(newTile) && newTile.isSolid()) {
+			return true;
+		}
+		return false;
+	}
+
 	protected boolean isWaterTile(int xa, int ya, int x, int y) {
 		if (level == null) {
 			return false;
@@ -131,9 +147,24 @@ public abstract class Mob extends Entity {
 	}
 
 	protected void moveRandomly() {
-		Random random = new Random();
-		int xa = random.nextInt(3) - 1;
-		int ya = random.nextInt(3) - 1;
+		int xa = 0;
+		int ya = 0;
+		switch (movingDir) {
+		case 0:
+			ya++;
+			break;
+		case 1:
+			ya--;
+			break;
+		case 2:
+			xa--;
+			break;
+		case 3:
+			xa++;
+			break;
+		default:
+			break;
+		}
 
 		if (xa != 0 || ya != 0) {
 			move(xa, ya, this.speed);
@@ -149,7 +180,20 @@ public abstract class Mob extends Entity {
 
 	/** Updates the Health Bar */
 	public void updateHealth() {
-
+		
+		checkTile(this.x, this.y);
+		System.out.println("HEALTH: " + health);
+		
+		if (onFire) {
+			healthTickCount++;
+			health -= 0.2;
+		}
+		
+		if (healthTickCount == 200 && onFire) {
+			onFire = false;
+			healthTickCount = 0;
+		}
+		
 		if ((health > 600 / 7.0) && (health <= 100)) {
 			bar.setOffset(2);
 		} else if ((health > 500 / 7.0) && (health <= 600 / 7.0)) {
@@ -179,5 +223,11 @@ public abstract class Mob extends Entity {
 		level.remEntity(bar);
 		level.remEntity(this);
 
+	}
+
+	public void checkTile(double x, double y) {
+		if (level.getTile((int) x / 8, (int) y /8) == Tile.FIRE) {
+			onFire = true;
+		}
 	}
 }

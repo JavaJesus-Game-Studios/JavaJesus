@@ -9,10 +9,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.imageio.ImageIO;
 
 import ca.javajesus.game.entities.Entity;
-import ca.javajesus.game.entities.NPC;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.level.tile.MultiTile;
 import ca.javajesus.level.tile.Tile;
 
 public class Level {
@@ -39,6 +39,8 @@ public class Level {
 
 	protected byte coniferTrees = 9;
 	protected byte decidiousTrees = 10;
+	
+	protected int[] tileColours;
 
 	public static Level level1 = new Level1("/Levels/tile_tester_level.png");
 
@@ -67,21 +69,35 @@ public class Level {
 			this.width = this.image.getWidth();
 			this.height = this.image.getHeight();
 			tiles = new int[width * height];
+			tileColours = this.image.getRGB(0, 0, width, height, null, 0,
+					width);
 			this.loadTiles();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
+	private boolean tempBool = true;
+
 	protected void loadTiles() {
-		int[] tileColours = this.image.getRGB(0, 0, width, height, null, 0,
-				width);
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				tileCheck: for (Tile t : Tile.tiles) {
+					if (tempBool && x == 6 && y == 6) {
+						t = Tile.TREE1;
+						tileColours[x + y * width] = t.getLevelColour();
+						tempBool = false;
+					}
 					if (t != null
 							&& t.getLevelColour() == tileColours[x + y * width]) {
-						this.tiles[x + y * width] = t.getId();
+						if (t instanceof MultiTile) {
+							((MultiTile) t).initMultiBlock(this, x, y);
+						} else {
+							if (x == 7 && y == 6)
+								System.out.println("OVERRIDE: "
+										+ image.getRGB(x, y));
+							this.tiles[x + y * width] = t.getId();
+						}
 						break tileCheck;
 					}
 				}
@@ -117,6 +133,7 @@ public class Level {
 		this.tiles[x + y * width] = newTile.getId();
 		if (image != null) {
 			image.setRGB(x, y, newTile.getLevelColour());
+			tileColours[x + y * width] = newTile.getId();
 		}
 
 	}

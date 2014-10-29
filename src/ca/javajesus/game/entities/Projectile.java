@@ -2,7 +2,6 @@ package ca.javajesus.game.entities;
 
 import java.awt.Rectangle;
 
-import ca.javajesus.game.Game;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 

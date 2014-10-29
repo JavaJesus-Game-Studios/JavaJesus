@@ -277,7 +277,7 @@ public class Player extends Mob {
 					bulletOffset = -15;
 				}
 
-				level.addEntity(new Projectile(level, 0, bulletColour,
+				level.addEntity(new Projectile(level, 1, bulletColour,
 						(this.x + 10 + bulletOffset), (this.y - 5), 6,
 						movingDir));
 				isShooting = false;
