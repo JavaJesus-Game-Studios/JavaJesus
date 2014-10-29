@@ -19,7 +19,6 @@ public class SpriteSheet {
     public static SpriteSheet guns = new SpriteSheet("/Tiles/firearm_sheet.png");
     public static SpriteSheet letters = new SpriteSheet("/Tiles/letter_sheet.png");
     public static SpriteSheet particles = new SpriteSheet("/Tiles/particle_sheet.png");
-    public static SpriteSheet swords = new SpriteSheet("/Tiles/sword_sheet.png");
     
     public static SpriteSheet enemies = new SpriteSheet("/Sprites/mob_enemy_sheet.png");
     public static SpriteSheet npcs = new SpriteSheet("/Sprites/mob_friendly_sheet.png");

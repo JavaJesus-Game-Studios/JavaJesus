@@ -9,7 +9,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.imageio.ImageIO;
 
 import ca.javajesus.game.entities.Entity;
-import ca.javajesus.game.entities.NPC;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
