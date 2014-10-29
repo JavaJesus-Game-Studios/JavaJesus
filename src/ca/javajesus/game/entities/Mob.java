@@ -131,9 +131,16 @@ public abstract class Mob extends Entity {
 	}
 
 	protected void moveRandomly() {
-		Random random = new Random();
-		int xa = random.nextInt(3) - 1;
-		int ya = random.nextInt(3) - 1;
+		int xa = 0;
+		int ya = 0;
+		switch (movingDir) {
+		case 0: ya++; break;
+		case 1: ya--; break;
+		case 2: xa--; break;
+		case 3: xa++; break;
+		default:
+			break;
+		}
 
 		if (xa != 0 || ya != 0) {
 			move(xa, ya, this.speed);
