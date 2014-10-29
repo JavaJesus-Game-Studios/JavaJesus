@@ -48,7 +48,7 @@ public class Sword extends Entity {
 
 	private void getImage() {
 		try {
-			this.image = ImageIO.read(new File("res/Tiles/sword1.png"));
+			this.image = ImageIO.read(new File("res/Swords/GreatSword_Sheet.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
