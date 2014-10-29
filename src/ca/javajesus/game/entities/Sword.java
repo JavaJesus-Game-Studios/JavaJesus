@@ -62,16 +62,53 @@ public class Sword extends Entity {
 		if (angle < 0) {
 			angle = 90;
 		}*/
-		
-		angle += 10;
-		
-		if ((angle < 90)) {
-            angle = 90;
-		}
-            
-		if ((angle > 270)) {
-			angle = 90;
-		}
+        
+	switch (player.movingDir) {
+        /*case 0: {
+            angle -= 10;
+            if ((angle > 90)) {
+                angle = 0;
+            }
+                
+            if ((angle > 270)) {
+                angle = 0;
+            }
+            break;
+        }
+        case 1: {
+            angle += 10;
+            if ((angle < 90)) {
+                angle = 90;
+            }
+                
+            if ((angle > 270)) {
+                angle = 90;
+            }
+            break;
+        }*/
+        case 2: {
+            angle += 10;
+            if ((angle < 90)) {
+                angle = 90;
+            }
+                
+            if ((angle > 270)) {
+                angle = 90;
+            }
+            break;
+        }
+        case 3: {
+            angle -= 10;
+            if ((angle > 180)) {
+                angle = 90;
+            }
+                
+            if ((angle < 0)) {
+                angle = 180;
+            }
+            break;
+            }
+        }
 		
 		//attackPos1();
 
@@ -163,7 +200,25 @@ public class Sword extends Entity {
 	protected Point getSwordHandlePoint() {
         
         switch (player.movingDir) {
-        case 0: {
+        /*case 0: {
+            // Player Height
+            int radius = 30;
+
+            int x = Math.round(width / 2);
+            int y = Math.round(height / 2);
+
+            double rads = Math.toRadians(angle - 180); // Make 0 point out to the right...
+            // If you add sword.getWidth, you might be able to change the above...
+            int fullLength = Math.round((radius / 2f)) - image.getWidth();
+
+            // Calculate the outter point of the line
+
+            int xPos = Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
+            int yPos = Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
+            
+            return new Point(xPos, yPos);
+        }*/
+        /*case 1: {
             // Player Height
             int radius = 30;
 
@@ -180,25 +235,7 @@ public class Sword extends Entity {
             int yPos = -Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
             
             return new Point(xPos, yPos);
-        }
-        case 1: {
-            // Player Height
-            int radius = 30;
-
-            int x = Math.round(width / 2);
-            int y = Math.round(height / 2);
-
-            double rads = Math.toRadians(angle - 180); // Make 0 point out to the right...
-            // If you add sword.getWidth, you might be able to change the above...
-            int fullLength = Math.round((radius / 2f)) - image.getWidth();
-
-            // Calculate the outter point of the line
-
-            int xPos = -Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
-            int yPos = -Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
-            
-            return new Point(xPos, yPos);
-        }
+        }*/
         case 2: {
             // Player Height
             int radius = 30;
@@ -230,8 +267,8 @@ public class Sword extends Entity {
 
             // Calculate the outter point of the line
 
-            int xPos = -Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
-            int yPos = -Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
+            int xPos = Math.round((float) -((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
+            int yPos = Math.round((float) -((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
             
             return new Point(xPos, yPos);
         }
