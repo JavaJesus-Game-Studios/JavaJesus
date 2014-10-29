@@ -17,6 +17,7 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
+import ca.javajesus.game.entities.Player;
 
 public class Sword extends Entity {
 
@@ -32,7 +33,7 @@ public class Sword extends Entity {
 	protected Player player;
 	protected double swingTick;
 	protected double angle = 90;
-
+		
 	public Sword(Level level, int tileNumber, int color, double x, double y,
 			Player player) {
 		super(level);
@@ -133,7 +134,8 @@ public class Sword extends Entity {
 
 		}*/
 	}
-
+	
+	
 	public void draw(Graphics g) {
 
 		Graphics2D g2d = (Graphics2D) g.create();
@@ -152,24 +154,89 @@ public class Sword extends Entity {
 		g2d.dispose();
 	}
 	
+	public void renderSwordPlayer(Screen screen)
+    {
+    player = screen.getGame().player;
+    return;
+    }
+	
 	protected Point getSwordHandlePoint() {
-
-		// Player Height
-        int radius = 30;
-
-        int x = Math.round(width / 2);
-        int y = Math.round(height / 2);
-
-        double rads = Math.toRadians(angle - 180); // Make 0 point out to the right...
-        // If you add sword.getWidth, you might be able to change the above...
-        int fullLength = Math.round((radius / 2f)) - image.getWidth();
-
-        // Calculate the outter point of the line
-        int xPos = Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
-        int yPos = Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
         
-        return new Point(xPos, yPos);
+        switch (player.movingDir) {
+        case 0: {
+            // Player Height
+            int radius = 30;
 
+            int x = Math.round(width / 2);
+            int y = Math.round(height / 2);
+
+            double rads = Math.toRadians(angle - 180); // Make 0 point out to the right...
+            // If you add sword.getWidth, you might be able to change the above...
+            int fullLength = Math.round((radius / 2f)) - image.getWidth();
+
+            // Calculate the outter point of the line
+
+            int xPos = -Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
+            int yPos = -Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
+            
+            return new Point(xPos, yPos);
+        }
+        case 1: {
+            // Player Height
+            int radius = 30;
+
+            int x = Math.round(width / 2);
+            int y = Math.round(height / 2);
+
+            double rads = Math.toRadians(angle - 180); // Make 0 point out to the right...
+            // If you add sword.getWidth, you might be able to change the above...
+            int fullLength = Math.round((radius / 2f)) - image.getWidth();
+
+            // Calculate the outter point of the line
+
+            int xPos = -Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
+            int yPos = -Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
+            
+            return new Point(xPos, yPos);
+        }
+        case 2: {
+            // Player Height
+            int radius = 30;
+
+            int x = Math.round(width / 2);
+            int y = Math.round(height / 2);
+
+            double rads = Math.toRadians(angle-180); // Make 0 point out to the right...
+            // If you add sword.getWidth, you might be able to change the above...
+            int fullLength = Math.round((radius / 2f)) - image.getWidth();
+
+            // Calculate the outter point of the line
+
+            int xPos = Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
+            int yPos = Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
+            
+            return new Point(xPos, yPos);
+        }
+        case 3: {
+            // Player Height
+            int radius = 30;
+
+            int x = Math.round(width / 2);
+            int y = Math.round(height / 2);
+
+            double rads = Math.toRadians(angle - 180); // Make 0 point out to the right...
+            // If you add sword.getWidth, you might be able to change the above...
+            int fullLength = Math.round((radius / 2f)) - image.getWidth();
+
+            // Calculate the outter point of the line
+
+            int xPos = -Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
+            int yPos = -Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
+            
+            return new Point(xPos, yPos);
+        }
+        default:
+            return new Point(0, 0);        }
     }
 
 }
