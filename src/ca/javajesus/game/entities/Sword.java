@@ -99,12 +99,12 @@ public class Sword extends Entity {
         }
         case 3: {
             angle -= 10;
-            if ((angle > 180)) {
-                angle = 90;
+            if ((angle > 270)) {
+                angle = 270;
             }
                 
-            if ((angle < 0)) {
-                angle = 180;
+            if ((angle < 90)) {
+                angle = 270;
             }
             break;
             }
@@ -186,8 +186,18 @@ public class Sword extends Entity {
 		
 		at.rotate(Math.toRadians(-angle));
 		g2d.setTransform(at);
-		g2d.drawImage(image, 0, 0, width, height, null);
 		
+		switch(player.movingDir)
+		{
+		case 2: {
+		g2d.drawImage(image, 0, 0, width, height, null);
+		break;
+		}
+		case 3: {
+	    g2d.drawImage(image, 0, 0, -width, height, null);
+	    break;
+	    }
+		}
 		g2d.dispose();
 	}
 	
@@ -267,7 +277,7 @@ public class Sword extends Entity {
 
             // Calculate the outter point of the line
 
-            int xPos = Math.round((float) -((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
+            int xPos = Math.round((float) -((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 10);
             int yPos = Math.round((float) -((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
             
             return new Point(xPos, yPos);
