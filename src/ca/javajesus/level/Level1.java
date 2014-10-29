@@ -1,7 +1,7 @@
 package ca.javajesus.level;
 
 import ca.javajesus.game.entities.NPC;
-import ca.javajesus.level.tile.Tile;
+//import ca.javajesus.level.tile.Tile;
 
 public class Level1 extends Level {
 

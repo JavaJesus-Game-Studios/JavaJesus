@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
+//import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -24,7 +24,7 @@ public class Sword extends Entity {
 	protected int SwordColor = Colors.get(-1, 000, 0xFFDEDEDE, -1);
 	protected int width = 40;
 	protected int height = 40;
-	private final Rectangle hitBox = new Rectangle(20, 20);
+//	private final Rectangle hitBox = new Rectangle(20, 20);
 	protected int degrees;
 	protected int tickCount;
 	protected BufferedImage image;

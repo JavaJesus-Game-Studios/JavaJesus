@@ -1,7 +1,7 @@
 package ca.javajesus.level.tile;
 
-import ca.javajesus.game.entities.Entity;
-import ca.javajesus.game.entities.Mob;
+//import ca.javajesus.game.entities.Entity;
+//import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;

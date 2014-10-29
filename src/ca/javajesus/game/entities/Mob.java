@@ -1,7 +1,7 @@
 package ca.javajesus.game.entities;
 
 import java.awt.Rectangle;
-import java.util.Random;
+//import java.util.Random;
 
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
