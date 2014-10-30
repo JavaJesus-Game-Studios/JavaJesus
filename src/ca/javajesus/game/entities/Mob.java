@@ -182,7 +182,6 @@ public abstract class Mob extends Entity {
 	public void updateHealth() {
 		
 		checkTile(this.x, this.y);
-		System.out.println("HEALTH: " + health);
 		
 		if (onFire) {
 			healthTickCount++;
@@ -228,6 +227,7 @@ public abstract class Mob extends Entity {
 	public void checkTile(double x, double y) {
 		if (level.getTile((int) x / 8, (int) y /8) == Tile.FIRE) {
 			onFire = true;
+			healthTickCount = 0;
 		}
 	}
 }

@@ -83,6 +83,10 @@ public class Player extends Mob {
 		if (input.right.isPressed()) {
 			xa++;
 		}
+		
+		if (input.e.isPressed()) {
+			// Enter Car
+		}
 
 		if (input.h.isPressed()) {
 			level.addEntity(new HealthPack(level, this.x, this.y));

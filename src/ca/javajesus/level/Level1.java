@@ -1,6 +1,8 @@
 package ca.javajesus.level;
 
 import ca.javajesus.game.entities.NPC;
+import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
+import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.level.tile.Tile;
 
 public class Level1 extends Level {
@@ -16,6 +18,8 @@ public class Level1 extends Level {
 		this.addEntity(NPC.npc4);
 		this.addEntity(NPC.npc5);
 		this.addEntity(NPC.npc6);
+		
+		this.addEntity(Vehicle.vehicle1);
 		
 	}
 
