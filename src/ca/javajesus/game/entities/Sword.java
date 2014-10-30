@@ -4,14 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
+//import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import ca.javajesus.game.Game;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -26,13 +24,13 @@ public class Sword extends Entity {
 	protected int SwordColor = Colors.get(-1, 000, 0xFFDEDEDE, -1);
 	protected int width = 40;
 	protected int height = 40;
-	private final Rectangle hitBox = new Rectangle(20, 20);
+//	private final Rectangle hitBox = new Rectangle(20, 20);
 	protected int degrees;
 	protected int tickCount;
 	protected BufferedImage image;
 	protected Player player;
 	protected double swingTick;
-	protected double angle = 90;
+	protected double angle;
 		
 	public Sword(Level level, int tileNumber, int color, double x, double y,
 			Player player) {
@@ -49,7 +47,8 @@ public class Sword extends Entity {
 	private void getImage() {
 		try {
 			this.image = ImageIO.read(new File("res/Swords/GreatSword_Sheet.png"));
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -57,7 +56,7 @@ public class Sword extends Entity {
 	public void tick() {
 
 		tickCount++;
-
+		
 		/*angle-= 5;
 		if (angle < 0) {
 			angle = 90;
@@ -87,27 +86,31 @@ public class Sword extends Entity {
             break;
         }*/
         case 2: {
+            if(tickCount%60==0)
+            angle = 90;
             angle += 10;
             if ((angle < 90)) {
                 angle = 90;
             }
                 
             if ((angle > 270)) {
-                angle = 90;
+                angle = 270;
             }
             break;
         }
         case 3: {
+            if(tickCount%30==0)
+            angle = 270;
             angle -= 10;
-            if ((angle > 270)) {
-                angle = 270;
-            }
-                
             if ((angle < 90)) {
-                angle = 270;
+                angle = 90;
+            }
+            
+            }
+            if ((angle > 270)) {
+            angle = 270;
             }
             break;
-            }
         }
 		
 		//attackPos1();
@@ -260,7 +263,7 @@ public class Sword extends Entity {
             // Calculate the outter point of the line
 
             int xPos = Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 20);
-            int yPos = Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
+            int yPos = Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 20);
             
             return new Point(xPos, yPos);
         }
@@ -278,7 +281,7 @@ public class Sword extends Entity {
             // Calculate the outter point of the line
 
             int xPos = Math.round((float) -((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 10);
-            int yPos = Math.round((float) -((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 10);
+            int yPos = Math.round((float) -((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 20);
             
             return new Point(xPos, yPos);
         }
