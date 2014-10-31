@@ -9,9 +9,15 @@ import ca.javajesus.level.Level;
 
 public class CenturyLeSabre extends Vehicle {
 
+<<<<<<< Updated upstream
 	protected int color;
 	private Random random = new Random();
 
+=======
+	protected final int color = Colors.get(-1, 111, Colors.toHex("#ff1e00"),
+			Colors.toHex("#92fff6"));
+	
+>>>>>>> Stashed changes
 	public CenturyLeSabre(Level level, String name, double x, double y,
 			int speed, int width, int height, SpriteSheet sheet,
 			double defaultHealth) {

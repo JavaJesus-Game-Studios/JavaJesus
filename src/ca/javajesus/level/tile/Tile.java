@@ -45,9 +45,29 @@ public abstract class Tile {
 	public static final Tile ROAD3 = new BaseTile(9, 2, 2, Colors.get(-1, 000,
 			Colors.toHex("#BFAD47"), -1), 0xFFFFE400);
 
+<<<<<<< Updated upstream
 
 	public static final Tile TREE1 = new TreeTile(16, /*Stephen insert level Color Here*/7, 2,
 			3);
+=======
+	/*Stephen, fix all the colors */
+	public static final Tile LEAF1 = new BaseTile(10, 0, 7, Colors.get(131, 111,
+			-1, Colors.toHex("#008015")), 1);
+	public static final Tile LEAF2 = new BaseTile(11, 1, 7, Colors.get(131, 111,
+			-1 , Colors.toHex("#008015")), 2);
+	public static final Tile LOG1 = new BaseTile(12, 0, 8, Colors.get(131, 111,
+			Colors.toHex("#624300"), 141), 3);
+	public static final Tile LOG2 = new BaseTile(13, 1, 8, Colors.get(131, 111,
+			Colors.toHex("#624300"), 141), 4);
+	public static final Tile LOG3 = new BaseTile(14, 0, 9, Colors.get(131, 111,
+			Colors.toHex("#624300"), 141), 5);
+	public static final Tile LOG4 = new BaseTile(15, 1, 9, Colors.get(131, 111,
+			Colors.toHex("#624300"), 141), 6);
+
+	public static final Tile TREE1 = new MultiTile(16, /*Stephen insert level Color Here*/7, 2,
+			3, new Tile[] { Tile.LEAF1, Tile.LEAF2, Tile.LOG1, Tile.LOG2,
+					Tile.LOG3, Tile.LOG4, });
+>>>>>>> Stashed changes
 
 	protected byte id;
 	protected boolean solid;
