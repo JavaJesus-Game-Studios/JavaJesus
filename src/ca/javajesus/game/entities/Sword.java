@@ -280,8 +280,8 @@ public class Sword extends Entity {
 
             // Calculate the outter point of the line
 
-            int xPos = Math.round((float) -((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 10);
-            int yPos = Math.round((float) -((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 20);
+            int xPos = Math.round((float) ((x + Math.cos(rads) * fullLength))/15 + Game.WIDTH * Game.SCALE / 2 + 10);
+            int yPos = Math.round((float) ((y - Math.sin(rads) * fullLength))/15 + Game.HEIGHT * Game.SCALE / 2 - 20);
             
             return new Point(xPos, yPos);
         }
