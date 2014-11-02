@@ -1,6 +1,7 @@
 package ca.javajesus.game.entities;
 
 import ca.javajesus.game.InputHandler;
+import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
@@ -23,8 +24,10 @@ public class Player extends Mob {
 	private int swingTickCount = 0;
 	private boolean cooldown = true;
 	public int gunType = 4;
-	private boolean demonCooldown;
+	private boolean genericCooldown;
 	private Sword sword;
+	public boolean isDriving;
+	protected Vehicle vehicle;
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "player", x, y, 1, 16, 16, SpriteSheet.player, 100);
@@ -48,23 +51,25 @@ public class Player extends Mob {
 
 	public void tick() {
 
-		updateHealth();
+		if (!isDriving) {
+			updateHealth();
+		}
 
 		int xa = 0;
 		int ya = 0;
 		if (input.t.isPressed()) {
-			if (!demonCooldown) {
+			if (!genericCooldown) {
 				level.addEntity(new Demon(level, "Demon", (int) this.x,
 						(int) this.y, 1, this));
 			}
-			demonCooldown = true;
+			genericCooldown = true;
 		}
 		if (input.f.isPressed()) {
-			if (!isSwinging && !isSwimming)
+			if (!isSwinging && !isSwimming && !isDriving)
 				isShooting = true;
 		}
 		if (input.space.isPressed()) {
-			if (!isShooting && !isSwimming)
+			if (!isShooting && !isSwimming && !isDriving)
 				isSwinging = true;
 		}
 
@@ -83,9 +88,26 @@ public class Player extends Mob {
 		if (input.right.isPressed()) {
 			xa++;
 		}
-		
+
 		if (input.e.isPressed()) {
-			// Enter Car
+			if (!genericCooldown) {
+				if (isDriving) {
+					isDriving = false;
+				} else {
+					for (Entity entity : level.getEntities()) {
+						if (entity instanceof Vehicle) {
+							if (this.hitBox
+									.intersects(((Vehicle) entity).hitBox)) {
+								this.vehicle = (Vehicle) entity;
+								this.x = vehicle.x;
+								this.y = vehicle.y;
+								isDriving = true;
+							}
+						}
+					}
+				}
+			}
+			genericCooldown = true;
 		}
 
 		if (input.h.isPressed()) {
@@ -93,8 +115,12 @@ public class Player extends Mob {
 		}
 		if (isSwimming) {
 			scaledSpeed = 0.35;
-		} else if (input.shift.isPressed()) {
+		} else if (input.shift.isPressed() && !isDriving) {
 			scaledSpeed = 3;
+		} else if (isDriving && input.shift.isPressed()) {
+			scaledSpeed = 7;
+		} else if (isDriving) {
+			scaledSpeed = 5;
 		} else {
 			scaledSpeed = 1;
 		}
@@ -140,15 +166,25 @@ public class Player extends Mob {
 		} else {
 			cooldown = true;
 		}
-		if (demonCooldown) {
+		if (genericCooldown) {
 			if (tickCount % 100 == 0) {
-				demonCooldown = false;
+				genericCooldown = false;
 			}
 		}
 
 	}
 
 	public void render(Screen screen) {
+
+		if (isDriving) {
+			this.vehicle.x = this.x;
+			this.vehicle.y = this.y;
+			this.vehicle.movingDir = this.movingDir;
+			if (this.vehicle.hasDied) {
+				isDriving = false;
+			}
+			return;
+		}
 
 		this.hitBox.setLocation((int) this.x, (int) this.y);
 		if (changeLevel) {
@@ -196,10 +232,10 @@ public class Player extends Mob {
 		case 2:
 			swingModifier = 4;
 			break;
-		/**case 3:
-			swingModifier = 6;
-			break;*/
-			
+		/**
+		 * case 3: swingModifier = 6; break;
+		 */
+
 		default:
 			swingModifier = 0;
 			break;
@@ -334,6 +370,34 @@ public class Player extends Mob {
 		int xMax = 7;
 		int yMin = 3;
 		int yMax = 7;
+
+		if (isDriving) {
+			for (int x = xMin; x < xMax; x++) {
+				if (isSolidTile(xa, ya, x, yMin)
+						|| isWaterTile(xa, ya, x, yMin)) {
+					return true;
+				}
+			}
+			for (int x = xMin; x < xMax; x++) {
+				if (isSolidTile(xa, ya, x, yMax)
+						|| isWaterTile(xa, ya, x, yMax)) {
+					return true;
+				}
+			}
+			for (int y = yMin; y < yMax; y++) {
+				if (isSolidTile(xa, ya, xMin, y)
+						|| isWaterTile(xa, ya, xMin, y)) {
+					return true;
+				}
+			}
+			for (int y = yMin; y < yMax; y++) {
+				if (isSolidTile(xa, ya, xMax, y)
+						|| isWaterTile(xa, ya, xMax, y)) {
+					return true;
+				}
+			}
+		}
+
 		for (int x = xMin; x < xMax; x++) {
 			if (isSolidTile(xa, ya, x, yMin)) {
 				return true;
