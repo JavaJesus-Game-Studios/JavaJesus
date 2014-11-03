@@ -193,20 +193,32 @@ public abstract class Mob extends Entity {
 			healthTickCount = 0;
 		}
 		
-		if ((health > 600 / 7.0) && (health <= 100)) {
+		if ((health > 1100 / 7.0) && (health <= 100)) {
 			bar.setOffset(2);
-		} else if ((health > 500 / 7.0) && (health <= 600 / 7.0)) {
+		} else if ((health > 1000 / 12.0) && (health <= 1100 / 12.0)) {
 			bar.setOffset(3);
-		} else if ((health > 400 / 7.0) && (health <= 500 / 7.0)) {
+		} else if ((health > 900 / 12.0) && (health <= 1000 / 12.0)) {
 			bar.setOffset(4);
-		} else if ((health > 300 / 7.0) && (health <= 400 / 7.0)) {
+		} else if ((health > 800 / 12.0) && (health <= 900 / 12.0)) {
 			bar.setOffset(5);
-		} else if ((health > 200 / 7.0) && (health <= 300 / 7.0)) {
+		} else if ((health > 700 / 12.0) && (health <= 800 / 12.0)) {
 			bar.setOffset(6);
-		} else if ((health > 100 / 7.0) && (health <= 200 / 7.0)) {
+		} else if ((health > 600 / 12.0) && (health <= 700 / 12.0)) {
 			bar.setOffset(7);
+		} else if ((health > 500 / 12.0) && (health <= 600 / 12.0)) {
+	        bar.setOffset(8);
+	    } else if ((health > 400 / 12.0) && (health <= 500 / 12.0)) {
+	        bar.setOffset(9);
+	    } else if ((health > 300 / 12.0) && (health <= 400 / 12.0)) {
+	        bar.setOffset(10);
+	    } else if ((health > 200 / 12.0) && (health <= 300 / 12.0)) {
+	        bar.setOffset(11);
+	    } else if ((health > 100 / 12.0) && (health <= 200 / 12.0)) {
+	        bar.setOffset(12);
+	    } else if ((health > 100 / 12.0) && (health <= 200 / 12.0)) {
+	        bar.setOffset(13);
 		} else {
-			bar.setOffset(8);
+			bar.setOffset(14);
 		}
 
 		if (health <= 0) {
