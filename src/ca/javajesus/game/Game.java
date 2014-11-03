@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import ca.javajesus.game.entities.Demon;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.RandomLevel;
 
@@ -294,8 +295,8 @@ public class Game extends Canvas implements Runnable {
 
 	/** Main Method Creation */
 	public static void main(String[] args) {
-		loadScreen();
-		new Game().start();
+		//loadingScreen();
+		new Launcher(0);
 
 	}
 	
