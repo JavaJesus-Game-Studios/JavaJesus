@@ -30,7 +30,7 @@ public class CenturyLeSabre extends Vehicle {
 		}
 		case 1: {
 			// gold color
-			color = Colors.get(-1, 111, Colors.toHex("##CFB53B"),
+			color = Colors.get(-1, 111, Colors.toHex("#CFB53B"),
 					Colors.toHex("#c2feff"));
 			break;
 		}
@@ -43,7 +43,7 @@ public class CenturyLeSabre extends Vehicle {
 		}
 		case 3: {
 			// silver color
-			color = Colors.get(-1, 111, Colors.toHex("#	#CCCCCC"),
+			color = Colors.get(-1, 111, Colors.toHex("#CCCCCC"),
 					Colors.toHex("#c2feff"));
 			break;
 		}
