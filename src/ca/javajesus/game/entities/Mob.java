@@ -19,6 +19,7 @@ public abstract class Mob extends Entity {
 	public int width;
 	public int height;
 	protected double health;
+	protected double startHealth;
 	protected Rectangle hitBox;
 	protected SpriteSheet sheet;
 	protected HealthBar bar;
@@ -36,6 +37,7 @@ public abstract class Mob extends Entity {
 		this.width = width;
 		this.height = height;
 		this.health = defaultHealth;
+		this.startHealth = defaultHealth;
 		this.hitBox = new Rectangle(width, height);
 		this.sheet = sheet;
 		if (this instanceof Demon) {
@@ -193,33 +195,31 @@ public abstract class Mob extends Entity {
 			healthTickCount = 0;
 		}
 		
-		if ((health > 1100 / 12.0) && (health <= 100)) {
-			bar.setOffset(2);
-		} else if ((health > 1000 / 12.0) && (health <= 1100 / 12.0)) {
-			bar.setOffset(3);
-		} else if ((health > 900 / 12.0) && (health <= 1000 / 12.0)) {
-			bar.setOffset(4);
-		} else if ((health > 800 / 12.0) && (health <= 900 / 12.0)) {
-			bar.setOffset(5);
-		} else if ((health > 700 / 12.0) && (health <= 800 / 12.0)) {
-			bar.setOffset(6);
-		} else if ((health > 600 / 12.0) && (health <= 700 / 12.0)) {
-			bar.setOffset(7);
-		} else if ((health > 500 / 12.0) && (health <= 600 / 12.0)) {
-	        bar.setOffset(8);
-	    } else if ((health > 400 / 12.0) && (health <= 500 / 12.0)) {
-	        bar.setOffset(9);
-	    } else if ((health > 300 / 12.0) && (health <= 400 / 12.0)) {
-	        bar.setOffset(10);
-	    } else if ((health > 200 / 12.0) && (health <= 300 / 12.0)) {
-	        bar.setOffset(11);
-	    } else if ((health > 100 / 12.0) && (health <= 200 / 12.0)) {
-	        bar.setOffset(12);
-	    } else if ((health > 100 / 12.0) && (health <= 200 / 12.0)) {
-	        bar.setOffset(13);
-		} else {
-			bar.setOffset(14);
-		}
+        if ((health > 11*startHealth / 12.0) && (health <= startHealth)) {
+            bar.setOffset(2);
+        } else if ((health > 10*startHealth / 12.0) && (health <= 11*startHealth / 12.0)) {
+            bar.setOffset(3);
+        } else if ((health > 9*startHealth / 12.0) && (health <= 10*startHealth / 12.0)) {
+            bar.setOffset(4);
+        } else if ((health > 8*startHealth / 12.0) && (health <= 9*startHealth / 12.0)) {
+            bar.setOffset(5);
+        } else if ((health > 7*startHealth / 12.0) && (health <= 8*startHealth / 12.0)) {
+            bar.setOffset(6);
+        } else if ((health > 6*startHealth / 12.0) && (health <= 7*startHealth / 12.0)) {
+            bar.setOffset(7);
+        } else if ((health > 5*startHealth / 12.0) && (health <= 6*startHealth / 12.0)) {
+            bar.setOffset(8);
+        } else if ((health > 4*startHealth / 12.0) && (health <= 5*startHealth / 12.0)) {
+            bar.setOffset(9);
+        } else if ((health > 3*startHealth / 12.0) && (health <= 4*startHealth / 12.0)) {
+            bar.setOffset(10);
+        } else if ((health > 2*startHealth / 12.0) && (health <= 3*startHealth / 12.0)) {
+            bar.setOffset(11);
+        } else if ((health > 100 / 12.0) && (health <= 200 / 12.0)) {
+            bar.setOffset(12);
+        } else {
+            bar.setOffset(13);
+        }
 
 		if (health <= 0) {
 			hasDied = true;

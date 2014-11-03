@@ -23,7 +23,7 @@ public class HealthBar extends Particle {
 		this.mob = mob;
 		this.yOffset = yOffset;
 	}
-
+	
 	public void render(Screen screen) {
 
 		this.x = mob.x;
