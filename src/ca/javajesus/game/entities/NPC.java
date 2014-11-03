@@ -17,7 +17,7 @@ public class NPC extends Mob {
 			16, 16, 100, Colors.get(-1, Colors.toHex("#2a2a2a"),
 					Colors.toHex("#000046"), 543), 0, 4, "triangle", 20);
 	public static NPC npc3 = new NPC(Level.level1, "Jesus", 300, 400, 1, 16,
-			16, 100, Colors.get(-1, 111, 555, Colors.toHex("#ffd89b")), 0, 6,
+			16, 9001, Colors.get(-1, 111, 555, Colors.toHex("#ffd89b")), 0, 6,
 			"square", 30);
 	public static NPC npc4 = new NPC(Level.level1, "Citizen-Female", 200, 400,
 			1, 16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 8, "cross", 30);
