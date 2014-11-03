@@ -193,7 +193,7 @@ public abstract class Mob extends Entity {
 			healthTickCount = 0;
 		}
 		
-		if ((health > 1100 / 7.0) && (health <= 100)) {
+		if ((health > 1100 / 12.0) && (health <= 100)) {
 			bar.setOffset(2);
 		} else if ((health > 1000 / 12.0) && (health <= 1100 / 12.0)) {
 			bar.setOffset(3);
