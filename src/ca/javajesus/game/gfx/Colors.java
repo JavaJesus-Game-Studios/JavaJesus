@@ -3,18 +3,26 @@ package ca.javajesus.game.gfx;
 import java.awt.Color;
 
 public class Colors {
+	
+	/** Left Shift << Is the same as multiplying by 2 ^ n */
 
-	/** Four colors */
+	/** Four Colors
+	 * @param color1: Black, Hex Value:
+	 * @param color2: Dark, Hex Value:
+	 * @param color3: Light, Hex Value:
+	 * @param color4: White, Hex Value:
+	 * @return
+	 */
 	public static int get(int color1, int color2, int color3, int color4) {
 		return ((get(color4) << 24) + (get(color3) << 16) + (get(color2) << 8) + (get(color1)));
 	}
 
-	/** Eight Colors */
+	/** Nine Colors */
 	public static int get(int color1, int color2, int color3, int color4,
-			int color5, int color6, int color7, int color8) {
-		return ((get(color8) << 54) + (get(color7) << 48) + (get(color6) << 40)
-				+ (get(color5) << 32) + (get(color4) << 24)
-				+ (get(color3) << 16) + (get(color2) << 8) + (get(color1)));
+			int color5, int color6, int color7, int color8, int color9) {
+		return ((get(color9) << 24) + (get(color8) << 21) + (get(color7) << 18) + (get(color6) << 15)
+				+ (get(color5) << 12) + (get(color4) << 9)
+				+ (get(color3) << 6) + (get(color2) << 3) + (get(color1)));
 	}
 
 	private static int get(int color) {

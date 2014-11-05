@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.SplashScreen;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -81,6 +82,8 @@ public class Game extends Canvas implements Runnable {
 	/** Creates instance of the random level */
 	public Level randomLevel;
 
+	public boolean isLoaded = false;
+
 	/** This starts the game */
 	public Game() {
 		setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -120,6 +123,7 @@ public class Game extends Canvas implements Runnable {
 		player = new Player(getLevel(), 25, 50, input);
 		getLevel().addEntity(player);
 		getLevel().initNPCPlacement();
+
 	}
 
 	public void updateLevel() {
@@ -141,8 +145,8 @@ public class Game extends Canvas implements Runnable {
 	/** Initializes the level data */
 	private void initLevels() {
 		randomLevel = new RandomLevel(WIDTH, HEIGHT);
-		Demon demon = new Demon(randomLevel, "Demon", 50, 50, 1, player);
-		randomLevel.addSpawner(50, 50, demon, screen);
+		randomLevel.addSpawner(50, 50, new Demon(randomLevel, "Demon", 50, 50,
+				1, player), screen);
 	}
 
 	/** Starts the game */
@@ -249,6 +253,10 @@ public class Game extends Canvas implements Runnable {
 			g.setFont(new Font("Verdana", 0, 50));
 			g.setColor(Color.BLACK);
 			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);
+			frame.dispose();
+			new Launcher(0);
+			running = false;
+			return;
 		}
 		g.dispose();
 		bs.show();
@@ -295,10 +303,9 @@ public class Game extends Canvas implements Runnable {
 
 	/** Main Method Creation */
 	public static void main(String[] args) {
-		//loadingScreen();
+		// loadingScreen();
 		new Launcher(0);
 
 	}
-	
 
 }
