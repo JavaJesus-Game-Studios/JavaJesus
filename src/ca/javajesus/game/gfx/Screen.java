@@ -1,5 +1,7 @@
 package ca.javajesus.game.gfx;
 
+import java.awt.image.BufferedImage;
+
 import ca.javajesus.game.Game;
 
 public class Screen {
@@ -29,20 +31,31 @@ public class Screen {
 
 	}
 
-	/** Renders things onto the screen
-	 * @param d : The x position on the screen in which the tiles are rendered
-	 * @param yOffset2 : The y position on the screen in which the tiles are rendered
-	 * @param tile : the tile number on the SpriteSheet, used with (xTile) + (yTile) * 32
-	 * @param colour : The color of the sprite. Use with Colours.get()
-	 * @param mirrorDir : The direction the sprite is facing
-	 * @param scale : How large the object is, usually 1
-	 * @param sheet : The SpriteSheet that java will check for using the Tile parameter
+	/**
+	 * Renders things onto the screen
+	 * 
+	 * @param d
+	 *            : The x position on the screen in which the tiles are rendered
+	 * @param yOffset2
+	 *            : The y position on the screen in which the tiles are rendered
+	 * @param tile
+	 *            : the tile number on the SpriteSheet, used with (xTile) +
+	 *            (yTile) * 32
+	 * @param colour
+	 *            : The color of the sprite. Use with Colours.get()
+	 * @param mirrorDir
+	 *            : The direction the sprite is facing
+	 * @param scale
+	 *            : How large the object is, usually 1
+	 * @param sheet
+	 *            : The SpriteSheet that java will check for using the Tile
+	 *            parameter
 	 */
 	public void render(double d, double yOffset2, int tile, int colour,
 			int mirrorDir, double scale, SpriteSheet sheet) {
 
 		// WTF Mode
-		//sheet.height = 0; sheet.width = 0;
+		// sheet.height = 0; sheet.width = 0;
 
 		d -= xOffset;
 		yOffset2 -= yOffset;
@@ -91,5 +104,44 @@ public class Screen {
 
 	public Game getGame() {
 		return game;
+	}
+
+	public void render(double d, double yOffset2, BufferedImage image, int colour,
+			int mirrorDir, double scale, SpriteSheet sheet) {
+		d -= xOffset;
+		yOffset2 -= yOffset;
+
+		boolean mirrorX = (mirrorDir & BIT_MIRROR_X) > 0;
+		boolean mirrorY = (mirrorDir & BIT_MIRROR_Y) > 0;
+
+		double scaleMap = scale - 1;
+		for (int y = 0; y < image.getHeight(); y++) {
+			int ySheet = y;
+			if (mirrorY)
+				ySheet = image.getHeight() - 1 - y;
+			int yPixel = (int) (y + yOffset2 + (y * scaleMap) - ((scaleMap * 8) / 2));
+			for (int x = 0; x < image.getWidth(); x++) {
+				int xPixel = (int) (x + d + (x * scaleMap) - ((scaleMap * 8) / 2));
+				int xSheet = x;
+				if (mirrorX)
+					xSheet = image.getWidth() - 1 - x;
+
+				int col = (colour >> (sheet.pixels[xSheet + ySheet
+						* sheet.width])) & 255;
+				if (col < 255) {
+					for (int yScale = 0; yScale < scale; yScale++) {
+						if (yPixel + yScale < 0 || yPixel + yScale >= height)
+							continue;
+						for (int xScale = 0; xScale < scale; xScale++) {
+							if (x + d < 0 || x + d >= width)
+								continue;
+							pixels[(xPixel + xScale) + (yPixel + yScale)
+									* width] = col;
+
+						}
+					}
+				}
+			}
+		}
 	}
 }
