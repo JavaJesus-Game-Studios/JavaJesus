@@ -11,7 +11,7 @@ public class Vehicle extends Mob {
 	protected int color;
 
 	public static Vehicle vehicle1 = new CenturyLeSabre(Level.level1,
-			"Century LeSabre", 300, 300, 5, 50, 50, SpriteSheet.vehicles, 200);
+			"Century LeSabre", 300, 300, 5, SpriteSheet.vehicles, 200);
 
 	public Vehicle(Level level, String name, double x, double y, int speed,
 			int width, int height, SpriteSheet sheet, double defaultHealth) {

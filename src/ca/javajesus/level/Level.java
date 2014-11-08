@@ -203,8 +203,8 @@ public class Level {
 		return entities;
 	}
 
-	public void addSpawner(double x, double y, Entity entity, Screen screen) {
-		this.addEntity(new Spawner(x, y, this, entity, screen));
+	public void addSpawner(double x, double y, Entity entity) {
+		this.addEntity(new Spawner(this, x, y, entity));
 	}
 
 	public void initNPCPlacement() {

@@ -11,13 +11,13 @@ import ca.javajesus.level.Level;
 public class CenturyLeSabre extends Vehicle {
 
 	private Random random = new Random();
-
+	
 	public CenturyLeSabre(Level level, String name, double x, double y,
-			int speed, int width, int height, SpriteSheet sheet,
+			int speed, SpriteSheet sheet,
 			double defaultHealth) {
-		super(level, name, x, y, speed, width, height, sheet, defaultHealth);
+		super(level, name, x, y, speed, 32, 40, sheet, defaultHealth);
 		getColor();
-		this.hitBox = new Rectangle(30, 30);
+		this.hitBox = new Rectangle(width, height);
 	}
 
 	private void getColor() {
@@ -72,6 +72,14 @@ public class CenturyLeSabre extends Vehicle {
 	}
 
 	public void render(Screen screen) {
+	    if (movingDir == 0 || movingDir == 1) {
+	        this.width = 32;
+	        this.height = 40;
+	    } else {
+	        this.width = 40;
+	        this.height = 32;
+	    }
+	    this.hitBox.setSize(width, height);
 		this.hitBox.setLocation((int) this.x, (int) this.y);
 		int xTile = 0;
 		int yTile = 0;

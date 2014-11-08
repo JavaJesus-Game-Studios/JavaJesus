@@ -32,7 +32,7 @@ public class Player extends Mob {
 	protected Vehicle vehicle;
 
 	public Player(Level level, double x, double y, InputHandler input) {
-		super(level, "player", x, y, 1, 16, 16, SpriteSheet.player, 100);
+		super(level, "player", x, y, 1, 14, 16, SpriteSheet.player, 100);
 		this.input = input;
 	}
 
@@ -62,7 +62,7 @@ public class Player extends Mob {
 		if (input.t.isPressed()) {
 			if (!genericCooldown) {
 				level.addEntity(new Demon(level, "Demon", (int) this.x,
-						(int) this.y, 1, this));
+						(int) this.y, 1));
 			}
 			genericCooldown = true;
 		}
@@ -319,7 +319,7 @@ public class Player extends Mob {
 					bulletOffset = -15;
 				}
 
-				level.addEntity(new Projectile(level, 1, bulletColour,
+				level.addEntity(new Projectile(level, 2, 1, 1, bulletColour,
 						(this.x + 10 + bulletOffset), (this.y - 5), 6,
 						movingDir));
 				isShooting = false;

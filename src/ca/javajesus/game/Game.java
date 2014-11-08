@@ -44,7 +44,7 @@ public class Game extends Canvas implements Runnable {
 	public static final String NAME = "Java Jesus by the Coders of Anarchy";
 
 	/** Entity limit per screen */
-	public final int ENTITY_LIMIT = 10;
+	public final static int ENTITY_LIMIT = 10;
 
 	/** Determines whether the game is running or not */
 	public boolean running = false;
@@ -146,7 +146,7 @@ public class Game extends Canvas implements Runnable {
 	private void initLevels() {
 		randomLevel = new RandomLevel(WIDTH, HEIGHT);
 		randomLevel.addSpawner(50, 50, new Demon(randomLevel, "Demon", 50, 50,
-				1, player), screen);
+				1));
 	}
 
 	/** Starts the game */

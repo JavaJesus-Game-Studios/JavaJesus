@@ -1,5 +1,6 @@
 package ca.javajesus.game.entities;
 
+import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
@@ -64,6 +65,7 @@ public class NPC extends Mob {
 		this.walkDistance = walkDistance;
 		this.xPos = x;
 		this.yPos = y;
+		this.hitBox = new Rectangle(width, height);
 	}
 
 	public boolean hasCollided(int xa, int ya) {
@@ -196,9 +198,7 @@ public class NPC extends Mob {
 			}
 		}
 		if (xa != 0 || ya != 0) {
-			this.hitBox.setLocation(this.hitBox.x + xa, this.hitBox.y + ya);
 			if (isMobCollision()) {
-				this.hitBox.setLocation(this.hitBox.x - xa, this.hitBox.y - ya);
 				isMoving = false;
 				return;
 			}
@@ -235,9 +235,7 @@ public class NPC extends Mob {
 			}
 		}
 		if (xa != 0 || ya != 0) {
-			this.hitBox.setLocation(this.hitBox.x + xa, this.hitBox.y + ya);
 			if (isMobCollision()) {
-				this.hitBox.setLocation(this.hitBox.x - xa, this.hitBox.y - ya);
 				isMoving = false;
 				return;
 			}
@@ -278,9 +276,7 @@ public class NPC extends Mob {
 			}
 		}
 		if (xa != 0 || ya != 0) {
-			this.hitBox.setLocation(this.hitBox.x + xa, this.hitBox.y + ya);
 			if (isMobCollision()) {
-				this.hitBox.setLocation(this.hitBox.x - xa, this.hitBox.y - ya);
 				isMoving = false;
 				return;
 			}
@@ -339,9 +335,7 @@ public class NPC extends Mob {
 			}
 		}
 		if (xa != 0 || ya != 0) {
-			this.hitBox.setLocation(this.hitBox.x + xa, this.hitBox.y + ya);
 			if (isMobCollision()) {
-				this.hitBox.setLocation(this.hitBox.x - xa, this.hitBox.y - ya);
 				isMoving = false;
 				return;
 			}
@@ -360,9 +354,7 @@ public class NPC extends Mob {
 		int xa = (int) (walkDistance * Math.cos(miniTick / walkDistance));
 		int ya = (int) (walkDistance * Math.sin(miniTick / walkDistance));
 		if (xa != 0 || ya != 0) {
-			this.hitBox.setLocation(this.hitBox.x + xa, this.hitBox.y + ya);
 			if (isMobCollision()) {
-				this.hitBox.setLocation(this.hitBox.x - xa, this.hitBox.y - ya);
 				isMoving = false;
 				return;
 			}
