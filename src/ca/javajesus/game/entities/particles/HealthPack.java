@@ -1,8 +1,10 @@
-package ca.javajesus.game.entities;
+package ca.javajesus.game.entities.particles;
 
 import java.awt.Rectangle;
 import java.util.Random;
 
+import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;

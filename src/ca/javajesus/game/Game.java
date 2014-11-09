@@ -16,8 +16,8 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-import ca.javajesus.game.entities.Demon;
 import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gui.Launcher;

@@ -1,11 +1,17 @@
-package ca.javajesus.game.entities;
+package ca.javajesus.game.entities.particles;
 
 import java.awt.Rectangle;
 
+import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.entities.Mob;
+import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Projectile extends Particle {
+	
+	public static int fireballColour = Colors.get(-1, 550, Colors.toHex("#F7790A"),
+			300);
 
 	private int speed;
 	private double xPoint;

@@ -3,6 +3,10 @@ package ca.javajesus.game.entities;
 import java.awt.Rectangle;
 //import java.util.Random;
 
+
+
+import ca.javajesus.game.entities.monsters.Demon;
+import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.tile.Tile;
@@ -18,9 +22,9 @@ public abstract class Mob extends Entity {
 	public double velocity;
 	public int width;
 	public int height;
-	protected double health;
+	public double health;
 	protected double startHealth;
-	protected Rectangle hitBox;
+	public Rectangle hitBox;
 	protected SpriteSheet sheet;
 	protected HealthBar bar;
 	public boolean hasDied;
@@ -241,9 +245,5 @@ public abstract class Mob extends Entity {
 			onFire = true;
 			healthTickCount = 0;
 		}
-	}
-	
-	public Rectangle getHitbox() {
-		return this.hitBox;
 	}
 }
