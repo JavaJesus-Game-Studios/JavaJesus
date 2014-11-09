@@ -137,7 +137,7 @@ public class NPC extends Mob {
 	}
 
 	public void render(Screen screen) {
-		this.hitBox.setLocation((int) this.x, (int) this.y);
+		this.hitBox.setLocation((int) this.x, (int) this.y - 8);
 		int xTile = this.xTile;
 		int yTile = this.yTile;
 

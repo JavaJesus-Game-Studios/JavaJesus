@@ -186,7 +186,7 @@ public class Player extends Mob {
 			return;
 		}
 
-		this.hitBox.setLocation((int) this.x, (int) this.y);
+		this.hitBox.setLocation((int) this.x, (int) this.y - 8);
 		if (changeLevel) {
 			level.remEntity(this);
 			init(screen.getGame().randomLevel);
@@ -314,12 +314,12 @@ public class Player extends Mob {
 			if (!cooldown) {
 				int bulletOffset = 0;
 				if (movingDir == 2) {
-					bulletOffset = -15;
+					bulletOffset = -7;
 				}
 
 				level.addEntity(new Projectile(level, 2, 1, 1, bulletColour,
-						(this.x + 10 + bulletOffset), (this.y - 5), 6,
-						movingDir));
+						(this.x + 1 + bulletOffset), (this.y - 2), 6,
+						movingDir, this));
 				isShooting = false;
 				swingTickCount = 0;
 			}

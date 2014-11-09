@@ -110,9 +110,7 @@ public class Demon extends Mob {
         }
 
         if (xa != 0 || ya != 0) {
-            this.hitBox.setLocation(this.hitBox.x + xa, this.hitBox.y + ya);
             if (isMobCollision()) {
-                this.hitBox.setLocation(this.hitBox.x - xa, this.hitBox.y - ya);
                 isMoving = false;
                 return;
             }
@@ -126,7 +124,7 @@ public class Demon extends Mob {
 
     public void render(Screen screen) {
 
-        this.hitBox.setLocation((int) this.x, (int) this.y);
+        this.hitBox.setLocation((int) this.x, (int) this.y - 16);
         this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
                 RADIUS);
         int xTile = 0;
