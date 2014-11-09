@@ -80,7 +80,8 @@ public class CenturyLeSabre extends Vehicle {
 	        this.height = 32;
 	    }
 	    this.hitBox.setSize(width, height);
-		this.hitBox.setLocation((int) this.x, (int) this.y);
+		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 8);
+				
 		int xTile = 0;
 		int yTile = 0;
 

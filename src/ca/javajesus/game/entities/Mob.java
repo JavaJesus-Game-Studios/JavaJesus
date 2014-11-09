@@ -242,4 +242,8 @@ public abstract class Mob extends Entity {
 			healthTickCount = 0;
 		}
 	}
+	
+	public Rectangle getHitbox() {
+		return this.hitBox;
+	}
 }

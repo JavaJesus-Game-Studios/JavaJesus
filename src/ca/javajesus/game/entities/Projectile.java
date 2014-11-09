@@ -93,11 +93,12 @@ public class Projectile extends Particle {
 	 *            : The y velocity - currently broken, only 1 or 0
 	 */
 	public Projectile(Level level, int width, int height, int tileNumber,
-			int color, double x, double y, int speed, double xPos, double yPos) {
+			int color, double x, double y, int speed, double xPos, double yPos, Mob mob) {
 		super(level, tileNumber, color, x, y);
 		this.speed = speed;
 		this.hitBox = new Rectangle(width, height);
 		calcSlope(xPos, yPos);
+		this.mob = mob;
 	}
 
 	private void calcSlope(double x, double y) {

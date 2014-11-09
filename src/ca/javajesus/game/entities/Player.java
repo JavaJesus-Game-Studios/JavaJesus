@@ -226,15 +226,16 @@ public class Player extends Mob {
 
 		// Determines the sprite position at the designated swingTick count
 		switch (swingTick) {
-//		case 1:
-//			swingModifier = 2;
-//			break;
-//		case 2:
-//			swingModifier = 4;
-//			break;
-		/**
-		 * case 3: swingModifier = 6; break;
-		 */
+		case 1:
+			swingModifier = 2;
+			break;
+		case 2:
+			swingModifier = 4;
+			break;
+
+		case 3:
+			swingModifier = 6;
+			break;
 
 		default:
 			swingModifier = 0;
@@ -260,9 +261,27 @@ public class Player extends Mob {
 				yOffset -= 1;
 				waterColour = Colors.get(-1, 225, 225, -1);
 			}
-			screen.render(xOffset, yOffset + 3, 0 + 8 * 32, waterColour, 0x00,
+			screen.render(xOffset, yOffset + 3, 0 + 10 * 32, waterColour, 0x00,
 					1, sheet);
-			screen.render(xOffset + 8, yOffset + 3, 0 + 8 * 32, waterColour,
+			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * 32, waterColour,
+					0x01, 1, sheet);
+		}
+
+		// Handles fire animation
+		if (onFire) {
+			int fireColour = 0;
+			if (tickCount % 60 < 15) {
+				fireColour = Colors.get(-1, 225, -1, -1);
+			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
+				fireColour = Colors.get(-1, 115, 225, -1);
+			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
+				fireColour = Colors.get(-1, 115, -1, -1);
+			} else {
+				fireColour = Colors.get(-1, 225, 225, -1);
+			}
+			screen.render(xOffset, yOffset + 3, 0 + 11 * 32, fireColour, 0x00,
+					1, sheet);
+			screen.render(xOffset + 8, yOffset + 3, 0 + 11 * 32, fireColour,
 					0x01, 1, sheet);
 		}
 
@@ -293,6 +312,14 @@ public class Player extends Mob {
 			xTile = gunType;
 			yTile = 2;
 
+			if (movingDir == 1) {
+				yTile += 2;
+			}
+			if (movingDir == 0) {
+				yTile += 2;
+				xTile += 16;
+			}
+
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flipAttack1), yOffset, xTile
 					+ yTile * 32, colour, flipAttack1, scale, sheet);
@@ -315,6 +342,12 @@ public class Player extends Mob {
 				int bulletOffset = 0;
 				if (movingDir == 2) {
 					bulletOffset = -7;
+				}
+				if (movingDir == 0) {
+					bulletOffset += 1;
+				}
+				if (movingDir == 1) {
+					bulletOffset -= 11;
 				}
 
 				level.addEntity(new Projectile(level, 2, 1, 1, bulletColour,
