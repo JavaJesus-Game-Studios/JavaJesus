@@ -34,7 +34,7 @@ public abstract class Tile {
 	public static final Tile FIRE = new AnimatedTile(5, new int[][] {
 			{ 0, 15 }, { 1, 15 }, { 2, 15 }, { 3, 15 }, { 4, 15 }, { 3, 15 },
 			{ 2, 15 }, { 1, 15 } }, Colors.get(Colors.toHex("#F51F07"),
-			Colors.toHex("#F7790A"), 540, -1), 0xFFFF0000, 100);
+			Colors.toHex("#F7790A"), 540, -1) , 0xFFFF0000, 100);
 	public static final Tile ROAD1 = new BaseTile(6, 0, 2, Colors.get(-1, 000,
 			-1, -1), 0xFF565656);
 	public static final Tile ROAD2 = new BaseTile(7, 1, 2, Colors.get(-1, 000,

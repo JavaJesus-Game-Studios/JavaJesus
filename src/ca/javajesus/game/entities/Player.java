@@ -271,13 +271,17 @@ public class Player extends Mob {
 		if (onFire) {
 			int fireColour = 0;
 			if (tickCount % 60 < 15) {
-				fireColour = Colors.get(-1, 225, -1, -1);
+				fireColour = Colors.get(Colors.toHex("#F51F07"),
+						Colors.toHex("#F7790A"), 540, -1);
 			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
-				fireColour = Colors.get(-1, 115, 225, -1);
+				fireColour = Colors.get(Colors.toHex("#F51F07"),
+						Colors.toHex("#F7790A"), 540, -1);
 			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
-				fireColour = Colors.get(-1, 115, -1, -1);
+				fireColour = Colors.get(Colors.toHex("#F51F07"),
+						Colors.toHex("#F7790A"), 540, -1);
 			} else {
-				fireColour = Colors.get(-1, 225, 225, -1);
+				fireColour = Colors.get(Colors.toHex("#F51F07"),
+						Colors.toHex("#F7790A"), 540, -1);
 			}
 			screen.render(xOffset, yOffset + 3, 0 + 11 * 32, fireColour, 0x00,
 					1, sheet);
