@@ -1,12 +1,10 @@
 package ca.javajesus.game.entities;
 
-import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
-import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.level.Level;
 
 public class Player extends Mob {
@@ -228,12 +226,12 @@ public class Player extends Mob {
 
 		// Determines the sprite position at the designated swingTick count
 		switch (swingTick) {
-		case 1:
-			swingModifier = 2;
-			break;
-		case 2:
-			swingModifier = 4;
-			break;
+//		case 1:
+//			swingModifier = 2;
+//			break;
+//		case 2:
+//			swingModifier = 4;
+//			break;
 		/**
 		 * case 3: swingModifier = 6; break;
 		 */
