@@ -123,7 +123,7 @@ public class Game extends Canvas implements Runnable {
 		initLevels();
 		player = new Player(getLevel(), 25, 50, input);
 		getLevel().addEntity(player);
-		getLevel().initNPCPlacement();
+		getLevel().init();
 
 	}
 

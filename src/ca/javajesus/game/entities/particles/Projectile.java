@@ -9,9 +9,9 @@ import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Projectile extends Particle {
-	
-	public static int fireballColour = Colors.get(-1, 550, Colors.toHex("#F7790A"),
-			300);
+
+	public static int fireballColour = Colors.get(-1, 550,
+			Colors.toHex("#F7790A"), 300);
 
 	private int speed;
 	private double xPoint;
@@ -99,7 +99,8 @@ public class Projectile extends Particle {
 	 *            : The y velocity - currently broken, only 1 or 0
 	 */
 	public Projectile(Level level, int width, int height, int tileNumber,
-			int color, double x, double y, int speed, double xPos, double yPos, Mob mob) {
+			int color, double x, double y, int speed, double xPos, double yPos,
+			Mob mob) {
 		super(level, tileNumber, color, x, y);
 		this.speed = speed;
 		this.hitBox = new Rectangle(width, height);
@@ -130,13 +131,11 @@ public class Projectile extends Particle {
 		screen.render(this.x, this.y, tileNumber + (yOffset * 32), color, 1, 1,
 				sheet);
 		hitBox.setLocation((int) this.x, (int) this.y);
-		for (Entity entity : level.getEntities()) {
-
-			if (entity instanceof Mob) {
-				if (hitBox.intersects(((Mob) entity).hitBox)) {
-					if (entity != mob) {
-						((Mob) entity).health--;
-					}
+		for (Mob mobs : level.getMobs()) {
+			if (hitBox.intersects(mobs.hitBox)) {
+				if (mobs != mob) {
+					mobs.randomDamage(3, 5);
+					level.remEntity(this);
 				}
 			}
 

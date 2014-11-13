@@ -9,37 +9,22 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.imageio.ImageIO;
 
 import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.tile.MultiTile;
 import ca.javajesus.level.tile.Tile;
 
-public class Level {
+public abstract class Level {
 	protected int[] tiles;
 	public int width;
 	public int height;
-	private List<Entity> entities = new CopyOnWriteArrayList<Entity>();
+	protected List<Entity> entities = new CopyOnWriteArrayList<Entity>();
+	protected List<Mob> mobs = new CopyOnWriteArrayList<Mob>();
 	private String imagePath;
 	private BufferedImage image;
 
-	/** temporary ints */
-	protected byte grass = 0;
-	protected byte sand = 1;
-	protected byte rock = 2;
-	protected byte dirt = 3;
-	protected byte water = 4;
-
-	protected byte road1 = 5;
-	protected byte road2 = 8;
-	protected byte road3 = 9;
-
-	protected byte lily = 6;
-	protected byte waterSand = 7;
-
-	protected byte coniferTrees = 9;
-	protected byte decidiousTrees = 10;
-	
 	protected int[] tileColours;
 
 	public static Level level1 = new Level1("/Levels/tile_tester_level.png");
@@ -63,14 +48,22 @@ public class Level {
 		generateLevel();
 	}
 
+	protected abstract void initNPCPlacement();
+
+	protected abstract void initSpawnerPlacement();
+
+	protected abstract void initChestPlacement();
+
+	protected abstract void otherEntityPlacement();
+
 	private void loadLevelFromFile() {
 		try {
 			this.image = ImageIO.read(Level.class.getResource(this.imagePath));
 			this.width = this.image.getWidth();
 			this.height = this.image.getHeight();
 			tiles = new int[width * height];
-			tileColours = this.image.getRGB(0, 0, width, height, null, 0,
-					width);
+			tileColours = this.image
+					.getRGB(0, 0, width, height, null, 0, width);
 			this.loadTiles();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -190,25 +183,38 @@ public class Level {
 	}
 
 	public void addEntity(Entity entity) {
-		this.getEntities().add(entity);
+		this.entities.add(entity);
+		if (entity instanceof Mob) {
+			this.mobs.add((Mob) entity);
+		}
 
 	}
 
 	public void remEntity(Entity entity) {
-		this.getEntities().remove(entity);
-
+		this.entities.remove(entity);
+		if (entity instanceof Mob) {
+			this.mobs.remove((Mob) entity);
+		}
 	}
 
 	public List<Entity> getEntities() {
 		return entities;
 	}
 
+	public List<Mob> getMobs() {
+		return mobs;
+	}
+
 	public void addSpawner(double x, double y, Entity entity) {
 		this.addEntity(new Spawner(this, x, y, entity));
 	}
 
-	public void initNPCPlacement() {
-
+	public void init() {
+		initNPCPlacement();
+		initSpawnerPlacement();
+		initChestPlacement();
+		otherEntityPlacement();
+		
 	}
 
 }

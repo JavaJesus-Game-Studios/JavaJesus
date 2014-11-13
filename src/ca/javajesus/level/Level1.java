@@ -26,7 +26,23 @@ public class Level1 extends Level {
 		this.addEntity(Monster.horseThing1);
 		//this.addEntity(Monster.man1);
 		//this.addEntity(Monster.man2);
+				
+	}
+
+	@Override
+	public void initSpawnerPlacement() {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void initChestPlacement() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void otherEntityPlacement() {
 		this.addEntity(Vehicle.vehicle1);
 		
 	}

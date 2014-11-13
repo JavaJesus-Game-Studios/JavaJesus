@@ -5,6 +5,23 @@ import java.util.Random;
 import ca.javajesus.level.tile.Tile;
 
 public class RandomLevel extends Level {
+	
+	/** temporary ints */
+	protected final byte grass = 0;
+	protected final byte sand = 1;
+	protected final byte rock = 2;
+	protected final byte dirt = 3;
+	protected final byte water = 4;
+
+	protected final byte road1 = 5;
+	protected final byte road2 = 8;
+	protected final byte road3 = 9;
+
+	protected final byte lily = 6;
+	protected final byte waterSand = 7;
+
+	protected final byte coniferTrees = 9;
+	protected final byte decidiousTrees = 10;
 
     private static final Random random = new Random();
     protected int[] grid;
@@ -384,5 +401,29 @@ public class RandomLevel extends Level {
         }
 
     }
+
+	@Override
+	public void initSpawnerPlacement() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initChestPlacement() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void otherEntityPlacement() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initNPCPlacement() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

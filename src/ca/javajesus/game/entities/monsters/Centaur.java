@@ -100,8 +100,16 @@ public class Centaur extends Monster {
 	}
 
 	public void render(Screen screen) {
+		if (movingDir == 0 || movingDir == 1) {
+	        this.width = 14;
+	        this.height = 24;
+	    } else {
+	        this.width = 24;
+	        this.height = 24;
+	    }
+	    this.hitBox.setSize(width, height);
 
-		this.hitBox.setLocation((int) this.x, (int) this.y - 16);
+		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 16);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		int xTile = 0;

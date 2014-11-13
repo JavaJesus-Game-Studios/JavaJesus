@@ -1,16 +1,23 @@
 package ca.javajesus.game.entities.monsters;
 
+import java.awt.geom.Ellipse2D;
+
 import ca.javajesus.game.entities.particles.Projectile;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class GangMember extends Monster {
-
+	
+	protected Ellipse2D.Double standRange;
+	
 	public GangMember(Level level, String name, double x, double y, int speed,
 			double health) {
 		super(level, name, x, y, speed, 14, 16, 3, health, Colors.get(-1, 234,
 				342, 123));
+		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
+				RADIUS / 2, RADIUS / 2);
+
 	}
 
 	public boolean hasCollided(int xa, int ya) {
@@ -61,7 +68,7 @@ public class GangMember extends Monster {
 		}
 		int xa = 0;
 		int ya = 0;
-		if (mob != null) {
+		if (mob != null && !this.standRange.intersects(mob.hitBox)) {
 			if (this.aggroRadius.intersects(mob.hitBox)) {
 
 				if ((int) mob.x > (int) this.x) {
@@ -76,14 +83,15 @@ public class GangMember extends Monster {
 				if ((int) mob.y < (int) this.y) {
 					ya--;
 				}
-				tickCount++;
-
-				if (tickCount % 100 == 0) {
-					cooldown = false;
-				} else {
-					cooldown = true;
-				}
 			}
+		}
+		
+		tickCount++;
+
+		if (tickCount % 100 == 0) {
+			cooldown = false;
+		} else {
+			cooldown = true;
 		}
 
 		if (xa != 0 || ya != 0) {
@@ -101,9 +109,11 @@ public class GangMember extends Monster {
 
 	public void render(Screen screen) {
 
-		this.hitBox.setLocation((int) this.x, (int) this.y - 8);
+		this.hitBox.setLocation((int) this.x - 9, (int) this.y - 16);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
+		this.standRange.setFrame(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2,
+				RADIUS / 2);
 		int xTile = 0;
 		int walkingSpeed = 4;
 		int flipTop = (numSteps >> walkingSpeed) & 1;

@@ -2,8 +2,7 @@ package ca.javajesus.game.entities;
 
 import java.awt.Rectangle;
 //import java.util.Random;
-
-
+import java.util.Random;
 
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.particles.HealthBar;
@@ -30,6 +29,14 @@ public abstract class Mob extends Entity {
 	public boolean hasDied;
 	protected boolean onFire = false;
 	protected int healthTickCount = 0;
+	protected int lastDirection = 0;
+	protected boolean movingRandomly = false;
+	
+	public boolean isTargeted = false;
+
+	public int strength;
+
+	private Random random = new Random();
 
 	public Mob(Level level, String name, double x, double y, int speed,
 			int width, int height, SpriteSheet sheet, double defaultHealth) {
@@ -134,20 +141,11 @@ public abstract class Mob extends Entity {
 		if (level == null) {
 			return false;
 		}
-		for (int i = 0; i < level.getEntities().size(); i++) {
-			Mob entity;
-			if (level.getEntities().get(i) instanceof Mob) {
-				entity = (Mob) level.getEntities().get(i);
-				if (entity == this) {
+		for (Mob mob : level.getMobs()) {
+				if (mob == this)
 					continue;
-				}
-			} else {
-				continue;
-			}
-			if (this.hitBox.intersects(entity.hitBox)) {
-				return true;
-			}
-
+				if (this.hitBox.intersects(mob.hitBox))
+					return true;
 		}
 		return false;
 	}
@@ -155,7 +153,7 @@ public abstract class Mob extends Entity {
 	protected void moveRandomly() {
 		int xa = 0;
 		int ya = 0;
-		switch (movingDir) {
+		switch (lastDirection) {
 		case 0:
 			ya++;
 			break;
@@ -186,44 +184,53 @@ public abstract class Mob extends Entity {
 
 	/** Updates the Health Bar */
 	public void updateHealth() {
-		
+
 		checkTile(this.x, this.y);
-		
+
 		if (onFire) {
 			healthTickCount++;
 			health -= 0.2;
 		}
-		
+
 		if (healthTickCount == 200 && onFire) {
 			onFire = false;
 			healthTickCount = 0;
 		}
-		
-        if ((health > 11*startHealth / 12.0) && (health <= startHealth)) {
-            bar.setOffset(2);
-        } else if ((health > 10*startHealth / 12.0) && (health <= 11*startHealth / 12.0)) {
-            bar.setOffset(3);
-        } else if ((health > 9*startHealth / 12.0) && (health <= 10*startHealth / 12.0)) {
-            bar.setOffset(4);
-        } else if ((health > 8*startHealth / 12.0) && (health <= 9*startHealth / 12.0)) {
-            bar.setOffset(5);
-        } else if ((health > 7*startHealth / 12.0) && (health <= 8*startHealth / 12.0)) {
-            bar.setOffset(6);
-        } else if ((health > 6*startHealth / 12.0) && (health <= 7*startHealth / 12.0)) {
-            bar.setOffset(7);
-        } else if ((health > 5*startHealth / 12.0) && (health <= 6*startHealth / 12.0)) {
-            bar.setOffset(8);
-        } else if ((health > 4*startHealth / 12.0) && (health <= 5*startHealth / 12.0)) {
-            bar.setOffset(9);
-        } else if ((health > 3*startHealth / 12.0) && (health <= 4*startHealth / 12.0)) {
-            bar.setOffset(10);
-        } else if ((health > 2*startHealth / 12.0) && (health <= 3*startHealth / 12.0)) {
-            bar.setOffset(11);
-        } else if ((health > 100 / 12.0) && (health <= 200 / 12.0)) {
-            bar.setOffset(12);
-        } else {
-            bar.setOffset(13);
-        }
+
+		if ((health > 11 * startHealth / 12.0) && (health <= startHealth)) {
+			bar.setOffset(2);
+		} else if ((health > 10 * startHealth / 12.0)
+				&& (health <= 11 * startHealth / 12.0)) {
+			bar.setOffset(3);
+		} else if ((health > 9 * startHealth / 12.0)
+				&& (health <= 10 * startHealth / 12.0)) {
+			bar.setOffset(4);
+		} else if ((health > 8 * startHealth / 12.0)
+				&& (health <= 9 * startHealth / 12.0)) {
+			bar.setOffset(5);
+		} else if ((health > 7 * startHealth / 12.0)
+				&& (health <= 8 * startHealth / 12.0)) {
+			bar.setOffset(6);
+		} else if ((health > 6 * startHealth / 12.0)
+				&& (health <= 7 * startHealth / 12.0)) {
+			bar.setOffset(7);
+		} else if ((health > 5 * startHealth / 12.0)
+				&& (health <= 6 * startHealth / 12.0)) {
+			bar.setOffset(8);
+		} else if ((health > 4 * startHealth / 12.0)
+				&& (health <= 5 * startHealth / 12.0)) {
+			bar.setOffset(9);
+		} else if ((health > 3 * startHealth / 12.0)
+				&& (health <= 4 * startHealth / 12.0)) {
+			bar.setOffset(10);
+		} else if ((health > 2 * startHealth / 12.0)
+				&& (health <= 3 * startHealth / 12.0)) {
+			bar.setOffset(11);
+		} else if ((health > 100 / 12.0) && (health <= 200 / 12.0)) {
+			bar.setOffset(12);
+		} else {
+			bar.setOffset(13);
+		}
 
 		if (health <= 0) {
 			hasDied = true;
@@ -241,9 +248,15 @@ public abstract class Mob extends Entity {
 	}
 
 	public void checkTile(double x, double y) {
-		if (level.getTile((int) x / 8, (int) y /8) == Tile.FIRE) {
+		if (level.getTile((int) x / 8, (int) y / 8) == Tile.FIRE) {
 			onFire = true;
 			healthTickCount = 0;
 		}
+	}
+
+	public void randomDamage(int a, int b) {
+
+		int damage = random.nextInt(b - a + 1) + a;
+		this.health -= damage;
 	}
 }

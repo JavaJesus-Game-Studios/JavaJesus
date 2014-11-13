@@ -12,13 +12,15 @@ import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Monster extends Mob {
-	
-	public static Monster gang1 = new GangMember(Level.level1, "Gang Member 1", 500, 100, 1, 100);
-	public static Monster horseThing1 = new Centaur(Level.level1, "HorseThing", 500, 200, 1, 100);
+
+	public static Monster gang1 = new GangMember(Level.level1, "Gang Member 1",
+			500, 100, 1, 100);
+	public static Monster horseThing1 = new Centaur(Level.level1, "HorseThing",
+			500, 200, 1, 100);
 	public static Monster monkey;
 	public static Monster man1;
 	public static Monster man2;
-	
+
 	protected int colour;
 	/** The player the monster is chasing */
 	protected Mob mob;
@@ -35,8 +37,10 @@ public class Monster extends Mob {
 	protected int shootTickCount = 0;
 	protected int yTile;
 
-	public Monster(Level level, String name, double x, double y, int speed, int width, int height, int yTile, double health, int color) {
-		super(level, name, x, y, speed, width, height, SpriteSheet.enemies, health);
+	public Monster(Level level, String name, double x, double y, int speed,
+			int width, int height, int yTile, double health, int color) {
+		super(level, name, x, y, speed, width, height, SpriteSheet.enemies,
+				health);
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
 				RADIUS, RADIUS);
 		this.yTile = yTile;
@@ -46,14 +50,18 @@ public class Monster extends Mob {
 
 	protected void checkRadius() {
 
-		for (Entity entity : level.getEntities()) {
-			if (entity instanceof Player || entity instanceof NPC) {
-				if (this.aggroRadius.intersects(((Mob) entity).hitBox)) {
-					this.mob = (Mob) entity;
+		for (Mob mob : level.getMobs()) {
+			if (mob instanceof Player || mob instanceof NPC) {
+				if (this.aggroRadius.intersects(mob.hitBox)) {
+					if (!mob.isTargeted) {
+						this.mob = mob;
+						mob.isTargeted = true;
+					}
 					return;
 				}
 			}
 		}
+		
 
 	}
 

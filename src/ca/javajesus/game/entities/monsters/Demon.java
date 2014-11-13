@@ -151,11 +151,6 @@ public class Demon extends Monster {
 					+ modifier, (xTile + 1) + (yTile + 1) * 32, colour,
 					flipBottom, scale, sheet);
 
-			// Middle Body 3
-			screen.render(xOffset + handOffset + 2 * modifier
-					- (modifier * flipMiddle), yOffset + modifier, (xTile + 2)
-					+ (yTile + 1) * 32, colour, flipBottom, scale, sheet);
-
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom), yOffset + 2
 					* modifier, xTile + (yTile + 2) * 32, colour, flipBottom,

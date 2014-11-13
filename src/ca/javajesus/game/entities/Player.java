@@ -9,6 +9,7 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.Level1;
 
 public class Player extends Mob {
 
@@ -47,7 +48,7 @@ public class Player extends Mob {
 
 	public Level getLevel() {
 		if (level == null) {
-			return new Level("/levels/water_test_level.png");
+			return new Level1("/levels/water_test_level.png");
 		}
 		return level;
 	}
