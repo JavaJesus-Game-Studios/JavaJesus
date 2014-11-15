@@ -13,8 +13,8 @@ public class GangMember extends Monster {
 	
 	public GangMember(Level level, String name, double x, double y, int speed,
 			double health) {
-		super(level, name, x, y, speed, 14, 16, 3, health, Colors.get(-1, 234,
-				342, 123));
+		super(level, name, x, y, speed, 14, 16, 3, health, Colors.get(-1, 111,
+				555, 543));
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
 				RADIUS / 2, RADIUS / 2);
 

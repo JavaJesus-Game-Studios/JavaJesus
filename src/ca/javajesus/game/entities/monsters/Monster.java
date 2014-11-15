@@ -2,11 +2,9 @@ package ca.javajesus.game.entities.monsters;
 
 import java.awt.geom.Ellipse2D;
 
-import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.NPC;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
