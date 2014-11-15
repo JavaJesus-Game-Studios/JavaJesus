@@ -15,7 +15,7 @@ public abstract class Mob extends Entity {
 	protected String name;
 	protected double speed;
 	protected int numSteps = 0;
-	protected boolean isMoving;
+	public boolean isMoving;
 	protected int movingDir = 1;
 	protected int scale = 1;
 	public double velocity;
@@ -244,7 +244,7 @@ public abstract class Mob extends Entity {
 
 		level.remEntity(bar);
 		level.remEntity(this);
-
+		this.isTargeted = false;
 	}
 
 	public void checkTile(double x, double y) {

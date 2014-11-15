@@ -1,6 +1,6 @@
 package ca.javajesus.game.entities.monsters;
 
-import ca.javajesus.game.entities.particles.Projectile;
+import ca.javajesus.game.entities.particles.projectiles.FireBall;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
@@ -61,7 +61,7 @@ public class Demon extends Monster {
 		}
 		int xa = 0;
 		int ya = 0;
-		if (this.aggroRadius.intersects(mob.hitBox)) {
+		if (mob != null && this.aggroRadius.intersects(mob.hitBox)) {
 
 			if ((int) mob.x > (int) this.x) {
 				xa++;
@@ -196,8 +196,7 @@ public class Demon extends Monster {
 				return;
 			}
 			isShooting = true;
-			level.addEntity(new Projectile(level, 6, 6, 0,
-					Projectile.fireballColour, this.x + 5, (this.y - 7), 4,
+			level.addEntity(new FireBall(level, this.x + 5, (this.y - 7),
 					mob.x, mob.y, this));
 		}
 

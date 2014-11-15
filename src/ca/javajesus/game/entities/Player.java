@@ -3,7 +3,8 @@ package ca.javajesus.game.entities;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.particles.HealthPack;
-import ca.javajesus.game.entities.particles.Projectile;
+import ca.javajesus.game.entities.particles.projectiles.Bullet;
+import ca.javajesus.game.entities.particles.projectiles.Projectile;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -15,7 +16,6 @@ public class Player extends Mob {
 
 	private InputHandler input;
 	private int colour = Colors.get(-1, 111, 300, 543);
-	private int bulletColour = Colors.get(-1, -1, -1, 550);
 	private int scale = 1;
 	protected boolean isSwimming = false;
 	public boolean isSwinging = false;
@@ -358,9 +358,8 @@ public class Player extends Mob {
 					bulletOffset -= 11;
 				}
 
-				level.addEntity(new Projectile(level, 2, 1, 1, bulletColour,
-						(this.x + 1 + bulletOffset), (this.y - 2), 6,
-						movingDir, this));
+				level.addEntity(new Bullet(level, (this.x + 1 + bulletOffset),
+						(this.y - 2), movingDir, this));
 				isShooting = false;
 				swingTickCount = 0;
 			}

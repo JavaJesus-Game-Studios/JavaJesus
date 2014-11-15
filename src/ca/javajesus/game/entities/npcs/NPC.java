@@ -1,9 +1,10 @@
-package ca.javajesus.game.entities;
+package ca.javajesus.game.entities.npcs;
 
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
+import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
@@ -27,19 +28,16 @@ public class NPC extends Mob {
 	public static NPC npc6 = new NPC(Level.level1, "Fox", 250, 75, 2, 16, 16,
 			100, Colors.get(-1, 111, Colors.toHex("#ffa800"), 555), 0, 14,
 			"cross", 50);
-	public static NPC npc7 = new NPC(Level.level1, "SWAT Officer", 400, 100, 1, 16,
-			16, 100, Colors.get(-1, 000, Colors.toHex("#000046"), 
-					543), 0, 10, "linear", 20);
+
 	public static NPC npc8 = new NPC(Level.level1, "Tech Warrior", 400, 250, 1,
-			16, 16, 100, Colors.get(-1, 000,
-					Colors.toHex("#42ff00"), 543), 0, 12, "triangle", 20);
-	public static NPC npc9 = new NPC(Level.level1, "Peasant-Male", 500, 400, 1, 16,
-			16, 9001, Colors.get(-1, 111, Colors.toHex("#715b17"), 
-					543), 0, 16,
-			"square", 30);
+			16, 16, 100, Colors.get(-1, 000, Colors.toHex("#42ff00"), 543), 0,
+			12, "triangle", 20);
+	public static NPC npc9 = new NPC(Level.level1, "Peasant-Male", 500, 400, 1,
+			16, 16, 9001, Colors.get(-1, 111, Colors.toHex("#715b17"), 543), 0,
+			16, "square", 30);
 	public static NPC npc10 = new NPC(Level.level1, "Peasant-Female", 500, 500,
-			1, 16, 16, 100, Colors.get(-1, 111, Colors.toHex("#715b17"), 
-					543), 0, 18, "cross", 30);
+			1, 16, 16, 100, Colors.get(-1, 111, Colors.toHex("#715b17"), 543),
+			0, 18, "cross", 30);
 
 	private double scaledSpeed = 0.35;
 	/** Range that the NPC can walk */
@@ -63,6 +61,8 @@ public class NPC extends Mob {
 	protected boolean dir3;
 	protected boolean dir4;
 	protected int tickCount;
+
+	protected boolean movingToOrigin = false;
 
 	public NPC(Level level, String name, double x, double y, int speed,
 			int width, int height, double defaultHealth, int color, int xTile,
@@ -113,8 +113,9 @@ public class NPC extends Mob {
 
 		updateHealth();
 		tickCount++;
-		if (tickCount > 360 * 5) {
+		if (tickCount > 360) {
 			tickCount = 0;
+			movingToOrigin = true;
 		}
 
 		if (!movingRandomly && isMobCollision()) {
@@ -123,6 +124,46 @@ public class NPC extends Mob {
 			return;
 		}
 
+		if (movingToOrigin)
+			findOrigin();
+		else
+			findPath();
+
+	}
+
+	protected void findOrigin() {
+
+		if ((int) xPos == (int) this.x && (int) yPos == (int) this.y) {
+			movingToOrigin = false;
+		}
+
+		int xa = 0;
+		int ya = 0;
+		if ((int) xPos > (int) this.x) {
+			xa++;
+		}
+		if ((int) xPos < (int) this.x) {
+			xa--;
+		}
+		if ((int) yPos > (int) this.y) {
+			ya++;
+		}
+		if ((int) yPos < (int) this.y) {
+			ya--;
+		}
+		if (xa != 0 || ya != 0) {
+			if (isMobCollision()) {
+				isMoving = false;
+				return;
+			}
+			move(xa, ya, scaledSpeed);
+			isMoving = true;
+		} else {
+			isMoving = false;
+		}
+	}
+
+	protected void findPath() {
 		switch (walkPath) {
 		case "linear": {
 			moveLinear();
@@ -147,7 +188,6 @@ public class NPC extends Mob {
 		default:
 			break;
 		}
-
 	}
 
 	public void render(Screen screen) {
@@ -362,7 +402,7 @@ public class NPC extends Mob {
 	}
 
 	private void moveCircle() {
-		
+
 		// Some random code with some random values. Don't ask me how it works.
 		double miniTick = tickCount / 20.0;
 		int xa = (int) (walkDistance * Math.cos(miniTick / walkDistance));

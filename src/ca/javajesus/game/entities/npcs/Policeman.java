@@ -1,52 +1,67 @@
-package ca.javajesus.game.entities.monsters;
+package ca.javajesus.game.entities.npcs;
 
 import java.awt.geom.Ellipse2D;
 
+import ca.javajesus.game.entities.Mob;
+import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.particles.projectiles.Bullet;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
-public class GangMember extends Monster {
+public class Policeman extends NPC {
 
 	protected Ellipse2D.Double standRange;
+	protected Mob mob;
+	protected double scaledSpeed = 0.35;
+	protected Ellipse2D.Double aggroRadius;
+	protected final int RADIUS = 32 * 8;
+	protected boolean cooldown = true;
+	protected int tickCount = 0;
+	protected boolean isShooting = false;
+	protected int shootTickCount = 0;
 
-	public GangMember(Level level, String name, double x, double y, int speed,
-			double health) {
-		super(level, name, x, y, speed, 14, 16, 3, health, Colors.get(-1, 111,
-				555, 543));
+	public Policeman(Level level, double x, double y, double defaultHealth,
+			String walkPath, int walkDistance) {
+		super(level, "SWAT Officer", x, y, 1, 16, 16, defaultHealth, Colors
+				.get(-1, 000, Colors.toHex("#000046"), 543), 0, 10, walkPath,
+				walkDistance);
+		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
+				RADIUS, RADIUS);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
 				RADIUS / 2, RADIUS / 2);
-
+		checkRadius();
 	}
 
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 7;
-		int yMin = 3;
-		int yMax = 7;
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin)) {
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y)) {
-				return true;
-			}
+	public Policeman(Level level, double x, double y) {
+		super(level, "SWAT Officer", x, y, 1, 16, 16, 200, Colors.get(-1, 000,
+				Colors.toHex("#000046"), 543), 0, 10, "", 0);
+		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
+				RADIUS, RADIUS);
+		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
+				RADIUS / 2, RADIUS / 2);
+		checkRadius();
+	}
+
+	private void checkRadius() {
+
+		if (mob != null && mob.hasDied) {
+			mob = null;
+			movingToOrigin = true;
 		}
 
-		return false;
+		if (mob == null)
+			for (Mob mob : level.getMobs()) {
+				if (mob instanceof Monster) {
+					if (this.aggroRadius.intersects(mob.hitBox)) {
+						// if (!mob.isTargeted) {
+						this.mob = mob;
+						mob.isTargeted = true;
+						return;
+						// }
+					}
+				}
+			}
 	}
 
 	public void tick() {
@@ -70,9 +85,6 @@ public class GangMember extends Monster {
 		int ya = 0;
 		if (mob != null && this.aggroRadius.intersects(mob.hitBox)) {
 			if (!cooldown) {
-				if (mob == null) {
-					return;
-				}
 				isShooting = true;
 				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7),
 						mob.x, mob.y, this));
@@ -91,22 +103,20 @@ public class GangMember extends Monster {
 				if ((int) mob.y < (int) this.y) {
 					ya--;
 				}
-			} else {
-				if (mob.isMoving) {
-					if ((int) mob.x > (int) this.x) {
-						xa--;
-					}
-					if ((int) mob.x < (int) this.x) {
-						xa++;
-					}
-					if ((int) mob.y > (int) this.y) {
-						ya--;
-					}
-					if ((int) mob.y < (int) this.y) {
-						ya++;
-					}
-				}
 			}
+
+			if (xa != 0 || ya != 0) {
+				move(xa, ya, scaledSpeed);
+				isMoving = true;
+			} else {
+				isMoving = false;
+			}
+
+		} else {
+			if (movingToOrigin)
+				findOrigin();
+			else
+				findPath();
 		}
 
 		tickCount++;
@@ -117,22 +127,11 @@ public class GangMember extends Monster {
 			cooldown = true;
 		}
 
-		if (xa != 0 || ya != 0) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
-			move(xa, ya, scaledSpeed);
-			isMoving = true;
-		} else {
-			isMoving = false;
-		}
-
 	}
 
 	public void render(Screen screen) {
 
-		this.hitBox.setLocation((int) this.x - 9, (int) this.y - 16);
+		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 8);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		this.standRange.setFrame(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2,
@@ -163,42 +162,41 @@ public class GangMember extends Monster {
 
 			// Upper body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, colour, flipTop, scale, sheet);
+					+ yTile * 32, this.color, flipTop, scale, sheet);
 
 			// Upper body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
+					(xTile + 1) + yTile * 32, this.color, flipTop, scale, sheet);
 
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * 32, colour,
+					yOffset + modifier, xTile + (yTile + 1) * 32, this.color,
 					flipBottom, scale, sheet);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, colour,
+					+ modifier, (xTile + 1) + (yTile + 1) * 32, this.color,
 					flipBottom, scale, sheet);
 		} else {
 
 			// Upper body
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, colour, flipTop, scale, sheet);
+					+ yTile * 32, this.color, flipTop, scale, sheet);
 
 			// Upper body
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
+					(xTile + 1) + yTile * 32, this.color, flipTop, scale, sheet);
 
 			// Lower Body
 			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * 32, colour,
+					yOffset + modifier, xTile + (yTile + 1) * 32, this.color,
 					flipBottom, scale, sheet);
 
 			// Lower Body
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, colour,
+					+ modifier, (xTile + 1) + (yTile + 1) * 32, this.color,
 					flipBottom, scale, sheet);
 		}
 
 	}
-
 }

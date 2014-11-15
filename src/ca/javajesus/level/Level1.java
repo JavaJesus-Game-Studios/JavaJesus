@@ -1,7 +1,8 @@
 package ca.javajesus.level;
 
-import ca.javajesus.game.entities.NPC;
 import ca.javajesus.game.entities.monsters.Monster;
+import ca.javajesus.game.entities.npcs.NPC;
+import ca.javajesus.game.entities.npcs.Policeman;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 
 public class Level1 extends Level {
@@ -17,7 +18,7 @@ public class Level1 extends Level {
 		this.addEntity(NPC.npc4);
 		this.addEntity(NPC.npc5);
 		this.addEntity(NPC.npc6);
-		this.addEntity(NPC.npc7);
+		this.addEntity(new Policeman(this, 400, 100, 200, "linear", 20));
 		this.addEntity(NPC.npc8);
 		this.addEntity(NPC.npc9);
 		this.addEntity(NPC.npc10);
