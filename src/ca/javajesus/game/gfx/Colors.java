@@ -7,10 +7,10 @@ public class Colors {
 	/** Left Shift << Is the same as multiplying by 2 ^ n */
 
 	/** Four Colors
-	 * @param color1: Black, Hex Value:
-	 * @param color2: Dark, Hex Value:
-	 * @param color3: Light, Hex Value:
-	 * @param color4: White, Hex Value:
+	 * @param color1: Black, Hex Value:#000000, RGB: (0, 0, 0)
+	 * @param color2: Dark, Hex Value: #555555, RGB: (85, 85, 85)
+	 * @param color3: Light, Hex Value:#AAAAAA, RGB: (170, 170, 170)
+	 * @param color4: White, Hex Value: #FFFFFF, RGB: (255, 255, 255)
 	 * @return
 	 */
 	public static int get(int color1, int color2, int color3, int color4) {

@@ -1,6 +1,5 @@
 package ca.javajesus.game.entities.monsters;
 
-import ca.javajesus.game.entities.particles.Projectile;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
@@ -9,7 +8,7 @@ public class Centaur extends Monster {
 
 	public Centaur(Level level, String name, double x, double y, int speed, int health) {
 		super(level, name, x, y, speed, 14, 24, 5, health, Colors.get(-1, 111,
-				300, 550));
+				Colors.toHex("#8f4c1f"), 543));
 
 	}
 
