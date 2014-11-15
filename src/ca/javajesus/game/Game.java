@@ -244,6 +244,9 @@ public class Game extends Canvas implements Runnable {
 		}
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		if (player.isSwinging) {
+			player.getSword().draw(g);
+		}
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
 		g.drawString("Player: " + (int) player.x + ", " + (int) player.y, 5, 20);
