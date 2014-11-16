@@ -54,11 +54,6 @@ public class Demon extends Monster {
 				isShooting = false;
 			}
 		}
-
-		if (isMobCollision()) {
-			moveRandomly();
-			return;
-		}
 		int xa = 0;
 		int ya = 0;
 		if (mob != null && this.aggroRadius.intersects(mob.hitBox)) {
@@ -83,12 +78,13 @@ public class Demon extends Monster {
 				cooldown = true;
 			}
 		}
-
+		
+		if (isMobCollision()) {
+			moveAroundMobCollision();
+			return;
+		}
+		
 		if (xa != 0 || ya != 0) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {
@@ -127,11 +123,6 @@ public class Demon extends Monster {
 		if (isShooting) {
 
 			xTile = 12;
-
-			int handOffset = 0;
-			if (movingDir == 2) {
-				handOffset = -2 * modifier;
-			}
 
 			// Upper body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile

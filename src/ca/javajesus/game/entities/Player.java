@@ -4,7 +4,6 @@ import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.particles.HealthPack;
 import ca.javajesus.game.entities.particles.projectiles.Bullet;
-import ca.javajesus.game.entities.particles.projectiles.Projectile;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;

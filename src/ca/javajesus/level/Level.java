@@ -210,11 +210,13 @@ public abstract class Level {
 	}
 
 	public void init() {
-		initNPCPlacement();
-		initSpawnerPlacement();
-		initChestPlacement();
-		otherEntityPlacement();
-		
+		if (this.mobs.size() <= 1) {
+			initNPCPlacement();
+			initSpawnerPlacement();
+			initChestPlacement();
+			otherEntityPlacement();
+		}
+
 	}
 
 }

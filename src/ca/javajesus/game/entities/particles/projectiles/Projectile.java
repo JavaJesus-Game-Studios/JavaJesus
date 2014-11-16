@@ -1,11 +1,8 @@
 package ca.javajesus.game.entities.particles.projectiles;
 
 import java.awt.Rectangle;
-
-import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.particles.Particle;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 

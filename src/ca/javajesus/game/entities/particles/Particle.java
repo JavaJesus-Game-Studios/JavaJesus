@@ -1,7 +1,5 @@
 package ca.javajesus.game.entities.particles;
 
-import java.awt.Rectangle;
-
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;

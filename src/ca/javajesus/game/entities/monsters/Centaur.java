@@ -164,10 +164,8 @@ public class Centaur extends Monster {
 					flipBottom, scale, sheet);
 		} else {
 			
-			int xOff1 = 0;
 			int xOff2 = 0;
 			if (movingDir == 2) {
-				xOff1 = 16;
 				xOff2 = -16;
 			}
 			

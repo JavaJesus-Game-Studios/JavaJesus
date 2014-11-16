@@ -23,8 +23,6 @@ public class Monster extends Mob {
 	/** The player the monster is chasing */
 	protected Mob mob;
 
-	protected double scaledSpeed = 0.35;
-
 	/** Range that the monster can target a player */
 	protected Ellipse2D.Double aggroRadius;
 
@@ -44,6 +42,7 @@ public class Monster extends Mob {
 		this.yTile = yTile;
 		checkRadius();
 		this.colour = color;
+		this.scaledSpeed = 0.35;
 	}
 
 	protected void checkRadius() {

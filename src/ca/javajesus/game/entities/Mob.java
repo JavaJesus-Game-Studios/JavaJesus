@@ -31,7 +31,8 @@ public abstract class Mob extends Entity {
 	protected int healthTickCount = 0;
 	protected int lastDirection = 0;
 	protected boolean movingRandomly = false;
-	
+	protected double scaledSpeed;
+
 	public boolean isTargeted = false;
 
 	public int strength;
@@ -142,12 +143,54 @@ public abstract class Mob extends Entity {
 			return false;
 		}
 		for (Mob mob : level.getMobs()) {
-				if (mob == this)
-					continue;
-				if (this.hitBox.intersects(mob.hitBox))
-					return true;
+			if (mob == this)
+				continue;
+			if (this.hitBox.intersects(mob.hitBox))
+				return true;
 		}
 		return false;
+	}
+
+	protected void moveAroundMobCollision() {
+
+		System.out.println("Demon is moving away");
+		
+		int xa = 0;
+		int ya = 0;
+
+		for (Mob mob : level.getMobs()) {
+			if (mob == this)
+				continue;
+			if (this.hitBox.intersects(mob.hitBox)) {
+
+				Rectangle intersection = hitBox.intersection(mob.hitBox);
+				double xx = intersection.getCenterX();
+				double yy = intersection.getCenterY();
+				if ((int) xx > (int) this.hitBox.getCenterX()) {
+					xa--;
+				}
+				if ((int) xx < (int) this.hitBox.getCenterX()) {
+					xa++;
+				}
+				if ((int) yy > (int) this.hitBox.getCenterY()) {
+					ya--;
+				}
+				if ((int) yy < (int) this.hitBox.getCenterY()) {
+					ya++;
+				}
+				
+				if (xa != 0 || ya != 0) {
+					break;
+				}
+			}
+		}
+		if (xa != 0 || ya != 0) {
+			move(xa, ya, scaledSpeed);
+			System.out.println(xa + " " + ya);
+			isMoving = true;
+		} else {
+			isMoving = false;
+		}
 	}
 
 	protected void moveRandomly() {
@@ -178,7 +221,7 @@ public abstract class Mob extends Entity {
 		}
 	}
 
-	public String getName() {
+	public String toString() {
 		return name;
 	}
 
