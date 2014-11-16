@@ -32,8 +32,9 @@ public abstract class Mob extends Entity {
 	protected int lastDirection = 0;
 	protected boolean movingRandomly = false;
 	protected double scaledSpeed;
-
 	public boolean isTargeted = false;
+	
+	protected Rectangle standBox;
 
 	public int strength;
 
@@ -51,6 +52,7 @@ public abstract class Mob extends Entity {
 		this.health = defaultHealth;
 		this.startHealth = defaultHealth;
 		this.hitBox = new Rectangle(width, height);
+		this.standBox = new Rectangle(width + 4, height + 4);
 		this.sheet = sheet;
 		if (this instanceof Demon) {
 			bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, -10);
@@ -152,8 +154,6 @@ public abstract class Mob extends Entity {
 	}
 
 	protected void moveAroundMobCollision() {
-
-		System.out.println("Demon is moving away");
 		
 		int xa = 0;
 		int ya = 0;
@@ -186,7 +186,6 @@ public abstract class Mob extends Entity {
 		}
 		if (xa != 0 || ya != 0) {
 			move(xa, ya, scaledSpeed);
-			System.out.println(xa + " " + ya);
 			isMoving = true;
 		} else {
 			isMoving = false;

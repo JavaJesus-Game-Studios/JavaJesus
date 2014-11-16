@@ -46,6 +46,14 @@ public class Demon extends Monster {
 
 		updateHealth();
 		checkRadius();
+		
+		tickCount++;
+
+		if (tickCount % 100 == 0) {
+			cooldown = false;
+		} else {
+			cooldown = true;
+		}
 
 		if (isShooting) {
 			shootTickCount++;
@@ -56,7 +64,7 @@ public class Demon extends Monster {
 		}
 		int xa = 0;
 		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.hitBox)) {
+		if (mob != null && this.aggroRadius.intersects(mob.hitBox) && !this.standBox.intersects(mob.hitBox)) {
 
 			if ((int) mob.x > (int) this.x) {
 				xa++;
@@ -69,13 +77,6 @@ public class Demon extends Monster {
 			}
 			if ((int) mob.y < (int) this.y) {
 				ya--;
-			}
-			tickCount++;
-
-			if (tickCount % 100 == 0) {
-				cooldown = false;
-			} else {
-				cooldown = true;
 			}
 		}
 		
@@ -96,6 +97,7 @@ public class Demon extends Monster {
 	public void render(Screen screen) {
 
 		this.hitBox.setLocation((int) this.x, (int) this.y - 16);
+		this.standBox.setLocation((int) this.x - 2, (int) this.y - 18);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		int xTile = 0;
