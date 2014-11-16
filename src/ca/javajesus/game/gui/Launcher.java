@@ -68,7 +68,7 @@ public class Launcher extends JFrame {
 		help.setBounds(rhelp);
 		window.add(help);
 
-		quit = new JButton("quit!");
+		quit = new JButton("Quit!");
 		rquit = new Rectangle((width / 2) - (button_width / 2), 240,
 				button_width, button_height);
 		quit.setBounds(rquit);
@@ -83,15 +83,16 @@ public class Launcher extends JFrame {
 		});
 		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//dispose();
+				dispose();
 				System.out.println("COMING SOON!");
-				//new Options();
+				new Options();
 			}
 		});
 		help.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out
 						.println("Call being transfered to New Delhi. Please wait.");
+				new Help();
 			}
 		});
 		quit.addActionListener(new ActionListener() {
