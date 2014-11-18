@@ -96,6 +96,7 @@ public class Player extends Mob {
 			if (!genericCooldown) {
 				if (isDriving) {
 					isDriving = false;
+					level.addEntity(this.bar);
 				} else {
 					for (Entity entity : level.getEntities()) {
 						if (entity instanceof Vehicle) {
@@ -105,6 +106,7 @@ public class Player extends Mob {
 								this.x = vehicle.x;
 								this.y = vehicle.y;
 								isDriving = true;
+								level.remEntity(this.bar);
 							}
 						}
 					}
@@ -131,8 +133,12 @@ public class Player extends Mob {
 		if (xa != 0 || ya != 0) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
+			if (isDriving)
+				vehicle.isMoving = true;
 		} else {
 			isMoving = false;
+			if (isDriving)
+				vehicle.isMoving = false;
 		}
 		int xx = (int) x;
 		int yy = (int) y;
@@ -190,6 +196,7 @@ public class Player extends Mob {
 		}
 
 		this.hitBox.setLocation((int) this.x, (int) this.y - 8);
+		this.standBox.setLocation((int) this.x - 2, (int) this.y - 10);
 		if (changeLevel) {
 			level.remEntity(this);
 			init(screen.getGame().randomLevel);

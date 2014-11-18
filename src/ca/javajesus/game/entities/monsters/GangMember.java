@@ -63,7 +63,7 @@ public class GangMember extends Monster {
 		}
 
 		if (isMobCollision()) {
-			moveRandomly();
+			moveAroundMobCollision();
 			return;
 		}
 		int xa = 0;
@@ -133,6 +133,7 @@ public class GangMember extends Monster {
 	public void render(Screen screen) {
 
 		this.hitBox.setLocation((int) this.x - 9, (int) this.y - 16);
+		this.standBox.setLocation((int) this.x - 11, (int) this.y - 18);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		this.standRange.setFrame(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2,

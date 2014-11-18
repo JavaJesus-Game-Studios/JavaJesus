@@ -25,7 +25,7 @@ public class NPC extends Mob {
 			1, 16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 8, "cross", 30);
 	public static NPC npc5 = new NPC(Level.level1, "Citizen-Male", 200, 500, 1,
 			16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 0, "circle", 2);
-	public static NPC npc6 = new NPC(Level.level1, "Fox", 250, 75, 2, 16, 16,
+	public static NPC npc6 = new NPC(Level.level1, "Fox", 250, 75, 1, 16, 16,
 			100, Colors.get(-1, 111, Colors.toHex("#ffa800"), 555), 0, 14,
 			"cross", 50);
 
@@ -39,7 +39,6 @@ public class NPC extends Mob {
 			1, 16, 16, 100, Colors.get(-1, 111, Colors.toHex("#715b17"), 543),
 			0, 18, "cross", 30);
 
-	private double scaledSpeed = 0.35;
 	/** Range that the NPC can walk */
 	protected Ellipse2D.Double walkRadius;
 	protected final int RADIUS = 32 * 8;
@@ -79,6 +78,7 @@ public class NPC extends Mob {
 		this.xPos = x;
 		this.yPos = y;
 		this.hitBox = new Rectangle(width, height);
+		scaledSpeed = 0.35;
 	}
 
 	public boolean hasCollided(int xa, int ya) {
@@ -118,16 +118,22 @@ public class NPC extends Mob {
 			movingToOrigin = true;
 		}
 
-		if (!movingRandomly && isMobCollision()) {
-			lastDirection = movingDir;
-			moveRandomly();
+		if (isMobCollision()) {
+			moveAroundMobCollision();
 			return;
 		}
 
 		if (movingToOrigin)
 			findOrigin();
-		else
+		else {
+			for (Mob mob : level.getMobs()) {
+				if (mob == this)
+					continue;
+				if (this.standBox.intersects(mob.hitBox))
+					return;
+			}
 			findPath();
+		}
 
 	}
 
@@ -152,10 +158,6 @@ public class NPC extends Mob {
 			ya--;
 		}
 		if (xa != 0 || ya != 0) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {
@@ -192,6 +194,7 @@ public class NPC extends Mob {
 
 	public void render(Screen screen) {
 		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 8);
+		this.standBox.setLocation((int) this.x - 10, (int) this.y - 10);
 		int xTile = this.xTile;
 		int yTile = this.yTile;
 

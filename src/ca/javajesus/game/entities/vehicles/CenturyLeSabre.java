@@ -72,6 +72,7 @@ public class CenturyLeSabre extends Vehicle {
 	}
 
 	public void render(Screen screen) {
+				
 	    if (movingDir == 0 || movingDir == 1) {
 	        this.width = 32;
 	        this.height = 40;

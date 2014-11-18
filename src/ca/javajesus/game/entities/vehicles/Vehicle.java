@@ -1,13 +1,13 @@
 package ca.javajesus.game.entities.vehicles;
 
 import ca.javajesus.game.entities.Mob;
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Vehicle extends Mob {
 
-	protected double scaledSpeed;
 	protected int color;
 
 	public static Vehicle vehicle1 = new CenturyLeSabre(Level.level1,
@@ -50,6 +50,15 @@ public class Vehicle extends Mob {
 	public void tick() {
 
 		updateHealth();
+
+		if (isMobCollision() && this.isMoving) {
+			for (Mob mob : level.getMobs()) {
+				if (!(mob == this || mob instanceof Player)) {
+					if (mob.hitBox.intersects(this.hitBox))
+						mob.randomDamage(2, 8);
+				}
+			}
+		}
 
 	}
 

@@ -78,7 +78,7 @@ public class Policeman extends NPC {
 		}
 
 		if (isMobCollision()) {
-			moveRandomly();
+			moveAroundMobCollision();
 			return;
 		}
 		int xa = 0;
@@ -89,7 +89,7 @@ public class Policeman extends NPC {
 				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7),
 						mob.x, mob.y, this));
 			}
-			if (!this.standRange.intersects(mob.hitBox)) {
+			if (!this.standRange.intersects(mob.hitBox) && !this.standBox.intersects(mob.hitBox)) {
 
 				if ((int) mob.x > (int) this.x) {
 					xa++;
@@ -115,8 +115,15 @@ public class Policeman extends NPC {
 		} else {
 			if (movingToOrigin)
 				findOrigin();
-			else
+			else {
+				for (Mob mob : level.getMobs()) {
+					if (mob == this)
+						continue;
+					if (this.standBox.intersects(mob.hitBox))
+						return;
+				}
 				findPath();
+			}
 		}
 
 		tickCount++;
@@ -131,7 +138,8 @@ public class Policeman extends NPC {
 
 	public void render(Screen screen) {
 
-		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 8);
+		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 16);
+		this.standBox.setLocation((int) this.x - 10, (int) this.y - 18);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		this.standRange.setFrame(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2,

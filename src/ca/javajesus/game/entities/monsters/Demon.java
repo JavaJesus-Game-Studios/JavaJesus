@@ -91,6 +91,15 @@ public class Demon extends Monster {
 		} else {
 			isMoving = false;
 		}
+		
+		if (!cooldown) {
+			if (mob == null) {
+				return;
+			}
+			isShooting = true;
+			level.addEntity(new FireBall(level, this.x + 5, (this.y - 7),
+					mob.x, mob.y, this));
+		}
 
 	}
 
@@ -182,15 +191,6 @@ public class Demon extends Monster {
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
 					+ 2 * modifier, (xTile + 1) + (yTile + 2) * 32, colour,
 					flipBottom, scale, sheet);
-		}
-
-		if (!cooldown) {
-			if (mob == null) {
-				return;
-			}
-			isShooting = true;
-			level.addEntity(new FireBall(level, this.x + 5, (this.y - 7),
-					mob.x, mob.y, this));
 		}
 
 	}

@@ -161,7 +161,6 @@ public abstract class Mob extends Entity {
 		for (Mob mob : level.getMobs()) {
 			if (mob == this)
 				continue;
-			if (this.hitBox.intersects(mob.hitBox)) {
 
 				Rectangle intersection = hitBox.intersection(mob.hitBox);
 				double xx = intersection.getCenterX();
@@ -182,38 +181,9 @@ public abstract class Mob extends Entity {
 				if (xa != 0 || ya != 0) {
 					break;
 				}
-			}
 		}
 		if (xa != 0 || ya != 0) {
 			move(xa, ya, scaledSpeed);
-			isMoving = true;
-		} else {
-			isMoving = false;
-		}
-	}
-
-	protected void moveRandomly() {
-		int xa = 0;
-		int ya = 0;
-		switch (lastDirection) {
-		case 0:
-			ya++;
-			break;
-		case 1:
-			ya--;
-			break;
-		case 2:
-			xa--;
-			break;
-		case 3:
-			xa++;
-			break;
-		default:
-			break;
-		}
-
-		if (xa != 0 || ya != 0) {
-			move(xa, ya, this.speed);
 			isMoving = true;
 		} else {
 			isMoving = false;
