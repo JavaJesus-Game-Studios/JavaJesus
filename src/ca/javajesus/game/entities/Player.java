@@ -31,6 +31,7 @@ public class Player extends Mob {
 	private Sword sword;
 	public boolean isDriving;
 	protected Vehicle vehicle;
+	protected int shootingDir;
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "player", x, y, 1, 14, 16, SpriteSheet.player, 1000);
@@ -67,7 +68,7 @@ public class Player extends Mob {
 			}
 			genericCooldown = true;
 		}
-		if (input.f.isPressed()) {
+		if (input.w.isPressed() || input.s.isPressed() || input.a.isPressed() || input.d.isPressed()) {
 			if (!isSwinging && !isSwimming && !isDriving)
 				isShooting = true;
 		}
@@ -91,7 +92,18 @@ public class Player extends Mob {
 		if (input.right.isPressed()) {
 			xa++;
 		}
-
+		if (input.w.isPressed()) {
+            shootingDir=0;
+        }
+        if (input.s.isPressed()) {
+            shootingDir=1;
+        }
+        if (input.a.isPressed()) {
+            shootingDir=2;
+        }
+        if (input.d.isPressed()) {
+            shootingDir=3;
+        }
 		if (input.e.isPressed()) {
 			if (!genericCooldown) {
 				if (isDriving) {
@@ -326,14 +338,21 @@ public class Player extends Mob {
 			xTile = gunType;
 			yTile = 2;
 
-			if (movingDir == 1) {
+			if (shootingDir == 1) {
 				yTile += 2;
 			}
-			if (movingDir == 0) {
+			if (shootingDir == 0) {
 				yTile += 2;
 				xTile += 16;
 			}
-
+			else if (shootingDir > 1) {
+	            xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
+	            flipTop = (shootingDir - 1) % 2;
+	            flipBottom = (shootingDir - 1) % 2;
+	            flipAttack1 = (shootingDir - 1) % 2;
+	            flipAttack2 = (shootingDir - 1) % 2;
+	        }
+			
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flipAttack1), yOffset, xTile
 					+ yTile * 32, colour, flipAttack1, scale, sheet);
@@ -354,18 +373,18 @@ public class Player extends Mob {
 
 			if (!cooldown) {
 				int bulletOffset = 0;
-				if (movingDir == 2) {
+				if (shootingDir == 2) {
 					bulletOffset = -7;
 				}
-				if (movingDir == 0) {
+				if (shootingDir == 0) {
 					bulletOffset += 1;
 				}
-				if (movingDir == 1) {
+				if (shootingDir == 1) {
 					bulletOffset -= 11;
 				}
 
 				level.addEntity(new Bullet(level, (this.x + 1 + bulletOffset),
-						(this.y - 2), movingDir, this));
+						(this.y - 2), shootingDir, this));
 				isShooting = false;
 				swingTickCount = 0;
 			}

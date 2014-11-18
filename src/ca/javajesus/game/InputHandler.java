@@ -43,6 +43,11 @@ public class InputHandler implements KeyListener {
 	public Key f = new Key();
 	public Key h = new Key();
 	public Key e = new Key();
+	public Key w = new Key();
+	public Key s = new Key();
+	public Key a = new Key();
+	public Key d = new Key();
+    
 
 	public void keyPressed(KeyEvent e) {
 		toggleKey(e.getKeyCode(), true);
@@ -59,17 +64,17 @@ public class InputHandler implements KeyListener {
 	}
 
 	public void toggleKey(int keyCode, boolean isPressed) {
-		if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
-			up.toggle(isPressed);
+		if (keyCode == KeyEvent.VK_UP) {
+			w.toggle(isPressed);
 		}
-		if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
-			down.toggle(isPressed);
+		if (keyCode == KeyEvent.VK_DOWN) {
+			s.toggle(isPressed);
 		}
-		if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
-			left.toggle(isPressed);
+		if (keyCode == KeyEvent.VK_LEFT) {
+			a.toggle(isPressed);
 		}
-		if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
-			right.toggle(isPressed);
+		if (keyCode == KeyEvent.VK_RIGHT) {
+			d.toggle(isPressed);
 		}
 		if (keyCode == KeyEvent.VK_SHIFT) {
 			shift.toggle(isPressed);
@@ -93,6 +98,18 @@ public class InputHandler implements KeyListener {
 		if (keyCode == KeyEvent.VK_E) {
 			e.toggle(isPressed);
 		}
+		if (keyCode == KeyEvent.VK_W) {
+            up.toggle(isPressed);
+        }
+        if (keyCode == KeyEvent.VK_S) {
+            down.toggle(isPressed);
+        }
+        if (keyCode == KeyEvent.VK_A) {
+            left.toggle(isPressed);
+        }
+        if (keyCode == KeyEvent.VK_D) {
+            right.toggle(isPressed);
+        }
 
 	}
 }
