@@ -18,9 +18,9 @@ public class Launcher extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	protected JPanel window = new JPanel();
-	private JButton play, options, help, quit;
-	private Rectangle rplay, roptions, rhelp, rquit;
-	//Configuration config = new Configuration();
+	private JButton play, options, help, quit, sandbox;
+	private Rectangle rplay, roptions, rhelp, rquit, rsandbox;
+	// Configuration config = new Configuration();
 
 	private int width = 800;
 	private int height = 400;
@@ -56,20 +56,26 @@ public class Launcher extends JFrame {
 		play.setBounds(rplay);
 		window.add(play);
 
+		sandbox = new JButton("Sandbox!");
+		rsandbox = new Rectangle((width / 2) - (button_width / 2), 140,
+				button_width, button_height);
+		sandbox.setBounds(rsandbox);
+		window.add(sandbox);
+
 		options = new JButton("Options!");
-		roptions = new Rectangle((width / 2) - (button_width / 2), 140,
+		roptions = new Rectangle((width / 2) - (button_width / 2), 190,
 				button_width, button_height);
 		options.setBounds(roptions);
 		window.add(options);
 
 		help = new JButton("Help!");
-		rhelp = new Rectangle((width / 2) - (button_width / 2), 190,
+		rhelp = new Rectangle((width / 2) - (button_width / 2), 240,
 				button_width, button_height);
 		help.setBounds(rhelp);
 		window.add(help);
 
 		quit = new JButton("Quit!");
-		rquit = new Rectangle((width / 2) - (button_width / 2), 240,
+		rquit = new Rectangle((width / 2) - (button_width / 2), 290,
 				button_width, button_height);
 		quit.setBounds(rquit);
 		window.add(quit);
@@ -81,17 +87,21 @@ public class Launcher extends JFrame {
 				new Game().start();
 			}
 		});
+		sandbox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new Sandbox();
+			}
+		});
 		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				System.out.println("COMING SOON!");
 				new Options();
 			}
 		});
 		help.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out
-						.println("Call being transfered to New Delhi. Please wait.");
+				dispose();
 				new Help();
 			}
 		});

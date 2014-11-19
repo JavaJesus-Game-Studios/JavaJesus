@@ -20,38 +20,10 @@ import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.RandomLevel;
 
-public class Game extends Canvas implements Runnable {
+public class ZombieSurvival extends Game implements Runnable {
 
-	/** Does something */
 	private static final long serialVersionUID = 1L;
-
-	/** Determines how long the loading screen lasts */
-	protected static final int LOAD_SPEED = 10;
-
-	/** Width of the game */
-	public static final int WIDTH = 300;
-
-	/** Height of the game */
-	public static final int HEIGHT = WIDTH / 12 * 9;
-
-	/** Scales the size of the screen */
-	public static final int SCALE = 3;
-
-	/** Title of JFrame */
-	public static final String NAME = "Java Jesus by the Coders of Anarchy";
-
-	/** Entity limit per screen */
-	public final static int ENTITY_LIMIT = 2000;
-
-	/** Determines whether the game is running or not */
-	public boolean running = false;
-
-	/** Creates the JFrame */
-	protected static JFrame frame;
-
-	/** Creates the tickCount var */
-	public int tickCount;
-
+	
 	/** Temporary Solution to limit frames */
 	private final int FRAMES_PER_SECOND = 60;
 	private final int DELAY = 1000 / FRAMES_PER_SECOND;
@@ -70,33 +42,9 @@ public class Game extends Canvas implements Runnable {
 	/** Creates instance of the screen */
 	private Screen screen;
 
-	/** Creates instance of the input */
-	public InputHandler input;
-
-	/** Creates instance of the player */
-	public Player player;
-
-	/** Creates instance of the random level */
-	public Level randomLevel;
-
-	public boolean isLoaded = false;
-
 	/** This starts the game */
-	public Game() {
-		setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		frame = new JFrame(NAME);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
-		frame.getContentPane().add(this);
-		frame.pack();
-		frame.requestFocus();
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		frame.toFront();
-		frame.repaint();
+	public ZombieSurvival() {
+		super();
 	}
 
 	/** Initializes the image on the screen */
@@ -142,8 +90,6 @@ public class Game extends Canvas implements Runnable {
 	/** Initializes the level data */
 	private void initLevels() {
 		randomLevel = new RandomLevel(WIDTH, HEIGHT);
-		randomLevel.addSpawner(50, 50, new Demon(randomLevel, "Demon", 50, 50,
-				1));
 	}
 
 	/** Starts the game */
@@ -210,7 +156,7 @@ public class Game extends Canvas implements Runnable {
 	/** Returns the instance of the current Level */
 	private Level getLevel() {
 		if (player == null) {
-			return Level.level1;
+			return randomLevel;
 		}
 		return player.getLevel();
 
@@ -240,16 +186,11 @@ public class Game extends Canvas implements Runnable {
 		}
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		if (player.isSwinging) {
-			player.getSword().draw(g);
-		}
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
 		g.drawString("Player: " + (int) player.x + ", " + (int) player.y, 5, 20);
+		g.drawString("Score: " + player.score, 700, 20);
 		if (player.hasDied) {
-			g.setFont(new Font("Verdana", 0, 50));
-			g.setColor(Color.BLACK);
-			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);
 			frame.dispose();
 			new Launcher(0);
 			running = false;
@@ -296,13 +237,6 @@ public class Game extends Canvas implements Runnable {
 		g.drawString("Loading " + comps[(frame / 5) % 3] + "...", WIDTH * SCALE
 				/ 5, HEIGHT * SCALE / 2);
 		g.fillRect(WIDTH * SCALE / 5, HEIGHT * SCALE / 2, 10 * frame, 50);
-	}
-
-	/** Main Method Creation */
-	public static void main(String[] args) {
-		// loadingScreen();
-		new Launcher(0);
-
 	}
 
 }

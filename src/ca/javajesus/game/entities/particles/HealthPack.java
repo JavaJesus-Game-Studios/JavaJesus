@@ -10,9 +10,10 @@ import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class HealthPack extends Particle {
-	
+
 	private Random random = new Random();
-	private static int healthPackColour = Colors.get(-1, 0x00FFfffffa, 555, 500);
+	private static int healthPackColour = Colors
+			.get(-1, 0x00FFfffffa, 555, 500);
 	private final Rectangle BOX = new Rectangle(10, 10);
 
 	public HealthPack(Level level, double x, double y) {
@@ -26,13 +27,11 @@ public class HealthPack extends Particle {
 
 		screen.render(this.x, this.y, tileNumber, color, 1, 1, sheet);
 		BOX.setLocation((int) this.x, (int) this.y);
-		for (Entity entity : level.getEntities()) {
+		for (Mob mob : level.getMobs()) {
 
-			if (entity instanceof Mob) {
-				if (BOX.intersects(((Mob) entity).hitBox)) {
-					((Mob) entity).health = 100;
-					level.remEntity(this);
-				}
+			if (BOX.intersects(mob.hitBox)) {
+				mob.health = mob.startHealth;
+				level.remEntity(this);
 			}
 
 		}

@@ -32,10 +32,12 @@ public class Player extends Mob {
 	public boolean isDriving;
 	protected Vehicle vehicle;
 	protected int shootingDir;
+	public int score;
 
 	public Player(Level level, double x, double y, InputHandler input) {
-		super(level, "player", x, y, 1, 14, 16, SpriteSheet.player, 1000);
+		super(level, "player", x, y, 1, 14, 16, SpriteSheet.player, 100);
 		this.input = input;
+		this.score = 0;
 	}
 
 	public double getPlayerVelocity() {
@@ -77,9 +79,6 @@ public class Player extends Mob {
 				isSwinging = true;
 		}
 
-		if (input.r.isPressed()) {
-			changeLevel = true;
-		}
 		if (input.up.isPressed()) {
 			ya--;
 		}

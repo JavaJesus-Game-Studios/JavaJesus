@@ -22,7 +22,7 @@ public abstract class Mob extends Entity {
 	public int width;
 	public int height;
 	public double health;
-	protected double startHealth;
+	public double startHealth;
 	public Rectangle hitBox;
 	protected SpriteSheet sheet;
 	protected HealthBar bar;

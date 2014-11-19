@@ -1,7 +1,9 @@
 package ca.javajesus.game.entities.particles.projectiles;
 
 import java.awt.Rectangle;
+
 import ca.javajesus.game.entities.Mob;
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.Particle;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
@@ -130,7 +132,11 @@ public class Projectile extends Particle {
 			if (hitBox.intersects(mobs.hitBox)) {
 				if (mobs != mob) {
 					mobs.randomDamage(3, 5);
+					mobs.updateHealth();
 					level.remEntity(this);
+					if (mobs.hasDied && mob instanceof Player) {
+						((Player) mob).score += 10;
+					}
 				}
 			}
 

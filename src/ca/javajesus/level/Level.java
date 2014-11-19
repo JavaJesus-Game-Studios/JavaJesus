@@ -209,6 +209,10 @@ public abstract class Level {
 		this.addEntity(new Spawner(this, x, y, entity));
 	}
 
+	public void addSpawner(double x, double y, int id) {
+		this.addEntity(new Spawner(this, x, y, id));
+	}
+
 	public void init() {
 		if (this.mobs.size() <= 1) {
 			initNPCPlacement();

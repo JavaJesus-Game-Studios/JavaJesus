@@ -18,7 +18,7 @@ public class Monster extends Mob {
 	public static Monster monkey;
 	public static Monster man1;
 	public static Monster man2;
-
+	
 	protected int colour;
 	/** The player the monster is chasing */
 	protected Mob mob;
