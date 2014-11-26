@@ -14,11 +14,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.RandomLevel;
 
 public class Game extends Canvas implements Runnable {
 
@@ -76,9 +74,6 @@ public class Game extends Canvas implements Runnable {
 	/** Creates instance of the player */
 	public Player player;
 
-	/** Creates instance of the random level */
-	public Level randomLevel;
-
 	public boolean isLoaded = false;
 
 	/** This starts the game */
@@ -116,7 +111,6 @@ public class Game extends Canvas implements Runnable {
 
 		screen = new Screen(WIDTH, HEIGHT, this);
 		input = new InputHandler(this);
-		initLevels();
 		player = new Player(getLevel(), 25, 50, input);
 		getLevel().addEntity(player);
 		getLevel().init();
@@ -136,14 +130,6 @@ public class Game extends Canvas implements Runnable {
 				}
 			}
 		}
-		initLevels();
-	}
-
-	/** Initializes the level data */
-	private void initLevels() {
-		randomLevel = new RandomLevel(WIDTH, HEIGHT);
-		randomLevel.addSpawner(50, 50, new Demon(randomLevel, "Demon", 50, 50,
-				1));
 	}
 
 	/** Starts the game */

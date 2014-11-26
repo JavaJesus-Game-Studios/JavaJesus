@@ -1,10 +1,7 @@
 package ca.javajesus.game;
 
 import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
-import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,9 +9,8 @@ import java.awt.SplashScreen;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import javax.swing.JFrame;
+
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.level.Level;
@@ -64,7 +60,6 @@ public class ZombieSurvival extends Game implements Runnable {
 
 		screen = new Screen(WIDTH, HEIGHT, this);
 		input = new InputHandler(this);
-		initLevels();
 		player = new Player(getLevel(), 25, 50, input);
 		getLevel().addEntity(player);
 		getLevel().init();
@@ -84,12 +79,6 @@ public class ZombieSurvival extends Game implements Runnable {
 				}
 			}
 		}
-		initLevels();
-	}
-
-	/** Initializes the level data */
-	private void initLevels() {
-		randomLevel = new RandomLevel(WIDTH, HEIGHT);
 	}
 
 	/** Starts the game */
@@ -156,7 +145,7 @@ public class ZombieSurvival extends Game implements Runnable {
 	/** Returns the instance of the current Level */
 	private Level getLevel() {
 		if (player == null) {
-			return randomLevel;
+			return new RandomLevel(Game.WIDTH, Game.HEIGHT);
 		}
 		return player.getLevel();
 

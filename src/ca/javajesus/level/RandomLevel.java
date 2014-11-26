@@ -2,9 +2,8 @@ package ca.javajesus.level;
 
 import java.util.Random;
 
-import ca.javajesus.game.entities.monsters.Demon;
-import ca.javajesus.game.entities.monsters.GangMember;
-import ca.javajesus.game.entities.particles.HealthPack;
+import ca.javajesus.game.Game;
+import ca.javajesus.game.entities.Transporter;
 import ca.javajesus.level.tile.Tile;
 
 public class RandomLevel extends Level {
@@ -430,6 +429,10 @@ public class RandomLevel extends Level {
 		for (int i = 0; i < 3; i++) {
 			this.addSpawner(random.nextInt(this.width * 8),
 					random.nextInt(this.height * 8), 2);
+			
+			this.addEntity(new Transporter(this, random.nextInt(this.width * 8),
+					random.nextInt(this.height * 8), new RandomLevel(Game.WIDTH,
+							Game.HEIGHT)));
 		}
 
 	}

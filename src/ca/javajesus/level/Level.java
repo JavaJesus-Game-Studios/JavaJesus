@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
@@ -22,6 +23,7 @@ public abstract class Level {
 	public int height;
 	protected List<Entity> entities = new CopyOnWriteArrayList<Entity>();
 	protected List<Mob> mobs = new CopyOnWriteArrayList<Mob>();
+	protected List<Player> players = new CopyOnWriteArrayList<Player>();
 	private String imagePath;
 	private BufferedImage image;
 
@@ -186,6 +188,9 @@ public abstract class Level {
 		this.entities.add(entity);
 		if (entity instanceof Mob) {
 			this.mobs.add((Mob) entity);
+			if (entity instanceof Player) {
+				this.players.add((Player) entity);
+			}
 		}
 
 	}
@@ -194,6 +199,9 @@ public abstract class Level {
 		this.entities.remove(entity);
 		if (entity instanceof Mob) {
 			this.mobs.remove((Mob) entity);
+			if (entity instanceof Player) {
+				this.players.remove((Player) entity);
+			}
 		}
 	}
 
@@ -203,6 +211,10 @@ public abstract class Level {
 
 	public List<Mob> getMobs() {
 		return mobs;
+	}
+	
+	public List<Player> getPlayers() {
+		return players;
 	}
 
 	public void addSpawner(double x, double y, Entity entity) {

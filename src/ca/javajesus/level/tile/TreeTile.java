@@ -1,12 +1,12 @@
 package ca.javajesus.level.tile;
 
-import java.util.Random;
+//import java.util.Random;
 
 import ca.javajesus.game.gfx.Colors;
 
 public class TreeTile extends MultiTile {
 
-	private static Random random = new Random();
+	//private static Random random = new Random();
 
 	public static final Tile LEAF1 = new BaseTile(10, 0, 7, Colors.get(131, 111,
 			-1, Colors.toHex("#008015")), 1);
@@ -28,7 +28,7 @@ public class TreeTile extends MultiTile {
 	}
 
 	// Maybe use this later
-	private static int getColor() {
+	/*private static int getColor() {
 		switch (random.nextInt(5)) {
 		case 0:
 			return Colors.get(-1, 444, 222, 111);
@@ -42,6 +42,6 @@ public class TreeTile extends MultiTile {
 		default:
 			return Colors.get(-1, 444, 222, 111);
 		}
-	}
+	}*/
 
 }

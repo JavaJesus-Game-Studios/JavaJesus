@@ -13,7 +13,6 @@ import ca.javajesus.level.Level;
 
 public class Spawner extends Entity {
 
-	private Entity entity;
 	private int id;
 	private Random random = new Random();
 
@@ -21,7 +20,6 @@ public class Spawner extends Entity {
 		super(level);
 		this.x = x;
 		this.y = y;
-		this.entity = entity;
 		this.id = 0;
 	}
 

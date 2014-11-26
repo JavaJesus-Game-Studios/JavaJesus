@@ -2,7 +2,6 @@ package ca.javajesus.game.entities;
 
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.monsters.Demon;
-import ca.javajesus.game.entities.particles.HealthPack;
 import ca.javajesus.game.entities.particles.projectiles.Bullet;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.Colors;
@@ -20,7 +19,8 @@ public class Player extends Mob {
 	public boolean isSwinging = false;
 	protected boolean isShooting = false;
 	private int tickCount = 0;
-	private boolean changeLevel;
+	private boolean canChangeLevel;
+	private Level nextLevel;
 	private double scaledSpeed;
 	/** The current stage of the animation */
 	private int swingTick = 0;
@@ -53,6 +53,11 @@ public class Player extends Mob {
 			return new Level1("/levels/water_test_level.png");
 		}
 		return level;
+	}
+	
+	public void changeLevel(Level level) {
+		this.nextLevel = level;
+		this.canChangeLevel = true;
 	}
 
 	public void tick() {
@@ -124,10 +129,6 @@ public class Player extends Mob {
 				}
 			}
 			genericCooldown = true;
-		}
-
-		if (input.h.isPressed()) {
-			level.addEntity(new HealthPack(level, this.x, this.y));
 		}
 		if (isSwimming) {
 			scaledSpeed = 0.35;
@@ -208,11 +209,13 @@ public class Player extends Mob {
 
 		this.hitBox.setLocation((int) this.x, (int) this.y - 8);
 		this.standBox.setLocation((int) this.x - 2, (int) this.y - 10);
-		if (changeLevel) {
+		if (canChangeLevel) {
 			level.remEntity(this);
-			init(screen.getGame().randomLevel);
+			level.remEntity(bar);
+			init(nextLevel);
 			screen.getGame().updateLevel();
-			changeLevel = false;
+			level.init();
+			canChangeLevel = false;
 			level.addEntity(this);
 			level.addEntity(bar);
 		}
