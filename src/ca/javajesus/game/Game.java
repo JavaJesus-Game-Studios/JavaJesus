@@ -12,7 +12,11 @@ import java.awt.SplashScreen;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gui.Launcher;
@@ -135,7 +139,7 @@ public class Game extends Canvas implements Runnable {
 	/** Starts the game */
 	public synchronized void start() {
 		running = true;
-		new Thread(this).start();
+		new Thread(this, "Game").start();
 
 	}
 
@@ -287,7 +291,7 @@ public class Game extends Canvas implements Runnable {
 	/** Main Method Creation */
 	public static void main(String[] args) {
 		// loadingScreen();
-		new Launcher(0);
+		new Launcher(0).startMenu();
 
 	}
 

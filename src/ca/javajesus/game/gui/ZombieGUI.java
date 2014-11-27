@@ -86,7 +86,7 @@ public class ZombieGUI extends JFrame {
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             dispose();
-            new Launcher(0);    
+            new Launcher(0).startMenu();  
             }
         });
         quit.addActionListener(new ActionListener() {

@@ -1,13 +1,26 @@
 package ca.javajesus.game;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InputHandler implements KeyListener {
+import ca.javajesus.game.gui.Launcher;
+
+public class InputHandler implements KeyListener, FocusListener, MouseListener, MouseMotionListener {
+	
 	public InputHandler(Game game) {
 		game.addKeyListener(this);
+	}
+	
+	public InputHandler(Launcher launcher) {
+		launcher.addMouseListener(this);
+		launcher.addMouseMotionListener(this);
 	}
 
 	public class Key {
@@ -47,6 +60,15 @@ public class InputHandler implements KeyListener {
 	public Key s = new Key();
 	public Key a = new Key();
 	public Key d = new Key();
+	
+	public static int MouseX;
+	public static int MouseY;
+	public static int MouseDX; //D = drag
+	public static int MouseDY;
+	public static int MousePX; // P = pressed
+	public static int MousePY;
+	public static int MouseButton;
+	public static boolean dragged = false;
     
 
 	public void keyPressed(KeyEvent e) {
@@ -111,5 +133,54 @@ public class InputHandler implements KeyListener {
             right.toggle(isPressed);
         }
 
+	}
+
+	public void mouseDragged(MouseEvent e) {
+		MouseDX = e.getX();
+		MouseDY = e.getY();
+	}
+
+	public void mouseMoved(MouseEvent e) {
+		MouseX = e.getX();
+		MouseY = e.getY();
+		
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void mousePressed(MouseEvent e) {
+		MouseButton = e.getButton();
+		MousePX = e.getX();
+		MousePY = e.getY();
+		dragged = true;
+		
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		dragged = false;
+		MouseButton = 0;
+		
+	}
+
+	public void focusGained(FocusEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void focusLost(FocusEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
