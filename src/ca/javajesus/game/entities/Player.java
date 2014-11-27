@@ -246,6 +246,9 @@ public class Player extends Mob {
 			flipBottom = (movingDir - 1) % 2;
 			flipAttack1 = (movingDir - 1) % 2;
 			flipAttack2 = (movingDir - 1) % 2;
+			if (!isMoving) {
+				xTile = 4;
+			}
 		}
 
 		// Determines the sprite position at the designated swingTick count

@@ -241,7 +241,7 @@ public class Game extends Canvas implements Runnable {
 			g.setColor(Color.BLACK);
 			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);
 			frame.dispose();
-			new Launcher(0);
+			new Launcher(0).startMenu();
 			running = false;
 			return;
 		}

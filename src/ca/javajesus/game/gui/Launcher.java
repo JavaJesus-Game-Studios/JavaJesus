@@ -161,7 +161,6 @@ public class Launcher extends JFrame implements Runnable {
 			setLocation(x + InputHandler.MouseDX - InputHandler.MousePX, y
 					+ InputHandler.MouseDY - InputHandler.MousePY);
 		}
-		System.out.println(InputHandler.MouseDX);
 	}
 
 	private void renderMenu() {

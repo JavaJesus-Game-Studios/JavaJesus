@@ -46,7 +46,7 @@ public class Demon extends Monster {
 
 		updateHealth();
 		checkRadius();
-		
+
 		tickCount++;
 
 		if (tickCount % 100 == 0) {
@@ -64,7 +64,8 @@ public class Demon extends Monster {
 		}
 		int xa = 0;
 		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.hitBox) && !this.standBox.intersects(mob.hitBox)) {
+		if (mob != null && this.aggroRadius.intersects(mob.hitBox)
+				&& !this.standBox.intersects(mob.hitBox)) {
 
 			if ((int) mob.x > (int) this.x) {
 				xa++;
@@ -79,19 +80,19 @@ public class Demon extends Monster {
 				ya--;
 			}
 		}
-		
+
 		if (isMobCollision()) {
 			moveAroundMobCollision();
 			return;
 		}
-		
+
 		if (xa != 0 || ya != 0) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {
 			isMoving = false;
 		}
-		
+
 		if (!cooldown) {
 			if (mob == null) {
 				return;
@@ -131,67 +132,35 @@ public class Demon extends Monster {
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 
-		if (isShooting) {
+		if (isShooting)
+			xTile += 12;
 
-			xTile = 12;
+		// Upper body 1
+		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
+				* 32, colour, flipTop, scale, sheet);
 
-			// Upper body 1
-			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, colour, flipTop, scale, sheet);
+		// Upper body 2
+		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
+				(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
 
-			// Upper body 2
-			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
+		// Middle Body 1
+		screen.render(xOffset + (modifier * flipMiddle), yOffset + modifier,
+				xTile + (yTile + 1) * 32, colour, flipBottom, scale, sheet);
 
-			// Middle Body 1
-			screen.render(xOffset + (modifier * flipMiddle),
-					yOffset + modifier, xTile + (yTile + 1) * 32, colour,
-					flipBottom, scale, sheet);
+		// Middle Body 2
+		screen.render(xOffset + modifier - (modifier * flipMiddle), yOffset
+				+ modifier, (xTile + 1) + (yTile + 1) * 32, colour, flipBottom,
+				scale, sheet);
 
-			// Middle Body 2
-			screen.render(xOffset + modifier - (modifier * flipMiddle), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, colour,
-					flipBottom, scale, sheet);
+		// Lower Body 1
+		screen.render(xOffset + (modifier * flipBottom),
+				yOffset + 2 * modifier, xTile + (yTile + 2) * 32, colour,
+				flipBottom, scale, sheet);
 
-			// Lower Body 1
-			screen.render(xOffset + (modifier * flipBottom), yOffset + 2
-					* modifier, xTile + (yTile + 2) * 32, colour, flipBottom,
-					scale, sheet);
-
-			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ 2 * modifier, (xTile + 1) + (yTile + 2) * 32, colour,
-					flipBottom, scale, sheet);
-		} else {
-
-			// Upper body
-			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, colour, flipTop, scale, sheet);
-
-			// Upper body
-			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
-
-			// Middle Body
-			screen.render(xOffset + (modifier * flipMiddle),
-					yOffset + modifier, xTile + (yTile + 1) * 32, colour,
-					flipBottom, scale, sheet);
-
-			// Middle Body
-			screen.render(xOffset + modifier - (modifier * flipMiddle), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, colour,
-					flipBottom, scale, sheet);
-
-			// Lower Body
-			screen.render(xOffset + (modifier * flipBottom), yOffset + 2
-					* modifier, xTile + (yTile + 2) * 32, colour, flipBottom,
-					scale, sheet);
-
-			// Lower Body
-			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ 2 * modifier, (xTile + 1) + (yTile + 2) * 32, colour,
-					flipBottom, scale, sheet);
-		}
+		// Lower Body 2
+		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + 2
+				* modifier, (xTile + 1) + (yTile + 2) * 32, colour, flipBottom,
+				scale, sheet);
 
 	}
 
