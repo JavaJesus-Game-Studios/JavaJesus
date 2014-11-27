@@ -28,12 +28,9 @@ public class Launcher extends JFrame implements Runnable {
 	public boolean running = false;
 
 	protected JPanel window = new JPanel();
-	private JButton play, options, help, quit, sandbox;
-	private Rectangle rplay, roptions, rhelp, rquit, rsandbox;
-	// Configuration config = new Configuration();
 
 	private int width = 800;
-	private int height = 800;
+	private int height = 750;
 	protected int button_width = 80;
 	protected int button_height = 40;
 
@@ -58,73 +55,9 @@ public class Launcher extends JFrame implements Runnable {
 		setVisible(true);
 		window.setLayout(null);
 		if (id == 0) {
-			//drawButtons();
+			// drawButtons();
 		}
 		repaint();
-	}
-
-	private void drawButtons() {
-		play = new JButton("Play!");
-		rplay = new Rectangle((width / 2) - (button_width / 2), 90,
-				button_width, button_height);
-		play.setBounds(rplay);
-		window.add(play);
-
-		sandbox = new JButton("Sandbox!");
-		rsandbox = new Rectangle((width / 2) - (button_width / 2), 140,
-				button_width, button_height);
-		sandbox.setBounds(rsandbox);
-		window.add(sandbox);
-
-		options = new JButton("Options!");
-		roptions = new Rectangle((width / 2) - (button_width / 2), 190,
-				button_width, button_height);
-		options.setBounds(roptions);
-		window.add(options);
-
-		help = new JButton("Help!");
-		rhelp = new Rectangle((width / 2) - (button_width / 2), 240,
-				button_width, button_height);
-		help.setBounds(rhelp);
-		window.add(help);
-
-		quit = new JButton("Quit!");
-		rquit = new Rectangle((width / 2) - (button_width / 2), 290,
-				button_width, button_height);
-		quit.setBounds(rquit);
-		window.add(quit);
-
-		play.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// config.loadConfiguration("settings.xml");
-				running = false;
-				dispose();
-				new Game().start();
-			}
-		});
-		sandbox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new Sandbox();
-			}
-		});
-		options.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new Options();
-			}
-		});
-		help.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new Help();
-			}
-		});
-		quit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
 	}
 
 	public void run() {
@@ -174,20 +107,19 @@ public class Launcher extends JFrame implements Runnable {
 		g.setColor(Color.RED);
 		try {
 			g.drawImage(
-					ImageIO.read(Launcher.class.getResource("/GUI/Main_Menu_Background.png")),
-					0, 0, 800, 400, null);
+					ImageIO.read(Launcher.class.getResource("/Main_Menu.png")),
+					0, 0, 800, 800, null);
 
 			/** Story Button */
-			if (InputHandler.MouseX > width / 2
-					&& InputHandler.MouseX < width / 2 + 80
-					&& InputHandler.MouseY > 90
-					&& InputHandler.MouseY < 90 + 30) {
+			if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+					&& InputHandler.MouseY > 450
+					&& InputHandler.MouseY < 450 + 30) {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/story_on.png")), width / 2, 90,
-						80, 30, null);
+						.getResource("/Buttons/story_on.png")), 365, 450, 100,
+						30, null);
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/sword.png")), width / 2 - 80,
-						90, 80, 30, null);
+						.getResource("/Buttons/sword_selector.png")), 365 - 110,
+						450, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
 					running = false;
 					dispose();
@@ -198,21 +130,20 @@ public class Launcher extends JFrame implements Runnable {
 
 			} else {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/story_off.png")), width / 2, 90, 80,
+						.getResource("/Buttons/story_off.png")), 365, 450, 100,
 						30, null);
 			}
 
 			/** Sandbox Button */
-			if (InputHandler.MouseX > width / 2
-					&& InputHandler.MouseX < width / 2 + 80
-					&& InputHandler.MouseY > 140
-					&& InputHandler.MouseY < 140 + 30) {
+			if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+					&& InputHandler.MouseY > 510
+					&& InputHandler.MouseY < 510 + 30) {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/sandbox_on.png")), width / 2,
-						140, 80, 30, null);
+						.getResource("/Buttons/sandbox_on.png")), 365, 510, 100,
+						30, null);
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/sword.png")), width / 2 - 80,
-						140, 80, 30, null);
+						.getResource("/Buttons/sword_selector.png")), 365 - 110,
+						510, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
 					dispose();
 					new Sandbox();
@@ -222,21 +153,20 @@ public class Launcher extends JFrame implements Runnable {
 
 			} else {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/sandbox_off.png")), width / 2, 140,
-						80, 30, null);
+						.getResource("/Buttons/sandbox_off.png")), 365, 510,
+						100, 30, null);
 			}
 
 			/** Options Button */
-			if (InputHandler.MouseX > width / 2
-					&& InputHandler.MouseX < width / 2 + 80
-					&& InputHandler.MouseY > 190
-					&& InputHandler.MouseY < 190 + 30) {
+			if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+					&& InputHandler.MouseY > 570
+					&& InputHandler.MouseY < 570 + 30) {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/options_on.png")), width / 2,
-						190, 80, 30, null);
+						.getResource("/Buttons/options_on.png")), 365, 570, 100,
+						30, null);
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/sword.png")), width / 2 - 80,
-						190, 80, 30, null);
+						.getResource("/Buttons/sword_selector.png")), 365 - 110,
+						570, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
 					dispose();
 					new Options();
@@ -246,21 +176,20 @@ public class Launcher extends JFrame implements Runnable {
 
 			} else {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/options_off.png")), width / 2, 190,
-						80, 30, null);
+						.getResource("/Buttons/options_off.png")), 365, 570,
+						100, 30, null);
 			}
 
 			/** Help */
-			if (InputHandler.MouseX > width / 2
-					&& InputHandler.MouseX < width / 2 + 80
-					&& InputHandler.MouseY > 240
-					&& InputHandler.MouseY < 240 + 30) {
+			if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+					&& InputHandler.MouseY > 630
+					&& InputHandler.MouseY < 630 + 30) {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/help_on.png")), width / 2, 240,
-						80, 30, null);
+						.getResource("/Buttons/help_on.png")), 365, 630, 100,
+						30, null);
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/sword.png")), width / 2 - 80,
-						240, 80, 30, null);
+						.getResource("/Buttons/sword_selector.png")), 365 - 110,
+						630, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
 					dispose();
 					new Help();
@@ -270,21 +199,20 @@ public class Launcher extends JFrame implements Runnable {
 
 			} else {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/help_off.png")), width / 2, 240, 80,
+						.getResource("/Buttons/help_off.png")), 365, 630, 100,
 						30, null);
 			}
 
 			/** Quit */
-			if (InputHandler.MouseX > width / 2
-					&& InputHandler.MouseX < width / 2 + 80
-					&& InputHandler.MouseY > 290
-					&& InputHandler.MouseY < 290 + 30) {
+			if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+					&& InputHandler.MouseY > 690
+					&& InputHandler.MouseY < 690 + 30) {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/quit_on.png")), width / 2, 290,
-						80, 30, null);
+						.getResource("/Buttons/quit_on.png")), 365, 690, 100,
+						30, null);
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/sword.png")), width / 2 - 80,
-						290, 80, 30, null);
+						.getResource("/Buttons/sword_selector.png")), 365 - 110,
+						690, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
 					System.exit(0);
 					this.stopMenu();
@@ -293,7 +221,7 @@ public class Launcher extends JFrame implements Runnable {
 
 			} else {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/quit_off.png")), width / 2, 290, 80,
+						.getResource("/Buttons/quit_off.png")), 365, 690, 100,
 						30, null);
 			}
 		} catch (IOException e) {

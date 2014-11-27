@@ -12,9 +12,7 @@ import java.awt.SplashScreen;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import ca.javajesus.game.entities.Player;
@@ -43,7 +41,7 @@ public class Game extends Canvas implements Runnable {
 	public static final String NAME = "Java Jesus by the Coders of Anarchy";
 
 	/** Entity limit per screen */
-	public final static int ENTITY_LIMIT = 2000;
+	public final static int ENTITY_LIMIT = 1000;
 
 	/** Determines whether the game is running or not */
 	public boolean running = false;
