@@ -33,7 +33,7 @@ public class Launcher extends JFrame implements Runnable {
 	// Configuration config = new Configuration();
 
 	private int width = 800;
-	private int height = 400;
+	private int height = 800;
 	protected int button_width = 80;
 	protected int button_height = 40;
 
@@ -174,16 +174,16 @@ public class Launcher extends JFrame implements Runnable {
 		g.setColor(Color.RED);
 		try {
 			g.drawImage(
-					ImageIO.read(Launcher.class.getResource("/templogo.png")),
+					ImageIO.read(Launcher.class.getResource("/GUI/Main_Menu_Background.png")),
 					0, 0, 800, 400, null);
 
-			/** Play Button */
+			/** Story Button */
 			if (InputHandler.MouseX > width / 2
 					&& InputHandler.MouseX < width / 2 + 80
 					&& InputHandler.MouseY > 90
 					&& InputHandler.MouseY < 90 + 30) {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/play_on.png")), width / 2, 90,
+						.getResource("/Buttons/story_on.png")), width / 2, 90,
 						80, 30, null);
 				g.drawImage(ImageIO.read(Launcher.class
 						.getResource("/Buttons/sword.png")), width / 2 - 80,
@@ -198,7 +198,7 @@ public class Launcher extends JFrame implements Runnable {
 
 			} else {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/play.png")), width / 2, 90, 80,
+						.getResource("/Buttons/story_off.png")), width / 2, 90, 80,
 						30, null);
 			}
 
@@ -222,7 +222,7 @@ public class Launcher extends JFrame implements Runnable {
 
 			} else {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/sandbox.png")), width / 2, 140,
+						.getResource("/Buttons/sandbox_off.png")), width / 2, 140,
 						80, 30, null);
 			}
 
@@ -246,7 +246,7 @@ public class Launcher extends JFrame implements Runnable {
 
 			} else {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/options.png")), width / 2, 190,
+						.getResource("/Buttons/options_off.png")), width / 2, 190,
 						80, 30, null);
 			}
 
@@ -270,7 +270,7 @@ public class Launcher extends JFrame implements Runnable {
 
 			} else {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/help.png")), width / 2, 240, 80,
+						.getResource("/Buttons/help_off.png")), width / 2, 240, 80,
 						30, null);
 			}
 
@@ -293,7 +293,7 @@ public class Launcher extends JFrame implements Runnable {
 
 			} else {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/quit.png")), width / 2, 290, 80,
+						.getResource("/Buttons/quit_off.png")), width / 2, 290, 80,
 						30, null);
 			}
 		} catch (IOException e) {
