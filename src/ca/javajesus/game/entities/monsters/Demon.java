@@ -8,7 +8,7 @@ import ca.javajesus.level.Level;
 public class Demon extends Monster {
 
 	public Demon(Level level, String name, double x, double y, int speed) {
-		super(level, name, x, y, speed, 14, 24, 0, 50, Colors.get(-1, 111,
+		super(level, name, x, y, speed, 14, 24, 0, 150, Colors.get(-1, 111,
 				300, 550));
 
 	}

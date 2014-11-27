@@ -131,7 +131,7 @@ public class Projectile extends Particle {
 		for (Mob mobs : level.getMobs()) {
 			if (hitBox.intersects(mobs.hitBox)) {
 				if (mobs != mob) {
-					mobs.randomDamage(3, 5);
+					mobs.randomDamage(10, 15);
 					mobs.updateHealth();
 					level.remEntity(this);
 					if (mobs.hasDied && mob instanceof Player) {
