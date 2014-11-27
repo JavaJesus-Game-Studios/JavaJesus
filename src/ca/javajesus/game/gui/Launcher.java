@@ -2,6 +2,7 @@ package ca.javajesus.game.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -26,6 +27,9 @@ public class Launcher extends JFrame implements Runnable {
 	private final int FRAMES_PER_SECOND = 60;
 	private final int DELAY = 1000 / FRAMES_PER_SECOND;
 	public boolean running = false;
+	
+	private final String VERSION = "Alpha 0.0.5";
+	private final String LAST_UPDATED = "Last Updated 11/27/2014";
 
 	protected JPanel window = new JPanel();
 
@@ -91,8 +95,8 @@ public class Launcher extends JFrame implements Runnable {
 		if (InputHandler.dragged) {
 			int x = getX();
 			int y = getY();
-			setLocation(x + InputHandler.MouseDX - InputHandler.MousePX, y
-					+ InputHandler.MouseDY - InputHandler.MousePY);
+			//setLocation(x + InputHandler.MouseDX - InputHandler.MousePX, y
+					//+ InputHandler.MouseDY - InputHandler.MousePY);
 		}
 	}
 
@@ -104,7 +108,6 @@ public class Launcher extends JFrame implements Runnable {
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.RED);
 		try {
 			g.drawImage(
 					ImageIO.read(Launcher.class.getResource("/Main_Menu.png")),
@@ -121,6 +124,7 @@ public class Launcher extends JFrame implements Runnable {
 						.getResource("/Buttons/sword_selector.png")), 365 - 110,
 						450, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
+					InputHandler.MouseButton = 0;
 					running = false;
 					dispose();
 					new Game().start();
@@ -145,6 +149,7 @@ public class Launcher extends JFrame implements Runnable {
 						.getResource("/Buttons/sword_selector.png")), 365 - 110,
 						510, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
+					InputHandler.MouseButton = 0;
 					dispose();
 					new Sandbox();
 					this.stopMenu();
@@ -168,6 +173,7 @@ public class Launcher extends JFrame implements Runnable {
 						.getResource("/Buttons/sword_selector.png")), 365 - 110,
 						570, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
+					InputHandler.MouseButton = 0;
 					dispose();
 					new Options();
 					this.stopMenu();
@@ -191,6 +197,7 @@ public class Launcher extends JFrame implements Runnable {
 						.getResource("/Buttons/sword_selector.png")), 365 - 110,
 						630, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
+					InputHandler.MouseButton = 0;
 					dispose();
 					new Help();
 					this.stopMenu();
@@ -214,6 +221,7 @@ public class Launcher extends JFrame implements Runnable {
 						.getResource("/Buttons/sword_selector.png")), 365 - 110,
 						690, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
+					InputHandler.MouseButton = 0;
 					System.exit(0);
 					this.stopMenu();
 					return;
@@ -227,6 +235,10 @@ public class Launcher extends JFrame implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		g.setColor(Color.RED);
+		g.setFont(new Font("Verdana", 0, 20));
+		g.drawString(VERSION, 5, 20);
+		g.drawString(LAST_UPDATED, 5, 725);
 		g.dispose();
 		bs.show();
 	}
