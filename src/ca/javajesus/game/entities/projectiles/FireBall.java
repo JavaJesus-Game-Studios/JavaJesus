@@ -1,4 +1,4 @@
-package ca.javajesus.game.entities.particles.projectiles;
+package ca.javajesus.game.entities.projectiles;
 
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.gfx.Colors;

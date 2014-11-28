@@ -1,21 +1,34 @@
-package ca.javajesus.game.entities.particles.projectiles;
+package ca.javajesus.game.entities.projectiles;
 
 import java.awt.Rectangle;
 
+import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.Particle;
 import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
-public class Projectile extends Particle {
+public class Projectile extends Entity {
 
-	private int speed;
-	private double xPoint;
-	private double yPoint;
+	// In the future with guns, create two vars, firerate in gun class and
+	// firerate in player class. The firerate in gun class will be static and
+	// final, and it will be used to countdown the ticks till next shoot, such
+	// as if (gun.firerate >0) player.firerate--; then reset when it reaches 0
+
+	private double speed, range, damage;
+	/** Origin points */
+	private final double xOrigin, yOrigin;
+	private double xPoint, yPoint;
 	private int yOffset = 0;
 	protected Rectangle hitBox;
 	protected Mob mob;
+	protected final SpriteSheet sheet = SpriteSheet.particles;
+	protected int tileNumber;
+	protected int color;
+	protected int width;
+	protected int height;
 
 	/**
 	 * Creates a new Projectile will a single direction
@@ -38,11 +51,20 @@ public class Projectile extends Particle {
 	 */
 	public Projectile(Level level, int width, int height, int tileNumber,
 			int color, double x, double y, int speed, int direction, Mob mob) {
-		super(level, tileNumber, color, x, y);
+		super(level);
+		this.tileNumber = tileNumber;
+		this.color = color;
+		this.x = x;
+		this.y = y;
 		this.speed = speed;
 		calcSimpleDirection(direction);
 		this.hitBox = new Rectangle(width, height);
 		this.mob = mob;
+
+		xOrigin = x;
+		yOrigin = y;
+		range = 200;
+		damage = 5;
 	}
 
 	private void calcSimpleDirection(int direction) {
@@ -98,29 +120,43 @@ public class Projectile extends Particle {
 	public Projectile(Level level, int width, int height, int tileNumber,
 			int color, double x, double y, int speed, double xPos, double yPos,
 			Mob mob) {
-		super(level, tileNumber, color, x, y);
+		super(level);
+		this.tileNumber = tileNumber;
+		this.color = color;
+		this.x = x;
+		this.y = y;
 		this.speed = speed;
 		this.hitBox = new Rectangle(width, height);
-		calcSlope(xPos, yPos);
+		calcAngle(xPos, yPos);
 		this.mob = mob;
+
+		xOrigin = x;
+		yOrigin = y;
+		range = 200;
+		damage = 5;
 	}
 
-	private void calcSlope(double x, double y) {
+	private void calcAngle(double x, double y) {
 		this.yPoint = (y - this.y) / 50;
 		this.xPoint = (x - this.x) / 50;
 	}
 
 	public void tick() {
-		if (this.x > level.width * 32 || this.x < 0
-				|| this.y > level.height * 32 || this.y < 0) {
+		if (distance() > range)
 			level.remEntity(this);
-		}
-		if (this.speed == 0) {
-			level.remEntity(this);
-		}
+	}
+
+	// Pythag Theorem
+	private double distance() {
+		double d = Math.sqrt(Math.pow(Math.abs(xOrigin - x), 2)
+				+ Math.pow(Math.abs(yOrigin - y), 2));
+		return d;
 	}
 
 	public void render(Screen screen) {
+
+		if (level.tileCollision(x, y, xPoint, yPoint, 2))
+			level.remEntity(this);
 
 		this.y += speed * yPoint;
 		this.x += speed * xPoint;
@@ -131,8 +167,7 @@ public class Projectile extends Particle {
 		for (Mob mobs : level.getMobs()) {
 			if (hitBox.intersects(mobs.hitBox)) {
 				if (mobs != mob) {
-					mobs.randomDamage(3, 5);
-					mobs.updateHealth();
+					mobs.damage((int) damage, (int) damage + 2);
 					level.remEntity(this);
 					if (mobs.hasDied && mob instanceof Player) {
 						((Player) mob).score += 10;

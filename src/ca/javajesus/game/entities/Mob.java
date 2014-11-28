@@ -33,10 +33,9 @@ public abstract class Mob extends Entity {
 	protected boolean movingRandomly = false;
 	protected double scaledSpeed;
 	public boolean isTargeted = false;
-	
 	protected Rectangle standBox;
 
-	public int strength;
+	protected int strength, defense, accuracy, evasion;
 
 	private Random random = new Random();
 
@@ -62,6 +61,7 @@ public abstract class Mob extends Entity {
 		if (level != null) {
 			level.addEntity(bar);
 		}
+		this.defense = 1;
 	}
 
 	public void move(int xa, int ya, double speed) {
@@ -154,7 +154,7 @@ public abstract class Mob extends Entity {
 	}
 
 	protected void moveAroundMobCollision() {
-		
+
 		int xa = 0;
 		int ya = 0;
 
@@ -162,25 +162,25 @@ public abstract class Mob extends Entity {
 			if (mob == this)
 				continue;
 
-				Rectangle intersection = hitBox.intersection(mob.hitBox);
-				double xx = intersection.getCenterX();
-				double yy = intersection.getCenterY();
-				if ((int) xx > (int) this.hitBox.getCenterX()) {
-					xa--;
-				}
-				if ((int) xx < (int) this.hitBox.getCenterX()) {
-					xa++;
-				}
-				if ((int) yy > (int) this.hitBox.getCenterY()) {
-					ya--;
-				}
-				if ((int) yy < (int) this.hitBox.getCenterY()) {
-					ya++;
-				}
-				
-				if (xa != 0 || ya != 0) {
-					break;
-				}
+			Rectangle intersection = hitBox.intersection(mob.hitBox);
+			double xx = intersection.getCenterX();
+			double yy = intersection.getCenterY();
+			if ((int) xx > (int) this.hitBox.getCenterX()) {
+				xa--;
+			}
+			if ((int) xx < (int) this.hitBox.getCenterX()) {
+				xa++;
+			}
+			if ((int) yy > (int) this.hitBox.getCenterY()) {
+				ya--;
+			}
+			if ((int) yy < (int) this.hitBox.getCenterY()) {
+				ya++;
+			}
+
+			if (xa != 0 || ya != 0) {
+				break;
+			}
 		}
 		if (xa != 0 || ya != 0) {
 			move(xa, ya, scaledSpeed);
@@ -266,9 +266,17 @@ public abstract class Mob extends Entity {
 		}
 	}
 
-	public void randomDamage(int a, int b) {
-
+	public void damage(int a, int b) {
 		int damage = random.nextInt(b - a + 1) + a;
-		this.health -= damage;
+		damage -= defense;
+		if (damage > 0)
+			this.health -= damage;
+	}
+	
+	public void damage(int a) {
+		int damage = a;
+		damage -= defense;
+		if (damage > 0)
+			this.health -= damage;
 	}
 }

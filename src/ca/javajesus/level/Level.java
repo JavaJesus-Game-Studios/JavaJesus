@@ -212,7 +212,7 @@ public abstract class Level {
 	public List<Mob> getMobs() {
 		return mobs;
 	}
-	
+
 	public List<Player> getPlayers() {
 		return players;
 	}
@@ -232,6 +232,21 @@ public abstract class Level {
 			initChestPlacement();
 			otherEntityPlacement();
 		}
+
+	}
+
+	// size is area
+	public boolean tileCollision(double x, double y, double xa, double ya,
+			int size) {
+
+		boolean solid = false;
+		for (int c = 0; c < 4; c++) {
+			int xt = (((int) x + (int) xa) + c % 2 * size) / 8;
+			int yt = (((int) y + (int) ya) + c / 2 * size) / 8;
+			if (getTile(xt, yt).isSolid())
+				solid = true;
+		}
+		return solid;
 
 	}
 

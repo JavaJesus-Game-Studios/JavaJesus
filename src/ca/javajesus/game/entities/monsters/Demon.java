@@ -1,6 +1,6 @@
 package ca.javajesus.game.entities.monsters;
 
-import ca.javajesus.game.entities.particles.projectiles.FireBall;
+import ca.javajesus.game.entities.projectiles.FireBall;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;

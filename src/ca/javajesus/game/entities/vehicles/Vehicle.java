@@ -56,7 +56,7 @@ public class Vehicle extends Mob {
 			for (Mob mob : level.getMobs()) {
 				if (!(mob == this || mob instanceof Player)) {
 					if (mob.hitBox.intersects(this.hitBox))
-						mob.randomDamage(2, 8);
+						mob.damage(2, 8);
 				}
 			}
 		}

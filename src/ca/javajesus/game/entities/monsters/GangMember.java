@@ -2,7 +2,7 @@ package ca.javajesus.game.entities.monsters;
 
 import java.awt.geom.Ellipse2D;
 
-import ca.javajesus.game.entities.particles.projectiles.Bullet;
+import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;

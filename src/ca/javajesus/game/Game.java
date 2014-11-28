@@ -72,6 +72,8 @@ public class Game extends Canvas implements Runnable {
 
 	/** Creates instance of the input */
 	public InputHandler input;
+	
+	public SoundHandler sound;
 
 	/** Creates instance of the player */
 	public Player player;
@@ -94,6 +96,7 @@ public class Game extends Canvas implements Runnable {
 		frame.setVisible(true);
 		frame.toFront();
 		frame.repaint();
+		sound = new SoundHandler();
 	}
 
 	/** Initializes the image on the screen */

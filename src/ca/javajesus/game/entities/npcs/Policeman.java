@@ -4,7 +4,7 @@ import java.awt.geom.Ellipse2D;
 
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.monsters.Monster;
-import ca.javajesus.game.entities.particles.projectiles.Bullet;
+import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;

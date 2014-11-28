@@ -18,6 +18,7 @@ import javax.swing.UIManager;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
+import ca.javajesus.game.SoundHandler;
 
 public class Launcher extends JFrame implements Runnable {
 
@@ -37,6 +38,8 @@ public class Launcher extends JFrame implements Runnable {
 	private int height = 750;
 	protected int button_width = 80;
 	protected int button_height = 40;
+	
+	public SoundHandler sound;
 
 	Thread thread;
 
@@ -46,6 +49,8 @@ public class Launcher extends JFrame implements Runnable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		sound = new SoundHandler();
 
 		new InputHandler(this);
 
@@ -127,6 +132,7 @@ public class Launcher extends JFrame implements Runnable {
 					InputHandler.MouseButton = 0;
 					running = false;
 					dispose();
+					sound.sheathe.play();
 					new Game().start();
 					this.stopMenu();
 					return;
