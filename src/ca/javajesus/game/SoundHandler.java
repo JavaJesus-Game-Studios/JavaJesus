@@ -11,24 +11,25 @@ public class SoundHandler {
 		
 		sheathe = Applet.newAudioClip(SoundHandler.class
 				.getResource("/Sound/Short_Sword_Sound.wav"));
-		sheathe.play();
 	}
 	
-	/**public Clip sound;
+	/**
+	public Clip sound;
 
 	public SoundHandler(){
 
 		AudioInputStream sheathe;
 		try {
-			sound = AudioSystem.getClip();
 			sheathe = AudioSystem
 					.getAudioInputStream(SoundHandler.class
 							.getResource("/Sound/Short_Sword_Sound.wav"));
+			sound = AudioSystem.getClip();
 			sound.open(sheathe);
+			sound.start();
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 			e.printStackTrace();
 		}
 
-	} */
+	}**/
 
 }
