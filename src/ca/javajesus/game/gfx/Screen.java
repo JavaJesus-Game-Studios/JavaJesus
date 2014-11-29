@@ -18,6 +18,8 @@ public class Screen {
 
 	public int width;
 	public int height;
+	
+	private int spriteSize;
 
 	private Game game;
 
@@ -26,6 +28,7 @@ public class Screen {
 		this.height = height;
 		this.game = game;
 		pixels = new int[width * height];
+		this.spriteSize = 8;
 
 	}
 
@@ -54,13 +57,13 @@ public class Screen {
 		int xTile = tile % 32;
 		int yTile = tile / 32;
 		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.width;
-		for (int y = 0; y < 8; y++) {
+		for (int y = 0; y < spriteSize; y++) {
 			int ySheet = y;
 			if (mirrorY)
 				ySheet = 7 - y;
-			int yPixel = (int) (y + yOffset2 + (y * scaleMap) - ((scaleMap * 8) / 2));
-			for (int x = 0; x < 8; x++) {
-				int xPixel = (int) (x + d + (x * scaleMap) - ((scaleMap * 8) / 2));
+			int yPixel = (int) (y + yOffset2 + (y * scaleMap) - ((scaleMap * spriteSize) / 2));
+			for (int x = 0; x < spriteSize; x++) {
+				int xPixel = (int) (x + d + (x * scaleMap) - ((scaleMap * spriteSize) / 2));
 				int xSheet = x;
 				if (mirrorX)
 					xSheet = 7 - x;

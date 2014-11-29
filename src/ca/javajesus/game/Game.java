@@ -65,7 +65,7 @@ public class Game extends Canvas implements Runnable {
 			.getData();
 
 	/** Does something */
-	private int[] colours = new int[6 * 6 * 6];
+	private int[] colors = new int[6 * 6 * 6];
 
 	/** Creates instance of the screen */
 	private Screen screen;
@@ -109,7 +109,7 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 
-					colours[index++] = rr << 16 | gg << 8 | bb;
+					colors[index++] = rr << 16 | gg << 8 | bb;
 				}
 			}
 		}
@@ -131,7 +131,7 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 
-					colours[index++] = rr << 16 | gg << 8 | bb;
+					colors[index++] = rr << 16 | gg << 8 | bb;
 				}
 			}
 		}
@@ -223,9 +223,9 @@ public class Game extends Canvas implements Runnable {
 
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {
-				int colourCode = screen.pixels[x + y * screen.width];
-				if (colourCode < 255)
-					pixels[x + y * WIDTH] = colours[colourCode];
+				int colorCode = screen.pixels[x + y * screen.width];
+				if (colorCode < 255)
+					pixels[x + y * WIDTH] = colors[colorCode];
 			}
 
 		}

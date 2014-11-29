@@ -181,7 +181,7 @@ public class ZombieSurvival extends Game implements Runnable {
 		g.drawString("Score: " + player.score, 700, 20);
 		if (player.hasDied) {
 			frame.dispose();
-			new Launcher(0);
+			new Launcher(0).startMenu();
 			running = false;
 			return;
 		}
