@@ -116,7 +116,7 @@ public class Launcher extends JFrame implements Runnable {
 			createBufferStrategy(3);
 			return;
 		}
-
+		
 		Graphics g = bs.getDrawGraphics();
 		try {
 			g.drawImage(

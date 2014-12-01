@@ -5,12 +5,15 @@ import java.applet.AudioClip;
 
 public class SoundHandler {
 
-	public AudioClip sheathe;
+	public AudioClip sheathe, background1;
 
 	public SoundHandler() {
 		
 		sheathe = Applet.newAudioClip(SoundHandler.class
 				.getResource("/Sound/Short_Sword_Sound.wav"));
+		
+		background1 = Applet.newAudioClip(SoundHandler.class
+                .getResource("/Sound/Background1.wav"));
 	}
 	
 	/**
