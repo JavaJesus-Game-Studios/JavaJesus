@@ -44,8 +44,6 @@ public abstract class Tile {
 			Colors.get(-1, Colors.toHex("#DBEDD2"), 115, -1), 0xFF64FFFF, 1000);
 	public static final Tile ROAD3 = new BaseTile(9, 2, 2, Colors.get(-1, 000,
 			Colors.toHex("#BFAD47"), -1), 0xFFFFE400);
-	public static final Tile TREE1 = new TreeTile(16, 7, 2,
-			3);
 
 	protected byte id;
 	protected boolean solid;

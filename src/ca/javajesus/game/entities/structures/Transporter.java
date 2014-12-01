@@ -1,7 +1,9 @@
-package ca.javajesus.game.entities;
+package ca.javajesus.game.entities.structures;
 
 import java.awt.Rectangle;
 
+import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;

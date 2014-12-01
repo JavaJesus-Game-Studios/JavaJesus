@@ -54,10 +54,12 @@ public class Player extends Mob {
 		}
 		return level;
 	}
-	
+
 	public void changeLevel(Level level) {
-		this.nextLevel = level;
-		this.canChangeLevel = true;
+		if (input.e.isPressed()) {
+			this.nextLevel = level;
+			this.canChangeLevel = true;
+		}
 	}
 
 	public void tick() {
@@ -75,7 +77,8 @@ public class Player extends Mob {
 			}
 			genericCooldown = true;
 		}
-		if (input.w.isPressed() || input.s.isPressed() || input.a.isPressed() || input.d.isPressed()) {
+		if (input.w.isPressed() || input.s.isPressed() || input.a.isPressed()
+				|| input.d.isPressed()) {
 			if (!isSwinging && !isSwimming && !isDriving)
 				isShooting = true;
 		}
@@ -97,17 +100,17 @@ public class Player extends Mob {
 			xa++;
 		}
 		if (input.w.isPressed()) {
-            shootingDir=0;
-        }
-        if (input.s.isPressed()) {
-            shootingDir=1;
-        }
-        if (input.a.isPressed()) {
-            shootingDir=2;
-        }
-        if (input.d.isPressed()) {
-            shootingDir=3;
-        }
+			shootingDir = 0;
+		}
+		if (input.s.isPressed()) {
+			shootingDir = 1;
+		}
+		if (input.a.isPressed()) {
+			shootingDir = 2;
+		}
+		if (input.d.isPressed()) {
+			shootingDir = 3;
+		}
 		if (input.e.isPressed()) {
 			if (!genericCooldown) {
 				if (isDriving) {
@@ -355,15 +358,14 @@ public class Player extends Mob {
 			if (shootingDir == 0) {
 				yTile += 2;
 				xTile += 16;
+			} else if (shootingDir > 1) {
+				xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
+				flipTop = (shootingDir - 1) % 2;
+				flipBottom = (shootingDir - 1) % 2;
+				flipAttack1 = (shootingDir - 1) % 2;
+				flipAttack2 = (shootingDir - 1) % 2;
 			}
-			else if (shootingDir > 1) {
-	            xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
-	            flipTop = (shootingDir - 1) % 2;
-	            flipBottom = (shootingDir - 1) % 2;
-	            flipAttack1 = (shootingDir - 1) % 2;
-	            flipAttack2 = (shootingDir - 1) % 2;
-	        }
-			
+
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flipAttack1), yOffset, xTile
 					+ yTile * 32, colour, flipAttack1, scale, sheet);

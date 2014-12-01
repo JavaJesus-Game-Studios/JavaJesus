@@ -29,8 +29,8 @@ public class Launcher extends JFrame implements Runnable {
 	private final int DELAY = 1000 / FRAMES_PER_SECOND;
 	public boolean running = false;
 
-	private final String VERSION = "Alpha 0.0.5";
-	private final String LAST_UPDATED = "Last Updated 11/27/2014";
+	private final String VERSION = "Alpha 0.0.6";
+	private final String LAST_UPDATED = "Last Updated 11/30/2014";
 
 	private int swordOffset;
 	private boolean nextScreen = false;
@@ -57,7 +57,7 @@ public class Launcher extends JFrame implements Runnable {
 		sound = new SoundHandler();
 
 		new InputHandler(this);
-
+		sound.background1.loop();
 		setUndecorated(true);
 		setTitle("JavaJesus Launcher:");
 		setSize(new Dimension(width, height));

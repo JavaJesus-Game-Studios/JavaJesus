@@ -14,7 +14,6 @@ import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.level.tile.MultiTile;
 import ca.javajesus.level.tile.Tile;
 
 public abstract class Level {
@@ -78,21 +77,9 @@ public abstract class Level {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				tileCheck: for (Tile t : Tile.tiles) {
-					if (tempBool && x == 6 && y == 6) {
-						t = Tile.TREE1;
-						tileColours[x + y * width] = t.getLevelColour();
-						tempBool = false;
-					}
 					if (t != null
 							&& t.getLevelColour() == tileColours[x + y * width]) {
-						if (t instanceof MultiTile) {
-							((MultiTile) t).initMultiBlock(this, x, y);
-						} else {
-							if (x == 7 && y == 6)
-								System.out.println("OVERRIDE: "
-										+ image.getRGB(x, y));
-							this.tiles[x + y * width] = t.getId();
-						}
+						this.tiles[x + y * width] = t.getId();
 						break tileCheck;
 					}
 				}

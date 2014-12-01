@@ -18,7 +18,7 @@ public class Screen {
 
 	public int width;
 	public int height;
-	
+
 	private int spriteSize;
 
 	private Game game;
@@ -32,20 +32,28 @@ public class Screen {
 
 	}
 
-	/** Renders things onto the screen
-	 * @param d : The x position on the screen in which the tiles are rendered
-	 * @param yOffset2 : The y position on the screen in which the tiles are rendered
-	 * @param tile : the tile number on the SpriteSheet, used with (xTile) + (yTile) * 32
-	 * @param colour : The color of the sprite. Use with Colours.get()
-	 * @param mirrorDir : The direction the sprite is facing
-	 * @param scale : How large the object is, usually 1
-	 * @param sheet : The SpriteSheet that java will check for using the Tile parameter
+	/**
+	 * Renders things onto the screen
+	 * 
+	 * @param d
+	 *            : The x position on the screen in which the tiles are rendered
+	 * @param yOffset2
+	 *            : The y position on the screen in which the tiles are rendered
+	 * @param tile
+	 *            : the tile number on the SpriteSheet, used with (xTile) +
+	 *            (yTile) * 32
+	 * @param colour
+	 *            : The color of the sprite. Use with Colours.get()
+	 * @param mirrorDir
+	 *            : The direction the sprite is facing
+	 * @param scale
+	 *            : How large the object is, usually 1
+	 * @param sheet
+	 *            : The SpriteSheet that java will check for using the Tile
+	 *            parameter
 	 */
 	public void render(double d, double yOffset2, int tile, int colour,
 			int mirrorDir, double scale, SpriteSheet sheet) {
-
-		// WTF Mode
-		//sheet.height = 0; sheet.width = 0;
 
 		d -= xOffset;
 		yOffset2 -= yOffset;
@@ -94,5 +102,25 @@ public class Screen {
 
 	public Game getGame() {
 		return game;
+	}
+
+	/** Used for rendering large entities */
+	public void render(int xOffset, int yOffset, int colour, Sprite sprite) {
+
+		xOffset -= this.xOffset;
+		yOffset -= this.yOffset;
+
+		for (int y = 0; y < sprite.ySize; y++) {
+			int yPixel = (int) (y + yOffset);
+			for (int x = 0; x < sprite.xSize; x++) {
+				int xPixel = (int) (x + xOffset);
+				int col = (colour >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
+				if (col < 255) {
+					if (xPixel >= 0 && yPixel >= 0 && xPixel < width
+							&& yPixel < height)
+						pixels[(xPixel) + (yPixel) * width] = col;
+				}
+			}
+		}
 	}
 }

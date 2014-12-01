@@ -1,10 +1,10 @@
 package ca.javajesus.level;
 
-import ca.javajesus.game.Game;
-import ca.javajesus.game.entities.Transporter;
 import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.npcs.Policeman;
+import ca.javajesus.game.entities.structures.House1;
+import ca.javajesus.game.entities.structures.SkyScraper;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 
 public class Level1 extends Level {
@@ -47,7 +47,8 @@ public class Level1 extends Level {
 	@Override
 	public void otherEntityPlacement() {
 		this.addEntity(Vehicle.vehicle1);
-		this.addEntity(new Transporter(this, 100, 100, new RandomLevel(Game.WIDTH, Game.HEIGHT)));
+		this.addEntity(new House1(this, 100, 50));
+		this.addEntity(new SkyScraper(this, 100, 200));
 		
 	}
 
