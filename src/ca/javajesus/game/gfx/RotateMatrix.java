@@ -11,9 +11,20 @@ public class RotateMatrix {
 		this.height = sprite.ySize;
 		this.pixels = sprite.pixels;
 	}
-	
+
 	public int[] rotate(double theta) {
-		return null;
+		int[] pixels = new int[this.pixels.length];
+		
+		double[][] r = {{Math.cos(theta), -Math.sin(theta), Math.sin(theta), Math.cos(theta)}};
+		
+		 for (int y = 0; y < height; y++) {
+			 for (int x = 0; x < width; x++) {
+				 
+				 //pixel[x + y * width] = 
+			 }
+		 }
+
+		return pixels;
 	}
 
 	public int[] flipHorizontal() {
