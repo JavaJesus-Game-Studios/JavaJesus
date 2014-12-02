@@ -11,6 +11,10 @@ public class RotateMatrix {
 		this.height = sprite.ySize;
 		this.pixels = sprite.pixels;
 	}
+	
+	public int[] rotate(double theta) {
+		return null;
+	}
 
 	public int[] flipHorizontal() {
 
@@ -41,7 +45,7 @@ public class RotateMatrix {
 	}
 
 	// 90 Degrees rotation
-	public void rotateCW() {
+	public int[] rotateCW() {
 
 		// Rotates the sprite 90 degrees clockwise.
 		int[] pixels = new int[this.pixels.length];
@@ -57,10 +61,11 @@ public class RotateMatrix {
 		width = height;
 		height = w;
 		this.pixels = pixels;
+		return pixels;
 	}
 
 	// rotate 90 degrees counter clock wise
-	public void rotateCCW() {
+	public int[] rotateCCW() {
 
 		// Rotates the sprite 90 degrees counter-clockwise.
 		int[] pixels = new int[this.pixels.length];
@@ -76,10 +81,11 @@ public class RotateMatrix {
 		width = height;
 		height = w;
 		this.pixels = pixels;
+		return pixels;
 	}
 
 	// 180 degree rotation
-	public void rotate180() {
+	public int[] rotate180() {
 
 		// Rotates the sprite 180 degrees.
 		int[] pixels = new int[this.pixels.length];
@@ -87,5 +93,6 @@ public class RotateMatrix {
 			pixels[i] = this.pixels[pixels.length - i - 1];
 		}
 		this.pixels = pixels;
+		return pixels;
 	}
 }

@@ -31,13 +31,13 @@ public class Sword extends Entity {
 			level.remEntity(this);
 		}
 		if (tickCount == 50) {
-			sprite.pixels = matrix.flipVertical();
+			sprite.pixels = matrix.rotateCW();
 		}
 	}
 
 	public void render(Screen screen) {
-		this.x = player.x;
-		this.y = player.y;
+		this.x = player.x - 10;
+		this.y = player.y - 15;
 		screen.render((int) x, (int) y, color, sprite);
 	}
 
