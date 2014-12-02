@@ -24,7 +24,7 @@ public class SpriteSheet {
     public static SpriteSheet npcs = new SpriteSheet("/Sprites/mob_friendly_sheet.png");
     public static SpriteSheet player = new SpriteSheet("/Sprites/player_sheet.png");
     public static SpriteSheet vehicles = new SpriteSheet("/Sprites/vehicle_sheet.png");
-    
+        
     public SpriteSheet(String path) {
         BufferedImage image = null;
 
@@ -47,7 +47,7 @@ public class SpriteSheet {
        for (int i = 0; i < pixels.length; i++) {
             pixels[i] = (pixels[i] & 0xff) / 64;
         }
-
+       
     }
 
 }

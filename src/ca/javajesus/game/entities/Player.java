@@ -6,6 +6,7 @@ import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.Level1;
@@ -22,13 +23,10 @@ public class Player extends Mob {
 	private boolean canChangeLevel;
 	private Level nextLevel;
 	private double scaledSpeed;
-	/** The current stage of the animation */
-	private int swingTick = 0;
 	private int swingTickCount = 0;
 	private boolean cooldown = true;
 	public int gunType = 4;
 	private boolean genericCooldown;
-	private Sword sword;
 	public boolean isDriving;
 	protected Vehicle vehicle;
 	protected int shootingDir;
@@ -42,10 +40,6 @@ public class Player extends Mob {
 
 	public double getPlayerVelocity() {
 		return velocity;
-	}
-
-	public Sword getSword() {
-		return sword;
 	}
 
 	public Level getLevel() {
@@ -83,8 +77,11 @@ public class Player extends Mob {
 				isShooting = true;
 		}
 		if (input.space.isPressed()) {
-			if (!isShooting && !isSwimming && !isDriving)
+			if (!isShooting && !isSwimming && !isDriving && !isSwinging) {
 				isSwinging = true;
+				new Sword(level, Sprite.sword, this, Colors.get(-1, 000,
+						0xFFDEDEDE, -1));
+			}
 		}
 
 		if (input.up.isPressed()) {
@@ -170,26 +167,16 @@ public class Player extends Mob {
 			swingTickCount++;
 		}
 
-		// Determines the intervals at which the position increases
-		if (isSwinging) {
-			if (swingTickCount % 60 <= 12) {
-				swingTick = 0;
-			} else if (swingTickCount % 60 <= 24) {
-				swingTick = 1;
-			} else if (swingTickCount % 60 <= 36) {
-				swingTick = 2;
-			}
-		}
-
-		// Player cannot attack again during this interval -- hence calls a
-		// cooldown inbetween
-		if (isSwinging && swingTickCount % 60 == 0) {
-			cooldown = false;
+		// Swinging cooldown
+		if (swingTickCount > 200) {
+			isSwinging = false;
+			swingTickCount = 0;
 		} else if (isShooting && swingTickCount % 10 == 0) {
 			cooldown = false;
 		} else {
 			cooldown = true;
 		}
+
 		if (genericCooldown) {
 			if (tickCount % 100 == 0) {
 				genericCooldown = false;
@@ -233,11 +220,6 @@ public class Player extends Mob {
 		int flipTop = (numSteps >> walkingAnimationSpeed) & 1;
 		int flipBottom = (numSteps >> walkingAnimationSpeed) & 1;
 
-		int flipAttack1 = (swingTick >> walkingAnimationSpeed) & 1;
-		int flipAttack2 = (swingTick >> walkingAnimationSpeed) & 1;
-
-		int swingModifier = 0;
-
 		if (movingDir == 0) {
 			xTile += 10;
 			if (!isMoving) {
@@ -253,29 +235,9 @@ public class Player extends Mob {
 			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
 			flipTop = (movingDir - 1) % 2;
 			flipBottom = (movingDir - 1) % 2;
-			flipAttack1 = (movingDir - 1) % 2;
-			flipAttack2 = (movingDir - 1) % 2;
 			if (!isMoving) {
 				xTile = 4;
 			}
-		}
-
-		// Determines the sprite position at the designated swingTick count
-		switch (swingTick) {
-		case 1:
-			swingModifier = 2;
-			break;
-		case 2:
-			swingModifier = 4;
-			break;
-
-		case 3:
-			swingModifier = 6;
-			break;
-
-		default:
-			swingModifier = 0;
-			break;
 		}
 
 		int modifier = 8 * scale;
@@ -326,7 +288,7 @@ public class Player extends Mob {
 		}
 
 		// Normal Player movement -- Not Attacking Anything
-		if (!(isSwinging || isShooting)) {
+		if (!isShooting) {
 			// Upper body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
 					+ yTile * 32, colour, flipTop, scale, sheet);
@@ -362,27 +324,24 @@ public class Player extends Mob {
 				xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
 				flipTop = (shootingDir - 1) % 2;
 				flipBottom = (shootingDir - 1) % 2;
-				flipAttack1 = (shootingDir - 1) % 2;
-				flipAttack2 = (shootingDir - 1) % 2;
 			}
 
 			// Upper Body 1
-			screen.render(xOffset + (modifier * flipAttack1), yOffset, xTile
-					+ yTile * 32, colour, flipAttack1, scale, sheet);
+			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
+					+ yTile * 32, colour, flipTop, scale, sheet);
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flipAttack1),
-					yOffset, (xTile + 1) + yTile * 32, colour, flipAttack1,
-					scale, sheet);
+			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
+					(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flipAttack2), yOffset
-					+ modifier, xTile + (yTile + 1) * 32, colour, flipAttack2,
-					scale, sheet);
+			screen.render(xOffset + (modifier * flipBottom),
+					yOffset + modifier, xTile + (yTile + 1) * 32, colour,
+					flipBottom, scale, sheet);
 
 			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flipAttack2),
-					yOffset + modifier, (xTile + 1) + (yTile + 1) * 32, colour,
-					flipAttack2, scale, sheet);
+			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+					+ modifier, (xTile + 1) + (yTile + 1) * 32, colour,
+					flipBottom, scale, sheet);
 
 			if (!cooldown) {
 				int bulletOffset = 0;
@@ -404,43 +363,6 @@ public class Player extends Mob {
 
 		}
 
-		// Handles Swinging Animation
-		if (isSwinging) {
-
-			if (swingTickCount == 1) {
-				sword = new Sword(level, 0, colour, this.x, this.y, this);
-				level.addEntity(sword);
-			}
-
-			xTile = swingModifier;
-			yTile = 4;
-
-			// Upper Body 1
-			screen.render(xOffset + (modifier * flipAttack1), yOffset, xTile
-					+ yTile * 32, colour, flipAttack1, scale, sheet);
-
-			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flipAttack1),
-					yOffset, (xTile + 1) + yTile * 32, colour, flipAttack1,
-					scale, sheet);
-
-			// Lower Body 1
-			screen.render(xOffset + (modifier * flipAttack2), yOffset
-					+ modifier, xTile + (yTile + 1) * 32, colour, flipAttack2,
-					scale, sheet);
-
-			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flipAttack2),
-					yOffset + modifier, (xTile + 1) + (yTile + 1) * 32, colour,
-					flipAttack2, scale, sheet);
-
-			// Stops Sword Animation after this amount of ticks
-			if (swingTickCount % 60 == 48) {
-				isSwinging = false;
-				swingTickCount = 0;
-			}
-
-		}
 	}
 
 	public boolean hasCollided(int xa, int ya) {

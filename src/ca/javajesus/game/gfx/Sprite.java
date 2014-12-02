@@ -1,5 +1,10 @@
 package ca.javajesus.game.gfx;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public class Sprite {
 
 	public int xSize, ySize;
@@ -9,6 +14,7 @@ public class Sprite {
 
 	public static Sprite house = new Sprite(32, 40, 0, 0, SpriteSheet.buildings);
 	public static Sprite skyscraper = new Sprite(64, 216, 2, 0, SpriteSheet.buildings);
+	public static Sprite sword = new Sprite("/Swords/GreatSword_Sheet.png");
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.xSize = size;
@@ -29,6 +35,29 @@ public class Sprite {
 		this.sheet = sheet;
 		load(xSize, ySize);
 	}
+	
+	public Sprite(String path) {
+        BufferedImage image = null;
+
+        try {
+            image = ImageIO.read(SpriteSheet.class.getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (image == null) {
+            return;
+        }
+
+        this.xSize = image.getWidth();
+        this.ySize = image.getHeight();
+        pixels = image.getRGB(0, 0, xSize, ySize, null, 0, xSize);
+
+       for (int i = 0; i < pixels.length; i++) {
+            pixels[i] = (pixels[i] & 0xff) / 64;
+        }
+       
+    }
 
 	private void load(int xSize, int ySize) {
 		for (int y = 0; y < ySize; y++) {
