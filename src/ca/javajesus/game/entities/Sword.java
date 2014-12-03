@@ -20,7 +20,6 @@ public class Sword extends Entity {
 		this.player = player;
 		this.color = color;
 		matrix = new RotateMatrix(sprite);
-		level.addEntity(this);
 	}
 
 	public void tick() {
@@ -30,8 +29,8 @@ public class Sword extends Entity {
 			tickCount = 0;
 			level.remEntity(this);
 		}
-		if (tickCount == 50) {
-			sprite.pixels = matrix.rotateCW();
+		if (tickCount == 25) {
+			sprite.pixels = matrix.rotate(90);
 		}
 	}
 

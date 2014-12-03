@@ -12,98 +12,57 @@ public class RotateMatrix {
 		this.pixels = sprite.pixels;
 	}
 
-	public int[] rotate(double theta) {
+	public int[] rotate(int angle) {
+
+		double theta = Math.toRadians(angle);
 		int[] pixels = new int[this.pixels.length];
+
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				double xx = x * Math.cos(theta) - y * Math.sin(theta);
+				double yy = x * Math.sin(theta) + y * Math.cos(theta);
+				if (xx + yy * width >= 0
+						&& xx + yy * width < this.pixels.length)
+					pixels[(int) (xx + yy * width)] = this.pixels[x + y * width];
+			}
+		}
+
+		this.pixels = pixels;
+
+		return pixels;
+	}
+	
+	/**public int[] rotate(int angle) {
+
+		double theta = Math.toRadians(angle);
 		
-		double[][] r = {{Math.cos(theta), -Math.sin(theta), Math.sin(theta), Math.cos(theta)}};
+		double[] list = new double[this.pixels.length];
+		double[] list2 = new double[this.pixels.length];
 		
-		 for (int y = 0; y < height; y++) {
-			 for (int x = 0; x < width; x++) {
-				 
-				 //pixel[x + y * width] = 
-			 }
-		 }
-
-		return pixels;
-	}
-
-	public int[] flipHorizontal() {
-
-		// Flips the sprite horizontally.
 		int[] pixels = new int[this.pixels.length];
-		int row, column;
-		for (int i = 0; i < this.pixels.length; i++) {
-			row = (i / width);
-			column = (i % width);
-			pixels[row * width + column] = this.pixels[(row + 1) * width
-					- column - 1];
+
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+			    double xx = x * Math.cos(theta) - y * Math.sin(theta);
+				double yy = x * Math.sin(theta) + y * Math.cos(theta);
+				list[x + y * width] = xx + yy * width;
+			}
 		}
-		return pixels;
-	}
-
-	public int[] flipVertical() {
-
-		// Flips the sprite vertically.
-		int[] pixels = new int[this.pixels.length];
-		int row, column;
-		for (int i = 0; i < this.pixels.length; i++) {
-			row = (i / width);
-			column = (i % width);
-			pixels[row * width + column] = this.pixels[(height - row - 1)
-					* width + column];
+		
+		list2 = list;
+		Arrays.sort(list2);
+		
+		for (int i = 0; i < list2.length; i++) {
+			for (int j = 0; j < list.length; j++) {
+				if (list2[i] == list[j]) {
+					pixels[i] = this.pixels[j];
+					continue;
+				}
+			}
 		}
-		return pixels;
-	}
-
-	// 90 Degrees rotation
-	public int[] rotateCW() {
-
-		// Rotates the sprite 90 degrees clockwise.
-		int[] pixels = new int[this.pixels.length];
-		int row, column;
-		for (int i = 0; i < this.pixels.length; i++) {
-			row = (i / width);
-			column = (i % width);
-			pixels[row * width + column] = this.pixels[(height - 1) * width
-					- (((row * width + column) % height) * width)
-					+ (row * width + column) / height];
-		}
-		int w = width;
-		width = height;
-		height = w;
+		
 		this.pixels = pixels;
+		
 		return pixels;
-	}
-
-	// rotate 90 degrees counter clock wise
-	public int[] rotateCCW() {
-
-		// Rotates the sprite 90 degrees counter-clockwise.
-		int[] pixels = new int[this.pixels.length];
-		int row, column;
-		for (int i = 0; i < this.pixels.length; i++) {
-			row = (i / width);
-			column = (i % width);
-			pixels[row * width + column] = this.pixels[(width - 1)
-					+ (((row * width + column) % height) * width)
-					- (row * width + column) / height];
-		}
-		int w = width;
-		width = height;
-		height = w;
-		this.pixels = pixels;
-		return pixels;
-	}
-
-	// 180 degree rotation
-	public int[] rotate180() {
-
-		// Rotates the sprite 180 degrees.
-		int[] pixels = new int[this.pixels.length];
-		for (int i = 0; i < this.pixels.length; i++) {
-			pixels[i] = this.pixels[pixels.length - i - 1];
-		}
-		this.pixels = pixels;
-		return pixels;
-	}
+	} */
 }

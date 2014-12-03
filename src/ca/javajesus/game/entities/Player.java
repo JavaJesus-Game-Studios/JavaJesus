@@ -31,11 +31,14 @@ public class Player extends Mob {
 	protected Vehicle vehicle;
 	protected int shootingDir;
 	public int score;
+	private Sword sword;
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "player", x, y, 1, 14, 16, SpriteSheet.player, 100);
 		this.input = input;
 		this.score = 0;
+		sword = new Sword(level, Sprite.sword, this, Colors.get(-1, 000,
+				0xFFDEDEDE, -1));
 	}
 
 	public double getPlayerVelocity() {
@@ -79,8 +82,7 @@ public class Player extends Mob {
 		if (input.space.isPressed()) {
 			if (!isShooting && !isSwimming && !isDriving && !isSwinging) {
 				isSwinging = true;
-				new Sword(level, Sprite.sword, this, Colors.get(-1, 000,
-						0xFFDEDEDE, -1));
+				level.addEntity(sword);
 			}
 		}
 
