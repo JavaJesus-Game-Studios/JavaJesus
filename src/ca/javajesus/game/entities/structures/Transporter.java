@@ -2,14 +2,14 @@ package ca.javajesus.game.entities.structures;
 
 import java.awt.Rectangle;
 
-import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
-public class Transporter extends Entity {
+public class Transporter extends SolidEntity {
 	
 	private SpriteSheet sheet = SpriteSheet.tiles;
 
@@ -17,9 +17,7 @@ public class Transporter extends Entity {
 	private Level nextLevel;
 
 	public Transporter(Level currentLevel, double x, double y, Level nextLevel) {
-		super(currentLevel);
-		this.x = x;
-		this.y = y;
+		super(currentLevel, x, y, 8, 16);
 		this.nextLevel = nextLevel;
 		this.hitBox.setLocation((int) x, (int) y); 
 	}

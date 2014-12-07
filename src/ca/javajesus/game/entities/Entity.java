@@ -6,6 +6,7 @@ import ca.javajesus.level.Level;
 public abstract class Entity {
 	public double x, y;
 	protected Level level;
+	protected boolean isSolid;
 	
 	public Entity(Level level){
 		init(level);

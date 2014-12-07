@@ -47,8 +47,8 @@ public class Level1 extends Level {
 	@Override
 	public void otherEntityPlacement() {
 		this.addEntity(Vehicle.vehicle1);
-		this.addEntity(new House1(this, 100, 50));
-		this.addEntity(new SkyScraper(this, 100, 200));
+		this.addEntity(new House1(this, 100, 50, 32, 40));
+		this.addEntity(new SkyScraper(this, 100, 200, 64, 216));
 		
 	}
 

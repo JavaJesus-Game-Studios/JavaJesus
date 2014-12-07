@@ -155,7 +155,11 @@ public abstract class Level {
 
 	public void renderEntities(Screen screen) {
 		for (Entity e : getEntities()) {
-			e.render(screen);
+			if (!(e instanceof Mob))
+				e.render(screen);
+		}
+		for (Mob m : getMobs()) {
+			m.render(screen);
 		}
 	}
 

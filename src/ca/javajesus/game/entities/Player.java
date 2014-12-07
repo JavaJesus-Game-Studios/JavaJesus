@@ -1,5 +1,7 @@
 package ca.javajesus.game.entities;
 
+import java.awt.Rectangle;
+
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.projectiles.Bullet;
@@ -144,7 +146,7 @@ public class Player extends Mob {
 			scaledSpeed = 1;
 		}
 
-		if (xa != 0 || ya != 0) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 			if (isDriving)
@@ -423,5 +425,4 @@ public class Player extends Mob {
 
 		return false;
 	}
-
 }

@@ -140,6 +140,22 @@ public abstract class Mob extends Entity {
 		return false;
 	}
 
+	protected boolean isSolidEntityCollision(int xa, int ya) {
+		for (Entity entity : level.getEntities()) {
+			if (entity instanceof SolidEntity) {
+				Rectangle temp = new Rectangle(
+						((SolidEntity) entity).bounds.width,
+						((SolidEntity) entity).bounds.height - 8);
+				temp.setLocation((int) ((SolidEntity) entity).x - 2 * xa,
+						(int) ((SolidEntity) entity).y - 2 * ya);
+				if (this.hitBox.intersects(temp))
+					return true;
+			}
+
+		}
+		return false;
+	}
+
 	protected boolean isMobCollision() {
 		if (level == null) {
 			return false;
@@ -272,7 +288,7 @@ public abstract class Mob extends Entity {
 		if (damage > 0)
 			this.health -= damage;
 	}
-	
+
 	public void damage(int a) {
 		int damage = a;
 		damage -= defense;
