@@ -11,6 +11,17 @@ public class RotateMatrix {
 		this.height = sprite.ySize;
 		this.pixels = sprite.pixels;
 	}
+	// matrix-vector multiplication (y = A * x)
+    public static double[] multiply(double[][] A, double[] x) {
+        int m = A.length;
+        int n = A[0].length;
+        if (x.length != n) throw new RuntimeException("Illegal matrix dimensions.");
+        double[] y = new double[m];
+        for (int i = 0; i < m; i++)
+            for (int j = 0; j < n; j++)
+                y[i] += (A[i][j] * x[j]);
+        return y;
+    }
 
 	public int[] rotate(int angle) {
 

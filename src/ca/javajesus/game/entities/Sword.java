@@ -12,6 +12,7 @@ public class Sword extends Entity {
 	protected int color;
 	private final int swingSpeed = 200;
 	private int tickCount = 0;
+	private int swordCount;
 	RotateMatrix matrix;
 
 	public Sword(Level level, Sprite sprite, Player player, int color) {
@@ -29,7 +30,12 @@ public class Sword extends Entity {
 			tickCount = 0;
 			level.remEntity(this);
 		}
+<<<<<<< Updated upstream
 		if (tickCount == 25) {
+=======
+		if ((tickCount == 200) || (tickCount == 150) || (tickCount == 100)  || (tickCount == 50)){
+		    swordCount++;
+>>>>>>> Stashed changes
 			sprite.pixels = matrix.rotate(90);
 		}
 	}
