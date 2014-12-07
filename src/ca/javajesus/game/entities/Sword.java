@@ -30,12 +30,8 @@ public class Sword extends Entity {
 			tickCount = 0;
 			level.remEntity(this);
 		}
-<<<<<<< Updated upstream
-		if (tickCount == 25) {
-=======
 		if ((tickCount == 200) || (tickCount == 150) || (tickCount == 100)  || (tickCount == 50)){
 		    swordCount++;
->>>>>>> Stashed changes
 			sprite.pixels = matrix.rotate(90);
 		}
 	}
