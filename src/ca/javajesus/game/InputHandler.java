@@ -87,16 +87,16 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener, 
 
 	public void toggleKey(int keyCode, boolean isPressed) {
 		if (keyCode == KeyEvent.VK_UP) {
-			w.toggle(isPressed);
+			up.toggle(isPressed);
 		}
 		if (keyCode == KeyEvent.VK_DOWN) {
-			s.toggle(isPressed);
+			down.toggle(isPressed);
 		}
 		if (keyCode == KeyEvent.VK_LEFT) {
-			a.toggle(isPressed);
+			left.toggle(isPressed);
 		}
 		if (keyCode == KeyEvent.VK_RIGHT) {
-			d.toggle(isPressed);
+			right.toggle(isPressed);
 		}
 		if (keyCode == KeyEvent.VK_SHIFT) {
 			shift.toggle(isPressed);
@@ -121,16 +121,16 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener, 
 			e.toggle(isPressed);
 		}
 		if (keyCode == KeyEvent.VK_W) {
-            up.toggle(isPressed);
+            w.toggle(isPressed);
         }
         if (keyCode == KeyEvent.VK_S) {
-            down.toggle(isPressed);
+            s.toggle(isPressed);
         }
         if (keyCode == KeyEvent.VK_A) {
-            left.toggle(isPressed);
+            a.toggle(isPressed);
         }
         if (keyCode == KeyEvent.VK_D) {
-            right.toggle(isPressed);
+            d.toggle(isPressed);
         }
 
 	}

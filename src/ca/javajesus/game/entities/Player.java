@@ -76,8 +76,8 @@ public class Player extends Mob {
 			}
 			genericCooldown = true;
 		}
-		if (input.w.isPressed() || input.s.isPressed() || input.a.isPressed()
-				|| input.d.isPressed()) {
+		if (input.up.isPressed() || input.down.isPressed() || input.left.isPressed()
+				|| input.right.isPressed()) {
 			if (!isSwinging && !isSwimming && !isDriving)
 				isShooting = true;
 		}
@@ -88,28 +88,28 @@ public class Player extends Mob {
 			}
 		}
 
-		if (input.up.isPressed()) {
+		if (input.w.isPressed()) {
 			ya--;
 		}
-		if (input.down.isPressed()) {
+		if (input.s.isPressed()) {
 			ya++;
 		}
-		if (input.left.isPressed()) {
+		if (input.a.isPressed()) {
 			xa--;
 		}
-		if (input.right.isPressed()) {
+		if (input.d.isPressed()) {
 			xa++;
 		}
-		if (input.w.isPressed()) {
+		if (input.up.isPressed()) {
 			shootingDir = 0;
 		}
-		if (input.s.isPressed()) {
+		if (input.down.isPressed()) {
 			shootingDir = 1;
 		}
-		if (input.a.isPressed()) {
+		if (input.left.isPressed()) {
 			shootingDir = 2;
 		}
-		if (input.d.isPressed()) {
+		if (input.right.isPressed()) {
 			shootingDir = 3;
 		}
 		if (input.e.isPressed()) {
