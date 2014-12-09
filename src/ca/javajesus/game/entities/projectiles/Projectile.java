@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.entities.particles.Particle;
+import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -164,18 +164,26 @@ public class Projectile extends Entity {
 		screen.render(this.x, this.y, tileNumber + (yOffset * 32), color, 1, 1,
 				sheet);
 		hitBox.setLocation((int) this.x, (int) this.y);
-		for (Mob mobs : level.getMobs()) {
-			if (hitBox.intersects(mobs.hitBox)) {
-				if (mobs != mob) {
-					mobs.damage((int) damage, (int) damage + 2);
+		for (Entity entity : level.getEntities()) {
+			if (entity instanceof SolidEntity) {
+				if (hitBox.intersects(((SolidEntity) entity).bounds)) {
 					level.remEntity(this);
-					if (mobs.hasDied && mob instanceof Player) {
-						((Player) mob).score += 10;
+					return;
+				}
+			}
+			if (entity instanceof Mob) {
+				Mob mobs = (Mob) entity;
+				if (hitBox.intersects(mobs.hitBox)) {
+					if (mobs != mob) {
+						mobs.damage((int) damage, (int) damage + 2);
+						level.remEntity(this);
+						if (mobs.hasDied && mob instanceof Player) {
+							((Player) mob).score += 10;
+						}
 					}
 				}
 			}
 
 		}
 	}
-
 }

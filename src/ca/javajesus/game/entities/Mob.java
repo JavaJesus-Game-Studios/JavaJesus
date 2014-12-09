@@ -6,6 +6,7 @@ import java.util.Random;
 
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.particles.HealthBar;
+import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.tile.Tile;
@@ -148,6 +149,13 @@ public abstract class Mob extends Entity {
 						((SolidEntity) entity).bounds.height - 8);
 				temp.setLocation((int) ((SolidEntity) entity).x - 2 * xa,
 						(int) ((SolidEntity) entity).y - 2 * ya);
+				if (this.hitBox.intersects(temp))
+					return true;
+			} else if (entity instanceof Vehicle && !((Vehicle) entity).isUsed) {
+				Rectangle temp = new Rectangle(((Vehicle) entity).hitBox.width,
+						((Vehicle) entity).hitBox.height - 8);
+				temp.setLocation((int) ((Vehicle) entity).x - 2 * xa,
+						(int) ((Vehicle) entity).y - 2 * ya);
 				if (this.hitBox.intersects(temp))
 					return true;
 			}

@@ -86,7 +86,7 @@ public class Demon extends Monster {
 			return;
 		}
 
-		if (xa != 0 || ya != 0) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa,ya)) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {

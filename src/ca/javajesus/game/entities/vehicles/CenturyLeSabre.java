@@ -3,6 +3,7 @@ package ca.javajesus.game.entities.vehicles;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;

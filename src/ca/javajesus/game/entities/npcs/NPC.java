@@ -157,7 +157,7 @@ public class NPC extends Mob {
 		if ((int) yPos < (int) this.y) {
 			ya--;
 		}
-		if (xa != 0 || ya != 0) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {
@@ -254,7 +254,7 @@ public class NPC extends Mob {
 				dir2 = false;
 			}
 		}
-		if (xa != 0 || ya != 0) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)) {
 			if (isMobCollision()) {
 				isMoving = false;
 				return;
@@ -291,7 +291,7 @@ public class NPC extends Mob {
 				dir1 = true;
 			}
 		}
-		if (xa != 0 || ya != 0) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)) {
 			if (isMobCollision()) {
 				isMoving = false;
 				return;
@@ -332,7 +332,7 @@ public class NPC extends Mob {
 				dir1 = true;
 			}
 		}
-		if (xa != 0 || ya != 0) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)) {
 			if (isMobCollision()) {
 				isMoving = false;
 				return;
@@ -391,7 +391,7 @@ public class NPC extends Mob {
 				dir4 = false;
 			}
 		}
-		if (xa != 0 || ya != 0) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)) {
 			if (isMobCollision()) {
 				isMoving = false;
 				return;
@@ -410,7 +410,7 @@ public class NPC extends Mob {
 		double miniTick = tickCount / 20.0;
 		int xa = (int) (walkDistance * Math.cos(miniTick / walkDistance));
 		int ya = (int) (walkDistance * Math.sin(miniTick / walkDistance));
-		if (xa != 0 || ya != 0) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)) {
 			if (isMobCollision()) {
 				isMoving = false;
 				return;

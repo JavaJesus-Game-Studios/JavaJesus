@@ -77,8 +77,8 @@ public class Player extends Mob {
 			}
 			genericCooldown = true;
 		}
-		if (input.up.isPressed() || input.down.isPressed() || input.left.isPressed()
-				|| input.right.isPressed()) {
+		if (input.up.isPressed() || input.down.isPressed()
+				|| input.left.isPressed() || input.right.isPressed()) {
 			if (!isSwinging && !isSwimming && !isDriving)
 				isShooting = true;
 		}
@@ -117,6 +117,8 @@ public class Player extends Mob {
 			if (!genericCooldown) {
 				if (isDriving) {
 					isDriving = false;
+					this.x -= 20;
+					vehicle.isUsed = false;
 					level.addEntity(this.bar);
 				} else {
 					for (Entity entity : level.getEntities()) {
@@ -127,6 +129,7 @@ public class Player extends Mob {
 								this.x = vehicle.x;
 								this.y = vehicle.y;
 								isDriving = true;
+								vehicle.isUsed = true;
 								level.remEntity(this.bar);
 							}
 						}
@@ -147,11 +150,14 @@ public class Player extends Mob {
 			scaledSpeed = 1;
 		}
 
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
+				&& !isDriving) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
-			if (isDriving)
-				vehicle.isMoving = true;
+		} else if (isDriving && (xa != 0 || ya != 0) && !vehicle.isSolidEntityCollision(xa * 2, ya * 2)) {
+			vehicle.isMoving = true;
+			move(xa, ya, scaledSpeed);
+			isMoving = true;
 		} else {
 			isMoving = false;
 			if (isDriving)
@@ -198,6 +204,7 @@ public class Player extends Mob {
 			this.vehicle.movingDir = this.movingDir;
 			if (this.vehicle.hasDied) {
 				isDriving = false;
+				vehicle.isUsed = false;
 			}
 			return;
 		}

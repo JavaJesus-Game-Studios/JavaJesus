@@ -85,7 +85,7 @@ public class Centaur extends Monster {
 			}
 		}
 
-		if (xa != 0 || ya != 0) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa,ya)) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {

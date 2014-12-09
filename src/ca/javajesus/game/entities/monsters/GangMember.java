@@ -117,7 +117,7 @@ public class GangMember extends Monster {
 			cooldown = true;
 		}
 
-		if (xa != 0 || ya != 0) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa,ya)) {
 			if (isMobCollision()) {
 				isMoving = false;
 				return;

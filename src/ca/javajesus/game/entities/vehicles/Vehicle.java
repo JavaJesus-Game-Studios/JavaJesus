@@ -10,6 +10,7 @@ public class Vehicle extends Mob {
 
 	protected int color;
 	protected int scale = 1;
+	public boolean isUsed = false;
 
 	public static Vehicle vehicle1 = new CenturyLeSabre(Level.level1,
 			"Century LeSabre", 300, 300, 5, SpriteSheet.vehicles, 200);
