@@ -51,9 +51,20 @@ public class Sword extends Entity {
 		this.x = player.x;
 	    this.y = player.y - 15;
 	    break;
+	    
+		case 1:
+	    this.x = player.x;
+	    this.y = player.y - 15;
+	    break;
+	    
+		case 0:
+	    this.x = player.x;
+	    this.y = player.y - 15;
+	    break;
+	            
 		}
 	    
-		screen.render((int) x + tickCount/5, (int) y - 6 + tickCount/4, color, sprite);
+		screen.render((int) x + 6, (int) y - 15, player.movingDir, color, sprite);
 		if(tickCount>12)
 		{
 		    tickCount = 0;

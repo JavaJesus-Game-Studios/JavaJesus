@@ -9,6 +9,7 @@ public class GreatSword extends Sword {
 
 	private final static Sprite[] sprites = {
 			new Sprite("/Swords/GreatSword_Sheet 0.png"),
+			new Sprite("/Swords/GreatSword_Sheet 0.png"),
 			new Sprite("/Swords/GreatSword_Sheet 15.png"),
 			new Sprite("/Swords/GreatSword_Sheet 30.png"),
 			new Sprite("/Swords/GreatSword_Sheet 45.png"),

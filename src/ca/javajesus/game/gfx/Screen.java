@@ -123,4 +123,72 @@ public class Screen {
 			}
 		}
 	}
+	
+	/** Used for rendering entities reversed */
+    public void render(int xOffset, int yOffset, int dir, int colour, Sprite sprite) {
+
+        xOffset -= this.xOffset;
+        yOffset -= this.yOffset;
+        
+        switch(dir)
+        {
+        case 3:
+            for (int y = 0; y < sprite.ySize; y++) {
+                int yPixel = (int) (y + yOffset);
+                for (int x = 0; x < sprite.xSize; x++) {
+                    int xPixel = (int) (x + xOffset);
+                    int col = (colour >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
+                    if (col < 255) {
+                        if (xPixel >= 0 && yPixel >= 0 && xPixel < width
+                                && yPixel < height)
+                            pixels[(xPixel) + (yPixel) * width] = col;
+                    }
+                }
+            }
+            break;
+        case 2:
+            for (int y = 0; y < sprite.ySize; y++) {
+                int yPixel = (int) (y + yOffset);
+                for (int x = 0; x < sprite.xSize; x++) {
+                    int xPixel = (int) (x + xOffset);
+                    int col = (colour >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
+                    if (col < 255) {
+                        if (xPixel >= 0 && yPixel >= 0 && xPixel < width
+                                && yPixel < height)
+                            pixels[(xPixel) + (yPixel) * width] = col;
+                    }
+                }
+            }
+            break;
+        case 1:
+            for (int y = 0; y < sprite.ySize; y++) {
+                int yPixel = (int) (y + yOffset);
+                for (int x = 0; x < sprite.xSize; x++) {
+                    int xPixel = (int) (x + xOffset);
+                    int col = (colour >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
+                    if (col < 255) {
+                        if (xPixel >= 0 && yPixel >= 0 && xPixel < width
+                                && yPixel < height)
+                            pixels[(xPixel) + (yPixel) * width] = col;
+                    }
+                }
+            }
+            break;
+        case 0:
+            for (int y = 0; y < sprite.ySize; y++) {
+                int yPixel = (int) (y + yOffset);
+                for (int x = 0; x < sprite.xSize; x++) {
+                    int xPixel = (int) (x + xOffset);
+                    int col = (colour >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
+                    if (col < 255) {
+                        if (xPixel >= 0 && yPixel >= 0 && xPixel < width
+                                && yPixel < height)
+                            pixels[(xPixel) + (yPixel) * width] = col;
+                    }
+                }
+            }
+            break;
+        }
+        
+    }
 }
