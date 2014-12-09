@@ -32,7 +32,7 @@ public class Sword extends Entity {
 			swordCount = 0;
 			level.remEntity(this);
 		}
-		if (tickCount % (swingSpeed / 6) == 0) {
+		if (tickCount % (swingSpeed / 15) == 0) {
 			swordCount++;
 			if (sprites.length - swordCount - 1 >= 0)
 				this.sprite = sprites[sprites.length - swordCount - 1];
@@ -40,14 +40,26 @@ public class Sword extends Entity {
 	}
 
 	public void render(Screen screen) {
-		if (player.movingDir == 3) {
-			this.x = player.x;
-			this.y = player.y - 15;
-		} else {
-			this.x = player.x;
-			this.y = player.y - 15;
+		switch(player.movingDir)
+		{
+		case 3:  
+		this.x = player.x;
+        this.y = player.y - 15;
+        break;
+        
+		case 2:
+		this.x = player.x;
+	    this.y = player.y - 15;
+	    break;
 		}
-		screen.render((int) x, (int) y, color, sprite);
+	    
+		screen.render((int) x + tickCount/5, (int) y - 6 + tickCount/4, color, sprite);
+		if(tickCount>12)
+		{
+		    tickCount = 0;
+		    swordCount = 0;
+		    level.remEntity(this);
+		}
 	}
-
+	
 }
