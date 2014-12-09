@@ -16,7 +16,7 @@ public abstract class Mob extends Entity {
 	protected double speed;
 	protected int numSteps = 0;
 	public boolean isMoving;
-	protected int movingDir = 1;
+	public int movingDir = 1;
 	protected int scale = 1;
 	public double velocity;
 	public int width;

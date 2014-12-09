@@ -6,6 +6,8 @@ import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.entities.vehicles.Vehicle;
+import ca.javajesus.game.entities.weapons.GreatSword;
+import ca.javajesus.game.entities.weapons.Sword;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
@@ -39,8 +41,7 @@ public class Player extends Mob {
 		super(level, "player", x, y, 1, 14, 16, SpriteSheet.player, 100);
 		this.input = input;
 		this.score = 0;
-		sword = new Sword(level, Sprite.sword, this, Colors.get(-1, 000,
-				0xFFDEDEDE, -1));
+		sword = new GreatSword(level, this);
 	}
 
 	public double getPlayerVelocity() {

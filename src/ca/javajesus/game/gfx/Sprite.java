@@ -14,7 +14,6 @@ public class Sprite {
 
 	public static Sprite house = new Sprite(32, 40, 0, 0, SpriteSheet.buildings);
 	public static Sprite skyscraper = new Sprite(64, 216, 2, 0, SpriteSheet.buildings);
-	public static Sprite sword = new Sprite("/Swords/GreatSword_Sheet 0.png");
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.xSize = size;
