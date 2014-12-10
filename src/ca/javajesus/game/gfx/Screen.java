@@ -151,14 +151,18 @@ public class Screen {
                 int yPixel = (int) (y + yOffset);
                 for (int x = 0; x < sprite.xSize; x++) {
                     int xPixel = (int) (x + xOffset);
-                    int col = (colour >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
+                    int col = (colour >> (sprite.pixels[(x) + y * sprite.xSize] * 8)) & 255;
                     if (col < 255) {
-                        if (xPixel >= 0 && yPixel >= 0 && xPixel < width
+                        if (xPixel >= 150 && yPixel >= 0 && xPixel < width
                                 && yPixel < height)
-                            pixels[(xPixel) + (yPixel) * width] = col;
+                            pixels[(7 - xPixel) + (yPixel) * width] = col;
+                        else
+                        {
+                            pixels[(150-xPixel) + (yPixel) * width] = col;
+                        }
                     }
                 }
-            }
+            }            
             break;
         case 1:
             for (int y = 0; y < sprite.ySize; y++) {
@@ -169,7 +173,7 @@ public class Screen {
                     if (col < 255) {
                         if (xPixel >= 0 && yPixel >= 0 && xPixel < width
                                 && yPixel < height)
-                            pixels[(xPixel) + (yPixel) * width] = col;
+                            pixels[(yPixel) + (xPixel) * width] = col;
                     }
                 }
             }
@@ -183,7 +187,7 @@ public class Screen {
                     if (col < 255) {
                         if (xPixel >= 0 && yPixel >= 0 && xPixel < width
                                 && yPixel < height)
-                            pixels[(xPixel) + (yPixel) * width] = col;
+                            pixels[(yPixel) + (xPixel) * width] = col;
                     }
                 }
             }
@@ -191,4 +195,39 @@ public class Screen {
         }
         
     }
+    
+    /*public void render(double d, double yOffset2, int tile, int colour,
+            int mirrorDir, double scale, SpriteSheet sheet) {
+
+        d -= xOffset;
+        yOffset2 -= yOffset;
+
+        boolean mirrorX = (mirrorDir & BIT_MIRROR_X) > 0;
+        boolean mirrorY = (mirrorDir & BIT_MIRROR_Y) > 0;
+
+        double scaleMap = scale - 1;
+        int xTile = tile % 32;
+        int yTile = tile / 32;
+        int tileOffset = (xTile << 3) + (yTile << 3) * sheet.width;
+        for (int y = 0; y < spriteSize; y++) {
+            int ySheet = y;
+            if (mirrorY)
+                ySheet = 7 - y;
+            int yPixel = (int) (y + yOffset2 + (y * scaleMap) - ((scaleMap * spriteSize) / 2));
+            for (int x = 0; x < spriteSize; x++) {
+                int xPixel = (int) (x + d + (x * scaleMap) - ((scaleMap * spriteSize) / 2));
+                int xSheet = x;
+                if (mirrorX)
+                    xSheet = 7 - x;
+
+                int col = (colour >> (sheet.pixels[xSheet + ySheet
+                        * sheet.width + tileOffset] * 8)) & 255;
+                if (col < 255) {
+                            pixels[(xPixel + xScale) + (yPixel + yScale)
+                                    * width] = col;
+
+                }
+            }
+        }
+    }*/
 }
