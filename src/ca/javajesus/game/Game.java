@@ -22,57 +22,48 @@ import ca.javajesus.level.Level;
 
 public class Game extends Canvas implements Runnable {
 
-	/** Does something */
 	private static final long serialVersionUID = 1L;
 
 	/** Determines how long the loading screen lasts */
 	protected static final int LOAD_SPEED = 10;
 
-	/** Width of the game */
 	public static final int WIDTH = 300;
-
-	/** Height of the game */
 	public static final int HEIGHT = WIDTH / 12 * 9;
-
+	
 	/** Scales the size of the screen */
 	public static final int SCALE = 3;
-
-	/** Title of JFrame */
 	public static final String NAME = "Java Jesus by the Coders of Anarchy";
-
+	
 	/** Entity limit per screen */
 	public final static int ENTITY_LIMIT = 1000;
-
-	/** Determines whether the game is running or not */
 	public boolean running = false;
-
+	
 	/** Creates the JFrame */
 	protected static JFrame frame;
-
+	
 	/** Creates the tickCount var */
 	public int tickCount;
-
+	
 	/** Temporary Solution to limit frames */
 	private final int FRAMES_PER_SECOND = 60;
 	private final int DELAY = 1000 / FRAMES_PER_SECOND;
-
-	/** Loads an image from a file */
+	
+	/** Creates the buffered image to be rendered onto the game screen */
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
 			BufferedImage.TYPE_INT_RGB);
-
-	/** Pixel data of an image */
+	
+	/** Pixel data to be used in the buffered image */
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
 			.getData();
-
+	
 	/** Does something */
 	private int[] colors = new int[6 * 6 * 6];
-
+	
 	/** Creates instance of the screen */
 	private Screen screen;
 
-	/** Creates instance of the input */
+	/** Creates instances of the handlers */
 	public InputHandler input;
-	
 	public SoundHandler sound;
 
 	/** Creates instance of the player */

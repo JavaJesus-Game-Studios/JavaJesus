@@ -101,6 +101,9 @@ public class Player extends Mob {
 		if (input.d.isPressed()) {
 			xa++;
 		}
+		if (input.i.isPressed()) {
+			xa++;
+		}
 		if (input.up.isPressed()) {
 			shootingDir = 0;
 		}
