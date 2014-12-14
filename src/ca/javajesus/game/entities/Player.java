@@ -1,7 +1,6 @@
 package ca.javajesus.game.entities;
 
-import java.awt.Rectangle;
-
+import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.projectiles.Bullet;
@@ -10,8 +9,8 @@ import ca.javajesus.game.entities.weapons.GreatSword;
 import ca.javajesus.game.entities.weapons.Sword;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.items.Inventory;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.Level1;
 
@@ -36,12 +35,14 @@ public class Player extends Mob {
 	protected int shootingDir;
 	public int score;
 	private Sword sword;
+	private Inventory inventory;
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "player", x, y, 1, 14, 16, SpriteSheet.player, 100);
 		this.input = input;
 		this.score = 0;
 		sword = new GreatSword(level, this);
+		this.inventory = new Inventory();
 	}
 
 	public double getPlayerVelocity() {
@@ -102,7 +103,7 @@ public class Player extends Mob {
 			xa++;
 		}
 		if (input.i.isPressed()) {
-			xa++;
+			Game.displayInventory();
 		}
 		if (input.up.isPressed()) {
 			shootingDir = 0;

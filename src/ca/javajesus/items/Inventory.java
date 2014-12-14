@@ -9,10 +9,8 @@ import ca.javajesus.game.entities.Player;
 public class Inventory {
 
 	public List<Item> items = new ArrayList<Item>();
-	private Player player;
 
-	public Inventory(Player player) {
-		this.player = player;
+	public Inventory() {
 		this.fillTerms();
 	}
 

@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.gui.InventoryGUI;
 import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.level.Level;
 
@@ -73,6 +74,8 @@ public class Game extends Canvas implements Runnable {
 
 	/** This starts the game */
 	public Game() {
+		sound = new SoundHandler();
+		inventory = new InventoryGUI();
 		setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -87,7 +90,19 @@ public class Game extends Canvas implements Runnable {
 		frame.setVisible(true);
 		frame.toFront();
 		frame.repaint();
-		sound = new SoundHandler();
+	}
+	
+	public static InventoryGUI inventory;
+	
+	public static void displayInventory() {
+		frame.getContentPane().add(inventory, BorderLayout.CENTER);
+		frame.revalidate();
+		frame.repaint();
+	}
+	
+	public static void removeInventory() {
+		frame.revalidate();
+		frame.repaint();
 	}
 
 	/** Initializes the image on the screen */
