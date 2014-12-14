@@ -24,7 +24,25 @@ public class Inventory {
 		items.remove(item);
 	}
 
-	public void sortItemsAlphabetically() {
+	public void sortItemsAlphabetically(){
+		int[] tempList = new int[items.size()];
+		String tempString = items.get(0).name;
+		for(int i = 0; i < tempList.length; i ++){
+			for(int j = 1; j < tempList.length; j++){
+				if(tempString.compareToIgnoreCase(items.get(j).name) > 0){
+					tempString = items.get(j).name;
+					tempList[i] = j;
+				}
+			}
+			items.add(items.get(tempList[i]));
+			items.set(tempList[i], Item.MAX);
+			tempString = items.get(0).name;
+		}
+		for(int i = 0; i < tempList.length; i++)
+			items.remove(0);
+	}
+	
+	/*public void sortItemsAlphabetically() {
 		Item[] tempList = new Item[items.size()];
 		for(int i = 0; i < tempList.length; i++)
 			tempList[i] = items.get(i);
@@ -33,15 +51,22 @@ public class Inventory {
 			items.add(i + tempList.length, items.get(items.indexOf(tempList[i])));
 		for(int i = 0; i < tempList.length; i++)
 			items.remove(0);
-	}
+	}*/
 
 	public void sortItemsByID(){
-		Item[] tempList = new Item[items.size()];
-		for(int i = 0; i < tempList.length; i++)
-			tempList[i] = items.get(i);
-		Arrays.sort(tempList);
-		for(int i = 0; i < tempList.length; i++)
-			items.add(i + tempList.length, items.get(items.indexOf(tempList[i])));
+		int[] tempList = new int[items.size()];
+		int tempNum = Integer.MAX_VALUE;
+		for(int i = 0; i < tempList.length; i ++){
+			for(int j = 0; j < tempList.length; j++){
+				if(items.get(j).id < tempNum){
+					tempNum = items.get(j).id;
+					tempList[i] = j;
+				}
+			}
+			items.add(items.get(tempList[i]));
+			items.set(tempList[i], Item.MAX);
+			tempNum = Integer.MAX_VALUE;
+		}
 		for(int i = 0; i < tempList.length; i++)
 			items.remove(0);
 	}

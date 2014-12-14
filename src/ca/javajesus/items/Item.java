@@ -2,10 +2,10 @@ package ca.javajesus.items;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Comparator;
 
-public class Item implements Comparable<Item>{
+public class Item{
 	
+	public static Item MAX = new Item("ZZZZZZZZZZ", Integer.MAX_VALUE);
 	public static Item test1 = new Item("Apple", 0);
 	public static Item test2 = new Item("Charles", 5);
 	public static Item test3 = new Item("John", 34);
@@ -29,12 +29,4 @@ public class Item implements Comparable<Item>{
 		int compareQuantity = ((Item) compareItem).id;
 		return this.id - compareQuantity;
 	}
-	
-	public static Comparator<Item> ItemNameComparator = new Comparator<Item>(){
-		public int compare(Item item1, Item item2){
-			String itemName1 = item1.name;
-			String itemName2 = item2.name;
-			return itemName1.compareToIgnoreCase(itemName2);
-		}
-	};
 }
