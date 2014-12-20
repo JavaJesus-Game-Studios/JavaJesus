@@ -36,6 +36,7 @@ public class Player extends Mob {
 	public int score;
 	private Sword sword;
 	private Inventory inventory;
+	public boolean canOpenInven = true;
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "player", x, y, 1, 14, 16, SpriteSheet.player, 100);
@@ -103,7 +104,10 @@ public class Player extends Mob {
 			xa++;
 		}
 		if (input.i.isPressed()) {
-			Game.displayInventory();
+			if (!Game.inInventoryScreen && canOpenInven) {
+				canOpenInven = false;
+				Game.displayInventory();
+			}
 		}
 		if (input.up.isPressed()) {
 			shootingDir = 0;
@@ -158,7 +162,8 @@ public class Player extends Mob {
 				&& !isDriving) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
-		} else if (isDriving && (xa != 0 || ya != 0) && !vehicle.isSolidEntityCollision(xa * 2, ya * 2)) {
+		} else if (isDriving && (xa != 0 || ya != 0)
+				&& !vehicle.isSolidEntityCollision(xa * 2, ya * 2)) {
 			vehicle.isMoving = true;
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
@@ -190,6 +195,10 @@ public class Player extends Mob {
 			cooldown = false;
 		} else {
 			cooldown = true;
+		}
+
+		if (tickCount % 100 == 0) {
+			canOpenInven = true;
 		}
 
 		if (genericCooldown) {

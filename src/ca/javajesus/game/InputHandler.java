@@ -10,12 +10,17 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.javajesus.game.gui.InventoryGUI;
 import ca.javajesus.game.gui.Launcher;
 
 public class InputHandler implements KeyListener, FocusListener, MouseListener, MouseMotionListener {
 	
 	public InputHandler(Game game) {
 		game.addKeyListener(this);
+	}
+	
+	public InputHandler(InventoryGUI i) {
+		i.addKeyListener(this);
 	}
 	
 	public InputHandler(Launcher launcher) {

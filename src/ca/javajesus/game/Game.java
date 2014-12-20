@@ -3,6 +3,7 @@ package ca.javajesus.game;
 import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
@@ -69,20 +71,30 @@ public class Game extends Canvas implements Runnable {
 
 	/** Creates instance of the player */
 	public Player player;
+	
+	/** Used for display variables */
+	public static InventoryGUI inventory;
+	public static JPanel display;
+	
+	public static boolean inInventoryScreen = false;
 
 	public boolean isLoaded = false;
 
 	/** This starts the game */
 	public Game() {
+		input = new InputHandler(this);
 		sound = new SoundHandler();
 		inventory = new InventoryGUI();
+		display = new JPanel(new CardLayout());
+		display.add(this, "Main");
+		display.add(inventory, "Inventory");
 		setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		frame = new JFrame(NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		frame.getContentPane().add(this);
+		frame.getContentPane().add(display);
 		frame.pack();
 		frame.requestFocus();
 		frame.setResizable(false);
@@ -92,17 +104,16 @@ public class Game extends Canvas implements Runnable {
 		frame.repaint();
 	}
 	
-	public static InventoryGUI inventory;
-	
 	public static void displayInventory() {
-		frame.getContentPane().add(inventory, BorderLayout.CENTER);
-		frame.revalidate();
-		frame.repaint();
+		CardLayout cl = (CardLayout) display.getLayout();
+		cl.show(display, "Inventory");
+		inInventoryScreen = true;
 	}
 	
 	public static void removeInventory() {
-		frame.revalidate();
-		frame.repaint();
+		CardLayout cl = (CardLayout) display.getLayout();
+		cl.show(display, "Main");
+		inInventoryScreen = false;
 	}
 
 	/** Initializes the image on the screen */
@@ -121,7 +132,6 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		screen = new Screen(WIDTH, HEIGHT, this);
-		input = new InputHandler(this);
 		player = new Player(getLevel(), 25, 50, input);
 		getLevel().addEntity(player);
 		getLevel().init();
@@ -202,6 +212,9 @@ public class Game extends Canvas implements Runnable {
 	public void tick() {
 		tickCount++;
 		getLevel().tick();
+		if (inInventoryScreen) {
+			inventory.tick();
+		}
 	}
 
 	/** Returns the instance of the current Level */
