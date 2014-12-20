@@ -104,6 +104,7 @@ public class Player extends Mob {
 			xa++;
 		}
 		if (input.i.isPressed()) {
+			input.i.toggle(false);
 			if (!Game.inInventoryScreen && canOpenInven) {
 				canOpenInven = false;
 				Game.displayInventory();

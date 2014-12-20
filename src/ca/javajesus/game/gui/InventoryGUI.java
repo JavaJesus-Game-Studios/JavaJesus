@@ -2,15 +2,18 @@ package ca.javajesus.game.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
-import ca.javajesus.game.entities.Player;
 
 public class InventoryGUI extends JPanel {
 
@@ -22,6 +25,7 @@ public class InventoryGUI extends JPanel {
 	private boolean canChange = false;
 
 	public InventoryGUI() {
+		this.setFocusable(true);
 		try {
 			this.image = ImageIO.read(InventoryGUI.class
 					.getResource("/GUI/Main_Menu_Background.png"));
@@ -35,11 +39,12 @@ public class InventoryGUI extends JPanel {
 
 	public void tick() {
 		if (input.i.isPressed() && canChange) {
+			input.i.toggle(false);
 			canChange = false;
 			tickCount = 0;
 			Game.removeInventory();
 		}
-		
+
 		tickCount++;
 		if (tickCount > 50) {
 			canChange = true;

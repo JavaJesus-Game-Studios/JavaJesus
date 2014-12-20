@@ -107,12 +107,14 @@ public class Game extends Canvas implements Runnable {
 	public static void displayInventory() {
 		CardLayout cl = (CardLayout) display.getLayout();
 		cl.show(display, "Inventory");
+		inventory.requestFocusInWindow();
 		inInventoryScreen = true;
 	}
 	
 	public static void removeInventory() {
 		CardLayout cl = (CardLayout) display.getLayout();
 		cl.show(display, "Main");
+		display.getComponent(0).requestFocusInWindow();
 		inInventoryScreen = false;
 	}
 
