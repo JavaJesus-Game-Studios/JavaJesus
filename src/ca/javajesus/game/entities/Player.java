@@ -37,6 +37,7 @@ public class Player extends Mob {
 	private Sword sword;
 	private Inventory inventory;
 	public boolean canOpenInven = true;
+	public boolean canOpenPause = true;
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "player", x, y, 1, 14, 16, SpriteSheet.player, 100);
@@ -108,6 +109,13 @@ public class Player extends Mob {
 			if (!Game.inInventoryScreen && canOpenInven) {
 				canOpenInven = false;
 				Game.displayInventory();
+			}
+		}
+		if (input.esc.isPressed()) {
+			input.i.toggle(false);
+			if (!Game.inPauseScreen && canOpenPause) {
+				canOpenPause = false;
+				Game.displayPause();
 			}
 		}
 		if (input.up.isPressed()) {
@@ -202,6 +210,10 @@ public class Player extends Mob {
 			canOpenInven = true;
 		}
 
+		if (tickCount % 100 == 0) {
+			canOpenPause = true;
+		}
+		
 		if (genericCooldown) {
 			if (tickCount % 100 == 0) {
 				genericCooldown = false;

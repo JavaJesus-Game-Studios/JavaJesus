@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gui.InventoryGUI;
+import ca.javajesus.game.gui.PauseGUI;
 import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.level.Level;
 
@@ -73,10 +74,12 @@ public class Game extends Canvas implements Runnable {
 	public Player player;
 	
 	/** Used for display variables */
+	public static PauseGUI pause;
 	public static InventoryGUI inventory;
 	public static JPanel display;
 	
 	public static boolean inInventoryScreen = false;
+	public static boolean inPauseScreen = false;
 
 	public boolean isLoaded = false;
 
@@ -85,9 +88,11 @@ public class Game extends Canvas implements Runnable {
 		input = new InputHandler(this);
 		sound = new SoundHandler();
 		inventory = new InventoryGUI();
+		pause = new PauseGUI();
 		display = new JPanel(new CardLayout());
 		display.add(this, "Main");
 		display.add(inventory, "Inventory");
+		display.add(pause, "Pause");
 		setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -111,6 +116,13 @@ public class Game extends Canvas implements Runnable {
 		inInventoryScreen = true;
 	}
 	
+	public static void displayPause() {
+		CardLayout cl = (CardLayout) display.getLayout();
+		cl.show(display, "Pause");
+		pause.requestFocusInWindow();
+		inPauseScreen = true;
+	}
+	
 	public static void removeInventory() {
 		CardLayout cl = (CardLayout) display.getLayout();
 		cl.show(display, "Main");
@@ -118,6 +130,13 @@ public class Game extends Canvas implements Runnable {
 		inInventoryScreen = false;
 	}
 
+	public static void removePause() {
+		CardLayout cl = (CardLayout) display.getLayout();
+		cl.show(display, "Main");
+		display.getComponent(0).requestFocusInWindow();
+		inPauseScreen = false;
+	}
+	
 	/** Initializes the image on the screen */
 	public void init() {
 		int index = 0;
@@ -216,6 +235,9 @@ public class Game extends Canvas implements Runnable {
 		getLevel().tick();
 		if (inInventoryScreen) {
 			inventory.tick();
+		}
+		if (inPauseScreen) {
+			pause.tick();
 		}
 	}
 

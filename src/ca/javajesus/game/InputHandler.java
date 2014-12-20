@@ -12,6 +12,7 @@ import java.util.List;
 
 import ca.javajesus.game.gui.InventoryGUI;
 import ca.javajesus.game.gui.Launcher;
+import ca.javajesus.game.gui.PauseGUI;
 
 public class InputHandler implements KeyListener, FocusListener, MouseListener, MouseMotionListener {
 	
@@ -21,6 +22,10 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener, 
 	
 	public InputHandler(InventoryGUI i) {
 		i.addKeyListener(this);
+	}
+	
+	public InputHandler(PauseGUI p){
+		p.addKeyListener(this);
 	}
 	
 	public InputHandler(Launcher launcher) {
@@ -66,6 +71,7 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener, 
 	public Key a = new Key();
 	public Key d = new Key();
 	public Key i = new Key();
+	public Key esc = new Key();
 	
 	public static int MouseX;
 	public static int MouseY;
@@ -140,6 +146,9 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener, 
         }
         if (keyCode == KeyEvent.VK_I) {
             i.toggle(isPressed);
+        }
+        if (keyCode == KeyEvent.VK_ESCAPE) {
+        	esc.toggle(isPressed);
         }
 
 	}

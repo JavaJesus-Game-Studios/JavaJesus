@@ -40,17 +40,6 @@ public class Inventory {
 			items.remove(0);
 	}
 	
-	/*public void sortItemsAlphabetically() {
-		Item[] tempList = new Item[items.size()];
-		for(int i = 0; i < tempList.length; i++)
-			tempList[i] = items.get(i);
-		Arrays.sort(tempList, Item.ItemNameComparator);
-		for(int i = 0; i < tempList.length; i++)
-			items.add(i + tempList.length, items.get(items.indexOf(tempList[i])));
-		for(int i = 0; i < tempList.length; i++)
-			items.remove(0);
-	}*/
-
 	public void sortItemsByID(){
 		int[] tempList = new int[items.size()];
 		int tempNum = Integer.MAX_VALUE;

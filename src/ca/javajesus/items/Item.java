@@ -24,9 +24,4 @@ public class Item{
 	public String toString() {
 		return name;
 	}
-	
-	public int compareTo(Item compareItem){
-		int compareQuantity = ((Item) compareItem).id;
-		return this.id - compareQuantity;
-	}
 }
