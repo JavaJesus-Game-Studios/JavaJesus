@@ -22,6 +22,7 @@ import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gui.InventoryGUI;
 import ca.javajesus.game.gui.PauseGUI;
 import ca.javajesus.game.gui.Launcher;
+import ca.javajesus.game.gui.ScreenGUI;
 import ca.javajesus.level.Level;
 
 public class Game extends Canvas implements Runnable {
@@ -33,36 +34,36 @@ public class Game extends Canvas implements Runnable {
 
 	public static final int WIDTH = 300;
 	public static final int HEIGHT = WIDTH / 12 * 9;
-	
+
 	/** Scales the size of the screen */
 	public static final int SCALE = 3;
 	public static final String NAME = "Java Jesus by the Coders of Anarchy";
-	
+
 	/** Entity limit per screen */
 	public final static int ENTITY_LIMIT = 1000;
 	public boolean running = false;
-	
+
 	/** Creates the JFrame */
 	protected static JFrame frame;
-	
+
 	/** Creates the tickCount var */
 	public int tickCount;
-	
+
 	/** Temporary Solution to limit frames */
 	private final int FRAMES_PER_SECOND = 60;
 	private final int DELAY = 1000 / FRAMES_PER_SECOND;
-	
+
 	/** Creates the buffered image to be rendered onto the game screen */
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
 			BufferedImage.TYPE_INT_RGB);
-	
+
 	/** Pixel data to be used in the buffered image */
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
 			.getData();
-	
+
 	/** Does something */
 	private int[] colors = new int[6 * 6 * 6];
-	
+
 	/** Creates instance of the screen */
 	private Screen screen;
 
@@ -72,14 +73,14 @@ public class Game extends Canvas implements Runnable {
 
 	/** Creates instance of the player */
 	public Player player;
-	
+
 	/** Used for display variables */
 	public static PauseGUI pause;
 	public static InventoryGUI inventory;
 	public static JPanel display;
-	
-	public static boolean inInventoryScreen = false;
-	public static boolean inPauseScreen = false;
+
+	public static boolean inGameScreen = true;
+	private static int guiID = 1;
 
 	public boolean isLoaded = false;
 
@@ -108,35 +109,30 @@ public class Game extends Canvas implements Runnable {
 		frame.toFront();
 		frame.repaint();
 	}
-	
+
 	public static void displayInventory() {
+		guiID = 1;
 		CardLayout cl = (CardLayout) display.getLayout();
 		cl.show(display, "Inventory");
 		inventory.requestFocusInWindow();
-		inInventoryScreen = true;
+		inGameScreen = false;
 	}
-	
+
 	public static void displayPause() {
+		guiID = 2;
 		CardLayout cl = (CardLayout) display.getLayout();
 		cl.show(display, "Pause");
 		pause.requestFocusInWindow();
-		inPauseScreen = true;
-	}
-	
-	public static void removeInventory() {
-		CardLayout cl = (CardLayout) display.getLayout();
-		cl.show(display, "Main");
-		display.getComponent(0).requestFocusInWindow();
-		inInventoryScreen = false;
+		inGameScreen = false;
 	}
 
-	public static void removePause() {
+	public static void displayGame() {
 		CardLayout cl = (CardLayout) display.getLayout();
 		cl.show(display, "Main");
 		display.getComponent(0).requestFocusInWindow();
-		inPauseScreen = false;
+		inGameScreen = true;
 	}
-	
+
 	/** Initializes the image on the screen */
 	public void init() {
 		int index = 0;
@@ -233,11 +229,8 @@ public class Game extends Canvas implements Runnable {
 	public void tick() {
 		tickCount++;
 		getLevel().tick();
-		if (inInventoryScreen) {
-			inventory.tick();
-		}
-		if (inPauseScreen) {
-			pause.tick();
+		if (!inGameScreen) {
+			((ScreenGUI) display.getComponent(guiID)).tick();
 		}
 	}
 

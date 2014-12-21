@@ -36,8 +36,6 @@ public class Player extends Mob {
 	public int score;
 	private Sword sword;
 	private Inventory inventory;
-	public boolean canOpenInven = true;
-	public boolean canOpenPause = true;
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "player", x, y, 1, 14, 16, SpriteSheet.player, 100);
@@ -94,27 +92,37 @@ public class Player extends Mob {
 
 		if (input.w.isPressed()) {
 			ya--;
+			if (isSolidEntityCollision(0, ya)) {
+				ya++;
+			}
 		}
 		if (input.s.isPressed()) {
 			ya++;
+			if (isSolidEntityCollision(0, ya)) {
+				ya--;
+			}
 		}
 		if (input.a.isPressed()) {
 			xa--;
+			if (isSolidEntityCollision(xa, 0)) {
+				xa++;
+			}
 		}
 		if (input.d.isPressed()) {
 			xa++;
+			if (isSolidEntityCollision(xa, 0)) {
+				xa--;
+			}
 		}
 		if (input.i.isPressed()) {
 			input.i.toggle(false);
-			if (!Game.inInventoryScreen && canOpenInven) {
-				canOpenInven = false;
+			if (Game.inGameScreen) {
 				Game.displayInventory();
 			}
 		}
 		if (input.esc.isPressed()) {
-			input.i.toggle(false);
-			if (!Game.inPauseScreen && canOpenPause) {
-				canOpenPause = false;
+			input.esc.toggle(false);
+			if (Game.inGameScreen) {
 				Game.displayPause();
 			}
 		}
@@ -205,14 +213,6 @@ public class Player extends Mob {
 		} else {
 			cooldown = true;
 		}
-
-		if (tickCount % 100 == 0) {
-			canOpenInven = true;
-		}
-
-		if (tickCount % 100 == 0) {
-			canOpenPause = true;
-		}
 		
 		if (genericCooldown) {
 			if (tickCount % 100 == 0) {
@@ -284,6 +284,9 @@ public class Player extends Mob {
 
 		// Handles swimming animation
 		if (isSwimming) {
+			if (onFire) {
+				onFire = false;
+			}
 			int waterColour = 0;
 			yOffset += 4;
 			if (tickCount % 60 < 15) {
