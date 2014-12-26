@@ -9,6 +9,8 @@ public class SolidEntity extends Entity {
 
 	public final Rectangle bounds;
 	public final double x, y;
+	protected int color;
+
 
 	public SolidEntity(Level level, double x, double y, int width, int height) {
 		super(level);
