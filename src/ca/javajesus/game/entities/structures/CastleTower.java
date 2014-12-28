@@ -7,18 +7,18 @@ import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.PoorHouseInterior;
 
-public class NiceHouse extends SolidEntity {
+public class CastleTower extends SolidEntity {
 	
 	protected int color = Colors.get(-1, 111, Colors.toHex("#d50000"), 555);
-
-	public NiceHouse(Level level, double x, double y) {
-		super(level, x, y, 48, 48);
-		level.addEntity(new Transporter(level, x + 17, y + 32, new PoorHouseInterior()));
+	
+	public CastleTower(Level level, double x, double y) {
+		super(level, x, y, 48, 88);
+		level.addEntity(new Transporter(level, x + 18, y + 70, new PoorHouseInterior()));
 	}
 	
 	public void render(Screen screen) {
 
-		screen.render((int) x, (int) y, color, Sprite.nice_house);
+		screen.render((int) x, (int) y, color, Sprite.castle_tower);
 
 	}
 

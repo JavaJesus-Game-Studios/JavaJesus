@@ -178,8 +178,12 @@ public class Player extends Mob {
 
 		if ((xa != 0 || ya != 0)
 				&& !isSolidEntityCollision(xa * (int) scaledSpeed, ya
-						* (int) scaledSpeed) && !isDriving) {
+						* (int) scaledSpeed) && !isDriving && scaledSpeed > 1) {
 			move(xa, ya, scaledSpeed);
+			isMoving = true;
+		} else if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
+				&& !isDriving) {
+			move(xa, ya, 1);
 			isMoving = true;
 		} else if (isDriving && (xa != 0 || ya != 0)
 				&& !vehicle.isSolidEntityCollision(xa * 2, ya * 2)) {

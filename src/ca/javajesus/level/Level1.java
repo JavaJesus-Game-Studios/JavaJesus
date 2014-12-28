@@ -4,8 +4,14 @@ import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.npcs.Policeman;
 import ca.javajesus.game.entities.particles.ArmorPickup;
+import ca.javajesus.game.entities.structures.CastleTower;
+import ca.javajesus.game.entities.structures.CatholicChurch;
+import ca.javajesus.game.entities.structures.CaveEntrance;
+import ca.javajesus.game.entities.structures.Hut;
+import ca.javajesus.game.entities.structures.NiceHouse;
 import ca.javajesus.game.entities.structures.PoorHouse;
 import ca.javajesus.game.entities.structures.SanCiscoSkyscraper;
+import ca.javajesus.game.entities.structures.Skyscraper;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 
 public class Level1 extends Level {
@@ -50,6 +56,12 @@ public class Level1 extends Level {
 	public void otherEntityPlacement() {
 		this.addEntity(Vehicle.vehicle1);
 		this.addEntity(new PoorHouse(this, 100, 50));
+		this.addEntity(new NiceHouse(this, 200, 50));
+		this.addEntity(new Hut(this, 300, 50));
+		this.addEntity(new CatholicChurch(this, 400, 50));
+		this.addEntity(new CastleTower(this, 500, 50));
+		this.addEntity(new CaveEntrance(this, 600, 50));
+		this.addEntity(new Skyscraper(this, 200, 200));
 		this.addEntity(new SanCiscoSkyscraper(this, 100, 200));
 		this.addEntity(new ArmorPickup(this, 100, 25));
 		
