@@ -48,14 +48,6 @@ public class Monkey extends Monster {
 		updateHealth();
 		checkRadius();
 
-		if (isShooting) {
-			shootTickCount++;
-			if (shootTickCount > 20) {
-				shootTickCount = 0;
-				isShooting = false;
-			}
-		}
-
 		if (isMobCollision()) {
 			moveAroundMobCollision();
 			return;
@@ -77,13 +69,6 @@ public class Monkey extends Monster {
 			}
 			if ((int) mob.y < (int) this.y) {
 				ya--;
-			}
-			tickCount++;
-
-			if (tickCount % 100 == 0) {
-				cooldown = false;
-			} else {
-				cooldown = true;
 			}
 		}
 

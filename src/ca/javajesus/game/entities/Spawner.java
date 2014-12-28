@@ -51,7 +51,7 @@ public class Spawner extends Entity {
 		case 0:
 			return new Demon(this.level, "Demon", x, y, 1);
 		case 1:
-			return new GangMember(this.level, "Gang", x, y, 1, 200);
+			return new GangMember(this.level, "Gang", x, y, 1, 200, random.nextInt(2));
 		case 2:
 			return new CenturyLeSabre(this.level, "Century LeSabre", x, y, 5,
 					SpriteSheet.vehicles, 200);

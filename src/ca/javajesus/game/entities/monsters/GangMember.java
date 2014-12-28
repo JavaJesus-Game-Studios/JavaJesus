@@ -12,12 +12,27 @@ public class GangMember extends Monster {
 	protected Ellipse2D.Double standRange;
 
 	public GangMember(Level level, String name, double x, double y, int speed,
-			double health) {
+			double health, int type) {
 		super(level, name, x, y, speed, 14, 16, 3, health, Colors.get(-1, 111,
 				555, 543));
+		getType(type);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
 				RADIUS / 2, RADIUS / 2);
 
+	}
+
+	private void getType(int type) {
+		switch (type) {
+		case 0:
+			yTile = 3;
+			break;
+		case 1:
+			yTile = 10;
+			break;
+		default:
+			yTile = 3;
+			break;
+		}
 	}
 
 	public boolean hasCollided(int xa, int ya) {
