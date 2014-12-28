@@ -241,7 +241,7 @@ public class Player extends Mob {
 			return;
 		}
 
-		this.hitBox.setLocation((int) this.x, (int) this.y - 8);
+		this.hitBox.setLocation((int) this.x, (int) this.y);
 		this.standBox.setLocation((int) this.x - 2, (int) this.y - 10);
 		if (canChangeLevel) {
 			level.remEntity(this);
