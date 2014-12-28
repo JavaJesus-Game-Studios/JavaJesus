@@ -35,6 +35,7 @@ public class Player extends Mob {
 	protected int shootingDir;
 	public int score;
 	private Sword sword;
+	public int yTile = 0;
 	private Inventory inventory;
 
 	public Player(Level level, double x, double y, InputHandler input) {
@@ -51,7 +52,7 @@ public class Player extends Mob {
 
 	public Level getLevel() {
 		if (level == null) {
-			return new Level1("/levels/water_test_level.png");
+			return new Level1();
 		}
 		return level;
 	}
@@ -175,8 +176,9 @@ public class Player extends Mob {
 			scaledSpeed = 1;
 		}
 
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isDriving) {
+		if ((xa != 0 || ya != 0)
+				&& !isSolidEntityCollision(xa * (int) scaledSpeed, ya
+						* (int) scaledSpeed) && !isDriving) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else if (isDriving && (xa != 0 || ya != 0)
@@ -213,7 +215,7 @@ public class Player extends Mob {
 		} else {
 			cooldown = true;
 		}
-		
+
 		if (genericCooldown) {
 			if (tickCount % 100 == 0) {
 				genericCooldown = false;
@@ -249,7 +251,7 @@ public class Player extends Mob {
 		}
 
 		int xTile = 0;
-		int yTile = 0;
+		int yTile = this.yTile;
 		int walkingAnimationSpeed = 4;
 		if (scaledSpeed == 3) {
 			numSteps++;

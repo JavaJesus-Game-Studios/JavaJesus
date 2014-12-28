@@ -27,7 +27,7 @@ import ca.javajesus.level.Level;
 
 public class Game extends Canvas implements Runnable {
 
-	private static final long serialVersionUID = 1L;
+	protected static final long serialVersionUID = 1L;
 
 	/** Determines how long the loading screen lasts */
 	protected static final int LOAD_SPEED = 10;
@@ -54,18 +54,18 @@ public class Game extends Canvas implements Runnable {
 	private final int DELAY = 1000 / FRAMES_PER_SECOND;
 
 	/** Creates the buffered image to be rendered onto the game screen */
-	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
+	protected BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
 			BufferedImage.TYPE_INT_RGB);
 
 	/** Pixel data to be used in the buffered image */
-	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
+	protected int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
 			.getData();
 
 	/** Does something */
-	private int[] colors = new int[6 * 6 * 6];
+	protected int[] colors = new int[6 * 6 * 6];
 
 	/** Creates instance of the screen */
-	private Screen screen;
+	protected Screen screen;
 
 	/** Creates instances of the handlers */
 	public InputHandler input;
@@ -235,7 +235,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	/** Returns the instance of the current Level */
-	private Level getLevel() {
+	protected Level getLevel() {
 		if (player == null) {
 			return Level.level1;
 		}
@@ -244,7 +244,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	/** Renders the screen */
-	private void render() {
+	protected void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);

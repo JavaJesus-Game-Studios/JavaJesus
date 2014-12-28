@@ -24,14 +24,16 @@ public class HealthBar extends Particle {
 		this.mob = mob;
 		this.yOffset = yOffset;
 	}
-	
+
 	public void render(Screen screen) {
 
 		this.x = mob.x;
-		this.y = mob.y - 18 + yOffset;
+		this.y = mob.y + 8;
 
-		screen.render(this.x + 3, this.y, tileNumber, color, 1, 1, sheet);
-		screen.render(this.x - 5, this.y, tileNumber + 1, color, 1, 1, sheet);
+		screen.render(this.x + 3, this.y, tileNumber + 14 * 32, color, 1, 1,
+				sheet);
+		screen.render(this.x - 5, this.y, tileNumber + 1 + 14 * 32, color, 1,
+				1, sheet);
 	}
 
 	public void setOffset(int yTileOffset) {

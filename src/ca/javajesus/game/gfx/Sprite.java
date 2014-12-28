@@ -11,9 +11,15 @@ public class Sprite {
 	private int x, y;
 	public int[] pixels;
 	private SpriteSheet sheet;
-
-	public static Sprite house = new Sprite(32, 40, 0, 0, SpriteSheet.buildings);
-	public static Sprite skyscraper = new Sprite(64, 216, 2, 0, SpriteSheet.buildings);
+	
+	public static Sprite castle_tower = new Sprite("/Buildings/Generic Exteriors/Generic_Castle_Tower.png");
+	public static Sprite catholic_church = new Sprite("/Buildings/Generic Exteriors/Generic_Catholic_Church.png");
+	public static Sprite cave_entrance = new Sprite("/Buildings/Generic Exteriors/Generic_Cave_Entrance.png");
+	public static Sprite hut_exterior = new Sprite("/Buildings/Generic Exteriors/Generic_Hut_Exterior.png");
+	public static Sprite nice_house = new Sprite("/Buildings/Generic Exteriors/Generic_Nice_House.png");
+	public static Sprite poor_house = new Sprite("/Buildings/Generic Exteriors/Generic_Poor_House.png");
+	public static Sprite skyscraper = new Sprite("/Buildings/Generic Exteriors/Generic_Skyscraper.png");
+	public static Sprite sanCisco_skyscraper = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/San_Cisco_Skyscraper_Triangle.png");
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.xSize = size;

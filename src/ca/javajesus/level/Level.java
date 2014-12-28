@@ -28,7 +28,7 @@ public abstract class Level {
 
 	protected int[] tileColours;
 
-	public static Level level1 = new Level1("/Levels/tile_tester_level.png");
+	public static Level level1 = new Level1();
 
 	public Level(String imagePath) {
 		if (imagePath != null) {

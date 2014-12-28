@@ -15,7 +15,6 @@ public class SpriteSheet {
     public int size;
 
     public static SpriteSheet tiles = new SpriteSheet("/Tiles/tile_sheet.png");
-    public static SpriteSheet buildings = new SpriteSheet("/Tiles/building_sheet.png");
     public static SpriteSheet guns = new SpriteSheet("/Tiles/firearm_sheet.png");
     public static SpriteSheet letters = new SpriteSheet("/Tiles/letter_sheet.png");
     public static SpriteSheet particles = new SpriteSheet("/Tiles/particle_sheet.png");

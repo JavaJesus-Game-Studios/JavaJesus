@@ -9,6 +9,7 @@ import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.tile.Tile;
 
 public class Projectile extends Entity {
 
@@ -186,4 +187,5 @@ public class Projectile extends Entity {
 
 		}
 	}
+
 }

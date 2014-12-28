@@ -36,7 +36,7 @@ public abstract class Mob extends Entity {
 	public boolean isTargeted = false;
 	protected Rectangle standBox;
 
-	protected int strength, defense, accuracy, evasion;
+	public int strength, defense, accuracy, evasion;
 
 	private Random random = new Random();
 
