@@ -15,10 +15,11 @@ public class Monster extends Mob {
 			500, 100, 1, 100);
 	public static Monster horseThing1 = new Centaur(Level.level1, "HorseThing",
 			500, 200, 1, 100);
-	public static Monster monkey;
-	public static Monster man1;
+	public static Monster monkey = new Monkey(Level.level1, "Monkey", 150, 100,
+			1, 100);
+	public static Monster man1 = new Man1(Level.level1, "Evil Referee", 100, 150, 1, 100);
 	public static Monster man2;
-	
+
 	protected int colour;
 	/** The player the monster is chasing */
 	protected Mob mob;
@@ -46,7 +47,7 @@ public class Monster extends Mob {
 	}
 
 	protected void checkRadius() {
-		
+
 		if (mob != null && mob.hasDied) {
 			mob = null;
 		}
@@ -55,11 +56,11 @@ public class Monster extends Mob {
 			for (Mob mob : level.getMobs()) {
 				if (mob instanceof Player || mob instanceof NPC) {
 					if (this.aggroRadius.intersects(mob.hitBox)) {
-						//if (!mob.isTargeted) {
-							this.mob = mob;
-							mob.isTargeted = true;
-							return;
-						//}
+						// if (!mob.isTargeted) {
+						this.mob = mob;
+						mob.isTargeted = true;
+						return;
+						// }
 					}
 				}
 			}

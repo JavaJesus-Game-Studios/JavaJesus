@@ -28,7 +28,8 @@ public class Level1 extends Level {
 		
 		this.addEntity(Monster.gang1);
 		this.addEntity(Monster.horseThing1);
-		//this.addEntity(Monster.man1);
+		this.addEntity(Monster.monkey);
+		this.addEntity(Monster.man1);
 		//this.addEntity(Monster.man2);
 				
 	}
