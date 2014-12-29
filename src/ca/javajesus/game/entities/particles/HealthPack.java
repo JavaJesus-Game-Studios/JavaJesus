@@ -29,7 +29,7 @@ public class HealthPack extends Particle {
 		for (Mob mob : level.getMobs()) {
 
 			if (BOX.intersects(mob.hitBox)) {
-				mob.health = mob.startHealth;
+				mob.setHealth(mob.getStartHealth());
 				level.remEntity(this);
 			}
 

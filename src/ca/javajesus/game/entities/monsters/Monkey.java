@@ -1,17 +1,22 @@
 package ca.javajesus.game.entities.monsters;
 
+import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Monkey extends Monster {
 
+	public HealthBar bar;
+	
 	public Monkey(Level level, String name, double x, double y, int speed,
 			int health) {
 		super(level, name, x, y, speed, 16, 16, 8, health, Colors.get(-1,
 				Colors.fromHex("#2a1609"), Colors.fromHex("#391e0c"),
 				Colors.fromHex("#b08162")));
-
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
+		if (level != null)
+			level.addEntity(bar);
 	}
 
 	public boolean hasCollided(int xa, int ya) {
@@ -46,6 +51,7 @@ public class Monkey extends Monster {
 	public void tick() {
 
 		updateHealth();
+		bar.updateHealthBar(health, startHealth);
 		checkRadius();
 
 		if (isMobCollision()) {

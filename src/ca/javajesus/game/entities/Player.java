@@ -38,6 +38,10 @@ public class Player extends Mob {
 	private Sword sword;
 	public int yTile = 0;
 	private Inventory inventory;
+	public HealthBar bar;
+	public double stamina;
+	public double startStamina;
+	public boolean isTired;
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "player", x, y, 1, 14, 16, SpriteSheet.player, 100);
@@ -45,6 +49,12 @@ public class Player extends Mob {
 		this.score = 0;
 		sword = new GreatSword(level, this);
 		this.inventory = new Inventory();
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
+		if (level != null)
+			level.addEntity(bar);
+		isTired = false;
+		stamina = 100;
+		startStamina = stamina;
 	}
 
 	public double getPlayerVelocity() {
@@ -73,6 +83,7 @@ public class Player extends Mob {
 			return;
 		}
 		updateHealth();
+		bar.updateHealthBar(health, startHealth);
 
 		int xa = 0;
 		int ya = 0;
@@ -164,14 +175,21 @@ public class Player extends Mob {
 		}
 		if (isSwimming) {
 			scaledSpeed = 0.35;
-		} else if (input.shift.isPressed() && !isDriving) {
+		} else if (input.shift.isPressed() && !isDriving && !isTired) {
 			scaledSpeed = 3;
+			stamina--;
+			if(stamina <= 0)
+				isTired = true;
 		} else if (isDriving && input.shift.isPressed()) {
 			scaledSpeed = 7;
 		} else if (isDriving) {
 			scaledSpeed = 5;
 		} else {
 			scaledSpeed = 1;
+		}
+		if (!input.shift.isPressed() && stamina < startStamina){
+			stamina += 5;
+			isTired = false;
 		}
 
 		if ((xa != 0 || ya != 0)
@@ -195,6 +213,7 @@ public class Player extends Mob {
 			isSwimming = false;
 		}
 		tickCount++;
+	
 
 		// The current time in ticks in which an attack is started
 		if (isSwinging || isShooting) {

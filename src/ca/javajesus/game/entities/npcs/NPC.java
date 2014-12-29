@@ -5,6 +5,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
 import ca.javajesus.game.entities.Mob;
+import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
@@ -15,7 +16,7 @@ public class NPC extends Mob {
 	public static NPC npc1 = new NPC(Level.level1, "Knight", 200, 100, 1, 16,
 			16, 100, Colors.get(-1, 111, Colors.fromHex("#7e7e7e"),
 					Colors.fromHex("#FFFFFF")), 0, 2, "linear", 20);
-	public static NPC npc2 = new NPC(Level.level1, "Policeman", 200, 250, 1,
+	public static NPC npc2 = new NPC(Level.level1, "Policeman", 160, 250, 1,
 			16, 16, 100, Colors.get(-1, Colors.fromHex("#2a2a2a"),
 					Colors.fromHex("#000046"), 543), 0, 4, "triangle", 20);
 	public static NPC npc3 = new NPC(Level.level1, "Jesus", 300, 400, 1, 16,
@@ -62,6 +63,8 @@ public class NPC extends Mob {
 	protected int tickCount;
 
 	protected boolean movingToOrigin = false;
+	
+	public HealthBar bar;
 
 	public NPC(Level level, String name, double x, double y, int speed,
 			int width, int height, double defaultHealth, int color, int xTile,
@@ -78,6 +81,9 @@ public class NPC extends Mob {
 		this.xPos = x;
 		this.yPos = y;
 		this.hitBox = new Rectangle(width, height);
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
+		if (level != null)
+			level.addEntity(bar);
 		scaledSpeed = 0.35;
 	}
 
@@ -112,6 +118,7 @@ public class NPC extends Mob {
 	public void tick() {
 
 		updateHealth();
+		bar.updateHealthBar(health, startHealth);
 		tickCount++;
 		if (tickCount > 360) {
 			tickCount = 0;

@@ -1,16 +1,21 @@
 package ca.javajesus.game.entities.monsters;
 
+import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.FireBall;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Demon extends Monster {
+	
+	public HealthBar bar;
 
 	public Demon(Level level, String name, double x, double y, int speed) {
 		super(level, name, x, y, speed, 14, 24, 0, 150, Colors.get(-1, 111,
 				300, 550));
-
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, -10);
+		if (level != null)
+			level.addEntity(bar);
 	}
 
 	public boolean hasCollided(int xa, int ya) {
@@ -45,6 +50,7 @@ public class Demon extends Monster {
 	public void tick() {
 
 		updateHealth();
+		bar.updateHealthBar(health, startHealth);
 		checkRadius();
 
 		tickCount++;

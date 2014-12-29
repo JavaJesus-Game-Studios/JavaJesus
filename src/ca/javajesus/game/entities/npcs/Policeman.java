@@ -4,6 +4,7 @@ import java.awt.geom.Ellipse2D;
 
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.monsters.Monster;
+import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -20,6 +21,7 @@ public class Policeman extends NPC {
 	protected int tickCount = 0;
 	protected boolean isShooting = false;
 	protected int shootTickCount = 0;
+	public HealthBar bar;
 
 	public Policeman(Level level, double x, double y, double defaultHealth,
 			String walkPath, int walkDistance) {
@@ -31,6 +33,9 @@ public class Policeman extends NPC {
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
 				RADIUS / 2, RADIUS / 2);
 		checkRadius();
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
+		if (level != null)
+			level.addEntity(bar);
 	}
 
 	public Policeman(Level level, double x, double y) {
@@ -67,6 +72,7 @@ public class Policeman extends NPC {
 	public void tick() {
 
 		updateHealth();
+		bar.updateHealthBar(health, startHealth);
 		checkRadius();
 
 		if (isShooting) {

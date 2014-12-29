@@ -21,11 +21,10 @@ public abstract class Mob extends Entity {
 	public double velocity;
 	public int width;
 	public int height;
-	public double health;
-	public double startHealth;
+	protected double health;
+	protected double startHealth;
 	public Rectangle hitBox;
 	protected SpriteSheet sheet;
-	public HealthBar bar;
 	public boolean hasDied;
 	protected boolean onFire = false;
 	protected int healthTickCount = 0;
@@ -53,17 +52,17 @@ public abstract class Mob extends Entity {
 		this.hitBox = new Rectangle(width, height);
 		this.standBox = new Rectangle(width + 4, height + 4);
 		this.sheet = sheet;
-		if (this instanceof Demon) {
-			bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, -10);
-		} else {
-			bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
-		}
-		if (level != null) {
-			level.addEntity(bar);
-		}
 		this.defense = 1;
 	}
 
+	public void setHealth(double health) {
+		this.health = health;
+	}
+	
+	public double getStartHealth() {
+		return startHealth;
+	}
+	
 	public void move(int xa, int ya, double speed) {
 		if (xa != 0 && ya != 0) {
 			move(xa, 0, speed);
@@ -232,41 +231,6 @@ public abstract class Mob extends Entity {
 			healthTickCount = 0;
 		}
 
-		if ((health > 11 * startHealth / 12.0) && (health <= startHealth)) {
-			bar.setOffset(2);
-		} else if ((health > 10 * startHealth / 12.0)
-				&& (health <= 11 * startHealth / 12.0)) {
-			bar.setOffset(3);
-		} else if ((health > 9 * startHealth / 12.0)
-				&& (health <= 10 * startHealth / 12.0)) {
-			bar.setOffset(4);
-		} else if ((health > 8 * startHealth / 12.0)
-				&& (health <= 9 * startHealth / 12.0)) {
-			bar.setOffset(5);
-		} else if ((health > 7 * startHealth / 12.0)
-				&& (health <= 8 * startHealth / 12.0)) {
-			bar.setOffset(6);
-		} else if ((health > 6 * startHealth / 12.0)
-				&& (health <= 7 * startHealth / 12.0)) {
-			bar.setOffset(7);
-		} else if ((health > 5 * startHealth / 12.0)
-				&& (health <= 6 * startHealth / 12.0)) {
-			bar.setOffset(8);
-		} else if ((health > 4 * startHealth / 12.0)
-				&& (health <= 5 * startHealth / 12.0)) {
-			bar.setOffset(9);
-		} else if ((health > 3 * startHealth / 12.0)
-				&& (health <= 4 * startHealth / 12.0)) {
-			bar.setOffset(10);
-		} else if ((health > 2 * startHealth / 12.0)
-				&& (health <= 3 * startHealth / 12.0)) {
-			bar.setOffset(11);
-		} else if ((health > 100 / 12.0) && (health <= 200 / 12.0)) {
-			bar.setOffset(12);
-		} else {
-			bar.setOffset(13);
-		}
-
 		if (health <= 0) {
 			hasDied = true;
 			die();
@@ -277,7 +241,6 @@ public abstract class Mob extends Entity {
 	/** Triggers the death animation and closure */
 	public void die() {
 
-		level.remEntity(bar);
 		level.remEntity(this);
 		this.isTargeted = false;
 	}

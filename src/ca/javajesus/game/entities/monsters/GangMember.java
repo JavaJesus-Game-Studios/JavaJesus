@@ -2,6 +2,7 @@ package ca.javajesus.game.entities.monsters;
 
 import java.awt.geom.Ellipse2D;
 
+import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -10,6 +11,7 @@ import ca.javajesus.level.Level;
 public class GangMember extends Monster {
 
 	protected Ellipse2D.Double standRange;
+	public HealthBar bar;
 
 	public GangMember(Level level, String name, double x, double y, int speed,
 			double health, int type) {
@@ -18,7 +20,9 @@ public class GangMember extends Monster {
 		getType(type);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
 				RADIUS / 2, RADIUS / 2);
-
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
+		if (level != null)
+			level.addEntity(bar);
 	}
 
 	private void getType(int type) {
@@ -67,6 +71,7 @@ public class GangMember extends Monster {
 	public void tick() {
 
 		updateHealth();
+		bar.updateHealthBar(health, startHealth);
 		checkRadius();
 
 		if (isShooting) {
