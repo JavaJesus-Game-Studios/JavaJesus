@@ -13,30 +13,30 @@ import ca.javajesus.level.Level;
 public class NPC extends Mob {
 
 	public static NPC npc1 = new NPC(Level.level1, "Knight", 200, 100, 1, 16,
-			16, 100, Colors.get(-1, 111, Colors.toHex("#7e7e7e"),
-					Colors.toHex("#FFFFFF")), 0, 2, "linear", 20);
+			16, 100, Colors.get(-1, 111, Colors.fromHex("#7e7e7e"),
+					Colors.fromHex("#FFFFFF")), 0, 2, "linear", 20);
 	public static NPC npc2 = new NPC(Level.level1, "Policeman", 200, 250, 1,
-			16, 16, 100, Colors.get(-1, Colors.toHex("#2a2a2a"),
-					Colors.toHex("#000046"), 543), 0, 4, "triangle", 20);
+			16, 16, 100, Colors.get(-1, Colors.fromHex("#2a2a2a"),
+					Colors.fromHex("#000046"), 543), 0, 4, "triangle", 20);
 	public static NPC npc3 = new NPC(Level.level1, "Jesus", 300, 400, 1, 16,
-			16, 9001, Colors.get(-1, 111, 555, Colors.toHex("#ffd89b")), 0, 6,
+			16, 9001, Colors.get(-1, 111, 555, Colors.fromHex("#ffd89b")), 0, 6,
 			"square", 30);
 	public static NPC npc4 = new NPC(Level.level1, "Citizen-Female", 200, 400,
 			1, 16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 8, "cross", 30);
 	public static NPC npc5 = new NPC(Level.level1, "Citizen-Male", 200, 500, 1,
 			16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 0, "circle", 2);
 	public static NPC npc6 = new NPC(Level.level1, "Fox", 250, 75, 1, 16, 16,
-			100, Colors.get(-1, 111, Colors.toHex("#ffa800"), 555), 0, 14,
+			100, Colors.get(-1, 111, Colors.fromHex("#ffa800"), 555), 0, 14,
 			"cross", 50);
 
 	public static NPC npc8 = new NPC(Level.level1, "Tech Warrior", 400, 250, 1,
-			16, 16, 100, Colors.get(-1, 000, Colors.toHex("#42ff00"), 543), 0,
+			16, 16, 100, Colors.get(-1, 000, Colors.fromHex("#42ff00"), 543), 0,
 			12, "triangle", 20);
 	public static NPC npc9 = new NPC(Level.level1, "Peasant-Male", 500, 400, 1,
-			16, 16, 9001, Colors.get(-1, 111, Colors.toHex("#715b17"), 543), 0,
+			16, 16, 9001, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 0,
 			16, "square", 30);
 	public static NPC npc10 = new NPC(Level.level1, "Peasant-Female", 500, 500,
-			1, 16, 16, 100, Colors.get(-1, 111, Colors.toHex("#715b17"), 543),
+			1, 16, 16, 100, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543),
 			0, 18, "cross", 30);
 
 	/** Range that the NPC can walk */

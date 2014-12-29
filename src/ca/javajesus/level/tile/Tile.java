@@ -33,17 +33,17 @@ public abstract class Tile {
 			550, -1), 0xFFFFFF00);
 	public static final Tile FIRE = new AnimatedTile(5, new int[][] {
 			{ 0, 15 }, { 1, 15 }, { 2, 15 }, { 3, 15 }, { 4, 15 }, { 3, 15 },
-			{ 2, 15 }, { 1, 15 } }, Colors.get(Colors.toHex("#F51F07"),
-			Colors.toHex("#F7790A"), 540, -1) , 0xFFFF0000, 100);
+			{ 2, 15 }, { 1, 15 } }, Colors.get(Colors.fromHex("#F51F07"),
+			Colors.fromHex("#F7790A"), 540, -1) , 0xFFFF0000, 100);
 	public static final Tile ROAD1 = new BaseTile(6, 0, 2, Colors.get(-1, 000,
 			-1, -1), 0xFF565656);
 	public static final Tile ROAD2 = new BaseTile(7, 1, 2, Colors.get(-1, 000,
-			Colors.toHex("#BFAD47"), -1), 0xFFE9E400);
+			Colors.fromHex("#BFAD47"), -1), 0xFFE9E400);
 	public static final Tile WATERSAND = new AnimatedTile(8, new int[][] {
 			{ 0, 14 }, { 1, 14 }, { 2, 14 }, { 3, 14 }, { 2, 14 }, { 1, 14 } },
-			Colors.get(-1, Colors.toHex("#DBEDD2"), 115, -1), 0xFF64FFFF, 1000);
+			Colors.get(-1, Colors.fromHex("#DBEDD2"), 115, -1), 0xFF64FFFF, 1000);
 	public static final Tile ROAD3 = new BaseTile(9, 2, 2, Colors.get(-1, 000,
-			Colors.toHex("#BFAD47"), -1), 0xFFFFE400);
+			Colors.fromHex("#BFAD47"), -1), 0xFFFFE400);
 
 	protected byte id;
 	protected boolean solid;

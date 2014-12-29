@@ -9,8 +9,8 @@ public class Monkey extends Monster {
 	public Monkey(Level level, String name, double x, double y, int speed,
 			int health) {
 		super(level, name, x, y, speed, 16, 16, 8, health, Colors.get(-1,
-				Colors.toHex("#2a1609"), Colors.toHex("#391e0c"),
-				Colors.toHex("#b08162")));
+				Colors.fromHex("#2a1609"), Colors.fromHex("#391e0c"),
+				Colors.fromHex("#b08162")));
 
 	}
 

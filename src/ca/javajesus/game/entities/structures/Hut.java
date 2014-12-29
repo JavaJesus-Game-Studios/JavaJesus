@@ -9,7 +9,7 @@ import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class Hut extends SolidEntity {
 	
-	protected int color = Colors.get(-1, 111, Colors.toHex("#d50000"), 555);
+	protected int color = Colors.get(-1, 111, Colors.fromHex("#d50000"), 555);
 	
 	public Hut(Level level, double x, double y) {
 		super(level, x, y, 32, 32);

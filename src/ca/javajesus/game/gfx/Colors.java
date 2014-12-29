@@ -55,7 +55,7 @@ public class Colors {
 		return r * 36 + g * 6 + b;
 	}
 
-	public static int toRGB(int red, int green, int blue) {
+	public static int fromRGB(int red, int green, int blue) {
 		red = (int) (red * 5 / 255 + 0.5);
 		green = (int) (green * 5 / 255 + 0.5);
 		blue = (int) (blue * 5 / 255 + 0.5);
@@ -65,7 +65,7 @@ public class Colors {
 
 	}
 
-	public static int toHex(String string) {
+	public static int fromHex(String string) {
 		int red = Color.decode(string).getRed();
 		int green = Color.decode(string).getGreen();
 		int blue = Color.decode(string).getBlue();

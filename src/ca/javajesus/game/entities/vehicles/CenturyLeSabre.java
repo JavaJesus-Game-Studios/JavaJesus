@@ -23,50 +23,50 @@ public class CenturyLeSabre extends Vehicle {
 		switch (random.nextInt(8)) {
 		case 0: {
 			// red color
-			color = Colors.get(-1, 111, Colors.toHex("#ff0000"),
-					Colors.toHex("#c2feff"));
+			color = Colors.get(-1, 111, Colors.fromHex("#ff0000"),
+					Colors.fromHex("#c2feff"));
 			break;
 		}
 		case 1: {
 			// gold color
-			color = Colors.get(-1, 111, Colors.toHex("#CFB53B"),
-					Colors.toHex("#c2feff"));
+			color = Colors.get(-1, 111, Colors.fromHex("#CFB53B"),
+					Colors.fromHex("#c2feff"));
 			break;
 		}
 
 		case 2: {
 			// blue color
-			color = Colors.get(-1, 111, Colors.toHex("#005aff"),
-					Colors.toHex("#c2feff"));
+			color = Colors.get(-1, 111, Colors.fromHex("#005aff"),
+					Colors.fromHex("#c2feff"));
 			break;
 		}
 		case 3: {
 			// silver color
-			color = Colors.get(-1, 111, Colors.toHex("#CCCCCC"),
-					Colors.toHex("#c2feff"));
+			color = Colors.get(-1, 111, Colors.fromHex("#CCCCCC"),
+					Colors.fromHex("#c2feff"));
 			break;
 		}
 		case 4: {
 			// black color
-			color = Colors.get(-1, 111, 000, Colors.toHex("#c2efeff"));
+			color = Colors.get(-1, 111, 000, Colors.fromHex("#c2efeff"));
 			break;
 		}
 		case 5: {
 			// green color
-			color = Colors.get(-1, 111, Colors.toHex("#066518"),
-					Colors.toHex("#c2efeff"));
+			color = Colors.get(-1, 111, Colors.fromHex("#066518"),
+					Colors.fromHex("#c2efeff"));
 			break;
 		}
 		case 6: {
 			// purple color
-			color = Colors.get(-1, 111, Colors.toHex("#580271"),
-					Colors.toHex("#c2efeff"));
+			color = Colors.get(-1, 111, Colors.fromHex("#580271"),
+					Colors.fromHex("#c2efeff"));
 			break;
 		}
 
 		default: {
 			// White
-			color = Colors.get(-1, 111, 555, Colors.toHex("#c2feff"));
+			color = Colors.get(-1, 111, 555, Colors.fromHex("#c2feff"));
 			break;
 		}
 		}

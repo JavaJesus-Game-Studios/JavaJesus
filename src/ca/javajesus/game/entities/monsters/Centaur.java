@@ -9,7 +9,7 @@ public class Centaur extends Monster {
 	public Centaur(Level level, String name, double x, double y, int speed,
 			int health) {
 		super(level, name, x, y, speed, 14, 24, 5, health, Colors.get(-1, 111,
-				Colors.toHex("#8f4c1f"), 543));
+				Colors.fromHex("#8f4c1f"), 543));
 
 	}
 
