@@ -50,6 +50,7 @@ public class ZombieSurvival extends Game {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
+		g.drawString("Player: " + (int) player.x + ", " + (int) player.y, 5, 20);
 		g.drawString("Score: " + player.score, 700, 20);
 		if (player.hasDied) {
 			g.setFont(new Font("Verdana", 0, 50));

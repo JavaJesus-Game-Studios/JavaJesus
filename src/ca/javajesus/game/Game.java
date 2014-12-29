@@ -149,7 +149,7 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		screen = new Screen(WIDTH, HEIGHT, this);
-		player = new Player(getLevel(), 25, 50, input);
+		player = new Player(getLevel(), getLevel().spawnPoint().getX(), getLevel().spawnPoint().getY(), input);
 		getLevel().addEntity(player);
 		getLevel().init();
 
@@ -253,6 +253,10 @@ public class Game extends Canvas implements Runnable {
 
 		int xOffset = (int) player.x - (screen.width / 2);
 		int yOffset = (int) player.y - (screen.height / 2);
+		if (player.isDriving) {
+			xOffset = (int) player.vehicle.x - (screen.width / 2);
+			yOffset = (int) player.vehicle.y - (screen.height / 2);
+		}
 
 		getLevel().renderTile(screen, xOffset, yOffset);
 		getLevel().renderEntities(screen);

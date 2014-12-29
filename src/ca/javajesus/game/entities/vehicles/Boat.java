@@ -7,12 +7,13 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.tile.Tile;
 
-public class CenturyLeSabre extends Vehicle {
+public class Boat extends Vehicle {
 
 	private Random random = new Random();
 
-	public CenturyLeSabre(Level level, String name, double x, double y,
+	public Boat(Level level, String name, double x, double y,
 			int speed, double defaultHealth) {
 		super(level, name, x, y, speed, 32, 40, SpriteSheet.vehicles, defaultHealth);
 		getColor();
@@ -85,7 +86,7 @@ public class CenturyLeSabre extends Vehicle {
 		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 8);
 
 		int xTile = 0;
-		int yTile = 0;
+		int yTile = 16;
 
 		int flipTop = 0;
 		int flipBottom = 0;
@@ -216,6 +217,59 @@ public class CenturyLeSabre extends Vehicle {
 
 		}
 
+	}
+	
+	public boolean hasCollided(int xa, int ya) {
+		int xMin = 0;
+		int xMax = 0;
+		int yMin = 0;
+		int yMax = 0;
+		if (movingDir == 0 || movingDir == 1) {
+			xMin = 0;
+			xMax = 31;
+			yMin = 0;
+			yMax = 39;
+		} else {
+			xMin = 0;
+			xMax = 39;
+			yMin = 0;
+			yMax = 31;
+		}
+		for (int x = xMin; x < xMax; x++) {
+			if (isSolidTile(xa, ya, x, yMin) || isWaterTile(xa, ya, x, yMin)) {
+				return true;
+			}
+		}
+		for (int x = xMin; x < xMax; x++) {
+			if (isSolidTile(xa, ya, x, yMax) || isWaterTile(xa, ya, x, yMax)) {
+				return true;
+			}
+		}
+		for (int y = yMin; y < yMax; y++) {
+			if (isSolidTile(xa, ya, xMin, y) || isWaterTile(xa, ya, xMin, y)) {
+				return true;
+			}
+		}
+		for (int y = yMin; y < yMax; y++) {
+			if (isSolidTile(xa, ya, xMax, y) || isWaterTile(xa, ya, xMax, y)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	protected boolean isWaterTile(int xa, int ya, int x, int y) {
+		if (level == null) {
+			return false;
+		}
+		int xx = (int) this.x;
+		int yy = (int) this.y;
+		Tile lastTile = level.getTile((xx + x) >> 3, (yy + y) >> 3);
+		Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
+		if (!lastTile.equals(newTile) && newTile.equals(Tile.WATERSAND)) {
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -1,5 +1,6 @@
 package ca.javajesus.level;
 
+import java.awt.Point;
 import java.util.Random;
 
 import ca.javajesus.game.Game;
@@ -30,6 +31,10 @@ public class RandomLevel extends Level {
 
 	public RandomLevel(int width, int height) {
 		super(width, height);
+	}
+	
+	public Point spawnPoint() {
+		return new Point(random.nextInt(1000), random.nextInt(1000));
 	}
 
 	/** Generates the tiles array of the map */

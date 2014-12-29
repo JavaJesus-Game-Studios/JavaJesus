@@ -1,5 +1,7 @@
 package ca.javajesus.level;
 
+import java.awt.Point;
+
 import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.npcs.Policeman;
@@ -18,6 +20,10 @@ public class Level1 extends Level {
 
 	public Level1() {
 		super("/Levels/tile_tester_level.png");
+	}
+	
+	public Point spawnPoint() {
+		return new Point(50, 50);
 	}
 
 	public void initNPCPlacement() {
@@ -55,6 +61,7 @@ public class Level1 extends Level {
 	@Override
 	public void otherEntityPlacement() {
 		this.addEntity(Vehicle.vehicle1);
+		this.addEntity(Vehicle.boat1);
 		this.addEntity(new PoorHouse(this, 100, 50));
 		this.addEntity(new NiceHouse(this, 200, 50));
 		this.addEntity(new Hut(this, 300, 50));

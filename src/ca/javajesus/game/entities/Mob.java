@@ -25,7 +25,7 @@ public abstract class Mob extends Entity {
 	public double startHealth;
 	public Rectangle hitBox;
 	protected SpriteSheet sheet;
-	protected HealthBar bar;
+	public HealthBar bar;
 	public boolean hasDied;
 	protected boolean onFire = false;
 	protected int healthTickCount = 0;
@@ -65,13 +65,13 @@ public abstract class Mob extends Entity {
 	}
 
 	public void move(int xa, int ya, double speed) {
-		velocity = this.speed * speed;
 		if (xa != 0 && ya != 0) {
-			move(xa, 0, velocity);
-			move(0, ya, velocity);
+			move(xa, 0, speed);
+			move(0, ya, speed);
 			numSteps--;
 			return;
 		}
+		velocity = this.speed * speed;
 		numSteps++;
 		if (!hasCollided(xa, ya)) {
 			if (ya < 0)
@@ -150,7 +150,7 @@ public abstract class Mob extends Entity {
 						(int) ((SolidEntity) entity).y - 2 * ya);
 				if (this.hitBox.intersects(temp))
 					return true;
-			} else if (entity instanceof Vehicle && !((Vehicle) entity).isUsed) {
+			} else if (entity instanceof Vehicle && entity != this) {
 				Rectangle temp = new Rectangle(((Vehicle) entity).hitBox.width,
 						((Vehicle) entity).hitBox.height - 8);
 				temp.setLocation((int) ((Vehicle) entity).x - 2 * xa,

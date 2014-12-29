@@ -1,5 +1,6 @@
 package ca.javajesus.level;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -56,6 +57,8 @@ public abstract class Level {
 	protected abstract void initChestPlacement();
 
 	protected abstract void otherEntityPlacement();
+	
+	public abstract Point spawnPoint();
 
 	private void loadLevelFromFile() {
 		try {
