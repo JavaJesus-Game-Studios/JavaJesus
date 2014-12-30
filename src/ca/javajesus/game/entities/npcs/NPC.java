@@ -64,8 +64,6 @@ public class NPC extends Mob {
 
 	protected boolean movingToOrigin = false;
 	
-	public HealthBar bar;
-
 	public NPC(Level level, String name, double x, double y, int speed,
 			int width, int height, double defaultHealth, int color, int xTile,
 			int yTile, String walkPath, int walkDistance) {
@@ -117,8 +115,6 @@ public class NPC extends Mob {
 
 	public void tick() {
 
-		updateHealth();
-		bar.updateHealthBar(health, startHealth);
 		tickCount++;
 		if (tickCount > 360) {
 			tickCount = 0;

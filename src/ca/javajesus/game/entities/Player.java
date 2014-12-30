@@ -38,7 +38,6 @@ public class Player extends Mob {
 	private Sword sword;
 	public int yTile = 0;
 	private Inventory inventory;
-	public HealthBar bar;
 	public double stamina;
 	public double startStamina;
 	public boolean isTired;
@@ -82,8 +81,6 @@ public class Player extends Mob {
 		if (isDriving) {
 			return;
 		}
-		updateHealth();
-		bar.updateHealthBar(health, startHealth);
 
 		int xa = 0;
 		int ya = 0;

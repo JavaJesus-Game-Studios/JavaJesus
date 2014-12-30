@@ -8,12 +8,10 @@ import ca.javajesus.level.Level;
 
 public class Demon extends Monster {
 	
-	public HealthBar bar;
-
 	public Demon(Level level, String name, double x, double y, int speed) {
 		super(level, name, x, y, speed, 14, 24, 0, 150, Colors.get(-1, 111,
 				300, 550));
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, -10);
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
 		if (level != null)
 			level.addEntity(bar);
 	}
@@ -49,8 +47,6 @@ public class Demon extends Monster {
 
 	public void tick() {
 
-		updateHealth();
-		bar.updateHealthBar(health, startHealth);
 		checkRadius();
 
 		tickCount++;

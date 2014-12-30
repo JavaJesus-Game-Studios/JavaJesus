@@ -7,8 +7,6 @@ import ca.javajesus.level.Level;
 
 public class Monkey extends Monster {
 
-	public HealthBar bar;
-	
 	public Monkey(Level level, String name, double x, double y, int speed,
 			int health) {
 		super(level, name, x, y, speed, 16, 16, 8, health, Colors.get(-1,
@@ -50,8 +48,6 @@ public class Monkey extends Monster {
 
 	public void tick() {
 
-		updateHealth();
-		bar.updateHealthBar(health, startHealth);
 		checkRadius();
 
 		if (isMobCollision()) {

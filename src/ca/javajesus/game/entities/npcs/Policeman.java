@@ -21,7 +21,6 @@ public class Policeman extends NPC {
 	protected int tickCount = 0;
 	protected boolean isShooting = false;
 	protected int shootTickCount = 0;
-	public HealthBar bar;
 
 	public Policeman(Level level, double x, double y, double defaultHealth,
 			String walkPath, int walkDistance) {
@@ -71,8 +70,6 @@ public class Policeman extends NPC {
 
 	public void tick() {
 
-		updateHealth();
-		bar.updateHealthBar(health, startHealth);
 		checkRadius();
 
 		if (isShooting) {

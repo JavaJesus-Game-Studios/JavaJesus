@@ -80,8 +80,6 @@ public class Vehicle extends Mob {
 
 	public void tick() {
 
-		updateHealth();
-
 		if (isMobCollision() && this.isMoving) {
 			for (Mob mob : level.getMobs()) {
 				if (!(mob == this || mob instanceof Player)) {

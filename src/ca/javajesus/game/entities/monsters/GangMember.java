@@ -11,7 +11,6 @@ import ca.javajesus.level.Level;
 public class GangMember extends Monster {
 
 	protected Ellipse2D.Double standRange;
-	public HealthBar bar;
 
 	public GangMember(Level level, String name, double x, double y, int speed,
 			double health, int type) {
@@ -70,8 +69,6 @@ public class GangMember extends Monster {
 
 	public void tick() {
 
-		updateHealth();
-		bar.updateHealthBar(health, startHealth);
 		checkRadius();
 
 		if (isShooting) {
