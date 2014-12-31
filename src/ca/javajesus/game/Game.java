@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gui.InventoryGUI;
 import ca.javajesus.game.gui.PauseGUI;
@@ -143,7 +144,7 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 
-					colors[index++] = rr << 16 | gg << 8 | bb;
+					colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb, 50020, 0.5);
 				}
 			}
 		}
