@@ -260,6 +260,10 @@ public class Player extends Mob {
 			level.addEntity(this);
 			level.addEntity(bar);
 		}
+		
+		if (health < 20) {
+			screen.getGame().redScreen();
+		}
 
 		int xTile = 0;
 		int yTile = this.yTile;

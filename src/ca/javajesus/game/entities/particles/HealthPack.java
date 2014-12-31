@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import ca.javajesus.game.entities.Mob;
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
@@ -30,6 +31,9 @@ public class HealthPack extends Particle {
 
 			if (BOX.intersects(mob.hitBox)) {
 				mob.setHealth(mob.getStartHealth());
+				if (mob instanceof Player) {
+					screen.getGame().updateLevel();
+				}
 				level.remEntity(this);
 			}
 

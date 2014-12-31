@@ -144,7 +144,7 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 
-					colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb, 50020, 0.5);
+					colors[index++] = rr << 16 | gg << 8 | bb;
 				}
 			}
 		}
@@ -166,6 +166,21 @@ public class Game extends Canvas implements Runnable {
 					int bb = (b * 255 / 5);
 
 					colors[index++] = rr << 16 | gg << 8 | bb;
+				}
+			}
+		}
+	}
+	
+	public void redScreen() {
+		int index = 0;
+		for (int r = 0; r < 6; r++) {
+			for (int g = 0; g < 6; g++) {
+				for (int b = 0; b < 6; b++) {
+					int rr = (r * 255 / 5);
+					int gg = (g * 255 / 5);
+					int bb = (b * 255 / 5);
+
+					colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb, 16711680, 0.5);
 				}
 			}
 		}
