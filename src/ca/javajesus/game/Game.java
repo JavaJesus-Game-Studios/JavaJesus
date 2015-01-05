@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable {
 
 	/** Entity limit per screen */
 	public final static int ENTITY_LIMIT = 1000;
-	public boolean running = false;
+	public boolean running = false; //this is a change
 
 	/** Creates the JFrame */
 	protected static JFrame frame;
