@@ -383,7 +383,7 @@ public class Player extends Mob {
 				flipTop = (shootingDir - 1) % 2;
 				flipBottom = (shootingDir - 1) % 2;
 			}
-
+			
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
 					+ yTile * 32, colour, flipTop, scale, sheet);

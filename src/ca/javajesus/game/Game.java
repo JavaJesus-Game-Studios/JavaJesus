@@ -180,7 +180,7 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 
-					colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb, 16711680, 0.5);
+					colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb, 16711680, 0.75);
 				}
 			}
 		}
