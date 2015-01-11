@@ -8,6 +8,7 @@ import ca.javajesus.level.Level;
 public class SolidEntity extends Entity {
 
 	public final Rectangle bounds;
+	public final Rectangle shadow;
 	public final double x, y;
 	protected int color;
 
@@ -17,8 +18,10 @@ public class SolidEntity extends Entity {
 		this.isSolid = true;
 		this.x = x;
 		this.y = y;
-		this.bounds = new Rectangle(width, height);
-		this.bounds.setLocation((int) x, (int) y);
+		this.bounds = new Rectangle(width, (height - 8) / 2);
+		this.shadow = new Rectangle(width, (height - 8) / 2);
+		this.shadow.setLocation((int) x, (int) y);
+		this.bounds.setLocation((int) x, (int) y + bounds.height);
 	}
 
 	public void tick() {

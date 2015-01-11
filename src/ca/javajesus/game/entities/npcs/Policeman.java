@@ -90,7 +90,7 @@ public class Policeman extends NPC {
 			if (!cooldown) {
 				isShooting = true;
 				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7),
-						mob.x, mob.y, this));
+						mob.x, mob.y -4, this));
 			}
 			if (!this.standRange.intersects(mob.hitBox) && !this.standBox.intersects(mob.hitBox)) {
 
@@ -108,7 +108,7 @@ public class Policeman extends NPC {
 				}
 			}
 
-			if (xa != 0 || ya != 0) {
+			if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
 				move(xa, ya, scaledSpeed);
 				isMoving = true;
 			} else {
@@ -170,6 +170,12 @@ public class Policeman extends NPC {
 		if (isShooting) {
 
 			xTile = 14;
+			if (movingDir == 0) {
+				xTile += 2;
+			}
+			if (movingDir == 1) {
+				xTile += 4;
+			} 
 
 			// Upper body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile

@@ -33,7 +33,7 @@ public class Level1 extends Level {
 		this.addEntity(NPC.npc4);
 		this.addEntity(NPC.npc5);
 		this.addEntity(NPC.npc6);
-		this.addEntity(new Policeman(this, 400, 100, 200, "linear", 20));
+		this.addEntity(new Policeman(this, 370, 120, 200, "linear", 20));
 		this.addEntity(NPC.npc8);
 		this.addEntity(NPC.npc9);
 		this.addEntity(NPC.npc10);

@@ -12,7 +12,7 @@ import ca.javajesus.level.Level;
 public class Monster extends Mob {
 
 	public static Monster gang1 = new GangMember(Level.level1, "Gang Member 1",
-			500, 100, 1, 100, 0);
+			430, 120, 1, 100, 0);
 	public static Monster horseThing1 = new Centaur(Level.level1, "HorseThing",
 			500, 200, 1, 100);
 	public static Monster monkey = new Monkey(Level.level1, "Monkey", 100, 100,

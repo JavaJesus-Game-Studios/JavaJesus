@@ -74,7 +74,7 @@ public class Monkey extends Monster {
 			}
 		}
 
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {

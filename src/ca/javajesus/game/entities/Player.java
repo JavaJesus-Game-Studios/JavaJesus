@@ -1,10 +1,13 @@
 package ca.javajesus.game.entities;
 
+import java.awt.Rectangle;
+
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
+import ca.javajesus.game.entities.structures.Transporter;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.entities.weapons.GreatSword;
 import ca.javajesus.game.entities.weapons.Sword;
@@ -175,7 +178,7 @@ public class Player extends Mob {
 		} else if (input.shift.isPressed() && !isDriving && !isTired) {
 			scaledSpeed = 3;
 			stamina--;
-			if(stamina <= 0)
+			if (stamina <= 0)
 				isTired = true;
 		} else if (isDriving && input.shift.isPressed()) {
 			scaledSpeed = 7;
@@ -184,7 +187,7 @@ public class Player extends Mob {
 		} else {
 			scaledSpeed = 1;
 		}
-		if (!input.shift.isPressed() && stamina < startStamina){
+		if (!input.shift.isPressed() && stamina < startStamina) {
 			stamina += 5;
 			isTired = false;
 		}
@@ -210,7 +213,6 @@ public class Player extends Mob {
 			isSwimming = false;
 		}
 		tickCount++;
-	
 
 		// The current time in ticks in which an attack is started
 		if (isSwinging || isShooting) {
@@ -248,8 +250,8 @@ public class Player extends Mob {
 			return;
 		}
 
-		this.hitBox.setLocation((int) this.x, (int) this.y);
-		this.standBox.setLocation((int) this.x - 2, (int) this.y - 10);
+		this.hitBox.setLocation((int) this.x + 1, (int) this.y - 8);
+		this.standBox.setLocation((int) this.x - 2, (int) this.y - 2);
 		if (canChangeLevel) {
 			level.remEntity(this);
 			level.remEntity(bar);
@@ -260,7 +262,16 @@ public class Player extends Mob {
 			level.addEntity(this);
 			level.addEntity(bar);
 		}
-		
+		level.renderOnTop = true;
+		for (Entity entity : level.getEntities()) {
+			if (entity instanceof SolidEntity && !(entity instanceof Transporter)) {
+				if (this.hitBox.intersects(((SolidEntity) entity).shadow)) {
+					level.renderOnTop = false;
+					break;
+				}
+			}
+		}
+
 		if (health < 20) {
 			screen.getGame().redScreen();
 		}
@@ -371,6 +382,9 @@ public class Player extends Mob {
 		if (isShooting) {
 			xTile = gunType;
 			yTile = 2;
+			if (defense > 2) {
+				yTile += 12;
+			}
 
 			if (shootingDir == 1) {
 				yTile += 2;
@@ -383,7 +397,7 @@ public class Player extends Mob {
 				flipTop = (shootingDir - 1) % 2;
 				flipBottom = (shootingDir - 1) % 2;
 			}
-			
+
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
 					+ yTile * 32, colour, flipTop, scale, sheet);

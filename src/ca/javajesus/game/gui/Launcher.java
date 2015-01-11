@@ -447,7 +447,7 @@ public class Launcher extends JFrame implements Runnable {
 		bs.show();
 
 		if (nextScreen) {
-			swordOffset += 5;
+			swordOffset += 10;
 			if (swordOffset > 100) {
 				swordOffset = 0;
 				nextScreen = false;

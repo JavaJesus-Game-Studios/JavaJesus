@@ -92,7 +92,7 @@ public class GangMember extends Monster {
 				}
 				isShooting = true;
 				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7),
-						mob.x, mob.y, this));
+						mob.x, mob.y - 4, this));
 			}
 			if (!this.standRange.intersects(mob.hitBox)) {
 
@@ -134,7 +134,8 @@ public class GangMember extends Monster {
 			cooldown = true;
 		}
 
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
+				&& !isMobCollision(xa, ya)) {
 			if (isMobCollision()) {
 				isMoving = false;
 				return;

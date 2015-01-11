@@ -18,9 +18,9 @@ public class Centaur extends Monster {
 
 	public boolean hasCollided(int xa, int ya) {
 		int xMin = 0;
-		int xMax = 7;
-		int yMin = 3;
-		int yMax = 7;
+		int xMax = 23;
+		int yMin = 7;
+		int yMax = 15;
 		for (int x = xMin; x < xMax; x++) {
 			if (isSolidTile(xa, ya, x, yMin) || isWaterTile(xa, ya, x, yMin)) {
 				return true;
@@ -60,11 +60,13 @@ public class Centaur extends Monster {
 		if (isMobCollision()) {
 			moveAroundMobCollision();
 			return;
+		} else {
+			isAvoidingCollision = false;
 		}
 		int xa = 0;
 		int ya = 0;
 		if (mob != null && this.aggroRadius.intersects(mob.hitBox)
-				&& !this.standBox.intersects(mob.hitBox)) {
+				&& !this.standBox.intersects(mob.standBox)) {
 
 			if ((int) mob.x > (int) this.x) {
 				xa++;
@@ -87,7 +89,7 @@ public class Centaur extends Monster {
 			}
 		}
 
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {
@@ -100,13 +102,19 @@ public class Centaur extends Monster {
 		if (movingDir == 0 || movingDir == 1) {
 			this.width = 14;
 			this.height = 24;
+			this.hitBox.setSize(width, height);
+			this.hitBox.setLocation((int) this.x - 7, (int) this.y - 16);
+			this.standBox.setSize(18, height);
+			this.standBox.setLocation((int) this.x - 1, (int) this.y - 7);
 		} else {
 			this.width = 24;
 			this.height = 24;
+			this.hitBox.setSize(width, height);
+			this.hitBox.setLocation((int) this.x - 8, (int) this.y - 16);
+			this.standBox.setSize(width + 5, height);
+			this.standBox.setLocation((int) this.x - 6, (int) this.y - 2);
 		}
-		this.hitBox.setSize(width, height);
-		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 16);
-		this.standBox.setLocation((int) this.x - 10, (int) this.y - 18);
+		
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		int xTile = 0;

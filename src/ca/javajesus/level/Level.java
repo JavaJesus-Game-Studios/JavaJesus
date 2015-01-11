@@ -26,6 +26,7 @@ public abstract class Level {
 	protected List<Player> players = new CopyOnWriteArrayList<Player>();
 	private String imagePath;
 	private BufferedImage image;
+	public boolean renderOnTop = true;
 
 	protected int[] tileColours;
 
@@ -57,7 +58,7 @@ public abstract class Level {
 	protected abstract void initChestPlacement();
 
 	protected abstract void otherEntityPlacement();
-	
+
 	public abstract Point spawnPoint();
 
 	private void loadLevelFromFile() {
@@ -157,12 +158,18 @@ public abstract class Level {
 	}
 
 	public void renderEntities(Screen screen) {
-		for (Entity e : getEntities()) {
-			if (!(e instanceof Mob))
-				e.render(screen);
-		}
-		for (Mob m : getMobs()) {
-			m.render(screen);
+		if (renderOnTop) {
+			for (Entity e : getEntities()) {
+				if (!(e instanceof Mob))
+					e.render(screen);
+			}
+			for (Mob m : getMobs()) {
+				m.render(screen);
+			}
+		} else {
+			for (Entity e : getEntities()) {
+					e.render(screen);
+			}
 		}
 	}
 

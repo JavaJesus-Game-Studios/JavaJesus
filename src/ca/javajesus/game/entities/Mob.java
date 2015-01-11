@@ -32,7 +32,8 @@ public abstract class Mob extends Entity {
 	protected boolean movingRandomly = false;
 	protected double scaledSpeed;
 	public boolean isTargeted = false;
-	protected Rectangle standBox;
+	public Rectangle standBox;
+	protected boolean isAvoidingCollision = false;
 
 	public int strength, defense, accuracy, evasion;
 
@@ -145,8 +146,8 @@ public abstract class Mob extends Entity {
 				Rectangle temp = new Rectangle(
 						((SolidEntity) entity).bounds.width,
 						((SolidEntity) entity).bounds.height - 8);
-				temp.setLocation((int) ((SolidEntity) entity).x - 2 * xa,
-						(int) ((SolidEntity) entity).y - 2 * ya);
+				temp.setLocation((int) ((SolidEntity) entity).bounds.x - 2 * xa,
+						(int) ((SolidEntity) entity).bounds.y - 2 * ya);
 				if (this.hitBox.intersects(temp))
 					return true;
 			} else if (entity instanceof Vehicle && entity != this) {
@@ -169,8 +170,24 @@ public abstract class Mob extends Entity {
 		for (Mob mob : level.getMobs()) {
 			if (mob == this)
 				continue;
-			if (this.hitBox.intersects(mob.hitBox))
+			if (this.hitBox.intersects(mob.hitBox) && !mob.isAvoidingCollision)
 				return true;
+		}
+		return false;
+	}
+	
+	protected boolean isMobCollision(int xa, int ya) {
+		for (Mob mob : level.getMobs()) {
+			if (mob != this) {
+				Rectangle temp = new Rectangle(
+						mob.hitBox.width,
+						mob.hitBox.height);
+				temp.setLocation((int) mob.x - 2 * xa,(int)
+						mob.y - 2 * ya);
+				if (this.hitBox.intersects(temp))
+					return true;
+			} 
+
 		}
 		return false;
 	}
@@ -206,6 +223,7 @@ public abstract class Mob extends Entity {
 		}
 		if (xa != 0 || ya != 0) {
 			move(xa, ya, scaledSpeed);
+			isAvoidingCollision = true;
 			isMoving = true;
 		} else {
 			isMoving = false;
