@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import ca.javajesus.game.entities.particles.HealthBar;
+import ca.javajesus.game.entities.structures.Transporter;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -34,6 +35,7 @@ public abstract class Mob extends Entity {
 	public boolean isTargeted = false;
 	public Rectangle standBox;
 	protected boolean isAvoidingCollision = false;
+	public boolean renderOnTop = false;
 
 	public int strength, defense, accuracy, evasion;
 
@@ -59,11 +61,11 @@ public abstract class Mob extends Entity {
 	public void setHealth(double health) {
 		this.health = health;
 	}
-	
+
 	public double getStartHealth() {
 		return startHealth;
 	}
-	
+
 	public void move(int xa, int ya, double speed) {
 		if (xa != 0 && ya != 0) {
 			move(xa, 0, speed);
@@ -141,12 +143,19 @@ public abstract class Mob extends Entity {
 	}
 
 	protected boolean isSolidEntityCollision(int xa, int ya) {
+		renderOnTop = true;
 		for (Entity entity : level.getEntities()) {
 			if (entity instanceof SolidEntity) {
+				if (!(entity instanceof Transporter)) {
+					if (this.hitBox.intersects(((SolidEntity) entity).shadow)) {
+						renderOnTop = false;
+					}
+				}
 				Rectangle temp = new Rectangle(
 						((SolidEntity) entity).bounds.width,
 						((SolidEntity) entity).bounds.height - 8);
-				temp.setLocation((int) ((SolidEntity) entity).bounds.x - 2 * xa,
+				temp.setLocation(
+						(int) ((SolidEntity) entity).bounds.x - 2 * xa,
 						(int) ((SolidEntity) entity).bounds.y - 2 * ya);
 				if (this.hitBox.intersects(temp))
 					return true;
@@ -175,18 +184,16 @@ public abstract class Mob extends Entity {
 		}
 		return false;
 	}
-	
+
 	protected boolean isMobCollision(int xa, int ya) {
 		for (Mob mob : level.getMobs()) {
 			if (mob != this) {
-				Rectangle temp = new Rectangle(
-						mob.hitBox.width,
+				Rectangle temp = new Rectangle(mob.hitBox.width,
 						mob.hitBox.height);
-				temp.setLocation((int) mob.x - 2 * xa,(int)
-						mob.y - 2 * ya);
+				temp.setLocation((int) mob.x - 2 * xa, (int) mob.y - 2 * ya);
 				if (this.hitBox.intersects(temp))
 					return true;
-			} 
+			}
 
 		}
 		return false;

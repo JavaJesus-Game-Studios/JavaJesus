@@ -12,16 +12,15 @@ public class SolidEntity extends Entity {
 	public final double x, y;
 	protected int color;
 
-
 	public SolidEntity(Level level, double x, double y, int width, int height) {
 		super(level);
 		this.isSolid = true;
 		this.x = x;
 		this.y = y;
-		this.bounds = new Rectangle(width, (height - 8) / 2);
-		this.shadow = new Rectangle(width, (height - 8) / 2);
+		this.shadow = new Rectangle(width, (height / 2));
 		this.shadow.setLocation((int) x, (int) y);
-		this.bounds.setLocation((int) x, (int) y + bounds.height);
+		this.bounds = new Rectangle(width, (height / 2) - 8);
+		this.bounds.setLocation((int) x, (int) y + shadow.height);
 	}
 
 	public void tick() {

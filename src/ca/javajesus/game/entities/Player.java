@@ -262,15 +262,6 @@ public class Player extends Mob {
 			level.addEntity(this);
 			level.addEntity(bar);
 		}
-		level.renderOnTop = true;
-		for (Entity entity : level.getEntities()) {
-			if (entity instanceof SolidEntity && !(entity instanceof Transporter)) {
-				if (this.hitBox.intersects(((SolidEntity) entity).shadow)) {
-					level.renderOnTop = false;
-					break;
-				}
-			}
-		}
 
 		if (health < 20) {
 			screen.getGame().redScreen();
