@@ -26,6 +26,7 @@ public abstract class Level {
 	protected List<Player> players = new CopyOnWriteArrayList<Player>();
 	private String imagePath;
 	private BufferedImage image;
+	protected Point spawnPoint;
 
 	protected int[] tileColours;
 
@@ -58,7 +59,13 @@ public abstract class Level {
 
 	protected abstract void otherEntityPlacement();
 
-	public abstract Point spawnPoint();
+	public Point spawnPoint() {
+		return spawnPoint;
+	}
+	
+	public void setSpawnPoint(Point point) {
+		this.spawnPoint = point;
+	}
 
 	private void loadLevelFromFile() {
 		try {
@@ -73,8 +80,6 @@ public abstract class Level {
 			e.printStackTrace();
 		}
 	}
-
-	private boolean tempBool = true;
 
 	protected void loadTiles() {
 		for (int y = 0; y < height; y++) {
@@ -248,5 +253,4 @@ public abstract class Level {
 		return solid;
 
 	}
-
 }

@@ -74,8 +74,6 @@ public class Player extends Mob {
 		if (input.e.isPressed()) {
 			this.nextLevel = level;
 			this.canChangeLevel = true;
-			this.x = level.spawnPoint().getX();
-			this.y = level.spawnPoint().getY();
 		}
 	}
 
@@ -261,6 +259,9 @@ public class Player extends Mob {
 			canChangeLevel = false;
 			level.addEntity(this);
 			level.addEntity(bar);
+			this.x = level.spawnPoint().getX();
+			this.y = level.spawnPoint().getY();
+			input.e.toggle(false);
 		}
 
 		if (health < 20) {

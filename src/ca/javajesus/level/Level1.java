@@ -20,10 +20,7 @@ public class Level1 extends Level {
 
 	public Level1() {
 		super("/Levels/tile_tester_level.png");
-	}
-	
-	public Point spawnPoint() {
-		return new Point(50, 50);
+		this.spawnPoint = new Point(50, 50);
 	}
 
 	public void initNPCPlacement() {

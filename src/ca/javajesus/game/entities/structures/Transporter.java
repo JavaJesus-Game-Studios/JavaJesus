@@ -1,5 +1,6 @@
 package ca.javajesus.game.entities.structures;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 
 import ca.javajesus.game.entities.Player;
@@ -20,6 +21,13 @@ public class Transporter extends SolidEntity {
 		super(currentLevel, x, y, 8, 16);
 		this.nextLevel = nextLevel;
 		this.hitBox.setLocation((int) x, (int) y); 
+	}
+	
+	public Transporter(Level currentLevel, double x, double y, Level nextLevel, Point point) {
+		super(currentLevel, x, y, 8, 16);
+		this.nextLevel = nextLevel;
+		this.hitBox.setLocation((int) x, (int) y); 
+		nextLevel.setSpawnPoint(point);
 	}
 
 	public void tick() {
