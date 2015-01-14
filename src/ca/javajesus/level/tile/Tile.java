@@ -23,8 +23,8 @@ public abstract class Tile {
 	public static final Tile VOID = new BasicSolidTile(0, 0, 0, Colors.get(000,
 			-1, -1, -1), 0xFF000000);
 	public static final Tile STONE = new BasicSolidTile(1, 1, 0, Colors.get(-1,
-			333, -1, -1), 0xFF555555);
-	public static final Tile GRASS = new BaseTile(2, 0, 1, Colors.get(-1, 131,
+			Colors.fromHex("#7f7f7f"), Colors.fromHex("#c3c3c3"), -1), 0xFF555555);
+		public static final Tile GRASS = new BaseTile(2, 0, 1, Colors.get(-1, 131,
 			141, -1), 0xFF00FF00);
 	public static final Tile WATER = new AnimatedTile(3, new int[][] {
 			{ 0, 14 }, { 1, 14 }, { 2, 14 }, { 3, 14 }, { 2, 14 }, { 1, 14 } },
@@ -44,6 +44,11 @@ public abstract class Tile {
 			Colors.get(-1, Colors.fromHex("#DBEDD2"), 115, -1), 0xFF64FFFF, 1000);
 	public static final Tile ROAD3 = new BaseTile(9, 2, 2, Colors.get(-1, 000,
 			Colors.fromHex("#BFAD47"), -1), 0xFFFFE400);
+	public static final Tile WOOD_WALL = new BasicSolidTile(10, 2, 0, Colors.get(-1,
+			Colors.fromHex("#693609"), 000, -1), 0xFF6d4300);
+	public static final Tile MUD = new BaseTile(11, 0, 2, Colors.get(-1, Colors.fromHex("#4a2d00"),
+			Colors.fromHex("#BFAD47"), -1), 0xFF372201);
+
 
 	protected byte id;
 	protected boolean solid;

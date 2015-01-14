@@ -11,7 +11,7 @@ public class PoorHouseInterior extends Level {
 	}
 	
 	public Point spawnPoint() {
-		return new Point(50, 50);
+		return new Point(0, 0);
 	}
 
 	protected void initNPCPlacement() {
