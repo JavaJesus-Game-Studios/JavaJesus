@@ -10,7 +10,7 @@ import ca.javajesus.level.RandomLevel;
 
 public class SanCiscoSkyscraper extends SolidEntity {
 
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#fffdf5"), Colors.fromHex("#081a3d"));
+	protected int color = Colors.get(-1, 111, Colors.fromHex("#ffffff"), Colors.fromHex("#081a3d"));
 
 	public SanCiscoSkyscraper(Level level, double x, double y) {
 		super(level, x, y, 64, 208);

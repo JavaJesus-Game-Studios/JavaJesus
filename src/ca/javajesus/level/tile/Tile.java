@@ -47,7 +47,14 @@ public abstract class Tile {
 	public static final Tile WOOD_WALL = new BasicSolidTile(10, 2, 0, Colors.get(-1,
 			Colors.fromHex("#693609"), 000, -1), 0xFF6d4300);
 	public static final Tile MUD = new BaseTile(11, 0, 2, Colors.get(-1, Colors.fromHex("#4a2d00"),
-			Colors.fromHex("#BFAD47"), -1), 0xFF372201);
+			-1, -1), 0xFF372201);
+	public static final Tile FARMPLOT1 = new BaseTile(12, 2, 1, Colors.get(-1, Colors.fromHex("#0c6600"),
+			Colors.fromHex("#5d3102"), -1), 0xFF1e6a00);
+	public static final Tile FARMPLOT2 = new BaseTile(13, 3, 1, Colors.get(-1, Colors.fromHex("#0c6600"),
+			Colors.fromHex("#5d3102"), -1), 0xFF123f00);
+	public static final Tile DIRTROAD = new BaseTile(14, 0, 2, Colors.get(-1, Colors.fromHex("#935409"),-1, -1),
+			0xFFa06201);
+
 
 
 	protected byte id;

@@ -9,7 +9,7 @@ public class PoorHouseInterior extends Level {
 
 	public PoorHouseInterior() {
 		super("/Buildings/Generic Interiors/Hut_Interior.png");
-		this.spawnPoint = new Point(25, 25);	
+		this.spawnPoint = new Point(252, 252);	
 	}
 	
 	protected void initNPCPlacement() {

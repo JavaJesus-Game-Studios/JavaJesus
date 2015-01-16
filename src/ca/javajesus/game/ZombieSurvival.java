@@ -34,6 +34,10 @@ public class ZombieSurvival extends Game {
 
 		int xOffset = (int) player.x - (screen.width / 2);
 		int yOffset = (int) player.y - (screen.height / 2);
+		if (player.isDriving) {
+			xOffset = (int) player.vehicle.x - (screen.width / 2);
+			yOffset = (int) player.vehicle.y - (screen.height / 2);
+		}
 
 		getLevel().renderTile(screen, xOffset, yOffset);
 		getLevel().renderEntities(screen);
