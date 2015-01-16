@@ -13,7 +13,7 @@ public class HealthPack extends Particle {
 
 	private Random random = new Random();
 	private static int healthPackColour = Colors
-			.get(-1, 0x00FFfffffa, 555, 500);
+			.get(-1, Colors.fromHex("#f6f4ee"), Colors.fromHex("#ffffff"), 500);
 	private final Rectangle BOX = new Rectangle(10, 10);
 
 	public HealthPack(Level level, double x, double y) {

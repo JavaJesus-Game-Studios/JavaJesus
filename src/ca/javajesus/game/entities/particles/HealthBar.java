@@ -67,60 +67,60 @@ public class HealthBar extends Particle {
 		
 		if ((health > 11 * startHealth / 12.0) && (health <= startHealth)) {
 			setOffset(2);
-			this.color = Colors.get(-1, 111, -1, 400);
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#0079e0"));
 			xOffset = 1;
 		} else if ((health > 10 * startHealth / 12.0)
 				&& (health <= 11 * startHealth / 12.0)) {
 			setOffset(3);
-			this.color = Colors.get(-1, 111, -1, 400);
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#0079e0"));
 			xOffset = 2;
 		} else if ((health > 9 * startHealth / 12.0)
 				&& (health <= 10 * startHealth / 12.0)) {
 			setOffset(4);
-			this.color = Colors.get(-1, 111, -1, 400);
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#0079e0"));
 			xOffset = 3;
 		} else if ((health > 8 * startHealth / 12.0)
 				&& (health <= 9 * startHealth / 12.0)) {
 			setOffset(5);
-			this.color = Colors.get(-1, 111, -1, 300);
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#ff6000"));
 			xOffset = 4;
 		} else if ((health > 7 * startHealth / 12.0)
 				&& (health <= 8 * startHealth / 12.0)) {
 			setOffset(6);
-			this.color = Colors.get(-1, 111, -1, 300);
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#ff6000"));
 			xOffset = 5;
 		} else if ((health > 6 * startHealth / 12.0)
 				&& (health <= 7 * startHealth / 12.0)) {
 			setOffset(7);
-			this.color = Colors.get(-1, 111, -1, 300);
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#ff6000"));
 			xOffset = 6;
 		} else if ((health > 5 * startHealth / 12.0)
 				&& (health <= 6 * startHealth / 12.0)) {
 			setOffset(8);
-			this.color = Colors.get(-1, 111, -1, 200);
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#ff6000"));
 			xOffset = 7;
 		} else if ((health > 4 * startHealth / 12.0)
 				&& (health <= 5 * startHealth / 12.0)) {
 			setOffset(9);
-			this.color = Colors.get(-1, 111, -1, 200);
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#ff6000"));
 			xOffset = 8;
 		} else if ((health > 3 * startHealth / 12.0)
 				&& (health <= 4 * startHealth / 12.0)) {
 			setOffset(10);
-			this.color = Colors.get(-1, 111, -1, 200);
+			this.color = Colors.get(-1, 111, -1,Colors.fromHex("#e50000"));
 			xOffset = 9;
 		} else if ((health > 2 * startHealth / 12.0)
 				&& (health <= 3 * startHealth / 12.0)) {
 			setOffset(11);
-			this.color = Colors.get(-1, 111, -1, 100);
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#e50000"));
 			xOffset = 10;
 		} else if ((health > 100 / 12.0) && (health <= 200 / 12.0)) {
 			setOffset(12);
-			this.color = Colors.get(-1, 111, -1, 100);
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#e50000"));;
 			xOffset = 11;
 		} else {
 			setOffset(13);
-			this.color = Colors.get(-1, 111, -1, 100);
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#e50000"));
 			xOffset = 12;
 		} if(health <= 0) {
 			level.remEntity(this);

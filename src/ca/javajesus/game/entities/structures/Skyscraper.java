@@ -9,7 +9,7 @@ import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class Skyscraper extends SolidEntity {
 	
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#d50000"), 555);
+	protected int color = Colors.get(-1, 111, Colors.fromHex("#673101"), 555);
 	
 	public Skyscraper(Level level, double x, double y) {
 		super(level, x, y, 64, 170);
