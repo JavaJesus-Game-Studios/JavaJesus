@@ -12,13 +12,10 @@ import ca.javajesus.level.Level;
 		
 		public double health;
 		public double startHealth;
-		public HealthBar bar;
 		public Rectangle hitBox;
 		public boolean hasDied;
 		protected int healthTickCount = 0;
 		public final Rectangle bounds;
-		public final Rectangle shadow;
-		public final double x, y;
 		protected int color;
 
 		private Random random = new Random();
@@ -28,10 +25,8 @@ import ca.javajesus.level.Level;
 			this.isSolid = true;
 			this.x = x;
 			this.y = y;
-			this.shadow = new Rectangle(width, (height / 2));
-			this.shadow.setLocation((int) x, (int) y);
 			this.bounds = new Rectangle(width, (height / 2) - 8);
-			this.bounds.setLocation((int) x, (int) y + shadow.height);
+			this.bounds.setLocation((int) x, (int) y);
 			this.health = defaultHealth;
 			this.startHealth = defaultHealth;
 			this.hitBox = new Rectangle(width, height);

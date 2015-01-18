@@ -11,37 +11,13 @@ import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
-public class NPC extends Mob {
+public class Jesus extends Mob {
 
-	public static NPC npc1 = new NPC(Level.level1, "Knight", 200, 100, 1, 16,
-			16, 100, Colors.get(-1, 111, Colors.fromHex("#7e7e7e"),
-					Colors.fromHex("#FFFFFF")), 0, 2, "linear", 20);
-	public static NPC npc2 = new NPC(Level.level1, "Policeman", 160, 250, 1,
-			16, 16, 100, Colors.get(-1, Colors.fromHex("#2a2a2a"),
-					Colors.fromHex("#000046"), 543), 0, 4, "triangle", 20);
-	public static NPC npc3 = new NPC(Level.level1, "Jesus", 300, 400, 1, 16,
+	
+	public static NPC Jesus = new NPC(Level.level1, "Jesus", 300, 400, 1, 16,
 			16, 9001, Colors.get(-1, 111, 555, Colors.fromHex("#ffd89b")), 0, 6,
 			"square", 30);
-	public static NPC npc4 = new NPC(Level.level1, "Citizen-Female", 200, 400,
-			1, 16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 8, "cross", 30);
-	public static NPC npc5 = new NPC(Level.level1, "Citizen-Male", 200, 500, 1,
-			16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 0, "circle", 2);
-	public static NPC npc6 = new NPC(Level.level1, "Fox", 250, 75, 1, 16, 16,
-			100, Colors.get(-1, 111, Colors.fromHex("#ffa800"), 555), 0, 14,
-			"cross", 50);
-
-	public static NPC npc8 = new NPC(Level.level1, "Tech Warrior", 400, 250, 1,
-			16, 16, 100, Colors.get(-1, 000, Colors.fromHex("#42ff00"), 543), 0,
-			12, "triangle", 20);
-	public static NPC npc9 = new NPC(Level.level1, "Peasant-Male", 500, 400, 1,
-			16, 16, 9001, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 0,
-			16, "square", 30);
-	public static NPC npc10 = new NPC(Level.level1, "Peasant-Female", 500, 500,
-			1, 16, 16, 100, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543),
-			0, 18, "cross", 30);
-	protected boolean isSwimming = false;
-
-
+	
 	/** Range that the NPC can walk */
 	protected Ellipse2D.Double walkRadius;
 	protected final int RADIUS = 32 * 8;
@@ -66,7 +42,7 @@ public class NPC extends Mob {
 
 	protected boolean movingToOrigin = false;
 	
-	public NPC(Level level, String name, double x, double y, int speed,
+	public Jesus(Level level, String name, double x, double y, int speed,
 			int width, int height, double defaultHealth, int color, int xTile,
 			int yTile, String walkPath, int walkDistance) {
 		super(level, name, x, y, speed, width, height, SpriteSheet.npcs,
@@ -127,15 +103,7 @@ public class NPC extends Mob {
 			moveAroundMobCollision();
 			return;
 		}
-		int xx = (int) x;
-		int yy = (int) y;
-		if (level.getTile(xx >> 3, yy >> 3).getId() == 3) {
-			isSwimming = true;
-		}
-		if (isSwimming && level.getTile(xx >> 3, yy >> 3).getId() != 3) {
-			isSwimming = false;
-		}
-
+	
 
 		if (movingToOrigin)
 			findOrigin();
@@ -257,26 +225,22 @@ public class NPC extends Mob {
 			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * 32, waterColour,
 					0x01, 1, sheet);
 		}
-		if (!isSwimming) {
-			// Lower Body 1
-			screen.render(xOffset + (modifier * flipBottom), yOffset
-					+ modifier, xTile + (yTile + 1) * 32, color,
-					flipBottom, scale, sheet);
-			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flipBottom),
-					yOffset + modifier, (xTile + 1) + (yTile + 1) * 32,
-					color, flipBottom, scale, sheet);
-
-		}
-
-
-
+	
 		// Upper body 1
 		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
 				* 32, color, flipTop, scale, sheet);
 		// Upper Body 2
 		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
 				(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
+		// Lower Body 1
+					screen.render(xOffset + (modifier * flipBottom), yOffset
+							+ modifier, xTile + (yTile + 1) * 32, color,
+							flipBottom, scale, sheet);
+		// Lower Body 2
+					screen.render(xOffset + modifier - (modifier * flipBottom),
+							yOffset + modifier, (xTile + 1) + (yTile + 1) * 32,
+							color, flipBottom, scale, sheet);
+
 
 
 	}

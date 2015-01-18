@@ -12,8 +12,8 @@ public class CastleTower extends SolidEntity {
 	protected int color = Colors.get(-1, 111, Colors.fromHex("#8d8d8d"), Colors.fromHex("#eefeff"));
 	
 	public CastleTower(Level level, double x, double y) {
-		super(level, x, y, 48, 88);
-		level.addEntity(new Transporter(level, x + 18, y + 70, new PoorHouseInterior()));
+		super(level, x, y, 93, 175);
+		level.addEntity(new Transporter(level, x + 41, y + 159, new PoorHouseInterior()));
 	}
 	
 	public void render(Screen screen) {

@@ -12,8 +12,8 @@ public class Skyscraper extends SolidEntity {
 	protected int color = Colors.get(-1, 111, Colors.fromHex("#673101"), 555);
 	
 	public Skyscraper(Level level, double x, double y) {
-		super(level, x, y, 64, 170);
-		level.addEntity(new Transporter(level, x + 24, y + 155, new PoorHouseInterior()));
+		super(level, x, y, 88, 250);
+		level.addEntity(new Transporter(level, x + 38, y + 234, new PoorHouseInterior()));
 	}
 	
 	public void render(Screen screen) {

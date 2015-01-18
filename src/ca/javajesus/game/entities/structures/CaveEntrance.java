@@ -12,8 +12,8 @@ public class CaveEntrance extends SolidEntity {
 	protected int color = Colors.get(-1, Colors.fromHex("#301e01"), Colors.fromHex("#372201"), -1);
 	
 	public CaveEntrance(Level level, double x, double y) {
-		super(level, x, y, 32, 24);
-		level.addEntity(new Transporter(level, x + 9, y + 8, new PoorHouseInterior()));
+		super(level, x, y, 48, 36);
+		level.addEntity(new Transporter(level, x + 18, y + 20, new PoorHouseInterior()));
 	}
 	
 	public void render(Screen screen) {
