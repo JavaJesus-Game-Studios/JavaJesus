@@ -1,5 +1,7 @@
 package ca.javajesus.game.entities.monsters;
 
+import java.util.Random;
+
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.FireBall;
 import ca.javajesus.game.gfx.Colors;
@@ -8,6 +10,7 @@ import ca.javajesus.level.Level;
 
 public class Demon extends Monster {
 	
+	Random random = new Random();
 	public Demon(Level level, String name, double x, double y, int speed) {
 		super(level, name, x, y, speed, 14, 24, 0, 150, Colors.get(-1, 111,
 				300, 550));
@@ -47,6 +50,9 @@ public class Demon extends Monster {
 
 	public void tick() {
 
+		if (random.nextInt(500) == 0) {
+			sound.demon.start();
+		}
 		checkRadius();
 
 		tickCount++;

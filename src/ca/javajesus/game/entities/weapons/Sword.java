@@ -22,6 +22,7 @@ public class Sword extends Entity {
 		this.sprite = sprites[sprites.length - 1];
 		this.player = player;
 		this.color = color;
+		sound.sheathe.start();
 	}
 
 	public void tick() {

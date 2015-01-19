@@ -173,6 +173,7 @@ public class Player extends Mob {
 		}
 		if (isSwimming) {
 			scaledSpeed = 0.35;
+			sound.swimming.start();
 		} else if (input.shift.isPressed() && !isDriving && !isTired) {
 			scaledSpeed = 3;
 			stamina--;

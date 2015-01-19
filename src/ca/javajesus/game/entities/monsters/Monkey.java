@@ -1,11 +1,15 @@
 package ca.javajesus.game.entities.monsters;
 
+import java.util.Random;
+
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Monkey extends Monster {
+	
+	Random random = new Random();
 
 	public Monkey(Level level, String name, double x, double y, int speed,
 			int health) {
@@ -48,6 +52,9 @@ public class Monkey extends Monster {
 
 	public void tick() {
 
+		if (random.nextInt(500) == 0) {
+			sound.chimpanzee.start();
+		}
 		checkRadius();
 
 		if (isMobCollision()) {

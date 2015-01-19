@@ -35,6 +35,7 @@ public class HealthPack extends Particle {
 					screen.getGame().updateLevel();
 				}
 				level.remEntity(this);
+				sound.click.start();
 			}
 
 		}

@@ -1,5 +1,7 @@
 package ca.javajesus.game.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -13,11 +15,16 @@ public class Slot extends JPanel {
 	
 	public Slot() {
 		try {
-			this.image = ImageIO.read(Slot.class.getResource("/GUI/slot.png"));
+			this.image = ImageIO.read(InventoryGUI.class
+					.getResource("/GUI/GUI_INVENTORY_SCREEN.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(image, 0, 0, image.getWidth() * 4, image.getHeight() * 4, this);
 	}
 
 }

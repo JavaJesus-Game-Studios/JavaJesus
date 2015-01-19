@@ -14,10 +14,5 @@ public abstract class ScreenGUI extends JPanel {
 	protected InputHandler input;
 
 	public abstract void tick();
-	
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(image, 0, 0, null);
-	}
 
 }

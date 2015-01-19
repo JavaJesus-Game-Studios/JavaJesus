@@ -1,15 +1,19 @@
 package ca.javajesus.game.entities;
 
+import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public abstract class Entity {
+	
+	protected SoundHandler sound;
 	public double x, y;
 	protected Level level;
 	protected boolean isSolid;
 	
 	public Entity(Level level){
 		init(level);
+		sound = new SoundHandler();
 	}
 	
 	public final void init(Level level){

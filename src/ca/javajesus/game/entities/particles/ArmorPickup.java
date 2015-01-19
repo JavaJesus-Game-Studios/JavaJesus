@@ -31,6 +31,7 @@ public class ArmorPickup extends Particle {
 			if (mob instanceof Player && BOX.intersects(mob.hitBox)) {
 				((Player) mob).yTile = 12;
 				mob.defense = 5;
+				sound.click.start();
 				level.remEntity(this);
 			}
 

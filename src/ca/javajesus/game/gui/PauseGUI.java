@@ -1,6 +1,7 @@
 package ca.javajesus.game.gui;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -29,5 +30,10 @@ public class PauseGUI extends ScreenGUI {
 			input.esc.toggle(false);
 			Game.displayGame();
 		}
+	}
+	
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(image, 0, 0, null);
 	}
 }
