@@ -40,10 +40,10 @@ public class Transporter extends SolidEntity {
 
 	public void render(Screen screen) {
 		
-		screen.render(x + 0, y + 0, 0 + 5 * 32, Colors.get(-1, 111, Colors.fromHex("#734400"), Colors.fromHex("#ffde00")), 0, 1, sheet);
-		screen.render(x + 8, y + 0, 1 + 5 * 32, Colors.get(-1, 111, Colors.fromHex("#734400"), Colors.fromHex("#ffde00")), 0, 1, sheet);
-		screen.render(x + 0, y + 8, 0 + 6 * 32, Colors.get(-1, 111, Colors.fromHex("#734400"), Colors.fromHex("#ffde00")), 0, 1, sheet);
-		screen.render(x + 8, y + 8, 1 + 6 * 32, Colors.get(-1, 111, Colors.fromHex("#734400"), Colors.fromHex("#ffde00")), 0, 1, sheet);
+		screen.render(x + 0, y + 0, 0 + 5 * 32, Colors.get(-1, 111, Colors.fromHex("#704200"), Colors.fromHex("#ffde00")), 0, 1, sheet);
+		screen.render(x + 8, y + 0, 1 + 5 * 32, Colors.get(-1, 111, Colors.fromHex("#704200"), Colors.fromHex("#ffde00")), 0, 1, sheet);
+		screen.render(x + 0, y + 8, 0 + 6 * 32, Colors.get(-1, 111, Colors.fromHex("#704200"), Colors.fromHex("#ffde00")), 0, 1, sheet);
+		screen.render(x + 8, y + 8, 1 + 6 * 32, Colors.get(-1, 111, Colors.fromHex("#704200"), Colors.fromHex("#ffde00")), 0, 1, sheet);
 	}
 
 }

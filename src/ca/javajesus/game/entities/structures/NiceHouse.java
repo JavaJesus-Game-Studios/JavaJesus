@@ -14,9 +14,9 @@ public class NiceHouse extends SolidEntity {
 	private Random random = new Random();
 
 	public NiceHouse(Level level, double x, double y) {
-		super(level, x, y, 48, 48);
+		super(level, x, y, 54, 57);
 		getColor();
-		level.addEntity(new Transporter(level, x + 17, y + 32, new PoorHouseInterior()));
+		level.addEntity(new Transporter(level, x + 21, y + 41, new PoorHouseInterior()));
 	}
 	
 	public void render(Screen screen) {

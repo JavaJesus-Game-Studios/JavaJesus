@@ -203,29 +203,7 @@ public class Jesus extends Mob {
 		double xOffset = x - modifier / 2.0;
 		double yOffset = y - modifier / 2.0 - 4;
 		
-		if (isSwimming) {
-			if (onFire) {
-				onFire = false;
-			}
-			int waterColour = 0;
-			yOffset += 4;
-			if (tickCount % 60 < 15) {
-				waterColour = Colors.get(-1, 225, -1, -1);
-			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
-				yOffset -= 1;
-				waterColour = Colors.get(-1, 115, 225, -1);
-			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
-				waterColour = Colors.get(-1, 115, -1, -1);
-			} else {
-				yOffset -= 1;
-				waterColour = Colors.get(-1, 225, 225, -1);
-			}
-			screen.render(xOffset, yOffset + 3, 0 + 10 * 32, waterColour, 0x00,
-					1, sheet);
-			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * 32, waterColour,
-					0x01, 1, sheet);
-		}
-	
+			
 		// Upper body 1
 		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
 				* 32, color, flipTop, scale, sheet);
