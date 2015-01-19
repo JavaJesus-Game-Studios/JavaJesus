@@ -19,26 +19,28 @@ public class NPC extends Mob {
 	public static NPC npc2 = new NPC(Level.level1, "Policeman", 160, 250, 1,
 			16, 16, 100, Colors.get(-1, Colors.fromHex("#2a2a2a"),
 					Colors.fromHex("#000046"), 543), 0, 4, "triangle", 20);
-	public static NPC npc3 = new NPC(Level.level1, "Jesus", 300, 400, 1, 16,
-			16, 9001, Colors.get(-1, 111, 555, Colors.fromHex("#ffd89b")), 0, 6,
-			"square", 30);
-	public static NPC npc4 = new NPC(Level.level1, "Citizen-Female", 200, 400,
+	public static NPC npc3 = new NPC(Level.level1, "Citizen-Female", 200, 400,
 			1, 16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 8, "cross", 30);
-	public static NPC npc5 = new NPC(Level.level1, "Citizen-Male", 200, 500, 1,
+	public static NPC npc4 = new NPC(Level.level1, "Citizen-Male", 200, 500, 1,
 			16, 16, 100, Colors.get(-1, 111, 300, 543), 0, 0, "circle", 2);
-	public static NPC npc6 = new NPC(Level.level1, "Fox", 250, 75, 1, 16, 16,
+	public static NPC npc5 = new NPC(Level.level1, "Fox", 250, 75, 1, 16, 16,
 			100, Colors.get(-1, 111, Colors.fromHex("#ffa800"), 555), 0, 14,
 			"cross", 50);
-
-	public static NPC npc8 = new NPC(Level.level1, "Tech Warrior", 400, 250, 1,
+	public static NPC npc6 = new NPC(Level.level1, "Tech Warrior", 400, 250, 1,
 			16, 16, 100, Colors.get(-1, 000, Colors.fromHex("#42ff00"), 543), 0,
 			12, "triangle", 20);
-	public static NPC npc9 = new NPC(Level.level1, "Peasant-Male", 500, 400, 1,
-			16, 16, 9001, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 0,
-			16, "square", 30);
-	public static NPC npc10 = new NPC(Level.level1, "Peasant-Female", 500, 500,
+	public static NPC npc7 = new NPC(Level.level1, "Peasant-Male", 2005, 950, 1,
+			16, 16, 100, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 0,
+			16, "square", 100);
+	public static NPC npc8 = new NPC(Level.level1, "Peasant-Female", 2025, 950,
 			1, 16, 16, 100, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543),
-			0, 18, "cross", 30);
+			0, 18, "cross", 0);
+	public static NPC npc9 = new NPC(Level.level1, "Peasant-Boychild", 2035, 950, 1,
+			16, 16, 9001, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 0,
+			20, "square", 0);
+	public static NPC npc10 = new NPC(Level.level1, "Peasant-Girlchild", 2045, 950,
+			1, 16, 16, 9000, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543),
+			0, 22, "cross", 0);
 	protected boolean isSwimming = false;
 
 
