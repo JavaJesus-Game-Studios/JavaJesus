@@ -244,8 +244,10 @@ public class Game extends Canvas implements Runnable {
 	/** Ticks the game */
 	public void tick() {
 		tickCount++;
-		getLevel().tick();
-		if (!inGameScreen) {
+		if (inGameScreen) {
+		    getLevel().tick();
+		}
+		else {
 			((ScreenGUI) display.getComponent(guiID)).tick();
 		}
 	}
