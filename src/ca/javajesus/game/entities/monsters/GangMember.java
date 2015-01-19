@@ -19,7 +19,7 @@ public class GangMember extends Monster {
 		getType(type);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
 				RADIUS / 2, RADIUS / 2);
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 0);
 		if (level != null)
 			level.addEntity(bar);
 	}

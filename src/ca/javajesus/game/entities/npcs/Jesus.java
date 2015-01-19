@@ -16,7 +16,7 @@ public class Jesus extends Mob {
 	
 	public static NPC Jesus = new NPC(Level.level1, "Jesus", 300, 400, 1, 16,
 			16, 9001, Colors.get(-1, 111, 555, Colors.fromHex("#ffd89b")), 0, 6,
-			"square", 30);
+			"square", 30, 0);
 	
 	/** Range that the NPC can walk */
 	protected Ellipse2D.Double walkRadius;
@@ -57,7 +57,7 @@ public class Jesus extends Mob {
 		this.xPos = x;
 		this.yPos = y;
 		this.hitBox = new Rectangle(width, height);
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 0);
 		if (level != null)
 			level.addEntity(bar);
 		scaledSpeed = 0.35;

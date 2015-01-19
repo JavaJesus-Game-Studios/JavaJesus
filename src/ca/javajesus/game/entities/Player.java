@@ -51,7 +51,7 @@ public class Player extends Mob {
 		this.score = 0;
 		sword = new GreatSword(level, this);
 		this.inventory = new Inventory();
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 8);
 		if (level != null)
 			level.addEntity(bar);
 		isTired = false;

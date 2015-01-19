@@ -15,7 +15,7 @@ public class Monster extends Mob {
 			430, 120, 1, 100, 0);
 	public static Monster horseThing1 = new Centaur(Level.level1, "HorseThing",
 			500, 200, 1, 100);
-	public static Monster monkey = new Monkey(Level.level1, "Monkey", 100, 100,
+	public static Monster monkey = new Monkey(Level.level1, "Monkey", 70, 70,
 			1, 100);
 	public static Monster gang2 = new GangMember(Level.level1, "Criminal", 100, 150, 1, 100, 1);
 	public static Monster man2;

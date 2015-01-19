@@ -12,29 +12,32 @@ public class HealthBar extends Particle {
 	private int tickCount = 0;
 	private double health;
 	private double startHealth;
+	private int yChange;
 
 	private static int healthBarColour = Colors.get(-1, 111, -1, 400);
 	private Mob mob;
 
-	public HealthBar(Level level, int tileNumber, double x, double y, Mob mob) {
+	public HealthBar(Level level, int tileNumber, double x, double y, Mob mob, int yChange) {
 		super(level, tileNumber, healthBarColour, x, y);
 		this.mob = mob;
 		this.yOffset = 14;
 		this.health = mob.health;
 		this.startHealth = mob.startHealth;
+		this.yChange = yChange;
 	}
 
-	public HealthBar(Level level, int tileNumber, double x, double y, Mob mob,
+	public HealthBar(Level level, int tileNumber, double x, double y, Mob mob, int yChange,
 			int yOffset) {
 		super(level, tileNumber, healthBarColour, x, y);
 		this.mob = mob;
 		this.yOffset = yOffset;
+		this.yChange = yChange;
 	}
 
 	public void render(Screen screen) {
 
 		this.x = mob.x - xOffset / 2 + 1;
-		this.y = mob.y + 8;
+		this.y = mob.y + yChange;
 
 		screen.render(this.x + 3, this.y, tileNumber + yOffset * 32, color, 1, 1,
 				sheet);

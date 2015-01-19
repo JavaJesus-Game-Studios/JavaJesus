@@ -12,7 +12,7 @@ public class Monkey extends Monster {
 		super(level, name, x, y, speed, 16, 16, 8, health, Colors.get(-1,
 				Colors.fromHex("#2a1609"), Colors.fromHex("#391e0c"),
 				Colors.fromHex("#b08162")));
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 0);
 		if (level != null)
 			level.addEntity(bar);
 	}

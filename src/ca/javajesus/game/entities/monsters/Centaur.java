@@ -11,7 +11,7 @@ public class Centaur extends Monster {
 			int health) {
 		super(level, name, x, y, speed, 14, 24, 5, health, Colors.get(-1, 111,
 				Colors.fromHex("#8f4c1f"), 543));
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this);
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 8);
 		if (level != null)
 			level.addEntity(bar);
 	}
