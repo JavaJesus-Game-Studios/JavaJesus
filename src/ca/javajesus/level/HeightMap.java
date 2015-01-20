@@ -28,7 +28,8 @@ public class HeightMap
      * @param cycles
      *            :the number of times the heightmap will be cycled. 4 cycles is
      *            recommended.
-     * 
+     * @return An array filled with 0, 1, or 2, where 0 is water, 1 is land, and
+     *         2 is mountains.
      */
     public int[][] generateHeightMap(int cycles)
     {
@@ -113,6 +114,25 @@ public class HeightMap
                 }
             }
         }
+        int cutoff = this.getAverage(heightmap);
+        int mountainCutoff = cutoff + 100;
+        for (int row = 0; row < heightmap.length; row++)
+        {
+            for (int col = 0; col < heightmap[0].length; col++)
+            {
+                if (heightmap[row][col] <= cutoff)
+                {
+                    heightmap[row][col] = 0;
+                } else if (heightmap[row][col] > cutoff
+                        && heightmap[row][col] <= mountainCutoff)
+                {
+                    heightmap[row][col] = 1;
+                } else
+                {
+                    heightmap[row][col] = 2;
+                }
+            }
+        }
         return heightmap;
     }
 
@@ -122,9 +142,10 @@ public class HeightMap
      *
      * @param heightmap
      *            : the heightmap you want an average of
+     * @return The average of the values in heightmap
      * 
      */
-    public int getAverage(int[][] heightmap)
+    private int getAverage(int[][] heightmap)
     {
         int sumTotal = 0;
         for (int row = 0; row < heightmap.length; row++)
