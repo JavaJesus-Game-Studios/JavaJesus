@@ -3,6 +3,7 @@ package ca.javajesus.game.entities.particles;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Colors;
@@ -31,7 +32,7 @@ public class ArmorPickup extends Particle {
 			if (mob instanceof Player && BOX.intersects(mob.hitBox)) {
 				((Player) mob).yTile = 12;
 				mob.defense = 5;
-				sound.click.start();
+				sound.play(SoundHandler.click);
 				level.remEntity(this);
 			}
 

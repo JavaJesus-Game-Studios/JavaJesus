@@ -1,5 +1,6 @@
 package ca.javajesus.game.entities.projectiles;
 
+import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.level.Level;
@@ -10,7 +11,7 @@ public class FireBall extends Projectile {
 		super(level, 6, 6, 0,
 				Colors.get(-1, 550, Colors.fromHex("#F7790A"), 300), x, y, 3,
 				direction, mob);
-		sound.fireball.start();
+		sound.play(SoundHandler.fireball);
 	}
 
 	public FireBall(Level level, double x, double y, double xPos, double yPos,
@@ -18,7 +19,7 @@ public class FireBall extends Projectile {
 		super(level, 6, 6, 0,
 				Colors.get(-1, 550, Colors.fromHex("#F7790A"), 300), x, y, 3,
 				xPos, yPos, mob);
-		sound.fireball.start();
+		sound.play(SoundHandler.fireball);
 	}
 
 }

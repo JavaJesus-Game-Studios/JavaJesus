@@ -70,7 +70,6 @@ public class Game extends Canvas implements Runnable {
 
 	/** Creates instances of the handlers */
 	public InputHandler input;
-	public SoundHandler sound;
 
 	/** Creates instance of the player */
 	public Player player;
@@ -88,7 +87,6 @@ public class Game extends Canvas implements Runnable {
 	/** This starts the game */
 	public Game() {
 		input = new InputHandler(this);
-		sound = new SoundHandler();
 		inventory = new InventoryGUI();
 		pause = new PauseGUI();
 		display = new JPanel(new CardLayout());

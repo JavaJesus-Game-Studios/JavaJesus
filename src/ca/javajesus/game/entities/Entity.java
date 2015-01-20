@@ -13,7 +13,7 @@ public abstract class Entity {
 	
 	public Entity(Level level){
 		init(level);
-		sound = new SoundHandler();
+		sound = SoundHandler.sound;
 	}
 	
 	public final void init(Level level){

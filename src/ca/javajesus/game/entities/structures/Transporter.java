@@ -3,6 +3,7 @@ package ca.javajesus.game.entities.structures;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.gfx.Colors;
@@ -34,7 +35,7 @@ public class Transporter extends SolidEntity {
 		for (Player player : level.getPlayers()) {
 			if (this.hitBox.intersects(player.hitBox)) {
 				player.changeLevel(nextLevel);
-				sound.click.start();
+				sound.play(SoundHandler.click);
 			}
 		}
 	}

@@ -3,6 +3,7 @@ package ca.javajesus.game.entities.particles;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Colors;
@@ -35,7 +36,7 @@ public class HealthPack extends Particle {
 					screen.getGame().updateLevel();
 				}
 				level.remEntity(this);
-				sound.click.start();
+				sound.play(SoundHandler.click);
 			}
 
 		}

@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
+import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
@@ -173,7 +174,7 @@ public class Player extends Mob {
 		}
 		if (isSwimming) {
 			scaledSpeed = 0.35;
-			sound.swimming.start();
+			sound.play(SoundHandler.swimming);
 		} else if (input.shift.isPressed() && !isDriving && !isTired) {
 			scaledSpeed = 3;
 			stamina--;

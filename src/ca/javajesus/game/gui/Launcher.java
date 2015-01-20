@@ -11,6 +11,7 @@ import java.awt.image.BufferStrategy;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -46,7 +47,7 @@ public class Launcher extends JFrame implements Runnable {
 	protected int button_width = 80;
 	protected int button_height = 40;
 
-	public SoundHandler sound;
+	public SoundHandler sound = SoundHandler.sound;
 
 	Thread thread;
 
@@ -58,10 +59,8 @@ public class Launcher extends JFrame implements Runnable {
 			e.printStackTrace();
 		}
 
-		sound = new SoundHandler();
-
 		new InputHandler(this);
-		sound.background1.loop(10);
+		SoundHandler.background1.loop(Clip.LOOP_CONTINUOUSLY);
 		setUndecorated(true);
 		setTitle("JavaJesus Launcher:");
 		setSize(new Dimension(width, height));
@@ -138,7 +137,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.sheathe.start();
+						sound.play(SoundHandler.sheathe);
 						nextScreen = true;
 						buttonId = 0;
 					}
@@ -161,7 +160,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 510, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.sheathe.start();
+						sound.play(SoundHandler.sheathe);
 						nextScreen = true;
 						buttonId = 1;
 					}
@@ -184,7 +183,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 570, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.sheathe.start();
+						sound.play(SoundHandler.sheathe);
 						nextScreen = true;
 						buttonId = 2;
 					}
@@ -207,7 +206,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 630, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.sheathe.start();
+						sound.play(SoundHandler.sheathe);
 						nextScreen = true;
 						buttonId = 3;
 					}
@@ -234,7 +233,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.sheathe.start();
+						sound.play(SoundHandler.sheathe);
 						nextScreen = true;
 						buttonId = 5;
 					}
@@ -257,7 +256,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 510, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.sheathe.start();
+						sound.play(SoundHandler.sheathe);
 						nextScreen = true;
 						buttonId = 6;
 					}
@@ -283,7 +282,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.sheathe.start();
+						sound.play(SoundHandler.sheathe);
 						nextScreen = true;
 						buttonId = 8;
 					}
@@ -306,7 +305,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 510, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.sheathe.start();
+						sound.play(SoundHandler.sheathe);
 						nextScreen = true;
 						buttonId = 9;
 					}
@@ -329,7 +328,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 570, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.sheathe.start();
+						sound.play(SoundHandler.sheathe);
 						nextScreen = true;
 						buttonId = 10;
 					}
@@ -353,7 +352,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.sheathe.start();
+						sound.play(SoundHandler.sheathe);
 						nextScreen = true;
 						buttonId = 11;
 					}
@@ -376,7 +375,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 510, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.sheathe.start();
+						sound.play(SoundHandler.sheathe);
 						nextScreen = true;
 						buttonId = 12;
 					}
@@ -403,7 +402,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 630, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.sheathe.start();
+						sound.play(SoundHandler.sheathe);
 						nextScreen = true;
 						buttonId = 7;
 					}
@@ -427,7 +426,7 @@ public class Launcher extends JFrame implements Runnable {
 						365 - 110 + swordOffset, 690, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
-					sound.sheathe.start();
+					sound.play(SoundHandler.sheathe);
 					nextScreen = true;
 					buttonId = 4;
 				}
@@ -485,9 +484,7 @@ public class Launcher extends JFrame implements Runnable {
 		case 5: {
 			running = false;
 			dispose();
-			sound.background1.stop();
-			sound.background1.close();
-			sound.sheathe.close();
+			SoundHandler.background1.stop();
 			new ZombieSurvival().start();
 			this.stopMenu();
 			return;
@@ -495,9 +492,7 @@ public class Launcher extends JFrame implements Runnable {
 		case 6: {
 			running = false;
 			dispose();
-			sound.background1.stop();
-			sound.background1.close();
-			sound.sheathe.close();
+			SoundHandler.background1.stop();
 			new ZombieSurvival().start();
 			this.stopMenu();
 			return;
@@ -521,9 +516,7 @@ public class Launcher extends JFrame implements Runnable {
 		case 11: {
 			running = false;
 			dispose();
-			sound.background1.stop();
-			sound.background1.close();
-			sound.sheathe.close();
+			SoundHandler.background1.stop();
 			new Game().start();
 			this.stopMenu();
 			return;
