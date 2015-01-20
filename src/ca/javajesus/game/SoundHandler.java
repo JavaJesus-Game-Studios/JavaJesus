@@ -108,13 +108,13 @@ public class SoundHandler {
 			this.swimming = AudioSystem.getClip();
 			this.walking = AudioSystem.getClip();
 
-			this.chimpanzee.open(chimpanzee);
+			/*this.chimpanzee.open(chimpanzee);
 			this.click.open(click);
 			this.demon.open(demon);
 			this.fireball.open(fireball);
 			this.gunshot.open(gunshot);
 			this.background1.open(background1);
-			this.sheathe.open(sheathe);
+			this.sheathe.open(sheathe);*/
 		} catch (Exception e) {
 
 		}
