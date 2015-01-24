@@ -10,11 +10,15 @@ import ca.javajesus.level.RandomLevel;
 
 public class SanCiscoSkyscraper extends SolidEntity {
 
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#ffffff"), Colors.fromHex("#081a3d"));
+	protected int color = Colors.get(-1, Colors.fromHex("#edece0"), Colors.fromHex("#ffffff"), Colors.fromHex("#030074"));
 
 	public SanCiscoSkyscraper(Level level, double x, double y) {
-		super(level, x, y, 64, 208);
-		level.addEntity(new Transporter(level, x + 26, y + 192,
+		super(level, x, y, 212, 676);
+		level.addEntity(new TransporterGlass(level, x + 44, y + 660,
+				new RandomLevel(Game.WIDTH, Game.HEIGHT)));
+		level.addEntity(new TransporterGlass(level, x + 100, y + 660,
+				new RandomLevel(Game.WIDTH, Game.HEIGHT)));
+		level.addEntity(new TransporterGlass(level, x + 156, y + 660,
 				new RandomLevel(Game.WIDTH, Game.HEIGHT)));
 	}
 

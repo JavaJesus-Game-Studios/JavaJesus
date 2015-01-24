@@ -36,11 +36,11 @@ public class NPC extends Mob {
 			1, 16, 16, 100, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543),
 			0, 18, "cross", 0, 8);
 	public static NPC npc9 = new NPC(Level.level1, "Peasant-Boychild", 2035, 950, 1,
-			16, 16, 9001, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 0,
-			20, "square", 0, 8);
+			16, 16, 9001, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 14,
+			16, "square", 0, 8);
 	public static NPC npc10 = new NPC(Level.level1, "Peasant-Girlchild", 2045, 950,
 			1, 16, 16, 9000, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543),
-			0, 22, "cross", 0, 8);
+			14, 18, "cross", 0, 8);
 	protected boolean isSwimming = false;
 
 

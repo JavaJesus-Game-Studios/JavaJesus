@@ -67,7 +67,7 @@ public class Level1 extends Level {
 		this.addEntity(new CastleTower(this, 500, 50));
 		this.addEntity(new CaveEntrance(this, 600, 50));
 		this.addEntity(new Skyscraper(this, 200, 200));
-		this.addEntity(new SanCiscoSkyscraper(this, 100, 200));
+		this.addEntity(new SanCiscoSkyscraper(this, 10, 2084));
 		this.addEntity(new ArmorPickup(this, 100, 25));
 		
 	}

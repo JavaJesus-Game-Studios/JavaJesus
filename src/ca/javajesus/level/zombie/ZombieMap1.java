@@ -3,8 +3,10 @@ package ca.javajesus.level.zombie;
 import java.awt.Point;
 import java.util.Random;
 
+import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.monsters.Monster;
+import ca.javajesus.game.entities.particles.HealthPack;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.CaveEntrance;
@@ -14,7 +16,6 @@ import ca.javajesus.level.Level;
 
 public class ZombieMap1 extends Level{
 	
-	private static final Random random = new Random();
 
 
 	public ZombieMap1() {
@@ -26,10 +27,7 @@ public class ZombieMap1 extends Level{
 	}
 
 	protected void initNPCPlacement() {
-		for (int i = 0; i < 3; i++) {
-			this.addSpawner(random.nextInt(this.width * 8),
-					random.nextInt(this.height * 8), 2);
-		}
+		
 		
 	}
 
@@ -47,7 +45,8 @@ public class ZombieMap1 extends Level{
 		this.addEntity(new CastleTower(this, 175, 1180));
 		this.addEntity(new CatholicChurch(this, 1330, 1480));
 		this.addEntity(new CaveEntrance(this, 700, 810));
-		this.addEntity(new Demon(this, null, height, height, 100));
+		this.addEntity(new Spawner(this, 1360, 300, 0));
+		this.addEntity(new Spawner(this, 1350, 100, new HealthPack(this, 1350, 100)));
 
 
 
