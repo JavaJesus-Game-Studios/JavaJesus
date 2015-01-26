@@ -9,7 +9,6 @@ import ca.javajesus.level.tile.Tile;
 
 public class RandomLevel2 extends Level {
 
-	private HeightMap heightm;
 	private int width;
 	private int height;
 	private int[][] heightmap;
@@ -43,10 +42,8 @@ public class RandomLevel2 extends Level {
 	 */
 	public RandomLevel2(int width, int height) {
 		super(width, height);
-		heightm = new HeightMap(width, height);
-		this.width = width;
-		this.height = height;
-		heightmap = heightm.generateHeightMap(4);
+		heightmap = new HeightMap(width, height).generateHeightMap(4);
+		generateLevel();
 	}
 
 	protected void generateLevel() {

@@ -49,7 +49,8 @@ public abstract class Level {
 		this.width = width;
 		this.height = height;
 		tiles = new int[width * height];
-		generateLevel();
+		if (!(this instanceof RandomLevel2))
+			generateLevel();
 	}
 
 	protected abstract void initNPCPlacement();
@@ -164,7 +165,7 @@ public abstract class Level {
 				if (e instanceof HealthBar && ((HealthBar) e).renderOnTop) {
 					e.render(screen);
 				} else {
-					e.render(screen); 
+					e.render(screen);
 				}
 			}
 		}
