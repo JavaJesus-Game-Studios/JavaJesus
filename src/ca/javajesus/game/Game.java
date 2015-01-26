@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable {
 
 	/** Entity limit per screen */
 	public final static int ENTITY_LIMIT = 1000;
-	public boolean running = false; //this is a change
+	public boolean running = false; // this is a change
 
 	/** Creates the JFrame */
 	protected static JFrame frame;
@@ -148,7 +148,8 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		screen = new Screen(WIDTH, HEIGHT, this);
-		player = new Player(getLevel(), getLevel().spawnPoint().getX(), getLevel().spawnPoint().getY(), input);
+		player = new Player(getLevel(), getLevel().spawnPoint.x,
+				getLevel().spawnPoint.y, input);
 		getLevel().addEntity(player);
 		getLevel().init();
 
@@ -168,7 +169,7 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 	}
-	
+
 	public void redScreen() {
 		int index = 0;
 		for (int r = 0; r < 6; r++) {
@@ -178,7 +179,8 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 
-					colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb, 16711680, 0.75);
+					colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb,
+							16711680, 0.75);
 				}
 			}
 		}
@@ -243,9 +245,8 @@ public class Game extends Canvas implements Runnable {
 	public void tick() {
 		tickCount++;
 		if (inGameScreen) {
-		    getLevel().tick();
-		}
-		else {
+			getLevel().tick();
+		} else {
 			((ScreenGUI) display.getComponent(guiID)).tick();
 		}
 	}
@@ -274,8 +275,10 @@ public class Game extends Canvas implements Runnable {
 			yOffset = (int) player.vehicle.y - (screen.height / 2);
 		}
 
-		getLevel().renderTile(screen, xOffset, yOffset);
-		getLevel().renderEntities(screen);
+		if (inGameScreen) {
+			getLevel().renderTile(screen, xOffset, yOffset);
+			getLevel().renderEntities(screen);
+		}
 
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {

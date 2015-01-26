@@ -1,5 +1,7 @@
 package ca.javajesus.game.entities.structures;
 
+import java.awt.Point;
+
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -13,7 +15,7 @@ public class Skyscraper extends SolidEntity {
 	
 	public Skyscraper(Level level, double x, double y) {
 		super(level, x, y, 88, 250);
-		level.addEntity(new Transporter(level, x + 38, y + 234, new PoorHouseInterior()));
+		level.addEntity(new Transporter(level, x + 38, y + 234, new PoorHouseInterior(new Point((int) x + 40, (int) y + 242))));
 	}
 	
 	public void render(Screen screen) {

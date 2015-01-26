@@ -261,8 +261,8 @@ public class Player extends Mob {
 			canChangeLevel = false;
 			level.addEntity(this);
 			level.addEntity(bar);
-			this.x = level.spawnPoint().getX();
-			this.y = level.spawnPoint().getY();
+			this.x = level.spawnPoint.x;
+			this.y = level.spawnPoint.y;
 			input.e.toggle(false);
 		}
 

@@ -1,5 +1,7 @@
 package ca.javajesus.game.entities.structures;
 
+import java.awt.Point;
+
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -13,7 +15,7 @@ public class CastleTower extends SolidEntity {
 	
 	public CastleTower(Level level, double x, double y) {
 		super(level, x, y, 93, 175);
-		level.addEntity(new Transporter(level, x + 41, y + 159, new PoorHouseInterior()));
+		level.addEntity(new Transporter(level, x + 41, y + 159, new PoorHouseInterior(new Point((int) x + 43, (int) y + 167))));
 	}
 	
 	public void render(Screen screen) {

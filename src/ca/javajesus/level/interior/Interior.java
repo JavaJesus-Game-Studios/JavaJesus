@@ -6,13 +6,11 @@ import ca.javajesus.game.entities.structures.Transporter;
 import ca.javajesus.game.entities.structures.TransporterInterior;
 import ca.javajesus.level.Level;
 
-public class PoorHouseInterior extends Interior {
-
-	private Point exitPoint;
+public class Interior extends Level {
 	
-	public PoorHouseInterior(Point point) {
-		super("/Buildings/Generic Interiors/Hut_Interior.png", new Point(252, 252));	
-		this.exitPoint = point;
+	public Interior(String string, Point point) {
+		super(string);
+		this.spawnPoint = point;	
 	}
 	
 	protected void initNPCPlacement() {
@@ -28,7 +26,7 @@ public class PoorHouseInterior extends Interior {
 	}
 
 	protected void otherEntityPlacement() {
-		this.addEntity(new TransporterInterior(this, 252, 278, Level.level1, exitPoint));
+		
 	}
 
 }

@@ -13,6 +13,7 @@ import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.Spawner;
+import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.tile.Tile;
@@ -26,7 +27,7 @@ public abstract class Level {
 	protected List<Player> players = new CopyOnWriteArrayList<Player>();
 	private String imagePath;
 	private BufferedImage image;
-	protected Point spawnPoint;
+	public Point spawnPoint;
 
 	protected int[] tileColours;
 
@@ -58,14 +59,6 @@ public abstract class Level {
 	protected abstract void initChestPlacement();
 
 	protected abstract void otherEntityPlacement();
-
-	public Point spawnPoint() {
-		return spawnPoint;
-	}
-	
-	public void setSpawnPoint(Point point) {
-		this.spawnPoint = point;
-	}
 
 	private void loadLevelFromFile() {
 		try {
@@ -167,8 +160,13 @@ public abstract class Level {
 				m.render(screen);
 		}
 		for (Entity e : getEntities()) {
-			if (!(e instanceof Mob))
-				e.render(screen);
+			if (!(e instanceof Mob)) {
+				if (e instanceof HealthBar && ((HealthBar) e).renderOnTop) {
+					e.render(screen);
+				} else {
+					e.render(screen); 
+				}
+			}
 		}
 		for (Mob m : getMobs()) {
 			if (m.renderOnTop)

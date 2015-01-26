@@ -1,5 +1,6 @@
 package ca.javajesus.game.entities.structures;
 
+import java.awt.Point;
 import java.util.Random;
 
 import ca.javajesus.game.entities.SolidEntity;
@@ -10,20 +11,22 @@ import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class NiceHouse extends SolidEntity {
-	
+
 	private Random random = new Random();
 
 	public NiceHouse(Level level, double x, double y) {
 		super(level, x, y, 54, 57);
 		getColor();
-		level.addEntity(new Transporter(level, x + 21, y + 41, new PoorHouseInterior()));
+		level.addEntity(new Transporter(level, x + 21, y + 41,
+				new PoorHouseInterior(new Point((int) x + 23, (int) y + 49))));
 	}
-	
+
 	public void render(Screen screen) {
 
 		screen.render((int) x, (int) y, color, Sprite.nice_house);
 
 	}
+
 	private void getColor() {
 		switch (random.nextInt(8)) {
 		case 0: {

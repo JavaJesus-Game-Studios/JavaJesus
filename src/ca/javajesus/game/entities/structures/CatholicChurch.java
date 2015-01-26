@@ -1,5 +1,7 @@
 package ca.javajesus.game.entities.structures;
 
+import java.awt.Point;
+
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -13,7 +15,7 @@ public class CatholicChurch extends SolidEntity {
 	
 	public CatholicChurch(Level level, double x, double y) {
 		super(level, x, y, 86, 75);
-		level.addEntity(new Transporter(level, x + 38, y + 59, new PoorHouseInterior()));
+		level.addEntity(new Transporter(level, x + 38, y + 59, new PoorHouseInterior(new Point((int) x + 40, (int) y + 67))));
 	}
 	
 	public void render(Screen screen) {

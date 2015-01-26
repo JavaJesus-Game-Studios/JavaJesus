@@ -145,11 +145,13 @@ public abstract class Mob extends Entity {
 
 	protected boolean isSolidEntityCollision(int xa, int ya) {
 		renderOnTop = true;
+		bar.renderOnTop = true;
 		for (Entity entity : level.getEntities()) {
 			if (entity instanceof SolidEntity) {
 				if (!(entity instanceof Transporter)) {
 					if (this.hitBox.intersects(((SolidEntity) entity).shadow)) {
 						renderOnTop = false;
+						bar.renderOnTop = false;
 					}
 				}
 				Rectangle temp = new Rectangle(

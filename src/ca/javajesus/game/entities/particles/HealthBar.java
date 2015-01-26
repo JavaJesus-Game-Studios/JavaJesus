@@ -13,6 +13,7 @@ public class HealthBar extends Particle {
 	private double health;
 	private double startHealth;
 	private int yChange;
+	public boolean renderOnTop = false;
 
 	private static int healthBarColour = Colors.get(-1, 111, -1, 400);
 	private Mob mob;
