@@ -9,6 +9,8 @@ import javax.sound.sampled.Clip;
 
 public class SoundHandler {
 	
+    public boolean muted;
+
 	public static SoundHandler sound = new SoundHandler();
 
 	public static Clip sheathe, background1, chest, chimpanzee, click, demon,
@@ -16,7 +18,7 @@ public class SoundHandler {
 			footstepsGrass, footstepsRoad, footstepsWaterSand, footstepsWood,
 			gunshot, gunshot2, gunshot3, levelup, shortSword1, swimming,
 			walking;
-
+	
 	public SoundHandler() {
 
 		AudioInputStream sheathe, background1, chest, chimpanzee, click, demon, fireball, footsteps1, footstepsDirt, footstepsFarmland, footstepsGrass, footstepsRoad, footstepsWaterSand, footstepsWood, gunshot, gunshot2, gunshot3, levelup, shortSword1, swimming, walking;
@@ -130,4 +132,5 @@ public class SoundHandler {
 		clip.setFramePosition(0);
 		clip.start();
 	}
+	
 }
