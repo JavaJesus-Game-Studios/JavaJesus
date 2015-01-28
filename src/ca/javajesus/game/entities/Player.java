@@ -56,7 +56,7 @@ public class Player extends Mob {
 		if (level != null)
 			level.addEntity(bar);
 		isTired = false;
-		stamina = 100;
+		stamina = Integer.MAX_VALUE;
 		startStamina = stamina;
 	}
 
