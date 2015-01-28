@@ -557,6 +557,7 @@ public class Launcher extends JFrame implements Runnable {
 		case 13: {
 		    System.out.println("Game muted!");
 		    SoundHandler.sound.muted = true;
+		    SoundHandler.background1.stop();
 		    this.id = 0;
 		    return;
 		}
