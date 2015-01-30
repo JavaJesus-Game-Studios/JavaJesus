@@ -29,7 +29,7 @@ public class SoundHandler {
 					.getResource("/Sound/Short_Sword_Sound_v2.wav"));
 
 			background1 = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Background1_v2.wav"));
+					.getResource("/Sound/Freaks.wav"));
 
 			chest = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Chest_Opening_v2.wav"));
@@ -70,13 +70,13 @@ public class SoundHandler {
 					.getResource("/Sound/Footsteps_Wood_v2.wav"));
 
 			gunshot = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Gun_Shot_v2.wav"));
+					.getResource("/Sound/Gunshot2_Sidd_v2.wav"));
 
 			gunshot2 = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Gunshot_Sidd_v2.wav"));
 
 			gunshot3 = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Gunshot2_Sidd_v2.wav"));
+					.getResource("/Sound/Gun_Shot_v2.wav"));
 
 			levelup = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Level_Up_v2.wav"));
