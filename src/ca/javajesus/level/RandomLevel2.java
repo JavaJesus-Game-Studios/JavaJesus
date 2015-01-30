@@ -45,6 +45,19 @@ public class RandomLevel2 extends Level {
 		heightmap = new HeightMap(width, height).generateHeightMap(4);
 		generateLevel();
 	}
+	
+	public Point spawnPoint() {
+		boolean spawnFound = false;
+		int x = 0, y = 0;
+		while(!spawnFound) {
+			if (heightmap[y][x] != 0 || heightmap[y][x] != 2) {
+				spawnFound = true;
+				return new Point(x, y);
+			}
+			x++; y++;
+		}
+		return new Point(0, 0);
+	}
 
 	protected void generateLevel() {
 		for (int y = 0; y < heightmap.length; y++) {

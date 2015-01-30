@@ -70,18 +70,18 @@ public class HeightMap {
 									+ heightmap[row - 1][col + 1] + heightmap[row][col + 1]) / 5;
 						}
 					}
-					if (row > 0 && row < heightmap.length) {
+					if (row > 0 && row < heightmap.length - 1) {
 						if (col == 0) {
 							heightmap[row][col] = (heightmap[row - 1][col]
 									+ heightmap[row - 1][col + 1]
 									+ heightmap[row][col + 1]
 									+ heightmap[row + 1][col + 1] + heightmap[row + 1][col]) / 5;
-						} else if (col == heightmap[0].length) {
+						} else if (col == heightmap[0].length - 1) {
 							heightmap[row][col] = (heightmap[row - 1][col]
 									+ heightmap[row - 1][col - 1]
 									+ heightmap[row][col - 1]
 									+ heightmap[row + 1][col - 1] + heightmap[row - 1][col]) / 5;
-						} else {
+						} else if (col > 0 && col < heightmap[col].length - 1) {
 							heightmap[row][col] = (heightmap[row - 1][col - 1]
 									+ heightmap[row - 1][col]
 									+ heightmap[row - 1][col + 1]
