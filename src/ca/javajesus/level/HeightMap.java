@@ -44,51 +44,51 @@ public class HeightMap {
 				for (int col = 0; col < heightmap[0].length; col++) {
 					if (row == 0) {
 						if (col == 0) {
-							heightmap[row][col] = (heightmap[row][col + 1]
-									+ heightmap[row + 1][col + 1] + heightmap[row + 1][col]) / 3;
+							heightmap[row][col] = (int)((heightmap[row][col + 1]
+									+ heightmap[row + 1][col + 1] + heightmap[row + 1][col]) / 3.0);
 						} else if (col == heightmap[0].length - 1) {
-							heightmap[row][col] = (heightmap[row][col - 1]
-									+ heightmap[row + 1][col - 1] + heightmap[row + 1][col]) / 3;
+							heightmap[row][col] = (int)((heightmap[row][col - 1]
+									+ heightmap[row + 1][col - 1] + heightmap[row + 1][col]) / 3.0);
 						} else {
-							heightmap[row][col] = (heightmap[row][col - 1]
+							heightmap[row][col] = (int)((heightmap[row][col - 1]
 									+ heightmap[row + 1][col - 1]
 									+ heightmap[row + 1][col]
-									+ heightmap[row + 1][col + 1] + heightmap[row][col + 1]) / 5;
+									+ heightmap[row + 1][col + 1] + heightmap[row][col + 1]) / 5.0);
 						}
 					}
 					if (row == heightmap.length - 1) {
 						if (col == 0) {
-							heightmap[row][col] = (heightmap[row][col + 1]
-									+ heightmap[row - 1][col + 1] + heightmap[row - 1][col]) / 3;
+							heightmap[row][col] = (int)((heightmap[row][col + 1]
+									+ heightmap[row - 1][col + 1] + heightmap[row - 1][col]) / 3.0);
 						} else if (col == heightmap[0].length - 1) {
-							heightmap[row][col] = (heightmap[row][col - 1]
-									+ heightmap[row - 1][col - 1] + heightmap[row - 1][col]) / 3;
+							heightmap[row][col] = (int)((heightmap[row][col - 1]
+									+ heightmap[row - 1][col - 1] + heightmap[row - 1][col]) / 3.0);
 						} else {
-							heightmap[row][col] = (heightmap[row][col - 1]
+							heightmap[row][col] = (int)((heightmap[row][col - 1]
 									+ heightmap[row - 1][col - 1]
 									+ heightmap[row - 1][col]
-									+ heightmap[row - 1][col + 1] + heightmap[row][col + 1]) / 5;
+									+ heightmap[row - 1][col + 1] + heightmap[row][col + 1]) / 5.0);
 						}
 					}
 					if (row > 0 && row < heightmap.length - 1) {
 						if (col == 0) {
-							heightmap[row][col] = (heightmap[row - 1][col]
+							heightmap[row][col] = (int)((heightmap[row - 1][col]
 									+ heightmap[row - 1][col + 1]
 									+ heightmap[row][col + 1]
-									+ heightmap[row + 1][col + 1] + heightmap[row + 1][col]) / 5;
+									+ heightmap[row + 1][col + 1] + heightmap[row + 1][col]) / 5.0);
 						} else if (col == heightmap[0].length - 1) {
-							heightmap[row][col] = (heightmap[row - 1][col]
+							heightmap[row][col] = (int)((heightmap[row - 1][col]
 									+ heightmap[row - 1][col - 1]
 									+ heightmap[row][col - 1]
-									+ heightmap[row + 1][col - 1] + heightmap[row - 1][col]) / 5;
+									+ heightmap[row + 1][col - 1] + heightmap[row - 1][col]) / 5.0);
 						} else if (col > 0 && col < heightmap[col].length - 1) {
-							heightmap[row][col] = (heightmap[row - 1][col - 1]
+							heightmap[row][col] = (int)((heightmap[row - 1][col - 1]
 									+ heightmap[row - 1][col]
 									+ heightmap[row - 1][col + 1]
 									+ heightmap[row][col + 1]
 									+ heightmap[row + 1][col + 1]
 									+ heightmap[row + 1][col]
-									+ heightmap[row + 1][col - 1] + heightmap[row][col - 1]) / 8;
+									+ heightmap[row + 1][col - 1] + heightmap[row][col - 1]) / 8.0);
 						}
 					}
 				}
@@ -127,7 +127,7 @@ public class HeightMap {
 				sumTotal += heightmap[row][col];
 			}
 		}
-		int average = sumTotal / (heightmap.length * heightmap[0].length);
+		int average = (int)((double)sumTotal) / (heightmap.length * heightmap[0].length);
 		return average;
 	}
 }

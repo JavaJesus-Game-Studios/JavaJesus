@@ -42,26 +42,22 @@ public class RandomLevel2 extends Level {
 	 */
 	public RandomLevel2(int width, int height) {
 		super(width, height);
-		heightmap = new HeightMap(width, height).generateHeightMap(4);
+		heightmap = new HeightMap(width, height).generateHeightMap(2);
 		generateLevel();
-	}
-	
-	public Point spawnPoint() {
 		boolean spawnFound = false;
 		int x = 0, y = 0;
 		while(!spawnFound) {
 			if (heightmap[y][x] != 0 || heightmap[y][x] != 2) {
 				spawnFound = true;
-				return new Point(x, y);
+				spawnPoint = new Point(x, y);
 			}
 			x++; y++;
 		}
-		return new Point(0, 0);
 	}
 
 	protected void generateLevel() {
 		for (int y = 0; y < heightmap.length; y++) {
-			for (int x = 0; x < heightmap[0].length; x++) {
+			for (int x = 0; x < heightmap[y].length; x++) {
 				int tile = x + y * width;
 				if (heightmap[y][x] == 0) {
 					tiles[tile] = water;
@@ -70,7 +66,10 @@ public class RandomLevel2 extends Level {
 				} else {
 					tiles[tile] = rock;
 				}
+				//System.out.print(tiles[tile] + " ");
+				System.out.print(heightmap[y][x]);
 			}
+			System.out.println();
 		}
 	}
 
@@ -95,6 +94,34 @@ public class RandomLevel2 extends Level {
 	@Override
 	protected void otherEntityPlacement() {
 		// TODO Auto-generated method stub
+
+	}
+	
+	public Tile getTile(int x, int y) {
+		if (0 > x || x >= width || 0 > y || y >= height)
+			return Tile.VOID;
+		switch (tiles[x + y * width]) {
+		case 0:
+			return Tile.GRASS;
+		case 1:
+			return Tile.SAND;
+		case 2:
+			return Tile.STONE;
+		case 3:
+			return Tile.STONE;
+		case 4:
+			return Tile.WATER;
+		case 5:
+			return Tile.ROAD1;
+		case 6:
+			return Tile.FIRE;
+		case 7:
+			return Tile.WATERSAND;
+		case 8:
+			return Tile.ROAD2;
+		default:
+			return Tile.VOID;
+		}
 
 	}
 }
