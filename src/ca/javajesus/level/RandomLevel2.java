@@ -52,7 +52,7 @@ public class RandomLevel2 extends Level {
 	}
 
 	protected void generateLevel() {
-		heightmap = new HeightMap(width, height).generateHeightMap(2);
+		heightmap = new HeightMap(width, height).generateHeightMap(4);
 		for (int y = 0; y < heightmap.length; y++) {
 			for (int x = 0; x < heightmap[y].length; x++) {
 				int tile = x + y * width;
