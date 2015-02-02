@@ -16,6 +16,7 @@ public class Vehicle extends Mob {
 	public boolean isUsed = false;
 	protected Player player;
 	protected InputHandler input;
+	int vehicleTick = 0;
 
 	public static Vehicle vehicle1 = new CenturyLeSabre(Level.level1,
 			"Century LeSabre", 300, 300, 3, 200);
@@ -77,9 +78,11 @@ public class Vehicle extends Mob {
 		}
 		return false;
 	}
+	
+	int xa = 0;
+    int ya = 0;
 
 	public void tick() {
-
 		if (isMobCollision() && this.isMoving) {
 			for (Mob mob : level.getMobs()) {
 				if (!(mob == this || mob instanceof Player)) {
@@ -89,34 +92,44 @@ public class Vehicle extends Mob {
 			}
 		}
 
-		int xa = 0;
-		int ya = 0;
-
+		CarPhysics car = new CarPhysics(xa, ya, 0, 0);
+        
 		if (this.isUsed) {
 			if (input.w.isPressed()) {
-				ya--;
+				car.setYAcceleration(-2);
+			    //ya--;
 				if (isSolidEntityCollision(0, ya)) {
 					ya++;
 				}
 			}
 			if (input.s.isPressed()) {
-				ya++;
+				car.setYAcceleration(2);
+			    //ya++;
 				if (isSolidEntityCollision(0, ya)) {
 					ya--;
 				}
 			}
 			if (input.a.isPressed()) {
-				xa--;
+			    car.setXAcceleration(-2);
+			    //xa--;
 				if (isSolidEntityCollision(xa, 0)) {
 					xa++;
 				}
 			}
 			if (input.d.isPressed()) {
-				xa++;
+			    car.setXAcceleration(2);
+                //xa++;
 				if (isSolidEntityCollision(xa, 0)) {
 					xa--;
 				}
 			}
+			
+			car.setTick(vehicleTick/60);
+			car.position();
+	        xa = (int)car.x/30;
+	        ya = (int)car.y/30;
+	        
+		
 			if (input.i.isPressed()) {
 				input.i.toggle(false);
 				if (Game.inGameScreen) {
@@ -159,8 +172,11 @@ public class Vehicle extends Mob {
 				isMoving = false;
 				player.isMoving = false;
 			}
+			
+			System.out.println(xa + "   " + ya);
+			
 		}
-
+		vehicleTick++;
 	}
 
 	public void render(Screen screen) {
