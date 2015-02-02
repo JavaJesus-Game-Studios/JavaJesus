@@ -387,35 +387,35 @@ public class Launcher extends JFrame implements Runnable {
 				break;
 
 			}
-			
-			case 4: {
-	            /** Mute Button */
-	            if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
-	                    && InputHandler.MouseY > 450
-	                    && InputHandler.MouseY < 450 + 30) {
-	                g.drawImage(ImageIO.read(Launcher.class
-	                        .getResource("/Buttons/audio_on.png")), 365, 450,
-	                        100, 30, null);
-	                g.drawImage(ImageIO.read(Launcher.class
-	                        .getResource("/Buttons/sword_selector.png")),
-	                        365 - 110 + swordOffset, 450, 100, 30, null);
-	                if (InputHandler.MouseButton == 1) {
-	                    InputHandler.MouseButton = 0;
-	                    sound.play(sound.sheathe);
-	                    nextScreen = true;
-	                    buttonId = 13;
-	                }
 
-	            } else {
-	                g.drawImage(ImageIO.read(Launcher.class
-	                        .getResource("/Buttons/audio_off.png")), 365, 450,
-	                        100, 30, null);
-	            }
-	            break;
-	            }
+			case 4: {
+				/** Mute Button */
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+						&& InputHandler.MouseY > 450
+						&& InputHandler.MouseY < 450 + 30) {
+					g.drawImage(ImageIO.read(Launcher.class
+							.getResource("/Buttons/mute_on.png")), 365, 450,
+							100, 30, null);
+					g.drawImage(ImageIO.read(Launcher.class
+							.getResource("/Buttons/sword_selector.png")),
+							365 - 110 + swordOffset, 450, 100, 30, null);
+					if (InputHandler.MouseButton == 1) {
+						InputHandler.MouseButton = 0;
+						sound.play(sound.sheathe);
+						nextScreen = true;
+						buttonId = 13;
+					}
+
+				} else {
+					g.drawImage(ImageIO.read(Launcher.class
+							.getResource("/Buttons/mute_off.png")), 365, 450,
+							100, 30, null);
+				}
+				break;
+			}
 
 			}
-			
+
 			if (id != 0) {
 				/** Back */
 				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
@@ -463,7 +463,7 @@ public class Launcher extends JFrame implements Runnable {
 						.getResource("/Buttons/quit_off.png")), 365, 690, 100,
 						30, null);
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -530,8 +530,8 @@ public class Launcher extends JFrame implements Runnable {
 			return;
 		}
 		case 8: {
-			//System.out.println("Audio Coming Soon");
-		    this.id = 4;
+			// System.out.println("Audio Coming Soon");
+			this.id = 4;
 			return;
 		}
 		case 9: {
@@ -555,11 +555,14 @@ public class Launcher extends JFrame implements Runnable {
 			return;
 		}
 		case 13: {
-		    System.out.println("Game muted!");
-		    sound.sound.muted = true;
-		    sound.background1.stop();
-		    this.id = 0;
-		    return;
+			if (!sound.muted) {
+				sound.muted = true;
+				sound.background1.stop();
+			} else {
+				sound.muted = false;
+				sound.play(sound.background1);
+			}
+			return;
 		}
 		default: {
 			return;

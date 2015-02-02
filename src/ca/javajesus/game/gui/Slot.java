@@ -21,12 +21,12 @@ public class Slot extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.setPreferredSize(new Dimension(image.getWidth(), image.getHeight() * 4));
+		this.setPreferredSize(new Dimension((int) (image.getWidth() * 0.4), (int) (image.getHeight() * 0.4)));
 	}
 	
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 0, 0, image.getWidth() * 4 - 100, image.getHeight() * 4, this);
+		g.drawImage(image, 0, 0, (int) (image.getWidth() * 0.4 - 100), (int) (image.getHeight() * 0.4), this);
 	}
 
 }
