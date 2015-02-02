@@ -70,7 +70,7 @@ public class SoundHandler {
 					.getResource("/Sound/Footsteps_Wood.wav"));
 
 			gunshot = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Gunshot2_Sidd_v2.wav"));
+					.getResource("/Sound/Gunshot2(Sidd).wav"));
 
 			gunshot2 = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Gunshot_Sidd_v2.wav"));
@@ -137,6 +137,13 @@ public class SoundHandler {
 			if (clip.isRunning()) {
 				clip.stop();
 			}
+			clip.setFramePosition(0);
+			clip.start();
+		}
+	}
+	
+	public void fire(Clip clip) {
+		if (!muted) {
 			clip.setFramePosition(0);
 			clip.start();
 		}
