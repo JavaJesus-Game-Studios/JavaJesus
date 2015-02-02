@@ -32,8 +32,8 @@ public class Launcher extends JFrame implements Runnable {
 	private final int DELAY = 1000 / FRAMES_PER_SECOND;
 	public boolean running = false;
 
-	private final String VERSION = "Alpha 0.0.6";
-	private final String LAST_UPDATED = "Last Updated 11/30/2014";
+	private final String VERSION = "Alpha 0.1.3";
+	private final String LAST_UPDATED = "Last Updated 2/1/2014";
 
 	private int swordOffset;
 	private boolean nextScreen = false;
@@ -59,7 +59,7 @@ public class Launcher extends JFrame implements Runnable {
 		}
 
 		new InputHandler(this);
-		SoundHandler.background1.loop(Clip.LOOP_CONTINUOUSLY);
+		sound.background1.loop(Clip.LOOP_CONTINUOUSLY);
 		setUndecorated(true);
 		setTitle("JavaJesus Launcher:");
 		setSize(new Dimension(width, height));
@@ -136,7 +136,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.play(SoundHandler.sheathe);
+						sound.play(sound.sheathe);
 						nextScreen = true;
 						buttonId = 0;
 					}
@@ -159,7 +159,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 510, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.play(SoundHandler.sheathe);
+						sound.play(sound.sheathe);
 						nextScreen = true;
 						buttonId = 1;
 					}
@@ -182,7 +182,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 570, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.play(SoundHandler.sheathe);
+						sound.play(sound.sheathe);
 						nextScreen = true;
 						buttonId = 2;
 					}
@@ -205,7 +205,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 630, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.play(SoundHandler.sheathe);
+						sound.play(sound.sheathe);
 						nextScreen = true;
 						buttonId = 3;
 					}
@@ -232,7 +232,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.play(SoundHandler.sheathe);
+						sound.play(sound.sheathe);
 						nextScreen = true;
 						buttonId = 5;
 					}
@@ -255,7 +255,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 510, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.play(SoundHandler.sheathe);
+						sound.play(sound.sheathe);
 						nextScreen = true;
 						buttonId = 6;
 					}
@@ -281,7 +281,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.play(SoundHandler.sheathe);
+						sound.play(sound.sheathe);
 						nextScreen = true;
 						buttonId = 8;
 					}
@@ -304,7 +304,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 510, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.play(SoundHandler.sheathe);
+						sound.play(sound.sheathe);
 						nextScreen = true;
 						buttonId = 9;
 					}
@@ -327,7 +327,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 570, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.play(SoundHandler.sheathe);
+						sound.play(sound.sheathe);
 						nextScreen = true;
 						buttonId = 10;
 					}
@@ -351,7 +351,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.play(SoundHandler.sheathe);
+						sound.play(sound.sheathe);
 						nextScreen = true;
 						buttonId = 11;
 					}
@@ -374,7 +374,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 510, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.play(SoundHandler.sheathe);
+						sound.play(sound.sheathe);
 						nextScreen = true;
 						buttonId = 12;
 					}
@@ -401,7 +401,7 @@ public class Launcher extends JFrame implements Runnable {
 	                        365 - 110 + swordOffset, 450, 100, 30, null);
 	                if (InputHandler.MouseButton == 1) {
 	                    InputHandler.MouseButton = 0;
-	                    sound.play(SoundHandler.sheathe);
+	                    sound.play(sound.sheathe);
 	                    nextScreen = true;
 	                    buttonId = 13;
 	                }
@@ -429,7 +429,7 @@ public class Launcher extends JFrame implements Runnable {
 							365 - 110 + swordOffset, 630, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
-						sound.play(SoundHandler.sheathe);
+						sound.play(sound.sheathe);
 						nextScreen = true;
 						buttonId = 7;
 					}
@@ -453,7 +453,7 @@ public class Launcher extends JFrame implements Runnable {
 						365 - 110 + swordOffset, 690, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
-					sound.play(SoundHandler.sheathe);
+					sound.play(sound.sheathe);
 					nextScreen = true;
 					buttonId = 4;
 				}
@@ -512,7 +512,7 @@ public class Launcher extends JFrame implements Runnable {
 		case 5: {
 			running = false;
 			dispose();
-			SoundHandler.background1.stop();
+			sound.background1.stop();
 			new ZombieSurvival().start();
 			this.stopMenu();
 			return;
@@ -520,7 +520,7 @@ public class Launcher extends JFrame implements Runnable {
 		case 6: {
 			running = false;
 			dispose();
-			SoundHandler.background1.stop();
+			sound.background1.stop();
 			new ZombieSurvival().start();
 			this.stopMenu();
 			return;
@@ -545,7 +545,7 @@ public class Launcher extends JFrame implements Runnable {
 		case 11: {
 			running = false;
 			dispose();
-			SoundHandler.background1.stop();
+			sound.background1.stop();
 			new Game().start();
 			this.stopMenu();
 			return;
@@ -556,8 +556,8 @@ public class Launcher extends JFrame implements Runnable {
 		}
 		case 13: {
 		    System.out.println("Game muted!");
-		    SoundHandler.sound.muted = true;
-		    SoundHandler.background1.stop();
+		    sound.sound.muted = true;
+		    sound.background1.stop();
 		    this.id = 0;
 		    return;
 		}

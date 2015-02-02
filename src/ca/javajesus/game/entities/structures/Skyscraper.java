@@ -7,6 +7,7 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.RandomLevel;
 import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class Skyscraper extends SolidEntity {
@@ -15,7 +16,8 @@ public class Skyscraper extends SolidEntity {
 	
 	public Skyscraper(Level level, double x, double y) {
 		super(level, x, y, 88, 250);
-		level.addEntity(new Transporter(level, x + 38, y + 234, new PoorHouseInterior(new Point((int) x + 40, (int) y + 242))));
+		//level.addEntity(new Transporter(level, x + 38, y + 234, new PoorHouseInterior(new Point((int) x + 40, (int) y + 242))));
+		level.addEntity(new Transporter(level, x + 38, y + 234, Level.random2));
 	}
 	
 	public void render(Screen screen) {

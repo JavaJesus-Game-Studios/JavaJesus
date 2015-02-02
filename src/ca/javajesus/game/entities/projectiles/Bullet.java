@@ -11,13 +11,13 @@ public class Bullet extends Projectile {
 			Mob mob) {
 		super(level, 2, 1, 1, Colors.get(-1, -1, -1, 550), x, y, 6, xPos, yPos,
 				mob);
-		sound.play(SoundHandler.gunshot);
+		sound.play(SoundHandler.sound.gunshot);
 	}
 
 	public Bullet(Level level, double x, double y, int direction, Mob mob) {
 		super(level, 2, 1, 1, Colors.get(-1, -1, -1, 550), x, y, 6, direction,
 				mob);
-		sound.play(SoundHandler.gunshot);
+		sound.play(SoundHandler.sound.gunshot);
 	}
 
 }

@@ -31,10 +31,7 @@ public class RandomLevel extends Level {
 
 	public RandomLevel(int width, int height) {
 		super(width, height);
-	}
-	
-	public Point spawnPoint() {
-		return new Point(random.nextInt(1000), random.nextInt(1000));
+		spawnPoint = new Point(random.nextInt(width), random.nextInt(height));
 	}
 
 	/** Generates the tiles array of the map */

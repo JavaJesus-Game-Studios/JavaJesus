@@ -52,7 +52,7 @@ public class Demon extends Monster {
 	public void tick() {
 
 		if (random.nextInt(500) == 0) {
-			sound.play(SoundHandler.demon);
+			sound.play(SoundHandler.sound.demon);
 		}
 		checkRadius();
 

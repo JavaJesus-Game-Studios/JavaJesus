@@ -123,7 +123,7 @@ public class HeightMap {
 	private int getAverage(int[][] heightmap) {
 		int sumTotal = 0;
 		for (int row = 0; row < heightmap.length; row++) {
-			for (int col = 0; col < heightmap[0].length; col++) {
+			for (int col = 0; col < heightmap[row].length; col++) {
 				sumTotal += heightmap[row][col];
 			}
 		}

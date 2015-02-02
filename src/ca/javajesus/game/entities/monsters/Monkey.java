@@ -54,7 +54,7 @@ public class Monkey extends Monster {
 	public void tick() {
 
 		if (random.nextInt(500) == 0) {
-			sound.play(SoundHandler.chimpanzee);
+			sound.play(SoundHandler.sound.chimpanzee);
 		}
 		checkRadius();
 

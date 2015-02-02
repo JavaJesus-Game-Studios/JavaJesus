@@ -32,8 +32,11 @@ public abstract class Level {
 	protected int[] tileColours;
 
 	public static Level level1 = new Level1();
+	public static Level random = new RandomLevel(level1.width, level1.height);
+	public static Level random2 = new RandomLevel2(level1.width, level1.height);
 
 	public Level(String imagePath) {
+		spawnPoint = new Point(0, 0);
 		if (imagePath != null) {
 			this.imagePath = imagePath;
 			this.loadLevelFromFile();
@@ -46,11 +49,11 @@ public abstract class Level {
 	}
 
 	public Level(int width, int height) {
+		spawnPoint = new Point(0, 0);
 		this.width = width;
 		this.height = height;
 		tiles = new int[width * height];
-		if (!(this instanceof RandomLevel2))
-			generateLevel();
+		generateLevel();
 	}
 
 	protected abstract void initNPCPlacement();

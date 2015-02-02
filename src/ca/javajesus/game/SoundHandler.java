@@ -13,7 +13,7 @@ public class SoundHandler {
 
 	public static SoundHandler sound = new SoundHandler();
 
-	public static Clip sheathe, background1, chest, chimpanzee, click, demon,
+	public Clip sheathe, background1, chest, chimpanzee, click, demon,
 			fireball, footsteps1, footstepsDirt, footstepsFarmland,
 			footstepsGrass, footstepsRoad, footstepsWaterSand, footstepsWood,
 			gunshot, gunshot2, gunshot3, levelup, shortSword1, swimming,
@@ -50,24 +50,24 @@ public class SoundHandler {
 					.getResource("/Sound/Footsteps_Alternate_v2.wav"));
 
 			footstepsDirt = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Footsteps_Dirt_v2.wav"));
+					.getResource("/Sound/Footsteps_Dirt.wav"));
 
 			footstepsFarmland = AudioSystem
 					.getAudioInputStream(SoundHandler.class
 							.getResource("/Sound/Footsteps_Farmland_v2.wav"));
 
 			footstepsGrass = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Footsteps_Grass_v2.wav"));
+					.getResource("/Sound/Footsteps_Grass.wav"));
 
 			footstepsRoad = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Footsteps_Road_v2.wav"));
+					.getResource("/Sound/Footsteps_Road.wav"));
 
 			footstepsWaterSand = AudioSystem
 					.getAudioInputStream(SoundHandler.class
 							.getResource("/Sound/Footsteps_Water_Sand_v2.wav"));
 
 			footstepsWood = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Footsteps_Wood_v2.wav"));
+					.getResource("/Sound/Footsteps_Wood.wav"));
 
 			gunshot = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Gunshot2_Sidd_v2.wav"));
@@ -85,42 +85,49 @@ public class SoundHandler {
 					.getResource("/Sound/Short_Sword_Sound_v2.wav"));
 
 			swimming = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Swimming_v2.wav"));
+					.getResource("/Sound/Swimming.wav"));
 
 			walking = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Walking_v2.wav"));
 
-			SoundHandler.sheathe = AudioSystem.getClip();
-			SoundHandler.background1 = AudioSystem.getClip();
-			SoundHandler.chest = AudioSystem.getClip();
-			SoundHandler.chimpanzee = AudioSystem.getClip();
-			SoundHandler.click = AudioSystem.getClip();
-			SoundHandler.demon = AudioSystem.getClip();
-			SoundHandler.fireball = AudioSystem.getClip();
-			SoundHandler.footsteps1 = AudioSystem.getClip();
-			SoundHandler.footstepsDirt = AudioSystem.getClip();
-			SoundHandler.footstepsFarmland = AudioSystem.getClip();
-			SoundHandler.footstepsGrass = AudioSystem.getClip();
-			SoundHandler.footstepsRoad = AudioSystem.getClip();
-			SoundHandler.footstepsWaterSand = AudioSystem.getClip();
-			SoundHandler.footstepsWood = AudioSystem.getClip();
-			SoundHandler.gunshot = AudioSystem.getClip();
-			SoundHandler.gunshot2 = AudioSystem.getClip();
-			SoundHandler.gunshot3 = AudioSystem.getClip();
-			SoundHandler.levelup = AudioSystem.getClip();
-			SoundHandler.shortSword1 = AudioSystem.getClip();
-			SoundHandler.swimming = AudioSystem.getClip();
-			SoundHandler.walking = AudioSystem.getClip();
+			this.sheathe = AudioSystem.getClip();
+			this.background1 = AudioSystem.getClip();
+			this.chest = AudioSystem.getClip();
+			this.chimpanzee = AudioSystem.getClip();
+			this.click = AudioSystem.getClip();
+			this.demon = AudioSystem.getClip();
+			this.fireball = AudioSystem.getClip();
+			this.footsteps1 = AudioSystem.getClip();
+			this.footstepsDirt = AudioSystem.getClip();
+			this.footstepsFarmland = AudioSystem.getClip();
+			this.footstepsGrass = AudioSystem.getClip();
+			this.footstepsRoad = AudioSystem.getClip();
+			this.footstepsWaterSand = AudioSystem.getClip();
+			this.footstepsWood = AudioSystem.getClip();
+			this.gunshot = AudioSystem.getClip();
+			this.gunshot2 = AudioSystem.getClip();
+			this.gunshot3 = AudioSystem.getClip();
+			this.levelup = AudioSystem.getClip();
+			this.shortSword1 = AudioSystem.getClip();
+			this.swimming = AudioSystem.getClip();
+			this.walking = AudioSystem.getClip();
 
-			SoundHandler.chimpanzee.open(chimpanzee);
-			SoundHandler.click.open(click);
-			SoundHandler.demon.open(demon);
-			SoundHandler.fireball.open(fireball);
-			SoundHandler.gunshot.open(gunshot);
-			SoundHandler.background1.open(background1);
-			SoundHandler.sheathe.open(sheathe);
+			this.chimpanzee.open(chimpanzee);
+			this.click.open(click);
+			this.demon.open(demon);
+			this.fireball.open(fireball);
+			this.gunshot.open(gunshot);
+			this.background1.open(background1);
+			this.sheathe.open(sheathe);
+			this.swimming.open(swimming);
+			
+			this.footstepsDirt.open(footstepsDirt);
+			this.footstepsGrass.open(footstepsGrass);
+			this.footstepsRoad.open(footstepsRoad);
+			this.footstepsWood.open(footstepsWood);
+			
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 
 	}

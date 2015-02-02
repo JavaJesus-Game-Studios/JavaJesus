@@ -19,7 +19,7 @@ public class PoorHouse extends SolidEntity {
 		super(level, x, y, 40, 55);
 		getColor();
 		//level.addEntity(new Transporter(level, x + 14, y + 39, new PoorHouseInterior(new Point((int) x + 16, (int) y + 47))));
-		level.addEntity(new Transporter(level, x + 14, y + 39, new RandomLevel2(Level.level1.width, Level.level1.height)));
+		level.addEntity(new Transporter(level, x + 14, y + 39, Level.random));
 	}
 
 	public void render(Screen screen) {

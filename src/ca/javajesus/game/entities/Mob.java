@@ -255,10 +255,12 @@ public abstract class Mob extends Entity {
 	}
 
 	public void checkTile(double x, double y) {
-		if (level.getTile((int) x / 8, (int) y / 8) == Tile.FIRE) {
+		Tile currentTile = level.getTile((int) x / 8, (int) y / 8);
+		if (currentTile == Tile.FIRE) {
 			onFire = true;
 			healthTickCount = 0;
 		}
+
 	}
 
 	public void damage(int a, int b) {

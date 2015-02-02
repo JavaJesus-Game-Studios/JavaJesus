@@ -18,6 +18,7 @@ import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.items.Inventory;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.Level1;
+import ca.javajesus.level.tile.Tile;
 
 public class Player extends Mob {
 
@@ -75,6 +76,7 @@ public class Player extends Mob {
 		if (input.e.isPressed()) {
 			this.nextLevel = level;
 			this.canChangeLevel = true;
+			sound.play(SoundHandler.sound.click);
 		}
 	}
 
@@ -174,7 +176,8 @@ public class Player extends Mob {
 		}
 		if (isSwimming) {
 			scaledSpeed = 0.35;
-			sound.play(SoundHandler.swimming);
+			if (!sound.swimming.isRunning())
+				sound.play(SoundHandler.sound.swimming);
 		} else if (input.shift.isPressed() && !isDriving && !isTired) {
 			scaledSpeed = 3;
 			stamina--;
@@ -486,5 +489,32 @@ public class Player extends Mob {
 		}
 
 		return false;
+	}
+	
+	public void checkTile(double x, double y) {
+		Tile currentTile = level.getTile((int) x / 8, (int) y / 8);
+		if (currentTile == Tile.FIRE) {
+			onFire = true;
+			healthTickCount = 0;
+		}
+
+		if (isMoving) {
+
+			if (currentTile == Tile.GRASS) {
+				if (!sound.footstepsGrass.isRunning())
+					sound.play(sound.footstepsGrass);
+			} else if (currentTile == Tile.MUD) {
+				if (!sound.footstepsWood.isRunning())
+					sound.play(sound.footstepsWood);
+			} else if (currentTile == Tile.ROAD1 || currentTile == Tile.ROAD2
+					|| currentTile == Tile.ROAD3) {
+				if (!sound.footstepsRoad.isRunning())
+					sound.play(sound.footstepsRoad);
+			} else if (currentTile == Tile.DIRTROAD) {
+				if (!sound.footstepsDirt.isRunning())
+					sound.play(sound.footstepsDirt);
+			}
+		}
+
 	}
 }

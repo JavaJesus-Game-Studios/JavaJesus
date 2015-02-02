@@ -33,7 +33,6 @@ public class Transporter extends SolidEntity {
 		for (Player player : level.getPlayers()) {
 			if (this.hitBox.intersects(player.hitBox)) {
 				player.changeLevel(nextLevel);
-				sound.play(SoundHandler.click);
 			}
 		}
 	}

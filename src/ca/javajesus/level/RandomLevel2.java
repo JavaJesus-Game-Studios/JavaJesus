@@ -9,8 +9,6 @@ import ca.javajesus.level.tile.Tile;
 
 public class RandomLevel2 extends Level {
 
-	private int width;
-	private int height;
 	private int[][] heightmap;
 	
 	protected final byte grass = 0;
@@ -42,8 +40,6 @@ public class RandomLevel2 extends Level {
 	 */
 	public RandomLevel2(int width, int height) {
 		super(width, height);
-		heightmap = new HeightMap(width, height).generateHeightMap(2);
-		generateLevel();
 		boolean spawnFound = false;
 		int x = 0, y = 0;
 		while(!spawnFound) {
@@ -56,6 +52,7 @@ public class RandomLevel2 extends Level {
 	}
 
 	protected void generateLevel() {
+		heightmap = new HeightMap(width, height).generateHeightMap(2);
 		for (int y = 0; y < heightmap.length; y++) {
 			for (int x = 0; x < heightmap[y].length; x++) {
 				int tile = x + y * width;
@@ -66,10 +63,7 @@ public class RandomLevel2 extends Level {
 				} else {
 					tiles[tile] = rock;
 				}
-				//System.out.print(tiles[tile] + " ");
-				System.out.print(heightmap[y][x]);
 			}
-			System.out.println();
 		}
 	}
 
