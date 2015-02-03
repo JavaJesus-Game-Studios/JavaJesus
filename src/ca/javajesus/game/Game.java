@@ -20,9 +20,10 @@ import javax.swing.JPanel;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.gui.IntroGUI;
 import ca.javajesus.game.gui.InventoryGUI;
-import ca.javajesus.game.gui.PauseGUI;
 import ca.javajesus.game.gui.Launcher;
+import ca.javajesus.game.gui.PauseGUI;
 import ca.javajesus.game.gui.ScreenGUI;
 import ca.javajesus.level.Level;
 
@@ -78,9 +79,10 @@ public class Game extends Canvas implements Runnable {
 	public static PauseGUI pause;
 	public static InventoryGUI inventory;
 	public static JPanel display;
+	public static IntroGUI introScreen;
 
-	public static boolean inGameScreen = true;
-	private static int guiID = 1;
+	public static boolean inGameScreen = false;
+	private static int guiID = 0;
 
 	public boolean isLoaded = false;
 
@@ -89,7 +91,9 @@ public class Game extends Canvas implements Runnable {
 		input = new InputHandler(this);
 		inventory = new InventoryGUI();
 		pause = new PauseGUI();
+		introScreen = new IntroGUI(this);
 		display = new JPanel(new CardLayout());
+		display.add(introScreen, "Intro");
 		display.add(this, "Main");
 		display.add(inventory, "Inventory");
 		display.add(pause, "Pause");
@@ -110,7 +114,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static void displayInventory() {
-		guiID = 1;
+		guiID = 2;
 		CardLayout cl = (CardLayout) display.getLayout();
 		cl.show(display, "Inventory");
 		inventory.requestFocusInWindow();
@@ -118,7 +122,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static void displayPause() {
-		guiID = 2;
+		guiID = 3;
 		CardLayout cl = (CardLayout) display.getLayout();
 		cl.show(display, "Pause");
 		pause.requestFocusInWindow();
@@ -126,6 +130,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static void displayGame() {
+		guiID = 1;
 		CardLayout cl = (CardLayout) display.getLayout();
 		cl.show(display, "Main");
 		display.getComponent(0).requestFocusInWindow();
@@ -149,7 +154,7 @@ public class Game extends Canvas implements Runnable {
 
 		screen = new Screen(WIDTH, HEIGHT, this);
 		player = new Player(getLevel(), getLevel().spawnPoint.x,
-				getLevel().spawnPoint.y, input);
+				getLevel().spawnPoint.y, input, introScreen.getPlayerName());
 		getLevel().addEntity(player);
 		getLevel().init();
 
@@ -247,6 +252,7 @@ public class Game extends Canvas implements Runnable {
 		if (inGameScreen) {
 			getLevel().tick();
 		} else {
+			System.out.print(guiID);
 			((ScreenGUI) display.getComponent(guiID)).tick();
 		}
 	}
@@ -292,7 +298,8 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
-		g.drawString("Player: " + (int) player.x + ", " + (int) player.y, 5, 20);
+		g.drawString(player + ": " + (int) player.x + ", " + (int) player.y, 5,
+				20);
 		if (player.hasDied) {
 			g.setFont(new Font("Verdana", 0, 50));
 			g.setColor(Color.BLACK);

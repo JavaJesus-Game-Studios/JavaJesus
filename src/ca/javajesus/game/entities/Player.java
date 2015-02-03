@@ -47,8 +47,8 @@ public class Player extends Mob {
 	public double startStamina;
 	public boolean isTired;
 
-	public Player(Level level, double x, double y, InputHandler input) {
-		super(level, "player", x, y, 1, 14, 16, SpriteSheet.player, 100);
+	public Player(Level level, double x, double y, InputHandler input, String name) {
+		super(level, name, x, y, 1, 14, 16, SpriteSheet.player, 100);
 		this.input = input;
 		this.score = 0;
 		sword = new GreatSword(level, this);
@@ -516,5 +516,9 @@ public class Player extends Mob {
 			}
 		}
 
+	}
+	
+	public void changeColor(int num) {
+		this.colour = Colors.get(-1, 111, num, 543);
 	}
 }

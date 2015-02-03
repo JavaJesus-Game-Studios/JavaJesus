@@ -276,4 +276,8 @@ public abstract class Mob extends Entity {
 		if (damage > 0)
 			this.health -= damage;
 	}
+	
+	public void setName(String s) {
+		this.name = s;
+	}
 }
