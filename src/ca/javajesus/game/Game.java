@@ -67,7 +67,7 @@ public class Game extends Canvas implements Runnable {
 	protected int[] colors = new int[6 * 6 * 6];
 
 	/** Creates instance of the screen */
-	protected Screen screen;
+	public Screen screen;
 
 	/** Creates instances of the handlers */
 	public InputHandler input;
@@ -130,11 +130,11 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static void displayGame() {
+		inGameScreen = true;
 		guiID = 1;
 		CardLayout cl = (CardLayout) display.getLayout();
 		cl.show(display, "Main");
 		display.getComponent(0).requestFocusInWindow();
-		inGameScreen = true;
 	}
 
 	/** Initializes the image on the screen */
@@ -252,7 +252,6 @@ public class Game extends Canvas implements Runnable {
 		if (inGameScreen) {
 			getLevel().tick();
 		} else {
-			System.out.print(guiID);
 			((ScreenGUI) display.getComponent(guiID)).tick();
 		}
 	}

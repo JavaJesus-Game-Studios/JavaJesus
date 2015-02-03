@@ -23,7 +23,7 @@ import ca.javajesus.level.tile.Tile;
 public class Player extends Mob {
 
 	public InputHandler input;
-	private int colour = Colors.get(-1, 111, 300, 543);
+	protected int colour = Colors.get(-1, 111, 300, 543);
 	private int scale = 1;
 	protected boolean isSwimming = false;
 	public boolean isSwinging = false;
