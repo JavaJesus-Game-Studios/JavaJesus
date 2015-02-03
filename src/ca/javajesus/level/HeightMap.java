@@ -132,9 +132,6 @@ public class HeightMap {
 		}
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
-				if (this.locationChecker(heightmap, row, col) == 7) {
-					System.out.println("true");
-				}
 				//SAND
 				if (heightmap[row][col] == GRASS || heightmap[row][col] == DIRT) {
 					switch (this.locationChecker(heightmap, row, col)) {
@@ -168,7 +165,7 @@ public class HeightMap {
 						if (heightmap[row - 1][col] == WATER
 								|| heightmap[row][col - 1] == WATER
 								|| heightmap[row][col + 1] == WATER
-								|| heightmap[row - 1][col] == WATER) {
+								|| heightmap[row + 1][col] == WATER) {
 							heightmap[row][col] = SAND;
 						}
 						break;
@@ -233,7 +230,7 @@ public class HeightMap {
 						if (heightmap[row - 1][col] == SAND 
 								|| heightmap[row][col - 1] == SAND 
 								|| heightmap[row][col + 1] == SAND 
-								|| heightmap[row - 1][col] == SAND) {
+								|| heightmap[row + 1][col] == SAND) {
 							heightmap[row][col] = WATERSAND;
 						}
 						break;
