@@ -13,6 +13,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import ca.javajesus.game.gfx.Colors;
+
 public class ColorListGUI extends JPanel implements ListSelectionListener,
 		ActionListener {
 
@@ -64,13 +66,13 @@ public class ColorListGUI extends JPanel implements ListSelectionListener,
 
 		switch (index) {
 		case 0:
-			color = 100;
+			color = Colors.fromHex("#FF0000");
 			break;
 		case 1:
-			color = 400;
+			color = Colors.fromHex("#000099");
 			break;
 		default:
-			color = 200;
+			color = Colors.fromHex("#00CC00");
 			break;
 		}
 	}

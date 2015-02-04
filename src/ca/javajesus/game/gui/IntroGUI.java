@@ -45,7 +45,7 @@ public class IntroGUI extends ScreenGUI implements ActionListener{
 		p1.add(pScreen, BorderLayout.CENTER);
 		
 		JPanel p2 = new JPanel(new BorderLayout());
-		JLabel l2 = new JLabel("Choose a color: ");
+		JLabel l2 = new JLabel("Choose a shirt color: ");
 		p2.add(l2, BorderLayout.NORTH);
 		colorList = new ColorListGUI();
 		p2.add(colorList, BorderLayout.CENTER);
