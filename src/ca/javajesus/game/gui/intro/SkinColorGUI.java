@@ -1,4 +1,4 @@
-package ca.javajesus.game.gui;
+package ca.javajesus.game.gui.intro;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -15,23 +15,24 @@ import javax.swing.event.ListSelectionListener;
 
 import ca.javajesus.game.gfx.Colors;
 
-public class ColorListGUI extends JPanel implements ListSelectionListener,
+public class SkinColorGUI extends JPanel implements ListSelectionListener,
 		ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private DefaultListModel model;
+	private DefaultListModel<String> model;
 	private JButton colorButton;
-	private int color = 0;
-	private JList list;
+	private int color = Colors.fromHex("#FFCC99");
+	private JList<String> list;
 
-	public ColorListGUI() {
+	public SkinColorGUI() {
 
-		model = new DefaultListModel();
-		model.addElement("Red");
-		model.addElement("Blue");
-		model.addElement("Green");
+		model = new DefaultListModel<String>();
+		model.addElement("Caucasian");
+		model.addElement("Latino");
+		model.addElement("Asian");
+		model.addElement("African American");
 		
-		list = new JList(model);
+		list = new JList<String>(model);
 		
 		list.addListSelectionListener(this);
 
@@ -66,14 +67,16 @@ public class ColorListGUI extends JPanel implements ListSelectionListener,
 
 		switch (index) {
 		case 0:
-			color = Colors.fromHex("#FF0000");
+			color = Colors.fromHex("#FFCC99");
 			break;
 		case 1:
-			color = Colors.fromHex("#000099");
+			color = Colors.fromHex("#CC6600");
 			break;
-		default:
-			color = Colors.fromHex("#00CC00");
+		case 2:
+			color = Colors.fromHex("#FF9900");
 			break;
+		default: 
+			color = Colors.fromHex("#993300");
 		}
 	}
 	

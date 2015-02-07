@@ -23,7 +23,9 @@ import ca.javajesus.level.tile.Tile;
 public class Player extends Mob {
 
 	public InputHandler input;
-	protected int colour = Colors.get(-1, 111, 300, 543);
+	protected int color;
+	protected int shirtColor;
+	protected int skinColor;
 	private int scale = 1;
 	protected boolean isSwimming = false;
 	public boolean isSwinging = false;
@@ -312,44 +314,44 @@ public class Player extends Mob {
 			if (onFire) {
 				onFire = false;
 			}
-			int waterColour = 0;
+			int watercolor = 0;
 			yOffset += 4;
 			if (tickCount % 60 < 15) {
-				waterColour = Colors.get(-1, 225, -1, -1);
+				watercolor = Colors.get(-1, 225, -1, -1);
 			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
 				yOffset -= 1;
-				waterColour = Colors.get(-1, 115, 225, -1);
+				watercolor = Colors.get(-1, 115, 225, -1);
 			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
-				waterColour = Colors.get(-1, 115, -1, -1);
+				watercolor = Colors.get(-1, 115, -1, -1);
 			} else {
 				yOffset -= 1;
-				waterColour = Colors.get(-1, 225, 225, -1);
+				watercolor = Colors.get(-1, 225, 225, -1);
 			}
-			screen.render(xOffset, yOffset + 3, 0 + 10 * 32, waterColour, 0x00,
+			screen.render(xOffset, yOffset + 3, 0 + 10 * 32, watercolor, 0x00,
 					1, sheet);
-			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * 32, waterColour,
+			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * 32, watercolor,
 					0x01, 1, sheet);
 		}
 
 		// Handles fire animation
 		if (onFire) {
-			int fireColour = 0;
+			int firecolor = 0;
 			if (tickCount % 60 < 15) {
-				fireColour = Colors.get(Colors.fromHex("#F51F07"),
+				firecolor = Colors.get(Colors.fromHex("#F51F07"),
 						Colors.fromHex("#F7790A"), 540, -1);
 			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
-				fireColour = Colors.get(Colors.fromHex("#F51F07"),
+				firecolor = Colors.get(Colors.fromHex("#F51F07"),
 						Colors.fromHex("#F7790A"), 540, -1);
 			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
-				fireColour = Colors.get(Colors.fromHex("#F51F07"),
+				firecolor = Colors.get(Colors.fromHex("#F51F07"),
 						Colors.fromHex("#F7790A"), 540, -1);
 			} else {
-				fireColour = Colors.get(Colors.fromHex("#F51F07"),
+				firecolor = Colors.get(Colors.fromHex("#F51F07"),
 						Colors.fromHex("#F7790A"), 540, -1);
 			}
-			screen.render(xOffset, yOffset + 3, 0 + 11 * 32, fireColour, 0x00,
+			screen.render(xOffset, yOffset + 3, 0 + 11 * 32, firecolor, 0x00,
 					1, sheet);
-			screen.render(xOffset + 8, yOffset + 3, 0 + 11 * 32, fireColour,
+			screen.render(xOffset + 8, yOffset + 3, 0 + 11 * 32, firecolor,
 					0x01, 1, sheet);
 		}
 
@@ -357,20 +359,20 @@ public class Player extends Mob {
 		if (!isShooting) {
 			// Upper body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, colour, flipTop, scale, sheet);
+					+ yTile * 32, color, flipTop, scale, sheet);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
+					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
 
 			if (!isSwimming) {
 				// Lower Body 1
 				screen.render(xOffset + (modifier * flipBottom), yOffset
-						+ modifier, xTile + (yTile + 1) * 32, colour,
+						+ modifier, xTile + (yTile + 1) * 32, color,
 						flipBottom, scale, sheet);
 				// Lower Body 2
 				screen.render(xOffset + modifier - (modifier * flipBottom),
 						yOffset + modifier, (xTile + 1) + (yTile + 1) * 32,
-						colour, flipBottom, scale, sheet);
+						color, flipBottom, scale, sheet);
 
 			}
 		}
@@ -397,19 +399,19 @@ public class Player extends Mob {
 
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, colour, flipTop, scale, sheet);
+					+ yTile * 32, color, flipTop, scale, sheet);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
+					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
 
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * 32, colour,
+					yOffset + modifier, xTile + (yTile + 1) * 32, color,
 					flipBottom, scale, sheet);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, colour,
+					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
 					flipBottom, scale, sheet);
 
 			if (!cooldown) {
@@ -518,7 +520,15 @@ public class Player extends Mob {
 
 	}
 	
-	public void changeColor(int num) {
-		this.colour = Colors.get(-1, 111, num, 543);
+	public void updateColor() {
+		this.color = Colors.get(-1, 111, shirtColor, skinColor);
+	}
+	
+	public void setShirtColor(int num) {
+		this.shirtColor = num;
+	}
+	
+	public void setSkinColor(int num) {
+		this.skinColor = num;
 	}
 }

@@ -1,4 +1,4 @@
-package ca.javajesus.game.gui;
+package ca.javajesus.game.gui.intro;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
+import ca.javajesus.game.gui.ScreenGUI;
 
 public class IntroGUI extends ScreenGUI implements ActionListener{
 
@@ -19,6 +20,7 @@ public class IntroGUI extends ScreenGUI implements ActionListener{
 	JTextField nameBox;
 	private Game game;
 	ColorListGUI colorList;
+	SkinColorGUI sclist;
 	
 	private PlayerSlotGUI pScreen;
 
@@ -50,8 +52,18 @@ public class IntroGUI extends ScreenGUI implements ActionListener{
 		colorList = new ColorListGUI();
 		p2.add(colorList, BorderLayout.CENTER);
 		
+		JPanel p4 = new JPanel(new BorderLayout());
+		JLabel l3 = new JLabel("Choose a skin color: ");
+		p4.add(l3, BorderLayout.NORTH);
+		sclist = new SkinColorGUI();
+		p4.add(sclist, BorderLayout.CENTER);
+		
+		JPanel p5 = new JPanel(new BorderLayout());
+		p5.add(p2, BorderLayout.NORTH);
+		p5.add(p4, BorderLayout.CENTER);
+		
 		panel.add(p1, BorderLayout.CENTER);
-		panel.add(p2, BorderLayout.EAST);
+		panel.add(p5, BorderLayout.EAST);
 		
 		this.add(panel, BorderLayout.CENTER);
 
@@ -67,7 +79,9 @@ public class IntroGUI extends ScreenGUI implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		name = nameBox.getText();
 		game.player.setName(name);
-		game.player.changeColor(colorList.getColor());
+		game.player.setShirtColor(colorList.getColor());
+		game.player.setSkinColor(sclist.getColor());
+		game.player.updateColor();
 		Game.displayGame();
 	}
 	

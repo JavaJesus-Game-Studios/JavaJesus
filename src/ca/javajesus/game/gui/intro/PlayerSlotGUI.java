@@ -1,10 +1,13 @@
-package ca.javajesus.game.gui;
+package ca.javajesus.game.gui.intro;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import ca.javajesus.game.gui.MapGUI;
+import ca.javajesus.game.gui.ScreenGUI;
 
 public class PlayerSlotGUI extends ScreenGUI {
 
@@ -18,7 +21,7 @@ public class PlayerSlotGUI extends ScreenGUI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.setPreferredSize(new Dimension(image.getWidth() * 2, image.getHeight() * 4));
+		this.setPreferredSize(new Dimension(image.getWidth() * 4, image.getHeight() * 4));
 	}
 	
 	public void tick() {
@@ -27,7 +30,7 @@ public class PlayerSlotGUI extends ScreenGUI {
 	
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 0, 0, image.getWidth() * 2, image.getHeight() * 4, this);
+		g.drawImage(image, 0, 0, image.getWidth() * 4, image.getHeight() * 4, this);
 	}
 
 }

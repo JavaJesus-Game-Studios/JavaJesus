@@ -115,8 +115,8 @@ public class Demon extends Monster {
 
 	public void render(Screen screen) {
 
-		this.hitBox.setLocation((int) this.x, (int) this.y - 16);
-		this.standBox.setLocation((int) this.x - 2, (int) this.y - 18);
+		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 16);
+		this.standBox.setLocation((int) this.x - 10, (int) this.y - 18);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		int xTile = 0;
