@@ -118,6 +118,10 @@ public class NPC extends Mob {
 	}
 
 	public void tick() {
+		
+		if (hasDied) {
+			return;
+		}
 
 		tickCount++;
 		if (tickCount > 360) {
@@ -236,6 +240,9 @@ public class NPC extends Mob {
 		int modifier = 8 * scale;
 		double xOffset = x - modifier / 2.0;
 		double yOffset = y - modifier / 2.0 - 4;
+		
+		if (hasDied)
+			xTile = 12;
 		
 		if (isSwimming) {
 			if (onFire) {

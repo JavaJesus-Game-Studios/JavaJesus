@@ -69,6 +69,9 @@ public class Policeman extends NPC {
 	}
 
 	public void tick() {
+		
+		if (hasDied)
+			return;
 
 		checkRadius();
 
@@ -166,6 +169,9 @@ public class Policeman extends NPC {
 		int modifier = 8 * scale;
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
+		
+		if(hasDied)
+			xTile = 12;
 
 		if (isShooting) {
 

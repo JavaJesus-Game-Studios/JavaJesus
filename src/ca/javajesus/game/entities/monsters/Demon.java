@@ -10,12 +10,13 @@ import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Demon extends Monster {
-	
+
 	Random random = new Random();
+
 	public Demon(Level level, String name, double x, double y, int speed) {
 		super(level, name, x, y, speed, 14, 24, 0, 150, Colors.get(-1, 111,
 				300, 550));
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 0);
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 8);
 		if (level != null)
 			level.addEntity(bar);
 	}
@@ -50,6 +51,10 @@ public class Demon extends Monster {
 	}
 
 	public void tick() {
+
+		if (hasDied) {
+			return;
+		}
 
 		if (random.nextInt(500) == 0) {
 			sound.play(SoundHandler.sound.demon);
@@ -95,7 +100,8 @@ public class Demon extends Monster {
 			return;
 		}
 
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa,ya) && !isMobCollision(xa, ya)) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
+				&& !isMobCollision(xa, ya)) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {
@@ -143,14 +149,20 @@ public class Demon extends Monster {
 
 		if (isShooting)
 			xTile += 12;
+		
+		if (hasDied)
+			xTile = 24;
 
-		// Upper body 1
-		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
-				* 32, colour, flipTop, scale, sheet);
+		if (!hasDied) {
 
-		// Upper body 2
-		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-				(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
+			// Upper body 1
+			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
+					+ yTile * 32, colour, flipTop, scale, sheet);
+
+			// Upper body 2
+			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
+					(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
+		}
 
 		// Middle Body 1
 		screen.render(xOffset + (modifier * flipMiddle), yOffset + modifier,
@@ -170,6 +182,25 @@ public class Demon extends Monster {
 		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + 2
 				* modifier, (xTile + 1) + (yTile + 2) * 32, colour, flipBottom,
 				scale, sheet);
+		
+		if (hasDied) {
+			
+			int offset = 0;
+			
+			if (movingDir == 2)
+				offset = -16;
+			
+			// Middle Body 3
+			screen.render(xOffset + offset + 2 * modifier - (modifier * flipMiddle), yOffset
+					+ modifier, (xTile + 2) + (yTile + 1) * 32, colour, flipBottom,
+					scale, sheet);
+			
+			// Lower Body 3
+			screen.render(xOffset + offset + 2 * modifier - (modifier * flipBottom), yOffset + 2
+					* modifier, (xTile + 2) + (yTile + 2) * 32, colour, flipBottom,
+					scale, sheet);
+			
+		}
 
 	}
 

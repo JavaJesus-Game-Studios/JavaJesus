@@ -68,6 +68,9 @@ public class GangMember extends Monster {
 	}
 
 	public void tick() {
+		
+		if (hasDied)
+			return;
 
 		checkRadius();
 
@@ -175,6 +178,9 @@ public class GangMember extends Monster {
 		int modifier = 8 * scale;
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
+		
+		if (hasDied)
+			xTile = 12;
 
 		if (isShooting) {
 

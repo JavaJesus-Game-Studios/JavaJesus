@@ -73,7 +73,10 @@ public class Monster extends Mob {
 	}
 
 	public void tick() {
-
+		
+		if (hasDied)
+			return;
+		
 	}
 
 	public void render(Screen screen) {
