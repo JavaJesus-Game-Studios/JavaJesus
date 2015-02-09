@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.imageio.ImageIO;
@@ -84,12 +85,32 @@ public abstract class Level {
 				tileCheck: for (Tile t : Tile.tiles) {
 					if (t != null
 							&& t.getLevelColour() == tileColours[x + y * width]) {
+						if (t == Tile.GRASS) {
+							t = getGrass();
+						}
 						this.tiles[x + y * width] = t.getId();
 						break tileCheck;
 					}
 				}
 			}
 		}
+	}
+
+	private Tile getGrass() {
+		Random random = new Random();
+
+		if (random.nextInt(100) == 0) {
+			return Tile.GRASSALT;
+		}
+		if (random.nextInt(6) == 0) {
+			return Tile.GRASS2;
+		}
+		if (random.nextInt(6) == 0) {
+			return Tile.GRASS3;
+		} else {
+			return Tile.GRASS;
+		}
+
 	}
 
 	protected void generateLevel() {

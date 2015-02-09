@@ -29,7 +29,7 @@ public class SoundHandler {
 					.getResource("/Sound/Short_Sword_Sound_v2.wav"));
 
 			background1 = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Freaks.wav"));
+					.getResource("/Sound/fireworks.wav"));
 
 			chest = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Chest_Opening_v2.wav"));

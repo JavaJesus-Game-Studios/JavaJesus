@@ -6,7 +6,6 @@ public class HeightMap {
 	public int height;
 	public int width;
 
-	protected final byte GRASS = 0;
 	protected final byte SAND = 1;
 	protected final byte ROCK = 2;
 	protected final byte DIRT = 3;
@@ -31,6 +30,25 @@ public class HeightMap {
 	public HeightMap(int height, int width) {
 		this.height = height;
 		this.width = width;
+	}
+
+	private byte GRASS() {
+		Random random = new Random();
+		switch (random.nextInt(10)) {
+		case 0:
+			return 9;
+		case 1:
+			return 10;
+		case 2:
+			return 11;
+		case 3:
+			return 9;
+		case 4:
+			return 10;
+		default:
+			return 0;
+
+		}
 	}
 
 	/**
@@ -121,7 +139,7 @@ public class HeightMap {
 					heightmap[row][col] = WATER;
 				} else if (heightmap[row][col] > cutoff
 						&& heightmap[row][col] <= dirtCutoff) {
-					heightmap[row][col] = GRASS;
+					heightmap[row][col] = GRASS();
 				} else if (heightmap[row][col] > dirtCutoff
 						&& heightmap[row][col] <= mountainCutoff) {
 					heightmap[row][col] = DIRT;
@@ -132,8 +150,9 @@ public class HeightMap {
 		}
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
-				//SAND
-				if (heightmap[row][col] == GRASS || heightmap[row][col] == DIRT) {
+				// SAND
+				if ((heightmap[row][col] == 0 || heightmap[row][col] >= 9)
+						|| heightmap[row][col] == DIRT) {
 					switch (this.locationChecker(heightmap, row, col)) {
 					case 1:
 						if (heightmap[row][col + 1] == WATER
@@ -196,8 +215,8 @@ public class HeightMap {
 						break;
 					}
 				}
-				
-				//WATER SAND
+
+				// WATER SAND
 				if (heightmap[row][col] == WATER) {
 					switch (this.locationChecker(heightmap, row, col)) {
 					case 1:
@@ -214,47 +233,47 @@ public class HeightMap {
 						}
 						break;
 					case 3:
-						if (heightmap[row][col - 1] == SAND 
+						if (heightmap[row][col - 1] == SAND
 								|| heightmap[row + 1][col] == SAND) {
 							heightmap[row][col] = WATERSAND;
 						}
 						break;
 					case 4:
-						if (heightmap[row - 1][col] == SAND 
-								|| heightmap[row][col + 1] == SAND 
+						if (heightmap[row - 1][col] == SAND
+								|| heightmap[row][col + 1] == SAND
 								|| heightmap[row + 1][col] == SAND) {
 							heightmap[row][col] = WATERSAND;
 						}
 						break;
 					case 5:
-						if (heightmap[row - 1][col] == SAND 
-								|| heightmap[row][col - 1] == SAND 
-								|| heightmap[row][col + 1] == SAND 
+						if (heightmap[row - 1][col] == SAND
+								|| heightmap[row][col - 1] == SAND
+								|| heightmap[row][col + 1] == SAND
 								|| heightmap[row + 1][col] == SAND) {
 							heightmap[row][col] = WATERSAND;
 						}
 						break;
 					case 6:
-						if (heightmap[row - 1][col] == SAND 
-								|| heightmap[row][col - 1] == SAND 
+						if (heightmap[row - 1][col] == SAND
+								|| heightmap[row][col - 1] == SAND
 								|| heightmap[row + 1][col] == SAND) {
 							heightmap[row][col] = WATERSAND;
 						}
 					case 7:
-						if (heightmap[row - 1][col] == SAND 
+						if (heightmap[row - 1][col] == SAND
 								|| heightmap[row][col] == SAND) {
 							heightmap[row][col] = WATERSAND;
 						}
 						break;
 					case 8:
-						if (heightmap[row][col - 1] == SAND 
-								|| heightmap[row - 1][col] == SAND 
+						if (heightmap[row][col - 1] == SAND
+								|| heightmap[row - 1][col] == SAND
 								|| heightmap[row][col + 1] == SAND) {
 							heightmap[row][col] = WATERSAND;
 						}
 						break;
 					case 9:
-						if (heightmap[row - 1][col] == SAND 
+						if (heightmap[row - 1][col] == SAND
 								|| heightmap[row][col - 1] == SAND) {
 							heightmap[row][col] = WATERSAND;
 						}
@@ -292,8 +311,7 @@ public class HeightMap {
 	 * 
 	 * @param heightmap
 	 *            The heightmap you want to check
-	 * @return The location of the heightmap 
-	 * 		   1 2 3
+	 * @return The location of the heightmap 1 2 3
 	 * 
 	 *         4 5 6
 	 * 
@@ -322,4 +340,5 @@ public class HeightMap {
 		} else
 			return 5;
 	}
+
 }

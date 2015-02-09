@@ -57,8 +57,11 @@ public abstract class Tile {
 	public static final Tile BRICKROAD = new BaseTile(15, 1, 0, Colors.get(-1, Colors.fromHex("#d40000"),
 			Colors.fromHex("#b40000"), -1), 0xFFa50000);
 	public static final Tile GRASSALT = new BaseTile(16, 5, 1, Colors.get(-1, 131,
-			141, -1), 0xFF15df00);
-
+			141, 444), 0xFF15df00);
+	public static final Tile GRASS2 = new BaseTile(17, 1, 1, Colors.get(-1, 131,
+			141, -1), 0xFF00FF00);
+	public static final Tile GRASS3 = new BaseTile(18, 4, 1, Colors.get(-1, 131,
+			141, -1), 0xFF00FF00);
 
 
 	protected byte id;

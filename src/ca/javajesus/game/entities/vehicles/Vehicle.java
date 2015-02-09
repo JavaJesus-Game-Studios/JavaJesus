@@ -78,9 +78,9 @@ public class Vehicle extends Mob {
 		}
 		return false;
 	}
-	
+
 	int xa = 0;
-    int ya = 0;
+	int ya = 0;
 
 	public void tick() {
 		if (isMobCollision() && this.isMoving) {
@@ -92,44 +92,59 @@ public class Vehicle extends Mob {
 			}
 		}
 
-		CarPhysics car = new CarPhysics(xa, ya, 0, 0);
-        
+		CarPhysics physics = new CarPhysics(xa, ya, 0, 0);
+
 		if (this.isUsed) {
 			if (input.w.isPressed()) {
-				car.setYAcceleration(-2);
-			    //ya--;
+				physics.setYAcceleration(-2);
+				// ya--;
 				if (isSolidEntityCollision(0, ya)) {
 					ya++;
 				}
 			}
 			if (input.s.isPressed()) {
-				car.setYAcceleration(2);
-			    //ya++;
+				physics.setYAcceleration(2);
+				// ya++;
 				if (isSolidEntityCollision(0, ya)) {
 					ya--;
 				}
 			}
 			if (input.a.isPressed()) {
-			    car.setXAcceleration(-2);
-			    //xa--;
+				physics.setXAcceleration(-2);
+				// xa--;
 				if (isSolidEntityCollision(xa, 0)) {
 					xa++;
 				}
 			}
 			if (input.d.isPressed()) {
-			    car.setXAcceleration(2);
-                //xa++;
+				physics.setXAcceleration(2);
+				//xa++;
 				if (isSolidEntityCollision(xa, 0)) {
 					xa--;
 				}
 			}
-			
-			car.setTick(vehicleTick/60);
-			car.position();
-	        xa = (int)car.x/30;
-	        ya = (int)car.y/30;
-	        
-		
+
+			if (physics.xAcceleration() == 0 && physics.xVelocity() != 0) {
+				if (physics.xVelocity() > 0) {
+					physics.setXAcceleration(-2);
+				} else {
+					physics.setXAcceleration(2);
+				}
+			}
+
+			if (physics.yAcceleration() == 0 && physics.yVelocity() != 0) {
+				if (physics.yVelocity() > 0) {
+					physics.setYAcceleration(-2);
+				} else {
+					physics.setYAcceleration(2);
+				}
+			}
+
+			physics.setTick(vehicleTick / 60);
+			physics.position();
+			xa = (int) physics.x / 30;
+			ya = (int) physics.y / 30;
+
 			if (input.i.isPressed()) {
 				input.i.toggle(false);
 				if (Game.inGameScreen) {
@@ -157,7 +172,7 @@ public class Vehicle extends Mob {
 			} else {
 				scaledSpeed = 1;
 			}
-			
+
 			if ((xa != 0 || ya != 0)
 					&& !isSolidEntityCollision(xa * (int) scaledSpeed, ya
 							* (int) scaledSpeed) && scaledSpeed > 1) {
@@ -172,9 +187,9 @@ public class Vehicle extends Mob {
 				isMoving = false;
 				player.isMoving = false;
 			}
-			
+
 			System.out.println(xa + "   " + ya);
-			
+
 		}
 		vehicleTick++;
 	}
