@@ -99,28 +99,32 @@ public class Vehicle extends Mob {
 				physics.setYAcceleration(-2);
 				// ya--;
 				if (isSolidEntityCollision(0, ya)) {
-					ya++;
+					vehicleTick = 0;
+				    ya++;
 				}
 			}
 			if (input.s.isPressed()) {
 				physics.setYAcceleration(2);
 				// ya++;
 				if (isSolidEntityCollision(0, ya)) {
-					ya--;
+				    vehicleTick = 0;
+				    ya--;
 				}
 			}
 			if (input.a.isPressed()) {
 				physics.setXAcceleration(-2);
 				// xa--;
 				if (isSolidEntityCollision(xa, 0)) {
-					xa++;
+				    vehicleTick = 0;
+				    xa++;
 				}
 			}
 			if (input.d.isPressed()) {
 				physics.setXAcceleration(2);
 				//xa++;
 				if (isSolidEntityCollision(xa, 0)) {
-					xa--;
+				    vehicleTick = 0;
+                    xa--;
 				}
 			}
 
