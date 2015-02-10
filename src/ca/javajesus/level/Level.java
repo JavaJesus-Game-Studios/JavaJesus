@@ -100,7 +100,7 @@ public abstract class Level {
 		Random random = new Random();
 
 		if (random.nextInt(100) == 0) {
-			return Tile.GRASSALT;
+			return Tile.GRASS_FLOWER;
 		}
 		if (random.nextInt(6) == 0) {
 			return Tile.GRASS2;

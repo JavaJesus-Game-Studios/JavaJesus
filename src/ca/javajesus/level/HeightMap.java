@@ -2,6 +2,8 @@ package ca.javajesus.level;
 
 import java.util.Random;
 
+import ca.javajesus.level.tile.Tile;
+
 public class HeightMap {
 	public int height;
 	public int width;
@@ -34,20 +36,16 @@ public class HeightMap {
 
 	private byte GRASS() {
 		Random random = new Random();
-		switch (random.nextInt(10)) {
-		case 0:
-			return 9;
-		case 1:
-			return 10;
-		case 2:
+		if (random.nextInt(100) == 0) {
 			return 11;
-		case 3:
+		}
+		if (random.nextInt(6) == 0) {
 			return 9;
-		case 4:
+		}
+		if (random.nextInt(6) == 0) {
 			return 10;
-		default:
+		} else {
 			return 0;
-
 		}
 	}
 
