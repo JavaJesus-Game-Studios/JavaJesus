@@ -8,6 +8,11 @@ public class HeightMap {
 	public int height;
 	public int width;
 
+	protected final byte GRASS = 0;
+	protected final byte GRASS2 = 9;
+	protected final byte GRASS3 = 10;
+	protected final byte GRASS_FLOWER = 11;
+
 	protected final byte SAND = 1;
 	protected final byte ROCK = 2;
 	protected final byte DIRT = 3;
@@ -49,14 +54,23 @@ public class HeightMap {
 		}
 	}
 
+	private boolean checkGrass(int row, int col, int[][] heightmap) {
+		if (heightmap[row][col] == 0 || heightmap[row][col] == 9
+				|| heightmap[row][col] == 10 || heightmap[row][col] == 11) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	/**
 	 * Creates a heightmap of height x width
 	 * 
 	 * @param cycles
 	 *            :the number of times the heightmap will be cycled. 4 cycles is
 	 *            recommended.
-	 * @return An array filled with 0, 1, or 2, where 0 is water, 1 is land, and
-	 *         2 is mountains.
+	 * @return An array filled with 0, 1, 2, or 3 where 0 is water, 1 is land, 2
+	 *         is mountains and 3 is buildings.
 	 */
 	public int[][] generateHeightMap(int cycles) {
 		Random rand = new Random();
@@ -278,6 +292,46 @@ public class HeightMap {
 						break;
 					}
 				}
+				/**
+				 * // Spawn random building /** XOOOX XOOOX XO5OX XOOOX XOOOX
+				 * 
+				 * for (int i = 0; i < row; i++) { for (int j = 0; j < col; j++)
+				 * { if (row > 3 && row < heightmap.length - 3 && col > 3 && col
+				 * < heightmap [row].length - 3 ) { if (this.checkGrass(row,
+				 * col, heightmap) == true) { switch
+				 * (this.locationChecker(heightmap, row, col)) { case 1: if
+				 * (heightmap[row][col + 1] == GRASS() || heightmap[row +
+				 * 1][col] == GRASS()) { heightmap[row][col] = GRASS(); } break;
+				 * case 2: if (heightmap[row][col - 1] == WATER || heightmap[row
+				 * + 1][col] == WATER || heightmap[row][col + 1] == WATER) {
+				 * heightmap[row][col] = SAND; } break; case 3: if
+				 * (heightmap[row][col - 1] == WATER || heightmap[row + 1][col]
+				 * == WATER) { heightmap[row][col] = SAND; } break; case 4: if
+				 * (heightmap[row - 1][col] == WATER || heightmap[row][col + 1]
+				 * == WATER || heightmap[row + 1][col] == WATER) {
+				 * heightmap[row][col] = SAND; } break; case 5: if
+				 * (heightmap[row - 1][col] == WATER || heightmap[row][col - 1]
+				 * == WATER || heightmap[row][col + 1] == WATER || heightmap[row
+				 * + 1][col] == WATER) { heightmap[row][col] = SAND; } break;
+				 * case 6: if (heightmap[row - 1][col] == WATER ||
+				 * heightmap[row][col - 1] == WATER || heightmap[row + 1][col]
+				 * == WATER) { heightmap[row][col] = SAND; } case 7: if
+				 * (heightmap[row - 1][col] == WATER || heightmap[row][col] ==
+				 * WATER) { heightmap[row][col] = SAND; } break; case 8: if
+				 * (heightmap[row][col - 1] == WATER || heightmap[row - 1][col]
+				 * == WATER || heightmap[row][col + 1] == WATER) {
+				 * heightmap[row][col] = SAND; } break; case 9: if
+				 * (heightmap[row - 1][col] == WATER || heightmap[row][col - 1]
+				 * == WATER) { heightmap[row][col] = SAND; } break; }
+				 * 
+				 * }
+				 * 
+				 * 
+				 * } }
+				 * 
+				 * } }
+				 */
+
 			}
 		}
 		return heightmap;
