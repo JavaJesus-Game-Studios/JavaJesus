@@ -299,6 +299,7 @@ public class Game extends Canvas implements Runnable {
 		g.setColor(Color.YELLOW);
 		g.drawString(player + ": " + (int) player.x + ", " + (int) player.y, 5,
 				20);
+		ChatHandler.drawMessages(g);
 		if (player.hasDied) {
 			g.setFont(new Font("Verdana", 0, 50));
 			g.setColor(Color.BLACK);

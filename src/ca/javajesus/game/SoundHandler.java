@@ -29,7 +29,7 @@ public class SoundHandler {
 					.getResource("/Sound/Short_Sword_Sound_v2.wav"));
 
 			background1 = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/fireworks.wav"));
+					.getResource("/Sound/Freaks.wav"));
 
 			chest = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Chest_Opening_v2.wav"));
@@ -120,6 +120,9 @@ public class SoundHandler {
 			this.background1.open(background1);
 			this.sheathe.open(sheathe);
 			this.swimming.open(swimming);
+			
+			this.chest.open(chest);
+			this.levelup.open(levelup);
 			
 			this.footstepsDirt.open(footstepsDirt);
 			this.footstepsGrass.open(footstepsGrass);

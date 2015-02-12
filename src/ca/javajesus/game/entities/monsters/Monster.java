@@ -1,7 +1,9 @@
 package ca.javajesus.game.entities.monsters;
 
+import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
+import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.npcs.NPC;
@@ -78,9 +80,43 @@ public class Monster extends Mob {
 			return;
 		
 	}
+	
+	public void speak(Player player) {
+		switch (random.nextInt(6)) {
+		case 0: {
+			ChatHandler.sendMessage("Rawr!",
+					Color.black);
+			return;
+		}
+		case 1: {
+			ChatHandler.sendMessage("Arghhh", Color.black);
+			return;
+		}
+		case 2: {
+			ChatHandler.sendMessage("OOOHH", Color.black);
+			return;
+		}
+		case 3: {
+			ChatHandler
+					.sendMessage(
+							"ROAAR",
+							Color.black);
+			return;
+		}
+		case 4: {
+			ChatHandler.sendMessage("HHRRRRSSHSHH",
+					Color.black);
+			return;
+		}
+		default: {
+			ChatHandler.sendMessage("RRRRRRRRRHHHH", Color.black);
+			return;
+		}
+		}
+	}
 
 	public void render(Screen screen) {
-
+		
 	}
 
 }

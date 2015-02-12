@@ -6,9 +6,9 @@ import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.monsters.Demon;
+import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
-import ca.javajesus.game.entities.structures.Transporter;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.entities.weapons.GreatSword;
 import ca.javajesus.game.entities.weapons.Sword;
@@ -26,7 +26,6 @@ public class Player extends Mob {
 	protected int color;
 	protected int shirtColor;
 	protected int skinColor;
-	private int scale = 1;
 	protected boolean isSwimming = false;
 	public boolean isSwinging = false;
 	protected boolean isShooting = false;
@@ -48,6 +47,7 @@ public class Player extends Mob {
 	public double stamina;
 	public double startStamina;
 	public boolean isTired;
+	public Rectangle talkRange = new Rectangle(18, 18);
 
 	public Player(Level level, double x, double y, InputHandler input, String name) {
 		super(level, name, x, y, 1, 14, 16, SpriteSheet.player, 100);
@@ -172,6 +172,11 @@ public class Player extends Mob {
 							input.e.toggle(false);
 							return;
 						}
+					} else if (entity instanceof Mob) {
+						if (this.talkRange.intersects(((Mob) entity).hitBox)) {
+							((Mob) entity).speak(this);
+							input.e.toggle(false);
+						}
 					}
 				}
 			}
@@ -256,6 +261,7 @@ public class Player extends Mob {
 		}
 
 		this.hitBox.setLocation((int) this.x + 1, (int) this.y - 8);
+		this.talkRange.setLocation((int) this.x, (int) this.y - 9);
 		this.standBox.setLocation((int) this.x - 2, (int) this.y - 2);
 		if (canChangeLevel) {
 			level.remEntity(this);

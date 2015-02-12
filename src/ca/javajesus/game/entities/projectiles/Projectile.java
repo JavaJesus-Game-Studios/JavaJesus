@@ -156,8 +156,10 @@ public class Projectile extends Entity {
 
 	public void render(Screen screen) {
 
-		if (level.tileCollision(x, y, xPoint, yPoint, 2))
+		if (hasCollided((int) x, (int) y)) {
 			level.remEntity(this);
+			return;
+		}
 
 		this.y += speed * yPoint;
 		this.x += speed * xPoint;
@@ -186,6 +188,50 @@ public class Projectile extends Entity {
 			}
 
 		}
+	}
+
+	protected boolean isSolidTile(int xa, int ya, int x, int y) {
+		if (level == null) {
+			return false;
+		}
+		int xx = (int) this.x;
+		int yy = (int) this.y;
+		Tile lastTile = level.getTile((xx + x) >> 3, (yy + y) >> 3);
+		Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
+		if (lastTile.isSolid()) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean hasCollided(int xa, int ya) {
+		int xMin = 1;
+		int xMax = 2;
+		int yMin = 1;
+		int yMax = 2;
+
+		for (int x = xMin; x < xMax; x++) {
+			if (isSolidTile(xa, ya, x, yMin)) {
+				return true;
+			}
+		}
+		for (int x = xMin; x < xMax; x++) {
+			if (isSolidTile(xa, ya, x, yMax)) {
+				return true;
+			}
+		}
+		for (int y = yMin; y < yMax; y++) {
+			if (isSolidTile(xa, ya, xMin, y)) {
+				return true;
+			}
+		}
+		for (int y = yMin; y < yMax; y++) {
+			if (isSolidTile(xa, ya, xMax, y)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }

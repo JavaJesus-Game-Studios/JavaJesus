@@ -1,8 +1,11 @@
 package ca.javajesus.game.entities.npcs;
 
+import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
+import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Mob;
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
@@ -221,5 +224,10 @@ public class Policeman extends NPC {
 					flipBottom, scale, sheet);
 		}
 
+	}
+	
+	public void speak(Player player) {
+		ChatHandler.sendMessage("Stop right there, Criminal Scum!", Color.red);
+		return;
 	}
 }

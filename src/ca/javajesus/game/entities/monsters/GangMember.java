@@ -1,7 +1,10 @@
 package ca.javajesus.game.entities.monsters;
 
+import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
+import ca.javajesus.game.ChatHandler;
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.gfx.Colors;
@@ -224,6 +227,11 @@ public class GangMember extends Monster {
 					flipBottom, scale, sheet);
 		}
 
+	}
+	
+	public void speak(Player player) {
+		ChatHandler.sendMessage("I'm gonna kill you fool!", Color.black);
+		return;
 	}
 
 }

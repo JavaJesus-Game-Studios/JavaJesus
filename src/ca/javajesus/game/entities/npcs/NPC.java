@@ -1,10 +1,15 @@
 package ca.javajesus.game.entities.npcs;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import java.util.Random;
 
+import quests.Quest;
+import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Mob;
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -27,22 +32,23 @@ public class NPC extends Mob {
 			100, Colors.get(-1, 111, Colors.fromHex("#ffa800"), 555), 0, 14,
 			"cross", 50, 8);
 	public static NPC npc6 = new NPC(Level.level1, "Tech Warrior", 400, 250, 1,
-			16, 16, 100, Colors.get(-1, 000, Colors.fromHex("#42ff00"), 543), 0,
-			12, "triangle", 20, 8);
-	public static NPC npc7 = new NPC(Level.level1, "Peasant-Male", 2005, 950, 1,
-			16, 16, 100, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 0,
-			16, "square", 100, 8);
+			16, 16, 100, Colors.get(-1, 000, Colors.fromHex("#42ff00"), 543),
+			0, 12, "triangle", 20, 8);
+	public static NPC npc7 = new NPC(Level.level1, "Peasant-Male", 2005, 950,
+			1, 16, 16, 100,
+			Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 0, 16,
+			"square", 100, 8);
 	public static NPC npc8 = new NPC(Level.level1, "Peasant-Female", 2025, 950,
-			1, 16, 16, 100, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543),
-			0, 18, "cross", 0, 8);
-	public static NPC npc9 = new NPC(Level.level1, "Peasant-Boychild", 2035, 950, 1,
-			16, 16, 9001, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 14,
-			16, "square", 0, 8);
-	public static NPC npc10 = new NPC(Level.level1, "Peasant-Girlchild", 2045, 950,
-			1, 16, 16, 9000, Colors.get(-1, 111, Colors.fromHex("#715b17"), 543),
-			14, 18, "cross", 0, 8);
+			1, 16, 16, 100,
+			Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 0, 18,
+			"cross", 0, 8);
+	public static NPC npc9 = new NPC(Level.level1, "Peasant-Boychild", 2035,
+			950, 1, 16, 16, 9001, Colors.get(-1, 111,
+					Colors.fromHex("#715b17"), 543), 14, 16, "square", 0, 8);
+	public static NPC npc10 = new NPC(Level.level1, "Peasant-Girlchild", 2045,
+			950, 1, 16, 16, 9000, Colors.get(-1, 111,
+					Colors.fromHex("#715b17"), 543), 14, 18, "cross", 0, 8);
 	protected boolean isSwimming = false;
-
 
 	/** Range that the NPC can walk */
 	protected Ellipse2D.Double walkRadius;
@@ -66,8 +72,11 @@ public class NPC extends Mob {
 	protected boolean dir4;
 	protected int tickCount;
 
+	public ArrayList<Quest> quests = new ArrayList<Quest>();
+	public Quest currentQuest;
+
 	protected boolean movingToOrigin = false;
-	
+
 	public NPC(Level level, String name, double x, double y, int speed,
 			int width, int height, double defaultHealth, int color, int xTile,
 			int yTile, String walkPath, int walkDistance, int yChange) {
@@ -83,7 +92,8 @@ public class NPC extends Mob {
 		this.xPos = x;
 		this.yPos = y;
 		this.hitBox = new Rectangle(width, height);
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, yChange);
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this,
+				yChange);
 		if (level != null)
 			level.addEntity(bar);
 		scaledSpeed = 0.35;
@@ -118,7 +128,7 @@ public class NPC extends Mob {
 	}
 
 	public void tick() {
-		
+
 		if (hasDied) {
 			return;
 		}
@@ -141,7 +151,6 @@ public class NPC extends Mob {
 		if (isSwimming && level.getTile(xx >> 3, yy >> 3).getId() != 3) {
 			isSwimming = false;
 		}
-
 
 		if (movingToOrigin)
 			findOrigin();
@@ -177,7 +186,8 @@ public class NPC extends Mob {
 		if ((int) yPos < (int) this.y) {
 			ya--;
 		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
+				&& !isMobCollision(xa, ya)) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {
@@ -240,10 +250,10 @@ public class NPC extends Mob {
 		int modifier = 8 * scale;
 		double xOffset = x - modifier / 2.0;
 		double yOffset = y - modifier / 2.0 - 4;
-		
+
 		if (hasDied)
 			xTile = 12;
-		
+
 		if (isSwimming) {
 			if (onFire) {
 				onFire = false;
@@ -268,17 +278,15 @@ public class NPC extends Mob {
 		}
 		if (!isSwimming) {
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flipBottom), yOffset
-					+ modifier, xTile + (yTile + 1) * 32, color,
+			screen.render(xOffset + (modifier * flipBottom),
+					yOffset + modifier, xTile + (yTile + 1) * 32, color,
 					flipBottom, scale, sheet);
 			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flipBottom),
-					yOffset + modifier, (xTile + 1) + (yTile + 1) * 32,
-					color, flipBottom, scale, sheet);
+			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
+					flipBottom, scale, sheet);
 
 		}
-
-
 
 		// Upper body 1
 		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
@@ -286,7 +294,6 @@ public class NPC extends Mob {
 		// Upper Body 2
 		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
 				(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
-
 
 	}
 
@@ -306,7 +313,8 @@ public class NPC extends Mob {
 				dir2 = false;
 			}
 		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
+				&& !isMobCollision(xa, ya)) {
 			if (isMobCollision()) {
 				isMoving = false;
 				return;
@@ -343,7 +351,8 @@ public class NPC extends Mob {
 				dir1 = true;
 			}
 		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
+				&& !isMobCollision(xa, ya)) {
 			if (isMobCollision()) {
 				isMoving = false;
 				return;
@@ -384,7 +393,8 @@ public class NPC extends Mob {
 				dir1 = true;
 			}
 		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
+				&& !isMobCollision(xa, ya)) {
 			if (isMobCollision()) {
 				isMoving = false;
 				return;
@@ -443,7 +453,8 @@ public class NPC extends Mob {
 				dir4 = false;
 			}
 		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
+				&& !isMobCollision(xa, ya)) {
 			if (isMobCollision()) {
 				isMoving = false;
 				return;
@@ -462,7 +473,8 @@ public class NPC extends Mob {
 		double miniTick = tickCount / 20.0;
 		int xa = (int) (walkDistance * Math.cos(miniTick / walkDistance));
 		int ya = (int) (walkDistance * Math.sin(miniTick / walkDistance));
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
+				&& !isMobCollision(xa, ya)) {
 			if (isMobCollision()) {
 				isMoving = false;
 				return;
@@ -474,4 +486,99 @@ public class NPC extends Mob {
 		}
 
 	}
+
+	public void addQuest(Quest quest) {
+		quests.add(quest);
+	}
+
+	public void setQuest(int num) {
+		this.currentQuest = quests.get(num);
+	}
+
+	public void speak(Player player) {
+
+		switch (player.movingDir) {
+		case 0: {
+			movingDir = 1;
+			break;
+		}
+		case 1: {
+			movingDir = 0;
+			break;
+		}
+		case 2: {
+			movingDir = 3;
+			break;
+		}
+		case 3: {
+			movingDir = 2;
+			break;
+		}
+		}
+
+		if (currentQuest != null) {
+			currentQuest.update();
+			switch (currentQuest.getPhase()) {
+			case 0: {
+				ChatHandler.sendMessage(currentQuest.preDialogue(), Color.blue);
+				sound.play(sound.levelup);
+				currentQuest.nextPhase();
+				return;
+			}
+			case 1: {
+				ChatHandler.sendMessage(currentQuest.dialogue(), Color.blue);
+				return;
+			}
+			case 2: {
+				ChatHandler
+						.sendMessage(currentQuest.postDialogue(), Color.CYAN);
+				sound.play(sound.chest);
+				nextQuest();
+				return;
+			}
+			}
+		}
+
+		switch (random.nextInt(6)) {
+		case 0: {
+			ChatHandler.sendMessage("I used to be an adventurer too!",
+					Color.black);
+			return;
+		}
+		case 1: {
+			ChatHandler.sendMessage("Nice shirt!", Color.black);
+			return;
+		}
+		case 2: {
+			ChatHandler.sendMessage("Are you Jesus?", Color.black);
+			return;
+		}
+		case 3: {
+			ChatHandler
+					.sendMessage(
+							"This is some nice weather we've been having.",
+							Color.black);
+			return;
+		}
+		case 4: {
+			ChatHandler.sendMessage("You are not from around here are you!",
+					Color.black);
+			return;
+		}
+		default: {
+			ChatHandler.sendMessage("Hello!", Color.black);
+			return;
+		}
+		}
+
+	}
+
+	protected void nextQuest() {
+		quests.remove(currentQuest);
+		currentQuest = null;
+		if (quests.contains(0)) {
+			currentQuest = quests.get(0);
+		}
+	}
+
 }

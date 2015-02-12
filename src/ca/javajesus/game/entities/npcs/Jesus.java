@@ -1,177 +1,30 @@
 package ca.javajesus.game.entities.npcs;
 
-import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
-import java.util.Random;
 
-import ca.javajesus.game.entities.Mob;
-import ca.javajesus.game.entities.particles.HealthBar;
+import quests.SampleQuest;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
-public class Jesus extends Mob {
+public class Jesus extends NPC {
 
-	
-	public static NPC Jesus = new NPC(Level.level1, "Jesus", 300, 400, 1, 16,
-			16, 9001, Colors.get(-1, 111, 555, Colors.fromHex("#ffd89b")), 0, 6,
-			"square", 30, 0);
-	
+	public static NPC Jesus = new Jesus(Level.level1, 300, 400, "stand", 30);
+
 	/** Range that the NPC can walk */
 	protected Ellipse2D.Double walkRadius;
 	protected final int RADIUS = 32 * 8;
-	protected int color;
-	protected int xTile;
-	protected int yTile;
 
-	/** Movement type and the distance they travel */
-	protected String walkPath;
-	protected int walkDistance;
-
-	/** NPC origin */
-	protected double xPos;
-	protected double yPos;
-
-	/** Determines direction for NPC movement */
-	protected boolean dir1 = true;
-	protected boolean dir2;
-	protected boolean dir3;
-	protected boolean dir4;
-	protected int tickCount;
-
-	protected boolean movingToOrigin = false;
-	
-	public Jesus(Level level, String name, double x, double y, int speed,
-			int width, int height, double defaultHealth, int color, int xTile,
-			int yTile, String walkPath, int walkDistance) {
-		super(level, name, x, y, speed, width, height, SpriteSheet.npcs,
-				defaultHealth);
+	public Jesus(Level level, double x, double y, String walkPath,
+			int walkDistance) {
+		super(level, "Jesus", x, y, 1, 16, 16, 9000, Colors.get(-1, 111, 555,
+				Colors.fromHex("#ffd89b")), 0, 6, walkPath, walkDistance, 0);
 		this.walkRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
 				RADIUS, RADIUS);
-		this.color = color;
-		this.xTile = xTile;
-		this.yTile = yTile;
-		this.walkPath = walkPath;
-		this.walkDistance = walkDistance;
-		this.xPos = x;
-		this.yPos = y;
-		this.hitBox = new Rectangle(width, height);
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 0);
-		if (level != null)
-			level.addEntity(bar);
-		scaledSpeed = 0.35;
-	}
+		
+		this.addQuest(new SampleQuest(this));
+		this.currentQuest = quests.get(0);
 
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 7;
-		int yMin = 3;
-		int yMax = 7;
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin)) {
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public void tick() {
-
-		tickCount++;
-		if (tickCount > 360) {
-			tickCount = 0;
-			movingToOrigin = true;
-		}
-
-		if (isMobCollision()) {
-			moveAroundMobCollision();
-			return;
-		}
-	
-
-		if (movingToOrigin)
-			findOrigin();
-		else {
-			for (Mob mob : level.getMobs()) {
-				if (mob == this)
-					continue;
-				if (this.standBox.intersects(mob.hitBox))
-					return;
-			}
-			findPath();
-		}
-
-	}
-
-	protected void findOrigin() {
-
-		if ((int) xPos == (int) this.x && (int) yPos == (int) this.y) {
-			movingToOrigin = false;
-		}
-
-		int xa = 0;
-		int ya = 0;
-		if ((int) xPos > (int) this.x) {
-			xa++;
-		}
-		if ((int) xPos < (int) this.x) {
-			xa--;
-		}
-		if ((int) yPos > (int) this.y) {
-			ya++;
-		}
-		if ((int) yPos < (int) this.y) {
-			ya--;
-		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
-			move(xa, ya, scaledSpeed);
-			isMoving = true;
-		} else {
-			isMoving = false;
-		}
-	}
-
-	protected void findPath() {
-		switch (walkPath) {
-		case "linear": {
-			moveLinear();
-			break;
-		}
-		case "triangle": {
-			moveTriangle();
-			break;
-		}
-		case "square": {
-			moveSquare();
-			break;
-		}
-		case "cross": {
-			moveCross();
-			break;
-		}
-		case "circle": {
-			moveCircle();
-			break;
-		}
-		default:
-			break;
-		}
 	}
 
 	public void render(Screen screen) {
@@ -190,20 +43,28 @@ public class Jesus extends Mob {
 
 		if (movingDir == 0) {
 			xTile += 10;
+			if (!isMoving) {
+				xTile = 8;
+			}
 		}
 		if (movingDir == 1) {
 			xTile += 2;
+			if (!isMoving) {
+				xTile = 0;
+			}
 		} else if (movingDir > 1) {
 			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
 			flipTop = (movingDir - 1) % 2;
 			flipBottom = (movingDir - 1) % 2;
+			if (!isMoving) {
+				xTile = 4;
+			}
 		}
 
 		int modifier = 8 * scale;
 		double xOffset = x - modifier / 2.0;
 		double yOffset = y - modifier / 2.0 - 4;
 		
-			
 		// Upper body 1
 		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
 				* 32, color, flipTop, scale, sheet);
@@ -211,200 +72,12 @@ public class Jesus extends Mob {
 		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
 				(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
 		// Lower Body 1
-					screen.render(xOffset + (modifier * flipBottom), yOffset
-							+ modifier, xTile + (yTile + 1) * 32, color,
-							flipBottom, scale, sheet);
+		screen.render(xOffset + (modifier * flipBottom), yOffset + modifier,
+				xTile + (yTile + 1) * 32, color, flipBottom, scale, sheet);
 		// Lower Body 2
-					screen.render(xOffset + modifier - (modifier * flipBottom),
-							yOffset + modifier, (xTile + 1) + (yTile + 1) * 32,
-							color, flipBottom, scale, sheet);
-
-
-
-	}
-
-	private void moveLinear() {
-		int xa = 0;
-		int ya = 0;
-		if (dir1) {
-			xa++;
-			if (this.x > this.walkDistance + xPos) {
-				dir1 = false;
-				dir2 = true;
-			}
-		} else if (dir2) {
-			xa--;
-			if (this.x < xPos - this.walkDistance) {
-				dir1 = true;
-				dir2 = false;
-			}
-		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
-			move(xa, ya, scaledSpeed);
-			isMoving = true;
-		} else {
-			isMoving = false;
-		}
-
-	}
-
-	private void moveTriangle() {
-		int xa = 0;
-		int ya = 0;
-		if (dir1) {
-			xa++;
-			if (this.x > this.walkDistance + xPos) {
-				dir1 = false;
-				dir2 = true;
-			}
-		} else if (dir2) {
-			xa--;
-			ya--;
-			if (this.x < xPos) {
-				dir2 = false;
-				dir3 = true;
-			}
-		} else if (dir3) {
-			xa--;
-			ya++;
-			if (this.x < xPos - this.walkDistance) {
-				dir3 = false;
-				dir1 = true;
-			}
-		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
-			move(xa, ya, scaledSpeed);
-			isMoving = true;
-		} else {
-			isMoving = false;
-		}
-
-	}
-
-	private void moveSquare() {
-		int xa = 0;
-		int ya = 0;
-		if (dir1) {
-			xa++;
-			if (this.x > this.walkDistance + xPos) {
-				dir1 = false;
-				dir2 = true;
-			}
-		} else if (dir2) {
-			ya++;
-			if (this.y > this.walkDistance + yPos) {
-				dir2 = false;
-				dir3 = true;
-			}
-		} else if (dir3) {
-			xa--;
-			if (this.x < xPos - this.walkDistance) {
-				dir3 = false;
-				dir4 = true;
-			}
-		} else if (dir4) {
-			ya--;
-			if (this.y < yPos - this.walkDistance) {
-				dir4 = false;
-				dir1 = true;
-			}
-		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
-			move(xa, ya, scaledSpeed);
-			isMoving = true;
-		} else {
-			isMoving = false;
-		}
-
-	}
-
-	private void moveCross() {
-		int xa = 0;
-		int ya = 0;
-		if (!dir1 && !dir2 && !dir3 && !dir4) {
-			Random random = new Random();
-			switch (random.nextInt(4)) {
-			case 0: {
-				dir1 = true;
-				break;
-			}
-			case 1: {
-				dir2 = true;
-				break;
-			}
-			case 2: {
-				dir3 = true;
-				break;
-			}
-			case 3: {
-				dir4 = true;
-				break;
-			}
-			}
-		}
-
-		if (dir1) {
-			xa++;
-			if (this.x > this.walkDistance + xPos) {
-				dir1 = false;
-			}
-		} else if (dir2) {
-			ya++;
-			if (this.y > this.walkDistance + yPos) {
-				dir2 = false;
-			}
-		} else if (dir3) {
-			xa--;
-			if (this.x < xPos - this.walkDistance) {
-				dir3 = false;
-			}
-		} else if (dir4) {
-			ya--;
-			if (this.y < yPos - this.walkDistance) {
-				dir4 = false;
-			}
-		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
-			move(xa, ya, scaledSpeed);
-			isMoving = true;
-		} else {
-			isMoving = false;
-		}
-
-	}
-
-	private void moveCircle() {
-
-		// Some random code with some random values. Don't ask me how it works.
-		double miniTick = tickCount / 20.0;
-		int xa = (int) (walkDistance * Math.cos(miniTick / walkDistance));
-		int ya = (int) (walkDistance * Math.sin(miniTick / walkDistance));
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
-			move(xa, ya, scaledSpeed);
-			isMoving = true;
-		} else {
-			isMoving = false;
-		}
+		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+				+ modifier, (xTile + 1) + (yTile + 1) * 32, color, flipBottom,
+				scale, sheet);
 
 	}
 }

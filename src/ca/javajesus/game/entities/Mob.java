@@ -1,8 +1,10 @@
 package ca.javajesus.game.entities;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.particles.HealthBar;
@@ -35,13 +37,12 @@ public abstract class Mob extends Entity {
 	protected boolean movingRandomly = false;
 	protected double scaledSpeed;
 	public boolean isTargeted = false;
+	protected Random random = new Random();
 	public Rectangle standBox;
 	protected boolean isAvoidingCollision = false;
 	public boolean renderOnTop = false;
 
 	public int strength, defense, accuracy, evasion;
-
-	private Random random = new Random();
 
 	public Mob(Level level, String name, double x, double y, int speed,
 			int width, int height, SpriteSheet sheet, double defaultHealth) {
@@ -282,5 +283,8 @@ public abstract class Mob extends Entity {
 
 	public void setName(String s) {
 		this.name = s;
+	}
+	
+	public void speak(Player player) {
 	}
 }
