@@ -7,6 +7,8 @@ import ca.javajesus.level.tile.Tile;
 public class HeightMap {
 	public int height;
 	public int width;
+	public boolean checkBuildings;
+	Random random = new Random();
 
 	protected final byte GRASS = 0;
 	protected final byte GRASS2 = 9;
@@ -34,23 +36,23 @@ public class HeightMap {
 	 * @param width
 	 *            :The desired width of the heightmap
 	 */
-	public HeightMap(int height, int width) {
+	public HeightMap(int height, int width, boolean checkBuildings) {
 		this.height = height;
 		this.width = width;
+		this.checkBuildings = checkBuildings;
 	}
 
 	private byte GRASS() {
-		Random random = new Random();
 		if (random.nextInt(100) == 0) {
-			return 11;
+			return GRASS_FLOWER;
 		}
 		if (random.nextInt(6) == 0) {
-			return 9;
+			return GRASS2;
 		}
 		if (random.nextInt(6) == 0) {
-			return 10;
+			return GRASS3;
 		} else {
-			return 0;
+			return GRASS;
 		}
 	}
 
@@ -292,46 +294,33 @@ public class HeightMap {
 						break;
 					}
 				}
-				/**
-				 * // Spawn random building /** XOOOX XOOOX XO5OX XOOOX XOOOX
-				 * 
-				 * for (int i = 0; i < row; i++) { for (int j = 0; j < col; j++)
-				 * { if (row > 3 && row < heightmap.length - 3 && col > 3 && col
-				 * < heightmap [row].length - 3 ) { if (this.checkGrass(row,
-				 * col, heightmap) == true) { switch
-				 * (this.locationChecker(heightmap, row, col)) { case 1: if
-				 * (heightmap[row][col + 1] == GRASS() || heightmap[row +
-				 * 1][col] == GRASS()) { heightmap[row][col] = GRASS(); } break;
-				 * case 2: if (heightmap[row][col - 1] == WATER || heightmap[row
-				 * + 1][col] == WATER || heightmap[row][col + 1] == WATER) {
-				 * heightmap[row][col] = SAND; } break; case 3: if
-				 * (heightmap[row][col - 1] == WATER || heightmap[row + 1][col]
-				 * == WATER) { heightmap[row][col] = SAND; } break; case 4: if
-				 * (heightmap[row - 1][col] == WATER || heightmap[row][col + 1]
-				 * == WATER || heightmap[row + 1][col] == WATER) {
-				 * heightmap[row][col] = SAND; } break; case 5: if
-				 * (heightmap[row - 1][col] == WATER || heightmap[row][col - 1]
-				 * == WATER || heightmap[row][col + 1] == WATER || heightmap[row
-				 * + 1][col] == WATER) { heightmap[row][col] = SAND; } break;
-				 * case 6: if (heightmap[row - 1][col] == WATER ||
-				 * heightmap[row][col - 1] == WATER || heightmap[row + 1][col]
-				 * == WATER) { heightmap[row][col] = SAND; } case 7: if
-				 * (heightmap[row - 1][col] == WATER || heightmap[row][col] ==
-				 * WATER) { heightmap[row][col] = SAND; } break; case 8: if
-				 * (heightmap[row][col - 1] == WATER || heightmap[row - 1][col]
-				 * == WATER || heightmap[row][col + 1] == WATER) {
-				 * heightmap[row][col] = SAND; } break; case 9: if
-				 * (heightmap[row - 1][col] == WATER || heightmap[row][col - 1]
-				 * == WATER) { heightmap[row][col] = SAND; } break; }
-				 * 
-				 * }
-				 * 
-				 * 
-				 * } }
-				 * 
-				 * } }
-				 */
 
+				// Spawn random building
+				/*
+				 * COOOOX 
+				 * OOOOOO 
+				 * OOOOOO 
+				 * OOOOOO 
+				 * OOOOOO 
+				 * XOOOOX
+				 * 
+				 * C = row, column that's being checked 
+				 * X = other checks for grass 
+				 * O = skipped spot
+				 */
+				if (checkBuildings) {
+					if (random.nextInt(1000) == 0) {
+						if (row > 6 && row < heightmap.length - 6 && col > 6
+								&& col < heightmap[row].length - 6) {
+							if (this.checkGrass(row, col, heightmap)
+									&& this.checkGrass(row, col + 5, heightmap)
+									&& this.checkGrass(row + 6, col + 5, heightmap)
+									&& this.checkGrass(row + 6, col, heightmap)) {
+								heightmap[row][col] = 500;
+							}
+						}
+					}
+				}
 			}
 		}
 		return heightmap;
