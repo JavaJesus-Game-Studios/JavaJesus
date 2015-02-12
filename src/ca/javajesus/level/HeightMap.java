@@ -229,7 +229,10 @@ public class HeightMap {
 						break;
 					}
 				}
-
+			}
+		}
+		for (int row = 0; row < heightmap.length; row++) {
+			for (int col = 0; col < heightmap[0].length; col++) {
 				// WATER SAND
 				if (heightmap[row][col] == WATER) {
 					switch (this.locationChecker(heightmap, row, col)) {
@@ -294,7 +297,10 @@ public class HeightMap {
 						break;
 					}
 				}
-
+			}
+		}
+		for (int row = 0; row < heightmap.length; row++) {
+			for (int col = 0; col < heightmap[0].length; col++) {
 				// Spawn random building
 				/*
 				 * COOOOX 
