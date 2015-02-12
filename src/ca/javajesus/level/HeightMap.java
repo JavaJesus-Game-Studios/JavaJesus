@@ -302,26 +302,24 @@ public class HeightMap {
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
 				// Spawn random building
-				/*
-				 * COOOOX 
-				 * OOOOOO 
-				 * OOOOOO 
-				 * OOOOOO 
-				 * OOOOOO 
-				 * XOOOOX
-				 * 
-				 * C = row, column that's being checked 
-				 * X = other checks for grass 
-				 * O = skipped spot
-				 */
 				if (checkBuildings) {
-					if (random.nextInt(1000) == 0) {
+					if (random.nextInt(500) == 0) {
 						if (row > 6 && row < heightmap.length - 6 && col > 6
 								&& col < heightmap[row].length - 6) {
-							if (this.checkGrass(row, col, heightmap)
-									&& this.checkGrass(row, col + 5, heightmap)
-									&& this.checkGrass(row + 6, col + 5, heightmap)
-									&& this.checkGrass(row + 6, col, heightmap)) {
+							boolean grassChecker = true;
+							for (int row2 = -6; row2 < 6; row2++) {
+								for (int col2 = -7; col2 < 7; col2++) {
+									if (!this.checkGrass(row + row2,
+											col + col2, heightmap)
+											&& row2 > 0
+											&& col2 > 0) {
+										grassChecker = false;
+									} else if (heightmap[row + row2][col + col2] == 500) {
+										grassChecker = false;
+									}
+								}
+							}
+							if (grassChecker) {
 								heightmap[row][col] = 500;
 							}
 						}
