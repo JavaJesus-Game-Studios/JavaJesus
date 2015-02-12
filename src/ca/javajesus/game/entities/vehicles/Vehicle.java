@@ -168,8 +168,8 @@ public class Vehicle extends Mob {
 
 			//physics.setTick(vehicleTick / 60);
 			physics.position();
-			xa = (int) physics.x / 360;
-			ya = (int) physics.y / 360;
+			xa = (int) physics.x / 30;
+			ya = (int) physics.y / 30;
 
 			if (input.i.isPressed()) {
 				input.i.toggle(false);
