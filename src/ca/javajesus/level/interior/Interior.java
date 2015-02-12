@@ -8,9 +8,12 @@ import ca.javajesus.level.Level;
 
 public class Interior extends Level {
 	
-	public Interior(String string, Point point) {
+	protected Level nextLevel;
+	
+	public Interior(String string, Point point, Level level) {
 		super(string);
-		this.spawnPoint = point;	
+		this.spawnPoint = point;
+		this.nextLevel = level;
 	}
 	
 	protected void initNPCPlacement() {

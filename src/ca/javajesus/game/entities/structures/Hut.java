@@ -15,7 +15,7 @@ public class Hut extends SolidEntity {
 	
 	public Hut(Level level, double x, double y) {
 		super(level, x, y, 48, 48);
-		level.addEntity(new Transporter(level, x + 18, y + 32, new PoorHouseInterior(new Point((int) x + 20, (int) y + 40))));
+		level.addEntity(new Transporter(level, x + 18, y + 32, new PoorHouseInterior(new Point((int) x + 20, (int) y + 40), this.level)));
 	}
 	
 	public void render(Screen screen) {

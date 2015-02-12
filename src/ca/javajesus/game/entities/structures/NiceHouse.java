@@ -18,7 +18,7 @@ public class NiceHouse extends SolidEntity {
 		super(level, x, y, 54, 57);
 		getColor();
 		level.addEntity(new Transporter(level, x + 21, y + 41,
-				new PoorHouseInterior(new Point((int) x + 23, (int) y + 49))));
+				new PoorHouseInterior(new Point((int) x + 23, (int) y + 49), this.level)));
 	}
 
 	public void render(Screen screen) {

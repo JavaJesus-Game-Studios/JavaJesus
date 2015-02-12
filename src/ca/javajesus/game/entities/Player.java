@@ -47,9 +47,9 @@ public class Player extends Mob {
 	public double stamina;
 	public double startStamina;
 	public boolean isTired;
-	public Rectangle talkRange = new Rectangle(18, 18);
 
-	public Player(Level level, double x, double y, InputHandler input, String name) {
+	public Player(Level level, double x, double y, InputHandler input,
+			String name) {
 		super(level, name, x, y, 1, 14, 16, SpriteSheet.player, 100);
 		this.input = input;
 		this.score = 0;
@@ -172,8 +172,9 @@ public class Player extends Mob {
 							input.e.toggle(false);
 							return;
 						}
-					} else if (entity instanceof Mob) {
-						if (this.talkRange.intersects(((Mob) entity).hitBox)) {
+					}
+					if (entity instanceof Mob && !(entity instanceof Player)) {
+						if (this.standBox.intersects(((Mob) entity).standBox)) {
 							((Mob) entity).speak(this);
 							input.e.toggle(false);
 						}
@@ -261,7 +262,6 @@ public class Player extends Mob {
 		}
 
 		this.hitBox.setLocation((int) this.x + 1, (int) this.y - 8);
-		this.talkRange.setLocation((int) this.x, (int) this.y - 9);
 		this.standBox.setLocation((int) this.x - 2, (int) this.y - 2);
 		if (canChangeLevel) {
 			level.remEntity(this);
@@ -498,7 +498,7 @@ public class Player extends Mob {
 
 		return false;
 	}
-	
+
 	public void checkTile(double x, double y) {
 		Tile currentTile = level.getTile((int) x / 8, (int) y / 8);
 		if (currentTile == Tile.FIRE) {
@@ -525,15 +525,15 @@ public class Player extends Mob {
 		}
 
 	}
-	
+
 	public void updateColor() {
 		this.color = Colors.get(-1, 111, shirtColor, skinColor);
 	}
-	
+
 	public void setShirtColor(int num) {
 		this.shirtColor = num;
 	}
-	
+
 	public void setSkinColor(int num) {
 		this.skinColor = num;
 	}

@@ -15,7 +15,7 @@ public class CastleTower extends SolidEntity {
 	
 	public CastleTower(Level level, double x, double y) {
 		super(level, x, y, 93, 175);
-		level.addEntity(new Transporter(level, x + 41, y + 159, new PoorHouseInterior(new Point((int) x + 43, (int) y + 167))));
+		level.addEntity(new Transporter(level, x + 41, y + 159, new PoorHouseInterior(new Point((int) x + 43, (int) y + 167), this.level)));
 	}
 	
 	public void render(Screen screen) {
