@@ -6,6 +6,7 @@ import java.util.Random;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.structures.PoorHouse;
 import ca.javajesus.game.entities.structures.Transporter;
+import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.level.tile.Tile;
 
@@ -39,7 +40,7 @@ public class RandomLevel2 extends Level {
 	}
 
 	protected void generateLevel() {
-		heightmap = new HeightMap(width, height, true).generateHeightMap(20);
+		heightmap = new HeightMap(width, height).generateHeightMap(20);
 		for (int y = 0; y < heightmap.length; y++) {
 			for (int x = 0; x < heightmap[y].length; x++) {
 				int tile = x + y * width;
@@ -48,6 +49,9 @@ public class RandomLevel2 extends Level {
 				} else if(heightmap[y][x] == 500) {
 					tiles[tile] = 0;
 					this.addEntity(new PoorHouse(this, x * 8, y * 8));
+				} else if(heightmap[y][x] == 501) {
+					tiles[tile] = 0;
+					this.addEntity(new CenturyLeSabre(this, "car", x * 8, y * 8, 10, 100));
 				}
 					
 			}

@@ -77,12 +77,15 @@ public class IntroGUI extends ScreenGUI implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		try {
 		name = nameBox.getText();
 		game.player.setName(name);
 		game.player.setShirtColor(colorList.getColor());
 		game.player.setSkinColor(sclist.getColor());
 		game.player.updateColor();
-		Game.displayGame();
+		Game.displayGame(); } catch (NullPointerException e) {
+			
+		}
 	}
 	
 	public String getPlayerName() {
