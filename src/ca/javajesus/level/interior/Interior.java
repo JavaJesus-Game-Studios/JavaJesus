@@ -2,8 +2,6 @@ package ca.javajesus.level.interior;
 
 import java.awt.Point;
 
-import ca.javajesus.game.entities.structures.Transporter;
-import ca.javajesus.game.entities.structures.TransporterInterior;
 import ca.javajesus.level.Level;
 
 public class Interior extends Level {

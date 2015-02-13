@@ -1,11 +1,7 @@
 package ca.javajesus.level.zombie;
 
 import java.awt.Point;
-import java.util.Random;
-
 import ca.javajesus.game.entities.Spawner;
-import ca.javajesus.game.entities.monsters.Demon;
-import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.particles.HealthPack;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChurch;
@@ -15,8 +11,6 @@ import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 import ca.javajesus.level.Level;
 
 public class ZombieMap1 extends Level{
-	
-
 
 	public ZombieMap1() {
 		super("/Levels/zombies_test_map.png");

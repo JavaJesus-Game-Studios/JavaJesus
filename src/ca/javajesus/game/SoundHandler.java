@@ -1,8 +1,5 @@
 package ca.javajesus.game;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;

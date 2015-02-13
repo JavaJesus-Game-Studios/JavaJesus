@@ -1,12 +1,7 @@
 package ca.javajesus.game.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 

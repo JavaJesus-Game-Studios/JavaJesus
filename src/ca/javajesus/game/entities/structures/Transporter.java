@@ -2,8 +2,6 @@ package ca.javajesus.game.entities.structures;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-
-import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.gfx.Colors;

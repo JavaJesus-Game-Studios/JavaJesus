@@ -2,7 +2,6 @@ package ca.javajesus.game.entities.vehicles;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
-import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;

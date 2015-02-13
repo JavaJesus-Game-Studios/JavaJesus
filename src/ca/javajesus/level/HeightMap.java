@@ -2,8 +2,6 @@ package ca.javajesus.level;
 
 import java.util.Random;
 
-import ca.javajesus.level.tile.Tile;
-
 public class HeightMap {
 	private int height;
 	private int width;

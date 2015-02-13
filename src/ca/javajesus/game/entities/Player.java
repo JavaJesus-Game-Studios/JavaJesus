@@ -1,12 +1,9 @@
 package ca.javajesus.game.entities;
 
-import java.awt.Rectangle;
-
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.monsters.Demon;
-import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.entities.vehicles.Vehicle;
@@ -48,9 +45,8 @@ public class Player extends Mob {
 	public double startStamina;
 	public boolean isTired;
 
-	public Player(Level level, double x, double y, InputHandler input,
-			String name) {
-		super(level, name, x, y, 1, 14, 16, SpriteSheet.player, 100);
+	public Player(Level level, double x, double y, InputHandler input) {
+		super(level, "", x, y, 1, 14, 16, SpriteSheet.player, 100);
 		this.input = input;
 		this.score = 0;
 		sword = new GreatSword(level, this);

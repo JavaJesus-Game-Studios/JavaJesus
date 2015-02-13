@@ -3,8 +3,6 @@ package ca.javajesus.game.entities.vehicles;
 public class CarPhysics {
 	
 	private int tickCount;
-	private int xa = 0;
-	private int ya = 0;
 	public double x, y;
 	private double myXVelocity, myYVelocity;
 	private double myXAcceleration, myYAcceleration;

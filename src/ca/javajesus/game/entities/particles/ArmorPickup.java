@@ -1,8 +1,6 @@
 package ca.javajesus.game.entities.particles;
 
 import java.awt.Rectangle;
-import java.util.Random;
-
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
@@ -12,7 +10,6 @@ import ca.javajesus.level.Level;
 
 public class ArmorPickup extends Particle {
 
-	private Random random = new Random();
 	private static int color = Colors.get(-1, 555, 300, 500);
 	private final Rectangle BOX = new Rectangle(10, 10);
 

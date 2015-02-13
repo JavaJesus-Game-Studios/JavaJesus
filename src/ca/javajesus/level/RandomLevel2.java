@@ -3,11 +3,8 @@ package ca.javajesus.level;
 import java.awt.Point;
 import java.util.Random;
 
-import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.structures.PoorHouse;
-import ca.javajesus.game.entities.structures.Transporter;
 import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
-import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.level.tile.Tile;
 
 public class RandomLevel2 extends Level {
