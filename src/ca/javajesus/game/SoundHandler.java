@@ -16,6 +16,7 @@ public class SoundHandler {
 			gunshot, gunshot2, gunshot3, levelup, shortSword1, swimming,
 			walking;
 
+	@SuppressWarnings("unused")
 	public SoundHandler() {
 
 		AudioInputStream sheathe, background1, chest, chimpanzee, click, demon, fireball, footsteps1, footstepsDirt, footstepsFarmland, footstepsGrass, footstepsRoad, footstepsWaterSand, footstepsWood, gunshot, gunshot2, gunshot3, levelup, shortSword1, swimming, walking;

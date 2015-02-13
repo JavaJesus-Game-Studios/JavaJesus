@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 
 public class TopInventoryGUI extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
+
 	public TopInventoryGUI() {
 		
 		this.setLayout(new BorderLayout());

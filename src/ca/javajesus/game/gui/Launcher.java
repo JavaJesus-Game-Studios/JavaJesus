@@ -92,7 +92,7 @@ public class Launcher extends JFrame implements Runnable {
 		}
 	}
 
-	private void updateFrameLocation() {
+	protected void updateFrameLocation() {
 		if (InputHandler.dragged) {
 			int x = getX();
 			int y = getY();

@@ -1,12 +1,10 @@
 package ca.javajesus.game.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
 public class MapGUI extends ScreenGUI {
 
