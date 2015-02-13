@@ -7,9 +7,14 @@ import javax.swing.JFrame;
 public class Tester extends JFrame{
 
 	private static final long serialVersionUID = 1L;
+	private TicTacToe board;
+	private AI robot;
 	
 	public Tester() {
-		BoardGUI gui = new BoardGUI();
+		board = new TicTacToe(true);
+		BoardGUI gui = new BoardGUI(board);
+	    this.robot = new AI("easy", board, gui);
+		
 		setPreferredSize(new Dimension(gui.width + 5, gui.height + 28));
 		setTitle("Tic Tac Toe");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,15 +34,18 @@ public class Tester extends JFrame{
 	
 	public void run() {
 		
-		TicTacToe board = new TicTacToe('X', 'O');
-		board.printRules();
+		System.out.println(board.getRules());
 		
 		boolean done = false;
 		while (!done) {
-			board.move();
-			board.printBoard();
 			if (board.checkIfWinner()) {
 				done = true;
+				BoardGUI.gameDone = true;
+				SoundHandler.sound.play(SoundHandler.end);
+				break;
+			}
+			if (board.playingAI && !board.player1turn) {
+				robot.move();
 			}
 		}
 		System.out.println("Thanks for Playing!");

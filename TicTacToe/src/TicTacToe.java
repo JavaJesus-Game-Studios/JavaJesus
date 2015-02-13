@@ -3,86 +3,26 @@ import java.util.Scanner;
 public class TicTacToe {
 
 	private char[][] board = new char[3][3];
-	private boolean[] moves = new boolean[9];
-	private char player1;
-	private char player2;
-	private boolean player1turn = true;
+	public  boolean[] moves = new boolean[9];
+	public char player1;
+	public char player2;
+	public boolean player1turn = true;
 	private boolean[] playerMoves = new boolean[9];
-	Scanner scanner = new Scanner(System.in);
-
-	public TicTacToe(char p1, char p2) {
-		player1 = p1;
-		player2 = p2;
+	public boolean playingAI;
+	public boolean tie = false;
+	
+	public TicTacToe(boolean ai) {
+		this.playingAI = ai;
+		player1 = 'X';
+		player2 = 'O';
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board[row].length; col++) {
 				board[row][col] = '?';
 			}
 		}
 	}
-
-	public void move() {
-		if (player1turn) {
-			System.out.println("Player1 enter the index of your move: ");
-			boolean done = false;
-			while (!done) {
-				try {
-					int move = scanner.nextInt();
-					if (move >= 0 && move < 9 && !moves[move]) {
-						done = true;
-						moves[move] = true;
-						updateBoard(move, player1);
-					} else {
-						System.out
-								.println("Move is either taken or not an appropriate space.");
-					}
-				} catch (Exception e) {
-					System.out
-							.println("You must enter a real number. Try again.");
-					scanner.nextLine();
-				}
-			}
-			player1turn = false;
-			return;
-		}
-		else {
-			System.out.println("Player2 enter the index of your move: ");
-			boolean done = false;
-			while (!done) {
-				try {
-					int move = scanner.nextInt();
-					if (move >= 0 && move < 9 && !moves[move]) {
-						done = true;
-						moves[move] = true;
-						updateBoard(move, player2);
-					} else {
-						System.out
-								.println("Move is either taken or not an appropriate space.");
-					}
-				} catch (Exception e) {
-					System.out
-							.println("You must enter a real number. Try again.");
-					scanner.nextLine();
-				}
-			}
-			player1turn = true;
-			return;
-		}
-	}
-
-	public void printBoard() {
-		for (int row = 0; row < board.length; row++) {
-			for (int col = 0; col < board[row].length; col++) {
-				if (col < board[col].length - 1)
-					System.out.print(board[row][col] + "|");
-				else
-					System.out.println(board[row][col]);
-			}
-			if (row < board.length - 1)
-				System.out.println("------");
-		}
-	}
-
-	private void updateBoard(int num, char player) {
+	
+	public void updateBoard(int num, char player) {
 		switch (num) {
 		case 0:
 			board[0][0] = player; break;
@@ -105,22 +45,8 @@ public class TicTacToe {
 		}
 	}
 
-	public void printRules() {
-		System.out
-				.println("Welcome to TicTacToe! When it is your turn, enter the number of the square you wish to draw.");
-		System.out.println("Use the following outline to follow the indices: ");
-		int i = 0;
-		for (int row = 0; row < board.length; row++) {
-			for (int col = 0; col < board[row].length; col++) {
-				if (col < board[col].length - 1)
-					System.out.print(i + "|");
-				else
-					System.out.println(i);
-				i++;
-			}
-			if (row < board.length - 1)
-				System.out.println("------");
-		}
+	public String getRules() {
+		return "Welcome to TicTacToe! Player1 goes first!";
 	}
 	
 	public boolean checkIfWinner() {
@@ -190,7 +116,8 @@ public class TicTacToe {
 				return false;
 			}
 		}
-		System.out.println("Cats Game");
+		System.out.println("Tie!");
+		tie = true;
 		return true;
 	}
 	
