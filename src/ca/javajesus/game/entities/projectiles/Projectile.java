@@ -197,7 +197,7 @@ public class Projectile extends Entity {
 		int xx = (int) this.x;
 		int yy = (int) this.y;
 		Tile lastTile = level.getTile((xx + x) >> 3, (yy + y) >> 3);
-		Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
+		//Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
 		if (lastTile.isSolid()) {
 			return true;
 		}

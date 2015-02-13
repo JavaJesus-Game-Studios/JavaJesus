@@ -8,7 +8,6 @@ import ca.javajesus.game.entities.monsters.GangMember;
 import ca.javajesus.game.entities.particles.HealthPack;
 import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Spawner extends Entity {

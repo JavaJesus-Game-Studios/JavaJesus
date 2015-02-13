@@ -4,20 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
@@ -75,7 +68,7 @@ public class Launcher extends JFrame implements Runnable {
 	public void run() {
 		while (running) {
 			renderMenu();
-			updateFrameLocation();
+			//updateFrameLocation();
 			// Temporary Frame Limiter
 			try {
 				Thread.sleep(DELAY / 2);
@@ -99,12 +92,12 @@ public class Launcher extends JFrame implements Runnable {
 		}
 	}
 
-	private void updateFrameLocation() {
+	protected void updateFrameLocation() {
 		if (InputHandler.dragged) {
 			int x = getX();
 			int y = getY();
-			// setLocation(x + InputHandler.MouseDX - InputHandler.MousePX, y
-			// + InputHandler.MouseDY - InputHandler.MousePY);
+			 setLocation(x + InputHandler.MouseDX - InputHandler.MousePX, y
+			 + InputHandler.MouseDY - InputHandler.MousePY);
 		}
 	}
 

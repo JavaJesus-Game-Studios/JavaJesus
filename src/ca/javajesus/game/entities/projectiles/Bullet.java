@@ -1,6 +1,5 @@
 package ca.javajesus.game.entities.projectiles;
 
-import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.level.Level;

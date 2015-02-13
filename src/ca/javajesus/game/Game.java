@@ -154,7 +154,7 @@ public class Game extends Canvas implements Runnable {
 
 		screen = new Screen(WIDTH, HEIGHT, this);
 		player = new Player(getLevel(), getLevel().spawnPoint.x,
-				getLevel().spawnPoint.y, input, introScreen.getPlayerName());
+				getLevel().spawnPoint.y, input);
 		getLevel().addEntity(player);
 		getLevel().init();
 

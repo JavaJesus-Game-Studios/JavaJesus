@@ -2,12 +2,11 @@ package ca.javajesus.level;
 
 import java.util.Random;
 
-import ca.javajesus.level.tile.Tile;
-
 public class HeightMap {
-	public int height;
-	public int width;
-	public boolean checkBuildings;
+	private int height;
+	private int width;
+	private boolean checkBuildings;
+	private boolean checkCars;
 	Random random = new Random();
 
 	protected final byte GRASS = 0;
@@ -31,17 +30,57 @@ public class HeightMap {
 	 * Methods for generating and using a heightmap for random worlds
 	 * 
 	 * @param height
-	 *            :The desired height of the heightmap
+	 *            The desired height of the heightmap
 	 * 
 	 * @param width
-	 *            :The desired width of the heightmap
+	 *            The desired width of the heightmap
 	 */
-	public HeightMap(int height, int width, boolean checkBuildings) {
+	public HeightMap(int height, int width) {
+		this.height = height;
+		this.width = width;
+		checkBuildings = true;
+		checkCars = true;
+	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param height
+	 *            The desired height of the heightmap
+	 * @param width
+	 *            The desired width of the heightmap
+	 * @param checkBuildings
+	 *            Boolean for buildings
+	 * @param checkCars
+	 *            Boolean for cars
+	 */
+	public HeightMap(int height, int width, boolean checkBuildings,
+			boolean checkCars) {
 		this.height = height;
 		this.width = width;
 		this.checkBuildings = checkBuildings;
 	}
 
+	/**
+	 * 
+	 * @return height of heightmap
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * 
+	 * @return width of heightmap
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * 
+	 * @return randomized grass tiles
+	 */
 	private byte GRASS() {
 		if (random.nextInt(100) == 0) {
 			return GRASS_FLOWER;
@@ -56,6 +95,17 @@ public class HeightMap {
 		}
 	}
 
+	/**
+	 * Checks if there is a grass tile at the desired spot
+	 * 
+	 * @param row
+	 *            The row on the heightmap
+	 * @param col
+	 *            The col on the heightmap
+	 * @param heightmap
+	 *            The heightmap you want to check
+	 * @return Boolean true if there is grass
+	 */
 	private boolean checkGrass(int row, int col, int[][] heightmap) {
 		if (heightmap[row][col] == 0 || heightmap[row][col] == 9
 				|| heightmap[row][col] == 10 || heightmap[row][col] == 11) {
@@ -143,10 +193,18 @@ public class HeightMap {
 		return heightmap;
 	}
 
+	/**
+	 * Finisher of the heightmap which changes random numbers to level-readable
+	 * numbers
+	 * 
+	 * @param heightmap
+	 *            the heightmap you want to check
+	 * @return A number that corresponds to a tile or entity
+	 */
 	private int[][] finisher(int[][] heightmap) {
 		int cutoff = this.getAverage(heightmap) - 10;
 		int dirtCutoff = cutoff + 50;
-		int mountainCutoff = cutoff + 65;
+		int mountainCutoff = cutoff + 60;
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
 				if (heightmap[row][col] <= cutoff) {
@@ -303,7 +361,7 @@ public class HeightMap {
 			for (int col = 0; col < heightmap[0].length; col++) {
 				// Spawn random building
 				if (checkBuildings) {
-					if (random.nextInt(500) == 0) {
+					if (random.nextInt(1000) == 0) {
 						if (row > 6 && row < heightmap.length - 6 && col > 6
 								&& col < heightmap[row].length - 6) {
 							boolean grassChecker = true;
@@ -314,7 +372,7 @@ public class HeightMap {
 											&& row2 > 0
 											&& col2 > 0) {
 										grassChecker = false;
-									} else if (heightmap[row + row2][col + col2] == 500) {
+									} else if (heightmap[row + row2][col + col2] >= 500) {
 										grassChecker = false;
 									}
 								}
@@ -325,6 +383,29 @@ public class HeightMap {
 						}
 					}
 				}
+				if (checkCars) {
+					if (random.nextInt(2000) == 0)
+					if (row > 6 && row < heightmap.length - 6 && col > 6
+							&& col < heightmap[row].length - 6) {
+						boolean grassChecker = true;
+						for (int row2 = -6; row2 < 6; row2++) {
+							for (int col2 = -7; col2 < 7; col2++) {
+								if (!this.checkGrass(row + row2,
+										col + col2, heightmap)
+										&& row2 > 0
+										&& col2 > 0) {
+									grassChecker = false;
+								} else if (heightmap[row + row2][col + col2] >= 500) {
+									grassChecker = false;
+								}
+							}
+						}
+						if (grassChecker) {
+							heightmap[row][col] = 501;
+						}
+					}	
+				}
+				
 			}
 		}
 		return heightmap;
@@ -356,7 +437,8 @@ public class HeightMap {
 	 * 
 	 * @param heightmap
 	 *            The heightmap you want to check
-	 * @return The location of the heightmap 1 2 3
+	 * @return The location of the heightmap 
+	 *         1 2 3
 	 * 
 	 *         4 5 6
 	 * 

@@ -2,7 +2,6 @@ package ca.javajesus.game.entities.vehicles;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
-import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
@@ -82,6 +81,8 @@ public class Vehicle extends Mob {
 	int xa = 0;
 	int ya = 0;
 
+	CarPhysics physics = new CarPhysics(xa, ya, 0, 0);
+
 	public void tick() {
 		if (isMobCollision() && this.isMoving) {
 			for (Mob mob : level.getMobs()) {
@@ -92,59 +93,79 @@ public class Vehicle extends Mob {
 			}
 		}
 
-		CarPhysics physics = new CarPhysics(xa, ya, 0, 0);
-
 		if (this.isUsed) {
-			if (input.w.isPressed()) {
-				physics.setYAcceleration(-2);
+		    
+		    physics.setXAcceleration(0);
+	        physics.setYAcceleration(0);
+	        
+		    if (input.w.isPressed()) {
+				//if(!input.s.isPressed())
+				//{
+				    physics.setYAcceleration(-2);
+				/*}
+				if(input.s.isPressed())
+				{
+				    physics.setYAcceleration(0);
+				}
 				// ya--;
 				if (isSolidEntityCollision(0, ya)) {
 					vehicleTick = 0;
 				    ya++;
-				}
+				}*/
 			}
 			if (input.s.isPressed()) {
-				physics.setYAcceleration(2);
-				// ya++;
+			    //if(!input.w.isPressed())
+			    //{
+			        physics.setYAcceleration(2);
+			    /*}
+			    if(input.w.isPressed())
+			    {
+			        physics.setYAcceleration(0);
+			    }
+			    // ya++;
 				if (isSolidEntityCollision(0, ya)) {
 				    vehicleTick = 0;
 				    ya--;
-				}
+				}*/
 			}
 			if (input.a.isPressed()) {
-				physics.setXAcceleration(-2);
+			    //if(!input.d.isPressed())
+			    //{
+			        physics.setXAcceleration(-2);
+			    /*}
+			    if(input.d.isPressed())
+			    {
+			        physics.setXAcceleration(0);
+			    }
 				// xa--;
 				if (isSolidEntityCollision(xa, 0)) {
 				    vehicleTick = 0;
 				    xa++;
-				}
+				}*/
 			}
 			if (input.d.isPressed()) {
-				physics.setXAcceleration(2);
-				//xa++;
+			    //if(!input.a.isPressed())
+                //{
+                    physics.setXAcceleration(2);
+                /*}
+                if(input.a.isPressed())
+                {
+                    physics.setXAcceleration(0);
+                }
+                //xa++;
 				if (isSolidEntityCollision(xa, 0)) {
 				    vehicleTick = 0;
                     xa--;
-				}
+				}*/
 			}
+			
+			/*if(!(input.w.isPressed()||input.s.isPressed()||input.a.isPressed()||input.d.isPressed()))
+			{
+			    physics.setXAcceleration(0);
+			    physics.setYAcceleration(0);
+			}*/
 
-			if (physics.xAcceleration() == 0 && physics.xVelocity() != 0) {
-				if (physics.xVelocity() > 0) {
-					physics.setXAcceleration(-2);
-				} else {
-					physics.setXAcceleration(2);
-				}
-			}
-
-			if (physics.yAcceleration() == 0 && physics.yVelocity() != 0) {
-				if (physics.yVelocity() > 0) {
-					physics.setYAcceleration(-2);
-				} else {
-					physics.setYAcceleration(2);
-				}
-			}
-
-			physics.setTick(vehicleTick / 60);
+			//physics.setTick(vehicleTick / 60);
 			physics.position();
 			xa = (int) physics.x / 30;
 			ya = (int) physics.y / 30;
@@ -193,7 +214,9 @@ public class Vehicle extends Mob {
 			}
 
 			System.out.println(xa + "   " + ya);
-
+			System.out.println(physics.x + "   " + physics.y);
+			System.out.println(physics.getXVelocity() + "   " + physics.getYVelocity());
+			System.out.println(physics.getXAcceleration() + "   " + physics.getYAcceleration());
 		}
 		vehicleTick++;
 	}

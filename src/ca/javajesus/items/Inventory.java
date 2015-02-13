@@ -1,10 +1,7 @@
 package ca.javajesus.items;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import ca.javajesus.game.entities.Player;
 
 public class Inventory {
 

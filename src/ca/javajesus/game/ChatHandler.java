@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import ca.javajesus.game.gfx.Screen;
-
 public class ChatHandler {
 
 	public static ArrayList<String> chatlog = new ArrayList<String>();

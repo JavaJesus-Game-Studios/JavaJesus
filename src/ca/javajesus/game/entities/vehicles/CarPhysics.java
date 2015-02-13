@@ -3,8 +3,6 @@ package ca.javajesus.game.entities.vehicles;
 public class CarPhysics {
 	
 	private int tickCount;
-	private int xa = 0;
-	private int ya = 0;
 	public double x, y;
 	private double myXVelocity, myYVelocity;
 	private double myXAcceleration, myYAcceleration;
@@ -59,16 +57,29 @@ public class CarPhysics {
 		myXVelocity = v;
 	}
 
-	public double xAcceleration() {
-		return myXJerk * tickCount;
+	public void xAcceleration() {
+		myXAcceleration += myXJerk;
 	}
 
-	public double xVelocity() {
-		if (myXJerk != 0) {
-			return xAcceleration() * tickCount;
-		} else {
-			return myXAcceleration * tickCount;
-		}
+	public void xVelocity() {
+        if (myXVelocity >= 2)
+        {
+            myXVelocity = 2;
+            //myXAcceleration = 0;
+            myXVelocity--;
+        }
+        else if (myXVelocity <= -2)
+        {
+            myXVelocity = -2;
+            //myXAcceleration = 0;
+            myXVelocity++;
+        }
+        else
+        myXVelocity += myXAcceleration;
+    }
+	
+	public void xPosition(){
+	    x += myXVelocity;
 	}
 
 	public void setYJerk(double j) {
@@ -83,23 +94,56 @@ public class CarPhysics {
 		myYVelocity = v;
 	}
 
-	public double yAcceleration() {
-		return myYJerk * tickCount;
+	public void yAcceleration() {
+		myYAcceleration += myYJerk;
 	}
 
-	public double yVelocity() {
-		if (myYJerk != 0) {
-			return yAcceleration() * tickCount;
-		} else {
-			return myYAcceleration * tickCount;
-		}
+	public void yVelocity() {
+        if (myYVelocity >= 2)
+        {
+            myYVelocity = 2;
+            //myYAcceleration = 0;
+            //myYVelocity--;
+        }
+        else if (myYVelocity <= -2)
+        {
+            myYVelocity = -2;
+            //myYAcceleration = 0;
+            //myYVelocity++;
+        }
+        else
+        myYVelocity += myYAcceleration;
+    }
+	
+	public double getXVelocity()
+	{
+	    return myXVelocity;
 	}
+	
+	public double getYVelocity()
+	{
+	    return myYVelocity;
+	}
+	
+	public double getXAcceleration()
+	{
+	    return myXAcceleration;
+	}
+	
+	public double getYAcceleration()
+    {
+        return myYAcceleration;
+    }
 
-	public void position() {
-		x = 0.5 * (xVelocity() * tickCount + 0.5 * xAcceleration() * tickCount
-				* tickCount);
-		y = 0.5 * (yVelocity() * tickCount + 0.5 * yAcceleration() * tickCount
-				* tickCount);
-	}
+    public void position() {
+        xAcceleration();
+        yAcceleration();
+        xVelocity();
+        yVelocity();
+        x += myXVelocity;
+        x += myXAcceleration * tickCount;
+        y += myYVelocity;
+        y += myYAcceleration * tickCount;
+    } 
 
 }
