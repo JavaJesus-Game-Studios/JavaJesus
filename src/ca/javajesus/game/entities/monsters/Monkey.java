@@ -55,6 +55,9 @@ public class Monkey extends Monster {
 	}
 
 	public void tick() {
+		
+		if (hasDied)
+			return;
 
 		if (random.nextInt(500) == 0) {
 			sound.play(SoundHandler.sound.chimpanzee);
@@ -120,6 +123,9 @@ public class Monkey extends Monster {
 		int modifier = 8 * scale;
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
+		
+		if (hasDied)
+			xTile = 20;
 		
 		// Upper body
 		screen.render(xOffset + (modifier * flipTop), yOffset, xTile

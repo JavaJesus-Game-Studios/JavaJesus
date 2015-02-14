@@ -33,6 +33,7 @@ public abstract class Level {
 	protected int[] tileColours;
 
 	public static Level level1 = new Level1();
+	public static Level roadlevel = new RoadLevel();
 	public static Level random = new RandomLevel(level1.width, level1.height);
 	public static Level random2 = new RandomLevel2(level1.width, level1.height);
 

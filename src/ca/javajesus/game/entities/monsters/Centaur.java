@@ -47,6 +47,9 @@ public class Centaur extends Monster {
 
 	public void tick() {
 
+		if (hasDied)
+			return;
+		
 		checkRadius();
 
 		if (isShooting) {
@@ -139,6 +142,9 @@ public class Centaur extends Monster {
 		int modifier = 8 * scale;
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
+		
+		if (hasDied)
+			xTile = 14;
 
 		if (movingDir == 0 || movingDir == 1) {
 			// Upper body

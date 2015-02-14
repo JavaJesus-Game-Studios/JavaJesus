@@ -7,6 +7,7 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.interior.CastleInterior;
 import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class CastleTower extends SolidEntity {
@@ -15,7 +16,7 @@ public class CastleTower extends SolidEntity {
 	
 	public CastleTower(Level level, double x, double y) {
 		super(level, x, y, 93, 175);
-		level.addEntity(new Transporter(level, x + 41, y + 159, new PoorHouseInterior(new Point((int) x + 43, (int) y + 167), this.level)));
+		level.addEntity(new Transporter(level, x + 41, y + 159, new CastleInterior(new Point((int) x + 43, (int) y + 167), this.level)));
 	}
 	
 	public void render(Screen screen) {
