@@ -40,7 +40,7 @@ public class Player extends Mob {
 	public int score;
 	private Sword sword;
 	public int yTile = 0;
-	protected Inventory inventory;
+	public Inventory inventory;
 	public double stamina;
 	public double startStamina;
 	public boolean isTired;

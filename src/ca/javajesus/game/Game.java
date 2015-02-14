@@ -89,7 +89,8 @@ public class Game extends Canvas implements Runnable {
 	/** This starts the game */
 	public Game() {
 		input = new InputHandler(this);
-		inventory = new InventoryGUI();
+		init();
+		inventory = new InventoryGUI(player);
 		pause = new PauseGUI();
 		introScreen = new IntroGUI(this);
 		display = new JPanel(new CardLayout());
@@ -119,6 +120,7 @@ public class Game extends Canvas implements Runnable {
 		cl.show(display, "Inventory");
 		inventory.requestFocusInWindow();
 		inGameScreen = false;
+		inventory.inventory.repaint();
 	}
 
 	public static void displayPause() {
@@ -212,8 +214,6 @@ public class Game extends Canvas implements Runnable {
 		int frames = 0;
 		long lastTimer = System.currentTimeMillis();
 		double delta = 0;
-
-		init();
 
 		while (running) {
 			long now = System.nanoTime();

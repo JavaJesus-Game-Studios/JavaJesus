@@ -2,18 +2,24 @@ package ca.javajesus.game.gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
+import ca.javajesus.game.entities.Player;
 
 public class InventoryGUI extends ScreenGUI {
 
 	private static final long serialVersionUID = 1L;
 	JLabel weapons, armor, potions, misc;
+	
+	public ItemScreenGUI inventory;
 
-	public InventoryGUI() {
+	public InventoryGUI(Player player) {
+		
+		inventory = new ItemScreenGUI(player);
 		this.setFocusable(true);
 		this.setLayout(new BorderLayout(0, 0));
 		this.input = new InputHandler(this);
@@ -32,7 +38,7 @@ public class InventoryGUI extends ScreenGUI {
 		JPanel panel = new JPanel(new BorderLayout(0, 0));
 		panel.add(new Slot(), BorderLayout.SOUTH);
 		panel.add(new TopInventoryGUI(), BorderLayout.NORTH);
-		panel.add(buttons, BorderLayout.CENTER);
+		panel.add(inventory, BorderLayout.CENTER);
 
 		this.add(panel, BorderLayout.CENTER);
 		
@@ -44,4 +50,5 @@ public class InventoryGUI extends ScreenGUI {
 			Game.displayGame();
 		}
 	}
+
 }

@@ -31,6 +31,14 @@ public class Screen {
 		this.spriteSize = 8;
 
 	}
+	
+	public Screen(int width, int height) {
+		this.width = width;
+		this.height = height;
+		pixels = new int[width * height];
+		this.spriteSize = 8;
+
+	}
 
 	/**
 	 * Renders things onto the screen
@@ -42,8 +50,8 @@ public class Screen {
 	 * @param tile
 	 *            : the tile number on the SpriteSheet, used with (xTile) +
 	 *            (yTile) * 32
-	 * @param colour
-	 *            : The color of the sprite. Use with Colours.get()
+	 * @param color
+	 *            : The color of the sprite. Use with colors.get()
 	 * @param mirrorDir
 	 *            : The direction the sprite is facing
 	 * @param scale
@@ -52,7 +60,7 @@ public class Screen {
 	 *            : The SpriteSheet that java will check for using the Tile
 	 *            parameter
 	 */
-	public void render(double d, double yOffset2, int tile, int colour,
+	public void render(double d, double yOffset2, int tile, int color,
 			int mirrorDir, double scale, SpriteSheet sheet) {
 
 		d -= xOffset;
@@ -76,7 +84,7 @@ public class Screen {
 				if (mirrorX)
 					xSheet = 7 - x;
 
-				int col = (colour >> (sheet.pixels[xSheet + ySheet
+				int col = (color >> (sheet.pixels[xSheet + ySheet
 						* sheet.width + tileOffset] * 8)) & 255;
 				if (col < 255) {
 					for (int yScale = 0; yScale < scale; yScale++) {
@@ -105,7 +113,7 @@ public class Screen {
 	}
 
 	/** Used for rendering large entities */
-	public void render(int xOffset, int yOffset, int colour, Sprite sprite) {
+	public void render(int xOffset, int yOffset, int color, Sprite sprite) {
 
 		xOffset -= this.xOffset;
 		yOffset -= this.yOffset;
@@ -114,7 +122,7 @@ public class Screen {
 			int yPixel = (int) (y + yOffset);
 			for (int x = 0; x < sprite.xSize; x++) {
 				int xPixel = (int) (x + xOffset);
-				int col = (colour >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
+				int col = (color >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
 				if (col < 255) {
 					if (xPixel >= 0 && yPixel >= 0 && xPixel < width
 							&& yPixel < height)
@@ -125,7 +133,7 @@ public class Screen {
 	}
 	
 	/** Used for rendering entities reversed */
-    public void render(int xOffset, int yOffset, int dir, int colour, Sprite sprite) {
+    public void render(int xOffset, int yOffset, int dir, int color, Sprite sprite) {
 
         xOffset -= this.xOffset;
         yOffset -= this.yOffset;
@@ -137,7 +145,7 @@ public class Screen {
                 int yPixel = (int) (y + yOffset);
                 for (int x = 0; x < sprite.xSize; x++) {
                     int xPixel = (int) (x + xOffset);
-                    int col = (colour >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
+                    int col = (color >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
                     if (col < 255) {
                         if (xPixel >= 0 && yPixel >= 0 && xPixel < width
                                 && yPixel < height)
@@ -151,7 +159,7 @@ public class Screen {
                 int yPixel = (int) (y + yOffset);
                 for (int x = 0; x < sprite.xSize; x++) {
                     int xPixel = (int) (x + xOffset);
-                    int col = (colour >> (sprite.pixels[(x) + y * sprite.xSize] * 8)) & 255;
+                    int col = (color >> (sprite.pixels[(x) + y * sprite.xSize] * 8)) & 255;
                     if (col < 255) {
                         if (xPixel >= 150 && yPixel >= 0 && xPixel < width
                                 && yPixel < height)
@@ -169,7 +177,7 @@ public class Screen {
                 int yPixel = (int) (y + yOffset);
                 for (int x = 0; x < sprite.xSize; x++) {
                     int xPixel = (int) (x + xOffset);
-                    int col = (colour >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
+                    int col = (color >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
                     if (col < 255) {
                         if (xPixel >= 0 && yPixel >= 0 && xPixel < width
                                 && yPixel < height)
@@ -183,7 +191,7 @@ public class Screen {
                 int yPixel = (int) (y + yOffset);
                 for (int x = 0; x < sprite.xSize; x++) {
                     int xPixel = (int) (x + xOffset);
-                    int col = (colour >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
+                    int col = (color >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
                     if (col < 255) {
                         if (xPixel >= 0 && yPixel >= 0 && xPixel < width
                                 && yPixel < height)

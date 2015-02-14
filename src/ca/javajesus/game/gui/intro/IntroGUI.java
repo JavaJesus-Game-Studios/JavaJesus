@@ -3,11 +3,9 @@ package ca.javajesus.game.gui.intro;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.gui.ScreenGUI;
@@ -87,6 +85,7 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 			System.out.println("Something went wrong. It's probably your fault.");
 			System.out.println("JK It is probably still loading, just wait. Relax. Look at the clouds.");
 			System.out.println("Probably by the time you are finished reading this message the game has loaded.");
+			e.printStackTrace();
 		}
 	}
 
