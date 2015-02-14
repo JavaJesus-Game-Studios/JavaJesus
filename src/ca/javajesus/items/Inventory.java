@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.gfx.Colors;
 
 public class Inventory {
 
@@ -13,25 +14,25 @@ public class Inventory {
 		giveDefaultItems();
 		setOffsets();
 	}
-	
+
 	private void setOffsets() {
 		int offset = 0;
-		for (Item e: items) {
+		for (Item e : items) {
 			e.xOffset += offset;
 			offset += 10;
 		}
 	}
 
 	private void giveDefaultItems() {
-		
+
 		items.add(Item.apple);
-		
+
 		items.add(Item.banana);
-		
+
 		items.add(Item.orange);
-		
+
 		items.add(Item.feather);
-		
+
 	}
 
 	public void addItem(Item item) {
@@ -53,7 +54,9 @@ public class Inventory {
 				}
 			}
 			items.add(items.get(tempList[i]));
-			// items.set(tempList[i], Item.MAX);
+			items.set(tempList[i], new Item("ZZZZZZZ", Integer.MAX_VALUE, 0, 0,
+					Colors.get(-1, 500, 500, Colors.fromHex("#FF0000")),
+					"Filler object"));
 			tempString = items.get(0).name;
 		}
 		for (int i = 0; i < tempList.length; i++)
@@ -71,7 +74,9 @@ public class Inventory {
 				}
 			}
 			items.add(items.get(tempList[i]));
-			// items.set(tempList[i], Item.MAX);
+			items.set(tempList[i], new Item("ZZZZZZZ", Integer.MAX_VALUE, 0, 0,
+					Colors.get(-1, 500, 500, Colors.fromHex("#FF0000")),
+					"Filler object"));
 			tempNum = Integer.MAX_VALUE;
 		}
 		for (int i = 0; i < tempList.length; i++)
