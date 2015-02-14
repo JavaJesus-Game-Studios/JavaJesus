@@ -3,8 +3,6 @@ package ca.javajesus.items;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.javajesus.game.entities.Player;
-
 public class Inventory {
 
 	public List<Item> items = new ArrayList<Item>();
@@ -13,28 +11,30 @@ public class Inventory {
 		giveDefaultItems();
 		setOffsets();
 	}
-	
+
 	private void setOffsets() {
 		int offset = 0;
-		for (Item e: items) {
+		for (Item e : items) {
 			e.xOffset += offset;
 			offset += 10;
 		}
 	}
 
 	private void giveDefaultItems() {
-		
 		items.add(Item.apple);
-		
 		items.add(Item.banana);
-		
 		items.add(Item.orange);
-		
 		items.add(Item.feather);
-		
 	}
 
 	public void addItem(Item item) {
+		int num = item.id;
+		for (Item e: items) {
+			if (e.id == num) {
+				e.amount++;
+				return;
+			}
+		}
 		items.add(item);
 	}
 

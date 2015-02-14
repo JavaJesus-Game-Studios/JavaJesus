@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import ca.javajesus.game.entities.Player;
