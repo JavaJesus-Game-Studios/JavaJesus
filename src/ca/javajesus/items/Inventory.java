@@ -3,6 +3,8 @@ package ca.javajesus.items;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.javajesus.game.gfx.Colors;
+
 public class Inventory {
 
 	public List<Item> items = new ArrayList<Item>();
@@ -29,7 +31,7 @@ public class Inventory {
 
 	public void addItem(Item item) {
 		int num = item.id;
-		for (Item e: items) {
+		for (Item e : items) {
 			if (e.id == num) {
 				e.amount++;
 				return;
@@ -53,7 +55,9 @@ public class Inventory {
 				}
 			}
 			items.add(items.get(tempList[i]));
-			// items.set(tempList[i], Item.MAX);
+			items.set(tempList[i], new Item("ZZZZZZZ", Integer.MAX_VALUE, 0, 0,
+					Colors.get(-1, 500, 500, Colors.fromHex("#FF0000")),
+					"Filler object"));
 			tempString = items.get(0).name;
 		}
 		for (int i = 0; i < tempList.length; i++)
@@ -71,7 +75,9 @@ public class Inventory {
 				}
 			}
 			items.add(items.get(tempList[i]));
-			// items.set(tempList[i], Item.MAX);
+			items.set(tempList[i], new Item("ZZZZZZZ", Integer.MAX_VALUE, 0, 0,
+					Colors.get(-1, 500, 500, Colors.fromHex("#FF0000")),
+					"Filler object"));
 			tempNum = Integer.MAX_VALUE;
 		}
 		for (int i = 0; i < tempList.length; i++)
