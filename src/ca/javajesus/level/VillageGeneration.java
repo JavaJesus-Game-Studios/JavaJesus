@@ -20,11 +20,11 @@ public class VillageGeneration {
 		villageMap = new int[heightMap.length][heightmap[0].length];
 	}
 
-	public int[][] villageGenerator() {
+	/*public int[][] villageGenerator() {
 		this.locationChooser();
 		this.villageBoundaryFiller();
 		
-	}
+	}*/
 	
 	/**
 	 * Chooses several locations for the new villages.
