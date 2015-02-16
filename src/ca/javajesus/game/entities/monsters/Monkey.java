@@ -99,8 +99,8 @@ public class Monkey extends Monster {
 	public void render(Screen screen) {
 		
 		this.hitBox.setSize(width, height);
-		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 16);
-		this.standBox.setLocation((int) this.x - 10, (int) this.y - 18);
+		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 8);
+		this.standBox.setLocation((int) this.x - 10, (int) this.y - 10);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		int xTile = 0;
@@ -129,20 +129,20 @@ public class Monkey extends Monster {
 		
 		// Upper body
 		screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-				+ yTile * 32, colour, flipTop, scale, sheet);
+				+ yTile * 32, color, flipTop, scale, sheet);
 
 		// Upper body
 		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-				(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
+				(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
 
 		// Lower Body
 		screen.render(xOffset + (modifier * flipBottom),
-				yOffset + modifier, xTile + (yTile + 1) * 32, colour,
+				yOffset + modifier, xTile + (yTile + 1) * 32, color,
 				flipBottom, scale, sheet);
 
 		// Lower Body
 		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-				+ modifier, (xTile + 1) + (yTile + 1) * 32, colour,
+				+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
 				flipBottom, scale, sheet);
 	}
 	

@@ -257,8 +257,8 @@ public class Player extends Mob {
 			return;
 		}
 
-		this.hitBox.setLocation((int) this.x + 1, (int) this.y - 8);
-		this.standBox.setLocation((int) this.x - 2, (int) this.y - 2);
+		this.hitBox.setLocation((int) this.x - 7, (int) this.y - 8);
+		this.standBox.setLocation((int) this.x - 9, (int) this.y - 10);
 		if (canChangeLevel) {
 			level.remEntity(this);
 			level.remEntity(bar);
@@ -417,18 +417,12 @@ public class Player extends Mob {
 					flipBottom, scale, sheet);
 
 			if (!cooldown) {
-				int bulletOffset = 0;
+				int bulletOffset = -4;
 				if (shootingDir == 2) {
 					bulletOffset = -7;
 				}
-				if (shootingDir == 0) {
-					bulletOffset += 1;
-				}
-				if (shootingDir == 1) {
-					bulletOffset -= 11;
-				}
 
-				level.addEntity(new Bullet(level, (this.x + 1 + bulletOffset),
+				level.addEntity(new Bullet(level, (this.x + bulletOffset),
 						(this.y - 2), shootingDir, this));
 				isShooting = false;
 				swingTickCount = 0;

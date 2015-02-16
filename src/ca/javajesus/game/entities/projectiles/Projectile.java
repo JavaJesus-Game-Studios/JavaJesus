@@ -166,7 +166,7 @@ public class Projectile extends Entity {
 
 		screen.render(this.x, this.y, tileNumber + (yOffset * 32), color, 1, 1,
 				sheet);
-		hitBox.setLocation((int) this.x, (int) this.y);
+		hitBox.setLocation((int) this.x - (this.width / 2), (int) this.y - (this.height / 2));
 		for (Entity entity : level.getEntities()) {
 			if (entity instanceof SolidEntity) {
 				if (hitBox.intersects(((SolidEntity) entity).bounds)) {

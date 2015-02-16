@@ -121,8 +121,8 @@ public class Demon extends Monster {
 
 	public void render(Screen screen) {
 
-		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 16);
-		this.standBox.setLocation((int) this.x - 10, (int) this.y - 18);
+		this.hitBox.setLocation((int) this.x - 7, (int) this.y - 12);
+		this.standBox.setLocation((int) this.x - 9, (int) this.y - 14);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		int xTile = 0;
@@ -149,7 +149,7 @@ public class Demon extends Monster {
 
 		if (isShooting)
 			xTile += 12;
-		
+
 		if (hasDied)
 			xTile = 24;
 
@@ -157,49 +157,50 @@ public class Demon extends Monster {
 
 			// Upper body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, colour, flipTop, scale, sheet);
+					+ yTile * 32, color, flipTop, scale, sheet);
 
 			// Upper body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
+					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
 		}
 
 		// Middle Body 1
 		screen.render(xOffset + (modifier * flipMiddle), yOffset + modifier,
-				xTile + (yTile + 1) * 32, colour, flipBottom, scale, sheet);
+				xTile + (yTile + 1) * 32, color, flipBottom, scale, sheet);
 
 		// Middle Body 2
 		screen.render(xOffset + modifier - (modifier * flipMiddle), yOffset
-				+ modifier, (xTile + 1) + (yTile + 1) * 32, colour, flipBottom,
+				+ modifier, (xTile + 1) + (yTile + 1) * 32, color, flipBottom,
 				scale, sheet);
 
 		// Lower Body 1
 		screen.render(xOffset + (modifier * flipBottom),
-				yOffset + 2 * modifier, xTile + (yTile + 2) * 32, colour,
+				yOffset + 2 * modifier, xTile + (yTile + 2) * 32, color,
 				flipBottom, scale, sheet);
 
 		// Lower Body 2
 		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + 2
-				* modifier, (xTile + 1) + (yTile + 2) * 32, colour, flipBottom,
+				* modifier, (xTile + 1) + (yTile + 2) * 32, color, flipBottom,
 				scale, sheet);
-		
+
 		if (hasDied) {
-			
+
 			int offset = 0;
-			
+
 			if (movingDir == 2)
 				offset = -16;
-			
+
 			// Middle Body 3
-			screen.render(xOffset + offset + 2 * modifier - (modifier * flipMiddle), yOffset
-					+ modifier, (xTile + 2) + (yTile + 1) * 32, colour, flipBottom,
-					scale, sheet);
-			
+			screen.render(xOffset + offset + 2 * modifier
+					- (modifier * flipMiddle), yOffset + modifier, (xTile + 2)
+					+ (yTile + 1) * 32, color, flipBottom, scale, sheet);
+
 			// Lower Body 3
-			screen.render(xOffset + offset + 2 * modifier - (modifier * flipBottom), yOffset + 2
-					* modifier, (xTile + 2) + (yTile + 2) * 32, colour, flipBottom,
-					scale, sheet);
-			
+			screen.render(xOffset + offset + 2 * modifier
+					- (modifier * flipBottom), yOffset + 2 * modifier,
+					(xTile + 2) + (yTile + 2) * 32, color, flipBottom, scale,
+					sheet);
+
 		}
 
 	}

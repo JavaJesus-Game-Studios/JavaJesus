@@ -106,16 +106,16 @@ public class Centaur extends Monster {
 			this.width = 14;
 			this.height = 24;
 			this.hitBox.setSize(width, height);
-			this.hitBox.setLocation((int) this.x - 7, (int) this.y - 16);
+			this.hitBox.setLocation((int) this.x - 7, (int) this.y - 12);
 			this.standBox.setSize(18, height);
-			this.standBox.setLocation((int) this.x - 1, (int) this.y - 7);
+			this.standBox.setLocation((int) this.x - 9, (int) this.y - 14);
 		} else {
 			this.width = 24;
 			this.height = 24;
 			this.hitBox.setSize(width, height);
-			this.hitBox.setLocation((int) this.x - 8, (int) this.y - 16);
+			this.hitBox.setLocation((int) this.x - 12, (int) this.y - 12);
 			this.standBox.setSize(width + 5, height);
-			this.standBox.setLocation((int) this.x - 6, (int) this.y - 2);
+			this.standBox.setLocation((int) this.x - 14, (int) this.y - 14);
 		}
 		
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
@@ -149,30 +149,30 @@ public class Centaur extends Monster {
 		if (movingDir == 0 || movingDir == 1) {
 			// Upper body
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, colour, flipTop, scale, sheet);
+					+ yTile * 32, color, flipTop, scale, sheet);
 
 			// Upper body
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
+					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
 
 			// Middle Body
 			screen.render(xOffset + (modifier * flipMiddle),
-					yOffset + modifier, xTile + (yTile + 1) * 32, colour,
+					yOffset + modifier, xTile + (yTile + 1) * 32, color,
 					flipBottom, scale, sheet);
 
 			// Middle Body
 			screen.render(xOffset + modifier - (modifier * flipMiddle), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, colour,
+					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
 					flipBottom, scale, sheet);
 
 			// Lower Body
 			screen.render(xOffset + (modifier * flipBottom), yOffset + 2
-					* modifier, xTile + (yTile + 2) * 32, colour, flipBottom,
+					* modifier, xTile + (yTile + 2) * 32, color, flipBottom,
 					scale, sheet);
 
 			// Lower Body
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ 2 * modifier, (xTile + 1) + (yTile + 2) * 32, colour,
+					+ 2 * modifier, (xTile + 1) + (yTile + 2) * 32, color,
 					flipBottom, scale, sheet);
 		} else {
 
@@ -183,46 +183,46 @@ public class Centaur extends Monster {
 
 			// Upper body
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, colour, flipTop, scale, sheet);
+					+ yTile * 32, color, flipTop, scale, sheet);
 
 			// Upper body
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, colour, flipTop, scale, sheet);
+					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
 			// Upper body
 			screen.render(
 					xOffset + xOff2 + 2 * modifier - (modifier * flipTop),
-					yOffset, (xTile + 2) + yTile * 32, colour, flipTop, scale,
+					yOffset, (xTile + 2) + yTile * 32, color, flipTop, scale,
 					sheet);
 
 			// Middle Body
 			screen.render(xOffset + (modifier * flipMiddle),
-					yOffset + modifier, xTile + (yTile + 1) * 32, colour,
+					yOffset + modifier, xTile + (yTile + 1) * 32, color,
 					flipBottom, scale, sheet);
 
 			// Middle Body
 			screen.render(xOffset + modifier - (modifier * flipMiddle), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, colour,
+					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
 					flipBottom, scale, sheet);
 
 			// Middle Body
 			screen.render(xOffset + xOff2 + 2 * modifier
 					- (modifier * flipMiddle), yOffset + modifier, (xTile + 2)
-					+ (yTile + 1) * 32, colour, flipBottom, scale, sheet);
+					+ (yTile + 1) * 32, color, flipBottom, scale, sheet);
 
 			// Lower Body
 			screen.render(xOffset + (modifier * flipBottom), yOffset + 2
-					* modifier, xTile + (yTile + 2) * 32, colour, flipBottom,
+					* modifier, xTile + (yTile + 2) * 32, color, flipBottom,
 					scale, sheet);
 
 			// Lower Body
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ 2 * modifier, (xTile + 1) + (yTile + 2) * 32, colour,
+					+ 2 * modifier, (xTile + 1) + (yTile + 2) * 32, color,
 					flipBottom, scale, sheet);
 
 			// Lower Body
 			screen.render(xOffset + xOff2 + 2 * modifier
 					- (modifier * flipBottom), yOffset + 2 * modifier,
-					(xTile + 2) + (yTile + 2) * 32, colour, flipBottom, scale,
+					(xTile + 2) + (yTile + 2) * 32, color, flipBottom, scale,
 					sheet);
 		}
 

@@ -22,7 +22,7 @@ public class Monster extends Mob {
 	public static Monster gang2 = new GangMember(Level.level1, "Criminal", 100, 150, 1, 100, 1);
 	public static Monster man2;
 
-	protected int colour;
+	protected int color;
 	/** The player the monster is chasing */
 	protected Mob mob;
 
@@ -44,7 +44,7 @@ public class Monster extends Mob {
 				RADIUS, RADIUS);
 		this.yTile = yTile;
 		checkRadius();
-		this.colour = color;
+		this.color = color;
 		this.scaledSpeed = 0.35;
 	}
 
