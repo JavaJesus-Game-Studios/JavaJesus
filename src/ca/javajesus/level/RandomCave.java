@@ -17,7 +17,7 @@ public class RandomCave extends Level {
 	}
 	
 	protected void generateLevel() {
-		caveMap = new CaveGeneration(height, width, 20).generateCave();
+		caveMap = new CaveGeneration(height, width, 50).generateCave();
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				//System.out.print(caveMap[y][x] + " ");
