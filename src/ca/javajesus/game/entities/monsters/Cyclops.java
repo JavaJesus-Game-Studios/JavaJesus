@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
@@ -11,8 +12,10 @@ import ca.javajesus.level.Level;
 public class Cyclops extends Monster {
 
 	public Cyclops(Level level, double x, double y) {
-		super(level, "Cyclops", x, y, 1, 32, 48, 14, 300, Colors.get(-1, 111,
+		super(level, "Cyclops", x, y, 1, 32, 48, 14, 50, Colors.get(-1, 111,
 				Colors.fromHex("#ffd99c"), Colors.fromHex("#ffffff")));
+		this.bar = new HealthBar(level, 0, x, y, this, 0);
+		level.addEntity(bar);
 	}
 
 	public boolean hasCollided(int xa, int ya) {
@@ -106,12 +109,12 @@ public class Cyclops extends Monster {
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
 
 		if (movingDir == 0) {
-			xTile = 20;
+			xTile = 28;
 		}
 		if (movingDir == 1) {
-			xTile = 4;
+			xTile = 8;
 		} else if (movingDir > 1) {
-			xTile = 8 + ((numSteps >> walkingSpeed) & 1) * 4;
+			xTile = 12 + ((numSteps >> walkingSpeed) & 1) * 4;
 			if (movingDir == 2) {
 				flipTop = (movingDir - 1) % 1 + 1;
 				flipBottom = (movingDir - 1) % 1 + 1;
@@ -125,10 +128,18 @@ public class Cyclops extends Monster {
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 
-		// if (hasDied)
-		// xTile = 12;
+		int yTile = this.yTile;
+		if (hasDied) {
+			xTile = 0;
+			yTile = 26;
+		}
 
 		for (int i = 0; i < 6; i++) {
+			
+			if (hasDied && i > 1) {
+				break;
+			}
+			
 			screen.render(xOffset + (modifier * flipTop * 3), yOffset + i
 					* modifier, xTile + (yTile + i) * 32, color, flipTop,
 					scale, sheet);
@@ -144,6 +155,16 @@ public class Cyclops extends Monster {
 			screen.render(xOffset + 3 * modifier - (modifier * flipTop * 3),
 					yOffset + i * modifier, (xTile + 3) + (yTile + i) * 32,
 					color, flipBottom, scale, sheet);
+			
+			if (hasDied) {
+				screen.render(xOffset + 4 * modifier - (modifier * flipTop * 3),
+						yOffset + i * modifier, (xTile + 4) + (yTile + i) * 32,
+						color, flipBottom, scale, sheet);
+
+				screen.render(xOffset + 5 * modifier - (modifier * flipTop),
+						yOffset + i * modifier, (xTile + 5) + (yTile + i) * 32,
+						color, flipBottom, scale, sheet);
+			}
 		}
 
 	}

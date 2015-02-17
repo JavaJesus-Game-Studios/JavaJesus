@@ -15,6 +15,7 @@ public class InventoryGUI extends ScreenGUI {
 	private static final long serialVersionUID = 1L;
 	
 	public ItemScreenGUI inventory;
+	public int id = 0;
 
 	public InventoryGUI(Player player) {
 		
@@ -23,11 +24,10 @@ public class InventoryGUI extends ScreenGUI {
 		this.setLayout(new BorderLayout(0, 0));
 		this.input = new InputHandler(this);
 		
-		
 		JPanel panel = new JPanel(new BorderLayout(0, 0));
-		panel.add(new Slot(), BorderLayout.CENTER);
+		//panel.add(new Slot(), BorderLayout.CENTER);
 		//panel.add(new TopInventoryGUI(), BorderLayout.NORTH);
-		//panel.add(inventory, BorderLayout.CENTER);
+		panel.add(inventory, BorderLayout.CENTER);
 
 		this.add(panel, BorderLayout.CENTER);
 		

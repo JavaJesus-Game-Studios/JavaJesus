@@ -42,8 +42,8 @@ public class Colors {
 	 */
 	public static int get(int color1, int color2, int color3, int color4,
 			int color5, int color6) {
-		return (int) (get(color6) << 40) + get(color5 << 32) + get(color4 << 24)
-				+ get(color3 << 16) + get(color2 << 8) + get(color1);
+		return (int) (get(color6) << 24) + get(color5 << 16) + get(color4 << 12)
+				+ get(color3 << 8) + get(color2 << 4) + get(color1);
 	}
 
 	private static int get(int color) {
