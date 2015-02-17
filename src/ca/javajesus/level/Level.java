@@ -36,6 +36,7 @@ public abstract class Level {
 	public static Level roadlevel = new RoadLevel();
 	public static Level random = new RandomLevel(level1.width, level1.height);
 	public static Level random2 = new RandomLevel2(level1.width, level1.height);
+	public static Level randomCave = new RandomCave(level1.width, level1.height, 5);
 
 	public Level(String imagePath) {
 		spawnPoint = new Point(0, 0);

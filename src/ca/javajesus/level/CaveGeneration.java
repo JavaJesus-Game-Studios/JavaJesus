@@ -19,19 +19,21 @@ public class CaveGeneration {
 
 	public boolean[][] generateCave() {
 		fillArray();
-		cellAutomata(6, 8, 3, 8);
+		cellAutomata(4, 4, 4, 4);
 		return caveMap;
 	}
 
 	private void fillArray() {
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
-				if (rand.nextInt(1) == 0) {
+				if (rand.nextInt(2) == 0) {
 					caveMap[row][col] = true;
 				} else {
 					caveMap[row][col] = false;
 				}
+				//System.out.print(caveMap[row][col] + " ");
 			}
+			//System.out.println();
 		}
 	}
 

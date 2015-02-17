@@ -65,11 +65,11 @@ public class Level1 extends Level {
 		this.addEntity(Vehicle.vehicle1);
 		this.addEntity(new Boat(this, null, 357, 532, 2, 100));
 		this.addEntity(new PoorHouse(this, 100, 50));
-		this.addEntity(new NiceHouse(this, 200, 50));
+		this.addEntity(new NiceHouse(this, 600, 50));
 		this.addEntity(new Hut(this, 300, 50));
 		this.addEntity(new CatholicChurch(this, 400, 25));
 		this.addEntity(new CastleTower(this, 500, 50));
-		this.addEntity(new CaveEntrance(this, 600, 50));
+		this.addEntity(new CaveEntrance(this, 200, 50));
 		this.addEntity(new Skyscraper(this, 200, 200));
 		this.addEntity(new SanCiscoSkyscraper(this, 10, 2084));
 		this.addEntity(new ArmorPickup(this, 100, 25));
