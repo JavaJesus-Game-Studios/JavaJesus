@@ -23,7 +23,7 @@ public class Transporter extends SolidEntity {
 	public Transporter(Level currentLevel, double x, double y, Level nextLevel, Point point) {
 		super(currentLevel, x, y, 8, 16);
 		this.nextLevel = nextLevel;
-		this.hitBox.setLocation((int) x, (int) y); 
+		this.hitBox.setLocation((int) x - 4, (int) y - 8); 
 		nextLevel.spawnPoint = point;
 	}
 
