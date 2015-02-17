@@ -12,7 +12,7 @@ public class Cyclops extends Monster {
 
 	public Cyclops(Level level, double x, double y) {
 		super(level, "Cyclops", x, y, 1, 32, 48, 14, 300, Colors.get(-1, 111,
-				222, 333));
+				Colors.fromHex("#ffd99c"), Colors.fromHex("#ffffff")));
 	}
 
 	public boolean hasCollided(int xa, int ya) {

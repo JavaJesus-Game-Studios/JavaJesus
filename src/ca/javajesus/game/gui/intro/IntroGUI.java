@@ -18,6 +18,7 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 	private Game game;
 	ColorListGUI colorList;
 	SkinColorGUI sclist;
+	HairColorGUI hairlist;
 
 	private PlayerSlotGUI pScreen;
 
@@ -54,10 +55,17 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 		p4.add(l3, BorderLayout.NORTH);
 		sclist = new SkinColorGUI();
 		p4.add(sclist, BorderLayout.CENTER);
+		
+		JPanel p6 = new JPanel(new BorderLayout());
+		JLabel l1 = new JLabel("Choose a hair color: ");
+		p6.add(l1, BorderLayout.NORTH);
+		hairlist = new HairColorGUI();
+		p6.add(hairlist, BorderLayout.CENTER);
 
 		JPanel p5 = new JPanel(new BorderLayout());
 		p5.add(p2, BorderLayout.NORTH);
 		p5.add(p4, BorderLayout.CENTER);
+		p5.add(p6, BorderLayout.SOUTH);
 
 		panel.add(p1, BorderLayout.CENTER);
 		panel.add(p5, BorderLayout.EAST);
@@ -79,6 +87,7 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 			game.player.setName(name);
 			game.player.setShirtColor(colorList.getColor());
 			game.player.setSkinColor(sclist.getColor());
+			game.player.setHairColor(hairlist.getColor());
 			game.player.updateColor();
 			Game.displayGame();
 		} catch (NullPointerException e) {

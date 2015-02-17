@@ -15,22 +15,22 @@ import javax.swing.event.ListSelectionListener;
 
 import ca.javajesus.game.gfx.Colors;
 
-public class SkinColorGUI extends JPanel implements ListSelectionListener,
+public class HairColorGUI extends JPanel implements ListSelectionListener,
 		ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private DefaultListModel<String> model;
 	private JButton colorButton;
-	private int color = Colors.fromHex("#FFCC99");
+	private int color = 111;
 	private JList<String> list;
 
-	public SkinColorGUI() {
+	public HairColorGUI() {
 
 		model = new DefaultListModel<String>();
-		model.addElement("Caucasian");
-		model.addElement("Hispanic");
-		model.addElement("Asian");
-		model.addElement("African");
+		model.addElement("Black");
+		model.addElement("Brown");
+		model.addElement("Red");
+		model.addElement("Blond");
 		
 		list = new JList<String>(model);
 		
@@ -67,16 +67,16 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 
 		switch (index) {
 		case 0:
-			color = Colors.fromHex("#f0bf8e");
+			color = Colors.fromHex("#4c2d13");
 			break;
 		case 1:
-			color = Colors.fromHex("#ca9366");
+			color = Colors.fromHex("#c23f21");
 			break;
 		case 2:
-			color = Colors.fromHex("#f5dc99");
+			color = Colors.fromHex("#f1c706");
 			break;
 		default: 
-			color = Colors.fromHex("#7b5432");
+			color = 111;
 		}
 	}
 	

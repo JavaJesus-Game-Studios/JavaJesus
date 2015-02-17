@@ -23,6 +23,7 @@ public class Player extends Mob {
 	protected int color;
 	protected int shirtColor;
 	protected int skinColor;
+	protected int hairColor;
 	protected boolean isSwimming = false;
 	public boolean isSwinging = false;
 	protected boolean isShooting = false;
@@ -517,7 +518,7 @@ public class Player extends Mob {
 	}
 
 	public void updateColor() {
-		this.color = Colors.get(-1, 111, shirtColor, skinColor);
+		this.color = Colors.get(-1, Colors.fromHex("#050505") , 111, hairColor, shirtColor, skinColor );
 	}
 
 	public void setShirtColor(int num) {
@@ -526,5 +527,9 @@ public class Player extends Mob {
 
 	public void setSkinColor(int num) {
 		this.skinColor = num;
+	}
+	
+	public void setHairColor(int num){
+		this.hairColor = num;
 	}
 }

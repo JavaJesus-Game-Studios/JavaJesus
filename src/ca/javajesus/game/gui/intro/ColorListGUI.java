@@ -66,13 +66,13 @@ public class ColorListGUI extends JPanel implements ListSelectionListener,
 
 		switch (index) {
 		case 0:
-			color = Colors.fromHex("#FF0000");
+			color = Colors.fromHex("#db0000");
 			break;
 		case 1:
 			color = Colors.fromHex("#000099");
 			break;
 		default:
-			color = Colors.fromHex("#00CC00");
+			color = Colors.fromHex("#009700");
 			break;
 		}
 	}
