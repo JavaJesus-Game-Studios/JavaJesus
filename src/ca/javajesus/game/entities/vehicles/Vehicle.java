@@ -96,11 +96,11 @@ public class Vehicle extends Mob {
 		physics.setXAcceleration(0);
         physics.setYAcceleration(0);
         
-        if(isSolidEntityCollision(xa, ya))
-        {
+        //if(isSolidEntityCollision(xa, ya))
+        //{
             physics.setXVelocity(0);
             physics.setYVelocity(0);
-        }
+        //}
         
 		if (this.isUsed) {
 		    		    
@@ -178,6 +178,8 @@ public class Vehicle extends Mob {
 			physics.position();
 			xa = (int) physics.x / 30;
 			ya = (int) physics.y / 30;
+			//xa = (int) physics.getXVelocity();
+			//ya = (int) physics.getYVelocity();
 
 			if (input.i.isPressed()) {
 				input.i.toggle(false);
@@ -227,6 +229,12 @@ public class Vehicle extends Mob {
 			System.out.println(physics.getXVelocity() + "   " + physics.getYVelocity());
 			System.out.println(physics.getXAcceleration() + "   " + physics.getYAcceleration());
 		}
+		
+		if(!this.isUsed)
+        {
+            xa = 0;
+            ya = 0;
+        }
 		vehicleTick++;
 	}
 
