@@ -13,6 +13,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Colors;
 
 public class HairColorGUI extends JPanel implements ListSelectionListener,
@@ -23,9 +24,11 @@ public class HairColorGUI extends JPanel implements ListSelectionListener,
 	private JButton colorButton;
 	private int color = 111;
 	private JList<String> list;
+	private Player player;
 
-	public HairColorGUI() {
+	public HairColorGUI(Player player) {
 
+		this.player = player;
 		model = new DefaultListModel<String>();
 		model.addElement("Black");
 		model.addElement("Brown");
@@ -78,6 +81,8 @@ public class HairColorGUI extends JPanel implements ListSelectionListener,
 		default: 
 			color = 111;
 		}
+		player.setHairColor(color);
+		player.updateColor();
 	}
 	
 	public int getColor() {

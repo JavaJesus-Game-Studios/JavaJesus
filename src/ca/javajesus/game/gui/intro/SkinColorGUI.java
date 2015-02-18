@@ -13,6 +13,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Colors;
 
 public class SkinColorGUI extends JPanel implements ListSelectionListener,
@@ -23,9 +24,11 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 	private JButton colorButton;
 	private int color = Colors.fromHex("#FFCC99");
 	private JList<String> list;
+	private Player player;
 
-	public SkinColorGUI() {
+	public SkinColorGUI(Player player) {
 
+		this.player = player;
 		model = new DefaultListModel<String>();
 		model.addElement("Caucasian");
 		model.addElement("Hispanic");
@@ -78,6 +81,8 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 		default: 
 			color = Colors.fromHex("#7b5432");
 		}
+		player.setSkinColor(color);
+		player.updateColor();
 	}
 	
 	public int getColor() {

@@ -20,7 +20,7 @@ import ca.javajesus.level.tile.Tile;
 public class Player extends Mob {
 
 	public InputHandler input;
-	protected int color;
+	protected int color = Colors.get(-1, 111, 222, 333);
 	protected int shirtColor;
 	protected int skinColor;
 	protected int hairColor;
@@ -518,7 +518,7 @@ public class Player extends Mob {
 	}
 
 	public void updateColor() {
-		this.color = Colors.get(-1, Colors.fromHex("#050505") , 111, hairColor, shirtColor, skinColor );
+		this.color = Colors.get(-1, hairColor, shirtColor, skinColor);
 	}
 
 	public void setShirtColor(int num) {
@@ -528,8 +528,36 @@ public class Player extends Mob {
 	public void setSkinColor(int num) {
 		this.skinColor = num;
 	}
-	
-	public void setHairColor(int num){
+
+	public void setHairColor(int num) {
 		this.hairColor = num;
+	}
+
+	public void renderDisplay(Screen screen, int scale) {
+
+		int modifier = 8 * scale;
+		double xOffset = modifier / 2.0;
+		double yOffset = modifier / 2.0 - 4;
+
+		int flipTop = 0;
+		int flipBottom = 0;
+		int xTile = 0;
+
+		// Normal Player movement -- Not Attacking Anything
+		// Upper body 1
+		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
+				* 32, color, flipTop, scale, sheet);
+		// Upper Body 2
+		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
+				(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
+
+		// Lower Body 1
+		screen.render(xOffset + (modifier * flipBottom), yOffset + modifier,
+				xTile + (yTile + 1) * 32, color, flipBottom, scale, sheet);
+		// Lower Body 2
+		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+				+ modifier, (xTile + 1) + (yTile + 1) * 32, color, flipBottom,
+				scale, sheet);
+
 	}
 }

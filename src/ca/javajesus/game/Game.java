@@ -136,7 +136,7 @@ public class Game extends Canvas implements Runnable {
 		guiID = 1;
 		CardLayout cl = (CardLayout) display.getLayout();
 		cl.show(display, "Main");
-		display.getComponent(0).requestFocusInWindow();
+		display.getComponent(1).requestFocusInWindow();
 	}
 
 	/** Initializes the image on the screen */

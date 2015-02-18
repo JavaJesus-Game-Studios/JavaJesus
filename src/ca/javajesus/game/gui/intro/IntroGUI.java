@@ -1,14 +1,18 @@
 package ca.javajesus.game.gui.intro;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.gui.ScreenGUI;
+import ca.javajesus.game.gui.slots.PlayerSlotGUI;
 
 public class IntroGUI extends ScreenGUI implements ActionListener {
 
@@ -25,7 +29,8 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 	public IntroGUI(Game game) {
 
 		this.game = game;
-		this.pScreen = new PlayerSlotGUI();
+		this.pScreen = new PlayerSlotGUI(game.player, 2, 1, 1);
+		pScreen.setScale(1);
 		this.setFocusable(true);
 		this.setLayout(new BorderLayout(0, 0));
 		this.input = new InputHandler(this);
@@ -47,25 +52,26 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 		JPanel p2 = new JPanel(new BorderLayout());
 		JLabel l2 = new JLabel("Choose a shirt color: ");
 		p2.add(l2, BorderLayout.NORTH);
-		colorList = new ColorListGUI();
+		colorList = new ColorListGUI(game.player);
 		p2.add(colorList, BorderLayout.CENTER);
 
 		JPanel p4 = new JPanel(new BorderLayout());
 		JLabel l3 = new JLabel("Choose a skin color: ");
 		p4.add(l3, BorderLayout.NORTH);
-		sclist = new SkinColorGUI();
+		sclist = new SkinColorGUI(game.player);
 		p4.add(sclist, BorderLayout.CENTER);
 		
 		JPanel p6 = new JPanel(new BorderLayout());
 		JLabel l1 = new JLabel("Choose a hair color: ");
 		p6.add(l1, BorderLayout.NORTH);
-		hairlist = new HairColorGUI();
+		hairlist = new HairColorGUI(game.player);
 		p6.add(hairlist, BorderLayout.CENTER);
 
-		JPanel p5 = new JPanel(new BorderLayout());
-		p5.add(p2, BorderLayout.NORTH);
-		p5.add(p4, BorderLayout.CENTER);
-		p5.add(p6, BorderLayout.SOUTH);
+		JPanel p5 = new JPanel(new GridLayout(4, 0));
+		p5.add(p3);
+		p5.add(p2);
+		p5.add(p4);
+		p5.add(p6);
 
 		panel.add(p1, BorderLayout.CENTER);
 		panel.add(p5, BorderLayout.EAST);
