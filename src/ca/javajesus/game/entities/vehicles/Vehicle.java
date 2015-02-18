@@ -92,12 +92,12 @@ public class Vehicle extends Mob {
 				}
 			}
 		}
+		
+		physics.setXAcceleration(0);
+        physics.setYAcceleration(0);
 
 		if (this.isUsed) {
-		    
-		    physics.setXAcceleration(0);
-	        physics.setYAcceleration(0);
-	        
+		    		    
 		    if (input.w.isPressed()) {
 				//if(!input.s.isPressed())
 				//{
@@ -113,6 +113,7 @@ public class Vehicle extends Mob {
 				    ya++;
 				}*/
 			}
+		    
 			if (input.s.isPressed()) {
 			    //if(!input.w.isPressed())
 			    //{
@@ -128,6 +129,7 @@ public class Vehicle extends Mob {
 				    ya--;
 				}*/
 			}
+			
 			if (input.a.isPressed()) {
 			    //if(!input.d.isPressed())
 			    //{
@@ -143,6 +145,7 @@ public class Vehicle extends Mob {
 				    xa++;
 				}*/
 			}
+			
 			if (input.d.isPressed()) {
 			    //if(!input.a.isPressed())
                 //{

@@ -103,13 +103,13 @@ public class CarPhysics {
         {
             myYVelocity = 2;
             //myYAcceleration = 0;
-            //myYVelocity--;
+            myYVelocity--;
         }
         else if (myYVelocity <= -2)
         {
             myYVelocity = -2;
             //myYAcceleration = 0;
-            //myYVelocity++;
+            myYVelocity++;
         }
         else
         myYVelocity += myYAcceleration;
