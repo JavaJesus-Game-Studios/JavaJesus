@@ -19,21 +19,19 @@ public class CaveGeneration {
 
 	public boolean[][] generateCave() {
 		fillArray();
-		cellAutomata(4, 4, 4, 4);
+		cellAutomata(6, 8, 3, 8);
 		return caveMap;
 	}
 
 	private void fillArray() {
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
-				if (rand.nextInt(2) == 0) {
+				if (rand.nextInt(5) == 0) {
 					caveMap[row][col] = true;
 				} else {
 					caveMap[row][col] = false;
 				}
-				// System.out.print(caveMap[row][col] + " ");
 			}
-			// System.out.println();
 		}
 	}
 
@@ -41,50 +39,34 @@ public class CaveGeneration {
 		for (int cycle = 0; cycle < cycles; cycle++) {
 			// The Birth Cycle
 			boolean[][] caveMapBirth = new boolean[height][width];
-			for (int row = 0; row < height; row++) {
-				for (int col = 0; col < width; col++) {
+			for (int row = 1; row < height - 1; row++) {
+				for (int col = 1; col < width - 1; col++) {
 					int bCounter = 0;
-					try {
-
-						if (row - 1 >= 0) {
-							if (col - 1 >= 0)
-								if (caveMap[row - 1][col - 1] == true) {
-									bCounter++;
-								}
-							if (caveMap[row - 1][col] == true) {
-								bCounter++;
-							}
-							if (col + 1 < caveMap[row].length)
-								if (caveMap[row - 1][col + 1] == true) {
-									bCounter++;
-								}
-						}
-						if (col - 1 >= 0)
-							if (caveMap[row][col - 1] == true) {
-								bCounter++;
-							}
-						if (col + 1 < caveMap[row].length)
-							if (caveMap[row][col + 1] == true) {
-								bCounter++;
-							}
-						if (row + 1 < caveMap.length) {
-							if (col - 1 >= 0)
-
-								if (caveMap[row + 1][col - 1] == true) {
-									bCounter++;
-								}
-							if (caveMap[row + 1][col] == true) {
-								bCounter++;
-							}
-							if (col + 1 < caveMap[row].length)
-								if (caveMap[row + 1][col + 1] == true) {
-									bCounter++;
-								}
-						}
-					} catch (IndexOutOfBoundsException e) {
-						e.printStackTrace();
+					if (caveMap[row - 1][col - 1] == true) {
+						bCounter++;
 					}
-					if (bCounter > bBegin && bCounter < bEnd) {
+					if (caveMap[row - 1][col] == true) {
+						bCounter++;
+					}
+					if (caveMap[row - 1][col + 1] == true) {
+						bCounter++;
+					}
+					if (caveMap[row][col - 1] == true) {
+						bCounter++;
+					}
+					if (caveMap[row][col + 1] == true) {
+						bCounter++;
+					}
+					if (caveMap[row + 1][col - 1] == true) {
+						bCounter++;
+					}
+					if (caveMap[row + 1][col] == true) {
+						bCounter++;
+					}
+					if (caveMap[row + 1][col + 1] == true) {
+						bCounter++;
+					}
+					if (bCounter >= bBegin && bCounter <= bEnd) {
 						caveMapBirth[row][col] = true;
 					}
 				}
@@ -93,54 +75,40 @@ public class CaveGeneration {
 			merger(caveMapBirth);
 			// The Survival Cycle
 			boolean[][] caveMapSurvival = new boolean[height][width];
-			for (int row = 0; row < height; row++) {
-				for (int col = 0; col < width; col++) {
+			for (int row = 1; row < height - 1; row++) {
+				for (int col = 1; col < width - 1; col++) {
 					int sCounter = 0;
-					try {
-						if (row - 1 >= 0) {
-							if (col - 1 >= 0)
-								if (caveMap[row - 1][col - 1] == true) {
-									sCounter++;
-								}
-							if (caveMap[row - 1][col] == true) {
-								sCounter++;
-							}
-							if (col + 1 < caveMap[row].length)
-								if (caveMap[row - 1][col + 1] == true) {
-									sCounter++;
-								}
-						}
-						if (col - 1 >= 0)
-							if (caveMap[row][col - 1] == true) {
-								sCounter++;
-							}
-						if (col + 1 < caveMap[row].length)
-							if (caveMap[row][col + 1] == true) {
-								sCounter++;
-							}
-						if (row + 1 < caveMap.length) {
-							if (col - 1 >= 0)
-								if (caveMap[row + 1][col - 1] == true) {
-									sCounter++;
-								}
-							if (caveMap[row + 1][col] == true) {
-								sCounter++;
-							}
-							if (col + 1 < caveMap[row].length)
-								if (caveMap[row + 1][col + 1] == true) {
-									sCounter++;
-								}
-						}
-					} catch (IndexOutOfBoundsException e) {
-						e.printStackTrace();
+					if (caveMap[row - 1][col - 1] == true) {
+						sCounter++;
 					}
-					if (sCounter > sBegin && sCounter < sEnd) {
+					if (caveMap[row - 1][col] == true) {
+						sCounter++;
+					}
+					if (caveMap[row - 1][col + 1] == true) {
+						sCounter++;
+					}
+					if (caveMap[row][col - 1] == true) {
+						sCounter++;
+					}
+					if (caveMap[row][col + 1] == true) {
+						sCounter++;
+					}
+					if (caveMap[row + 1][col - 1] == true) {
+						sCounter++;
+					}
+					if (caveMap[row + 1][col] == true) {
+						sCounter++;
+					}
+					if (caveMap[row + 1][col + 1] == true) {
+						sCounter++;
+					}
+					if (sCounter >= sBegin && sCounter <= sEnd) {
 						caveMapSurvival[row][col] = true;
 					}
 				}
 			}
 			// Merging
-			merger(caveMapBirth);
+			mergerSurvival(caveMapSurvival);
 		}
 	}
 
@@ -149,6 +117,18 @@ public class CaveGeneration {
 			for (int col = 0; col < width; col++) {
 				if (mergeArray[row][col] == true) {
 					caveMap[row][col] = true;
+				}
+			}
+		}
+	}
+
+	private void mergerSurvival(boolean[][] mergeArray) {
+		for (int row = 0; row < height; row++) {
+			for (int col = 0; col < width; col++) {
+				if (mergeArray[row][col] == true) {
+					caveMap[row][col] = true;
+				} else if (mergeArray[row][col] == false) {
+					caveMap[row][col] = false;
 				}
 			}
 		}

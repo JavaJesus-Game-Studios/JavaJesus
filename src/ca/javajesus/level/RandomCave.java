@@ -17,12 +17,16 @@ public class RandomCave extends Level {
 	}
 	
 	protected void generateLevel() {
-		caveMap = new CaveGeneration(height, width, 50).generateCave();
+		caveMap = new CaveGeneration(height, width, 5).generateCave();
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				//System.out.print(caveMap[y][x] + " ");
 				int tile = x + y * width;
-				if (caveMap[y][x] == true) {
+				if (y == 0 || y == height - 1) {
+					tiles[tile] = 1;
+				} else if ( x == 0 || x == width - 1) {
+					tiles[tile] = 1;
+				} else if (caveMap[y][x] == true) {
 					tiles[tile] = 4;
 				} else if (caveMap[y][x] == false) {
 					tiles[tile] = 1;
