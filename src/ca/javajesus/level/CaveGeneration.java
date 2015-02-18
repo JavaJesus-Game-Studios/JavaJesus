@@ -1,5 +1,6 @@
 package ca.javajesus.level;
 
+import java.awt.Point;
 import java.util.Random;
 
 public class CaveGeneration {
@@ -20,6 +21,15 @@ public class CaveGeneration {
 	public boolean[][] generateCave() {
 		fillArray();
 		cellAutomata(6, 8, 3, 8);
+		for (int row = 0; row < height; row++) {
+			for (int col = 0; col < width; col++) {
+				if (row == 0 || row == height - 1) {
+					caveMap[row][col] = true;
+				} else if (col == 0 || col == width - 1) {
+					caveMap[row][col] = true;
+				}
+			}
+		}
 		return caveMap;
 	}
 
@@ -42,29 +52,15 @@ public class CaveGeneration {
 			for (int row = 1; row < height - 1; row++) {
 				for (int col = 1; col < width - 1; col++) {
 					int bCounter = 0;
-					if (caveMap[row - 1][col - 1] == true) {
-						bCounter++;
-					}
-					if (caveMap[row - 1][col] == true) {
-						bCounter++;
-					}
-					if (caveMap[row - 1][col + 1] == true) {
-						bCounter++;
-					}
-					if (caveMap[row][col - 1] == true) {
-						bCounter++;
-					}
-					if (caveMap[row][col + 1] == true) {
-						bCounter++;
-					}
-					if (caveMap[row + 1][col - 1] == true) {
-						bCounter++;
-					}
-					if (caveMap[row + 1][col] == true) {
-						bCounter++;
-					}
-					if (caveMap[row + 1][col + 1] == true) {
-						bCounter++;
+					for (int row2 = -1; row2 <= 1; row2++) {
+						for (int col2 = -1; col2 <= 1; col2++) {
+							if (row2 == 0 && col2 == 0) {
+								continue;
+							} else {
+								if (caveMap[row + row2][col + col2] == true)
+									bCounter++;
+							}
+						}
 					}
 					if (bCounter >= bBegin && bCounter <= bEnd) {
 						caveMapBirth[row][col] = true;
@@ -78,29 +74,16 @@ public class CaveGeneration {
 			for (int row = 1; row < height - 1; row++) {
 				for (int col = 1; col < width - 1; col++) {
 					int sCounter = 0;
-					if (caveMap[row - 1][col - 1] == true) {
-						sCounter++;
-					}
-					if (caveMap[row - 1][col] == true) {
-						sCounter++;
-					}
-					if (caveMap[row - 1][col + 1] == true) {
-						sCounter++;
-					}
-					if (caveMap[row][col - 1] == true) {
-						sCounter++;
-					}
-					if (caveMap[row][col + 1] == true) {
-						sCounter++;
-					}
-					if (caveMap[row + 1][col - 1] == true) {
-						sCounter++;
-					}
-					if (caveMap[row + 1][col] == true) {
-						sCounter++;
-					}
-					if (caveMap[row + 1][col + 1] == true) {
-						sCounter++;
+					for (int row2 = -1; row2 <= 1; row2++) {
+						for (int col2 = -1; col2 <= 1; col2++) {
+							if (row2 == 0 && col2 == 0) {
+								continue;
+							} else {
+								if (caveMap[row + row2][col + col2]) {
+									sCounter++;
+								}
+							}
+						}
 					}
 					if (sCounter >= sBegin && sCounter <= sEnd) {
 						caveMapSurvival[row][col] = true;
@@ -127,10 +110,21 @@ public class CaveGeneration {
 			for (int col = 0; col < width; col++) {
 				if (mergeArray[row][col] == true) {
 					caveMap[row][col] = true;
-				} else if (mergeArray[row][col] == false) {
+				} else {
 					caveMap[row][col] = false;
 				}
 			}
 		}
+	}
+	
+	public Point getSpawnPoint() {
+		for (int row = 0; row < height; row++) {
+			for (int col = 0; col < width; col++) {
+				if (caveMap[row][col] == true && rand.nextInt(50) == 0) {
+					return new Point(col, row);
+				}
+			}
+		}
+		return new Point(10, 10);
 	}
 }

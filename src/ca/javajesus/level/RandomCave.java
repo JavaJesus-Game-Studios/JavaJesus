@@ -4,35 +4,26 @@ import java.awt.Point;
 
 public class RandomCave extends Level {
 	private boolean[][] caveMap;
+	
+	private CaveGeneration caveGen;
 
 	public RandomCave(int height, int width, int cycles) {
 		super(width, height);
-		for (int row = 0; row < height; row++) {
-			for (int col = 0; col < width; col++) {
-				if (caveMap[row][col] == true) {
-					spawnPoint = new Point(row, col);
-				}
-			}
-		}
+		caveGen = new CaveGeneration(height, width, 5);
+		caveMap = caveGen.generateCave();
+		spawnPoint = caveGen.getSpawnPoint();
 	}
 	
 	protected void generateLevel() {
-		caveMap = new CaveGeneration(height, width, 5).generateCave();
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				//System.out.print(caveMap[y][x] + " ");
-				int tile = x + y * width;
-				if (y == 0 || y == height - 1) {
-					tiles[tile] = 1;
-				} else if ( x == 0 || x == width - 1) {
-					tiles[tile] = 1;
-				} else if (caveMap[y][x] == true) {
+		for (int row = 0; row < height; row++) {
+			for (int col = 0; col < width; col++) {
+				int tile = col + row * width;
+				if (caveMap[row][col] == true) {
 					tiles[tile] = 4;
-				} else if (caveMap[y][x] == false) {
+				} else if (caveMap[row][col] == false) {
 					tiles[tile] = 1;
 				}
 			}
-			//System.out.println();
 		}
 	}
 
