@@ -39,8 +39,10 @@ public class ZombieSurvival extends Game {
 			yOffset = (int) player.vehicle.y - (screen.height / 2);
 		}
 
-		getLevel().renderTile(screen, xOffset, yOffset);
-		getLevel().renderEntities(screen);
+		if (inGameScreen) {
+			getLevel().renderTile(screen, xOffset, yOffset);
+			getLevel().renderEntities(screen);
+		}
 
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {
@@ -54,8 +56,10 @@ public class ZombieSurvival extends Game {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
-		g.drawString("Player: " + (int) player.x + ", " + (int) player.y, 5, 20);
+		g.drawString(player + ": " + (int) player.x + ", " + (int) player.y, 5,
+				20);
 		g.drawString("Score: " + player.score, 700, 20);
+		ChatHandler.drawMessages(g);
 		if (player.hasDied) {
 			g.setFont(new Font("Verdana", 0, 50));
 			g.setColor(Color.BLACK);

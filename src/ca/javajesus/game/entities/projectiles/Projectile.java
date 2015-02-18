@@ -178,9 +178,9 @@ public class Projectile extends Entity {
 				Mob mobs = (Mob) entity;
 				if (hitBox.intersects(mobs.hitBox)) {
 					if (mobs != mob) {
-						mobs.damage((int) damage, (int) damage + 2);
+						mobs.damage((int) damage, (int) damage + 4);
 						level.remEntity(this);
-						if (mobs.hasDied && mob instanceof Player) {
+						if (mobs.health < 0 && mob instanceof Player) {
 							((Player) mob).score += 10;
 						}
 					}
