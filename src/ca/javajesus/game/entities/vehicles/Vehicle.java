@@ -95,7 +95,13 @@ public class Vehicle extends Mob {
 		
 		physics.setXAcceleration(0);
         physics.setYAcceleration(0);
-
+        
+        if(isSolidEntityCollision(xa, ya))
+        {
+            physics.setXVelocity(0);
+            physics.setYVelocity(0);
+        }
+        
 		if (this.isUsed) {
 		    		    
 		    if (input.w.isPressed()) {

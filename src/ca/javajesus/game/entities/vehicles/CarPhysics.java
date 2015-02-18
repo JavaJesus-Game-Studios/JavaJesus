@@ -66,13 +66,13 @@ public class CarPhysics {
         {
             myXVelocity = 2;
             //myXAcceleration = 0;
-            myXVelocity--;
+            myXVelocity-=2;
         }
         else if (myXVelocity <= -2)
         {
             myXVelocity = -2;
             //myXAcceleration = 0;
-            myXVelocity++;
+            myXVelocity+=2;
         }
         else
         myXVelocity += myXAcceleration;
@@ -103,13 +103,13 @@ public class CarPhysics {
         {
             myYVelocity = 2;
             //myYAcceleration = 0;
-            myYVelocity--;
+            myYVelocity-=2;
         }
         else if (myYVelocity <= -2)
         {
             myYVelocity = -2;
             //myYAcceleration = 0;
-            myYVelocity++;
+            myYVelocity+=2;
         }
         else
         myYVelocity += myYAcceleration;
