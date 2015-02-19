@@ -77,12 +77,13 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 		panel.add(p5, BorderLayout.EAST);
 
 		this.add(panel, BorderLayout.CENTER);
-
+		
 	}
 
 	public void tick() {
 
 		pScreen.tick();
+		nameBox.grabFocus();
 
 	}
 

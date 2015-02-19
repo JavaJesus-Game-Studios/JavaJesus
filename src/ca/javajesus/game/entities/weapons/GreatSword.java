@@ -15,13 +15,10 @@ public class GreatSword extends Sword {
 			new Sprite("/Swords/GreatSword_Sheet 45.png"),
 			new Sprite("/Swords/GreatSword_Sheet 60.png"),
 			new Sprite("/Swords/GreatSword_Sheet 75.png"),
-			new Sprite("/Swords/GreatSword_Sheet 90.png"),
-			};
-
-	private final static int color = Colors.get(-1, 000, 0xFFDEDEDE, -1);
+			new Sprite("/Swords/GreatSword_Sheet 90.png"), };
 
 	public GreatSword(Level level, Player player) {
-		super(level, sprites, player, color);
+		super(level, sprites, player, Colors.get(-1, 000, 0xFFDEDEDE, -1));
 	}
 
 }

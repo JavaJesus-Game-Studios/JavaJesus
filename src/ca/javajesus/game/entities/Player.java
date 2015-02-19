@@ -201,8 +201,9 @@ public class Player extends Mob {
 		}
 
 		if ((xa != 0 || ya != 0)
-				&& !isSolidEntityCollision(xa * (int) scaledSpeed, ya
-						* (int) scaledSpeed) && !isDriving && scaledSpeed > 1) {
+				&& !isSolidEntityCollision((int) (xa * scaledSpeed),
+						(int) (ya * scaledSpeed)) && !isDriving
+				&& scaledSpeed > 1) {
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)

@@ -8,11 +8,13 @@ import ca.javajesus.level.Level;
 
 public class Sword extends Entity {
 
+	/** List of rotated sprites */
 	private Sprite[] sprites;
+	/** Current Sprite */
 	private Sprite sprite;
 	private Player player;
-	protected int color;
-	private final int swingSpeed = 30;
+	protected int color = 222;
+	private final int swingSpeed = 50;
 	private int tickCount = 0;
 	private int swordCount = 0;
 
@@ -33,7 +35,7 @@ public class Sword extends Entity {
 			swordCount = 0;
 			level.remEntity(this);
 		}
-		if (tickCount % (swingSpeed / 15) == 0) {
+		if (tickCount % (swingSpeed / sprites.length) == 0) {
 			swordCount++;
 			if (sprites.length - swordCount - 1 >= 0)
 				this.sprite = sprites[sprites.length - swordCount - 1];
@@ -41,37 +43,37 @@ public class Sword extends Entity {
 	}
 
 	public void render(Screen screen) {
-		switch(player.movingDir)
-		{
-		case 3:  
-		this.x = player.x;
-        this.y = player.y - 15;
-        break;
-        
+		int dir = player.movingDir;
+		switch (player.movingDir) {
+		case 3:
+			this.x = player.x + 3;
+			this.y = player.y - 30;
+			break;
+
 		case 2:
-		this.x = player.x;
-	    this.y = player.y - 15;
-	    break;
-	    
+			this.x = player.x + 3;
+			this.y = player.y - 30;
+			break;
+
 		case 1:
-	    this.x = player.x;
-	    this.y = player.y - 15;
-	    break;
-	    
+			this.x = player.x - 30;
+			this.y = player.y + 10;
+			this.sprite = sprites[0];
+			dir = 0;
+			break;
+
 		case 0:
-	    this.x = player.x;
-	    this.y = player.y - 15;
-	    break;
-	            
+			this.x = player.x + 1;
+			this.y = player.y - 40;
+			this.sprite = sprites[sprites.length - 1];
+			dir = 2;
+			break;
+
 		}
-	    
-		screen.render((int) x + 6, (int) y - 15, player.movingDir, color, sprite);
-		if(tickCount>12)
-		{
-		    tickCount = 0;
-		    swordCount = 0;
-		    level.remEntity(this);
-		}
+
+		screen.render((int) x, (int) y, dir, color,
+				sprite);
+
 	}
-	
+
 }
