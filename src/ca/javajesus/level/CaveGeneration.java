@@ -24,9 +24,9 @@ public class CaveGeneration {
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
 				if (row == 0 || row == height - 1) {
-					caveMap[row][col] = true;
+					caveMap[row][col] = false;
 				} else if (col == 0 || col == width - 1) {
-					caveMap[row][col] = true;
+					caveMap[row][col] = false;
 				}
 			}
 		}
