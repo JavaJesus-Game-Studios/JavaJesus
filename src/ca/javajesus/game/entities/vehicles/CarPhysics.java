@@ -58,11 +58,18 @@ public class CarPhysics {
 	}
 
 	public void updateXVelocity() {
-		/*
-		 * if (xVelocity >= 2) { xVelocity = 2; // xAcceleration = 0; xVelocity
-		 * -= 2; } else if (xVelocity <= -2) { xVelocity = -2; // xAcceleration
-		 * = 0; xVelocity += 2; } else
-		 */
+		
+		if (xVelocity >= 2) 
+		{ xVelocity = 2; 
+		// xAcceleration = 0; 
+		xVelocity-= 2; 
+		} 
+		else if (xVelocity <= -2) 
+		{ xVelocity = -2; 
+		// xAcceleration = 0; 
+		xVelocity += 2; 
+		} 
+		else 
 		xVelocity += xAcceleration;
 	}
 
@@ -87,12 +94,20 @@ public class CarPhysics {
 	}
 
 	public void updateYVelocity() {
-		/*
-		 * if (yVelocity >= 2) { yVelocity = 2; yVelocity -= 2; } else if
-		 * (yVelocity <= -2) { yVelocity = -2; yVelocity += 2; } else
-		 */
-		yVelocity += yAcceleration;
-	}
+        
+        if (yVelocity >= 2) 
+        { yVelocity = 2; 
+        // yAcceleration = 0; 
+        yVelocity-= 2; 
+        } 
+        else if (yVelocity <= -2) 
+        { yVelocity = -2; 
+        // yAcceleration = 0; 
+        yVelocity += 2; 
+        } 
+        else 
+        yVelocity += yAcceleration;
+    }
 
 	public double getXVelocity() {
 		return xVelocity;
