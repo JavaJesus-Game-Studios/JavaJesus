@@ -224,7 +224,7 @@ public class NPC extends Mob {
 
 	public void render(Screen screen) {
 		this.hitBox.setLocation((int) this.x - (this.width / 2), (int) this.y - (this.height / 2));
-		this.standBox.setLocation((int) this.x - (int) hitBox.getWidth() - 2, (int) this.y - (int) hitBox.getHeight() - 2);
+		this.standBox.setLocation((int) this.x - (int) hitBox.getWidth() / 2 - 2, (int) this.y - (int) hitBox.getHeight() / 2 - 2);
 		int xTile = this.xTile;
 		int yTile = this.yTile;
 
@@ -315,10 +315,6 @@ public class NPC extends Mob {
 		}
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {
@@ -353,10 +349,6 @@ public class NPC extends Mob {
 		}
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {
@@ -395,10 +387,6 @@ public class NPC extends Mob {
 		}
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {
@@ -455,10 +443,6 @@ public class NPC extends Mob {
 		}
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {
@@ -475,10 +459,6 @@ public class NPC extends Mob {
 		int ya = (int) (walkDistance * Math.sin(miniTick / walkDistance));
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			if (isMobCollision()) {
-				isMoving = false;
-				return;
-			}
 			move(xa, ya, scaledSpeed);
 			isMoving = true;
 		} else {

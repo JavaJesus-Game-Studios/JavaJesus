@@ -184,6 +184,7 @@ public abstract class Mob extends Entity {
 			if (this.hitBox.intersects(mob.hitBox) && !mob.isAvoidingCollision)
 				return true;
 		}
+		isAvoidingCollision = false;
 		return false;
 	}
 
@@ -207,19 +208,19 @@ public abstract class Mob extends Entity {
 		int ya = 0;
 
 		for (Mob mob : level.getMobs()) {
-			if (mob == this)
+			if (mob == this || !(this.hitBox.intersects(mob.hitBox)))
 				continue;
 
 			Rectangle intersection = hitBox.intersection(mob.hitBox);
 			double xx = intersection.getCenterX();
 			double yy = intersection.getCenterY();
-			if ((int) xx > (int) this.hitBox.getCenterX()) {
+			if ((int) xx >= (int) this.hitBox.getCenterX()) {
 				xa--;
 			}
 			if ((int) xx < (int) this.hitBox.getCenterX()) {
 				xa++;
 			}
-			if ((int) yy > (int) this.hitBox.getCenterY()) {
+			if ((int) yy >= (int) this.hitBox.getCenterY()) {
 				ya--;
 			}
 			if ((int) yy < (int) this.hitBox.getCenterY()) {
@@ -279,7 +280,7 @@ public abstract class Mob extends Entity {
 	public void setName(String s) {
 		this.name = s;
 	}
-	
+
 	public void speak(Player player) {
 	}
 }

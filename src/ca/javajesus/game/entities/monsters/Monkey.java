@@ -99,8 +99,8 @@ public class Monkey extends Monster {
 	public void render(Screen screen) {
 		
 		this.hitBox.setSize(width, height);
-		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 8);
-		this.standBox.setLocation((int) this.x - 10, (int) this.y - 10);
+		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 16);
+		this.standBox.setLocation((int) this.x - 10, (int) this.y - 18);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		int xTile = 0;
