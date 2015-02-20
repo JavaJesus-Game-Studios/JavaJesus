@@ -1,8 +1,6 @@
 package ca.javajesus.game.entities.monsters;
 
 import java.awt.Color;
-import java.util.Random;
-
 import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
@@ -13,8 +11,6 @@ import ca.javajesus.level.Level;
 
 public class Monkey extends Monster {
 	
-	Random random = new Random();
-
 	public Monkey(Level level, String name, double x, double y, int speed,
 			int health) {
 		super(level, name, x, y, speed, 16, 16, 8, health, Colors.get(-1,
@@ -56,7 +52,7 @@ public class Monkey extends Monster {
 
 	public void tick() {
 		
-		if (hasDied)
+		if (isDead)
 			return;
 
 		if (random.nextInt(500) == 0) {
@@ -89,7 +85,7 @@ public class Monkey extends Monster {
 		}
 
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
-			move(xa, ya, scaledSpeed);
+			move(xa, ya);
 			isMoving = true;
 		} else {
 			isMoving = false;
@@ -124,7 +120,7 @@ public class Monkey extends Monster {
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 		
-		if (hasDied)
+		if (isDead)
 			xTile = 20;
 		
 		// Upper body

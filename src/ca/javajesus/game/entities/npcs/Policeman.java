@@ -51,7 +51,7 @@ public class Policeman extends NPC {
 
 	private void checkRadius() {
 
-		if (mob != null && mob.hasDied) {
+		if (mob != null && mob.isDead) {
 			mob = null;
 			movingToOrigin = true;
 		}
@@ -72,7 +72,7 @@ public class Policeman extends NPC {
 
 	public void tick() {
 		
-		if (hasDied)
+		if (isDead)
 			return;
 
 		checkRadius();
@@ -114,7 +114,7 @@ public class Policeman extends NPC {
 			}
 
 			if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
-				move(xa, ya, scaledSpeed);
+				move(xa, ya);
 				isMoving = true;
 			} else {
 				isMoving = false;
@@ -172,7 +172,7 @@ public class Policeman extends NPC {
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 		
-		if(hasDied)
+		if(isDead)
 			xTile = 12;
 
 		if (isShooting) {

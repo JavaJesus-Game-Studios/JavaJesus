@@ -1,13 +1,10 @@
 package ca.javajesus.game.entities.structures;
 
-import java.awt.Point;
-
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class CaveEntrance extends SolidEntity {
 	

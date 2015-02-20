@@ -60,7 +60,7 @@ public class ZombieSurvival extends Game {
 				20);
 		g.drawString("Score: " + player.score, 700, 20);
 		ChatHandler.drawMessages(g);
-		if (player.hasDied) {
+		if (player.isDead) {
 			g.setFont(new Font("Verdana", 0, 50));
 			g.setColor(Color.BLACK);
 			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);

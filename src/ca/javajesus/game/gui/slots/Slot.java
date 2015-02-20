@@ -2,11 +2,9 @@ package ca.javajesus.game.gui.slots;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
 import ca.javajesus.game.gui.MapGUI;
 import ca.javajesus.game.gui.ScreenGUI;

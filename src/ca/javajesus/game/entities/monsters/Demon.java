@@ -1,6 +1,5 @@
 package ca.javajesus.game.entities.monsters;
 
-import java.util.Random;
 
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.particles.HealthBar;
@@ -10,8 +9,6 @@ import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Demon extends Monster {
-
-	Random random = new Random();
 
 	public Demon(Level level, String name, double x, double y, int speed) {
 		super(level, name, x, y, speed, 14, 24, 0, 150, Colors.get(-1, 111,
@@ -52,7 +49,7 @@ public class Demon extends Monster {
 
 	public void tick() {
 
-		if (hasDied) {
+		if (isDead) {
 			return;
 		}
 
@@ -102,7 +99,7 @@ public class Demon extends Monster {
 
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			move(xa, ya, scaledSpeed);
+			move(xa, ya);
 			isMoving = true;
 		} else {
 			isMoving = false;
@@ -150,10 +147,10 @@ public class Demon extends Monster {
 		if (isShooting)
 			xTile += 12;
 
-		if (hasDied)
+		if (isDead)
 			xTile = 24;
 
-		if (!hasDied) {
+		if (!isDead) {
 
 			// Upper body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
@@ -183,7 +180,7 @@ public class Demon extends Monster {
 				* modifier, (xTile + 1) + (yTile + 2) * 32, color, flipBottom,
 				scale, sheet);
 
-		if (hasDied) {
+		if (isDead) {
 
 			int offset = 0;
 

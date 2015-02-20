@@ -29,6 +29,7 @@ public class VillageGeneration {
 	/**
 	 * Chooses several locations for the new villages.
 	 */
+	@SuppressWarnings("unused")
 	private void locationChooser() {
 		// Used to prevent villages from spawning near each other.
 		int xBuffer = 0;
@@ -56,6 +57,7 @@ public class VillageGeneration {
 	 * Gives the villages a random area
 	 * Max area is 200x200
 	 */
+	@SuppressWarnings("unused")
 	private void villageBoundaryFiller() {
 		for (int row = 0; row < villageMap.length; row++) {
 			for (int col = 0; col < villageMap[row].length; col++) {

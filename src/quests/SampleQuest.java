@@ -23,7 +23,7 @@ public class SampleQuest extends Quest {
 	}
 
 	public boolean condition1() {
-		if (NPC.npc5.hasDied) {
+		if (NPC.npc5.isDead) {
 			return true;
 		} else {
 			return false;

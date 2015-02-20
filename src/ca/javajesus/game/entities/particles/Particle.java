@@ -1,5 +1,7 @@
 package ca.javajesus.game.entities.particles;
 
+import java.util.Random;
+
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
@@ -12,6 +14,7 @@ public class Particle extends Entity {
 	protected int color;
 	protected int width;
 	protected int height;
+	protected Random random = new Random();
 
 	public Particle(Level level, int tileNumber, int color, double x, double y) {
 		super(level);

@@ -1,149 +1,124 @@
 package ca.javajesus.game.entities.vehicles;
 
 public class CarPhysics {
-	
+
 	private int tickCount;
 	public double x, y;
-	private double myXVelocity, myYVelocity;
-	private double myXAcceleration, myYAcceleration;
-	private double myXJerk, myYJerk;
+	private double xVelocity, yVelocity;
+	private double xAcceleration, yAcceleration;
+	private double xJerk, yJerk;
 
 	public CarPhysics() {
 		x = 0;
 		y = 0;
-		myXVelocity = 0;
-		myXAcceleration = 0;
-		myXJerk = 0;
-		myYVelocity = 0;
-		myYAcceleration = 0;
-		myYJerk = 0;
+		xVelocity = 0;
+		xAcceleration = 0;
+		xJerk = 0;
+		yVelocity = 0;
+		yAcceleration = 0;
+		yJerk = 0;
 	}
 
 	public CarPhysics(double hor, double vert, double v, double a, double j) {
 		x = hor;
 		y = vert;
-		myXVelocity = v;
-		myXAcceleration = a;
-		myXJerk = j;
-		myYVelocity = v;
-		myYAcceleration = a;
-		myYJerk = j;
+		xVelocity = v;
+		xAcceleration = a;
+		xJerk = j;
+		yVelocity = v;
+		yAcceleration = a;
+		yJerk = j;
 	}
 
 	public CarPhysics(double hor, double vert, double v, double a) {
 		x = hor;
 		y = vert;
-		myXVelocity = v;
-		myXAcceleration = a;
-		myXJerk = 0;
-		myYVelocity = v;
-		myYAcceleration = a;
-		myYJerk = 0;
-	}
-
-	public void setTick(int t) {
-		tickCount = t;
+		xVelocity = v;
+		xAcceleration = a;
+		xJerk = 0;
+		yVelocity = v;
+		yAcceleration = a;
+		yJerk = 0;
 	}
 
 	public void setXJerk(double j) {
-		myXJerk = j;
+		xJerk = j;
 	}
 
 	public void setXAcceleration(double a) {
-		myXAcceleration = a;
+		xAcceleration = a;
 	}
 
 	public void setXVelocity(double v) {
-		myXVelocity = v;
+		xVelocity = v;
 	}
 
-	public void xAcceleration() {
-		myXAcceleration += myXJerk;
+	public void xAccelerate() {
+		xAcceleration += xJerk;
 	}
 
-	public void xVelocity() {
-        if (myXVelocity >= 2)
-        {
-            myXVelocity = 2;
-            //myXAcceleration = 0;
-            myXVelocity-=2;
-        }
-        else if (myXVelocity <= -2)
-        {
-            myXVelocity = -2;
-            //myXAcceleration = 0;
-            myXVelocity+=2;
-        }
-        else
-        myXVelocity += myXAcceleration;
-    }
-	
-	public void xPosition(){
-	    x += myXVelocity;
+	public void updateXVelocity() {
+		/*
+		 * if (xVelocity >= 2) { xVelocity = 2; // xAcceleration = 0; xVelocity
+		 * -= 2; } else if (xVelocity <= -2) { xVelocity = -2; // xAcceleration
+		 * = 0; xVelocity += 2; } else
+		 */
+		xVelocity += xAcceleration;
+	}
+
+	public void updateXPosition() {
+		x += xVelocity;
 	}
 
 	public void setYJerk(double j) {
-		myYJerk = j;
+		yJerk = j;
 	}
 
 	public void setYAcceleration(double a) {
-		myYAcceleration = a;
+		yAcceleration = a;
 	}
 
 	public void setYVelocity(double v) {
-		myYVelocity = v;
+		yVelocity = v;
 	}
 
-	public void yAcceleration() {
-		myYAcceleration += myYJerk;
+	public void yAccelerate() {
+		yAcceleration += yJerk;
 	}
 
-	public void yVelocity() {
-        if (myYVelocity >= 2)
-        {
-            myYVelocity = 2;
-            //myYAcceleration = 0;
-            myYVelocity-=2;
-        }
-        else if (myYVelocity <= -2)
-        {
-            myYVelocity = -2;
-            //myYAcceleration = 0;
-            myYVelocity+=2;
-        }
-        else
-        myYVelocity += myYAcceleration;
-    }
-	
-	public double getXVelocity()
-	{
-	    return myXVelocity;
+	public void updateYVelocity() {
+		/*
+		 * if (yVelocity >= 2) { yVelocity = 2; yVelocity -= 2; } else if
+		 * (yVelocity <= -2) { yVelocity = -2; yVelocity += 2; } else
+		 */
+		yVelocity += yAcceleration;
 	}
-	
-	public double getYVelocity()
-	{
-	    return myYVelocity;
-	}
-	
-	public double getXAcceleration()
-	{
-	    return myXAcceleration;
-	}
-	
-	public double getYAcceleration()
-    {
-        return myYAcceleration;
-    }
 
-    public void position() {
-        xAcceleration();
-        yAcceleration();
-        xVelocity();
-        yVelocity();
-        x += myXVelocity;
-        x += myXAcceleration * tickCount;
-        y += myYVelocity;
-        y += myYAcceleration * tickCount;
-    } 
+	public double getXVelocity() {
+		return xVelocity;
+	}
+
+	public double getYVelocity() {
+		return yVelocity;
+	}
+
+	public double getXAcceleration() {
+		return xAcceleration;
+	}
+
+	public double getYAcceleration() {
+		return yAcceleration;
+	}
+
+	public void updatePosition() {
+		xAccelerate();
+		yAccelerate();
+		updateXVelocity();
+		updateYVelocity();
+		x += xVelocity;
+		x += xAcceleration * tickCount;
+		y += yVelocity;
+		y += yAcceleration * tickCount;
+	}
 
 }

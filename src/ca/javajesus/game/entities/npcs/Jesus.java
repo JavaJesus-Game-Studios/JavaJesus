@@ -9,12 +9,6 @@ import ca.javajesus.level.Level;
 
 public class Jesus extends NPC {
 
-	public static NPC Jesus = new Jesus(Level.level1, 300, 400, "stand", 30);
-
-	/** Range that the NPC can walk */
-	protected Ellipse2D.Double walkRadius;
-	protected final int RADIUS = 32 * 8;
-
 	public Jesus(Level level, double x, double y, String walkPath,
 			int walkDistance) {
 		super(level, "Jesus", x, y, 1, 16, 16, 9000, Colors.get(-1, 111, 555,
@@ -34,9 +28,6 @@ public class Jesus extends NPC {
 		int yTile = this.yTile;
 
 		int walkingAnimationSpeed = 4;
-		if (scaledSpeed == 3) {
-			numSteps++;
-		}
 
 		int flipTop = (numSteps >> walkingAnimationSpeed) & 1;
 		int flipBottom = (numSteps >> walkingAnimationSpeed) & 1;

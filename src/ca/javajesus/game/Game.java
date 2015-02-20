@@ -300,7 +300,7 @@ public class Game extends Canvas implements Runnable {
 		g.drawString(player + ": " + (int) player.x + ", " + (int) player.y, 5,
 				20);
 		ChatHandler.drawMessages(g);
-		if (player.hasDied) {
+		if (player.isDead) {
 			g.setFont(new Font("Verdana", 0, 50));
 			g.setColor(Color.BLACK);
 			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);

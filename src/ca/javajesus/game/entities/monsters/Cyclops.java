@@ -49,7 +49,7 @@ public class Cyclops extends Monster {
 
 	public void tick() {
 
-		if (hasDied)
+		if (isDead)
 			return;
 
 		checkRadius();
@@ -90,7 +90,7 @@ public class Cyclops extends Monster {
 				isMoving = false;
 				return;
 			}
-			move(xa, ya, scaledSpeed);
+			move(xa, ya);
 			isMoving = true;
 		} else {
 			isMoving = false;
@@ -129,14 +129,14 @@ public class Cyclops extends Monster {
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 
 		int yTile = this.yTile;
-		if (hasDied) {
+		if (isDead) {
 			xTile = 0;
 			yTile = 26;
 		}
 
 		for (int i = 0; i < 6; i++) {
 			
-			if (hasDied && i > 1) {
+			if (isDead && i > 1) {
 				break;
 			}
 			
@@ -156,7 +156,7 @@ public class Cyclops extends Monster {
 					yOffset + i * modifier, (xTile + 3) + (yTile + i) * 32,
 					color, flipBottom, scale, sheet);
 			
-			if (hasDied) {
+			if (isDead) {
 				screen.render(xOffset + 4 * modifier - (modifier * flipTop * 3),
 						yOffset + i * modifier, (xTile + 4) + (yTile + i) * 32,
 						color, flipBottom, scale, sheet);

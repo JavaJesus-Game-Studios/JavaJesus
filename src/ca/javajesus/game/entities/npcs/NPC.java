@@ -48,12 +48,14 @@ public class NPC extends Mob {
 	public static NPC npc10 = new NPC(Level.level1, "Peasant-Girlchild", 2045,
 			950, 1, 16, 16, 9000, Colors.get(-1, 111,
 					Colors.fromHex("#715b17"), 543), 14, 18, "cross", 0, 8);
+	
+	public static NPC Jesus = new Jesus(Level.level1, 300, 400, "stand", 30);
+	
 	protected boolean isSwimming = false;
 
 	/** Range that the NPC can walk */
 	protected Ellipse2D.Double walkRadius;
 	protected final int RADIUS = 32 * 8;
-	protected int color;
 	protected int xTile;
 	protected int yTile;
 
@@ -96,7 +98,7 @@ public class NPC extends Mob {
 				yChange);
 		if (level != null)
 			level.addEntity(bar);
-		scaledSpeed = 0.35;
+		this.speed = speed * 0.35;
 	}
 
 	public boolean hasCollided(int xa, int ya) {
@@ -129,7 +131,7 @@ public class NPC extends Mob {
 
 	public void tick() {
 
-		if (hasDied) {
+		if (isDead) {
 			return;
 		}
 
@@ -188,7 +190,7 @@ public class NPC extends Mob {
 		}
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			move(xa, ya, scaledSpeed);
+			move(xa, ya);
 			isMoving = true;
 		} else {
 			isMoving = false;
@@ -229,9 +231,6 @@ public class NPC extends Mob {
 		int yTile = this.yTile;
 
 		int walkingAnimationSpeed = 4;
-		if (scaledSpeed == 3) {
-			numSteps++;
-		}
 
 		int flipTop = (numSteps >> walkingAnimationSpeed) & 1;
 		int flipBottom = (numSteps >> walkingAnimationSpeed) & 1;
@@ -251,7 +250,7 @@ public class NPC extends Mob {
 		double xOffset = x - modifier / 2.0;
 		double yOffset = y - modifier / 2.0 - 4;
 
-		if (hasDied)
+		if (isDead)
 			xTile = 12;
 
 		if (isSwimming) {
@@ -315,7 +314,7 @@ public class NPC extends Mob {
 		}
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			move(xa, ya, scaledSpeed);
+			move(xa, ya);
 			isMoving = true;
 		} else {
 			isMoving = false;
@@ -349,7 +348,7 @@ public class NPC extends Mob {
 		}
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			move(xa, ya, scaledSpeed);
+			move(xa, ya);
 			isMoving = true;
 		} else {
 			isMoving = false;
@@ -387,7 +386,7 @@ public class NPC extends Mob {
 		}
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			move(xa, ya, scaledSpeed);
+			move(xa, ya);
 			isMoving = true;
 		} else {
 			isMoving = false;
@@ -443,7 +442,7 @@ public class NPC extends Mob {
 		}
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			move(xa, ya, scaledSpeed);
+			move(xa, ya);
 			isMoving = true;
 		} else {
 			isMoving = false;
@@ -459,7 +458,7 @@ public class NPC extends Mob {
 		int ya = (int) (walkDistance * Math.sin(miniTick / walkDistance));
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			move(xa, ya, scaledSpeed);
+			move(xa, ya);
 			isMoving = true;
 		} else {
 			isMoving = false;

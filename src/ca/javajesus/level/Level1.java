@@ -4,7 +4,6 @@ import java.awt.Point;
 
 import ca.javajesus.game.entities.monsters.Cyclops;
 import ca.javajesus.game.entities.monsters.Monster;
-import ca.javajesus.game.entities.npcs.Jesus;
 import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.npcs.Policeman;
 import ca.javajesus.game.entities.particles.ArmorPickup;
@@ -37,7 +36,7 @@ public class Level1 extends Level {
 		this.addEntity(NPC.npc8);
 		this.addEntity(NPC.npc9);
 		this.addEntity(NPC.npc10);
-		this.addEntity(Jesus.Jesus);
+		this.addEntity(NPC.Jesus);
 		
 		this.addEntity(new Cyclops(this, 600, 300));
 		this.addEntity(Monster.gang1);

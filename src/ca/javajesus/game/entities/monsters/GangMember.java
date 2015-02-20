@@ -17,7 +17,7 @@ public class GangMember extends Monster {
 
 	public GangMember(Level level, String name, double x, double y, int speed,
 			double health, int type) {
-		super(level, name, x, y, speed, 14, 16, 3, health, Colors.get(-1, 111,
+		super(level, name, x, y, speed, 14, 16, 1, health, Colors.get(-1, 111,
 				555, 543));
 		getType(type);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
@@ -72,7 +72,7 @@ public class GangMember extends Monster {
 
 	public void tick() {
 
-		if (hasDied) {
+		if (isDead) {
 			isShooting = false;
 			return;
 		}
@@ -148,7 +148,7 @@ public class GangMember extends Monster {
 				isMoving = false;
 				return;
 			}
-			move(xa, ya, scaledSpeed);
+			move(xa, ya);
 			isMoving = true;
 		} else {
 			isMoving = false;
@@ -184,7 +184,7 @@ public class GangMember extends Monster {
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 
-		if (hasDied)
+		if (isDead)
 			xTile = 12;
 
 		if (isShooting) {

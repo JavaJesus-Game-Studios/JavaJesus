@@ -24,9 +24,6 @@ public class Player extends Mob {
 	protected int shirtColor;
 	protected int skinColor;
 	protected int hairColor;
-	protected boolean isSwimming = false;
-	public boolean isSwinging = false;
-	protected boolean isShooting = false;
 	private int tickCount = 0;
 	private boolean canChangeLevel;
 	private Level nextLevel;
@@ -55,12 +52,8 @@ public class Player extends Mob {
 		if (level != null)
 			level.addEntity(bar);
 		isTired = false;
-		stamina = Integer.MAX_VALUE;
-		startStamina = stamina;
-	}
-
-	public double getPlayerVelocity() {
-		return velocity;
+		startStamina = Integer.MAX_VALUE;
+		stamina = startStamina;
 	}
 
 	public Level getLevel() {
@@ -179,20 +172,20 @@ public class Player extends Mob {
 			}
 		}
 		if (isSwimming) {
-			scaledSpeed = 0.35;
+			speed = 0.35;
 			if (!sound.swimming.isRunning())
 				sound.play(SoundHandler.sound.swimming);
 		} else if (input.shift.isPressed() && !isDriving && !isTired) {
-			scaledSpeed = 3;
+			speed = 3;
 			stamina--;
 			if (stamina <= 0)
 				isTired = true;
 		} else if (isDriving && input.shift.isPressed()) {
-			scaledSpeed = 7;
+			speed = 7;
 		} else if (isDriving) {
-			scaledSpeed = 5;
+			speed = 5;
 		} else {
-			scaledSpeed = 1;
+			speed = 1;
 		}
 		if (!input.shift.isPressed() && stamina < startStamina) {
 			stamina += 5;
@@ -200,14 +193,14 @@ public class Player extends Mob {
 		}
 
 		if ((xa != 0 || ya != 0)
-				&& !isSolidEntityCollision((int) (xa * scaledSpeed),
-						(int) (ya * scaledSpeed)) && !isDriving
-				&& scaledSpeed > 1) {
-			move(xa, ya, scaledSpeed);
+				&& !isSolidEntityCollision((int) (xa * speed),
+						(int) (ya * speed)) && !isDriving
+				&& speed > 1) {
+			move(xa, ya);
 			isMoving = true;
 		} else if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isDriving) {
-			move(xa, ya, 1);
+			move(xa, ya);
 			isMoving = true;
 		} else {
 			isMoving = false;
@@ -250,7 +243,7 @@ public class Player extends Mob {
 		if (isDriving) {
 			this.x = vehicle.x;
 			this.y = vehicle.y;
-			if (this.vehicle.hasDied) {
+			if (this.vehicle.isDead) {
 				isDriving = false;
 				vehicle.isUsed = false;
 				vehicle.remPlayer();
@@ -281,7 +274,7 @@ public class Player extends Mob {
 		int xTile = 0;
 		int yTile = this.yTile;
 		int walkingAnimationSpeed = 4;
-		if (scaledSpeed == 3) {
+		if (speed == 3) {
 			numSteps++;
 		}
 

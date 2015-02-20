@@ -47,7 +47,7 @@ public class Centaur extends Monster {
 
 	public void tick() {
 
-		if (hasDied)
+		if (isDead)
 			return;
 		
 		checkRadius();
@@ -93,7 +93,7 @@ public class Centaur extends Monster {
 		}
 
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
-			move(xa, ya, scaledSpeed);
+			move(xa, ya);
 			isMoving = true;
 		} else {
 			isMoving = false;
@@ -143,7 +143,7 @@ public class Centaur extends Monster {
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 		
-		if (hasDied)
+		if (isDead)
 			xTile = 14;
 
 		if (movingDir == 0 || movingDir == 1) {

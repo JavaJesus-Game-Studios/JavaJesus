@@ -1,8 +1,6 @@
 package ca.javajesus.game.entities.vehicles;
 
 import java.awt.Rectangle;
-import java.util.Random;
-
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
@@ -10,8 +8,6 @@ import ca.javajesus.level.Level;
 import ca.javajesus.level.tile.Tile;
 
 public class Boat extends Vehicle {
-
-	private Random random = new Random();
 
 	public Boat(Level level, String name, double x, double y,
 			int speed, double defaultHealth) {

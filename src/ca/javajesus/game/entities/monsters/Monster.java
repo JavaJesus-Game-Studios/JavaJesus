@@ -22,7 +22,6 @@ public class Monster extends Mob {
 	public static Monster gang2 = new GangMember(Level.level1, "Criminal", 100, 150, 1, 100, 1);
 	public static Monster man2;
 
-	protected int color;
 	/** The player the monster is chasing */
 	protected Mob mob;
 
@@ -32,7 +31,6 @@ public class Monster extends Mob {
 	protected final int RADIUS = 32 * 8;
 	protected boolean cooldown = true;
 	protected int tickCount = 0;
-	protected boolean isShooting = false;
 	protected int shootTickCount = 0;
 	protected int yTile;
 
@@ -44,13 +42,13 @@ public class Monster extends Mob {
 				RADIUS, RADIUS);
 		this.yTile = yTile;
 		checkRadius();
+		this.speed = speed * 0.35;
 		this.color = color;
-		this.scaledSpeed = 0.35;
 	}
 
 	protected void checkRadius() {
 
-		if (mob != null && mob.hasDied) {
+		if (mob != null && mob.isDead) {
 			mob = null;
 		}
 
@@ -76,7 +74,7 @@ public class Monster extends Mob {
 
 	public void tick() {
 		
-		if (hasDied)
+		if (isDead)
 			return;
 		
 	}

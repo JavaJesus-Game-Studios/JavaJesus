@@ -12,12 +12,12 @@ import ca.javajesus.level.tile.Tile;
 public abstract class Mob extends Entity {
 
 	protected String name;
+	protected int color;
 	protected double speed;
 	protected int numSteps = 0;
 	public boolean isMoving;
 	public int movingDir = 1;
 	protected int scale = 1;
-	public double velocity;
 	public int width;
 	public int height;
 	public double health;
@@ -25,17 +25,18 @@ public abstract class Mob extends Entity {
 	public HealthBar bar;
 	public Rectangle hitBox;
 	protected SpriteSheet sheet;
-	public boolean hasDied;
+	public boolean isDead;
 	public boolean onFire = false;
 	protected int healthTickCount = 0;
-	protected int lastDirection = 0;
-	protected boolean movingRandomly = false;
-	protected double scaledSpeed;
 	public boolean isTargeted = false;
 	protected Random random = new Random();
 	public Rectangle standBox;
 	protected boolean isAvoidingCollision = false;
 	public boolean renderOnTop = false;
+	
+	protected boolean isSwimming = false;
+	public boolean isSwinging = false;
+	protected boolean isShooting = false;
 
 	public int strength, defense, accuracy, evasion;
 
@@ -53,27 +54,53 @@ public abstract class Mob extends Entity {
 		this.hitBox = new Rectangle(width, height);
 		this.standBox = new Rectangle(width + 4, height + 4);
 		this.sheet = sheet;
-		this.defense = 1;
 	}
 
-	public void setHealth(double health) {
-		this.health = health;
+	public Mob(Level level, String name, double x, double y, int speed,
+			int width, int height, SpriteSheet sheet, double defaultHealth,
+			int strength, int defense, int accuracy, int evasion) {
+		super(level);
+		this.name = name;
+		this.x = x;
+		this.y = y;
+		this.speed = speed;
+		this.width = width;
+		this.height = height;
+		this.health = defaultHealth;
+		this.startHealth = defaultHealth;
+		this.hitBox = new Rectangle(width, height);
+		this.standBox = new Rectangle(width + 4, height + 4);
+		this.sheet = sheet;
+		this.strength = strength;
+		this.defense = defense;
+		this.accuracy = accuracy;
+		this.evasion = evasion;
+	}
+
+	public void addHealth(double health) {
+		this.health += health;
+		if (health > startHealth) {
+			this.health = startHealth;
+		}
+	}
+	
+	public void heal() {
+		this.health = startHealth;
 	}
 
 	public double getStartHealth() {
 		return startHealth;
 	}
 
-	public void move(int xa, int ya, double speed) {
+	public void move(int xa, int ya) {
 		if (xa != 0 && ya != 0) {
-			move(xa, 0, speed);
-			move(0, ya, speed);
+			move(xa, 0);
+			move(0, ya);
 			numSteps--;
 			return;
 		}
-		velocity = this.speed * speed;
 		numSteps++;
-		if (!hasCollided((int) (xa * scaledSpeed), (int) (ya * scaledSpeed))) {
+		if (!hasCollided((int) (xa * speed), (int) (ya * speed))) {
 			if (ya < 0)
 				movingDir = 0;
 			if (ya > 0)
@@ -83,8 +110,8 @@ public abstract class Mob extends Entity {
 			if (xa > 0)
 				movingDir = 3;
 
-			x += xa * velocity;
-			y += ya * velocity;
+			x += xa * speed;
+			y += ya * speed;
 		}
 	}
 
@@ -232,7 +259,7 @@ public abstract class Mob extends Entity {
 			}
 		}
 		if (xa != 0 || ya != 0) {
-			move(xa, ya, scaledSpeed);
+			move(xa, ya);
 			isAvoidingCollision = true;
 			isMoving = true;
 		} else {
@@ -247,7 +274,7 @@ public abstract class Mob extends Entity {
 	/** Triggers the death animation and closure */
 	public void kill() {
 
-		hasDied = true;
+		isDead = true;
 		hitBox.setBounds(0, 0, 0, 0);
 		level.remEntity(this);
 		level.getMobs().add(0, this);

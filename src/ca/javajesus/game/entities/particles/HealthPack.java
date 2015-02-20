@@ -1,7 +1,6 @@
 package ca.javajesus.game.entities.particles;
 
 import java.awt.Rectangle;
-import java.util.Random;
 
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Mob;
@@ -12,13 +11,11 @@ import ca.javajesus.level.Level;
 
 public class HealthPack extends Particle {
 
-	private Random random = new Random();
-	private static int healthPackColour = Colors
-			.get(-1, Colors.fromHex("#f6f4ee"), Colors.fromHex("#ffffff"), 500);
 	private final Rectangle BOX = new Rectangle(10, 10);
 
 	public HealthPack(Level level, double x, double y) {
-		super(level, 9, healthPackColour, x, y);
+		super(level, 9, Colors.get(-1, Colors.fromHex("#f6f4ee"),
+				Colors.fromHex("#ffffff"), 500), x, y);
 
 		this.x += random.nextInt(400) - 200;
 		this.y += random.nextInt(400) - 200;
@@ -31,7 +28,7 @@ public class HealthPack extends Particle {
 		for (Mob mob : level.getMobs()) {
 
 			if (BOX.intersects(mob.hitBox)) {
-				mob.setHealth(mob.getStartHealth());
+				mob.addHealth(mob.getStartHealth());
 				if (mob instanceof Player) {
 					screen.getGame().updateLevel();
 				}

@@ -1,16 +1,12 @@
 package ca.javajesus.game.entities.vehicles;
 
 import java.awt.Rectangle;
-import java.util.Random;
-
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class CenturyLeSabre extends Vehicle {
-
-	private Random random = new Random();
 
 	public CenturyLeSabre(Level level, String name, double x, double y,
 			int speed, double defaultHealth) {
