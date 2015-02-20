@@ -73,7 +73,7 @@ public abstract class Mob extends Entity {
 		}
 		velocity = this.speed * speed;
 		numSteps++;
-		if (!hasCollided(xa, ya)) {
+		if (!hasCollided((int) (xa * scaledSpeed), (int) (ya * scaledSpeed))) {
 			if (ya < 0)
 				movingDir = 0;
 			if (ya > 0)

@@ -30,7 +30,6 @@ public class Player extends Mob {
 	private int tickCount = 0;
 	private boolean canChangeLevel;
 	private Level nextLevel;
-	private double scaledSpeed;
 	private int swingTickCount = 0;
 	private boolean cooldown = true;
 	public int gunType = 4;
