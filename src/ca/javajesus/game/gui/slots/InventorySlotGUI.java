@@ -5,7 +5,7 @@ public class InventorySlotGUI extends Slot{
 	private static final long serialVersionUID = 1L;
 
 	public InventorySlotGUI() {
-		super("/GUI/GUI_INVENTORY.png");
+		super("/GUI/GUI_Inventory/GUI_INVENTORY.png");
 	}
 
 }

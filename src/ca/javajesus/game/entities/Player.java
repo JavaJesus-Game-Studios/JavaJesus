@@ -7,7 +7,6 @@ import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.entities.vehicles.Vehicle;
-import ca.javajesus.game.entities.weapons.GreatSword;
 import ca.javajesus.game.entities.weapons.Sword;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -46,7 +45,6 @@ public class Player extends Mob {
 		super(level, "", x, y, 1, 14, 16, SpriteSheet.player, 100);
 		this.input = input;
 		this.score = 0;
-		sword = new GreatSword(level, this);
 		this.inventory = new Inventory();
 		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 8);
 		if (level != null)

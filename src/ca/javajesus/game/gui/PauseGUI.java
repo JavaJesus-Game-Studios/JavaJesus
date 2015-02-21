@@ -17,7 +17,7 @@ public class PauseGUI extends ScreenGUI {
 		this.setFocusable(true);
 		try {
 			this.image = ImageIO.read(PauseGUI.class
-					.getResource("/GUI/Main_Menu_Background.png"));
+					.getResource("/GUI/GUI_Menus/Main_Menu_Background.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

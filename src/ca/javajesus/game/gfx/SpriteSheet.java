@@ -15,15 +15,15 @@ public class SpriteSheet {
     public int size;
 
     public static SpriteSheet tiles = new SpriteSheet("/Tiles/tile_sheet.png");
-    public static SpriteSheet guns = new SpriteSheet("/Tiles/firearm_sheet.png");
-    public static SpriteSheet letters = new SpriteSheet("/Tiles/letter_sheet.png");
-    public static SpriteSheet particles = new SpriteSheet("/Tiles/particle_sheet.png");
-    public static SpriteSheet swords = new SpriteSheet("/Tiles/sword_sheet.png");
-    public static SpriteSheet enemies = new SpriteSheet("/Sprites/mob_enemy_sheet.png");
-    public static SpriteSheet npcs = new SpriteSheet("/Sprites/mob_friendly_sheet.png");
-    public static SpriteSheet player = new SpriteSheet("/Sprites/player_sheet.png");
-    public static SpriteSheet vehicles = new SpriteSheet("/Sprites/vehicle_sheet.png");
-    public static SpriteSheet items = new SpriteSheet("/Sprites/item_sheet.png");
+    public static SpriteSheet guns = new SpriteSheet("/Tiles/Inventory&Weapon_Sprites/firearm_sheet.png");
+    public static SpriteSheet letters = new SpriteSheet("/GUI/GUI_Menus/letter_sheet.png");
+    public static SpriteSheet particles = new SpriteSheet("/Tiles/Particles&Hud_Sprites/particle_sheet.png");
+    public static SpriteSheet swords = new SpriteSheet("/Sprites/Player_Sprites/player_sword_sheet.png");
+    public static SpriteSheet enemies = new SpriteSheet("/Sprites/EnemyNPC_Sprites/mob_enemy_sheet.png");
+    public static SpriteSheet npcs = new SpriteSheet("/Sprites/FriendlyNPC_Sprites/mob_friendly_sheet.png");
+    public static SpriteSheet player = new SpriteSheet("/Sprites/Player_Sprites/player_sheet.png");
+    public static SpriteSheet vehicles = new SpriteSheet("/Sprites/Vehicle_Sprites/vehicle_sheet.png");
+    public static SpriteSheet items = new SpriteSheet("/Tiles/Inventory&Weapon_Sprites/item_sheet.png");
         
     public SpriteSheet(String path) {
         BufferedImage image = null;

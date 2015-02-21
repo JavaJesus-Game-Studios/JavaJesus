@@ -111,7 +111,7 @@ public class Launcher extends JFrame implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 		try {
 			g.drawImage(
-					ImageIO.read(Launcher.class.getResource("/Main_Menu.png")),
+					ImageIO.read(Launcher.class.getResource("/GUI/GUI_Menus/Main_Menu.png")),
 					0, 0, 800, 800, null);
 
 			switch (id) {
@@ -122,10 +122,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 450
 						&& InputHandler.MouseY < 450 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/story_on.png")), 365, 450,
+							.getResource("/GUI/Buttons/story_on.png")), 365, 450,
 							100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -136,7 +136,7 @@ public class Launcher extends JFrame implements Runnable {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/story_off.png")), 365, 450,
+							.getResource("/GUI/Buttons/story_off.png")), 365, 450,
 							100, 30, null);
 				}
 
@@ -145,10 +145,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 510
 						&& InputHandler.MouseY < 510 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sandbox_on.png")), 365, 510,
+							.getResource("/GUI/Buttons/sandbox_on.png")), 365, 510,
 							100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 510, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -159,7 +159,7 @@ public class Launcher extends JFrame implements Runnable {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sandbox_off.png")), 365,
+							.getResource("/GUI/Buttons/sandbox_off.png")), 365,
 							510, 100, 30, null);
 				}
 
@@ -168,10 +168,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 570
 						&& InputHandler.MouseY < 570 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/options_on.png")), 365, 570,
+							.getResource("/GUI/Buttons/options_on.png")), 365, 570,
 							100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 570, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -182,7 +182,7 @@ public class Launcher extends JFrame implements Runnable {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/options_off.png")), 365,
+							.getResource("/GUI/Buttons/options_off.png")), 365,
 							570, 100, 30, null);
 				}
 
@@ -191,10 +191,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 630
 						&& InputHandler.MouseY < 630 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/help_on.png")), 365, 630,
+							.getResource("/GUI/Buttons/help_on.png")), 365, 630,
 							100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 630, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -205,7 +205,7 @@ public class Launcher extends JFrame implements Runnable {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/help_off.png")), 365, 630,
+							.getResource("/GUI/Buttons/help_off.png")), 365, 630,
 							100, 30, null);
 				}
 				break;
@@ -218,10 +218,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 450
 						&& InputHandler.MouseY < 450 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/survival_on.png")), 365,
+							.getResource("/GUI/Buttons/survival_on.png")), 365,
 							450, 100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -232,7 +232,7 @@ public class Launcher extends JFrame implements Runnable {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/survival_off.png")), 365,
+							.getResource("/GUI/Buttons/survival_off.png")), 365,
 							450, 100, 30, null);
 				}
 
@@ -241,10 +241,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 510
 						&& InputHandler.MouseY < 510 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/zombies_on.png")), 365, 510,
+							.getResource("/GUI/Buttons/zombies_on.png")), 365, 510,
 							100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 510, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -255,7 +255,7 @@ public class Launcher extends JFrame implements Runnable {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/zombies_off.png")), 365,
+							.getResource("/GUI/Buttons/zombies_off.png")), 365,
 							510, 100, 30, null);
 				}
 				break;
@@ -267,10 +267,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 450
 						&& InputHandler.MouseY < 450 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/audio_on.png")), 365, 450,
+							.getResource("/GUI/Buttons/audio_on.png")), 365, 450,
 							100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -281,7 +281,7 @@ public class Launcher extends JFrame implements Runnable {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/audio_off.png")), 365, 450,
+							.getResource("/GUI/Buttons/audio_off.png")), 365, 450,
 							100, 30, null);
 				}
 
@@ -290,10 +290,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 510
 						&& InputHandler.MouseY < 510 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/video_on.png")), 365, 510,
+							.getResource("/GUI/Buttons/video_on.png")), 365, 510,
 							100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 510, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -304,7 +304,7 @@ public class Launcher extends JFrame implements Runnable {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/video_off.png")), 365, 510,
+							.getResource("/GUI/Buttons/video_off.png")), 365, 510,
 							100, 30, null);
 				}
 
@@ -313,10 +313,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 570
 						&& InputHandler.MouseY < 570 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/controls_on.png")), 365,
+							.getResource("/GUI/Buttons/controls_on.png")), 365,
 							570, 100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 570, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -326,7 +326,7 @@ public class Launcher extends JFrame implements Runnable {
 					}
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/controls_off.png")), 365,
+							.getResource("/GUI/Buttons/controls_off.png")), 365,
 							570, 100, 30, null);
 				}
 				break;
@@ -337,10 +337,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 450
 						&& InputHandler.MouseY < 450 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/new_on.png")), 365, 450,
+							.getResource("/GUI/Buttons/new_on.png")), 365, 450,
 							100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -351,7 +351,7 @@ public class Launcher extends JFrame implements Runnable {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/new_off.png")), 365, 450,
+							.getResource("/GUI/Buttons/new_off.png")), 365, 450,
 							100, 30, null);
 				}
 
@@ -360,10 +360,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 510
 						&& InputHandler.MouseY < 510 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/continue_on.png")), 365,
+							.getResource("/GUI/Buttons/continue_on.png")), 365,
 							510, 100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 510, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -374,7 +374,7 @@ public class Launcher extends JFrame implements Runnable {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/continue_off.png")), 365,
+							.getResource("/GUI/Buttons/continue_off.png")), 365,
 							510, 100, 30, null);
 				}
 				break;
@@ -387,10 +387,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 450
 						&& InputHandler.MouseY < 450 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/mute_on.png")), 365, 450,
+							.getResource("/GUI/Buttons/mute_on.png")), 365, 450,
 							100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 450, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -401,7 +401,7 @@ public class Launcher extends JFrame implements Runnable {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/mute_off.png")), 365, 450,
+							.getResource("/GUI/Buttons/mute_off.png")), 365, 450,
 							100, 30, null);
 				}
 				break;
@@ -415,10 +415,10 @@ public class Launcher extends JFrame implements Runnable {
 						&& InputHandler.MouseY > 630
 						&& InputHandler.MouseY < 630 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/back_on.png")), 365, 630,
+							.getResource("/GUI/Buttons/back_on.png")), 365, 630,
 							100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/sword_selector.png")),
+							.getResource("/GUI/Buttons/sword_selector.png")),
 							365 - 110 + swordOffset, 630, 100, 30, null);
 					if (InputHandler.MouseButton == 1) {
 						InputHandler.MouseButton = 0;
@@ -429,7 +429,7 @@ public class Launcher extends JFrame implements Runnable {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/Buttons/back_off.png")), 365, 630,
+							.getResource("/GUI/Buttons/back_off.png")), 365, 630,
 							100, 30, null);
 				}
 			}
@@ -439,10 +439,10 @@ public class Launcher extends JFrame implements Runnable {
 					&& InputHandler.MouseY > 690
 					&& InputHandler.MouseY < 690 + 30) {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/quit_on.png")), 365, 690, 100,
+						.getResource("/GUI/Buttons/quit_on.png")), 365, 690, 100,
 						30, null);
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/sword_selector.png")),
+						.getResource("/GUI/Buttons/sword_selector.png")),
 						365 - 110 + swordOffset, 690, 100, 30, null);
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
@@ -453,7 +453,7 @@ public class Launcher extends JFrame implements Runnable {
 
 			} else {
 				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/Buttons/quit_off.png")), 365, 690, 100,
+						.getResource("/GUI/Buttons/quit_off.png")), 365, 690, 100,
 						30, null);
 			}
 

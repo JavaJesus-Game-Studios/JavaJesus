@@ -23,7 +23,7 @@ public class PlayerSlotGUI extends Slot {
 	protected int[] colors = new int[6 * 6 * 6];
 
 	public PlayerSlotGUI(Player player, int num, double scale, double yScale) {
-		super("/GUI/GUI_PLAYER.png");
+		super("/GUI/GUI_Inventory/GUI_PLAYER.png");
 		this.id = num;
 		width = (int) (image.getWidth() * scale * xScale) - 60;
 		height = (int) (image.getHeight() * scale * yScale) - 130;
