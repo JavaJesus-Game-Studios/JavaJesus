@@ -62,6 +62,8 @@ public abstract class Tile {
 			141, -1), 0xFF00FF00);
 	public static final Tile GRASS3 = new BaseTile(18, 4, 1, Colors.get(-1, 131,
 			141, -1), 0xFF00FF00);
+	public static final Tile CAVEWALL = new BasicSolidTile(19, 4, 0, Colors.get(-1, Colors.fromHex("#4a2d00"),
+			Colors.fromHex("291900"), -1), 0xFF291900);
 
 
 	protected byte id;
