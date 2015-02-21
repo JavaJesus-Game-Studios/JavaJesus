@@ -3,6 +3,8 @@ package ca.javajesus.level;
 import java.awt.Point;
 import java.util.Random;
 
+import ca.javajesus.game.entities.structures.TransporterInterior;
+
 public class RandomCave extends Level {
 	private boolean[][] caveMap;
 
@@ -11,6 +13,7 @@ public class RandomCave extends Level {
 	public RandomCave(int height, int width, int cycles) {
 		super(width, height);
 		spawnPoint = new Point(500, 500);
+		
 	}
 	
 	protected void generateLevel() {
@@ -19,9 +22,9 @@ public class RandomCave extends Level {
 			for (int col = 0; col < width; col++) {
 				int tile = col + row * width;
 				if (caveMap[row][col] == true) {
-					tiles[tile] = 14;
+					tiles[tile] = 20;
 				} else if (caveMap[row][col] == false) {
-					tiles[tile] = 1;
+					tiles[tile] = 19;
 				}
 			}
 		}
@@ -47,7 +50,6 @@ public class RandomCave extends Level {
 
 	@Override
 	protected void otherEntityPlacement() {
-		// TODO Auto-generated method stub
-
+		this.addEntity(new TransporterInterior(this, 500, 500, Level.level1, new Point(220, 79)));
 	}
 }
