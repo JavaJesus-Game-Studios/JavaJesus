@@ -499,18 +499,18 @@ public class NPC extends Mob {
 			currentQuest.update();
 			switch (currentQuest.getPhase()) {
 			case 0: {
-				ChatHandler.sendMessage(currentQuest.preDialogue(), Color.blue);
+				ChatHandler.sendMessage(name + ": " + currentQuest.preDialogue(), Color.blue);
 				sound.play(sound.levelup);
 				currentQuest.nextPhase();
 				return;
 			}
 			case 1: {
-				ChatHandler.sendMessage(currentQuest.dialogue(), Color.blue);
+				ChatHandler.sendMessage(name + ": " + currentQuest.dialogue(), Color.blue);
 				return;
 			}
 			case 2: {
 				ChatHandler
-						.sendMessage(currentQuest.postDialogue(), Color.CYAN);
+						.sendMessage(name + ": " + currentQuest.postDialogue(), Color.CYAN);
 				sound.play(sound.chest);
 				nextQuest();
 				return;
@@ -520,32 +520,32 @@ public class NPC extends Mob {
 
 		switch (random.nextInt(6)) {
 		case 0: {
-			ChatHandler.sendMessage("I used to be an adventurer too!",
+			ChatHandler.sendMessage(name + ": I used to be an adventurer too!",
 					Color.black);
 			return;
 		}
 		case 1: {
-			ChatHandler.sendMessage("Nice shirt!", Color.black);
+			ChatHandler.sendMessage(name + ": Nice shirt!", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.sendMessage("Are you Jesus?", Color.black);
+			ChatHandler.sendMessage(name + ": Are you Jesus?", Color.white);
 			return;
 		}
 		case 3: {
 			ChatHandler
 					.sendMessage(
-							"This is some nice weather we've been having.",
-							Color.black);
+							name + ": This is some nice weather we've been having.",
+							Color.white);
 			return;
 		}
 		case 4: {
-			ChatHandler.sendMessage("You are not from around here are you!",
-					Color.black);
+			ChatHandler.sendMessage(name + ": You are not from around here are you!",
+					Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.sendMessage("Hello!", Color.black);
+			ChatHandler.sendMessage(name + ": Hello!", Color.white);
 			return;
 		}
 		}

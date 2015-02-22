@@ -143,7 +143,7 @@ public class Monkey extends Monster {
 	}
 	
 	public void speak(Player player) {
-		ChatHandler.sendMessage("oh oh ah ah oh", Color.black);
+		ChatHandler.sendMessage("oh oh ah ah oh", Color.white);
 		return;
 	}
 }

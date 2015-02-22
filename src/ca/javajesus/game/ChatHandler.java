@@ -2,7 +2,13 @@ package ca.javajesus.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+
+import ca.javajesus.game.gui.MapGUI;
 
 public class ChatHandler {
 
@@ -13,10 +19,19 @@ public class ChatHandler {
 	private static ArrayList<Color> colors = new ArrayList<Color>();
 
 	private static int ticks = 0;
-	private static boolean isVisible = true;
+	private static boolean isVisible = false;
 	private static boolean tickTimer = false;
 
+	public static BufferedImage image;
+
 	public ChatHandler() {
+
+		try {
+			image = ImageIO.read(ChatHandler.class
+					.getResource("/GUI/GUI_Hud/GUI_Dialogue.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -30,6 +45,7 @@ public class ChatHandler {
 
 	public static void drawMessages(Graphics g) {
 		if (isVisible) {
+			g.drawImage(image, 0, 550, null);
 			int yOffset = 670;
 			for (int i = 0; i < chatwindow.size(); i++) {
 				if (chatwindow.get(i) != null) {

@@ -83,31 +83,31 @@ public class Monster extends Mob {
 		switch (random.nextInt(6)) {
 		case 0: {
 			ChatHandler.sendMessage("Rawr!",
-					Color.black);
+					Color.white);
 			return;
 		}
 		case 1: {
-			ChatHandler.sendMessage("Arghhh", Color.black);
+			ChatHandler.sendMessage("Arghhh", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.sendMessage("OOOHH", Color.black);
+			ChatHandler.sendMessage("OOOHH", Color.white);
 			return;
 		}
 		case 3: {
 			ChatHandler
 					.sendMessage(
 							"ROAAR",
-							Color.black);
+							Color.white);
 			return;
 		}
 		case 4: {
 			ChatHandler.sendMessage("HHRRRRSSHSHH",
-					Color.black);
+					Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.sendMessage("RRRRRRRRRHHHH", Color.black);
+			ChatHandler.sendMessage("RRRRRRRRRHHHH", Color.white);
 			return;
 		}
 		}

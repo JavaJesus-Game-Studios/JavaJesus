@@ -23,29 +23,6 @@ public class Colors {
 		return ((get(color4) << 24) + (get(color3) << 16) + (get(color2) << 8) + (get(color1)));
 	}
 
-	/**
-	 * Six Colors
-	 * 
-	 * @param color1
-	 *            : Black, Hex Value:#000000, RGB: (0, 0, 0)
-	 * @param color2
-	 *            : RGB: (51, 51, 51)
-	 * @param color3
-	 *            : RGB: (102, 102, 102)
-	 * @param color4
-	 *            : RGB: (153, 153, 153)
-	 * @param color5
-	 *            : RGB: (204, 204, 204)
-	 * @param color6
-	 *            : White, Hex Value: #FFFFFF, RGB: (255, 255, 255)
-	 * @return
-	 */
-	public static int get(int color1, int color2, int color3, int color4,
-			int color5, int color6) {
-		return (int) (get(color6) << 24) + get(color5 << 16) + get(color4 << 12)
-				+ get(color3 << 8) + get(color2 << 4) + get(color1);
-	}
-
 	private static int get(int color) {
 		if (color < 0)
 			return 255;

@@ -226,7 +226,7 @@ public class Policeman extends NPC {
 	}
 	
 	public void speak(Player player) {
-		ChatHandler.sendMessage("Stop right there, Criminal Scum!", Color.red);
+		ChatHandler.sendMessage(name + ": Stop right there, Criminal Scum!", Color.red);
 		return;
 	}
 }

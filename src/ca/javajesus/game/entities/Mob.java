@@ -33,7 +33,7 @@ public abstract class Mob extends Entity {
 	public Rectangle standBox;
 	protected boolean isAvoidingCollision = false;
 	public boolean renderOnTop = false;
-	
+
 	protected boolean isSwimming = false;
 	public boolean isSwinging = false;
 	protected boolean isShooting = false;
@@ -83,7 +83,7 @@ public abstract class Mob extends Entity {
 			this.health = startHealth;
 		}
 	}
-	
+
 	public void heal() {
 		this.health = startHealth;
 	}
@@ -172,20 +172,19 @@ public abstract class Mob extends Entity {
 		if (bar != null)
 			bar.renderOnTop = true;
 		for (Entity entity : level.getEntities()) {
-			if (entity instanceof SolidEntity) {
-				if (!(entity instanceof Transporter)) {
-					if (this.hitBox.intersects(((SolidEntity) entity).shadow)) {
-						renderOnTop = false;
-						if (bar != null)
-							bar.renderOnTop = false;
-					}
+			if (entity instanceof SolidEntity
+					&& !(entity instanceof Transporter)) {
+				if (this.hitBox.intersects(((SolidEntity) entity).shadow)) {
+					renderOnTop = false;
+					if (bar != null)
+						bar.renderOnTop = false;
 				}
 				Rectangle temp = new Rectangle(
 						((SolidEntity) entity).bounds.width,
 						((SolidEntity) entity).bounds.height - 8);
 				temp.setLocation(
-						(int) ((SolidEntity) entity).bounds.x - 2 * xa,
-						(int) ((SolidEntity) entity).bounds.y - 2 * ya);
+						(int) ((SolidEntity) entity).bounds.x - 3 * xa,
+						(int) ((SolidEntity) entity).bounds.y - 3 * ya);
 				if (this.hitBox.intersects(temp))
 					return true;
 			} else if (entity instanceof Vehicle && entity != this) {

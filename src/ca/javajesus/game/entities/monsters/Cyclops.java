@@ -170,7 +170,7 @@ public class Cyclops extends Monster {
 	}
 
 	public void speak(Player player) {
-		ChatHandler.sendMessage("I'm gonna kill you fool!", Color.black);
+		ChatHandler.sendMessage("I'm gonna kill you fool!", Color.white);
 		return;
 	}
 

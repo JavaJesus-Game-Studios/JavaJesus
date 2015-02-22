@@ -7,7 +7,6 @@ import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.entities.vehicles.Vehicle;
-import ca.javajesus.game.entities.weapons.Sword;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
@@ -34,7 +33,7 @@ public class Player extends Mob {
 	public Vehicle vehicle;
 	protected int shootingDir;
 	public int score;
-	private Sword sword;
+	public int swordType = 0;
 	public int yTile = 0;
 	public Inventory inventory;
 	public double stamina;
@@ -92,7 +91,6 @@ public class Player extends Mob {
 		if (input.space.isPressed()) {
 			if (!isShooting && !isSwimming && !isDriving && !isSwinging) {
 				isSwinging = true;
-				level.addEntity(sword);
 			}
 		}
 
@@ -192,8 +190,7 @@ public class Player extends Mob {
 
 		if ((xa != 0 || ya != 0)
 				&& !isSolidEntityCollision((int) (xa * speed),
-						(int) (ya * speed)) && !isDriving
-				&& speed > 1) {
+						(int) (ya * speed)) && !isDriving && speed > 1) {
 			move(xa, ya);
 			isMoving = true;
 		} else if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
@@ -219,7 +216,7 @@ public class Player extends Mob {
 		}
 
 		// Swinging cooldown
-		if (swingTickCount > 200) {
+		if (swingTickCount > 30) {
 			isSwinging = false;
 			swingTickCount = 0;
 		} else if (isShooting && swingTickCount % 10 == 0) {
@@ -350,7 +347,7 @@ public class Player extends Mob {
 		}
 
 		// Normal Player movement -- Not Attacking Anything
-		if (!isShooting) {
+		if (!isShooting && !isSwinging) {
 			// Upper body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
 					+ yTile * 32, color, flipTop, scale, sheet);
@@ -418,6 +415,66 @@ public class Player extends Mob {
 						(this.y - 2), shootingDir, this));
 				isShooting = false;
 				swingTickCount = 0;
+			}
+
+		}
+
+		// Handles Swinging Animation
+		if (isSwinging) {
+			xTile = swordType;
+			yTile = 0;
+
+			if (movingDir == 0) {
+				xTile = 2;
+			} else if (movingDir > 1) {
+				xTile = 4;
+				flipTop = (movingDir - 1) % 2;
+				flipBottom = (movingDir - 1) % 2;
+			}
+
+			// Upper Body 1
+			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
+					+ yTile * 32, color, flipTop, scale, SpriteSheet.swords);
+			// Upper Body 2
+			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
+					(xTile + 1) + yTile * 32, color, flipTop, scale,
+					SpriteSheet.swords);
+
+			// Lower Body 1
+			screen.render(xOffset + (modifier * flipBottom),
+					yOffset + modifier, xTile + (yTile + 1) * 32, color,
+					flipBottom, scale, SpriteSheet.swords);
+
+			// Lower Body 2
+			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
+					flipBottom, scale, SpriteSheet.swords);
+
+			if (movingDir < 2) {
+				// Lower Body 1
+				screen.render(xOffset + (modifier * flipBottom), yOffset + 2
+						* modifier, xTile + (yTile + 2) * 32, color,
+						flipBottom, scale, SpriteSheet.swords);
+
+				// Lower Body 2
+				screen.render(xOffset + modifier - (modifier * flipBottom),
+						yOffset + 2 * modifier, (xTile + 1) + (yTile + 2) * 32,
+						color, flipBottom, scale, SpriteSheet.swords);
+			} else {
+				int num = 0;
+				if (movingDir == 2) {
+					num = 16;
+				}
+				// Upper Body 2
+				screen.render(xOffset + 2 * modifier - num
+						- (modifier * flipTop), yOffset, (xTile + 2) + yTile
+						* 32, color, flipTop, scale, SpriteSheet.swords);
+
+				// Lower Body 2
+				screen.render(xOffset + 2 * modifier - num
+						- (modifier * flipBottom), yOffset + modifier,
+						(xTile + 2) + (yTile + 1) * 32, color, flipBottom,
+						scale, SpriteSheet.swords);
 			}
 
 		}
