@@ -18,7 +18,7 @@ public class RandomCave extends Level {
 
 	protected void generateLevel() {
 		boolean spawnFound = true;
-		caveMap = new CaveGeneration(height, width, 4).generateCave();
+		caveMap = new CaveGeneration(height, width, 3).generateCave();
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
 				int tile = col + row * width;

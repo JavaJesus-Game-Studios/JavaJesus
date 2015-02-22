@@ -22,7 +22,7 @@ public class CaveGeneration {
 
 	public int[][] generateCave() {
 		fillArray();
-		cellAutomata(6, 8, 3, 8);
+		cellAutomata(4, 8, 3, 8);
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
 				if (row == 0 || row == height - 1) {
