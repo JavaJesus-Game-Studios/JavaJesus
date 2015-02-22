@@ -9,7 +9,9 @@ import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 
+import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
@@ -49,6 +51,10 @@ public abstract class Level {
 			tiles = new int[width * height];
 			this.generateLevel();
 		}
+	}
+	
+	public Clip getBackgroundMusic() {
+		return SoundHandler.sound.background1;
 	}
 
 	public Level(int width, int height) {

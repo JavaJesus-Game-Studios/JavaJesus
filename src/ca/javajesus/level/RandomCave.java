@@ -3,6 +3,9 @@ package ca.javajesus.level;
 import java.awt.Point;
 import java.util.Random;
 
+import javax.sound.sampled.Clip;
+
+import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.structures.TransporterInterior;
 
 public class RandomCave extends Level {
@@ -14,6 +17,10 @@ public class RandomCave extends Level {
 		super(width, height);
 		// spawnPoint = new Point(500, 500);
 
+	}
+	
+	public Clip getBackgroundMusic() {
+		return SoundHandler.sound.background2;
 	}
 
 	protected void generateLevel() {

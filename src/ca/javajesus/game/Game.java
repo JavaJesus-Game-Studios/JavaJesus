@@ -35,10 +35,10 @@ public class Game extends Canvas implements Runnable {
 	protected static final int LOAD_SPEED = 10;
 
 	public static final int WIDTH = 300;
-	public static final int HEIGHT = WIDTH / 16 * 9;
+	public static final int HEIGHT = WIDTH / 12 * 9;
 
 	/** Scales the size of the screen */
-	public static final int SCALE = 4;
+	public static final int SCALE = 3;
 	public static final String NAME = "Java Jesus by the Coders of Anarchy";
 
 	/** Entity limit per screen */
@@ -89,6 +89,7 @@ public class Game extends Canvas implements Runnable {
 	/** This starts the game */
 	public Game() {
 		input = new InputHandler(this);
+		new ChatHandler();
 		init();
 		inventory = new InventoryGUI(player);
 		pause = new PauseGUI();

@@ -14,20 +14,26 @@ public class SoundHandler {
 			fireball, footsteps1, footstepsDirt, footstepsFarmland,
 			footstepsGrass, footstepsRoad, footstepsWood,
 			gunshot, gunshot2, levelup, shortSword1, swimming,
-			walking;
+			walking, background2;
 
 	@SuppressWarnings("unused")
 	public SoundHandler() {
 
-		AudioInputStream sheathe, background1, chest, chimpanzee, click, demon, fireball, footsteps1, footstepsDirt, footstepsFarmland, footstepsGrass, footstepsRoad, footstepsWaterSand, footstepsWood, gunshot, gunshot2, gunshot3, levelup, shortSword1, swimming, walking;
+		AudioInputStream sheathe, background1, chest, chimpanzee, click, demon, fireball,
+		footsteps1, footstepsDirt, footstepsFarmland, footstepsGrass, footstepsRoad, 
+		footstepsWaterSand, footstepsWood, gunshot, gunshot2, gunshot3, levelup, shortSword1, 
+		swimming, walking, background2;
 
 		try {
 
 			sheathe = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Sword_Sounds/Short_Sword_Sound_v2.wav"));
 
-			background1 = AudioSystem.getAudioInputStream(SoundHandler.class
+			background2 = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Freaks.wav"));
+			
+			background1 = AudioSystem.getAudioInputStream(SoundHandler.class
+					.getResource("/Sound/8-bit_Sounds/Background1_v2.wav"));
 
 			chest = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/8-Bit_Sounds/Chest_Opening_v2.wav"));
@@ -81,6 +87,7 @@ public class SoundHandler {
 
 			this.sheathe = AudioSystem.getClip();
 			this.background1 = AudioSystem.getClip();
+			this.background2 = AudioSystem.getClip();
 			this.chest = AudioSystem.getClip();
 			this.chimpanzee = AudioSystem.getClip();
 			this.click = AudioSystem.getClip();
@@ -105,6 +112,7 @@ public class SoundHandler {
 			this.fireball.open(fireball);
 			this.gunshot.open(gunshot);
 			this.background1.open(background1);
+			this.background2.open(background2);
 			this.sheathe.open(sheathe);
 			this.swimming.open(swimming);
 			

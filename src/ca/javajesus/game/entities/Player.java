@@ -1,5 +1,7 @@
 package ca.javajesus.game.entities;
 
+import javax.sound.sampled.Clip;
+
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
@@ -39,6 +41,8 @@ public class Player extends Mob {
 	public double stamina;
 	public double startStamina;
 	public boolean isTired;
+	public final int swordColor = Colors.get(-1, Colors.fromHex("#f2f3f9"), -1,
+			Colors.fromHex("#d6d7dc"));
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "", x, y, 1, 14, 16, SpriteSheet.player, 100);
@@ -62,9 +66,12 @@ public class Player extends Mob {
 
 	public void changeLevel(Level level) {
 		if (input.e.isPressed()) {
+			this.level.getBackgroundMusic().stop();
+			this.level.getBackgroundMusic().setFramePosition(0);
 			this.nextLevel = level;
 			this.canChangeLevel = true;
 			sound.play(SoundHandler.sound.click);
+			level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 		}
 	}
 
@@ -474,6 +481,55 @@ public class Player extends Mob {
 				screen.render(xOffset + 2 * modifier - num
 						- (modifier * flipBottom), yOffset + modifier,
 						(xTile + 2) + (yTile + 1) * 32, color, flipBottom,
+						scale, SpriteSheet.swords);
+			}
+
+			// Renders the Actual Sword
+
+			yTile += 3;
+			// Upper Body 1
+			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
+					+ yTile * 32, swordColor, flipTop, scale,
+					SpriteSheet.swords);
+			// Upper Body 2
+			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
+					(xTile + 1) + yTile * 32, swordColor, flipTop, scale,
+					SpriteSheet.swords);
+
+			// Lower Body 1
+			screen.render(xOffset + (modifier * flipBottom),
+					yOffset + modifier, xTile + (yTile + 1) * 32, swordColor,
+					flipBottom, scale, SpriteSheet.swords);
+
+			// Lower Body 2
+			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+					+ modifier, (xTile + 1) + (yTile + 1) * 32, swordColor,
+					flipBottom, scale, SpriteSheet.swords);
+
+			if (movingDir < 2) {
+				// Lower Body 1
+				screen.render(xOffset + (modifier * flipBottom), yOffset + 2
+						* modifier, xTile + (yTile + 2) * 32, swordColor,
+						flipBottom, scale, SpriteSheet.swords);
+
+				// Lower Body 2
+				screen.render(xOffset + modifier - (modifier * flipBottom),
+						yOffset + 2 * modifier, (xTile + 1) + (yTile + 2) * 32,
+						swordColor, flipBottom, scale, SpriteSheet.swords);
+			} else {
+				int num = 0;
+				if (movingDir == 2) {
+					num = 16;
+				}
+				// Upper Body 2
+				screen.render(xOffset + 2 * modifier - num
+						- (modifier * flipTop), yOffset, (xTile + 2) + yTile
+						* 32, swordColor, flipTop, scale, SpriteSheet.swords);
+
+				// Lower Body 2
+				screen.render(xOffset + 2 * modifier - num
+						- (modifier * flipBottom), yOffset + modifier,
+						(xTile + 2) + (yTile + 1) * 32, swordColor, flipBottom,
 						scale, SpriteSheet.swords);
 			}
 
