@@ -24,33 +24,31 @@ public class RandomLevel2 extends Level {
 	 */
 	public RandomLevel2(int width, int height) {
 		super(width, height);
-		boolean spawnFound = false;
-		int x = 0, y = 0;
-		while (!spawnFound) {
-			if (heightmap[y][x] != 0 || heightmap[y][x] != 2) {
-				spawnFound = true;
-				spawnPoint = new Point(x, y);
-			}
-			x++;
-			y++;
-		}
 	}
 
 	protected void generateLevel() {
 		heightmap = new HeightMap(width, height).generateHeightMap(20);
-		for (int y = 0; y < heightmap.length; y++) {
-			for (int x = 0; x < heightmap[y].length; x++) {
-				int tile = x + y * width;
-				if(heightmap[y][x] < 500) {
-					tiles[tile] = heightmap[y][x];
-				} else if(heightmap[y][x] == 500) {
+		boolean spawnFound = true;
+		for (int row = 0; row < heightmap.length; row++) {
+			for (int col = 0; col < heightmap[row].length; col++) {
+				int tile = col + row * width;
+				if(heightmap[row][col] < 500) {
+					tiles[tile] = heightmap[row][col];
+				} else if(heightmap[row][col] == 500) {
 					tiles[tile] = 0;
-					this.addEntity(new PoorHouse(this, x * 8, y * 8));
-				} else if(heightmap[y][x] == 501) {
+					this.addEntity(new PoorHouse(this, col * 8, row * 8));
+				} else if(heightmap[row][col] == 501) {
 					tiles[tile] = 0;
-					this.addEntity(new CenturyLeSabre(this, "car", x * 8, y * 8, 10, 100));
+					this.addEntity(new CenturyLeSabre(this, "car", col * 8, row * 8, 10, 100));
 				}
-					
+				if (heightmap[row][col] == 0) {
+					if (row > 300 && col > 300) {
+						while (spawnFound) {
+							spawnPoint = new Point(col * 8, row * 8);
+							spawnFound = false;
+						}
+					}
+				}
 			}
 		}
 	}

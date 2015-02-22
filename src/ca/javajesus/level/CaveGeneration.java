@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class CaveGeneration {
 	private boolean[][] caveMap;
+	private int[][] caveReturn;
 	private int width;
 	private int height;
 	private int cycles;
@@ -16,9 +17,10 @@ public class CaveGeneration {
 		this.width = width;
 		this.cycles = cycles;
 		caveMap = new boolean[height][width];
+		caveReturn = new int[height][width];
 	}
 
-	public boolean[][] generateCave() {
+	public int[][] generateCave() {
 		fillArray();
 		cellAutomata(6, 8, 3, 8);
 		for (int row = 0; row < height; row++) {
@@ -30,7 +32,25 @@ public class CaveGeneration {
 				}
 			}
 		}
-		return caveMap;
+		for (int row = 1; row < height - 1; row++) {
+			for (int col = 1; col < width - 1; col++) {
+				if (caveMap[row][col]) {
+					caveReturn[row][col] = 1;
+				} else if (!caveMap[row][col]) {
+					if (caveMap[row - 1][col - 1] || caveMap[row - 1][col]
+							|| caveMap[row - 1][col + 1]
+							|| caveMap[row][col - 1] || caveMap[row][col + 1]
+							|| caveMap[row + 1][col - 1]
+							|| caveMap[row + 1][col]
+							|| caveMap[row + 1][col + 1]) {
+						caveReturn[row][col] = 2;
+					} else {
+						caveReturn[row][col] = 0;
+					}
+				}
+			}
+		}
+		return caveReturn;
 	}
 
 	private void fillArray() {
@@ -116,7 +136,7 @@ public class CaveGeneration {
 			}
 		}
 	}
-	
+
 	public Point getSpawnPoint() {
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {

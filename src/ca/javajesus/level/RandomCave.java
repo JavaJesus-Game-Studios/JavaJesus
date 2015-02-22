@@ -6,25 +6,34 @@ import java.util.Random;
 import ca.javajesus.game.entities.structures.TransporterInterior;
 
 public class RandomCave extends Level {
-	private boolean[][] caveMap;
+	private int[][] caveMap;
 
-	Random rand =  new Random();
-	
+	Random rand = new Random();
+
 	public RandomCave(int height, int width, int cycles) {
 		super(width, height);
-		spawnPoint = new Point(500, 500);
-		
+		// spawnPoint = new Point(500, 500);
+
 	}
-	
+
 	protected void generateLevel() {
+		boolean spawnFound = true;
 		caveMap = new CaveGeneration(height, width, 4).generateCave();
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
 				int tile = col + row * width;
-				if (caveMap[row][col] == true) {
+				if (caveMap[row][col] == 1) {
 					tiles[tile] = 20;
-				} else if (caveMap[row][col] == false) {
+					if (row > 300 && col > 300) {
+						while (spawnFound) {
+							spawnPoint = new Point(col * 8, row * 8);
+							spawnFound = false;
+						}
+					}
+				} else if (caveMap[row][col] == 2) {
 					tiles[tile] = 19;
+				} else if (caveMap[row][col] == 0) {
+					tiles[tile] = 0;
 				}
 			}
 		}
@@ -50,6 +59,7 @@ public class RandomCave extends Level {
 
 	@Override
 	protected void otherEntityPlacement() {
-		this.addEntity(new TransporterInterior(this, 500, 500, Level.level1, new Point(220, 79)));
+		this.addEntity(new TransporterInterior(this, spawnPoint.getX(), spawnPoint.getY(), Level.level1,
+				new Point(220, 79)));
 	}
 }
