@@ -40,7 +40,12 @@ public class ChatHandler {
 		ticks = 0;
 		isVisible = true;
 		chatlog.add(string);
-		updateWindow(string, color);
+		String check = string;
+		while (stringProcessor(check)) {
+			updateWindow(check.substring(0, stringSplitter(check)), color);
+			check = check.substring(stringSplitter(check));
+		}
+		updateWindow(check, color);
 	}
 
 	public static void drawMessages(Graphics g) {
@@ -77,5 +82,21 @@ public class ChatHandler {
 		}
 
 	}
+	
+	private static boolean stringProcessor(String string) {
+		if (string.length() <= 45) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
+	private static int stringSplitter(String string) {
+		for (int i =46; i > 0; i--) {
+			if (string.charAt(i) == ' ') {
+				return i;
+			}
+		}
+		return 45;
+	}
 }
