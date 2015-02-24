@@ -41,7 +41,7 @@ public class ChatHandler {
 		isVisible = true;
 		chatlog.add(string);
 		String check = string;
-		while (stringProcessor(check)) {
+		while (!(check.length() <= 45)) {
 			updateWindow(check.substring(0, stringSplitter(check)), color);
 			check = check.substring(stringSplitter(check));
 		}
@@ -81,14 +81,6 @@ public class ChatHandler {
 			colors.add(0, color);
 		}
 
-	}
-	
-	private static boolean stringProcessor(String string) {
-		if (string.length() <= 45) {
-			return false;
-		} else {
-			return true;
-		}
 	}
 
 	private static int stringSplitter(String string) {
