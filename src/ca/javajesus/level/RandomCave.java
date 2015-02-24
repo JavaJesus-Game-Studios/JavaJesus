@@ -15,7 +15,6 @@ public class RandomCave extends Level {
 
 	public RandomCave(int height, int width, int cycles) {
 		super(width, height);
-		// spawnPoint = new Point(500, 500);
 
 	}
 	
