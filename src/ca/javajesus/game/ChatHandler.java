@@ -1,6 +1,7 @@
 package ca.javajesus.game;
 
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -51,9 +52,19 @@ public class ChatHandler {
 	public static void drawMessages(Graphics g) {
 		if (isVisible) {
 			g.drawImage(image, 0, 550, null);
+			FontMetrics font = g.getFontMetrics();
 			int yOffset = 670;
 			for (int i = 0; i < chatwindow.size(); i++) {
-				if (chatwindow.get(i) != null) {
+				if (chatwindow.get(i).contains(":")) {
+					int split = chatwindow.get(i).indexOf(":") + 1;
+					String name = chatwindow.get(i).substring(0, split);
+					String message = chatwindow.get(i).substring(split);
+					g.setColor(Color.WHITE);
+					g.drawString(name, 10, yOffset);
+					g.setColor(colors.get(i));
+					g.drawString(message, 10 + font.stringWidth(name), yOffset);
+					yOffset -= 20;
+				} else if (chatwindow.get(i) != null) {
 					g.setColor(colors.get(i));
 					g.drawString(chatwindow.get(i), 10, yOffset);
 					yOffset -= 20;
