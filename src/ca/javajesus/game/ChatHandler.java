@@ -13,6 +13,8 @@ import ca.javajesus.game.gui.MapGUI;
 
 public class ChatHandler {
 
+	private static final int LENGTH = 45;
+	
 	public static ArrayList<String> chatlog = new ArrayList<String>();
 
 	protected static ArrayList<String> chatwindow = new ArrayList<String>();
@@ -42,7 +44,7 @@ public class ChatHandler {
 		isVisible = true;
 		chatlog.add(string);
 		String check = string;
-		while (!(check.length() <= 44)) {
+		while (!(check.length() <= LENGTH)) {
 			updateWindow(check.substring(0, stringSplitter(check)), color);
 			check = check.substring(stringSplitter(check));
 		}
@@ -95,11 +97,11 @@ public class ChatHandler {
 	}
 
 	private static int stringSplitter(String string) {
-		for (int i = 44; i > 0; i--) {
+		for (int i = LENGTH; i > 0; i--) {
 			if (string.charAt(i) == ' ') {
 				return i;
 			}
 		}
-		return 44;
+		return LENGTH;
 	}
 }
