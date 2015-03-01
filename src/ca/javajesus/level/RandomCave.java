@@ -7,6 +7,7 @@ import javax.sound.sampled.Clip;
 
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.structures.TransporterInterior;
+import ca.javajesus.level.generation.CaveGeneration;
 
 public class RandomCave extends Level {
 	private int[][] caveMap;

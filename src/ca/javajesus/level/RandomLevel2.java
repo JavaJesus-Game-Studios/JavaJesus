@@ -5,6 +5,7 @@ import java.util.Random;
 
 import ca.javajesus.game.entities.structures.PoorHouse;
 import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
+import ca.javajesus.level.generation.HeightMap;
 import ca.javajesus.level.tile.Tile;
 
 public class RandomLevel2 extends Level {

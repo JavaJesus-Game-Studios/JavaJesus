@@ -1,4 +1,4 @@
-package ca.javajesus.level;
+package ca.javajesus.level.generation;
 
 import java.util.Random;
 
