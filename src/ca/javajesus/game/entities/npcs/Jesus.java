@@ -81,6 +81,11 @@ public class Jesus extends NPC {
 					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
 					1);
 		}
+		
+		if (isHit) {
+			JJFont.render(damageTaken, screen, (int) xOffset + random.nextInt(10) - 5, (int) yOffset - 10 + random.nextInt(6) - 3,
+					Colors.get(-1, -1, -1, random.nextInt(200)), 1);
+		}
 
 	}
 }

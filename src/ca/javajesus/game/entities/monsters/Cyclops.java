@@ -53,6 +53,14 @@ public class Cyclops extends Monster {
 		if (isDead)
 			return;
 		
+		if (isHit) {
+			isHitTicks++;
+			if (isHitTicks > 20) {
+				isHitTicks = 0;
+				isHit = false;
+			}
+		}
+		
 		if (isTalking) {
 			talkCount++;
 			if (talkCount > 350) {
@@ -180,6 +188,11 @@ public class Cyclops extends Monster {
 			JJFont.render(name, screen, (int) xOffset
 					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
 					1);
+		}
+		
+		if (isHit) {
+			JJFont.render(damageTaken, screen, (int) xOffset + random.nextInt(10) - 5, (int) yOffset - 10 + random.nextInt(6) - 3,
+					Colors.get(-1, -1, -1, random.nextInt(200)), 1);
 		}
 
 	}

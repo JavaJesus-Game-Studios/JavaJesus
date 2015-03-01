@@ -45,6 +45,7 @@ public class Player extends Mob {
 	public boolean isTired;
 	public final int swordColor = Colors.get(-1, Colors.fromHex("#f2f3f9"), -1,
 			Colors.fromHex("#d6d7dc"));
+	
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "", x, y, 1, 14, 16, SpriteSheet.player, 100);
@@ -81,6 +82,14 @@ public class Player extends Mob {
 
 		if (isDriving) {
 			return;
+		}
+		
+		if (isHit) {
+			isHitTicks++;
+			if (isHitTicks > 20) {
+				isHitTicks = 0;
+				isHit = false;
+			}
 		}
 
 		int xa = 0;
@@ -540,6 +549,11 @@ public class Player extends Mob {
 						scale, SpriteSheet.swords);
 			}
 
+		}
+		
+		if (isHit) {
+			JJFont.render(damageTaken, screen, (int) xOffset + random.nextInt(10) - 5, (int) yOffset - 10 + random.nextInt(6) - 3,
+					Colors.get(-1, -1, -1, random.nextInt(200)), 1);
 		}
 
 	}

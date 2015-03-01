@@ -77,6 +77,14 @@ public class Monster extends Mob {
 		if (isDead)
 			return;
 		
+		if (isHit) {
+			isHitTicks++;
+			if (isHitTicks > 20) {
+				isHitTicks = 0;
+				isHit = false;
+			}
+		}
+		
 		if (isTalking) {
 			talkCount++;
 			if (talkCount > 350) {

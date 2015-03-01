@@ -14,7 +14,6 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import javax.security.auth.login.Configuration;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -77,6 +76,8 @@ public class Game extends Canvas implements Runnable {
 
 	/** Creates instance of the player */
 	public Player player;
+	
+	protected PlayerHUD hud;
 
 	/** Used for display variables */
 	public static PauseGUI pause;
@@ -95,6 +96,7 @@ public class Game extends Canvas implements Runnable {
 		new ChatHandler();
 		init();
 		inventory = new InventoryGUI(player);
+		hud = new PlayerHUD(player);
 		pause = new PauseGUI();
 		introScreen = new IntroGUI(this);
 		display = new JPanel(new CardLayout());
@@ -303,6 +305,7 @@ public class Game extends Canvas implements Runnable {
 		g.setColor(Color.YELLOW);
 		g.drawString(player + ": " + (int) player.x + ", " + (int) player.y, 5,
 				20);
+		hud.draw(g);
 		ChatHandler.drawMessages(g);
 		if (player.isDead || returnToMenu) {
 			g.setFont(new Font("Verdana", 0, 50));

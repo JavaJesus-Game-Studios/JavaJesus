@@ -144,6 +144,14 @@ public class NPC extends Mob {
 			}
 		}
 		
+		if (isHit) {
+			isHitTicks++;
+			if (isHitTicks > 20) {
+				isHitTicks = 0;
+				isHit = false;
+			}
+		}
+
 		tickCount++;
 		if (tickCount > 360) {
 			tickCount = 0;
@@ -305,16 +313,20 @@ public class NPC extends Mob {
 		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
 				(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
 
-		
 		if (currentQuest != null && !isTalking) {
-			JJFont.render("?", screen, (int) xOffset + 4, (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
-					1);
+			JJFont.render("?", screen, (int) xOffset + 4, (int) yOffset - 10,
+					Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")), 1);
 		}
-		
+
 		if (isTalking) {
 			JJFont.render(name, screen, (int) xOffset
-					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
-					1);
+					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10,
+					Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")), 1);
+		}
+
+		if (isHit) {
+			JJFont.render(damageTaken, screen, (int) xOffset + random.nextInt(10) - 5, (int) yOffset - 10 + random.nextInt(6) - 3,
+					Colors.get(-1, -1, -1, random.nextInt(200)), 1);
 		}
 
 	}

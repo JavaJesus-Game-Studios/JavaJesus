@@ -41,6 +41,10 @@ public abstract class Mob extends Entity {
 	protected boolean isTalking = false;
 	protected int talkCount = 0;
 	
+	protected String damageTaken = "";
+	protected boolean isHit = false;
+	protected int isHitTicks = 0;
+	
 	public int strength, defense, accuracy, evasion;
 
 	public Mob(Level level, String name, double x, double y, int speed,
@@ -280,6 +284,8 @@ public abstract class Mob extends Entity {
 		hitBox.setBounds(0, 0, 0, 0);
 		level.remEntity(this);
 		level.getMobs().add(0, this);
+		isHit = false;
+		isTalking = false;
 		this.isTargeted = false;
 	}
 
@@ -297,6 +303,8 @@ public abstract class Mob extends Entity {
 		damage -= defense;
 		if (damage > 0)
 			this.health -= damage;
+		damageTaken = String.valueOf(damage);
+		isHit = true;
 	}
 
 	public void damage(int a) {
@@ -304,6 +312,8 @@ public abstract class Mob extends Entity {
 		damage -= defense;
 		if (damage > 0)
 			this.health -= damage;
+		damageTaken = String.valueOf(damage);
+		isHit = true;
 	}
 
 	public void setName(String s) {
