@@ -13,6 +13,7 @@ import java.util.List;
 import ca.javajesus.game.gui.InventoryGUI;
 import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.game.gui.PauseGUI;
+import ca.javajesus.game.gui.PausePanelGUI;
 import ca.javajesus.game.gui.ScreenGUI;
 
 public class InputHandler implements KeyListener, FocusListener, MouseListener, MouseMotionListener {
@@ -34,6 +35,11 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener, 
 	}
 	
 	public InputHandler(Launcher launcher) {
+		launcher.addMouseListener(this);
+		launcher.addMouseMotionListener(this);
+	}
+	
+	public InputHandler(PausePanelGUI launcher) {
 		launcher.addMouseListener(this);
 		launcher.addMouseMotionListener(this);
 	}

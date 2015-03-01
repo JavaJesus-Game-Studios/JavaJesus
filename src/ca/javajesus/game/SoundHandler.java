@@ -140,6 +140,16 @@ public class SoundHandler {
 		}
 	}
 	
+	public void playLoop(Clip clip) {
+		if (!muted) {
+			if (clip.isRunning()) {
+				clip.stop();
+			}
+			clip.setFramePosition(0);
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+		}
+	}
+	
 	public void fire(Clip clip) {
 		if (!muted) {
 			clip.setFramePosition(0);

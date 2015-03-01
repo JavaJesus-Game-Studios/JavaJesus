@@ -1,10 +1,8 @@
 package ca.javajesus.game.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
+import java.awt.Dimension;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
@@ -12,28 +10,25 @@ import ca.javajesus.game.InputHandler;
 public class PauseGUI extends ScreenGUI {
 
 	private static final long serialVersionUID = 1L;
+	PausePanelGUI panel;
 
 	public PauseGUI() {
+		panel = new PausePanelGUI();
 		this.setFocusable(true);
-		try {
-			this.image = ImageIO.read(PauseGUI.class
-					.getResource("/GUI/GUI_Menus/Main_Menu_Background.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.setLayout(new BorderLayout());
 		this.input = new InputHandler(this);
 		this.setBackground(Color.red);
+		this.setPreferredSize(new Dimension(panel.width, panel.height));
+		this.add(panel, BorderLayout.CENTER);
+		
 	}
 	
 	public void tick() {
-		if (input.esc.isPressed()) {
+		if (input.esc.isPressed() || panel.resumeIsPressed) {
 			input.esc.toggle(false);
+			panel.resumeIsPressed = false;
 			Game.displayGame();
 		}
-	}
-	
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(image, 0, 0, null);
+		panel.repaint();
 	}
 }

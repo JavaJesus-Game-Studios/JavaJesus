@@ -14,6 +14,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import javax.security.auth.login.Configuration;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -30,7 +31,7 @@ import ca.javajesus.level.Level;
 public class Game extends Canvas implements Runnable {
 
 	protected static final long serialVersionUID = 1L;
-
+	
 	/** Determines how long the loading screen lasts */
 	protected static final int LOAD_SPEED = 10;
 
@@ -47,6 +48,8 @@ public class Game extends Canvas implements Runnable {
 
 	/** Creates the JFrame */
 	protected static JFrame frame;
+	
+	public static boolean returnToMenu = false;
 
 	/** Creates the tickCount var */
 	public int tickCount;
@@ -301,11 +304,12 @@ public class Game extends Canvas implements Runnable {
 		g.drawString(player + ": " + (int) player.x + ", " + (int) player.y, 5,
 				20);
 		ChatHandler.drawMessages(g);
-		if (player.isDead) {
+		if (player.isDead || returnToMenu) {
 			g.setFont(new Font("Verdana", 0, 50));
 			g.setColor(Color.BLACK);
 			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);
 			frame.dispose();
+			returnToMenu = false;
 			new Launcher(0).startMenu();
 			running = false;
 			return;

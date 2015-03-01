@@ -52,7 +52,7 @@ public class Launcher extends JFrame implements Runnable {
 		}
 
 		new InputHandler(this);
-		sound.background1.loop(Clip.LOOP_CONTINUOUSLY);
+		sound.playLoop(sound.background1);
 		setUndecorated(true);
 		setTitle("JavaJesus Launcher:");
 		setSize(new Dimension(width, height));

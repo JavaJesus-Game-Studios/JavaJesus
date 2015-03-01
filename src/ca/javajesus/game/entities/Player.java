@@ -20,10 +20,10 @@ import ca.javajesus.level.tile.Tile;
 public class Player extends Mob {
 
 	public InputHandler input;
-	protected int color = Colors.get(-1, 111, 222, 333);
-	protected int shirtColor;
-	protected int skinColor;
-	protected int hairColor;
+	protected int color = Colors.get(-1, Colors.fromHex("#343434"), Colors.fromHex("#FF0000"), Colors.fromHex("#FFCC99"));
+	protected int shirtColor = Colors.fromHex("#FF0000");
+	protected int skinColor = Colors.fromHex("#FFCC99");
+	protected int hairColor = Colors.fromHex("#343434");
 	private int tickCount = 0;
 	private boolean canChangeLevel;
 	private Level nextLevel;
