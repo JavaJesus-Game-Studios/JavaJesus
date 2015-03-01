@@ -2,11 +2,12 @@ package ca.javajesus.game.entities.vehicles;
 
 public class CarPhysics {
 
-	private int tickCount;
+	private int tickCount = 0;
 	public double x, y;
 	private double xVelocity, yVelocity;
 	private double xAcceleration, yAcceleration;
 	private double xJerk, yJerk;
+	private double xFriction, yFriction;
 
 	public CarPhysics() {
 		x = 0;
@@ -92,6 +93,16 @@ public class CarPhysics {
 	public void yAccelerate() {
 		yAcceleration += yJerk;
 	}
+	
+	public void setXFriction(double f)
+	{
+	    xFriction = f;
+	}
+	
+	public void setYFriction(double f)
+    {
+        yFriction = f;
+    }
 
 	public void updateYVelocity() {
         
@@ -135,5 +146,51 @@ public class CarPhysics {
 		y += yVelocity;
 		y += yAcceleration * tickCount;
 	}
+	
+	public void incrementTick()
+	{
+	    if(!(tickCount > 60))        
+	    tickCount++;
+	}
+	
+	public void reset() {
+	    xAcceleration = 0;
+	    yAcceleration = 0;
+	    xVelocity = 0;
+	    yVelocity = 0;
+	    x = 0;
+	    y = 0;
+	    tickCount = 0;
+	}
+	
+	public void xFriction(int movingDir)
+	{ 
+	    if(Math.abs(xVelocity) > 1)
+	    {
+            if (movingDir == 2)
+            {
+                xAcceleration+=xFriction;
+            }
+            if (movingDir == 3)
+            {
+                xAcceleration-=xFriction;
+            }
+	    }
+	}
+
+	public void yFriction(int movingDir)
+    { 
+        if(Math.abs(yVelocity) > 1)
+        {
+            if (movingDir == 0)
+            {
+                yAcceleration+=yFriction;
+            }
+            if (movingDir == 1)
+            {
+                yAcceleration-=yFriction;
+            }
+        }
+    }
 
 }

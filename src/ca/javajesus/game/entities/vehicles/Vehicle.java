@@ -98,7 +98,7 @@ public class Vehicle extends Mob {
 					physics.setYAcceleration(0);
 				} else
 					physics.setYAcceleration(-2);
-				input.w.toggle(false);
+				//input.w.toggle(false);
 			}
 
 			if (input.s.isPressed()) {
@@ -106,7 +106,7 @@ public class Vehicle extends Mob {
 					physics.setYAcceleration(0);
 				} else
 					physics.setYAcceleration(2);
-				input.s.toggle(false);
+				//input.s.toggle(false);
 			}
 
 			if (input.a.isPressed()) {
@@ -114,7 +114,7 @@ public class Vehicle extends Mob {
 					physics.setXAcceleration(0);
 				} else
 					physics.setXAcceleration(-2);
-				input.a.toggle(false);
+				//input.a.toggle(false);
 			}
 
 			if (input.d.isPressed()) {
@@ -122,8 +122,13 @@ public class Vehicle extends Mob {
 					physics.setXAcceleration(0);
 				} else
 					physics.setXAcceleration(2);
-				input.d.toggle(false);
+				//input.d.toggle(false);
 			}
+			
+			if (input.b.isPressed()) {
+                physics.reset();
+			    input.b.toggle(false);
+            }
 			
 			/*if(!(input.w.isPressed()||input.s.isPressed()||input.a.isPressed()||input.d.isPressed()))
 			{
@@ -132,6 +137,36 @@ public class Vehicle extends Mob {
 			}*/
 
 			//physics.setTick(vehicleTick / 60);
+			
+			if (hasCollided(xa, ya))
+			{
+			    physics.setXAcceleration(0);
+			    physics.setYAcceleration(0);
+			    physics.setXVelocity(0);
+			    physics.setYVelocity(0);
+			}
+			
+			if(Math.abs(physics.getXVelocity()) > 1)
+			{
+			    physics.setXFriction(0.25);
+			}
+			else
+			{
+			    physics.setXFriction(0);
+			}
+			
+			if(Math.abs(physics.getYVelocity()) > 1)
+            {
+                physics.setYFriction(0.25);
+            }
+            else
+            {
+                physics.setYFriction(0);
+            }
+			    
+			physics.xFriction(movingDir);
+			physics.yFriction(movingDir);
+			
 			physics.updatePosition();
 			xa = (int) physics.x / 30;
 			ya = (int) physics.y / 30;
@@ -176,14 +211,21 @@ public class Vehicle extends Mob {
 			 	isMoving = false;
 				player.isMoving = false;
 			}
+			
+			if (isSolidEntityCollision(xa * (int) speed, ya * (int) speed)) {
+            physics.reset();
+            xa = 0;
+            ya = 0;
+            vehicleTick=0;
+			}
 
-			//System.out.println(xa + "   " + ya);
-			//System.out.println(physics.x + "   " + physics.y);
-			//System.out.println(physics.getXVelocity() + "   " + physics.getYVelocity());
-			//System.out.println(physics.getXAcceleration() + "   " + physics.getYAcceleration());
+			System.out.println(xa + "   " + ya);
+			System.out.println(physics.x + "   " + physics.y);
+			System.out.println(physics.getXVelocity() + "   " + physics.getYVelocity());
+			System.out.println(physics.getXAcceleration() + "   " + physics.getYAcceleration());
 		}
 		
-		vehicleTick++;
+		//physics.incrementTick();
 	}
 
 	public void render(Screen screen) {

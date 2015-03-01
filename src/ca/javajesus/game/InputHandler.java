@@ -77,6 +77,7 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener, 
 	public Key d = new Key();
 	public Key i = new Key();
 	public Key esc = new Key();
+	public Key b = new Key();
 	
 	public static int MouseX;
 	public static int MouseY;
@@ -154,6 +155,9 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener, 
         }
         if (keyCode == KeyEvent.VK_ESCAPE) {
         	esc.toggle(isPressed);
+        }
+        if (keyCode == KeyEvent.VK_B) {
+            b.toggle(isPressed);
         }
 
 	}
