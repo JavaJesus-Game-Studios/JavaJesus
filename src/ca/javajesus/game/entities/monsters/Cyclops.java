@@ -6,6 +6,7 @@ import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.Colors;
+import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
@@ -51,6 +52,14 @@ public class Cyclops extends Monster {
 
 		if (isDead)
 			return;
+		
+		if (isTalking) {
+			talkCount++;
+			if (talkCount > 350) {
+				talkCount = 0;
+				isTalking = false;
+			}
+		}
 
 		checkRadius();
 
@@ -166,10 +175,17 @@ public class Cyclops extends Monster {
 						color, flipBottom, scale, sheet);
 			}
 		}
+		
+		if (isTalking) {
+			JJFont.render(name, screen, (int) xOffset
+					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
+					1);
+		}
 
 	}
 
 	public void speak(Player player) {
+		isTalking = true;
 		ChatHandler.sendMessage("I'm gonna kill you fool!", Color.white);
 		return;
 	}

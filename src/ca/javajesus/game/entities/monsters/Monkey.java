@@ -1,11 +1,13 @@
 package ca.javajesus.game.entities.monsters;
 
 import java.awt.Color;
+
 import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.Colors;
+import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
@@ -54,6 +56,14 @@ public class Monkey extends Monster {
 		
 		if (isDead)
 			return;
+		
+		if (isTalking) {
+			talkCount++;
+			if (talkCount > 350) {
+				talkCount = 0;
+				isTalking = false;
+			}
+		}
 
 		if (random.nextInt(500) == 0) {
 			sound.play(SoundHandler.sound.chimpanzee);
@@ -140,9 +150,16 @@ public class Monkey extends Monster {
 		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
 				+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
 				flipBottom, scale, sheet);
+		
+		if (isTalking) {
+			JJFont.render(name, screen, (int) xOffset
+					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
+					1);
+		}
 	}
 	
 	public void speak(Player player) {
+		isTalking = true;
 		ChatHandler.sendMessage("oh oh ah ah oh", Color.white);
 		return;
 	}

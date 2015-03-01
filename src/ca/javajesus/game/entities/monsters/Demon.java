@@ -5,6 +5,7 @@ import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.FireBall;
 import ca.javajesus.game.gfx.Colors;
+import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
@@ -51,6 +52,14 @@ public class Demon extends Monster {
 
 		if (isDead) {
 			return;
+		}
+		
+		if (isTalking) {
+			talkCount++;
+			if (talkCount > 350) {
+				talkCount = 0;
+				isTalking = false;
+			}
 		}
 
 		if (random.nextInt(500) == 0) {
@@ -198,6 +207,11 @@ public class Demon extends Monster {
 					(xTile + 2) + (yTile + 2) * 32, color, flipBottom, scale,
 					sheet);
 
+		}
+		if (isTalking) {
+			JJFont.render(name, screen, (int) xOffset
+					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
+					1);
 		}
 
 	}

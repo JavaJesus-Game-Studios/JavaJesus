@@ -2,6 +2,7 @@ package ca.javajesus.game.entities.monsters;
 
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.Colors;
+import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
@@ -49,6 +50,14 @@ public class Centaur extends Monster {
 
 		if (isDead)
 			return;
+		
+		if (isTalking) {
+			talkCount++;
+			if (talkCount > 350) {
+				talkCount = 0;
+				isTalking = false;
+			}
+		}
 		
 		checkRadius();
 
@@ -232,6 +241,12 @@ public class Centaur extends Monster {
 			}
 			isShooting = true;
 
+		}
+		
+		if (isTalking) {
+			JJFont.render(name, screen, (int) xOffset
+					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
+					1);
 		}
 
 	}

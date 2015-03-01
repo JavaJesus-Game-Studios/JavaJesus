@@ -4,6 +4,7 @@ import java.awt.geom.Ellipse2D;
 
 import quests.SampleQuest;
 import ca.javajesus.game.gfx.Colors;
+import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
@@ -69,6 +70,17 @@ public class Jesus extends NPC {
 		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
 				+ modifier, (xTile + 1) + (yTile + 1) * 32, color, flipBottom,
 				scale, sheet);
+		
+		if (currentQuest != null && !isTalking) {
+			JJFont.render("?", screen, (int) xOffset + 4, (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
+					1);
+		}
+		
+		if (isTalking) {
+			JJFont.render(name, screen, (int) xOffset
+					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
+					1);
+		}
 
 	}
 }

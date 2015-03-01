@@ -77,9 +77,18 @@ public class Monster extends Mob {
 		if (isDead)
 			return;
 		
+		if (isTalking) {
+			talkCount++;
+			if (talkCount > 350) {
+				talkCount = 0;
+				isTalking = false;
+			}
+		}
+		
 	}
 	
 	public void speak(Player player) {
+		isTalking = true;
 		switch (random.nextInt(6)) {
 		case 0: {
 			ChatHandler.sendMessage("Rawr!",

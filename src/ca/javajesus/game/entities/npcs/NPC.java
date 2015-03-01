@@ -12,6 +12,7 @@ import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.Colors;
+import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -48,9 +49,9 @@ public class NPC extends Mob {
 	public static NPC npc10 = new NPC(Level.level1, "Peasant-Girlchild", 2045,
 			950, 1, 16, 16, 9000, Colors.get(-1, 111,
 					Colors.fromHex("#715b17"), 543), 14, 18, "cross", 0, 8);
-	
+
 	public static NPC Jesus = new Jesus(Level.level1, 300, 400, "stand", 30);
-	
+
 	protected boolean isSwimming = false;
 
 	/** Range that the NPC can walk */
@@ -135,6 +136,14 @@ public class NPC extends Mob {
 			return;
 		}
 
+		if (isTalking) {
+			talkCount++;
+			if (talkCount > 350) {
+				talkCount = 0;
+				isTalking = false;
+			}
+		}
+		
 		tickCount++;
 		if (tickCount > 360) {
 			tickCount = 0;
@@ -225,8 +234,10 @@ public class NPC extends Mob {
 	}
 
 	public void render(Screen screen) {
-		this.hitBox.setLocation((int) this.x - (this.width / 2), (int) this.y - (this.height / 2));
-		this.standBox.setLocation((int) this.x - (int) hitBox.getWidth() / 2 - 2, (int) this.y - (int) hitBox.getHeight() / 2 - 2);
+		this.hitBox.setLocation((int) this.x - (this.width / 2), (int) this.y
+				- (this.height / 2));
+		this.standBox.setLocation((int) this.x - (int) hitBox.getWidth() / 2
+				- 2, (int) this.y - (int) hitBox.getHeight() / 2 - 2);
 		int xTile = this.xTile;
 		int yTile = this.yTile;
 
@@ -293,6 +304,18 @@ public class NPC extends Mob {
 		// Upper Body 2
 		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
 				(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
+
+		
+		if (currentQuest != null && !isTalking) {
+			JJFont.render("?", screen, (int) xOffset + 4, (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
+					1);
+		}
+		
+		if (isTalking) {
+			JJFont.render(name, screen, (int) xOffset
+					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
+					1);
+		}
 
 	}
 
@@ -476,6 +499,7 @@ public class NPC extends Mob {
 
 	public void speak(Player player) {
 
+		isTalking = true;
 		switch (player.movingDir) {
 		case 0: {
 			movingDir = 1;
@@ -499,18 +523,20 @@ public class NPC extends Mob {
 			currentQuest.update();
 			switch (currentQuest.getPhase()) {
 			case 0: {
-				ChatHandler.sendMessage(name + ": " + currentQuest.preDialogue(), Color.blue);
+				ChatHandler.sendMessage(
+						name + ": " + currentQuest.preDialogue(), Color.blue);
 				sound.play(sound.levelup);
 				currentQuest.nextPhase();
 				return;
 			}
 			case 1: {
-				ChatHandler.sendMessage(name + ": " + currentQuest.dialogue(), Color.blue);
+				ChatHandler.sendMessage(name + ": " + currentQuest.dialogue(),
+						Color.blue);
 				return;
 			}
 			case 2: {
-				ChatHandler
-						.sendMessage(name + ": " + currentQuest.postDialogue(), Color.CYAN);
+				ChatHandler.sendMessage(
+						name + ": " + currentQuest.postDialogue(), Color.CYAN);
 				sound.play(sound.chest);
 				nextQuest();
 				return;
@@ -533,51 +559,66 @@ public class NPC extends Mob {
 			return;
 		}
 		case 3: {
-			ChatHandler
-					.sendMessage(
-							name + ": This is some nice weather we've been having.",
-							Color.white);
+			ChatHandler.sendMessage(name
+					+ ": This is some nice weather we've been having.",
+					Color.white);
 			return;
 		}
 		case 4: {
-			ChatHandler.sendMessage(name + ": You are not from around here are you!",
-					Color.white);
+			ChatHandler.sendMessage(name
+					+ ": You are not from around here are you!", Color.white);
 			return;
 		}
-		case 5:{
-			ChatHandler.sendMessage(name + ": Hello Officer!",
-					Color.white);
+		case 5: {
+			ChatHandler.sendMessage(name + ": Hello Officer!", Color.white);
 			return;
-		}case 6:{
-			ChatHandler.sendMessage(name + ": Who goes there!",
-					Color.white);
+		}
+		case 6: {
+			ChatHandler.sendMessage(name + ": Who goes there!", Color.white);
 			return;
-		}case 7:{
-			ChatHandler.sendMessage(name + ": Have you been to San Cisco? I hear they're having lovely weather.",
-					Color.white);
+		}
+		case 7: {
+			ChatHandler
+					.sendMessage(
+							name
+									+ ": Have you been to San Cisco? I hear they're having lovely weather.",
+							Color.white);
 			return;
-		}case 8:{
-			ChatHandler.sendMessage(name + ": It's you! It really is! All Hail the Hero of the Bay!",
-					Color.white);
+		}
+		case 8: {
+			ChatHandler
+					.sendMessage(
+							name
+									+ ": It's you! It really is! All Hail the Hero of the Bay!",
+							Color.white);
 			return;
-		}case 9:{
-			ChatHandler.sendMessage(name + ": I'm not racist but when you're driving in the East Bay,"
-					+ " roll up your windows and lock your doors.",
-					Color.white);
+		}
+		case 9: {
+			ChatHandler
+					.sendMessage(
+							name
+									+ ": I'm not racist but when you're driving in the East Bay,"
+									+ " roll up your windows and lock your doors.",
+							Color.white);
 			return;
-		}case 10:{
-			ChatHandler.sendMessage(name + ": Have you seen my friend Bob? He's a peasant and he seems to have"
-					+ "literally dissapeared!",
-					Color.white);
+		}
+		case 10: {
+			ChatHandler
+					.sendMessage(
+							name
+									+ ": Have you seen my friend Bob? He's a peasant and he seems to have"
+									+ "literally dissapeared!", Color.white);
 			return;
-		}case 11:{
-			ChatHandler.sendMessage(name + ": Nasty business it is with those Apes in the North!"
-					+ " Nasty business indeed.",
-					Color.white);
+		}
+		case 11: {
+			ChatHandler.sendMessage(name
+					+ ": Nasty business it is with those Apes in the North!"
+					+ " Nasty business indeed.", Color.white);
 			return;
-		}case 12:{
-			ChatHandler.sendMessage(name + ": Hola, mi nombre es Esteban Norteruta!",
-					Color.white);
+		}
+		case 12: {
+			ChatHandler.sendMessage(name
+					+ ": Hola, mi nombre es Esteban Norteruta!", Color.white);
 			return;
 		}
 		default: {

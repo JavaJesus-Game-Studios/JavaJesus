@@ -37,7 +37,10 @@ public abstract class Mob extends Entity {
 	protected boolean isSwimming = false;
 	public boolean isSwinging = false;
 	protected boolean isShooting = false;
-
+	
+	protected boolean isTalking = false;
+	protected int talkCount = 0;
+	
 	public int strength, defense, accuracy, evasion;
 
 	public Mob(Level level, String name, double x, double y, int speed,

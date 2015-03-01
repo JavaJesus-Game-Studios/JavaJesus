@@ -10,6 +10,7 @@ import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.Colors;
+import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.items.Inventory;
@@ -20,7 +21,8 @@ import ca.javajesus.level.tile.Tile;
 public class Player extends Mob {
 
 	public InputHandler input;
-	protected int color = Colors.get(-1, Colors.fromHex("#343434"), Colors.fromHex("#FF0000"), Colors.fromHex("#FFCC99"));
+	protected int color = Colors.get(-1, Colors.fromHex("#343434"),
+			Colors.fromHex("#FF0000"), Colors.fromHex("#FFCC99"));
 	protected int shirtColor = Colors.fromHex("#FF0000");
 	protected int skinColor = Colors.fromHex("#FFCC99");
 	protected int hairColor = Colors.fromHex("#343434");
@@ -101,6 +103,11 @@ public class Player extends Mob {
 			}
 		}
 
+		if (input.h.isPressed()) {
+			for (Mob m: level.getMobs()) {
+				m.isTalking = true;
+			}
+		}
 		if (input.w.isPressed()) {
 			ya--;
 			if (isSolidEntityCollision(0, ya)) {

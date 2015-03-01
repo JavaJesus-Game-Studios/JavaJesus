@@ -9,6 +9,7 @@ import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.gfx.Colors;
+import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
@@ -76,6 +77,14 @@ public class Policeman extends NPC {
 			return;
 
 		checkRadius();
+		
+		if (isTalking) {
+			talkCount++;
+			if (talkCount > 350) {
+				talkCount = 0;
+				isTalking = false;
+			}
+		}
 
 		if (isShooting) {
 			shootTickCount++;
@@ -222,10 +231,21 @@ public class Policeman extends NPC {
 					+ modifier, (xTile + 1) + (yTile + 1) * 32, this.color,
 					flipBottom, scale, sheet);
 		}
+		
+		if (currentQuest != null && !isTalking) {
+			JJFont.render("?", screen, (int) xOffset + 4, (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
+					1);
+		}
+		if (isTalking) {
+			JJFont.render(name, screen, (int) xOffset
+					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
+					1);
+		}
 
 	}
 	
 	public void speak(Player player) {
+		isTalking = true;
 		ChatHandler.sendMessage(name + ": Stop right there, Criminal Scum!", Color.red);
 		return;
 	}
