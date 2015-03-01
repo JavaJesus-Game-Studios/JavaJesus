@@ -45,7 +45,6 @@ public class Player extends Mob {
 	public boolean isTired;
 	public final int swordColor = Colors.get(-1, Colors.fromHex("#f2f3f9"), -1,
 			Colors.fromHex("#d6d7dc"));
-	
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "", x, y, 1, 14, 16, SpriteSheet.player, 100);
@@ -56,7 +55,7 @@ public class Player extends Mob {
 		if (level != null)
 			level.addEntity(bar);
 		isTired = false;
-		startStamina = Integer.MAX_VALUE;
+		startStamina = 200;
 		stamina = startStamina;
 	}
 
@@ -83,7 +82,7 @@ public class Player extends Mob {
 		if (isDriving) {
 			return;
 		}
-		
+
 		if (isHit) {
 			isHitTicks++;
 			if (isHitTicks > 20) {
@@ -113,7 +112,7 @@ public class Player extends Mob {
 		}
 
 		if (input.h.isPressed()) {
-			for (Mob m: level.getMobs()) {
+			for (Mob m : level.getMobs()) {
 				m.isTalking = true;
 			}
 		}
@@ -194,7 +193,8 @@ public class Player extends Mob {
 			speed = 0.35;
 			if (!sound.swimming.isRunning())
 				sound.play(SoundHandler.sound.swimming);
-		} else if (input.shift.isPressed() && !isDriving && !isTired) {
+		} else if (input.shift.isPressed() && !isDriving && !isTired
+				&& isMoving && !isShooting) {
 			speed = 3;
 			stamina--;
 			if (stamina <= 0)
@@ -206,8 +206,11 @@ public class Player extends Mob {
 		} else {
 			speed = 1;
 		}
-		if (!input.shift.isPressed() && stamina < startStamina) {
-			stamina += 5;
+		if (!isMoving && stamina < startStamina && !isShooting) {
+			stamina += 0.5;
+			isTired = false;
+		} else if (isMoving && !input.shift.isPressed()) {
+			stamina += 0.1;
 			isTired = false;
 		}
 
@@ -434,8 +437,11 @@ public class Player extends Mob {
 					bulletOffset = -7;
 				}
 
-				level.addEntity(new Bullet(level, (this.x + bulletOffset),
-						(this.y - 2), shootingDir, this));
+				if (stamina > 5)
+					level.addEntity(new Bullet(level, (this.x + bulletOffset),
+							(this.y - 2), shootingDir, this));
+				if (stamina > 5)
+					stamina -= 5;
 				isShooting = false;
 				swingTickCount = 0;
 			}
@@ -550,10 +556,10 @@ public class Player extends Mob {
 			}
 
 		}
-		
+
 		if (isHit) {
-			JJFont.render(damageTaken, screen, (int) xOffset + random.nextInt(10) - 5, (int) yOffset - 10 + random.nextInt(6) - 3,
-					Colors.get(-1, -1, -1, random.nextInt(200)), 1);
+			JJFont.render(damageTaken, screen, (int) xOffset + isHitX,
+					(int) yOffset - 10 + isHitY, isHitColor, 1);
 		}
 
 	}

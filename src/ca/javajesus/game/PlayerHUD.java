@@ -34,13 +34,13 @@ public class PlayerHUD {
 		g.drawString(" 3 / 6", 20, 724);
 		
 		g.setColor(Color.red);
-		g.fillRect(750, 650, 150, 20);
+		g.fillRect(750, 650, (int) (150 * (player.health / player.startHealth)), 20);
 		
 		g.setColor(Color.blue);
 		g.fillRect(750, 680, 150, 20);
 		
 		g.setColor(Color.green);
-		g.fillRect(750, 710, 150, 20);
+		g.fillRect(750, 710, (int) (150 * (player.stamina / player.startStamina)), 20);
 	}
 
 	private BufferedImage getGunType() {

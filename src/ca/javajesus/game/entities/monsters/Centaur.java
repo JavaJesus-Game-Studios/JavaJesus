@@ -258,8 +258,8 @@ public class Centaur extends Monster {
 		}
 		
 		if (isHit) {
-			JJFont.render(damageTaken, screen, (int) xOffset + random.nextInt(10) - 5, (int) yOffset - 10 + random.nextInt(6) - 3,
-					Colors.get(-1, -1, -1, random.nextInt(200)), 1);
+			JJFont.render(damageTaken, screen, (int) xOffset + isHitX, (int) yOffset - 10 + isHitY,
+					isHitColor, 1);
 		}
 
 	}
