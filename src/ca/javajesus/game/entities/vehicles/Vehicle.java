@@ -140,36 +140,41 @@ public class Vehicle extends Mob {
 			
 			if (hasCollided(xa, ya))
 			{
-			    physics.setXAcceleration(0);
-			    physics.setYAcceleration(0);
-			    physics.setXVelocity(0);
-			    physics.setYVelocity(0);
+			    physics.reset();
 			}
 			
-			if(Math.abs(physics.getXVelocity()) > 1)
+			if(Math.abs(physics.getXVelocity()) > 0)
 			{
 			    physics.setXFriction(0.25);
 			}
 			else
 			{
 			    physics.setXFriction(0);
+			    if(vehicleTick%2==0)
+			    {
+			    physics.xReset();
+			    }
 			}
 			
-			if(Math.abs(physics.getYVelocity()) > 1)
+			if(Math.abs(physics.getYVelocity()) > 0)
             {
                 physics.setYFriction(0.25);
             }
             else
             {
                 physics.setYFriction(0);
+                if(vehicleTick%2==0)
+                {
+                physics.yReset();
+                }
             }
 			    
 			physics.xFriction(movingDir);
 			physics.yFriction(movingDir);
 			
 			physics.updatePosition();
-			xa = (int) physics.x / 30;
-			ya = (int) physics.y / 30;
+			xa = (int) physics.x / 10;
+			ya = (int) physics.y / 10;
 			//xa = (int) physics.getXVelocity();
 			//ya = (int) physics.getYVelocity();
 
@@ -194,13 +199,7 @@ public class Vehicle extends Mob {
 				remPlayer();
 				return;
 			}
-
-			if (input.shift.isPressed()) {
-				speed = 3;
-			} else {
-				speed = 1;
-			}
-
+			
 			if ((xa != 0 || ya != 0)
 					&& !isSolidEntityCollision(xa * (int) speed, ya
 							* (int) speed)) {
@@ -224,7 +223,7 @@ public class Vehicle extends Mob {
 			System.out.println(physics.getXVelocity() + "   " + physics.getYVelocity());
 			System.out.println(physics.getXAcceleration() + "   " + physics.getYAcceleration());
 		}
-		
+		vehicleTick++;
 		//physics.incrementTick();
 	}
 

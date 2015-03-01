@@ -160,13 +160,27 @@ public class CarPhysics {
 	    yVelocity = 0;
 	    x = 0;
 	    y = 0;
-	    tickCount = 0;
+	    //tickCount = 0;
+	}
+	
+	public void xReset()
+	{
+	    xAcceleration = 0;
+        xVelocity = 0;
+        x = 0;   
+	}
+	
+	public void yReset()
+	{
+	    yAcceleration = 0;
+        yVelocity = 0;
+        y = 0;  
 	}
 	
 	public void xFriction(int movingDir)
 	{ 
-	    if(Math.abs(xVelocity) > 1)
-	    {
+	    //if(Math.abs(xVelocity) > 1)
+	    //{
             if (movingDir == 2)
             {
                 xAcceleration+=xFriction;
@@ -175,13 +189,13 @@ public class CarPhysics {
             {
                 xAcceleration-=xFriction;
             }
-	    }
+	    //}
 	}
 
 	public void yFriction(int movingDir)
     { 
-        if(Math.abs(yVelocity) > 1)
-        {
+        //if(Math.abs(yVelocity) > 1)
+        //{
             if (movingDir == 0)
             {
                 yAcceleration+=yFriction;
@@ -190,7 +204,7 @@ public class CarPhysics {
             {
                 yAcceleration-=yFriction;
             }
-        }
+        //}
     }
 
 }
