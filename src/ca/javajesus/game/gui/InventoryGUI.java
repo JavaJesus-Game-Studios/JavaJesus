@@ -29,12 +29,9 @@ public class InventoryGUI extends ScreenGUI {
 		inventory = new ItemScreenGUI(player);
 		this.input = new InputHandler(this);
 
-		JPanel p1 = new PlayerSlotGUI(player, 1, 0.34, 1);
-		JPanel p2 = new StatsSlotGUI();
-		JPanel p3 = new InventorySlotGUI();
-		JPanel p4 = new QuestSlotGUI();
-		JPanel p5 = new MapSlotGUI();
-		JPanel p6 = new StorySlotGUI();
+		JPanel p1 = new StatsSlotGUI();
+		JPanel p2 = new QuestSlotGUI();
+		JPanel p3 = new MapGUI();
 
 		this.activeScreen = new PlayerSlotGUI(player, 0, 0.75, 1.3);
 		((PlayerSlotGUI) activeScreen).setScale(0.75);
@@ -47,13 +44,10 @@ public class InventoryGUI extends ScreenGUI {
 
 		JPanel panel = new JPanel(new BorderLayout(0, 0));
 
-		JPanel slots = new JPanel(new GridLayout(3, 2));
+		JPanel slots = new JPanel(new GridLayout(2, 2));
+		slots.add(p3);
 		slots.add(p1);
 		slots.add(p2);
-		slots.add(p3);
-		slots.add(p4);
-		slots.add(p5);
-		slots.add(p6);
 
 		panel.add(activeScreen, BorderLayout.LINE_START);
 		panel.add(slots, BorderLayout.CENTER);

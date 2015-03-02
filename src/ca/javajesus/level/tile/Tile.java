@@ -65,7 +65,8 @@ public abstract class Tile {
 	public static final Tile CAVEWALL = new BasicSolidTile(19, 4, 0, Colors.get(-1, Colors.fromHex("#92928D"),
 			Colors.fromHex("#636361"), -1), 0xFF291900);
 	public static final Tile CAVEFLOOR = new BaseTile(20, 0, 2, Colors.get(-1, Colors.fromHex("#AEAEAD"),-1, -1),
-			0xFFa06201);
+			0xFFc3beb7);
+
 
 	protected byte id;
 	protected boolean solid;

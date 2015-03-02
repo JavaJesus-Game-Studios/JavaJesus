@@ -13,7 +13,7 @@ public class MapGUI extends ScreenGUI {
 	public MapGUI() {
 		try {
 			this.image = ImageIO.read(MapGUI.class
-					.getResource("/GUI/GUI-Map.png"));
+					.getResource("/GUI/GUI_Inventory/GUI_Map_2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
