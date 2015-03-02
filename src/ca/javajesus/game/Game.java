@@ -102,8 +102,8 @@ public class Game extends Canvas implements Runnable {
 		display = new JPanel(new CardLayout());
 		display.add(introScreen, "Intro");
 		display.add(this, "Main");
-		display.add(pause, "Pause");
 		display.add(inventory, "Inventory");
+		display.add(pause, "Pause");
 		setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
