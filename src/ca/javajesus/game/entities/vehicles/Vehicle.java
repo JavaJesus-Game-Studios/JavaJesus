@@ -1,5 +1,7 @@
 package ca.javajesus.game.entities.vehicles;
 
+import java.awt.Point;
+
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.Mob;
@@ -13,19 +15,21 @@ public class Vehicle extends Mob {
 	public boolean isUsed = false;
 	protected Player player;
 	protected InputHandler input;
-	int vehicleTick = 0;
-	CarPhysics physics;
+	protected int tickCount = 0;
+	protected Point acceleration = new Point(0, 0);
+	protected final int DELAY = 25;
+	protected final int MAX_ACCELERATION = 5;
+	protected boolean isSlowingDown = true;
 
 	public static Vehicle vehicle1 = new CenturyLeSabre(Level.level1,
-			"Century LeSabre", 300, 300, 3, 200);
+			"Century LeSabre", 300, 300, 2, 200);
 
 	public static Vehicle boat1 = new Boat(Level.level1, "Century LeSabre",
-			300, 500, 3, 200);
+			300, 500, 1, 200);
 
 	public Vehicle(Level level, String name, double x, double y, int speed,
 			int width, int height, SpriteSheet sheet, double defaultHealth) {
 		super(level, name, x, y, speed, width, height, sheet, defaultHealth);
-		this.physics = new CarPhysics(0, 0, 0, 0);
 	}
 
 	public void addPlayer(Player player) {
@@ -85,98 +89,46 @@ public class Vehicle extends Mob {
 			for (Mob mob : level.getMobs()) {
 				if (!(mob == this || mob instanceof Player)) {
 					if (mob.hitBox.intersects(this.hitBox))
-						mob.damage(2, 8);
+						mob.damage(3, 15);
 				}
 			}
 		}
-		
+
+		isSlowingDown = true;
 		if (this.isUsed) {
-		    		    
+
 			if (input.w.isPressed()) {
 
-				if (physics.getYAcceleration() > 0) {
-					physics.setYAcceleration(0);
-				} else
-					physics.setYAcceleration(-2);
-				//input.w.toggle(false);
+				isSlowingDown = false;
+				if (Math.abs(acceleration.y - 1) < MAX_ACCELERATION
+						&& tickCount % DELAY == 0) {
+					acceleration.y--;
+				}
 			}
 
 			if (input.s.isPressed()) {
-				if (physics.getYAcceleration() < 0) {
-					physics.setYAcceleration(0);
-				} else
-					physics.setYAcceleration(2);
-				//input.s.toggle(false);
+				isSlowingDown = false;
+				if (Math.abs(acceleration.y + 1) < MAX_ACCELERATION
+						&& tickCount % DELAY == 0) {
+					acceleration.y++;
+				}
 			}
 
 			if (input.a.isPressed()) {
-				if (physics.getXAcceleration() > 0) {
-					physics.setXAcceleration(0);
-				} else
-					physics.setXAcceleration(-2);
-				//input.a.toggle(false);
+				isSlowingDown = false;
+				if (Math.abs(acceleration.x - 1) < MAX_ACCELERATION
+						&& tickCount % DELAY == 0) {
+					acceleration.x--;
+				}
 			}
 
 			if (input.d.isPressed()) {
-				if (physics.getXAcceleration() < 0) {
-					physics.setXAcceleration(0);
-				} else
-					physics.setXAcceleration(2);
-				//input.d.toggle(false);
+				isSlowingDown = false;
+				if (Math.abs(acceleration.x + 1) < MAX_ACCELERATION
+						&& tickCount % DELAY == 0) {
+					acceleration.x++;
+				}
 			}
-			
-			if (input.b.isPressed()) {
-                physics.reset();
-			    input.b.toggle(false);
-            }
-			
-			/*if(!(input.w.isPressed()||input.s.isPressed()||input.a.isPressed()||input.d.isPressed()))
-			{
-			    physics.setXAcceleration(0);
-			    physics.setYAcceleration(0);
-			}*/
-
-			//physics.setTick(vehicleTick / 60);
-			
-			if (hasCollided(xa, ya))
-			{
-			    physics.reset();
-			}
-			
-			if(Math.abs(physics.getXVelocity()) > 0)
-			{
-			    physics.setXFriction(0.25);
-			}
-			else
-			{
-			    physics.setXFriction(0);
-			    if(vehicleTick%2==0)
-			    {
-			    physics.xReset();
-			    }
-			}
-			
-			if(Math.abs(physics.getYVelocity()) > 0)
-            {
-                physics.setYFriction(0.25);
-            }
-            else
-            {
-                physics.setYFriction(0);
-                if(vehicleTick%2==0)
-                {
-                physics.yReset();
-                }
-            }
-			    
-			physics.xFriction(movingDir);
-			physics.yFriction(movingDir);
-			
-			physics.updatePosition();
-			xa = (int) physics.x / 10;
-			ya = (int) physics.y / 10;
-			//xa = (int) physics.getXVelocity();
-			//ya = (int) physics.getYVelocity();
 
 			if (input.i.isPressed()) {
 				input.i.toggle(false);
@@ -197,34 +149,46 @@ public class Vehicle extends Mob {
 				input.e.toggle(false);
 				player.x -= 30;
 				remPlayer();
-				return;
-			}
-			
-			if ((xa != 0 || ya != 0)
-					&& !isSolidEntityCollision(xa * (int) speed, ya
-							* (int) speed)) {
-				move(xa, ya);
-				isMoving = true;
-				player.isMoving = true;
-			} else {
-			 	isMoving = false;
-				player.isMoving = false;
-			}
-			
-			if (isSolidEntityCollision(xa * (int) speed, ya * (int) speed)) {
-            physics.reset();
-            xa = 0;
-            ya = 0;
-            vehicleTick=0;
 			}
 
-			System.out.println(xa + "   " + ya);
-			System.out.println(physics.x + "   " + physics.y);
-			System.out.println(physics.getXVelocity() + "   " + physics.getYVelocity());
-			System.out.println(physics.getXAcceleration() + "   " + physics.getYAcceleration());
 		}
-		vehicleTick++;
-		//physics.incrementTick();
+		xa += acceleration.x;
+		ya += acceleration.y;
+
+		if ((xa != 0 || ya != 0)
+				&& !isSolidEntityCollision(xa * (int) speed, ya * (int) speed)) {
+			move(xa, ya);
+			isMoving = true;
+			if (isUsed)
+				player.isMoving = true;
+		} else {
+			if (isSolidEntityCollision(xa * (int) speed, 0)) {
+				acceleration.x = 0;
+			}
+			if (isSolidEntityCollision(0, ya * (int) speed)) {
+				acceleration.y = 0;
+			}
+			isMoving = false;
+			if (isUsed)
+				player.isMoving = false;
+		}
+
+		if (tickCount % DELAY == 0 && isSlowingDown) {
+			if (acceleration.x > 0) {
+				acceleration.x--;
+			}
+			if (acceleration.x < 0) {
+				acceleration.x++;
+			}
+			if (acceleration.y > 0) {
+				acceleration.y--;
+			}
+			if (acceleration.y < 0) {
+				acceleration.y++;
+			}
+		}
+
+		tickCount++;
 	}
 
 	public void render(Screen screen) {
