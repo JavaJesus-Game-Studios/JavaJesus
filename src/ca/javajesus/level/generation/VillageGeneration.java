@@ -1,10 +1,14 @@
 package ca.javajesus.level.generation;
 
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class VillageGeneration {
 	private int[][] heightMap;
-	private int[][] villageMap;
+	private VillageTile[][] villageMap;
+	private ArrayList<Point> possibleVillageCenters;
+	private ArrayList<Point> finalVillageCenters;
 
 	Random rand = new Random();
 
@@ -17,48 +21,67 @@ public class VillageGeneration {
 	 */
 	public VillageGeneration(int[][] heightmap) {
 		this.heightMap = heightmap;
-		villageMap = new int[heightMap.length][heightmap[0].length];
+		villageMap = new VillageTile[heightMap.length][heightmap[0].length];
 	}
 
-	/*public int[][] villageGenerator() {
+	public void villageGenerator() {
+		this.arrayFill();
 		this.locationChooser();
-		this.villageBoundaryFiller();
-		
-	}*/
-	
+		//this.villageBoundaryFiller();
+
+	}
+
+	private void arrayFill() {
+		for (int row = 0; row < heightMap.length; row++) {
+			for (int col = 0; col < heightMap[0].length; col++) {
+				boolean groundCheck = false;
+				if (heightMap[row][col] == 0
+						|| (heightMap[row][col] >= 9 && heightMap[row][col] <= 11)
+						|| heightMap[row][col] == 3)
+					groundCheck = true;
+				//villageMap[row][col] = new VillageTile(groundCheck, new Point(col, row));
+			}
+		}
+	}
+
 	/**
 	 * Chooses several locations for the new villages.
 	 */
 	@SuppressWarnings("unused")
 	private void locationChooser() {
-		// Used to prevent villages from spawning near each other.
-		int xBuffer = 0;
-		int yBuffer = 0;
-		int villageNumber = 1;
-		for (int row = 0; row < villageMap.length; row++) {
-			for (int col = 0; col < villageMap[row].length; col++) {
-				if (xBuffer == 0 || yBuffer == 0) {
-					if (rand.nextInt(500) == 0) {
-						villageMap[row][col] = villageNumber;
-						villageNumber++;
-						xBuffer = 500;
-						yBuffer = 500;
+		for (int row = 10; row < heightMap.length; row++) {
+			for (int col = 10; col < heightMap[0].length; col++) {
+				if (row + 10 < heightMap.length && col + 10 < heightMap[0].length) {
+					int landAmount = 0;
+					for (int row2 = -10; row2 <= 10; row2++) {
+						for (int col2 = -10; col2 <= 10; col2++) {
+							//if (villageMap[row][col].getGroundCheck()) {
+							//	landAmount++;
+							//}
+							//Checking to see if the area (21x21) is 70% land or more, 21 x 21 = 441 x .70 = 308
+							if (landAmount >= 308) {
+								possibleVillageCenters.add(new Point(col, row));
+							}
+						}
 					}
 				}
-				if (xBuffer != 0)
-					xBuffer--;
 			}
-			if (yBuffer != 0)
-				yBuffer--;
+		}
+		//Determining how many villages there should be
+		int numVillages = (int)(heightMap.length / 200.0) * (int)(heightMap[0].length / 100.0);
+		//Choosing n amount final village spawns
+		for (int i = 0; i < numVillages; i++) {
+			int index = rand.nextInt(possibleVillageCenters.size() - 1);
+			finalVillageCenters.add(possibleVillageCenters.get(index));
+			possibleVillageCenters.remove(index);
 		}
 	}
 
 	/**
-	 * Gives the villages a random area
-	 * Max area is 200x200
+	 * Gives the villages a random area Max area is 200x200
 	 */
-	@SuppressWarnings("unused")
-	private void villageBoundaryFiller() {
+	//@SuppressWarnings("unused")
+	/*private void villageBoundaryFiller() {
 		for (int row = 0; row < villageMap.length; row++) {
 			for (int col = 0; col < villageMap[row].length; col++) {
 				if (villageMap[row][col] > 0) {
@@ -75,5 +98,5 @@ public class VillageGeneration {
 				}
 			}
 		}
-	}
+	}*/
 }
