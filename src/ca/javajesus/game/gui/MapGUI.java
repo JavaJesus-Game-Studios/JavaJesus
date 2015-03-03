@@ -26,7 +26,7 @@ public class MapGUI extends ScreenGUI {
 	
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 0, 0, null);
+		g.drawImage(image, 0, 0, image.getWidth() / 13, image.getHeight() / 13, this);
 	}
 
 }
