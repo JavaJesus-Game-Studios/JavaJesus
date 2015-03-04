@@ -8,12 +8,12 @@ import ca.javajesus.level.Level;
 
 public class CaveEntrance extends SolidEntity {
 	
-	protected int color = Colors.get(-1, Colors.fromHex("#301e01"), Colors.fromHex("#474645"), -1);
+	protected int color = Colors.get(-1, Colors.fromHex("#301e01"), Colors.fromHex("#372201"), -1);
 	
 	public CaveEntrance(Level level, double x, double y) {
 		super(level, x, y, 48, 36);
 		//level.addEntity(new Transporter(level, x + 18, y + 20, new PoorHouseInterior(new Point((int) x + 20, (int) y + 28), this.level)));
-		level.addEntity(new TransporterCave(level, x + 18, y + 20, Level.randomCave));
+		level.addEntity(new Transporter(level, x + 18, y + 20, Level.randomCave));
 	}
 	
 	public void render(Screen screen) {
