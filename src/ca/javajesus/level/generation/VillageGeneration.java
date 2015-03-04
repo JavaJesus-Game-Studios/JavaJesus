@@ -27,8 +27,6 @@ public class VillageGeneration {
 	public void villageGenerator() {
 		this.arrayFill();
 		this.locationChooser();
-		//this.villageBoundaryFiller();
-
 	}
 
 	private void arrayFill() {
@@ -39,7 +37,7 @@ public class VillageGeneration {
 						|| (heightMap[row][col] >= 9 && heightMap[row][col] <= 11)
 						|| heightMap[row][col] == 3)
 					groundCheck = true;
-				//villageMap[row][col] = new VillageTile(groundCheck, new Point(col, row));
+				villageMap[row][col] = new VillageTile(groundCheck, new Point(col, row));
 			}
 		}
 	}
@@ -55,9 +53,9 @@ public class VillageGeneration {
 					int landAmount = 0;
 					for (int row2 = -10; row2 <= 10; row2++) {
 						for (int col2 = -10; col2 <= 10; col2++) {
-							//if (villageMap[row][col].getGroundCheck()) {
-							//	landAmount++;
-							//}
+							if (villageMap[row][col].getGroundCheck()) {
+								landAmount++;
+							}
 							//Checking to see if the area (21x21) is 70% land or more, 21 x 21 = 441 x .70 = 308
 							if (landAmount >= 308) {
 								possibleVillageCenters.add(new Point(col, row));
@@ -76,27 +74,4 @@ public class VillageGeneration {
 			possibleVillageCenters.remove(index);
 		}
 	}
-
-	/**
-	 * Gives the villages a random area Max area is 200x200
-	 */
-	//@SuppressWarnings("unused")
-	/*private void villageBoundaryFiller() {
-		for (int row = 0; row < villageMap.length; row++) {
-			for (int col = 0; col < villageMap[row].length; col++) {
-				if (villageMap[row][col] > 0) {
-					int villageNum = villageMap[row][col];
-					int boundarySize = rand.nextInt(100) + 100;
-					int halfLength = (int) (boundarySize / 2.0);
-					for (int row2 = -halfLength; row2 <= halfLength; row2++) {
-						for (int col2 = -halfLength; col2 <= halfLength; col2++) {
-							if (row + row2 >= 0 || col + col2 >= 0) {
-								villageMap[row + row2][col + col2] = villageNum;
-							}
-						}
-					}
-				}
-			}
-		}
-	}*/
 }
