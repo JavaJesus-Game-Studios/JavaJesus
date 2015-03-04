@@ -13,6 +13,15 @@ public class Inventory {
 		giveDefaultItems();
 		setOffsets();
 	}
+	
+	public Gun getGun() {
+		for (Item e: items) {
+			if (e instanceof Gun) {
+				return (Gun) e;
+			}
+		}
+		return null;
+	}
 
 	private void setOffsets() {
 		int offset = 0;
@@ -27,6 +36,7 @@ public class Inventory {
 		items.add(Item.banana);
 		items.add(Item.orange);
 		items.add(Item.feather);
+		items.add(Item.revolver);
 	}
 
 	public void addItem(Item item) {

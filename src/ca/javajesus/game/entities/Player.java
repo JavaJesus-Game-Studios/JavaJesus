@@ -13,6 +13,7 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.items.Gun;
 import ca.javajesus.items.Inventory;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.Level1;
@@ -30,8 +31,7 @@ public class Player extends Mob {
 	private boolean canChangeLevel;
 	private Level nextLevel;
 	private int swingTickCount = 0;
-	private boolean cooldown = true;
-	public int gunType = 4;
+	public Gun gun;
 	private boolean genericCooldown;
 	public boolean isDriving;
 	public Vehicle vehicle;
@@ -51,6 +51,7 @@ public class Player extends Mob {
 		this.input = input;
 		this.score = 0;
 		this.inventory = new Inventory();
+		gun = inventory.getGun();
 		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 8);
 		if (level != null)
 			level.addEntity(bar);
@@ -104,6 +105,8 @@ public class Player extends Mob {
 				|| input.left.isPressed() || input.right.isPressed()) {
 			if (!isSwinging && !isSwimming && !isDriving)
 				isShooting = true;
+		} else {
+			isShooting = false;
 		}
 		if (input.space.isPressed()) {
 			if (!isShooting && !isSwimming && !isDriving && !isSwinging) {
@@ -138,6 +141,12 @@ public class Player extends Mob {
 			xa++;
 			if (isSolidEntityCollision(xa, 0)) {
 				xa--;
+			}
+		}
+		if (input.r.isPressed()) {
+			if (gun != null) {
+				gun.reload();
+				input.r.toggle(false);
 			}
 		}
 		if (input.i.isPressed()) {
@@ -240,15 +249,15 @@ public class Player extends Mob {
 		if (isSwinging || isShooting) {
 			swingTickCount++;
 		}
+		
+		if (gun != null) {
+			gun.tick();
+		}
 
 		// Swinging cooldown
 		if (swingTickCount > 30) {
 			isSwinging = false;
 			swingTickCount = 0;
-		} else if (isShooting && swingTickCount % 10 == 0) {
-			cooldown = false;
-		} else {
-			cooldown = true;
 		}
 
 		if (genericCooldown) {
@@ -396,7 +405,7 @@ public class Player extends Mob {
 
 		// Handles Shooting Animation
 		if (isShooting) {
-			xTile = gunType;
+			xTile = gun.gunType * 4;
 			yTile = 2;
 			if (defense > 2) {
 				yTile += 12;
@@ -409,7 +418,7 @@ public class Player extends Mob {
 				yTile += 2;
 				xTile += 16;
 			} else if (shootingDir > 1) {
-				xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
+				xTile += ((numSteps >> walkingAnimationSpeed) & 1) * 2;
 				flipTop = (shootingDir - 1) % 2;
 				flipBottom = (shootingDir - 1) % 2;
 			}
@@ -431,20 +440,20 @@ public class Player extends Mob {
 					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
 					flipBottom, scale, sheet);
 
-			if (!cooldown) {
-				int bulletOffset = -4;
-				if (shootingDir == 2) {
-					bulletOffset = -7;
-				}
-
-				if (stamina > 5)
-					level.addEntity(new Bullet(level, (this.x + bulletOffset),
-							(this.y - 2), shootingDir, this));
-				if (stamina > 5)
-					stamina -= 5;
-				isShooting = false;
-				swingTickCount = 0;
+			int bulletOffset = -4;
+			if (shootingDir == 2) {
+				bulletOffset = -7;
 			}
+
+			if (stamina > 0 && gun != null) {
+				gun.fire(level, this.x + bulletOffset, this.y - 2, shootingDir,
+						this);
+			}
+
+			if (gun.isReloading) {
+				isShooting = false;
+			}
+			swingTickCount = 0;
 
 		}
 
