@@ -33,8 +33,6 @@ public class Launcher extends JFrame implements Runnable {
 	private int buttonId = 0;
 	private int id;
 
-	protected JPanel window = new JPanel();
-
 	private int width = 800;
 	private int height = 750;
 	protected int button_width = 80;
@@ -60,8 +58,8 @@ public class Launcher extends JFrame implements Runnable {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);
-		window.setLayout(null);
 		swordOffset = 0;
+		toFront();
 		repaint();
 	}
 

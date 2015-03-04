@@ -40,7 +40,7 @@ public class RandomLevel2 extends Level {
 					this.addEntity(new PoorHouse(this, col * 8, row * 8));
 				} else if(heightmap[row][col] == 501) {
 					tiles[tile] = 0;
-					this.addEntity(new CenturyLeSabre(this, "car", col * 8, row * 8, 10, 100));
+					this.addEntity(new CenturyLeSabre(this, "car", col * 8, row * 8));
 				}
 				if (heightmap[row][col] == 0) {
 					if (row > 300 && col > 300) {

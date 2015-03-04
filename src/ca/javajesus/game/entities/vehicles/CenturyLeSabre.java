@@ -8,9 +8,8 @@ import ca.javajesus.level.Level;
 
 public class CenturyLeSabre extends Vehicle {
 
-	public CenturyLeSabre(Level level, String name, double x, double y,
-			int speed, double defaultHealth) {
-		super(level, name, x, y, speed, 32, 40, SpriteSheet.vehicles, defaultHealth);
+	public CenturyLeSabre(Level level, String name, double x, double y) {
+		super(level, name, x, y, 2, 32, 40, SpriteSheet.vehicles, 200);
 		getColor();
 		this.hitBox = new Rectangle(width, height);
 	}

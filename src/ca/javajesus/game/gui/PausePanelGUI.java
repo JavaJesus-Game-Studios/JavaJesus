@@ -81,7 +81,7 @@ public class PausePanelGUI extends JPanel {
 						&& InputHandler.MouseY > 510
 						&& InputHandler.MouseY < 510 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/sandbox_on.png")), 365,
+							.getResource("/GUI/Buttons/save_on.png")), 365,
 							510, 100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
 							.getResource("/GUI/Buttons/sword_selector.png")),
@@ -95,7 +95,7 @@ public class PausePanelGUI extends JPanel {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/sandbox_off.png")), 365,
+							.getResource("/GUI/Buttons/save_off.png")), 365,
 							510, 100, 30, null);
 				}
 
@@ -104,7 +104,7 @@ public class PausePanelGUI extends JPanel {
 						&& InputHandler.MouseY > 570
 						&& InputHandler.MouseY < 570 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/options_on.png")), 365,
+							.getResource("/GUI/Buttons/load_on.png")), 365,
 							570, 100, 30, null);
 					g.drawImage(ImageIO.read(Launcher.class
 							.getResource("/GUI/Buttons/sword_selector.png")),
@@ -118,7 +118,7 @@ public class PausePanelGUI extends JPanel {
 
 				} else {
 					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/options_off.png")), 365,
+							.getResource("/GUI/Buttons/load_off.png")), 365,
 							570, 100, 30, null);
 				}
 

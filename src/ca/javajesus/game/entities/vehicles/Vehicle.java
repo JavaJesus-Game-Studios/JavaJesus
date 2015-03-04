@@ -22,7 +22,7 @@ public class Vehicle extends Mob {
 	protected boolean isSlowingDown = true;
 
 	public static Vehicle vehicle1 = new CenturyLeSabre(Level.level1,
-			"Century LeSabre", 300, 300, 2, 200);
+			"Century LeSabre", 300, 300);
 
 	public static Vehicle boat1 = new Boat(Level.level1, "Century LeSabre",
 			300, 500, 1, 200);

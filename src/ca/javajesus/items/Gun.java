@@ -27,10 +27,11 @@ public class Gun extends Item {
 		this.RELOAD_TIME = reload * 10;
 		this.FIRE_RATE = rate * 10;
 	}
-	
+
 	public void tick() {
 		if (isReloading) {
-			ammo += (double) clipSize / RELOAD_TIME;
+			if (ammo < clipSize)
+				ammo += (double) clipSize / RELOAD_TIME;
 			if (reloadTicks >= RELOAD_TIME) {
 				isReloading = false;
 				reloadTicks = 0;
@@ -39,14 +40,14 @@ public class Gun extends Item {
 			}
 			reloadTicks++;
 		}
-		
+
 		if (fireTicks % FIRE_RATE == 0) {
 			canFire = true;
 		}
-		
+
 		fireTicks++;
 	}
-	
+
 	public void reload() {
 		isReloading = true;
 	}
