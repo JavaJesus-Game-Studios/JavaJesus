@@ -3,7 +3,7 @@ package ca.javajesus.level.generation;
 import java.awt.Point;
 
 public class VillageTile {
-	private int probability;
+	private double probability;
 	private boolean ground;
 	private Point coordinates;
 	
@@ -16,11 +16,11 @@ public class VillageTile {
 	 * Set's the probability of a house at this point.
 	 * @param prob Must be a number between 1 and 100, 1 is 1% probability, and 100 is 100%
 	 */
-	public void setProbability(int prob) {
+	public void setProbability(double prob) {
 		probability = 100 - prob;
 	}
 	
-	public int getProbability() {
+	public double getProbability() {
 		return probability;
 	}
 	

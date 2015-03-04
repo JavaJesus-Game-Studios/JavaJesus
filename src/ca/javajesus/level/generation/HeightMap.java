@@ -357,11 +357,13 @@ public class HeightMap {
 				}
 			}
 		}
+		//VillageGeneration gen = new VillageGeneration(heightmap);
+		//gen.villageGenerator();
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
 				// Spawn random building
 				if (checkBuildings) {
-					if (random.nextInt(1000) == 0) {
+					if (random.nextInt(/*(int) gen.villageMap[row][col].getProbability()*/ 1000) == 0) {
 						if (row > 6 && row < heightmap.length - 6 && col > 6
 								&& col < heightmap[row].length - 6) {
 							boolean grassChecker = true;

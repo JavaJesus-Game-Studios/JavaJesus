@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class VillageGeneration {
 	private int[][] heightMap;
-	private VillageTile[][] villageMap;
+	VillageTile[][] villageMap;
 	private ArrayList<Point> possibleVillageCenters;
 	private ArrayList<Point> finalVillageCenters;
 
@@ -27,6 +27,7 @@ public class VillageGeneration {
 	public void villageGenerator() {
 		this.arrayFill();
 		this.locationChooser();
+		this.probabilitySetter();
 	}
 
 	private void arrayFill() {
@@ -77,7 +78,14 @@ public class VillageGeneration {
 	private void probabilitySetter() {
 		for (int row = 0; row < villageMap.length; row++) {
 			for (int col = 0; col < villageMap[0].length; col++) {
-				
+				double probability = 0;
+				for (int i = 0; i < finalVillageCenters.size(); i++) {
+					probability += 1.0 / finalVillageCenters.get(i).x + 1.0 / finalVillageCenters.get(i).y;
+				}
+				probability *= 100;
+				if (probability > 100)
+					probability = 100;
+				villageMap[row][col].setProbability(probability);
 			}
 		}
 	}
