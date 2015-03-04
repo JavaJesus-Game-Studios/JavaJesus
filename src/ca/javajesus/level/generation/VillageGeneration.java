@@ -45,7 +45,6 @@ public class VillageGeneration {
 	/**
 	 * Chooses several locations for the new villages.
 	 */
-	@SuppressWarnings("unused")
 	private void locationChooser() {
 		for (int row = 10; row < heightMap.length; row++) {
 			for (int col = 10; col < heightMap[0].length; col++) {
@@ -72,6 +71,14 @@ public class VillageGeneration {
 			int index = rand.nextInt(possibleVillageCenters.size() - 1);
 			finalVillageCenters.add(possibleVillageCenters.get(index));
 			possibleVillageCenters.remove(index);
+		}
+	}
+	
+	private void probabilitySetter() {
+		for (int row = 0; row < villageMap.length; row++) {
+			for (int col = 0; col < villageMap[0].length; col++) {
+				
+			}
 		}
 	}
 }
