@@ -117,7 +117,7 @@ public class GangMember extends Monster {
 				}
 				isShooting = true;
 				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7),
-						mob.x, mob.y - 4, this));
+						mob.x, mob.y - 4, this, 3));
 			}
 			if (!this.standRange.intersects(mob.hitBox)) {
 

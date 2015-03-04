@@ -51,7 +51,7 @@ public class Projectile extends Entity {
 	 *            : The direction it will move; Currently only 0 1 2 or 3
 	 */
 	public Projectile(Level level, int width, int height, int tileNumber,
-			int color, double x, double y, int speed, int direction, Mob mob) {
+			int color, double x, double y, int speed, int direction, Mob mob, double damage) {
 		super(level);
 		this.tileNumber = tileNumber;
 		this.color = color;
@@ -65,7 +65,7 @@ public class Projectile extends Entity {
 		xOrigin = x;
 		yOrigin = y;
 		range = 200;
-		damage = 5;
+		this.damage = damage;
 	}
 
 	private void calcSimpleDirection(int direction) {
@@ -120,7 +120,7 @@ public class Projectile extends Entity {
 	 */
 	public Projectile(Level level, int width, int height, int tileNumber,
 			int color, double x, double y, int speed, double xPos, double yPos,
-			Mob mob) {
+			Mob mob, double damage) {
 		super(level);
 		this.tileNumber = tileNumber;
 		this.color = color;
@@ -134,7 +134,7 @@ public class Projectile extends Entity {
 		xOrigin = x;
 		yOrigin = y;
 		range = 200;
-		damage = 5;
+		this.damage = damage;
 	}
 
 	private void calcAngle(double x, double y) {

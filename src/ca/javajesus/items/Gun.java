@@ -17,15 +17,17 @@ public class Gun extends Item {
 	private int FIRE_RATE;
 	private int fireTicks = 1;
 	private boolean canFire = true;
+	private int damage;
 
 	public Gun(String name, int id, int xTile, int yTile, int color,
-			String description, int gunType, int clipSize, int rate, int reload) {
+			String description, int gunType, int clipSize, int rate, int reload, int damage) {
 		super(name, id, xTile, yTile, color, description);
 		this.gunType = gunType;
 		this.clipSize = clipSize;
 		this.ammo = clipSize;
 		this.RELOAD_TIME = reload * 10;
 		this.FIRE_RATE = rate * 10;
+		this.damage = damage;
 	}
 
 	public void tick() {
@@ -54,7 +56,7 @@ public class Gun extends Item {
 
 	public void fire(Level level, double x, double y, int dir, Player player) {
 		if (ammo > 0 && !isReloading && canFire) {
-			level.addEntity(new Bullet(level, x, y, dir, player));
+			level.addEntity(new Bullet(level, x, y, dir, player, damage));
 			ammo--;
 			canFire = false;
 		}

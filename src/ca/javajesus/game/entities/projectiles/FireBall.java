@@ -10,7 +10,7 @@ public class FireBall extends Projectile {
 	public FireBall(Level level, double x, double y, int direction, Mob mob) {
 		super(level, 6, 6, 0,
 				Colors.get(-1, 550, Colors.fromHex("#F7790A"), 300), x, y, 3,
-				direction, mob);
+				direction, mob, 3);
 		sound.play(SoundHandler.sound.fireball);
 	}
 
@@ -18,7 +18,7 @@ public class FireBall extends Projectile {
 			Mob mob) {
 		super(level, 6, 6, 0,
 				Colors.get(-1, 550, Colors.fromHex("#F7790A"), 300), x, y, 3,
-				xPos, yPos, mob);
+				xPos, yPos, mob, 3);
 		sound.play(SoundHandler.sound.fireball);
 	}
 
