@@ -3,3 +3,5 @@
 *.prefs
 *.prefs
 .settings/org.eclipse.jdt.core.prefs
+.classpath
+*.classpath

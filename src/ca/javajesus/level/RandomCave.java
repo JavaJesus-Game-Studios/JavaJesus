@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.sound.sampled.Clip;
 
 import ca.javajesus.game.SoundHandler;
+import ca.javajesus.game.entities.structures.TransporterLadder;
 import ca.javajesus.game.entities.structures.TransporterInterior;
 import ca.javajesus.level.generation.CaveGeneration;
 
@@ -66,7 +67,7 @@ public class RandomCave extends Level {
 
 	@Override
 	protected void otherEntityPlacement() {
-		this.addEntity(new TransporterInterior(this, spawnPoint.getX(), spawnPoint.getY(), Level.level1,
+		this.addEntity(new TransporterLadder(this, spawnPoint.getX(), spawnPoint.getY(), Level.level1,
 				new Point(220, 79)));
 	}
 }
