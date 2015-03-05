@@ -3,6 +3,12 @@ package ca.javajesus.level;
 import java.awt.Point;
 import java.util.Random;
 
+import ca.javajesus.game.entities.SolidEntity;
+import ca.javajesus.game.entities.structures.CastleTower;
+import ca.javajesus.game.entities.structures.CatholicChurch;
+import ca.javajesus.game.entities.structures.CaveEntrance;
+import ca.javajesus.game.entities.structures.Hut;
+import ca.javajesus.game.entities.structures.NiceHouse;
 import ca.javajesus.game.entities.structures.PoorHouse;
 import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 import ca.javajesus.level.generation.HeightMap;
@@ -11,8 +17,6 @@ import ca.javajesus.level.tile.Tile;
 public class RandomLevel2 extends Level {
 
 	private int[][] heightmap;
-
-	Random rand = new Random();
 
 	/**
 	 * Generates a random level with smooth terrain based on a simple array
@@ -28,19 +32,21 @@ public class RandomLevel2 extends Level {
 	}
 
 	protected void generateLevel() {
-		heightmap = new HeightMap(width, height, true, false).generateHeightMap(20);
+		heightmap = new HeightMap(width, height, true, false)
+				.generateHeightMap(20);
 		boolean spawnFound = true;
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[row].length; col++) {
 				int tile = col + row * width;
-				if(heightmap[row][col] < 500) {
+				if (heightmap[row][col] < 500) {
 					tiles[tile] = heightmap[row][col];
-				} else if(heightmap[row][col] == 500) {
+				} else if (heightmap[row][col] == 500) {
 					tiles[tile] = 0;
-					this.addEntity(new PoorHouse(this, col * 8, row * 8));
-				} else if(heightmap[row][col] == 501) {
+					this.addEntity(getBuilding(col * 8, row * 8));
+				} else if (heightmap[row][col] == 501) {
 					tiles[tile] = 0;
-					this.addEntity(new CenturyLeSabre(this, "car", col * 8, row * 8));
+					this.addEntity(new CenturyLeSabre(this, "car", col * 8,
+							row * 8));
 				}
 				if (heightmap[row][col] == 0) {
 					if (row > 300 && col > 300) {
@@ -76,6 +82,24 @@ public class RandomLevel2 extends Level {
 	protected void otherEntityPlacement() {
 		// TODO Auto-generated method stub
 
+	}
+
+	private SolidEntity getBuilding(double x, double y) {
+		Random random = new Random();
+		switch (random.nextInt(10)) {
+		case 0:
+			return new CaveEntrance(this, x, y);
+		case 1:
+			return new NiceHouse(this, x, y);
+		case 2:
+			return new Hut(this, x, y);
+		case 3:
+			return new CastleTower(this, x, y);
+		case 4:
+			return new CatholicChurch(this, x, y);
+		default:
+			return new PoorHouse(this, x, y);
+		}
 	}
 
 	public Tile getTile(int x, int y) {

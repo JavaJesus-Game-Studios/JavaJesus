@@ -9,17 +9,15 @@ import ca.javajesus.level.Level;
 
 public class TransporterCave extends Transporter {
 
-	public TransporterCave(Level currentLevel, double x, double y,
-			Level nextLevel) {
-		super(currentLevel, x, y, nextLevel);
+	public TransporterCave(Level currentLevel, double x, double y) {
+		super(currentLevel, x, y, Level.randomCave);
 		this.color = Colors.get(Colors.fromHex("#474645"),
 				Colors.fromHex("#663300"), Colors.fromHex("#472400"),
 				Colors.fromHex("#ffde00"));
 	}
 
-	public TransporterCave(Level currentLevel, double x, double y,
-			Level nextLevel, Point point) {
-		super(currentLevel, x, y, nextLevel, point);
+	public TransporterCave(Level currentLevel, double x, double y, Point point) {
+		super(currentLevel, x, y, Level.randomCave, point);
 		this.color = Colors.get(Colors.fromHex("#474645"),
 				Colors.fromHex("#663300"), Colors.fromHex("#472400"),
 				Colors.fromHex("#ffde00"));

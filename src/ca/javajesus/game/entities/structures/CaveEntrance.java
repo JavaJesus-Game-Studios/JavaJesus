@@ -12,8 +12,7 @@ public class CaveEntrance extends SolidEntity {
 	
 	public CaveEntrance(Level level, double x, double y) {
 		super(level, x, y, 48, 36);
-		//level.addEntity(new Transporter(level, x + 18, y + 20, new PoorHouseInterior(new Point((int) x + 20, (int) y + 28), this.level)));
-		level.addEntity(new TransporterCave(level, x + 18, y + 20, Level.randomCave));
+		level.addEntity(new TransporterCave(level, x + 18, y + 20));
 	}
 	
 	public void render(Screen screen) {
