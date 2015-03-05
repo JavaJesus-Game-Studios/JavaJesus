@@ -17,7 +17,7 @@ public class VillageTile {
 	 * @param prob Must be a number between 1 and 100, 1 is 1% probability, and 100 is 100%
 	 */
 	public void setProbability(double prob) {
-		probability = 100 - prob;
+		probability = 1000 - prob;
 	}
 	
 	public double getProbability() {

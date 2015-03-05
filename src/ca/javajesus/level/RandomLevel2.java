@@ -28,7 +28,7 @@ public class RandomLevel2 extends Level {
 	}
 
 	protected void generateLevel() {
-		heightmap = new HeightMap(width, height).generateHeightMap(20);
+		heightmap = new HeightMap(width, height, true, false).generateHeightMap(20);
 		boolean spawnFound = true;
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[row].length; col++) {

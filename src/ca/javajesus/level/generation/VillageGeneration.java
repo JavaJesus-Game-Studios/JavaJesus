@@ -7,8 +7,8 @@ import java.util.Random;
 public class VillageGeneration {
 	private int[][] heightMap;
 	VillageTile[][] villageMap;
-	private ArrayList<Point> possibleVillageCenters;
-	private ArrayList<Point> finalVillageCenters;
+	private ArrayList<Point> possibleVillageCenters = new ArrayList<Point>();
+	private ArrayList<Point> finalVillageCenters = new ArrayList<Point>();
 
 	Random rand = new Random();
 
@@ -82,9 +82,9 @@ public class VillageGeneration {
 				for (int i = 0; i < finalVillageCenters.size(); i++) {
 					probability += 1.0 / finalVillageCenters.get(i).x + 1.0 / finalVillageCenters.get(i).y;
 				}
-				probability *= 100;
-				if (probability > 100)
-					probability = 100;
+				probability *= 1000;
+				if (probability > 50)
+					probability = 999;
 				villageMap[row][col].setProbability(probability);
 			}
 		}
