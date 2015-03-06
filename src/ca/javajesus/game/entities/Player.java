@@ -363,8 +363,8 @@ public class Player extends Mob {
 		if (onFire) {
 			int firecolor = Colors.get(-1, Colors.fromHex("#F7790A"), 540, -1);
 
-			screen.render(xOffset + 4, yOffset - 8, this.level.fireList.get(0)
-					.getXTile() + 15 * 32, firecolor, 0, 1, SpriteSheet.tiles);
+			screen.render(xOffset + 3, yOffset, this.level.fireList.get(0)
+					.getXTile() + 15 * 32, firecolor, 0, 2, SpriteSheet.tiles);
 
 		}
 

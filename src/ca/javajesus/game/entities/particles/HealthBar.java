@@ -65,7 +65,7 @@ public class HealthBar extends Particle {
 			tickCount++;
 		}
 
-		if (tickCount == 200 && mob.onFire) {
+		if (tickCount == 500 && mob.onFire) {
 			mob.onFire = false;
 			tickCount = 0;
 		}

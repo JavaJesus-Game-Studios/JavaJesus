@@ -59,12 +59,14 @@ public class ZombieSurvival extends Game {
 		g.drawString(player + ": " + (int) player.x + ", " + (int) player.y, 5,
 				20);
 		g.drawString("Score: " + player.score, 700, 20);
+		hud.draw(g);
 		ChatHandler.drawMessages(g);
-		if (player.isDead) {
+		if (player.isDead || returnToMenu) {
 			g.setFont(new Font("Verdana", 0, 50));
 			g.setColor(Color.BLACK);
 			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);
 			frame.dispose();
+			returnToMenu = false;
 			new Launcher(0).startMenu();
 			running = false;
 			return;
