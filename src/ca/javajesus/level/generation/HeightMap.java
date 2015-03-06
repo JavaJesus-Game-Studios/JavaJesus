@@ -106,9 +106,9 @@ public class HeightMap {
 	 *            The heightmap you want to check
 	 * @return Boolean true if there is grass
 	 */
-	private boolean checkGrass(int row, int col, int[][] heightmap) {
-		if (heightmap[row][col] == 0 || heightmap[row][col] == 9
-				|| heightmap[row][col] == 10 || heightmap[row][col] == 11)
+	private boolean checkGrass(int row, int col, HeightMapTile[][] heightmap) {
+		if (heightmap[row][col].tile() == 0 || heightmap[row][col].tile() == 9
+				|| heightmap[row][col].tile()  == 10 || heightmap[row][col].tile() == 11)
 			return true;
 		else
 			return false;
@@ -123,13 +123,13 @@ public class HeightMap {
 	 * @return An array filled with 0, 1, 2, or 3 where 0 is water, 1 is land, 2
 	 *         is mountains and 3 is buildings.
 	 */
-	public int[][] generateHeightMap(int cycles) {
+	public HeightMapTile[][] generateHeightMap(int cycles) {
 		Random rand = new Random();
-		int[][] heightmap = new int[height][width];
+		HeightMapTile[][] heightmap = new HeightMapTile[height][width];
 
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
-				heightmap[row][col] = rand.nextInt(1000);
+				heightmap[row][col] = new HeightMapTile(rand.nextInt(1000));
 			}
 		}
 
@@ -142,12 +142,12 @@ public class HeightMap {
 						for (int colSub = -1; colSub <= 1; colSub++) {
 							int row2 = rowSub + row, col2 = colSub+ col;
 							if (!(row2 < 0) && !(row2 > heightmap.length - 1) && !(col2 < 0) && !(col2 > heightmap[0].length - 1)) {
-								average += heightmap[row2][col2];
+								average += heightmap[row2][col2].tile();
 								avgNum++;
 							}
 						}
 					}
-					heightmap [row][col] = (int) (average / avgNum);
+					heightmap [row][col].setTile((int) (average / avgNum));
 				}
 			}
 		}
@@ -163,53 +163,53 @@ public class HeightMap {
 	 *            the heightmap you want to check
 	 * @return A number that corresponds to a tile or entity
 	 */
-	private int[][] finisher(int[][] heightmap) {
+	private HeightMapTile[][] finisher(HeightMapTile[][] heightmap) {
 		int cutoff = this.getAverage(heightmap) - 10;
 		int dirtCutoff = cutoff + 50;
 		int mountainCutoff = cutoff + 60;
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
-				if (heightmap[row][col] <= cutoff) {
-					heightmap[row][col] = WATER;
-				} else if (heightmap[row][col] > cutoff
-						&& heightmap[row][col] <= dirtCutoff) {
-					heightmap[row][col] = GRASS();
-				} else if (heightmap[row][col] > dirtCutoff
-						&& heightmap[row][col] <= mountainCutoff) {
-					heightmap[row][col] = DIRT;
+				if (heightmap[row][col].tile() <= cutoff) {
+					heightmap[row][col].setTile(WATER);
+				} else if (heightmap[row][col].tile() > cutoff
+						&& heightmap[row][col].tile() <= dirtCutoff) {
+					heightmap[row][col].setTile(GRASS());
+				} else if (heightmap[row][col].tile() > dirtCutoff
+						&& heightmap[row][col].tile() <= mountainCutoff) {
+					heightmap[row][col].setTile(DIRT);
 				} else {
-					heightmap[row][col] = ROCK;
+					heightmap[row][col].setTile(ROCK);
 				}
 			}
 		}
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
 				int waterCounter = 0;
-				if (this.checkGrass(row, col, heightmap) || heightmap[row][col] == DIRT) {
+				if (this.checkGrass(row, col, heightmap) || heightmap[row][col].tile() == DIRT) {
 					for (int rowSum = -1; rowSum <= 1; rowSum++) {
 						for (int colSum = -1; colSum <= 1; colSum++) {
 							int row2 = row + rowSum, col2 = col + colSum;
 							if (!(row2 < 0) && !(row2 > heightmap.length - 1) && !(col2 < 0) && !(col2 > heightmap[0].length - 1) && (row2 != 0) && (col2 != 0)) {
-								if (heightmap[row2][col2] == WATER || heightmap[row2][col2] == WATERSAND) {
+								if (heightmap[row2][col2].tile() == WATER || heightmap[row2][col2].tile() == WATERSAND) {
 									waterCounter++;
-									heightmap[row2][col2] = WATERSAND;
+									heightmap[row2][col2].setTile(WATERSAND);
 								}
 							}
 						}
 					}
 					if (waterCounter > 0) {
-						heightmap[row][col] = SAND;
+						heightmap[row][col].setTile(SAND);
 					}
 				}
 			}
 		}
-		VillageGeneration gen = new VillageGeneration(heightmap);
-		gen.villageGenerator();
+		//VillageGeneration gen = new VillageGeneration(heightmap);
+		//gen.villageGenerator();
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
 				// Spawn random building
 				if (checkBuildings) {
-					if (random.nextInt((int) gen.villageMap[row][col].getProbability()) == 0) {
+					if (random.nextInt(/*(int) gen.villageMap[row][col].getProbability()*/1000) == 0) {
 						if (row > 6 && row < heightmap.length - 6 && col > 6
 								&& col < heightmap[row].length - 6) {
 							boolean grassChecker = true;
@@ -220,13 +220,13 @@ public class HeightMap {
 											&& row2 > 0
 											&& col2 > 0) {
 										grassChecker = false;
-									} else if (heightmap[row + row2][col + col2] >= 500) {
+									} else if (heightmap[row + row2][col + col2].tile() >= 500) {
 										grassChecker = false;
 									}
 								}
 							}
 							if (grassChecker) {
-								heightmap[row][col] = 500;
+								heightmap[row][col].setTile(500);
 							}
 						}
 					}
@@ -243,13 +243,13 @@ public class HeightMap {
 										&& row2 > 0
 										&& col2 > 0) {
 									grassChecker = false;
-								} else if (heightmap[row + row2][col + col2] >= 500) {
+								} else if (heightmap[row + row2][col + col2].tile() >= 500) {
 									grassChecker = false;
 								}
 							}
 						}
 						if (grassChecker) {
-							heightmap[row][col] = 501;
+							heightmap[row][col].setTile(501);
 						}
 					}	
 				}
@@ -268,11 +268,11 @@ public class HeightMap {
 	 * @return The average of the values in heightmap
 	 * 
 	 */
-	private int getAverage(int[][] heightmap) {
+	private int getAverage(HeightMapTile[][] heightmap) {
 		int sumTotal = 0;
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[row].length; col++) {
-				sumTotal += heightmap[row][col];
+				sumTotal += heightmap[row][col].tile();
 			}
 		}
 		int average = (int) ((double) sumTotal)
