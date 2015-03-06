@@ -13,7 +13,7 @@ import ca.javajesus.level.Level;
 public class ZombieMap1 extends Level{
 
 	public ZombieMap1() {
-		super("/Levels/zombies_test_map.png");
+		super("/Levels/Test_Levels/zombies_test_map.png");
 	}
 	
 	public Point spawnPoint() {
