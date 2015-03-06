@@ -29,7 +29,6 @@ public abstract class Mob extends Entity {
 	protected SpriteSheet sheet;
 	public boolean isDead;
 	public boolean onFire = false;
-	protected int healthTickCount = 0;
 	public boolean isTargeted = false;
 	protected Random random = new Random();
 	public Rectangle standBox;
@@ -39,17 +38,17 @@ public abstract class Mob extends Entity {
 	protected boolean isSwimming = false;
 	public boolean isSwinging = false;
 	protected boolean isShooting = false;
-	
+
 	protected boolean isTalking = false;
 	protected int talkCount = 0;
-	
+
 	protected String damageTaken = "";
 	protected boolean isHit = false;
 	protected int isHitTicks = 0;
 	protected int isHitX = 0;
 	protected int isHitY = 0;
 	protected int isHitColor = 0;
-	
+
 	public int strength, defense, accuracy, evasion;
 
 	public Mob(Level level, String name, double x, double y, int speed,
@@ -200,12 +199,24 @@ public abstract class Mob extends Entity {
 				if (this.hitBox.intersects(temp))
 					return true;
 			} else if (entity instanceof Vehicle && entity != this) {
-				Rectangle temp = new Rectangle(((Vehicle) entity).hitBox.width,
-						((Vehicle) entity).hitBox.height - 8);
-				temp.setLocation((int) ((Vehicle) entity).x - 2 * xa,
-						(int) ((Vehicle) entity).y - 2 * ya);
+				Rectangle temp;
+				Vehicle vehicle = (Vehicle) entity;
+				if (vehicle.movingDir < 2) {
+					temp = new Rectangle(vehicle.hitBox.width - 16,
+							vehicle.hitBox.height - 8);
+					temp.setLocation((int) vehicle.x - xa, (int) vehicle.y - ya
+							- 8);
+				} else {
+					temp = new Rectangle(vehicle.hitBox.width - 8,
+							vehicle.hitBox.height - 16);
+					temp.setLocation((int) vehicle.x - xa - 3, (int) vehicle.y - ya - 4);
+				}
+
 				if (this.hitBox.intersects(temp))
 					return true;
+			} else if (entity instanceof FireEntity
+					&& this.hitBox.intersects(((FireEntity) entity).hitBox)) {
+				onFire = true;
 			}
 
 		}
@@ -295,11 +306,6 @@ public abstract class Mob extends Entity {
 	}
 
 	public void checkTile(double x, double y) {
-		Tile currentTile = level.getTile((int) x / 8, (int) y / 8);
-		if (currentTile == Tile.FIRE) {
-			onFire = true;
-			healthTickCount = 0;
-		}
 
 	}
 
@@ -315,8 +321,22 @@ public abstract class Mob extends Entity {
 		isHitColor = Colors.get(-1, -1, -1, random.nextInt(200));
 	}
 
-	public void damage(int a) {
-		int damage = a;
+	public void damage(double a, double b) {
+		a *= 10;
+		b *= 10;
+		double damage = random.nextInt((int) b - (int) a + 1) + (int) a;
+		damage = damage / 10.0 - defense;
+		if (damage > 0)
+			this.health -= damage;
+		damageTaken = String.valueOf(damage);
+		isHit = true;
+		isHitX = random.nextInt(10) - 5;
+		isHitY = random.nextInt(6) - 3;
+		isHitColor = Colors.get(-1, -1, -1, random.nextInt(200));
+	}
+
+	public void damage(double d) {
+		double damage = d;
 		damage -= defense;
 		if (damage > 0)
 			this.health -= damage;

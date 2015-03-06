@@ -17,7 +17,8 @@ public class HealthBar extends Particle {
 
 	private Mob mob;
 
-	public HealthBar(Level level, int tileNumber, double x, double y, Mob mob, int yChange) {
+	public HealthBar(Level level, int tileNumber, double x, double y, Mob mob,
+			int yChange) {
 		super(level, tileNumber, Colors.get(-1, 111, -1, 400), x, y);
 		this.mob = mob;
 		this.yOffset = 14;
@@ -26,8 +27,8 @@ public class HealthBar extends Particle {
 		this.yChange = yChange;
 	}
 
-	public HealthBar(Level level, int tileNumber, double x, double y, Mob mob, int yChange,
-			int yOffset) {
+	public HealthBar(Level level, int tileNumber, double x, double y, Mob mob,
+			int yChange, int yOffset) {
 		super(level, tileNumber, Colors.get(-1, 111, -1, 400), x, y);
 		this.mob = mob;
 		this.yOffset = yOffset;
@@ -39,12 +40,12 @@ public class HealthBar extends Particle {
 		this.x = mob.x - xOffset / 2 + 1;
 		this.y = mob.y + yChange;
 
-		screen.render(this.x + 3, this.y, tileNumber + yOffset * 32, color, 1, 1,
-				sheet);
-		screen.render(this.x - 5, this.y, tileNumber + 1 + yOffset * 32, color, 1,
+		screen.render(this.x + 3, this.y, tileNumber + yOffset * 32, color, 1,
 				1, sheet);
+		screen.render(this.x - 5, this.y, tileNumber + 1 + yOffset * 32, color,
+				1, 1, sheet);
 	}
-	
+
 	public void tick() {
 		this.health = mob.health;
 		updateHealthBar();
@@ -53,21 +54,22 @@ public class HealthBar extends Particle {
 	public void setOffset(int yTileOffset) {
 		this.tileNumber = yTileOffset * 32;
 	}
-	
+
 	public void updateHealthBar() {
-		
+
 		mob.checkTile(this.x, this.y);
 
 		if (mob.onFire) {
+			if (tickCount % 10 == 0)
+				mob.damage(0.1, 0.3);
 			tickCount++;
-			health -= 0.2;
 		}
 
 		if (tickCount == 200 && mob.onFire) {
 			mob.onFire = false;
 			tickCount = 0;
 		}
-		
+
 		if ((health > 11 * startHealth / 12.0) && (health <= startHealth)) {
 			setOffset(2);
 			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#0079e0"));
@@ -110,7 +112,7 @@ public class HealthBar extends Particle {
 		} else if ((health > 3 * startHealth / 12.0)
 				&& (health <= 4 * startHealth / 12.0)) {
 			setOffset(10);
-			this.color = Colors.get(-1, 111, -1,Colors.fromHex("#e50000"));
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#e50000"));
 			xOffset = 9;
 		} else if ((health > 2 * startHealth / 12.0)
 				&& (health <= 3 * startHealth / 12.0)) {
@@ -119,13 +121,15 @@ public class HealthBar extends Particle {
 			xOffset = 10;
 		} else if ((health > 100 / 12.0) && (health <= 200 / 12.0)) {
 			setOffset(12);
-			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#e50000"));;
+			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#e50000"));
+			;
 			xOffset = 11;
 		} else {
 			setOffset(13);
 			this.color = Colors.get(-1, 111, -1, Colors.fromHex("#e50000"));
 			xOffset = 12;
-		} if(health <= 0) {
+		}
+		if (health <= 0) {
 			level.remEntity(this);
 			mob.kill();
 		}

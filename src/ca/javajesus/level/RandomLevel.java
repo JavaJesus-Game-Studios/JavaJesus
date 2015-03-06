@@ -394,8 +394,6 @@ public class RandomLevel extends Level {
 			return Tile.WATER;
 		case 5:
 			return Tile.ROAD1;
-		case 6:
-			return Tile.FIRE;
 		case 7:
 			return Tile.WATERSAND;
 		case 8:

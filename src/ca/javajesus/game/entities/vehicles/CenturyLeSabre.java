@@ -9,7 +9,7 @@ import ca.javajesus.level.Level;
 public class CenturyLeSabre extends Vehicle {
 
 	public CenturyLeSabre(Level level, String name, double x, double y) {
-		super(level, name, x, y, 2, 32, 40, SpriteSheet.vehicles, 200);
+		super(level, name, x, y, 2, 24, 32, SpriteSheet.vehicles, 200);
 		getColor();
 		this.hitBox = new Rectangle(width, height);
 	}
@@ -72,12 +72,16 @@ public class CenturyLeSabre extends Vehicle {
 		if (movingDir == 0 || movingDir == 1) {
 			this.width = 32;
 			this.height = 40;
+			this.hitBox.setSize(width, height);
+			this.hitBox.setLocation((int) this.x - width / 2 + 6, (int) this.y
+					- height / 2 + 12);
 		} else {
 			this.width = 40;
 			this.height = 32;
+			this.hitBox.setSize(width, height);
+			this.hitBox.setLocation((int) this.x - width / 2 + 10, (int) this.y
+					- height / 2 + 7);
 		}
-		this.hitBox.setSize(width, height);
-		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 8);
 
 		int xTile = 0;
 		int yTile = 0;

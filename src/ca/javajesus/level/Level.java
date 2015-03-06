@@ -13,10 +13,12 @@ import javax.sound.sampled.Clip;
 
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.entities.FireEntity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.particles.HealthBar;
+import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.tile.Tile;
@@ -28,6 +30,7 @@ public abstract class Level {
 	protected List<Entity> entities = new CopyOnWriteArrayList<Entity>();
 	protected List<Mob> mobs = new CopyOnWriteArrayList<Mob>();
 	protected List<Player> players = new CopyOnWriteArrayList<Player>();
+	public List<FireEntity> fireList = new CopyOnWriteArrayList<FireEntity>();
 	private String imagePath;
 	private BufferedImage image;
 	public Point spawnPoint;
@@ -38,7 +41,8 @@ public abstract class Level {
 	public static Level roadlevel = new RoadLevel();
 	public static Level random = new RandomLevel(level1.width, level1.height);
 	public static Level random2 = new RandomLevel2(level1.width, level1.height);
-	public static Level randomCave = new RandomCave(level1.width, level1.height, 5);
+	public static Level randomCave = new RandomCave(level1.width,
+			level1.height, 5);
 
 	public Level(String imagePath) {
 		spawnPoint = new Point(0, 0);
@@ -52,7 +56,7 @@ public abstract class Level {
 			this.generateLevel();
 		}
 	}
-	
+
 	public Clip getBackgroundMusic() {
 		return SoundHandler.sound.background1;
 	}
@@ -189,21 +193,23 @@ public abstract class Level {
 
 	public void renderEntities(Screen screen) {
 		for (Mob m : getMobs()) {
-			if (!m.renderOnTop)
+			if (!m.renderOnTop) {
 				m.render(screen);
+				if (m.bar != null && !m.isDead)
+					m.bar.render(screen);
+			}
 		}
 		for (Entity e : getEntities()) {
-			if (!(e instanceof Mob)) {
-				if (e instanceof HealthBar && ((HealthBar) e).renderOnTop) {
-					e.render(screen);
-				} else {
-					e.render(screen);
-				}
+			if (!(e instanceof Mob) || !(e instanceof HealthBar)) {
+				e.render(screen);
 			}
 		}
 		for (Mob m : getMobs()) {
-			if (m.renderOnTop)
+			if (m.renderOnTop) {
 				m.render(screen);
+				if (m.bar != null && !m.isDead)
+					m.bar.render(screen);
+			}
 		}
 	}
 
@@ -222,10 +228,15 @@ public abstract class Level {
 	public void addEntity(Entity entity) {
 		this.entities.add(entity);
 		if (entity instanceof Mob) {
-			this.mobs.add((Mob) entity);
+			if (entity instanceof Vehicle) {
+				this.mobs.add(0, (Vehicle) entity);
+			} else
+				this.mobs.add((Mob) entity);
 			if (entity instanceof Player) {
 				this.players.add((Player) entity);
 			}
+		} else if (entity instanceof FireEntity) {
+			this.fireList.add((FireEntity) entity);
 		}
 
 	}
@@ -237,6 +248,8 @@ public abstract class Level {
 			if (entity instanceof Player) {
 				this.players.remove((Player) entity);
 			}
+		} else if (entity instanceof FireEntity) {
+			this.fireList.remove((FireEntity) entity);
 		}
 	}
 

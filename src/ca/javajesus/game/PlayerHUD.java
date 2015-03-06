@@ -59,9 +59,9 @@ public class PlayerHUD {
 		case 1:
 			return laserRevolver;
 		case 2:
-			return assaultRifle;
-		case 3:
 			return shotgun;
+		case 3:
+			return assaultRifle;
 		default:
 			return crossbow;
 		}

@@ -13,9 +13,9 @@ import ca.javajesus.level.Level;
 public class Cyclops extends Monster {
 
 	public Cyclops(Level level, double x, double y) {
-		super(level, "Cyclops", x, y, 1, 32, 48, 14, 50, Colors.get(-1, 111,
+		super(level, "Cyclops", x, y, 1, 32, 48, 14, 5000, Colors.get(-1, 111,
 				Colors.fromHex("#ffd99c"), Colors.fromHex("#ffffff")));
-		this.bar = new HealthBar(level, 0, x, y, this, 0);
+		this.bar = new HealthBar(level, 0, x, y, this, 32);
 		level.addEntity(bar);
 	}
 

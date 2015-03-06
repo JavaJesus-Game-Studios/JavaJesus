@@ -2,6 +2,7 @@ package ca.javajesus.level;
 
 import java.awt.Point;
 
+import ca.javajesus.game.entities.FireEntity;
 import ca.javajesus.game.entities.monsters.Cyclops;
 import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.npcs.NPC;
@@ -37,26 +38,26 @@ public class Level1 extends Level {
 		this.addEntity(NPC.npc9);
 		this.addEntity(NPC.npc10);
 		this.addEntity(NPC.Jesus);
-		
+
 		this.addEntity(new Cyclops(this, 600, 300));
 		this.addEntity(Monster.gang1);
 		this.addEntity(Monster.horseThing1);
 		this.addEntity(Monster.monkey);
 		this.addEntity(Monster.gang2);
-		//this.addEntity(Monster.man2);
-				
+		// this.addEntity(Monster.man2);
+
 	}
 
 	@Override
 	public void initSpawnerPlacement() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void initChestPlacement() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -72,7 +73,10 @@ public class Level1 extends Level {
 		this.addEntity(new Skyscraper(this, 200, 200));
 		this.addEntity(new SanCiscoSkyscraper(this, 10, 2084));
 		this.addEntity(new ArmorPickup(this, 100, 25));
-		
+
+		for (int i = 0; i < 4; i++)
+			this.addEntity(new FireEntity(this, 230 + i * 8, 130));
+
 	}
 
 }

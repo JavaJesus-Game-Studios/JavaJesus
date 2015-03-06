@@ -31,10 +31,6 @@ public abstract class Tile {
 			Colors.get(-1, 004, 115, -1), 0xFF0000FF, 800);
 	public static final Tile SAND = new BaseTile(4, 0, 1, Colors.get(-1, 540,
 			550, -1), 0xFFFFFF00);
-	public static final Tile FIRE = new AnimatedTile(5, new int[][] {
-			{ 0, 15 }, { 1, 15 }, { 2, 15 }, { 3, 15 }, { 4, 15 }, { 3, 15 },
-			{ 2, 15 }, { 1, 15 } }, Colors.get(Colors.fromHex("#F51F07"),
-			Colors.fromHex("#F7790A"), 540, -1) , 0xFFFF0000, 100);
 	public static final Tile ROAD1 = new BaseTile(6, 0, 2, Colors.get(-1, 000,
 			-1, -1), 0xFF565656);
 	public static final Tile ROAD2 = new BaseTile(7, 1, 2, Colors.get(-1, 000,

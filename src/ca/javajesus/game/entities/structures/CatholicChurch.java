@@ -14,7 +14,7 @@ public class CatholicChurch extends SolidEntity {
 	protected int color = Colors.get(-1, 111, Colors.fromHex("#fffab0"), Colors.fromHex("#d30000"));
 	
 	public CatholicChurch(Level level, double x, double y) {
-		super(level, x, y, 86, 75);
+		super(level, x, y, 78, 75);
 		level.addEntity(new Transporter(level, x + 38, y + 59, new PoorHouseInterior(new Point((int) x + 40, (int) y + 67), this.level)));
 	}
 	

@@ -14,7 +14,7 @@ public class Hut extends SolidEntity {
 	protected int color = Colors.get(-1, Colors.fromHex("#654000"), Colors.fromHex("#814700"), Colors.fromHex("#ffea00"));
 	
 	public Hut(Level level, double x, double y) {
-		super(level, x, y, 48, 48);
+		super(level, x, y, 40, 48);
 		level.addEntity(new Transporter(level, x + 18, y + 32, new PoorHouseInterior(new Point((int) x + 20, (int) y + 40), this.level)));
 	}
 	

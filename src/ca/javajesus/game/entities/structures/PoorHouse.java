@@ -1,6 +1,7 @@
 package ca.javajesus.game.entities.structures;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.Random;
 
 import ca.javajesus.game.entities.SolidEntity;
@@ -15,13 +16,13 @@ public class PoorHouse extends SolidEntity {
 	private Random random = new Random();
 
 	public PoorHouse(Level level, double x, double y) {
-		super(level, x, y, 40, 55);
+		super(level, x, y, 32, 55);
 		getColor();
 		level.addEntity(new Transporter(level, x + 14, y + 39, new PoorHouseInterior(new Point((int) x + 16, (int) y + 47), this.level)));
 	}
 
 	public void render(Screen screen) {
-
+		
 		screen.render((int) x, (int) y, color, Sprite.poor_house);
 
 	}

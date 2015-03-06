@@ -13,7 +13,7 @@ public class Item {
 	public static Item revolver = new Gun("Revolver", 4, 0, 0, Colors.get(-1, 500, 500, Colors.fromHex("#FF0000")), "Standard Firearm", 0 , 6, 10, 20, 50);
 	public static Item laserRevolver = new Gun("Laser Revolver", 4, 2, 0, Colors.get(-1, 500, 500, Colors.fromHex("#FF0000")), "Standard Firearm", 1, 10, 10, 20, 2);
 	public static Item shotgun = new Gun("Shotgun", 5, 4, 0, Colors.get(-1, 500, 500, Colors.fromHex("#FF0000")), "Standard Firearm", 2, 5, 10, 20, 2);
-	public static Item assaultRifle = new Gun("Assault Rifle", 6, 6, 0, Colors.get(-1, 500, 500, Colors.fromHex("#FF0000")), "Standard Firearm", 3, 20, 10, 20, 2);
+	public static Item assaultRifle = new Gun("Assault Rifle", 6, 6, 0, Colors.get(-1, 500, 500, Colors.fromHex("#FF0000")), "Standard Firearm", 3, 60, 1, 6, 100);
 	public static Item crossBow = new Gun("Crossbow", 7, 8, 0, Colors.get(-1, 500, 500, Colors.fromHex("#FF0000")), "Standard Firearm", 4, 8, 10, 20, 2);
 	
 	public String name;

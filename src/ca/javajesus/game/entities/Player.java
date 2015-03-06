@@ -103,7 +103,7 @@ public class Player extends Mob {
 		}
 		if (input.up.isPressed() || input.down.isPressed()
 				|| input.left.isPressed() || input.right.isPressed()) {
-			if (!isSwinging && !isSwimming && !isDriving)
+			if (!isSwinging && !isSwimming && !isDriving && !this.gun.isReloading)
 				isShooting = true;
 		} else {
 			isShooting = false;
@@ -249,7 +249,7 @@ public class Player extends Mob {
 		if (isSwinging || isShooting) {
 			swingTickCount++;
 		}
-		
+
 		if (gun != null) {
 			gun.tick();
 		}
@@ -361,24 +361,11 @@ public class Player extends Mob {
 
 		// Handles fire animation
 		if (onFire) {
-			int firecolor = 0;
-			if (tickCount % 60 < 15) {
-				firecolor = Colors.get(Colors.fromHex("#F51F07"),
-						Colors.fromHex("#F7790A"), 540, -1);
-			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
-				firecolor = Colors.get(Colors.fromHex("#F51F07"),
-						Colors.fromHex("#F7790A"), 540, -1);
-			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
-				firecolor = Colors.get(Colors.fromHex("#F51F07"),
-						Colors.fromHex("#F7790A"), 540, -1);
-			} else {
-				firecolor = Colors.get(Colors.fromHex("#F51F07"),
-						Colors.fromHex("#F7790A"), 540, -1);
-			}
-			screen.render(xOffset, yOffset + 3, 0 + 11 * 32, firecolor, 0x00,
-					1, sheet);
-			screen.render(xOffset + 8, yOffset + 3, 0 + 11 * 32, firecolor,
-					0x01, 1, sheet);
+			int firecolor = Colors.get(-1, Colors.fromHex("#F7790A"), 540, -1);
+
+			screen.render(xOffset + 4, yOffset - 8, this.level.fireList.get(0)
+					.getXTile() + 15 * 32, firecolor, 0, 1, SpriteSheet.tiles);
+
 		}
 
 		// Normal Player movement -- Not Attacking Anything
@@ -632,10 +619,6 @@ public class Player extends Mob {
 
 	public void checkTile(double x, double y) {
 		Tile currentTile = level.getTile((int) x / 8, (int) y / 8);
-		if (currentTile == Tile.FIRE) {
-			onFire = true;
-			healthTickCount = 0;
-		}
 
 		if (isMoving) {
 
