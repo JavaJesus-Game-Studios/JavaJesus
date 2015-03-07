@@ -70,16 +70,16 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 
 		switch (index) {
 		case 0:
-			color = Colors.fromHex("#f0bf8e");
+			color = Colors.fromHex("#ffd4aa");
 			break;
 		case 1:
-			color = Colors.fromHex("#ca9366");
+			color = Colors.fromHex("#ffbf6c");
 			break;
 		case 2:
-			color = Colors.fromHex("#f5dc99");
+			color = Colors.fromHex("#ffe6a4");
 			break;
 		default: 
-			color = Colors.fromHex("#7b5432");
+			color = Colors.fromHex("#774600");
 		}
 		player.setSkinColor(color);
 		player.updateColor();

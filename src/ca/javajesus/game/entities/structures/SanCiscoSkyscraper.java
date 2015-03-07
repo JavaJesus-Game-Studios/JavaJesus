@@ -15,7 +15,7 @@ public class SanCiscoSkyscraper extends SolidEntity {
 	protected int color = Colors.get(-1, Colors.fromHex("#edece0"), Colors.fromHex("#ffffff"), Colors.fromHex("#030074"));
 
 	public SanCiscoSkyscraper(Level level, double x, double y) {
-		super(level, x, y, 204, 676);
+		super(level, x, y, 106, 338);
 		this.shadow = new Rectangle(width, (8 * height / 9));
 		this.shadow.setLocation((int) x, (int) y);
 		this.bounds = new Rectangle(width, (height / 9) - 8);

@@ -53,7 +53,7 @@ public class ChatHandler {
 
 	public static void drawMessages(Graphics g) {
 		if (isVisible) {
-			g.drawImage(image, 0, 550, null);
+			g.drawImage(image, 0, 456, null);
 			FontMetrics font = g.getFontMetrics();
 			int yOffset = 670;
 			for (int i = 0; i < chatwindow.size(); i++) {

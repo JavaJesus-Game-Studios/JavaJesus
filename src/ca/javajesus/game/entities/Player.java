@@ -26,7 +26,7 @@ public class Player extends Mob {
 			Colors.fromHex("#FF0000"), Colors.fromHex("#FFCC99"));
 	protected int shirtColor = Colors.fromHex("#FF0000");
 	protected int skinColor = Colors.fromHex("#FFCC99");
-	protected int hairColor = Colors.fromHex("#343434");
+	protected int hairColor = Colors.fromHex("#1b1b1b");
 	private int tickCount = 0;
 	private boolean canChangeLevel;
 	private Level nextLevel;
