@@ -41,16 +41,13 @@ public class RandomLevel2 extends Level {
 				int tile = col + row * width;
 				if (heightmap[row][col].tile() < 500) {
 					tiles[tile] = heightmap[row][col].tile();
-				} else if (heightmap[row][col].tile() == 500) {
+				} 
+				if (heightmap[row][col].getHouse()) {
 					tiles[tile] = 0;
 					this.addEntity(getBuilding(col * 8, row * 8));
-				} else if (heightmap[row][col].tile() == 501) {
-					tiles[tile] = 0;
-					this.addEntity(new CenturyLeSabre(this, "car", col * 8,
-							row * 8));
 				}
 				if (heightmap[row][col].tile() == 0) {
-					if (row > 300 && col > 300) {
+					if (row > heightmap.length / 2.0 && col > heightmap[0].length / 2.0) {
 						while (spawnFound) {
 							spawnPoint = new Point(col * 8, row * 8);
 							spawnFound = false;
@@ -88,16 +85,10 @@ public class RandomLevel2 extends Level {
 	private SolidEntity getBuilding(double x, double y) {
 		Random random = new Random();
 		switch (random.nextInt(10)) {
-		case 0:
-			return new CaveEntrance(this, x, y);
 		case 1:
 			return new NiceHouse(this, x, y);
 		case 2:
 			return new Hut(this, x, y);
-		case 3:
-			return new CastleTower(this, x, y);
-		case 4:
-			return new CatholicChurch(this, x, y);
 		default:
 			return new PoorHouse(this, x, y);
 		}

@@ -1,12 +1,18 @@
 package ca.javajesus.level.generation;
 
 import java.util.Random;
+import java.util.ArrayList;
+import java.awt.Point;
+
 
 public class HeightMap {
 	private int height;
 	private int width;
 	private boolean checkBuildings;
 	private boolean checkCars;
+	private ArrayList<Point> possibleVillageCenters = new ArrayList<Point>();
+	private ArrayList<Point> finalVillageCenters = new ArrayList<Point>();
+	
 	Random random = new Random();
 
 	protected final byte GRASS = 0;
@@ -152,6 +158,8 @@ public class HeightMap {
 			}
 		}
 		this.finisher(heightmap);
+		if (checkBuildings)
+			this.village(heightmap);
 		return heightmap;
 	}
 
@@ -163,7 +171,7 @@ public class HeightMap {
 	 *            the heightmap you want to check
 	 * @return A number that corresponds to a tile or entity
 	 */
-	private HeightMapTile[][] finisher(HeightMapTile[][] heightmap) {
+	private void finisher(HeightMapTile[][] heightmap) {
 		int cutoff = this.getAverage(heightmap) - 10;
 		int dirtCutoff = cutoff + 50;
 		int mountainCutoff = cutoff + 60;
@@ -203,60 +211,83 @@ public class HeightMap {
 				}
 			}
 		}
-		//VillageGeneration gen = new VillageGeneration(heightmap);
-		//gen.villageGenerator();
+	}
+	
+	private void village(HeightMapTile[][] heightmap) {
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
-				// Spawn random building
-				if (checkBuildings) {
-					if (random.nextInt(/*(int) gen.villageMap[row][col].getProbability()*/1000) == 0) {
-						if (row > 6 && row < heightmap.length - 6 && col > 6
-								&& col < heightmap[row].length - 6) {
-							boolean grassChecker = true;
-							for (int row2 = -6; row2 < 6; row2++) {
-								for (int col2 = -7; col2 < 7; col2++) {
-									if (!this.checkGrass(row + row2,
-											col + col2, heightmap)
-											&& row2 > 0
-											&& col2 > 0) {
-										grassChecker = false;
-									} else if (heightmap[row + row2][col + col2].tile() >= 500) {
-										grassChecker = false;
-									}
-								}
+				boolean groundCheck = false;
+				if (heightmap[row][col].tile() == 0 || (heightmap[row][col].tile() >= 9 && heightmap[row][col].tile() <= 11)
+						|| heightmap[row][col].tile() == 3)
+					groundCheck = true;
+				heightmap[row][col].setGroundCheck(groundCheck);
+			}
+		}
+		
+		for (int row = 10; row < heightmap.length; row++) {
+			for (int col = 10; col < heightmap[0].length; col++) {
+				if (row + 10 < heightmap.length && col + 10 < heightmap[0].length) {
+					int landAmount = 0;
+					for (int row2 = -10; row2 <= 10; row2++) {
+						for (int col2 = -10; col2 <= 10; col2++) {
+							if (heightmap[row][col].groundCheck()) {
+								landAmount++;
 							}
-							if (grassChecker) {
-								heightmap[row][col].setTile(500);
+							//Checking to see if the area (21x21) is 70% land or more, 21 x 21 = 441 x .70 = 308
+							if (landAmount >= 308) {
+								possibleVillageCenters.add(new Point(col, row));
 							}
 						}
 					}
 				}
-				if (checkCars) {
-					if (random.nextInt(2000) == 0)
+			}
+		}
+		//Determining how many villages there should be
+		int numVillages = (int)(heightmap.length / 200.0) * (int)(heightmap[0].length / 100.0);
+		//Choosing n amount final village spawns
+		for (int i = 0; i < numVillages; i++) {
+			int index = random.nextInt(possibleVillageCenters.size() - 1);
+			finalVillageCenters.add(possibleVillageCenters.get(index));
+			possibleVillageCenters.remove(index);
+		}
+		
+		for (int row = 0; row < heightmap.length; row++) {
+			for (int col = 0; col < heightmap[0].length; col++) {
+				double probability = 0;
+				for (int i = 0; i < finalVillageCenters.size(); i++) {
+					probability += (1.0 / Math.abs(row - finalVillageCenters.get(i).x)) + (1.0 / Math.abs(col - finalVillageCenters.get(i).y));
+				}
+				probability *= 1000;
+				if (probability > 50)
+					probability = 900;
+				heightmap[row][col].setProbability(probability);
+			}
+		}
+		
+		for (int row = 0; row < heightmap.length; row++) {
+			for (int col = 0; col < heightmap[0].length; col++) {			
+				if (random.nextInt((int) heightmap[row][col].probability()) == 0) {
 					if (row > 6 && row < heightmap.length - 6 && col > 6
 							&& col < heightmap[row].length - 6) {
 						boolean grassChecker = true;
 						for (int row2 = -6; row2 < 6; row2++) {
 							for (int col2 = -7; col2 < 7; col2++) {
-								if (!this.checkGrass(row + row2,
-										col + col2, heightmap)
-										&& row2 > 0
-										&& col2 > 0) {
+								if (!heightmap[row][col].groundCheck()) {
 									grassChecker = false;
-								} else if (heightmap[row + row2][col + col2].tile() >= 500) {
+								} 
+								if (heightmap[row + row2][col + col2].getHouse()) {
 									grassChecker = false;
 								}
 							}
 						}
 						if (grassChecker) {
-							heightmap[row][col].setTile(501);
+							heightmap[row][col].setHouse();
 						}
-					}	
-				}
+					}
 				
+				}
 			}
 		}
-		return heightmap;
 	}
 
 	/**

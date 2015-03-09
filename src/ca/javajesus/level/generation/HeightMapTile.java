@@ -4,11 +4,13 @@ public class HeightMapTile {
 	private int tile;
 	private boolean checkGround;
 	private double probability;
+	private boolean house;
 	
 	public HeightMapTile(int tile) {
 		this.tile = tile;
 		this.checkGround = false;
 		this.probability = 0;
+		this.house = false;
 	}
 	
 	public int tile() {
@@ -23,6 +25,10 @@ public class HeightMapTile {
 		return probability;
 	}
 	
+	public boolean getHouse() {
+		return house;
+	}
+	
 	public void setTile(int tile) {
 		this.tile = tile;
 	}
@@ -33,5 +39,9 @@ public class HeightMapTile {
 	
 	public void setProbability(double prob) {
 		this.probability = 1000 - prob;
+	}
+	
+	public void setHouse() {
+		house = true;
 	}
 }
