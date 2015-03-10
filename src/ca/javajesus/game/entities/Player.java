@@ -236,12 +236,28 @@ public class Player extends Mob {
 				&& !isSolidEntityCollision((int) (xa * speed),
 						(int) (ya * speed)) && !isDriving && speed > 1
 				&& !isSwinging) {
-			move(xa, ya);
-			isMoving = true;
+			if (gun != null && gun instanceof Bazooka && !isShooting) {
+				move(xa, ya);
+				isMoving = true;
+			} else if (gun != null && !(gun instanceof Bazooka)) {
+				move(xa, ya);
+				isMoving = true;
+			} else if (gun == null) {
+				move(xa, ya);
+				isMoving = true;
+			}
 		} else if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isDriving && !isSwinging) {
-			move(xa, ya);
-			isMoving = true;
+			if (gun != null && gun instanceof Bazooka && !isShooting) {
+				move(xa, ya);
+				isMoving = true;
+			} else if (gun != null && !(gun instanceof Bazooka)) {
+				move(xa, ya);
+				isMoving = true;
+			} else if (gun == null) {
+				move(xa, ya);
+				isMoving = true;
+			}
 		} else {
 			isMoving = false;
 		}
@@ -410,21 +426,24 @@ public class Player extends Mob {
 			if (shootingDir == 1) {
 				if (!(gun instanceof Bazooka))
 					yTile += 2;
-				else
-					yTile += 6;
+				else {
+					xTile += 7;
+					flipTop = 0;
+					flipBottom = 0;
+				}
 			}
 			if (shootingDir == 0) {
 				if (!(gun instanceof Bazooka)) {
 					yTile += 2;
 					xTile += 16;
 				} else {
-					xTile += 14;
+					xTile += 15;
+					flipTop = 0;
+					flipBottom = 0;
 				}
 			} else if (shootingDir > 1) {
 				if (!(gun instanceof Bazooka))
 					xTile += ((numSteps >> walkingAnimationSpeed) & 1) * 2;
-				else
-					xTile += ((numSteps >> walkingAnimationSpeed) & 1) * 3;
 				flipTop = (shootingDir - 1) % 2;
 				flipBottom = (shootingDir - 1) % 2;
 			}

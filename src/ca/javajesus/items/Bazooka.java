@@ -11,8 +11,8 @@ public class Bazooka extends Gun{
 
 	public Bazooka() {
 		super("Bazooka", 8, 10, 0, Colors.get(-1,
-				500, 500, Colors.fromHex("#FF0000")), "Standard Firearm", 5, 0, 8,
-				10, 20, 2);
+				200, 300, Colors.fromHex("#FF0000")), "Standard Explosive Artillery", 5, 0, 8,
+				10, 20, 200);
 	}
 	
 	public void addPlayer(Player player) {
@@ -29,11 +29,24 @@ public class Bazooka extends Gun{
 		int modifier = 8 * player.scale;
 		double xOffset = player.x - modifier / 2.0;
 		double yOffset = player.y - modifier / 2.0 - 4;
+		int xx = 0;
 
 		if (player.shootingDir == 0) {
+			xTile += 16;
+			xOffset += 8;
+			flipTop = 0;
+			flipBottom = 0;
+		} else if (player.shootingDir == 1) {
+			
 			xTile += 6;
+			xOffset -=8;
+			flipTop = 0;
+			flipBottom = 0;
+			
 		} else if (player.shootingDir > 1) {
-			xTile += 15;
+			if (player.shootingDir == 2) {
+				xx = 8;
+			}
 			flipTop = (player.shootingDir - 1) % 2;
 			flipBottom = (player.shootingDir - 1) % 2;
 		}
@@ -41,12 +54,12 @@ public class Bazooka extends Gun{
 		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
 				* 32, color, flipTop, player.scale, SpriteSheet.player);
 		// Upper Body 2
-		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
+		screen.render(xOffset + modifier - (modifier * flipTop) , yOffset,
 				(xTile + 1) + yTile * 32, color, flipTop, player.scale,
 				SpriteSheet.player);
 		
 		// Upper Body 3
-				screen.render(xOffset + 2 * modifier - (modifier * flipTop), yOffset,
+				screen.render(xOffset + 2 * modifier - (modifier * flipTop) - xx * 2, yOffset,
 						(xTile + 2) + yTile * 32, color, flipTop, player.scale,
 						SpriteSheet.player);
 
@@ -61,7 +74,7 @@ public class Bazooka extends Gun{
 				player.scale, SpriteSheet.player);
 		
 		// Lower Body 3
-				screen.render(xOffset + 2 * modifier - (modifier * flipBottom), yOffset
+				screen.render(xOffset + 2 * modifier - (modifier * flipBottom) - xx * 2, yOffset
 						+ modifier, (xTile + 2) + (yTile + 1) * 32, color, flipBottom,
 						player.scale, SpriteSheet.player);
 

@@ -50,8 +50,8 @@ public class Inventory {
 		items.add(Item.banana);
 		items.add(Item.orange);
 		items.add(Item.feather);
-		//items.add(Item.bazooka);
-		items.add(Item.assaultRifle);
+		items.add(Item.bazooka);
+		//items.add(Item.assaultRifle);
 		items.add(Item.smallSword);
 	}
 
