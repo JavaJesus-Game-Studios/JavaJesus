@@ -18,12 +18,14 @@ public class Gun extends Item {
 	private int fireTicks = 1;
 	private boolean canFire = true;
 	private int damage;
+	public int playerOffset;
 
 	public Gun(String name, int id, int xTile, int yTile, int color,
-			String description, int gunType, int clipSize, int rate,
+			String description, int gunHUDType, int xPlayerSheet, int clipSize, int rate,
 			int reload, int damage) {
 		super(name, id, xTile, yTile, color, description);
-		this.gunType = gunType;
+		this.gunType = gunHUDType;
+		this.playerOffset = xPlayerSheet;
 		this.clipSize = clipSize;
 		this.ammo = clipSize;
 		this.RELOAD_TIME = reload * 10;

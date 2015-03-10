@@ -16,6 +16,10 @@ public abstract class Entity {
 		sound = SoundHandler.sound;
 	}
 	
+	public Level getLevel() {
+		return level;
+	}
+	
 	public final void init(Level level){
 		this.level = level;
 	}

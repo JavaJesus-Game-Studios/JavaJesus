@@ -20,6 +20,7 @@ public class Sprite {
 	public static Sprite poor_house = new Sprite("/Buildings/Generic Exteriors/Generic_Poor_House.png");
 	public static Sprite skyscraper = new Sprite("/Buildings/Generic Exteriors/Generic_Skyscraper.png");
 	public static Sprite sanCisco_skyscraper = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/San_Cisco_Skyscraper_Triangle[2].png");
+	public static Sprite generic_hospital = new Sprite("/Buildings/Generic Exteriors/Generic_Hospital.png");
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.xSize = size;

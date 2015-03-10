@@ -7,14 +7,16 @@ import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.particles.HealthBar;
-import ca.javajesus.game.entities.projectiles.Bullet;
+import ca.javajesus.game.entities.structures.Chest;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.items.Bazooka;
 import ca.javajesus.items.Gun;
 import ca.javajesus.items.Inventory;
+import ca.javajesus.items.Sword;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.Level1;
 import ca.javajesus.level.tile.Tile;
@@ -26,32 +28,30 @@ public class Player extends Mob {
 			Colors.fromHex("#FF0000"), Colors.fromHex("#FFCC99"));
 	protected int shirtColor = Colors.fromHex("#FF0000");
 	protected int skinColor = Colors.fromHex("#FFCC99");
-	protected int hairColor = Colors.fromHex("#1b1b1b");
+	protected int hairColor = Colors.fromHex("#343434");
 	private int tickCount = 0;
 	private boolean canChangeLevel;
 	private Level nextLevel;
-	private int swingTickCount = 0;
 	public Gun gun;
 	private boolean genericCooldown;
 	public boolean isDriving;
 	public Vehicle vehicle;
-	protected int shootingDir;
+	public int shootingDir;
 	public int score;
-	public int swordType = 0;
+	public Sword sword;
 	public int yTile = 0;
 	public Inventory inventory;
 	public double stamina;
 	public double startStamina;
 	public boolean isTired;
-	public final int swordColor = Colors.get(-1, Colors.fromHex("#f2f3f9"), -1,
-			Colors.fromHex("#d6d7dc"));
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "", x, y, 1, 14, 16, SpriteSheet.player, 100);
 		this.input = input;
 		this.score = 0;
 		this.inventory = new Inventory();
-		gun = inventory.getGun();
+		gun = inventory.getGun(this);
+		sword = inventory.getSword(this);
 		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 8);
 		if (level != null)
 			level.addEntity(bar);
@@ -103,14 +103,19 @@ public class Player extends Mob {
 		}
 		if (input.up.isPressed() || input.down.isPressed()
 				|| input.left.isPressed() || input.right.isPressed()) {
-			if (!isSwinging && !isSwimming && !isDriving && !this.gun.isReloading)
+			if (!isSwinging && !isSwimming && !isDriving && gun != null
+					&& !this.gun.isReloading)
 				isShooting = true;
 		} else {
 			isShooting = false;
 		}
 		if (input.space.isPressed()) {
-			if (!isShooting && !isSwimming && !isDriving && !isSwinging) {
-				isSwinging = true;
+			if (!isShooting && !isSwimming && !isDriving && !isSwinging
+					&& sword != null) {
+				if (sword != null) {
+					sword.swing();
+					isSwinging = true;
+				}
 			}
 		}
 
@@ -177,7 +182,8 @@ public class Player extends Mob {
 			if (!isDriving) {
 				for (Entity entity : level.getEntities()) {
 					if (entity instanceof Vehicle) {
-						if (this.hitBox.intersects(((Vehicle) entity).hitBox)) {
+						if (this.hitBox.intersects(((Vehicle) entity).hitBox)
+								&& !((Vehicle) entity).isDead) {
 							this.vehicle = (Vehicle) entity;
 							this.vehicle.addPlayer(this);
 							this.x = vehicle.x;
@@ -189,6 +195,10 @@ public class Player extends Mob {
 							return;
 						}
 					}
+					if (entity instanceof Chest
+							&& this.hitBox.intersects(((Chest) entity).bounds)) {
+						((Chest) entity).open(this);
+					}
 					if (entity instanceof Mob && !(entity instanceof Player)) {
 						if (this.standBox.intersects(((Mob) entity).standBox)) {
 							((Mob) entity).speak(this);
@@ -198,20 +208,19 @@ public class Player extends Mob {
 				}
 			}
 		}
+		if (sword != null) {
+			isSwinging = sword.isSwinging;
+		}
 		if (isSwimming) {
 			speed = 0.35;
 			if (!sound.swimming.isRunning())
 				sound.play(SoundHandler.sound.swimming);
 		} else if (input.shift.isPressed() && !isDriving && !isTired
-				&& isMoving && !isShooting) {
+				&& isMoving && !isShooting && !isSwinging) {
 			speed = 3;
 			stamina--;
 			if (stamina <= 0)
 				isTired = true;
-		} else if (isDriving && input.shift.isPressed()) {
-			speed = 7;
-		} else if (isDriving) {
-			speed = 5;
 		} else {
 			speed = 1;
 		}
@@ -225,11 +234,12 @@ public class Player extends Mob {
 
 		if ((xa != 0 || ya != 0)
 				&& !isSolidEntityCollision((int) (xa * speed),
-						(int) (ya * speed)) && !isDriving && speed > 1) {
+						(int) (ya * speed)) && !isDriving && speed > 1
+				&& !isSwinging) {
 			move(xa, ya);
 			isMoving = true;
 		} else if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isDriving) {
+				&& !isDriving && !isSwinging) {
 			move(xa, ya);
 			isMoving = true;
 		} else {
@@ -243,21 +253,13 @@ public class Player extends Mob {
 		if (isSwimming && level.getTile(xx >> 3, yy >> 3).getId() != 3) {
 			isSwimming = false;
 		}
-		tickCount++;
-
-		// The current time in ticks in which an attack is started
-		if (isSwinging || isShooting) {
-			swingTickCount++;
-		}
 
 		if (gun != null) {
 			gun.tick();
 		}
 
-		// Swinging cooldown
-		if (swingTickCount > 30) {
-			isSwinging = false;
-			swingTickCount = 0;
+		if (sword != null) {
+			sword.tick();
 		}
 
 		if (genericCooldown) {
@@ -265,6 +267,7 @@ public class Player extends Mob {
 				genericCooldown = false;
 			}
 		}
+		tickCount++;
 
 	}
 
@@ -286,12 +289,15 @@ public class Player extends Mob {
 		if (canChangeLevel) {
 			level.remEntity(this);
 			level.remEntity(bar);
+			if (onFire) {
+				onFire = false;
+			}
 			init(nextLevel);
 			screen.getGame().updateLevel();
 			level.init();
 			canChangeLevel = false;
-			level.addEntity(this);
-			level.addEntity(bar);
+			level.addEntity(this, 0);
+			level.addEntity(bar, 0);
 			this.x = level.spawnPoint.x;
 			this.y = level.spawnPoint.y;
 			input.e.toggle(false);
@@ -392,20 +398,33 @@ public class Player extends Mob {
 
 		// Handles Shooting Animation
 		if (isShooting) {
-			xTile = gun.gunType * 4;
+			xTile = gun.playerOffset;
 			yTile = 2;
+			if ((gun instanceof Bazooka)) {
+				yTile = 6;
+			}
 			if (defense > 2) {
 				yTile += 12;
 			}
 
 			if (shootingDir == 1) {
-				yTile += 2;
+				if (!(gun instanceof Bazooka))
+					yTile += 2;
+				else
+					yTile += 6;
 			}
 			if (shootingDir == 0) {
-				yTile += 2;
-				xTile += 16;
+				if (!(gun instanceof Bazooka)) {
+					yTile += 2;
+					xTile += 16;
+				} else {
+					xTile += 14;
+				}
 			} else if (shootingDir > 1) {
-				xTile += ((numSteps >> walkingAnimationSpeed) & 1) * 2;
+				if (!(gun instanceof Bazooka))
+					xTile += ((numSteps >> walkingAnimationSpeed) & 1) * 2;
+				else
+					xTile += ((numSteps >> walkingAnimationSpeed) & 1) * 3;
 				flipTop = (shootingDir - 1) % 2;
 				flipBottom = (shootingDir - 1) % 2;
 			}
@@ -427,6 +446,10 @@ public class Player extends Mob {
 					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
 					flipBottom, scale, sheet);
 
+			if ((gun instanceof Bazooka)) {
+				((Bazooka) gun).renderGun(screen);
+			}
+
 			int bulletOffset = -4;
 			if (shootingDir == 2) {
 				bulletOffset = -7;
@@ -440,13 +463,12 @@ public class Player extends Mob {
 			if (gun.isReloading) {
 				isShooting = false;
 			}
-			swingTickCount = 0;
 
 		}
 
 		// Handles Swinging Animation
 		if (isSwinging) {
-			xTile = swordType;
+			xTile = sword.swordType;
 			yTile = 0;
 
 			if (movingDir == 0) {
@@ -503,52 +525,8 @@ public class Player extends Mob {
 			}
 
 			// Renders the Actual Sword
-
-			yTile += 3;
-			// Upper Body 1
-			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, swordColor, flipTop, scale,
-					SpriteSheet.swords);
-			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, swordColor, flipTop, scale,
-					SpriteSheet.swords);
-
-			// Lower Body 1
-			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * 32, swordColor,
-					flipBottom, scale, SpriteSheet.swords);
-
-			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, swordColor,
-					flipBottom, scale, SpriteSheet.swords);
-
-			if (movingDir < 2) {
-				// Lower Body 1
-				screen.render(xOffset + (modifier * flipBottom), yOffset + 2
-						* modifier, xTile + (yTile + 2) * 32, swordColor,
-						flipBottom, scale, SpriteSheet.swords);
-
-				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flipBottom),
-						yOffset + 2 * modifier, (xTile + 1) + (yTile + 2) * 32,
-						swordColor, flipBottom, scale, SpriteSheet.swords);
-			} else {
-				int num = 0;
-				if (movingDir == 2) {
-					num = 16;
-				}
-				// Upper Body 2
-				screen.render(xOffset + 2 * modifier - num
-						- (modifier * flipTop), yOffset, (xTile + 2) + yTile
-						* 32, swordColor, flipTop, scale, SpriteSheet.swords);
-
-				// Lower Body 2
-				screen.render(xOffset + 2 * modifier - num
-						- (modifier * flipBottom), yOffset + modifier,
-						(xTile + 2) + (yTile + 1) * 32, swordColor, flipBottom,
-						scale, SpriteSheet.swords);
+			if (sword != null) {
+				sword.render(screen);
 			}
 
 		}

@@ -152,6 +152,11 @@ public class Vehicle extends Mob {
 			}
 
 		}
+		
+		if (isDead) {
+			return;
+		}
+		
 		xa += acceleration.x;
 		ya += acceleration.y;
 

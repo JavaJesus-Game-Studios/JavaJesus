@@ -1,6 +1,8 @@
 package ca.javajesus.game.entities.vehicles;
 
 import java.awt.Rectangle;
+
+import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
@@ -12,6 +14,9 @@ public class CenturyLeSabre extends Vehicle {
 		super(level, name, x, y, 2, 24, 32, SpriteSheet.vehicles, 200);
 		getColor();
 		this.hitBox = new Rectangle(width, height);
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 16);
+		if (level != null)
+			level.addEntity(bar);
 	}
 
 	private void getColor() {
@@ -68,6 +73,7 @@ public class CenturyLeSabre extends Vehicle {
 	}
 
 	public void render(Screen screen) {
+		
 
 		if (movingDir == 0 || movingDir == 1) {
 			this.width = 32;
@@ -98,6 +104,10 @@ public class CenturyLeSabre extends Vehicle {
 			xTile += 9;
 		} else if (movingDir == 3) {
 			xTile += 4;
+		}
+		
+		if (isDead) {
+			xTile += 18;
 		}
 
 		// Upper body 1

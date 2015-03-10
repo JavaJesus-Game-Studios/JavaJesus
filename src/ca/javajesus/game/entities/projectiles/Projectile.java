@@ -6,6 +6,7 @@ import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.SolidEntity;
+import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -24,12 +25,13 @@ public class Projectile extends Entity {
 	private double xPoint, yPoint;
 	private int yOffset = 0;
 	protected Rectangle hitBox;
-	protected Mob mob;
+	public Mob mob;
 	protected final SpriteSheet sheet = SpriteSheet.particles;
 	protected int tileNumber;
 	protected int color;
 	protected int width;
 	protected int height;
+	public boolean renderOnTop = false;
 
 	/**
 	 * Creates a new Projectile will a single direction
@@ -51,7 +53,8 @@ public class Projectile extends Entity {
 	 *            : The direction it will move; Currently only 0 1 2 or 3
 	 */
 	public Projectile(Level level, int width, int height, int tileNumber,
-			int color, double x, double y, int speed, int direction, Mob mob, double damage) {
+			int color, double x, double y, int speed, int direction, Mob mob,
+			double damage) {
 		super(level);
 		this.tileNumber = tileNumber;
 		this.color = color;
@@ -155,6 +158,8 @@ public class Projectile extends Entity {
 	}
 
 	public void render(Screen screen) {
+		
+		renderOnTop = true;
 
 		if (hasCollided((int) x, (int) y)) {
 			level.remEntity(this);
@@ -164,30 +169,38 @@ public class Projectile extends Entity {
 		this.y += speed * yPoint;
 		this.x += speed * xPoint;
 
-		screen.render(this.x, this.y, tileNumber + (yOffset * 32), color, 1, 1,
-				sheet);
-		hitBox.setLocation((int) this.x - (this.width / 2), (int) this.y - (this.height / 2));
+		hitBox.setLocation((int) this.x - (this.width / 2), (int) this.y
+				- (this.height / 2));
 		for (Entity entity : level.getEntities()) {
 			if (entity instanceof SolidEntity) {
 				if (hitBox.intersects(((SolidEntity) entity).bounds)) {
 					level.remEntity(this);
 					return;
+				} else if (hitBox.intersects(((SolidEntity) entity).shadow)) {
+					renderOnTop = false;
 				}
 			}
 			if (entity instanceof Mob) {
 				Mob mobs = (Mob) entity;
 				if (hitBox.intersects(mobs.hitBox)) {
 					if (mobs != mob) {
-						mobs.damage((int) damage, (int) damage + 4);
-						level.remEntity(this);
-						if (mobs.health < 0 && mob instanceof Player) {
-							((Player) mob).score += 10;
+						if (mobs instanceof Vehicle) {
+							mobs.damage((int) damage, (int) damage + 4);
+							level.remEntity(this);
+						} else if (!mobs.isDead) {
+							mobs.damage((int) damage, (int) damage + 4);
+							level.remEntity(this);
+							if (mobs.health < 0 && mob instanceof Player) {
+								((Player) mob).score += 10;
+							}
 						}
 					}
 				}
 			}
 
 		}
+		screen.render(this.x, this.y, tileNumber + (yOffset * 32), color, 1, 1,
+				sheet);
 	}
 
 	protected boolean isSolidTile(int xa, int ya, int x, int y) {
@@ -197,7 +210,7 @@ public class Projectile extends Entity {
 		int xx = (int) this.x;
 		int yy = (int) this.y;
 		Tile lastTile = level.getTile((xx + x) >> 3, (yy + y) >> 3);
-		//Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
+		// Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
 		if (lastTile.isSolid()) {
 			return true;
 		}

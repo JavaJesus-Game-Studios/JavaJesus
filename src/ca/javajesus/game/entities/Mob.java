@@ -15,11 +15,11 @@ public abstract class Mob extends Entity {
 
 	protected String name;
 	protected int color;
-	protected double speed;
-	protected int numSteps = 0;
+	public double speed;
+	public int numSteps = 0;
 	public boolean isMoving;
 	public int movingDir = 1;
-	protected int scale = 1;
+	public int scale = 1;
 	public int width;
 	public int height;
 	public double health;
@@ -41,7 +41,7 @@ public abstract class Mob extends Entity {
 
 	protected boolean isTalking = false;
 	protected int talkCount = 0;
-
+	
 	protected String damageTaken = "";
 	protected boolean isHit = false;
 	protected int isHitTicks = 0;
@@ -297,9 +297,8 @@ public abstract class Mob extends Entity {
 	public void kill() {
 
 		isDead = true;
-		hitBox.setBounds(0, 0, 0, 0);
 		level.remEntity(this);
-		level.getMobs().add(0, this);
+		level.addEntity(this, 0);
 		isHit = false;
 		isTalking = false;
 		this.isTargeted = false;

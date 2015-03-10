@@ -3,6 +3,7 @@ package ca.javajesus.items;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Colors;
 
 public class Inventory {
@@ -14,9 +15,22 @@ public class Inventory {
 		setOffsets();
 	}
 	
-	public Gun getGun() {
+	public Sword getSword(Player player) {
+		for (Item e: items) {
+			if (e instanceof Sword) {
+				((Sword) e).addPlayer(player);
+				return (Sword) e;
+			}
+		}
+		return null;
+	}
+	
+	public Gun getGun(Player player) {
 		for (Item e: items) {
 			if (e instanceof Gun) {
+				if (e instanceof Bazooka) {
+					((Bazooka) e).addPlayer(player);
+				}
 				return (Gun) e;
 			}
 		}
@@ -36,7 +50,9 @@ public class Inventory {
 		items.add(Item.banana);
 		items.add(Item.orange);
 		items.add(Item.feather);
+		//items.add(Item.bazooka);
 		items.add(Item.assaultRifle);
+		items.add(Item.smallSword);
 	}
 
 	public void addItem(Item item) {

@@ -13,7 +13,7 @@ import ca.javajesus.game.gui.MapGUI;
 
 public class ChatHandler {
 
-	private static final int LENGTH = 45;
+	private static final int LENGTH = 90;
 	
 	public static ArrayList<String> chatlog = new ArrayList<String>();
 

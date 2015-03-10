@@ -18,6 +18,8 @@ import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.particles.HealthBar;
+import ca.javajesus.game.entities.projectiles.Bullet;
+import ca.javajesus.game.entities.projectiles.Projectile;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
@@ -67,6 +69,7 @@ public abstract class Level {
 		this.height = height;
 		tiles = new int[width * height];
 		generateLevel();
+		fireList.add(new FireEntity(this, -10, -10));
 	}
 
 	protected abstract void initNPCPlacement();
@@ -192,23 +195,42 @@ public abstract class Level {
 	}
 
 	public void renderEntities(Screen screen) {
-		for (Mob m : getMobs()) {
-			if (!m.renderOnTop) {
-				m.render(screen);
-				if (m.bar != null && !m.isDead)
-					m.bar.render(screen);
+		for (Entity entity : getEntities()) {
+			if (entity instanceof Projectile) {
+				Projectile p = (Projectile) entity;
+				if (!p.renderOnTop) {
+					p.render(screen);
+				}
+			}
+			if (entity instanceof Mob) {
+				Mob m = (Mob) entity;
+				if (!m.renderOnTop) {
+					m.render(screen);
+					if (m.bar != null && !m.isDead)
+						m.bar.render(screen);
+				}
 			}
 		}
 		for (Entity e : getEntities()) {
-			if (!(e instanceof Mob) || !(e instanceof HealthBar)) {
+			if (!(e instanceof Mob || e instanceof HealthBar || e instanceof Projectile)) {
 				e.render(screen);
+
 			}
 		}
-		for (Mob m : getMobs()) {
-			if (m.renderOnTop) {
-				m.render(screen);
-				if (m.bar != null && !m.isDead)
-					m.bar.render(screen);
+		for (Entity entity : getEntities()) {
+			if (entity instanceof Projectile) {
+				Projectile p = (Projectile) entity;
+				if (p.renderOnTop) {
+					p.render(screen);
+				}
+			}
+			if (entity instanceof Mob) {
+				Mob m = (Mob) entity;
+				if (m.renderOnTop) {
+					m.render(screen);
+					if (m.bar != null && !m.isDead)
+						m.bar.render(screen);
+				}
 			}
 		}
 	}
@@ -237,6 +259,22 @@ public abstract class Level {
 			}
 		} else if (entity instanceof FireEntity) {
 			this.fireList.add((FireEntity) entity);
+		}
+
+	}
+
+	public void addEntity(Entity entity, int index) {
+		this.entities.add(index, entity);
+		if (entity instanceof Mob) {
+			if (entity instanceof Vehicle) {
+				this.mobs.add(index, (Vehicle) entity);
+			} else
+				this.mobs.add(index, (Mob) entity);
+			if (entity instanceof Player) {
+				this.players.add(index, (Player) entity);
+			}
+		} else if (entity instanceof FireEntity) {
+			this.fireList.add(index, (FireEntity) entity);
 		}
 
 	}

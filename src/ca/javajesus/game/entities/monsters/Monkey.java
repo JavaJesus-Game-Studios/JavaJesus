@@ -139,7 +139,7 @@ public class Monkey extends Monster {
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 		
 		if (isDead)
-			xTile = 20;
+			xTile = 12;
 		
 		// Upper body
 		screen.render(xOffset + (modifier * flipTop), yOffset, xTile

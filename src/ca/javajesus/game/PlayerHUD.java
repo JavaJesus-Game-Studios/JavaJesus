@@ -16,6 +16,7 @@ public class PlayerHUD {
 	BufferedImage laserRevolver;
 	BufferedImage revolver;
 	BufferedImage shotgun;
+	BufferedImage bazooka;
 
 	public PlayerHUD(Player player) {
 		this.player = player;
@@ -30,6 +31,8 @@ public class PlayerHUD {
 					.getResource("/GUI/GUI_Hud/Revolver_Icon.png"));
 			shotgun = ImageIO.read(PlayerHUD.class
 					.getResource("/GUI/GUI_Hud/Shotgun_Icon.png"));
+			bazooka = ImageIO.read(PlayerHUD.class
+					.getResource("/GUI/GUI_Hud/Bazooka_Icon.png"));
 		} catch (Exception e) {
 
 		}
@@ -38,7 +41,8 @@ public class PlayerHUD {
 	public void draw(Graphics g) {
 		BufferedImage gun = getGunType();
 		g.drawImage(gun, 20, 650, gun.getWidth() * 4, gun.getHeight() * 4, null);
-		g.drawString((int) player.gun.ammo + " / " + player.gun.clipSize, 20, 724);
+		g.drawString((int) player.gun.ammo + " / " + player.gun.clipSize, 20,
+				724);
 
 		g.setColor(Color.red);
 		g.fillRect(750, 650,
@@ -62,8 +66,12 @@ public class PlayerHUD {
 			return shotgun;
 		case 3:
 			return assaultRifle;
-		default:
+		case 4:
 			return crossbow;
+		case 5:
+			return bazooka;
+		default:
+			return null;
 		}
 	}
 

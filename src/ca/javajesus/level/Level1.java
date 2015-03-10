@@ -1,6 +1,7 @@
 package ca.javajesus.level;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import ca.javajesus.game.entities.FireEntity;
 import ca.javajesus.game.entities.monsters.Cyclops;
@@ -11,6 +12,8 @@ import ca.javajesus.game.entities.particles.ArmorPickup;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.CaveEntrance;
+import ca.javajesus.game.entities.structures.Chest;
+import ca.javajesus.game.entities.structures.GenericHospital;
 import ca.javajesus.game.entities.structures.Hut;
 import ca.javajesus.game.entities.structures.NiceHouse;
 import ca.javajesus.game.entities.structures.PoorHouse;
@@ -18,6 +21,7 @@ import ca.javajesus.game.entities.structures.SanCiscoSkyscraper;
 import ca.javajesus.game.entities.structures.Skyscraper;
 import ca.javajesus.game.entities.vehicles.Boat;
 import ca.javajesus.game.entities.vehicles.Vehicle;
+import ca.javajesus.items.Item;
 
 public class Level1 extends Level {
 
@@ -56,7 +60,11 @@ public class Level1 extends Level {
 
 	@Override
 	public void initChestPlacement() {
-		// TODO Auto-generated method stub
+		ArrayList<Item> chest1 = new ArrayList<Item>();
+		chest1.add(Item.banana);
+		chest1.add(Item.revolver);
+		chest1.add(Item.smallSword);
+		this.addEntity(new Chest(this, 100, 200, chest1));
 
 	}
 
@@ -73,6 +81,7 @@ public class Level1 extends Level {
 		this.addEntity(new Skyscraper(this, 200, 200));
 		this.addEntity(new SanCiscoSkyscraper(this, 10, 2084));
 		this.addEntity(new ArmorPickup(this, 100, 25));
+		this.addEntity(new GenericHospital(this, 700, 50));
 
 		for (int i = 0; i < 4; i++)
 			this.addEntity(new FireEntity(this, 230 + i * 8, 130));
