@@ -11,7 +11,7 @@ public class SampleQuest extends Quest {
 	}
 
 	public String preDialogue() {
-		return "This is a really long test String to test whether or not my code works, let's see waht should be typed here, maybe this is long enough, ok this is good.";
+		return "This is a really long test String to test whether or not my code works, let's see what should be typed here, maybe this is long enough, ok this is good.";
 	}
 
 	public String dialogue() {
