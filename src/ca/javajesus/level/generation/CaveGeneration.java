@@ -63,6 +63,9 @@ public class CaveGeneration {
 					case 1:
 						caveReturn[row][col] = 4;
 						break;
+					case 2:
+						caveReturn[row][col] = 5;
+						break;
 					default:
 						break;
 					}
