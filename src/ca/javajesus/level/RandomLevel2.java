@@ -43,7 +43,7 @@ public class RandomLevel2 extends Level {
 					tiles[tile] = heightmap[row][col].tile();
 				} 
 				if (heightmap[row][col].getHouse()) {
-					tiles[tile] = 0;
+					tiles[tile] = heightmap[row][col].tile();
 					this.addEntity(getBuilding(col * 8, row * 8));
 				}
 				if (heightmap[row][col].tile() == 0) {
@@ -54,6 +54,7 @@ public class RandomLevel2 extends Level {
 						}
 					}
 				}
+				//addEntity(new PoorHouse(this, spawnPoint.x, spawnPoint.y));
 			}
 		}
 	}

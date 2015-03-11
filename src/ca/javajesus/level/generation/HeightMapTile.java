@@ -38,7 +38,7 @@ public class HeightMapTile {
 	}
 	
 	public void setProbability(double prob) {
-		this.probability = 1000 - prob;
+		this.probability = prob;
 	}
 	
 	public void setHouse() {
