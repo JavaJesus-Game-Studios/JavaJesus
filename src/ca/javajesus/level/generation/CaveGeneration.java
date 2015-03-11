@@ -48,6 +48,37 @@ public class CaveGeneration {
 						caveReturn[row][col] = 0;
 					}
 				}
+				int check = 0;
+				for (int row2 = -1; row2 <= 1; row2++) {
+					for (int col2 = -1; col2 <= 1; col2++) {
+						if (caveReturn[row][col] == 1) {
+							if (caveReturn[row + row2][col + col2] == 2) {
+								check++;
+							}
+						}
+					}
+				}
+				if (check > 3) {
+					switch (rand.nextInt(15)) {
+					case 1:
+						caveReturn[row][col] = 4;
+						break;
+					case 2:
+						caveReturn[row][col] = 4;
+						break;
+					case 3:
+						caveReturn[row][col] = 4;
+						break;
+					case 4:
+						caveReturn[row][col] = 4;
+						break;
+					case 5:
+						caveReturn[row][col] = 4;
+						break;
+					default:
+						break;
+					}
+				}
 			}
 		}
 		return caveReturn;

@@ -55,7 +55,7 @@ public class ChatHandler {
 		if (isVisible) {
 			g.drawImage(image, 0, 456, null);
 			FontMetrics font = g.getFontMetrics();
-			int yOffset = 670;
+			int yOffset = 730;
 			for (int i = 0; i < chatwindow.size(); i++) {
 				if (chatwindow.get(i).contains(":")) {
 					int split = chatwindow.get(i).indexOf(":") + 1;
@@ -84,12 +84,12 @@ public class ChatHandler {
 	}
 
 	private static void updateWindow(String string, Color color) {
-		if (chatwindow.size() < 6) {
+		if (chatwindow.size() < 13) {
 			chatwindow.add(0, string);
 			colors.add(0, color);
 		} else {
-			chatwindow.remove(5);
-			colors.remove(5);
+			chatwindow.remove(12);
+			colors.remove(12);
 			chatwindow.add(0, string);
 			colors.add(0, color);
 		}
