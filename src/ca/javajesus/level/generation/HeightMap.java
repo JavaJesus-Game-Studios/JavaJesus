@@ -285,9 +285,9 @@ public class HeightMap {
 				boolean grassChecker = true;
 				if (row > 8 && row < heightmap.length - 7 && col > 8
 						&& col < heightmap[row].length - 7) {
-					for (int row2 = -8; row2 < 7; row2++) {
+					for (int row2 = -9; row2 < 7; row2++) {
 						for (int col2 = -8; col2 < 7; col2++) {
-							if (row2 > 0 && col2 > 0) {
+							if (row2 > -2 && col2 > -2) {
 								if (heightmap[row + row2][col + col2].tile() == WATER
 										|| heightmap[row + row2][col + col2].tile() == WATERSAND
 										|| heightmap[row + row2][col + col2].tile() == ROCK) {

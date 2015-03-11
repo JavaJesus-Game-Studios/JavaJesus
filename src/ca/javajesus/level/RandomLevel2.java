@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.Random;
 
 import ca.javajesus.game.entities.SolidEntity;
+import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.CaveEntrance;
@@ -16,6 +17,8 @@ import ca.javajesus.level.generation.HeightMapTile;
 import ca.javajesus.level.tile.Tile;
 
 public class RandomLevel2 extends Level {
+	
+	Random rand = new Random();
 
 	private HeightMapTile[][] heightmap;
 
@@ -45,6 +48,9 @@ public class RandomLevel2 extends Level {
 				if (heightmap[row][col].getHouse()) {
 					tiles[tile] = heightmap[row][col].tile();
 					this.addEntity(getBuilding(col * 8, row * 8));
+					if (rand.nextInt(4) == 0) {
+						this.addEntity(NPC.getRandomNPC(this, (col - 1) * 8, (row + 6) * 8));
+					}
 				}
 				if (heightmap[row][col].tile() == 0) {
 					if (row > heightmap.length / 2.0 && col > heightmap[0].length / 2.0) {
