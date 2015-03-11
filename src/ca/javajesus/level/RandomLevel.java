@@ -30,7 +30,7 @@ public class RandomLevel extends Level {
 	protected int[] grid;
 
 	public RandomLevel(int width, int height) {
-		super(width, height);
+		super(width, height, false);
 		spawnPoint = new Point(random.nextInt(width), random.nextInt(height));
 	}
 

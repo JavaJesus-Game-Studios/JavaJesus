@@ -9,7 +9,7 @@ public class Interior extends Level {
 	protected Level nextLevel;
 	
 	public Interior(String string, Point point, Level level) {
-		super(string);
+		super(string, false);
 		this.spawnPoint = point;
 		this.nextLevel = level;
 	}

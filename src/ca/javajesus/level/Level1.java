@@ -26,7 +26,7 @@ import ca.javajesus.items.Item;
 public class Level1 extends Level {
 
 	public Level1() {
-		super("/Levels/Test_Levels/tile_tester_level.png");
+		super("/Levels/Test_Levels/tile_tester_level.png", true);
 		this.spawnPoint = new Point(50, 50);
 	}
 

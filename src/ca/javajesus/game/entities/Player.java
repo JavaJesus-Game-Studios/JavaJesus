@@ -72,6 +72,9 @@ public class Player extends Mob {
 			this.level.getBackgroundMusic().stop();
 			this.level.getBackgroundMusic().setFramePosition(0);
 			this.nextLevel = level;
+			if (!level.isLoaded) {
+				level.load();
+			}
 			this.canChangeLevel = true;
 			sound.play(SoundHandler.sound.click);
 			level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);

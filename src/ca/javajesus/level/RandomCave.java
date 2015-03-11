@@ -16,7 +16,7 @@ public class RandomCave extends Level {
 	Random rand = new Random();
 
 	public RandomCave(int height, int width, int cycles) {
-		super(width, height);
+		super(width, height, false);
 
 	}
 	

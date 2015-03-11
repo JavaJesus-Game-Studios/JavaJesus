@@ -29,7 +29,7 @@ public class RandomLevel2 extends Level {
 	 *            : The height of the level
 	 */
 	public RandomLevel2(int width, int height) {
-		super(width, height);
+		super(width, height, false);
 	}
 
 	protected void generateLevel() {

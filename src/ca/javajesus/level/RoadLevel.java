@@ -7,7 +7,7 @@ import ca.javajesus.game.entities.vehicles.Vehicle;
 public class RoadLevel extends Level {
 
 	public RoadLevel() {
-		super("/Levels/Test_Levels/Road_Test_Level.png");
+		super("/Levels/Test_Levels/Road_Test_Level.png", false);
 		this.spawnPoint = new Point(50, 50);
 	}
 

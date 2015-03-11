@@ -7,7 +7,7 @@ import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 public class SanCisco extends Level {
 
 	public SanCisco() {
-		super("/Levels/Cities/San_Cisco.png");
+		super("/Levels/Cities/San_Cisco.png", false);
 		this.spawnPoint = new Point(1050, 1050);
 	}
 

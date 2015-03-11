@@ -46,16 +46,41 @@ public abstract class Level {
 	public static Level randomCave = new RandomCave(level1.width,
 			level1.height, 5);
 
-	public Level(String imagePath) {
+	public boolean isLoaded = false;
+	private int loadType = 0;
+
+	public Level(String imagePath, boolean loadNow) {
 		spawnPoint = new Point(0, 0);
 		if (imagePath != null) {
 			this.imagePath = imagePath;
-			this.loadLevelFromFile();
+			loadType = 0;
+			if (loadNow) {
+				isLoaded = true;
+				this.loadLevelFromFile();
+			}
 		} else {
 			this.width = 64;
 			this.height = 64;
 			tiles = new int[width * height];
-			this.generateLevel();
+			loadType = 1;
+			if (loadNow) {
+				isLoaded = true;
+				this.generateLevel();
+			}
+		}
+	}
+
+	public void load() {
+		if (!isLoaded) {
+			if (loadType == 0) {
+				this.loadLevelFromFile();
+			} else if (loadType == 1) {
+				this.generateLevel();
+			} else {
+				generateLevel();
+				fireList.add(new FireEntity(this, -10, -10));
+			}
+			isLoaded = true;
 		}
 	}
 
@@ -63,13 +88,17 @@ public abstract class Level {
 		return SoundHandler.sound.background1;
 	}
 
-	public Level(int width, int height) {
+	public Level(int width, int height, boolean loadNow) {
 		spawnPoint = new Point(0, 0);
 		this.width = width;
 		this.height = height;
 		tiles = new int[width * height];
-		generateLevel();
-		fireList.add(new FireEntity(this, -10, -10));
+		loadType = 2;
+		if (loadNow) {
+			isLoaded = true;
+			generateLevel();
+			fireList.add(new FireEntity(this, -10, -10));
+		}
 	}
 
 	protected abstract void initNPCPlacement();
