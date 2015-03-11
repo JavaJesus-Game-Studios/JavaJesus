@@ -59,20 +59,8 @@ public class CaveGeneration {
 					}
 				}
 				if (check > 3) {
-					switch (rand.nextInt(15)) {
+					switch (rand.nextInt(10)) {
 					case 1:
-						caveReturn[row][col] = 4;
-						break;
-					case 2:
-						caveReturn[row][col] = 4;
-						break;
-					case 3:
-						caveReturn[row][col] = 4;
-						break;
-					case 4:
-						caveReturn[row][col] = 4;
-						break;
-					case 5:
 						caveReturn[row][col] = 4;
 						break;
 					default:
