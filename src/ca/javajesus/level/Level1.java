@@ -42,6 +42,8 @@ public class Level1 extends Level {
 		this.addEntity(NPC.npc9);
 		this.addEntity(NPC.npc10);
 		this.addEntity(NPC.Jesus);
+		
+		this.addEntity(NPC.getRandomNPC(this, 50, 50));
 
 		this.addEntity(new Cyclops(this, 600, 300));
 		this.addEntity(Monster.gang1);

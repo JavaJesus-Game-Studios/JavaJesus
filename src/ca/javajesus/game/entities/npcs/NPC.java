@@ -143,7 +143,7 @@ public class NPC extends Mob {
 				isTalking = false;
 			}
 		}
-		
+
 		if (isHit) {
 			isHitTicks++;
 			if (isHitTicks > 20) {
@@ -325,8 +325,8 @@ public class NPC extends Mob {
 		}
 
 		if (isHit) {
-			JJFont.render(damageTaken, screen, (int) xOffset + isHitX, (int) yOffset - 10 + isHitY,
-					isHitColor, 1);
+			JJFont.render(damageTaken, screen, (int) xOffset + isHitX,
+					(int) yOffset - 10 + isHitY, isHitColor, 1);
 		}
 
 	}
@@ -646,6 +646,55 @@ public class NPC extends Mob {
 		currentQuest = null;
 		if (quests.contains(0)) {
 			currentQuest = quests.get(0);
+		}
+	}
+
+	public static NPC getRandomNPC(Level level, double x, double y) {
+		Random random = new Random();
+		switch (random.nextInt(11)) {
+
+		case 0:
+			return new NPC(level, "Knight", x, y, 1, 16, 16, 100, Colors.get(
+					-1, 111, Colors.fromHex("#7e7e7e"),
+					Colors.fromHex("#FFFFFF")), 0, 2, "linear", 20, 8);
+		case 1:
+			return new NPC(level, "Policeman", x, y, 1, 16, 16, 100,
+					Colors.get(-1, Colors.fromHex("#2a2a2a"),
+							Colors.fromHex("#000046"), 543), 0, 4, "triangle",
+					20, 8);
+		case 2:
+			return new NPC(level, "Citizen-Female", x, y, 1, 16, 16, 100,
+					Colors.get(-1, 111, 300, 543), 0, 8, "cross", 30, 8);
+		case 3:
+			return new NPC(level, "Citizen-Male", x, y, 1, 16, 16, 100,
+					Colors.get(-1, 111, 300, 543), 0, 0, "circle", 2, 8);
+		case 4:
+			return new NPC(level, "Fox", x, y, 1, 16, 16, 100, Colors.get(-1,
+					111, Colors.fromHex("#ffa800"), 555), 0, 14, "cross", 50, 8);
+		case 5:
+			return new NPC(level, "Tech Warrior", x, y, 1, 16, 16, 100,
+					Colors.get(-1, 000, Colors.fromHex("#42ff00"), 543), 0, 12,
+					"triangle", 20, 8);
+		case 6:
+			return new NPC(level, "Peasant-Male", x, y, 1, 16, 16, 100,
+					Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 0, 16,
+					"square", 100, 8);
+		case 7:
+			return new NPC(level, "Peasant-Female", x, y, 1, 16, 16, 100,
+					Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 0, 18,
+					"cross", 0, 8);
+		case 8:
+			return new NPC(level, "Peasant-Boychild", x, y, 1, 16, 16, 9001,
+					Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 14,
+					16, "square", 0, 8);
+		case 9:
+			return new NPC(level, "Peasant-Girlchild", x, y, 1, 16, 16, 9000,
+					Colors.get(-1, 111, Colors.fromHex("#715b17"), 543), 14,
+					18, "cross", 0, 8);
+
+		default:
+			return new Jesus(level, x, y, "stand", 30);
+
 		}
 	}
 
