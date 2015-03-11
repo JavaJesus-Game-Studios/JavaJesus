@@ -11,7 +11,7 @@ import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class GenericHospital extends SolidEntity {
 	
-protected int color = Colors.get(-1, 111, Colors.fromHex("#fffab0"), Colors.fromHex("#d30000"));
+protected int color = Colors.get(-1, 111, Colors.fromHex("#fffab0"), Colors.fromHex("#abd3ff"));
 	
 	public GenericHospital(Level level, double x, double y) {
 		super(level, x, y, 78, 67);

@@ -18,8 +18,8 @@ import ca.javajesus.level.Level;
 
 public class Chest extends SolidEntity {
 
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#8d8d8d"),
-			Colors.fromHex("#eefeff"));
+	protected int color = Colors.get(-1, 111, Colors.fromHex("#452909"),
+			Colors.fromHex("#ffe011"));
 	protected boolean isOpen = false;
 	ArrayList<Item> contents;
 

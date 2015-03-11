@@ -14,14 +14,16 @@ public class Missile extends Projectile {
 
 	public Missile(Level level, double x, double y, double xPos, double yPos,
 			Mob mob, double damage) {
-		super(level, 6, 6, 1, Colors.get(-1, 300, 400, 550), x, y, 5, xPos, yPos,
+		super(level, 6, 6, 1, Colors.get(-1, Colors.fromHex("#000000"), 
+				Colors.fromHex("#5b5b5b"), Colors.fromHex("#ffea02")), x, y, 5, xPos, yPos,
 				mob, damage);
 		sound.fire(sound.gunshot);
 	}
 
 	public Missile(Level level, double x, double y, int direction, Mob mob,
 			double damage) {
-		super(level, 6, 6, 1, Colors.get(-1, 300, 400, 550), x, y, 5, direction,
+		super(level, 6, 6, 1, Colors.get(-1, Colors.fromHex("#ffea02"), 
+				Colors.fromHex("#5b5b5b"), Colors.fromHex("#000000")), x, y, 5, direction,
 				mob, damage);
 		sound.fire(sound.gunshot);
 		switch (direction) {
