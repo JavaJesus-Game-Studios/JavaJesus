@@ -36,13 +36,13 @@ public class SoundHandler {
 					.getResource("/Sound/8-bit_Sounds/Background1_v2.wav"));
 
 			chest = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/8-Bit_Sounds/Chest_Opening_v2.wav"));
+					.getResource("/Sound/8-bit_Sounds/Chest_Opening_v2.wav"));
 
 			chimpanzee = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Enemy-Mob_Sounds/Chimpanzee_voice_v2.wav"));
+					.getResource("/Sound/Enemy-Mob_Sounds/Chimpanzee_Voice_v2.wav"));
 
 			click = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/8-Bit_Sounds/Click_v2.wav"));
+					.getResource("/Sound/8-bit_Sounds/Click_v2.wav"));
 
 			demon = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Enemy-Mob_Sounds/Demon_Updated_v2.wav"));
@@ -82,7 +82,7 @@ public class SoundHandler {
 					.getResource("/Sound/Projectile_Sounds/Gunshot_Sidd_v2.wav"));
 
 			levelup = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/8-Bit_Sounds/Level_Up_v2.wav"));
+					.getResource("/Sound/8-bit_Sounds/Level_Up_v2.wav"));
 
 			shortSword1 = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Sword_Sounds/Short_Sword_Sound_v2.wav"));
