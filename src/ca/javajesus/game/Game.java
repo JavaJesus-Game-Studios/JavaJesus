@@ -41,8 +41,10 @@ public class Game extends Canvas implements Runnable {
 	public static final int SCALE = 3;
 	public static final String NAME = "Java Jesus by the Coders of Anarchy";
 
-	/** Entity limit per screen */
+	/** Entity limit per screen, currently doesnt do anything */
 	public final static int ENTITY_LIMIT = 1000;
+	
+	public final static int MOB_LIMIT = 300;
 	public boolean running = false; // this is a change
 
 	/** Creates the JFrame */

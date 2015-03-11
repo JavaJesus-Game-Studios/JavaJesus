@@ -39,8 +39,8 @@ public class ZombieMap1 extends Level{
 		this.addEntity(new CastleTower(this, 175, 1180));
 		this.addEntity(new CatholicChurch(this, 1330, 1480));
 		this.addEntity(new CaveEntrance(this, 700, 810));
-		this.addEntity(new Spawner(this, 1360, 300, 0));
-		this.addEntity(new Spawner(this, 1350, 100, new HealthPack(this, 1350, 100)));
+		this.addEntity(new Spawner(this, 1360, 300, "Demon"));
+		this.addEntity(new Spawner(this, 1350, 100, "Health"));
 
 
 

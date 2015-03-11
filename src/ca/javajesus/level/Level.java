@@ -332,12 +332,12 @@ public abstract class Level {
 		return players;
 	}
 
-	public void addSpawner(double x, double y, Entity entity) {
-		this.addEntity(new Spawner(this, x, y, entity));
+	public void addSpawner(double x, double y, String type) {
+		this.addEntity(new Spawner(this, x, y, type));
 	}
 
-	public void addSpawner(double x, double y, int id) {
-		this.addEntity(new Spawner(this, x, y, id));
+	public void addSpawner(double x, double y, String type, int amt) {
+		this.addEntity(new Spawner(this, x, y, type, amt));
 	}
 
 	public void init() {

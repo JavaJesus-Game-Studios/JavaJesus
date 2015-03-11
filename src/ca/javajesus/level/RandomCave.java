@@ -55,7 +55,7 @@ public class RandomCave extends Level {
 					this.addEntity(new Chest(this, col * 8, row * 8, chest1));
 				} else if (caveMap[row][col] == 5) {
 					tiles[tile] = 20;
-					this.addEntity(new Spawner(this, col * 8, row * 8, 0));
+					this.addSpawner(col * 8, row * 8, "Demon", 5);
 				}
 			}
 		}

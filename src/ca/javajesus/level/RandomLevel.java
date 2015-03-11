@@ -414,13 +414,13 @@ public class RandomLevel extends Level {
 
 		for (int i = 0; i < 50; i++) {
 			this.addSpawner(random.nextInt(this.width * 8),
-					random.nextInt(this.height * 8), 0);
+					random.nextInt(this.height * 8), "Demon");
 			this.addSpawner(random.nextInt(this.width * 8),
-					random.nextInt(this.height * 8), 1);
+					random.nextInt(this.height * 8), "Gang");
 		}
 		for (int i = 0; i < 3; i++) {
 			this.addSpawner(random.nextInt(this.width * 8),
-					random.nextInt(this.height * 8), 10);
+					random.nextInt(this.height * 8), "Car");
 		}
 
 	}
@@ -434,7 +434,7 @@ public class RandomLevel extends Level {
 	public void otherEntityPlacement() {
 		for (int i = 0; i < 3; i++) {
 			this.addSpawner(random.nextInt(this.width * 8),
-					random.nextInt(this.height * 8), 2);
+					random.nextInt(this.height * 8), "Health");
 			
 			this.addEntity(new Transporter(this, random.nextInt(this.width * 8),
 					random.nextInt(this.height * 8), new RandomLevel(Game.WIDTH,
