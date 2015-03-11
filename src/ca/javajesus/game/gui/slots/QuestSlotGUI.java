@@ -6,6 +6,8 @@ public class QuestSlotGUI extends Slot {
 
 	public QuestSlotGUI() {
 		super("/GUI/GUI_Inventory/GUI_QUESTS.png");
+		this.setYScale(1.4);
+
 	}
 
 }

@@ -39,7 +39,7 @@ public class Item {
 	protected int color;
 	protected int xTile;
 	protected int yTile;
-	protected int xOffset = 0;
+	protected int xOffset = 50;
 	protected int yOffset = 0;
 	public String description;
 	protected int amount = 1;
@@ -59,7 +59,7 @@ public class Item {
 	}
 
 	public void render(Screen screen) {
-		screen.render(xOffset, yOffset, xTile + yTile * 32, color, 0, 1,
+		screen.render(xOffset, yOffset + 200, xTile + yTile * 32, color, 0, 3,
 				SpriteSheet.letters);
 	}
 

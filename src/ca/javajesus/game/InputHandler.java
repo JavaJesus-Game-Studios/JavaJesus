@@ -24,6 +24,8 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener, 
 	
 	public InputHandler(InventoryGUI i) {
 		i.addKeyListener(this);
+		i.addMouseListener(this);
+		i.addMouseMotionListener(this);
 	}
 	
 	public InputHandler(PauseGUI p){

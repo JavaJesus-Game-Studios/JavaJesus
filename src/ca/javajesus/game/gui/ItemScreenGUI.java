@@ -15,8 +15,8 @@ public class ItemScreenGUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Player player;
-	private int width = 900;
-	private int height = 250;
+	private int width = 475;
+	private int height = 800;
 
 	private Screen screen;
 	protected BufferedImage image = new BufferedImage(width, height,
