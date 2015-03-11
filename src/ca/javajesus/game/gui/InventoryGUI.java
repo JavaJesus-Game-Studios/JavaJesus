@@ -1,6 +1,7 @@
 package ca.javajesus.game.gui;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -9,9 +10,9 @@ import javax.swing.JPanel;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.gui.slots.FactionsSlotGUI;
 import ca.javajesus.game.gui.slots.PlayerSlotGUI;
 import ca.javajesus.game.gui.slots.QuestSlotGUI;
-import ca.javajesus.game.gui.slots.FactionsSlotGUI;
 
 public class InventoryGUI extends ScreenGUI {
 
@@ -20,9 +21,9 @@ public class InventoryGUI extends ScreenGUI {
 	public ItemScreenGUI inventory;
 	public int id = 0;
 	private JPanel activeScreen;
-	private Player player;
 	JPanel panel = new JPanel(new BorderLayout(0, 0));
 	JPanel slots = new JPanel(new GridLayout(2, 0));
+	JPanel mainScreen;
 
 	public InventoryGUI(Player player) {
 
@@ -32,7 +33,6 @@ public class InventoryGUI extends ScreenGUI {
 		JPanel p1 = new FactionsSlotGUI();
 		JPanel p2 = new QuestSlotGUI();
 		JPanel p3 = new MapGUI();
-		this.player = player;
 
 		this.activeScreen = new PlayerSlotGUI(player, 0, 0.75, 1.3);
 		((PlayerSlotGUI) activeScreen).setScale(0.75);
@@ -52,7 +52,13 @@ public class InventoryGUI extends ScreenGUI {
 		panel.add(activeScreen, BorderLayout.LINE_START);
 		panel.add(slots, BorderLayout.CENTER);
 
-		this.add(panel, BorderLayout.LINE_START);
+		mainScreen = new JPanel(new CardLayout());
+		mainScreen.add(panel, "Main");
+		mainScreen.add(new QuestScreenGUI(), "Quests");
+		mainScreen.add(new FactionScreenGUI(), "Factions");
+		mainScreen.add(inventory, "Inventory");
+
+		this.add(mainScreen, BorderLayout.LINE_START);
 
 	}
 
@@ -66,10 +72,8 @@ public class InventoryGUI extends ScreenGUI {
 				&& InputHandler.MouseY > 424 && InputHandler.MouseY < 723) {
 			if (InputHandler.MouseButton == 1) {
 				InputHandler.MouseButton = 0;
-				panel.removeAll();
-				panel.add(inventory, BorderLayout.LINE_START);
-				panel.add(slots, BorderLayout.CENTER);
-				revalidate();
+				CardLayout cl = (CardLayout) mainScreen.getLayout();
+				cl.show(mainScreen, "Quests");
 				repaint();
 			}
 
@@ -79,13 +83,11 @@ public class InventoryGUI extends ScreenGUI {
 				&& InputHandler.MouseY > 424 && InputHandler.MouseY < 723) {
 			if (InputHandler.MouseButton == 1) {
 				InputHandler.MouseButton = 0;
-				panel.removeAll();
-				panel.add(inventory, BorderLayout.LINE_START);
-				panel.add(slots, BorderLayout.CENTER);
-				revalidate();
+				CardLayout cl = (CardLayout) mainScreen.getLayout();
+				cl.show(mainScreen, "Factions");
 				repaint();
-			}
 
+			}
 		}
 
 		// Player
@@ -93,10 +95,8 @@ public class InventoryGUI extends ScreenGUI {
 				&& InputHandler.MouseY > 14 && InputHandler.MouseY < 73) {
 			if (InputHandler.MouseButton == 1) {
 				InputHandler.MouseButton = 0;
-				panel.removeAll();
-				panel.add(activeScreen, BorderLayout.LINE_START);
-				panel.add(slots, BorderLayout.CENTER);
-				revalidate();
+				CardLayout cl = (CardLayout) mainScreen.getLayout();
+				cl.show(mainScreen, "Main");
 				repaint();
 			}
 

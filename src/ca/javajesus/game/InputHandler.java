@@ -34,6 +34,8 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener, 
 	
 	public InputHandler(ScreenGUI g) {
 		g.addKeyListener(this);
+		g.addMouseListener(this);
+		g.addMouseMotionListener(this);
 	}
 	
 	public InputHandler(Launcher launcher) {
