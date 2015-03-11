@@ -18,6 +18,7 @@ public class SpriteSheet {
     public static SpriteSheet guns = new SpriteSheet("/Tiles/Inventory&Weapon_Sprites/firearm_sheet.png");
     public static SpriteSheet letters = new SpriteSheet("/GUI/GUI_Menus/letter_sheet.png");
     public static SpriteSheet particles = new SpriteSheet("/Tiles/Particles&Hud_Sprites/particle_sheet.png");
+    public static SpriteSheet explosions = new SpriteSheet("/Tiles/Particles&Hud_Sprites/Exlplosion_Sheet.png");
     public static SpriteSheet swords = new SpriteSheet("/Sprites/Player_Sprites/player_sword_sheet.png");
     public static SpriteSheet enemies = new SpriteSheet("/Sprites/EnemyNPC_Sprites/mob_enemy_sheet.png");
     public static SpriteSheet npcs = new SpriteSheet("/Sprites/FriendlyNPC_Sprites/mob_friendly_sheet.png");

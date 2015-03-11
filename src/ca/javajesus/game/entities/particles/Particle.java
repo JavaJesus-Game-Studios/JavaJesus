@@ -9,7 +9,7 @@ import ca.javajesus.level.Level;
 
 public class Particle extends Entity {
 
-	protected final SpriteSheet sheet = SpriteSheet.particles;
+	protected SpriteSheet sheet = SpriteSheet.particles;
 	protected int tileNumber;
 	protected int color;
 	protected int width;

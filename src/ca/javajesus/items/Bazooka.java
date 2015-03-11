@@ -1,9 +1,11 @@
 package ca.javajesus.items;
 
 import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.entities.projectiles.Missile;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.level.Level;
 
 public class Bazooka extends Gun{
 	
@@ -17,6 +19,14 @@ public class Bazooka extends Gun{
 	
 	public void addPlayer(Player player) {
 		this.player = player;
+	}
+	
+	public void fire(Level level, double x, double y, int dir, Player player) {
+		if (ammo > 0 && !isReloading && canFire) {
+			level.addEntity(new Missile(level, x, y, dir, player, damage));
+			ammo--;
+			canFire = false;
+		}
 	}
 	
 	public void renderGun(Screen screen) {

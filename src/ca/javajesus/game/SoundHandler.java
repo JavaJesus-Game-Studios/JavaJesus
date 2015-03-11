@@ -13,8 +13,8 @@ public class SoundHandler {
 	public Clip sheathe, background1, chest, chimpanzee, click, demon,
 			fireball, footsteps1, footstepsDirt, footstepsFarmland,
 			footstepsGrass, footstepsRoad, footstepsWood,
-			gunshot, gunshot2, levelup, shortSword1, swimming,
-			walking, background2;
+			gunshot, gunshot2, gunshot3, levelup, shortSword1, swimming,
+			walking, background2, explosion;
 
 	@SuppressWarnings("unused")
 	public SoundHandler() {
@@ -22,7 +22,7 @@ public class SoundHandler {
 		AudioInputStream sheathe, background1, chest, chimpanzee, click, demon, fireball,
 		footsteps1, footstepsDirt, footstepsFarmland, footstepsGrass, footstepsRoad, 
 		footstepsWaterSand, footstepsWood, gunshot, gunshot2, gunshot3, levelup, shortSword1, 
-		swimming, walking, background2;
+		swimming, walking, background2, explosion;
 
 		try {
 
@@ -74,6 +74,12 @@ public class SoundHandler {
 
 			gunshot2 = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Projectile_Sounds/Gun_Shot_v2.wav"));
+			
+			gunshot3 = AudioSystem.getAudioInputStream(SoundHandler.class
+					.getResource("/Sound/Projectile_Sounds/Gunshot_Sidd_v2.wav"));
+			
+			explosion = AudioSystem.getAudioInputStream(SoundHandler.class
+					.getResource("/Sound/Projectile_Sounds/Gunshot_Sidd_v2.wav"));
 
 			levelup = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/8-Bit_Sounds/Level_Up_v2.wav"));
@@ -101,6 +107,7 @@ public class SoundHandler {
 			this.footstepsWood = AudioSystem.getClip();
 			this.gunshot = AudioSystem.getClip();
 			this.gunshot2 = AudioSystem.getClip();
+			this.gunshot3 = AudioSystem.getClip();
 			this.levelup = AudioSystem.getClip();
 			this.shortSword1 = AudioSystem.getClip();
 			this.swimming = AudioSystem.getClip();
@@ -111,6 +118,7 @@ public class SoundHandler {
 			this.demon.open(demon);
 			this.fireball.open(fireball);
 			this.gunshot.open(gunshot);
+			this.gunshot3.open(gunshot3);
 			this.background1.open(background1);
 			this.background2.open(background2);
 			this.sheathe.open(sheathe);

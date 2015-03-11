@@ -19,14 +19,17 @@ public class Projectile extends Entity {
 	// final, and it will be used to countdown the ticks till next shoot, such
 	// as if (gun.firerate >0) player.firerate--; then reset when it reaches 0
 
-	private double speed, range, damage;
+	protected double speed;
+	private double range;
+	protected double damage;
 	/** Origin points */
 	private final double xOrigin, yOrigin;
-	private double xPoint, yPoint;
-	private int yOffset = 0;
+	protected double xPoint;
+	protected double yPoint;
+	protected int yOffset = 0;
 	protected Rectangle hitBox;
 	public Mob mob;
-	protected final SpriteSheet sheet = SpriteSheet.particles;
+	protected SpriteSheet sheet = SpriteSheet.particles;
 	protected int tileNumber;
 	protected int color;
 	protected int width;

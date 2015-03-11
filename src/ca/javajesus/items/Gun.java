@@ -16,8 +16,8 @@ public class Gun extends Item {
 	private int reloadTicks = 0;
 	private int FIRE_RATE;
 	private int fireTicks = 1;
-	private boolean canFire = true;
-	private int damage;
+	protected boolean canFire = true;
+	protected int damage;
 	public int playerOffset;
 
 	public Gun(String name, int id, int xTile, int yTile, int color,
