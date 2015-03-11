@@ -61,9 +61,7 @@ public class Level1 extends Level {
 	@Override
 	public void initChestPlacement() {
 		ArrayList<Item> chest1 = new ArrayList<Item>();
-		chest1.add(Item.banana);
-		chest1.add(Item.revolver);
-		chest1.add(Item.smallSword);
+		chest1.add(Item.bazooka);
 		this.addEntity(new Chest(this, 100, 200, chest1));
 
 	}

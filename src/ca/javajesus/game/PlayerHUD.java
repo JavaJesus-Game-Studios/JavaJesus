@@ -40,9 +40,12 @@ public class PlayerHUD {
 
 	public void draw(Graphics g) {
 		BufferedImage gun = getGunType();
-		g.drawImage(gun, 20, 650, gun.getWidth() * 4, gun.getHeight() * 4, null);
-		g.drawString((int) player.gun.ammo + " / " + player.gun.clipSize, 20,
-				724);
+		if (gun != null) {
+			g.drawImage(gun, 20, 650, gun.getWidth() * 4, gun.getHeight() * 4,
+					null);
+			g.drawString((int) player.gun.ammo + " / " + player.gun.clipSize,
+					20, 724);
+		}
 
 		g.setColor(Color.red);
 		g.fillRect(750, 650,
@@ -57,6 +60,9 @@ public class PlayerHUD {
 	}
 
 	private BufferedImage getGunType() {
+		if (player.gun == null) {
+			return null;
+		}
 		switch (player.gun.gunType) {
 		case 0:
 			return revolver;

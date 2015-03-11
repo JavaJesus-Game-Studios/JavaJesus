@@ -66,6 +66,11 @@ public class Player extends Mob {
 		}
 		return level;
 	}
+	
+	public void equip() {
+		gun = inventory.getGun(this);
+		sword = inventory.getSword(this);
+	}
 
 	public void changeLevel(Level level) {
 		if (input.e.isPressed()) {

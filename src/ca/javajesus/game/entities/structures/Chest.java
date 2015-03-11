@@ -134,6 +134,7 @@ public class Chest extends SolidEntity {
 				player.inventory.addItem(e);
 				ChatHandler.sendMessage("You have obtained " + e, Color.GREEN);
 			}
+			player.equip();
 		}
 	}
 

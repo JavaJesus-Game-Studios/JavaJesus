@@ -15,6 +15,7 @@ public class Spawner extends Entity {
 	private String type;
 	private Random random = new Random();
 	private int amount = 0;
+	private Entity currentEntity;
 
 	public Spawner(Level level, double x, double y, String type) {
 		super(level);
@@ -34,7 +35,14 @@ public class Spawner extends Entity {
 
 	public void tick() {
 
-		if (random.nextInt(1000) == 0
+		if (currentEntity == null) {
+			spawnMob();
+		}
+		if (currentEntity instanceof Mob) {
+			if (((Mob) currentEntity).isDead && random.nextInt(1000) == 0
+					&& level.getMobs().size() < Game.ENTITY_LIMIT)
+				spawnMob();
+		} else if (random.nextInt(1000) == 0
 				&& level.getMobs().size() < Game.ENTITY_LIMIT) {
 			spawnMob();
 		}
@@ -42,7 +50,7 @@ public class Spawner extends Entity {
 		if (amount == 0) {
 			level.remEntity(this);
 		}
-		
+
 	}
 
 	public void spawnMob() {
@@ -57,14 +65,15 @@ public class Spawner extends Entity {
 	private Entity getEntity() {
 		switch (type) {
 		case "Demon":
-			return new Demon(this.level, "Demon", x, y, 1);
+			return currentEntity = new Demon(this.level, "Demon", x, y, 1);
 		case "Gang":
-			return new GangMember(this.level, "Gang", x, y, 1, 200,
-					random.nextInt(2));
+			return currentEntity = new GangMember(this.level, "Gang", x, y, 1,
+					200, random.nextInt(2));
 		case "Car":
-			return new CenturyLeSabre(this.level, "Century LeSabre", x, y);
+			return currentEntity = new CenturyLeSabre(this.level,
+					"Century LeSabre", x, y);
 		case "Health":
-			return new HealthPack(this.level, x, y);
+			return currentEntity = new HealthPack(this.level, x, y);
 		default:
 			return null;
 		}

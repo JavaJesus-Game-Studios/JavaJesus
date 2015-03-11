@@ -47,12 +47,7 @@ public class Inventory {
 
 	private void giveDefaultItems() {
 		items.add(Item.apple);
-		items.add(Item.banana);
-		items.add(Item.orange);
-		items.add(Item.feather);
-		items.add(Item.bazooka);
-		//items.add(Item.assaultRifle);
-		items.add(Item.smallSword);
+		
 	}
 
 	public void addItem(Item item) {

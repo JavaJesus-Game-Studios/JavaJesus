@@ -14,7 +14,7 @@ public class Demon extends Monster {
 	public Demon(Level level, String name, double x, double y, int speed) {
 		super(level, name, x, y, speed, 14, 24, 0, 150, Colors.get(-1, 111,
 				300, 550));
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 8);
+		this.bar = new HealthBar(level, 32, this.x, this.y, this, 8);
 		if (level != null)
 			level.addEntity(bar);
 	}

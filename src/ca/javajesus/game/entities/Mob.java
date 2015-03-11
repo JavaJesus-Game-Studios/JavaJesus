@@ -3,6 +3,7 @@ package ca.javajesus.game.entities;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.structures.Transporter;
 import ca.javajesus.game.entities.vehicles.Vehicle;
@@ -41,7 +42,7 @@ public abstract class Mob extends Entity {
 
 	protected boolean isTalking = false;
 	protected int talkCount = 0;
-	
+
 	protected String damageTaken = "";
 	protected boolean isHit = false;
 	protected int isHitTicks = 0;
@@ -111,7 +112,27 @@ public abstract class Mob extends Entity {
 			return;
 		}
 		numSteps++;
-		if (!hasCollided((int) (xa * speed), (int) (ya * speed))) {
+		int xValue = 0;
+		int yValue = 0;
+		if (speed % 1 == 0) {
+			xValue = (int) (xa * speed);
+			yValue = (int) (ya * speed);
+		} else {
+			if (xa * speed < 0) {
+				xValue = (int) (xa * speed - 1);
+			}
+			if (ya * speed < 0) {
+				yValue = (int) (ya * speed - 1);
+			}
+			if (xa * speed > 0) {
+				xValue = (int) (xa * speed + 1);
+			}
+			if (ya * speed > 0) {
+				yValue = (int) (ya * speed + 1);
+			}
+		}
+		if (!hasCollided(xValue, yValue)) {
+
 			if (ya < 0)
 				movingDir = 0;
 			if (ya > 0)
@@ -209,7 +230,8 @@ public abstract class Mob extends Entity {
 				} else {
 					temp = new Rectangle(vehicle.hitBox.width - 8,
 							vehicle.hitBox.height - 16);
-					temp.setLocation((int) vehicle.x - xa - 3, (int) vehicle.y - ya - 4);
+					temp.setLocation((int) vehicle.x - xa - 3, (int) vehicle.y
+							- ya - 4);
 				}
 
 				if (this.hitBox.intersects(temp))
