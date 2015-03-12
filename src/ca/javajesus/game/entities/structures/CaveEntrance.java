@@ -22,6 +22,11 @@ public class CaveEntrance extends SolidEntity {
 		level.addEntity(new TransporterCave(level, x + 18, y + 20, spawn));
 	}
 	
+	public CaveEntrance(Level level, double x, double y, Level nextLevel) {
+		super(level, x, y, 40, 36);
+		level.addEntity(new TransporterCave(level, x + 18, y + 20, nextLevel));
+	}
+	
 	public void render(Screen screen) {
 
 		screen.render((int) x, (int) y, color, Sprite.cave_entrance);

@@ -310,6 +310,21 @@ public class HeightMap {
 							}
 						}
 					}
+				} else {
+					if (random.nextInt(1000) == 0) {
+						if (row > 10 && row < heightmap.length - 10 && col > 10) {
+							if (grassChecker) {
+								switch (random.nextInt(1) + 1) {
+								case 1: 
+									heightmap[row][col].setCave();
+									break;
+								case 2:
+									heightmap[row][col].setSpawner();
+									break;
+								}
+							}
+						}
+					}
 				}
 			}
 		}

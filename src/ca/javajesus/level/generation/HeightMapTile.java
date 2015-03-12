@@ -5,12 +5,16 @@ public class HeightMapTile {
 	private boolean checkGround;
 	private double probability;
 	private boolean house;
+	private boolean cave;
+	private boolean spawner;
 	
 	public HeightMapTile(int tile) {
 		this.tile = tile;
 		this.checkGround = false;
 		this.probability = 0;
 		this.house = false;
+		this.cave = false;
+		this.spawner = false;
 	}
 	
 	public int tile() {
@@ -29,6 +33,14 @@ public class HeightMapTile {
 		return house;
 	}
 	
+	public boolean getCave() {
+		return cave;
+	}
+	
+	public boolean getSpawner() {
+		return spawner;
+	}
+	
 	public void setTile(int tile) {
 		this.tile = tile;
 	}
@@ -43,5 +55,13 @@ public class HeightMapTile {
 	
 	public void setHouse() {
 		house = true;
+	}
+	
+	public void setCave() {
+		cave = true;
+	}
+	
+	public void setSpawner() {
+		spawner = true;
 	}
 }

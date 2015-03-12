@@ -22,6 +22,13 @@ public class TransporterCave extends Transporter {
 				Colors.fromHex("#663300"), Colors.fromHex("#472400"),
 				Colors.fromHex("#ffde00"));
 	}
+	
+	public TransporterCave(Level currentLevel, double x, double y, Level nextLevel) {
+		super(currentLevel, x, y, nextLevel);
+		this.color = Colors.get(Colors.fromHex("#474645"),
+				Colors.fromHex("#663300"), Colors.fromHex("#472400"),
+				Colors.fromHex("#ffde00"));
+	}
 
 	public void render(Screen screen) {
 		screen.render(x + 0, y + 0, 4 + 5 * 32, color, 0, 1, SpriteSheet.tiles);

@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.Random;
 
 import ca.javajesus.game.entities.SolidEntity;
+import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChurch;
@@ -59,6 +60,15 @@ public class RandomLevel2 extends Level {
 					if (rand.nextInt(4) == 0) {
 						this.addEntity(NPC.getRandomNPC(this, (col - 1) * 8, (row + 6) * 8));
 					}
+				}
+				if (heightmap[row][col].getCave()) {
+					tiles[tile] = heightmap[row][col].tile();
+					this.addEntity(new CaveEntrance(this, col * 8, row * 8, new RandomCave(level1.width,
+							level1.height, 5)));
+				}
+				if (heightmap[row][col].getSpawner()) {
+					tiles[tile] = heightmap[row][col].tile();
+					this.addEntity(new Spawner(this, col * 8, row * 8, "Demon"));
 				}
 				if (heightmap[row][col].tile() == 0) {
 					if (row > heightmap.length / 2.0 && col > heightmap[0].length / 2.0) {
