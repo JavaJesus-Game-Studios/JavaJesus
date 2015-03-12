@@ -28,6 +28,10 @@ public abstract class Quest {
 		phase++;
 	}
 	
+	public String toString() {
+		return title +" by " + giver;
+	}
+	
 	public abstract String preDialogue(); 
 	
 	public abstract String dialogue();

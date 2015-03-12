@@ -28,7 +28,7 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 	public IntroGUI(Game game) {
 
 		this.game = game;
-		this.pScreen = new PlayerSlotGUI(game.player, 2, 1, 1);
+		this.pScreen = new PlayerSlotGUI(game.player);
 		this.setFocusable(true);
 		this.setLayout(new BorderLayout(0, 0));
 		this.input = new InputHandler(this);
@@ -75,6 +75,7 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 
 		pScreen.tick();
 		nameBox.grabFocus();
+		game.player.setName(nameBox.getText());
 
 	}
 

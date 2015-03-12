@@ -2,17 +2,20 @@ package ca.javajesus.game.gui.inventory;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.awt.image.DataBufferInt;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import quests.Quest;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gui.ScreenGUI;
 
 public class InventoryGUI extends ScreenGUI {
@@ -20,16 +23,23 @@ public class InventoryGUI extends ScreenGUI {
 	private static final long serialVersionUID = 1L;
 
 	public ItemScreenGUI inventory;
-	public int id = 0;
 	JPanel mainScreen;
-	
+	private Player player;
+	private int[] pixels;
+	private Screen screen;
+	protected int[] colors = new int[6 * 6 * 6];
+
 	public InventoryGUI(Player player) {
 
+		image = new BufferedImage(250, 300, BufferedImage.TYPE_INT_RGB);
+		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+		this.player = player;
+		
 		this.setFocusable(true);
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE,
 				Game.HEIGHT * Game.SCALE));
-		
+
 		inventory = new ItemScreenGUI(player);
 		this.input = new InputHandler(this);
 
@@ -40,13 +50,28 @@ public class InventoryGUI extends ScreenGUI {
 		mainScreen.add(inventory, "Inventory");
 
 		this.add(mainScreen, BorderLayout.LINE_START);
+		init();
 
 	}
 
+	private void init() {
+		int index = 0;
+		for (int r = 0; r < 6; r++) {
+			for (int g = 0; g < 6; g++) {
+				for (int b = 0; b < 6; b++) {
+					int rr = (r * 255 / 5);
+					int gg = (g * 255 / 5);
+					int bb = (b * 255 / 5);
+
+					colors[index++] = rr << 16 | gg << 8 | bb;
+				}
+			}
+		}
+		screen = new Screen(image.getWidth(), image.getHeight());
+	}
+
 	public void tick() {
-		
-		System.out.println("X :" + InputHandler.MouseX +", Y: " + InputHandler.MouseY);
-		
+
 		if (input.i.isPressed()) {
 			input.i.toggle(false);
 			Game.displayGame();
@@ -86,9 +111,36 @@ public class InventoryGUI extends ScreenGUI {
 
 		}
 	}
-	
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(image, 0, 0, Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE, this);
+
+	public void paint(Graphics g) {
+		super.paint(g);
+		int xOffset = image.getWidth() / 2 - 75;
+		int yOffset = image.getHeight() / 2 - 50;
+
+		player.renderDisplay(screen, 16);
+
+		for (int y = 0; y < screen.height; y++) {
+			for (int x = 0; x < screen.width; x++) {
+				int colorCode = screen.pixels[x + y * screen.width];
+				if (colorCode < 255)
+					pixels[x + y * image.getWidth()] = colors[colorCode];
+			}
+
+		}
+		
+		g.drawImage(image, xOffset, yOffset, image.getWidth(), image.getHeight(), this);
+
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Verdana", 0, 30));
+		g.drawString(player.toString(), 20, 30);
+		g.drawString("Quests", 159, 497);
+		
+		int offset = 0;
+		for (Quest q: player.activeQuests) {
+			g.drawString(q.toString(), 10, 550 + offset);
+			offset += 50;
+		}
+		
+		g.drawString("Factions", 606, 497);
 	}
 }

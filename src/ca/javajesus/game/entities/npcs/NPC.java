@@ -532,6 +532,9 @@ public class NPC extends Mob {
 		}
 
 		if (currentQuest != null) {
+			if (!player.activeQuests.contains(currentQuest)) {
+				player.activeQuests.add(currentQuest);
+			}
 			currentQuest.update();
 			switch (currentQuest.getPhase()) {
 			case 0: {
@@ -550,6 +553,10 @@ public class NPC extends Mob {
 				ChatHandler.sendMessage(
 						name + ": " + currentQuest.postDialogue(), Color.CYAN);
 				sound.play(sound.chest);
+				if (!player.completedQuests.contains(currentQuest)) {
+					player.completedQuests.add(currentQuest);
+					player.activeQuests.remove(currentQuest);
+				}
 				nextQuest();
 				return;
 			}

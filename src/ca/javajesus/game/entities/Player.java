@@ -1,7 +1,10 @@
 package ca.javajesus.game.entities;
 
+import java.util.ArrayList;
+
 import javax.sound.sampled.Clip;
 
+import quests.Quest;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
@@ -44,6 +47,8 @@ public class Player extends Mob {
 	public double stamina;
 	public double startStamina;
 	public boolean isTired;
+	public ArrayList<Quest> activeQuests = new ArrayList<Quest>();
+	public ArrayList<Quest> completedQuests = new ArrayList<Quest>();
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "", x, y, 1, 14, 16, SpriteSheet.player, 100);
@@ -66,7 +71,7 @@ public class Player extends Mob {
 		}
 		return level;
 	}
-	
+
 	public void equip() {
 		gun = inventory.getGun(this);
 		sword = inventory.getSword(this);
