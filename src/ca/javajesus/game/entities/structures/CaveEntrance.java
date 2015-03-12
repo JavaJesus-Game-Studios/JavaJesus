@@ -1,5 +1,7 @@
 package ca.javajesus.game.entities.structures;
 
+import java.awt.Point;
+
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -13,6 +15,11 @@ public class CaveEntrance extends SolidEntity {
 	public CaveEntrance(Level level, double x, double y) {
 		super(level, x, y, 40, 36);
 		level.addEntity(new TransporterCave(level, x + 18, y + 20));
+	}
+	
+	public CaveEntrance(Level level, double x, double y, Point spawn) {
+		super(level, x, y, 40, 36);
+		level.addEntity(new TransporterCave(level, x + 18, y + 20, spawn));
 	}
 	
 	public void render(Screen screen) {

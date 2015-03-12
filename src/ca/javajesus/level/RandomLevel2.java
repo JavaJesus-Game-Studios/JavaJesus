@@ -11,6 +11,7 @@ import ca.javajesus.game.entities.structures.CaveEntrance;
 import ca.javajesus.game.entities.structures.Hut;
 import ca.javajesus.game.entities.structures.NiceHouse;
 import ca.javajesus.game.entities.structures.PoorHouse;
+import ca.javajesus.game.entities.structures.TransporterCave;
 import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 import ca.javajesus.level.generation.HeightMap;
 import ca.javajesus.level.generation.HeightMapTile;
@@ -19,6 +20,7 @@ import ca.javajesus.level.tile.Tile;
 public class RandomLevel2 extends Level {
 	
 	Random rand = new Random();
+	Point spawn;
 
 	private HeightMapTile[][] heightmap;
 
@@ -35,6 +37,12 @@ public class RandomLevel2 extends Level {
 		super(width, height, false);
 	}
 
+	public RandomLevel2(int width, int height, Point spawn) {
+		super(width, height, false);
+		this.spawn = spawn;
+	}
+
+	
 	protected void generateLevel() {
 		heightmap = new HeightMap(width, height, true, false)
 				.generateHeightMap(20);
@@ -56,6 +64,10 @@ public class RandomLevel2 extends Level {
 					if (row > heightmap.length / 2.0 && col > heightmap[0].length / 2.0) {
 						while (spawnFound) {
 							spawnPoint = new Point(col * 8, row * 8);
+							if (spawn != null)
+								this.addEntity(new CaveEntrance(this, col * 8 - 18, row * 8 - 28, spawn));
+							else
+								this.addEntity(new CaveEntrance(this, col * 8 - 18, row * 8 - 28));
 							spawnFound = false;
 						}
 					}
