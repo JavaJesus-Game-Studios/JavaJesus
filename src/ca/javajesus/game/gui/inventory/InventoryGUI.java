@@ -72,8 +72,9 @@ public class InventoryGUI extends ScreenGUI {
 
 	public void tick() {
 
-		if (input.i.isPressed()) {
+		if (input.i.isPressed() || input.esc.isPressed()) {
 			input.i.toggle(false);
+			input.esc.toggle(false);
 			Game.displayGame();
 		}
 		// Quests
