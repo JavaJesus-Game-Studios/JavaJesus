@@ -20,11 +20,11 @@ import javax.swing.JPanel;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gui.InventoryGUI;
 import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.game.gui.PauseGUI;
 import ca.javajesus.game.gui.ScreenGUI;
 import ca.javajesus.game.gui.intro.IntroGUI;
+import ca.javajesus.game.gui.inventory.InventoryGUI;
 import ca.javajesus.level.Level;
 
 public class Game extends Canvas implements Runnable {

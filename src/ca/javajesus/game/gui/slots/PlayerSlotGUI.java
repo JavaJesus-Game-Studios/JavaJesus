@@ -23,10 +23,10 @@ public class PlayerSlotGUI extends Slot {
 	protected int[] colors = new int[6 * 6 * 6];
 
 	public PlayerSlotGUI(Player player, int num, double scale, double yScale) {
-		super("/GUI/GUI_Inventory/GUI_PLAYER.png");
+		super("/GUI/GUI_Inventory/GUI_Panel.png");
 		this.id = num;
-		width = (int) (image.getWidth() * scale * xScale) - 60;
-		height = (int) (image.getHeight() * scale * yScale) - 130;
+		width = (int) (image.getWidth()) - 60;
+		height = (int) (image.getHeight());
 		if (id == 0) {
 			height -= 200;
 		}
@@ -59,30 +59,26 @@ public class PlayerSlotGUI extends Slot {
 
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		int scaleOffset = 0;
 		int xOffset = 0;
 		int yOffset = 0;
 		switch (id) {
 		case 0: {
-			scaleOffset = (int) (scale * 34);
 			xOffset = (int) (image.getWidth() / 4.0) - 100;
 			yOffset = (int) (image.getHeight() / 4.0);
 			break;
 		}
 		case 1: {
-			scaleOffset = (int) (scale * 24);
 			xOffset = (int) (image.getWidth() / 4.0) - 85;
 			yOffset = (int) (image.getHeight() / 4.0) - 110;
 			break;
 		}
 		case 2: {
-			scaleOffset = (int) (scale * 34);
 			xOffset = (int) (image.getWidth() / 4.0) - 100;
 			yOffset = (int) (image.getHeight() / 4.0) - 50;
 			break;
 		}
 		}
-		player.renderDisplay(screen, scaleOffset);
+		player.renderDisplay(screen, 5);
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {
 				int colorCode = screen.pixels[x + y * screen.width];
@@ -91,8 +87,8 @@ public class PlayerSlotGUI extends Slot {
 			}
 
 		}
-		g.drawImage(image, 0, 0, (int) (image.getWidth() * scale * xScale),
-				(int) (image.getHeight() * scale * yScale), this);
+		g.drawImage(image, 0, 0, (int) (image.getWidth()),
+				(int) (image.getHeight()), this);
 		g.drawImage(image2, xOffset, yOffset, width, height, null);
 	}
 

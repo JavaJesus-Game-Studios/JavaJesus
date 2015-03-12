@@ -1,18 +1,19 @@
-package ca.javajesus.game.gui;
+package ca.javajesus.game.gui.inventory;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.gui.slots.FactionsSlotGUI;
-import ca.javajesus.game.gui.slots.PlayerSlotGUI;
-import ca.javajesus.game.gui.slots.QuestSlotGUI;
+import ca.javajesus.game.gui.ScreenGUI;
 
 public class InventoryGUI extends ScreenGUI {
 
@@ -20,40 +21,20 @@ public class InventoryGUI extends ScreenGUI {
 
 	public ItemScreenGUI inventory;
 	public int id = 0;
-	private JPanel activeScreen;
-	JPanel panel = new JPanel(new BorderLayout(0, 0));
-	JPanel slots = new JPanel(new GridLayout(2, 0));
 	JPanel mainScreen;
-
+	
 	public InventoryGUI(Player player) {
-
-		inventory = new ItemScreenGUI(player);
-		this.input = new InputHandler(this);
-
-		JPanel p1 = new FactionsSlotGUI();
-		JPanel p2 = new QuestSlotGUI();
-		JPanel p3 = new MapGUI();
-
-		this.activeScreen = new PlayerSlotGUI(player, 0, 0.75, 1.3);
-		((PlayerSlotGUI) activeScreen).setScale(0.75);
-		((PlayerSlotGUI) activeScreen).setYScale(1.3);
 
 		this.setFocusable(true);
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE,
 				Game.HEIGHT * Game.SCALE));
-
-		slots.add(p3);
-		JPanel bottom = new JPanel(new BorderLayout());
-		bottom.add(p2, BorderLayout.LINE_START);
-		bottom.add(p1, BorderLayout.CENTER);
-		slots.add(bottom);
-
-		panel.add(activeScreen, BorderLayout.LINE_START);
-		panel.add(slots, BorderLayout.CENTER);
+		
+		inventory = new ItemScreenGUI(player);
+		this.input = new InputHandler(this);
 
 		mainScreen = new JPanel(new CardLayout());
-		mainScreen.add(panel, "Main");
+		mainScreen.add(new MainScreenGUI(), "Main");
 		mainScreen.add(new QuestScreenGUI(), "Quests");
 		mainScreen.add(new FactionScreenGUI(), "Factions");
 		mainScreen.add(inventory, "Inventory");
@@ -63,13 +44,16 @@ public class InventoryGUI extends ScreenGUI {
 	}
 
 	public void tick() {
+		
+		System.out.println("X :" + InputHandler.MouseX +", Y: " + InputHandler.MouseY);
+		
 		if (input.i.isPressed()) {
 			input.i.toggle(false);
 			Game.displayGame();
 		}
 		// Quests
-		if (InputHandler.MouseX > 487 && InputHandler.MouseX < 688
-				&& InputHandler.MouseY > 424 && InputHandler.MouseY < 723) {
+		if (InputHandler.MouseX > 4 && InputHandler.MouseX < 445
+				&& InputHandler.MouseY > 504 && InputHandler.MouseY < 740) {
 			if (InputHandler.MouseButton == 1) {
 				InputHandler.MouseButton = 0;
 				CardLayout cl = (CardLayout) mainScreen.getLayout();
@@ -79,8 +63,8 @@ public class InventoryGUI extends ScreenGUI {
 
 		}
 		// Factions
-		if (InputHandler.MouseX > 704 && InputHandler.MouseX < 905
-				&& InputHandler.MouseY > 424 && InputHandler.MouseY < 723) {
+		if (InputHandler.MouseX > 459 && InputHandler.MouseX < 904
+				&& InputHandler.MouseY > 505 && InputHandler.MouseY < 740) {
 			if (InputHandler.MouseButton == 1) {
 				InputHandler.MouseButton = 0;
 				CardLayout cl = (CardLayout) mainScreen.getLayout();
@@ -90,9 +74,9 @@ public class InventoryGUI extends ScreenGUI {
 			}
 		}
 
-		// Player
-		if (InputHandler.MouseX > 14 && InputHandler.MouseX < 464
-				&& InputHandler.MouseY > 14 && InputHandler.MouseY < 73) {
+		// Inventory
+		if (InputHandler.MouseX > 4 && InputHandler.MouseX < 360
+				&& InputHandler.MouseY > 40 && InputHandler.MouseY < 458) {
 			if (InputHandler.MouseButton == 1) {
 				InputHandler.MouseButton = 0;
 				CardLayout cl = (CardLayout) mainScreen.getLayout();
@@ -101,5 +85,10 @@ public class InventoryGUI extends ScreenGUI {
 			}
 
 		}
+	}
+	
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(image, 0, 0, Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE, this);
 	}
 }

@@ -1,4 +1,4 @@
-package ca.javajesus.game.gui;
+package ca.javajesus.game.gui.inventory;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -7,6 +7,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JPanel;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.items.Item;
@@ -15,8 +16,8 @@ public class ItemScreenGUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Player player;
-	private int width = 475;
-	private int height = 800;
+	private final int width = (int) (Game.WIDTH * Game.SCALE + 10);
+	private final int height = (int) (Game.HEIGHT * Game.SCALE + 85);
 
 	private Screen screen;
 	protected BufferedImage image = new BufferedImage(width, height,

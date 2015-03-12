@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import ca.javajesus.game.gui.MapGUI;
+import ca.javajesus.game.gui.inventory.MapScreenGUI;
 
 public class ChatHandler {
 

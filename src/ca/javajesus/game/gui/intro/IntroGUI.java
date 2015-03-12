@@ -29,7 +29,6 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 
 		this.game = game;
 		this.pScreen = new PlayerSlotGUI(game.player, 2, 1, 1);
-		pScreen.setScale(1);
 		this.setFocusable(true);
 		this.setLayout(new BorderLayout(0, 0));
 		this.input = new InputHandler(this);
