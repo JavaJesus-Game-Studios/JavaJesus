@@ -12,11 +12,15 @@ import ca.javajesus.level.generation.CaveGeneration;
 
 public class RandomCave extends Level {
 	private int[][] caveMap;
+	private Level prevLevel;
+	private Point prevSpawn;
 
 	Random rand = new Random();
 
-	public RandomCave(int height, int width, int cycles) {
+	public RandomCave(int height, int width, int cycles, Level prevLevel, Point prevSpawn) {
 		super(width, height, false);
+		this.prevLevel = prevLevel;
+		this.prevSpawn = prevSpawn;
 
 	}
 	
@@ -55,7 +59,7 @@ public class RandomCave extends Level {
 				} else if (caveMap[row][col] == 6) {
 					tiles[tile] = 20;
 					this.addEntity(new TransporterLadder(this, col * 8, row * 8, new RandomLevel2(level1.width, level1.height, new Point(col * 8, row * 8)),
-							new Point(220, 79)));
+							prevSpawn));
 					
 				}
 			}
@@ -82,7 +86,7 @@ public class RandomCave extends Level {
 
 	@Override
 	protected void otherEntityPlacement() {
-		this.addEntity(new TransporterLadder(this, spawnPoint.getX(), spawnPoint.getY(), Level.level1,
-				new Point(220, 79)));
+		this.addEntity(new TransporterLadder(this, spawnPoint.getX(), spawnPoint.getY(), prevLevel,
+				prevSpawn));
 	}
 }

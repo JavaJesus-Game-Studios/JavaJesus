@@ -29,9 +29,7 @@ public class RandomLevel2 extends Level {
 	 * @param height
 	 *            : The height of the level
 	 */
-	public RandomLevel2(int width, int height) {
-		super(width, height, false);
-	}
+	
 
 	public RandomLevel2(int width, int height, Point spawn) {
 		super(width, height, false);
@@ -58,8 +56,8 @@ public class RandomLevel2 extends Level {
 				}
 				if (heightmap[row][col].getCave()) {
 					tiles[tile] = heightmap[row][col].tile();
-					this.addEntity(new CaveEntrance(this, col * 8, row * 8, new RandomCave(level1.width,
-							level1.height, 5)));
+					this.addEntity(new CaveEntrance(this, col * 8 - 18, row * 8 - 28, new RandomCave(level1.width,
+							level1.height, 5, this, new Point(col * 8, row * 8))));
 				}
 				if (heightmap[row][col].getSpawner()) {
 					tiles[tile] = heightmap[row][col].tile();

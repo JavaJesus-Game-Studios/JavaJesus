@@ -39,9 +39,9 @@ public abstract class Level {
 	public static Level level1 = new Level1();
 	public static Level roadlevel = new RoadLevel();
 	public static Level random = new RandomLevel(level1.width, level1.height);
-	public static Level random2 = new RandomLevel2(level1.width, level1.height);
+	public static Level random2 = new RandomLevel2(level1.width, level1.height, new Point(500, 500));
 	public static Level randomCave = new RandomCave(level1.width,
-			level1.height, 5);
+			level1.height, 5, level1, new Point(220, 79));
 
 	public boolean isLoaded = false;
 	private int loadType = 0;
