@@ -1,6 +1,8 @@
 package ca.javajesus.level.zombie;
 
 import java.awt.Point;
+
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChurch;
@@ -20,7 +22,7 @@ public class ZombieMap1 extends Level{
 	}
 
 	protected void initNPCPlacement() {
-		
+		this.addEntity(Player.companion);
 		
 	}
 

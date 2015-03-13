@@ -17,7 +17,6 @@ public class Policeman extends NPC {
 
 	protected Ellipse2D.Double standRange;
 	protected Mob mob;
-	protected double scaledSpeed = 0.35;
 	protected Ellipse2D.Double aggroRadius;
 	protected final int RADIUS = 32 * 8;
 	protected boolean cooldown = true;

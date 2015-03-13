@@ -317,6 +317,10 @@ public abstract class Mob extends Entity {
 	public void kill() {
 
 		isDead = true;
+		if (!(this instanceof Vehicle)) {
+			this.hitBox.setSize(0, 0);
+			this.hitBox.setLocation(0, 0);
+		}
 		level.remEntity(this);
 		level.addEntity(this, 0);
 		isHit = false;

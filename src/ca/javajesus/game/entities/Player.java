@@ -9,6 +9,8 @@ import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.monsters.Demon;
+import ca.javajesus.game.entities.npcs.Companion;
+import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.structures.Chest;
 import ca.javajesus.game.entities.vehicles.Vehicle;
@@ -50,6 +52,8 @@ public class Player extends Mob {
 	public ArrayList<Quest> activeQuests = new ArrayList<Quest>();
 	public ArrayList<Quest> completedQuests = new ArrayList<Quest>();
 
+	public static NPC companion;
+
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "", x, y, 1, 14, 16, SpriteSheet.player, 100);
 		this.input = input;
@@ -63,6 +67,10 @@ public class Player extends Mob {
 		isTired = false;
 		startStamina = 200;
 		stamina = startStamina;
+
+		companion = new Companion(level, "Companion", x + 10, y, 16, 16, 100,
+				Colors.get(-1, Colors.fromHex("#2a2a2a"),
+						Colors.fromHex("#000046"), 543), 0, 4, 8, this);
 	}
 
 	public Level getLevel() {
