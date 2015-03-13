@@ -58,6 +58,8 @@ public class Spawner extends Entity {
 		if (amount > 0) {
 			amount--;
 			this.level.addEntity(getEntity());
+		} else if (amount == -1) {
+			this.level.addEntity(getEntity());
 		}
 
 	}

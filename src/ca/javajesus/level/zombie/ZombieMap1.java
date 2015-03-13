@@ -11,27 +11,24 @@ import ca.javajesus.game.entities.vehicles.Boat;
 import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 import ca.javajesus.level.Level;
 
-public class ZombieMap1 extends Level{
+public class ZombieMap1 extends Level {
 
 	public ZombieMap1() {
 		super("/Levels/Test_Levels/zombies_test_map.png", true);
-	}
-	
-	public Point spawnPoint() {
-		return new Point(1360, 70);
+		this.spawnPoint = new Point(1360, 70);
 	}
 
 	protected void initNPCPlacement() {
 		this.addEntity(Player.companion);
-		
+
 	}
 
 	protected void initSpawnerPlacement() {
-		
+
 	}
 
 	protected void initChestPlacement() {
-		
+
 	}
 
 	protected void otherEntityPlacement() {
@@ -43,11 +40,6 @@ public class ZombieMap1 extends Level{
 		this.addEntity(new Spawner(this, 1360, 300, "Demon"));
 		this.addEntity(new Spawner(this, 1350, 100, "Health"));
 
-
-
-		
-	
-		
 	}
 
 }
