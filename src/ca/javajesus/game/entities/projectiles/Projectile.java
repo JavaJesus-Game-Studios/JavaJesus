@@ -145,8 +145,15 @@ public class Projectile extends Entity {
 
 	private void calcAngle(double x, double y) {
 		double angle = Math.atan((x - this.x) / (y - this.y));
-		this.yPoint = Math.cos(angle);
-		this.xPoint = Math.sin(angle);
+		//this.yPoint = Math.cos(angle);
+		//this.xPoint = Math.sin(angle);
+		if (y - this.y < 0) {
+			this.yPoint = -Math.cos(angle);
+			this.xPoint = -Math.sin(angle);
+		} else {
+			this.yPoint = Math.cos(angle);
+			this.xPoint = Math.sin(angle);
+		}
 	}
 
 	public void tick() {
