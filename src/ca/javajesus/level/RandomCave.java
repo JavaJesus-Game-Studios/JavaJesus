@@ -32,7 +32,7 @@ public class RandomCave extends Level {
 		ArrayList<Item> chest1 = new ArrayList<Item>();
 		chest1.add(Item.banana);
 		chest1.add(Item.revolver);
-		chest1.add(Item.smallSword);
+		chest1.add(Item.shortSword);
 		boolean spawnFound = true;
 		caveMap = new CaveGeneration(height, width, 3).generateCave();
 		for (int row = 0; row < height; row++) {
