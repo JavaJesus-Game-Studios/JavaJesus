@@ -176,12 +176,12 @@ public class ItemScreenGUI extends ScreenGUI {
 					&& InputHandler.MouseX < (266 + i * 48)
 					&& InputHandler.MouseY > 107 && InputHandler.MouseY < 155) {
 				isHovering = true;
-				hoverText = player.inventory.items.get(i).name;
+				hoverText = player.inventory.guns.get(i).name;
 				repaint();
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
 					SoundHandler.sound.play(SoundHandler.sound.click);
-					player.inventory.equip(player.inventory.items.get(i),
+					player.inventory.equip(player.inventory.guns.get(i),
 							player);
 					screen.clear();
 					init();
@@ -195,12 +195,12 @@ public class ItemScreenGUI extends ScreenGUI {
 					&& InputHandler.MouseX < (266 + i * 48)
 					&& InputHandler.MouseY > 265 && InputHandler.MouseY < 313) {
 				isHovering = true;
-				hoverText = player.inventory.items.get(i).name;
+				hoverText = player.inventory.swords.get(i).name;
 				repaint();
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
 					SoundHandler.sound.play(SoundHandler.sound.click);
-					player.inventory.equip(player.inventory.items.get(i),
+					player.inventory.equip(player.inventory.swords.get(i),
 							player);
 					screen3.clear();
 					init();
@@ -214,12 +214,12 @@ public class ItemScreenGUI extends ScreenGUI {
 					&& InputHandler.MouseX < (266 + i * 48)
 					&& InputHandler.MouseY > 423 && InputHandler.MouseY < 471) {
 				isHovering = true;
-				hoverText = player.inventory.items.get(i).name;
+				hoverText = player.inventory.usables.get(i).name;
 				repaint();
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
 					SoundHandler.sound.play(SoundHandler.sound.click);
-					player.inventory.equip(player.inventory.items.get(i),
+					player.inventory.equip(player.inventory.usables.get(i),
 							player);
 					screen4.clear();
 					init();
@@ -233,12 +233,12 @@ public class ItemScreenGUI extends ScreenGUI {
 					&& InputHandler.MouseX < (266 + i * 48)
 					&& InputHandler.MouseY > 581 && InputHandler.MouseY < 629) {
 				isHovering = true;
-				hoverText = player.inventory.items.get(i).name;
+				hoverText = player.inventory.misc.get(i).name;
 				repaint();
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
 					SoundHandler.sound.play(SoundHandler.sound.click);
-					player.inventory.equip(player.inventory.items.get(i),
+					player.inventory.equip(player.inventory.misc.get(i),
 							player);
 					screen5.clear();
 					init();
