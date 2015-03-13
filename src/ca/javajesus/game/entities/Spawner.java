@@ -76,6 +76,8 @@ public class Spawner extends Entity {
 					"Century LeSabre", x, y);
 		case "Health":
 			return currentEntity = new HealthPack(this.level, x, y);
+		case "DemonSpawner":
+            return currentEntity = new Spawner(this.level, x, y, "Demon");	
 		default:
 			return null;
 		}
