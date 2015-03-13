@@ -8,7 +8,7 @@ public class HeightMap {
 	private int height;
 	private int width;
 	private boolean checkBuildings;
-	private boolean checkCars;
+	protected boolean checkCars;
 	private ArrayList<Point> possibleVillageCenters = new ArrayList<Point>();
 	private ArrayList<Point> finalVillageCenters = new ArrayList<Point>();
 

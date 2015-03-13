@@ -7,10 +7,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
-
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.FireEntity;
@@ -18,7 +16,6 @@ import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.particles.HealthBar;
-import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.entities.projectiles.Projectile;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.JJFont;

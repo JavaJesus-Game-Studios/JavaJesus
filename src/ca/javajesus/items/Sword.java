@@ -8,7 +8,6 @@ import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
-import ca.javajesus.level.Level;
 
 public class Sword extends Item {
 
@@ -21,15 +20,18 @@ public class Sword extends Item {
 	public boolean isSwinging = false;
 	private Rectangle hitBox;
 	ArrayList<Mob> mobsHit = new ArrayList<Mob>();
+	private int swordX;
+	private int swordY;
 
-	public Sword(String name, int id, int xTile, int yTile, int color,
+	public Sword(String name, int id, int xTile, int yTile, int swordX, int swordY, int color,
 			String description, int swordType, int cooldown, int damage) {
 		super(name, id, xTile, yTile, color, description);
 		this.swordType = swordType;
 		this.COOLDOWN_TIME = cooldown;
 		this.damage = damage;
 		this.hitBox = new Rectangle(8, 8);
-
+		this.swordX = swordX;
+		this.swordY = swordY;
 	}
 
 	public void addPlayer(Player player) {
@@ -92,7 +94,8 @@ public class Sword extends Item {
 			}
 
 		}
-		int xTile = this.xTile;
+		int xTile = swordX;
+		int yTile = swordY;
 		int walkingAnimationSpeed = 4;
 		if (player.speed == 3) {
 			player.numSteps++;

@@ -3,13 +3,9 @@ package ca.javajesus.level;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.sound.sampled.Clip;
-
 import ca.javajesus.game.SoundHandler;
-import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.structures.Chest;
-import ca.javajesus.game.entities.structures.TransporterInterior;
 import ca.javajesus.game.entities.structures.TransporterLadder;
 import ca.javajesus.items.Item;
 import ca.javajesus.level.generation.CaveGeneration;

@@ -2,7 +2,6 @@ package ca.javajesus.level.zombie;
 
 import java.awt.Point;
 import ca.javajesus.game.entities.Spawner;
-import ca.javajesus.game.entities.particles.HealthPack;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.CaveEntrance;

@@ -39,6 +39,12 @@ public class Screen {
 		this.spriteSize = 8;
 
 	}
+	
+	public void clear() {
+		for (int i = 0; i < pixels.length; i++) {
+			pixels[i] = 0;
+		}
+	}
 
 	/**
 	 * Renders things onto the screen

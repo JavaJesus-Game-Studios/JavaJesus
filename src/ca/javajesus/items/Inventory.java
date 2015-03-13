@@ -9,14 +9,17 @@ import ca.javajesus.game.gfx.Colors;
 public class Inventory {
 
 	public List<Item> items = new ArrayList<Item>();
+	public List<Item> guns = new ArrayList<Item>();
+	public List<Item> swords = new ArrayList<Item>();
+	public List<Item> usables = new ArrayList<Item>();
+	public List<Item> misc = new ArrayList<Item>();
 
 	public Inventory() {
 		giveDefaultItems();
-		setOffsets();
 	}
-	
+
 	public Sword getSword(Player player) {
-		for (Item e: items) {
+		for (Item e : items) {
 			if (e instanceof Sword) {
 				((Sword) e).addPlayer(player);
 				return (Sword) e;
@@ -25,8 +28,17 @@ public class Inventory {
 		return null;
 	}
 	
+	public void equip(Item item, Player player) {
+		items.remove(item);
+		items.add(0, item);
+		if (!(item instanceof Gun || item instanceof Sword)) {
+			removeItem(item);
+		}
+		player.equip();
+	}
+
 	public Gun getGun(Player player) {
-		for (Item e: items) {
+		for (Item e : items) {
 			if (e instanceof Gun) {
 				if (e instanceof Bazooka) {
 					((Bazooka) e).addPlayer(player);
@@ -37,17 +49,9 @@ public class Inventory {
 		return null;
 	}
 
-	private void setOffsets() {
-		int offset = 0;
-		for (Item e : items) {
-			e.xOffset += offset;
-			offset += 10;
-		}
-	}
-
 	private void giveDefaultItems() {
-		items.add(Item.apple);
-		
+		addItem(Item.apple);
+
 	}
 
 	public void addItem(Item item) {
@@ -58,10 +62,33 @@ public class Inventory {
 				return;
 			}
 		}
+		if (item instanceof Gun) {
+			guns.add(item);
+		} else if (item instanceof Sword) {
+			swords.add(item);
+		} else {
+			usables.add(item);
+		}
 		items.add(item);
 	}
 
 	public void removeItem(Item item) {
+		int num = item.id;
+		for (Item e : items) {
+			if (e.id == num) {
+				if (item.amount > 1) {
+					item.amount--;
+					return;
+				}
+			}
+		}
+		if (item instanceof Gun) {
+			guns.remove(item);
+		} else if (item instanceof Sword) {
+			swords.remove(item);
+		} else {
+			usables.remove(item);
+		}
 		items.remove(item);
 	}
 

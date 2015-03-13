@@ -72,13 +72,13 @@ public class Gun extends Item {
 	}
 
 	public void render(Screen screen) {
-		screen.render(xOffset, yOffset, xTile + yTile * 32, color, 0, 1,
+		screen.render(0, 0, xTile + yTile * 32, color, 0, 1,
 				SpriteSheet.items);
-		screen.render(xOffset, yOffset, xTile + 1 + yTile * 32, color, 0, 1,
+		screen.render(0, 0, xTile + 1 + yTile * 32, color, 0, 1,
 				SpriteSheet.items);
-		screen.render(xOffset, yOffset, xTile + (yTile + 1) * 32, color, 0, 1,
+		screen.render(0, 0, xTile + (yTile + 1) * 32, color, 0, 1,
 				SpriteSheet.items);
-		screen.render(xOffset, yOffset, xTile + 1 + (yTile + 1) * 32, color, 0,
+		screen.render(0, 0, xTile + 1 + (yTile + 1) * 32, color, 0,
 				1, SpriteSheet.items);
 	}
 

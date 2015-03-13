@@ -3,11 +3,8 @@ package ca.javajesus.game.gui.slots;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import ca.javajesus.game.gui.ScreenGUI;
-import ca.javajesus.game.gui.inventory.MapScreenGUI;
 
 public class Slot extends ScreenGUI {
 

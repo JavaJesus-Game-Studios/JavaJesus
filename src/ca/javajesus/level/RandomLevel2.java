@@ -2,18 +2,13 @@ package ca.javajesus.level;
 
 import java.awt.Point;
 import java.util.Random;
-
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.npcs.NPC;
-import ca.javajesus.game.entities.structures.CastleTower;
-import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.CaveEntrance;
 import ca.javajesus.game.entities.structures.Hut;
 import ca.javajesus.game.entities.structures.NiceHouse;
 import ca.javajesus.game.entities.structures.PoorHouse;
-import ca.javajesus.game.entities.structures.TransporterCave;
-import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 import ca.javajesus.level.generation.HeightMap;
 import ca.javajesus.level.generation.HeightMapTile;
 import ca.javajesus.level.tile.Tile;

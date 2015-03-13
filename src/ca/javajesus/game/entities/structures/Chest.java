@@ -55,19 +55,19 @@ public class Chest extends SolidEntity {
 					Colors.fromHex("#FF0000")), "Standard Firearm", 0, 0, 6,
 					10, 20, 50);
 		case 1:
-			return new Gun("Laser Revolver", 4, 2, 0, Colors.get(-1, 500, 500,
+			return new Gun("Laser Revolver", 4, 0, 1, Colors.get(-1, 500, 500,
 					Colors.fromHex("#FF0000")), "Standard Firearm", 1, 0, 10,
 					10, 20, 2);
 		case 2:
-			return new Gun("Shotgun", 5, 4, 0, Colors.get(-1, 500, 500,
+			return new Gun("Shotgun", 5, 0, 2, Colors.get(-1, 500, 500,
 					Colors.fromHex("#FF0000")), "Standard Firearm", 2, 4, 5,
 					10, 20, 2);
 		case 3:
-			return new Gun("Assault Rifle", 6, 6, 0, Colors.get(-1, 500, 500,
+			return new Gun("Assault Rifle", 6, 0, 3, Colors.get(-1, 500, 500,
 					Colors.fromHex("#FF0000")), "Standard Firearm", 3, 8, 60,
 					1, 6, 100);
 		case 4:
-			return new Gun("Crossbow", 7, 8, 0, Colors.get(-1, 500, 500,
+			return new Gun("Crossbow", 7, 0, 4, Colors.get(-1, 500, 500,
 					Colors.fromHex("#FF0000")), "Standard Firearm", 4, 12, 8,
 					10, 20, 2);
 		default:
@@ -76,7 +76,7 @@ public class Chest extends SolidEntity {
 	}
 
 	private Sword getRandomSword() {
-		return new Sword("Small Sword", 8, 0, 3, Colors.get(-1,
+		return new Sword("Small Sword", 9, 0, 1, 0, 3, Colors.get(-1,
 				Colors.fromHex("#f2f3f9"), -1, Colors.fromHex("#d6d7dc")),
 				"This is a sword", 0, 30, 5);
 	}
@@ -84,17 +84,17 @@ public class Chest extends SolidEntity {
 	private Item getRandomItem() {
 		switch (random.nextInt(4)) {
 		case 0:
-			return new Item("Apple", 0, 0, 0, Colors.get(-1, 200, 200,
+			return new Item("Apple", 0, 0, 5, Colors.get(-1, 200, 200,
 					Colors.fromHex("#FF0000")), "This is a red fruit!");
 		case 1:
-			return new Item("Banana", 1, 1, 0, Colors.get(-1, 300, 300,
+			return new Item("Banana", 1, 0, 5, Colors.get(-1, 300, 300,
 					Colors.fromHex("#FF0000")), "Monkey like.");
 		case 2:
-			return new Item("Orange", 2, 2, 0, Colors.get(-1, 400, 400,
+			return new Item("Orange", 2, 0, 5, Colors.get(-1, 400, 400,
 					Colors.fromHex("#FF0000")),
 					"Orange you glad I said banana.");
 		default:
-			return new Item("Feather", 3, 3, 0, Colors.get(-1, 500, 500,
+			return new Item("Feather", 3, 0, 5, Colors.get(-1, 500, 500,
 					Colors.fromHex("#FF0000")), "So light.");
 		}
 	}
