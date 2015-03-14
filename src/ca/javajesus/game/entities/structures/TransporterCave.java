@@ -6,24 +6,30 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.RandomCave;
 
 public class TransporterCave extends Transporter {
 
 	public TransporterCave(Level currentLevel, double x, double y) {
-		super(currentLevel, x, y, Level.randomCave);
+		super(currentLevel, x, y, new RandomCave(Level.level1.width,
+				Level.level1.height, 5, currentLevel, new Point((int) x + 1,
+						(int) y + 10)));
 		this.color = Colors.get(Colors.fromHex("#474645"),
 				Colors.fromHex("#663300"), Colors.fromHex("#472400"),
 				Colors.fromHex("#ffde00"));
 	}
 
 	public TransporterCave(Level currentLevel, double x, double y, Point point) {
-		super(currentLevel, x, y, Level.randomCave, point);
+		super(currentLevel, x, y, new RandomCave(Level.level1.width,
+				Level.level1.height, 5, currentLevel, new Point((int) x + 1,
+						(int) y + 10)), point);
 		this.color = Colors.get(Colors.fromHex("#474645"),
 				Colors.fromHex("#663300"), Colors.fromHex("#472400"),
 				Colors.fromHex("#ffde00"));
 	}
-	
-	public TransporterCave(Level currentLevel, double x, double y, Level nextLevel) {
+
+	public TransporterCave(Level currentLevel, double x, double y,
+			Level nextLevel) {
 		super(currentLevel, x, y, nextLevel);
 		this.color = Colors.get(Colors.fromHex("#474645"),
 				Colors.fromHex("#663300"), Colors.fromHex("#472400"),

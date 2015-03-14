@@ -46,14 +46,20 @@ public class ZombieMap1 extends Level {
 		this.addEntity(new CaveEntrance(this, 700, 810));
 		this.addEntity(new Spawner(this, 1360, 300, "Demon"));
 		this.addEntity(new Spawner(this, 1180, 160, "Demon"));
+		this.addEntity(new Spawner(this, 130, 34, "Demon"));
+		this.addEntity(new Spawner(this, 88, 644, "Demon"));
+		this.addEntity(new Spawner(this, 96, 1477, "Demon"));
+		this.addEntity(new Spawner(this, 840, 1155, "Demon"));
+		this.addEntity(new Spawner(this, 1475, 1433, "Demon"));
+		this.addEntity(new Spawner(this, 1097, 890, "Demon"));
 		this.addEntity(new Spawner(this, 1350, 100, "Health"));
 		ArrayList<Item> chest2 = new ArrayList<Item>();
 		chest2.add(Item.assaultRifle);
 		ArrayList<Item> chest3 = new ArrayList<Item>();
-		chest3.add(Item.bazooka);
+		chest3.add(Item.shortSword);
 		this.addEntity(new Hut(this, 259, 300,
 				new Chest(this, 272, 232, chest3), new Spawner(this, 252, 252,
-						"Gang")));
+						"Demon")));
 		this.addEntity(new Hut(this, 473, 300, NPC.Jesus));
 		this.addEntity(new Hut(this, 687, 300));
 		this.addEntity(new Hut(this, 900, 300, NPC.npc4));
