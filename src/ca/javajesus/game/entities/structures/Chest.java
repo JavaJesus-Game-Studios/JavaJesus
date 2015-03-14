@@ -66,7 +66,21 @@ public class Chest extends SolidEntity {
 	}
 
 	private Sword getRandomSword() {
-		return (Sword) Item.shortSword;
+		switch (random.nextInt(5)) {
+		case 0:
+			return (Sword) Item.longSword;
+
+		case 1:
+			return (Sword) Item.claymore;
+		case 2:
+			return (Sword) Item.sabre;
+		case 3:
+			return (Sword) Item.heavenlyShortSword;
+		case 4:
+			return (Sword) Item.heavenlySword;
+		default:
+			return (Sword) Item.shortSword;
+		}
 	}
 
 	private Item getRandomItem() {
@@ -79,6 +93,7 @@ public class Chest extends SolidEntity {
 			return Item.orange;
 		default:
 			return Item.feather;
+
 		}
 	}
 
