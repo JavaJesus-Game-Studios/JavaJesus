@@ -15,7 +15,6 @@ import ca.javajesus.level.tile.Tile;
 
 public class RandomLevel2 extends Level {
 	
-	Random rand = new Random();
 	Point spawn;
 
 	private HeightMapTile[][] heightmap;
@@ -35,9 +34,15 @@ public class RandomLevel2 extends Level {
 		super(width, height, false);
 		this.spawn = spawn;
 	}
+	
+	public RandomLevel2(int width, int height, Point spawn, boolean load) {
+		super(width, height, load);
+		this.spawn = spawn;
+	}
 
 	
 	protected void generateLevel() {
+		Random rand = new Random();
 		heightmap = new HeightMap(width, height, true, false)
 				.generateHeightMap(20);
 		boolean spawnFound = true;

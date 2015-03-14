@@ -101,6 +101,49 @@ public abstract class Mob extends Entity {
 	public double getStartHealth() {
 		return startHealth;
 	}
+	
+	public void move(int xa, int ya, boolean jesus) {
+		if (xa != 0 && ya != 0) {
+			move(xa, 0, true);
+			move(0, ya, true);
+			numSteps--;
+			return;
+		}
+		numSteps++;
+		int xValue = 0;
+		int yValue = 0;
+		if (speed % 1 == 0) {
+			xValue = (int) (xa * speed);
+			yValue = (int) (ya * speed);
+		} else {
+			if (xa * speed < 0) {
+				xValue = (int) (xa * speed - 1);
+			}
+			if (ya * speed < 0) {
+				yValue = (int) (ya * speed - 1);
+			}
+			if (xa * speed > 0) {
+				xValue = (int) (xa * speed + 1);
+			}
+			if (ya * speed > 0) {
+				yValue = (int) (ya * speed + 1);
+			}
+		}
+		if (jesus) {
+
+			if (ya < 0)
+				movingDir = 0;
+			if (ya > 0)
+				movingDir = 1;
+			if (xa < 0)
+				movingDir = 2;
+			if (xa > 0)
+				movingDir = 3;
+
+			x += xa * speed;
+			y += ya * speed;
+		}
+	}
 
 	public void move(int xa, int ya) {
 		if (xa != 0 && ya != 0) {
@@ -320,6 +363,8 @@ public abstract class Mob extends Entity {
 		if (!(this instanceof Vehicle)) {
 			this.hitBox.setSize(0, 0);
 			this.hitBox.setLocation(0, 0);
+			this.standBox.setSize(0,0);
+			this.standBox.setLocation(0, 0);
 		}
 		level.remEntity(this);
 		level.addEntity(this, 0);

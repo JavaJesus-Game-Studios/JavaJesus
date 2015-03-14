@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.Spawner;
+import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.CaveEntrance;
@@ -38,7 +39,7 @@ public class ZombieMap1 extends Level {
 	}
 
 	protected void otherEntityPlacement() {
-	    this.addEntity(new CenturyLeSabre(this, null, 1400, 70));
+		this.addEntity(new CenturyLeSabre(this, null, 1400, 70));
 		this.addEntity(new Boat(this, null, 270, 858, 2, 100));
 		this.addEntity(new CastleTower(this, 175, 1180));
 		this.addEntity(new CatholicChurch(this, 1330, 1480));
@@ -46,15 +47,18 @@ public class ZombieMap1 extends Level {
 		this.addEntity(new Spawner(this, 1360, 300, "Demon"));
 		this.addEntity(new Spawner(this, 1180, 160, "Demon"));
 		this.addEntity(new Spawner(this, 1350, 100, "Health"));
-		this.addEntity(new Hut(this, 45, 300));
-		this.addEntity(new Hut(this, 259, 300));
-		this.addEntity(new Hut(this, 473, 300));
+		ArrayList<Item> chest2 = new ArrayList<Item>();
+		chest2.add(Item.assaultRifle);
+		ArrayList<Item> chest3 = new ArrayList<Item>();
+		chest3.add(Item.bazooka);
+		this.addEntity(new Hut(this, 259, 300,
+				new Chest(this, 272, 232, chest3), new Spawner(this, 252, 252,
+						"Gang")));
+		this.addEntity(new Hut(this, 473, 300, NPC.Jesus));
 		this.addEntity(new Hut(this, 687, 300));
-		this.addEntity(new Hut(this, 900, 300));
+		this.addEntity(new Hut(this, 900, 300, NPC.npc4));
 		ArrayList<Item> chest1 = new ArrayList<Item>();
-		chest1.add(new Gun("Revolver", 4, 0, 0, Colors.get(-1, 500, 500,
-                    Colors.fromHex("#FF0000")), "Standard Firearm", 0, 0, 6,
-                    10, 20, 50));
+		chest1.add(Item.revolver);
 		this.addEntity(new Chest(this, 1460, 70, chest1));
 	}
 

@@ -6,12 +6,15 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
+import ca.javajesus.game.ZombieEndurance;
 import ca.javajesus.game.ZombieSurvival;
 
 public class Launcher extends JFrame implements Runnable {
@@ -114,6 +117,7 @@ public class Launcher extends JFrame implements Runnable {
 
 			case 0: {
 				/** Story Button */
+				/*
 				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
 						&& InputHandler.MouseY > 450
 						&& InputHandler.MouseY < 450 + 30) {
@@ -134,7 +138,7 @@ public class Launcher extends JFrame implements Runnable {
 					g.drawImage(ImageIO.read(Launcher.class
 							.getResource("/GUI/Buttons/story_off.png")), 365, 450,
 							100, 30, null);
-				}
+				}*/
 
 				/** Sandbox Button */
 				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
@@ -510,7 +514,7 @@ public class Launcher extends JFrame implements Runnable {
 			running = false;
 			dispose();
 			sound.background1.stop();
-			new ZombieSurvival().start();
+			new ZombieEndurance().start();
 			this.stopMenu();
 			return;
 		}

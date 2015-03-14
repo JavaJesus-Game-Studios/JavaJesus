@@ -53,6 +53,7 @@ public class Player extends Mob {
 	public ArrayList<Quest> completedQuests = new ArrayList<Quest>();
 
 	public static NPC companion;
+	public boolean jesusMode = false;
 
 	public Player(Level level, double x, double y, InputHandler input) {
 		super(level, "", x, y, 1, 14, 16, SpriteSheet.player, 100);
@@ -115,6 +116,11 @@ public class Player extends Mob {
 
 		int xa = 0;
 		int ya = 0;
+		if (input.j.isPressed()) {
+			jesusMode = !jesusMode;
+			isSwimming = false;
+			input.j.toggle(false);
+		}
 		if (input.t.isPressed()) {
 			if (!genericCooldown) {
 				level.addEntity(new Demon(level, "Demon", (int) this.x,
@@ -147,25 +153,25 @@ public class Player extends Mob {
 		}
 		if (input.w.isPressed()) {
 			ya--;
-			if (isSolidEntityCollision(0, ya)) {
+			if (!jesusMode && isSolidEntityCollision(0, ya)) {
 				ya++;
 			}
 		}
 		if (input.s.isPressed()) {
 			ya++;
-			if (isSolidEntityCollision(0, ya)) {
+			if (!jesusMode && isSolidEntityCollision(0, ya)) {
 				ya--;
 			}
 		}
 		if (input.a.isPressed()) {
 			xa--;
-			if (isSolidEntityCollision(xa, 0)) {
+			if (!jesusMode && isSolidEntityCollision(xa, 0)) {
 				xa++;
 			}
 		}
 		if (input.d.isPressed()) {
 			xa++;
-			if (isSolidEntityCollision(xa, 0)) {
+			if (!jesusMode && isSolidEntityCollision(xa, 0)) {
 				xa--;
 			}
 		}
@@ -221,7 +227,8 @@ public class Player extends Mob {
 						((Chest) entity).open(this);
 					}
 					if (entity instanceof Mob && !(entity instanceof Player)) {
-						if (this.standBox.intersects(((Mob) entity).standBox)) {
+						if (this.standBox.intersects(((Mob) entity).standBox)
+								&& !((Mob) entity).isDead) {
 							((Mob) entity).speak(this);
 							input.e.toggle(false);
 						}
@@ -253,7 +260,10 @@ public class Player extends Mob {
 			isTired = false;
 		}
 
-		if ((xa != 0 || ya != 0)
+		if (jesusMode) {
+			move(xa, ya, true);
+			isMoving = true;
+		} else if ((xa != 0 || ya != 0)
 				&& !isSolidEntityCollision((int) (xa * speed),
 						(int) (ya * speed)) && !isDriving && speed > 1
 				&& !isSwinging) {
@@ -285,7 +295,8 @@ public class Player extends Mob {
 		int xx = (int) x;
 		int yy = (int) y;
 		if (level.getTile(xx >> 3, yy >> 3).getId() == 3) {
-			isSwimming = true;
+			if (!jesusMode)
+				isSwimming = true;
 		}
 		if (isSwimming && level.getTile(xx >> 3, yy >> 3).getId() != 3) {
 			isSwimming = false;
@@ -441,7 +452,7 @@ public class Player extends Mob {
 				yTile = 6;
 			}
 			if (defense > 2) {
-				yTile += 12;
+				// yTile += 12;
 			}
 
 			if (shootingDir == 1) {
@@ -452,11 +463,12 @@ public class Player extends Mob {
 					flipTop = 0;
 					flipBottom = 0;
 				}
-			}
-			if (shootingDir == 0) {
+			} else if (shootingDir == 0) {
 				if (!(gun instanceof Bazooka)) {
-					yTile += 2;
-					xTile += 16;
+					yTile = 4;
+					xTile = 22;
+					flipTop = 0;
+					flipBottom = 0;
 				} else {
 					xTile += 15;
 					flipTop = 0;

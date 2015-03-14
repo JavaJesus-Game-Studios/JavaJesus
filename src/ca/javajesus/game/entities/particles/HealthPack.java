@@ -28,7 +28,7 @@ public class HealthPack extends Particle {
 		for (Mob mob : level.getMobs()) {
 
 			if (BOX.intersects(mob.hitBox)) {
-				mob.addHealth(mob.getStartHealth());
+				mob.health = mob.getStartHealth();
 				if (mob instanceof Player) {
 					screen.getGame().updateLevel();
 				}

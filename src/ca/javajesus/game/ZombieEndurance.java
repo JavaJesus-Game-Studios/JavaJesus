@@ -3,23 +3,23 @@ package ca.javajesus.game;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferStrategy;
 
-import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.zombie.ZombieMap1;
+import ca.javajesus.level.RandomLevel2;
 
-public class ZombieSurvival extends Game {
-
+public class ZombieEndurance extends Game {
+	
 	private static final long serialVersionUID = 1L;
 
-	public ZombieSurvival() {
+	public ZombieEndurance() {
 		super();
 	}
 	
 	protected Level getLevel() {
 		if (player == null) {
-			return new ZombieMap1();
+			return new RandomLevel2(Level.level1.width,Level.level1.height, new Point(1000, 1000), true);
 		}
 		return player.getLevel();
 
