@@ -26,8 +26,8 @@ public class Launcher extends JFrame implements Runnable {
 	private final int DELAY = 1000 / FRAMES_PER_SECOND;
 	public boolean running = false;
 
-	private final String VERSION = "Alpha 0.1.3";
-	private final String LAST_UPDATED = "Last Updated 2/1/2014";
+	private final String VERSION = "Beta 0.1.1";
+	private final String LAST_UPDATED = "Last Updated 3/13/2015";
 
 	private int swordOffset;
 	private boolean nextScreen = false;
