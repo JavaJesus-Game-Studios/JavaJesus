@@ -4,46 +4,41 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class DestructibleTile extends Entity {
 
-	public double health;
-	public double startHealth;
-	public Rectangle hitBox;
-	public boolean hasDied;
+	private int health;
+	private Rectangle hitBox;
 	protected int healthTickCount = 0;
-	public final Rectangle bounds;
 	protected int color;
+	private int tileNumber;
 
 	private Random random = new Random();
 
-	public DestructibleTile(Level level, double x, double y, int width,
-			int height, double defaultHealth) {
+	public DestructibleTile(Level level, int x, int y, int defaultHealth) {
 		super(level);
 		this.isSolid = true;
 		this.x = x;
 		this.y = y;
-		this.bounds = new Rectangle(width, (height / 2) - 8);
-		this.bounds.setLocation((int) x, (int) y);
+		this.hitBox = new Rectangle(8, 8);
+		this.hitBox.setLocation(x, y);
 		this.health = defaultHealth;
-		this.startHealth = defaultHealth;
-		this.hitBox = new Rectangle(width, height);
 
 	}
 
 	public void tick() {
-
+		
 	}
 
 	public void render(Screen screen) {
-
+		screen.render(x, y, tileNumber, color, 0, 1, SpriteSheet.tiles);
 	}
 
 	/** Triggers the death animation and closure */
 	public void kill() {
 
-		hasDied = true;
 		level.remEntity(this);
 	}
 
@@ -51,6 +46,9 @@ public class DestructibleTile extends Entity {
 		int damage = random.nextInt(b - a + 1) + a;
 		if (damage > 0)
 			this.health -= damage;
+		if (health <= 0) {
+			kill();
+		}
 	}
 
 }

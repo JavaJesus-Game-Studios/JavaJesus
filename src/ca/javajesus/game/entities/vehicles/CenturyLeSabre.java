@@ -10,10 +10,10 @@ import ca.javajesus.level.Level;
 
 public class CenturyLeSabre extends Vehicle {
 
-	public CenturyLeSabre(Level level, String name, double x, double y) {
+	public CenturyLeSabre(Level level, String name, int x, int y) {
 		super(level, name, x, y, 2, 24, 32, SpriteSheet.vehicles, 200);
 		getColor();
-		this.hitBox = new Rectangle(width, height);
+		this.setHitBox(new Rectangle(width, height));
 		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 16);
 		if (level != null)
 			level.addEntity(bar);
@@ -75,17 +75,17 @@ public class CenturyLeSabre extends Vehicle {
 	public void render(Screen screen) {
 		
 
-		if (movingDir == 0 || movingDir == 1) {
+		if (getDirection() == 0 || getDirection() == 1) {
 			this.width = 32;
 			this.height = 40;
-			this.hitBox.setSize(width, height);
-			this.hitBox.setLocation((int) this.x - width / 2 + 6, (int) this.y
+			this.getBounds().setSize(width, height);
+			this.getBounds().setLocation((int) this.x - width / 2 + 6, (int) this.y
 					- height / 2 + 12);
 		} else {
 			this.width = 40;
 			this.height = 32;
-			this.hitBox.setSize(width, height);
-			this.hitBox.setLocation((int) this.x - width / 2 + 10, (int) this.y
+			this.getBounds().setSize(width, height);
+			this.getBounds().setLocation((int) this.x - width / 2 + 10, (int) this.y
 					- height / 2 + 7);
 		}
 
@@ -98,11 +98,11 @@ public class CenturyLeSabre extends Vehicle {
 		double xOffset = x - modifier / 2.0;
 		double yOffset = y - modifier / 2.0 - 4;
 
-		if (movingDir == 0) {
+		if (getDirection() == 0) {
 			xTile += 14;
-		} else if (movingDir == 2) {
+		} else if (getDirection() == 2) {
 			xTile += 9;
-		} else if (movingDir == 3) {
+		} else if (getDirection() == 3) {
 			xTile += 4;
 		}
 		
@@ -184,7 +184,7 @@ public class CenturyLeSabre extends Vehicle {
 				+ 3 * modifier, (xTile + 3) + (yTile + 3) * 32, color,
 				flipBottom, scale, sheet);
 
-		if (movingDir == 0 || movingDir == 1) {
+		if (getDirection() == 0 || getDirection() == 1) {
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom), yOffset + 4
 					* modifier, xTile + (yTile + 4) * 32, color, flipBottom,

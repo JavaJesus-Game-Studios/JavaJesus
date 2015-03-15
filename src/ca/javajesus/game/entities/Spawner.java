@@ -17,7 +17,7 @@ public class Spawner extends Entity {
 	private int amount = 0;
 	private Entity currentEntity;
 
-	public Spawner(Level level, double x, double y, String type) {
+	public Spawner(Level level, int x, int y, String type) {
 		super(level);
 		this.x = x;
 		this.y = y;
@@ -25,7 +25,7 @@ public class Spawner extends Entity {
 		amount = -1;
 	}
 
-	public Spawner(Level level, double x, double y, String type, int amount) {
+	public Spawner(Level level, int x, int y, String type, int amount) {
 		super(level);
 		this.x = x;
 		this.y = y;
@@ -77,7 +77,7 @@ public class Spawner extends Entity {
 		case "Health":
 			return currentEntity = new HealthPack(this.level, x, y);
 		case "DemonSpawner":
-            return currentEntity = new Spawner(this.level, x, y, "Demon");	
+			return currentEntity = new Spawner(this.level, x, y, "Demon");
 		default:
 			return null;
 		}

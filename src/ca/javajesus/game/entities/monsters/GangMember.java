@@ -16,8 +16,8 @@ public class GangMember extends Monster {
 
 	protected Ellipse2D.Double standRange;
 
-	public GangMember(Level level, String name, double x, double y, int speed,
-			double health, int type) {
+	public GangMember(Level level, String name, int x, int y, int speed,
+			int health, int type) {
 		super(level, name, x, y, speed, 14, 16, 1, health, Colors.get(-1, 111,
 				555, 543));
 		getType(type);
@@ -77,7 +77,7 @@ public class GangMember extends Monster {
 			isShooting = false;
 			return;
 		}
-		
+
 		if (isHit) {
 			isHitTicks++;
 			if (isHitTicks > 20) {
@@ -85,7 +85,7 @@ public class GangMember extends Monster {
 				isHit = false;
 			}
 		}
-		
+
 		if (isTalking) {
 			talkCount++;
 			if (talkCount > 350) {
@@ -110,41 +110,41 @@ public class GangMember extends Monster {
 		}
 		int xa = 0;
 		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.hitBox)) {
+		if (mob != null && this.aggroRadius.intersects(mob.getBounds())) {
 			if (!cooldown) {
 				if (mob == null) {
 					return;
 				}
 				isShooting = true;
 				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7),
-						mob.x, mob.y - 4, this, 3));
+						mob.getX(), mob.getY() - 4, this, 3));
 			}
-			if (!this.standRange.intersects(mob.hitBox)) {
+			if (!this.standRange.intersects(mob.getBounds())) {
 
-				if ((int) mob.x > (int) this.x) {
+				if ((int) mob.getX() > (int) this.x) {
 					xa++;
 				}
-				if ((int) mob.x < (int) this.x) {
+				if ((int) mob.getX() < (int) this.x) {
 					xa--;
 				}
-				if ((int) mob.y > (int) this.y) {
+				if ((int) mob.getY() > (int) this.y) {
 					ya++;
 				}
-				if ((int) mob.y < (int) this.y) {
+				if ((int) mob.getY() < (int) this.y) {
 					ya--;
 				}
 			} else {
-				if (mob.isMoving) {
-					if ((int) mob.x > (int) this.x) {
+				if (mob.isMoving()) {
+					if ((int) mob.getX() > (int) this.x) {
 						xa--;
 					}
-					if ((int) mob.x < (int) this.x) {
+					if ((int) mob.getX() < (int) this.x) {
 						xa++;
 					}
-					if ((int) mob.y > (int) this.y) {
+					if ((int) mob.getY() > (int) this.y) {
 						ya--;
 					}
-					if ((int) mob.y < (int) this.y) {
+					if ((int) mob.getY() < (int) this.y) {
 						ya++;
 					}
 				}
@@ -162,21 +162,21 @@ public class GangMember extends Monster {
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
 			if (isMobCollision()) {
-				isMoving = false;
+				setMoving(false);
 				return;
 			}
 			move(xa, ya);
-			isMoving = true;
+			setMoving(true);
 		} else {
-			isMoving = false;
+			setMoving(false);
 		}
 
 	}
 
 	public void render(Screen screen) {
 
-		this.hitBox.setLocation((int) this.x - 7, (int) this.y - 16);
-		this.standBox.setLocation((int) this.x - 9, (int) this.y - 18);
+		this.getBounds().setLocation((int) this.x - 7, (int) this.y - 16);
+		this.getOuterBounds().setLocation((int) this.x - 9, (int) this.y - 18);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		this.standRange.setFrame(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2,
@@ -186,15 +186,15 @@ public class GangMember extends Monster {
 		int flipTop = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
 
-		if (movingDir == 0) {
+		if (getDirection() == 0) {
 			xTile += 10;
 		}
-		if (movingDir == 1) {
+		if (getDirection() == 1) {
 			xTile += 2;
-		} else if (movingDir > 1) {
+		} else if (getDirection() > 1) {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
-			flipTop = (movingDir - 1) % 2;
-			flipBottom = (movingDir - 1) % 2;
+			flipTop = (getDirection() - 1) % 2;
+			flipBottom = (getDirection() - 1) % 2;
 		}
 
 		int modifier = 8 * scale;
@@ -245,15 +245,15 @@ public class GangMember extends Monster {
 					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
 					flipBottom, scale, sheet);
 		}
-		
+
 		if (isTalking) {
 			JJFont.render(name, screen, (int) xOffset
-					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
-					1);
+					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10,
+					Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")), 1);
 		}
 		if (isHit) {
-			JJFont.render(damageTaken, screen, (int) xOffset + isHitX, (int) yOffset - 10 + isHitY,
-					isHitColor, 1);
+			JJFont.render(damageTaken, screen, (int) xOffset + isHitX,
+					(int) yOffset - 10 + isHitY, isHitColor, 1);
 		}
 
 	}

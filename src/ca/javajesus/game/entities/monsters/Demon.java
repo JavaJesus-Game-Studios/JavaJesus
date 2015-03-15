@@ -11,7 +11,7 @@ import ca.javajesus.level.Level;
 
 public class Demon extends Monster {
 
-	public Demon(Level level, String name, double x, double y, int speed) {
+	public Demon(Level level, String name, int x, int y, int speed) {
 		super(level, name, x, y, speed, 14, 24, 0, 150, Colors.get(-1, 111,
 				300, 550));
 		this.bar = new HealthBar(level, 32, this.x, this.y, this, 8);
@@ -92,19 +92,19 @@ public class Demon extends Monster {
 		}
 		int xa = 0;
 		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.hitBox)
-				&& !this.standBox.intersects(mob.hitBox)) {
+		if (mob != null && this.aggroRadius.intersects(mob.getBounds())
+				&& !this.getOuterBounds().intersects(mob.getBounds())) {
 
-			if ((int) mob.x > (int) this.x) {
+			if ((int) mob.getX() > (int) this.x) {
 				xa++;
 			}
-			if ((int) mob.x < (int) this.x) {
+			if ((int) mob.getX() < (int) this.x) {
 				xa--;
 			}
-			if ((int) mob.y > (int) this.y) {
+			if ((int) mob.getY() > (int) this.y) {
 				ya++;
 			}
-			if ((int) mob.y < (int) this.y) {
+			if ((int) mob.getY() < (int) this.y) {
 				ya--;
 			}
 		}
@@ -117,9 +117,9 @@ public class Demon extends Monster {
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
 			move(xa, ya);
-			isMoving = true;
+			setMoving(true);
 		} else {
-			isMoving = false;
+			setMoving(false);
 		}
 
 		if (!cooldown) {
@@ -128,15 +128,15 @@ public class Demon extends Monster {
 			}
 			isShooting = true;
 			level.addEntity(new FireBall(level, this.x + 5, (this.y - 7),
-					mob.x, mob.y, this));
+					mob.getX(), mob.getY(), this));
 		}
 
 	}
 
 	public void render(Screen screen) {
 
-		this.hitBox.setLocation((int) this.x - 7, (int) this.y - 12);
-		this.standBox.setLocation((int) this.x - 9, (int) this.y - 14);
+		this.getBounds().setLocation((int) this.x - 7, (int) this.y - 12);
+		this.getOuterBounds().setLocation((int) this.x - 9, (int) this.y - 14);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		int xTile = 0;
@@ -145,16 +145,16 @@ public class Demon extends Monster {
 		int flipMiddle = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
 
-		if (movingDir == 0) {
+		if (getDirection() == 0) {
 			xTile += 10;
 		}
-		if (movingDir == 1) {
+		if (getDirection() == 1) {
 			xTile += 2;
-		} else if (movingDir > 1) {
+		} else if (getDirection() > 1) {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
-			flipTop = (movingDir - 1) % 2;
-			flipMiddle = (movingDir - 1) % 2;
-			flipBottom = (movingDir - 1) % 2;
+			flipTop = (getDirection() - 1) % 2;
+			flipMiddle = (getDirection() - 1) % 2;
+			flipBottom = (getDirection() - 1) % 2;
 		}
 
 		int modifier = 8 * scale;
@@ -201,7 +201,7 @@ public class Demon extends Monster {
 
 			int offset = 0;
 
-			if (movingDir == 2)
+			if (getDirection() == 2)
 				offset = -16;
 
 			// Middle Body 3

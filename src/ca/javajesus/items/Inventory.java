@@ -33,10 +33,10 @@ public class Inventory {
 		items.add(0, item);
 		if (!(item instanceof Gun || item instanceof Sword)) {
 			removeItem(item);
-			player.addHealth(10);
+			player.changeHealth(10);
 			player.stamina = player.startStamina;
-			if (player.health > player.startHealth) {
-				player.health = player.startHealth;
+			if (player.getHealth() > player.getStartHealth()) {
+				player.heal();
 			}
 		}
 		player.equip();

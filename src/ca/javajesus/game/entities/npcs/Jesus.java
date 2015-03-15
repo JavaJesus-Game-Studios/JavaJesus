@@ -10,7 +10,7 @@ import ca.javajesus.level.Level;
 
 public class Jesus extends NPC {
 
-	public Jesus(Level level, double x, double y, String walkPath,
+	public Jesus(Level level, int x, int y, String walkPath,
 			int walkDistance) {
 		super(level, "Jesus", x, y, 1, 16, 16, 9000, Colors.get(-1, 111, 555,
 				Colors.fromHex("#ffd89b")), 0, 6, walkPath, walkDistance, 8);
@@ -23,8 +23,8 @@ public class Jesus extends NPC {
 	}
 
 	public void render(Screen screen) {
-		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 8);
-		this.standBox.setLocation((int) this.x - 10, (int) this.y - 10);
+		this.getBounds().setLocation((int) this.x - 8, (int) this.y - 8);
+		this.getOuterBounds().setLocation((int) this.x - 10, (int) this.y - 10);
 		int xTile = this.xTile;
 		int yTile = this.yTile;
 
@@ -33,22 +33,22 @@ public class Jesus extends NPC {
 		int flipTop = (numSteps >> walkingAnimationSpeed) & 1;
 		int flipBottom = (numSteps >> walkingAnimationSpeed) & 1;
 
-		if (movingDir == 0) {
+		if (getDirection() == 0) {
 			xTile += 10;
-			if (!isMoving) {
+			if (!isMoving()) {
 				xTile = 8;
 			}
 		}
-		if (movingDir == 1) {
+		if (getDirection() == 1) {
 			xTile += 2;
-			if (!isMoving) {
+			if (!isMoving()) {
 				xTile = 0;
 			}
-		} else if (movingDir > 1) {
+		} else if (getDirection() > 1) {
 			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
-			flipTop = (movingDir - 1) % 2;
-			flipBottom = (movingDir - 1) % 2;
-			if (!isMoving) {
+			flipTop = (getDirection() - 1) % 2;
+			flipBottom = (getDirection() - 1) % 2;
+			if (!isMoving()) {
 				xTile = 4;
 			}
 		}

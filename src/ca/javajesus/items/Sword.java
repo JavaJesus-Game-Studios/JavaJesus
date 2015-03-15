@@ -36,14 +36,14 @@ public class Sword extends Item {
 
 	public void addPlayer(Player player) {
 		this.player = player;
-		hitBox.setLocation(player.hitBox.x, player.hitBox.y);
+		hitBox.setLocation(player.getBounds().x, player.getBounds().y);
 	}
 
 	public void tick() {
 
 		if (player != null && isSwinging) {
 			for (Mob m : player.getLevel().getMobs()) {
-				if (m != player && !mobsHit.contains(m) && this.hitBox.intersects(m.hitBox)) {
+				if (m != player && !mobsHit.contains(m) && this.hitBox.intersects(m.getBounds())) {
 					m.damage(damage, damage + 2);
 					mobsHit.add(m);
 				}
@@ -75,21 +75,21 @@ public class Sword extends Item {
 		if (!isSwinging)
 			return;
 		if (player != null) {
-			switch (player.movingDir) {
+			switch (player.getDirection()) {
 			case 0:
-				hitBox.setLocation(player.hitBox.x, player.hitBox.y - 10);
+				hitBox.setLocation(player.getBounds().x, player.getBounds().y - 10);
 				break;
 			case 1:
-				hitBox.setLocation(player.hitBox.x, player.hitBox.y + 10);
+				hitBox.setLocation(player.getBounds().x, player.getBounds().y + 10);
 				break;
 			case 2:
-				hitBox.setLocation(player.hitBox.x - 10, player.hitBox.y);
+				hitBox.setLocation(player.getBounds().x - 10, player.getBounds().y);
 				break;
 			case 3:
-				hitBox.setLocation(player.hitBox.x + 10, player.hitBox.y);
+				hitBox.setLocation(player.getBounds().x + 10, player.getBounds().y);
 				break;
 			default:
-				hitBox.setLocation(player.hitBox.x, player.hitBox.y);
+				hitBox.setLocation(player.getBounds().x, player.getBounds().y);
 				break;
 			}
 
@@ -97,64 +97,64 @@ public class Sword extends Item {
 		int xTile = swordX;
 		int yTile = swordY;
 		int walkingAnimationSpeed = 4;
-		if (player.speed == 3) {
-			player.numSteps++;
+		if (player.getSpeed() == 3) {
+			player.changeSteps(1);
 		}
-		int flipTop = (player.numSteps >> walkingAnimationSpeed) & 1;
-		int flipBottom = (player.numSteps >> walkingAnimationSpeed) & 1;
-		int modifier = 8 * player.scale;
-		double xOffset = player.x - modifier / 2.0;
-		double yOffset = player.y - modifier / 2.0 - 4;
+		int flipTop = (player.getNumSteps() >> walkingAnimationSpeed) & 1;
+		int flipBottom = (player.getNumSteps() >> walkingAnimationSpeed) & 1;
+		int modifier = 8 * player.getScale();
+		double xOffset = player.getX() - modifier / 2.0;
+		double yOffset = player.getY() - modifier / 2.0 - 4;
 
-		if (player.movingDir == 0) {
+		if (player.getDirection() == 0) {
 			xTile += 2;
-		} else if (player.movingDir > 1) {
+		} else if (player.getDirection() > 1) {
 			xTile += 4;
-			flipTop = (player.movingDir - 1) % 2;
-			flipBottom = (player.movingDir - 1) % 2;
+			flipTop = (player.getDirection() - 1) % 2;
+			flipBottom = (player.getDirection() - 1) % 2;
 		}
 		// Upper Body 1
 		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
-				* 32, color, flipTop, player.scale, SpriteSheet.swords);
+				* 32, color, flipTop, player.getScale(), SpriteSheet.swords);
 		// Upper Body 2
 		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-				(xTile + 1) + yTile * 32, color, flipTop, player.scale,
+				(xTile + 1) + yTile * 32, color, flipTop, player.getScale(),
 				SpriteSheet.swords);
 
 		// Lower Body 1
 		screen.render(xOffset + (modifier * flipBottom), yOffset + modifier,
-				xTile + (yTile + 1) * 32, color, flipBottom, player.scale,
+				xTile + (yTile + 1) * 32, color, flipBottom, player.getScale(),
 				SpriteSheet.swords);
 
 		// Lower Body 2
 		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
 				+ modifier, (xTile + 1) + (yTile + 1) * 32, color, flipBottom,
-				player.scale, SpriteSheet.swords);
+				player.getScale(), SpriteSheet.swords);
 
-		if (player.movingDir < 2) {
+		if (player.getDirection() < 2) {
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom), yOffset + 2
 					* modifier, xTile + (yTile + 2) * 32, color, flipBottom,
-					player.scale, SpriteSheet.swords);
+					player.getScale(), SpriteSheet.swords);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
 					+ 2 * modifier, (xTile + 1) + (yTile + 2) * 32, color,
-					flipBottom, player.scale, SpriteSheet.swords);
+					flipBottom, player.getScale(), SpriteSheet.swords);
 		} else {
 			int num = 0;
-			if (player.movingDir == 2) {
+			if (player.getDirection() == 2) {
 				num = 16;
 			}
 			// Upper Body 2
 			screen.render(xOffset + 2 * modifier - num - (modifier * flipTop),
 					yOffset, (xTile + 2) + yTile * 32, color, flipTop,
-					player.scale, SpriteSheet.swords);
+					player.getScale(), SpriteSheet.swords);
 
 			// Lower Body 2
 			screen.render(xOffset + 2 * modifier - num
 					- (modifier * flipBottom), yOffset + modifier, (xTile + 2)
-					+ (yTile + 1) * 32, color, flipBottom, player.scale,
+					+ (yTile + 1) * 32, color, flipBottom, player.getScale(),
 					SpriteSheet.swords);
 		}
 	}

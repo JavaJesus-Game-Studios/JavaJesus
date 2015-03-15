@@ -29,7 +29,7 @@ public class Transporter extends SolidEntity {
 
 	public void tick() {
 		for (Player player : level.getPlayers()) {
-			if (this.hitBox.intersects(player.hitBox)) {
+			if (this.hitBox.intersects(player.getBounds())) {
 				player.changeLevel(nextLevel);
 			}
 		}

@@ -34,31 +34,31 @@ public class Monster extends Mob {
 	protected int shootTickCount = 0;
 	protected int yTile;
 
-	public Monster(Level level, String name, double x, double y, int speed,
-			int width, int height, int yTile, double health, int color) {
+	public Monster(Level level, String name, int x, int y, int speed,
+			int width, int height, int yTile, int health, int color) {
 		super(level, name, x, y, speed, width, height, SpriteSheet.enemies,
 				health);
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
 				RADIUS, RADIUS);
 		this.yTile = yTile;
 		checkRadius();
-		this.speed = speed * 0.35;
+		this.speed = 1;
 		this.color = color;
 	}
 
 	protected void checkRadius() {
 
-		if (mob != null && mob.isDead) {
+		if (mob != null && mob.isDead()) {
 			mob = null;
 		}
 
 		if (mob == null)
 			for (Mob mob : level.getMobs()) {
 				if (mob instanceof Player || mob instanceof NPC) {
-					if (this.aggroRadius.intersects(mob.hitBox)) {
+					if (this.aggroRadius.intersects(mob.getBounds())) {
 						// if (!mob.isTargeted) {
 						this.mob = mob;
-						mob.isTargeted = true;
+						mob.setTargeted(true);
 						return;
 						// }
 					}

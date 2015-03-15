@@ -27,8 +27,8 @@ public class Vehicle extends Mob {
 	public static Vehicle boat1 = new Boat(Level.level1, "Century LeSabre",
 			300, 500, 1, 200);
 
-	public Vehicle(Level level, String name, double x, double y, int speed,
-			int width, int height, SpriteSheet sheet, double defaultHealth) {
+	public Vehicle(Level level, String name, int x, int y, int speed,
+			int width, int height, SpriteSheet sheet, int defaultHealth) {
 		super(level, name, x, y, speed, width, height, sheet, defaultHealth);
 	}
 
@@ -48,7 +48,7 @@ public class Vehicle extends Mob {
 		int xMax = 0;
 		int yMin = 0;
 		int yMax = 0;
-		if (movingDir == 0 || movingDir == 1) {
+		if (getDirection() == 0 || getDirection() == 1) {
 			xMin = 0;
 			xMax = 31;
 			yMin = 0;
@@ -85,10 +85,10 @@ public class Vehicle extends Mob {
 	public void tick() {
 		int xa = 0;
 		int ya = 0;
-		if (isMobCollision() && this.isMoving) {
+		if (isMobCollision() && this.isMoving()) {
 			for (Mob mob : level.getMobs()) {
 				if (!(mob == this || mob instanceof Player)) {
-					if (mob.hitBox.intersects(this.hitBox))
+					if (mob.getBounds().intersects(this.getBounds()))
 						mob.damage(3, 15);
 				}
 			}
@@ -144,28 +144,28 @@ public class Vehicle extends Mob {
 			}
 			if (input.e.isPressed()) {
 				this.isUsed = false;
-				level.addEntity(player.bar);
+				level.addEntity(player.getHealthBar());
 				player.isDriving = false;
 				input.e.toggle(false);
-				player.x -= 30;
+				player.setX(player.getX() - 30);
 				remPlayer();
 			}
 
 		}
-		
+
 		if (isDead) {
 			return;
 		}
-		
+
 		xa += acceleration.x;
 		ya += acceleration.y;
 
 		if ((xa != 0 || ya != 0)
 				&& !isSolidEntityCollision(xa * (int) speed, ya * (int) speed)) {
 			move(xa, ya);
-			isMoving = true;
+			setMoving(true);
 			if (isUsed)
-				player.isMoving = true;
+				player.setMoving(true);
 		} else {
 			if (isSolidEntityCollision(xa * (int) speed, 0)) {
 				acceleration.x = 0;
@@ -173,9 +173,9 @@ public class Vehicle extends Mob {
 			if (isSolidEntityCollision(0, ya * (int) speed)) {
 				acceleration.y = 0;
 			}
-			isMoving = false;
+			setMoving(false);
 			if (isUsed)
-				player.isMoving = false;
+				player.setMoving(false);
 		}
 
 		if (tickCount % DELAY == 0 && isSlowingDown) {

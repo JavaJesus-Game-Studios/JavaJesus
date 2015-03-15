@@ -24,7 +24,7 @@ public class Policeman extends NPC {
 	protected boolean isShooting = false;
 	protected int shootTickCount = 0;
 
-	public Policeman(Level level, double x, double y, double defaultHealth,
+	public Policeman(Level level, int x, int y, int defaultHealth,
 			String walkPath, int walkDistance) {
 		super(level, "SWAT Officer", x, y, 1, 16, 16, defaultHealth, Colors
 				.get(-1, 000, Colors.fromHex("#000046"), 543), 0, 10, walkPath,
@@ -39,7 +39,7 @@ public class Policeman extends NPC {
 			//level.addEntity(bar);
 	}
 
-	public Policeman(Level level, double x, double y) {
+	public Policeman(Level level, int x, int y) {
 		super(level, "SWAT Officer", x, y, 1, 16, 16, 200, Colors.get(-1, 000,
 				Colors.fromHex("#000046"), 543), 0, 10, "", 0, 8);
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
@@ -51,7 +51,7 @@ public class Policeman extends NPC {
 
 	private void checkRadius() {
 
-		if (mob != null && mob.isDead) {
+		if (mob != null && mob.isDead()) {
 			mob = null;
 			movingToOrigin = true;
 		}
@@ -59,10 +59,10 @@ public class Policeman extends NPC {
 		if (mob == null)
 			for (Mob mob : level.getMobs()) {
 				if (mob instanceof Monster) {
-					if (this.aggroRadius.intersects(mob.hitBox)) {
+					if (this.aggroRadius.intersects(mob.getBounds())) {
 						// if (!mob.isTargeted) {
 						this.mob = mob;
-						mob.isTargeted = true;
+						mob.setTargeted(true);
 						return;
 						// }
 					}
@@ -107,33 +107,33 @@ public class Policeman extends NPC {
 		}
 		int xa = 0;
 		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.hitBox)) {
+		if (mob != null && this.aggroRadius.intersects(mob.getBounds())) {
 			if (!cooldown) {
 				isShooting = true;
 				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7),
-						mob.x, mob.y -4, this, 3));
+						mob.getX(), mob.getY() -4, this, 3));
 			}
-			if (!this.standRange.intersects(mob.hitBox) && !this.standBox.intersects(mob.hitBox)) {
+			if (!this.standRange.intersects(mob.getBounds()) && !this.getOuterBounds().intersects(mob.getBounds())) {
 
-				if ((int) mob.x > (int) this.x) {
+				if ((int) mob.getX() > (int) this.x) {
 					xa++;
 				}
-				if ((int) mob.x < (int) this.x) {
+				if ((int) mob.getX() < (int) this.x) {
 					xa--;
 				}
-				if ((int) mob.y > (int) this.y) {
+				if ((int) mob.getY() > (int) this.y) {
 					ya++;
 				}
-				if ((int) mob.y < (int) this.y) {
+				if ((int) mob.getY() < (int) this.y) {
 					ya--;
 				}
 			}
 
 			if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
 				move(xa, ya);
-				isMoving = true;
+				setMoving(true);
 			} else {
-				isMoving = false;
+				setMoving(false);
 			}
 
 		} else {
@@ -143,7 +143,7 @@ public class Policeman extends NPC {
 				for (Mob mob : level.getMobs()) {
 					if (mob == this)
 						continue;
-					if (this.standBox.intersects(mob.hitBox))
+					if (this.getOuterBounds().intersects(mob.getBounds()))
 						return;
 				}
 				findPath();
@@ -162,8 +162,8 @@ public class Policeman extends NPC {
 
 	public void render(Screen screen) {
 
-		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 16);
-		this.standBox.setLocation((int) this.x - 10, (int) this.y - 18);
+		this.getBounds().setLocation((int) this.x - 8, (int) this.y - 16);
+		this.getOuterBounds().setLocation((int) this.x - 10, (int) this.y - 18);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		this.standRange.setFrame(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2,
@@ -173,15 +173,15 @@ public class Policeman extends NPC {
 		int flipTop = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
 
-		if (movingDir == 0) {
+		if (getDirection() == 0) {
 			xTile += 10;
 		}
-		if (movingDir == 1) {
+		if (getDirection() == 1) {
 			xTile += 2;
-		} else if (movingDir > 1) {
+		} else if (getDirection() > 1) {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
-			flipTop = (movingDir - 1) % 2;
-			flipBottom = (movingDir - 1) % 2;
+			flipTop = (getDirection() - 1) % 2;
+			flipBottom = (getDirection() - 1) % 2;
 		}
 
 		int modifier = 8 * scale;
@@ -194,10 +194,10 @@ public class Policeman extends NPC {
 		if (isShooting) {
 
 			xTile = 14;
-			if (movingDir == 0) {
+			if (getDirection() == 0) {
 				xTile += 2;
 			}
-			if (movingDir == 1) {
+			if (getDirection() == 1) {
 				xTile += 4;
 			} 
 

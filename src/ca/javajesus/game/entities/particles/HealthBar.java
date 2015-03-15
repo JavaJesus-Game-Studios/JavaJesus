@@ -22,8 +22,8 @@ public class HealthBar extends Particle {
 		super(level, tileNumber, Colors.get(-1, 111, -1, 400), x, y);
 		this.mob = mob;
 		this.yOffset = 14;
-		this.health = mob.health;
-		this.startHealth = mob.startHealth;
+		this.health = mob.getHealth();
+		this.startHealth = mob.getStartHealth();
 		this.yChange = yChange;
 	}
 
@@ -37,8 +37,8 @@ public class HealthBar extends Particle {
 
 	public void render(Screen screen) {
 
-		this.x = mob.x - xOffset / 2 + 1;
-		this.y = mob.y + yChange;
+		this.x = mob.getX() - xOffset / 2 + 1;
+		this.y = mob.getY() + yChange;
 
 		screen.render(this.x + 3, this.y, tileNumber + yOffset * 32, color, 1,
 				1, sheet);
@@ -47,7 +47,7 @@ public class HealthBar extends Particle {
 	}
 
 	public void tick() {
-		this.health = mob.health;
+		this.health = mob.getHealth();
 		updateHealthBar();
 	}
 
@@ -59,14 +59,14 @@ public class HealthBar extends Particle {
 
 		mob.checkTile(this.x, this.y);
 
-		if (mob.onFire) {
+		if (mob.isOnFire()) {
 			if (tickCount % 10 == 0)
 				mob.damage(0.1, 0.3);
 			tickCount++;
 		}
 
-		if (tickCount == 500 && mob.onFire) {
-			mob.onFire = false;
+		if (tickCount == 500 && mob.isOnFire()) {
+			mob.setOnFire(false);
 			tickCount = 0;
 		}
 

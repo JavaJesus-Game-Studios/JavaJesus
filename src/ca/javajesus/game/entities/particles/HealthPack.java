@@ -27,8 +27,8 @@ public class HealthPack extends Particle {
 		BOX.setLocation((int) this.x, (int) this.y);
 		for (Mob mob : level.getMobs()) {
 
-			if (BOX.intersects(mob.hitBox)) {
-				mob.health = mob.getStartHealth();
+			if (BOX.intersects(mob.getBounds())) {
+				mob.heal();
 				if (mob instanceof Player) {
 					screen.getGame().updateLevel();
 				}

@@ -14,28 +14,28 @@ public abstract class Mob extends Entity {
 
 	protected String name;
 	protected int color;
-	public double speed;
-	public int numSteps = 0;
-	public boolean isMoving;
-	public int movingDir = 1;
-	public int scale = 1;
-	public int width;
-	public int height;
-	public double health;
-	public double startHealth;
-	public HealthBar bar;
-	public Rectangle hitBox;
+	protected int speed;
+	protected int numSteps = 0;
+	private boolean isMoving;
+	private int movingDir = 1;
+	protected int scale = 1;
+	protected int width;
+	protected int height;
+	protected int health;
+	protected int startHealth;
+	protected HealthBar bar;
+	private Rectangle hitBox;
 	protected SpriteSheet sheet;
-	public boolean isDead;
-	public boolean onFire = false;
-	public boolean isTargeted = false;
+	protected boolean isDead;
+	private boolean onFire = false;
+	private boolean isTargeted = false;
 	protected Random random = new Random();
-	public Rectangle standBox;
+	private Rectangle standBox;
 	protected boolean isAvoidingCollision = false;
-	public boolean renderOnTop = false;
+	protected boolean renderOnTop = false;
 
 	protected boolean isSwimming = false;
-	public boolean isSwinging = false;
+	protected boolean isSwinging = false;
 	protected boolean isShooting = false;
 
 	protected boolean isTalking = false;
@@ -50,8 +50,8 @@ public abstract class Mob extends Entity {
 
 	public int strength, defense, accuracy, evasion;
 
-	public Mob(Level level, String name, double x, double y, int speed,
-			int width, int height, SpriteSheet sheet, double defaultHealth) {
+	public Mob(Level level, String name, int x, int y, int speed, int width,
+			int height, SpriteSheet sheet, int defaultHealth) {
 		super(level);
 		this.name = name;
 		this.x = x;
@@ -61,14 +61,14 @@ public abstract class Mob extends Entity {
 		this.height = height;
 		this.health = defaultHealth;
 		this.startHealth = defaultHealth;
-		this.hitBox = new Rectangle(width, height);
-		this.standBox = new Rectangle(width + 4, height + 4);
+		this.setHitBox(new Rectangle(width, height));
+		this.setOuterBounds(new Rectangle(width + 4, height + 4));
 		this.sheet = sheet;
 	}
 
-	public Mob(Level level, String name, double x, double y, int speed,
-			int width, int height, SpriteSheet sheet, double defaultHealth,
-			int strength, int defense, int accuracy, int evasion) {
+	public Mob(Level level, String name, int x, int y, int speed, int width,
+			int height, SpriteSheet sheet, int defaultHealth, int strength,
+			int defense, int accuracy, int evasion) {
 		super(level);
 		this.name = name;
 		this.x = x;
@@ -78,19 +78,78 @@ public abstract class Mob extends Entity {
 		this.height = height;
 		this.health = defaultHealth;
 		this.startHealth = defaultHealth;
-		this.hitBox = new Rectangle(width, height);
-		this.standBox = new Rectangle(width + 4, height + 4);
+		this.setHitBox(new Rectangle(width, height));
+		this.setOuterBounds(new Rectangle(width + 4, height + 4));
 		this.sheet = sheet;
 		this.strength = strength;
 		this.defense = defense;
 		this.accuracy = accuracy;
 		this.evasion = evasion;
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String s) {
+		this.name = s;
+	}
+	
+	public int getSpeed() {
+		return speed;
+	}
 
-	public void addHealth(double health) {
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+	
+	public boolean isDead() {
+		return isDead;
+	}
+	
+	public HealthBar getHealthBar() {
+		return bar;
+	}
+	
+	public boolean renderOnTop() {
+		return renderOnTop;
+	}
+	
+	public int getScale() {
+		return scale;
+	}
+	
+	public int getNumSteps() {
+		return numSteps;
+	}
+	
+	public void changeSteps(int num) {
+		numSteps += num;
+	}
+	
+	public Rectangle getBounds() {
+		return hitBox;
+	}
+
+	public void setHitBox(Rectangle hitBox) {
+		this.hitBox = hitBox;
+	}
+
+	public int getStartHealth() {
+		return startHealth;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+	
+	public void changeHealth(int health) {
 		this.health += health;
 		if (health > startHealth) {
 			this.health = startHealth;
+		}
+		if (health < 0) {
+			kill();
 		}
 	}
 
@@ -98,10 +157,6 @@ public abstract class Mob extends Entity {
 		this.health = startHealth;
 	}
 
-	public double getStartHealth() {
-		return startHealth;
-	}
-	
 	public void move(int xa, int ya, boolean jesus) {
 		if (xa != 0 && ya != 0) {
 			move(xa, 0, true);
@@ -132,13 +187,13 @@ public abstract class Mob extends Entity {
 		if (jesus) {
 
 			if (ya < 0)
-				movingDir = 0;
+				setDirection(0);
 			if (ya > 0)
-				movingDir = 1;
+				setDirection(1);
 			if (xa < 0)
-				movingDir = 2;
+				setDirection(2);
 			if (xa > 0)
-				movingDir = 3;
+				setDirection(3);
 
 			x += xa * speed;
 			y += ya * speed;
@@ -175,13 +230,13 @@ public abstract class Mob extends Entity {
 		if (!hasCollided(xValue, yValue)) {
 
 			if (ya < 0)
-				movingDir = 0;
+				setDirection(0);
 			if (ya > 0)
-				movingDir = 1;
+				setDirection(1);
 			if (xa < 0)
-				movingDir = 2;
+				setDirection(2);
 			if (xa > 0)
-				movingDir = 3;
+				setDirection(3);
 
 			x += xa * speed;
 			y += ya * speed;
@@ -189,14 +244,6 @@ public abstract class Mob extends Entity {
 	}
 
 	public abstract boolean hasCollided(int xa, int ya);
-
-	public double getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(double speed) {
-		this.speed = speed;
-	}
 
 	protected boolean isSolidTile(int xa, int ya, int x, int y) {
 		if (level == null) {
@@ -247,7 +294,7 @@ public abstract class Mob extends Entity {
 		for (Entity entity : level.getEntities()) {
 			if (entity instanceof SolidEntity
 					&& !(entity instanceof Transporter)) {
-				if (this.hitBox.intersects(((SolidEntity) entity).shadow)) {
+				if (this.getBounds().intersects(((SolidEntity) entity).shadow)) {
 					renderOnTop = false;
 					if (bar != null)
 						bar.renderOnTop = false;
@@ -258,28 +305,29 @@ public abstract class Mob extends Entity {
 				temp.setLocation(
 						(int) ((SolidEntity) entity).bounds.x - 3 * xa,
 						(int) ((SolidEntity) entity).bounds.y - 3 * ya);
-				if (this.hitBox.intersects(temp))
+				if (this.getBounds().intersects(temp))
 					return true;
 			} else if (entity instanceof Vehicle && entity != this) {
 				Rectangle temp;
 				Vehicle vehicle = (Vehicle) entity;
-				if (vehicle.movingDir < 2) {
-					temp = new Rectangle(vehicle.hitBox.width - 16,
-							vehicle.hitBox.height - 8);
+				if (vehicle.getDirection() < 2) {
+					temp = new Rectangle(vehicle.getBounds().width - 16,
+							vehicle.getBounds().height - 8);
 					temp.setLocation((int) vehicle.x - xa, (int) vehicle.y - ya
 							- 8);
 				} else {
-					temp = new Rectangle(vehicle.hitBox.width - 8,
-							vehicle.hitBox.height - 16);
+					temp = new Rectangle(vehicle.getBounds().width - 8,
+							vehicle.getBounds().height - 16);
 					temp.setLocation((int) vehicle.x - xa - 3, (int) vehicle.y
 							- ya - 4);
 				}
 
-				if (this.hitBox.intersects(temp))
+				if (this.getBounds().intersects(temp))
 					return true;
 			} else if (entity instanceof FireEntity
-					&& this.hitBox.intersects(((FireEntity) entity).hitBox)) {
-				onFire = true;
+					&& this.getBounds()
+							.intersects(((FireEntity) entity).getBounds())) {
+				setOnFire(true);
 			}
 
 		}
@@ -293,7 +341,7 @@ public abstract class Mob extends Entity {
 		for (Mob mob : level.getMobs()) {
 			if (mob == this)
 				continue;
-			if (this.hitBox.intersects(mob.hitBox) && !mob.isAvoidingCollision)
+			if (this.getBounds().intersects(mob.getBounds()) && !mob.isAvoidingCollision)
 				return true;
 		}
 		isAvoidingCollision = false;
@@ -303,10 +351,10 @@ public abstract class Mob extends Entity {
 	protected boolean isMobCollision(int xa, int ya) {
 		for (Mob mob : level.getMobs()) {
 			if (mob != this) {
-				Rectangle temp = new Rectangle(mob.hitBox.width,
-						mob.hitBox.height);
+				Rectangle temp = new Rectangle(mob.getBounds().width,
+						mob.getBounds().height);
 				temp.setLocation((int) mob.x - 2 * xa, (int) mob.y - 2 * ya);
-				if (this.hitBox.intersects(temp))
+				if (this.getBounds().intersects(temp))
 					return true;
 			}
 
@@ -320,22 +368,22 @@ public abstract class Mob extends Entity {
 		int ya = 0;
 
 		for (Mob mob : level.getMobs()) {
-			if (mob == this || !(this.hitBox.intersects(mob.hitBox)))
+			if (mob == this || !(this.getBounds().intersects(mob.getBounds())))
 				continue;
 
-			Rectangle intersection = hitBox.intersection(mob.hitBox);
+			Rectangle intersection = getBounds().intersection(mob.getBounds());
 			double xx = intersection.getCenterX();
 			double yy = intersection.getCenterY();
-			if ((int) xx >= (int) this.hitBox.getCenterX()) {
+			if ((int) xx >= (int) this.getBounds().getCenterX()) {
 				xa--;
 			}
-			if ((int) xx < (int) this.hitBox.getCenterX()) {
+			if ((int) xx < (int) this.getBounds().getCenterX()) {
 				xa++;
 			}
-			if ((int) yy >= (int) this.hitBox.getCenterY()) {
+			if ((int) yy >= (int) this.getBounds().getCenterY()) {
 				ya--;
 			}
-			if ((int) yy < (int) this.hitBox.getCenterY()) {
+			if ((int) yy < (int) this.getBounds().getCenterY()) {
 				ya++;
 			}
 
@@ -346,9 +394,9 @@ public abstract class Mob extends Entity {
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);
 			isAvoidingCollision = true;
-			isMoving = true;
+			setMoving(true);
 		} else {
-			isMoving = false;
+			setMoving(false);
 		}
 	}
 
@@ -361,16 +409,16 @@ public abstract class Mob extends Entity {
 
 		isDead = true;
 		if (!(this instanceof Vehicle)) {
-			this.hitBox.setSize(0, 0);
-			this.hitBox.setLocation(0, 0);
-			this.standBox.setSize(0,0);
-			this.standBox.setLocation(0, 0);
+			this.getBounds().setSize(0, 0);
+			this.getBounds().setLocation(0, 0);
+			this.getOuterBounds().setSize(0, 0);
+			this.getOuterBounds().setLocation(0, 0);
 		}
 		level.remEntity(this);
 		level.addEntity(this, 0);
 		isHit = false;
 		isTalking = false;
-		this.isTargeted = false;
+		this.setTargeted(false);
 	}
 
 	public void checkTile(double x, double y) {
@@ -415,10 +463,46 @@ public abstract class Mob extends Entity {
 		isHitColor = Colors.get(-1, -1, -1, random.nextInt(200));
 	}
 
-	public void setName(String s) {
-		this.name = s;
+	public void speak(Player player) {
 	}
 
-	public void speak(Player player) {
+	public int getDirection() {
+		return movingDir;
+	}
+
+	public void setDirection(int movingDir) {
+		this.movingDir = movingDir;
+	}
+
+	public Rectangle getOuterBounds() {
+		return standBox;
+	}
+
+	public void setOuterBounds(Rectangle standBox) {
+		this.standBox = standBox;
+	}
+
+	public boolean isMoving() {
+		return isMoving;
+	}
+
+	public void setMoving(boolean isMoving) {
+		this.isMoving = isMoving;
+	}
+
+	public boolean isTargeted() {
+		return isTargeted;
+	}
+
+	public void setTargeted(boolean isTargeted) {
+		this.isTargeted = isTargeted;
+	}
+
+	public boolean isOnFire() {
+		return onFire;
+	}
+
+	public void setOnFire(boolean onFire) {
+		this.onFire = onFire;
 	}
 }

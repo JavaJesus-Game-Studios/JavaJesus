@@ -80,8 +80,8 @@ public class NPC extends Mob {
 
 	protected boolean movingToOrigin = false;
 
-	public NPC(Level level, String name, double x, double y, int speed,
-			int width, int height, double defaultHealth, int color, int xTile,
+	public NPC(Level level, String name, int x, int y, int speed,
+			int width, int height, int defaultHealth, int color, int xTile,
 			int yTile, String walkPath, int walkDistance, int yChange) {
 		super(level, name, x, y, speed, width, height, SpriteSheet.npcs,
 				defaultHealth);
@@ -94,12 +94,12 @@ public class NPC extends Mob {
 		this.walkDistance = walkDistance;
 		this.xPos = x;
 		this.yPos = y;
-		this.hitBox = new Rectangle(width, height);
+		this.setHitBox(new Rectangle(width, height));
 		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this,
 				yChange);
 		if (level != null)
 			level.addEntity(bar);
-		this.speed = speed * 0.35;
+		this.speed = 1;
 	}
 
 	public boolean hasCollided(int xa, int ya) {
@@ -177,7 +177,7 @@ public class NPC extends Mob {
 			for (Mob mob : level.getMobs()) {
 				if (mob == this)
 					continue;
-				if (this.standBox.intersects(mob.hitBox))
+				if (this.getOuterBounds().intersects(mob.getBounds()))
 					return;
 			}
 			findPath();
@@ -208,9 +208,9 @@ public class NPC extends Mob {
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
 			move(xa, ya);
-			isMoving = true;
+			setMoving(true);
 		} else {
-			isMoving = false;
+			setMoving(false);
 		}
 	}
 
@@ -242,10 +242,10 @@ public class NPC extends Mob {
 	}
 
 	public void render(Screen screen) {
-		this.hitBox.setLocation((int) this.x - (this.width / 2), (int) this.y
+		this.getBounds().setLocation((int) this.x - (this.width / 2), (int) this.y
 				- (this.height / 2));
-		this.standBox.setLocation((int) this.x - (int) hitBox.getWidth() / 2
-				- 2, (int) this.y - (int) hitBox.getHeight() / 2 - 2);
+		this.getOuterBounds().setLocation((int) this.x - (int) getBounds().getWidth() / 2
+				- 2, (int) this.y - (int) getBounds().getHeight() / 2 - 2);
 		int xTile = this.xTile;
 		int yTile = this.yTile;
 
@@ -254,15 +254,15 @@ public class NPC extends Mob {
 		int flipTop = (numSteps >> walkingAnimationSpeed) & 1;
 		int flipBottom = (numSteps >> walkingAnimationSpeed) & 1;
 
-		if (movingDir == 0) {
+		if (getDirection() == 0) {
 			xTile += 10;
 		}
-		if (movingDir == 1) {
+		if (getDirection() == 1) {
 			xTile += 2;
-		} else if (movingDir > 1) {
+		} else if (getDirection() > 1) {
 			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
-			flipTop = (movingDir - 1) % 2;
-			flipBottom = (movingDir - 1) % 2;
+			flipTop = (getDirection() - 1) % 2;
+			flipBottom = (getDirection() - 1) % 2;
 		}
 
 		int modifier = 8 * scale;
@@ -273,8 +273,8 @@ public class NPC extends Mob {
 			xTile = 12;
 
 		if (isSwimming) {
-			if (onFire) {
-				onFire = false;
+			if (isOnFire()) {
+				setOnFire(false);
 			}
 			int waterColour = 0;
 			yOffset += 4;
@@ -350,9 +350,9 @@ public class NPC extends Mob {
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
 			move(xa, ya);
-			isMoving = true;
+			setMoving(true);
 		} else {
-			isMoving = false;
+			setMoving(false);
 		}
 
 	}
@@ -384,9 +384,9 @@ public class NPC extends Mob {
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
 			move(xa, ya);
-			isMoving = true;
+			setMoving(true);
 		} else {
-			isMoving = false;
+			setMoving(false);
 		}
 
 	}
@@ -422,9 +422,9 @@ public class NPC extends Mob {
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
 			move(xa, ya);
-			isMoving = true;
+			setMoving(true);
 		} else {
-			isMoving = false;
+			setMoving(false);
 		}
 
 	}
@@ -478,9 +478,9 @@ public class NPC extends Mob {
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
 			move(xa, ya);
-			isMoving = true;
+			setMoving(true);
 		} else {
-			isMoving = false;
+			setMoving(false);
 		}
 
 	}
@@ -494,9 +494,9 @@ public class NPC extends Mob {
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
 			move(xa, ya);
-			isMoving = true;
+			setMoving(true);
 		} else {
-			isMoving = false;
+			setMoving(false);
 		}
 
 	}
@@ -512,21 +512,21 @@ public class NPC extends Mob {
 	public void speak(Player player) {
 
 		isTalking = true;
-		switch (player.movingDir) {
+		switch (player.getDirection()) {
 		case 0: {
-			movingDir = 1;
+			setDirection(1);
 			break;
 		}
 		case 1: {
-			movingDir = 0;
+			setDirection(0);
 			break;
 		}
 		case 2: {
-			movingDir = 3;
+			setDirection(3);
 			break;
 		}
 		case 3: {
-			movingDir = 2;
+			setDirection(2);
 			break;
 		}
 		}
@@ -656,7 +656,7 @@ public class NPC extends Mob {
 		}
 	}
 
-	public static NPC getRandomNPC(Level level, double x, double y) {
+	public static NPC getRandomNPC(Level level, int x, int y) {
 		Random random = new Random();
 		switch (random.nextInt(11)) {
 

@@ -14,15 +14,19 @@ public class FireEntity extends Entity {
 	private int xTile;
 	private int yTile = 15;
 	private int color = Colors.get(-1, Colors.fromHex("#F7790A"), 540, -1);
-	public final Rectangle hitBox = new Rectangle(8, 8);
+	private final Rectangle hitBox = new Rectangle(8, 8);
 
-	public FireEntity(Level level, double x, double y) {
+	public FireEntity(Level level, int x, int y) {
 		super(level);
 		this.x = x;
 		this.y = y;
 		this.lastIterationTime = System.currentTimeMillis();
 		this.delay = 100;
-		this.hitBox.setLocation((int) x, (int) y);
+		this.hitBox.setLocation(x, y);
+	}
+	
+	public Rectangle getBounds() {
+		return hitBox;
 	}
 
 	public void tick() {

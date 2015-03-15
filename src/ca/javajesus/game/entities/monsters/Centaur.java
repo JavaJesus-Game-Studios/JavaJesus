@@ -8,7 +8,7 @@ import ca.javajesus.level.Level;
 
 public class Centaur extends Monster {
 	
-	public Centaur(Level level, String name, double x, double y, int speed,
+	public Centaur(Level level, String name, int x, int y, int speed,
 			int health) {
 		super(level, name, x, y, speed, 14, 24, 5, health, Colors.get(-1, 111,
 				Colors.fromHex("#8f4c1f"), 543));
@@ -85,19 +85,19 @@ public class Centaur extends Monster {
 		}
 		int xa = 0;
 		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.hitBox)
-				&& !this.standBox.intersects(mob.standBox)) {
+		if (mob != null && this.aggroRadius.intersects(mob.getBounds())
+				&& !this.getOuterBounds().intersects(mob.getOuterBounds())) {
 
-			if ((int) mob.x > (int) this.x) {
+			if ((int) mob.getX() > (int) this.x) {
 				xa++;
 			}
-			if ((int) mob.x < (int) this.x) {
+			if ((int) mob.getX() < (int) this.x) {
 				xa--;
 			}
-			if ((int) mob.y > (int) this.y) {
+			if ((int) mob.getY() > (int) this.y) {
 				ya++;
 			}
-			if ((int) mob.y < (int) this.y) {
+			if ((int) mob.getY() < (int) this.y) {
 				ya--;
 			}
 			tickCount++;
@@ -111,28 +111,28 @@ public class Centaur extends Monster {
 
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
 			move(xa, ya);
-			isMoving = true;
+			setMoving(true);
 		} else {
-			isMoving = false;
+			setMoving(false);
 		}
 
 	}
 
 	public void render(Screen screen) {
-		if (movingDir == 0 || movingDir == 1) {
+		if (getDirection() == 0 || getDirection() == 1) {
 			this.width = 14;
 			this.height = 24;
-			this.hitBox.setSize(width, height);
-			this.hitBox.setLocation((int) this.x - 7, (int) this.y - 12);
-			this.standBox.setSize(18, height);
-			this.standBox.setLocation((int) this.x - 9, (int) this.y - 14);
+			this.getBounds().setSize(width, height);
+			this.getBounds().setLocation((int) this.x - 7, (int) this.y - 12);
+			this.getOuterBounds().setSize(18, height);
+			this.getOuterBounds().setLocation((int) this.x - 9, (int) this.y - 14);
 		} else {
 			this.width = 24;
 			this.height = 24;
-			this.hitBox.setSize(width, height);
-			this.hitBox.setLocation((int) this.x - 12, (int) this.y - 12);
-			this.standBox.setSize(width + 5, height);
-			this.standBox.setLocation((int) this.x - 14, (int) this.y - 14);
+			this.getBounds().setSize(width, height);
+			this.getBounds().setLocation((int) this.x - 12, (int) this.y - 12);
+			this.getOuterBounds().setSize(width + 5, height);
+			this.getOuterBounds().setLocation((int) this.x - 14, (int) this.y - 14);
 		}
 		
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
@@ -143,17 +143,17 @@ public class Centaur extends Monster {
 		int flipMiddle = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
 
-		if (movingDir == 0) {
+		if (getDirection() == 0) {
 			xTile += 12;
 		}
 
-		if (movingDir == 1) {
+		if (getDirection() == 1) {
 			xTile += 2;
-		} else if (movingDir > 1) {
+		} else if (getDirection() > 1) {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 3;
-			flipTop = (movingDir - 1) % 2;
-			flipMiddle = (movingDir - 1) % 2;
-			flipBottom = (movingDir - 1) % 2;
+			flipTop = (getDirection() - 1) % 2;
+			flipMiddle = (getDirection() - 1) % 2;
+			flipBottom = (getDirection() - 1) % 2;
 		}
 
 		int modifier = 8 * scale;
@@ -163,7 +163,7 @@ public class Centaur extends Monster {
 		if (isDead)
 			xTile = 14;
 
-		if (movingDir == 0 || movingDir == 1) {
+		if (getDirection() == 0 || getDirection() == 1) {
 			// Upper body
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
 					+ yTile * 32, color, flipTop, scale, sheet);
@@ -194,7 +194,7 @@ public class Centaur extends Monster {
 		} else {
 
 			int xOff2 = 0;
-			if (movingDir == 2) {
+			if (getDirection() == 2) {
 				xOff2 = -16;
 			}
 

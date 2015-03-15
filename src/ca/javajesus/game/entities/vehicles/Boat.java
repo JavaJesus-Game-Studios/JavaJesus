@@ -9,11 +9,11 @@ import ca.javajesus.level.tile.Tile;
 
 public class Boat extends Vehicle {
 
-	public Boat(Level level, String name, double x, double y,
-			int speed, double defaultHealth) {
+	public Boat(Level level, String name, int x, int y,
+			int speed, int defaultHealth) {
 		super(level, name, x, y, speed, 32, 40, SpriteSheet.vehicles, defaultHealth);
 		getColor();
-		this.hitBox = new Rectangle(width, height);
+		this.setHitBox(new Rectangle(width, height));
 	}
 
 	private void getColor() {
@@ -71,15 +71,15 @@ public class Boat extends Vehicle {
 
 	public void render(Screen screen) {
 
-		if (movingDir == 0 || movingDir == 1) {
+		if (getDirection() == 0 || getDirection() == 1) {
 			this.width = 32;
 			this.height = 40;
 		} else {
 			this.width = 40;
 			this.height = 32;
 		}
-		this.hitBox.setSize(width, height);
-		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 8);
+		this.getBounds().setSize(width, height);
+		this.getBounds().setLocation((int) this.x - 8, (int) this.y - 8);
 
 		int xTile = 0;
 		int yTile = 16;
@@ -90,11 +90,11 @@ public class Boat extends Vehicle {
 		double xOffset = x - modifier / 2.0;
 		double yOffset = y - modifier / 2.0 - 4;
 
-		if (movingDir == 0) {
+		if (getDirection() == 0) {
 			xTile += 14;
-		} else if (movingDir == 2) {
+		} else if (getDirection() == 2) {
 			xTile += 9;
-		} else if (movingDir == 3) {
+		} else if (getDirection() == 3) {
 			xTile += 4;
 		}
 
@@ -172,7 +172,7 @@ public class Boat extends Vehicle {
 				+ 3 * modifier, (xTile + 3) + (yTile + 3) * 32, color,
 				flipBottom, scale, sheet);
 
-		if (movingDir == 0 || movingDir == 1) {
+		if (getDirection() == 0 || getDirection() == 1) {
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom), yOffset + 4
 					* modifier, xTile + (yTile + 4) * 32, color, flipBottom,
@@ -220,7 +220,7 @@ public class Boat extends Vehicle {
 		int xMax = 0;
 		int yMin = 0;
 		int yMax = 0;
-		if (movingDir == 0 || movingDir == 1) {
+		if (getDirection() == 0 || getDirection() == 1) {
 			xMin = 0;
 			xMax = 31;
 			yMin = 0;

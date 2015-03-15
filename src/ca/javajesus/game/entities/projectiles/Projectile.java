@@ -35,6 +35,7 @@ public class Projectile extends Entity {
 	protected int width;
 	protected int height;
 	public boolean renderOnTop = false;
+	protected double x, y;
 
 	/**
 	 * Creates a new Projectile will a single direction
@@ -193,15 +194,15 @@ public class Projectile extends Entity {
 			}
 			if (entity instanceof Mob) {
 				Mob mobs = (Mob) entity;
-				if (hitBox.intersects(mobs.hitBox)) {
+				if (hitBox.intersects(mobs.getBounds())) {
 					if (mobs != mob) {
 						if (mobs instanceof Vehicle) {
 							mobs.damage((int) damage, (int) damage + 4);
 							level.remEntity(this);
-						} else if (!mobs.isDead) {
+						} else if (!mobs.isDead()) {
 							mobs.damage((int) damage, (int) damage + 4);
 							level.remEntity(this);
-							if (mobs.health < 0 && mob instanceof Player) {
+							if (mobs.getHealth() < 0 && mob instanceof Player) {
 								((Player) mob).score += 10;
 							}
 						}

@@ -13,7 +13,7 @@ import ca.javajesus.level.Level;
 
 public class Monkey extends Monster {
 	
-	public Monkey(Level level, String name, double x, double y, int speed,
+	public Monkey(Level level, String name, int x, int y, int speed,
 			int health) {
 		super(level, name, x, y, speed, 16, 16, 8, health, Colors.get(-1,
 				Colors.fromHex("#2a1609"), Colors.fromHex("#391e0c"),
@@ -85,36 +85,36 @@ public class Monkey extends Monster {
 		int xa = 0;
 		int ya = 0;
 
-		if (mob != null && this.aggroRadius.intersects(mob.hitBox)
-				&& !this.standBox.intersects(mob.hitBox)) {
+		if (mob != null && this.aggroRadius.intersects(mob.getBounds())
+				&& !this.getOuterBounds().intersects(mob.getBounds())) {
 
-			if ((int) mob.x > (int) this.x) {
+			if ((int) mob.getX() > (int) this.x) {
 				xa++;
 			}
-			if ((int) mob.x < (int) this.x) {
+			if ((int) mob.getX() < (int) this.x) {
 				xa--;
 			}
-			if ((int) mob.y > (int) this.y) {
+			if ((int) mob.getY() > (int) this.y) {
 				ya++;
 			}
-			if ((int) mob.y < (int) this.y) {
+			if ((int) mob.getY() < (int) this.y) {
 				ya--;
 			}
 		}
 
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
 			move(xa, ya);
-			isMoving = true;
+			setMoving(true);
 		} else {
-			isMoving = false;
+			setMoving(false);
 		}
 	}
 
 	public void render(Screen screen) {
 		
-		this.hitBox.setSize(width, height);
-		this.hitBox.setLocation((int) this.x - 8, (int) this.y - 16);
-		this.standBox.setLocation((int) this.x - 10, (int) this.y - 18);
+		this.getBounds().setSize(width, height);
+		this.getBounds().setLocation((int) this.x - 8, (int) this.y - 16);
+		this.getOuterBounds().setLocation((int) this.x - 10, (int) this.y - 18);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		int xTile = 0;
@@ -122,16 +122,16 @@ public class Monkey extends Monster {
 		int flipTop = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
 		
-		if (movingDir == 0) {
+		if (getDirection() == 0) {
 			xTile += 10;
 		}
-		if (movingDir == 1) {
+		if (getDirection() == 1) {
 			xTile += 2;
 		} 
-		else if (movingDir > 1) {
+		else if (getDirection() > 1) {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
-			flipTop = (movingDir - 1) % 2;
-			flipBottom = (movingDir - 1) % 2;
+			flipTop = (getDirection() - 1) % 2;
+			flipBottom = (getDirection() - 1) % 2;
 		}
 		
 		int modifier = 8 * scale;

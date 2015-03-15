@@ -24,8 +24,8 @@ public class Companion extends NPC {
 	protected int shootTickCount = 0;
 	private Player player;
 
-	public Companion(Level level, String name, double x, double y, int width,
-			int height, double defaultHealth, int color, int xTile, int yTile,
+	public Companion(Level level, String name, int x, int y, int width,
+			int height, int defaultHealth, int color, int xTile, int yTile,
 			int yChange, Player player) {
 		super(level, name, x, y, 1, width, height, defaultHealth, color, xTile,
 				yTile, "", 0, yChange);
@@ -39,22 +39,22 @@ public class Companion extends NPC {
 
 	private void checkRadius() {
 
-		if (mob != null && mob.isDead) {
+		if (mob != null && mob.isDead()) {
 			mob = null;
 			movingToOrigin = true;
 		}
 
-		if (mob != null && !this.aggroRadius.intersects(mob.hitBox)) {
+		if (mob != null && !this.aggroRadius.intersects(mob.getBounds())) {
 			mob = null;
 		}
 
 		if (mob == null)
 			for (Mob mob : level.getMobs()) {
 				if (mob instanceof Monster) {
-					if (this.aggroRadius.intersects(mob.hitBox) && !mob.isDead) {
+					if (this.aggroRadius.intersects(mob.getBounds()) && !mob.isDead()) {
 						// if (!mob.isTargeted) {
 						this.mob = mob;
-						mob.isTargeted = true;
+						mob.setTargeted(true);
 						return;
 						// }
 					}
@@ -91,24 +91,24 @@ public class Companion extends NPC {
 		}
 		int xa = 0;
 		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.hitBox)) {
+		if (mob != null && this.aggroRadius.intersects(mob.getBounds())) {
 			if (!cooldown) {
 				cooldown = true;
 				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7),
-						mob.x, mob.y, this, 3));
+						mob.getX(), mob.getY(), this, 3));
 			}
-			if (!this.standRange.intersects(mob.hitBox)) {
+			if (!this.standRange.intersects(mob.getBounds())) {
 
-				if ((int) mob.x > (int) this.x) {
+				if ((int) mob.getX() > (int) this.x) {
 					xa++;
 				}
-				if ((int) mob.x < (int) this.x) {
+				if ((int) mob.getX() < (int) this.x) {
 					xa--;
 				}
-				if ((int) mob.y > (int) this.y) {
+				if ((int) mob.getY() > (int) this.y) {
 					ya++;
 				}
-				if ((int) mob.y < (int) this.y) {
+				if ((int) mob.getY() < (int) this.y) {
 					ya--;
 				}
 			}
@@ -116,32 +116,32 @@ public class Companion extends NPC {
 			if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 					&& !isMobCollision(xa, ya)) {
 				move(xa, ya);
-				isMoving = true;
+				setMoving(true);
 			} else {
-				isMoving = false;
+				setMoving(false);
 			}
 
 		} else {
-			if (!this.hitBox.intersects(player.hitBox)) {
+			if (!this.getBounds().intersects(player.getBounds())) {
 
-				if ((int) player.x > (int) this.x) {
+				if ((int) player.getX() > (int) this.x) {
 					xa++;
 				}
-				if ((int) player.x < (int) this.x) {
+				if ((int) player.getX() < (int) this.x) {
 					xa--;
 				}
-				if ((int) player.y > (int) this.y) {
+				if ((int) player.getY() > (int) this.y) {
 					ya++;
 				}
-				if ((int) player.y < (int) this.y) {
+				if ((int) player.getY() < (int) this.y) {
 					ya--;
 				}
 				if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 						&& !isMobCollision(xa, ya)) {
 					move(xa, ya);
-					isMoving = true;
+					setMoving(true);
 				} else {
-					isMoving = false;
+					setMoving(false);
 				}
 			}
 

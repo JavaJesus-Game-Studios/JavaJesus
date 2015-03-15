@@ -48,8 +48,11 @@ public class PlayerHUD {
 		}
 
 		g.setColor(Color.red);
-		g.fillRect(750, 650,
-				(int) (150 * (player.health / player.startHealth)), 20);
+		g.fillRect(750, 650, (int) (150 * ((double) player.getHealth() / player
+				.getStartHealth())), 20);
+		g.setColor(Color.BLACK);
+		g.drawString(player.getHealth() + " / " + player.getStartHealth(), 750,
+				650);
 
 		g.setColor(Color.blue);
 		g.fillRect(750, 680, 150, 20);

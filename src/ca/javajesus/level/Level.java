@@ -230,10 +230,10 @@ public abstract class Level {
 			}
 			if (entity instanceof Mob) {
 				Mob m = (Mob) entity;
-				if (!m.renderOnTop) {
+				if (!m.renderOnTop()) {
 					m.render(screen);
-					if (m.bar != null && !m.isDead)
-						m.bar.render(screen);
+					if (m.getHealthBar() != null && !m.isDead())
+						m.getHealthBar().render(screen);
 				}
 			}
 		}
@@ -252,10 +252,10 @@ public abstract class Level {
 			}
 			if (entity instanceof Mob) {
 				Mob m = (Mob) entity;
-				if (m.renderOnTop) {
+				if (m.renderOnTop()) {
 					m.render(screen);
-					if (m.bar != null && !m.isDead)
-						m.bar.render(screen);
+					if (m.getHealthBar() != null && !m.isDead())
+						m.getHealthBar().render(screen);
 				}
 			}
 		}
@@ -329,11 +329,11 @@ public abstract class Level {
 		return players;
 	}
 
-	public void addSpawner(double x, double y, String type) {
+	public void addSpawner(int x, int y, String type) {
 		this.addEntity(new Spawner(this, x, y, type));
 	}
 
-	public void addSpawner(double x, double y, String type, int amt) {
+	public void addSpawner(int x, int y, String type, int amt) {
 		this.addEntity(new Spawner(this, x, y, type, amt));
 	}
 

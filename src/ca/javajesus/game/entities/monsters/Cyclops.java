@@ -12,7 +12,7 @@ import ca.javajesus.level.Level;
 
 public class Cyclops extends Monster {
 
-	public Cyclops(Level level, double x, double y) {
+	public Cyclops(Level level, int x, int y) {
 		super(level, "Cyclops", x, y, 1, 32, 48, 14, 5000, Colors.get(-1, 111,
 				Colors.fromHex("#ffd99c"), Colors.fromHex("#ffffff")));
 		this.bar = new HealthBar(level, 0, x, y, this, 32);
@@ -77,18 +77,18 @@ public class Cyclops extends Monster {
 		}
 		int xa = 0;
 		int ya = 0;
-		if (mob != null && !this.standBox.intersects(mob.hitBox)) {
+		if (mob != null && !this.getOuterBounds().intersects(mob.getBounds())) {
 
-			if ((int) mob.x > (int) this.x) {
+			if ((int) mob.getX() > (int) this.x) {
 				xa++;
 			}
-			if ((int) mob.x < (int) this.x) {
+			if ((int) mob.getX() < (int) this.x) {
 				xa--;
 			}
-			if ((int) mob.y > (int) this.y) {
+			if ((int) mob.getY() > (int) this.y) {
 				ya++;
 			}
-			if ((int) mob.y < (int) this.y) {
+			if ((int) mob.getY() < (int) this.y) {
 				ya--;
 			}
 		}
@@ -104,40 +104,40 @@ public class Cyclops extends Monster {
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
 			if (isMobCollision()) {
-				isMoving = false;
+				setMoving(false);
 				return;
 			}
 			move(xa, ya);
-			isMoving = true;
+			setMoving(true);
 		} else {
-			isMoving = false;
+			setMoving(false);
 		}
 
 	}
 
 	public void render(Screen screen) {
 
-		this.hitBox.setLocation((int) this.x - 16, (int) this.y - 24);
-		this.standBox.setLocation((int) this.x - 18, (int) this.y - 26);
+		this.getBounds().setLocation((int) this.x - 16, (int) this.y - 24);
+		this.getOuterBounds().setLocation((int) this.x - 18, (int) this.y - 26);
 
 		int xTile = 0;
 		int walkingSpeed = 4;
 		int flipTop = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
 
-		if (movingDir == 0) {
+		if (getDirection() == 0) {
 			xTile = 28;
 		}
-		if (movingDir == 1) {
+		if (getDirection() == 1) {
 			xTile = 8;
-		} else if (movingDir > 1) {
+		} else if (getDirection() > 1) {
 			xTile = 12 + ((numSteps >> walkingSpeed) & 1) * 4;
-			if (movingDir == 2) {
-				flipTop = (movingDir - 1) % 1 + 1;
-				flipBottom = (movingDir - 1) % 1 + 1;
+			if (getDirection() == 2) {
+				flipTop = (getDirection() - 1) % 1 + 1;
+				flipBottom = (getDirection() - 1) % 1 + 1;
 			} else {
-				flipTop = (movingDir - 1) % 1;
-				flipBottom = (movingDir - 1) % 1;
+				flipTop = (getDirection() - 1) % 1;
+				flipBottom = (getDirection() - 1) % 1;
 			}
 		}
 

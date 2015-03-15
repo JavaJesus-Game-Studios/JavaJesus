@@ -30,7 +30,7 @@ import ca.javajesus.level.Level;
 public class Game extends Canvas implements Runnable {
 
 	protected static final long serialVersionUID = 1L;
-	
+
 	/** Determines how long the loading screen lasts */
 	protected static final int LOAD_SPEED = 10;
 
@@ -43,13 +43,13 @@ public class Game extends Canvas implements Runnable {
 
 	/** Entity limit per screen, currently doesnt do anything */
 	public final static int ENTITY_LIMIT = 1000;
-	
+
 	public final static int MOB_LIMIT = 300;
 	public boolean running = false; // this is a change
 
 	/** Creates the JFrame */
 	protected static JFrame frame;
-	
+
 	public static boolean returnToMenu = false;
 
 	/** Creates the tickCount var */
@@ -78,7 +78,7 @@ public class Game extends Canvas implements Runnable {
 
 	/** Creates instance of the player */
 	public Player player;
-	
+
 	protected PlayerHUD hud;
 
 	/** Used for display variables */
@@ -281,11 +281,11 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 
-		int xOffset = (int) player.x - (screen.width / 2);
-		int yOffset = (int) player.y - (screen.height / 2);
+		int xOffset = player.getX() - (screen.width / 2);
+		int yOffset = player.getY() - (screen.height / 2);
 		if (player.isDriving) {
-			xOffset = (int) player.vehicle.x - (screen.width / 2);
-			yOffset = (int) player.vehicle.y - (screen.height / 2);
+			xOffset = player.vehicle.getX() - (screen.width / 2);
+			yOffset = player.vehicle.getY() - (screen.height / 2);
 		}
 
 		if (inGameScreen) {
@@ -305,11 +305,11 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
-		g.drawString(player + ": " + (int) player.x + ", " + (int) player.y, 5,
+		g.drawString(player + ": " + player.getX() + ", " + player.getY(), 5,
 				20);
 		hud.draw(g);
 		ChatHandler.drawMessages(g);
-		if (player.isDead || returnToMenu) {
+		if (player.isDead() || returnToMenu) {
 			g.setFont(new Font("Verdana", 0, 50));
 			g.setColor(Color.BLACK);
 			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);
