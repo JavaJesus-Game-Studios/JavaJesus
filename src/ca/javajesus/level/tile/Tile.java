@@ -62,6 +62,18 @@ public abstract class Tile {
 			Colors.fromHex("#636361"), -1), 0xFF291900);
 	public static final Tile CAVEFLOOR = new BaseTile(20, 0, 2, Colors.get(-1, Colors.fromHex("#AEAEAD"),-1, -1),
 			0xFFc3beb7);
+	public static final Tile WOODFLOOR = new BaseTile(21, 2, 0, Colors.get(-1,
+			Colors.fromHex("#6d4300"), 000, -1), 0xFF944500);
+	public static final Tile METALWALL = new BasicSolidTile(22, 5, 0, Colors.get(-1, Colors.fromHex("#a6a6a6"),
+			Colors.fromHex("#939393"), Colors.fromHex("#4b3618")), 0xFFb6b6b6);
+	public static final Tile RIGHTCARPET = new BaseTile(23, 7, 1, Colors.get(-1,
+			Colors.fromHex("#a40101"), Colors.fromHex("#ebcb00"), -1), 0xFFbe03db);
+	public static final Tile LEFTCARPET = new BaseTile(24, 6, 1, Colors.get(-1,
+			Colors.fromHex("#a40101"), Colors.fromHex("#ebcb00"), -1), 0xFFec00ec);
+	public static final Tile TOPCARPET = new BaseTile(26, 9, 1, Colors.get(-1,
+			Colors.fromHex("#a40101"), Colors.fromHex("#ebcb00"), -1), 0xFFff00ff);
+	public static final Tile BOTTOMCARPET = new BaseTile(27, 8, 1, Colors.get(-1,
+			Colors.fromHex("#a40101"), Colors.fromHex("#ebcb00"), -1), 0xFF6600a7);
 
 
 	protected byte id;
