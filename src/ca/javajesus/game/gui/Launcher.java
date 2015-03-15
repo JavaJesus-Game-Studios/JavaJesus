@@ -117,7 +117,6 @@ public class Launcher extends JFrame implements Runnable {
 
 			case 0: {
 				/** Story Button */
-				/*
 				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
 						&& InputHandler.MouseY > 450
 						&& InputHandler.MouseY < 450 + 30) {
@@ -138,7 +137,7 @@ public class Launcher extends JFrame implements Runnable {
 					g.drawImage(ImageIO.read(Launcher.class
 							.getResource("/GUI/Buttons/story_off.png")), 365, 450,
 							100, 30, null);
-				}*/
+				}
 
 				/** Sandbox Button */
 				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
