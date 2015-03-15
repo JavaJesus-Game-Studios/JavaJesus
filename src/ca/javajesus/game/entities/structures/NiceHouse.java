@@ -8,7 +8,7 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.interior.PoorHouseInterior;
+import ca.javajesus.level.interior.NiceHouse1Interior;
 
 public class NiceHouse extends SolidEntity {
 
@@ -18,7 +18,7 @@ public class NiceHouse extends SolidEntity {
 		super(level, x, y, 46, 57);
 		getColor();
 		level.addEntity(new Transporter(level, x + 21, y + 41,
-				new PoorHouseInterior(new Point((int) x + 23, (int) y + 49), this.level)));
+				new NiceHouse1Interior(new Point((int) x + 23, (int) y + 49), this.level)));
 	}
 
 	public void render(Screen screen) {

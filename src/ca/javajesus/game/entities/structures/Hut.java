@@ -9,6 +9,7 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.interior.HutInterior;
 import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class Hut extends SolidEntity {
@@ -19,21 +20,21 @@ public class Hut extends SolidEntity {
 	public Hut(Level level, double x, double y) {
 		super(level, x, y, 40, 48);
 		level.addEntity(new Transporter(level, x + 18, y + 32,
-				new PoorHouseInterior(new Point((int) x + 20, (int) y + 40),
+				new HutInterior(new Point((int) x + 20, (int) y + 40),
 						this.level)));
 	}
 
 	public Hut(Level level, double x, double y, Entity entity) {
 		super(level, x, y, 40, 48);
 		level.addEntity(new Transporter(level, x + 18, y + 32,
-				new PoorHouseInterior(new Point((int) x + 20, (int) y + 40),
+				new HutInterior(new Point((int) x + 20, (int) y + 40),
 						this.level, entity)));
 	}
 
 	public Hut(Level level, double x, double y, Entity entity, Spawner spawner) {
 		super(level, x, y, 40, 48);
 		level.addEntity(new Transporter(level, x + 18, y + 32,
-				new PoorHouseInterior(new Point((int) x + 20, (int) y + 40),
+				new HutInterior(new Point((int) x + 20, (int) y + 40),
 						this.level, entity, spawner)));
 	}
 
