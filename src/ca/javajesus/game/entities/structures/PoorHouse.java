@@ -14,18 +14,20 @@ public class PoorHouse extends SolidEntity {
 
 	private Random random = new Random();
 
-	public PoorHouse(Level level, double x, double y) {
+	public PoorHouse(Level level, int x, int y) {
 		super(level, x, y, 32, 55);
 		getColor();
-		level.addEntity(new Transporter(level, x + 14, y + 39, new PoorHouseInterior(new Point((int) x + 16, (int) y + 47), this.level)));
-		
+		level.addEntity(new Transporter(level, x + 14, y + 39,
+				new PoorHouseInterior(new Point(x + 16, y + 47), this.level)));
+
 	}
 
 	public void render(Screen screen) {
-		
-		screen.render((int) x, (int) y, color, Sprite.poor_house);
+
+		screen.render(x, y, color, Sprite.poor_house);
 
 	}
+
 	private void getColor() {
 		switch (random.nextInt(8)) {
 		case 0: {

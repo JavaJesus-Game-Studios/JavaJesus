@@ -10,26 +10,24 @@ import ca.javajesus.level.RandomCave;
 
 public class TransporterCave extends Transporter {
 
-	public TransporterCave(Level currentLevel, double x, double y) {
+	public TransporterCave(Level currentLevel, int x, int y) {
 		super(currentLevel, x, y, new RandomCave(Level.level1.width,
-				Level.level1.height, 5, currentLevel, new Point((int) x + 1,
-						(int) y + 10)));
+				Level.level1.height, 5, currentLevel, new Point(x + 1, y + 10)));
 		this.color = Colors.get(Colors.fromHex("#474645"),
 				Colors.fromHex("#663300"), Colors.fromHex("#472400"),
 				Colors.fromHex("#ffde00"));
 	}
 
-	public TransporterCave(Level currentLevel, double x, double y, Point point) {
-		super(currentLevel, x, y, new RandomCave(Level.level1.width,
-				Level.level1.height, 5, currentLevel, new Point((int) x + 1,
-						(int) y + 10)), point);
+	public TransporterCave(Level currentLevel, int x, int y, Point point) {
+		super(currentLevel, x, y,
+				new RandomCave(Level.level1.width, Level.level1.height, 5,
+						currentLevel, new Point(x + 1, y + 10)), point);
 		this.color = Colors.get(Colors.fromHex("#474645"),
 				Colors.fromHex("#663300"), Colors.fromHex("#472400"),
 				Colors.fromHex("#ffde00"));
 	}
 
-	public TransporterCave(Level currentLevel, double x, double y,
-			Level nextLevel) {
+	public TransporterCave(Level currentLevel, int x, int y, Level nextLevel) {
 		super(currentLevel, x, y, nextLevel);
 		this.color = Colors.get(Colors.fromHex("#474645"),
 				Colors.fromHex("#663300"), Colors.fromHex("#472400"),

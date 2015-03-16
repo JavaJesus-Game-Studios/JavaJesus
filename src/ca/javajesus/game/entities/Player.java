@@ -324,7 +324,7 @@ public class Player extends Mob {
 	}
 
 	public void render(Screen screen) {
-
+		super.render(screen);
 		if (isDriving) {
 			this.x = vehicle.x;
 			this.y = vehicle.y;
@@ -336,14 +336,15 @@ public class Player extends Mob {
 			return;
 		}
 
-		this.getBounds().setLocation((int) this.x - 7, (int) this.y - 8);
-		this.getOuterBounds().setLocation((int) this.x - 9, (int) this.y - 10);
+		this.getBounds().setLocation(this.x - 7, this.y - 8);
+		this.getOuterBounds().setLocation(this.x - 9, this.y - 10);
 		if (canChangeLevel) {
 			level.remEntity(this);
 			level.remEntity(bar);
 			if (isOnFire()) {
 				setOnFire(false);
 			}
+			level.clear();
 			init(nextLevel);
 			screen.getGame().updateLevel();
 			level.init();
@@ -415,15 +416,6 @@ public class Player extends Mob {
 					1, sheet);
 			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * 32, watercolor,
 					0x01, 1, sheet);
-		}
-
-		// Handles fire animation
-		if (isOnFire()) {
-			int firecolor = Colors.get(-1, Colors.fromHex("#F7790A"), 540, -1);
-
-			screen.render(xOffset + 3, yOffset, this.level.fireList.get(0)
-					.getXTile() + 15 * 32, firecolor, 0, 2, SpriteSheet.tiles);
-
 		}
 
 		// Normal Player movement -- Not Attacking Anything
@@ -592,63 +584,6 @@ public class Player extends Mob {
 					(int) yOffset - 10 + isHitY, isHitColor, 1);
 		}
 
-	}
-
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 7;
-		int yMin = 3;
-		int yMax = 7;
-
-		if (isDriving) {
-			for (int x = xMin; x < xMax; x++) {
-				if (isSolidTile(xa, ya, x, yMin)
-						|| isWaterTile(xa, ya, x, yMin)) {
-					return true;
-				}
-			}
-			for (int x = xMin; x < xMax; x++) {
-				if (isSolidTile(xa, ya, x, yMax)
-						|| isWaterTile(xa, ya, x, yMax)) {
-					return true;
-				}
-			}
-			for (int y = yMin; y < yMax; y++) {
-				if (isSolidTile(xa, ya, xMin, y)
-						|| isWaterTile(xa, ya, xMin, y)) {
-					return true;
-				}
-			}
-			for (int y = yMin; y < yMax; y++) {
-				if (isSolidTile(xa, ya, xMax, y)
-						|| isWaterTile(xa, ya, xMax, y)) {
-					return true;
-				}
-			}
-		}
-
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin)) {
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y)) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	public void checkTile(double x, double y) {

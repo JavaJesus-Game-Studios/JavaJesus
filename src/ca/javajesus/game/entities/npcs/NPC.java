@@ -52,8 +52,6 @@ public class NPC extends Mob {
 
 	public static NPC Jesus = new Jesus(Level.level1, 300, 400, "stand", 30);
 
-	protected boolean isSwimming = false;
-
 	/** Range that the NPC can walk */
 	protected Ellipse2D.Double walkRadius;
 	protected final int RADIUS = 32 * 8;
@@ -80,9 +78,9 @@ public class NPC extends Mob {
 
 	protected boolean movingToOrigin = false;
 
-	public NPC(Level level, String name, int x, int y, int speed,
-			int width, int height, int defaultHealth, int color, int xTile,
-			int yTile, String walkPath, int walkDistance, int yChange) {
+	public NPC(Level level, String name, int x, int y, int speed, int width,
+			int height, int defaultHealth, int color, int xTile, int yTile,
+			String walkPath, int walkDistance, int yChange) {
 		super(level, name, x, y, speed, width, height, SpriteSheet.npcs,
 				defaultHealth);
 		this.walkRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
@@ -102,113 +100,44 @@ public class NPC extends Mob {
 		this.speed = 1;
 	}
 
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 7;
-		int yMin = 3;
-		int yMax = 7;
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin)) {
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public void tick() {
-
-		if (isDead) {
-			return;
-		}
-
-		if (isTalking) {
-			talkCount++;
-			if (talkCount > 350) {
-				talkCount = 0;
-				isTalking = false;
-			}
-		}
-
-		if (isHit) {
-			isHitTicks++;
-			if (isHitTicks > 20) {
-				isHitTicks = 0;
-				isHit = false;
-			}
-		}
-
-		tickCount++;
+		super.tick();
 		if (tickCount > 360) {
 			tickCount = 0;
 			movingToOrigin = true;
 		}
 
-		if (isMobCollision()) {
-			moveAroundMobCollision();
-			return;
-		}
-		int xx = (int) x;
-		int yy = (int) y;
-		if (level.getTile(xx >> 3, yy >> 3).getId() == 3) {
-			isSwimming = true;
-		}
-		if (isSwimming && level.getTile(xx >> 3, yy >> 3).getId() != 3) {
-			isSwimming = false;
-		}
-
 		if (movingToOrigin)
 			findOrigin();
 		else {
-			for (Mob mob : level.getMobs()) {
-				if (mob == this)
-					continue;
-				if (this.getOuterBounds().intersects(mob.getBounds()))
-					return;
-			}
 			findPath();
 		}
-
 	}
 
 	protected void findOrigin() {
 
-		if ((int) xPos == (int) this.x && (int) yPos == (int) this.y) {
+		if (xPos == this.x && yPos == this.y) {
 			movingToOrigin = false;
+			return;
 		}
-
 		int xa = 0;
 		int ya = 0;
-		if ((int) xPos > (int) this.x) {
+		if (xPos > this.x) {
 			xa++;
 		}
-		if ((int) xPos < (int) this.x) {
+		if (xPos < this.x) {
 			xa--;
 		}
-		if ((int) yPos > (int) this.y) {
+		if (yPos > this.y) {
 			ya++;
 		}
-		if ((int) yPos < (int) this.y) {
+		if (yPos < this.y) {
 			ya--;
 		}
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			move(xa, ya);
 			setMoving(true);
+			move(xa, ya);
 		} else {
 			setMoving(false);
 		}
@@ -242,10 +171,7 @@ public class NPC extends Mob {
 	}
 
 	public void render(Screen screen) {
-		this.getBounds().setLocation((int) this.x - (this.width / 2), (int) this.y
-				- (this.height / 2));
-		this.getOuterBounds().setLocation((int) this.x - (int) getBounds().getWidth() / 2
-				- 2, (int) this.y - (int) getBounds().getHeight() / 2 - 2);
+		super.render(screen);
 		int xTile = this.xTile;
 		int yTile = this.yTile;
 
@@ -268,65 +194,62 @@ public class NPC extends Mob {
 		int modifier = 8 * scale;
 		double xOffset = x - modifier / 2.0;
 		double yOffset = y - modifier / 2.0 - 4;
-
+		
 		if (isDead)
 			xTile = 12;
 
-		if (isSwimming) {
-			if (isOnFire()) {
-				setOnFire(false);
+		if (isShooting && !isDead && !isSwimming) {
+
+			xTile = 14;
+			if (getDirection() == 0) {
+				xTile += 2;
 			}
-			int waterColour = 0;
-			yOffset += 4;
-			if (tickCount % 60 < 15) {
-				waterColour = Colors.get(-1, 225, -1, -1);
-			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
-				yOffset -= 1;
-				waterColour = Colors.get(-1, 115, 225, -1);
-			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
-				waterColour = Colors.get(-1, 115, -1, -1);
-			} else {
-				yOffset -= 1;
-				waterColour = Colors.get(-1, 225, 225, -1);
+			if (getDirection() == 1) {
+				xTile += 4;
 			}
-			screen.render(xOffset, yOffset + 3, 0 + 10 * 32, waterColour, 0x00,
-					1, sheet);
-			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * 32, waterColour,
-					0x01, 1, sheet);
-		}
-		if (!isSwimming) {
+
+			// Upper body 1
+			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
+					+ yTile * 32, this.color, flipTop, scale, sheet);
+
+			// Upper body 2
+			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
+					(xTile + 1) + yTile * 32, this.color, flipTop, scale, sheet);
+
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * 32, color,
+					yOffset + modifier, xTile + (yTile + 1) * 32, this.color,
 					flipBottom, scale, sheet);
+
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
+					+ modifier, (xTile + 1) + (yTile + 1) * 32, this.color,
 					flipBottom, scale, sheet);
+		} else {
 
+			if (!isSwimming) {
+				// Lower Body 1
+				screen.render(xOffset + (modifier * flipBottom), yOffset
+						+ modifier, xTile + (yTile + 1) * 32, color,
+						flipBottom, scale, sheet);
+				// Lower Body 2
+				screen.render(xOffset + modifier - (modifier * flipBottom),
+						yOffset + modifier, (xTile + 1) + (yTile + 1) * 32,
+						color, flipBottom, scale, sheet);
+
+			}
+
+			// Upper body 1
+			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
+					+ yTile * 32, color, flipTop, scale, sheet);
+			// Upper Body 2
+			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
+					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
 		}
-
-		// Upper body 1
-		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
-				* 32, color, flipTop, scale, sheet);
-		// Upper Body 2
-		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-				(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
 
 		if (currentQuest != null && !isTalking) {
 			JJFont.render("?", screen, (int) xOffset + 4, (int) yOffset - 10,
 					Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")), 1);
-		}
-
-		if (isTalking) {
-			JJFont.render(name, screen, (int) xOffset
-					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10,
-					Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")), 1);
-		}
-
-		if (isHit) {
-			JJFont.render(damageTaken, screen, (int) xOffset + isHitX,
-					(int) yOffset - 10 + isHitY, isHitColor, 1);
 		}
 
 	}

@@ -9,14 +9,14 @@ import ca.javajesus.level.Level;
 
 public class TransporterLadder extends Transporter {
 
-	public TransporterLadder(Level currentLevel, double x, double y,
+	public TransporterLadder(Level currentLevel, int x, int y,
 			Level nextLevel) {
 		super(currentLevel, x, y, nextLevel);
 		this.color = Colors.get(-1, Colors.fromHex("#663300"),
 				Colors.fromHex("#663300"), Colors.fromHex("#ffde00"));
 	}
 
-	public TransporterLadder(Level currentLevel, double x, double y,
+	public TransporterLadder(Level currentLevel, int x, int y,
 			Level nextLevel, Point point) {
 		super(currentLevel, x, y, nextLevel, point);
 		this.color = Colors.get(-1, Colors.fromHex("#663300"),

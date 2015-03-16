@@ -86,7 +86,7 @@ public class RandomCave extends Level {
 
 	@Override
 	protected void otherEntityPlacement() {
-		this.addEntity(new TransporterLadder(this, spawnPoint.getX(), spawnPoint.getY(), prevLevel,
+		this.addEntity(new TransporterLadder(this, (int) spawnPoint.getX(), (int) spawnPoint.getY(), prevLevel,
 				prevSpawn));
 	}
 }

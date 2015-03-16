@@ -9,11 +9,11 @@ import ca.javajesus.level.Level;
 public class TransporterGlass extends Transporter {
 	
 
-	public TransporterGlass(Level currentLevel, double x, double y, Level nextLevel) {
+	public TransporterGlass(Level currentLevel, int x, int y, Level nextLevel) {
 		super(currentLevel, x, y, nextLevel);
 	}
 	
-	public TransporterGlass(Level currentLevel, double x, double y, Level nextLevel, Point point) {
+	public TransporterGlass(Level currentLevel, int x, int y, Level nextLevel, Point point) {
 		super(currentLevel, x, y, nextLevel, point);
 	}
 

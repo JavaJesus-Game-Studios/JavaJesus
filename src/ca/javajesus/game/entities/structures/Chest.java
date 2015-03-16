@@ -25,27 +25,27 @@ public class Chest extends SolidEntity {
 
 	Random random = new Random();
 
-	public Chest(Level level, double x, double y) {
+	public Chest(Level level, int x, int y) {
 		super(level, x, y, 8, 8);
 		contents = new ArrayList<Item>();
 		this.bounds.setSize(8, 8);
-		this.bounds.setLocation((int) x, (int) y);
+		this.bounds.setLocation(x, y);
 
 	}
 
-	public Chest(Level level, double x, double y, ArrayList<Item> items) {
+	public Chest(Level level, int x, int y, ArrayList<Item> items) {
 		super(level, x, y, 8, 8);
 		this.contents = items;
 		this.bounds.setSize(8, 8);
-		this.bounds.setLocation((int) x, (int) y);
+		this.bounds.setLocation(x, y);
 	}
 
-	public Chest(Level level, double x, double y, String type, int amt) {
+	public Chest(Level level, int x, int y, String type, int amt) {
 		super(level, x, y, 8, 8);
 		contents = new ArrayList<Item>();
 		fillRandomItems(type, amt);
 		this.bounds.setSize(8, 8);
-		this.bounds.setLocation((int) x, (int) y);
+		this.bounds.setLocation(x, y);
 	}
 
 	private Gun getRandomGun() {

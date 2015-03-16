@@ -61,7 +61,7 @@ public class HealthBar extends Particle {
 
 		if (mob.isOnFire()) {
 			if (tickCount % 10 == 0)
-				mob.damage(0.1, 0.3);
+				mob.damage(1, 2);
 			tickCount++;
 		}
 

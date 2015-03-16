@@ -11,10 +11,10 @@ public class SolidEntity extends Entity {
 	public Rectangle shadow;
 	protected int width;
 	protected int height;
-	public final double x, y;
+	public final int x, y;
 	protected int color;
 
-	public SolidEntity(Level level, double x, double y, int width, int height) {
+	public SolidEntity(Level level, int x, int y, int width, int height) {
 		super(level);
 		this.isSolid = true;
 		this.x = x;
@@ -22,9 +22,9 @@ public class SolidEntity extends Entity {
 		this.width = width;
 		this.height = height;
 		this.shadow = new Rectangle(width, (height / 2));
-		this.shadow.setLocation((int) x, (int) y);
+		this.shadow.setLocation(x, y);
 		this.bounds = new Rectangle(width, (height / 2) - 8);
-		this.bounds.setLocation((int) x, (int) y + shadow.height);
+		this.bounds.setLocation(x, y + shadow.height);
 	}
 
 	public void tick() {

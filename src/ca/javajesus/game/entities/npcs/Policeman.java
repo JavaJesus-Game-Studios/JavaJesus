@@ -71,40 +71,10 @@ public class Policeman extends NPC {
 	}
 
 	public void tick() {
-		
-		if (isDead)
-			return;
+		super.tick();
 
 		checkRadius();
-		
-		if (isHit) {
-			isHitTicks++;
-			if (isHitTicks > 20) {
-				isHitTicks = 0;
-				isHit = false;
-			}
-		}
-		
-		if (isTalking) {
-			talkCount++;
-			if (talkCount > 350) {
-				talkCount = 0;
-				isTalking = false;
-			}
-		}
 
-		if (isShooting) {
-			shootTickCount++;
-			if (shootTickCount > 20) {
-				shootTickCount = 0;
-				isShooting = false;
-			}
-		}
-
-		if (isMobCollision()) {
-			moveAroundMobCollision();
-			return;
-		}
 		int xa = 0;
 		int ya = 0;
 		if (mob != null && this.aggroRadius.intersects(mob.getBounds())) {
@@ -136,21 +106,7 @@ public class Policeman extends NPC {
 				setMoving(false);
 			}
 
-		} else {
-			if (movingToOrigin)
-				findOrigin();
-			else {
-				for (Mob mob : level.getMobs()) {
-					if (mob == this)
-						continue;
-					if (this.getOuterBounds().intersects(mob.getBounds()))
-						return;
-				}
-				findPath();
-			}
-		}
-
-		tickCount++;
+		} 
 
 		if (tickCount % 100 == 0) {
 			cooldown = false;
@@ -162,97 +118,11 @@ public class Policeman extends NPC {
 
 	public void render(Screen screen) {
 
-		this.getBounds().setLocation((int) this.x - 8, (int) this.y - 16);
-		this.getOuterBounds().setLocation((int) this.x - 10, (int) this.y - 18);
+		super.render(screen);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
 		this.standRange.setFrame(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2,
 				RADIUS / 2);
-		int xTile = 0;
-		int walkingSpeed = 4;
-		int flipTop = (numSteps >> walkingSpeed) & 1;
-		int flipBottom = (numSteps >> walkingSpeed) & 1;
-
-		if (getDirection() == 0) {
-			xTile += 10;
-		}
-		if (getDirection() == 1) {
-			xTile += 2;
-		} else if (getDirection() > 1) {
-			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
-			flipTop = (getDirection() - 1) % 2;
-			flipBottom = (getDirection() - 1) % 2;
-		}
-
-		int modifier = 8 * scale;
-		double xOffset = x - modifier / 2;
-		double yOffset = (y - modifier / 2 - 4) - modifier;
-		
-		if(isDead)
-			xTile = 12;
-
-		if (isShooting) {
-
-			xTile = 14;
-			if (getDirection() == 0) {
-				xTile += 2;
-			}
-			if (getDirection() == 1) {
-				xTile += 4;
-			} 
-
-			// Upper body 1
-			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, this.color, flipTop, scale, sheet);
-
-			// Upper body 2
-			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, this.color, flipTop, scale, sheet);
-
-			// Lower Body 1
-			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * 32, this.color,
-					flipBottom, scale, sheet);
-
-			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, this.color,
-					flipBottom, scale, sheet);
-		} else {
-
-			// Upper body
-			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, this.color, flipTop, scale, sheet);
-
-			// Upper body
-			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, this.color, flipTop, scale, sheet);
-
-			// Lower Body
-			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * 32, this.color,
-					flipBottom, scale, sheet);
-
-			// Lower Body
-			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, this.color,
-					flipBottom, scale, sheet);
-		}
-		
-		if (currentQuest != null && !isTalking) {
-			JJFont.render("?", screen, (int) xOffset + 4, (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
-					1);
-		}
-		if (isTalking) {
-			JJFont.render(name, screen, (int) xOffset
-					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
-					1);
-		}
-		
-		if (isHit) {
-			JJFont.render(damageTaken, screen, (int) xOffset + isHitX, (int) yOffset - 10 + isHitY,
-					isHitColor, 1);
-		}
 
 	}
 	

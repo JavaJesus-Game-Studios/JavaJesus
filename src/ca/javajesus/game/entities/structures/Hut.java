@@ -17,30 +17,27 @@ public class Hut extends SolidEntity {
 	protected int color = Colors.get(-1, Colors.fromHex("#654000"),
 			Colors.fromHex("#814700"), Colors.fromHex("#ffea00"));
 
-	public Hut(Level level, double x, double y) {
+	public Hut(Level level, int x, int y) {
 		super(level, x, y, 40, 48);
-		level.addEntity(new Transporter(level, x + 18, y + 32,
-				new HutInterior(new Point((int) x + 20, (int) y + 40),
-						this.level)));
+		level.addEntity(new Transporter(level, x + 18, y + 32, new HutInterior(
+				new Point(x + 20, y + 40), this.level)));
 	}
 
-	public Hut(Level level, double x, double y, Entity entity) {
+	public Hut(Level level, int x, int y, Entity entity) {
 		super(level, x, y, 40, 48);
-		level.addEntity(new Transporter(level, x + 18, y + 32,
-				new HutInterior(new Point((int) x + 20, (int) y + 40),
-						this.level, entity)));
+		level.addEntity(new Transporter(level, x + 18, y + 32, new HutInterior(
+				new Point(x + 20, y + 40), this.level, entity)));
 	}
 
-	public Hut(Level level, double x, double y, Entity entity, Spawner spawner) {
+	public Hut(Level level, int x, int y, Entity entity, Spawner spawner) {
 		super(level, x, y, 40, 48);
-		level.addEntity(new Transporter(level, x + 18, y + 32,
-				new HutInterior(new Point((int) x + 20, (int) y + 40),
-						this.level, entity, spawner)));
+		level.addEntity(new Transporter(level, x + 18, y + 32, new HutInterior(
+				new Point(x + 20, y + 40), this.level, entity, spawner)));
 	}
 
 	public void render(Screen screen) {
 
-		screen.render((int) x, (int) y, color, Sprite.hut_exterior);
+		screen.render(x, y, color, Sprite.hut_exterior);
 
 	}
 

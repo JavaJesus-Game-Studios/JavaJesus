@@ -6,11 +6,11 @@ import ca.javajesus.level.Level;
 
 public class TransporterInterior extends Transporter {
 	
-	public TransporterInterior(Level currentLevel, double x, double y, Level nextLevel) {
+	public TransporterInterior(Level currentLevel, int x, int y, Level nextLevel) {
 		super(currentLevel, x, y, nextLevel);
 	}
 	
-	public TransporterInterior(Level currentLevel, double x, double y, Level nextLevel, Point point) {
+	public TransporterInterior(Level currentLevel, int x, int y, Level nextLevel, Point point) {
 		super(currentLevel, x, y, nextLevel, point);
 	}
 

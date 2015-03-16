@@ -109,7 +109,7 @@ public class RandomLevel2 extends Level {
 
 	}
 
-	private SolidEntity getBuilding(double x, double y) {
+	private SolidEntity getBuilding(int x, int y) {
 		Random random = new Random();
 		switch (random.nextInt(10)) {
 		case 1:

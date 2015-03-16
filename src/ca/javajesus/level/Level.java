@@ -4,11 +4,14 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
+
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
+
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.FireEntity;
@@ -30,6 +33,7 @@ public abstract class Level {
 	protected List<Mob> mobs = new CopyOnWriteArrayList<Mob>();
 	protected List<Player> players = new CopyOnWriteArrayList<Player>();
 	public List<FireEntity> fireList = new CopyOnWriteArrayList<FireEntity>();
+	public List<Mob> killList = new CopyOnWriteArrayList<Mob>();
 	private String imagePath;
 	private BufferedImage image;
 	public Point spawnPoint;
@@ -39,7 +43,8 @@ public abstract class Level {
 	public static Level level1 = new Level1();
 	public static Level roadlevel = new RoadLevel();
 	public static Level random = new RandomLevel(level1.width, level1.height);
-	public static Level random2 = new RandomLevel2(level1.width, level1.height, new Point(500, 500));
+	public static Level random2 = new RandomLevel2(level1.width, level1.height,
+			new Point(500, 500));
 	public static Level randomCave = new RandomCave(level1.width,
 			level1.height, 5, level1, new Point(220, 79));
 
@@ -186,10 +191,21 @@ public abstract class Level {
 		}
 
 	}
+	
+	public void clear() {
+		for (Mob m: killList) {
+			this.remEntity(m);
+			killList.remove(m);
+		}
+	}
 
 	public void tick() {
 		for (Entity e : getEntities()) {
-			e.tick();
+			if (e instanceof Mob) {
+				if (!((Mob) e).isDead())
+					e.tick();
+			} else
+				e.tick();
 		}
 
 		for (Tile t : Tile.tiles) {
