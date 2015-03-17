@@ -2,11 +2,9 @@ package ca.javajesus.game.entities.npcs;
 
 import java.awt.geom.Ellipse2D;
 
-import quests.SampleQuest;
 import ca.javajesus.game.gfx.Colors;
-import ca.javajesus.game.gfx.JJFont;
-import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
+import ca.javajesus.quests.SampleQuest;
 
 public class Jesus extends NPC {
 

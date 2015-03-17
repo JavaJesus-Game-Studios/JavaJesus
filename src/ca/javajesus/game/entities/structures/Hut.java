@@ -10,7 +10,6 @@ import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.HutInterior;
-import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class Hut extends SolidEntity {
 

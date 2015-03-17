@@ -10,7 +10,6 @@ import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
-import ca.javajesus.items.Bazooka;
 import ca.javajesus.items.Gun;
 import ca.javajesus.items.Item;
 import ca.javajesus.items.Sword;
@@ -26,25 +25,28 @@ public class Chest extends SolidEntity {
 	Random random = new Random();
 
 	public Chest(Level level, int x, int y) {
-		super(level, x, y, 8, 8);
+		super(level, x, y, 5, 9);
 		contents = new ArrayList<Item>();
-		this.bounds.setSize(8, 8);
+		this.shadow.setSize(0, 0);
+		this.bounds.setSize(5, 9);
 		this.bounds.setLocation(x, y);
 
 	}
 
 	public Chest(Level level, int x, int y, ArrayList<Item> items) {
-		super(level, x, y, 8, 8);
+		super(level, x, y, 5, 9);
 		this.contents = items;
-		this.bounds.setSize(8, 8);
+		this.shadow.setSize(0, 0);
+		this.bounds.setSize(5, 9);
 		this.bounds.setLocation(x, y);
 	}
 
 	public Chest(Level level, int x, int y, String type, int amt) {
-		super(level, x, y, 8, 8);
+		super(level, x, y, 5, 9);
 		contents = new ArrayList<Item>();
 		fillRandomItems(type, amt);
-		this.bounds.setSize(8, 8);
+		this.shadow.setSize(0, 0);
+		this.bounds.setSize(5, 9);
 		this.bounds.setLocation(x, y);
 	}
 

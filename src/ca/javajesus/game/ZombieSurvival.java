@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-
-import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.zombie.ZombieMap1;
 

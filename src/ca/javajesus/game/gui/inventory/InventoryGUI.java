@@ -11,13 +11,13 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JPanel;
 
-import quests.Quest;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gui.ScreenGUI;
+import ca.javajesus.quests.Quest;
 
 public class InventoryGUI extends ScreenGUI {
 

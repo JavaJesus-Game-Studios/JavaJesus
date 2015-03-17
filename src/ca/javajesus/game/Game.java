@@ -26,6 +26,7 @@ import ca.javajesus.game.gui.ScreenGUI;
 import ca.javajesus.game.gui.intro.IntroGUI;
 import ca.javajesus.game.gui.inventory.InventoryGUI;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.Level1;
 
 public class Game extends Canvas implements Runnable {
 
@@ -77,7 +78,7 @@ public class Game extends Canvas implements Runnable {
 	public InputHandler input;
 
 	/** Creates instance of the player */
-	public Player player;
+	public static Player player;
 
 	protected PlayerHUD hud;
 
@@ -184,7 +185,7 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 	}
-
+	
 	public void redScreen() {
 		int index = 0;
 		for (int r = 0; r < 6; r++) {
@@ -314,7 +315,6 @@ public class Game extends Canvas implements Runnable {
 			g.setColor(Color.BLACK);
 			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);
 			frame.dispose();
-			returnToMenu = false;
 			new Launcher(0).startMenu();
 			running = false;
 			return;

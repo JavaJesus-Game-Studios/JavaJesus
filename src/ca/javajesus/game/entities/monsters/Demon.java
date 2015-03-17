@@ -1,11 +1,10 @@
 package ca.javajesus.game.entities.monsters;
 
-
+import ca.javajesus.game.Game;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.FireBall;
 import ca.javajesus.game.gfx.Colors;
-import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
@@ -49,34 +48,12 @@ public class Demon extends Monster {
 	}
 
 	public void tick() {
+		super.tick();
 
-		if (isDead) {
-			return;
-		}
-		
-		if (isHit) {
-			isHitTicks++;
-			if (isHitTicks > 20) {
-				isHitTicks = 0;
-				isHit = false;
-			}
-		}
-		
-		if (isTalking) {
-			talkCount++;
-			if (talkCount > 350) {
-				talkCount = 0;
-				isTalking = false;
-			}
-		}
-
-		if (random.nextInt(500) == 0) {
+		if (this.aggroRadius.intersects(Game.player.getBounds())
+				&& random.nextInt(400) == 0) {
 			sound.play(SoundHandler.sound.demon);
 		}
-		checkRadius();
-
-		tickCount++;
-
 		if (tickCount % 100 == 0) {
 			cooldown = false;
 		} else {
@@ -95,50 +72,40 @@ public class Demon extends Monster {
 		if (mob != null && this.aggroRadius.intersects(mob.getBounds())
 				&& !this.getOuterBounds().intersects(mob.getBounds())) {
 
-			if ((int) mob.getX() > (int) this.x) {
+			if (mob.getX() > this.x) {
 				xa++;
 			}
-			if ((int) mob.getX() < (int) this.x) {
+			if (mob.getX() < this.x) {
 				xa--;
 			}
-			if ((int) mob.getY() > (int) this.y) {
+			if (mob.getY() > this.y) {
 				ya++;
 			}
-			if ((int) mob.getY() < (int) this.y) {
+			if (mob.getY() < this.y) {
 				ya--;
 			}
 		}
 
-		if (isMobCollision()) {
-			moveAroundMobCollision();
-			return;
-		}
-
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			move(xa, ya);
 			setMoving(true);
+			move(xa, ya);
 		} else {
 			setMoving(false);
 		}
 
-		if (!cooldown) {
-			if (mob == null) {
-				return;
-			}
+		if (!cooldown && mob != null) {
 			isShooting = true;
-			level.addEntity(new FireBall(level, this.x + 5, (this.y - 7),
-					mob.getX(), mob.getY(), this));
+			level.addEntity(new FireBall(level, this.x + 5, (this.y - 7), mob
+					.getX(), mob.getY(), this));
 		}
 
 	}
 
 	public void render(Screen screen) {
-
+		super.render(screen);
 		this.getBounds().setLocation((int) this.x - 7, (int) this.y - 12);
 		this.getOuterBounds().setLocation((int) this.x - 9, (int) this.y - 14);
-		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
-				RADIUS);
 		int xTile = 0;
 		int walkingSpeed = 4;
 		int flipTop = (numSteps >> walkingSpeed) & 1;
@@ -215,16 +182,6 @@ public class Demon extends Monster {
 					(xTile + 2) + (yTile + 2) * 32, color, flipBottom, scale,
 					sheet);
 
-		}
-		if (isTalking) {
-			JJFont.render(name, screen, (int) xOffset
-					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
-					1);
-		}
-		
-		if (isHit) {
-			JJFont.render(damageTaken, screen, (int) xOffset + isHitX, (int) yOffset - 10 + isHitY,
-					isHitColor, 1);
 		}
 
 	}

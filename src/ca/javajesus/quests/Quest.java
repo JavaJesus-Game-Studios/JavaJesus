@@ -1,4 +1,4 @@
-package quests;
+package ca.javajesus.quests;
 
 import java.util.ArrayList;
 

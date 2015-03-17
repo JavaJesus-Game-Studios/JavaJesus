@@ -44,58 +44,29 @@ public class Companion extends NPC {
 			movingToOrigin = true;
 		}
 
-		if (mob != null && !this.aggroRadius.intersects(mob.getBounds())) {
-			mob = null;
-		}
-
 		if (mob == null)
 			for (Mob mob : level.getMobs()) {
 				if (mob instanceof Monster) {
-					if (this.aggroRadius.intersects(mob.getBounds()) && !mob.isDead()) {
-						// if (!mob.isTargeted) {
+					if (this.aggroRadius.intersects(mob.getBounds())) {
 						this.mob = mob;
 						mob.setTargeted(true);
 						return;
-						// }
 					}
 				}
 			}
 	}
 
 	public void tick() {
-
-		if (isDead)
-			return;
-
+		super.tick();
 		checkRadius();
 
-		if (isHit) {
-			isHitTicks++;
-			if (isHitTicks > 20) {
-				isHitTicks = 0;
-				isHit = false;
-			}
-		}
-
-		if (isTalking) {
-			talkCount++;
-			if (talkCount > 350) {
-				talkCount = 0;
-				isTalking = false;
-			}
-		}
-
-		if (isMobCollision()) {
-			moveAroundMobCollision();
-			return;
-		}
 		int xa = 0;
 		int ya = 0;
 		if (mob != null && this.aggroRadius.intersects(mob.getBounds())) {
 			if (!cooldown) {
 				cooldown = true;
-				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7),
-						mob.getX(), mob.getY(), this, 3));
+				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7), mob
+						.getX(), mob.getY(), this, 3));
 			}
 			if (!this.standRange.intersects(mob.getBounds())) {
 
@@ -148,14 +119,13 @@ public class Companion extends NPC {
 		}
 
 		if (cooldown) {
-			tickCount++;
 			if (tickCount % 100 == 0) {
 				cooldown = false;
 			}
 		}
 
 	}
-	
+
 	public void render(Screen screen) {
 		super.render(screen);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,

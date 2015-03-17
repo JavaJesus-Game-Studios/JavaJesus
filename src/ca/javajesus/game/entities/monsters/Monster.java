@@ -19,7 +19,8 @@ public class Monster extends Mob {
 			500, 200, 1, 100);
 	public static Monster monkey = new Monkey(Level.level1, "Monkey", 70, 70,
 			1, 100);
-	public static Monster gang2 = new GangMember(Level.level1, "Criminal", 100, 150, 1, 100, 1);
+	public static Monster gang2 = new GangMember(Level.level1, "Criminal", 100,
+			150, 1, 100, 1);
 	public static Monster man2;
 
 	/** The player the monster is chasing */
@@ -27,10 +28,8 @@ public class Monster extends Mob {
 
 	/** Range that the monster can target a player */
 	protected Ellipse2D.Double aggroRadius;
-
 	protected final int RADIUS = 32 * 8;
 	protected boolean cooldown = true;
-	protected int tickCount = 0;
 	protected int shootTickCount = 0;
 	protected int yTile;
 
@@ -56,51 +55,25 @@ public class Monster extends Mob {
 			for (Mob mob : level.getMobs()) {
 				if (mob instanceof Player || mob instanceof NPC) {
 					if (this.aggroRadius.intersects(mob.getBounds())) {
-						// if (!mob.isTargeted) {
 						this.mob = mob;
 						mob.setTargeted(true);
 						return;
-						// }
 					}
 				}
 			}
 
 	}
 
-	public boolean hasCollided(int xa, int ya) {
-		return false;
-
-	}
-
 	public void tick() {
-		
-		if (isDead)
-			return;
-		
-		if (isHit) {
-			isHitTicks++;
-			if (isHitTicks > 20) {
-				isHitTicks = 0;
-				isHit = false;
-			}
-		}
-		
-		if (isTalking) {
-			talkCount++;
-			if (talkCount > 350) {
-				talkCount = 0;
-				isTalking = false;
-			}
-		}
-		
+		super.tick();
+		checkRadius();
 	}
-	
+
 	public void speak(Player player) {
 		isTalking = true;
 		switch (random.nextInt(6)) {
 		case 0: {
-			ChatHandler.sendMessage("Rawr!",
-					Color.white);
+			ChatHandler.sendMessage("Rawr!", Color.white);
 			return;
 		}
 		case 1: {
@@ -112,15 +85,11 @@ public class Monster extends Mob {
 			return;
 		}
 		case 3: {
-			ChatHandler
-					.sendMessage(
-							"ROAAR",
-							Color.white);
+			ChatHandler.sendMessage("ROAAR", Color.white);
 			return;
 		}
 		case 4: {
-			ChatHandler.sendMessage("HHRRRRSSHSHH",
-					Color.white);
+			ChatHandler.sendMessage("HHRRRRSSHSHH", Color.white);
 			return;
 		}
 		default: {
@@ -131,7 +100,9 @@ public class Monster extends Mob {
 	}
 
 	public void render(Screen screen) {
-		
+		super.render(screen);
+		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
+				RADIUS);
 	}
 
 }

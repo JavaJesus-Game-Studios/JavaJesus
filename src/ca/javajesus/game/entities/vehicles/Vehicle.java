@@ -17,7 +17,7 @@ public class Vehicle extends Mob {
 	protected InputHandler input;
 	protected int tickCount = 0;
 	protected Point acceleration = new Point(0, 0);
-	protected final int DELAY = 25;
+	protected final int DELAY = 5;
 	protected final int MAX_ACCELERATION = 5;
 	protected boolean isSlowingDown = true;
 
@@ -194,6 +194,14 @@ public class Vehicle extends Mob {
 		}
 
 		tickCount++;
+	}
+	
+	public void kill() {
+
+		isDead = true;
+		level.remEntity(this);
+		level.addEntity(this, 0);
+		level.killList.add(this);
 	}
 
 	public void render(Screen screen) {

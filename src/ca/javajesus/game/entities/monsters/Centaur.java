@@ -2,14 +2,12 @@ package ca.javajesus.game.entities.monsters;
 
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.gfx.Colors;
-import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Centaur extends Monster {
-	
-	public Centaur(Level level, String name, int x, int y, int speed,
-			int health) {
+
+	public Centaur(Level level, String name, int x, int y, int speed, int health) {
 		super(level, name, x, y, speed, 14, 24, 5, health, Colors.get(-1, 111,
 				Colors.fromHex("#8f4c1f"), 543));
 		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 8);
@@ -48,26 +46,7 @@ public class Centaur extends Monster {
 
 	public void tick() {
 
-		if (isDead)
-			return;
-		
-		if (isHit) {
-			isHitTicks++;
-			if (isHitTicks > 20) {
-				isHitTicks = 0;
-				isHit = false;
-			}
-		}
-		
-		if (isTalking) {
-			talkCount++;
-			if (talkCount > 350) {
-				talkCount = 0;
-				isTalking = false;
-			}
-		}
-		
-		checkRadius();
+		super.tick();
 
 		if (isShooting) {
 			shootTickCount++;
@@ -77,30 +56,23 @@ public class Centaur extends Monster {
 			}
 		}
 
-		if (isMobCollision()) {
-			moveAroundMobCollision();
-			return;
-		} else {
-			isAvoidingCollision = false;
-		}
 		int xa = 0;
 		int ya = 0;
 		if (mob != null && this.aggroRadius.intersects(mob.getBounds())
 				&& !this.getOuterBounds().intersects(mob.getOuterBounds())) {
 
-			if ((int) mob.getX() > (int) this.x) {
+			if (mob.getX() > this.x) {
 				xa++;
 			}
-			if ((int) mob.getX() < (int) this.x) {
+			if (mob.getX() < this.x) {
 				xa--;
 			}
-			if ((int) mob.getY() > (int) this.y) {
+			if (mob.getY() > this.y) {
 				ya++;
 			}
-			if ((int) mob.getY() < (int) this.y) {
+			if (mob.getY() < this.y) {
 				ya--;
 			}
-			tickCount++;
 
 			if (tickCount % 100 == 0) {
 				cooldown = false;
@@ -109,9 +81,10 @@ public class Centaur extends Monster {
 			}
 		}
 
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
-			move(xa, ya);
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
+				&& !isMobCollision(xa, ya)) {
 			setMoving(true);
+			move(xa, ya);
 		} else {
 			setMoving(false);
 		}
@@ -119,24 +92,25 @@ public class Centaur extends Monster {
 	}
 
 	public void render(Screen screen) {
+		super.render(screen);
 		if (getDirection() == 0 || getDirection() == 1) {
 			this.width = 14;
 			this.height = 24;
 			this.getBounds().setSize(width, height);
 			this.getBounds().setLocation((int) this.x - 7, (int) this.y - 12);
 			this.getOuterBounds().setSize(18, height);
-			this.getOuterBounds().setLocation((int) this.x - 9, (int) this.y - 14);
+			this.getOuterBounds().setLocation((int) this.x - 9,
+					(int) this.y - 14);
 		} else {
 			this.width = 24;
 			this.height = 24;
 			this.getBounds().setSize(width, height);
 			this.getBounds().setLocation((int) this.x - 12, (int) this.y - 12);
 			this.getOuterBounds().setSize(width + 5, height);
-			this.getOuterBounds().setLocation((int) this.x - 14, (int) this.y - 14);
+			this.getOuterBounds().setLocation((int) this.x - 14,
+					(int) this.y - 14);
 		}
-		
-		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
-				RADIUS);
+
 		int xTile = 0;
 		int walkingSpeed = 4;
 		int flipTop = (numSteps >> walkingSpeed) & 1;
@@ -159,7 +133,7 @@ public class Centaur extends Monster {
 		int modifier = 8 * scale;
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
-		
+
 		if (isDead)
 			xTile = 14;
 
@@ -249,17 +223,6 @@ public class Centaur extends Monster {
 			}
 			isShooting = true;
 
-		}
-		
-		if (isTalking) {
-			JJFont.render(name, screen, (int) xOffset
-					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10, Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")),
-					1);
-		}
-		
-		if (isHit) {
-			JJFont.render(damageTaken, screen, (int) xOffset + isHitX, (int) yOffset - 10 + isHitY,
-					isHitColor, 1);
 		}
 
 	}

@@ -6,7 +6,6 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Random;
 
-import quests.Quest;
 import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
@@ -16,6 +15,7 @@ import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
+import ca.javajesus.quests.Quest;
 
 public class NPC extends Mob {
 
@@ -71,7 +71,6 @@ public class NPC extends Mob {
 	protected boolean dir2;
 	protected boolean dir3;
 	protected boolean dir4;
-	protected int tickCount;
 
 	public ArrayList<Quest> quests = new ArrayList<Quest>();
 	public Quest currentQuest;
@@ -97,7 +96,6 @@ public class NPC extends Mob {
 				yChange);
 		if (level != null)
 			level.addEntity(bar);
-		this.speed = 1;
 	}
 
 	public void tick() {
@@ -106,11 +104,12 @@ public class NPC extends Mob {
 			tickCount = 0;
 			movingToOrigin = true;
 		}
-
-		if (movingToOrigin)
-			findOrigin();
-		else {
-			findPath();
+		if (!(this instanceof Policeman)) {
+			if (movingToOrigin)
+				findOrigin();
+			else {
+				findPath();
+			}
 		}
 	}
 
@@ -194,7 +193,7 @@ public class NPC extends Mob {
 		int modifier = 8 * scale;
 		double xOffset = x - modifier / 2.0;
 		double yOffset = y - modifier / 2.0 - 4;
-		
+
 		if (isDead)
 			xTile = 12;
 

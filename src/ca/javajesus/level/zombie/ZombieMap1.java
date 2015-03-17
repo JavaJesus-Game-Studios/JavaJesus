@@ -13,8 +13,6 @@ import ca.javajesus.game.entities.structures.Hut;
 import ca.javajesus.game.entities.structures.Chest;
 import ca.javajesus.game.entities.vehicles.Boat;
 import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
-import ca.javajesus.game.gfx.Colors;
-import ca.javajesus.items.Gun;
 import ca.javajesus.items.Item;
 import ca.javajesus.level.Level;
 

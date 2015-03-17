@@ -424,12 +424,10 @@ public class Mob extends Entity {
 	public void kill() {
 
 		isDead = true;
-		if (!(this instanceof Vehicle)) {
-			this.getBounds().setSize(0, 0);
-			this.getBounds().setLocation(0, 0);
-			this.getOuterBounds().setSize(0, 0);
-			this.getOuterBounds().setLocation(0, 0);
-		}
+		this.getBounds().setSize(0, 0);
+		this.getBounds().setLocation(0, 0);
+		this.getOuterBounds().setSize(0, 0);
+		this.getOuterBounds().setLocation(0, 0);
 		level.remEntity(this);
 		level.addEntity(this, 0);
 		level.killList.add(this);

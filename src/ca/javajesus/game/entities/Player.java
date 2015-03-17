@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.sound.sampled.Clip;
 
-import quests.Quest;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
@@ -25,6 +24,7 @@ import ca.javajesus.items.Sword;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.Level1;
 import ca.javajesus.level.tile.Tile;
+import ca.javajesus.quests.Quest;
 
 public class Player extends Mob {
 
@@ -652,4 +652,5 @@ public class Player extends Mob {
 				scale, sheet);
 
 	}
+	
 }

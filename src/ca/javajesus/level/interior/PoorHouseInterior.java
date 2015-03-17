@@ -4,7 +4,6 @@ import java.awt.Point;
 
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Spawner;
-import ca.javajesus.game.entities.structures.Chest;
 import ca.javajesus.game.entities.structures.TransporterInterior;
 import ca.javajesus.level.Level;
 

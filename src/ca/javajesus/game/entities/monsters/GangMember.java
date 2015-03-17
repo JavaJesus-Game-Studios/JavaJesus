@@ -8,7 +8,6 @@ import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.gfx.Colors;
-import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
@@ -42,59 +41,9 @@ public class GangMember extends Monster {
 		}
 	}
 
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 7;
-		int yMin = 3;
-		int yMax = 7;
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin)) {
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
 	public void tick() {
 
-		if (isDead) {
-			isShooting = false;
-			return;
-		}
-
-		if (isHit) {
-			isHitTicks++;
-			if (isHitTicks > 20) {
-				isHitTicks = 0;
-				isHit = false;
-			}
-		}
-
-		if (isTalking) {
-			talkCount++;
-			if (talkCount > 350) {
-				talkCount = 0;
-				isTalking = false;
-			}
-		}
-
-		checkRadius();
+		super.tick();
 
 		if (isShooting) {
 			shootTickCount++;
@@ -103,55 +52,45 @@ public class GangMember extends Monster {
 				isShooting = false;
 			}
 		}
-
-		if (isMobCollision()) {
-			moveAroundMobCollision();
-			return;
-		}
 		int xa = 0;
 		int ya = 0;
 		if (mob != null && this.aggroRadius.intersects(mob.getBounds())) {
 			if (!cooldown) {
-				if (mob == null) {
-					return;
-				}
 				isShooting = true;
-				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7),
-						mob.getX(), mob.getY() - 4, this, 3));
+				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7), mob
+						.getX(), mob.getY() - 4, this, 3));
 			}
 			if (!this.standRange.intersects(mob.getBounds())) {
 
-				if ((int) mob.getX() > (int) this.x) {
+				if (mob.getX() > this.x) {
 					xa++;
 				}
-				if ((int) mob.getX() < (int) this.x) {
+				if (mob.getX() < this.x) {
 					xa--;
 				}
-				if ((int) mob.getY() > (int) this.y) {
+				if (mob.getY() > this.y) {
 					ya++;
 				}
-				if ((int) mob.getY() < (int) this.y) {
+				if (mob.getY() < this.y) {
 					ya--;
 				}
 			} else {
 				if (mob.isMoving()) {
-					if ((int) mob.getX() > (int) this.x) {
+					if (mob.getX() > this.x) {
 						xa--;
 					}
-					if ((int) mob.getX() < (int) this.x) {
+					if (mob.getX() < this.x) {
 						xa++;
 					}
-					if ((int) mob.getY() > (int) this.y) {
+					if (mob.getY() > this.y) {
 						ya--;
 					}
-					if ((int) mob.getY() < (int) this.y) {
+					if (mob.getY() < this.y) {
 						ya++;
 					}
 				}
 			}
 		}
-
-		tickCount++;
 
 		if (tickCount % 100 == 0) {
 			cooldown = false;
@@ -161,12 +100,8 @@ public class GangMember extends Monster {
 
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
 				&& !isMobCollision(xa, ya)) {
-			if (isMobCollision()) {
-				setMoving(false);
-				return;
-			}
-			move(xa, ya);
 			setMoving(true);
+			move(xa, ya);
 		} else {
 			setMoving(false);
 		}
@@ -174,7 +109,7 @@ public class GangMember extends Monster {
 	}
 
 	public void render(Screen screen) {
-
+		super.render(screen);
 		this.getBounds().setLocation((int) this.x - 7, (int) this.y - 16);
 		this.getOuterBounds().setLocation((int) this.x - 9, (int) this.y - 18);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
@@ -246,21 +181,11 @@ public class GangMember extends Monster {
 					flipBottom, scale, sheet);
 		}
 
-		if (isTalking) {
-			JJFont.render(name, screen, (int) xOffset
-					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10,
-					Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")), 1);
-		}
-		if (isHit) {
-			JJFont.render(damageTaken, screen, (int) xOffset + isHitX,
-					(int) yOffset - 10 + isHitY, isHitColor, 1);
-		}
-
 	}
 
 	public void speak(Player player) {
 		isTalking = true;
-		ChatHandler.sendMessage("I'm gonna kill you fool!", Color.white);
+		ChatHandler.sendMessage("I'm in charge here.", Color.white);
 		return;
 	}
 
