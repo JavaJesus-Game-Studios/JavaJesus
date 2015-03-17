@@ -15,6 +15,8 @@ public class SoundHandler {
 			footstepsGrass, footstepsRoad, footstepsWood,
 			gunshot, gunshot2, gunshot3, levelup, shortSword1, swimming,
 			walking, background2, explosion;
+	
+	public Clip[] list = {background1, background2};
 
 	@SuppressWarnings("unused")
 	public SoundHandler() {
@@ -163,6 +165,11 @@ public class SoundHandler {
 			clip.setFramePosition(0);
 			clip.start();
 		}
+	}
+	
+	public void stopBackgrounds() {
+		background1.stop();
+		background2.stop();
 	}
 
 }

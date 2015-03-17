@@ -246,11 +246,11 @@ public class Game extends Canvas implements Runnable {
 			}
 
 			// Temporary Frame Limiter
-			try {
+			/*try {
 				Thread.sleep(DELAY / 2);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
+			}*/
 		}
 
 	}

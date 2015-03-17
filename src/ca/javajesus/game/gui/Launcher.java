@@ -6,8 +6,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -28,7 +30,7 @@ public class Launcher extends JFrame implements Runnable {
 
 	private final String VERSION = "Beta 0.1.1";
 	private final String LAST_UPDATED = "Last Updated 3/13/2015";
-
+	
 	private int swordOffset;
 	private boolean nextScreen = false;
 	private int buttonId = 0;
@@ -51,6 +53,7 @@ public class Launcher extends JFrame implements Runnable {
 		}
 
 		new InputHandler(this);
+		sound.stopBackgrounds();
 		sound.playLoop(sound.background1);
 		setUndecorated(true);
 		setTitle("JavaJesus Launcher:");
