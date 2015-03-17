@@ -88,14 +88,18 @@ public class Player extends Mob {
 
 	public void changeLevel(Level level) {
 		if (input.e.isPressed()) {
+			int frame = this.level.getBackgroundMusic().getFramePosition();
 			this.level.getBackgroundMusic().stop();
 			this.level.getBackgroundMusic().setFramePosition(0);
+			
 			this.nextLevel = level;
 			if (!level.isLoaded) {
 				level.load();
 			}
 			this.canChangeLevel = true;
 			sound.play(SoundHandler.sound.click);
+			if (this.level.getBackgroundMusic().equals(level.getBackgroundMusic()))
+				level.getBackgroundMusic().setFramePosition(frame);
 			level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 		}
 	}
