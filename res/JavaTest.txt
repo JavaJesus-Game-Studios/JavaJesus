@@ -1,0 +1,1 @@
+String written in text file

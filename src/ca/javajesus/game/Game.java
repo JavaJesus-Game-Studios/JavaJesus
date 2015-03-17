@@ -13,10 +13,12 @@ import java.awt.SplashScreen;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ca.javajesus.saves.*;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -91,6 +93,9 @@ public class Game extends Canvas implements Runnable {
 	private static int guiID = 0;
 
 	public boolean isLoaded = false;
+	
+	/** Used for game saves */
+	public static FileData saves = new FileData();
 
 	/** This starts the game */
 	public Game() {
@@ -163,11 +168,30 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		screen = new Screen(WIDTH, HEIGHT, this);
-		player = new Player(getLevel(), getLevel().spawnPoint.x,
-				getLevel().spawnPoint.y, input);
-		getLevel().addEntity(player);
-		getLevel().init();
+		String x;
+		try
+        {
+            x = saves.one();
+            System.out.print(x);
+            if(!x.equals("a"))
+            {
+                int xPos = Integer.parseInt(x.substring(0, x.indexOf(" ")));
+                int yPos = Integer.parseInt(x.substring(x.indexOf(" ")+1));
+                player = new Player(getLevel(), xPos,
+                         yPos, input);
+            }
+            else{
+            player = new Player(getLevel(), getLevel().spawnPoint.x,
+                     getLevel().spawnPoint.y, input);
+            }
+            getLevel().addEntity(player);
+            getLevel().init();
 
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+		
 	}
 
 	public void updateLevel() {

@@ -1,9 +1,11 @@
 package ca.javajesus.game.entities;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.sound.sampled.Clip;
 
+import ca.javajesus.saves.*;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
@@ -516,6 +518,20 @@ public class Player extends Mob {
 				isShooting = false;
 			}
 
+		}
+		
+		//Saving
+		if(input.m.isPressed())
+		{
+		    try
+            {
+                Game.saves.save();
+            } catch (IOException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+		    input.m.toggle(false);
 		}
 
 		// Handles Swinging Animation
