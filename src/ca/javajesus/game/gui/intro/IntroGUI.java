@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
+import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gui.ScreenGUI;
 import ca.javajesus.game.gui.slots.PlayerSlotGUI;
 
@@ -19,16 +20,15 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	JTextField nameBox;
-	private Game game;
 	ColorListGUI colorList;
 	SkinColorGUI sclist;
+	private Player player = Game.player;
 
 	private PlayerSlotGUI pScreen;
 
-	public IntroGUI(Game game) {
+	public IntroGUI() {
 
-		this.game = game;
-		this.pScreen = new PlayerSlotGUI(game.player);
+		this.pScreen = new PlayerSlotGUI(player);
 		this.setFocusable(true);
 		this.setLayout(new BorderLayout(0, 0));
 		this.input = new InputHandler(this);
@@ -50,15 +50,15 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 		JPanel p2 = new JPanel(new BorderLayout());
 		JLabel l2 = new JLabel("Choose a shirt color: ");
 		p2.add(l2, BorderLayout.NORTH);
-		colorList = new ColorListGUI(game.player);
+		colorList = new ColorListGUI(player);
 		p2.add(colorList, BorderLayout.CENTER);
 
 		JPanel p4 = new JPanel(new BorderLayout());
 		JLabel l3 = new JLabel("Choose a skin color: ");
 		p4.add(l3, BorderLayout.NORTH);
-		sclist = new SkinColorGUI(game.player);
+		sclist = new SkinColorGUI(player);
 		p4.add(sclist, BorderLayout.CENTER);
-		
+
 		JPanel p5 = new JPanel(new GridLayout(4, 0));
 		p5.add(p3);
 		p5.add(p2);
@@ -68,34 +68,41 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 		panel.add(p5, BorderLayout.EAST);
 
 		this.add(panel, BorderLayout.CENTER);
-		
+
 	}
 
 	public void tick() {
 
 		pScreen.tick();
 		nameBox.grabFocus();
-		game.player.setName(nameBox.getText());
-		game.player.setShirtColor(colorList.getColor());
-		game.player.setSkinColor(sclist.getColor());
-		game.player.updateColor();
-
+		player.setName(nameBox.getText());
+		player.setShirtColor(colorList.getColor());
+		player.setSkinColor(sclist.getColor());
+		player.updateColor();
+		if (nameBox.getText().equals("Derek Jow")
+				|| nameBox.getText().equals("Stephen Pacwa")
+				|| nameBox.getText().equals("Stephen Northway")) {
+			player.grantDevPowers();
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		try {
 			name = nameBox.getText();
-			game.player.setName(name);
-			game.player.setShirtColor(colorList.getColor());
-			game.player.updateColor();
-			game.player.setSkinColor(sclist.getColor());
-			game.player.updateColor();
+			player.setName(name);
+			player.setShirtColor(colorList.getColor());
+			player.updateColor();
+			player.setSkinColor(sclist.getColor());
+			player.updateColor();
 			Game.displayGame();
 		} catch (NullPointerException e) {
-			System.out.println("Something went wrong. It's probably your fault.");
-			System.out.println("JK It is probably still loading, just wait. Relax. Look at the clouds.");
-			System.out.println("Probably by the time you are finished reading this message the game has loaded.");
+			System.out
+					.println("Something went wrong. It's probably your fault.");
+			System.out
+					.println("JK It is probably still loading, just wait. Relax. Look at the clouds.");
+			System.out
+					.println("Probably by the time you are finished reading this message the game has loaded.");
 			e.printStackTrace();
 		}
 	}

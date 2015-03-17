@@ -653,4 +653,13 @@ public class Player extends Mob {
 
 	}
 	
+	public void grantDevPowers() {
+		this.strength = 100;
+		this.startStamina = Integer.MAX_VALUE;
+		this.stamina = startStamina;
+		this.defense = 10;
+		this.startHealth = Integer.MAX_VALUE;
+		this.health = startHealth;
+	}
+	
 }

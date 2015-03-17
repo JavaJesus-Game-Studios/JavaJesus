@@ -120,7 +120,7 @@ public class Launcher extends JFrame implements Runnable {
 
 			case 0: {
 				/** Story Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 450
 						&& InputHandler.MouseY < 450 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -143,7 +143,7 @@ public class Launcher extends JFrame implements Runnable {
 				}
 
 				/** Sandbox Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 510
 						&& InputHandler.MouseY < 510 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -166,7 +166,7 @@ public class Launcher extends JFrame implements Runnable {
 				}
 
 				/** Options Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 570
 						&& InputHandler.MouseY < 570 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -189,7 +189,7 @@ public class Launcher extends JFrame implements Runnable {
 				}
 
 				/** Help */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 630
 						&& InputHandler.MouseY < 630 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -216,7 +216,7 @@ public class Launcher extends JFrame implements Runnable {
 			case 1: {
 
 				/** Survival Mode */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 450
 						&& InputHandler.MouseY < 450 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -239,7 +239,7 @@ public class Launcher extends JFrame implements Runnable {
 				}
 
 				/** Zombies Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 510
 						&& InputHandler.MouseY < 510 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -265,7 +265,7 @@ public class Launcher extends JFrame implements Runnable {
 			}
 			case 2: {
 				/** Audio Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 450
 						&& InputHandler.MouseY < 450 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -288,7 +288,7 @@ public class Launcher extends JFrame implements Runnable {
 				}
 
 				/** Video Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 510
 						&& InputHandler.MouseY < 510 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -311,7 +311,7 @@ public class Launcher extends JFrame implements Runnable {
 				}
 
 				/** Controls Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 570
 						&& InputHandler.MouseY < 570 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -335,7 +335,7 @@ public class Launcher extends JFrame implements Runnable {
 			}
 			case 3: {
 				/** New Story Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 450
 						&& InputHandler.MouseY < 450 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -358,7 +358,7 @@ public class Launcher extends JFrame implements Runnable {
 				}
 
 				/** Continue Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 510
 						&& InputHandler.MouseY < 510 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -385,7 +385,7 @@ public class Launcher extends JFrame implements Runnable {
 
 			case 4: {
 				/** Mute Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 450
 						&& InputHandler.MouseY < 450 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -413,7 +413,7 @@ public class Launcher extends JFrame implements Runnable {
 
 			if (id != 0) {
 				/** Back */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 100
 						&& InputHandler.MouseY > 630
 						&& InputHandler.MouseY < 630 + 30) {
 					g.drawImage(ImageIO.read(Launcher.class
@@ -437,7 +437,7 @@ public class Launcher extends JFrame implements Runnable {
 			}
 
 			/** Quit */
-			if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
+			if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 90
 					&& InputHandler.MouseY > 690
 					&& InputHandler.MouseY < 690 + 30) {
 				g.drawImage(ImageIO.read(Launcher.class

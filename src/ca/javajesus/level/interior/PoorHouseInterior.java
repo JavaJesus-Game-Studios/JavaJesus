@@ -14,12 +14,12 @@ public class PoorHouseInterior extends Interior {
 	private Spawner spawner;
 	
 	public PoorHouseInterior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Generic_Poor_House_Interior.png", new Point(252, 252), level);	
+		super("/Buildings/Generic Interiors/Generic_Poor_House_Interior.png", new Point(252, 272), level);	
 		this.exitPoint = point;
 	}
 	
 	public PoorHouseInterior(Point point, Level level, Entity entity, Spawner spawner) {
-		super("/Buildings/Generic Interiors/Generic_Poor_House_Interior.png", new Point(252, 252), level);	
+		super("/Buildings/Generic Interiors/Generic_Poor_House_Interior.png", new Point(252, 272), level);	
 		this.exitPoint = point;
 		this.entity = entity;
 		entity.init(this);
@@ -28,7 +28,7 @@ public class PoorHouseInterior extends Interior {
 	}
 	
 	public PoorHouseInterior(Point point, Level level, Entity entity) {
-		super("/Buildings/Generic Interiors/Generic_Poor_House_Interior.png", new Point(252, 252), level);	
+		super("/Buildings/Generic Interiors/Generic_Poor_House_Interior.png", new Point(252, 272), level);	
 		this.exitPoint = point;
 		this.entity = entity;
 		entity.init(this);

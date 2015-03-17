@@ -11,7 +11,7 @@ public class CastleInterior extends Interior {
 
 	public CastleInterior(Point point, Level level) {
 		super("/Buildings/Generic Interiors/Castle_Tower_Interior.png",
-				new Point(2000, 2000), level);
+				new Point(1935, 2088), level);
 		this.exitPoint = point;
 	}
 
@@ -28,7 +28,7 @@ public class CastleInterior extends Interior {
 	}
 
 	protected void otherEntityPlacement() {
-		this.addEntity(new TransporterInterior(this, 2000, 2000, nextLevel,
+		this.addEntity(new TransporterInterior(this, 1935, 2088, nextLevel,
 				exitPoint));
 	}
 

@@ -14,7 +14,7 @@ public class CenturyLeSabre extends Vehicle {
 		super(level, name, x, y, 2, 24, 32, SpriteSheet.vehicles, 200);
 		getColor();
 		this.setHitBox(new Rectangle(width, height));
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 16);
+		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 32);
 		if (level != null)
 			level.addEntity(bar);
 	}

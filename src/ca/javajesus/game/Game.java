@@ -58,7 +58,7 @@ public class Game extends Canvas implements Runnable {
 
 	/** Temporary Solution to limit frames */
 	private final int FRAMES_PER_SECOND = 60;
-	private final int DELAY = 1000 / FRAMES_PER_SECOND;
+	private final int DELAY = 500 / FRAMES_PER_SECOND;
 
 	/** Creates the buffered image to be rendered onto the game screen */
 	protected BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
@@ -101,7 +101,7 @@ public class Game extends Canvas implements Runnable {
 		inventory = new InventoryGUI(player);
 		hud = new PlayerHUD(player);
 		pause = new PauseGUI();
-		introScreen = new IntroGUI(this);
+		introScreen = new IntroGUI();
 		display = new JPanel(new CardLayout());
 		display.add(introScreen, "Intro");
 		display.add(this, "Main");
