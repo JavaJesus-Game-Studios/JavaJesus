@@ -76,6 +76,9 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 		pScreen.tick();
 		nameBox.grabFocus();
 		game.player.setName(nameBox.getText());
+		game.player.setShirtColor(colorList.getColor());
+		game.player.setSkinColor(sclist.getColor());
+		game.player.updateColor();
 
 	}
 
@@ -85,6 +88,7 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 			name = nameBox.getText();
 			game.player.setName(name);
 			game.player.setShirtColor(colorList.getColor());
+			game.player.updateColor();
 			game.player.setSkinColor(sclist.getColor());
 			game.player.updateColor();
 			Game.displayGame();

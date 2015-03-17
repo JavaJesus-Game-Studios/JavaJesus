@@ -104,7 +104,7 @@ public class NPC extends Mob {
 			tickCount = 0;
 			movingToOrigin = true;
 		}
-		if (!(this instanceof Policeman)) {
+		if (!(this instanceof Policeman) && (tickCount % 2 == 0)) {
 			if (movingToOrigin)
 				findOrigin();
 			else {

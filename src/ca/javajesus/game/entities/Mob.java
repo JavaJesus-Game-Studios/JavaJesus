@@ -108,40 +108,42 @@ public class Mob extends Entity {
 	}
 
 	public void move(int xa, int ya) {
-		numSteps++;
-		int xValue = 0;
-		int yValue = 0;
-		if (speed % 1 == 0) {
-			xValue = (int) (xa * speed);
-			yValue = (int) (ya * speed);
-		} else {
-			if (xa * speed < 0) {
-				xValue = (int) (xa * speed - 1);
+		if (tickCount % 2 == 0) {
+			numSteps++;
+			int xValue = 0;
+			int yValue = 0;
+			if (speed % 1 == 0) {
+				xValue = (int) (xa * speed);
+				yValue = (int) (ya * speed);
+			} else {
+				if (xa * speed < 0) {
+					xValue = (int) (xa * speed - 1);
+				}
+				if (ya * speed < 0) {
+					yValue = (int) (ya * speed - 1);
+				}
+				if (xa * speed > 0) {
+					xValue = (int) (xa * speed + 1);
+				}
+				if (ya * speed > 0) {
+					yValue = (int) (ya * speed + 1);
+				}
 			}
-			if (ya * speed < 0) {
-				yValue = (int) (ya * speed - 1);
+			if (!hasCollided(xValue, 0)) {
+				if (xa < 0)
+					setDirection(2);
+				if (xa > 0)
+					setDirection(3);
+	
+				x += xa * speed;
 			}
-			if (xa * speed > 0) {
-				xValue = (int) (xa * speed + 1);
+			if (!hasCollided(0, yValue)) {
+				if (ya < 0)
+					setDirection(0);
+				if (ya > 0)
+					setDirection(1);
+				y += ya * speed;
 			}
-			if (ya * speed > 0) {
-				yValue = (int) (ya * speed + 1);
-			}
-		}
-		if (!hasCollided(xValue, 0)) {
-			if (xa < 0)
-				setDirection(2);
-			if (xa > 0)
-				setDirection(3);
-
-			x += xa * speed;
-		}
-		if (!hasCollided(0, yValue)) {
-			if (ya < 0)
-				setDirection(0);
-			if (ya > 0)
-				setDirection(1);
-			y += ya * speed;
 		}
 	}
 

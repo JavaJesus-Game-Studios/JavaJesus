@@ -85,7 +85,34 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 		player.updateColor();
 	}
 	
+	public int getNum() {
+		if (list.isSelectedIndex(0)) {
+			return 0;
+		} else if (list.isSelectedIndex(1)) {
+			return 1;
+		} else if (list.isSelectedIndex(2)) {
+			return 2;
+		} else if (list.isSelectedIndex(3)) {
+			return 3;
+		} else {
+			return 0;
+		}
+	}
+	
 	public int getColor() {
+		switch (getNum()) {
+		case 0:
+			color = Colors.fromHex("#ffd4aa");
+			break;
+		case 1:
+			color = Colors.fromHex("#ffbf6c");
+			break;
+		case 2:
+			color = Colors.fromHex("#ffe6a4");
+			break;
+		default: 
+			color = Colors.fromHex("#774600");
+		}
 		return color;
 	}
 

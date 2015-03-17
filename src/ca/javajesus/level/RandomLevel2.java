@@ -67,6 +67,7 @@ public class RandomLevel2 extends Level {
 				if (heightmap[row][col].getSpawner()) {
 					tiles[tile] = heightmap[row][col].tile();
 					this.addEntity(new Spawner(this, col * 8, row * 8, "Demon"));
+					System.out.println("test");
 				}
 				if (heightmap[row][col].tile() == 0) {
 					if (row > heightmap.length / 2.0 && col > heightmap[0].length / 2.0) {

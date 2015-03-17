@@ -73,7 +73,7 @@ public class ChatHandler {
 		if (tickTimer) {
 			ticks++;
 		}
-		if (ticks > 500) {
+		if (ticks > 150) {
 			isVisible = false;
 			ticks = 0;
 			tickTimer = false;

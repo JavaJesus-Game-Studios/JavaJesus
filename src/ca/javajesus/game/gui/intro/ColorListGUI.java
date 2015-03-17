@@ -82,7 +82,30 @@ public class ColorListGUI extends JPanel implements ListSelectionListener,
 		player.updateColor();
 	}
 	
+	public int getNum() {
+		if (list.isSelectedIndex(0)) {
+			return 0;
+		} else if (list.isSelectedIndex(1)) {
+			return 1;
+		} else if (list.isSelectedIndex(2)) {
+			return 2;
+		} else {
+			return 0;
+		}
+	}
+	
 	public int getColor() {
+		switch (getNum()) {
+		case 0:
+			color = Colors.fromHex("#db0000");
+			break;
+		case 1:
+			color = Colors.fromHex("#000099");
+			break;
+		default:
+			color = Colors.fromHex("#009700");
+			break;
+		}
 		return color;
 	}
 
