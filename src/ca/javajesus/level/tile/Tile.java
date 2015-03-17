@@ -88,6 +88,24 @@ public abstract class Tile {
 			Colors.fromHex("#693609"), Colors.fromHex("#7c3f0f"), Colors.fromHex("#48260b")), 0xFF7a0000);
 	public static final Tile WOOD_WALL_CORNER_LEFT_DOWN = new BasicSolidTile(34, 13, 0, Colors.get(-1,
 			Colors.fromHex("#693609"), Colors.fromHex("#7c3f0f"), Colors.fromHex("#48260b")), 0xFF310000);
+	
+	public static final Tile GLASS_WALL_HORIZONTAL_UP = new BasicSolidTile(35, 7, 0, Colors.get(-1,
+			Colors.fromHex("#76c0f8"), Colors.fromHex("#76c0f8"), Colors.fromHex("#016aba")), 0xFF016aba);
+	public static final Tile GLASS_WALL_HORIZONTAL_DOWN = new BasicSolidTile(36, 8, 0, Colors.get(-1,
+			Colors.fromHex("#76c0f8"), Colors.fromHex("#76c0f8"), Colors.fromHex("#016aba")), 0xFF027fdf);
+	public static final Tile GLASS_WALL_VERTICAL_LEFT = new BasicSolidTile(37, 9, 0, Colors.get(-1,
+			Colors.fromHex("#76c0f8"), Colors.fromHex("#76c0f8"), Colors.fromHex("#016aba")), 0xFF5a3801);
+	public static final Tile GLASS_WALL_VERTICAL_RIGHT = new BasicSolidTile(38, 10, 0, Colors.get(-1,
+			Colors.fromHex("#76c0f8"), Colors.fromHex("#76c0f8"), Colors.fromHex("#016aba")), 0xFF0256cc);
+	public static final Tile GLASS_WALL_CORNER_RIGHT_UP = new BasicSolidTile(39, 11, 0, Colors.get(-1,
+			Colors.fromHex("#76c0f8"), Colors.fromHex("#76c0f8"), Colors.fromHex("#016aba")), 0xFF0b9401);
+	public static final Tile GLASS_WALL_CORNER_LEFT_UP = new BasicSolidTile(40, 12, 0, Colors.get(-1,
+			Colors.fromHex("#76c0f8"), Colors.fromHex("#76c0f8"), Colors.fromHex("#016aba")), 0xFF420101);
+	public static final Tile GLASS_WALL_CORNER_RIGHT_DOWN = new BasicSolidTile(41, 14, 0, Colors.get(-1,
+			Colors.fromHex("#76c0f8"), Colors.fromHex("#76c0f8"), Colors.fromHex("#016aba")), 0xFF087101);
+	public static final Tile GLASS_WALL_CORNER_LEFT_DOWN = new BasicSolidTile(42, 13, 0, Colors.get(-1,
+			Colors.fromHex("#76c0f8"), Colors.fromHex("#76c0f8"), Colors.fromHex("#016aba")), 0xFFffb400);
+
 
 
 
