@@ -26,7 +26,6 @@ import ca.javajesus.game.gui.ScreenGUI;
 import ca.javajesus.game.gui.intro.IntroGUI;
 import ca.javajesus.game.gui.inventory.InventoryGUI;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.Level1;
 
 public class Game extends Canvas implements Runnable {
 
@@ -185,7 +184,7 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 	}
-	
+
 	public void redScreen() {
 		int index = 0;
 		for (int r = 0; r < 6; r++) {
@@ -246,11 +245,11 @@ public class Game extends Canvas implements Runnable {
 			}
 
 			// Temporary Frame Limiter
-			/*try {
-				Thread.sleep(DELAY / 2);
+			try {
+				Thread.sleep(DELAY);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}*/
+			}
 		}
 
 	}
@@ -315,6 +314,10 @@ public class Game extends Canvas implements Runnable {
 			g.setColor(Color.BLACK);
 			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);
 			frame.dispose();
+			Level.level1.reset();
+			inGameScreen = false;
+			guiID = 0;
+			returnToMenu = false;
 			new Launcher(0).startMenu();
 			running = false;
 			return;

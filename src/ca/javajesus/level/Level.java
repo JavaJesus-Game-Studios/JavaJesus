@@ -36,6 +36,7 @@ public abstract class Level {
 	private String imagePath;
 	private BufferedImage image;
 	public Point spawnPoint;
+	public Point startingSpawnPoint;
 
 	protected int[] tileColours;
 
@@ -52,6 +53,7 @@ public abstract class Level {
 
 	public Level(String imagePath, boolean loadNow) {
 		spawnPoint = new Point(0, 0);
+		startingSpawnPoint = new Point(0, 0);
 		if (imagePath != null) {
 			this.imagePath = imagePath;
 			loadType = 0;
@@ -91,6 +93,7 @@ public abstract class Level {
 
 	public Level(int width, int height, boolean loadNow) {
 		spawnPoint = new Point(0, 0);
+		startingSpawnPoint = new Point(0, 0);
 		this.width = width;
 		this.height = height;
 		tiles = new int[width * height];
@@ -330,6 +333,16 @@ public abstract class Level {
 		} else if (entity instanceof FireEntity) {
 			this.fireList.remove((FireEntity) entity);
 		}
+	}
+	
+	public void reset() {
+		entities.clear();
+		mobs.clear();
+		players.clear();
+		fireList.clear();
+		killList.clear();
+		this.init();
+		spawnPoint = new Point(startingSpawnPoint.x, startingSpawnPoint.y);
 	}
 
 	public List<Entity> getEntities() {

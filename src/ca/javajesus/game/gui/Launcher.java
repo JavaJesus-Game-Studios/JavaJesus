@@ -6,10 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
-import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -28,8 +25,8 @@ public class Launcher extends JFrame implements Runnable {
 	private final int DELAY = 1000 / FRAMES_PER_SECOND;
 	public boolean running = false;
 
-	private final String VERSION = "Beta 0.1.1";
-	private final String LAST_UPDATED = "Last Updated 3/13/2015";
+	private final String VERSION = "Beta 0.1.9";
+	private final String LAST_UPDATED = "Last Updated 3/17/2015";
 	
 	private int swordOffset;
 	private boolean nextScreen = false;
