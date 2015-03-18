@@ -171,7 +171,7 @@ public class Game extends Canvas implements Runnable {
 		String x;
 		try
         {
-            x = saves.one();
+            x = saves.data();
             System.out.print(x);
             if(!x.equals("a"))
             {

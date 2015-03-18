@@ -14,11 +14,7 @@ public class FileData
         try{
             ReadFile file = new ReadFile(file_name);
             String[] aryLines = file.OpenFile();
-            int i;
-            for(i = 0; i < aryLines.length; i++)
-            {
-                System.out.println(aryLines[i]);
-            }
+            System.out.println(aryLines[aryLines.length-1]);
         }
         catch(IOException e){
             System.out.println("LOLNOPE");
@@ -31,7 +27,7 @@ public class FileData
         data.writeToFile(x);
     }
     }
-    public String one() throws IOException{
+    public String data() throws IOException{
         {
             String x;
             String file_name = "res/Saves/JavaTest.txt";
