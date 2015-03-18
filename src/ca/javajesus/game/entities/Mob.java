@@ -560,4 +560,7 @@ public class Mob extends Entity {
 		return health;
 	}
 
+	public void setHealth(int h) {
+	    health = h;
+	}
 }

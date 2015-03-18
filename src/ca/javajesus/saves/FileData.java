@@ -25,7 +25,9 @@ public class FileData
         }
         
         WriteFile data = new WriteFile(file_name, true);
-        String x = "" + Game.player.getX() + " " + Game.player.getY() + "";
+        String x = "" + Game.player.getX() + "a" + Game.player.getY() + "b" + 
+                Game.player.getHealth() + "c" + Game.player.stamina + "d" + 
+                Game.player.score + "e" + Game.player.getName();
         data.writeToFile(x);
     }
     }

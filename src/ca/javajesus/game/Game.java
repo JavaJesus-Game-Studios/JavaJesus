@@ -175,10 +175,18 @@ public class Game extends Canvas implements Runnable {
             System.out.print(x);
             if(!x.equals("a"))
             {
-                int xPos = Integer.parseInt(x.substring(0, x.indexOf(" ")));
-                int yPos = Integer.parseInt(x.substring(x.indexOf(" ")+1));
+                int xPos = Integer.parseInt(x.substring(0, x.indexOf("a")));
+                int yPos = Integer.parseInt(x.substring(x.indexOf("a")+1, 
+                        x.indexOf("b")));
                 player = new Player(getLevel(), xPos,
                          yPos, input);
+                player.setHealth(Integer.parseInt(x.substring(x.indexOf("b")+1,
+                        x.indexOf("c"))));
+                player.stamina = Double.parseDouble(x.substring(x.indexOf("c")+1,
+                        x.indexOf("d")));
+                player.score = Integer.parseInt(x.substring(x.indexOf("d")+1,
+                        x.indexOf("e")));
+                player.setName(x.substring(x.indexOf("e")+1));
             }
             else{
             player = new Player(getLevel(), getLevel().spawnPoint.x,
