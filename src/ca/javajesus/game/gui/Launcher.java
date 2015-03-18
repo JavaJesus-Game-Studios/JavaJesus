@@ -24,6 +24,7 @@ public class Launcher extends JFrame implements Runnable {
 	private final int FRAMES_PER_SECOND = 60;
 	private final int DELAY = 1000 / FRAMES_PER_SECOND;
 	public boolean running = false;
+	public static boolean load = false;
 
 	private final String VERSION = "Beta 0.1.9";
 	private final String LAST_UPDATED = "Last Updated 3/17/2015";
@@ -543,7 +544,12 @@ public class Launcher extends JFrame implements Runnable {
 			return;
 		}
 		case 12: {
-			System.out.println("Cannot load game, coming soon");
+		    load = true;
+		    running = false;
+            dispose();
+            sound.background1.stop();
+            new Game().start();
+            this.stopMenu();
 			return;
 		}
 		case 13: {

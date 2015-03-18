@@ -173,7 +173,7 @@ public class Game extends Canvas implements Runnable {
         {
             x = saves.data();
             System.out.print(x);
-            if(!x.equals("a"))
+            if(Launcher.load == true)
             {
                 int xPos = Integer.parseInt(x.substring(0, x.indexOf("a")));
                 int yPos = Integer.parseInt(x.substring(x.indexOf("a")+1, 
