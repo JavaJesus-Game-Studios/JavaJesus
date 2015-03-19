@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class FileData
 {
-
+    Convert c = new Convert();
     public void save() throws IOException{
     {
         String file_name = "res/Saves/JavaTest.txt";
@@ -21,9 +21,23 @@ public class FileData
         }
         
         WriteFile data = new WriteFile(file_name, true);
+        String gunData;
+        double ammoData;
+        if(Game.player.inventory.guns.size() != 0)
+        {
+            gunData = Game.player.gun.toString();
+            ammoData = Game.player.gun.ammo;
+        }
+        else
+        {
+            gunData = "Revolver";
+            ammoData = 1;
+        }         
         String x = "" + Game.player.getX() + "a" + Game.player.getY() + "b" + 
                 Game.player.getHealth() + "c" + Game.player.stamina + "d" + 
-                Game.player.score + "e" + Game.player.getName();
+                Game.player.score + "e" + c.strToBinary(Game.player.getName()) 
+                + "f" + c.strToBinary(gunData) + "g" + ammoData + 
+                "h";
         data.writeToFile(x);
     }
     }

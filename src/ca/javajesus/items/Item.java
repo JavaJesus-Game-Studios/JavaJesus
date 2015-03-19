@@ -48,10 +48,51 @@ public class Item {
 	public static Item heavenlySword = new Sword("Heavenly Sword", 13, 4, 1, 0,
 			3, Colors.get(-1, Colors.fromHex("#ebcd00"), -1,
 					Colors.fromHex("#2568ff")), "This is a sword", 0, 30, 5);
-	public static Item heavenlyShortSword = new Sword("Hevanly Short Sword",
+	public static Item heavenlyShortSword = new Sword("Heavenly Short Sword",
 			14, 4, 1, 0, 3, Colors.get(-1, Colors.fromHex("#ebcd00"), -1,
 					Colors.fromHex("#2568ff")), "This is a sword", 0, 30, 5);
 	public static Item bazooka = new Bazooka();
+	
+	public static Item returnItem(String item)
+	{
+	    switch(item)
+	    {
+	    case "Apple":
+	        return Item.apple;
+	    case "Banana":
+	        return Item.banana;
+	    case "Orange":
+            return Item.orange;
+	    case "Feather":
+            return Item.feather;
+	    case "Revolver":
+            return Item.revolver;
+	    case "Laser Revolver":
+            return Item.laserRevolver;
+	    case "Shotgun":
+            return Item.shotgun;
+	    case "Assault Rifle":
+            return Item.assaultRifle;
+	    case "Crossbow":
+            return Item.crossBow;    
+	    case "Short Sword":
+            return Item.shortSword;    
+	    case "Long Sword":
+            return Item.longSword;    
+	    case "Claymore":
+            return Item.claymore;    
+	    case "Sabre":
+            return Item.sabre;    
+	    case "Heavenly Sword":
+            return Item.heavenlySword;    
+	    case "Heavenly Short Sword":
+            return Item.heavenlyShortSword;    
+	    case "Bazooka":
+            return Item.bazooka;    
+	    default:
+            return null;     
+	    }
+	}
 
 	public String name;
 	public int id;

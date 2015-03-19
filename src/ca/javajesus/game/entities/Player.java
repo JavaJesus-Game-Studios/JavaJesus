@@ -70,7 +70,7 @@ public class Player extends Mob {
 		isTired = false;
 		startStamina = 200;
 		stamina = startStamina;
-
+		
 		companion = new Companion(level, "Companion", x + 10, y, 16, 16, 100,
 				Colors.get(-1, Colors.fromHex("#2a2a2a"),
 						Colors.fromHex("#000046"), 543), 0, 4, 8, this);
