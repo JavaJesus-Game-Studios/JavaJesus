@@ -15,7 +15,7 @@ public class Bazooka extends Gun{
 		super("Bazooka", 10, 5, 0, Colors.get(-1,
 				Colors.fromHex("000000"), Colors.fromHex("#434343"), Colors.fromHex("#371b09")), 
 				"Standard Explosive Artillery", 5, 0, 2,
-				10, 20, 200);
+				10, 20, 300);
 	}
 	
 	public void addPlayer(Player player) {

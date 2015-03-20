@@ -12,6 +12,7 @@ public class Sprite {
 	public int[] pixels;
 	private SpriteSheet sheet;
 	
+	//Generic Buildings
 	public static Sprite castle_tower = new Sprite("/Buildings/Generic Exteriors/Generic_Castle_Tower.png");
 	public static Sprite catholic_church = new Sprite("/Buildings/Generic Exteriors/Generic_Catholic_Church.png");
 	public static Sprite cave_entrance = new Sprite("/Buildings/Generic Exteriors/Generic_Cave_Entrance.png");
@@ -19,8 +20,34 @@ public class Sprite {
 	public static Sprite nice_house = new Sprite("/Buildings/Generic Exteriors/Generic_Nice_House.png");
 	public static Sprite poor_house = new Sprite("/Buildings/Generic Exteriors/Generic_Poor_House.png");
 	public static Sprite skyscraper = new Sprite("/Buildings/Generic Exteriors/Generic_Skyscraper.png");
-	public static Sprite sanCisco_skyscraper = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/San_Cisco_Skyscraper_Triangle[2].png");
 	public static Sprite generic_hospital = new Sprite("/Buildings/Generic Exteriors/Generic_Hospital.png");
+	public static Sprite catholic_chapel = new Sprite("/Buildings/Generic Exteriors/Catholic_Chapel.png");
+	public static Sprite factory = new Sprite("/Buildings/Generic Exteriors/Factory.png");
+	public static Sprite apartment = new Sprite("/Buildings/Generic Exteriors/Generic_Apartments_1.png");
+	public static Sprite castle = new Sprite("/Buildings/Generic Exteriors/Generic_Castle_1.png");
+	public static Sprite nice_house_2 = new Sprite("/Buildings/Generic Exteriors/Generic_Nice_House_2.png");
+	public static Sprite gunstore = new Sprite("/Buildings/Generic Exteriors/Gun_Store.png");
+	public static Sprite hotel = new Sprite("/Buildings/Generic Exteriors/Hotel.png");
+	public static Sprite mineshaft = new Sprite("/Buildings/Generic Exteriors/Mine_Shaft.png");
+	public static Sprite modern_skyscraper = new Sprite("/Buildings/Generic Exteriors/Modern_Skyscraper.png");
+	public static Sprite police_building = new Sprite("/Buildings/Generic Exteriors/Police_Building.png");
+	public static Sprite prison = new Sprite("/Buildings/Generic Exteriors/Prison.png");
+	public static Sprite projects = new Sprite("/Buildings/Generic Exteriors/Projects.png");
+	public static Sprite ranchero_house = new Sprite("/Buildings/Generic Exteriors/Ranchero_House.png");
+	public static Sprite refugee_tent = new Sprite("/Buildings/Generic Exteriors/Refugee_Tent.png");
+	public static Sprite russian_orthodox_church = new Sprite("/Buildings/Generic Exteriors/Russian_Orthodox_Church.png");
+	public static Sprite tippee = new Sprite("/Buildings/Generic Exteriors/Tippee.png");
+	public static Sprite warehouse = new Sprite("/Buildings/Generic Exteriors/Warehouse.png");
+	public static Sprite shantyhouse = new Sprite("/Buildings/Generic Exteriors/Shanty_House.png");
+	
+	
+	//Unique San Cisco Buildings
+	public static Sprite sanCisco_skyscraper = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/San_Cisco_Skyscraper_Triangle.png");
+	public static Sprite chinatown_house = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/Chinatown_House.png");
+	public static Sprite russian_club = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/Russian_Club.png");
+	public static Sprite triad_HQ = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/Triad_HQ.png");
+	public static Sprite san_cisco_city_hall = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/San_Cisco_City_Hall.png");
+
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.xSize = size;

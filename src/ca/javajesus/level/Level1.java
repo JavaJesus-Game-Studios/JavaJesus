@@ -9,16 +9,37 @@ import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.npcs.Policeman;
 import ca.javajesus.game.entities.particles.ArmorPickup;
+import ca.javajesus.game.entities.structures.ApartmentHighRise;
+import ca.javajesus.game.entities.structures.Castle;
 import ca.javajesus.game.entities.structures.CastleTower;
+import ca.javajesus.game.entities.structures.CatholicChapel;
 import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.CaveEntrance;
 import ca.javajesus.game.entities.structures.Chest;
+import ca.javajesus.game.entities.structures.ChinatownHouse;
+import ca.javajesus.game.entities.structures.Factory;
 import ca.javajesus.game.entities.structures.GenericHospital;
+import ca.javajesus.game.entities.structures.GunStore;
+import ca.javajesus.game.entities.structures.Hotel;
 import ca.javajesus.game.entities.structures.Hut;
+import ca.javajesus.game.entities.structures.MineShaft;
+import ca.javajesus.game.entities.structures.ModernSkyscraper;
 import ca.javajesus.game.entities.structures.NiceHouse;
+import ca.javajesus.game.entities.structures.NiceHouse2;
+import ca.javajesus.game.entities.structures.Police;
 import ca.javajesus.game.entities.structures.PoorHouse;
+import ca.javajesus.game.entities.structures.Prison;
+import ca.javajesus.game.entities.structures.RancheroHouse;
+import ca.javajesus.game.entities.structures.RefugeeTent;
+import ca.javajesus.game.entities.structures.RussianClub;
+import ca.javajesus.game.entities.structures.RussianOrthodoxChurch;
+import ca.javajesus.game.entities.structures.SanCiscoCityHall;
 import ca.javajesus.game.entities.structures.SanCiscoSkyscraper;
+import ca.javajesus.game.entities.structures.ShantyHouse;
 import ca.javajesus.game.entities.structures.Skyscraper;
+import ca.javajesus.game.entities.structures.Tippee;
+import ca.javajesus.game.entities.structures.TriadHQ;
+import ca.javajesus.game.entities.structures.Warehouse;
 import ca.javajesus.game.entities.vehicles.Boat;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.items.Item;
@@ -81,6 +102,30 @@ public class Level1 extends Level {
 		this.addEntity(new SanCiscoSkyscraper(this, 10, 2084));
 		this.addEntity(new ArmorPickup(this, 100, 25));
 		this.addEntity(new GenericHospital(this, 700, 50));
+		this.addEntity(new Tippee(this, 838, 85));
+		this.addEntity(new RefugeeTent(this, 936, 85));
+		this.addEntity(new ChinatownHouse(this, 1038, 85));
+		this.addEntity(new Warehouse(this, 1166, 27));
+		this.addEntity(new TriadHQ(this, 1304, 85));
+		this.addEntity(new Police(this, 690, 212));
+		this.addEntity(new RussianClub(this, 948, 212));
+		this.addEntity(new GunStore(this, 843, 407));
+		this.addEntity(new NiceHouse2(this, 605, 150));
+		this.addEntity(new MineShaft(this, 1567, 386));
+		this.addEntity(new Castle(this, 1567, 75));
+		this.addEntity(new ApartmentHighRise(this, 1112, 201));
+		this.addEntity(new ModernSkyscraper(this, 1028, 432));
+		this.addEntity(new Factory(this, 825, 564));
+		this.addEntity(new RancheroHouse(this, 702, 757));
+		this.addEntity(new Hotel(this, 852, 757));
+		this.addEntity(new Prison(this, 1002, 757));
+		this.addEntity(new RussianOrthodoxChurch(this, 1202, 757));
+		this.addEntity(new SanCiscoCityHall(this, 1202, 957));
+		this.addEntity(new CatholicChapel(this, 1022, 957));
+		this.addEntity(new ShantyHouse(this, 802, 957, 802, 957));
+
+
+
 
 		for (int i = 0; i < 4; i++)
 			this.addEntity(new FireEntity(this, 230 + i * 8, 130));

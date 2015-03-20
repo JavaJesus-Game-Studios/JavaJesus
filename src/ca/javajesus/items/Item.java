@@ -16,37 +16,43 @@ public class Item {
 			"Orange you glad I said banana.");
 	public static Item feather = new Item("Feather", 3, 4, 5, Colors.get(-1,
 			111, Colors.fromHex("#79b2ff"), -1), "So light.");
+	
+	
 	public static Item revolver = new Gun("Revolver", 4, 0, 0, Colors.get(-1,
 			Colors.fromHex("#4d2607"), Colors.fromHex("#cfcfcf"),
 			Colors.fromHex("#f7f7f7")), "Standard Firearm", 0, 0, 6, 10, 20, 50);
 	public static Item laserRevolver = new Gun("Laser Revolver", 5, 1, 0,
 			Colors.get(-1, 111, Colors.fromHex("#4d2607"),
-					Colors.fromHex("#ffae00")), "Standard Firearm", 1, 0, 10,
-			10, 20, 2);
+					Colors.fromHex("#ffae00")), "Standard Firearm", 1, 0, 5,
+			10, 20, 75);
 	public static Item shotgun = new Gun("Shotgun", 6, 3, 0, Colors.get(-1,
 			111, Colors.fromHex("#4d2607"), Colors.fromHex("#cfcfcf")),
-			"Standard Firearm", 2, 4, 5, 10, 20, 2);
+			"Standard Firearm", 2, 4, 2, 10, 20, 85);
 	public static Item assaultRifle = new Gun("Assault Rifle", 7, 2, 0,
 			Colors.get(-1, 111, Colors.fromHex("#cfcfcf"), -1),
-			"Standard Firearm", 3, 8, 60, 1, 6, 100);
+			"Standard Firearm", 3, 8, 30, 1, 6, 10);
 	public static Item crossBow = new Gun("Crossbow", 8, 4, 0, Colors.get(-1,
 			111, Colors.fromHex("#4d2607"), Colors.fromHex("#cfcfcf")),
-			"Standard Firearm", 4, 12, 8, 10, 20, 2);
+			"Standard Firearm", 4, 12, 1, 10, 20, 75);
+	public static Item bazooka = new Bazooka();
+	
+
 	public static Item shortSword = new Sword("Short Sword", 9, 0, 1, 0, 3,
 			Colors.get(-1, Colors.fromHex("#f2f3f9"), -1,
-					Colors.fromHex("#d6d7dc")), "This is a sword", 0, 30, 5);
+					Colors.fromHex("#d6d7dc")), "This is a sword", 0, 25, 30);
 	public static Item longSword = new Sword("Long Sword", 10, 0, 1, 0, 3,
 			Colors.get(-1, Colors.fromHex("#f2f3f9"), -1,
-					Colors.fromHex("#d6d7dc")), "This is a sword", 0, 30, 5);
+					Colors.fromHex("#d6d7dc")), "This is a sword", 0, 40, 50);
 	public static Item claymore = new Sword("Claymore", 11, 2, 1, 0, 3,
 			Colors.get(-1, Colors.fromHex("#f2f3f9"),
 					Colors.fromHex("#4d2607"), Colors.fromHex("#d6d7dc")),
-			"This is a sword", 0, 30, 5);
+			"This is a sword", 0, 60, 75);
 	public static Item sabre = new Sword("Sabre", 12, 3, 1, 0, 3, Colors.get(
 			-1, -1, Colors.fromHex("#ebcd00"), Colors.fromHex("#d6d7dc")),
-			"This is a sword", 0, 30, 5);
+			"This is a sword", 0, 20, 45);
 	public static Item heavenlySword = new Sword("Heavenly Sword", 13, 4, 1, 0,
 			3, Colors.get(-1, Colors.fromHex("#ebcd00"), -1,
+<<<<<<< Updated upstream
 					Colors.fromHex("#2568ff")), "This is a sword", 0, 30, 5);
 	public static Item heavenlyShortSword = new Sword("Heavenly Short Sword",
 			14, 4, 1, 0, 3, Colors.get(-1, Colors.fromHex("#ebcd00"), -1,
@@ -93,6 +99,12 @@ public class Item {
             return null;     
 	    }
 	}
+=======
+					Colors.fromHex("#2568ff")), "This is a sword", 0, 30, 80);
+	public static Item heavenlyShortSword = new Sword("Hevanly Short Sword",
+			14, 4, 1, 0, 3, Colors.get(-1, Colors.fromHex("#ebcd00"), -1,
+					Colors.fromHex("#2568ff")), "This is a sword", 0, 10, 60);
+>>>>>>> Stashed changes
 
 	public String name;
 	public int id;
