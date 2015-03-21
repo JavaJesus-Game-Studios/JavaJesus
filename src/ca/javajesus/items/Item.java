@@ -16,8 +16,7 @@ public class Item {
 			"Orange you glad I said banana.");
 	public static Item feather = new Item("Feather", 3, 4, 5, Colors.get(-1,
 			111, Colors.fromHex("#79b2ff"), -1), "So light.");
-	
-	
+
 	public static Item revolver = new Gun("Revolver", 4, 0, 0, Colors.get(-1,
 			Colors.fromHex("#4d2607"), Colors.fromHex("#cfcfcf"),
 			Colors.fromHex("#f7f7f7")), "Standard Firearm", 0, 0, 6, 10, 20, 50);
@@ -35,7 +34,6 @@ public class Item {
 			111, Colors.fromHex("#4d2607"), Colors.fromHex("#cfcfcf")),
 			"Standard Firearm", 4, 12, 1, 10, 20, 75);
 	public static Item bazooka = new Bazooka();
-	
 
 	public static Item shortSword = new Sword("Short Sword", 9, 0, 1, 0, 3,
 			Colors.get(-1, Colors.fromHex("#f2f3f9"), -1,
@@ -52,59 +50,10 @@ public class Item {
 			"This is a sword", 0, 20, 45);
 	public static Item heavenlySword = new Sword("Heavenly Sword", 13, 4, 1, 0,
 			3, Colors.get(-1, Colors.fromHex("#ebcd00"), -1,
-<<<<<<< Updated upstream
 					Colors.fromHex("#2568ff")), "This is a sword", 0, 30, 5);
 	public static Item heavenlyShortSword = new Sword("Heavenly Short Sword",
 			14, 4, 1, 0, 3, Colors.get(-1, Colors.fromHex("#ebcd00"), -1,
 					Colors.fromHex("#2568ff")), "This is a sword", 0, 30, 5);
-	public static Item bazooka = new Bazooka();
-	
-	public static Item returnItem(String item)
-	{
-	    switch(item)
-	    {
-	    case "Apple":
-	        return Item.apple;
-	    case "Banana":
-	        return Item.banana;
-	    case "Orange":
-            return Item.orange;
-	    case "Feather":
-            return Item.feather;
-	    case "Revolver":
-            return Item.revolver;
-	    case "Laser Revolver":
-            return Item.laserRevolver;
-	    case "Shotgun":
-            return Item.shotgun;
-	    case "Assault Rifle":
-            return Item.assaultRifle;
-	    case "Crossbow":
-            return Item.crossBow;    
-	    case "Short Sword":
-            return Item.shortSword;    
-	    case "Long Sword":
-            return Item.longSword;    
-	    case "Claymore":
-            return Item.claymore;    
-	    case "Sabre":
-            return Item.sabre;    
-	    case "Heavenly Sword":
-            return Item.heavenlySword;    
-	    case "Heavenly Short Sword":
-            return Item.heavenlyShortSword;    
-	    case "Bazooka":
-            return Item.bazooka;    
-	    default:
-            return null;     
-	    }
-	}
-=======
-					Colors.fromHex("#2568ff")), "This is a sword", 0, 30, 80);
-	public static Item heavenlyShortSword = new Sword("Hevanly Short Sword",
-			14, 4, 1, 0, 3, Colors.get(-1, Colors.fromHex("#ebcd00"), -1,
-					Colors.fromHex("#2568ff")), "This is a sword", 0, 10, 60);
->>>>>>> Stashed changes
 
 	public String name;
 	public int id;
@@ -131,6 +80,45 @@ public class Item {
 	public void render(Screen screen, int xOffset, int yOffset) {
 		screen.render(xOffset, yOffset, xTile + yTile * 32, color, 0, 6,
 				SpriteSheet.items);
+	}
+
+	public static Item returnItem(String item) {
+		switch (item) {
+		case "Apple":
+			return Item.apple;
+		case "Banana":
+			return Item.banana;
+		case "Orange":
+			return Item.orange;
+		case "Feather":
+			return Item.feather;
+		case "Revolver":
+			return Item.revolver;
+		case "Laser Revolver":
+			return Item.laserRevolver;
+		case "Shotgun":
+			return Item.shotgun;
+		case "Assault Rifle":
+			return Item.assaultRifle;
+		case "Crossbow":
+			return Item.crossBow;
+		case "Short Sword":
+			return Item.shortSword;
+		case "Long Sword":
+			return Item.longSword;
+		case "Claymore":
+			return Item.claymore;
+		case "Sabre":
+			return Item.sabre;
+		case "Heavenly Sword":
+			return Item.heavenlySword;
+		case "Heavenly Short Sword":
+			return Item.heavenlyShortSword;
+		case "Bazooka":
+			return Item.bazooka;
+		default:
+			return null;
+		}
 	}
 
 }
