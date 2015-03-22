@@ -16,6 +16,7 @@ import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gui.ScreenGUI;
+import ca.javajesus.items.Armor;
 import ca.javajesus.items.Item;
 
 public class ItemScreenGUI extends ScreenGUI {
@@ -181,8 +182,8 @@ public class ItemScreenGUI extends ScreenGUI {
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
 					SoundHandler.sound.play(SoundHandler.sound.click);
-					player.inventory.equip(player.inventory.guns.get(i),
-							player);
+					player.inventory
+							.equip(player.inventory.guns.get(i), player);
 					screen.clear();
 					init();
 					repaint();
@@ -238,8 +239,12 @@ public class ItemScreenGUI extends ScreenGUI {
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
 					SoundHandler.sound.play(SoundHandler.sound.click);
-					player.inventory.equip(player.inventory.misc.get(i),
-							player);
+					if (player.inventory.misc.get(i) instanceof Armor) {
+						player.inventory.equip(
+								(Armor) player.inventory.misc.get(i), player);
+					} else
+						player.inventory.equip(player.inventory.misc.get(i),
+								player);
 					screen5.clear();
 					init();
 					repaint();

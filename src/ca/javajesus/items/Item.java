@@ -3,6 +3,7 @@ package ca.javajesus.items;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.items.Armor.ArmorSet;
 
 public class Item {
 
@@ -54,6 +55,18 @@ public class Item {
 	public static Item heavenlyShortSword = new Sword("Heavenly Short Sword",
 			14, 4, 1, 0, 3, Colors.get(-1, Colors.fromHex("#ebcd00"), -1,
 					Colors.fromHex("#2568ff")), "This is a sword", 0, 30, 5);
+	public static Item vest = new Armor("Simple Vest", 15, 0, 0, Colors.get(-1, -1,
+			Colors.fromHex("#ebcd00"), Colors.fromHex("#d6d7dc")), "",
+			ArmorSet.VEST);
+	public static Item knight = new Armor("Knight Gear", 16, 0, 0, Colors.get(-1, -1,
+			Colors.fromHex("#ebcd00"), Colors.fromHex("#d6d7dc")), "",
+			ArmorSet.KNIGHT);
+	public static Item horned = new Armor("Horned Armor", 17, 0, 0, Colors.get(-1, -1,
+			Colors.fromHex("#ebcd00"), Colors.fromHex("#d6d7dc")), "",
+			ArmorSet.HORNED);
+	public static Item owl = new Armor("Fancy Suit", 19, 0, 0, Colors.get(-1, -1,
+			Colors.fromHex("#ebcd00"), Colors.fromHex("#d6d7dc")), "",
+			ArmorSet.OWL);
 
 	public String name;
 	public int id;

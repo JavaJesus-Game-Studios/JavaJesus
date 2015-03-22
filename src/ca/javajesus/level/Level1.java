@@ -8,7 +8,7 @@ import ca.javajesus.game.entities.monsters.Cyclops;
 import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.npcs.Policeman;
-import ca.javajesus.game.entities.particles.ArmorPickup;
+import ca.javajesus.game.entities.particles.Pickup;
 import ca.javajesus.game.entities.structures.ApartmentHighRise;
 import ca.javajesus.game.entities.structures.Castle;
 import ca.javajesus.game.entities.structures.CastleTower;
@@ -42,6 +42,7 @@ import ca.javajesus.game.entities.structures.TriadHQ;
 import ca.javajesus.game.entities.structures.Warehouse;
 import ca.javajesus.game.entities.vehicles.Boat;
 import ca.javajesus.game.entities.vehicles.Vehicle;
+import ca.javajesus.items.Armor;
 import ca.javajesus.items.Item;
 
 public class Level1 extends Level {
@@ -100,7 +101,12 @@ public class Level1 extends Level {
 		this.addEntity(new CaveEntrance(this, 200, 50));
 		this.addEntity(new Skyscraper(this, 200, 200));
 		this.addEntity(new SanCiscoSkyscraper(this, 10, 2084));
-		this.addEntity(new ArmorPickup(this, 100, 25));
+		
+		this.addEntity(new Pickup(this, 110, 25, Item.vest));
+		this.addEntity(new Pickup(this, 120, 25, Item.knight));
+		this.addEntity(new Pickup(this, 130, 25, Item.horned));
+		this.addEntity(new Pickup(this, 140, 25, Item.owl));
+		
 		this.addEntity(new GenericHospital(this, 700, 50));
 		this.addEntity(new Tippee(this, 838, 85));
 		this.addEntity(new RefugeeTent(this, 936, 85));

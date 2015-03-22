@@ -55,7 +55,7 @@ public class PlayerHUD {
 				650);
 
 		g.setColor(Color.blue);
-		g.fillRect(750, 680, 150, 20);
+		g.fillRect(750, 680, (int) (150 * (player.shield / player.maxShield)), 20);
 
 		g.setColor(Color.green);
 		g.fillRect(750, 710,

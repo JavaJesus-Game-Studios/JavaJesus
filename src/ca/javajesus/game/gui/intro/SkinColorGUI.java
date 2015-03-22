@@ -30,10 +30,10 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 
 		this.player = player;
 		model = new DefaultListModel<String>();
-		model.addElement("Caucasian");
-		model.addElement("Hispanic");
-		model.addElement("Asian");
-		model.addElement("African");
+		model.addElement("Skin 1");
+		model.addElement("Skin 2");
+		model.addElement("Skin 3");
+		model.addElement("Skin 4");
 		
 		list = new JList<String>(model);
 		

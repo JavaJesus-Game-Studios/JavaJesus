@@ -70,6 +70,10 @@ public class Mob extends Entity {
 		this.setOuterBounds(new Rectangle(width + 4, height + 4));
 		this.sheet = sheet;
 	}
+	
+	public enum Direction {
+		NORTH, SOUTH, EAST, WEST
+	}
 
 	public void changeHealth(int health) {
 		this.health += health;
@@ -319,7 +323,7 @@ public class Mob extends Entity {
 				break;
 			}
 		}
-		if (xa != 0 || ya != 0) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)) {
 			isAvoidingCollision = true;
 			setMoving(true);
 			move(xa, ya);

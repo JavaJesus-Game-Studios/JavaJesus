@@ -18,6 +18,7 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.items.Armor;
 import ca.javajesus.items.Bazooka;
 import ca.javajesus.items.Gun;
 import ca.javajesus.items.Inventory;
@@ -52,6 +53,8 @@ public class Player extends Mob {
 	public boolean isTired;
 	public ArrayList<Quest> activeQuests = new ArrayList<Quest>();
 	public ArrayList<Quest> completedQuests = new ArrayList<Quest>();
+	public int maxShield = 1;
+	public double shield;
 
 	public static NPC companion;
 	public boolean jesusMode = false;
@@ -63,7 +66,8 @@ public class Player extends Mob {
 		this.inventory = new Inventory();
 		gun = inventory.getGun(this);
 		sword = inventory.getSword(this);
-		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y, this, 8);
+		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y,
+				this, 8);
 		if (level != null)
 			level.addEntity(bar);
 		isTired = false;
@@ -85,6 +89,13 @@ public class Player extends Mob {
 	public void equip() {
 		gun = inventory.getGun(this);
 		sword = inventory.getSword(this);
+	}
+
+	public void equip(Armor armor) {
+		this.yTile = armor.getRow();
+		this.defense = armor.getDefense();
+		this.maxShield = armor.getShield();
+		shield = maxShield;
 	}
 
 	public void changeLevel(Level level) {
@@ -265,8 +276,15 @@ public class Player extends Mob {
 		if (!isMoving() && stamina < startStamina && !isShooting) {
 			stamina += 0.5;
 			isTired = false;
-		} else if (isMoving() && !input.shift.isPressed()) {
-			stamina += 0.1;
+		}
+		if (!isMoving() && shield < maxShield && !isShooting) {
+			shield += (0.0005 * maxShield);
+		}
+		if (isMoving() && !input.shift.isPressed()) {
+			if (stamina < startStamina)
+				stamina += 0.1;
+			if (shield < maxShield)
+				shield += (0.00001 * maxShield);
 			isTired = false;
 		}
 
@@ -341,8 +359,8 @@ public class Player extends Mob {
 			}
 			return;
 		}
-		this.getBounds().setLocation(this.x - 7, this.y - 8);
-		this.getOuterBounds().setLocation(this.x - 9, this.y - 10);
+		this.getBounds().setLocation(this.x - 4, this.y - 8);
+		this.getOuterBounds().setLocation(this.x - 6, this.y - 10);
 		if (canChangeLevel) {
 			level.remEntity(this);
 			level.remEntity(bar);
@@ -417,10 +435,10 @@ public class Player extends Mob {
 				yOffset -= 1;
 				watercolor = Colors.get(-1, 225, 225, -1);
 			}
-			screen.render(xOffset, yOffset + 3, 0 + 10 * sheet.boxes, watercolor, 0x00,
-					1, sheet);
-			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * sheet.boxes, watercolor,
-					0x01, 1, sheet);
+			screen.render(xOffset, yOffset + 3, 0 + 10 * sheet.boxes,
+					watercolor, 0x00, 1, sheet);
+			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * sheet.boxes,
+					watercolor, 0x01, 1, sheet);
 		}
 
 		// Normal Player movement -- Not Attacking Anything
@@ -430,7 +448,8 @@ public class Player extends Mob {
 					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale, sheet);
+					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
+					sheet);
 
 			if (!isSwimming) {
 				// Lower Body 1
@@ -439,8 +458,8 @@ public class Player extends Mob {
 						flipBottom, scale, sheet);
 				// Lower Body 2
 				screen.render(xOffset + modifier - (modifier * flipBottom),
-						yOffset + modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
-						color, flipBottom, scale, sheet);
+						yOffset + modifier, (xTile + 1) + (yTile + 1)
+								* sheet.boxes, color, flipBottom, scale, sheet);
 
 			}
 		}
@@ -448,12 +467,9 @@ public class Player extends Mob {
 		// Handles Shooting Animation
 		if (isShooting) {
 			xTile = gun.playerOffset;
-			yTile = 2;
+			yTile += 2;
 			if ((gun instanceof Bazooka)) {
 				yTile = 6;
-			}
-			if (defense > 2) {
-				// yTile += 12;
 			}
 
 			if (shootingDir == 1) {
@@ -487,12 +503,13 @@ public class Player extends Mob {
 					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale, sheet);
+					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
+					sheet);
 
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes, color,
-					flipBottom, scale, sheet);
+					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
+					color, flipBottom, scale, sheet);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
@@ -528,11 +545,10 @@ public class Player extends Mob {
 			}
 			input.m.toggle(false);
 		}
-		
+
 		if (input.v.isPressed()) {
-		    int error = 3/0;
+			int error = 3 / 0;
 		}
-	        
 
 		// Handles Swinging Animation
 		if (isSwinging) {
@@ -549,7 +565,8 @@ public class Player extends Mob {
 
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * sheet.boxes, color, flipTop, scale, SpriteSheet.swords);
+					+ yTile * sheet.boxes, color, flipTop, scale,
+					SpriteSheet.swords);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
 					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
@@ -557,8 +574,8 @@ public class Player extends Mob {
 
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes, color,
-					flipBottom, scale, SpriteSheet.swords);
+					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
+					color, flipBottom, scale, SpriteSheet.swords);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
@@ -573,8 +590,9 @@ public class Player extends Mob {
 
 				// Lower Body 2
 				screen.render(xOffset + modifier - (modifier * flipBottom),
-						yOffset + 2 * modifier, (xTile + 1) + (yTile + 2) * sheet.boxes,
-						color, flipBottom, scale, SpriteSheet.swords);
+						yOffset + 2 * modifier, (xTile + 1) + (yTile + 2)
+								* sheet.boxes, color, flipBottom, scale,
+						SpriteSheet.swords);
 			} else {
 				int num = 0;
 				if (getDirection() == 2) {
@@ -583,13 +601,14 @@ public class Player extends Mob {
 				// Upper Body 2
 				screen.render(xOffset + 2 * modifier - num
 						- (modifier * flipTop), yOffset, (xTile + 2) + yTile
-						* sheet.boxes, color, flipTop, scale, SpriteSheet.swords);
+						* sheet.boxes, color, flipTop, scale,
+						SpriteSheet.swords);
 
 				// Lower Body 2
 				screen.render(xOffset + 2 * modifier - num
 						- (modifier * flipBottom), yOffset + modifier,
-						(xTile + 2) + (yTile + 1) * sheet.boxes, color, flipBottom,
-						scale, SpriteSheet.swords);
+						(xTile + 2) + (yTile + 1) * sheet.boxes, color,
+						flipBottom, scale, SpriteSheet.swords);
 			}
 
 			// Renders the Actual Sword
@@ -665,12 +684,34 @@ public class Player extends Mob {
 
 		// Lower Body 1
 		screen.render(xOffset + (modifier * flipBottom), yOffset + modifier,
-				xTile + (yTile + 1) * sheet.boxes, color, flipBottom, scale, sheet);
+				xTile + (yTile + 1) * sheet.boxes, color, flipBottom, scale,
+				sheet);
 		// Lower Body 2
 		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color, flipBottom,
-				scale, sheet);
+				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
+				flipBottom, scale, sheet);
 
+	}
+
+	public void damage(int a, int b) {
+		int damage = random.nextInt(b - a + 1) + a;
+		while (shield > 0 && damage > 0) {
+			shield--;
+			damage--;
+		}
+		if (shield < 0) {
+			shield = 0;
+		}
+		damage -= defense;
+		if (damage <= 0) {
+			damage = 0;
+		}
+		this.health -= damage;
+		damageTaken = String.valueOf(damage);
+		isHit = true;
+		isHitX = random.nextInt(10) - 5;
+		isHitY = random.nextInt(6) - 3;
+		isHitColor = Colors.get(-1, -1, -1, random.nextInt(200));
 	}
 
 	public void grantDevPowers() {
@@ -680,6 +721,8 @@ public class Player extends Mob {
 		this.defense = 10;
 		this.startHealth = Integer.MAX_VALUE;
 		this.health = startHealth;
+		this.maxShield = 1000;
+		this.shield = maxShield;
 	}
 
 }

@@ -28,6 +28,10 @@ public class Inventory {
 		return null;
 	}
 
+	public void equip(Armor armor, Player player) {
+		player.equip(armor);
+	}
+
 	public void equip(Item item, Player player) {
 		items.remove(item);
 		items.add(0, item);
@@ -70,6 +74,8 @@ public class Inventory {
 			guns.add(item);
 		} else if (item instanceof Sword) {
 			swords.add(item);
+		} else if (item instanceof Armor) {
+			misc.add(item);
 		} else {
 			usables.add(item);
 		}
