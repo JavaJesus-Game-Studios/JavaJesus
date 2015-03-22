@@ -67,7 +67,7 @@ public class Sword extends Item {
 			isCoolingDown = true;
 			isSwinging = true;
 			mobsHit.clear();
-			SoundHandler.sound.play(SoundHandler.sound.sheathe);
+			SoundHandler.sound.playShortSword();
 		}
 	}
 
