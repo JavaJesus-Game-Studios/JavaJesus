@@ -27,7 +27,6 @@ import ca.javajesus.game.gui.PauseGUI;
 import ca.javajesus.game.gui.ScreenGUI;
 import ca.javajesus.game.gui.intro.IntroGUI;
 import ca.javajesus.game.gui.inventory.InventoryGUI;
-import ca.javajesus.items.Gun;
 import ca.javajesus.items.Item;
 import ca.javajesus.level.Level;
 
@@ -95,12 +94,14 @@ public class Game extends Canvas implements Runnable {
 	private static int guiID = 0;
 
 	public boolean isLoaded = false;
-	
+
 	/** Used for game saves */
 	public static FileData saves = new FileData();
+	public Launcher launcher;
 
 	/** This starts the game */
-	public Game() {
+	public Game(Launcher launcher) {
+		this.launcher = launcher;
 		input = new InputHandler(this);
 		new ChatHandler();
 		init();
@@ -171,49 +172,43 @@ public class Game extends Canvas implements Runnable {
 
 		screen = new Screen(WIDTH, HEIGHT, this);
 		String x;
-		try
-        {
-            x = saves.data();
-            System.out.print(x);
-            if(Launcher.load == true)
-            {
-                Convert con = new Convert();
-                int xPos = Integer.parseInt(x.substring(0, x.indexOf("a")));
-                int yPos = Integer.parseInt(x.substring(x.indexOf("a")+1, 
-                        x.indexOf("b")));
-                player = new Player(getLevel(), xPos,
-                         yPos, input);
-                player.setHealth(Integer.parseInt(x.substring(x.indexOf("b")+1,
-                        x.indexOf("c"))));
-                player.stamina = Double.parseDouble(x.substring(x.indexOf("c")+1
-                        ,x.indexOf("d")));
-                player.score = Integer.parseInt(x.substring(x.indexOf("d")+1,
-                        x.indexOf("e")));
-                player.setName(x.substring(x.indexOf("e")+1, x.indexOf("f")));
-                String loadGun = con.binaryToString(x.substring(x.indexOf("f")+1
-                        , x.indexOf("g")));
-                double loadAmmo = Double.parseDouble(x.substring(x.indexOf("g")+1,
-                        x.indexOf("h")));
-                if(loadGun.length() > 0)
-                {
-                //player.gun = (Gun) Item.returnItem(loadGun);
-                player.inventory.equip(Item.returnItem(loadGun), player);
-                player.gun.ammo = loadAmmo;
-                }
-                
-            }
-            else{
-            player = new Player(getLevel(), getLevel().spawnPoint.x,
-                     getLevel().spawnPoint.y, input);
-            }
-            getLevel().addEntity(player);
-            getLevel().init();
+		try {
+			x = saves.data();
+			System.out.print(x);
+			if (Launcher.load == true) {
+				Convert con = new Convert();
+				int xPos = Integer.parseInt(x.substring(0, x.indexOf("a")));
+				int yPos = Integer.parseInt(x.substring(x.indexOf("a") + 1,
+						x.indexOf("b")));
+				player = new Player(getLevel(), xPos, yPos, input);
+				player.setHealth(Integer.parseInt(x.substring(
+						x.indexOf("b") + 1, x.indexOf("c"))));
+				player.stamina = Double.parseDouble(x.substring(
+						x.indexOf("c") + 1, x.indexOf("d")));
+				player.score = Integer.parseInt(x.substring(x.indexOf("d") + 1,
+						x.indexOf("e")));
+				player.setName(x.substring(x.indexOf("e") + 1, x.indexOf("f")));
+				String loadGun = con.binaryToString(x.substring(
+						x.indexOf("f") + 1, x.indexOf("g")));
+				double loadAmmo = Double.parseDouble(x.substring(
+						x.indexOf("g") + 1, x.indexOf("h")));
+				if (loadGun.length() > 0) {
+					// player.gun = (Gun) Item.returnItem(loadGun);
+					player.inventory.equip(Item.returnItem(loadGun), player);
+					player.gun.ammo = loadAmmo;
+				}
 
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-		
+			} else {
+				player = new Player(getLevel(), getLevel().spawnPoint.x,
+						getLevel().spawnPoint.y, input);
+			}
+			getLevel().addEntity(player);
+			getLevel().init();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void updateLevel() {
@@ -268,36 +263,54 @@ public class Game extends Canvas implements Runnable {
 		int frames = 0;
 		long lastTimer = System.currentTimeMillis();
 		double delta = 0;
+		launcher.end();
 
 		while (running) {
-			long now = System.nanoTime();
-			delta += (now - lastTime) / nsPerTick;
-			lastTime = now;
-
-			while (delta >= 1) {
-				ticks++;
-				tick();
-				delta--;
-			}
-			frames++;
-			render();
-
-			if (System.currentTimeMillis() - lastTimer >= 1000) {
-				lastTimer += 1000;
-				frame.setTitle(NAME + "  |   " + ticks + " tps, " + frames
-						+ " fps");
-				frames = 0;
-				ticks = 0;
-			}
-
-			// Temporary Frame Limiter
 			try {
-				Thread.sleep(DELAY);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				long now = System.nanoTime();
+				delta += (now - lastTime) / nsPerTick;
+				lastTime = now;
+
+				while (delta >= 1) {
+					ticks++;
+					tick();
+					delta--;
+				}
+				frames++;
+				render();
+
+				if (System.currentTimeMillis() - lastTimer >= 1000) {
+					lastTimer += 1000;
+					frame.setTitle(NAME + "  |   " + ticks + " tps, " + frames
+							+ " fps");
+					frames = 0;
+					ticks = 0;
+				}
+
+				// Temporary Frame Limiter
+				try {
+					Thread.sleep(DELAY);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			} catch (Exception e) {
+				renderCrashReport(e);
 			}
 		}
 
+	}
+	
+	private void renderCrashReport(Exception e) {
+
+		Graphics g = this.getGraphics();
+		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+		g.setFont(new Font("Verdana", 0, 20));
+		g.setColor(Color.WHITE);
+		g.drawString(e.toString(), 0, 50);
+		for (int i = 0; i < e.getStackTrace().length; i++) {
+			g.drawString(e.getStackTrace()[i].toString(), 0, 100 + 50 * i);
+		}
+		running = false;
 	}
 
 	/** Ticks the game */

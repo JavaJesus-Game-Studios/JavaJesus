@@ -69,7 +69,7 @@ public class Player extends Mob {
 		isTired = false;
 		startStamina = 200;
 		stamina = startStamina;
-		
+
 		companion = new Companion(level, "Companion", x + 10, y, 16, 16, 100,
 				Colors.get(-1, Colors.fromHex("#2a2a2a"),
 						Colors.fromHex("#000046"), 543), 0, 4, 8, this);
@@ -92,14 +92,15 @@ public class Player extends Mob {
 			int frame = this.level.getBackgroundMusic().getFramePosition();
 			this.level.getBackgroundMusic().stop();
 			this.level.getBackgroundMusic().setFramePosition(0);
-			
+
 			this.nextLevel = level;
 			if (!level.isLoaded) {
 				level.load();
 			}
 			this.canChangeLevel = true;
 			sound.play(SoundHandler.sound.click);
-			if (this.level.getBackgroundMusic().equals(level.getBackgroundMusic()))
+			if (this.level.getBackgroundMusic().equals(
+					level.getBackgroundMusic()))
 				level.getBackgroundMusic().setFramePosition(frame);
 			level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 		}
@@ -518,19 +519,16 @@ public class Player extends Mob {
 			}
 
 		}
-		
-		//Saving
-		if(input.m.isPressed())
-		{
-		    try
-            {
-                Game.saves.save();
-            } catch (IOException e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-		    input.m.toggle(false);
+
+		// Saving
+		if (input.m.isPressed()) {
+			int test = 3 /0;
+			try {
+				Game.saves.save();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			input.m.toggle(false);
 		}
 
 		// Handles Swinging Animation
@@ -671,7 +669,7 @@ public class Player extends Mob {
 				scale, sheet);
 
 	}
-	
+
 	public void grantDevPowers() {
 		this.strength = 100;
 		this.startStamina = Integer.MAX_VALUE;
@@ -680,5 +678,5 @@ public class Player extends Mob {
 		this.startHealth = Integer.MAX_VALUE;
 		this.health = startHealth;
 	}
-	
+
 }

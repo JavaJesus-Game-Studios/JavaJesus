@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferStrategy;
 
+import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.RandomLevel2;
 
@@ -13,8 +14,8 @@ public class ZombieEndurance extends Game {
 	
 	private static final long serialVersionUID = 1L;
 
-	public ZombieEndurance() {
-		super();
+	public ZombieEndurance(Launcher launcher) {
+		super(launcher);
 	}
 	
 	protected Level getLevel() {

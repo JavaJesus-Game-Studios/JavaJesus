@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+
+import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.zombie.ZombieMap1;
 
@@ -11,8 +13,8 @@ public class ZombieSurvival extends Game {
 
 	private static final long serialVersionUID = 1L;
 
-	public ZombieSurvival() {
-		super();
+	public ZombieSurvival(Launcher launcher) {
+		super(launcher);
 	}
 	
 	protected Level getLevel() {
