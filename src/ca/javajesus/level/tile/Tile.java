@@ -72,6 +72,7 @@ public abstract class Tile {
 			Colors.fromHex("#a40101"), Colors.fromHex("#ebcb00"), -1), 0xFFff00ff);
 	public static final Tile BOTTOMCARPET = new BaseTile(27, 8, 1, Colors.get(-1,
 			Colors.fromHex("#a40101"), Colors.fromHex("#ebcb00"), -1), 0xFF6600a7);
+	
 	public static final Tile WOOD_WALL_HORIZONTAL_UP = new BasicSolidTile(10, 7, 0, Colors.get(-1,
 			Colors.fromHex("#693609"), Colors.fromHex("#7c3f0f"), Colors.fromHex("#48260b")), 0xFF6d4300);
 	public static final Tile WOOD_WALL_HORIZONTAL_DOWN = new BasicSolidTile(28, 8, 0, Colors.get(-1,
@@ -111,6 +112,13 @@ public abstract class Tile {
 			Colors.fromHex("#76c0f8"), Colors.fromHex("#76c0f8"), Colors.fromHex("#016aba")), 0xFF087101);
 	public static final Tile GLASS_WALL_CORNER_LEFT_DOWN = new BasicSolidTile(42, 13, 0, Colors.get(-1,
 			Colors.fromHex("#76c0f8"), Colors.fromHex("#76c0f8"), Colors.fromHex("#016aba")), 0xFFffb400);
+	
+	public static final Tile Floor_Carpet_1 = new BaseTile(46, 10, 1, Colors.get(-1, Colors.fromHex("#1f7901"),
+			Colors.fromHex("#1f4001"), -1), 0xFF1f7a01);
+	public static final Tile Floor_Carpet_2 = new BaseTile(47, 11, 1, Colors.get(-1, Colors.fromHex("#1f7901"),
+			Colors.fromHex("#1f4001"), -1), 0xFF1f7a01);
+	public static final Tile Floor_Carpet_3 = new BaseTile(48, 12, 1, Colors.get(-1, Colors.fromHex("#1f7901"),
+			Colors.fromHex("#1f4001"), -1), 0xFF1f7a01);
 
 
 
