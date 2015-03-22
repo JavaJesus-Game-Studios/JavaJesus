@@ -40,9 +40,9 @@ public class HealthBar extends Particle {
 		this.x = mob.getX() - xOffset / 2 + 1;
 		this.y = mob.getY() + yChange;
 
-		screen.render(this.x + 3, this.y, tileNumber + yOffset * 32, color, 1,
+		screen.render(this.x + 3, this.y, tileNumber + yOffset * sheet.boxes, color, 1,
 				1, sheet);
-		screen.render(this.x - 5, this.y, tileNumber + 1 + yOffset * 32, color,
+		screen.render(this.x - 5, this.y, tileNumber + 1 + yOffset * sheet.boxes, color,
 				1, 1, sheet);
 	}
 
@@ -52,7 +52,7 @@ public class HealthBar extends Particle {
 	}
 
 	public void setOffset(int yTileOffset) {
-		this.tileNumber = yTileOffset * 32;
+		this.tileNumber = yTileOffset * sheet.boxes;
 	}
 
 	public void updateHealthBar() {

@@ -10,7 +10,8 @@ public class Centaur extends Monster {
 	public Centaur(Level level, String name, int x, int y, int speed, int health) {
 		super(level, name, x, y, speed, 14, 24, 5, health, Colors.get(-1, 111,
 				Colors.fromHex("#8f4c1f"), 543));
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 8);
+		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y,
+				this, 8);
 		if (level != null)
 			level.addEntity(bar);
 	}
@@ -93,23 +94,22 @@ public class Centaur extends Monster {
 
 	public void render(Screen screen) {
 		super.render(screen);
-		if (getDirection() == 0 || getDirection() == 1) {
-			this.width = 14;
-			this.height = 24;
-			this.getBounds().setSize(width, height);
-			this.getBounds().setLocation((int) this.x - 7, (int) this.y - 12);
-			this.getOuterBounds().setSize(18, height);
-			this.getOuterBounds().setLocation((int) this.x - 9,
-					(int) this.y - 14);
-		} else {
-			this.width = 24;
-			this.height = 24;
-			this.getBounds().setSize(width, height);
-			this.getBounds().setLocation((int) this.x - 12, (int) this.y - 12);
-			this.getOuterBounds().setSize(width + 5, height);
-			this.getOuterBounds().setLocation((int) this.x - 14,
-					(int) this.y - 14);
-		}
+		if (!isDead)
+			if (getDirection() == 0 || getDirection() == 1) {
+				this.width = 14;
+				this.height = 24;
+				this.getBounds().setSize(width, height);
+				this.getBounds().setLocation(this.x - 7, this.y - 12);
+				this.getOuterBounds().setSize(18, height);
+				this.getOuterBounds().setLocation(this.x - 9, this.y - 14);
+			} else {
+				this.width = 24;
+				this.height = 24;
+				this.getBounds().setSize(width, height);
+				this.getBounds().setLocation(this.x - 12, this.y - 12);
+				this.getOuterBounds().setSize(width + 5, height);
+				this.getOuterBounds().setLocation(this.x - 14, this.y - 14);
+			}
 
 		int xTile = 0;
 		int walkingSpeed = 4;
@@ -134,37 +134,42 @@ public class Centaur extends Monster {
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 
-		if (isDead)
+		if (isDead) {
+			if (getDirection() < 2) {
+				setDirection(2);
+			}
 			xTile = 14;
+		}
 
 		if (getDirection() == 0 || getDirection() == 1) {
 			// Upper body
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, color, flipTop, scale, sheet);
+					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
 
 			// Upper body
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
+					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
+					sheet);
 
 			// Middle Body
 			screen.render(xOffset + (modifier * flipMiddle),
-					yOffset + modifier, xTile + (yTile + 1) * 32, color,
-					flipBottom, scale, sheet);
+					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
+					color, flipBottom, scale, sheet);
 
 			// Middle Body
 			screen.render(xOffset + modifier - (modifier * flipMiddle), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
+					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
 					flipBottom, scale, sheet);
 
 			// Lower Body
 			screen.render(xOffset + (modifier * flipBottom), yOffset + 2
-					* modifier, xTile + (yTile + 2) * 32, color, flipBottom,
-					scale, sheet);
+					* modifier, xTile + (yTile + 2) * sheet.boxes, color,
+					flipBottom, scale, sheet);
 
 			// Lower Body
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ 2 * modifier, (xTile + 1) + (yTile + 2) * 32, color,
-					flipBottom, scale, sheet);
+					+ 2 * modifier, (xTile + 1) + (yTile + 2) * sheet.boxes,
+					color, flipBottom, scale, sheet);
 		} else {
 
 			int xOff2 = 0;
@@ -174,47 +179,49 @@ public class Centaur extends Monster {
 
 			// Upper body
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, color, flipTop, scale, sheet);
+					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
 
 			// Upper body
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
+					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
+					sheet);
 			// Upper body
 			screen.render(
 					xOffset + xOff2 + 2 * modifier - (modifier * flipTop),
-					yOffset, (xTile + 2) + yTile * 32, color, flipTop, scale,
-					sheet);
+					yOffset, (xTile + 2) + yTile * sheet.boxes, color, flipTop,
+					scale, sheet);
 
 			// Middle Body
 			screen.render(xOffset + (modifier * flipMiddle),
-					yOffset + modifier, xTile + (yTile + 1) * 32, color,
-					flipBottom, scale, sheet);
+					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
+					color, flipBottom, scale, sheet);
 
 			// Middle Body
 			screen.render(xOffset + modifier - (modifier * flipMiddle), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
+					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
 					flipBottom, scale, sheet);
 
 			// Middle Body
 			screen.render(xOffset + xOff2 + 2 * modifier
 					- (modifier * flipMiddle), yOffset + modifier, (xTile + 2)
-					+ (yTile + 1) * 32, color, flipBottom, scale, sheet);
+					+ (yTile + 1) * sheet.boxes, color, flipBottom, scale,
+					sheet);
 
 			// Lower Body
 			screen.render(xOffset + (modifier * flipBottom), yOffset + 2
-					* modifier, xTile + (yTile + 2) * 32, color, flipBottom,
-					scale, sheet);
+					* modifier, xTile + (yTile + 2) * sheet.boxes, color,
+					flipBottom, scale, sheet);
 
 			// Lower Body
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ 2 * modifier, (xTile + 1) + (yTile + 2) * 32, color,
-					flipBottom, scale, sheet);
+					+ 2 * modifier, (xTile + 1) + (yTile + 2) * sheet.boxes,
+					color, flipBottom, scale, sheet);
 
 			// Lower Body
 			screen.render(xOffset + xOff2 + 2 * modifier
 					- (modifier * flipBottom), yOffset + 2 * modifier,
-					(xTile + 2) + (yTile + 2) * 32, color, flipBottom, scale,
-					sheet);
+					(xTile + 2) + (yTile + 2) * sheet.boxes, color, flipBottom,
+					scale, sheet);
 		}
 
 		if (!cooldown) {

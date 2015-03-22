@@ -43,7 +43,7 @@ public class Projectile extends Entity {
 	 * @param level
 	 *            : What level does it render on
 	 * @param tileNumber
-	 *            : the tile id on the SpriteSheet (xTile) + (yTile) * 32
+	 *            : the tile id on the SpriteSheet (xTile) + (yTile) * sheet.boxes
 	 * @param color
 	 *            : gets the color, use Colours.get()
 	 * @param x
@@ -110,7 +110,7 @@ public class Projectile extends Entity {
 	 * @param level
 	 *            : What level does it render on
 	 * @param tileNumber
-	 *            : the tile id on the SpriteSheet (xTile) + (yTile) * 32
+	 *            : the tile id on the SpriteSheet (xTile) + (yTile) * sheet.boxes
 	 * @param color
 	 *            : gets the color, use Colours.get()
 	 * @param x
@@ -211,7 +211,7 @@ public class Projectile extends Entity {
 			}
 
 		}
-		screen.render(this.x, this.y, tileNumber + (yOffset * 32), color, 1, 1,
+		screen.render(this.x, this.y, tileNumber + (yOffset * sheet.boxes), color, 1, 1,
 				sheet);
 	}
 

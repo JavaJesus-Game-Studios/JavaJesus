@@ -13,11 +13,16 @@ import ca.javajesus.level.Level;
 
 public class Monkey extends Monster {
 
+	private boolean isAttacking = false;
+	private int coolTicks = 0;
+
 	public Monkey(Level level, String name, int x, int y, int speed, int health) {
-		super(level, name, x, y, speed, 16, 16, 8, health, Colors.get(-1,
+		super(level, name, x, y, speed, 12, 16, 8, health, Colors.get(-1,
 				Colors.fromHex("#2a1609"), Colors.fromHex("#391e0c"),
 				Colors.fromHex("#b08162")));
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 0);
+		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y,
+				this, 0);
+		this.strength = 10;
 		if (level != null)
 			level.addEntity(bar);
 	}
@@ -29,10 +34,35 @@ public class Monkey extends Monster {
 				&& random.nextInt(400) == 0) {
 			sound.play(SoundHandler.sound.chimpanzee);
 		}
+
+		if (mob != null && !cooldown
+				&& this.getOuterBounds().intersects(mob.getBounds())) {
+			isAttacking = true;
+			cooldown = true;
+			mob.damage(this.strength);
+		}
+
+		if (isAttacking) {
+			shootTickCount++;
+			if (shootTickCount % 40 == 0) {
+				shootTickCount = 0;
+				isAttacking = false;
+			}
+		}
+
+		if (cooldown) {
+			coolTicks++;
+			if (coolTicks % 100 == 0) {
+				coolTicks = 0;
+				cooldown = false;
+			}
+		}
+		
 		int xa = 0;
 		int ya = 0;
 
-		if (mob != null && this.aggroRadius.intersects(mob.getBounds())
+		if (mob != null && !isAttacking
+				&& this.aggroRadius.intersects(mob.getBounds())
 				&& !this.getOuterBounds().intersects(mob.getBounds())) {
 
 			if (mob.getX() > this.x) {
@@ -41,10 +71,10 @@ public class Monkey extends Monster {
 			if (mob.getX() < this.x) {
 				xa--;
 			}
-			if (mob.getY() > this.y) {
+			if (mob.getY() > this.y - 8) {
 				ya++;
 			}
-			if (mob.getY() < this.y) {
+			if (mob.getY() < this.y - 8) {
 				ya--;
 			}
 		}
@@ -60,6 +90,21 @@ public class Monkey extends Monster {
 
 	public void render(Screen screen) {
 		super.render(screen);
+
+		if (getDirection() == 2) {
+			this.getBounds().setLocation(this.x - (this.width / 2) + 8,
+					this.y - (this.height / 2));
+			this.getOuterBounds().setLocation(
+					this.x - (int) getBounds().getWidth() / 2 + 10,
+					this.y - (int) getBounds().getHeight() / 2);
+		} else {
+			this.getBounds().setLocation(this.x - (this.width / 2),
+					this.y - (this.height / 2));
+			this.getOuterBounds().setLocation(
+					this.x - (int) getBounds().getWidth() / 2 - 2,
+					this.y - (int) getBounds().getHeight() / 2);
+		}
+
 		int xTile = 0;
 		int walkingSpeed = 4;
 		int flipTop = (numSteps >> walkingSpeed) & 1;
@@ -80,25 +125,39 @@ public class Monkey extends Monster {
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 
+		if (isAttacking) {
+			if (getDirection() == 0) {
+				xTile = 18;
+			}
+			if (getDirection() == 1) {
+				xTile = 14;
+			} else if (getDirection() > 1) {
+				xTile = 16 + ((numSteps >> walkingSpeed) & 1) * 2;
+				flipTop = (getDirection() - 1) % 2;
+				flipBottom = (getDirection() - 1) % 2;
+			}
+		}
+
 		if (isDead)
 			xTile = 12;
 
 		// Upper body
 		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
-				* 32, color, flipTop, scale, sheet);
+				* sheet.boxes, color, flipTop, scale, sheet);
 
 		// Upper body
 		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-				(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
+				(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale, sheet);
 
 		// Lower Body
 		screen.render(xOffset + (modifier * flipBottom), yOffset + modifier,
-				xTile + (yTile + 1) * 32, color, flipBottom, scale, sheet);
+				xTile + (yTile + 1) * sheet.boxes, color, flipBottom, scale,
+				sheet);
 
 		// Lower Body
 		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-				+ modifier, (xTile + 1) + (yTile + 1) * 32, color, flipBottom,
-				scale, sheet);
+				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
+				flipBottom, scale, sheet);
 	}
 
 	public void speak(Player player) {

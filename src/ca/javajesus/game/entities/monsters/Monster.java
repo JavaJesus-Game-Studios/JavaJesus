@@ -47,7 +47,7 @@ public class Monster extends Mob {
 
 	protected void checkRadius() {
 
-		if (mob != null && mob.isDead()) {
+		if (mob != null && (mob.isDead() || !(this.aggroRadius.intersects(mob.getBounds())))) {
 			mob = null;
 		}
 
@@ -103,6 +103,7 @@ public class Monster extends Mob {
 		super.render(screen);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
+		
 	}
 
 }

@@ -111,8 +111,10 @@ public class Cyclops extends Monster {
 
 		int yTile = this.yTile;
 		if (isDead) {
-			xTile = 0;
-			yTile = 26;
+			flipTop = 0;
+			flipBottom = 0;
+			xTile = 32;
+			yTile = 18;
 		}
 
 		for (int i = 0; i < 6; i++) {
@@ -122,29 +124,29 @@ public class Cyclops extends Monster {
 			}
 
 			screen.render(xOffset + (modifier * flipTop * 3), yOffset + i
-					* modifier, xTile + (yTile + i) * 32, color, flipTop,
+					* modifier, xTile + (yTile + i) * sheet.boxes, color, flipTop,
 					scale, sheet);
 
 			screen.render(xOffset + modifier + (modifier * flipTop), yOffset
-					+ i * modifier, (xTile + 1) + (yTile + i) * 32, color,
+					+ i * modifier, (xTile + 1) + (yTile + i) * sheet.boxes, color,
 					flipTop, scale, sheet);
 
 			screen.render(xOffset + 2 * modifier - (modifier * flipTop),
-					yOffset + i * modifier, (xTile + 2) + (yTile + i) * 32,
+					yOffset + i * modifier, (xTile + 2) + (yTile + i) * sheet.boxes,
 					color, flipBottom, scale, sheet);
 
 			screen.render(xOffset + 3 * modifier - (modifier * flipTop * 3),
-					yOffset + i * modifier, (xTile + 3) + (yTile + i) * 32,
+					yOffset + i * modifier, (xTile + 3) + (yTile + i) * sheet.boxes,
 					color, flipBottom, scale, sheet);
 
 			if (isDead) {
 				screen.render(
 						xOffset + 4 * modifier - (modifier * flipTop * 3),
-						yOffset + i * modifier, (xTile + 4) + (yTile + i) * 32,
+						yOffset + i * modifier, (xTile + 4) + (yTile + i) * sheet.boxes,
 						color, flipBottom, scale, sheet);
 
 				screen.render(xOffset + 5 * modifier - (modifier * flipTop),
-						yOffset + i * modifier, (xTile + 5) + (yTile + i) * 32,
+						yOffset + i * modifier, (xTile + 5) + (yTile + i) * sheet.boxes,
 						color, flipBottom, scale, sheet);
 			}
 		}

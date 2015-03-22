@@ -28,16 +28,16 @@ public class Missile extends Projectile {
 		sound.fire(sound.gunshot);
 		switch (direction) {
 		case 0:
-			this.tileNumber = 3 + 3 * 32;
+			this.tileNumber = 3 + 3 * sheet.boxes;
 			return;
 		case 1:
-			this.tileNumber = 3 + 2 * 32;
+			this.tileNumber = 3 + 2 * sheet.boxes;
 			return;
 		case 2:
-			this.tileNumber = 3 + 1 * 32;
+			this.tileNumber = 3 + 1 * sheet.boxes;
 			return;
 		case 3:
-			this.tileNumber = 4 + 1 * 32;
+			this.tileNumber = 4 + 1 * sheet.boxes;
 			return;
 		}
 	}

@@ -76,8 +76,8 @@ public class Screen {
 		boolean mirrorY = (mirrorDir & BIT_MIRROR_Y) > 0;
 
 		double scaleMap = scale - 1;
-		int xTile = tile % 32;
-		int yTile = tile / 32;
+		int xTile = tile % sheet.boxes;
+		int yTile = tile / sheet.boxes;
 		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.width;
 		for (int y = 0; y < spriteSize; y++) {
 			int ySheet = y;

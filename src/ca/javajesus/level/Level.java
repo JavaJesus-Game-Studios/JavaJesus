@@ -292,10 +292,14 @@ public abstract class Level {
 	}
 
 	public void addEntity(Entity entity) {
-		this.entities.add(entity);
+		if (!(entity instanceof Player)) {
+			this.entities.add(0, entity);
+		} else {
+			this.entities.add(entity);
+		}
 		if (entity instanceof Mob) {
 			if (entity instanceof Vehicle) {
-				this.mobs.add(0, (Vehicle) entity);
+				this.mobs.add((Vehicle) entity);
 			} else
 				this.mobs.add((Mob) entity);
 			if (entity instanceof Player) {

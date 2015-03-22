@@ -19,9 +19,7 @@ public class Companion extends NPC {
 	protected Ellipse2D.Double aggroRadius;
 	protected final int RADIUS = 32 * 8;
 	protected boolean cooldown = false;
-	protected int tickCount = 0;
 	protected boolean isShooting = false;
-	protected int shootTickCount = 0;
 	private Player player;
 
 	public Companion(Level level, String name, int x, int y, int width,

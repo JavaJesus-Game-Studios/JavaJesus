@@ -12,15 +12,15 @@ public class Explosion extends Particle {
 	private int tickCount = 1;
 
 	public Explosion(Level level, double x, double y) {
-		super(level, 4 * 32, Colors.get(-1, -300, 400, 550), x, y);
+		super(level, 4 * SpriteSheet.explosions.boxes, Colors.get(-1, -300, 400, 550), x, y);
 		this.sheet = SpriteSheet.explosions;
 		this.posNumber = tileNumber;
 		SoundHandler.sound.play(SoundHandler.sound.gunshot3);
 	}
 
 	public void tick() {
-		if (this.x > level.width * 32 || this.x < 0
-				|| this.y > level.height * 32 || this.y < 0) {
+		if (this.x > level.width * sheet.boxes || this.x < 0
+				|| this.y > level.height * sheet.boxes || this.y < 0) {
 			level.remEntity(this);
 		}
 

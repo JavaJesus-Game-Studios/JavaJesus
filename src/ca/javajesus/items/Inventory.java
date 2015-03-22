@@ -56,7 +56,6 @@ public class Inventory {
 
 	private void giveDefaultItems() {
 		addItem(Item.apple);
-
 	}
 
 	public void addItem(Item item) {

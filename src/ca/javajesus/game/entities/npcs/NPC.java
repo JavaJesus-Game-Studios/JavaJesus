@@ -92,8 +92,8 @@ public class NPC extends Mob {
 		this.xPos = x;
 		this.yPos = y;
 		this.setHitBox(new Rectangle(width, height));
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this,
-				yChange);
+		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y,
+				this, yChange);
 		if (level != null)
 			level.addEntity(bar);
 	}
@@ -194,8 +194,10 @@ public class NPC extends Mob {
 		double xOffset = x - modifier / 2.0;
 		double yOffset = y - modifier / 2.0 - 4;
 
-		if (isDead)
+		if (isDead) {
 			xTile = 12;
+			isShooting = false;
+		}
 
 		if (isShooting && !isDead && !isSwimming) {
 
@@ -209,41 +211,43 @@ public class NPC extends Mob {
 
 			// Upper body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, this.color, flipTop, scale, sheet);
+					+ yTile * sheet.boxes, this.color, flipTop, scale, sheet);
 
 			// Upper body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, this.color, flipTop, scale, sheet);
+					(xTile + 1) + yTile * sheet.boxes, this.color, flipTop,
+					scale, sheet);
 
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * 32, this.color,
-					flipBottom, scale, sheet);
+					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
+					this.color, flipBottom, scale, sheet);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, this.color,
-					flipBottom, scale, sheet);
+					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
+					this.color, flipBottom, scale, sheet);
 		} else {
 
 			if (!isSwimming) {
 				// Lower Body 1
 				screen.render(xOffset + (modifier * flipBottom), yOffset
-						+ modifier, xTile + (yTile + 1) * 32, color,
+						+ modifier, xTile + (yTile + 1) * sheet.boxes, color,
 						flipBottom, scale, sheet);
 				// Lower Body 2
 				screen.render(xOffset + modifier - (modifier * flipBottom),
-						yOffset + modifier, (xTile + 1) + (yTile + 1) * 32,
-						color, flipBottom, scale, sheet);
+						yOffset + modifier, (xTile + 1) + (yTile + 1)
+								* sheet.boxes, color, flipBottom, scale, sheet);
 
 			}
 
 			// Upper body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, color, flipTop, scale, sheet);
+					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
+					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
+					sheet);
 		}
 
 		if (currentQuest != null && !isTalking) {

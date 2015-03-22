@@ -494,11 +494,15 @@ public class Launcher extends JFrame implements Runnable {
 			g.drawString(VERSION, 5, 20);
 			g.drawString(LAST_UPDATED, 5, 725);
 		} else {
-			g.setColor(Color.black);
-			g.fillRect(0, 0, getWidth(), getHeight());
+			try {
+				g.drawImage(ImageIO.read(Launcher.class
+						.getResource("/GUI/logo.png")), 0, 0, getWidth(), getHeight(), null);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			g.setColor(Color.WHITE);
-			g.setFont(new Font("Verdana", 0, 100));
-			g.drawString("Loading", 100, 300);
+			g.setFont(new Font("Verdana", 0, 50));
+			g.drawString("Loading", 290, 345);
 		}
 		g.dispose();
 		bs.show();

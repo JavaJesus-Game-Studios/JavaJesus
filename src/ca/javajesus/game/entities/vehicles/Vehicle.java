@@ -17,7 +17,7 @@ public class Vehicle extends Mob {
 	protected InputHandler input;
 	protected int tickCount = 0;
 	protected Point acceleration = new Point(0, 0);
-	protected final int DELAY = 5;
+	protected final int DELAY = 3;
 	protected final int MAX_ACCELERATION = 5;
 	protected boolean isSlowingDown = true;
 
@@ -30,6 +30,7 @@ public class Vehicle extends Mob {
 	public Vehicle(Level level, String name, int x, int y, int speed,
 			int width, int height, SpriteSheet sheet, int defaultHealth) {
 		super(level, name, x, y, speed, width, height, sheet, defaultHealth);
+		this.renderOnTop = false;
 	}
 
 	public void addPlayer(Player player) {

@@ -63,7 +63,7 @@ public class Player extends Mob {
 		this.inventory = new Inventory();
 		gun = inventory.getGun(this);
 		sword = inventory.getSword(this);
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 8);
+		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y, this, 8);
 		if (level != null)
 			level.addEntity(bar);
 		isTired = false;
@@ -231,7 +231,7 @@ public class Player extends Mob {
 						}
 					}
 					if (entity instanceof Chest
-							&& this.getBounds().intersects(
+							&& this.getOuterBounds().intersects(
 									((Chest) entity).bounds)) {
 						((Chest) entity).open(this);
 					}
@@ -341,7 +341,6 @@ public class Player extends Mob {
 			}
 			return;
 		}
-
 		this.getBounds().setLocation(this.x - 7, this.y - 8);
 		this.getOuterBounds().setLocation(this.x - 9, this.y - 10);
 		if (canChangeLevel) {
@@ -355,8 +354,8 @@ public class Player extends Mob {
 			screen.getGame().updateLevel();
 			level.init();
 			canChangeLevel = false;
-			level.addEntity(this, 0);
-			level.addEntity(bar, 0);
+			level.addEntity(this);
+			level.addEntity(bar);
 			this.x = level.spawnPoint.x;
 			this.y = level.spawnPoint.y;
 			input.e.toggle(false);
@@ -418,9 +417,9 @@ public class Player extends Mob {
 				yOffset -= 1;
 				watercolor = Colors.get(-1, 225, 225, -1);
 			}
-			screen.render(xOffset, yOffset + 3, 0 + 10 * 32, watercolor, 0x00,
+			screen.render(xOffset, yOffset + 3, 0 + 10 * sheet.boxes, watercolor, 0x00,
 					1, sheet);
-			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * 32, watercolor,
+			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * sheet.boxes, watercolor,
 					0x01, 1, sheet);
 		}
 
@@ -428,19 +427,19 @@ public class Player extends Mob {
 		if (!isShooting && !isSwinging) {
 			// Upper body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, color, flipTop, scale, sheet);
+					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
+					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale, sheet);
 
 			if (!isSwimming) {
 				// Lower Body 1
 				screen.render(xOffset + (modifier * flipBottom), yOffset
-						+ modifier, xTile + (yTile + 1) * 32, color,
+						+ modifier, xTile + (yTile + 1) * sheet.boxes, color,
 						flipBottom, scale, sheet);
 				// Lower Body 2
 				screen.render(xOffset + modifier - (modifier * flipBottom),
-						yOffset + modifier, (xTile + 1) + (yTile + 1) * 32,
+						yOffset + modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
 						color, flipBottom, scale, sheet);
 
 			}
@@ -485,19 +484,19 @@ public class Player extends Mob {
 
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, color, flipTop, scale, sheet);
+					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
+					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale, sheet);
 
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * 32, color,
+					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes, color,
 					flipBottom, scale, sheet);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
+					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
 					flipBottom, scale, sheet);
 
 			if ((gun instanceof Bazooka)) {
@@ -550,31 +549,31 @@ public class Player extends Mob {
 
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, color, flipTop, scale, SpriteSheet.swords);
+					+ yTile * sheet.boxes, color, flipTop, scale, SpriteSheet.swords);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, color, flipTop, scale,
+					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
 					SpriteSheet.swords);
 
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * 32, color,
+					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes, color,
 					flipBottom, scale, SpriteSheet.swords);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
+					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
 					flipBottom, scale, SpriteSheet.swords);
 
 			if (getDirection() < 2) {
 				// Lower Body 1
 				screen.render(xOffset + (modifier * flipBottom), yOffset + 2
-						* modifier, xTile + (yTile + 2) * 32, color,
+						* modifier, xTile + (yTile + 2) * sheet.boxes, color,
 						flipBottom, scale, SpriteSheet.swords);
 
 				// Lower Body 2
 				screen.render(xOffset + modifier - (modifier * flipBottom),
-						yOffset + 2 * modifier, (xTile + 1) + (yTile + 2) * 32,
+						yOffset + 2 * modifier, (xTile + 1) + (yTile + 2) * sheet.boxes,
 						color, flipBottom, scale, SpriteSheet.swords);
 			} else {
 				int num = 0;
@@ -584,12 +583,12 @@ public class Player extends Mob {
 				// Upper Body 2
 				screen.render(xOffset + 2 * modifier - num
 						- (modifier * flipTop), yOffset, (xTile + 2) + yTile
-						* 32, color, flipTop, scale, SpriteSheet.swords);
+						* sheet.boxes, color, flipTop, scale, SpriteSheet.swords);
 
 				// Lower Body 2
 				screen.render(xOffset + 2 * modifier - num
 						- (modifier * flipBottom), yOffset + modifier,
-						(xTile + 2) + (yTile + 1) * 32, color, flipBottom,
+						(xTile + 2) + (yTile + 1) * sheet.boxes, color, flipBottom,
 						scale, SpriteSheet.swords);
 			}
 
@@ -659,17 +658,17 @@ public class Player extends Mob {
 		// Normal Player movement -- Not Attacking Anything
 		// Upper body 1
 		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
-				* 32, color, flipTop, scale, sheet);
+				* sheet.boxes, color, flipTop, scale, sheet);
 		// Upper Body 2
 		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-				(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
+				(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale, sheet);
 
 		// Lower Body 1
 		screen.render(xOffset + (modifier * flipBottom), yOffset + modifier,
-				xTile + (yTile + 1) * 32, color, flipBottom, scale, sheet);
+				xTile + (yTile + 1) * sheet.boxes, color, flipBottom, scale, sheet);
 		// Lower Body 2
 		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-				+ modifier, (xTile + 1) + (yTile + 1) * 32, color, flipBottom,
+				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color, flipBottom,
 				scale, sheet);
 
 	}

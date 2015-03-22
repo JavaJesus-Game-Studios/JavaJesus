@@ -134,7 +134,7 @@ public class Mob extends Entity {
 					setDirection(2);
 				if (xa > 0)
 					setDirection(3);
-	
+
 				x += xa * speed;
 			}
 			if (!hasCollided(0, yValue)) {
@@ -242,13 +242,11 @@ public class Mob extends Entity {
 				if (vehicle.getDirection() < 2) {
 					temp = new Rectangle(vehicle.getBounds().width - 16,
 							vehicle.getBounds().height - 8);
-					temp.setLocation((int) vehicle.x - xa, (int) vehicle.y - ya
-							- 8);
+					temp.setLocation(vehicle.x - xa, vehicle.y - ya - 8);
 				} else {
 					temp = new Rectangle(vehicle.getBounds().width - 8,
 							vehicle.getBounds().height - 16);
-					temp.setLocation((int) vehicle.x - xa - 3, (int) vehicle.y
-							- ya - 4);
+					temp.setLocation(vehicle.x - xa - 3, vehicle.y - ya - 4);
 				}
 
 				if (this.getBounds().intersects(temp))
@@ -391,10 +389,10 @@ public class Mob extends Entity {
 				yOffset -= 1;
 				waterColour = Colors.get(-1, 225, 225, -1);
 			}
-			screen.render(xOffset, yOffset + 3, 0 + 10 * 32, waterColour, 0x00,
-					1, sheet);
-			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * 32, waterColour,
-					0x01, 1, sheet);
+			screen.render(xOffset, yOffset + 3, 0 + 10 * sheet.boxes,
+					waterColour, 0x00, 1, sheet);
+			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * sheet.boxes,
+					waterColour, 0x01, 1, sheet);
 		}
 
 		// Handles fire animation
@@ -402,7 +400,8 @@ public class Mob extends Entity {
 			int firecolor = Colors.get(-1, Colors.fromHex("#F7790A"), 540, -1);
 
 			screen.render(xOffset + 3, yOffset, this.level.fireList.get(0)
-					.getXTile() + 15 * 32, firecolor, 0, 2, SpriteSheet.tiles);
+					.getXTile() + 15 * sheet.boxes, firecolor, 0, 2,
+					SpriteSheet.tiles);
 
 		}
 
@@ -561,6 +560,6 @@ public class Mob extends Entity {
 	}
 
 	public void setHealth(int h) {
-	    health = h;
+		health = h;
 	}
 }

@@ -22,7 +22,8 @@ public class GangMember extends Monster {
 		getType(type);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
 				RADIUS / 2, RADIUS / 2);
-		this.bar = new HealthBar(level, 0 + 2 * 32, this.x, this.y, this, 0);
+		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y,
+				this, 0);
 		if (level != null)
 			level.addEntity(bar);
 	}
@@ -136,8 +137,10 @@ public class GangMember extends Monster {
 		double xOffset = x - modifier / 2;
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 
-		if (isDead)
+		if (isDead) {
+			isShooting = false;
 			xTile = 12;
+		}
 
 		if (isShooting) {
 
@@ -145,39 +148,41 @@ public class GangMember extends Monster {
 
 			// Upper body 1
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, color, flipTop, scale, sheet);
+					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
 
 			// Upper body 2
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
+					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
+					sheet);
 
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * 32, color,
-					flipBottom, scale, sheet);
+					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
+					color, flipBottom, scale, sheet);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
+					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
 					flipBottom, scale, sheet);
 		} else {
 
 			// Upper body
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * 32, color, flipTop, scale, sheet);
+					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
 
 			// Upper body
 			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * 32, color, flipTop, scale, sheet);
+					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
+					sheet);
 
 			// Lower Body
 			screen.render(xOffset + (modifier * flipBottom),
-					yOffset + modifier, xTile + (yTile + 1) * 32, color,
-					flipBottom, scale, sheet);
+					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
+					color, flipBottom, scale, sheet);
 
 			// Lower Body
 			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
+					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
 					flipBottom, scale, sheet);
 		}
 
