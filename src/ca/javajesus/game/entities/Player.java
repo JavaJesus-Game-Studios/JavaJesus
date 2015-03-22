@@ -522,7 +522,6 @@ public class Player extends Mob {
 
 		// Saving
 		if (input.m.isPressed()) {
-			int test = 3 /0;
 			try {
 				Game.saves.save();
 			} catch (IOException e) {
@@ -530,6 +529,11 @@ public class Player extends Mob {
 			}
 			input.m.toggle(false);
 		}
+		
+		if (input.v.isPressed()) {
+		    int error = 3/0;
+		}
+	        
 
 		// Handles Swinging Animation
 		if (isSwinging) {

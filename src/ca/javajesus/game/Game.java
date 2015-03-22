@@ -195,7 +195,7 @@ public class Game extends Canvas implements Runnable {
 				if (loadGun.length() > 0) {
 					// player.gun = (Gun) Item.returnItem(loadGun);
 					player.inventory.equip(Item.returnItem(loadGun), player);
-					player.gun.ammo = loadAmmo;
+				    player.gun.ammo = loadAmmo;
 				}
 
 			} else {
