@@ -6,6 +6,7 @@ import java.util.Random;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
+import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
@@ -51,6 +52,20 @@ public class BlackHole extends Particle {
 		}
 
 		for (Entity e : level.getEntities()) {
+			if (e instanceof SolidEntity) {
+				if (e.getX() > this.x) {
+					e.setX(e.getX() - 1);
+				}
+				if (e.getX() < this.x) {
+					e.setX(e.getX() + 1);
+				}
+				if (e.getY() > this.y) {
+					e.setY(e.getY() - 1);
+				}
+				if (e.getY() < this.y) {
+					e.setY(e.getY() + 1);
+				}
+			}
 			if (!(e instanceof Mob)) {
 				continue;
 			}

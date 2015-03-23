@@ -11,7 +11,7 @@ public class SolidEntity extends Entity {
 	public Rectangle shadow;
 	protected int width;
 	protected int height;
-	public final int x, y;
+	//public final int x, y;
 	protected int color;
 
 	public SolidEntity(Level level, int x, int y, int width, int height) {
