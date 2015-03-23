@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 
@@ -76,16 +77,16 @@ public class Sword extends Item {
 			return;
 		if (player != null) {
 			switch (player.getDirection()) {
-			case 0:
+			case NORTH:
 				hitBox.setLocation(player.getBounds().x, player.getBounds().y - 10);
 				break;
-			case 1:
+			case SOUTH:
 				hitBox.setLocation(player.getBounds().x, player.getBounds().y + 10);
 				break;
-			case 2:
+			case WEST:
 				hitBox.setLocation(player.getBounds().x - 10, player.getBounds().y);
 				break;
-			case 3:
+			case EAST:
 				hitBox.setLocation(player.getBounds().x + 10, player.getBounds().y);
 				break;
 			default:
@@ -106,12 +107,17 @@ public class Sword extends Item {
 		double xOffset = player.getX() - modifier / 2.0;
 		double yOffset = player.getY() - modifier / 2.0 - 4;
 
-		if (player.getDirection() == 0) {
+		if (player.getDirection() == Direction.NORTH) {
 			xTile += 2;
-		} else if (player.getDirection() > 1) {
+		} else if (player.isLatitudinal(player.getDirection())) {
 			xTile += 4;
-			flipTop = (player.getDirection() - 1) % 2;
-			flipBottom = (player.getDirection() - 1) % 2;
+			if (player.getDirection() == Direction.WEST) {
+				flipTop = 1;
+				flipBottom = 1;
+			} else {
+				flipTop = 0;
+				flipBottom = 0;
+			}
 		}
 		// Upper Body 1
 		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
@@ -131,7 +137,7 @@ public class Sword extends Item {
 				+ modifier, (xTile + 1) + (yTile + 1) * 32, color, flipBottom,
 				player.getScale(), SpriteSheet.swords);
 
-		if (player.getDirection() < 2) {
+		if (player.isLongitudinal(player.getDirection())) {
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom), yOffset + 2
 					* modifier, xTile + (yTile + 2) * 32, color, flipBottom,
@@ -143,7 +149,7 @@ public class Sword extends Item {
 					flipBottom, player.getScale(), SpriteSheet.swords);
 		} else {
 			int num = 0;
-			if (player.getDirection() == 2) {
+			if (player.getDirection() == Direction.WEST) {
 				num = 16;
 			}
 			// Upper Body 2

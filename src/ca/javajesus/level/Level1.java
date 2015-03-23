@@ -54,7 +54,6 @@ import ca.javajesus.game.entities.structures.Warehouse;
 import ca.javajesus.game.entities.structures.furniture.Chest;
 import ca.javajesus.game.entities.vehicles.Boat;
 import ca.javajesus.game.entities.vehicles.Vehicle;
-import ca.javajesus.items.Armor;
 import ca.javajesus.items.Item;
 
 public class Level1 extends Level {

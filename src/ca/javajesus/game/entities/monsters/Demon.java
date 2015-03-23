@@ -115,16 +115,22 @@ public class Demon extends Monster {
 		int flipMiddle = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
 
-		if (getDirection() == 0) {
+		if (getDirection() == Direction.NORTH) {
 			xTile += 10;
 		}
-		if (getDirection() == 1) {
+		if (getDirection() == Direction.SOUTH) {
 			xTile += 2;
-		} else if (getDirection() > 1) {
+		} else if (isLatitudinal(getDirection())) {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
-			flipTop = (getDirection() - 1) % 2;
-			flipMiddle = (getDirection() - 1) % 2;
-			flipBottom = (getDirection() - 1) % 2;
+			if (getDirection() == Direction.WEST) {
+				flipTop = 1;
+				flipMiddle = 1;
+				flipBottom = 1;
+			} else {
+				flipTop = 0;
+				flipMiddle = 0;
+				flipBottom = 0;
+			}
 		}
 
 		int modifier = 8 * scale;
@@ -135,8 +141,8 @@ public class Demon extends Monster {
 			xTile += 12;
 
 		if (isDead) {
-			if (getDirection() < 2) {
-				setDirection(2);
+			if (isLongitudinal(getDirection())) {
+				setDirection(Direction.WEST);
 			}
 			xTile = 24;
 		}
@@ -177,7 +183,7 @@ public class Demon extends Monster {
 
 			int offset = 0;
 
-			if (getDirection() == 2)
+			if (getDirection() == Direction.WEST)
 				offset = -16;
 
 			// Middle Body 3

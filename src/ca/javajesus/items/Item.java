@@ -4,6 +4,7 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.items.Armor.ArmorSet;
+import ca.javajesus.items.Gun.Ammo;
 
 public class Item {
 
@@ -20,20 +21,20 @@ public class Item {
 
 	public static Item revolver = new Gun("Revolver", 4, 0, 0, Colors.get(-1,
 			Colors.fromHex("#4d2607"), Colors.fromHex("#cfcfcf"),
-			Colors.fromHex("#f7f7f7")), "Standard Firearm", 0, 0, 6, 10, 20, 50);
+			Colors.fromHex("#f7f7f7")), "Standard Firearm", 0, 0, 6, 10, 20, 50, Ammo.BULLET);
 	public static Item laserRevolver = new Gun("Laser Revolver", 5, 1, 0,
 			Colors.get(-1, 111, Colors.fromHex("#4d2607"),
 					Colors.fromHex("#ffae00")), "Standard Firearm", 1, 0, 5,
-			10, 20, 75);
+			10, 20, 75, Ammo.LASER);
 	public static Item shotgun = new Gun("Shotgun", 6, 3, 0, Colors.get(-1,
 			111, Colors.fromHex("#4d2607"), Colors.fromHex("#cfcfcf")),
-			"Standard Firearm", 2, 4, 2, 10, 20, 85);
+			"Standard Firearm", 2, 4, 2, 10, 20, 85, Ammo.BULLET);
 	public static Item assaultRifle = new Gun("Assault Rifle", 7, 2, 0,
 			Colors.get(-1, 111, Colors.fromHex("#cfcfcf"), -1),
-			"Standard Firearm", 3, 8, 30, 1, 6, 10);
+			"Standard Firearm", 3, 8, 30, 1, 6, 10, Ammo.BULLET);
 	public static Item crossBow = new Gun("Crossbow", 8, 4, 0, Colors.get(-1,
 			111, Colors.fromHex("#4d2607"), Colors.fromHex("#cfcfcf")),
-			"Standard Firearm", 4, 12, 1, 10, 20, 75);
+			"Standard Firearm", 4, 16, 1, 10, 20, 75, Ammo.ARROW);
 	public static Item bazooka = new Bazooka();
 
 	public static Item shortSword = new Sword("Short Sword", 9, 0, 1, 0, 3,
@@ -67,6 +68,9 @@ public class Item {
 	public static Item owl = new Armor("Fancy Suit", 19, 0, 0, Colors.get(-1, -1,
 			Colors.fromHex("#ebcd00"), Colors.fromHex("#d6d7dc")), "",
 			ArmorSet.OWL);
+	public static Item blackHoleGun = new Gun("Secret", 20, 0, 0, Colors.get(-1,
+			Colors.fromHex("#4d2607"), Colors.fromHex("#cfcfcf"),
+			Colors.fromHex("#f7f7f7")), "??????", 0, 0, 6, 10, 20, 50, Ammo.BLACKHOLE);
 
 	public String name;
 	public int id;

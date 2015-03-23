@@ -49,7 +49,7 @@ public class Vehicle extends Mob {
 		int xMax = 0;
 		int yMin = 0;
 		int yMax = 0;
-		if (getDirection() == 0 || getDirection() == 1) {
+		if (isLongitudinal(getDirection())) {
 			xMin = 0;
 			xMax = 31;
 			yMin = 0;

@@ -92,6 +92,12 @@ public class ChatHandler {
 		}
 
 	}
+	
+	public static void toggle() {
+		tickTimer = false;
+		ticks = 0;
+		isVisible = !isVisible;
+	}
 
 	private static int stringSplitter(String string) {
 		for (int i = LENGTH; i > 0; i--) {

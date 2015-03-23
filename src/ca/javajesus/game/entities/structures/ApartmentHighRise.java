@@ -8,7 +8,6 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.SanCisco;
 
 public class ApartmentHighRise extends SolidEntity {
 

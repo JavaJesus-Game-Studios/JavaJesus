@@ -75,7 +75,7 @@ public class CenturyLeSabre extends Vehicle {
 	public void render(Screen screen) {
 		
 
-		if (getDirection() == 0 || getDirection() == 1) {
+		if (isLongitudinal(getDirection())) {
 			this.width = 32;
 			this.height = 40;
 			this.getBounds().setSize(width, height);
@@ -98,11 +98,11 @@ public class CenturyLeSabre extends Vehicle {
 		double xOffset = x - modifier / 2.0;
 		double yOffset = y - modifier / 2.0 - 4;
 
-		if (getDirection() == 0) {
+		if (getDirection() == Direction.NORTH) {
 			xTile += 14;
-		} else if (getDirection() == 2) {
+		} else if (getDirection() == Direction.WEST) {
 			xTile += 9;
-		} else if (getDirection() == 3) {
+		} else if (getDirection() == Direction.EAST) {
 			xTile += 4;
 		}
 		
@@ -184,7 +184,7 @@ public class CenturyLeSabre extends Vehicle {
 				+ 3 * modifier, (xTile + 3) + (yTile + 3) * sheet.boxes, color,
 				flipBottom, scale, sheet);
 
-		if (getDirection() == 0 || getDirection() == 1) {
+		if (isLongitudinal(getDirection())) {
 			// Lower Body 1
 			screen.render(xOffset + (modifier * flipBottom), yOffset + 4
 					* modifier, xTile + (yTile + 4) * sheet.boxes, color, flipBottom,

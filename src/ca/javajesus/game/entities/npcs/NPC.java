@@ -179,15 +179,20 @@ public class NPC extends Mob {
 		int flipTop = (numSteps >> walkingAnimationSpeed) & 1;
 		int flipBottom = (numSteps >> walkingAnimationSpeed) & 1;
 
-		if (getDirection() == 0) {
+		if (getDirection() == Direction.NORTH) {
 			xTile += 10;
 		}
-		if (getDirection() == 1) {
+		if (getDirection() == Direction.SOUTH) {
 			xTile += 2;
-		} else if (getDirection() > 1) {
+		} else if (isLatitudinal(getDirection())) {
 			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
-			flipTop = (getDirection() - 1) % 2;
-			flipBottom = (getDirection() - 1) % 2;
+			if (getDirection() == Direction.WEST) {
+				flipTop = 1;
+				flipBottom = 1;
+			} else {
+				flipTop = 0;
+				flipBottom = 0;
+			}
 		}
 
 		int modifier = 8 * scale;
@@ -202,10 +207,10 @@ public class NPC extends Mob {
 		if (isShooting && !isDead && !isSwimming) {
 
 			xTile = 14;
-			if (getDirection() == 0) {
+			if (getDirection() == Direction.NORTH) {
 				xTile += 2;
 			}
-			if (getDirection() == 1) {
+			if (getDirection() == Direction.SOUTH) {
 				xTile += 4;
 			}
 
@@ -439,20 +444,20 @@ public class NPC extends Mob {
 
 		isTalking = true;
 		switch (player.getDirection()) {
-		case 0: {
-			setDirection(1);
+		case NORTH: {
+			setDirection(Direction.SOUTH);
 			break;
 		}
-		case 1: {
-			setDirection(0);
+		case SOUTH: {
+			setDirection(Direction.NORTH);
 			break;
 		}
-		case 2: {
-			setDirection(3);
+		case WEST: {
+			setDirection(Direction.EAST);
 			break;
 		}
-		case 3: {
-			setDirection(2);
+		case EAST: {
+			setDirection(Direction.WEST);
 			break;
 		}
 		}

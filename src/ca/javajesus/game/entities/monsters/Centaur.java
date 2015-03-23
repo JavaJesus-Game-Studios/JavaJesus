@@ -95,7 +95,7 @@ public class Centaur extends Monster {
 	public void render(Screen screen) {
 		super.render(screen);
 		if (!isDead)
-			if (getDirection() == 0 || getDirection() == 1) {
+			if (isLongitudinal(getDirection())) {
 				this.width = 14;
 				this.height = 24;
 				this.getBounds().setSize(width, height);
@@ -117,17 +117,23 @@ public class Centaur extends Monster {
 		int flipMiddle = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
 
-		if (getDirection() == 0) {
+		if (getDirection() == Direction.NORTH) {
 			xTile += 12;
 		}
 
-		if (getDirection() == 1) {
+		if (getDirection() == Direction.SOUTH) {
 			xTile += 2;
-		} else if (getDirection() > 1) {
+		} else if (isLatitudinal(getDirection())) {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 3;
-			flipTop = (getDirection() - 1) % 2;
-			flipMiddle = (getDirection() - 1) % 2;
-			flipBottom = (getDirection() - 1) % 2;
+			if (getDirection() == Direction.WEST) {
+				flipTop = 1;
+				flipBottom = 1;
+				flipMiddle = 1;
+			} else {
+				flipTop = 0;
+				flipMiddle = 0;
+				flipBottom = 0;
+			}
 		}
 
 		int modifier = 8 * scale;
@@ -135,13 +141,13 @@ public class Centaur extends Monster {
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 
 		if (isDead) {
-			if (getDirection() < 2) {
-				setDirection(2);
+			if (isLongitudinal(getDirection())) {
+				setDirection(Direction.WEST);
 			}
 			xTile = 14;
 		}
 
-		if (getDirection() == 0 || getDirection() == 1) {
+		if (isLongitudinal(getDirection())) {
 			// Upper body
 			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
 					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
@@ -173,7 +179,7 @@ public class Centaur extends Monster {
 		} else {
 
 			int xOff2 = 0;
-			if (getDirection() == 2) {
+			if (getDirection() == Direction.WEST) {
 				xOff2 = -16;
 			}
 

@@ -11,12 +11,40 @@ public class Arrow  extends Projectile {
 		super(level, 2, 1, 1, Colors.get(-1, -1, -1, 550), x, y, 6, xPos, yPos,
 				mob, damage);
 		sound.fire(sound.gunshot);
+		switch (mob.getDirection()) {
+		case NORTH:
+			this.tileNumber = 2 + 2 * sheet.boxes;
+			return;
+		case SOUTH:
+			this.tileNumber = 2 + 1 * sheet.boxes;
+			return;
+		case WEST:
+			this.tileNumber = 2 + 3 * sheet.boxes;
+			return;
+		case EAST:
+			this.tileNumber = 2 + 0 * sheet.boxes;
+			return;
+		}
 	}
 
 	public Arrow(Level level, double x, double y, int direction, Mob mob, double damage) {
 		super(level, 2, 1, 1, Colors.get(-1, -1, -1, 550), x, y, 6, direction,
 				mob, damage);
 		sound.fire(sound.gunshot);
+		switch (mob.getDirection()) {
+		case NORTH:
+			this.tileNumber = 2 + 2 * sheet.boxes;
+			return;
+		case SOUTH:
+			this.tileNumber = 2 + 1 * sheet.boxes;
+			return;
+		case WEST:
+			this.tileNumber = 2 + 3 * sheet.boxes;
+			return;
+		case EAST:
+			this.tileNumber = 2 + 0 * sheet.boxes;
+			return;
+		}
 	}
 
 }

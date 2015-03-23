@@ -60,6 +60,7 @@ public class Inventory {
 
 	private void giveDefaultItems() {
 		addItem(Item.apple);
+		addItem(Item.blackHoleGun);
 	}
 
 	public void addItem(Item item) {

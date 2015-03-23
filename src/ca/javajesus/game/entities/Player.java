@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.sound.sampled.Clip;
 
+import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
@@ -393,21 +394,26 @@ public class Player extends Mob {
 		int flipTop = (numSteps >> walkingAnimationSpeed) & 1;
 		int flipBottom = (numSteps >> walkingAnimationSpeed) & 1;
 
-		if (getDirection() == 0) {
+		if (getDirection() == Direction.NORTH) {
 			xTile += 10;
 			if (!isMoving()) {
 				xTile = 8;
 			}
 		}
-		if (getDirection() == 1) {
+		if (getDirection() == Direction.SOUTH) {
 			xTile += 2;
 			if (!isMoving()) {
 				xTile = 0;
 			}
-		} else if (getDirection() > 1) {
+		} else if (isLatitudinal(getDirection())) {
 			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
-			flipTop = (getDirection() - 1) % 2;
-			flipBottom = (getDirection() - 1) % 2;
+			if (getDirection() == Direction.WEST) {
+				flipTop = 1;
+				flipBottom = 1;
+			} else {
+				flipTop = 0;
+				flipBottom = 0;
+			}
 			if (!isMoving()) {
 				xTile = 4;
 			}
@@ -535,6 +541,11 @@ public class Player extends Mob {
 			}
 
 		}
+		
+		if (input.v.isPressed()) {
+			ChatHandler.toggle();
+			input.v.toggle(false);
+		}
 
 		// Saving
 		if (input.m.isPressed()) {
@@ -546,21 +557,22 @@ public class Player extends Mob {
 			input.m.toggle(false);
 		}
 
-		if (input.v.isPressed()) {
-			int error = 3 / 0;
-		}
-
 		// Handles Swinging Animation
 		if (isSwinging) {
 			xTile = sword.swordType;
 			yTile = 0;
 
-			if (getDirection() == 0) {
+			if (getDirection() == Direction.NORTH) {
 				xTile = 2;
-			} else if (getDirection() > 1) {
+			} else if (isLatitudinal(getDirection())) {
 				xTile = 4;
-				flipTop = (getDirection() - 1) % 2;
-				flipBottom = (getDirection() - 1) % 2;
+				if (getDirection() == Direction.WEST) {
+					flipTop = 1;
+					flipBottom = 1;
+				} else {
+					flipTop = 0;
+					flipBottom = 0;
+				}
 			}
 
 			// Upper Body 1
@@ -582,7 +594,7 @@ public class Player extends Mob {
 					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
 					flipBottom, scale, SpriteSheet.swords);
 
-			if (getDirection() < 2) {
+			if (isLongitudinal(getDirection())) {
 				// Lower Body 1
 				screen.render(xOffset + (modifier * flipBottom), yOffset + 2
 						* modifier, xTile + (yTile + 2) * sheet.boxes, color,
@@ -595,7 +607,7 @@ public class Player extends Mob {
 						SpriteSheet.swords);
 			} else {
 				int num = 0;
-				if (getDirection() == 2) {
+				if (getDirection() == Direction.WEST) {
 					num = 16;
 				}
 				// Upper Body 2

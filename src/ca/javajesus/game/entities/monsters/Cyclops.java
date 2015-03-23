@@ -89,19 +89,19 @@ public class Cyclops extends Monster {
 		int flipTop = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
 
-		if (getDirection() == 0) {
+		if (getDirection() == Direction.NORTH) {
 			xTile = 28;
 		}
-		if (getDirection() == 1) {
+		if (getDirection() == Direction.SOUTH) {
 			xTile = 8;
-		} else if (getDirection() > 1) {
+		} else if (isLatitudinal(getDirection())) {
 			xTile = 12 + ((numSteps >> walkingSpeed) & 1) * 4;
-			if (getDirection() == 2) {
-				flipTop = (getDirection() - 1) % 1 + 1;
-				flipBottom = (getDirection() - 1) % 1 + 1;
+			if (getDirection() == Direction.WEST) {
+				flipTop = 1;
+				flipBottom = 1;
 			} else {
-				flipTop = (getDirection() - 1) % 1;
-				flipBottom = (getDirection() - 1) % 1;
+				flipTop = 0;
+				flipBottom = 0;
 			}
 		}
 

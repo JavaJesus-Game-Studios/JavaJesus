@@ -20,7 +20,7 @@ public class Mob extends Entity {
 	protected int speed;
 	protected int numSteps = 0;
 	private boolean isMoving;
-	private int movingDir = 1;
+	private Direction movingDir = Direction.SOUTH;
 	protected int scale = 1;
 	protected int width;
 	protected int height;
@@ -70,7 +70,7 @@ public class Mob extends Entity {
 		this.setOuterBounds(new Rectangle(width + 4, height + 4));
 		this.sheet = sheet;
 	}
-	
+
 	public enum Direction {
 		NORTH, SOUTH, EAST, WEST
 	}
@@ -99,13 +99,13 @@ public class Mob extends Entity {
 		numSteps++;
 
 		if (ya < 0)
-			setDirection(0);
+			setDirection(Direction.NORTH);
 		if (ya > 0)
-			setDirection(1);
+			setDirection(Direction.SOUTH);
 		if (xa < 0)
-			setDirection(2);
+			setDirection(Direction.WEST);
 		if (xa > 0)
-			setDirection(3);
+			setDirection(Direction.EAST);
 
 		x += xa * speed;
 		y += ya * speed;
@@ -135,17 +135,17 @@ public class Mob extends Entity {
 			}
 			if (!hasCollided(xValue, 0)) {
 				if (xa < 0)
-					setDirection(2);
+					setDirection(Direction.WEST);
 				if (xa > 0)
-					setDirection(3);
+					setDirection(Direction.EAST);
 
 				x += xa * speed;
 			}
 			if (!hasCollided(0, yValue)) {
 				if (ya < 0)
-					setDirection(0);
+					setDirection(Direction.NORTH);
 				if (ya > 0)
-					setDirection(1);
+					setDirection(Direction.SOUTH);
 				y += ya * speed;
 			}
 		}
@@ -221,7 +221,7 @@ public class Mob extends Entity {
 		return false;
 	}
 
-	protected boolean isSolidEntityCollision(int xa, int ya) {
+	public boolean isSolidEntityCollision(int xa, int ya) {
 		renderOnTop = true;
 		if (bar != null)
 			bar.renderOnTop = true;
@@ -243,7 +243,7 @@ public class Mob extends Entity {
 			} else if (entity instanceof Vehicle && entity != this) {
 				Rectangle temp;
 				Vehicle vehicle = (Vehicle) entity;
-				if (vehicle.getDirection() < 2) {
+				if (isLongitudinal(vehicle.getDirection())) {
 					temp = new Rectangle(vehicle.getBounds().width - 16,
 							vehicle.getBounds().height - 8);
 					temp.setLocation(vehicle.x - xa, vehicle.y - ya - 8);
@@ -467,12 +467,28 @@ public class Mob extends Entity {
 	public void speak(Player player) {
 	}
 
-	public int getDirection() {
+	public Direction getDirection() {
 		return movingDir;
 	}
 
-	public void setDirection(int movingDir) {
-		this.movingDir = movingDir;
+	public boolean isLatitudinal(Direction dir) {
+		if (dir == Direction.EAST || dir == Direction.WEST) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isLongitudinal(Direction dir) {
+		if (dir == Direction.NORTH || dir == Direction.SOUTH) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void setDirection(Direction dir) {
+		this.movingDir = dir;
 	}
 
 	public Rectangle getOuterBounds() {

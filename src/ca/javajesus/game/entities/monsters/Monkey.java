@@ -91,7 +91,7 @@ public class Monkey extends Monster {
 	public void render(Screen screen) {
 		super.render(screen);
 
-		if (getDirection() == 2) {
+		if (getDirection() == Direction.WEST) {
 			this.getBounds().setLocation(this.x - (this.width / 2) + 8,
 					this.y - (this.height / 2));
 			this.getOuterBounds().setLocation(
@@ -110,15 +110,20 @@ public class Monkey extends Monster {
 		int flipTop = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
 
-		if (getDirection() == 0) {
+		if (getDirection() == Direction.NORTH) {
 			xTile += 10;
 		}
-		if (getDirection() == 1) {
+		if (getDirection() == Direction.SOUTH) {
 			xTile += 2;
-		} else if (getDirection() > 1) {
+		} else if (isLatitudinal(getDirection())) {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
-			flipTop = (getDirection() - 1) % 2;
-			flipBottom = (getDirection() - 1) % 2;
+			if (getDirection() == Direction.WEST) {
+				flipTop = 1;
+				flipBottom = 1;
+			} else {
+				flipTop = 0;
+				flipBottom = 0;
+			}
 		}
 
 		int modifier = 8 * scale;
@@ -126,15 +131,20 @@ public class Monkey extends Monster {
 		double yOffset = (y - modifier / 2 - 4) - modifier;
 
 		if (isAttacking) {
-			if (getDirection() == 0) {
+			if (getDirection() == Direction.NORTH) {
 				xTile = 18;
 			}
-			if (getDirection() == 1) {
+			if (getDirection() == Direction.SOUTH) {
 				xTile = 14;
-			} else if (getDirection() > 1) {
+			} else if (isLatitudinal(getDirection())) {
 				xTile = 16 + ((numSteps >> walkingSpeed) & 1) * 2;
-				flipTop = (getDirection() - 1) % 2;
-				flipBottom = (getDirection() - 1) % 2;
+				if (getDirection() == Direction.WEST) {
+					flipTop = 1;
+					flipBottom = 1;
+				} else {
+					flipTop = 0;
+					flipBottom = 0;
+				}
 			}
 		}
 

@@ -15,19 +15,11 @@ public class Bazooka extends Gun{
 		super("Bazooka", 10, 5, 0, Colors.get(-1,
 				Colors.fromHex("000000"), Colors.fromHex("#434343"), Colors.fromHex("#371b09")), 
 				"Standard Explosive Artillery", 5, 0, 2,
-				10, 20, 300);
+				10, 20, 300, Ammo.MISSILE);
 	}
 	
 	public void addPlayer(Player player) {
 		this.player = player;
-	}
-	
-	public void fire(Level level, double x, double y, int dir, Player player) {
-		if (ammo > 0 && !isReloading && canFire) {
-			level.addEntity(new Missile(level, x, y, dir, player, damage));
-			ammo--;
-			canFire = false;
-		}
 	}
 	
 	public void renderGun(Screen screen) {
