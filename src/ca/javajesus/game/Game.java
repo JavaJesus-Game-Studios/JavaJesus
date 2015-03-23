@@ -174,7 +174,6 @@ public class Game extends Canvas implements Runnable {
 		String x;
 		try {
 			x = saves.data();
-			System.out.print(x);
 			if (Launcher.load == true) {
 				Convert con = new Convert();
 				int xPos = Integer.parseInt(x.substring(0, x.indexOf("a")));
@@ -194,8 +193,9 @@ public class Game extends Canvas implements Runnable {
 						x.indexOf("g") + 1, x.indexOf("h")));
 				if (loadGun.length() > 0) {
 					// player.gun = (Gun) Item.returnItem(loadGun);
+					player.inventory.addItem(Item.returnItem(loadGun));
 					player.inventory.equip(Item.returnItem(loadGun), player);
-				    player.gun.ammo = loadAmmo;
+					player.gun.ammo = loadAmmo;
 				}
 
 			} else {
@@ -241,7 +241,7 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 	}
-	
+
 	public void darkenScreen() {
 		int index = 0;
 		for (int r = 0; r < 6; r++) {
@@ -315,7 +315,7 @@ public class Game extends Canvas implements Runnable {
 		}
 
 	}
-	
+
 	private void renderCrashReport(Exception e) {
 
 		e.printStackTrace();

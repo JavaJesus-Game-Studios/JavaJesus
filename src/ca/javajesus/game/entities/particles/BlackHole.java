@@ -52,7 +52,7 @@ public class BlackHole extends Particle {
 		}
 
 		for (Entity e : level.getEntities()) {
-			if (e instanceof SolidEntity) {
+			/*if (e instanceof SolidEntity) {
 				if (e.getX() > this.x) {
 					e.setX(e.getX() - 1);
 				}
@@ -65,7 +65,7 @@ public class BlackHole extends Particle {
 				if (e.getY() < this.y) {
 					e.setY(e.getY() + 1);
 				}
-			}
+			}*/
 			if (!(e instanceof Mob)) {
 				continue;
 			}
