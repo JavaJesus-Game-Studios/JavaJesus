@@ -71,6 +71,10 @@ public class Item {
 	public static Item blackHoleGun = new Gun("Secret", 20, 0, 0, Colors.get(-1,
 			Colors.fromHex("#4d2607"), Colors.fromHex("#cfcfcf"),
 			Colors.fromHex("#f7f7f7")), "??????", 0, 0, 6, 10, 20, 50, Ammo.BLACKHOLE);
+	public static Item flameThrower = new Gun("Flamethrower", 21, 0, 0, Colors.get(-1,
+            Colors.fromHex("#4d2607"), Colors.fromHex("#cfcfcf"),
+            Colors.fromHex("#f7f7f7")), "Please apply cold water to burn", 0, 0, 6, 10, 20, 50, Ammo.FLAMETHROWER);
+
 
 	public String name;
 	public int id;
