@@ -44,11 +44,12 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 
 		list.setLayoutOrientation(JList.VERTICAL);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setFixedCellWidth(50);
+		list.setVisibleRowCount(model.getSize());
 		
 		JPanel p1 = new JPanel(new BorderLayout());
 		JScrollPane panel = new JScrollPane(list);
 		p1.add(panel, BorderLayout.CENTER);
-		p1.add(colorButton, BorderLayout.SOUTH);
 		
 		this.add(p1, BorderLayout.CENTER);
 	}
