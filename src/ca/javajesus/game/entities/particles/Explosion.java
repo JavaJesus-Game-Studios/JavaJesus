@@ -1,6 +1,9 @@
 package ca.javajesus.game.entities.particles;
 
+import java.awt.Rectangle;
+
 import ca.javajesus.game.SoundHandler;
+import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
@@ -10,12 +13,16 @@ public class Explosion extends Particle {
 
 	private int posNumber;
 	private int tickCount = 1;
+	private Rectangle bounds;
 
 	public Explosion(Level level, double x, double y) {
-		super(level, 4 * SpriteSheet.explosions.boxes, Colors.get(-1, -300, 400, 550), x, y);
+		super(level, 4 * SpriteSheet.explosions.boxes, Colors.get(-1, -300,
+				400, 550), x, y);
 		this.sheet = SpriteSheet.explosions;
 		this.posNumber = tileNumber;
 		SoundHandler.sound.play(SoundHandler.sound.gunshot3);
+		this.bounds = new Rectangle(16, 16);
+		bounds.setLocation((int) x, (int) y);
 	}
 
 	public void tick() {
@@ -31,6 +38,12 @@ public class Explosion extends Particle {
 		if (posNumber > tileNumber + 26) {
 			level.remEntity(this);
 		}
+		
+		for (Mob mob: level.getMobs()) {
+			if (mob.getBounds().intersects(this.bounds)) {
+				mob.damage(1);
+			}
+		}
 
 		tickCount++;
 	}
@@ -38,8 +51,8 @@ public class Explosion extends Particle {
 	public void render(Screen screen) {
 		screen.render(this.x, this.y, posNumber, color, 0, 1, sheet);
 		screen.render(this.x + 8, this.y, posNumber + 1, color, 0, 1, sheet);
-		screen.render(this.x, this.y + 8, posNumber + 32, color, 0, 1, sheet);
-		screen.render(this.x + 8, this.y + 8, posNumber + 33, color, 0, 1,
+		screen.render(this.x, this.y + 8, posNumber + sheet.boxes, color, 0, 1, sheet);
+		screen.render(this.x + 8, this.y + 8, posNumber + 1 + sheet.boxes, color, 0, 1,
 				sheet);
 	}
 

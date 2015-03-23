@@ -241,6 +241,22 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 	}
+	
+	public void darkenScreen() {
+		int index = 0;
+		for (int r = 0; r < 6; r++) {
+			for (int g = 0; g < 6; g++) {
+				for (int b = 0; b < 6; b++) {
+					int rr = (r * 255 / 5);
+					int gg = (g * 255 / 5);
+					int bb = (b * 255 / 5);
+
+					colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb,
+							983082, 0.1);
+				}
+			}
+		}
+	}
 
 	/** Starts the game */
 	public synchronized void start() {
@@ -302,6 +318,7 @@ public class Game extends Canvas implements Runnable {
 	
 	private void renderCrashReport(Exception e) {
 
+		e.printStackTrace();
 		Graphics g = this.getGraphics();
 		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
 		g.setFont(new Font("Verdana", 0, 20));

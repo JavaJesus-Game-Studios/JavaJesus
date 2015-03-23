@@ -1,8 +1,10 @@
 package ca.javajesus.game.entities.particles;
 
 import java.awt.geom.Ellipse2D;
+import java.util.Random;
 
 import ca.javajesus.game.SoundHandler;
+import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
@@ -14,11 +16,13 @@ public class BlackHole extends Particle {
 	private int posNumber;
 	private int tickCount = 1;
 	protected Ellipse2D.Double aggroRadius;
-	protected final int RADIUS = 32 * 8;
+	protected final int RADIUS = 32 * 32;
+	private boolean darken = true;
+	private boolean lighten = false;
+	private Random random = new Random();
 
 	public BlackHole(Level level, double x, double y) {
-		super(level, 0, Colors.get(-1, 0, 0, 0),
-				x, y);
+		super(level, 0, Colors.get(-1, 0, 0, 0), x, y);
 		this.sheet = SpriteSheet.explosions;
 		this.posNumber = tileNumber;
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
@@ -38,24 +42,47 @@ public class BlackHole extends Particle {
 
 		if (posNumber > tileNumber + (14 * 4)) {
 			level.remEntity(this);
+		} else if (posNumber > tileNumber + (13 * 4)) {
+			lighten = true;
+		}
+		
+		if (random.nextInt(2) == 0) {
+			level.addEntity(new Explosion(level, random.nextInt(100) - 50 + this.x, random.nextInt(100) - 50 + this.y));
 		}
 
-		for (Mob mob : level.getMobs()) {
+		for (Entity e : level.getEntities()) {
+			if (!(e instanceof Mob)) {
+				continue;
+			}
+			Mob mob = (Mob) e;
 			int xa = 0;
 			int ya = 0;
 			if (this.aggroRadius.intersects(mob.getBounds())) {
 				mob.damage(1);
 				if (mob.getX() > this.x) {
-					xa -= 2;
+					xa -= 1;
 				}
 				if (mob.getX() < this.x) {
-					xa += 2;
+					xa += 1;
 				}
 				if (mob.getY() > this.y) {
-					ya -= 2;
+					ya -= 1;
 				}
 				if (mob.getY() < this.y) {
-					ya += 2;
+					ya += 1;
+				}
+			} else if (mob.isDead()) {
+				if (mob.getX() > this.x) {
+					mob.setX(mob.getX() - 1);
+				}
+				if (mob.getX() < this.x) {
+					mob.setX(mob.getX() + 1);
+				}
+				if (mob.getY() > this.y) {
+					mob.setY(mob.getY() - 1);
+				}
+				if (mob.getY() < this.y) {
+					mob.setY(mob.getY() + 1);
 				}
 			}
 
@@ -70,10 +97,18 @@ public class BlackHole extends Particle {
 	}
 
 	public void render(Screen screen) {
+		if (darken) {
+			screen.getGame().darkenScreen();
+			darken = false;
+		}
+		if (lighten) {
+			screen.getGame().updateLevel();
+			lighten = false;
+		}
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				screen.render(this.x + (j * 24) - 24, this.y + (i * 24) - 48, posNumber + j
-						+ (i * sheet.boxes), color, 0, 3, sheet);
+				screen.render(this.x + (j * 24) - 24, this.y + (i * 24) - 48,
+						posNumber + j + (i * sheet.boxes), color, 0, 3, sheet);
 			}
 		}
 	}
