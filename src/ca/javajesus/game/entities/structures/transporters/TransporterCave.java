@@ -1,4 +1,4 @@
-package ca.javajesus.game.entities.structures;
+package ca.javajesus.game.entities.structures.transporters;
 
 import java.awt.Point;
 

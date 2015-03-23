@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.SolidEntity;
+import ca.javajesus.game.entities.structures.transporters.TransporterGlass;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;

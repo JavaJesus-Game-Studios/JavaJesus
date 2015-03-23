@@ -3,6 +3,7 @@ package ca.javajesus.game.entities.structures;
 import java.awt.Point;
 
 import ca.javajesus.game.entities.SolidEntity;
+import ca.javajesus.game.entities.structures.transporters.Transporter;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
@@ -16,8 +17,8 @@ public class Projects  extends SolidEntity {
 
 	public Projects(Level level, int x, int y) {
 		super(level, x, y, 100, 80);
-		level.addEntity(new Transporter(level, x + 77, y + 64,
-				new PoorHouseInterior(new Point(x + 40, y + 67), this.level)));
+		level.addEntity(new Transporter(level, x + 44, y + 64,
+				new PoorHouseInterior(new Point(x + 45, y + 72), this.level)));
 	}
 
 	public void render(Screen screen) {

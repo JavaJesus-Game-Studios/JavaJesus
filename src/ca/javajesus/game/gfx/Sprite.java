@@ -39,7 +39,15 @@ public class Sprite {
 	public static Sprite tippee = new Sprite("/Buildings/Generic Exteriors/Tippee.png");
 	public static Sprite warehouse = new Sprite("/Buildings/Generic Exteriors/Warehouse.png");
 	public static Sprite shantyhouse = new Sprite("/Buildings/Generic Exteriors/Shanty_House.png");
+	public static Sprite radardish = new Sprite("/Buildings/Generic Exteriors/Radar_Dish.png");
 	
+	//Unique HippyVille Buildings
+	public static Sprite greattree = new Sprite("/Buildings/Unique_HippyVille_Exteriors/The_Great_Tree.png");
+	public static Sprite treehouse = new Sprite("/Buildings/Unique_HippyVille_Exteriors/Tree_House.png");
+	public static Sprite grizzly = new Sprite("/Buildings/Unique_HippyVille_Exteriors/UC_Grizzly.png");
+	
+	//Unique Oakwood Buildings
+	public static Sprite oakwoodcityhall = new Sprite("/Buildings/Unique_Oakwood_Exteriors/OakWood_City_Hall.png");
 	
 	//Unique San Cisco Buildings
 	public static Sprite sanCisco_skyscraper = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/San_Cisco_Skyscraper_Triangle.png");
@@ -47,7 +55,16 @@ public class Sprite {
 	public static Sprite russian_club = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/Russian_Club.png");
 	public static Sprite triad_HQ = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/Triad_HQ.png");
 	public static Sprite san_cisco_city_hall = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/San_Cisco_City_Hall.png");
-
+	
+	//Unique San Juan Buildings
+	public static Sprite jungle_hq = new Sprite("/Buildings/Unique_San_Juan_Exteriors/Jugle_HQ.png");
+	public static Sprite quacker_hq = new Sprite("/Buildings/Unique_San_Juan_Exteriors/Quacker_HQ.png");
+	public static Sprite sanJuan_City_Hall = new Sprite("/Buildings/Unique_San_Juan_Exteriors/San_Juan_City_Hall.png");
+	public static Sprite theHub = new Sprite("/Buildings/Unique_San_Juan_Exteriors/The_Hub.png");
+	
+	//Unique Sequoia City Buildings
+	public static Sprite sequoiaCinema = new Sprite("/Buildings/Unique_Sequoia_City_Exteriors/Sequoia_City_Cinema.png");
+	public static Sprite sequoiaSchool = new Sprite("/Buildings/Unique_Sequoia_City_Exteriors/Sequoia_City_School.png");
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.xSize = size;

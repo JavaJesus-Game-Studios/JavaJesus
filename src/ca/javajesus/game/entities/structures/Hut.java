@@ -5,6 +5,7 @@ import java.awt.Point;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.Spawner;
+import ca.javajesus.game.entities.structures.transporters.Transporter;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;

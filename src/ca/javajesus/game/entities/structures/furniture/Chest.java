@@ -1,4 +1,4 @@
-package ca.javajesus.game.entities.structures;
+package ca.javajesus.game.entities.structures.furniture;
 
 import java.awt.Color;
 import java.util.ArrayList;

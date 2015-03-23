@@ -10,7 +10,7 @@ import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.CaveEntrance;
 import ca.javajesus.game.entities.structures.Hut;
-import ca.javajesus.game.entities.structures.Chest;
+import ca.javajesus.game.entities.structures.furniture.Chest;
 import ca.javajesus.game.entities.vehicles.Boat;
 import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 import ca.javajesus.items.Item;

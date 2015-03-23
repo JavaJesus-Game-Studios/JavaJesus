@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.Random;
 
 import ca.javajesus.game.Game;
-import ca.javajesus.game.entities.structures.Transporter;
+import ca.javajesus.game.entities.structures.transporters.Transporter;
 import ca.javajesus.level.tile.Tile;
 
 public class RandomLevel extends Level {

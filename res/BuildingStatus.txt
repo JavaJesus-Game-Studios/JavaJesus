@@ -1,0 +1,49 @@
+  N/A	  N/A		Bag End
+PLACED    N/A		Catholic Chapel
+PLACED    N/A		Factory
+PLACED    N/A		Generic Apartments 1
+PLACED  INTERIOR	Generic Castle 1
+PLACED  INTERIOR	Generic Castle Tower
+PLACED  INTERIOR	Generic Catholic Church
+PLACED  INTERIOR	Generic Cave Entrance
+PLACED    N/A		Generic Hospital
+PLACED  INTERIOR	Generic Hut Exterior
+PLACED  INTERIOR	Generic Nice House
+PLACED    N/A		Generic Nice House 2
+PLACED  INTERIOR	Generic Poor House
+PLACED    N/A		Generic Skyscraper
+PLACED    N/A		Gun Store
+PLACED    N/A		Hotel
+PLACED    N/A		Mine Shaft
+PLACED	  N/A		Modern Skyscraper
+PLACED    N/A		Police Building
+PLACED    N/A		Prison
+PLACED    N/A		Projects		COLORS
+PLACED    N/A		Radar Dish	COLORS
+PLACED    N/A		Ranchero House
+PLACED    N/A		Refugee Tent
+PLACED    N/A		Russian Orthodox Church
+PLACED    N/A		Shanty House
+PLACED    N/A		Tippee
+PLACED    N/A		Warehouse
+PLACED    N/A		The Great Tree		COLORS
+PLACED    N/A		Tree House			COLORS
+PLACED    N/A		UC Grizzly			COLORS
+PLACED    N/A		Oakwood City Hall	COLORS
+PLACED    N/A		Chinatown House
+PLACED    N/A		Russian Club
+PLACED    N/A		San Cisco City Hall
+PLACED    N/A		San Cisco Skyscraper Triangle
+PLACED    N/A		Triad HQ	
+PLACED    N/A		Jugle HQ			COLORS
+PLACED    N/A		Quaker HQ	COLORS
+PLACED    N/A		San Juan City Hall	COLORS
+PLACED    N/A		The Hub 			COLORS
+PLACED    N/A		Sequoia City Cinema COLORS
+PLACED    N/A		Sequoia City School  COLORS
+					Cafe
+					Cardinal University
+					Pear HQ
+					Tech Topia City Hall
+					Weird Tech Building 1
+					Weird Tech Building 2

@@ -2,8 +2,8 @@ package ca.javajesus.level.interior;
 
 import java.awt.Point;
 
-import ca.javajesus.game.entities.structures.TransporterInterior;
 import ca.javajesus.game.entities.structures.furniture.DiningTable;
+import ca.javajesus.game.entities.structures.transporters.TransporterInterior;
 import ca.javajesus.level.Level;
 
 public class CastleInterior extends Interior {

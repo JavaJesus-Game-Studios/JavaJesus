@@ -10,20 +10,20 @@ import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.PoorHouseInterior;
 
-public class RefugeeTent  extends SolidEntity {
+public class QuackerHQ extends SolidEntity {
 
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#f8fa8f"), -1);
-
-	public RefugeeTent(Level level, int x, int y) {
-		super(level, x, y, 47, 23);
-		level.addEntity(new Transporter(level, x + 34, y + 7,
+	protected int color = Colors.get(-1, 111, Colors.fromHex("#648ca4"),
+			Colors.fromHex("#f87a36"));
+	
+	public QuackerHQ(Level level, int x, int y) {
+		super(level, x, y, 136, 99);
+		level.addEntity(new Transporter(level, x + 53, y + 83,
 				new PoorHouseInterior(new Point(x + 40, y + 67), this.level)));
 	}
 
 	public void render(Screen screen) {
 
-		screen.render((int) x, (int) y, color, Sprite.refugee_tent);
+		screen.render((int) x, (int) y, color, Sprite.quacker_hq);
 
 	}
-
 }

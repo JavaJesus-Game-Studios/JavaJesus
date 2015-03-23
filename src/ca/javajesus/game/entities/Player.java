@@ -12,7 +12,7 @@ import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.npcs.Companion;
 import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.particles.HealthBar;
-import ca.javajesus.game.entities.structures.Chest;
+import ca.javajesus.game.entities.structures.furniture.Chest;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.JJFont;
