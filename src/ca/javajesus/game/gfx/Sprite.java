@@ -65,6 +65,14 @@ public class Sprite {
 	//Unique Sequoia City Buildings
 	public static Sprite sequoiaCinema = new Sprite("/Buildings/Unique_Sequoia_City_Exteriors/Sequoia_City_Cinema.png");
 	public static Sprite sequoiaSchool = new Sprite("/Buildings/Unique_Sequoia_City_Exteriors/Sequoia_City_School.png");
+	
+	//Unique TechTopia Buildings
+	public static Sprite cafe = new Sprite("/Buildings/Unique_TechTopia_Exteriors/Cafe.png");
+	public static Sprite cardinalUniversity = new Sprite("/Buildings/Unique_TechTopia_Exteriors/Cardinal_University.png");
+	public static Sprite pear_hq = new Sprite("/Buildings/Unique_TechTopia_Exteriors/Pear_HQ.png");
+	public static Sprite techTopia_city_hall = new Sprite("/Buildings/Unique_TechTopia_Exteriors/Tech_Topia_City_Hall.png");
+	public static Sprite weirdTechBuilding1 = new Sprite("/Buildings/Unique_TechTopia_Exteriors/Weird_Tech_Building_1.png");
+	public static Sprite weirdTechBuilding2 = new Sprite("/Buildings/Unique_TechTopia_Exteriors/Weird_Tech_Building_2.png");
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.xSize = size;

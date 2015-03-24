@@ -10,6 +10,8 @@ import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.npcs.Policeman;
 import ca.javajesus.game.entities.particles.Pickup;
 import ca.javajesus.game.entities.structures.ApartmentHighRise;
+import ca.javajesus.game.entities.structures.Cafe;
+import ca.javajesus.game.entities.structures.CardinalUniversity;
 import ca.javajesus.game.entities.structures.Castle;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChapel;
@@ -45,12 +47,15 @@ import ca.javajesus.game.entities.structures.SequoiaCinema;
 import ca.javajesus.game.entities.structures.SequoiaSchool;
 import ca.javajesus.game.entities.structures.ShantyHouse;
 import ca.javajesus.game.entities.structures.Skyscraper;
+import ca.javajesus.game.entities.structures.TechTopiaCityHall;
 import ca.javajesus.game.entities.structures.TheHub;
 import ca.javajesus.game.entities.structures.Tippee;
 import ca.javajesus.game.entities.structures.TreeHouse;
 import ca.javajesus.game.entities.structures.TriadHQ;
 import ca.javajesus.game.entities.structures.UCGrizzly;
 import ca.javajesus.game.entities.structures.Warehouse;
+import ca.javajesus.game.entities.structures.WeirdTechBuilding1;
+import ca.javajesus.game.entities.structures.WeirdTechBuilding2;
 import ca.javajesus.game.entities.structures.furniture.Chest;
 import ca.javajesus.game.entities.vehicles.Boat;
 import ca.javajesus.game.entities.vehicles.Vehicle;
@@ -153,6 +158,13 @@ public class Level1 extends Level {
 		this.addEntity(new TheHub(this, 1500, 1100));
 		this.addEntity(new SequoiaCinema(this, 1500, 1300));
 		this.addEntity(new SequoiaSchool(this, 1500, 1400));
+		
+		this.addEntity(new Cafe(this, 1400, 400));
+		this.addEntity(new CardinalUniversity(this, 1400, 600));
+		this.addEntity(new PearHQ(this, 1400, 700));
+		this.addEntity(new TechTopiaCityHall(this, 1400, 890));
+		this.addEntity(new WeirdTechBuilding1(this, 1500, 900));
+		this.addEntity(new WeirdTechBuilding2(this, 1546, 900));
 
 
 
