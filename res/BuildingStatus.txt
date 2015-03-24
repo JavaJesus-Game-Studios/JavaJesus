@@ -36,14 +36,14 @@ PLACED    N/A		San Cisco City Hall
 PLACED INTERIOR		San Cisco Skyscraper Triangle	LOBBY DONE, MULTIPLE FLOORS
 PLACED    N/A		Triad HQ	
 PLACED    N/A		Jugle HQ			COLORS
-PLACED    N/A		Quaker HQ	COLORS
+PLACED    N/A		Quaker HQ			COLORS
 PLACED    N/A		San Juan City Hall	COLORS
 PLACED    N/A		The Hub 			COLORS
 PLACED    N/A		Sequoia City Cinema COLORS
-PLACED    N/A		Sequoia City School  COLORS
-N/A	 N/A		Cafe
-N/A	 N/A		Cardinal University
-N/A	 N/A		Pear HQ
-N/A	 N/A		Tech Topia City Hall
-N/A	 N/A		Weird Tech Building 1
-N/A	 N/A		Weird Tech Building 2
+PLACED    N/A		Sequoia City School COLORS
+PLACED	  N/A		Cafe					""
+PLACED	  N/A		Cardinal University		""
+PLACED	  N/A		Pear HQ					""
+PLACED	  N/A		Tech Topia City Hall	""
+PLACED	  N/A		Weird Tech Building 1	""	
+PLACED	  N/A		Weird Tech Building 2	""

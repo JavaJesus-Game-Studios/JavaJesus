@@ -17,7 +17,7 @@ public class WeirdTechBuilding2 extends SolidEntity {
 	
 	public WeirdTechBuilding2(Level level, int x, int y) {
 		super(level, x, y, 46, 96);
-		level.addEntity(new Transporter(level, x + 7, y + 80,
+		level.addEntity(new Transporter(level, x + 17, y + 80,
 				new PoorHouseInterior(new Point(x + 40, y + 67), this.level)));
 	}
 
