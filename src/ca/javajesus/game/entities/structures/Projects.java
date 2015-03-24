@@ -9,6 +9,7 @@ import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.PoorHouseInterior;
+import ca.javajesus.level.interior.ProjectsLobby;
 
 public class Projects  extends SolidEntity {
 
@@ -18,7 +19,7 @@ public class Projects  extends SolidEntity {
 	public Projects(Level level, int x, int y) {
 		super(level, x, y, 100, 80);
 		level.addEntity(new Transporter(level, x + 44, y + 64,
-				new PoorHouseInterior(new Point(x + 45, y + 72), this.level)));
+				new ProjectsLobby(new Point(x + 45, y + 73), level)));
 	}
 
 	public void render(Screen screen) {

@@ -7,19 +7,19 @@ import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.structures.transporters.TransporterInterior;
 import ca.javajesus.level.Level;
 
-public class ProjectsLobby extends Interior {
+public class ProjectsFloor extends Interior {
 
 	private Point exitPoint;
 	private Entity entity;
 	private Spawner spawner;
 
-	public ProjectsLobby(Point point, Level level) {
+	public ProjectsFloor(Point point, Level level) {
 		super("/Buildings/Generic Interiors/Projects_Lobby.png", new Point(588,
 				688), level);
 		this.exitPoint = point;
 	}
 
-	public ProjectsLobby(Point point, Level level, Entity entity,
+	public ProjectsFloor(Point point, Level level, Entity entity,
 			Spawner spawner) {
 		super("/Buildings/Generic Interiors/Projects_Lobby.png",
 				new Point(588, 688), level);
@@ -30,7 +30,7 @@ public class ProjectsLobby extends Interior {
 		spawner.init(this);
 	}
 
-	public ProjectsLobby(Point point, Level level, Entity entity) {
+	public ProjectsFloor(Point point, Level level, Entity entity) {
 		super("/Buildings/Generic Interiors/Projects_Lobby.png",
 				new Point(588, 688), level);
 		this.exitPoint = point;
