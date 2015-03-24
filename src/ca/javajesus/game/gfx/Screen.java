@@ -4,7 +4,9 @@ import ca.javajesus.game.Game;
 
 public class Screen {
 
+	// Width of Tiles
 	public static final int MAP_WIDTH = 64;
+	// Used in Binary bitwise looping operations with &
 	public static final int MAP_WIDTH_MASK = MAP_WIDTH - 1;
 
 	/** 0xA indicates it will be used in binary operations, where A = an integer */
@@ -12,6 +14,7 @@ public class Screen {
 	public static final byte BIT_MIRROR_Y = 0x02;
 
 	public int[] pixels;
+	public int[] colors = new int[MAP_WIDTH * MAP_WIDTH];
 
 	public int xOffset = 0;
 	public int yOffset = 0;
@@ -208,5 +211,23 @@ public class Screen {
             break;
         }
         
+    }
+    
+    public void render() {
+    	int xOffset = 0; int yOffset = 0;
+    	for (int y = 0; y < height; y++) {
+    		int yy = y + yOffset;
+    		if (yy < 0 || yy >= height) break;
+    		for (int x = 0; x < width; x++) {
+    			int xx = x + xOffset;
+    			if (xx < 0 || xx >= width) break;
+    			// x >> 4 adjusts the size of the tiles rendered (resolution) smaller = higher res
+    			// & = bitwise AND operator = this loops the values around to the first value so it does not exceed the specified value
+    			// if you dont loop then it will be very choppy, not smooth
+    			int tileIndex = ((xx >> 4) & MAP_WIDTH_MASK) + ((yy >> 4) & MAP_WIDTH_MASK) * MAP_WIDTH;
+    			pixels[x + y * width] = colors[tileIndex];
+    			
+    		}
+    	}
     }
 }

@@ -23,6 +23,7 @@ import ca.javajesus.items.Armor;
 import ca.javajesus.items.Bazooka;
 import ca.javajesus.items.Gun;
 import ca.javajesus.items.Inventory;
+import ca.javajesus.items.Item;
 import ca.javajesus.items.Sword;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.Level1;
@@ -735,6 +736,7 @@ public class Player extends Mob {
 		this.health = startHealth;
 		this.maxShield = 1000;
 		this.shield = maxShield;
+		inventory.addItem(Item.blackHoleGun);
 	}
 
 }
