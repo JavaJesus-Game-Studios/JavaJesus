@@ -1,19 +1,15 @@
 package ca.javajesus.items;
 
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.entities.projectiles.Missile;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
-import ca.javajesus.level.Level;
 
 public class Bazooka extends Gun {
 
 	private Player player;
 
 	public Bazooka() {
-		super("Bazooka", 10, 5, 0, new int[] { -1, Colors.fromHex("000000"),
-				Colors.fromHex("#434343"), Colors.fromHex("#371b09") },
+		super("Bazooka", 10, 5, 0, new int[] { 0xFF000000, 0xFF434343, 0xFF371B09 },
 				"Standard Explosive Artillery", 5, 0, 2, 10, 20, 300,
 				Ammo.MISSILE);
 	}
