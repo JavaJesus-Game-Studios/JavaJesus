@@ -111,9 +111,7 @@ public class Demon extends Monster {
 		}
 		int xTile = 0;
 		int walkingSpeed = 4;
-		int flipTop = (numSteps >> walkingSpeed) & 1;
-		int flipMiddle = (numSteps >> walkingSpeed) & 1;
-		int flipBottom = (numSteps >> walkingSpeed) & 1;
+		int flip = (numSteps >> walkingSpeed) & 1;
 
 		if (getDirection() == Direction.NORTH) {
 			xTile += 10;
@@ -123,19 +121,19 @@ public class Demon extends Monster {
 		} else if (isLatitudinal(getDirection())) {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
 			if (getDirection() == Direction.WEST) {
-				flipTop = 1;
-				flipMiddle = 1;
-				flipBottom = 1;
+				flip = 1;
+				flip = 1;
+				flip = 1;
 			} else {
-				flipTop = 0;
-				flipMiddle = 0;
-				flipBottom = 0;
+				flip = 0;
+				flip = 0;
+				flip = 0;
 			}
 		}
 
 		int modifier = 8 * scale;
-		int xOffset = x - modifier / 2;
-		int yOffset = (y - modifier / 2 - 4) - modifier;
+		int xOffset = x - modifier;
+		int yOffset = y - modifier - modifier / 2;
 
 		if (isShooting)
 			xTile += 12;
@@ -150,34 +148,34 @@ public class Demon extends Monster {
 		if (!isDead) {
 
 			// Upper body 1
-			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile
+					+ yTile * sheet.boxes, color, flip, scale, sheet);
 
 			// Upper body 2
-			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
+			screen.render(xOffset + modifier - (modifier * flip), yOffset,
+					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
 					sheet);
 		}
 
 		// Middle Body 1
-		screen.render(xOffset + (modifier * flipMiddle), yOffset + modifier,
-				xTile + (yTile + 1) * sheet.boxes, color, flipBottom, scale,
+		screen.render(xOffset + (modifier * flip), yOffset + modifier,
+				xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
 				sheet);
 
 		// Middle Body 2
-		screen.render(xOffset + modifier - (modifier * flipMiddle), yOffset
+		screen.render(xOffset + modifier - (modifier * flip), yOffset
 				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-				flipBottom, scale, sheet);
+				flip, scale, sheet);
 
 		// Lower Body 1
-		screen.render(xOffset + (modifier * flipBottom),
+		screen.render(xOffset + (modifier * flip),
 				yOffset + 2 * modifier, xTile + (yTile + 2) * sheet.boxes,
-				color, flipBottom, scale, sheet);
+				color, flip, scale, sheet);
 
 		// Lower Body 2
-		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + 2
+		screen.render(xOffset + modifier - (modifier * flip), yOffset + 2
 				* modifier, (xTile + 1) + (yTile + 2) * sheet.boxes, color,
-				flipBottom, scale, sheet);
+				flip, scale, sheet);
 
 		if (isDead) {
 
@@ -188,14 +186,14 @@ public class Demon extends Monster {
 
 			// Middle Body 3
 			screen.render(xOffset + offset + 2 * modifier
-					- (modifier * flipMiddle), yOffset + modifier, (xTile + 2)
-					+ (yTile + 1) * sheet.boxes, color, flipBottom, scale,
+					- (modifier * flip), yOffset + modifier, (xTile + 2)
+					+ (yTile + 1) * sheet.boxes, color, flip, scale,
 					sheet);
 
 			// Lower Body 3
 			screen.render(xOffset + offset + 2 * modifier
-					- (modifier * flipBottom), yOffset + 2 * modifier,
-					(xTile + 2) + (yTile + 2) * sheet.boxes, color, flipBottom,
+					- (modifier * flip), yOffset + 2 * modifier,
+					(xTile + 2) + (yTile + 2) * sheet.boxes, color, flip,
 					scale, sheet);
 
 		}

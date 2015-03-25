@@ -107,8 +107,7 @@ public class Monkey extends Monster {
 
 		int xTile = 0;
 		int walkingSpeed = 4;
-		int flipTop = (numSteps >> walkingSpeed) & 1;
-		int flipBottom = (numSteps >> walkingSpeed) & 1;
+		int flip = (numSteps >> walkingSpeed) & 1;
 
 		if (getDirection() == Direction.NORTH) {
 			xTile += 10;
@@ -118,17 +117,17 @@ public class Monkey extends Monster {
 		} else if (isLatitudinal(getDirection())) {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
 			if (getDirection() == Direction.WEST) {
-				flipTop = 1;
-				flipBottom = 1;
+				flip = 1;
+				flip = 1;
 			} else {
-				flipTop = 0;
-				flipBottom = 0;
+				flip = 0;
+				flip = 0;
 			}
 		}
 
 		int modifier = 8 * scale;
-		int xOffset = x - modifier / 2;
-		int yOffset = (y - modifier / 2 - 4) - modifier;
+		int xOffset = x - modifier;
+		int yOffset = y - modifier;
 
 		if (isAttacking) {
 			if (getDirection() == Direction.NORTH) {
@@ -139,11 +138,11 @@ public class Monkey extends Monster {
 			} else if (isLatitudinal(getDirection())) {
 				xTile = 16 + ((numSteps >> walkingSpeed) & 1) * 2;
 				if (getDirection() == Direction.WEST) {
-					flipTop = 1;
-					flipBottom = 1;
+					flip = 1;
+					flip = 1;
 				} else {
-					flipTop = 0;
-					flipBottom = 0;
+					flip = 0;
+					flip = 0;
 				}
 			}
 		}
@@ -152,22 +151,22 @@ public class Monkey extends Monster {
 			xTile = 12;
 
 		// Upper body
-		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
-				* sheet.boxes, color, flipTop, scale, sheet);
+		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+				* sheet.boxes, color, flip, scale, sheet);
 
 		// Upper body
-		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-				(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale, sheet);
+		screen.render(xOffset + modifier - (modifier * flip), yOffset,
+				(xTile + 1) + yTile * sheet.boxes, color, flip, scale, sheet);
 
 		// Lower Body
-		screen.render(xOffset + (modifier * flipBottom), yOffset + modifier,
-				xTile + (yTile + 1) * sheet.boxes, color, flipBottom, scale,
+		screen.render(xOffset + (modifier * flip), yOffset + modifier,
+				xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
 				sheet);
 
 		// Lower Body
-		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+		screen.render(xOffset + modifier - (modifier * flip), yOffset
 				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-				flipBottom, scale, sheet);
+				flip, scale, sheet);
 	}
 
 	public void speak(Player player) {

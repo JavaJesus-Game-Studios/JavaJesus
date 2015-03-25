@@ -182,9 +182,7 @@ public class InventoryGUI extends ScreenGUI {
 
 			for (int y = 0; y < screen.height; y++) {
 				for (int x = 0; x < screen.width; x++) {
-					int colorCode = screen.pixels[x + y * screen.width];
-					if (colorCode < 255)
-						pixels[x + y * image.getWidth()] = colors[colorCode];
+						pixels[x + y * image.getWidth()] = screen.pixels[x + y * screen.width];
 				}
 
 			}

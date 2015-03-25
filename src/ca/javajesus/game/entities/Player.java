@@ -258,6 +258,20 @@ public class Player extends Mob {
 				}
 			}
 		}
+		if (input.v.isPressed()) {
+			ChatHandler.toggle();
+			input.v.toggle(false);
+		}
+
+		// Saving
+		if (input.m.isPressed()) {
+			try {
+				Game.saves.save();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			input.m.toggle(false);
+		}
 		if (sword != null) {
 			isSwinging = sword.isSwinging;
 		}
@@ -391,8 +405,7 @@ public class Player extends Mob {
 			numSteps++;
 		}
 
-		int flipTop = (numSteps >> walkingAnimationSpeed) & 1;
-		int flipBottom = (numSteps >> walkingAnimationSpeed) & 1;
+		int flip = (numSteps >> walkingAnimationSpeed) & 1;
 
 		if (getDirection() == Direction.NORTH) {
 			xTile += 10;
@@ -408,11 +421,9 @@ public class Player extends Mob {
 		} else if (isLatitudinal(getDirection())) {
 			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
 			if (getDirection() == Direction.WEST) {
-				flipTop = 1;
-				flipBottom = 1;
+				flip = 1;
 			} else {
-				flipTop = 0;
-				flipBottom = 0;
+				flip = 0;
 			}
 			if (!isMoving()) {
 				xTile = 4;
@@ -420,8 +431,8 @@ public class Player extends Mob {
 		}
 
 		int modifier = 8 * scale;
-		int xOffset = x - modifier / 2;
-		int yOffset = y - modifier / 2 - 4;
+		int xOffset = x - modifier;
+		int yOffset = y - modifier;
 
 		// Handles swimming animation
 		if (isSwimming) {
@@ -450,22 +461,22 @@ public class Player extends Mob {
 		// Normal Player movement -- Not Attacking Anything
 		if (!isShooting && !isSwinging) {
 			// Upper body 1
-			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile
+					+ yTile * sheet.boxes, color, flip, scale, sheet);
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
+			screen.render(xOffset + modifier - (modifier * flip), yOffset,
+					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
 					sheet);
 
 			if (!isSwimming) {
 				// Lower Body 1
-				screen.render(xOffset + (modifier * flipBottom), yOffset
+				screen.render(xOffset + (modifier * flip), yOffset
 						+ modifier, xTile + (yTile + 1) * sheet.boxes, color,
-						flipBottom, scale, sheet);
+						flip, scale, sheet);
 				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flipBottom),
+				screen.render(xOffset + modifier - (modifier * flip),
 						yOffset + modifier, (xTile + 1) + (yTile + 1)
-								* sheet.boxes, color, flipBottom, scale, sheet);
+								* sheet.boxes, color, flip, scale, sheet);
 
 			}
 		}
@@ -483,44 +494,44 @@ public class Player extends Mob {
 					yTile += 2;
 				else {
 					xTile += 7;
-					flipTop = 0;
-					flipBottom = 0;
+					flip = 0;
+					flip = 0;
 				}
 			} else if (shootingDir == 0) {
 				if (!(gun instanceof Bazooka)) {
 					yTile = 4;
 					xTile = 22;
-					flipTop = 0;
-					flipBottom = 0;
+					flip = 0;
+					flip = 0;
 				} else {
 					xTile += 15;
-					flipTop = 0;
-					flipBottom = 0;
+					flip = 0;
+					flip = 0;
 				}
 			} else if (shootingDir > 1) {
 				if (!(gun instanceof Bazooka))
 					xTile += ((numSteps >> walkingAnimationSpeed) & 1) * 2;
-				flipTop = (shootingDir - 1) % 2;
-				flipBottom = (shootingDir - 1) % 2;
+				flip = (shootingDir - 1) % 2;
+				flip = (shootingDir - 1) % 2;
 			}
 
 			// Upper Body 1
-			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile
+					+ yTile * sheet.boxes, color, flip, scale, sheet);
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
+			screen.render(xOffset + modifier - (modifier * flip), yOffset,
+					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
 					sheet);
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flipBottom),
+			screen.render(xOffset + (modifier * flip),
 					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
-					color, flipBottom, scale, sheet);
+					color, flip, scale, sheet);
 
 			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+			screen.render(xOffset + modifier - (modifier * flip), yOffset
 					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-					flipBottom, scale, sheet);
+					flip, scale, sheet);
 
 			if ((gun instanceof Bazooka)) {
 				((Bazooka) gun).renderGun(screen);
@@ -542,21 +553,6 @@ public class Player extends Mob {
 
 		}
 
-		if (input.v.isPressed()) {
-			ChatHandler.toggle();
-			input.v.toggle(false);
-		}
-
-		// Saving
-		if (input.m.isPressed()) {
-			try {
-				Game.saves.save();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			input.m.toggle(false);
-		}
-
 		// Handles Swinging Animation
 		if (isSwinging) {
 			xTile = sword.swordType;
@@ -567,43 +563,43 @@ public class Player extends Mob {
 			} else if (isLatitudinal(getDirection())) {
 				xTile = 4;
 				if (getDirection() == Direction.WEST) {
-					flipTop = 1;
-					flipBottom = 1;
+					flip = 1;
+					flip = 1;
 				} else {
-					flipTop = 0;
-					flipBottom = 0;
+					flip = 0;
+					flip = 0;
 				}
 			}
 
 			// Upper Body 1
-			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * sheet.boxes, color, flipTop, scale,
+			screen.render(xOffset + (modifier * flip), yOffset, xTile
+					+ yTile * sheet.boxes, color, flip, scale,
 					SpriteSheet.swords);
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
+			screen.render(xOffset + modifier - (modifier * flip), yOffset,
+					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
 					SpriteSheet.swords);
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flipBottom),
+			screen.render(xOffset + (modifier * flip),
 					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
-					color, flipBottom, scale, SpriteSheet.swords);
+					color, flip, scale, SpriteSheet.swords);
 
 			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+			screen.render(xOffset + modifier - (modifier * flip), yOffset
 					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-					flipBottom, scale, SpriteSheet.swords);
+					flip, scale, SpriteSheet.swords);
 
 			if (isLongitudinal(getDirection())) {
 				// Lower Body 1
-				screen.render(xOffset + (modifier * flipBottom), yOffset + 2
+				screen.render(xOffset + (modifier * flip), yOffset + 2
 						* modifier, xTile + (yTile + 2) * sheet.boxes, color,
-						flipBottom, scale, SpriteSheet.swords);
+						flip, scale, SpriteSheet.swords);
 
 				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flipBottom),
+				screen.render(xOffset + modifier - (modifier * flip),
 						yOffset + 2 * modifier, (xTile + 1) + (yTile + 2)
-								* sheet.boxes, color, flipBottom, scale,
+								* sheet.boxes, color, flip, scale,
 						SpriteSheet.swords);
 			} else {
 				int num = 0;
@@ -612,15 +608,15 @@ public class Player extends Mob {
 				}
 				// Upper Body 2
 				screen.render(xOffset + 2 * modifier - num
-						- (modifier * flipTop), yOffset, (xTile + 2) + yTile
-						* sheet.boxes, color, flipTop, scale,
+						- (modifier * flip), yOffset, (xTile + 2) + yTile
+						* sheet.boxes, color, flip, scale,
 						SpriteSheet.swords);
 
 				// Lower Body 2
 				screen.render(xOffset + 2 * modifier - num
-						- (modifier * flipBottom), yOffset + modifier,
+						- (modifier * flip), yOffset + modifier,
 						(xTile + 2) + (yTile + 1) * sheet.boxes, color,
-						flipBottom, scale, SpriteSheet.swords);
+						flip, scale, SpriteSheet.swords);
 			}
 
 			// Renders the Actual Sword
@@ -684,26 +680,25 @@ public class Player extends Mob {
 		int xOffset = modifier / 2;
 		int yOffset = modifier / 2 - 4;
 
-		int flipTop = 0;
-		int flipBottom = 0;
+		int flip = 0;
 		int xTile = 0;
 
 		// Normal Player movement -- Not Attacking Anything
 		// Upper body 1
-		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
-				* sheet.boxes, color, flipTop, scale, sheet);
+		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+				* sheet.boxes, color, flip, scale, sheet);
 		// Upper Body 2
-		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-				(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale, sheet);
+		screen.render(xOffset + modifier - (modifier * flip), yOffset,
+				(xTile + 1) + yTile * sheet.boxes, color, flip, scale, sheet);
 
 		// Lower Body 1
-		screen.render(xOffset + (modifier * flipBottom), yOffset + modifier,
-				xTile + (yTile + 1) * sheet.boxes, color, flipBottom, scale,
+		screen.render(xOffset + (modifier * flip), yOffset + modifier,
+				xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
 				sheet);
 		// Lower Body 2
-		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+		screen.render(xOffset + modifier - (modifier * flip), yOffset
 				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-				flipBottom, scale, sheet);
+				flip, scale, sheet);
 
 	}
 

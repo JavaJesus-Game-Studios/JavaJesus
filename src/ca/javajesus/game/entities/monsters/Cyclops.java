@@ -86,8 +86,7 @@ public class Cyclops extends Monster {
 
 		int xTile = 0;
 		int walkingSpeed = 4;
-		int flipTop = (numSteps >> walkingSpeed) & 1;
-		int flipBottom = (numSteps >> walkingSpeed) & 1;
+		int flip = (numSteps >> walkingSpeed) & 1;
 
 		if (getDirection() == Direction.NORTH) {
 			xTile = 28;
@@ -97,22 +96,20 @@ public class Cyclops extends Monster {
 		} else if (isLatitudinal(getDirection())) {
 			xTile = 12 + ((numSteps >> walkingSpeed) & 1) * 4;
 			if (getDirection() == Direction.WEST) {
-				flipTop = 1;
-				flipBottom = 1;
+				flip = 1;
 			} else {
-				flipTop = 0;
-				flipBottom = 0;
+				flip = 0;
 			}
 		}
 
 		int modifier = 8 * scale;
-		int xOffset = x - modifier / 2;
-		int yOffset = (y - modifier / 2 - 4) - modifier;
+		int xOffset = x - modifier * 3;
+		int yOffset = y - modifier * 2;
 
 		int yTile = this.yTile;
 		if (isDead) {
-			flipTop = 0;
-			flipBottom = 0;
+			flip = 0;
+			flip = 0;
 			xTile = 32;
 			yTile = 18;
 		}
@@ -123,31 +120,31 @@ public class Cyclops extends Monster {
 				break;
 			}
 
-			screen.render(xOffset + (modifier * flipTop * 3), yOffset + i
-					* modifier, xTile + (yTile + i) * sheet.boxes, color, flipTop,
+			screen.render(xOffset + (modifier * flip * 3), yOffset + i
+					* modifier, xTile + (yTile + i) * sheet.boxes, color, flip,
 					scale, sheet);
 
-			screen.render(xOffset + modifier + (modifier * flipTop), yOffset
+			screen.render(xOffset + modifier + (modifier * flip), yOffset
 					+ i * modifier, (xTile + 1) + (yTile + i) * sheet.boxes, color,
-					flipTop, scale, sheet);
+					flip, scale, sheet);
 
-			screen.render(xOffset + 2 * modifier - (modifier * flipTop),
+			screen.render(xOffset + 2 * modifier - (modifier * flip),
 					yOffset + i * modifier, (xTile + 2) + (yTile + i) * sheet.boxes,
-					color, flipBottom, scale, sheet);
+					color, flip, scale, sheet);
 
-			screen.render(xOffset + 3 * modifier - (modifier * flipTop * 3),
+			screen.render(xOffset + 3 * modifier - (modifier * flip * 3),
 					yOffset + i * modifier, (xTile + 3) + (yTile + i) * sheet.boxes,
-					color, flipBottom, scale, sheet);
+					color, flip, scale, sheet);
 
 			if (isDead) {
 				screen.render(
-						xOffset + 4 * modifier - (modifier * flipTop * 3),
+						xOffset + 4 * modifier - (modifier * flip * 3),
 						yOffset + i * modifier, (xTile + 4) + (yTile + i) * sheet.boxes,
-						color, flipBottom, scale, sheet);
+						color, flip, scale, sheet);
 
-				screen.render(xOffset + 5 * modifier - (modifier * flipTop),
+				screen.render(xOffset + 5 * modifier - (modifier * flip),
 						yOffset + i * modifier, (xTile + 5) + (yTile + i) * sheet.boxes,
-						color, flipBottom, scale, sheet);
+						color, flip, scale, sheet);
 			}
 		}
 
