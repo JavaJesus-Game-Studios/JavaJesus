@@ -12,7 +12,7 @@ public class SolidEntity extends Entity {
 	protected int width;
 	protected int height;
 	//public final int x, y;
-	protected int color;
+	protected int[] color;
 
 	public SolidEntity(Level level, int x, int y, int width, int height) {
 		super(level);

@@ -5,7 +5,6 @@ import java.awt.Point;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.entities.Spawner;
-import ca.javajesus.game.entities.structures.transporters.TransporterInterior;
 import ca.javajesus.game.entities.structures.transporters.TransporterStairCarpet;
 import ca.javajesus.level.Level;
 

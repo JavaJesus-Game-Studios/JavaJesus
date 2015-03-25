@@ -27,7 +27,7 @@ public class Furniture extends SolidEntity {
 
 
 
-	public Furniture(Level level, int x, int y, Sprite sprite, int color) {
+	public Furniture(Level level, int x, int y, Sprite sprite, int[] color) {
 		super(level, x, y, sprite.xSize, sprite.ySize);
 		this.sprite = sprite;
 		this.color = color;

@@ -1,6 +1,5 @@
 package ca.javajesus.level.tile;
 
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
