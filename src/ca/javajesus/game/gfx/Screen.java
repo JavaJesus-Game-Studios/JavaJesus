@@ -78,20 +78,21 @@ public class Screen {
 					xSheet = 7 - x;
 				int col = sheet.pixels[tileOffset + xSheet + ySheet
 						* sheet.width];
-				switch (col) {
-				case 0xFF555555: {
-					col = color[0];
-					break;
-				}
-				case 0xFFAAAAAA: {
-					col = color[1];
-					break;
-				}
-				case 0xFFFFFFFF: {
-					col = color[2];
-					break;
-				}
-				}
+				if (color != null)
+					switch (col) {
+					case 0xFF555555: {
+						col = color[0];
+						break;
+					}
+					case 0xFFAAAAAA: {
+						col = color[1];
+						break;
+					}
+					case 0xFFFFFFFF: {
+						col = color[2];
+						break;
+					}
+					}
 				if (col != 0xFF000000)
 					for (int yScale = 0; yScale < scale; yScale++) {
 						if (yPixel + yScale < 0 || yPixel + yScale >= height)
@@ -117,7 +118,7 @@ public class Screen {
 	public Game getGame() {
 		return game;
 	}
-	
+
 	/** Used for rendering large entities */
 	public void render(int xOffset, int yOffset, int[] color, Sprite sprite) {
 

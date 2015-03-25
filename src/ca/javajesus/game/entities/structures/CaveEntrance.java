@@ -11,8 +11,8 @@ import ca.javajesus.level.Level;
 
 public class CaveEntrance extends SolidEntity {
 
-	protected int color = Colors.get(-1, Colors.fromHex("#301e01"),
-			Colors.fromHex("#474645"), -1);
+	protected int[] color = {Colors.get(-1, Colors.fromHex("#301e01"),
+			Colors.fromHex("#474645"), -1)};
 
 	public CaveEntrance(Level level, int x, int y) {
 		super(level, x, y, 40, 36);

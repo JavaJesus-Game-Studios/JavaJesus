@@ -12,9 +12,9 @@ import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class CardinalUniversity extends SolidEntity {
 
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#648ca4"),
-			Colors.fromHex("#f87a36"));
-	
+	protected int[] color = { Colors.get(-1, 111, Colors.fromHex("#648ca4"),
+			Colors.fromHex("#f87a36")) };
+
 	public CardinalUniversity(Level level, int x, int y) {
 		super(level, x, y, 200, 56);
 		level.addEntity(new Transporter(level, x + 82, y + 40,
@@ -24,6 +24,6 @@ public class CardinalUniversity extends SolidEntity {
 	}
 
 	public void render(Screen screen) {
-		screen.render((int) x, (int) y, color, Sprite.cardinalUniversity);
+		screen.render(x, y, color, Sprite.cardinalUniversity);
 	}
 }

@@ -12,8 +12,8 @@ import ca.javajesus.level.interior.CatholicChurchInterior;
 
 public class CatholicChapel extends SolidEntity {
 
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#fffab0"),
-			Colors.fromHex("#abd3ff"));
+	protected int[] color = {Colors.get(-1, 111, Colors.fromHex("#fffab0"),
+			Colors.fromHex("#abd3ff"))};
 
 	public CatholicChapel(Level level, int x, int y) {
 		super(level, x, y, 54, 63);

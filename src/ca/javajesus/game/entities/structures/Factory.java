@@ -12,8 +12,8 @@ import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class Factory  extends SolidEntity {
 
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#3b312a"),
-			Colors.fromHex("#002244"));
+	protected int[] color = {111, Colors.fromHex("#3b312a"),
+			Colors.fromHex("#002244")};
 
 	public Factory(Level level, int x, int y) {
 		super(level, x, y, 100, 85);

@@ -12,8 +12,8 @@ import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class ChinatownHouse extends SolidEntity {
 
-	protected int color = Colors.get(-1, Colors.fromHex("#618249"), Colors.fromHex("#992b2b"),
-			Colors.fromHex("#ffffff"));
+	protected int[] color = {Colors.get(-1, Colors.fromHex("#618249"), Colors.fromHex("#992b2b"),
+			Colors.fromHex("#ffffff"))};
 
 	public ChinatownHouse(Level level, int x, int y) {
 		super(level, x, y, 64, 57);

@@ -13,8 +13,8 @@ import ca.javajesus.level.interior.CastleInterior;
 
 public class CastleTower extends SolidEntity {
 
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#8d8d8d"),
-			Colors.fromHex("#eefeff"));
+	protected int[] color = {Colors.get(-1, 111, Colors.fromHex("#8d8d8d"),
+			Colors.fromHex("#eefeff"))};
 
 	public CastleTower(Level level, int x, int y) {
 		super(level, x, y, 61, 175);
