@@ -176,8 +176,7 @@ public class NPC extends Mob {
 
 		int walkingAnimationSpeed = 4;
 
-		int flipTop = (numSteps >> walkingAnimationSpeed) & 1;
-		int flipBottom = (numSteps >> walkingAnimationSpeed) & 1;
+		int flip = (numSteps >> walkingAnimationSpeed) & 1;
 
 		if (getDirection() == Direction.NORTH) {
 			xTile += 10;
@@ -187,17 +186,15 @@ public class NPC extends Mob {
 		} else if (isLatitudinal(getDirection())) {
 			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
 			if (getDirection() == Direction.WEST) {
-				flipTop = 1;
-				flipBottom = 1;
+				flip = 1;
 			} else {
-				flipTop = 0;
-				flipBottom = 0;
+				flip = 0;
 			}
 		}
 
 		int modifier = 8 * scale;
-		int xOffset = x - modifier / 2;
-		int yOffset = y - modifier / 2 - 4;
+		int xOffset = x - modifier;
+		int yOffset = y - modifier;
 
 		if (isDead) {
 			xTile = 12;
@@ -215,43 +212,43 @@ public class NPC extends Mob {
 			}
 
 			// Upper body 1
-			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * sheet.boxes, this.color, flipTop, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile
+					+ yTile * sheet.boxes, this.color, flip, scale, sheet);
 
 			// Upper body 2
-			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, this.color, flipTop,
+			screen.render(xOffset + modifier - (modifier * flip), yOffset,
+					(xTile + 1) + yTile * sheet.boxes, this.color, flip,
 					scale, sheet);
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flipBottom),
+			screen.render(xOffset + (modifier * flip),
 					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
-					this.color, flipBottom, scale, sheet);
+					this.color, flip, scale, sheet);
 
 			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+			screen.render(xOffset + modifier - (modifier * flip), yOffset
 					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
-					this.color, flipBottom, scale, sheet);
+					this.color, flip, scale, sheet);
 		} else {
 
 			if (!isSwimming) {
 				// Lower Body 1
-				screen.render(xOffset + (modifier * flipBottom), yOffset
+				screen.render(xOffset + (modifier * flip), yOffset
 						+ modifier, xTile + (yTile + 1) * sheet.boxes, color,
-						flipBottom, scale, sheet);
+						flip, scale, sheet);
 				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flipBottom),
+				screen.render(xOffset + modifier - (modifier * flip),
 						yOffset + modifier, (xTile + 1) + (yTile + 1)
-								* sheet.boxes, color, flipBottom, scale, sheet);
+								* sheet.boxes, color, flip, scale, sheet);
 
 			}
 
 			// Upper body 1
-			screen.render(xOffset + (modifier * flipTop), yOffset, xTile
-					+ yTile * sheet.boxes, color, flipTop, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile
+					+ yTile * sheet.boxes, color, flip, scale, sheet);
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale,
+			screen.render(xOffset + modifier - (modifier * flip), yOffset,
+					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
 					sheet);
 		}
 

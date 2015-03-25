@@ -70,11 +70,19 @@ public class Boat extends Vehicle {
 	}
 
 	public void render(Screen screen) {
+		
+		int modifier = 8 * scale;
+		int xOffset = 0;
+		int yOffset = 0;
 
 		if (isLongitudinal(getDirection())) {
+			xOffset = x - modifier * 2;
+			yOffset = y - modifier * 2 - modifier / 2;
 			this.width = 32;
 			this.height = 40;
 		} else {
+			xOffset = x - modifier * 2 - modifier / 2;
+			yOffset = y - modifier * 2;
 			this.width = 40;
 			this.height = 32;
 		}
@@ -84,11 +92,7 @@ public class Boat extends Vehicle {
 		int xTile = 0;
 		int yTile = 16;
 
-		int flipTop = 0;
-		int flipBottom = 0;
-		int modifier = 8 * scale;
-		int xOffset = x - modifier / 2;
-		int yOffset = y - modifier / 2 - 4;
+		int flip = 0;
 
 		if (getDirection() == Direction.NORTH) {
 			xTile += 14;
@@ -99,117 +103,117 @@ public class Boat extends Vehicle {
 		}
 
 		// Upper body 1
-		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile
-				* sheet.boxes, color, flipTop, scale, sheet);
+		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+				* sheet.boxes, color, flip, scale, sheet);
 		// Upper Body 2
-		screen.render(xOffset + modifier - (modifier * flipTop), yOffset,
-				(xTile + 1) + yTile * sheet.boxes, color, flipTop, scale, sheet);
+		screen.render(xOffset + modifier - (modifier * flip), yOffset,
+				(xTile + 1) + yTile * sheet.boxes, color, flip, scale, sheet);
 
 		// Upper Body 3
-		screen.render(xOffset + 2 * modifier - (modifier * flipTop), yOffset,
-				(xTile + 2) + yTile * sheet.boxes, color, flipTop, scale, sheet);
+		screen.render(xOffset + 2 * modifier - (modifier * flip), yOffset,
+				(xTile + 2) + yTile * sheet.boxes, color, flip, scale, sheet);
 
 		// Upper Body 4
-		screen.render(xOffset + 3 * modifier - (modifier * flipTop), yOffset,
-				(xTile + 3) + yTile * sheet.boxes, color, flipTop, scale, sheet);
+		screen.render(xOffset + 3 * modifier - (modifier * flip), yOffset,
+				(xTile + 3) + yTile * sheet.boxes, color, flip, scale, sheet);
 
 		// Second Body 1
-		screen.render(xOffset + (modifier * flipBottom), yOffset + modifier,
-				xTile + (yTile + 1) * sheet.boxes, color, flipBottom, scale, sheet);
+		screen.render(xOffset + (modifier * flip), yOffset + modifier,
+				xTile + (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
 
 		// Second Body 2
-		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
-				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color, flipBottom,
+		screen.render(xOffset + modifier - (modifier * flip), yOffset
+				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color, flip,
 				scale, sheet);
 
 		// Second Body 3
-		screen.render(xOffset + 2 * modifier - (modifier * flipBottom), yOffset
-				+ modifier, (xTile + 2) + (yTile + 1) * sheet.boxes, color, flipBottom,
+		screen.render(xOffset + 2 * modifier - (modifier * flip), yOffset
+				+ modifier, (xTile + 2) + (yTile + 1) * sheet.boxes, color, flip,
 				scale, sheet);
 
 		// Second Body 4
-		screen.render(xOffset + 3 * modifier - (modifier * flipBottom), yOffset
-				+ modifier, (xTile + 3) + (yTile + 1) * sheet.boxes, color, flipBottom,
+		screen.render(xOffset + 3 * modifier - (modifier * flip), yOffset
+				+ modifier, (xTile + 3) + (yTile + 1) * sheet.boxes, color, flip,
 				scale, sheet);
 
 		// Third Body 1
-		screen.render(xOffset + (modifier * flipBottom),
+		screen.render(xOffset + (modifier * flip),
 				yOffset + 2 * modifier, xTile + (yTile + 2) * sheet.boxes, color,
-				flipBottom, scale, sheet);
+				flip, scale, sheet);
 
 		// Third Body 2
-		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + 2
-				* modifier, (xTile + 1) + (yTile + 2) * sheet.boxes, color, flipBottom,
+		screen.render(xOffset + modifier - (modifier * flip), yOffset + 2
+				* modifier, (xTile + 1) + (yTile + 2) * sheet.boxes, color, flip,
 				scale, sheet);
 
 		// Third Body 3
-		screen.render(xOffset + 2 * modifier - (modifier * flipBottom), yOffset
+		screen.render(xOffset + 2 * modifier - (modifier * flip), yOffset
 				+ 2 * modifier, (xTile + 2) + (yTile + 2) * sheet.boxes, color,
-				flipBottom, scale, sheet);
+				flip, scale, sheet);
 
 		// Third Body 4
-		screen.render(xOffset + 3 * modifier - (modifier * flipBottom), yOffset
+		screen.render(xOffset + 3 * modifier - (modifier * flip), yOffset
 				+ 2 * modifier, (xTile + 3) + (yTile + 2) * sheet.boxes, color,
-				flipBottom, scale, sheet);
+				flip, scale, sheet);
 
 		// Fourth Body 1
-		screen.render(xOffset + (modifier * flipBottom),
+		screen.render(xOffset + (modifier * flip),
 				yOffset + 3 * modifier, xTile + (yTile + 3) * sheet.boxes, color,
-				flipBottom, scale, sheet);
+				flip, scale, sheet);
 
 		// Fourth Body 2
-		screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + 3
-				* modifier, (xTile + 1) + (yTile + 3) * sheet.boxes, color, flipBottom,
+		screen.render(xOffset + modifier - (modifier * flip), yOffset + 3
+				* modifier, (xTile + 1) + (yTile + 3) * sheet.boxes, color, flip,
 				scale, sheet);
 
 		// Fourth Body 3
-		screen.render(xOffset + 2 * modifier - (modifier * flipBottom), yOffset
+		screen.render(xOffset + 2 * modifier - (modifier * flip), yOffset
 				+ 3 * modifier, (xTile + 2) + (yTile + 3) * sheet.boxes, color,
-				flipBottom, scale, sheet);
+				flip, scale, sheet);
 
 		// Fourth Body 4
-		screen.render(xOffset + 3 * modifier - (modifier * flipBottom), yOffset
+		screen.render(xOffset + 3 * modifier - (modifier * flip), yOffset
 				+ 3 * modifier, (xTile + 3) + (yTile + 3) * sheet.boxes, color,
-				flipBottom, scale, sheet);
+				flip, scale, sheet);
 
 		if (isLongitudinal(getDirection())) {
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flipBottom), yOffset + 4
-					* modifier, xTile + (yTile + 4) * sheet.boxes, color, flipBottom,
+			screen.render(xOffset + (modifier * flip), yOffset + 4
+					* modifier, xTile + (yTile + 4) * sheet.boxes, color, flip,
 					scale, sheet);
 
 			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset
+			screen.render(xOffset + modifier - (modifier * flip), yOffset
 					+ 4 * modifier, (xTile + 1) + (yTile + 4) * sheet.boxes, color,
-					flipBottom, scale, sheet);
+					flip, scale, sheet);
 
 			// Lower Body 3
-			screen.render(xOffset + 2 * modifier - (modifier * flipBottom),
+			screen.render(xOffset + 2 * modifier - (modifier * flip),
 					yOffset + 4 * modifier, (xTile + 2) + (yTile + 4) * sheet.boxes,
-					color, flipBottom, scale, sheet);
+					color, flip, scale, sheet);
 
 			// Lower Body 4
-			screen.render(xOffset + 3 * modifier - (modifier * flipBottom),
+			screen.render(xOffset + 3 * modifier - (modifier * flip),
 					yOffset + 4 * modifier, (xTile + 3) + (yTile + 4) * sheet.boxes,
-					color, flipBottom, scale, sheet);
+					color, flip, scale, sheet);
 
 		} else {
 			// Upper Body 5
-			screen.render(xOffset + 4 * modifier - (modifier * flipTop),
-					yOffset, (xTile + 4) + yTile * sheet.boxes, color, flipTop, scale,
+			screen.render(xOffset + 4 * modifier - (modifier * flip),
+					yOffset, (xTile + 4) + yTile * sheet.boxes, color, flip, scale,
 					sheet);
 			// Second Body 5
-			screen.render(xOffset + 4 * modifier - (modifier * flipBottom),
+			screen.render(xOffset + 4 * modifier - (modifier * flip),
 					yOffset + modifier, (xTile + 4) + (yTile + 1) * sheet.boxes, color,
-					flipBottom, scale, sheet);
+					flip, scale, sheet);
 			// Third Body 5
-			screen.render(xOffset + 4 * modifier - (modifier * flipBottom),
+			screen.render(xOffset + 4 * modifier - (modifier * flip),
 					yOffset + 2 * modifier, (xTile + 4) + (yTile + 2) * sheet.boxes,
-					color, flipBottom, scale, sheet);
+					color, flip, scale, sheet);
 			// Fourth Body 5
-			screen.render(xOffset + 4 * modifier - (modifier * flipBottom),
+			screen.render(xOffset + 4 * modifier - (modifier * flip),
 					yOffset + 3 * modifier, (xTile + 4) + (yTile + 3) * sheet.boxes,
-					color, flipBottom, scale, sheet);
+					color, flip, scale, sheet);
 
 		}
 
