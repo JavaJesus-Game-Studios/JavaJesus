@@ -8,7 +8,6 @@ import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.interior.PoorHouseInterior;
 import ca.javajesus.level.interior.ProjectsLobby;
 
 public class Projects  extends SolidEntity {

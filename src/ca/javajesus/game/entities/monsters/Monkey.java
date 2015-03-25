@@ -7,19 +7,16 @@ import ca.javajesus.game.Game;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.HealthBar;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Monkey extends Monster {
-
+	private static int[] color = { 0xFF2A1609, 0xFF391E0C, 0xFFB08162 };
 	private boolean isAttacking = false;
 	private int coolTicks = 0;
 
 	public Monkey(Level level, String name, int x, int y, int speed, int health) {
-		super(level, name, x, y, speed, 12, 16, 8, health, Colors.get(-1,
-				Colors.fromHex("#2a1609"), Colors.fromHex("#391e0c"),
-				Colors.fromHex("#b08162")));
+		super(level, name, x, y, speed, 12, 16, 8, health, color);
 		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y,
 				this, 0);
 		this.strength = 10;
@@ -57,7 +54,7 @@ public class Monkey extends Monster {
 				cooldown = false;
 			}
 		}
-		
+
 		int xa = 0;
 		int ya = 0;
 

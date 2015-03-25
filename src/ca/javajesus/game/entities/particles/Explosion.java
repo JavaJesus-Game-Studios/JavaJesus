@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Mob;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -16,8 +15,8 @@ public class Explosion extends Particle {
 	private Rectangle bounds;
 
 	public Explosion(Level level, double x, double y) {
-		super(level, 4 * SpriteSheet.explosions.boxes, Colors.get(-1, -300,
-				400, 550), x, y);
+		super(level, 4 * SpriteSheet.explosions.boxes, new int[] { 0xFFFF9900,
+				0xFFFF3C00, 0xFFFF0000 }, x, y);
 		this.sheet = SpriteSheet.explosions;
 		this.posNumber = tileNumber;
 		SoundHandler.sound.play(SoundHandler.sound.gunshot3);

@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 
 import ca.javajesus.saves.*;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.game.gui.PauseGUI;
@@ -205,7 +204,7 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 
-					//colors[index++] = rr << 16 | gg << 8 | bb;
+					// colors[index++] = rr << 16 | gg << 8 | bb;
 				}
 			}
 		}
@@ -220,8 +219,8 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 
-					//colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb,
-							//16711680, 0.75);
+					// colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb,
+					// 16711680, 0.75);
 				}
 			}
 		}
@@ -236,8 +235,8 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 
-					//colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb,
-							//983082, 0.5);
+					// colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb,
+					// 983082, 0.5);
 				}
 			}
 		}
@@ -353,14 +352,14 @@ public class Game extends Canvas implements Runnable {
 			getLevel().renderTile(screen, xOffset, yOffset);
 			getLevel().renderEntities(screen);
 		}
-		
+
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {
-					pixels[x + y * WIDTH] = screen.pixels[x + y * screen.width];
+				pixels[x + y * WIDTH] = screen.pixels[x + y * screen.width];
 			}
 
 		}
-		
+
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setFont(new Font("Verdana", 0, 20));

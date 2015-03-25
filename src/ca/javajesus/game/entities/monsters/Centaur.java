@@ -1,15 +1,14 @@
 package ca.javajesus.game.entities.monsters;
 
 import ca.javajesus.game.entities.particles.HealthBar;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Centaur extends Monster {
+	private static int[] color = { 0xFF111111, 0xFF8F4C1F, 0xFFEDC5AB };
 
 	public Centaur(Level level, String name, int x, int y, int speed, int health) {
-		super(level, name, x, y, speed, 14, 24, 5, health, Colors.get(-1, 111,
-				Colors.fromHex("#8f4c1f"), 543));
+		super(level, name, x, y, speed, 14, 24, 5, health, color);
 		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y,
 				this, 8);
 		if (level != null)

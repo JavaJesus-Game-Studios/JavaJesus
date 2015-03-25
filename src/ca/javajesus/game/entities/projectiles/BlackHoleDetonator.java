@@ -6,7 +6,6 @@ import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.particles.BlackHole;
 import ca.javajesus.game.entities.vehicles.Vehicle;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -15,15 +14,15 @@ public class BlackHoleDetonator extends Projectile {
 
 	public BlackHoleDetonator(Level level, double x, double y, double xPos,
 			double yPos, Mob mob, double damage) {
-		super(level, 2, 1, SpriteSheet.particles.boxes, Colors.get(-1, -1, -1,
-				550), x, y, 6, xPos, yPos, mob, damage);
+		super(level, 2, 1, SpriteSheet.particles.boxes, new int[] { 0xFF000000,
+				0xFF000000, 0xFFFFFF00 }, x, y, 6, xPos, yPos, mob, damage);
 		sound.fire(sound.gunshot);
 	}
 
 	public BlackHoleDetonator(Level level, double x, double y, int direction,
 			Mob mob, double damage) {
-		super(level, 2, 1, SpriteSheet.particles.boxes, Colors.get(-1, -1, -1,
-				550), x, y, 6, direction, mob, damage);
+		super(level, 2, 1, SpriteSheet.particles.boxes, new int[] { 0xFF000000,
+				0xFF000000, 0xFFFFFF00 }, x, y, 6, direction, mob, damage);
 		sound.fire(sound.gunshot);
 	}
 

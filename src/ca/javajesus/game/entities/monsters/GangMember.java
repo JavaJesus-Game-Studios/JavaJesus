@@ -7,18 +7,16 @@ import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class GangMember extends Monster {
-
+	private static int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB };
 	protected Ellipse2D.Double standRange;
 
 	public GangMember(Level level, String name, int x, int y, int speed,
 			int health, int type) {
-		super(level, name, x, y, speed, 14, 16, 1, health, Colors.get(-1, 111,
-				555, 543));
+		super(level, name, x, y, speed, 14, 16, 1, health, color);
 		getType(type);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
 				RADIUS / 2, RADIUS / 2);

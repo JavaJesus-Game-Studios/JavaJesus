@@ -18,7 +18,7 @@ PLACED    N/A		Mine Shaft
 PLACED	  N/A		Modern Skyscraper
 PLACED    N/A		Police Building
 PLACED    N/A		Prison
-PLACED INTERIOR		Projects		MULTIPLE FLOORS		
+PLACED INTERIOR		Projects	~~COMPLETED~~
 PLACED    N/A		Radar Dish	COLORS
 PLACED INTERIOR		Ranchero House
 PLACED INTERIOR		Refugee Tent

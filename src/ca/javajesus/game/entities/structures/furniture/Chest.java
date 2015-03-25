@@ -7,7 +7,6 @@ import java.util.Random;
 import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.SolidEntity;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.items.Gun;
@@ -17,8 +16,7 @@ import ca.javajesus.level.Level;
 
 public class Chest extends SolidEntity {
 
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#452909"),
-			Colors.fromHex("#ffe011"));
+	protected int[] color = new int[] { 0xFF111111, 0xFF452909, 0xFFFFE011 };
 	protected boolean isOpen = false;
 	ArrayList<Item> contents;
 

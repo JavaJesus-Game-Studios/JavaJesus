@@ -12,7 +12,7 @@ public class DestructibleTile extends Entity {
 	private int health;
 	private Rectangle hitBox;
 	protected int healthTickCount = 0;
-	protected int color;
+	protected int[] color;
 	private int tileNumber;
 
 	private Random random = new Random();
@@ -29,7 +29,7 @@ public class DestructibleTile extends Entity {
 	}
 
 	public void tick() {
-		
+
 	}
 
 	public void render(Screen screen) {

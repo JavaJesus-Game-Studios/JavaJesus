@@ -11,13 +11,13 @@ public class Particle extends Entity {
 
 	protected SpriteSheet sheet = SpriteSheet.particles;
 	protected int tileNumber;
-	protected int color;
+	protected int[] color;
 	protected int width;
 	protected int height;
 	protected Random random = new Random();
 	protected double x, y;
 
-	public Particle(Level level, int tileNumber, int color, double x, double y) {
+	public Particle(Level level, int tileNumber, int[] color, double x, double y) {
 		super(level);
 		this.tileNumber = tileNumber;
 		this.color = color;

@@ -2,7 +2,6 @@ package ca.javajesus.game.entities;
 
 import java.awt.Rectangle;
 
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -13,7 +12,7 @@ public class FireEntity extends Entity {
 	private int delay;
 	private int xTile;
 	private int yTile = 15;
-	private int color = Colors.get(-1, Colors.fromHex("#F7790A"), 540, -1);
+	private int[] color = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
 	private final Rectangle hitBox = new Rectangle(8, 8);
 
 	public FireEntity(Level level, int x, int y) {
@@ -24,7 +23,7 @@ public class FireEntity extends Entity {
 		this.delay = 100;
 		this.hitBox.setLocation(x, y);
 	}
-	
+
 	public Rectangle getBounds() {
 		return hitBox;
 	}

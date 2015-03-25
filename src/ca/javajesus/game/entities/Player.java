@@ -76,8 +76,7 @@ public class Player extends Mob {
 		stamina = startStamina;
 
 		companion = new Companion(level, "Companion", x + 10, y, 16, 16, 100,
-				Colors.get(-1, Colors.fromHex("#2a2a2a"),
-						Colors.fromHex("#000046"), 543), 0, 4, 8, this);
+				new int[] { 0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB }, 0, 4, 8, this);
 	}
 
 	public Level getLevel() {
@@ -428,23 +427,31 @@ public class Player extends Mob {
 			if (isOnFire()) {
 				setOnFire(false);
 			}
-			int watercolor = 0;
+			int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
 			yOffset += 4;
 			if (tickCount % 60 < 15) {
-				watercolor = Colors.get(-1, 225, -1, -1);
+				waterColor[0] = 0xFF5266FF;
+				waterColor[1] = 0xFF000000;
+				waterColor[2] = 0xFF000000;
 			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
 				yOffset -= 1;
-				watercolor = Colors.get(-1, 115, 225, -1);
+				waterColor[0] = 0xFF3D54FF;
+				waterColor[1] = 0xFF5266FF;
+				waterColor[2] = 0xFF000000;
 			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
-				watercolor = Colors.get(-1, 115, -1, -1);
+				waterColor[0] = 0xFF3D54FF;
+				waterColor[1] = 0xFF000000;
+				waterColor[2] = 0xFF000000;
 			} else {
 				yOffset -= 1;
-				watercolor = Colors.get(-1, 225, 225, -1);
+				waterColor[0] = 0xFF5266FF;
+				waterColor[1] = 0xFF5266FF;
+				waterColor[2] = 0xFF000000;
 			}
 			screen.render(xOffset, yOffset + 3, 0 + 10 * sheet.boxes,
-					watercolor, 0x00, 1, sheet);
+					waterColor, 0x00, 1, sheet);
 			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * sheet.boxes,
-					watercolor, 0x01, 1, sheet);
+					waterColor, 0x01, 1, sheet);
 		}
 
 		// Normal Player movement -- Not Attacking Anything

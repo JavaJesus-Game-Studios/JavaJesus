@@ -31,7 +31,7 @@ public class Projectile extends Entity {
 	public Mob mob;
 	protected SpriteSheet sheet = SpriteSheet.particles;
 	protected int tileNumber;
-	protected int color;
+	protected int[] color;
 	protected int width;
 	protected int height;
 	public boolean renderOnTop = false;
@@ -58,7 +58,7 @@ public class Projectile extends Entity {
 	 *            : The direction it will move; Currently only 0 1 2 or 3
 	 */
 	public Projectile(Level level, int width, int height, int tileNumber,
-			int color, double x, double y, int speed, int direction, Mob mob,
+			int[] color, double x, double y, int speed, int direction, Mob mob,
 			double damage) {
 		super(level);
 		this.tileNumber = tileNumber;
@@ -128,8 +128,8 @@ public class Projectile extends Entity {
 	 *            : The y velocity - currently broken, only 1 or 0
 	 */
 	public Projectile(Level level, int width, int height, int tileNumber,
-			int color, double x, double y, int speed, double xPos, double yPos,
-			Mob mob, double damage) {
+			int[] color, double x, double y, int speed, double xPos,
+			double yPos, Mob mob, double damage) {
 		super(level);
 		this.tileNumber = tileNumber;
 		this.color = color;

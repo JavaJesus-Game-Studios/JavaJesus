@@ -6,8 +6,6 @@ import java.util.Random;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
-import ca.javajesus.game.entities.SolidEntity;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -23,7 +21,7 @@ public class BlackHole extends Particle {
 	private Random random = new Random();
 
 	public BlackHole(Level level, double x, double y) {
-		super(level, 0, Colors.get(-1, 0, 0, 0), x, y);
+		super(level, 0, new int[] { 0xFF000000, 0xFF000000, 0xFF000000 }, x, y);
 		this.sheet = SpriteSheet.explosions;
 		this.posNumber = tileNumber;
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,

@@ -34,7 +34,7 @@ public class Monster extends Mob {
 	protected int yTile;
 
 	public Monster(Level level, String name, int x, int y, int speed,
-			int width, int height, int yTile, int health, int color) {
+			int width, int height, int yTile, int health, int[] color) {
 		super(level, name, x, y, speed, width, height, SpriteSheet.enemies,
 				health);
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
@@ -47,7 +47,9 @@ public class Monster extends Mob {
 
 	protected void checkRadius() {
 
-		if (mob != null && (mob.isDead() || !(this.aggroRadius.intersects(mob.getBounds())))) {
+		if (mob != null
+				&& (mob.isDead() || !(this.aggroRadius.intersects(mob
+						.getBounds())))) {
 			mob = null;
 		}
 
@@ -103,7 +105,7 @@ public class Monster extends Mob {
 		super.render(screen);
 		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
 				RADIUS);
-		
+
 	}
 
 }

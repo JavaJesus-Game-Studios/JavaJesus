@@ -8,12 +8,11 @@ import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.projectiles.Bullet;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Policeman extends NPC {
-
+	private static int[] color = { 0xFF000000, 0xFF000046, 0xFFEDC5AB };
 	protected Ellipse2D.Double standRange;
 	protected Mob mob;
 	protected Ellipse2D.Double aggroRadius;
@@ -24,9 +23,8 @@ public class Policeman extends NPC {
 
 	public Policeman(Level level, int x, int y, int defaultHealth,
 			String walkPath, int walkDistance) {
-		super(level, "SWAT Officer", x, y, 1, 16, 16, defaultHealth, Colors
-				.get(-1, 000, Colors.fromHex("#000046"), 543), 0, 10, walkPath,
-				walkDistance, 8);
+		super(level, "SWAT Officer", x, y, 1, 16, 16, defaultHealth, color, 0,
+				10, walkPath, walkDistance, 8);
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
 				RADIUS, RADIUS);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
@@ -35,8 +33,8 @@ public class Policeman extends NPC {
 	}
 
 	public Policeman(Level level, int x, int y) {
-		super(level, "SWAT Officer", x, y, 1, 16, 16, 200, Colors.get(-1, 000,
-				Colors.fromHex("#000046"), 543), 0, 10, "", 0, 8);
+		super(level, "SWAT Officer", x, y, 1, 16, 16, 200, color, 0, 10, "", 0,
+				8);
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
 				RADIUS, RADIUS);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,

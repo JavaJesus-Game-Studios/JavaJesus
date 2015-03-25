@@ -4,15 +4,14 @@ import ca.javajesus.game.Game;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.FireBall;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Demon extends Monster {
+	private static int[] color = { 0xFF111111, 0xFF700000, 0xFFDBA800 };
 
 	public Demon(Level level, String name, int x, int y, int speed) {
-		super(level, name, x, y, speed, 14, 24, 0, 150, Colors.get(-1, 111,
-				300, 550));
+		super(level, name, x, y, speed, 14, 24, 0, 150, color);
 		this.bar = new HealthBar(level, 32, this.x, this.y, this, 8);
 		if (level != null)
 			level.addEntity(bar);

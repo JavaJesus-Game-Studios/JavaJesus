@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.SoundHandler;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.items.Item;
 import ca.javajesus.level.Level;
@@ -15,13 +14,13 @@ public class Pickup extends Particle {
 	private Item item;
 
 	public Pickup(Level level, int x, int y, Item item) {
-		super(level, 9, Colors.get(-1, 555, 300, 500), x, y);
+		super(level, 9, new int[] { 0xFFFFFFFF, 0xFF990000, 0xFFFF0000 }, x, y);
 		this.x = x;
 		this.y = y;
 		this.item = item;
 	}
 
-	public Pickup(Level level, int x, int y, Item item, int color) {
+	public Pickup(Level level, int x, int y, Item item, int[] color) {
 		super(level, 9, color, x, y);
 		this.x = x;
 		this.y = y;

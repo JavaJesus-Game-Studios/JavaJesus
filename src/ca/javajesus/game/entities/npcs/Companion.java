@@ -23,7 +23,7 @@ public class Companion extends NPC {
 	private Player player;
 
 	public Companion(Level level, String name, int x, int y, int width,
-			int height, int defaultHealth, int color, int xTile, int yTile,
+			int height, int defaultHealth, int[] color, int xTile, int yTile,
 			int yChange, Player player) {
 		super(level, name, x, y, 1, width, height, defaultHealth, color, xTile,
 				yTile, "", 0, yChange);

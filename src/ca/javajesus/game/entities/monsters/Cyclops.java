@@ -1,15 +1,14 @@
 package ca.javajesus.game.entities.monsters;
 
 import ca.javajesus.game.entities.particles.HealthBar;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.level.Level;
 
 public class Cyclops extends Monster {
+	private static int[] color = { 0xFF111111, 0xFFFFD99C, 0xFFFFFFFF };
 
 	public Cyclops(Level level, int x, int y) {
-		super(level, "Cyclops", x, y, 1, 32, 48, 14, 5000, Colors.get(-1, 111,
-				Colors.fromHex("#ffd99c"), Colors.fromHex("#ffffff")));
+		super(level, "Cyclops", x, y, 1, 32, 48, 14, 5000, color);
 		this.bar = new HealthBar(level, 0, x, y, this, 32);
 		level.addEntity(bar);
 	}
@@ -124,30 +123,30 @@ public class Cyclops extends Monster {
 			}
 
 			screen.render(xOffset + (modifier * flipTop * 3), yOffset + i
-					* modifier, xTile + (yTile + i) * sheet.boxes, color, flipTop,
-					scale, sheet);
-
-			screen.render(xOffset + modifier + (modifier * flipTop), yOffset
-					+ i * modifier, (xTile + 1) + (yTile + i) * sheet.boxes, color,
+					* modifier, xTile + (yTile + i) * sheet.boxes, color,
 					flipTop, scale, sheet);
 
+			screen.render(xOffset + modifier + (modifier * flipTop), yOffset
+					+ i * modifier, (xTile + 1) + (yTile + i) * sheet.boxes,
+					color, flipTop, scale, sheet);
+
 			screen.render(xOffset + 2 * modifier - (modifier * flipTop),
-					yOffset + i * modifier, (xTile + 2) + (yTile + i) * sheet.boxes,
-					color, flipBottom, scale, sheet);
+					yOffset + i * modifier, (xTile + 2) + (yTile + i)
+							* sheet.boxes, color, flipBottom, scale, sheet);
 
 			screen.render(xOffset + 3 * modifier - (modifier * flipTop * 3),
-					yOffset + i * modifier, (xTile + 3) + (yTile + i) * sheet.boxes,
-					color, flipBottom, scale, sheet);
+					yOffset + i * modifier, (xTile + 3) + (yTile + i)
+							* sheet.boxes, color, flipBottom, scale, sheet);
 
 			if (isDead) {
 				screen.render(
 						xOffset + 4 * modifier - (modifier * flipTop * 3),
-						yOffset + i * modifier, (xTile + 4) + (yTile + i) * sheet.boxes,
-						color, flipBottom, scale, sheet);
+						yOffset + i * modifier, (xTile + 4) + (yTile + i)
+								* sheet.boxes, color, flipBottom, scale, sheet);
 
 				screen.render(xOffset + 5 * modifier - (modifier * flipTop),
-						yOffset + i * modifier, (xTile + 5) + (yTile + i) * sheet.boxes,
-						color, flipBottom, scale, sheet);
+						yOffset + i * modifier, (xTile + 5) + (yTile + i)
+								* sheet.boxes, color, flipBottom, scale, sheet);
 			}
 		}
 

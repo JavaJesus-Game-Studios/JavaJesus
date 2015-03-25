@@ -16,7 +16,7 @@ import ca.javajesus.level.tile.Tile;
 public class Mob extends Entity {
 
 	protected String name;
-	protected int color;
+	protected int[] color;
 	protected int speed;
 	protected int numSteps = 0;
 	private boolean isMoving;
@@ -380,28 +380,36 @@ public class Mob extends Entity {
 			if (isOnFire()) {
 				setOnFire(false);
 			}
-			int waterColour = 0;
+			int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
 			yOffset += 4;
 			if (tickCount % 60 < 15) {
-				waterColour = Colors.get(-1, 225, -1, -1);
+				waterColor[0] = 0xFF5266FF;
+				waterColor[1] = 0xFF000000;
+				waterColor[2] = 0xFF000000;
 			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
 				yOffset -= 1;
-				waterColour = Colors.get(-1, 115, 225, -1);
+				waterColor[0] = 0xFF3D54FF;
+				waterColor[1] = 0xFF5266FF;
+				waterColor[2] = 0xFF000000;
 			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
-				waterColour = Colors.get(-1, 115, -1, -1);
+				waterColor[0] = 0xFF3D54FF;
+				waterColor[1] = 0xFF000000;
+				waterColor[2] = 0xFF000000;
 			} else {
 				yOffset -= 1;
-				waterColour = Colors.get(-1, 225, 225, -1);
+				waterColor[0] = 0xFF5266FF;
+				waterColor[1] = 0xFF5266FF;
+				waterColor[2] = 0xFF000000;
 			}
 			screen.render(xOffset, yOffset + 3, 0 + 10 * sheet.boxes,
-					waterColour, 0x00, 1, sheet);
+					waterColor, 0x00, 1, sheet);
 			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * sheet.boxes,
-					waterColour, 0x01, 1, sheet);
+					waterColor, 0x01, 1, sheet);
 		}
 
 		// Handles fire animation
 		if (isOnFire()) {
-			int firecolor = Colors.get(-1, Colors.fromHex("#F7790A"), 540, -1);
+			int[] firecolor = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
 
 			screen.render(xOffset + 3, yOffset, this.level.fireList.get(0)
 					.getXTile() + 15 * sheet.boxes, firecolor, 0, 2,
