@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.SoundHandler;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.items.Item;
 import ca.javajesus.level.Level;
 

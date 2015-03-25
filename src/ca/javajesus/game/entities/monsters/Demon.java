@@ -4,7 +4,7 @@ import ca.javajesus.game.Game;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.FireBall;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Demon extends Monster {
@@ -12,7 +12,7 @@ public class Demon extends Monster {
 
 	public Demon(Level level, String name, int x, int y, int speed) {
 		super(level, name, x, y, speed, 14, 24, 0, 150, color);
-		this.bar = new HealthBar(level, 32, this.x, this.y, this, 8);
+		this.bar = new HealthBar(level, this.x, this.y, this);
 		if (level != null)
 			level.addEntity(bar);
 	}
@@ -147,8 +147,8 @@ public class Demon extends Monster {
 		if (!isDead) {
 
 			// Upper body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile
-					+ yTile * sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+					* sheet.boxes, color, flip, scale, sheet);
 
 			// Upper body 2
 			screen.render(xOffset + modifier - (modifier * flip), yOffset,
@@ -157,9 +157,8 @@ public class Demon extends Monster {
 		}
 
 		// Middle Body 1
-		screen.render(xOffset + (modifier * flip), yOffset + modifier,
-				xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
-				sheet);
+		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile
+				+ (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
 
 		// Middle Body 2
 		screen.render(xOffset + modifier - (modifier * flip), yOffset
@@ -167,9 +166,8 @@ public class Demon extends Monster {
 				flip, scale, sheet);
 
 		// Lower Body 1
-		screen.render(xOffset + (modifier * flip),
-				yOffset + 2 * modifier, xTile + (yTile + 2) * sheet.boxes,
-				color, flip, scale, sheet);
+		screen.render(xOffset + (modifier * flip), yOffset + 2 * modifier,
+				xTile + (yTile + 2) * sheet.boxes, color, flip, scale, sheet);
 
 		// Lower Body 2
 		screen.render(xOffset + modifier - (modifier * flip), yOffset + 2
@@ -184,16 +182,15 @@ public class Demon extends Monster {
 				offset = -16;
 
 			// Middle Body 3
-			screen.render(xOffset + offset + 2 * modifier
-					- (modifier * flip), yOffset + modifier, (xTile + 2)
-					+ (yTile + 1) * sheet.boxes, color, flip, scale,
-					sheet);
+			screen.render(xOffset + offset + 2 * modifier - (modifier * flip),
+					yOffset + modifier,
+					(xTile + 2) + (yTile + 1) * sheet.boxes, color, flip,
+					scale, sheet);
 
 			// Lower Body 3
-			screen.render(xOffset + offset + 2 * modifier
-					- (modifier * flip), yOffset + 2 * modifier,
-					(xTile + 2) + (yTile + 2) * sheet.boxes, color, flip,
-					scale, sheet);
+			screen.render(xOffset + offset + 2 * modifier - (modifier * flip),
+					yOffset + 2 * modifier, (xTile + 2) + (yTile + 2)
+							* sheet.boxes, color, flip, scale, sheet);
 
 		}
 

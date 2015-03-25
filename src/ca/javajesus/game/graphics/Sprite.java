@@ -1,4 +1,4 @@
-package ca.javajesus.game.gfx;
+package ca.javajesus.game.graphics;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

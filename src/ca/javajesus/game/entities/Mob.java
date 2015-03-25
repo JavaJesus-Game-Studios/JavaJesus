@@ -6,9 +6,9 @@ import java.util.Random;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
 import ca.javajesus.game.entities.vehicles.Vehicle;
-import ca.javajesus.game.gfx.JJFont;
-import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.game.graphics.JJFont;
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.tile.Tile;
 
@@ -111,8 +111,8 @@ public class Mob extends Entity {
 	}
 
 	public void move(int xa, int ya) {
+		numSteps++;
 		if (tickCount % 2 == 0) {
-			numSteps++;
 			int xValue = 0;
 			int yValue = 0;
 			if (speed % 1 == 0) {
@@ -182,10 +182,8 @@ public class Mob extends Entity {
 		if (level == null) {
 			return false;
 		}
-		int xx = (int) this.x;
-		int yy = (int) this.y;
-		Tile lastTile = level.getTile((xx + x) >> 3, (yy + y) >> 3);
-		Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
+		Tile lastTile = level.getTile((this.x+ x) >> 3, (this.y + y) >> 3);
+		Tile newTile = level.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
 		if (!lastTile.equals(newTile) && newTile.isSolid()) {
 			return true;
 		}
@@ -222,33 +220,29 @@ public class Mob extends Entity {
 
 	public boolean isSolidEntityCollision(int xa, int ya) {
 		renderOnTop = true;
-		if (bar != null)
-			bar.renderOnTop = true;
 		for (Entity entity : level.getEntities()) {
 			if (entity instanceof SolidEntity
 					&& !(entity instanceof Transporter)) {
 				if (this.getBounds().intersects(((SolidEntity) entity).shadow)) {
 					renderOnTop = false;
-					if (bar != null)
-						bar.renderOnTop = false;
 				}
 				Rectangle temp = new Rectangle(
-						((SolidEntity) entity).bounds.width,
-						((SolidEntity) entity).bounds.height - 8);
-				temp.setLocation(((SolidEntity) entity).bounds.x - 3 * xa,
-						((SolidEntity) entity).bounds.y - 3 * ya);
+						((SolidEntity) entity).bounds.width + 2 * xa,
+						((SolidEntity) entity).bounds.height - 8 + 2 * ya);
+				temp.setLocation(((SolidEntity) entity).bounds.x - xa,
+						((SolidEntity) entity).bounds.y - ya);
 				if (this.getBounds().intersects(temp))
 					return true;
 			} else if (entity instanceof Vehicle && entity != this) {
 				Rectangle temp;
 				Vehicle vehicle = (Vehicle) entity;
 				if (isLongitudinal(vehicle.getDirection())) {
-					temp = new Rectangle(vehicle.getBounds().width - 16,
-							vehicle.getBounds().height - 8);
+					temp = new Rectangle(vehicle.getBounds().width - 16 + 2 * xa,
+							vehicle.getBounds().height - 8 + 2 * ya);
 					temp.setLocation(vehicle.x - xa, vehicle.y - ya - 8);
 				} else {
-					temp = new Rectangle(vehicle.getBounds().width - 8,
-							vehicle.getBounds().height - 16);
+					temp = new Rectangle(vehicle.getBounds().width - 8 + 2 * xa,
+							vehicle.getBounds().height - 16 + 2 * ya);
 					temp.setLocation(vehicle.x - xa - 3, vehicle.y - ya - 4);
 				}
 
@@ -282,9 +276,9 @@ public class Mob extends Entity {
 	protected boolean isMobCollision(int xa, int ya) {
 		for (Mob mob : level.getMobs()) {
 			if (mob != this) {
-				Rectangle temp = new Rectangle(mob.getBounds().width,
-						mob.getBounds().height);
-				temp.setLocation(mob.x - 2 * xa, mob.y - 2 * ya);
+				Rectangle temp = new Rectangle(mob.getBounds().width + 2 * xa,
+						mob.getBounds().height + 2 * ya);
+				temp.setLocation(mob.x - xa, mob.y - ya);
 				if (this.getBounds().intersects(temp))
 					return true;
 			}
@@ -587,5 +581,13 @@ public class Mob extends Entity {
 
 	public void setHealth(int h) {
 		health = h;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public int getWidth() {
+		return width;
 	}
 }

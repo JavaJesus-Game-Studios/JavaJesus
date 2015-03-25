@@ -7,7 +7,7 @@ import ca.javajesus.game.Game;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.HealthBar;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Monkey extends Monster {
@@ -17,8 +17,7 @@ public class Monkey extends Monster {
 
 	public Monkey(Level level, String name, int x, int y, int speed, int health) {
 		super(level, name, x, y, speed, 12, 16, 8, health, color);
-		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y,
-				this, 0);
+		this.bar = new HealthBar(level, this.x, this.y, this);
 		this.strength = 10;
 		if (level != null)
 			level.addEntity(bar);
@@ -156,9 +155,8 @@ public class Monkey extends Monster {
 				(xTile + 1) + yTile * sheet.boxes, color, flip, scale, sheet);
 
 		// Lower Body
-		screen.render(xOffset + (modifier * flip), yOffset + modifier,
-				xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
-				sheet);
+		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile
+				+ (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
 
 		// Lower Body
 		screen.render(xOffset + modifier - (modifier * flip), yOffset

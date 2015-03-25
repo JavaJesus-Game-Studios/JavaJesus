@@ -7,7 +7,7 @@ import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Bullet;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class GangMember extends Monster {
@@ -20,8 +20,7 @@ public class GangMember extends Monster {
 		getType(type);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
 				RADIUS / 2, RADIUS / 2);
-		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y,
-				this, 0);
+		this.bar = new HealthBar(level, this.x, this.y, this);
 		if (level != null)
 			level.addEntity(bar);
 	}
@@ -147,8 +146,8 @@ public class GangMember extends Monster {
 			xTile = 14;
 
 			// Upper body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile
-					+ yTile * sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+					* sheet.boxes, color, flip, scale, sheet);
 
 			// Upper body 2
 			screen.render(xOffset + modifier - (modifier * flip), yOffset,
@@ -156,9 +155,9 @@ public class GangMember extends Monster {
 					sheet);
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flip),
-					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
-					color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset + modifier,
+					xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
+					sheet);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flip), yOffset
@@ -167,8 +166,8 @@ public class GangMember extends Monster {
 		} else {
 
 			// Upper body
-			screen.render(xOffset + (modifier * flip), yOffset, xTile
-					+ yTile * sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+					* sheet.boxes, color, flip, scale, sheet);
 
 			// Upper body
 			screen.render(xOffset + modifier - (modifier * flip), yOffset,
@@ -176,9 +175,9 @@ public class GangMember extends Monster {
 					sheet);
 
 			// Lower Body
-			screen.render(xOffset + (modifier * flip),
-					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
-					color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset + modifier,
+					xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
+					sheet);
 
 			// Lower Body
 			screen.render(xOffset + modifier - (modifier * flip), yOffset

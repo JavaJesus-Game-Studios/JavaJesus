@@ -1,8 +1,8 @@
 package ca.javajesus.items;
 
-import ca.javajesus.game.gfx.Colors;
-import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.game.graphics.Colors;
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.items.Armor.ArmorSet;
 import ca.javajesus.items.Gun.Ammo;
 

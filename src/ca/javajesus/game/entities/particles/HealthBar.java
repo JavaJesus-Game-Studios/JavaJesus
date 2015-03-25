@@ -1,50 +1,42 @@
 package ca.javajesus.game.entities.particles;
 
 import ca.javajesus.game.entities.Mob;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class HealthBar extends Particle {
 
 	private int yOffset;
-	private int xOffset = 0;
-	private int tickCount = 0;
+	private int xOffset;
+	private int yChange;
+	private int tickCount;
 	private double health;
 	private double startHealth;
-	private int yChange;
-	public boolean renderOnTop = false;
+	private final double SEGMENT = 1 / 13.0;
 	public int x, y;
 
 	private Mob mob;
 
-	public HealthBar(Level level, int tileNumber, int x, int y, Mob mob,
-			int yChange) {
-		super(level, tileNumber,
-				new int[] { 0xFF111111, 0xFF000000, 0xFFDD0000 }, x, y);
+	public HealthBar(Level level, int x, int y, Mob mob) {
+		super(level, 2 * SpriteSheet.particles.boxes, new int[] { 0xFF111111,
+				0xFF000000, 0xFFDD0000 }, x, y);
 		this.mob = mob;
-		this.yOffset = 14;
+		this.yOffset = mob.getHeight() / 2;
+		this.xOffset = mob.getWidth() / 2;
 		this.health = mob.getHealth();
 		this.startHealth = mob.getStartHealth();
-		this.yChange = yChange;
-	}
-
-	public HealthBar(Level level, int tileNumber, int x, int y, Mob mob,
-			int yChange, int yOffset) {
-		super(level, tileNumber, new int[] { 0xFF111111, 0xFF000000, 0xFFDD0000 }, x, y);
-		this.mob = mob;
-		this.yOffset = yOffset;
-		this.yChange = yChange;
 	}
 
 	public void render(Screen screen) {
 
-		this.x = mob.getX() - xOffset / 2 + 1;
-		this.y = mob.getY() + yChange;
+		this.x = mob.getX();
+		this.y = mob.getY();
 
-		screen.render(this.x + 3, this.y, tileNumber + yOffset * sheet.boxes,
-				color, 1, 1, sheet);
-		screen.render(this.x - 5, this.y, tileNumber + 1 + yOffset
-				* sheet.boxes, color, 1, 1, sheet);
+		screen.render(this.x - xOffset, this.y + yOffset, tileNumber + yChange
+				* sheet.boxes, color, 0, sheet);
+		screen.render(this.x - xOffset + 8, this.y + yOffset, tileNumber + 1
+				+ yChange * sheet.boxes, color, 0, sheet);
 	}
 
 	public void tick() {
@@ -52,13 +44,7 @@ public class HealthBar extends Particle {
 		updateHealthBar();
 	}
 
-	public void setOffset(int yTileOffset) {
-		this.tileNumber = yTileOffset * sheet.boxes;
-	}
-
 	public void updateHealthBar() {
-
-		mob.checkTile(this.x, this.y);
 
 		if (mob.isOnFire()) {
 			if (tickCount % 10 == 0)
@@ -70,65 +56,46 @@ public class HealthBar extends Particle {
 			mob.setOnFire(false);
 			tickCount = 0;
 		}
-
-		if ((health > 11 * startHealth / 12.0) && (health <= startHealth)) {
-			setOffset(2);
+		
+		if (((double) health / startHealth) >= 1) {
+			yChange = 0;
 			this.color[2] = 0xFF0079E0;
-			xOffset = 1;
-		} else if ((health > 10 * startHealth / 12.0)
-				&& (health <= 11 * startHealth / 12.0)) {
-			setOffset(3);
+		} else if (((double) health / startHealth) >= 1 - SEGMENT) {
+			yChange = 1;
 			this.color[2] = 0xFF0079E0;
-			xOffset = 2;
-		} else if ((health > 9 * startHealth / 12.0)
-				&& (health <= 10 * startHealth / 12.0)) {
-			setOffset(4);
+		} else if ((double) health / startHealth >= 1 - 2 * SEGMENT) {
+			yChange = 2;
 			this.color[2] = 0xFF0079E0;
-			xOffset = 3;
-		} else if ((health > 8 * startHealth / 12.0)
-				&& (health <= 9 * startHealth / 12.0)) {
-			setOffset(5);
+		} else if ((double) health / startHealth >= 1 - 3 * SEGMENT) {
+			yChange = 3;
+			this.color[2] = 0xFF0079E0;
+		} else if ((double) health / startHealth >= 1 - 4 * SEGMENT) {
+			yChange = 4;
 			this.color[2] = 0xFFFF6000;
-			xOffset = 4;
-		} else if ((health > 7 * startHealth / 12.0)
-				&& (health <= 8 * startHealth / 12.0)) {
-			setOffset(6);
+		} else if ((double) health / startHealth >= 1 - 5 * SEGMENT) {
+			yChange = 5;
 			this.color[2] = 0xFFFF6000;
-			xOffset = 5;
-		} else if ((health > 6 * startHealth / 12.0)
-				&& (health <= 7 * startHealth / 12.0)) {
-			setOffset(7);
+		} else if (((double) health / startHealth) >= 1 - 6 * SEGMENT) {
+			yChange = 6;
 			this.color[2] = 0xFFFF6000;
-			xOffset = 6;
-		} else if ((health > 5 * startHealth / 12.0)
-				&& (health <= 6 * startHealth / 12.0)) {
-			setOffset(8);
+		} else if ((double) health / startHealth >= 1 - 7 * SEGMENT) {
+			yChange = 7;
 			this.color[2] = 0xFFFF6000;
-			xOffset = 7;
-		} else if ((health > 4 * startHealth / 12.0)
-				&& (health <= 5 * startHealth / 12.0)) {
-			setOffset(9);
+		} else if ((double) health / startHealth >= 1 - 8 * SEGMENT) {
+			yChange = 8;
 			this.color[2] = 0xFFFF6000;
-			xOffset = 8;
-		} else if ((health > 3 * startHealth / 12.0)
-				&& (health <= 4 * startHealth / 12.0)) {
-			setOffset(10);
+		} else if (((double) health / startHealth) >= 1 - 9 * SEGMENT) {
+			yChange = 9;
 			this.color[2] = 0xFFE50000;
-			xOffset = 9;
-		} else if ((health > 2 * startHealth / 12.0)
-				&& (health <= 3 * startHealth / 12.0)) {
-			setOffset(11);
+		} else if (((double) health / startHealth) >= 1 - 10 * SEGMENT) {
+			yChange = 10;
 			this.color[2] = 0xFFE50000;
-			xOffset = 10;
-		} else if ((health > 100 / 12.0) && (health <= 200 / 12.0)) {
-			setOffset(12);
+		} else if (((double) health / startHealth) >= 1 - 11 * SEGMENT) {
+			yChange = 11;
 			this.color[2] = 0xFFE50000;
-			;
-			xOffset = 11;
 		} else {
-			setOffset(13);
+			yChange = 12;
 			this.color[2] = 0xFFE50000;
-			xOffset = 12;
 		}
 		if (health <= 0) {
 			level.remEntity(this);

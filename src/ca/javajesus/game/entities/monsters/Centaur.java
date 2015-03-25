@@ -1,7 +1,7 @@
 package ca.javajesus.game.entities.monsters;
 
 import ca.javajesus.game.entities.particles.HealthBar;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Centaur extends Monster {
@@ -9,17 +9,16 @@ public class Centaur extends Monster {
 
 	public Centaur(Level level, String name, int x, int y, int speed, int health) {
 		super(level, name, x, y, speed, 14, 24, 5, health, color);
-		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y,
-				this, 8);
+		this.bar = new HealthBar(level, this.x, this.y, this);
 		if (level != null)
 			level.addEntity(bar);
 	}
 
 	public boolean hasCollided(int xa, int ya) {
 		int xMin = 0;
-		int xMax = 23;
-		int yMin = 7;
-		int yMax = 15;
+		int xMax = 7;
+		int yMin = 3;
+		int yMax = 7;
 		for (int x = xMin; x < xMax; x++) {
 			if (isSolidTile(xa, ya, x, yMin) || isWaterTile(xa, ya, x, yMin)) {
 				return true;
@@ -143,8 +142,8 @@ public class Centaur extends Monster {
 
 		if (isLongitudinal(getDirection())) {
 			// Upper body
-			screen.render(xOffset + (modifier * flip), yOffset, xTile
-					+ yTile * sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+					* sheet.boxes, color, flip, scale, sheet);
 
 			// Upper body
 			screen.render(xOffset + modifier - (modifier * flip), yOffset,
@@ -152,9 +151,9 @@ public class Centaur extends Monster {
 					sheet);
 
 			// Middle Body
-			screen.render(xOffset + (modifier * flip),
-					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
-					color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset + modifier,
+					xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
+					sheet);
 
 			// Middle Body
 			screen.render(xOffset + modifier - (modifier * flip), yOffset
@@ -162,14 +161,14 @@ public class Centaur extends Monster {
 					flip, scale, sheet);
 
 			// Lower Body
-			screen.render(xOffset + (modifier * flip), yOffset + 2
-					* modifier, xTile + (yTile + 2) * sheet.boxes, color,
-					flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset + 2 * modifier,
+					xTile + (yTile + 2) * sheet.boxes, color, flip, scale,
+					sheet);
 
 			// Lower Body
-			screen.render(xOffset + modifier - (modifier * flip), yOffset
-					+ 2 * modifier, (xTile + 1) + (yTile + 2) * sheet.boxes,
-					color, flip, scale, sheet);
+			screen.render(xOffset + modifier - (modifier * flip), yOffset + 2
+					* modifier, (xTile + 1) + (yTile + 2) * sheet.boxes, color,
+					flip, scale, sheet);
 		} else {
 
 			int xOff2 = 0;
@@ -178,23 +177,22 @@ public class Centaur extends Monster {
 			}
 
 			// Upper body
-			screen.render(xOffset + (modifier * flip), yOffset, xTile
-					+ yTile * sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+					* sheet.boxes, color, flip, scale, sheet);
 
 			// Upper body
 			screen.render(xOffset + modifier - (modifier * flip), yOffset,
 					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
 					sheet);
 			// Upper body
-			screen.render(
-					xOffset + xOff2 + 2 * modifier - (modifier * flip),
+			screen.render(xOffset + xOff2 + 2 * modifier - (modifier * flip),
 					yOffset, (xTile + 2) + yTile * sheet.boxes, color, flip,
 					scale, sheet);
 
 			// Middle Body
-			screen.render(xOffset + (modifier * flip),
-					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
-					color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset + modifier,
+					xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
+					sheet);
 
 			// Middle Body
 			screen.render(xOffset + modifier - (modifier * flip), yOffset
@@ -202,26 +200,25 @@ public class Centaur extends Monster {
 					flip, scale, sheet);
 
 			// Middle Body
-			screen.render(xOffset + xOff2 + 2 * modifier
-					- (modifier * flip), yOffset + modifier, (xTile + 2)
-					+ (yTile + 1) * sheet.boxes, color, flip, scale,
+			screen.render(xOffset + xOff2 + 2 * modifier - (modifier * flip),
+					yOffset + modifier,
+					(xTile + 2) + (yTile + 1) * sheet.boxes, color, flip,
+					scale, sheet);
+
+			// Lower Body
+			screen.render(xOffset + (modifier * flip), yOffset + 2 * modifier,
+					xTile + (yTile + 2) * sheet.boxes, color, flip, scale,
 					sheet);
 
 			// Lower Body
-			screen.render(xOffset + (modifier * flip), yOffset + 2
-					* modifier, xTile + (yTile + 2) * sheet.boxes, color,
+			screen.render(xOffset + modifier - (modifier * flip), yOffset + 2
+					* modifier, (xTile + 1) + (yTile + 2) * sheet.boxes, color,
 					flip, scale, sheet);
 
 			// Lower Body
-			screen.render(xOffset + modifier - (modifier * flip), yOffset
-					+ 2 * modifier, (xTile + 1) + (yTile + 2) * sheet.boxes,
-					color, flip, scale, sheet);
-
-			// Lower Body
-			screen.render(xOffset + xOff2 + 2 * modifier
-					- (modifier * flip), yOffset + 2 * modifier,
-					(xTile + 2) + (yTile + 2) * sheet.boxes, color, flip,
-					scale, sheet);
+			screen.render(xOffset + xOff2 + 2 * modifier - (modifier * flip),
+					yOffset + 2 * modifier, (xTile + 2) + (yTile + 2)
+							* sheet.boxes, color, flip, scale, sheet);
 		}
 
 		if (!cooldown) {

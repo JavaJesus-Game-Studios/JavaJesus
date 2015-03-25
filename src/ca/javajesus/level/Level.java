@@ -20,8 +20,8 @@ import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.projectiles.Projectile;
 import ca.javajesus.game.entities.vehicles.Vehicle;
-import ca.javajesus.game.gfx.JJFont;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.JJFont;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.tile.Tile;
 
 public abstract class Level {

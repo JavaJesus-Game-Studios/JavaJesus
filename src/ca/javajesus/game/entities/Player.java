@@ -15,9 +15,9 @@ import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.structures.furniture.Chest;
 import ca.javajesus.game.entities.vehicles.Vehicle;
-import ca.javajesus.game.gfx.JJFont;
-import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.game.graphics.JJFont;
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.items.Armor;
 import ca.javajesus.items.Bazooka;
 import ca.javajesus.items.Gun;
@@ -66,8 +66,7 @@ public class Player extends Mob {
 		this.inventory = new Inventory();
 		gun = inventory.getGun(this);
 		sword = inventory.getSword(this);
-		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y,
-				this, 8);
+		this.bar = new HealthBar(level, this.x, this.y, this);
 		if (level != null)
 			level.addEntity(bar);
 		isTired = false;
@@ -121,6 +120,8 @@ public class Player extends Mob {
 		if (isDriving) {
 			return;
 		}
+		
+		checkTile(x, y);
 
 		if (isHit) {
 			isHitTicks++;
@@ -372,8 +373,10 @@ public class Player extends Mob {
 			}
 			return;
 		}
-		this.getBounds().setLocation(this.x - 4, this.y - 8);
-		this.getOuterBounds().setLocation(this.x - 6, this.y - 10);
+		this.getBounds().setLocation(this.x - this.width / 2,
+				this.y - this.height / 2);
+		this.getOuterBounds().setLocation(this.x - this.width / 2 - 2,
+				this.y - this.height / 2 - 2);
 		if (canChangeLevel) {
 			level.remEntity(this);
 			level.remEntity(bar);
@@ -392,7 +395,7 @@ public class Player extends Mob {
 		}
 
 		if (health < 20) {
-			screen.getGame().redScreen();
+			screen.setShader(16711680);
 		}
 
 		int xTile = 0;
@@ -466,8 +469,8 @@ public class Player extends Mob {
 		// Normal Player movement -- Not Attacking Anything
 		if (!isShooting && !isSwinging) {
 			// Upper body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile
-					+ yTile * sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+					* sheet.boxes, color, flip, scale, sheet);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flip), yOffset,
 					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
@@ -475,13 +478,13 @@ public class Player extends Mob {
 
 			if (!isSwimming) {
 				// Lower Body 1
-				screen.render(xOffset + (modifier * flip), yOffset
-						+ modifier, xTile + (yTile + 1) * sheet.boxes, color,
-						flip, scale, sheet);
+				screen.render(xOffset + (modifier * flip), yOffset + modifier,
+						xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
+						sheet);
 				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flip),
-						yOffset + modifier, (xTile + 1) + (yTile + 1)
-								* sheet.boxes, color, flip, scale, sheet);
+				screen.render(xOffset + modifier - (modifier * flip), yOffset
+						+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
+						color, flip, scale, sheet);
 
 			}
 		}
@@ -521,17 +524,17 @@ public class Player extends Mob {
 			}
 
 			// Upper Body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile
-					+ yTile * sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+					* sheet.boxes, color, flip, scale, sheet);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flip), yOffset,
 					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
 					sheet);
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flip),
-					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
-					color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset + modifier,
+					xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
+					sheet);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flip), yOffset
@@ -577,18 +580,17 @@ public class Player extends Mob {
 			}
 
 			// Upper Body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile
-					+ yTile * sheet.boxes, color, flip, scale,
-					SpriteSheet.swords);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+					* sheet.boxes, color, flip, scale, SpriteSheet.swords);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flip), yOffset,
 					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
 					SpriteSheet.swords);
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flip),
-					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
-					color, flip, scale, SpriteSheet.swords);
+			screen.render(xOffset + (modifier * flip), yOffset + modifier,
+					xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
+					SpriteSheet.swords);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flip), yOffset
@@ -602,26 +604,25 @@ public class Player extends Mob {
 						flip, scale, SpriteSheet.swords);
 
 				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flip),
-						yOffset + 2 * modifier, (xTile + 1) + (yTile + 2)
-								* sheet.boxes, color, flip, scale,
-						SpriteSheet.swords);
+				screen.render(xOffset + modifier - (modifier * flip), yOffset
+						+ 2 * modifier,
+						(xTile + 1) + (yTile + 2) * sheet.boxes, color, flip,
+						scale, SpriteSheet.swords);
 			} else {
 				int num = 0;
 				if (getDirection() == Direction.WEST) {
 					num = 16;
 				}
 				// Upper Body 2
-				screen.render(xOffset + 2 * modifier - num
-						- (modifier * flip), yOffset, (xTile + 2) + yTile
-						* sheet.boxes, color, flip, scale,
-						SpriteSheet.swords);
+				screen.render(xOffset + 2 * modifier - num - (modifier * flip),
+						yOffset, (xTile + 2) + yTile * sheet.boxes, color,
+						flip, scale, SpriteSheet.swords);
 
 				// Lower Body 2
-				screen.render(xOffset + 2 * modifier - num
-						- (modifier * flip), yOffset + modifier,
-						(xTile + 2) + (yTile + 1) * sheet.boxes, color,
-						flip, scale, SpriteSheet.swords);
+				screen.render(xOffset + 2 * modifier - num - (modifier * flip),
+						yOffset + modifier, (xTile + 2) + (yTile + 1)
+								* sheet.boxes, color, flip, scale,
+						SpriteSheet.swords);
 			}
 
 			// Renders the Actual Sword
@@ -697,9 +698,8 @@ public class Player extends Mob {
 				(xTile + 1) + yTile * sheet.boxes, color, flip, scale, sheet);
 
 		// Lower Body 1
-		screen.render(xOffset + (modifier * flip), yOffset + modifier,
-				xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
-				sheet);
+		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile
+				+ (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
 		// Lower Body 2
 		screen.render(xOffset + modifier - (modifier * flip), yOffset
 				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
