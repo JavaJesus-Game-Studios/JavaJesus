@@ -3,7 +3,6 @@ package ca.javajesus.game.entities.structures.transporters;
 import java.awt.Point;
 
 import ca.javajesus.game.entities.Mob.Direction;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -32,7 +31,7 @@ public class TransporterStairOther extends Transporter {
 	}
 
 	public void render(Screen screen) {	
-		int color = Colors.get(-1, Colors.fromHex("#1f7901"), Colors.fromHex("#1f4001"), -1);
+		int[] color = { 0xFF1F7901, 0xFF1F4001, 0xFF000000 };
 		
 		switch (direction) {
 		case NORTH:
