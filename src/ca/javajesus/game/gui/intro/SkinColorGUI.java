@@ -14,7 +14,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.gfx.Colors;
 
 public class SkinColorGUI extends JPanel implements ListSelectionListener,
 		ActionListener {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.gfx.Colors;
 
 public class Inventory {
 

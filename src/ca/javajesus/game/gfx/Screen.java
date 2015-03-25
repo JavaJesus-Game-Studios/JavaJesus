@@ -117,26 +117,6 @@ public class Screen {
 	public Game getGame() {
 		return game;
 	}
-
-	/** Used for rendering large entities */
-	public void render(int xOffset, int yOffset, int color, Sprite sprite) {
-
-		xOffset -= this.xOffset;
-		yOffset -= this.yOffset;
-
-		for (int y = 0; y < sprite.ySize; y++) {
-			int yPixel = (int) (y + yOffset);
-			for (int x = 0; x < sprite.xSize; x++) {
-				int xPixel = (int) (x + xOffset);
-				int col = (color >> (sprite.pixels[x + y * sprite.xSize] * 8)) & 255;
-				if (col < 255) {
-					if (xPixel >= 0 && yPixel >= 0 && xPixel < width
-							&& yPixel < height)
-						pixels[(xPixel) + (yPixel) * width] = col;
-				}
-			}
-		}
-	}
 	
 	/** Used for rendering large entities */
 	public void render(int xOffset, int yOffset, int[] color, Sprite sprite) {
@@ -152,28 +132,6 @@ public class Screen {
 						&& yPixel < height)
 					pixels[(xPixel) + (yPixel) * width] = sprite.pixels[x + y
 							* sprite.xSize];
-
-			}
-		}
-	}
-
-	public void render(int xOffset, int yOffset) {
-		for (int y = 0; y < height; y++) {
-			int yy = y + yOffset;
-			if (yy < 0 || yy >= height)
-				break;
-			for (int x = 0; x < width; x++) {
-				int xx = x + xOffset;
-				if (xx < 0 || xx >= width)
-					break;
-				// x >> 4 adjusts the size of the tiles rendered (resolution)
-				// smaller = higher res (4 is 16 bit) (3 is 8bit)
-				// & = bitwise AND operator = this loops the values around to
-				// the first value so it does not exceed the specified value
-				// if you dont loop then it will be very choppy, not smooth
-				int tileIndex = ((xx >> 3) & MAP_WIDTH_MASK)
-						+ ((yy >> 3) & MAP_WIDTH_MASK) * MAP_WIDTH;
-				pixels[x + y * width] = colors[tileIndex];
 
 			}
 		}
