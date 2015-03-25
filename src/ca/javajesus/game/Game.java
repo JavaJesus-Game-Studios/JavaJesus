@@ -290,13 +290,13 @@ public class Game extends Canvas implements Runnable {
 			((ScreenGUI) display.getComponent(guiID)).tick();
 		}
 		if (hours >= 6 && hours < 10) {
-			screen.setShader(0xFF6699FF);
+			screen.setShader(0x5C3D99);
 		} else if (hours >= 10 && hours < 17) {
 			screen.setShader(0);
-		} else if (hours >= 5 && hours < 21) {
-			screen.setShader(0xFFB24700);
+		} else if (hours >= 17 && hours < 21) {
+			screen.setShader(0xB24700);
 		} else {
-			screen.setShader(0xFF0A1433);
+			screen.setShader(0x0A1433);
 		}
 	}
 
