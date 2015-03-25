@@ -20,7 +20,7 @@ public class Pickup extends Particle {
 		this.y = y;
 		this.item = item;
 	}
-	
+
 	public Pickup(Level level, int x, int y, Item item, int color) {
 		super(level, 9, color, x, y);
 		this.x = x;
@@ -31,7 +31,8 @@ public class Pickup extends Particle {
 
 	public void render(Screen screen) {
 
-		screen.render(this.x, this.y, tileNumber, color, 1, 1, sheet);
+		screen.render((int) this.x, (int) this.y, tileNumber, color, 1, 1,
+				sheet);
 		BOX.setLocation((int) this.x, (int) this.y);
 		if (BOX.intersects(Game.player.getBounds())) {
 			Game.player.inventory.addItem(item);

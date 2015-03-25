@@ -70,9 +70,6 @@ public class Game extends Canvas implements Runnable {
 	protected int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
 			.getData();
 
-	/** Does something */
-	protected int[] colors = new int[6 * 6 * 6];
-
 	/** Creates instance of the screen */
 	public Screen screen;
 
@@ -157,18 +154,6 @@ public class Game extends Canvas implements Runnable {
 
 	/** Initializes the image on the screen */
 	public void init() {
-		int index = 0;
-		for (int r = 0; r < 6; r++) {
-			for (int g = 0; g < 6; g++) {
-				for (int b = 0; b < 6; b++) {
-					int rr = (r * 255 / 5);
-					int gg = (g * 255 / 5);
-					int bb = (b * 255 / 5);
-
-					colors[index++] = rr << 16 | gg << 8 | bb;
-				}
-			}
-		}
 
 		screen = new Screen(WIDTH, HEIGHT, this);
 		String x;
@@ -220,7 +205,7 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 
-					colors[index++] = rr << 16 | gg << 8 | bb;
+					//colors[index++] = rr << 16 | gg << 8 | bb;
 				}
 			}
 		}
@@ -235,8 +220,8 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 
-					colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb,
-							16711680, 0.75);
+					//colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb,
+							//16711680, 0.75);
 				}
 			}
 		}
@@ -251,8 +236,8 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 
-					colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb,
-							983082, 0.5);
+					//colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb,
+							//983082, 0.5);
 				}
 			}
 		}
@@ -368,15 +353,14 @@ public class Game extends Canvas implements Runnable {
 			getLevel().renderTile(screen, xOffset, yOffset);
 			getLevel().renderEntities(screen);
 		}
-
+		
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {
-				int colorCode = screen.pixels[x + y * screen.width];
-				if (colorCode < 255)
-					pixels[x + y * WIDTH] = colors[colorCode];
+					pixels[x + y * WIDTH] = screen.pixels[x + y * screen.width];
 			}
 
 		}
+		
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setFont(new Font("Verdana", 0, 20));

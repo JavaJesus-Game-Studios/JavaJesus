@@ -33,11 +33,10 @@ import ca.javajesus.quests.Quest;
 public class Player extends Mob {
 
 	public InputHandler input;
-	protected int color = Colors.get(-1, Colors.fromHex("#343434"),
-			Colors.fromHex("#FF0000"), Colors.fromHex("#FFCC99"));
-	protected int shirtColor = Colors.fromHex("#FF0000");
-	protected int skinColor = Colors.fromHex("#FFCC99");
-	protected int hairColor = Colors.fromHex("#343434");
+	protected int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };
+	protected int shirtColor = 0xFFFF0000;
+	protected int skinColor = 0xFFFFCC99;
+	protected int hairColor = 0xFF343434;
 	private int tickCount = 0;
 	private boolean canChangeLevel;
 	private Level nextLevel;
@@ -421,8 +420,8 @@ public class Player extends Mob {
 		}
 
 		int modifier = 8 * scale;
-		double xOffset = x - modifier / 2.0;
-		double yOffset = y - modifier / 2.0 - 4;
+		int xOffset = x - modifier / 2;
+		int yOffset = y - modifier / 2 - 4;
 
 		// Handles swimming animation
 		if (isSwimming) {
@@ -542,7 +541,7 @@ public class Player extends Mob {
 			}
 
 		}
-		
+
 		if (input.v.isPressed()) {
 			ChatHandler.toggle();
 			input.v.toggle(false);
@@ -662,7 +661,9 @@ public class Player extends Mob {
 	}
 
 	public void updateColor() {
-		this.color = Colors.get(-1, hairColor, shirtColor, skinColor);
+		color[0] = hairColor;
+		color[1] = shirtColor;
+		color[2] = skinColor;
 	}
 
 	public void setShirtColor(int num) {
@@ -680,8 +681,8 @@ public class Player extends Mob {
 	public void renderDisplay(Screen screen, int scale) {
 
 		int modifier = 8 * scale;
-		double xOffset = modifier / 2.0;
-		double yOffset = modifier / 2.0 - 4;
+		int xOffset = modifier / 2;
+		int yOffset = modifier / 2 - 4;
 
 		int flipTop = 0;
 		int flipBottom = 0;

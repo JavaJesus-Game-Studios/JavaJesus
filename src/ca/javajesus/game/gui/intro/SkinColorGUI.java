@@ -22,7 +22,7 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 	private static final long serialVersionUID = 1L;
 	private DefaultListModel<String> model;
 	private JButton colorButton;
-	private int color = Colors.fromHex("#FFCC99");
+	private int color = 0xFFFFCC99;
 	private JList<String> list;
 	private Player player;
 
@@ -71,16 +71,16 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 
 		switch (index) {
 		case 0:
-			color = Colors.fromHex("#ffd4aa");
+			color = 0xFFFFCC99;;
 			break;
 		case 1:
-			color = Colors.fromHex("#ffbf6c");
+			color = 0xFFffbf6c;
 			break;
 		case 2:
-			color = Colors.fromHex("#ffe6a4");
+			color = 0xFFffe6a4;
 			break;
 		default: 
-			color = Colors.fromHex("#774600");
+			color = 0xFF774600;
 		}
 		player.setSkinColor(color);
 		player.updateColor();
@@ -103,16 +103,16 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 	public int getColor() {
 		switch (getNum()) {
 		case 0:
-			color = Colors.fromHex("#ffd4aa");
+			color = 0xFFFFCC99;;
 			break;
 		case 1:
-			color = Colors.fromHex("#ffbf6c");
+			color = 0xFFffbf6c;
 			break;
 		case 2:
-			color = Colors.fromHex("#ffe6a4");
+			color = 0xFFffe6a4;
 			break;
 		default: 
-			color = Colors.fromHex("#774600");
+			color = 0xFF774600;
 		}
 		return color;
 	}

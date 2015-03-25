@@ -127,8 +127,8 @@ public class Monkey extends Monster {
 		}
 
 		int modifier = 8 * scale;
-		double xOffset = x - modifier / 2;
-		double yOffset = (y - modifier / 2 - 4) - modifier;
+		int xOffset = x - modifier / 2;
+		int yOffset = (y - modifier / 2 - 4) - modifier;
 
 		if (isAttacking) {
 			if (getDirection() == Direction.NORTH) {

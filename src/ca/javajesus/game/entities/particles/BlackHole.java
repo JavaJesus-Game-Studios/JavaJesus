@@ -46,26 +46,19 @@ public class BlackHole extends Particle {
 		} else if (posNumber > tileNumber + (13 * 4)) {
 			lighten = true;
 		}
-		
+
 		if (random.nextInt(2) == 0) {
-			level.addEntity(new Explosion(level, random.nextInt(100) - 50 + this.x, random.nextInt(100) - 50 + this.y));
+			level.addEntity(new Explosion(level, random.nextInt(100) - 50
+					+ this.x, random.nextInt(100) - 50 + this.y));
 		}
 
 		for (Entity e : level.getEntities()) {
-			/*if (e instanceof SolidEntity) {
-				if (e.getX() > this.x) {
-					e.setX(e.getX() - 1);
-				}
-				if (e.getX() < this.x) {
-					e.setX(e.getX() + 1);
-				}
-				if (e.getY() > this.y) {
-					e.setY(e.getY() - 1);
-				}
-				if (e.getY() < this.y) {
-					e.setY(e.getY() + 1);
-				}
-			}*/
+			/*
+			 * if (e instanceof SolidEntity) { if (e.getX() > this.x) {
+			 * e.setX(e.getX() - 1); } if (e.getX() < this.x) { e.setX(e.getX()
+			 * + 1); } if (e.getY() > this.y) { e.setY(e.getY() - 1); } if
+			 * (e.getY() < this.y) { e.setY(e.getY() + 1); } }
+			 */
 			if (!(e instanceof Mob)) {
 				continue;
 			}
@@ -122,8 +115,9 @@ public class BlackHole extends Particle {
 		}
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				screen.render(this.x + (j * 24) - 24, this.y + (i * 24) - 48,
-						posNumber + j + (i * sheet.boxes), color, 0, 3, sheet);
+				screen.render((int) this.x + (j * 24) - 24, (int) this.y
+						+ (i * 24) - 48, posNumber + j + (i * sheet.boxes),
+						color, 0, 3, sheet);
 			}
 		}
 	}

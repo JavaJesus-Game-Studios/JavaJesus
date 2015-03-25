@@ -109,11 +109,7 @@ public class Sprite {
 
         this.xSize = image.getWidth();
         this.ySize = image.getHeight();
-        pixels = image.getRGB(0, 0, xSize, ySize, null, 0, xSize);
-
-       for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = (pixels[i] & 0xff) / 64;
-        }
+        pixels = image.getRGB(0, 0, xSize, ySize, pixels, 0, xSize);
        
     }
 

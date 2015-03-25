@@ -104,8 +104,8 @@ public class Sword extends Item {
 		int flipTop = (player.getNumSteps() >> walkingAnimationSpeed) & 1;
 		int flipBottom = (player.getNumSteps() >> walkingAnimationSpeed) & 1;
 		int modifier = 8 * player.getScale();
-		double xOffset = player.getX() - modifier / 2.0;
-		double yOffset = player.getY() - modifier / 2.0 - 4;
+		int xOffset = player.getX() - modifier / 2;
+		int yOffset = player.getY() - modifier / 2 - 4;
 
 		if (player.getDirection() == Direction.NORTH) {
 			xTile += 2;

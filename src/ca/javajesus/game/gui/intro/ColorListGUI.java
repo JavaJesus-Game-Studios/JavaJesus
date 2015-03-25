@@ -22,7 +22,7 @@ public class ColorListGUI extends JPanel implements ListSelectionListener,
 	private static final long serialVersionUID = 1L;
 	private DefaultListModel<String> model;
 	private JButton colorButton;
-	private int color = Colors.fromHex("#FF0000");
+	private int color = 0xFFFF0000;
 	private JList<String> list;
 	private Player player;
 
@@ -70,13 +70,13 @@ public class ColorListGUI extends JPanel implements ListSelectionListener,
 
 		switch (index) {
 		case 0:
-			color = Colors.fromHex("#db0000");
+			color = 0xFFFF0000;
 			break;
 		case 1:
-			color = Colors.fromHex("#000099");
+			color = 0xFF000099;
 			break;
 		default:
-			color = Colors.fromHex("#009700");
+			color = 0xFF009700;
 			break;
 		}
 		player.setShirtColor(color);
@@ -98,13 +98,13 @@ public class ColorListGUI extends JPanel implements ListSelectionListener,
 	public int getColor() {
 		switch (getNum()) {
 		case 0:
-			color = Colors.fromHex("#db0000");
+			color = 0xFFFF0000;
 			break;
 		case 1:
-			color = Colors.fromHex("#000099");
+			color = 0xFF000099;
 			break;
 		default:
-			color = Colors.fromHex("#009700");
+			color = 0xFF009700;
 			break;
 		}
 		return color;

@@ -38,8 +38,8 @@ public class Explosion extends Particle {
 		if (posNumber > tileNumber + 26) {
 			level.remEntity(this);
 		}
-		
-		for (Mob mob: level.getMobs()) {
+
+		for (Mob mob : level.getMobs()) {
 			if (mob.getBounds().intersects(this.bounds)) {
 				mob.damage(1);
 			}
@@ -49,11 +49,13 @@ public class Explosion extends Particle {
 	}
 
 	public void render(Screen screen) {
-		screen.render(this.x, this.y, posNumber, color, 0, 1, sheet);
-		screen.render(this.x + 8, this.y, posNumber + 1, color, 0, 1, sheet);
-		screen.render(this.x, this.y + 8, posNumber + sheet.boxes, color, 0, 1, sheet);
-		screen.render(this.x + 8, this.y + 8, posNumber + 1 + sheet.boxes, color, 0, 1,
-				sheet);
+		screen.render((int) this.x, (int) this.y, posNumber, color, 0, 1, sheet);
+		screen.render((int) this.x + 8, (int) this.y, posNumber + 1, color, 0,
+				1, sheet);
+		screen.render((int) this.x, (int) this.y + 8, posNumber + sheet.boxes,
+				color, 0, 1, sheet);
+		screen.render((int) this.x + 8, (int) this.y + 8, posNumber + 1
+				+ sheet.boxes, color, 0, 1, sheet);
 	}
 
 }

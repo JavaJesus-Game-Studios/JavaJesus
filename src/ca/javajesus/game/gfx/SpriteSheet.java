@@ -44,11 +44,11 @@ public class SpriteSheet {
         this.width = image.getWidth();
         this.height = image.getHeight();
         this.size = width * height;
-        pixels = image.getRGB(0, 0, width, height, null, 0, width);
+        pixels = image.getRGB(0, 0, width, height, pixels, 0, width);
 
-       for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = (pixels[i] & 0xff) / 64;
-        }
+       //for (int i = 0; i < pixels.length; i++) {
+           // pixels[i] = (pixels[i] & 0xFF) >> 4;
+       // }
        
     }
 

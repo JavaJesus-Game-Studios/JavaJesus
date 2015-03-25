@@ -23,7 +23,8 @@ public class HealthPack extends Particle {
 
 	public void render(Screen screen) {
 
-		screen.render(this.x, this.y, tileNumber, color, 1, 1, sheet);
+		screen.render((int) this.x, (int) this.y, tileNumber, color, 1, 1,
+				sheet);
 		BOX.setLocation((int) this.x, (int) this.y);
 		for (Mob mob : level.getMobs()) {
 

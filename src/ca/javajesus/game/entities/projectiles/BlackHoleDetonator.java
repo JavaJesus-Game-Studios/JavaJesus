@@ -12,22 +12,23 @@ import ca.javajesus.game.gfx.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class BlackHoleDetonator extends Projectile {
-	
-	public BlackHoleDetonator(Level level, double x, double y, double xPos, double yPos,
-			Mob mob, double damage) {
-		super(level, 2, 1, SpriteSheet.particles.boxes, Colors.get(-1, -1, -1, 550), x, y, 6, xPos, yPos,
-				mob, damage);
+
+	public BlackHoleDetonator(Level level, double x, double y, double xPos,
+			double yPos, Mob mob, double damage) {
+		super(level, 2, 1, SpriteSheet.particles.boxes, Colors.get(-1, -1, -1,
+				550), x, y, 6, xPos, yPos, mob, damage);
 		sound.fire(sound.gunshot);
 	}
 
-	public BlackHoleDetonator(Level level, double x, double y, int direction, Mob mob, double damage) {
-		super(level, 2, 1, SpriteSheet.particles.boxes, Colors.get(-1, -1, -1, 550), x, y, 6, direction,
-				mob, damage);
+	public BlackHoleDetonator(Level level, double x, double y, int direction,
+			Mob mob, double damage) {
+		super(level, 2, 1, SpriteSheet.particles.boxes, Colors.get(-1, -1, -1,
+				550), x, y, 6, direction, mob, damage);
 		sound.fire(sound.gunshot);
 	}
-	
-public void render(Screen screen) {
-		
+
+	public void render(Screen screen) {
+
 		renderOnTop = true;
 
 		if (hasCollided((int) x, (int) y)) {
@@ -72,7 +73,7 @@ public void render(Screen screen) {
 			}
 
 		}
-		screen.render(this.x, this.y, tileNumber, color, 1, 1,
+		screen.render((int) this.x, (int) this.y, tileNumber, color, 1, 1,
 				sheet);
 	}
 

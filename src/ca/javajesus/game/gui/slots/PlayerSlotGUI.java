@@ -61,20 +61,19 @@ public class PlayerSlotGUI extends Slot {
 
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {
-				int colorCode = screen.pixels[x + y * screen.width];
-				if (colorCode < 255)
-					pixels[x + y * (width - 50)] = colors[colorCode];
+				pixels[x + y * (width - 50)] = screen.pixels[x + y
+						* screen.width];
 			}
 
 		}
-		
+
 		g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), this);
 		g.drawImage(image2, xOffset, yOffset, width - 50, height - 300, null);
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font("Verdana", 0, 50));
 		g.drawString(player.toString(), 50, 65);
 	}
-	
+
 	public void tick() {
 		repaint();
 	}

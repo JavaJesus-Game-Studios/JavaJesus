@@ -14,10 +14,11 @@ public class HealthBar extends Particle {
 	private double startHealth;
 	private int yChange;
 	public boolean renderOnTop = false;
+	public int x, y;
 
 	private Mob mob;
 
-	public HealthBar(Level level, int tileNumber, double x, double y, Mob mob,
+	public HealthBar(Level level, int tileNumber, int x, int y, Mob mob,
 			int yChange) {
 		super(level, tileNumber, Colors.get(-1, 111, -1, 400), x, y);
 		this.mob = mob;
@@ -27,7 +28,7 @@ public class HealthBar extends Particle {
 		this.yChange = yChange;
 	}
 
-	public HealthBar(Level level, int tileNumber, double x, double y, Mob mob,
+	public HealthBar(Level level, int tileNumber, int x, int y, Mob mob,
 			int yChange, int yOffset) {
 		super(level, tileNumber, Colors.get(-1, 111, -1, 400), x, y);
 		this.mob = mob;

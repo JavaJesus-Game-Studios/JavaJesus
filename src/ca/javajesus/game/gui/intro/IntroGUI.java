@@ -97,12 +97,6 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 			player.updateColor();
 			Game.displayGame();
 		} catch (NullPointerException e) {
-			System.out
-					.println("Something went wrong. It's probably your fault.");
-			System.out
-					.println("JK It is probably still loading, just wait. Relax. Look at the clouds.");
-			System.out
-					.println("Probably by the time you are finished reading this message the game has loaded.");
 			e.printStackTrace();
 		}
 	}

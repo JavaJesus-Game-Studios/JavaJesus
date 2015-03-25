@@ -43,7 +43,8 @@ public class Projectile extends Entity {
 	 * @param level
 	 *            : What level does it render on
 	 * @param tileNumber
-	 *            : the tile id on the SpriteSheet (xTile) + (yTile) * sheet.boxes
+	 *            : the tile id on the SpriteSheet (xTile) + (yTile) *
+	 *            sheet.boxes
 	 * @param color
 	 *            : gets the color, use Colours.get()
 	 * @param x
@@ -110,7 +111,8 @@ public class Projectile extends Entity {
 	 * @param level
 	 *            : What level does it render on
 	 * @param tileNumber
-	 *            : the tile id on the SpriteSheet (xTile) + (yTile) * sheet.boxes
+	 *            : the tile id on the SpriteSheet (xTile) + (yTile) *
+	 *            sheet.boxes
 	 * @param color
 	 *            : gets the color, use Colours.get()
 	 * @param x
@@ -146,8 +148,8 @@ public class Projectile extends Entity {
 
 	private void calcAngle(double x, double y) {
 		double angle = Math.atan((x - this.x) / (y - this.y));
-		//this.yPoint = Math.cos(angle);
-		//this.xPoint = Math.sin(angle);
+		// this.yPoint = Math.cos(angle);
+		// this.xPoint = Math.sin(angle);
 		if (y - this.y < 0) {
 			this.yPoint = -Math.cos(angle);
 			this.xPoint = -Math.sin(angle);
@@ -170,7 +172,7 @@ public class Projectile extends Entity {
 	}
 
 	public void render(Screen screen) {
-		
+
 		renderOnTop = true;
 
 		if (hasCollided((int) x, (int) y)) {
@@ -211,8 +213,8 @@ public class Projectile extends Entity {
 			}
 
 		}
-		screen.render(this.x, this.y, tileNumber + (yOffset * sheet.boxes), color, 1, 1,
-				sheet);
+		screen.render((int) this.x, (int) this.y, tileNumber
+				+ (yOffset * sheet.boxes), color, 1, 1, sheet);
 	}
 
 	protected boolean isSolidTile(int xa, int ya, int x, int y) {

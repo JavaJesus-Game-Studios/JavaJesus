@@ -196,8 +196,8 @@ public class NPC extends Mob {
 		}
 
 		int modifier = 8 * scale;
-		double xOffset = x - modifier / 2.0;
-		double yOffset = y - modifier / 2.0 - 4;
+		int xOffset = x - modifier / 2;
+		int yOffset = y - modifier / 2 - 4;
 
 		if (isDead) {
 			xTile = 12;

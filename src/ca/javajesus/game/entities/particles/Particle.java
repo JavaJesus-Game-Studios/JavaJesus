@@ -35,7 +35,8 @@ public class Particle extends Entity {
 	}
 
 	public void render(Screen screen) {
-		screen.render(this.x, this.y, tileNumber, color, 1, 1, sheet);
+		screen.render((int) this.x, (int) this.y, tileNumber, color, 1, 1,
+				sheet);
 	}
 
 }
