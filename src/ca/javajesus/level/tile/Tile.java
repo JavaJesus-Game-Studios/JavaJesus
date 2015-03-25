@@ -21,27 +21,26 @@ public abstract class Tile {
 	public static final Tile[] tiles = new Tile[256];
 
 	public static final Tile VOID = new BasicSolidTile(0, 0, 0, new int[] {
-			000, -1, -1, -1 }, 0xFF000000);
+			0xFF000000, 0xFF000000, 0xFF000000 }, 0xFF000000);
 	public static final Tile STONE = new BasicSolidTile(1, 1, 0, new int[] {
-			-1, Colors.fromHex("#7f7f7f"), Colors.fromHex("#c3c3c3"), -1 },
-			0xFF555555);
-	public static final Tile GRASS = new BaseTile(2, 0, 1, new int[] { -1, 131,
-			141, -1 }, 0xFF00FF00);
+			0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 }, 0xFF555555);
+	public static final Tile GRASS = new BaseTile(2, 0, 1, new int[] {
+			0xFF339933, 0xFF33BB33, 0xFF000000 }, 0xFF00FF00);
 	public static final Tile WATER = new AnimatedTile(3, new int[][] {
 			{ 0, 14 }, { 1, 14 }, { 2, 14 }, { 3, 14 }, { 2, 14 }, { 1, 14 } },
-			new int[] { -1, 004, 115, -1 }, 0xFF0000FF, 800);
-	public static final Tile SAND = new BaseTile(4, 0, 1, new int[] { -1, 540,
-			550, -1 }, 0xFFFFFF00);
-	public static final Tile ROAD1 = new BaseTile(6, 0, 2, new int[] { -1, 000,
-			-1, -1 }, 0xFF565656);
-	public static final Tile ROAD2 = new BaseTile(7, 1, 2, new int[] { -1, 000,
-			Colors.fromHex("#BFAD47"), -1 }, 0xFFE9E400);
+			new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 0xFF0000FF, 800);
+	public static final Tile SAND = new BaseTile(4, 0, 1, new int[] {0xFFEEBB00,
+			0xFFFFFF00, 0xFF000000 }, 0xFFFFFF00);
+	public static final Tile ROAD1 = new BaseTile(6, 0, 2, new int[] { 0xFF000000,
+			0xFF000000, 0xFF000000 }, 0xFF565656);
+	public static final Tile ROAD2 = new BaseTile(7, 1, 2, new int[] { 0xFF000000,
+			0xFFBFAD47, 0xFF000000 }, 0xFFE9E400);
 	public static final Tile WATERSAND = new AnimatedTile(8, new int[][] {
 			{ 0, 14 }, { 1, 14 }, { 2, 14 }, { 3, 14 }, { 2, 14 }, { 1, 14 } },
-			new int[] { -1, Colors.fromHex("#DBEDD2"), 115, -1 }, 0xFF64FFFF,
+			new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 0xFF64FFFF,
 			1000);
-	public static final Tile ROAD3 = new BaseTile(9, 2, 2, new int[] { -1, 000,
-			Colors.fromHex("#BFAD47"), -1 }, 0xFFFFE400);
+	public static final Tile ROAD3 = new BaseTile(9, 2, 2, new int[] { 0xFF000000,
+			0xFFBFAD47, 0xFF000000 }, 0xFFFFE400);
 	public static final Tile MUD = new BaseTile(11, 0, 2, new int[] { -1,
 			Colors.fromHex("#4a2d00"), -1, -1 }, 0xFF372201);
 	public static final Tile FARMPLOT1 = new BaseTile(12, 2, 1, new int[] { -1,
@@ -56,11 +55,11 @@ public abstract class Tile {
 			Colors.fromHex("#d40000"), Colors.fromHex("#b40000"), -1 },
 			0xFFa50000);
 	public static final Tile GRASS_FLOWER = new BaseTile(16, 5, 1, new int[] {
-			-1, 131, 141, 444 }, 0xFF15df00);
-	public static final Tile GRASS2 = new BaseTile(17, 1, 1, new int[] { -1,
-			131, 141, -1 }, 0xFF00FF00);
-	public static final Tile GRASS3 = new BaseTile(18, 4, 1, new int[] { -1,
-			131, 141, -1 }, 0xFF00FF00);
+			0xFF339933, 0xFF33BB33, 0xFFFFFFFF }, 0xFF15df00);
+	public static final Tile GRASS2 = new BaseTile(17, 1, 1, new int[] {
+			0xFF339933, 0xFF33BB33, 0xFF000000 }, 0xFF00FF00);
+	public static final Tile GRASS3 = new BaseTile(18, 4, 1, new int[] {
+			0xFF339933, 0xFF33BB33, 0xFF000000 }, 0xFF00FF00);
 	public static final Tile CAVEWALL = new BasicSolidTile(19, 4, 0, new int[] {
 			-1, Colors.fromHex("#92928D"), Colors.fromHex("#636361"), -1 },
 			0xFF291900);
