@@ -134,10 +134,27 @@ public class Screen {
 			for (int x = 0; x < sprite.xSize; x++) {
 				int xPixel = (int) (x + xOffset);
 				if (xPixel >= 0 && yPixel >= 0 && xPixel < width
-						&& yPixel < height)
-					pixels[(xPixel) + (yPixel) * width] = (shader > 0) ? blend(
-							sprite.pixels[x + y * sprite.xSize], shader, 0.5)
-							: sprite.pixels[x + y * sprite.xSize];
+						&& yPixel < height) {
+					int col = sprite.pixels[x + y * sprite.xSize];
+					if (color != null)
+						switch (col) {
+						case 0xFF555555: {
+							col = color[0];
+							break;
+						}
+						case 0xFFAAAAAA: {
+							col = color[1];
+							break;
+						}
+						case 0xFFFFFFFF: {
+							col = color[2];
+							break;
+						}
+						}
+					if (col != 0xFF000000)
+						pixels[(xPixel) + (yPixel) * width] = (shader > 0) ? blend(
+								col, shader, 0.5) : col;
+				}
 
 			}
 		}

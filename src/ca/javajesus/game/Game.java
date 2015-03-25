@@ -212,7 +212,7 @@ public class Game extends Canvas implements Runnable {
 
 	/** Code executed during runtime */
 	public void run() {
-		long lastMinute = System.currentTimeMillis() / 1000;
+		long lastMinute = System.currentTimeMillis();
 		long lastTime = System.nanoTime();
 		double nsPerTick = 1000000000 / 60.0;
 		int ticks = 0;
@@ -223,12 +223,15 @@ public class Game extends Canvas implements Runnable {
 
 		while (running) {
 			try {
-				if (System.currentTimeMillis() / 1000 > lastMinute) {
+				if (System.currentTimeMillis() > lastMinute + 10) {
 					lastMinute = System.currentTimeMillis();
 					minutes++;
 					if (minutes > 60) {
 						minutes = 0;
-						hours = (hours + 1) & 24;
+						hours++;
+						if (hours > 24) {
+							hours = 0;
+						}
 					}
 				}
 				long now = System.nanoTime();
@@ -285,6 +288,15 @@ public class Game extends Canvas implements Runnable {
 			getLevel().tick();
 		} else {
 			((ScreenGUI) display.getComponent(guiID)).tick();
+		}
+		if (hours >= 6 && hours < 10) {
+			screen.setShader(0xFF6699FF);
+		} else if (hours >= 10 && hours < 17) {
+			screen.setShader(0);
+		} else if (hours >= 5 && hours < 21) {
+			screen.setShader(0xFFB24700);
+		} else {
+			screen.setShader(0xFF0A1433);
 		}
 	}
 
