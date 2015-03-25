@@ -3,15 +3,11 @@ package ca.javajesus.game.entities.structures;
 
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
 
 public class Tippee  extends SolidEntity {
-
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#f8fa8f"),
-			Colors.fromHex("#559dda"));
 
 	public Tippee(Level level, int x, int y) {
 		super(level, x, y, 32, 50);
@@ -20,7 +16,7 @@ public class Tippee  extends SolidEntity {
 
 	public void render(Screen screen) {
 
-		screen.render((int) x, (int) y, color, Sprite.tippee);
+		screen.render((int) x, (int) y, new int[] { 0xFF522900, 0xFF977F66, 0xFF335C33 }, Sprite.tippee);
 
 	}
 

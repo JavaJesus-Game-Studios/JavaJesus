@@ -4,16 +4,12 @@ import java.awt.Point;
 
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class RussianClub extends SolidEntity {
-
-	protected int color = Colors.get(-1, Colors.fromHex("#ffeb0a"), Colors.fromHex("#80004b"),
-			Colors.fromHex("#e934f9"));
 
 	public RussianClub(Level level, int x, int y) {
 		super(level, x, y, 100, 61);
@@ -24,7 +20,7 @@ public class RussianClub extends SolidEntity {
 
 	public void render(Screen screen) {
 
-		screen.render((int) x, (int) y, color, Sprite.russian_club);
+		screen.render((int) x, (int) y, new int[] { 0xFFFFEB0A, 0xFF80004B, 0xFFE934F9 }, Sprite.russian_club);
 
 	}
 

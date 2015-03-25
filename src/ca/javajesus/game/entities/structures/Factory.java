@@ -4,16 +4,12 @@ import java.awt.Point;
 
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class Factory  extends SolidEntity {
-
-	protected int[] color = {111, Colors.fromHex("#3b312a"),
-			Colors.fromHex("#002244")};
 
 	public Factory(Level level, int x, int y) {
 		super(level, x, y, 100, 85);
@@ -23,7 +19,7 @@ public class Factory  extends SolidEntity {
 
 	public void render(Screen screen) {
 
-		screen.render((int) x, (int) y, color, Sprite.factory);
+		screen.render((int) x, (int) y, new int[] { 0xFF111111, 0xFF3B312A, 0xFF002244 }, Sprite.factory);
 
 	}
 

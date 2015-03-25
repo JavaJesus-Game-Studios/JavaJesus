@@ -5,16 +5,12 @@ import java.awt.Rectangle;
 
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.CastleInterior;
 
 public class RussianOrthodoxChurch extends SolidEntity {
-
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#0069ac"),
-			Colors.fromHex("#ffbc02"));
 
 	public RussianOrthodoxChurch(Level level, int x, int y) {
 		super(level, x, y, 96, 80);
@@ -29,7 +25,7 @@ public class RussianOrthodoxChurch extends SolidEntity {
 
 	public void render(Screen screen) {
 
-		screen.render((int) x, (int) y, color, Sprite.russian_orthodox_church);
+		screen.render((int) x, (int) y, new int[] {0xFF111111, 0xFF0069AC, 0xFFFFBC02 }, Sprite.russian_orthodox_church);
 
 	}
 

@@ -5,16 +5,12 @@ import java.awt.Rectangle;
 
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.CastleInterior;
 
 public class Castle extends SolidEntity {
-
-	protected int[] color = {Colors.get(-1, 111, Colors.fromHex("#8d8d8d"),
-			Colors.fromHex("#eefeff"))};
 
 	public Castle(Level level, int x, int y) {
 		super(level, x, y, 321, 176);
@@ -29,7 +25,7 @@ public class Castle extends SolidEntity {
 
 	public void render(Screen screen) {
 
-		screen.render((int) x, (int) y, color, Sprite.castle);
+		screen.render((int) x, (int) y, new int[] { 0xFF111111, 0xFF8D8D8D, 0xFFEEFEFF }, Sprite.castle);
 
 	}
 

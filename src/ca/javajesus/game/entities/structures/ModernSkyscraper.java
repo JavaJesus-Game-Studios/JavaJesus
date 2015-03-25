@@ -4,15 +4,11 @@ import java.awt.Rectangle;
 
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
 import ca.javajesus.level.Level;
 
 public class ModernSkyscraper extends SolidEntity {
-
-	protected int color = Colors.get(-1, 111, Colors.fromHex("#182d42"),
-			Colors.fromHex("#3e89d5"));
 
 	public ModernSkyscraper(Level level, int x, int y) {
 		super(level, x, y, 97, 251);
@@ -25,7 +21,7 @@ public class ModernSkyscraper extends SolidEntity {
 
 	public void render(Screen screen) {
 
-		screen.render(x, y, color, Sprite.modern_skyscraper);
+		screen.render(x, y, new int[] { 0xFF111111, 0xFF182D42, 0xFF3E89D5 }, Sprite.modern_skyscraper);
 
 	}
 
