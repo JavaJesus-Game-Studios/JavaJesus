@@ -24,7 +24,7 @@ public class Sword extends Item {
 	private int swordX;
 	private int swordY;
 
-	public Sword(String name, int id, int xTile, int yTile, int swordX, int swordY, int color,
+	public Sword(String name, int id, int xTile, int yTile, int swordX, int swordY, int[] color,
 			String description, int swordType, int cooldown, int damage) {
 		super(name, id, xTile, yTile, color, description);
 		this.swordType = swordType;

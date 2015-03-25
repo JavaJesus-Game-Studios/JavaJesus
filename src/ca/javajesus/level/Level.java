@@ -279,9 +279,9 @@ public abstract class Level {
 		}
 	}
 
-	public void renderFont(String msg, Screen screen, int x, int y, int colour,
+	public void renderFont(String msg, Screen screen, int x, int y, int[] color,
 			int scale) {
-		JJFont.render(msg, screen, x, y, colour, scale);
+		JJFont.render(msg, screen, x, y, color, scale);
 	}
 
 	public Tile getTile(int x, int y) {

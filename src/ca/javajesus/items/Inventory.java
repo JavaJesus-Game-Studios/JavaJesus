@@ -114,8 +114,7 @@ public class Inventory {
 			}
 			items.add(items.get(tempList[i]));
 			items.set(tempList[i], new Item("ZZZZZZZ", Integer.MAX_VALUE, 0, 0,
-					Colors.get(-1, 500, 500, Colors.fromHex("#FF0000")),
-					"Filler object"));
+					new int[] { 0, 0, 0 }, "Filler object"));
 			tempString = items.get(0).name;
 		}
 		for (int i = 0; i < tempList.length; i++)
@@ -134,8 +133,7 @@ public class Inventory {
 			}
 			items.add(items.get(tempList[i]));
 			items.set(tempList[i], new Item("ZZZZZZZ", Integer.MAX_VALUE, 0, 0,
-					Colors.get(-1, 500, 500, Colors.fromHex("#FF0000")),
-					"Filler object"));
+					new int[] { 0, 0, 0 }, "Filler object"));
 			tempNum = Integer.MAX_VALUE;
 		}
 		for (int i = 0; i < tempList.length; i++)

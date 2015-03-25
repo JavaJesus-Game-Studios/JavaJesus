@@ -30,7 +30,7 @@ public class Gun extends Item {
 		BULLET, ARROW, FIREBALL, LASER, MISSILE, BLACKHOLE, FLAMETHROWER
 	}
 
-	public Gun(String name, int id, int xTile, int yTile, int color,
+	public Gun(String name, int id, int xTile, int yTile, int[] color,
 			String description, int gunHUDType, int xPlayerSheet, int clipSize,
 			int rate, int reload, int damage, Ammo type) {
 		super(name, id, xTile, yTile, color, description);
