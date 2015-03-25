@@ -137,6 +137,25 @@ public class Screen {
 			}
 		}
 	}
+	
+	/** Used for rendering large entities */
+	public void render(int xOffset, int yOffset, int[] color, Sprite sprite) {
+
+		xOffset -= this.xOffset;
+		yOffset -= this.yOffset;
+
+		for (int y = 0; y < sprite.ySize; y++) {
+			int yPixel = (int) (y + yOffset);
+			for (int x = 0; x < sprite.xSize; x++) {
+				int xPixel = (int) (x + xOffset);
+				if (xPixel >= 0 && yPixel >= 0 && xPixel < width
+						&& yPixel < height)
+					pixels[(xPixel) + (yPixel) * width] = sprite.pixels[x + y
+							* sprite.xSize];
+
+			}
+		}
+	}
 
 	public void render(int xOffset, int yOffset) {
 		for (int y = 0; y < height; y++) {
