@@ -382,7 +382,6 @@ public class Player extends Mob {
 			}
 			level.clear();
 			init(nextLevel);
-			screen.getGame().updateLevel();
 			level.init();
 			canChangeLevel = false;
 			level.addEntity(this);

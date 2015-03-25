@@ -359,6 +359,7 @@ public class Game extends Canvas implements Runnable {
 			}
 
 		}
+		screen.clear();
 
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
