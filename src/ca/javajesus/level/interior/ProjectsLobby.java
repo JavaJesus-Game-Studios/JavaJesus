@@ -3,8 +3,10 @@ package ca.javajesus.level.interior;
 import java.awt.Point;
 
 import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.structures.transporters.TransporterInterior;
+import ca.javajesus.game.entities.structures.transporters.TransporterStairCarpet;
 import ca.javajesus.level.Level;
 
 public class ProjectsLobby extends Interior {
@@ -57,6 +59,6 @@ public class ProjectsLobby extends Interior {
 	protected void otherEntityPlacement() {
 		this.addEntity(new TransporterInterior(this, 585, 700, nextLevel,
 				exitPoint));
-		//this.addEntity(new TransporterInterior(this, 400, 400, new ProjectsFloor(), new Point(585, 700)));
+		this.addEntity(new TransporterStairCarpet(this, 344, 528, new ProjectsFloor(new Point(353, 536), this, 1), new Point(353, 480), Direction.WEST));
 	}
 }

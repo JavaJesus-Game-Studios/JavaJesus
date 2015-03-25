@@ -3,8 +3,10 @@ package ca.javajesus.level.interior;
 import java.awt.Point;
 
 import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.structures.transporters.TransporterInterior;
+import ca.javajesus.game.entities.structures.transporters.TransporterStairCarpet;
 import ca.javajesus.level.Level;
 
 public class ProjectsFloor extends Interior {
@@ -12,30 +14,34 @@ public class ProjectsFloor extends Interior {
 	private Point exitPoint;
 	private Entity entity;
 	private Spawner spawner;
+	private int floor;
 
-	public ProjectsFloor(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Projects_Lobby.png", new Point(588,
-				688), level);
+	public ProjectsFloor(Point point, Level level, int floor) {
+		super("/Buildings/Generic Interiors/Projects_Floors_1_and_2.png",
+				new Point(588, 688), level);
 		this.exitPoint = point;
+		this.floor = floor;
 	}
 
 	public ProjectsFloor(Point point, Level level, Entity entity,
-			Spawner spawner) {
-		super("/Buildings/Generic Interiors/Projects_Lobby.png",
+			Spawner spawner, int floor) {
+		super("/Buildings/Generic Interiors/Projects_Floors_1_and_2.png",
 				new Point(588, 688), level);
 		this.exitPoint = point;
 		this.entity = entity;
 		entity.init(this);
 		this.spawner = spawner;
 		spawner.init(this);
+		this.floor = floor;
 	}
 
-	public ProjectsFloor(Point point, Level level, Entity entity) {
-		super("/Buildings/Generic Interiors/Projects_Lobby.png",
+	public ProjectsFloor(Point point, Level level, Entity entity, int floor) {
+		super("/Buildings/Generic Interiors/Projects_Floors_1_and_2.png",
 				new Point(588, 688), level);
 		this.exitPoint = point;
 		this.entity = entity;
 		entity.init(this);
+		this.floor = floor;
 	}
 
 	protected void initNPCPlacement() {
@@ -55,8 +61,12 @@ public class ProjectsFloor extends Interior {
 	}
 
 	protected void otherEntityPlacement() {
-		this.addEntity(new TransporterInterior(this, 585, 700, nextLevel,
-				exitPoint));
-		//this.addEntity(new TransporterInterior(this, 400, 400, new ProjectsFloor(), new Point(585, 700)));
+		this.addEntity(new TransporterStairCarpet(this, 344, 472, nextLevel,
+				exitPoint, Direction.EAST));
+		if (floor < 3) {
+			this.addEntity(new TransporterStairCarpet(this, 344, 528,
+					new ProjectsFloor(new Point(353, 536), this, floor + 1),
+					new Point(353, 480), Direction.WEST));
+		}
 	}
 }
