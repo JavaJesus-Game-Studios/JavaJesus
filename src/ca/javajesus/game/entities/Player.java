@@ -15,7 +15,6 @@ import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.structures.furniture.Chest;
 import ca.javajesus.game.entities.vehicles.Vehicle;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
@@ -727,7 +726,7 @@ public class Player extends Mob {
 		isHit = true;
 		isHitX = random.nextInt(10) - 5;
 		isHitY = random.nextInt(6) - 3;
-		isHitColor = Colors.get(-1, -1, -1, random.nextInt(200));
+		isHitColor = new int[] { 0xFF000000, 0xFF000000, 0xFFFF0000 };
 	}
 
 	public void grantDevPowers() {

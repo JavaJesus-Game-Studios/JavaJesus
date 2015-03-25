@@ -6,7 +6,6 @@ import java.util.Random;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
 import ca.javajesus.game.entities.vehicles.Vehicle;
-import ca.javajesus.game.gfx.Colors;
 import ca.javajesus.game.gfx.JJFont;
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.SpriteSheet;
@@ -49,7 +48,7 @@ public class Mob extends Entity {
 	protected int isHitTicks = 0;
 	protected int isHitX = 0;
 	protected int isHitY = 0;
-	protected int isHitColor = 0;
+	protected int[] isHitColor;
 
 	protected int tickCount = 0;
 
@@ -420,7 +419,7 @@ public class Mob extends Entity {
 		if (isTalking) {
 			JJFont.render(name, screen, (int) xOffset
 					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10,
-					Colors.get(-1, -1, -1, Colors.fromHex("#FFCC00")), 1);
+					new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
 		}
 
 		if (isHit) {
@@ -465,7 +464,7 @@ public class Mob extends Entity {
 		isHit = true;
 		isHitX = random.nextInt(10) - 5;
 		isHitY = random.nextInt(6) - 3;
-		isHitColor = Colors.get(-1, -1, -1, random.nextInt(200));
+		isHitColor[2] = 0xFFFF0000;
 	}
 
 	public void damage(int d) {
