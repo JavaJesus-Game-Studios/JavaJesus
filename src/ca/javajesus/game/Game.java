@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 
 import ca.javajesus.saves.*;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.gui.Launcher;
 import ca.javajesus.game.gui.PauseGUI;
 import ca.javajesus.game.gui.ScreenGUI;
@@ -48,6 +48,9 @@ public class Game extends Canvas implements Runnable {
 
 	public final static int MOB_LIMIT = 300;
 	public boolean running = false; // this is a change
+	
+	public static int hours;
+	public static int minutes;
 
 	/** Creates the JFrame */
 	protected static JFrame frame;
@@ -195,53 +198,6 @@ public class Game extends Canvas implements Runnable {
 
 	}
 
-	public void updateLevel() {
-		int index = 0;
-		for (int r = 0; r < 6; r++) {
-			for (int g = 0; g < 6; g++) {
-				for (int b = 0; b < 6; b++) {
-					int rr = (r * 255 / 5);
-					int gg = (g * 255 / 5);
-					int bb = (b * 255 / 5);
-
-					// colors[index++] = rr << 16 | gg << 8 | bb;
-				}
-			}
-		}
-	}
-
-	public void redScreen() {
-		int index = 0;
-		for (int r = 0; r < 6; r++) {
-			for (int g = 0; g < 6; g++) {
-				for (int b = 0; b < 6; b++) {
-					int rr = (r * 255 / 5);
-					int gg = (g * 255 / 5);
-					int bb = (b * 255 / 5);
-
-					// colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb,
-					// 16711680, 0.75);
-				}
-			}
-		}
-	}
-
-	public void darkenScreen() {
-		int index = 0;
-		for (int r = 0; r < 6; r++) {
-			for (int g = 0; g < 6; g++) {
-				for (int b = 0; b < 6; b++) {
-					int rr = (r * 255 / 5);
-					int gg = (g * 255 / 5);
-					int bb = (b * 255 / 5);
-
-					// colors[index++] = Colors.blend(rr << 16 | gg << 8 | bb,
-					// 983082, 0.5);
-				}
-			}
-		}
-	}
-
 	/** Starts the game */
 	public synchronized void start() {
 		running = true;
@@ -256,9 +212,9 @@ public class Game extends Canvas implements Runnable {
 
 	/** Code executed during runtime */
 	public void run() {
-
+		long lastMinute = System.currentTimeMillis() / 1000;
 		long lastTime = System.nanoTime();
-		double nsPerTick = 1000000000D / 60D;
+		double nsPerTick = 1000000000 / 60.0;
 		int ticks = 0;
 		int frames = 0;
 		long lastTimer = System.currentTimeMillis();
@@ -267,6 +223,14 @@ public class Game extends Canvas implements Runnable {
 
 		while (running) {
 			try {
+				if (System.currentTimeMillis() / 1000 > lastMinute) {
+					lastMinute = System.currentTimeMillis();
+					minutes++;
+					if (minutes > 60) {
+						minutes = 0;
+						hours = (hours + 1) & 24;
+					}
+				}
 				long now = System.nanoTime();
 				delta += (now - lastTime) / nsPerTick;
 				lastTime = now;
@@ -365,7 +329,7 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
-		g.drawString(player + ": " + player.getX() + ", " + player.getY(), 5,
+		g.drawString(player + ": " + player.getX() + ", " + player.getY() + " Time: " + hours +":" + minutes, 5,
 				20);
 		hud.draw(g);
 		ChatHandler.drawMessages(g);

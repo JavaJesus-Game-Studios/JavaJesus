@@ -14,7 +14,7 @@ import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.gui.ScreenGUI;
 import ca.javajesus.items.Armor;
 import ca.javajesus.items.Item;
@@ -48,10 +48,6 @@ public class ItemScreenGUI extends ScreenGUI {
 			.getData();
 	private int[] pixels5 = ((DataBufferInt) image5.getRaster().getDataBuffer())
 			.getData();
-	protected int[] colors = new int[6 * 6 * 6];
-	protected int[] colors3 = new int[6 * 6 * 6];
-	protected int[] colors4 = new int[6 * 6 * 6];
-	protected int[] colors5 = new int[6 * 6 * 6];
 	InputHandler input;
 	private String hoverText = "Inventory";
 	private boolean isHovering = false;
@@ -70,26 +66,6 @@ public class ItemScreenGUI extends ScreenGUI {
 		screen3 = new Screen(rowWidth, rowHeight);
 		screen4 = new Screen(rowWidth, rowHeight);
 		screen5 = new Screen(rowWidth, rowHeight);
-		init();
-	}
-
-	private void init() {
-		int index = 0;
-		for (int r = 0; r < 6; r++) {
-			for (int g = 0; g < 6; g++) {
-				for (int b = 0; b < 6; b++) {
-					int rr = (r * 255 / 5);
-					int gg = (g * 255 / 5);
-					int bb = (b * 255 / 5);
-
-					colors[index] = rr << 16 | gg << 8 | bb;
-					colors3[index] = rr << 16 | gg << 8 | bb;
-					colors4[index] = rr << 16 | gg << 8 | bb;
-					colors5[index] = rr << 16 | gg << 8 | bb;
-					index++;
-				}
-			}
-		}
 	}
 
 	public void paint(Graphics g) {
@@ -115,37 +91,28 @@ public class ItemScreenGUI extends ScreenGUI {
 		}
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {
-				int colorCode = screen.pixels[x + y * screen.width];
-				if (colorCode < 255) {
-					pixels[x + y * rowWidth] = colors[colorCode];
-				}
+				pixels[x + y * rowWidth] = screen.pixels[x + y * screen.width];
 			}
 
 		}
 		for (int y = 0; y < screen3.height; y++) {
 			for (int x = 0; x < screen3.width; x++) {
-				int colorCode = screen3.pixels[x + y * screen3.width];
-				if (colorCode < 255) {
-					pixels3[x + y * rowWidth] = colors3[colorCode];
-				}
+				pixels3[x + y * rowWidth] = screen3.pixels[x + y
+						* screen3.width];
 			}
 
 		}
 		for (int y = 0; y < screen4.height; y++) {
 			for (int x = 0; x < screen4.width; x++) {
-				int colorCode = screen4.pixels[x + y * screen4.width];
-				if (colorCode < 255) {
-					pixels4[x + y * rowWidth] = colors4[colorCode];
-				}
+				pixels4[x + y * rowWidth] = screen4.pixels[x + y
+						* screen4.width];
 			}
 
 		}
 		for (int y = 0; y < screen5.height; y++) {
 			for (int x = 0; x < screen5.width; x++) {
-				int colorCode = screen5.pixels[x + y * screen5.width];
-				if (colorCode < 255) {
-					pixels5[x + y * rowWidth] = colors5[colorCode];
-				}
+				pixels5[x + y * rowWidth] = screen5.pixels[x + y
+						* screen5.width];
 			}
 
 		}
@@ -185,7 +152,6 @@ public class ItemScreenGUI extends ScreenGUI {
 					player.inventory
 							.equip(player.inventory.guns.get(i), player);
 					screen.clear();
-					init();
 					repaint();
 				}
 
@@ -204,7 +170,6 @@ public class ItemScreenGUI extends ScreenGUI {
 					player.inventory.equip(player.inventory.swords.get(i),
 							player);
 					screen3.clear();
-					init();
 					repaint();
 				}
 
@@ -223,7 +188,6 @@ public class ItemScreenGUI extends ScreenGUI {
 					player.inventory.equip(player.inventory.usables.get(i),
 							player);
 					screen4.clear();
-					init();
 					repaint();
 				}
 
@@ -246,7 +210,6 @@ public class ItemScreenGUI extends ScreenGUI {
 						player.inventory.equip(player.inventory.misc.get(i),
 								player);
 					screen5.clear();
-					init();
 					repaint();
 				}
 

@@ -4,8 +4,8 @@ import java.awt.Rectangle;
 
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Mob;
-import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Explosion extends Particle {

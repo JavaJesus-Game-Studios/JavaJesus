@@ -1,4 +1,4 @@
-package ca.javajesus.game.gfx;
+package ca.javajesus.game.graphics;
 
 
 public class JJFont {

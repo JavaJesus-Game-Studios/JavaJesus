@@ -107,6 +107,7 @@ public class Level1 extends Level {
 
 	@Override
 	public void otherEntityPlacement() {
+		/*
 		this.addEntity(Vehicle.vehicle1);
 		this.addEntity(new Boat(this, null, 357, 532, 2, 100));
 		this.addEntity(new PoorHouse(this, 100, 50));
@@ -164,7 +165,7 @@ public class Level1 extends Level {
 		this.addEntity(new PearHQ(this, 1400, 700));
 		this.addEntity(new TechTopiaCityHall(this, 1400, 890));
 		this.addEntity(new WeirdTechBuilding1(this, 1500, 900));
-		this.addEntity(new WeirdTechBuilding2(this, 1546, 900));
+		this.addEntity(new WeirdTechBuilding2(this, 1546, 900));*/
 
 
 

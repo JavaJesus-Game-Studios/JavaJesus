@@ -6,8 +6,8 @@ import java.util.Random;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
-import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class BlackHole extends Particle {
@@ -104,11 +104,11 @@ public class BlackHole extends Particle {
 
 	public void render(Screen screen) {
 		if (darken) {
-			screen.getGame().darkenScreen();
+			screen.setShader(983082);
 			darken = false;
 		}
 		if (lighten) {
-			screen.getGame().updateLevel();
+			screen.setShader(0);
 			lighten = false;
 		}
 		for (int i = 0; i < 4; i++) {

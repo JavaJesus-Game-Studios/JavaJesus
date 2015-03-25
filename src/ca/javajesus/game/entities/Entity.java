@@ -1,7 +1,7 @@
 package ca.javajesus.game.entities;
 
 import ca.javajesus.game.SoundHandler;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public abstract class Entity {

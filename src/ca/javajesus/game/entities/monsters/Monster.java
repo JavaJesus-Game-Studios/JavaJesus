@@ -7,8 +7,8 @@ import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.npcs.NPC;
-import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Monster extends Mob {

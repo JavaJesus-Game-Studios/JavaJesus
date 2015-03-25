@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class HealthPack extends Particle {
@@ -29,7 +29,7 @@ public class HealthPack extends Particle {
 			if (BOX.intersects(mob.getBounds())) {
 				mob.heal();
 				if (mob instanceof Player) {
-					screen.getGame().updateLevel();
+					screen.setShader(0);
 				}
 				level.remEntity(this);
 				sound.play(SoundHandler.sound.click);

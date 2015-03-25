@@ -5,8 +5,14 @@ import java.util.Random;
 
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
+<<<<<<< HEAD
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
+=======
+import ca.javajesus.game.graphics.Colors;
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.Sprite;
+>>>>>>> origin/master
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.NiceHouse1Interior;
 

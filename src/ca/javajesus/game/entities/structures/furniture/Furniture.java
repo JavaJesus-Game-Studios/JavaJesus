@@ -1,8 +1,8 @@
 package ca.javajesus.game.entities.structures.furniture;
 
 import ca.javajesus.game.entities.SolidEntity;
-import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.Sprite;
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.Sprite;
 import ca.javajesus.level.Level;
 
 public class Furniture extends SolidEntity {

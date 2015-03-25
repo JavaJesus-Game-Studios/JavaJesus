@@ -6,7 +6,7 @@ import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.particles.Explosion;
 import ca.javajesus.game.entities.vehicles.Vehicle;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Missile extends Projectile {

@@ -1,7 +1,7 @@
 package ca.javajesus.game.entities.monsters;
 
 import ca.javajesus.game.entities.particles.HealthBar;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Cyclops extends Monster {
@@ -9,32 +9,32 @@ public class Cyclops extends Monster {
 
 	public Cyclops(Level level, int x, int y) {
 		super(level, "Cyclops", x, y, 1, 32, 48, 14, 5000, color);
-		this.bar = new HealthBar(level, 0, x, y, this, 32);
+		this.bar = new HealthBar(level, x, y, this);
 		level.addEntity(bar);
 	}
 
 	public boolean hasCollided(int xa, int ya) {
 		int xMin = 0;
-		int xMax = 32;
-		int yMin = 15;
-		int yMax = 47;
+		int xMax = 7;
+		int yMin = 3;
+		int yMax = 7;
 		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin)) {
+			if (isSolidTile(xa, ya, x, yMin) || isWaterTile(xa, ya, x, yMin)) {
 				return true;
 			}
 		}
 		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax)) {
+			if (isSolidTile(xa, ya, x, yMax) || isWaterTile(xa, ya, x, yMax)) {
 				return true;
 			}
 		}
 		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y)) {
+			if (isSolidTile(xa, ya, xMin, y) || isWaterTile(xa, ya, xMin, y)) {
 				return true;
 			}
 		}
 		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y)) {
+			if (isSolidTile(xa, ya, xMax, y) || isWaterTile(xa, ya, xMax, y)) {
 				return true;
 			}
 		}

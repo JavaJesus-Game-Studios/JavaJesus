@@ -8,7 +8,7 @@ import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.projectiles.Bullet;
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Policeman extends NPC {

@@ -1,8 +1,9 @@
 package ca.javajesus.game.entities.structures.transporters;
 
 import java.awt.Point;
-import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
+
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class TransporterGlass extends Transporter {

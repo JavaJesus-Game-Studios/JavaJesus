@@ -5,8 +5,14 @@ import java.awt.Rectangle;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.structures.transporters.TransporterGlass;
+<<<<<<< HEAD
 import ca.javajesus.game.gfx.Screen;
 import ca.javajesus.game.gfx.Sprite;
+=======
+import ca.javajesus.game.graphics.Colors;
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.Sprite;
+>>>>>>> origin/master
 import ca.javajesus.level.Level;
 import ca.javajesus.level.RandomLevel;
 

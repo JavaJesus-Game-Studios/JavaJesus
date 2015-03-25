@@ -10,9 +10,9 @@ import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.HealthBar;
-import ca.javajesus.game.gfx.JJFont;
-import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.game.graphics.JJFont;
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 import ca.javajesus.quests.Quest;
 
@@ -91,8 +91,7 @@ public class NPC extends Mob {
 		this.xPos = x;
 		this.yPos = y;
 		this.setHitBox(new Rectangle(width, height));
-		this.bar = new HealthBar(level, 0 + 2 * sheet.boxes, this.x, this.y,
-				this, yChange);
+		this.bar = new HealthBar(level, this.x, this.y, this);
 		if (level != null)
 			level.addEntity(bar);
 	}
@@ -211,18 +210,18 @@ public class NPC extends Mob {
 			}
 
 			// Upper body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile
-					+ yTile * sheet.boxes, this.color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+					* sheet.boxes, this.color, flip, scale, sheet);
 
 			// Upper body 2
 			screen.render(xOffset + modifier - (modifier * flip), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, this.color, flip,
-					scale, sheet);
+					(xTile + 1) + yTile * sheet.boxes, this.color, flip, scale,
+					sheet);
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flip),
-					yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
-					this.color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset + modifier,
+					xTile + (yTile + 1) * sheet.boxes, this.color, flip, scale,
+					sheet);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * flip), yOffset
@@ -232,19 +231,19 @@ public class NPC extends Mob {
 
 			if (!isSwimming) {
 				// Lower Body 1
-				screen.render(xOffset + (modifier * flip), yOffset
-						+ modifier, xTile + (yTile + 1) * sheet.boxes, color,
-						flip, scale, sheet);
+				screen.render(xOffset + (modifier * flip), yOffset + modifier,
+						xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
+						sheet);
 				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flip),
-						yOffset + modifier, (xTile + 1) + (yTile + 1)
-								* sheet.boxes, color, flip, scale, sheet);
+				screen.render(xOffset + modifier - (modifier * flip), yOffset
+						+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
+						color, flip, scale, sheet);
 
 			}
 
 			// Upper body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile
-					+ yTile * sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+					* sheet.boxes, color, flip, scale, sheet);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * flip), yOffset,
 					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,

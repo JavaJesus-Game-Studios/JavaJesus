@@ -2,10 +2,11 @@ package ca.javajesus.game.entities.structures.transporters;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.SolidEntity;
-import ca.javajesus.game.gfx.Screen;
-import ca.javajesus.game.gfx.SpriteSheet;
+import ca.javajesus.game.graphics.Screen;
+import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Transporter extends SolidEntity {

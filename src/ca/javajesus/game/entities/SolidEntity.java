@@ -2,7 +2,7 @@ package ca.javajesus.game.entities;
 
 import java.awt.Rectangle;
 
-import ca.javajesus.game.gfx.Screen;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class SolidEntity extends Entity {
