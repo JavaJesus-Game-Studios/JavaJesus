@@ -48,7 +48,7 @@ public class Mob extends Entity {
 	protected int isHitTicks = 0;
 	protected int isHitX = 0;
 	protected int isHitY = 0;
-	protected int[] isHitColor;
+	protected int[] isHitColor = { 0xFF000000, 0xFF000000, 0xFFFF0000 };
 
 	protected int tickCount = 0;
 
@@ -464,7 +464,6 @@ public class Mob extends Entity {
 		isHit = true;
 		isHitX = random.nextInt(10) - 5;
 		isHitY = random.nextInt(6) - 3;
-		isHitColor[2] = 0xFFFF0000;
 	}
 
 	public void damage(int d) {
