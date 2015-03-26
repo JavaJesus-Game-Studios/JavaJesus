@@ -67,10 +67,10 @@ public class Monkey extends Monster {
 			if (mob.getX() < this.x) {
 				xa--;
 			}
-			if (mob.getY() > this.y - 8) {
+			if (mob.getY() > this.y) {
 				ya++;
 			}
-			if (mob.getY() < this.y - 8) {
+			if (mob.getY() < this.y) {
 				ya--;
 			}
 		}
@@ -86,20 +86,6 @@ public class Monkey extends Monster {
 
 	public void render(Screen screen) {
 		super.render(screen);
-
-		if (getDirection() == Direction.WEST) {
-			this.getBounds().setLocation(this.x - (this.width / 2) + 8,
-					this.y - (this.height / 2));
-			this.getOuterBounds().setLocation(
-					this.x - (int) getBounds().getWidth() / 2 + 10,
-					this.y - (int) getBounds().getHeight() / 2);
-		} else {
-			this.getBounds().setLocation(this.x - (this.width / 2),
-					this.y - (this.height / 2));
-			this.getOuterBounds().setLocation(
-					this.x - (int) getBounds().getWidth() / 2 - 2,
-					this.y - (int) getBounds().getHeight() / 2);
-		}
 
 		int xTile = 0;
 		int walkingSpeed = 4;

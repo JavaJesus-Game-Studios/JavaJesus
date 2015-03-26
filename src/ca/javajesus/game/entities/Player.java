@@ -74,7 +74,7 @@ public class Player extends Mob {
 		stamina = startStamina;
 
 		companion = new Companion(level, "Companion", x + 10, y, 16, 16, 100,
-				new int[] { 0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB }, 0, 4, 8, this);
+				new int[] { 0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB }, 0, 4, this);
 	}
 
 	public Level getLevel() {
@@ -395,7 +395,7 @@ public class Player extends Mob {
 		}
 
 		if (health < 20) {
-			screen.setShader(16711680);
+			//screen.setShader(16711680);
 		}
 
 		int xTile = 0;

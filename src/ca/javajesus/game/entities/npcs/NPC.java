@@ -20,34 +20,34 @@ public class NPC extends Mob {
 
 	public static NPC npc1 = new NPC(Level.level1, "Knight", 200, 100, 1, 16,
 			16, 100, new int[] { 0xFF111111, 0xFF7E7E7E, 0xFFFFFFFF }, 0, 2,
-			"linear", 20, 8);
+			"linear", 20);
 	public static NPC npc2 = new NPC(Level.level1, "Policeman", 160, 250, 1,
 			16, 16, 100, new int[] { 0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB }, 0,
-			4, "triangle", 20, 8);
+			4, "triangle", 20);
 	public static NPC npc3 = new NPC(Level.level1, "Citizen-Female", 200, 400,
 			1, 16, 16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB },
-			0, 8, "cross", 30, 8);
+			0, 8, "cross", 30);
 	public static NPC npc4 = new NPC(Level.level1, "Citizen-Male", 200, 500, 1,
 			16, 16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0,
-			0, "circle", 2, 8);
+			0, "circle", 2);
 	public static NPC npc5 = new NPC(Level.level1, "Fox", 250, 75, 1, 16, 16,
 			100, new int[] { 0xFF111111, 0xFFFFA800, 0xFFFFFFFF }, 0, 14,
-			"cross", 50, 8);
+			"cross", 50);
 	public static NPC npc6 = new NPC(Level.level1, "Tech Warrior", 400, 250, 1,
 			16, 16, 100, new int[] { 0xFF000000, 0xFF42FF00, 0xFFEDC5AB }, 0,
-			12, "triangle", 20, 8);
+			12, "triangle", 20);
 	public static NPC npc7 = new NPC(Level.level1, "Peasant-Male", 2005, 950,
 			1, 16, 16, 100, new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB },
-			0, 16, "square", 100, 8);
+			0, 16, "square", 100);
 	public static NPC npc8 = new NPC(Level.level1, "Peasant-Female", 2025, 950,
 			1, 16, 16, 100, new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB },
-			0, 18, "cross", 0, 8);
+			0, 18, "cross", 0);
 	public static NPC npc9 = new NPC(Level.level1, "Peasant-Boychild", 2035,
 			950, 1, 16, 16, 9001, new int[] { 0xFF111111, 0xFF715B17,
-					0xFFEDC5AB }, 14, 16, "square", 0, 8);
+					0xFFEDC5AB }, 14, 16, "square", 0);
 	public static NPC npc10 = new NPC(Level.level1, "Peasant-Girlchild", 2045,
 			950, 1, 16, 16, 9000, new int[] { 0xFF111111, 0xFF715B17,
-					0xFFEDC5AB }, 14, 18, "cross", 0, 8);
+					0xFFEDC5AB }, 14, 18, "cross", 0);
 
 	public static NPC Jesus = new Jesus(Level.level1, 300, 400, "stand", 30);
 
@@ -78,7 +78,7 @@ public class NPC extends Mob {
 
 	public NPC(Level level, String name, int x, int y, int speed, int width,
 			int height, int defaultHealth, int[] color, int xTile, int yTile,
-			String walkPath, int walkDistance, int yChange) {
+			String walkPath, int walkDistance) {
 		super(level, name, x, y, speed, width, height, SpriteSheet.npcs,
 				defaultHealth);
 		this.walkRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
@@ -588,42 +588,41 @@ public class NPC extends Mob {
 
 		case 0:
 			return new NPC(level, "Knight", x, y, 1, 16, 16, 100, new int[] {
-					0xFF111111, 0xFF7E7E7E, 0xFFFFFFFF }, 0, 2, "linear", 20, 8);
+					0xFF111111, 0xFF7E7E7E, 0xFFFFFFFF }, 0, 2, "linear", 20);
 		case 1:
 			return new NPC(level, "Policeman", x, y, 1, 16, 16, 100, new int[] {
-					0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB }, 0, 4, "triangle", 20,
-					8);
+					0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB }, 0, 4, "triangle", 20);
 		case 2:
 			return new NPC(level, "Citizen-Female", x, y, 1, 16, 16, 100,
 					new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 8,
-					"cross", 30, 8);
+					"cross", 30);
 		case 3:
 			return new NPC(level, "Citizen-Male", x, y, 1, 16, 16, 100,
 					new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 0,
-					"circle", 2, 8);
+					"circle", 2);
 		case 4:
 			return new NPC(level, "Fox", x, y, 1, 16, 16, 100, new int[] {
-					0xFF111111, 0xFFFFA800, 0xFFFFFFFF }, 0, 14, "cross", 50, 8);
+					0xFF111111, 0xFFFFA800, 0xFFFFFFFF }, 0, 14, "cross", 50);
 		case 5:
 			return new NPC(level, "Tech Warrior", x, y, 1, 16, 16, 100,
 					new int[] { 0xFF000000, 0xFF42FF00, 0xFFEDC5AB }, 0, 12,
-					"triangle", 20, 8);
+					"triangle", 20);
 		case 6:
 			return new NPC(level, "Peasant-Male", x, y, 1, 16, 16, 100,
 					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 0, 16,
-					"square", 100, 8);
+					"square", 100);
 		case 7:
 			return new NPC(level, "Peasant-Female", x, y, 1, 16, 16, 100,
 					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 0, 18,
-					"cross", 0, 8);
+					"cross", 0);
 		case 8:
 			return new NPC(level, "Peasant-Boychild", x, y, 1, 16, 16, 9001,
 					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 14, 16,
-					"square", 0, 8);
+					"square", 0);
 		case 9:
 			return new NPC(level, "Peasant-Girlchild", x, y, 1, 16, 16, 9000,
 					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 14, 18,
-					"cross", 0, 8);
+					"cross", 0);
 
 		default:
 			return new Jesus(level, x, y, "stand", 30);

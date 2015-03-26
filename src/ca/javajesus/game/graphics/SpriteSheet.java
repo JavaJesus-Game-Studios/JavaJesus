@@ -23,8 +23,9 @@ public class SpriteSheet {
     public static SpriteSheet swords = new SpriteSheet("/Sprites/Player_Sprites/player_sword_sheet.png", 32);
     public static SpriteSheet enemies = new SpriteSheet("/Sprites/EnemyNPC_Sprites/mob_enemy_sheet.png", 40);
     public static SpriteSheet npcs = new SpriteSheet("/Sprites/FriendlyNPC_Sprites/mob_friendly_sheet.png", 32);
+    public static SpriteSheet characters = new SpriteSheet("/Sprites/FriendlyNPC_Sprites/Character_Sheet.png", 32);
     public static SpriteSheet player = new SpriteSheet("/Sprites/Player_Sprites/player_sheet.png", 32);
-    public static SpriteSheet vehicles = new SpriteSheet("/Sprites/Vehicle_Sprites/vehicle_sheet.png", 32);
+    public static SpriteSheet vehicles = new SpriteSheet("/Sprites/Vehicle_Sprites/vehicle_sheet.png", 36);
     public static SpriteSheet items = new SpriteSheet("/Tiles/Inventory&Weapon_Sprites/item_sheet.png", 32);
         
     public SpriteSheet(String path, int boxes) {

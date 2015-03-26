@@ -24,7 +24,7 @@ public class Policeman extends NPC {
 	public Policeman(Level level, int x, int y, int defaultHealth,
 			String walkPath, int walkDistance) {
 		super(level, "SWAT Officer", x, y, 1, 16, 16, defaultHealth, color, 0,
-				10, walkPath, walkDistance, 8);
+				10, walkPath, walkDistance);
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
 				RADIUS, RADIUS);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
@@ -33,8 +33,7 @@ public class Policeman extends NPC {
 	}
 
 	public Policeman(Level level, int x, int y) {
-		super(level, "SWAT Officer", x, y, 1, 16, 16, 200, color, 0, 10, "", 0,
-				8);
+		super(level, "SWAT Officer", x, y, 1, 16, 16, 200, color, 0, 10, "", 0);
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
 				RADIUS, RADIUS);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,

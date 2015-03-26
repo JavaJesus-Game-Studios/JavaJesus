@@ -6,8 +6,17 @@ import java.util.ArrayList;
 import ca.javajesus.game.entities.FireEntity;
 import ca.javajesus.game.entities.monsters.Cyclops;
 import ca.javajesus.game.entities.monsters.Monster;
+import ca.javajesus.game.entities.npcs.Caesar;
+import ca.javajesus.game.entities.npcs.CatWoman;
+import ca.javajesus.game.entities.npcs.Daughter;
+import ca.javajesus.game.entities.npcs.Jobs;
+import ca.javajesus.game.entities.npcs.Kobe;
+import ca.javajesus.game.entities.npcs.LordHillsborough;
 import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.npcs.Policeman;
+import ca.javajesus.game.entities.npcs.Ranchero;
+import ca.javajesus.game.entities.npcs.Son;
+import ca.javajesus.game.entities.npcs.Wife;
 import ca.javajesus.game.entities.particles.Pickup;
 import ca.javajesus.game.entities.structures.ApartmentHighRise;
 import ca.javajesus.game.entities.structures.Cafe;
@@ -70,6 +79,15 @@ public class Level1 extends Level {
 	}
 
 	public void initNPCPlacement() {
+		this.addEntity(new LordHillsborough(this, 50, 50));
+		this.addEntity(new Wife(this, 50, 70));
+		this.addEntity(new Daughter(this, 50, 90));
+		this.addEntity(new Son(this, 50, 110));
+		this.addEntity(new Caesar(this, 50, 130));
+		this.addEntity(new Kobe(this, 50, 150));
+		this.addEntity(new Ranchero(this, 50, 170));
+		this.addEntity(new Jobs(this, 50, 190));
+		this.addEntity(new CatWoman(this, 50, 210));
 		this.addEntity(NPC.npc1);
 		this.addEntity(NPC.npc2);
 		this.addEntity(NPC.npc3);
