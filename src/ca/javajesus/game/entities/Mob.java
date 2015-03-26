@@ -151,8 +151,8 @@ public class Mob extends Entity {
 	}
 
 	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 7;
+		int xMin = -4;
+		int xMax = 3;
 		int yMin = 3;
 		int yMax = 7;
 		for (int x = xMin; x < xMax; x++) {
@@ -227,23 +227,23 @@ public class Mob extends Entity {
 					renderOnTop = false;
 				}
 				Rectangle temp = new Rectangle(
-						((SolidEntity) entity).bounds.width + 2 * xa,
-						((SolidEntity) entity).bounds.height - 8 + 2 * ya);
-				temp.setLocation(((SolidEntity) entity).bounds.x - xa,
-						((SolidEntity) entity).bounds.y - ya);
+						((SolidEntity) entity).bounds.width,
+						((SolidEntity) entity).bounds.height - 8);
+				temp.setLocation(((SolidEntity) entity).bounds.x - 3 * xa,
+						((SolidEntity) entity).bounds.y - 3 * ya);
 				if (this.getBounds().intersects(temp))
 					return true;
 			} else if (entity instanceof Vehicle && entity != this) {
 				Rectangle temp;
 				Vehicle vehicle = (Vehicle) entity;
 				if (isLongitudinal(vehicle.getDirection())) {
-					temp = new Rectangle(vehicle.getBounds().width - 16 + 2 * xa,
-							vehicle.getBounds().height - 8 + 2 * ya);
-					temp.setLocation(vehicle.x - xa, vehicle.y - ya - 8);
+					temp = new Rectangle(vehicle.getBounds().width - 16,
+							vehicle.getBounds().height - 8);
+					temp.setLocation(vehicle.x - xa - 8, vehicle.y - ya - 20);
 				} else {
-					temp = new Rectangle(vehicle.getBounds().width - 8 + 2 * xa,
-							vehicle.getBounds().height - 16 + 2 * ya);
-					temp.setLocation(vehicle.x - xa - 3, vehicle.y - ya - 4);
+					temp = new Rectangle(vehicle.getBounds().width - 8,
+							vehicle.getBounds().height - 16);
+					temp.setLocation(vehicle.x - xa - 12, vehicle.y - ya - 10);
 				}
 
 				if (this.getBounds().intersects(temp))

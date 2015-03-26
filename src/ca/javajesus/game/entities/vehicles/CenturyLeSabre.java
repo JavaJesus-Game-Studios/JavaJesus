@@ -75,19 +75,14 @@ public class CenturyLeSabre extends Vehicle {
 			yOffset = y - modifier * 2 - modifier / 2;
 			this.width = 32;
 			this.height = 40;
-			this.getBounds().setSize(width, height);
-			this.getBounds().setLocation((int) this.x - width / 2 + 6,
-					(int) this.y - height / 2 + 12);
 		} else {
 			xOffset = x - modifier * 2 - modifier / 2;
 			yOffset = y - modifier * 2;
 			this.width = 40;
 			this.height = 32;
-			this.getBounds().setSize(width, height);
-			this.getBounds().setLocation((int) this.x - width / 2 + 10,
-					(int) this.y - height / 2 + 7);
 		}
-
+		this.getBounds().setSize(width, height);
+		this.getBounds().setLocation(this.x - width / 2, this.y - height / 2);
 		int xTile = 0;
 		int yTile = 0;
 

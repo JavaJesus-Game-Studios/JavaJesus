@@ -46,20 +46,10 @@ public class Vehicle extends Mob {
 
 	public boolean hasCollided(int xa, int ya) {
 		int xMin = 0;
-		int xMax = 0;
-		int yMin = 0;
-		int yMax = 0;
-		if (isLongitudinal(getDirection())) {
-			xMin = 0;
-			xMax = 31;
-			yMin = 0;
-			yMax = 39;
-		} else {
-			xMin = 0;
-			xMax = 39;
-			yMin = 0;
-			yMax = 31;
-		}
+		int xMax = 7;
+		int yMin = 3;
+		int yMax = 7;
+
 		for (int x = xMin; x < xMax; x++) {
 			if (isSolidTile(xa, ya, x, yMin) || isWaterTile(xa, ya, x, yMin)) {
 				return true;

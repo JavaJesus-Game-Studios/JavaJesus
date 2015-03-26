@@ -82,7 +82,7 @@ public class Boat extends Vehicle {
 			this.height = 32;
 		}
 		this.getBounds().setSize(width, height);
-		this.getBounds().setLocation((int) this.x - 8, (int) this.y - 8);
+		this.getBounds().setLocation(this.x - width / 2, this.y - height / 2);
 
 		int xTile = 0;
 		int yTile = 16;

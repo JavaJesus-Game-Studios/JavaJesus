@@ -120,7 +120,7 @@ public class Player extends Mob {
 		if (isDriving) {
 			return;
 		}
-		
+
 		checkTile(x, y);
 
 		if (isHit) {
