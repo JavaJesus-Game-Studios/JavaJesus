@@ -39,7 +39,6 @@ public class Sprite {
 	public static Sprite tippee = new Sprite("/Buildings/Generic Exteriors/Tippee.png");
 	public static Sprite warehouse = new Sprite("/Buildings/Generic Exteriors/Warehouse.png");
 	public static Sprite shantyhouse = new Sprite("/Buildings/Generic Exteriors/Shanty_House.png");
-	public static Sprite radardish = new Sprite("/Buildings/Generic Exteriors/Radar_Dish.png");
 	
 	//Unique HippyVille Buildings
 	public static Sprite greattree = new Sprite("/Buildings/Unique_HippyVille_Exteriors/The_Great_Tree.png");
@@ -73,6 +72,7 @@ public class Sprite {
 	public static Sprite techTopia_city_hall = new Sprite("/Buildings/Unique_TechTopia_Exteriors/Tech_Topia_City_Hall.png");
 	public static Sprite weirdTechBuilding1 = new Sprite("/Buildings/Unique_TechTopia_Exteriors/Weird_Tech_Building_1.png");
 	public static Sprite weirdTechBuilding2 = new Sprite("/Buildings/Unique_TechTopia_Exteriors/Weird_Tech_Building_2.png");
+	public static Sprite radardish = new Sprite("/Buildings/Unique_TechTopia_Exteriors/Radar_Dish.png");
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.xSize = size;

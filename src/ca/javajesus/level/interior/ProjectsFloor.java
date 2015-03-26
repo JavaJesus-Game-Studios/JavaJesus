@@ -16,7 +16,7 @@ public class ProjectsFloor extends Interior {
 	private int floor;
 
 	public ProjectsFloor(Point point, Level level, int floor) {
-		super("/Buildings/Generic Interiors/Projects_Floors_1_and_2.png",
+		super("/Buildings/Generic Interiors/Projects_Interiors/Projects_Floors_1_and_2.png",
 				new Point(588, 688), level);
 		this.exitPoint = point;
 		this.floor = floor;
@@ -24,7 +24,7 @@ public class ProjectsFloor extends Interior {
 
 	public ProjectsFloor(Point point, Level level, Entity entity,
 			Spawner spawner, int floor) {
-		super("/Buildings/Generic Interiors/Projects_Floors_1_and_2.png",
+		super("/Buildings/Generic Interiors/Projects_Interiors/Projects_Floors_1_and_2.png",
 				new Point(588, 688), level);
 		this.exitPoint = point;
 		this.entity = entity;

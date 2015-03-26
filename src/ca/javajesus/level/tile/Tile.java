@@ -106,7 +106,7 @@ public abstract class Tile {
 			36, 8, 0, new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA },
 			0xFF027FDF);
 	public static final Tile GLASS_WALL_VERTICAL_LEFT = new BasicSolidTile(37,
-			9, 0, new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA }, 0xFF5A3801);
+			9, 0, new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA }, 0xFF0166f4);
 	public static final Tile GLASS_WALL_VERTICAL_RIGHT = new BasicSolidTile(38,
 			10, 0, new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA }, 0xFF0256CC);
 	public static final Tile GLASS_WALL_CORNER_RIGHT_UP = new BasicSolidTile(
@@ -127,6 +127,9 @@ public abstract class Tile {
 			new int[] { 0xFF1F7901, 0xFF1F4001, 0xFF000000 }, 0xFF1F7A01);
 	public static final Tile Floor_Carpet_3 = new BaseTile(48, 12, 1,
 			new int[] { 0xFF1F7901, 0xFF1F4001, 0xFF000000 }, 0xFF1F7A01);
+	
+	public static final Tile LINOLEUM = new BaseTile(49, 0, 1, new int[] {
+			0xFFf9ffd8, 0xFF000000, 0xFF000000 }, 0xFFFFFFFF);
 
 	protected byte id;
 	protected boolean solid;

@@ -16,14 +16,14 @@ public class ProjectsLobby extends Interior {
 	private Spawner spawner;
 
 	public ProjectsLobby(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Projects_Lobby.png", new Point(588,
+		super("/Buildings/Generic Interiors/Projects_Interiors/Projects_Lobby.png", new Point(588,
 				688), level);
 		this.exitPoint = point;
 	}
 
 	public ProjectsLobby(Point point, Level level, Entity entity,
 			Spawner spawner) {
-		super("/Buildings/Generic Interiors/Projects_Lobby.png",
+		super("/Buildings/Generic Interiors/Projects_Interiors/Projects_Lobby.png",
 				new Point(588, 688), level);
 		this.exitPoint = point;
 		this.entity = entity;

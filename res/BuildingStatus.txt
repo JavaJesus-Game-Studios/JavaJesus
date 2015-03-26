@@ -1,31 +1,30 @@
   N/A	  N/A		Bag End
 PLACED  INTERIOR	Catholic Chapel
 PLACED	INTERIOR	Factory			MULTIPLE FLOORS
-PLACED    N/A		Generic Apartments 1
+PLACED  INTERIOR	Generic Apartments 1
 PLACED  INTERIOR	Generic Castle 1	Interior Incorrect MULTIPLE FLOORS
 PLACED  INTERIOR	Generic Castle Tower	Stairs/Roof not implemented
 PLACED  INTERIOR	Generic Catholic Church	NEEDS CLUTTER
 PLACED  INTERIOR	Generic Cave Entrance
-PLACED    N/A		Generic Hospital
+PLACED  INTERIOR	Generic Hospital
 PLACED  INTERIOR	Generic Hut Exterior	NEEDS CLUTTER
 PLACED  INTERIOR	Generic Nice House	MULTIPLE FLOORS
 PLACED  INTERIOR	Generic Nice House 2	MULTIPLE FLOORS
 PLACED  INTERIOR	Generic Poor House	NEEDS CLUTTER
-PLACED    N/A		Generic Skyscraper
-PLACED    N/A		Gun Store
-PLACED    N/A		Hotel
+PLACED  INTERIOR	Generic Skyscraper
+PLACED  INTERIOR	Gun Store
+PLACED  INTERIOR	Hotel
 PLACED    N/A		Mine Shaft
-PLACED	  N/A		Modern Skyscraper
-PLACED    N/A		Police Building
-PLACED    N/A		Prison
-PLACED INTERIOR		Projects	~~COMPLETED~~
-PLACED    N/A		Radar Dish	COLORS
-PLACED INTERIOR		Ranchero House
-PLACED INTERIOR		Refugee Tent
-PLACED INTERIOR		Russian Orthodox Church
-PLACED INTERIOR		Shanty House
-PLACED    N/A		Tippee
-PLACED INTERIOR		Warehouse		NEEDS CLUTTER
+PLACED	INTERIOR	Modern Skyscraper
+PLACED  INTERIOR	Police Building
+PLACED  INTERIOR	Prison
+PLACED 	INTERIOR	Projects	NEW TOP FLOOR, ADD IN, DON’T CHANGE # OF FLOORS
+PLACED  INTERIOR	Ranchero House
+PLACED  INTERIOR	Refugee Tent
+PLACED  INTERIOR	Russian Orthodox Church
+PLACED  INTERIOR	Shanty House
+PLACED  INTERIOR	Tippee
+PLACED  INTERIOR	Warehouse		NEEDS CLUTTER
 PLACED    N/A		The Great Tree		COLORS
 PLACED    N/A		Tree House		COLORS
 PLACED    N/A		UC Grizzly		COLORS
@@ -33,7 +32,8 @@ PLACED    N/A		Oakwood City Hall	COLORS
 PLACED    N/A		Chinatown House
 PLACED    N/A		Russian Club
 PLACED    N/A		San Cisco City Hall
-PLACED INTERIOR		San Cisco Skyscraper Triangle	LOBBY DONE, MULTIPLE FLOORS
+PLACED 	  WIP		San Cisco Skyscraper Triangle	LOBBY DONE, MULTIPLE FLOORS
+PLACED    N/A		Radar Dish	COLORS
 PLACED    N/A		Triad HQ	
 PLACED    N/A		Jugle HQ			COLORS
 PLACED    N/A		Quaker HQ			COLORS
