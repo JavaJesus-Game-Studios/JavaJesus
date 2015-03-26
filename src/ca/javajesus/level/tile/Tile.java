@@ -123,12 +123,8 @@ public abstract class Tile {
 
 	public static final Tile Floor_Carpet_1 = new BaseTile(46, 10, 1,
 			new int[] { 0xFF1F7901, 0xFF1F4001, 0xFF000000 }, 0xFF1f7a01);
-	public static final Tile Floor_Carpet_2 = new BaseTile(47, 11, 1,
-			new int[] { 0xFF1F7901, 0xFF1F4001, 0xFF000000 }, 0xFF1F7A01);
-	public static final Tile Floor_Carpet_3 = new BaseTile(48, 12, 1,
-			new int[] { 0xFF1F7901, 0xFF1F4001, 0xFF000000 }, 0xFF1F7A01);
 	
-	public static final Tile LINOLEUM = new BaseTile(49, 0, 1, new int[] {
+	public static final Tile LINOLEUM = new BaseTile(47, 0, 1, new int[] {
 			0xFFf9ffd8, 0xFF000000, 0xFF000000 }, 0xFFFFFFFF);
 
 	protected byte id;
