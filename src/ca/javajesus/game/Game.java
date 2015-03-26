@@ -49,7 +49,7 @@ public class Game extends Canvas implements Runnable {
 	public final static int MOB_LIMIT = 300;
 	public boolean running = false; // this is a change
 	
-	public static int hours;
+	public static int hours = 10;
 	public static int minutes;
 
 	/** Creates the JFrame */
@@ -223,7 +223,7 @@ public class Game extends Canvas implements Runnable {
 
 		while (running) {
 			try {
-				if (System.currentTimeMillis() > lastMinute + 10) {
+				if (System.currentTimeMillis() > lastMinute + 1000) {
 					lastMinute = System.currentTimeMillis();
 					minutes++;
 					if (minutes > 60) {
