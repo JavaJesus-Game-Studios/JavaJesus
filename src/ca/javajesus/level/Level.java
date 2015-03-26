@@ -3,7 +3,12 @@ package ca.javajesus.level;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -24,7 +29,7 @@ import ca.javajesus.game.graphics.JJFont;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.tile.Tile;
 
-public abstract class Level {
+public abstract class Level implements java.io.Serializable {
 	protected int[] tiles;
 	public int width;
 	public int height;
@@ -377,5 +382,68 @@ public abstract class Level {
 			otherEntityPlacement();
 		}
 
+	}
+	
+	public static void saveData()
+	{
+	 // Write to disk with FileOutputStream
+	    FileOutputStream f_out;
+        try
+        {
+            f_out = new 
+                FileOutputStream("game.data");
+        
+	    // Write object with ObjectOutputStream
+	    ObjectOutputStream obj_out;
+            obj_out = new
+                ObjectOutputStream (f_out);
+        
+	    // Write object out to disk
+	        obj_out.writeObject (level1);
+	        obj_out.close();
+        } catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+	}
+	
+	public static Level loadData()
+	{
+	 // Read from disk using FileInputStream
+	    FileInputStream f_in;
+        try
+        {
+            f_in = new 
+                FileInputStream("game.data");
+
+	    // Read object using ObjectInputStream
+	    ObjectInputStream obj_in;
+           obj_in = new ObjectInputStream (f_in);
+
+	    // Read an object
+	    Object obj = obj_in.readObject();
+
+	    if (obj instanceof Level)
+	    {
+	        // Cast object to a Vector
+	        Level lev = (Level) obj;
+	        obj_in.close();
+	        // Do something with Level....
+	        return lev;
+	    }
+	    else
+	    {
+	        obj_in.close();
+            return level1;
+	    }
+        }
+	    catch (IOException | ClassNotFoundException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return level1;
 	}
 }

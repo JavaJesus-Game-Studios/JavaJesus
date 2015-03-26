@@ -3,6 +3,8 @@ package ca.javajesus.saves;
 import ca.javajesus.saves.ReadFile;
 import ca.javajesus.saves.WriteFile;
 import ca.javajesus.game.*;
+import ca.javajesus.items.Item;
+
 import java.io.IOException;
 
 public class FileData
@@ -20,31 +22,19 @@ public class FileData
             System.out.println("LOLNOPE");
         }
         
-        WriteFile data = new WriteFile(file_name, true);
-        String gunData;
-        double ammoData;
-        if(Game.player.inventory.guns.size() != 0)
-        {
-            gunData = Game.player.gun.toString();
-            ammoData = Game.player.gun.ammo;
-        }
-        else
-        {
-            gunData = "Revolver";
-            ammoData = 1;
-        }         
+        WriteFile data = new WriteFile(file_name, true);         
         String x = "" + Game.player.getX() + "a" + Game.player.getY() + "b" + 
                 Game.player.getHealth() + "c" + Game.player.stamina + "d" + 
                 Game.player.score + "e" + c.strToBinary(Game.player.getName()) 
-                + "f" + c.strToBinary(gunData) + "g" + ammoData + 
-                "h";
+                + "f"/* + c.strToBinary(gunData) /*Game.player.inventory.guns.get(0).id + "g" + ammoData + 
+                "h"*/;
         data.writeToFile(x);
     }
     }
-    public String data() throws IOException{
+    public String data(String File) throws IOException{
         {
             String x;
-            String file_name = "res/Saves/JavaTest.txt";
+            String file_name = File;
             try{
                 ReadFile file = new ReadFile(file_name);
                 String[] aryLines = file.OpenFile();
@@ -56,5 +46,28 @@ public class FileData
             }
         }  
     }
+    
+    public void saveGuns() throws IOException{
+        {
+            String file_name = "res/Saves/JavaGuns.txt";
+            try{
+                ReadFile file = new ReadFile(file_name);
+                String[] aryLines = file.OpenFile();
+                System.out.println(aryLines[aryLines.length-1]);
+            }
+            catch(IOException e){
+                System.out.println("LOLNOPE");
+            }
+            
+            WriteFile data = new WriteFile(file_name, true); 
+            
+            for(Item e: Game.player.inventory.guns)
+            {
+            String x = "" + e;
+            data.writeToFile(x);
+            }
+            
+        }
+        }
     
 }

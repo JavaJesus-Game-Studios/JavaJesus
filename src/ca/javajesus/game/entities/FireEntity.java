@@ -6,7 +6,7 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
-public class FireEntity extends Entity {
+public class FireEntity extends Entity  {
 
 	private long lastIterationTime;
 	private int delay;

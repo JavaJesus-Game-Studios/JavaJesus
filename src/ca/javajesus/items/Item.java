@@ -1,5 +1,6 @@
 package ca.javajesus.items;
 
+import ca.javajesus.game.graphics.Colors;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.items.Armor.ArmorSet;
@@ -99,15 +100,22 @@ public class Item {
 	public static Item returnItem(String item) {
 		switch (item) {
 		case "Apple":
-			return Item.apple;
+			return new Item("Apple", 0, 2, 5, new int[] {
+		            0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "This is a red fruit!");
 		case "Banana":
-			return Item.banana;
+			return new Item("Banana", 1, 3, 5, new int[] {
+		            0xFF111111, 0xFFFFF600, 0xFF000000 }, "Monkey like.");
 		case "Orange":
-			return Item.orange;
+			return new Item("Orange", 2, 2, 5, new int[] {
+		            0xFF111111, 0xFFFFAE00, 0xFF0CA101 },
+		            "Orange you glad I said banana.");
 		case "Feather":
-			return Item.feather;
+			return new Item("Feather", 3, 4, 5, new int[] {
+		            0xFF111111, 0xFF79B2FF, 0xFF000000 }, "So light.");
 		case "Revolver":
-			return Item.revolver;
+			return new Gun("Revolver", 4, 0, 0, new int[] {
+		            0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Standard Firearm", 0, 0, 6,
+		            10, 20, 50, Ammo.BULLET);
 		case "Laser Revolver":
 			return Item.laserRevolver;
 		case "Shotgun":
@@ -130,9 +138,23 @@ public class Item {
 			return Item.heavenlyShortSword;
 		case "Bazooka":
 			return Item.bazooka;
+		case "Secret":
+		    return new Gun("Secret", 20, 0, 0, new int[] {
+		            0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "??????", 0, 0, 6, 10, 20,
+		            50, Ammo.BLACKHOLE);
+		case "Flamethrower":
+		    return new Gun("Flamethrower", 21, 0, 0,
+		            new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 },
+		            "Please apply cold water to burn", 0, 0, 6, 10, 20, 50,
+		            Ammo.FLAMETHROWER);
 		default:
 			return null;
 		}
+	}
+	
+	public int getID()
+	{
+	    return this.id;
 	}
 
 }

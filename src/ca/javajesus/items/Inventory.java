@@ -82,9 +82,9 @@ public class Inventory {
 	}
 
 	public void removeItem(Item item) {
-		int num = item.id;
+		String ident = item.toString();
 		for (Item e : items) {
-			if (e.id == num) {
+		    if (e.toString().equals(ident)) {
 				if (item.amount > 1) {
 					item.amount--;
 					return;

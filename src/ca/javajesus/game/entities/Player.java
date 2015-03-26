@@ -561,6 +561,23 @@ public class Player extends Mob {
 
 		}
 
+		if (input.v.isPressed()) {
+			ChatHandler.toggle();
+			input.v.toggle(false);
+		}
+
+		// Saving
+		if (input.m.isPressed()) {
+			/*try {
+				Game.saves.save();
+				Game.saves.saveGuns();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}*/
+		    Level.saveData();
+			input.m.toggle(false);
+		}
+
 		// Handles Swinging Animation
 		if (isSwinging) {
 			xTile = sword.swordType;
