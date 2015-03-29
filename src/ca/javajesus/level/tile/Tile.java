@@ -40,7 +40,7 @@ public abstract class Tile {
 	public static final Tile ROAD3 = new BaseTile(9, 2, 2, new int[] {
 			0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 }, 0xFF9b9b9b);
 	public static final Tile MUD = new BaseTile(11, 0, 2, new int[] {
-			0xFF4A2D00, 0xFF000000, 0xFF000000 }, 0xFF372201);
+			0xFF2c1802, 0xFF000000, 0xFF000000 }, 0xFF372201);
 	public static final Tile FARMPLOT1 = new BaseTile(12, 2, 1, new int[] {
 			0xFF0C6600, 0xFF5D3102, 0xFF000000 }, 0xFF1E6A00);
 	public static final Tile FARMPLOT2 = new BaseTile(13, 3, 1, new int[] {
@@ -60,7 +60,7 @@ public abstract class Tile {
 	public static final Tile CAVEFLOOR = new BaseTile(20, 0, 2, new int[] {
 			0xFFAEAEAD, 0xFF000000, 0xFF000000 }, 0xFFC3BEB7);
 	public static final Tile WOODFLOOR = new BaseTile(21, 6, 0, new int[] {
-			0xFF6D4300, 0xFF3E1900, 0xFF000000 }, 0xFF944500);
+			0xFF753003, 0xFF291900, 0xFF000000 }, 0xFF944500);
 	public static final Tile METALWALL = new BasicSolidTile(22, 5, 0,
 			new int[] { 0xFFA6A6A6, 0xFF939393, 0xFF4B3618 }, 0xFFB6B6B6);
 	public static final Tile RIGHTCARPET = new BaseTile(23, 7, 1, new int[] {
@@ -73,34 +73,34 @@ public abstract class Tile {
 			0xFFA40101, 0xFFEBCB00, 0xFF000000 }, 0xFF6600A7);
 
 	public static final Tile WOOD_WALL_HORIZONTAL_UP = new BasicSolidTile(10,
-			7, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B }, 0xFF6D4300);
+			7, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF6D4300);
 	public static final Tile WOOD_WALL_HORIZONTAL_DOWN = new BasicSolidTile(28,
-			8, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B }, 0xFF835100);
+			8, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF835100);
 	public static final Tile WOOD_WALL_VERTICAL_LEFT = new BasicSolidTile(29,
-			9, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B }, 0xFF5A3801);
+			9, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF5A3801);
 	public static final Tile WOOD_WALL_VERTICAL_RIGHT = new BasicSolidTile(30,
-			10, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B }, 0xFF472C00);
+			10, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF472C00);
 	public static final Tile WOOD_WALL_CORNER_RIGHT_UP = new BasicSolidTile(31,
-			11, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B }, 0xFF520101);
+			11, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF520101);
 	public static final Tile WOOD_WALL_CORNER_LEFT_UP = new BasicSolidTile(32,
-			12, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B }, 0xFF420101);
+			12, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF420101);
 	public static final Tile WOOD_WALL_CORNER_RIGHT_DOWN = new BasicSolidTile(
-			33, 14, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B },
+			33, 14, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B },
 			0xFF7A0000);
 	public static final Tile WOOD_WALL_CORNER_LEFT_DOWN = new BasicSolidTile(
-			34, 13, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B },
+			34, 13, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B },
 			0xFF310000);
 	public static final Tile WOOD_WALL_INSIDE_CORNER_LEFT_UP = new BasicSolidTile(
-			43, 15, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B },
+			43, 15, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B },
 			0xFFA3881A);
 	public static final Tile WOOD_WALL_INSIDE_CORNER_RIGHT_UP = new BasicSolidTile(
-			44, 16, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B },
+			44, 16, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B },
 			0xFF7C6816);
 	public static final Tile WOOD_WALL_INSIDE_CORNER_LEFT_DOWN = new BasicSolidTile(
-			45, 17, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B },
+			45, 17, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B },
 			0xFF717C16);
 	public static final Tile WOOD_WALL_INSIDE_CORNER_RIGHT_DOWN = new BasicSolidTile(
-			48, 18, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B },
+			48, 18, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B },
 			0xFF7d8c00);
 
 	public static final Tile GLASS_WALL_HORIZONTAL_UP = new BasicSolidTile(35,
