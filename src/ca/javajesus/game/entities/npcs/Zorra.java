@@ -7,10 +7,10 @@ import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
-public class Ranchero extends NPC {
+public class Zorra extends NPC {
 	
-	public Ranchero(Level level, int x, int y) {
-		super(level, "Lord Hillsborough", x, y, 1, 16, 16, 500, null, 0, 16, "",
+	public Zorra(Level level, int x, int y) {
+		super(level, "Zorra", x, y, 1, 16, 16, 500, null, 10, 5, "",
 				0);
 		this.sheet = SpriteSheet.characters;
 	}
@@ -71,28 +71,28 @@ public class Ranchero extends NPC {
 
 		switch (random.nextInt(13)) {
 		case 0: {
-			ChatHandler.sendMessage(name + ": I'm richer than you.",
+			ChatHandler.sendMessage(name + ": We freed you, now help us!",
 					Color.black);
 			return;
 		}
 		case 1: {
 			ChatHandler.sendMessage(name
-					+ ": Is that any way to dress in my court?", Color.white);
+					+ ": Bautista is terrorizing my people!", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.sendMessage(name + ": I'm Lord Hillsborough.",
+			ChatHandler.sendMessage(name + ": Help me win back my city!",
 					Color.white);
 			return;
 		}
 		case 3: {
-			ChatHandler.sendMessage(name + ": Get out of my sight.",
+			ChatHandler.sendMessage(name + ": Mierda!",
 					Color.white);
 			return;
 		}
 		case 4: {
 			ChatHandler
-					.sendMessage(name + ": I lost my chickens!", Color.white);
+					.sendMessage(name + ": Bautista es un punto!", Color.white);
 			return;
 		}
 		case 5: {
@@ -100,7 +100,7 @@ public class Ranchero extends NPC {
 			return;
 		}
 		case 6: {
-			ChatHandler.sendMessage(name + ": Who goes there!", Color.white);
+			ChatHandler.sendMessage(name + ": Bendejo!", Color.white);
 			return;
 		}
 		case 7: {
@@ -144,11 +144,11 @@ public class Ranchero extends NPC {
 		}
 		case 12: {
 			ChatHandler.sendMessage(name
-					+ ": Hola, mi nombre es Esteban Norteruta!", Color.white);
+					+ ": Hola, mi nombre es Zorra!", Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.sendMessage(name + ": Hello!", Color.white);
+			ChatHandler.sendMessage(name + ": Hola!", Color.white);
 			return;
 		}
 		}

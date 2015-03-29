@@ -31,14 +31,14 @@ public abstract class Tile {
 	public static final Tile SAND = new BaseTile(4, 0, 1, new int[] {
 			0xFFEEBB00, 0xFFFFFF00, 0xFF000000 }, 0xFFFFFF00);
 	public static final Tile ROAD1 = new BaseTile(6, 0, 2, new int[] {
-			0xFF000000, 0xFF000000, 0xFF000000 }, 0xFF565656);
+			0xFF222222, 0xFF353535, 0xFF000000 }, 0xFF565656);
 	public static final Tile ROAD2 = new BaseTile(7, 1, 2, new int[] {
-			0xFF000000, 0xFFBFAD47, 0xFF000000 }, 0xFFE9E400);
+			0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 }, 0xFF3f3f3f);
 	public static final Tile WATERSAND = new AnimatedTile(8, new int[][] {
 			{ 0, 14 }, { 1, 14 }, { 2, 14 }, { 3, 14 }, { 2, 14 }, { 1, 14 } },
 			new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 0xFF64FFFF, 1000);
 	public static final Tile ROAD3 = new BaseTile(9, 2, 2, new int[] {
-			0xFF000000, 0xFFBFAD47, 0xFF000000 }, 0xFFFFE400);
+			0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 }, 0xFF9b9b9b);
 	public static final Tile MUD = new BaseTile(11, 0, 2, new int[] {
 			0xFF4A2D00, 0xFF000000, 0xFF000000 }, 0xFF372201);
 	public static final Tile FARMPLOT1 = new BaseTile(12, 2, 1, new int[] {
@@ -90,15 +90,18 @@ public abstract class Tile {
 	public static final Tile WOOD_WALL_CORNER_LEFT_DOWN = new BasicSolidTile(
 			34, 13, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B },
 			0xFF310000);
-	public static final Tile WOOD_WALL_INSIDE_CORNER_RIGHT_UP = new BasicSolidTile(
+	public static final Tile WOOD_WALL_INSIDE_CORNER_LEFT_UP = new BasicSolidTile(
 			43, 15, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B },
 			0xFFA3881A);
-	public static final Tile WOOD_WALL_INSIDE_CORNER_LEFT_UP = new BasicSolidTile(
+	public static final Tile WOOD_WALL_INSIDE_CORNER_RIGHT_UP = new BasicSolidTile(
 			44, 16, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B },
 			0xFF7C6816);
-	public static final Tile WOOD_WALL_INSIDE_CORNER_RIGHT_DOWN = new BasicSolidTile(
-			45, 16, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B },
+	public static final Tile WOOD_WALL_INSIDE_CORNER_LEFT_DOWN = new BasicSolidTile(
+			45, 17, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B },
 			0xFF717C16);
+	public static final Tile WOOD_WALL_INSIDE_CORNER_RIGHT_DOWN = new BasicSolidTile(
+			48, 18, 0, new int[] { 0xFF693609, 0xFF7C3F0F, 0xFF48260B },
+			0xFF7d8c00);
 
 	public static final Tile GLASS_WALL_HORIZONTAL_UP = new BasicSolidTile(35,
 			7, 0, new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA }, 0xFF016ABA);

@@ -71,43 +71,43 @@ public class Daughter extends NPC {
 
 		switch (random.nextInt(13)) {
 		case 0: {
-			ChatHandler.sendMessage(name + ": I'm richer than you.",
+			ChatHandler.sendMessage(name + ": Hi daddy!",
 					Color.black);
 			return;
 		}
 		case 1: {
 			ChatHandler.sendMessage(name
-					+ ": Is that any way to dress in my court?", Color.white);
+					+ ": I love you daddy!", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.sendMessage(name + ": I'm Lord Hillsborough.",
+			ChatHandler.sendMessage(name + ": Daddy can we watch Chilled?",
 					Color.white);
 			return;
 		}
 		case 3: {
-			ChatHandler.sendMessage(name + ": Get out of my sight.",
+			ChatHandler.sendMessage(name + ": Daddy why is the sky blue?",
 					Color.white);
 			return;
 		}
 		case 4: {
 			ChatHandler
-					.sendMessage(name + ": I lost my chickens!", Color.white);
+					.sendMessage(name + ": Daddy how many stars are there!", Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.sendMessage(name + ": Hello Officer!", Color.white);
+			ChatHandler.sendMessage(name + ": Daddy, Mommy said you're immature, what does that mean?", Color.white);
 			return;
 		}
 		case 6: {
-			ChatHandler.sendMessage(name + ": Who goes there!", Color.white);
+			ChatHandler.sendMessage(name + ": Daddy! He took my dolly!", Color.white);
 			return;
 		}
 		case 7: {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": Have you been to San Cisco? I hear they're having lovely weather.",
+									+ ": I want to see the tall buildings!",
 							Color.white);
 			return;
 		}
@@ -115,7 +115,7 @@ public class Daughter extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": It's you! It really is! All Hail the Hero of the Bay!",
+									+ ": Daddy can we watch the Tiger King?",
 							Color.white);
 			return;
 		}
@@ -123,32 +123,28 @@ public class Daughter extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": I'm not racist but when you're driving in the East Bay,"
-									+ " roll up your windows and lock your doors.",
-							Color.white);
+									+ ": Da da da dum da dum dah duh dum dee doo dum", Color.white);
 			return;
 		}
 		case 10: {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": Have you seen my friend Bob? He's a peasant and he seems to have"
-									+ "literally dissapeared!", Color.white);
+									+ ": Daddy let's go to the park!", Color.white);
 			return;
 		}
 		case 11: {
 			ChatHandler.sendMessage(name
-					+ ": Nasty business it is with those Apes in the North!"
-					+ " Nasty business indeed.", Color.white);
+					+ ": Mommy said we're going on a picnic tomorrow!", Color.white);
 			return;
 		}
 		case 12: {
 			ChatHandler.sendMessage(name
-					+ ": Hola, mi nombre es Esteban Norteruta!", Color.white);
+					+ ": Daddy why is your face so scratchy?", Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.sendMessage(name + ": Hello!", Color.white);
+			ChatHandler.sendMessage(name + ": Bye!", Color.white);
 			return;
 		}
 		}

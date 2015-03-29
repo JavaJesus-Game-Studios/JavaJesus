@@ -7,10 +7,10 @@ import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
-public class CatWoman extends NPC {
+public class Bautista extends NPC {
 	
-	public CatWoman(Level level, int x, int y) {
-		super(level, "CatWoman", x, y, 1, 16, 16, 500, null, 10, 5, "",
+	public Bautista(Level level, int x, int y) {
+		super(level, "Ranchero Bautista", x, y, 1, 16, 16, 500, null, 0, 16, "",
 				0);
 		this.sheet = SpriteSheet.characters;
 	}
@@ -77,11 +77,14 @@ public class CatWoman extends NPC {
 		}
 		case 1: {
 			ChatHandler.sendMessage(name
-					+ ": Is that any way to dress in my court?", Color.white);
+					+ ": Is that any way to dress in my lands?", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.sendMessage(name + ": I'm Lord Hillsborough.",
+			ChatHandler.sendMessage(name + ": I'm Ranchero Bautista, the true inheritor of the peninsula."
+					+ "Until that bendejo Hillsborough and his family stole my land! And now these "
+					+ "pasty 'techies' threaten my borders from the south, and these peasants threaten my"
+					+ " authority from within, these are dark times mi amigo.",
 					Color.white);
 			return;
 		}
@@ -92,22 +95,24 @@ public class CatWoman extends NPC {
 		}
 		case 4: {
 			ChatHandler
-					.sendMessage(name + ": I lost my chickens!", Color.white);
+					.sendMessage(name + ": They are my savages! I have the right to do with "
+							+ "them as I please!", Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.sendMessage(name + ": Hello Officer!", Color.white);
+			ChatHandler.sendMessage(name + ": Hola Officer!", Color.white);
 			return;
 		}
 		case 6: {
-			ChatHandler.sendMessage(name + ": Who goes there!", Color.white);
+			ChatHandler.sendMessage(name + ": Mis cabelleros son bueno a guerro!", Color.white);
 			return;
 		}
 		case 7: {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": Have you been to San Cisco? I hear they're having lovely weather.",
+									+ ": Have you been to San Cisco? It has declined into squalor since "
+									+ "the days of Bautista rule.",
 							Color.white);
 			return;
 		}
@@ -115,7 +120,8 @@ public class CatWoman extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": It's you! It really is! All Hail the Hero of the Bay!",
+									+ ": My fellow ranchero's have even turned against me! I have enemies everywhere "
+									+ "my friend you must help me squash this rebellion and reclaim my own glory!",
 							Color.white);
 			return;
 		}
@@ -123,8 +129,9 @@ public class CatWoman extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": I'm not racist but when you're driving in the East Bay,"
-									+ " roll up your windows and lock your doors.",
+									+ ": I am not torturing the capture rebels, they are my subjects and I am just"
+									+ "however as my subjects they must obey my command, and when they don't"
+									+ " I must take action, and physical torment seems to be most persuasive.",
 							Color.white);
 			return;
 		}
@@ -132,23 +139,24 @@ public class CatWoman extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": Have you seen my friend Bob? He's a peasant and he seems to have"
-									+ "literally dissapeared!", Color.white);
+									+ ": Poor people disgust me, rich people disgust me, the only good thing "
+									+ "in life is women. Haha!", Color.white);
 			return;
 		}
 		case 11: {
 			ChatHandler.sendMessage(name
-					+ ": Nasty business it is with those Apes in the North!"
-					+ " Nasty business indeed.", Color.white);
+					+ ": Those apes have spies everywhere, I know the savages are in league with them,"
+					+ "the apes will help them to steal my land! And don't try to convince me "
+					+ "that thes apes did not influence the rebellion!", Color.white);
 			return;
 		}
 		case 12: {
 			ChatHandler.sendMessage(name
-					+ ": Hola, mi nombre es Esteban Norteruta!", Color.white);
+					+ ": Hola, Esteban Norteruta!", Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.sendMessage(name + ": Hello!", Color.white);
+			ChatHandler.sendMessage(name + ": I must become my own Napoleon!", Color.white);
 			return;
 		}
 		}

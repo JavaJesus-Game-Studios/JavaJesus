@@ -71,43 +71,44 @@ public class Wife extends NPC {
 
 		switch (random.nextInt(13)) {
 		case 0: {
-			ChatHandler.sendMessage(name + ": I'm richer than you.",
+			ChatHandler.sendMessage(name + ": Hi sweety.",
 					Color.black);
 			return;
 		}
 		case 1: {
 			ChatHandler.sendMessage(name
-					+ ": Is that any way to dress in my court?", Color.white);
+					+ ": Did you pick up the kids from Swim Practice?", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.sendMessage(name + ": I'm Lord Hillsborough.",
+			ChatHandler.sendMessage(name + ": You never do anything right.",
 					Color.white);
 			return;
 		}
 		case 3: {
-			ChatHandler.sendMessage(name + ": Get out of my sight.",
+			ChatHandler.sendMessage(name + ": Can you help me raise our kids for once?",
 					Color.white);
 			return;
 		}
 		case 4: {
 			ChatHandler
-					.sendMessage(name + ": I lost my chickens!", Color.white);
+					.sendMessage(name + ": I swear, sometimes I think I should just "
+							+ "take the kids and move in with my parents.", Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.sendMessage(name + ": Hello Officer!", Color.white);
+			ChatHandler.sendMessage(name + ": How was work? You didn't have to shoot anyone did you?", Color.white);
 			return;
 		}
 		case 6: {
-			ChatHandler.sendMessage(name + ": Who goes there!", Color.white);
+			ChatHandler.sendMessage(name + ": I got pulled over today, can you get me out of the ticket?", Color.white);
 			return;
 		}
 		case 7: {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": Have you been to San Cisco? I hear they're having lovely weather.",
+									+ ": You may be a knob, but you're a loveable knob.",
 							Color.white);
 			return;
 		}
@@ -115,7 +116,8 @@ public class Wife extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": It's you! It really is! All Hail the Hero of the Bay!",
+									+ ": The gang problem get's worse here everyday, can you switch departments? I'm afraid"
+									+ "You'll be killed.",
 							Color.white);
 			return;
 		}
@@ -132,19 +134,19 @@ public class Wife extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": Have you seen my friend Bob? He's a peasant and he seems to have"
+									+ ": Have you seen our son? He was playing hide and seek with me and he seems to have"
 									+ "literally dissapeared!", Color.white);
 			return;
 		}
 		case 11: {
 			ChatHandler.sendMessage(name
-					+ ": Nasty business it is with those Apes in the North!"
-					+ " Nasty business indeed.", Color.white);
+					+ ": Don't tell the children about the Apes in the North,"
+					+ " you'll scare them.", Color.white);
 			return;
 		}
 		case 12: {
 			ChatHandler.sendMessage(name
-					+ ": Hola, mi nombre es Esteban Norteruta!", Color.white);
+					+ ": Can you pick up some food on you're way home?", Color.white);
 			return;
 		}
 		default: {

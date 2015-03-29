@@ -12,7 +12,7 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Policeman extends NPC {
-	private static int[] color = { 0xFF000000, 0xFF000046, 0xFFEDC5AB };
+	private static int[] color = { 0xFF111111, 0xFF000046, 0xFFEDC5AB };
 	protected Ellipse2D.Double standRange;
 	protected Mob mob;
 	protected Ellipse2D.Double aggroRadius;

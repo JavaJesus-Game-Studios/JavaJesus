@@ -10,7 +10,7 @@ import ca.javajesus.level.Level;
 public class LordHillsborough extends NPC {
 	
 	public LordHillsborough(Level level, int x, int y) {
-		super(level, "Lord Hillsborough", x, y, 1, 16, 16, 500, null, 0, 1, "",
+		super(level, "Lord Hillsborough", x, y, 1, 16, 18, 500, null, 0, 1, "",
 				0);
 		this.sheet = SpriteSheet.characters;
 	}
@@ -81,7 +81,9 @@ public class LordHillsborough extends NPC {
 			return;
 		}
 		case 2: {
-			ChatHandler.sendMessage(name + ": I'm Lord Hillsborough.",
+			ChatHandler.sendMessage(name + ": I'm Lord Hillsborough, the domain of Hillsborough has been in my family"
+					+ "for generations, when my Great-Grandfather won it in the Mexican American War."
+					+ "Of course, 'ol Bautista will give a different version of the story.",
 					Color.white);
 			return;
 		}
@@ -92,22 +94,25 @@ public class LordHillsborough extends NPC {
 		}
 		case 4: {
 			ChatHandler
-					.sendMessage(name + ": I lost my chickens!", Color.white);
+					.sendMessage(name + ": Uggh you bore me with your trifling!", Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.sendMessage(name + ": Hello Officer!", Color.white);
+			ChatHandler.sendMessage(name + ": Hello, salutations, and welcome to my domain Officer!", Color.white);
 			return;
 		}
 		case 6: {
-			ChatHandler.sendMessage(name + ": Who goes there!", Color.white);
+			ChatHandler.sendMessage(name + ": They may be peasants, but they are my peasants, and I'll be damned"
+					+ "if some bow-legged, red-skinned devil men try to take them from me!", Color.white);
 			return;
 		}
 		case 7: {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": Have you been to San Cisco? I hear they're having lovely weather.",
+									+ ": Oh how I loathe the cities and their lack royalty, how is one to k"
+									+ "now if he is better than everyone else without a title"
+									+ "to prove it?",
 							Color.white);
 			return;
 		}
@@ -115,7 +120,7 @@ public class LordHillsborough extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": It's you! It really is! All Hail the Hero of the Bay!",
+									+ ": Manners maketh man.",
 							Color.white);
 			return;
 		}
@@ -123,8 +128,10 @@ public class LordHillsborough extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": I'm not racist but when you're driving in the East Bay,"
-									+ " roll up your windows and lock your doors.",
+									+ ": I'm am racist so when you're driving in the East Bay,"
+									+ " roll up your windows and lock your doors. To think those"
+									+ "gangsters consider themselves to be on an equal status to me, is "
+									+ "utterly disgusting.",
 							Color.white);
 			return;
 		}
@@ -132,23 +139,32 @@ public class LordHillsborough extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": Have you seen my friend Bob? He's a peasant and he seems to have"
-									+ "literally dissapeared!", Color.white);
+									+ ": The only thing more boring than this conversation is the conversation"
+									+ "I had with the peasant who was missing a sheep last week."
+									+ "You wouldn't think people so poor could be so entitled.", Color.white);
 			return;
 		}
 		case 11: {
 			ChatHandler.sendMessage(name
-					+ ": Nasty business it is with those Apes in the North!"
-					+ " Nasty business indeed.", Color.white);
+					+ ": Pah! Those 'Officers of the law' with their so called 'superior weaponry'"
+					+ " in San Cisco couldn't even stop Zoo animals from "
+					+ "causing havoc and escaping into the forest, my Knights could have "
+					+ "easily put down that rebellion", Color.white);
 			return;
 		}
 		case 12: {
 			ChatHandler.sendMessage(name
-					+ ": Hola, mi nombre es Esteban Norteruta!", Color.white);
+					+ ": Oh how I miss the elder days that father spoke of, let me tell you"
+					+ "their are a few lords I wouldn't miss the chance to duel with. It has been a long"
+					+ "while since I've tested my mettle with a blade, I was once the envy of the land you know,"
+					+ " quite a catch.", Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.sendMessage(name + ": Hello!", Color.white);
+			ChatHandler.sendMessage(name + ": A gentlemen's weapon is the sabre, these 'firearms' that "
+					+ "common rabble use are nothing but a fad, simply a louder and more primitive version of a good"
+					+ "crossbow. To think the Saxons have sunk below the savages whose land we aquirred is "
+					+ "most troubling.", Color.white);
 			return;
 		}
 		}

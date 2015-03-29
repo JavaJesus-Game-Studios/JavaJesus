@@ -7,10 +7,10 @@ import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
-public class Caesar extends NPC {
+public class Octavius extends NPC {
 
-	public Caesar(Level level, int x, int y) {
-		super(level, "Lord Hillsborough", x, y, 1, 16, 16, 500, null, 0, 12, "",
+	public Octavius(Level level, int x, int y) {
+		super(level, "Octavius", x, y, 1, 16, 24, 500, null, 0, 12, "",
 				0);
 		this.sheet = SpriteSheet.characters;
 	}
@@ -71,43 +71,44 @@ public class Caesar extends NPC {
 
 		switch (random.nextInt(13)) {
 		case 0: {
-			ChatHandler.sendMessage(name + ": I'm richer than you.",
+			ChatHandler.sendMessage(name + ": Human must go.",
 					Color.black);
 			return;
 		}
 		case 1: {
 			ChatHandler.sendMessage(name
-					+ ": Is that any way to dress in my court?", Color.white);
+					+ ": Ape together strong, Ape fighting weak.", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.sendMessage(name + ": I'm Lord Hillsborough.",
+			ChatHandler.sendMessage(name + ": Kobe must be punished.",
 					Color.white);
 			return;
 		}
 		case 3: {
-			ChatHandler.sendMessage(name + ": Get out of my sight.",
+			ChatHandler.sendMessage(name + ": Gorilla loyal, Gorilla not abandon Chimp.",
 					Color.white);
 			return;
 		}
 		case 4: {
 			ChatHandler
-					.sendMessage(name + ": I lost my chickens!", Color.white);
+					.sendMessage(name + ": Bonobo bad, Kobe Bonobo. Human worse, human violent"
+							+ "human kill ape.", Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.sendMessage(name + ": Hello Officer!", Color.white);
+			ChatHandler.sendMessage(name + ": You should not, be here!", Color.white);
 			return;
 		}
 		case 6: {
-			ChatHandler.sendMessage(name + ": Who goes there!", Color.white);
+			ChatHandler.sendMessage(name + ": My kingdom, is not, for Humans!", Color.white);
 			return;
 		}
 		case 7: {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": Have you been to San Cisco? I hear they're having lovely weather.",
+									+ ": I love the lights in Human City.",
 							Color.white);
 			return;
 		}
@@ -115,7 +116,7 @@ public class Caesar extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": It's you! It really is! All Hail the Hero of the Bay!",
+									+ ": Ape is family, You ape to, part of Ape family.",
 							Color.white);
 			return;
 		}
@@ -123,8 +124,7 @@ public class Caesar extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": I'm not racist but when you're driving in the East Bay,"
-									+ " roll up your windows and lock your doors.",
+									+ ": Demon help Kobe, Demon kill Ape! Ape hate Demon.",
 							Color.white);
 			return;
 		}
@@ -132,19 +132,18 @@ public class Caesar extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": Have you seen my friend Bob? He's a peasant and he seems to have"
-									+ "literally dissapeared!", Color.white);
+									+ ": My son, no listen to me.", Color.white);
 			return;
 		}
 		case 11: {
 			ChatHandler.sendMessage(name
-					+ ": Nasty business it is with those Apes in the North!"
-					+ " Nasty business indeed.", Color.white);
+					+ ": Human raise me, human hurt me, ape attack human city, ape cross human bridge"
+					+ "ape live in forest.", Color.white);
 			return;
 		}
 		case 12: {
 			ChatHandler.sendMessage(name
-					+ ": Hola, mi nombre es Esteban Norteruta!", Color.white);
+					+ ": This is ape home, go back to human home!", Color.white);
 			return;
 		}
 		default: {

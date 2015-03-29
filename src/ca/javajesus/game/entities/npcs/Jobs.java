@@ -10,7 +10,7 @@ import ca.javajesus.level.Level;
 public class Jobs extends NPC {
 	
 	public Jobs(Level level, int x, int y) {
-		super(level, "Jobs", x, y, 1, 16, 16, 500, null, 10, 0, "",
+		super(level, "Brokovsky", x, y, 1, 16, 16, 500, null, 10, 0, "",
 				0);
 		this.sheet = SpriteSheet.characters;
 	}
@@ -71,17 +71,18 @@ public class Jobs extends NPC {
 
 		switch (random.nextInt(13)) {
 		case 0: {
-			ChatHandler.sendMessage(name + ": I'm richer than you.",
+			ChatHandler.sendMessage(name + ": I'm richer than you. In fact I'm rich than everyone, except"
+					+ " for that bastar William Fence in Washington",
 					Color.black);
 			return;
 		}
 		case 1: {
 			ChatHandler.sendMessage(name
-					+ ": Is that any way to dress in my court?", Color.white);
+					+ ": Is that any way to dress in my city?", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.sendMessage(name + ": I'm Lord Hillsborough.",
+			ChatHandler.sendMessage(name + ": I'm Sascha Brovosky.",
 					Color.white);
 			return;
 		}
@@ -92,11 +93,12 @@ public class Jobs extends NPC {
 		}
 		case 4: {
 			ChatHandler
-					.sendMessage(name + ": I lost my chickens!", Color.white);
+					.sendMessage(name + ": I lost my patents!", Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.sendMessage(name + ": Hello Officer!", Color.white);
+			ChatHandler.sendMessage(name + ": If Jugle thinks they can compete with me in the mobile business"
+					+ " they can go straight to HELL!", Color.white);
 			return;
 		}
 		case 6: {
@@ -144,7 +146,7 @@ public class Jobs extends NPC {
 		}
 		case 12: {
 			ChatHandler.sendMessage(name
-					+ ": Hola, mi nombre es Esteban Norteruta!", Color.white);
+					+ ": Uggh, I see the lower class has found an entrance into our beloved city", Color.white);
 			return;
 		}
 		default: {

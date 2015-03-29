@@ -22,7 +22,7 @@ public class NPC extends Mob {
 			16, 100, new int[] { 0xFF111111, 0xFF7E7E7E, 0xFFFFFFFF }, 0, 2,
 			"linear", 20);
 	public static NPC npc2 = new NPC(Level.level1, "Policeman", 160, 250, 1,
-			16, 16, 100, new int[] { 0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB }, 0,
+			16, 16, 100, new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0,
 			4, "triangle", 20);
 	public static NPC npc3 = new NPC(Level.level1, "Citizen-Female", 200, 400,
 			1, 16, 16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB },
@@ -34,7 +34,7 @@ public class NPC extends Mob {
 			100, new int[] { 0xFF111111, 0xFFFFA800, 0xFFFFFFFF }, 0, 14,
 			"cross", 50);
 	public static NPC npc6 = new NPC(Level.level1, "Tech Warrior", 400, 250, 1,
-			16, 16, 100, new int[] { 0xFF000000, 0xFF42FF00, 0xFFEDC5AB }, 0,
+			16, 16, 100, new int[] { 0xFF111111, 0xFF42FF00, 0xFFEDC5AB }, 0,
 			12, "triangle", 20);
 	public static NPC npc7 = new NPC(Level.level1, "Peasant-Male", 2005, 950,
 			1, 16, 16, 100, new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB },

@@ -10,7 +10,7 @@ import ca.javajesus.level.Level;
 public class CenturyLeSabre extends Vehicle {
 
 	public CenturyLeSabre(Level level, String name, int x, int y) {
-		super(level, name, x, y, 2, 24, 32, SpriteSheet.vehicles, 200);
+		super(level, name, x, y, 2, 24, 15, SpriteSheet.vehicles, 200);
 		getColor();
 		this.setHitBox(new Rectangle(width, height));
 		this.bar = new HealthBar(level, this.x, this.y, this);

@@ -71,43 +71,43 @@ public class Son extends NPC {
 
 		switch (random.nextInt(13)) {
 		case 0: {
-			ChatHandler.sendMessage(name + ": I'm richer than you.",
+			ChatHandler.sendMessage(name + ": Hey dad.",
 					Color.black);
 			return;
 		}
 		case 1: {
 			ChatHandler.sendMessage(name
-					+ ": Is that any way to dress in my court?", Color.white);
+					+ ": Can I see your gun?", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.sendMessage(name + ": I'm Lord Hillsborough.",
+			ChatHandler.sendMessage(name + ": Dady feel how strong I am.",
 					Color.white);
 			return;
 		}
 		case 3: {
-			ChatHandler.sendMessage(name + ": Get out of my sight.",
+			ChatHandler.sendMessage(name + ": Dad let's race!",
 					Color.white);
 			return;
 		}
 		case 4: {
 			ChatHandler
-					.sendMessage(name + ": I lost my chickens!", Color.white);
+					.sendMessage(name + ": Can I play your video games?", Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.sendMessage(name + ": Hello Officer!", Color.white);
+			ChatHandler.sendMessage(name + ": Let's watch Ultraman!", Color.white);
 			return;
 		}
 		case 6: {
-			ChatHandler.sendMessage(name + ": Who goes there!", Color.white);
+			ChatHandler.sendMessage(name + ": Mom won't let me play with water guns.", Color.white);
 			return;
 		}
 		case 7: {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": Have you been to San Cisco? I hear they're having lovely weather.",
+									+ ": Have you shot any bad guys?",
 							Color.white);
 			return;
 		}
@@ -115,7 +115,7 @@ public class Son extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": It's you! It really is! All Hail the Hero of the Bay!",
+									+ ": C'mon let me see your gun.",
 							Color.white);
 			return;
 		}
@@ -123,8 +123,7 @@ public class Son extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": I'm not racist but when you're driving in the East Bay,"
-									+ " roll up your windows and lock your doors.",
+									+ ": Dad make her give me back my Owlman action figure.",
 							Color.white);
 			return;
 		}
@@ -132,19 +131,20 @@ public class Son extends NPC {
 			ChatHandler
 					.sendMessage(
 							name
-									+ ": Have you seen my friend Bob? He's a peasant and he seems to have"
-									+ "literally dissapeared!", Color.white);
+									+ ": Mark said that his friend Don went into the forest up north and saw a Chimpanzee"
+									+ "and then it bit his finger off so now he has a fake finger"
+									+ "but it looks just like a real finger!", Color.white);
 			return;
 		}
 		case 11: {
 			ChatHandler.sendMessage(name
-					+ ": Nasty business it is with those Apes in the North!"
-					+ " Nasty business indeed.", Color.white);
+					+ ": Are there really Chimpanzees in the forest?", Color.white);
 			return;
 		}
 		case 12: {
 			ChatHandler.sendMessage(name
-					+ ": Hola, mi nombre es Esteban Norteruta!", Color.white);
+					+ ": Can we go see Lord Hillsborough's castle, Mark said the Knights let you play with their swords!",
+					Color.white);
 			return;
 		}
 		default: {
