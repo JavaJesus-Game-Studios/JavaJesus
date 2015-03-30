@@ -1,10 +1,14 @@
 package ca.javajesus.game.entities;
 
+import java.io.Serializable;
+
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
-public abstract class Entity implements java.io.Serializable{
+public abstract class Entity implements Serializable {
+
+	protected static final long serialVersionUID = 1L;
 
 	protected SoundHandler sound;
 	protected int x, y;

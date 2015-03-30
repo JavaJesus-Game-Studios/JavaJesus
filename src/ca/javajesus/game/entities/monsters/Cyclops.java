@@ -1,16 +1,23 @@
 package ca.javajesus.game.entities.monsters;
 
+import ca.javajesus.game.Game;
+import ca.javajesus.game.SoundHandler;
+import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Cyclops extends Monster {
-	private static int[] color = { 0xFF111111, 0xFFFFD99C, 0xFFFFFFFF };
+	
+	protected boolean isAttacking = false;
+	private int coolTicks = 0;
 
 	public Cyclops(Level level, int x, int y) {
-		super(level, "Cyclops", x, y, 1, 32, 48, 14, 5000, color);
+		super(level, "Cyclops", x, y, 1, 32, 48, 14, 5000, new int[] {
+				0xFF111111, 0xFFFFD99C, 0xFFFFFFFF });
 		this.bar = new HealthBar(level, x, y, this);
 		level.addEntity(bar);
+		this.strength = 20;
 	}
 
 	public boolean hasCollided(int xa, int ya) {
@@ -44,9 +51,40 @@ public class Cyclops extends Monster {
 
 	public void tick() {
 		super.tick();
+		if (this.aggroRadius.intersects(Game.player.getBounds())
+				&& random.nextInt(400) == 0) {
+			//sound.play(SoundHandler.sound.chimpanzee);
+		}
+
+		if (mob != null && !cooldown
+				&& this.getOuterBounds().intersects(mob.getBounds())) {
+			isAttacking = true;
+			cooldown = true;
+			mob.damage(this.strength);
+		}
+
+		if (isAttacking) {
+			shootTickCount++;
+			if (shootTickCount % 40 == 0) {
+				shootTickCount = 0;
+				isAttacking = false;
+			}
+		}
+
+		if (cooldown) {
+			coolTicks++;
+			if (coolTicks % 100 == 0) {
+				coolTicks = 0;
+				cooldown = false;
+			}
+		}
+
 		int xa = 0;
 		int ya = 0;
-		if (mob != null && !this.getOuterBounds().intersects(mob.getBounds())) {
+
+		if (mob != null && !isAttacking
+				&& this.aggroRadius.intersects(mob.getBounds())
+				&& !this.getOuterBounds().intersects(mob.getBounds())) {
 
 			if (mob.getX() > this.x) {
 				xa++;
@@ -60,12 +98,6 @@ public class Cyclops extends Monster {
 			if (mob.getY() < this.y) {
 				ya--;
 			}
-		}
-
-		if (tickCount % 100 == 0) {
-			cooldown = false;
-		} else {
-			cooldown = true;
 		}
 
 		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
@@ -111,6 +143,10 @@ public class Cyclops extends Monster {
 			flip = 0;
 			xTile = 32;
 			yTile = 18;
+		}
+		
+		if (isAttacking) {
+			yTile += 6;
 		}
 
 		for (int i = 0; i < 6; i++) {

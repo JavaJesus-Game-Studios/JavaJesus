@@ -11,6 +11,7 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Monkey extends Monster {
+	
 	private static int[] color = { 0xFF2A1609, 0xFF391E0C, 0xFFB08162 };
 	private boolean isAttacking = false;
 	private int coolTicks = 0;

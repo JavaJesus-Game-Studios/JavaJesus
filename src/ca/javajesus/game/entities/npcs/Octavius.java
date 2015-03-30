@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.entities.Mob.Direction;
+import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
@@ -13,6 +15,43 @@ public class Octavius extends NPC {
 		super(level, "Octavius", x, y, 1, 16, 24, 500, null, 0, 12, "",
 				0);
 		this.sheet = SpriteSheet.characters;
+	}
+	
+	public void render(Screen screen) {
+		super.render(screen);
+		int xTile = this.xTile;
+		int yTile = this.yTile - 1;
+
+		int walkingAnimationSpeed = 4;
+
+		int flip = (numSteps >> walkingAnimationSpeed) & 1;
+
+		if (getDirection() == Direction.NORTH) {
+			xTile += 10;
+		}
+		if (getDirection() == Direction.SOUTH) {
+			xTile += 2;
+		} else if (isLatitudinal(getDirection())) {
+			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
+			if (getDirection() == Direction.WEST) {
+				flip = 1;
+			} else {
+				flip = 0;
+			}
+		}
+
+		int modifier = 8 * scale;
+		int xOffset = x - modifier;
+		int yOffset = y - 2 * modifier;
+
+		// Upper body 1
+		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+				* sheet.boxes, this.color, flip, scale, sheet);
+
+		// Upper body 2
+		screen.render(xOffset + modifier - (modifier * flip), yOffset,
+				(xTile + 1) + yTile * sheet.boxes, this.color, flip, scale,
+				sheet);
 	}
 
 	public void speak(Player player) {
