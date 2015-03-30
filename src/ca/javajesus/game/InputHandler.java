@@ -16,7 +16,7 @@ import ca.javajesus.game.gui.PausePanelGUI;
 import ca.javajesus.game.gui.ScreenGUI;
 import ca.javajesus.game.gui.inventory.InventoryGUI;
 
-public class InputHandler implements KeyListener, FocusListener, MouseListener, MouseMotionListener {
+public class InputHandler implements KeyListener, FocusListener, MouseListener, MouseMotionListener, java.io.Serializable {
 	
 	public InputHandler(Game game) {
 		game.addKeyListener(this);

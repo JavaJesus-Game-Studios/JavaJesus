@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class SpriteSheet {
+public class SpriteSheet implements java.io.Serializable{
     public String path;
     public int width;
     public int height;

@@ -4,7 +4,7 @@ import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
-public abstract class Entity {
+public abstract class Entity implements java.io.Serializable{
 
 	protected SoundHandler sound;
 	protected int x, y;

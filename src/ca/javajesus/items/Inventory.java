@@ -5,7 +5,7 @@ import java.util.List;
 
 import ca.javajesus.game.entities.Player;
 
-public class Inventory {
+public class Inventory implements java.io.Serializable{
 
 	public List<Item> items = new ArrayList<Item>();
 	public List<Item> guns = new ArrayList<Item>();

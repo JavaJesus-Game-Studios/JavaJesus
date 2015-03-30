@@ -6,7 +6,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class SoundHandler {
+public class SoundHandler implements java.io.Serializable{
 
 	public boolean muted = false;
 

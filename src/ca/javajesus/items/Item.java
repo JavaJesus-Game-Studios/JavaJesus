@@ -6,7 +6,7 @@ import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.items.Armor.ArmorSet;
 import ca.javajesus.items.Gun.Ammo;
 
-public class Item {
+public class Item implements java.io.Serializable{
 
 	public static Item apple = new Item("Apple", 0, 2, 5, new int[] {
 			0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "This is a red fruit!");
