@@ -1,6 +1,7 @@
 package ca.javajesus.game.graphics;
 
 import java.awt.Color;
+import java.util.Random;
 
 import ca.javajesus.game.Game;
 
@@ -17,6 +18,8 @@ public class Screen {
 	/** 0xA indicates it will be used in binary operations, where A = an integer */
 	public static final byte BIT_MIRROR_X = 0x01;
 	public static final byte BIT_MIRROR_Y = 0x02;
+	
+	private Random random = new Random();
 
 	public int[] pixels;
 	public int[] colors = new int[MAP_WIDTH * MAP_WIDTH];
@@ -181,5 +184,66 @@ public class Screen {
 				+ rgb2[1] * ir, rgb1[2] * r + rgb2[2] * ir);
 
 		return color.getRGB();
+	}
+	
+	/** Blends the pixels of Tiles */
+	public void renderBlended(int xOffset, int yOffset, int tile, int[] color,
+			int mirrorDir, int scale, SpriteSheet sheet) {
+
+		xOffset -= this.xOffset;
+		yOffset -= this.yOffset;
+
+		boolean mirrorX = (mirrorDir & BIT_MIRROR_X) > 0;
+		boolean mirrorY = (mirrorDir & BIT_MIRROR_Y) > 0;
+
+		int scaleMap = scale - 1;
+		int xTile = tile % sheet.boxes;
+		int yTile = tile / sheet.boxes;
+		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.width;
+		for (int y = 0; y < 8; y++) {
+			int ySheet = y;
+			if (mirrorY)
+				ySheet = 7 - y;
+			int yPixel = y + yOffset + (y * scaleMap) - ((scaleMap << 3) / 2);
+			for (int x = 0; x < 8; x++) {
+				int xPixel = x + xOffset + (x * scaleMap)
+						- ((scaleMap << 3) / 2);
+				int xSheet = x;
+				if (mirrorX)
+					xSheet = 7 - x;
+				int col = sheet.pixels[tileOffset + xSheet + ySheet
+						* sheet.width];
+				if (color != null)
+					switch (col) {
+					case 0xFF555555: {
+						col = color[0];
+						break;
+					}
+					case 0xFFAAAAAA: {
+						col = color[1];
+						break;
+					}
+					case 0xFFFFFFFF: {
+						col = color[2];
+						break;
+					}
+					}
+				//col += random.nextInt(100) - 50;
+				if (col != 0xFF000000)
+					for (int yScale = 0; yScale < scale; yScale++) {
+						if (yPixel + yScale < 0 || yPixel + yScale >= height)
+							continue;
+						for (int xScale = 0; xScale < scale; xScale++) {
+							if (xPixel + xScale < 0 || xPixel + xScale >= width)
+								continue;
+							pixels[(xPixel + xScale) + (yPixel + yScale)
+									* width] = (shader > 0) ? blend(col,
+									shader, 0.5) : col;
+
+						}
+					}
+
+			}
+		}
 	}
 }

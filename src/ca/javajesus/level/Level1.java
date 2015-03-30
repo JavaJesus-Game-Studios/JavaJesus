@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import ca.javajesus.game.entities.FireEntity;
 import ca.javajesus.game.entities.monsters.Cyclops;
 import ca.javajesus.game.entities.monsters.Monster;
-import ca.javajesus.game.entities.npcs.Octavius;
-import ca.javajesus.game.entities.npcs.Zorra;
+import ca.javajesus.game.entities.npcs.Bautista;
 import ca.javajesus.game.entities.npcs.Daughter;
 import ca.javajesus.game.entities.npcs.Jobs;
 import ca.javajesus.game.entities.npcs.Kobe;
 import ca.javajesus.game.entities.npcs.LordHillsborough;
 import ca.javajesus.game.entities.npcs.NPC;
+import ca.javajesus.game.entities.npcs.Octavius;
 import ca.javajesus.game.entities.npcs.Policeman;
-import ca.javajesus.game.entities.npcs.Bautista;
 import ca.javajesus.game.entities.npcs.Son;
 import ca.javajesus.game.entities.npcs.Wife;
+import ca.javajesus.game.entities.npcs.Zorra;
 import ca.javajesus.game.entities.particles.Pickup;
 import ca.javajesus.game.entities.structures.ApartmentHighRise;
 import ca.javajesus.game.entities.structures.Cafe;
@@ -66,6 +66,7 @@ import ca.javajesus.game.entities.structures.Warehouse;
 import ca.javajesus.game.entities.structures.WeirdTechBuilding1;
 import ca.javajesus.game.entities.structures.WeirdTechBuilding2;
 import ca.javajesus.game.entities.structures.furniture.Chest;
+import ca.javajesus.game.entities.structures.trees.Forest;
 import ca.javajesus.game.entities.vehicles.Boat;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.items.Item;
@@ -125,6 +126,8 @@ public class Level1 extends Level {
 
 	@Override
 	public void otherEntityPlacement() {
+		
+		this.addEntity(new Forest(this, 0, 500, 500, 500));
 		
 		this.addEntity(Vehicle.vehicle1);
 		this.addEntity(new Boat(this, null, 357, 532, 2, 100));
