@@ -18,6 +18,6 @@ public class TechTopiaCityHall extends SolidEntity {
 	}
 
 	public void render(Screen screen) {
-		screen.render((int) x, (int) y, new int[] { 0xFF283A28, 0xFF1F5C1F, 0xFF000000 }, Sprite.techTopia_city_hall);
+		screen.render((int) x, (int) y, new int[] { 0xFF283A28, 0xFF1F5C1F, 0xFFABD3FF }, Sprite.techTopia_city_hall);
 	}
 }
