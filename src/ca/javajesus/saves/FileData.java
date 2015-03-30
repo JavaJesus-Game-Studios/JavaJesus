@@ -3,7 +3,7 @@ package ca.javajesus.saves;
 import ca.javajesus.saves.ReadFile;
 import ca.javajesus.saves.WriteFile;
 import ca.javajesus.game.*;
-import ca.javajesus.items.Item;
+import ca.javajesus.items.*;
 
 import java.io.IOException;
 
@@ -21,13 +21,17 @@ public class FileData
         catch(IOException e){
             System.out.println("LOLNOPE");
         }
+        Gun g = (Gun)Game.player.inventory.guns.get(0);
+        String gunData = g.toString();
+        double ammoData = g.ammo;
         
         WriteFile data = new WriteFile(file_name, true);         
         String x = "" + Game.player.getX() + "a" + Game.player.getY() + "b" + 
                 Game.player.getHealth() + "c" + Game.player.stamina + "d" + 
                 Game.player.score + "e" + c.strToBinary(Game.player.getName()) 
-                + "f"/* + c.strToBinary(gunData) /*Game.player.inventory.guns.get(0).id + "g" + ammoData + 
-                "h"*/;
+                + "f" + c.strToBinary(gunData) + "g"/*Game.player.inventory.guns.get(0).id + "g"*/ + ammoData + 
+                "h";
+        
         data.writeToFile(x);
     }
     }

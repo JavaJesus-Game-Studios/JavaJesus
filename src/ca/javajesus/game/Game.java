@@ -162,7 +162,7 @@ public class Game extends Canvas implements Runnable {
 		try {
 			x = saves.data("res/Saves/JavaTest.txt");
 			if (Launcher.load == true) {
-				/*Convert con = new Convert();
+				Convert con = new Convert();
 				int xPos = Integer.parseInt(x.substring(0, x.indexOf("a")));
 				int yPos = Integer.parseInt(x.substring(x.indexOf("a") + 1,
 						x.indexOf("b")));
@@ -174,12 +174,24 @@ public class Game extends Canvas implements Runnable {
 				player.score = Integer.parseInt(x.substring(x.indexOf("d") + 1,
 						x.indexOf("e")));
 				player.setName(con.binaryToString(x.substring(x.indexOf("e") +
-				        1, x.indexOf("f"))));*/
+				        1, x.indexOf("f"))));
+				
+				String loadGun = con.binaryToString(x.substring(x.indexOf("f")+1
+                        , x.indexOf("g")));
+                double loadAmmo = Double.parseDouble(x.substring(x.indexOf("g")+1,
+                        x.indexOf("h")));
+                if(loadGun.length() > 0)
+                {
+                //player.gun = (Gun) Item.returnItem(loadGun);
+                player.inventory.equip(Item.returnItem(loadGun), player);
+                player.gun.ammo = loadAmmo;
+                }
+
 			    
 			 // Read from disk using FileInputStream
 				
-			    player = new Player(Level.loadData(), Level.loadData().spawnPoint.x,
-                        Level.loadData().spawnPoint.y, input);
+//			    player = new Player(Level.loadData(), Level.loadData().spawnPoint.x,
+//                        Level.loadData().spawnPoint.y, input);
 
 			} else {
 				player = new Player(getLevel(), getLevel().spawnPoint.x,
