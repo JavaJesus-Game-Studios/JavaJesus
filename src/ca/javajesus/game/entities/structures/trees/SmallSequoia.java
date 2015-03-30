@@ -5,7 +5,7 @@ import ca.javajesus.level.Level;
 public class SmallSequoia extends Tree {
 
 	public SmallSequoia(Level level, int x, int y) {
-		super(level, x, y, 0, Tree.SMALL_SEQUOIA);
+		super(level, x, y, 32, Tree.SMALL_SEQUOIA);
 	}
 
 }
