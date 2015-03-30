@@ -175,7 +175,7 @@ public class Game extends Canvas implements Runnable {
 						x.indexOf("e")));
 				player.setName(con.binaryToString(x.substring(x.indexOf("e") +
 				        1, x.indexOf("f"))));
-				
+				/*
 				String loadGun = con.binaryToString(x.substring(x.indexOf("f")+1
                         , x.indexOf("g")));
                 double loadAmmo = Double.parseDouble(x.substring(x.indexOf("g")+1,
@@ -186,8 +186,13 @@ public class Game extends Canvas implements Runnable {
                 player.inventory.equip(Item.returnItem(loadGun), player);
                 player.gun.ammo = loadAmmo;
                 }
-
-			    
+                */
+				player.inventory.guns = saves.loadGuns();
+				player.inventory.items = saves.loadItems();
+				player.inventory.swords = saves.loadSwords();
+				player.inventory.usables = saves.loadUsables();
+				player.inventory.misc = saves.loadMisc();
+                
 			 // Read from disk using FileInputStream
 				
 //			    player = new Player(Level.loadData(), Level.loadData().spawnPoint.x,

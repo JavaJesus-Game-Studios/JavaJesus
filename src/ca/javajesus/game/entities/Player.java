@@ -266,6 +266,11 @@ public class Player extends Mob {
 		if (input.m.isPressed()) {
 			try {
 				Game.saves.save();
+				Game.saves.saveGuns();
+				Game.saves.saveItems();
+                Game.saves.saveSwords();
+                Game.saves.saveUsables();
+                Game.saves.saveMisc();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

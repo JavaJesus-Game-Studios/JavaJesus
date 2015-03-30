@@ -6,6 +6,8 @@ import ca.javajesus.game.*;
 import ca.javajesus.items.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileData
 {
@@ -16,7 +18,6 @@ public class FileData
         try{
             ReadFile file = new ReadFile(file_name);
             String[] aryLines = file.OpenFile();
-            System.out.println(aryLines[aryLines.length-1]);
         }
         catch(IOException e){
             System.out.println("LOLNOPE");
@@ -57,7 +58,6 @@ public class FileData
             try{
                 ReadFile file = new ReadFile(file_name);
                 String[] aryLines = file.OpenFile();
-                System.out.println(aryLines[aryLines.length-1]);
             }
             catch(IOException e){
                 System.out.println("LOLNOPE");
@@ -74,4 +74,191 @@ public class FileData
         }
         }
     
+    public List<Item> loadGuns()
+    {
+        String x;
+        ArrayList<Item> returnGuns = new ArrayList<Item>();
+        try{
+            ReadFile file = new ReadFile("res/Saves/JavaGuns.txt");
+            String[] aryLines = file.OpenFile();
+            for(int i = 0; i < aryLines.length; i++)
+            {
+                x = aryLines[i];
+                Gun g = (Gun)Item.returnItem(x);
+                returnGuns.add(g);
+            }
+            return returnGuns;
+        }
+        catch(IOException e){
+            return null;
+        }
+    }
+    
+    public void saveItems() throws IOException{
+        {
+            String file_name = "res/Saves/JavaItems.txt";
+            try{
+                ReadFile file = new ReadFile(file_name);
+                String[] aryLines = file.OpenFile();
+            }
+            catch(IOException e){
+                System.out.println("LOLNOPE");
+            }
+            
+            WriteFile data = new WriteFile(file_name, true); 
+            
+            for(Item e: Game.player.inventory.items)
+            {
+            String x = "" + e;
+            data.writeToFile(x);
+            }
+            
+        }
+        }
+    
+    public List<Item> loadItems()
+    {
+        String x;
+        ArrayList<Item> returnGuns = new ArrayList<Item>();
+        try{
+            ReadFile file = new ReadFile("res/Saves/JavaItems.txt");
+            String[] aryLines = file.OpenFile();
+            for(int i = 0; i < aryLines.length; i++)
+            {
+                x = aryLines[i];
+                Item g = Item.returnItem(x);
+                returnGuns.add(g);
+            }
+            return returnGuns;
+        }
+        catch(IOException e){
+            return null;
+        }
+    }
+    
+    public void saveSwords() throws IOException{
+        {
+            String file_name = "res/Saves/JavaSwords.txt";
+            try{
+                ReadFile file = new ReadFile(file_name);
+                String[] aryLines = file.OpenFile();
+            }
+            catch(IOException e){
+                System.out.println("LOLNOPE");
+            }
+            
+            WriteFile data = new WriteFile(file_name, true); 
+            
+            for(Item e: Game.player.inventory.swords)
+            {
+            String x = "" + e;
+            data.writeToFile(x);
+            }
+            
+        }
+        }
+    
+    public List<Item> loadSwords()
+    {
+        String x;
+        ArrayList<Item> returnGuns = new ArrayList<Item>();
+        try{
+            ReadFile file = new ReadFile("res/Saves/JavaSwords.txt");
+            String[] aryLines = file.OpenFile();
+            for(int i = 0; i < aryLines.length; i++)
+            {
+                x = aryLines[i];
+                Sword g = (Sword)Item.returnItem(x);
+                returnGuns.add(g);
+            }
+            return returnGuns;
+        }
+        catch(IOException e){
+            return null;
+        }
+    }
+    
+    public void saveUsables() throws IOException{
+        {
+            String file_name = "res/Saves/JavaUsables.txt";
+            try{
+                ReadFile file = new ReadFile(file_name);
+                String[] aryLines = file.OpenFile();
+            }
+            catch(IOException e){
+                System.out.println("LOLNOPE");
+            }
+            
+            WriteFile data = new WriteFile(file_name, true); 
+            
+            for(Item e: Game.player.inventory.usables)
+            {
+            String x = "" + e;
+            data.writeToFile(x);
+            }
+            
+        }
+        }
+    
+    public List<Item> loadUsables()
+    {
+        String x;
+        ArrayList<Item> returnGuns = new ArrayList<Item>();
+        try{
+            ReadFile file = new ReadFile("res/Saves/JavaUsables.txt");
+            String[] aryLines = file.OpenFile();
+            for(int i = 0; i < aryLines.length; i++)
+            {
+                x = aryLines[i];
+                Item g = Item.returnItem(x);
+                returnGuns.add(g);
+            }
+            return returnGuns;
+        }
+        catch(IOException e){
+            return null;
+        }
+    }
+    
+    public void saveMisc() throws IOException{
+        {
+            String file_name = "res/Saves/JavaMisc.txt";
+            try{
+                ReadFile file = new ReadFile(file_name);
+                String[] aryLines = file.OpenFile();
+            }
+            catch(IOException e){
+                System.out.println("LOLNOPE");
+            }
+            
+            WriteFile data = new WriteFile(file_name, true); 
+            
+            for(Item e: Game.player.inventory.misc)
+            {
+            String x = "" + e;
+            data.writeToFile(x);
+            }
+            
+        }
+        }
+    
+    public List<Item> loadMisc()
+    {
+        String x;
+        ArrayList<Item> returnGuns = new ArrayList<Item>();
+        try{
+            ReadFile file = new ReadFile("res/Saves/JavaMisc.txt");
+            String[] aryLines = file.OpenFile();
+            for(int i = 0; i < aryLines.length; i++)
+            {
+                x = aryLines[i];
+                Item g = Item.returnItem(x);
+                returnGuns.add(g);
+            }
+            return returnGuns;
+        }
+        catch(IOException e){
+            return null;
+        }
+    }
 }
