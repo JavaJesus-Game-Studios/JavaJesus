@@ -119,7 +119,7 @@ public class Level1 extends Level {
 	@Override
 	public void initChestPlacement() {
 		ArrayList<Item> chest1 = new ArrayList<Item>();
-		chest1.add(Item.bazooka);
+		chest1.add(Item.shotgun);
 		this.addEntity(new Chest(this, 100, 200, chest1));
 
 	}

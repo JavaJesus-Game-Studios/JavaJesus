@@ -27,7 +27,7 @@ public class Gun extends Item {
 	private Ammo type;
 
 	public enum Ammo {
-		BULLET, ARROW, FIREBALL, LASER, MISSILE, BLACKHOLE, FLAMETHROWER
+		BULLET, ARROW, FIREBALL, LASER, MISSILE, BLACKHOLE, FLAMETHROWER, SHELL;
 	}
 
 	public Gun(String name, int id, int xTile, int yTile, int[] color,
@@ -102,6 +102,12 @@ public class Gun extends Item {
 			    level.addEntity(new FireBall(level, x, y, dir, player));
 			    level.addEntity(new FireBall(level, x, y, dir, player));
                 break;
+			case SHELL:
+				level.addEntity(new Bullet(level, x, y, dir, player, damage));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage));
+				break;
 			}
 			ammo--;
 			canFire = false;

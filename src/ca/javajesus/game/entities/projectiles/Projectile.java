@@ -1,6 +1,7 @@
 package ca.javajesus.game.entities.projectiles;
 
 import java.awt.Rectangle;
+import java.util.Random;
 
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
@@ -77,25 +78,25 @@ public class Projectile extends Entity {
 	}
 
 	private void calcSimpleDirection(int direction) {
-
+		Random rand = new Random();
 		switch (direction) {
 		case 0:
-			xPoint = 0;
+			xPoint = (rand.nextDouble() - rand.nextDouble()) / 10;
 			yPoint = -1;
 			yOffset++;
 			break;
 		case 1:
-			xPoint = 0;
+			xPoint = (rand.nextDouble() - rand.nextDouble()) / 10;
 			yPoint = 1;
 			yOffset++;
 			break;
 		case 2:
 			xPoint = -1;
-			yPoint = 0;
+			yPoint = (rand.nextDouble() - rand.nextDouble()) / 10;
 			break;
 		case 3:
 			xPoint = 1;
-			yPoint = 0;
+			yPoint = (rand.nextDouble() - rand.nextDouble()) / 10;
 			break;
 		default:
 			xPoint = 0;
