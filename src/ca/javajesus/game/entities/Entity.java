@@ -1,8 +1,8 @@
 package ca.javajesus.game.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.SoundHandler;
@@ -17,7 +17,7 @@ public abstract class Entity implements Serializable {
 	protected int x, y;
 	protected Level level;
 	protected JavaRectangle bounds;
-	public List<JavaRectangle> returnObjects = new ArrayList<JavaRectangle>();
+	public List<JavaRectangle> returnObjects = new CopyOnWriteArrayList<JavaRectangle>();
 
 	public Entity(Level level) {
 		init(level);

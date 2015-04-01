@@ -70,7 +70,13 @@ public class Mob extends Entity {
 		this.startHealth = defaultHealth;
 		this.setHitBox(new JavaRectangle(width, height, this));
 		this.setOuterBounds(new Rectangle(width + 4, height + 4));
+		this.getBounds().setLocation(this.x - (this.width / 2),
+				this.y - (this.height / 2));
+		this.getOuterBounds().setLocation(
+				this.x - (int) getBounds().getWidth() / 2 - 2,
+				this.y - (int) getBounds().getHeight() / 2 - 2);
 		this.sheet = sheet;
+		Game.quad.retrieve(returnObjects, this.bounds);
 	}
 
 	public enum Direction {

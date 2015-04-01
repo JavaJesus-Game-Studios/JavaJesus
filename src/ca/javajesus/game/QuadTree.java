@@ -6,9 +6,9 @@ import java.util.List;
 public class QuadTree {
 
 	// Max number of objects in a Node
-	private int MAX_OBJECTS = 20;
+	private int MAX_OBJECTS = 60;
 	// Max number of subnodes
-	private int MAX_LEVELS = 10;
+	private int MAX_LEVELS = 100;
 	// Current Node
 	private int level;
 	// List of objects in the Node

@@ -15,6 +15,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
 
+import ca.javajesus.game.Game;
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.FireEntity;
@@ -206,7 +208,9 @@ public abstract class Level implements java.io.Serializable {
 	}
 
 	public void tick() {
-		for (Entity e : getEntities()) {
+		
+		for (JavaRectangle r: Game.player.returnObjects) {
+			Entity e = r.getEntity();
 			if (e instanceof Mob) {
 				if (!((Mob) e).isDead())
 					e.tick();
@@ -243,7 +247,9 @@ public abstract class Level implements java.io.Serializable {
 	}
 
 	public void renderEntities(Screen screen) {
-		for (Entity entity : getEntities()) {
+		
+		for (JavaRectangle r: Game.player.returnObjects) {
+			Entity entity = r.getEntity();
 			if (entity instanceof Projectile) {
 				Projectile p = (Projectile) entity;
 				if (!p.renderOnTop) {
@@ -259,13 +265,15 @@ public abstract class Level implements java.io.Serializable {
 				}
 			}
 		}
-		for (Entity e : getEntities()) {
+		for (JavaRectangle r: Game.player.returnObjects) {
+			Entity e = r.getEntity();
 			if (!(e instanceof Mob || e instanceof HealthBar || e instanceof Projectile)) {
 				e.render(screen);
 
 			}
 		}
-		for (Entity entity : getEntities()) {
+		for (JavaRectangle r: Game.player.returnObjects) {
+			Entity entity = r.getEntity();
 			if (entity instanceof Projectile) {
 				Projectile p = (Projectile) entity;
 				if (p.renderOnTop) {

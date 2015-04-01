@@ -160,7 +160,7 @@ public class Game extends Canvas implements Runnable {
 	/** Initializes the image on the screen */
 	public void init() {
 
-		quad = new QuadTree(0, new JavaRectangle(0, 0, WIDTH, HEIGHT));
+		quad = new QuadTree(0, new JavaRectangle(0, 0, getLevel().width, getLevel().height));
 		screen = new Screen(WIDTH, HEIGHT, this);
 		String x;
 		try {
@@ -333,6 +333,8 @@ public class Game extends Canvas implements Runnable {
 
 	/** Renders the screen */
 	protected void render() {
+		
+		quad.retrieve(player.returnObjects, player.getBounds());
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
