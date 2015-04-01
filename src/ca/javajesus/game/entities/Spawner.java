@@ -3,6 +3,7 @@ package ca.javajesus.game.entities;
 import java.util.Random;
 
 import ca.javajesus.game.Game;
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.monsters.GangMember;
 import ca.javajesus.game.entities.particles.HealthPack;
@@ -23,6 +24,7 @@ public class Spawner extends Entity {
 		this.y = y;
 		this.type = type;
 		amount = -1;
+		this.bounds = new JavaRectangle(0, 0, this);
 	}
 
 	public Spawner(Level level, int x, int y, String type, int amount) {

@@ -1,7 +1,6 @@
 package ca.javajesus.game.entities.vehicles;
 
-import java.awt.Rectangle;
-
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
@@ -12,7 +11,7 @@ public class CenturyLeSabre extends Vehicle {
 	public CenturyLeSabre(Level level, String name, int x, int y) {
 		super(level, name, x, y, 2, 24, 15, SpriteSheet.vehicles, 200);
 		getColor();
-		this.setHitBox(new Rectangle(width, height));
+		this.setHitBox(new JavaRectangle(width, height, this));
 		this.bar = new HealthBar(level, this.x, this.y, this);
 		if (level != null)
 			level.addEntity(bar);
@@ -66,6 +65,7 @@ public class CenturyLeSabre extends Vehicle {
 	}
 
 	public void render(Screen screen) {
+		super.render(screen);
 		int modifier = 8 * scale;
 		int xOffset = 0;
 		int yOffset = 0;

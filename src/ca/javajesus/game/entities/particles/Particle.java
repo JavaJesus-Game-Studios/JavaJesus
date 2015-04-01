@@ -2,6 +2,7 @@ package ca.javajesus.game.entities.particles;
 
 import java.util.Random;
 
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
@@ -23,6 +24,7 @@ public class Particle extends Entity {
 		this.color = color;
 		this.x = x;
 		this.y = y;
+		this.bounds = new JavaRectangle(0, 0, this);
 	}
 
 	public void tick() {

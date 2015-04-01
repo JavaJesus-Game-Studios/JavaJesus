@@ -196,7 +196,8 @@ public class Vehicle extends Mob {
 	}
 
 	public void render(Screen screen) {
-
+		returnObjects.clear();
+		Game.quad.retrieve(returnObjects, this.bounds);
 	}
 
 }

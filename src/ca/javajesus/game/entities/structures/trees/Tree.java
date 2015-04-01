@@ -2,6 +2,7 @@ package ca.javajesus.game.entities.structures.trees;
 
 import java.awt.Rectangle;
 
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.Sprite;
@@ -22,7 +23,7 @@ public class Tree extends SolidEntity {
 		this.sprite = sprite;
 		this.shadow = new Rectangle(width, (height - 9));
 		this.shadow.setLocation(x + 1, y);
-		this.bounds = new Rectangle(4, 9);
+		this.bounds = new JavaRectangle(4, 9, this);
 		this.bounds.setLocation(x + 5, y + shadow.height);
 	}
 	

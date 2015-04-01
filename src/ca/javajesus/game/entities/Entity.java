@@ -1,7 +1,10 @@
 package ca.javajesus.game.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
@@ -13,7 +16,8 @@ public abstract class Entity implements Serializable {
 	protected SoundHandler sound;
 	protected int x, y;
 	protected Level level;
-	protected boolean isSolid;
+	protected JavaRectangle bounds;
+	public List<JavaRectangle> returnObjects = new ArrayList<JavaRectangle>();
 
 	public Entity(Level level) {
 		init(level);
@@ -42,6 +46,14 @@ public abstract class Entity implements Serializable {
 
 	public final void init(Level level) {
 		this.level = level;
+	}
+	
+	public JavaRectangle getBounds() {
+		return bounds;
+	}
+
+	public void setHitBox(JavaRectangle bounds) {
+		this.bounds = bounds;
 	}
 
 	public abstract void tick();

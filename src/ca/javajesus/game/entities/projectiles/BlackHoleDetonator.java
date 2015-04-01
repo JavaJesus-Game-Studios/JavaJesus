@@ -39,21 +39,21 @@ public class BlackHoleDetonator extends Projectile {
 		this.y += speed * yPoint;
 		this.x += speed * xPoint;
 
-		hitBox.setLocation((int) this.x - (this.width / 2), (int) this.y
+		bounds.setLocation((int) this.x - (this.width / 2), (int) this.y
 				- (this.height / 2));
 		for (Entity entity : level.getEntities()) {
 			if (entity instanceof SolidEntity) {
-				if (hitBox.intersects(((SolidEntity) entity).bounds)) {
+				if (bounds.intersects(((SolidEntity) entity).getBounds())) {
 					level.remEntity(this);
 					level.addEntity(new BlackHole(level, x, y - 8));
 					return;
-				} else if (hitBox.intersects(((SolidEntity) entity).shadow)) {
+				} else if (bounds.intersects(((SolidEntity) entity).shadow)) {
 					renderOnTop = false;
 				}
 			}
 			if (entity instanceof Mob) {
 				Mob mobs = (Mob) entity;
-				if (hitBox.intersects(mobs.getBounds())) {
+				if (bounds.intersects(mobs.getBounds())) {
 					if (mobs != mob) {
 						if (mobs instanceof Vehicle) {
 							mobs.damage((int) damage, (int) damage + 4);

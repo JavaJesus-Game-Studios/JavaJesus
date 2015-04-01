@@ -1,7 +1,6 @@
 package ca.javajesus.game.entities;
 
-import java.awt.Rectangle;
-
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -13,7 +12,6 @@ public class FireEntity extends Entity  {
 	private int xTile;
 	private int yTile = 15;
 	private int[] color = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
-	private final Rectangle hitBox = new Rectangle(8, 8);
 
 	public FireEntity(Level level, int x, int y) {
 		super(level);
@@ -21,11 +19,8 @@ public class FireEntity extends Entity  {
 		this.y = y;
 		this.lastIterationTime = System.currentTimeMillis();
 		this.delay = 100;
-		this.hitBox.setLocation(x, y);
-	}
-
-	public Rectangle getBounds() {
-		return hitBox;
+		this.bounds = new JavaRectangle(8, 8, this);
+		this.bounds.setLocation(x, y);
 	}
 
 	public void tick() {

@@ -93,7 +93,7 @@ public class Centaur extends Monster {
 	public void render(Screen screen) {
 		super.render(screen);
 		int modifier = 8 * scale;
-		int xOffset = 0;
+		int xOffset = (x - modifier - modifier / 2);
 		int yOffset = (y - modifier - modifier / 2);
 		if (!isDead)
 			if (isLongitudinal(getDirection())) {

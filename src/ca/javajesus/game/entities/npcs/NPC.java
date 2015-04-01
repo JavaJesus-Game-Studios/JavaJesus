@@ -1,12 +1,12 @@
 package ca.javajesus.game.entities.npcs;
 
 import java.awt.Color;
-import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Random;
 
 import ca.javajesus.game.ChatHandler;
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.particles.HealthBar;
@@ -90,7 +90,7 @@ public class NPC extends Mob {
 		this.walkDistance = walkDistance;
 		this.xPos = x;
 		this.yPos = y;
-		this.setHitBox(new Rectangle(width, height));
+		this.setHitBox(new JavaRectangle(width, height, this));
 		this.bar = new HealthBar(level, this.x, this.y, this);
 		if (level != null)
 			level.addEntity(bar);

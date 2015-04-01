@@ -1,8 +1,8 @@
 package ca.javajesus.game.entities.projectiles;
 
-import java.awt.Rectangle;
 import java.util.Random;
 
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
@@ -28,7 +28,6 @@ public class Projectile extends Entity {
 	protected double xPoint;
 	protected double yPoint;
 	protected int yOffset = 0;
-	protected Rectangle hitBox;
 	public Mob mob;
 	protected SpriteSheet sheet = SpriteSheet.particles;
 	protected int tileNumber;
@@ -68,7 +67,7 @@ public class Projectile extends Entity {
 		this.y = y;
 		this.speed = speed;
 		calcSimpleDirection(direction);
-		this.hitBox = new Rectangle(width, height);
+		this.bounds = new JavaRectangle(width, height, this);
 		this.mob = mob;
 
 		xOrigin = x;
@@ -137,7 +136,7 @@ public class Projectile extends Entity {
 		this.x = x;
 		this.y = y;
 		this.speed = speed;
-		this.hitBox = new Rectangle(width, height);
+		this.bounds = new JavaRectangle(width, height, this);
 		calcAngle(xPos, yPos);
 		this.mob = mob;
 
@@ -184,20 +183,20 @@ public class Projectile extends Entity {
 		this.y += speed * yPoint;
 		this.x += speed * xPoint;
 
-		hitBox.setLocation((int) this.x - (this.width / 2), (int) this.y
+		bounds.setLocation((int) this.x - (this.width / 2), (int) this.y
 				- (this.height / 2));
 		for (Entity entity : level.getEntities()) {
 			if (entity instanceof SolidEntity) {
-				if (hitBox.intersects(((SolidEntity) entity).bounds)) {
+				if (bounds.intersects(((SolidEntity) entity).getBounds())) {
 					level.remEntity(this);
 					return;
-				} else if (hitBox.intersects(((SolidEntity) entity).shadow)) {
+				} else if (bounds.intersects(((SolidEntity) entity).shadow)) {
 					renderOnTop = false;
 				}
 			}
 			if (entity instanceof Mob) {
 				Mob mobs = (Mob) entity;
-				if (hitBox.intersects(mobs.getBounds())) {
+				if (bounds.intersects(mobs.getBounds())) {
 					if (mobs != mob) {
 						if (mobs instanceof Vehicle) {
 							mobs.damage((int) damage, (int) damage + 4);

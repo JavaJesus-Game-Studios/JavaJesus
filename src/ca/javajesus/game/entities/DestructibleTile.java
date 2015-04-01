@@ -1,8 +1,8 @@
 package ca.javajesus.game.entities;
 
-import java.awt.Rectangle;
 import java.util.Random;
 
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -10,7 +10,6 @@ import ca.javajesus.level.Level;
 public class DestructibleTile extends Entity {
 
 	private int health;
-	private Rectangle hitBox;
 	protected int healthTickCount = 0;
 	protected int[] color;
 	private int tileNumber;
@@ -19,11 +18,10 @@ public class DestructibleTile extends Entity {
 
 	public DestructibleTile(Level level, int x, int y, int defaultHealth) {
 		super(level);
-		this.isSolid = true;
 		this.x = x;
 		this.y = y;
-		this.hitBox = new Rectangle(8, 8);
-		this.hitBox.setLocation(x, y);
+		this.bounds = new JavaRectangle(8, 8, this);
+		this.bounds.setLocation(x, y);
 		this.health = defaultHealth;
 
 	}

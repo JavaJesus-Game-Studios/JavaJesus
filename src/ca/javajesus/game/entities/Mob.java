@@ -1,8 +1,12 @@
 package ca.javajesus.game.entities;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import ca.javajesus.game.Game;
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
 import ca.javajesus.game.entities.vehicles.Vehicle;
@@ -26,7 +30,6 @@ public class Mob extends Entity {
 	protected int health;
 	protected int startHealth;
 	protected HealthBar bar;
-	private Rectangle hitBox;
 	protected SpriteSheet sheet;
 	protected boolean isDead;
 	private boolean onFire = false;
@@ -65,7 +68,7 @@ public class Mob extends Entity {
 		this.height = height;
 		this.health = defaultHealth;
 		this.startHealth = defaultHealth;
-		this.setHitBox(new Rectangle(width, height));
+		this.setHitBox(new JavaRectangle(width, height, this));
 		this.setOuterBounds(new Rectangle(width + 4, height + 4));
 		this.sheet = sheet;
 	}
@@ -182,8 +185,9 @@ public class Mob extends Entity {
 		if (level == null) {
 			return false;
 		}
-		Tile lastTile = level.getTile((this.x+ x) >> 3, (this.y + y) >> 3);
-		Tile newTile = level.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
+		Tile lastTile = level.getTile((this.x + x) >> 3, (this.y + y) >> 3);
+		Tile newTile = level.getTile((this.x + x + xa) >> 3,
+				(this.y + y + ya) >> 3);
 		if (!lastTile.equals(newTile) && newTile.isSolid()) {
 			return true;
 		}
@@ -220,7 +224,8 @@ public class Mob extends Entity {
 
 	public boolean isSolidEntityCollision(int xa, int ya) {
 		renderOnTop = true;
-		for (Entity entity : level.getEntities()) {
+		for (JavaRectangle r : returnObjects) {
+			Entity entity = r.getEntity();
 			if (entity instanceof SolidEntity
 					&& !(entity instanceof Transporter)) {
 				if (this.getBounds().intersects(((SolidEntity) entity).shadow)) {
@@ -249,8 +254,7 @@ public class Mob extends Entity {
 				if (this.getBounds().intersects(temp))
 					return true;
 			} else if (entity instanceof FireEntity
-					&& this.getBounds().intersects(
-							((FireEntity) entity).getBounds())) {
+					&& this.getBounds().intersects((r))) {
 				setOnFire(true);
 			}
 
@@ -262,10 +266,14 @@ public class Mob extends Entity {
 		if (level == null) {
 			return false;
 		}
-		for (Mob mob : level.getMobs()) {
+		for (JavaRectangle r : returnObjects) {
+			if (!(r.getEntity() instanceof Mob)) {
+				continue;
+			}
+			Mob mob = (Mob) r.getEntity();
 			if (mob == this)
 				continue;
-			if (this.getBounds().intersects(mob.getBounds())
+			if (this.getBounds().intersects(r)
 					&& !mob.isAvoidingCollision)
 				return true;
 		}
@@ -274,7 +282,11 @@ public class Mob extends Entity {
 	}
 
 	protected boolean isMobCollision(int xa, int ya) {
-		for (Mob mob : level.getMobs()) {
+		for (JavaRectangle r : returnObjects) {
+			if (!(r.getEntity() instanceof Mob)) {
+				continue;
+			}
+			Mob mob = (Mob) r.getEntity();
 			if (mob != this) {
 				Rectangle temp = new Rectangle(mob.getBounds().width + 2 * xa,
 						mob.getBounds().height + 2 * ya);
@@ -292,7 +304,11 @@ public class Mob extends Entity {
 		int xa = 0;
 		int ya = 0;
 
-		for (Mob mob : level.getMobs()) {
+		for (JavaRectangle r : returnObjects) {
+			if (!(r.getEntity() instanceof Mob)) {
+				continue;
+			}
+			Mob mob = (Mob) r.getEntity();
 			if (!(this.getBounds().intersects(mob.getBounds())) || mob == this)
 				continue;
 
@@ -364,6 +380,9 @@ public class Mob extends Entity {
 		this.getOuterBounds().setLocation(
 				this.x - (int) getBounds().getWidth() / 2 - 2,
 				this.y - (int) getBounds().getHeight() / 2 - 2);
+		
+		returnObjects.clear();
+		Game.quad.retrieve(returnObjects, this.bounds);
 
 		int modifier = 8 * scale;
 		int xOffset = x - modifier;
@@ -563,14 +582,6 @@ public class Mob extends Entity {
 		numSteps += num;
 	}
 
-	public Rectangle getBounds() {
-		return hitBox;
-	}
-
-	public void setHitBox(Rectangle hitBox) {
-		this.hitBox = hitBox;
-	}
-
 	public int getStartHealth() {
 		return startHealth;
 	}
@@ -582,11 +593,11 @@ public class Mob extends Entity {
 	public void setHealth(int h) {
 		health = h;
 	}
-	
+
 	public int getHeight() {
 		return height;
 	}
-	
+
 	public int getWidth() {
 		return width;
 	}

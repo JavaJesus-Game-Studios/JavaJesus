@@ -3,6 +3,7 @@ package ca.javajesus.game.entities.structures;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
 import ca.javajesus.game.graphics.Screen;
@@ -16,7 +17,7 @@ public class CastleTower extends SolidEntity {
 		super(level, x, y, 61, 175);
 		this.shadow = new Rectangle(width, (5 * height / 6));
 		this.shadow.setLocation(x + 12, y);
-		this.bounds = new Rectangle(width, (height / 6) - 8);
+		this.bounds = new JavaRectangle(width, (height / 6) - 8, this);
 		this.bounds.setLocation(x + 12, y + shadow.height);
 		level.addEntity(new Transporter(level, x + 41, y + 159,
 				new CastleInterior(new Point(x + 43, y + 167), this.level)));

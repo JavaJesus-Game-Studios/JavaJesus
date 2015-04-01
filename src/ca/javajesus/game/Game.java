@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.SplashScreen;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -18,7 +19,6 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import ca.javajesus.saves.*;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.gui.Launcher;
@@ -26,8 +26,9 @@ import ca.javajesus.game.gui.PauseGUI;
 import ca.javajesus.game.gui.ScreenGUI;
 import ca.javajesus.game.gui.intro.IntroGUI;
 import ca.javajesus.game.gui.inventory.InventoryGUI;
-import ca.javajesus.items.Item;
 import ca.javajesus.level.Level;
+import ca.javajesus.saves.Convert;
+import ca.javajesus.saves.FileData;
 
 public class Game extends Canvas implements Runnable {
 
@@ -47,8 +48,10 @@ public class Game extends Canvas implements Runnable {
 	public final static int ENTITY_LIMIT = 1000;
 
 	public final static int MOB_LIMIT = 300;
+
+	public static QuadTree quad;
 	public boolean running = false; // this is a change
-	
+
 	public static int hours = 10;
 	public static int minutes;
 
@@ -157,6 +160,7 @@ public class Game extends Canvas implements Runnable {
 	/** Initializes the image on the screen */
 	public void init() {
 
+		quad = new QuadTree(0, new JavaRectangle(0, 0, WIDTH, HEIGHT));
 		screen = new Screen(WIDTH, HEIGHT, this);
 		String x;
 		try {
@@ -173,30 +177,29 @@ public class Game extends Canvas implements Runnable {
 						x.indexOf("c") + 1, x.indexOf("d")));
 				player.score = Integer.parseInt(x.substring(x.indexOf("d") + 1,
 						x.indexOf("e")));
-				player.setName(con.binaryToString(x.substring(x.indexOf("e") +
-				        1, x.indexOf("f"))));
+				player.setName(con.binaryToString(x.substring(
+						x.indexOf("e") + 1, x.indexOf("f"))));
 				/*
-				String loadGun = con.binaryToString(x.substring(x.indexOf("f")+1
-                        , x.indexOf("g")));
-                double loadAmmo = Double.parseDouble(x.substring(x.indexOf("g")+1,
-                        x.indexOf("h")));
-                if(loadGun.length() > 0)
-                {
-                //player.gun = (Gun) Item.returnItem(loadGun);
-                player.inventory.equip(Item.returnItem(loadGun), player);
-                player.gun.ammo = loadAmmo;
-                }
-                */
+				 * String loadGun =
+				 * con.binaryToString(x.substring(x.indexOf("f")+1 ,
+				 * x.indexOf("g"))); double loadAmmo =
+				 * Double.parseDouble(x.substring(x.indexOf("g")+1,
+				 * x.indexOf("h"))); if(loadGun.length() > 0) { //player.gun =
+				 * (Gun) Item.returnItem(loadGun);
+				 * player.inventory.equip(Item.returnItem(loadGun), player);
+				 * player.gun.ammo = loadAmmo; }
+				 */
 				player.inventory.guns = saves.loadGuns();
 				player.inventory.items = saves.loadItems();
 				player.inventory.swords = saves.loadSwords();
 				player.inventory.usables = saves.loadUsables();
 				player.inventory.misc = saves.loadMisc();
-                
-			 // Read from disk using FileInputStream
-				
-//			    player = new Player(Level.loadData(), Level.loadData().spawnPoint.x,
-//                        Level.loadData().spawnPoint.y, input);
+
+				// Read from disk using FileInputStream
+
+				// player = new Player(Level.loadData(),
+				// Level.loadData().spawnPoint.x,
+				// Level.loadData().spawnPoint.y, input);
 
 			} else {
 				player = new Player(getLevel(), getLevel().spawnPoint.x,
@@ -258,6 +261,12 @@ public class Game extends Canvas implements Runnable {
 				}
 				frames++;
 				render();
+
+				quad.clear();
+				for (int i = 0; i < getLevel().getEntities().size(); i++) {
+					if (getLevel().getEntities().get(i).getBounds() != null)
+						quad.insert(getLevel().getEntities().get(i).getBounds());
+				}
 
 				if (System.currentTimeMillis() - lastTimer >= 1000) {
 					lastTimer += 1000;
@@ -354,8 +363,8 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
-		g.drawString(player + ": " + player.getX() + ", " + player.getY() + " Time: " + hours +":" + minutes, 5,
-				20);
+		g.drawString(player + ": " + player.getX() + ", " + player.getY()
+				+ " Time: " + hours + ":" + minutes, 5, 20);
 		hud.draw(g);
 		ChatHandler.drawMessages(g);
 		if (player.isDead() || returnToMenu) {

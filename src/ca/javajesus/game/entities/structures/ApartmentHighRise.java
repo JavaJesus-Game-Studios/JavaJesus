@@ -2,6 +2,7 @@ package ca.javajesus.game.entities.structures;
 
 import java.awt.Rectangle;
 
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
 import ca.javajesus.game.graphics.Screen;
@@ -14,7 +15,7 @@ public class ApartmentHighRise extends SolidEntity {
 		super(level, x, y, 71, 222);
 		this.shadow = new Rectangle(width, (2 * height / 3));
 		this.shadow.setLocation(x, y);
-		this.bounds = new Rectangle(width, (height / 3) - 8);
+		this.bounds = new JavaRectangle(width, (height / 3) - 8, this);
 		this.bounds.setLocation(x, y + shadow.height);
 		level.addEntity(new Transporter(level, x + 30, y + 206, this.level));
 	}

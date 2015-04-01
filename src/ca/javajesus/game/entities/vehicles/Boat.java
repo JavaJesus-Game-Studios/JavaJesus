@@ -1,7 +1,6 @@
 package ca.javajesus.game.entities.vehicles;
 
-import java.awt.Rectangle;
-
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -14,7 +13,7 @@ public class Boat extends Vehicle {
 		super(level, name, x, y, speed, 32, 40, SpriteSheet.vehicles,
 				defaultHealth);
 		getColor();
-		this.setHitBox(new Rectangle(width, height));
+		this.setHitBox(new JavaRectangle(width, height, this));
 	}
 
 	private void getColor() {
@@ -65,7 +64,7 @@ public class Boat extends Vehicle {
 	}
 
 	public void render(Screen screen) {
-
+		super.render(screen);
 		int modifier = 8 * scale;
 		int xOffset = 0;
 		int yOffset = 0;

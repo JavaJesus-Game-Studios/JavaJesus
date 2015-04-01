@@ -3,6 +3,7 @@ package ca.javajesus.game.entities.structures;
 import java.awt.Rectangle;
 
 import ca.javajesus.game.Game;
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.entities.structures.transporters.TransporterGlass;
 import ca.javajesus.game.graphics.Screen;
@@ -16,7 +17,7 @@ public class SanCiscoSkyscraper extends SolidEntity {
 		super(level, x, y, 106, 338);
 		this.shadow = new Rectangle(width, (8 * height / 9));
 		this.shadow.setLocation(x, y);
-		this.bounds = new Rectangle(width, (height / 9) - 8);
+		this.bounds = new JavaRectangle(width, (height / 9) - 8, this);
 		this.bounds.setLocation(x, y + shadow.height);
 		level.addEntity(new TransporterGlass(level, x + 44, y + 660,
 				new RandomLevel(Game.WIDTH, Game.HEIGHT)));
