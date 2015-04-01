@@ -397,6 +397,10 @@ public class Player extends Mob {
 			this.x = level.spawnPoint.x;
 			this.y = level.spawnPoint.y;
 			input.e.toggle(false);
+			this.getBounds().setLocation(this.x - this.width / 2,
+					this.y - this.height / 2);
+			this.getOuterBounds().setLocation(this.x - this.width / 2 - 2,
+					this.y - this.height / 2 - 2);
 		}
 
 		if (health < 20) {

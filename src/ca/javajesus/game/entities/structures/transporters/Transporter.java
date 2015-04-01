@@ -1,8 +1,8 @@
 package ca.javajesus.game.entities.structures.transporters;
 
 import java.awt.Point;
-import java.awt.Rectangle;
 
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.graphics.Screen;
@@ -11,26 +11,27 @@ import ca.javajesus.level.Level;
 
 public class Transporter extends SolidEntity {
 
-	public final Rectangle hitBox = new Rectangle(8, 16);
 	protected Level nextLevel;
 
 	public Transporter(Level currentLevel, int x, int y, Level nextLevel) {
 		super(currentLevel, x, y, 8, 16);
 		this.nextLevel = nextLevel;
-		this.hitBox.setLocation(x, y);
+		this.bounds = new JavaRectangle(8, 16, this);
+		this.bounds.setLocation(x, y);
 	}
 
 	public Transporter(Level currentLevel, int x, int y, Level nextLevel,
 			Point point) {
 		super(currentLevel, x, y, 8, 16);
 		this.nextLevel = nextLevel;
-		this.hitBox.setLocation(x - 4, y - 8);
+		this.bounds = new JavaRectangle(8, 16, this);
+		this.bounds.setLocation(x - 4, y - 8);
 		nextLevel.spawnPoint = point;
 	}
 
 	public void tick() {
 		for (Player player : level.getPlayers()) {
-			if (this.hitBox.intersects(player.getBounds())) {
+			if (this.bounds.intersects(player.getBounds())) {
 				player.changeLevel(nextLevel);
 			}
 		}

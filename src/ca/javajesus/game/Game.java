@@ -63,10 +63,6 @@ public class Game extends Canvas implements Runnable {
 	/** Creates the tickCount var */
 	public int tickCount;
 
-	/** Temporary Solution to limit frames */
-	private final int FRAMES_PER_SECOND = 60;
-	private final int DELAY = 500 / FRAMES_PER_SECOND;
-
 	/** Creates the buffered image to be rendered onto the game screen */
 	protected BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
 			BufferedImage.TYPE_INT_RGB);
@@ -275,13 +271,7 @@ public class Game extends Canvas implements Runnable {
 					frames = 0;
 					ticks = 0;
 				}
-
-				// Temporary Frame Limiter
-				try {
-					Thread.sleep(DELAY);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				
 			} catch (Exception e) {
 				renderCrashReport(e);
 			}

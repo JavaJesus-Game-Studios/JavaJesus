@@ -22,6 +22,7 @@ public abstract class Entity implements Serializable {
 	public Entity(Level level) {
 		init(level);
 		sound = SoundHandler.sound;
+		bounds = new JavaRectangle(0,0, this);
 	}
 
 	public int getX() {

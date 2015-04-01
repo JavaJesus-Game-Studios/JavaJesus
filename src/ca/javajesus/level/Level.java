@@ -1,6 +1,7 @@
 package ca.javajesus.level;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,7 +17,6 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
 
 import ca.javajesus.game.Game;
-import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.FireEntity;
@@ -56,6 +56,8 @@ public abstract class Level implements java.io.Serializable {
 
 	public boolean isLoaded = false;
 	private int loadType = 0;
+	
+	public static Rectangle screenRectangle= new Rectangle(350, 350);
 
 	public Level(String imagePath, boolean loadNow) {
 		spawnPoint = new Point(0, 0);
@@ -209,8 +211,10 @@ public abstract class Level implements java.io.Serializable {
 
 	public void tick() {
 		
-		for (JavaRectangle r: Game.player.returnObjects) {
-			Entity e = r.getEntity();
+		for (Entity e: this.getEntities()) {
+			if (!e.getBounds().intersects(screenRectangle)) {
+				continue;
+			}
 			if (e instanceof Mob) {
 				if (!((Mob) e).isDead())
 					e.tick();
@@ -248,8 +252,12 @@ public abstract class Level implements java.io.Serializable {
 
 	public void renderEntities(Screen screen) {
 		
-		for (JavaRectangle r: Game.player.returnObjects) {
-			Entity entity = r.getEntity();
+		screenRectangle.setLocation(Game.player.getX() - 175, Game.player.getY() - 175);
+		
+		for (Entity entity: this.getEntities()) {
+			if (!entity.getBounds().intersects(screenRectangle)) {
+				continue;
+			}
 			if (entity instanceof Projectile) {
 				Projectile p = (Projectile) entity;
 				if (!p.renderOnTop) {
@@ -265,15 +273,19 @@ public abstract class Level implements java.io.Serializable {
 				}
 			}
 		}
-		for (JavaRectangle r: Game.player.returnObjects) {
-			Entity e = r.getEntity();
+		for (Entity e: this.getEntities()) {
+			if (!e.getBounds().intersects(screenRectangle)) {
+				continue;
+			}
 			if (!(e instanceof Mob || e instanceof HealthBar || e instanceof Projectile)) {
 				e.render(screen);
 
 			}
 		}
-		for (JavaRectangle r: Game.player.returnObjects) {
-			Entity entity = r.getEntity();
+		for (Entity entity: this.getEntities()) {
+			if (!entity.getBounds().intersects(screenRectangle)) {
+				continue;
+			}
 			if (entity instanceof Projectile) {
 				Projectile p = (Projectile) entity;
 				if (p.renderOnTop) {
