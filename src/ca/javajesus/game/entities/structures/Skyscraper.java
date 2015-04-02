@@ -1,5 +1,6 @@
 package ca.javajesus.game.entities.structures;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 
 import ca.javajesus.game.JavaRectangle;
@@ -9,6 +10,7 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.SanCisco;
+import ca.javajesus.level.interior.SkyscraperLobby;
 
 public class Skyscraper extends SolidEntity {
 
@@ -18,10 +20,7 @@ public class Skyscraper extends SolidEntity {
 		this.shadow.setLocation(x, y);
 		this.bounds = new JavaRectangle(width, (height / 3) - 8, this);
 		this.bounds.setLocation(x, y + shadow.height);
-		// level.addEntity(new Transporter(level, x + 38, y + 234, new
-		// PoorHouseInterior(new Point((int) x + 40, (int) y + 242),
-		// this.level)));
-		level.addEntity(new Transporter(level, x + 38, y + 234, new SanCisco()));
+		level.addEntity(new Transporter(level, x + 38, y + 234, new SkyscraperLobby(new Point(x + 44, y + 243), level)));
 	}
 
 	public void render(Screen screen) {
