@@ -41,7 +41,7 @@ public class Boat extends Vehicle {
 		}
 		case 4: {
 			// black color
-			color[1] = 0xFF000000;
+			color[1] = 0xFF111111;
 			break;
 		}
 		case 5: {

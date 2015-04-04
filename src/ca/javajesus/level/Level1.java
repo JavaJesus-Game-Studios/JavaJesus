@@ -39,6 +39,7 @@ import ca.javajesus.game.entities.structures.ModernSkyscraper;
 import ca.javajesus.game.entities.structures.NiceHouse;
 import ca.javajesus.game.entities.structures.NiceHouse2;
 import ca.javajesus.game.entities.structures.OakwoodCityHall;
+import ca.javajesus.game.entities.structures.PearHQ;
 import ca.javajesus.game.entities.structures.Police;
 import ca.javajesus.game.entities.structures.PoorHouse;
 import ca.javajesus.game.entities.structures.Prison;

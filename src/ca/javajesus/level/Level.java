@@ -46,7 +46,8 @@ public abstract class Level implements java.io.Serializable {
 
 	protected int[] tileColours;
 
-	public static Level level1 = new Level1();
+	public static Level level1 = new LordHillsboroughsDomain();
+	public static Level lordHillsboroughsDomain = new LordHillsboroughsDomain();
 	public static Level roadlevel = new RoadLevel();
 	public static Level random = new RandomLevel(level1.width, level1.height);
 	public static Level random2 = new RandomLevel2(level1.width, level1.height,
