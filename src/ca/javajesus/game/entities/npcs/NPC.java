@@ -18,34 +18,34 @@ import ca.javajesus.quests.Quest;
 
 public class NPC extends Mob {
 
-	public static NPC npc1 = new NPC(Level.level1, "Knight", 200, 100, 1, 16,
+	public static NPC knight = new NPC(Level.level1, "Knight", 200, 100, 1, 16,
 			16, 100, new int[] { 0xFF111111, 0xFF7E7E7E, 0xFFFFFFFF }, 0, 2,
 			"linear", 20);
-	public static NPC npc2 = new NPC(Level.level1, "Policeman", 160, 250, 1,
+	public static NPC policeman = new NPC(Level.level1, "Policeman", 160, 250, 1,
 			16, 16, 100, new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0,
 			4, "triangle", 20);
-	public static NPC npc3 = new NPC(Level.level1, "Citizen-Female", 200, 400,
+	public static NPC citizenFemale = new NPC(Level.level1, "Citizen-Female", 200, 400,
 			1, 16, 16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB },
 			0, 8, "cross", 30);
-	public static NPC npc4 = new NPC(Level.level1, "Citizen-Male", 200, 500, 1,
+	public static NPC citizenMale = new NPC(Level.level1, "Citizen-Male", 200, 500, 1,
 			16, 16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0,
 			0, "circle", 2);
-	public static NPC npc5 = new NPC(Level.level1, "Fox", 250, 75, 1, 16, 16,
+	public static NPC fox = new NPC(Level.level1, "Fox", 250, 75, 1, 16, 16,
 			100, new int[] { 0xFF111111, 0xFFFFA800, 0xFFFFFFFF }, 0, 14,
 			"cross", 50);
-	public static NPC npc6 = new NPC(Level.level1, "Tech Warrior", 400, 250, 1,
+	public static NPC techWarrior = new NPC(Level.level1, "Tech Warrior", 400, 250, 1,
 			16, 16, 100, new int[] { 0xFF111111, 0xFF42FF00, 0xFFEDC5AB }, 0,
 			12, "triangle", 20);
-	public static NPC npc7 = new NPC(Level.level1, "Peasant-Male", 2005, 950,
+	public static NPC peasantMale = new NPC(Level.level1, "Peasant-Male", 2005, 950,
 			1, 16, 16, 100, new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB },
 			0, 16, "square", 100);
-	public static NPC npc8 = new NPC(Level.level1, "Peasant-Female", 2025, 950,
+	public static NPC peasantFemale = new NPC(Level.level1, "Peasant-Female", 2025, 950,
 			1, 16, 16, 100, new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB },
 			0, 18, "cross", 0);
-	public static NPC npc9 = new NPC(Level.level1, "Peasant-Boychild", 2035,
+	public static NPC peasantBoy = new NPC(Level.level1, "Peasant-Boychild", 2035,
 			950, 1, 16, 16, 9001, new int[] { 0xFF111111, 0xFF715B17,
 					0xFFEDC5AB }, 14, 16, "square", 0);
-	public static NPC npc10 = new NPC(Level.level1, "Peasant-Girlchild", 2045,
+	public static NPC peasantGirl = new NPC(Level.level1, "Peasant-Girlchild", 2045,
 			950, 1, 16, 16, 9000, new int[] { 0xFF111111, 0xFF715B17,
 					0xFFEDC5AB }, 14, 18, "cross", 0);
 

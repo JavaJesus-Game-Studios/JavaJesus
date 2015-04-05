@@ -31,7 +31,7 @@ public class TransporterStairStone extends Transporter {
 	}
 
 	public void render(Screen screen) {	
-		int[] color = { 0xFF1F7901, 0xFF1F4001, 0xFF000000 };
+		int[] color = { 0xFF4c4c4c, 0xFF909090, 0xFF636363 };
 		
 		switch (direction) {
 		case NORTH:
@@ -42,11 +42,11 @@ public class TransporterStairStone extends Transporter {
 			screen.render(x + 0, y + 0, 7 + 7 * 32, color, 0, 1, SpriteSheet.tiles);
 			screen.render(x + 0, y + 8, 7 + 8 * 32, color, 0, 1, SpriteSheet.tiles);
 			break;
-		case WEST:
+		case SOUTH:
 			screen.render(x + 0, y + 0, 7 + 5 * 32, color, 0, 1, SpriteSheet.tiles);
 			screen.render(x + 8, y + 0, 8 + 5 * 32, color, 0, 1, SpriteSheet.tiles);
 			break;
-		case SOUTH:
+		case WEST:
 			screen.render(x + 0, y + 0, 7 + 9 * 32, color, 0, 1, SpriteSheet.tiles);
 			screen.render(x + 0, y + 8, 7 + 10 * 32, color, 0, 1, SpriteSheet.tiles);
 			break;

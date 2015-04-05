@@ -90,16 +90,17 @@ public class Level1 extends Level {
 		this.addEntity(new Bautista(this, 50, 170));
 		this.addEntity(new Jobs(this, 50, 190));
 		this.addEntity(new Zorra(this, 50, 210));
-		this.addEntity(NPC.npc1);
-		this.addEntity(NPC.npc2);
-		this.addEntity(NPC.npc3);
-		this.addEntity(NPC.npc4);
-		this.addEntity(NPC.npc5);
-		this.addEntity(NPC.npc6);
+		this.addEntity(NPC.knight);
+		this.addEntity(NPC.policeman);
+		this.addEntity(NPC.citizenFemale);
+		this.addEntity(NPC.citizenMale);
+		this.addEntity(NPC.fox);
+		this.addEntity(NPC.techWarrior);
 		this.addEntity(new Policeman(this, 370, 120, 200, "linear", 20));
-		this.addEntity(NPC.npc8);
-		this.addEntity(NPC.npc9);
-		this.addEntity(NPC.npc10);
+		this.addEntity(NPC.peasantMale);
+		this.addEntity(NPC.peasantFemale);
+		this.addEntity(NPC.peasantBoy);
+		this.addEntity(NPC.peasantGirl);
 		this.addEntity(NPC.Jesus);
 		
 		this.addEntity(new Cyclops(this, 600, 300));

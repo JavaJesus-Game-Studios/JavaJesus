@@ -3,8 +3,6 @@ package ca.javajesus.level.interior;
 import java.awt.Point;
 
 import ca.javajesus.game.entities.Mob.Direction;
-import ca.javajesus.game.entities.npcs.LordHillsborough;
-import ca.javajesus.game.entities.structures.furniture.Throne;
 import ca.javajesus.game.entities.structures.transporters.TransporterInterior;
 import ca.javajesus.game.entities.structures.transporters.TransporterStairStone;
 import ca.javajesus.level.Level;
@@ -34,6 +32,17 @@ public class CastleInteriorFloor1 extends Interior{
 			this.addEntity(new TransporterInterior(this, 504, 472, nextLevel,
 					exitPoint));
 			
+			//Up
+			this.addEntity(new TransporterStairStone(this, 376, 224,
+					new CastleBattlements(new Point(384, 320), this), new Point(384, 320), Direction.SOUTH));
+			this.addEntity(new TransporterStairStone(this, 632, 224,
+					new CastleBattlements(new Point(656, 320), this), new Point(656, 320), Direction.SOUTH));
+			//Down
+			this.addEntity(new TransporterStairStone(this, 336, 280,
+					new CastleInterior(new Point(360, 248), this), new Point(360, 248), Direction.SOUTH));
+			this.addEntity(new TransporterStairStone(this, 672, 280,
+					new CastleInterior(new Point(672, 248), this), new Point(672, 248), Direction.SOUTH));
+
 		}
 
 	}

@@ -2,6 +2,8 @@ package ca.javajesus.level;
 
 import java.awt.Point;
 
+import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.structures.Castle;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChapel;
@@ -12,6 +14,8 @@ import ca.javajesus.game.entities.structures.Hotel;
 import ca.javajesus.game.entities.structures.Hut;
 import ca.javajesus.game.entities.structures.NiceHouse;
 import ca.javajesus.game.entities.structures.NiceHouse2;
+import ca.javajesus.game.entities.structures.trees.Forest;
+import ca.javajesus.game.entities.vehicles.Vehicle;
 
 public class LordHillsboroughsDomain extends Level{
 	public LordHillsboroughsDomain(){
@@ -39,6 +43,14 @@ public class LordHillsboroughsDomain extends Level{
 
 	 
 	protected void otherEntityPlacement() {
+
+		this.addEntity(Vehicle.vehicle1);
+		
+		this.addEntity(new Forest(this, 1360, 2040, 500, 500));
+		this.addEntity(new Forest(this, 2968, 1000, 256, 624));
+
+
+
 		//The Huts
 		this.addEntity(new Hut(this, 632, 288));
 		this.addEntity(new Hut(this, 1560, 288));
@@ -76,6 +88,8 @@ public class LordHillsboroughsDomain extends Level{
 		this.addEntity(new NiceHouse(this, 1928, 1863));
 		this.addEntity(new NiceHouse(this, 2024, 1863));
 		this.addEntity(new NiceHouse(this, 2120, 1863));
+		
+
 		
 		//Sequoia Shores
 		this.addEntity(new NiceHouse2(this, 3063, 308));

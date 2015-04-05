@@ -60,7 +60,7 @@ public class ZombieMap1 extends Level {
 						"Demon")));
 		this.addEntity(new Hut(this, 473, 300, NPC.Jesus));
 		this.addEntity(new Hut(this, 687, 300));
-		this.addEntity(new Hut(this, 900, 300, NPC.npc4));
+		this.addEntity(new Hut(this, 900, 300, NPC.citizenMale));
 		ArrayList<Item> chest1 = new ArrayList<Item>();
 		chest1.add(Item.revolver);
 		this.addEntity(new Chest(this, 1460, 70, chest1));
