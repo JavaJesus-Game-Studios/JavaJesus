@@ -46,11 +46,6 @@ public class LordHillsboroughsDomain extends Level{
 
 		this.addEntity(Vehicle.vehicle1);
 		
-		this.addEntity(new Forest(this, 1360, 2040, 500, 500));
-		this.addEntity(new Forest(this, 2968, 1000, 256, 624));
-
-
-
 		//The Huts
 		this.addEntity(new Hut(this, 632, 288));
 		this.addEntity(new Hut(this, 1560, 288));
@@ -105,7 +100,11 @@ public class LordHillsboroughsDomain extends Level{
 		this.addEntity(new CaveEntrance(this, 744, 2208));
 		this.addEntity(new CaveEntrance(this, 3216, 1624));
 
-
+		this.addEntity(new Forest(this, 1360, 2040, 500, 500));
+		this.addEntity(new Forest(this, 2968, 1000, 256, 624));
+		
+		this.addEntity(new Forest(this, 1366, 1450, 500, 500));
+		this.addEntity(new Forest(this, 0, 0, 3000, 3000));
 		
 	}
 }

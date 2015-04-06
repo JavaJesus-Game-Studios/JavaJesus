@@ -43,8 +43,9 @@ public class Game extends Canvas implements Runnable {
 	/** Scales the size of the screen */
 	public static final int SCALE = 3;
 	public static final String NAME = "Java Jesus by the Coders of Anarchy";
+	
+	public static int DELAY = 4;
 
-	/** Entity limit per screen, currently doesnt do anything */
 	public final static int ENTITY_LIMIT = 1000;
 
 	public final static int MOB_LIMIT = 300;
@@ -270,6 +271,12 @@ public class Game extends Canvas implements Runnable {
 							+ " fps");
 					frames = 0;
 					ticks = 0;
+				}
+				
+				try {
+					Thread.sleep(DELAY);
+				} catch (Exception e) {
+					
 				}
 				
 			} catch (Exception e) {

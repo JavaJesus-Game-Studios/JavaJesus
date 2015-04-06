@@ -1,11 +1,14 @@
 package ca.javajesus.game.entities.structures.trees;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 
 import ca.javajesus.game.entities.Entity;
+import ca.javajesus.game.entities.SolidEntity;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.tile.Tile;
 
 public class Forest extends Entity {
 
@@ -24,57 +27,64 @@ public class Forest extends Entity {
 		initForest();
 	}
 
+	private boolean checkTile(int x, int y, int height) {
+		if (level.getTile((this.x + x) >> 3, (this.y + y + height) >> 3) != Tile.GRASS) {
+			return false;
+		}
+		for (Entity e: level.getEntities()) {
+			if (e instanceof SolidEntity) {
+				if (e.getBounds().intersects(new Rectangle(this.x, this.y, 23, height))) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	private void initForest() {
 		for (int i = 0; i < width; i += (23 + random.nextInt(6))) {
 			for (int j = 0; j < height; j += treeHeight) {
 				switch (random.nextInt(10)) {
-				case 0: {					trees.add(new DeadSequoia(level, x + i, y + j));
+				case 0: {
+					if (checkTile(i, j, 58)) {
+						trees.add(new DeadSequoia(level, x + i, y + j));
+					}
 					treeHeight = 58 + random.nextInt(10);
 					break;
 				}
-				case 1: {
-					trees.add(new LargeSequoia(level, x + i, y + j));
-					treeHeight = 58 + random.nextInt(10);
-					break;
-				}
-				case 2: {
-					trees.add(new LargeSequoia(level, x + i, y + j));
-					treeHeight = 58 + random.nextInt(10);
-					break;
-				}
+				case 1:
+				case 2:
 				case 3: {
-					trees.add(new LargeSequoia(level, x + i, y + j));
+					if (checkTile(i, j, 58)) {
+						trees.add(new LargeSequoia(level, x + i, y + j));
+					}
 					treeHeight = 58 + random.nextInt(10);
 					break;
 				}
-				case 4: {
-					trees.add(new MediumSequoia(level, x + i, y + j));
-					treeHeight = 44 + random.nextInt(10);
-					break;
-				}
-				case 5: {
-					trees.add(new MediumSequoia(level, x + i, y + j));
-					treeHeight = 44 + random.nextInt(10);
-					break;
-				}
+				case 4:
+				case 5:
 				case 6: {
-					trees.add(new MediumSequoia(level, x + i, y + j));
+					if (checkTile(i, j, 44)) {
+						trees.add(new MediumSequoia(level, x + i, y + j));
+					}
 					treeHeight = 44 + random.nextInt(10);
 					break;
 				}
 				default: {
-					trees.add(new SmallSequoia(level, x + i, y + j));
+					if (checkTile(i, j, 32)) {
+						trees.add(new SmallSequoia(level, x + i, y + j));
+					}
 					treeHeight = 32 + random.nextInt(10);
 					break;
 				}
 				}
 			}
 		}
-		
-		 for (Tree t : trees) {
+
+		for (Tree t : trees) {
 			level.addEntity(t);
 		}
-		 
+
 	}
 
 	public void tick() {
@@ -83,9 +93,8 @@ public class Forest extends Entity {
 
 	public void render(Screen screen) {
 		/*
-		for (Tree t : trees) {
-			t.render(screen);
-		}*/
+		 * for (Tree t : trees) { t.render(screen); }
+		 */
 	}
 
 }

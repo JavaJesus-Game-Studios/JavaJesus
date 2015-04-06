@@ -30,5 +30,9 @@ public class Tree extends SolidEntity {
 	public void render(Screen screen) {
 		screen.render(x, y, null, sprite);
 	}
+	
+	public int getHeight() {
+		return height;
+	}
 
 }
