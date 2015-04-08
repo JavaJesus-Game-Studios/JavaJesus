@@ -58,8 +58,8 @@ public abstract class Level implements Serializable {
 
 	public boolean isLoaded = false;
 	private int loadType = 0;
-	
-	public static Rectangle screenRectangle= new Rectangle(500, 500);
+
+	public static Rectangle screenRectangle = new Rectangle(500, 500);
 
 	public Level(String imagePath, boolean loadNow) {
 		spawnPoint = new Point(0, 0);
@@ -203,17 +203,17 @@ public abstract class Level implements Serializable {
 		}
 
 	}
-	
+
 	public void clear() {
-		for (Mob m: killList) {
+		for (Mob m : killList) {
 			this.remEntity(m);
 			killList.remove(m);
 		}
 	}
 
 	public void tick() {
-		
-		for (Entity e: this.getEntities()) {
+
+		for (Entity e : this.getEntities()) {
 			if (!e.getBounds().intersects(screenRectangle)) {
 				continue;
 			}
@@ -253,10 +253,11 @@ public abstract class Level implements Serializable {
 	}
 
 	public void renderEntities(Screen screen) {
-		
-		screenRectangle.setLocation(Game.player.getX() - 250, Game.player.getY() - 250);
-		
-		for (Entity entity: this.getEntities()) {
+
+		screenRectangle.setLocation(Game.player.getX() - 250,
+				Game.player.getY() - 250);
+
+		for (Entity entity : this.getEntities()) {
 			if (!entity.getBounds().intersects(screenRectangle)) {
 				continue;
 			}
@@ -275,7 +276,7 @@ public abstract class Level implements Serializable {
 				}
 			}
 		}
-		for (Entity e: this.getEntities()) {
+		for (Entity e : this.getEntities()) {
 			if (!e.getBounds().intersects(screenRectangle)) {
 				continue;
 			}
@@ -284,7 +285,7 @@ public abstract class Level implements Serializable {
 
 			}
 		}
-		for (Entity entity: this.getEntities()) {
+		for (Entity entity : this.getEntities()) {
 			if (!entity.getBounds().intersects(screenRectangle)) {
 				continue;
 			}
@@ -305,8 +306,8 @@ public abstract class Level implements Serializable {
 		}
 	}
 
-	public void renderFont(String msg, Screen screen, int x, int y, int[] color,
-			int scale) {
+	public void renderFont(String msg, Screen screen, int x, int y,
+			int[] color, int scale) {
 		JJFont.render(msg, screen, x, y, color, scale);
 	}
 
@@ -364,7 +365,7 @@ public abstract class Level implements Serializable {
 			this.fireList.remove((FireEntity) entity);
 		}
 	}
-	
+
 	public void reset() {
 		entities.clear();
 		mobs.clear();
@@ -404,67 +405,54 @@ public abstract class Level implements Serializable {
 		}
 
 	}
-	
-	public static void saveData()
-	{
-	 // Write to disk with FileOutputStream
-	    FileOutputStream f_out;
-        try
-        {
-            f_out = new 
-                FileOutputStream("game.data");
-        
-	    // Write object with ObjectOutputStream
-	    ObjectOutputStream obj_out;
-            obj_out = new
-                ObjectOutputStream (f_out);
-        
-	    // Write object out to disk
-	        obj_out.writeObject (level1);
-	        obj_out.close();
-        } catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
+
+	public static void saveData() {
+		// Write to disk with FileOutputStream
+		FileOutputStream f_out;
+		try {
+			f_out = new FileOutputStream("game.data");
+
+			// Write object with ObjectOutputStream
+			ObjectOutputStream obj_out;
+			obj_out = new ObjectOutputStream(f_out);
+
+			// Write object out to disk
+			obj_out.writeObject(level1);
+			obj_out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
-	
-	public static Level loadData()
-	{
-	 // Read from disk using FileInputStream
-	    FileInputStream f_in;
-        try
-        {
-            f_in = new 
-                FileInputStream("game.data");
 
-	    // Read object using ObjectInputStream
-	    ObjectInputStream obj_in;
-           obj_in = new ObjectInputStream (f_in);
+	public static Level loadData() {
+		// Read from disk using FileInputStream
+		FileInputStream f_in;
+		try {
+			f_in = new FileInputStream("game.data");
 
-	    // Read an object
-	    Object obj = obj_in.readObject();
+			// Read object using ObjectInputStream
+			ObjectInputStream obj_in;
+			obj_in = new ObjectInputStream(f_in);
 
-	    if (obj instanceof Level)
-	    {
-	        // Cast object to a Vector
-	        Level lev = (Level) obj;
-	        obj_in.close();
-	        // Do something with Level....
-	        return lev;
-	    }
-	    else
-	    {
-	        obj_in.close();
-            return level1;
-	    }
-        }
-	    catch (IOException | ClassNotFoundException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return level1;
+			// Read an object
+			Object obj = obj_in.readObject();
+
+			if (obj instanceof Level) {
+				// Cast object to a Vector
+				Level lev = (Level) obj;
+				obj_in.close();
+				// Do something with Level....
+				return lev;
+			} else {
+				obj_in.close();
+				return level1;
+			}
+		} catch (IOException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return level1;
 	}
 }

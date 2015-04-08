@@ -276,7 +276,7 @@ public class Mob extends Entity {
 			if (mob == this)
 				continue;
 			if (this.getBounds().intersects(mob.getBounds())
-					&& !mob.isAvoidingCollision)
+					&& !mob.isAvoidingCollision && !mob.isDead)
 				return true;
 		}
 		isAvoidingCollision = false;
@@ -285,7 +285,7 @@ public class Mob extends Entity {
 
 	protected boolean isMobCollision(int xa, int ya) {
 		for (Mob mob : level.getMobs()) {
-			if (mob != this) {
+			if (mob != this && !mob.isDead) {
 				Rectangle temp = new Rectangle(mob.getBounds().width + 2 * xa,
 						mob.getBounds().height + 2 * ya);
 				temp.setLocation(mob.x - xa, mob.y - ya);
@@ -303,7 +303,7 @@ public class Mob extends Entity {
 		int ya = 0;
 
 		for (Mob mob : level.getMobs()) {
-			if (!(this.getBounds().intersects(mob.getBounds())) || mob == this)
+			if (!(this.getBounds().intersects(mob.getBounds())) || mob == this || mob.isDead)
 				continue;
 
 			Rectangle intersection = getBounds().intersection(mob.getBounds());
@@ -451,10 +451,10 @@ public class Mob extends Entity {
 	public void kill() {
 
 		isDead = true;
-		// this.getBounds().setSize(0, 0);
-		// this.getBounds().setLocation(0, 0);
-		// this.getOuterBounds().setSize(0, 0);
-		// this.getOuterBounds().setLocation(0, 0);
+		//this.getBounds().setSize(0, 0);
+		//this.getBounds().setLocation(0, 0);
+		//this.getOuterBounds().setSize(0, 0);
+		//this.getOuterBounds().setLocation(0, 0);
 		level.remEntity(this);
 		level.addEntity(this, 0);
 		level.killList.add(this);
@@ -479,6 +479,9 @@ public class Mob extends Entity {
 		isHit = true;
 		isHitX = random.nextInt(10) - 5;
 		isHitY = random.nextInt(6) - 3;
+		if (health <= 0) {
+			kill();
+		}
 	}
 
 	public void damage(int d) {

@@ -103,9 +103,5 @@ public class HealthBar extends Particle {
 			yChange = 12;
 			this.color[2] = 0xFFE50000;
 		}
-		if (health <= 0) {
-			level.remEntity(this);
-			mob.kill();
-		}
 	}
 }

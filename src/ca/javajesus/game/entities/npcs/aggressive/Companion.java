@@ -1,4 +1,4 @@
-package ca.javajesus.game.entities.npcs;
+package ca.javajesus.game.entities.npcs.aggressive;
 
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
@@ -8,55 +8,24 @@ import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.monsters.Monster;
+import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.projectiles.Bullet;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
-public class Companion extends NPC {
+public class Companion extends Shooter {
 
-	protected Ellipse2D.Double standRange;
-	protected Mob mob;
-	protected Ellipse2D.Double aggroRadius;
-	protected final int RADIUS = 32 * 8;
-	protected boolean cooldown = false;
-	protected boolean isShooting = false;
 	private Player player;
 
 	public Companion(Level level, String name, int x, int y, int width,
 			int height, int defaultHealth, int[] color, int xTile, int yTile, Player player) {
 		super(level, name, x, y, 1, width, height, defaultHealth, color, xTile,
 				yTile, "", 0);
-		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
-				RADIUS, RADIUS);
-		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
-				RADIUS / 2, RADIUS / 2);
 		this.player = player;
-		checkRadius();
-	}
-
-	private void checkRadius() {
-
-		if (mob != null && mob.isDead()) {
-			mob = null;
-			movingToOrigin = true;
-		}
-
-		if (mob == null)
-			for (Mob mob : level.getMobs()) {
-				if (mob instanceof Monster) {
-					if (this.aggroRadius.intersects(mob.getBounds())) {
-						this.mob = mob;
-						mob.setTargeted(true);
-						return;
-					}
-				}
-			}
 	}
 
 	public void tick() {
 		super.tick();
-		checkRadius();
-
 		int xa = 0;
 		int ya = 0;
 		if (mob != null && this.aggroRadius.intersects(mob.getBounds())) {
@@ -121,14 +90,6 @@ public class Companion extends NPC {
 			}
 		}
 
-	}
-
-	public void render(Screen screen) {
-		super.render(screen);
-		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
-				RADIUS);
-		this.standRange.setFrame(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2,
-				RADIUS / 2);
 	}
 
 	public void speak(Player player) {

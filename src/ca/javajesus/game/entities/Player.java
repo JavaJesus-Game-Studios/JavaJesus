@@ -10,8 +10,8 @@ import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.monsters.Demon;
-import ca.javajesus.game.entities.npcs.Companion;
 import ca.javajesus.game.entities.npcs.NPC;
+import ca.javajesus.game.entities.npcs.aggressive.Companion;
 import ca.javajesus.game.entities.structures.furniture.Chest;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.graphics.JJFont;
@@ -264,9 +264,9 @@ public class Player extends Mob {
 				Game.saves.save();
 				Game.saves.saveGuns();
 				Game.saves.saveItems();
-                Game.saves.saveSwords();
-                Game.saves.saveUsables();
-                Game.saves.saveMisc();
+				Game.saves.saveSwords();
+				Game.saves.saveUsables();
+				Game.saves.saveMisc();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -398,7 +398,7 @@ public class Player extends Mob {
 		}
 
 		if (health < 20) {
-			//screen.setShader(16711680);
+			// screen.setShader(16711680);
 		}
 
 		int xTile = 0;
@@ -571,13 +571,11 @@ public class Player extends Mob {
 
 		// Saving
 		if (input.m.isPressed()) {
-			/*try {
-				Game.saves.save();
-				Game.saves.saveGuns();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}*/
-		    Level.saveData();
+			/*
+			 * try { Game.saves.save(); Game.saves.saveGuns(); } catch
+			 * (IOException e) { e.printStackTrace(); }
+			 */
+			Level.saveData();
 			input.m.toggle(false);
 		}
 
@@ -746,6 +744,9 @@ public class Player extends Mob {
 		isHitX = random.nextInt(10) - 5;
 		isHitY = random.nextInt(6) - 3;
 		isHitColor = new int[] { 0xFF000000, 0xFF000000, 0xFFFF0000 };
+		if (health <= 0) {
+			kill();
+		}
 	}
 
 	public void grantDevPowers() {
