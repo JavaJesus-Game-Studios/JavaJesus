@@ -68,6 +68,7 @@ public class Projectile extends Entity {
 		this.speed = speed;
 		calcSimpleDirection(direction);
 		this.bounds = new JavaRectangle(width, height, this);
+		this.bounds.setLocation((int) x, (int) y);
 		this.mob = mob;
 
 		xOrigin = x;
@@ -137,6 +138,7 @@ public class Projectile extends Entity {
 		this.y = y;
 		this.speed = speed;
 		this.bounds = new JavaRectangle(width, height, this);
+		this.bounds.setLocation((int) x, (int) y);
 		calcAngle(xPos, yPos);
 		this.mob = mob;
 

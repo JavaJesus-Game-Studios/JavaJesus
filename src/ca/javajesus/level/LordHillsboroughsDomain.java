@@ -94,7 +94,6 @@ public class LordHillsboroughsDomain extends Level{
 		this.addEntity(new NiceHouse(this, 3160, 431));
 		this.addEntity(new NiceHouse(this, 2876, 431));
 
-
 		//Caves
 		this.addEntity(new CaveEntrance(this, 1024, 40));
 		this.addEntity(new CaveEntrance(this, 744, 2208));
@@ -104,7 +103,7 @@ public class LordHillsboroughsDomain extends Level{
 		this.addEntity(new Forest(this, 2968, 1000, 256, 624));
 		
 		this.addEntity(new Forest(this, 1366, 1450, 500, 500));
-		this.addEntity(new Forest(this, 0, 0, 3000, 3000));
+		//this.addEntity(new Forest(this, 0, 0, 3000, 3000));
 		
 	}
 }

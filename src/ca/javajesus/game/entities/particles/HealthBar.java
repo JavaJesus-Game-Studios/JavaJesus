@@ -1,6 +1,7 @@
 package ca.javajesus.game.entities.particles;
 
 import ca.javajesus.game.entities.Mob;
+import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -22,8 +23,13 @@ public class HealthBar extends Particle {
 		super(level, 2 * SpriteSheet.particles.boxes, new int[] { 0xFF111111,
 				0xFF000000, 0xFFDD0000 }, x, y);
 		this.mob = mob;
-		this.yOffset = mob.getHeight() / 2;
-		this.xOffset = mob.getWidth() / 2;
+		if (mob instanceof Vehicle) {
+			this.yOffset = mob.getHeight() / 2 + 8;
+			this.xOffset = mob.getWidth() / 2 - 4;
+		} else {
+			this.yOffset = mob.getHeight() / 2;
+			this.xOffset = mob.getWidth() / 2;
+		}
 		this.health = mob.getHealth();
 		this.startHealth = mob.getStartHealth();
 	}
@@ -56,7 +62,7 @@ public class HealthBar extends Particle {
 			mob.setOnFire(false);
 			tickCount = 0;
 		}
-		
+
 		if (((double) health / startHealth) >= 1) {
 			yChange = 0;
 			this.color[2] = 0xFF0079E0;

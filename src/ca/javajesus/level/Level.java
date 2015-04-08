@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -30,7 +31,7 @@ import ca.javajesus.game.graphics.JJFont;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.tile.Tile;
 
-public abstract class Level implements java.io.Serializable {
+public abstract class Level implements Serializable {
 	protected int[] tiles;
 	public int width;
 	public int height;
@@ -46,7 +47,7 @@ public abstract class Level implements java.io.Serializable {
 
 	protected int[] tileColours;
 
-	public static Level level1 = new LordHillsboroughsDomain();
+	public static Level level1 = new Level1();
 	public static Level lordHillsboroughsDomain = new LordHillsboroughsDomain();
 	public static Level roadlevel = new RoadLevel();
 	public static Level random = new RandomLevel(level1.width, level1.height);
@@ -58,7 +59,7 @@ public abstract class Level implements java.io.Serializable {
 	public boolean isLoaded = false;
 	private int loadType = 0;
 	
-	public static Rectangle screenRectangle= new Rectangle(350, 350);
+	public static Rectangle screenRectangle= new Rectangle(500, 500);
 
 	public Level(String imagePath, boolean loadNow) {
 		spawnPoint = new Point(0, 0);
@@ -253,7 +254,7 @@ public abstract class Level implements java.io.Serializable {
 
 	public void renderEntities(Screen screen) {
 		
-		screenRectangle.setLocation(Game.player.getX() - 175, Game.player.getY() - 175);
+		screenRectangle.setLocation(Game.player.getX() - 250, Game.player.getY() - 250);
 		
 		for (Entity entity: this.getEntities()) {
 			if (!entity.getBounds().intersects(screenRectangle)) {

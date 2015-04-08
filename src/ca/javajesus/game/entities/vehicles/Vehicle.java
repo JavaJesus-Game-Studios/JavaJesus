@@ -74,6 +74,10 @@ public class Vehicle extends Mob {
 	}
 
 	public void tick() {
+
+		if (bar != null)
+			bar.tick();
+
 		int xa = 0;
 		int ya = 0;
 		if (isMobCollision() && this.isMoving()) {
@@ -84,6 +88,13 @@ public class Vehicle extends Mob {
 				}
 			}
 		}
+
+		if (player != null)
+			if (!isMoving()) {
+				sound.playContinuously(sound.carIdle);
+			} else {
+				sound.playContinuously(sound.carDriving);
+			}
 
 		isSlowingDown = true;
 		if (this.isUsed) {
@@ -135,7 +146,6 @@ public class Vehicle extends Mob {
 			}
 			if (input.e.isPressed()) {
 				this.isUsed = false;
-				level.addEntity(player.getHealthBar());
 				player.isDriving = false;
 				input.e.toggle(false);
 				player.setX(player.getX() - 30);
@@ -186,7 +196,7 @@ public class Vehicle extends Mob {
 
 		tickCount++;
 	}
-	
+
 	public void kill() {
 
 		isDead = true;
@@ -196,8 +206,8 @@ public class Vehicle extends Mob {
 	}
 
 	public void render(Screen screen) {
-		returnObjects.clear();
-		Game.quad.retrieve(returnObjects, this.bounds);
+		// returnObjects.clear();
+		// Game.quad.retrieve(returnObjects, this.bounds);
 	}
 
 }
