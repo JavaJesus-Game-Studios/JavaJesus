@@ -56,7 +56,7 @@ public class Monster extends Mob {
 		if (mob == null)
 			for (Mob mob : level.getMobs()) {
 				if (mob instanceof Player || mob instanceof NPC) {
-					if (this.aggroRadius.intersects(mob.getBounds())) {
+					if (this.aggroRadius.intersects(mob.getBounds()) && !mob.isDead()) {
 						this.mob = mob;
 						mob.setTargeted(true);
 						return;

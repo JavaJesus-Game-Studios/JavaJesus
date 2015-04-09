@@ -76,7 +76,7 @@ public class Mob extends Entity {
 				this.x - (int) getBounds().getWidth() / 2 - 2,
 				this.y - (int) getBounds().getHeight() / 2 - 2);
 		this.sheet = sheet;
-		Game.quad.retrieve(returnObjects, this.bounds);
+		// Game.quad.retrieve(returnObjects, this.bounds);
 	}
 
 	public enum Direction {
@@ -230,8 +230,8 @@ public class Mob extends Entity {
 
 	public boolean isSolidEntityCollision(int xa, int ya) {
 		renderOnTop = true;
-		for (JavaRectangle r : returnObjects) {
-			Entity entity = r.getEntity();
+		// for (JavaRectangle r : returnObjects) {
+		for (Entity entity : level.getEntities()) {
 			if (entity instanceof SolidEntity
 					&& !(entity instanceof Transporter)) {
 				if (this.getBounds().intersects(((SolidEntity) entity).shadow)) {
@@ -260,7 +260,7 @@ public class Mob extends Entity {
 				if (this.getBounds().intersects(temp))
 					return true;
 			} else if (entity instanceof FireEntity
-					&& this.getBounds().intersects((r))) {
+					&& this.getBounds().intersects((entity.getBounds()))) {
 				setOnFire(true);
 			}
 
@@ -269,18 +269,14 @@ public class Mob extends Entity {
 	}
 
 	protected boolean isMobCollision() {
-		if (level == null) {
+		if (level == null || isDead) {
 			return false;
 		}
-		for (JavaRectangle r : returnObjects) {
-			if (!(r.getEntity() instanceof Mob)) {
-				continue;
-			}
-			Mob mob = (Mob) r.getEntity();
+		for (Mob mob : level.getMobs()) {
 			if (mob == this)
 				continue;
-			if (this.getBounds().intersects(r)
-					&& !mob.isAvoidingCollision)
+			if (this.getBounds().intersects(mob.getBounds())
+					&& !mob.isAvoidingCollision && !mob.isDead)
 				return true;
 		}
 		isAvoidingCollision = false;
@@ -288,12 +284,8 @@ public class Mob extends Entity {
 	}
 
 	protected boolean isMobCollision(int xa, int ya) {
-		for (JavaRectangle r : returnObjects) {
-			if (!(r.getEntity() instanceof Mob)) {
-				continue;
-			}
-			Mob mob = (Mob) r.getEntity();
-			if (mob != this) {
+		for (Mob mob : level.getMobs()) {
+			if (mob != this && !mob.isDead) {
 				Rectangle temp = new Rectangle(mob.getBounds().width + 2 * xa,
 						mob.getBounds().height + 2 * ya);
 				temp.setLocation(mob.x - xa, mob.y - ya);
@@ -310,12 +302,8 @@ public class Mob extends Entity {
 		int xa = 0;
 		int ya = 0;
 
-		for (JavaRectangle r : returnObjects) {
-			if (!(r.getEntity() instanceof Mob)) {
-				continue;
-			}
-			Mob mob = (Mob) r.getEntity();
-			if (!(this.getBounds().intersects(mob.getBounds())) || mob == this)
+		for (Mob mob : level.getMobs()) {
+			if (!(this.getBounds().intersects(mob.getBounds())) || mob == this || mob.isDead)
 				continue;
 
 			Rectangle intersection = getBounds().intersection(mob.getBounds());
@@ -349,6 +337,9 @@ public class Mob extends Entity {
 
 	public void tick() {
 
+		if (isDead)
+			return;
+
 		tickCount++;
 
 		if (isTalking) {
@@ -378,6 +369,8 @@ public class Mob extends Entity {
 			return;
 		}
 
+		bar.tick();
+
 	}
 
 	public void render(Screen screen) {
@@ -386,9 +379,9 @@ public class Mob extends Entity {
 		this.getOuterBounds().setLocation(
 				this.x - (int) getBounds().getWidth() / 2 - 2,
 				this.y - (int) getBounds().getHeight() / 2 - 2);
-		
-		returnObjects.clear();
-		Game.quad.retrieve(returnObjects, this.bounds);
+
+		// returnObjects.clear();
+		// Game.quad.retrieve(returnObjects, this.bounds);
 
 		int modifier = 8 * scale;
 		int xOffset = x - modifier;
@@ -435,15 +428,18 @@ public class Mob extends Entity {
 
 		}
 
-		if (isTalking) {
-			JJFont.render(name, screen, (int) xOffset
-					- ((name.length() - 1) / 2 * 8), (int) yOffset - 10,
-					new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
-		}
+		if (!isDead) {
 
-		if (isHit) {
-			JJFont.render(damageTaken, screen, (int) xOffset + isHitX,
-					(int) yOffset - 10 + isHitY, isHitColor, 1);
+			if (isTalking) {
+				JJFont.render(name, screen, (int) xOffset
+						- ((name.length() - 1) / 2 * 8), (int) yOffset - 10,
+						new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
+			}
+
+			if (isHit) {
+				JJFont.render(damageTaken, screen, (int) xOffset + isHitX,
+						(int) yOffset - 10 + isHitY, isHitColor, 1);
+			}
 		}
 	}
 
@@ -455,10 +451,10 @@ public class Mob extends Entity {
 	public void kill() {
 
 		isDead = true;
-		this.getBounds().setSize(0, 0);
-		this.getBounds().setLocation(0, 0);
-		this.getOuterBounds().setSize(0, 0);
-		this.getOuterBounds().setLocation(0, 0);
+		//this.getBounds().setSize(0, 0);
+		//this.getBounds().setLocation(0, 0);
+		//this.getOuterBounds().setSize(0, 0);
+		//this.getOuterBounds().setLocation(0, 0);
 		level.remEntity(this);
 		level.addEntity(this, 0);
 		level.killList.add(this);
@@ -483,6 +479,9 @@ public class Mob extends Entity {
 		isHit = true;
 		isHitX = random.nextInt(10) - 5;
 		isHitY = random.nextInt(6) - 3;
+		if (health <= 0) {
+			kill();
+		}
 	}
 
 	public void damage(int d) {

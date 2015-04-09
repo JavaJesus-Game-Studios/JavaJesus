@@ -6,7 +6,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class SoundHandler implements java.io.Serializable{
+public class SoundHandler implements java.io.Serializable {
 
 	public boolean muted = false;
 
@@ -16,14 +16,19 @@ public class SoundHandler implements java.io.Serializable{
 			fireball, footsteps1, footstepsDirt, footstepsFarmland,
 			footstepsGrass, footstepsRoad, footstepsWood, gunshot, gunshot2,
 			gunshot3, levelup, shortSword1, shortSword2, swimming, walking,
-			background2, explosion;
+			background2, explosion, carAcceleration, carDriving, carIdle,
+			carStartUp;
 
 	public Clip[] list = { background1, background2 };
 
 	@SuppressWarnings("unused")
 	public SoundHandler() {
 
-		AudioInputStream sheathe, background1, chest, chimpanzee, click, demon, fireball, footsteps1, footstepsDirt, footstepsFarmland, footstepsGrass, footstepsRoad, footstepsWaterSand, footstepsWood, gunshot, gunshot2, gunshot3, levelup, shortSword1, shortSword2, swimming, walking, background2, explosion;
+		AudioInputStream sheathe, background1, chest, chimpanzee, click, demon, 
+		fireball, footsteps1, footstepsDirt, footstepsFarmland, footstepsGrass, 
+		footstepsRoad, footstepsWaterSand, footstepsWood, gunshot, gunshot2, 
+		gunshot3, levelup, shortSword1, shortSword2, swimming, walking, background2, 
+		explosion, carAcceleration, carDriving, carIdle, carStartUp;
 
 		try {
 
@@ -103,6 +108,21 @@ public class SoundHandler implements java.io.Serializable{
 			swimming = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Footstep_Sounds/Swimming.wav"));
 
+			carAcceleration = AudioSystem
+					.getAudioInputStream(SoundHandler.class
+							.getResource("/Sound/Car_Sounds/Car_Acceleration.wav"));
+
+			carDriving = AudioSystem
+					.getAudioInputStream(SoundHandler.class
+							.getResource("/Sound/Car_Sounds/Car_Driving.wav"));
+
+			carIdle = AudioSystem
+					.getAudioInputStream(SoundHandler.class
+							.getResource("/Sound/Car_Sounds/Car_Idle.wav"));
+
+			carStartUp = AudioSystem.getAudioInputStream(SoundHandler.class
+					.getResource("/Sound/Car_Sounds/Car_Start_up.wav"));
+
 			this.sheathe = AudioSystem.getClip();
 			this.background1 = AudioSystem.getClip();
 			this.background2 = AudioSystem.getClip();
@@ -125,6 +145,11 @@ public class SoundHandler implements java.io.Serializable{
 			this.shortSword2 = AudioSystem.getClip();
 			this.swimming = AudioSystem.getClip();
 			this.walking = AudioSystem.getClip();
+			
+			this.carAcceleration = AudioSystem.getClip();
+			this.carDriving = AudioSystem.getClip();
+			this.carIdle = AudioSystem.getClip();
+			this.carStartUp = AudioSystem.getClip();
 
 			this.chimpanzee.open(chimpanzee);
 			this.click.open(click);
@@ -147,6 +172,11 @@ public class SoundHandler implements java.io.Serializable{
 
 			this.shortSword1.open(shortSword1);
 			this.shortSword2.open(shortSword2);
+			
+			this.carAcceleration.open(carAcceleration);
+			this.carDriving.open(carDriving);
+			this.carIdle.open(carIdle);
+			this.carStartUp.open(carStartUp);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -161,6 +191,17 @@ public class SoundHandler implements java.io.Serializable{
 			}
 			clip.setFramePosition(0);
 			clip.start();
+		}
+	}
+	
+	public void playContinuously(Clip clip) {
+		if (!muted) {
+			if (clip.isRunning()) {
+				return;
+			} else {
+				clip.setFramePosition(0);
+				clip.start();
+			}
 		}
 	}
 

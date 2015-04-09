@@ -49,7 +49,7 @@ public class Game extends Canvas implements Runnable {
 
 	public final static int MOB_LIMIT = 300;
 
-	public static QuadTree quad;
+	//public static QuadTree quad;
 	public boolean running = false; // this is a change
 
 	public static int hours = 10;
@@ -156,7 +156,7 @@ public class Game extends Canvas implements Runnable {
 	/** Initializes the image on the screen */
 	public void init() {
 
-		quad = new QuadTree(0, new JavaRectangle(0, 0, getLevel().width, getLevel().height));
+		//quad = new QuadTree(0, new JavaRectangle(0, 0, getLevel().width, getLevel().height));
 		screen = new Screen(WIDTH, HEIGHT, this);
 		String x;
 		try {
@@ -258,11 +258,11 @@ public class Game extends Canvas implements Runnable {
 				frames++;
 				render();
 
-				quad.clear();
-				for (int i = 0; i < getLevel().getEntities().size(); i++) {
+				//quad.clear();
+				/*for (int i = 0; i < getLevel().getEntities().size(); i++) {
 					if (getLevel().getEntities().get(i).getBounds() != null)
 						quad.insert(getLevel().getEntities().get(i).getBounds());
-				}
+				}*/
 
 				if (System.currentTimeMillis() - lastTimer >= 1000) {
 					lastTimer += 1000;
@@ -330,7 +330,7 @@ public class Game extends Canvas implements Runnable {
 	/** Renders the screen */
 	protected void render() {
 		
-		quad.retrieve(player.returnObjects, player.getBounds());
+		//quad.retrieve(player.returnObjects, player.getBounds());
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);

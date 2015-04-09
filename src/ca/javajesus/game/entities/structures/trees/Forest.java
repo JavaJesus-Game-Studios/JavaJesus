@@ -28,7 +28,8 @@ public class Forest extends Entity {
 	}
 
 	private boolean checkTile(int x, int y, int height) {
-		if (level.getTile((this.x + x) >> 3, (this.y + y + height) >> 3) != Tile.GRASS) {
+		Tile t = level.getTile((this.x + x) >> 3, (this.y + y + height) >> 3);
+		if (t != Tile.GRASS && t != Tile.GRASS2 && t != Tile.GRASS3 && t != Tile.GRASS_FLOWER) {
 			return false;
 		}
 		for (Entity e: level.getEntities()) {

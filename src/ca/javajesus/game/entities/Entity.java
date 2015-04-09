@@ -17,7 +17,6 @@ public abstract class Entity implements Serializable {
 	protected int x, y;
 	protected Level level;
 	protected JavaRectangle bounds;
-	public List<JavaRectangle> returnObjects = new CopyOnWriteArrayList<JavaRectangle>();
 
 	public Entity(Level level) {
 		init(level);
