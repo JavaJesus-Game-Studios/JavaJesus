@@ -13,8 +13,7 @@ public class SanCisco extends Level {
 
 	protected void initNPCPlacement() {
 		
-		this.addEntity(new CenturyLeSabre(this,
-				"Century LeSabre", 1100, 1100));
+		this.addEntity(new CenturyLeSabre(this, 1100, 1100));
 		
 	}
 

@@ -233,7 +233,6 @@ public class Player extends Mob {
 							isDriving = true;
 							vehicle.isUsed = true;
 							input.e.toggle(false);
-							sound.play(sound.carStartUp);
 							return;
 						}
 					}
@@ -759,6 +758,10 @@ public class Player extends Mob {
 		this.maxShield = 1000;
 		this.shield = maxShield;
 		inventory.addItem(Item.blackHoleGun);
+	}
+
+	public int[] getColor() {
+		return color;
 	}
 
 }

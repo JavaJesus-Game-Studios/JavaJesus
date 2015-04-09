@@ -10,7 +10,7 @@ import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.npcs.aggressive.PoliceOfficer;
-import ca.javajesus.game.entities.npcs.aggressive.SWATOfficer;
+import ca.javajesus.game.entities.npcs.aggressive.Shooter;
 import ca.javajesus.game.entities.npcs.aggressive.TechWarrior;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.graphics.JJFont;
@@ -25,28 +25,24 @@ public class NPC extends Mob {
 			16, 100, new int[] { 0xFF111111, 0xFF7E7E7E, 0xFFFFFFFF }, 0, 2,
 			"linear", 20);
 	public static NPC policeman = new PoliceOfficer(Level.level1, 160, 250);
-	public static NPC citizenFemale = new NPC(Level.level1, "Citizen-Female", 200, 400,
-			1, 16, 16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB },
-			0, 8, "cross", 30);
-	public static NPC citizenMale = new NPC(Level.level1, "Citizen-Male", 200, 500, 1,
-			16, 16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0,
-			0, "circle", 2);
+	public static NPC citizenFemale = new NPC(Level.level1, "Citizen-Female",
+			200, 400, 1, 16, 16, 100, new int[] { 0xFF111111, 0xFFA51818,
+					0xFFEDC5AB }, 0, 8, "cross", 30);
+	public static NPC citizenMale = new NPC(Level.level1, "Citizen-Male", 200,
+			500, 1, 16, 16, 100,
+			new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 0, "circle", 2);
 	public static NPC fox = new NPC(Level.level1, "Fox", 250, 75, 1, 16, 16,
 			100, new int[] { 0xFF111111, 0xFFFFA800, 0xFFFFFFFF }, 0, 14,
 			"cross", 50);
 	public static NPC techWarrior = new TechWarrior(Level.level1, 400, 250);
-	public static NPC peasantMale = new NPC(Level.level1, "Peasant-Male", 2005, 950,
-			1, 16, 16, 100, new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB },
-			0, 16, "square", 0);
-	public static NPC peasantFemale = new NPC(Level.level1, "Peasant-Female", 2025, 950,
-			1, 16, 16, 100, new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB },
-			0, 18, "cross", 0);
-	public static NPC peasantBoy = new NPC(Level.level1, "Peasant-Boychild", 2035,
-			950, 1, 16, 16, 9001, new int[] { 0xFF111111, 0xFF715B17,
-					0xFFEDC5AB }, 14, 16, "square", 0);
-	public static NPC peasantGirl = new NPC(Level.level1, "Peasant-Girlchild", 2045,
-			950, 1, 16, 16, 9000, new int[] { 0xFF111111, 0xFF715B17,
-					0xFFEDC5AB }, 14, 18, "cross", 0);
+	public static NPC peasantMale = new Peasant(Level.level1, 2005, 950,
+			Gender.MALE);
+	public static NPC peasantFemale = new Peasant(Level.level1, 2025, 950,
+			Gender.FEMALE);
+	public static NPC peasantBoy = new Peasant(Level.level1, 2035, 950,
+			Gender.BOY);
+	public static NPC peasantGirl = new Peasant(Level.level1, 2045, 950,
+			Gender.GIRL);
 
 	public static NPC Jesus = new Jesus(Level.level1, 300, 400, "stand", 30);
 
@@ -74,8 +70,8 @@ public class NPC extends Mob {
 	public Quest currentQuest;
 
 	protected boolean movingToOrigin = false;
-	
-	public enum type {
+
+	public enum Gender {
 		MALE, FEMALE, BOY, GIRL
 	}
 
@@ -105,7 +101,7 @@ public class NPC extends Mob {
 			tickCount = 0;
 			movingToOrigin = true;
 		}
-		if (!(this instanceof SWATOfficer) && (tickCount % 2 == 0)) {
+		if (!(this instanceof Shooter) && (tickCount % 2 == 0)) {
 			if (movingToOrigin)
 				findOrigin();
 			else {

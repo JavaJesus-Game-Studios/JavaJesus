@@ -73,9 +73,6 @@ public class Spawner extends Entity {
 		case "Gang":
 			return currentEntity = new GangMember(this.level, "Gang", x, y, 1,
 					200, random.nextInt(2));
-		case "Car":
-			return currentEntity = new CenturyLeSabre(this.level,
-					"Century LeSabre", x, y);
 		case "Health":
 			return currentEntity = new HealthPack(this.level, x, y);
 		case "DemonSpawner":

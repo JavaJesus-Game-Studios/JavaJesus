@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
+import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.graphics.Screen;
@@ -17,12 +18,11 @@ public class Vehicle extends Mob {
 	protected InputHandler input;
 	protected int tickCount = 0;
 	protected Point acceleration = new Point(0, 0);
-	protected final int DELAY = 3;
+	protected int DELAY = 3;
 	protected final int MAX_ACCELERATION = 5;
 	protected boolean isSlowingDown = true;
 
-	public static Vehicle vehicle1 = new CenturyLeSabre(Level.level1,
-			"Century LeSabre", 350, 300);
+	public static Vehicle vehicle1 = new CenturyLeSabre(Level.level1, 350, 300);
 
 	public static Vehicle boat1 = new Boat(Level.level1, "Century LeSabre",
 			300, 500, 1, 200);
@@ -31,12 +31,12 @@ public class Vehicle extends Mob {
 			int width, int height, SpriteSheet sheet, int defaultHealth) {
 		super(level, name, x, y, speed, width, height, sheet, defaultHealth);
 		this.renderOnTop = false;
+		this.setHitBox(new JavaRectangle(width, height, this));
 	}
 
 	public void addPlayer(Player player) {
 		this.player = player;
 		this.input = player.input;
-
 	}
 
 	public void remPlayer() {
@@ -88,13 +88,6 @@ public class Vehicle extends Mob {
 				}
 			}
 		}
-
-		if (player != null)
-			if (!isMoving()) {
-				sound.playContinuously(sound.carIdle);
-			} else {
-				sound.playContinuously(sound.carDriving);
-			}
 
 		isSlowingDown = true;
 		if (this.isUsed) {

@@ -37,7 +37,7 @@ public class ZombieMap1 extends Level {
 	}
 
 	protected void otherEntityPlacement() {
-		this.addEntity(new CenturyLeSabre(this, null, 1400, 70));
+		this.addEntity(new CenturyLeSabre(this, 1400, 70));
 		this.addEntity(new Boat(this, null, 270, 858, 2, 100));
 		this.addEntity(new CastleTower(this, 175, 1180));
 		this.addEntity(new CatholicChurch(this, 1330, 1480));

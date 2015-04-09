@@ -12,10 +12,13 @@ import ca.javajesus.game.entities.npcs.Jobs;
 import ca.javajesus.game.entities.npcs.Kobe;
 import ca.javajesus.game.entities.npcs.LordHillsborough;
 import ca.javajesus.game.entities.npcs.NPC;
+import ca.javajesus.game.entities.npcs.NPC.Gender;
 import ca.javajesus.game.entities.npcs.Octavius;
+import ca.javajesus.game.entities.npcs.Ranchero;
 import ca.javajesus.game.entities.npcs.Son;
 import ca.javajesus.game.entities.npcs.Wife;
 import ca.javajesus.game.entities.npcs.Zorra;
+import ca.javajesus.game.entities.npcs.aggressive.NativeAmerican;
 import ca.javajesus.game.entities.npcs.aggressive.SWATOfficer;
 import ca.javajesus.game.entities.particles.Pickup;
 import ca.javajesus.game.entities.structures.ApartmentHighRise;
@@ -69,6 +72,9 @@ import ca.javajesus.game.entities.structures.WeirdTechBuilding2;
 import ca.javajesus.game.entities.structures.furniture.Chest;
 import ca.javajesus.game.entities.structures.trees.Forest;
 import ca.javajesus.game.entities.vehicles.Boat;
+import ca.javajesus.game.entities.vehicles.Horse;
+import ca.javajesus.game.entities.vehicles.SportsCar;
+import ca.javajesus.game.entities.vehicles.Truck;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.items.Item;
 
@@ -90,6 +96,9 @@ public class Level1 extends Level {
 		this.addEntity(new Bautista(this, 50, 170));
 		this.addEntity(new Jobs(this, 50, 190));
 		this.addEntity(new Zorra(this, 50, 210));
+		this.addEntity(new Ranchero(this, 50, 230));
+		this.addEntity(new NativeAmerican(this, 20, 70, Gender.MALE));
+		this.addEntity(new NativeAmerican(this, 20, 90, Gender.FEMALE));
 		this.addEntity(NPC.knight);
 		this.addEntity(NPC.policeman);
 		this.addEntity(NPC.citizenFemale);
@@ -132,7 +141,12 @@ public class Level1 extends Level {
 		this.addEntity(new Forest(this, 0, 500, 500, 500));
 		
 		this.addEntity(Vehicle.vehicle1);
+		this.addEntity(new Truck(this, 400, 300));
+		this.addEntity(new SportsCar(this, 450, 300));
 		this.addEntity(new Boat(this, null, 357, 532, 2, 100));
+		
+		this.addEntity(new Horse(this, 350, 350, 0));
+		
 		this.addEntity(new PoorHouse(this, 100, 50));
 		this.addEntity(new NiceHouse(this, 600, 50));
 		this.addEntity(new Hut(this, 300, 50));

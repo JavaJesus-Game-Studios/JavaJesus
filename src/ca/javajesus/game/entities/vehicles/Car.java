@@ -1,18 +1,38 @@
 package ca.javajesus.game.entities.vehicles;
 
-import ca.javajesus.game.JavaRectangle;
+import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.tile.Tile;
 
-public class Boat extends Vehicle {
+public class Car extends Vehicle {
+	
+	private int yTile;
 
-	public Boat(Level level, String name, int x, int y, int speed,
-			int defaultHealth) {
-		super(level, name, x, y, speed, 32, 40, SpriteSheet.vehicles,
-				defaultHealth);
+	public Car(Level level, String name, int x, int y, int yTile) {
+		super(level, name, x, y, 2, 24, 15, SpriteSheet.vehicles, 200);
 		getColor();
+		this.bar = new HealthBar(level, this.x, this.y, this);
+		if (level != null)
+			level.addEntity(bar);
+		this.yTile = yTile;
+	}
+	
+	public void tick() {
+		super.tick();
+		
+		if (player != null)
+			if (!isMoving()) {
+				sound.playContinuously(sound.carIdle);
+			} else {
+				sound.playContinuously(sound.carDriving);
+			}
+	}
+	
+	public void addPlayer(Player player) {
+		super.addPlayer(player);
+		sound.play(sound.carStartUp);
 	}
 
 	private void getColor() {
@@ -81,9 +101,8 @@ public class Boat extends Vehicle {
 		}
 		this.getBounds().setSize(width, height);
 		this.getBounds().setLocation(this.x - width / 2, this.y - height / 2);
-
 		int xTile = 0;
-		int yTile = 16;
+		int yTile = this.yTile;
 
 		int flip = 0;
 
@@ -93,6 +112,10 @@ public class Boat extends Vehicle {
 			xTile += 9;
 		} else if (getDirection() == Direction.EAST) {
 			xTile += 4;
+		}
+
+		if (isDead) {
+			xTile += 18;
 		}
 
 		// Upper body 1
@@ -208,59 +231,6 @@ public class Boat extends Vehicle {
 
 		}
 
-	}
-
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 0;
-		int yMin = 0;
-		int yMax = 0;
-		if (isLongitudinal(getDirection())) {
-			xMin = 0;
-			xMax = 31;
-			yMin = 0;
-			yMax = 39;
-		} else {
-			xMin = 0;
-			xMax = 39;
-			yMin = 0;
-			yMax = 31;
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin) || isWaterTile(xa, ya, x, yMin)) {
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax) || isWaterTile(xa, ya, x, yMax)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y) || isWaterTile(xa, ya, xMin, y)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y) || isWaterTile(xa, ya, xMax, y)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	protected boolean isWaterTile(int xa, int ya, int x, int y) {
-		if (level == null) {
-			return false;
-		}
-		int xx = (int) this.x;
-		int yy = (int) this.y;
-		Tile lastTile = level.getTile((xx + x) >> 3, (yy + y) >> 3);
-		Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
-		if (!lastTile.equals(newTile) && newTile.equals(Tile.WATERSAND)) {
-			return true;
-		}
-		return false;
 	}
 
 }
