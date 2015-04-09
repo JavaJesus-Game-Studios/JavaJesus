@@ -18,6 +18,7 @@ import ca.javajesus.game.entities.npcs.Ranchero;
 import ca.javajesus.game.entities.npcs.Son;
 import ca.javajesus.game.entities.npcs.Wife;
 import ca.javajesus.game.entities.npcs.Zorra;
+import ca.javajesus.game.entities.npcs.aggressive.Gorilla;
 import ca.javajesus.game.entities.npcs.aggressive.NativeAmerican;
 import ca.javajesus.game.entities.npcs.aggressive.SWATOfficer;
 import ca.javajesus.game.entities.particles.Pickup;
@@ -99,6 +100,7 @@ public class Level1 extends Level {
 		this.addEntity(new Ranchero(this, 50, 230));
 		this.addEntity(new NativeAmerican(this, 20, 70, Gender.MALE));
 		this.addEntity(new NativeAmerican(this, 20, 90, Gender.FEMALE));
+		this.addEntity(new Gorilla(this, 200, 200));
 		this.addEntity(NPC.knight);
 		this.addEntity(NPC.policeman);
 		this.addEntity(NPC.citizenFemale);
@@ -145,7 +147,7 @@ public class Level1 extends Level {
 		this.addEntity(new SportsCar(this, 450, 300));
 		this.addEntity(new Boat(this, null, 357, 532, 2, 100));
 		
-		this.addEntity(new Horse(this, 350, 350, 0));
+		this.addEntity(new Horse(this, 666, 930, 0));
 		
 		this.addEntity(new PoorHouse(this, 100, 50));
 		this.addEntity(new NiceHouse(this, 600, 50));

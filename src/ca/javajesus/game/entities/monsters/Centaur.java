@@ -171,54 +171,20 @@ public class Centaur extends Monster {
 					flip, scale, sheet);
 		} else {
 
-			int xOff2 = 0;
-			if (getDirection() == Direction.WEST) {
-				xOff2 = -16;
+			for (int i = 0; i < 3; i++) {
+
+				// Upper body
+				screen.render(xOffset + (2 * modifier * flip), yOffset + (modifier * i), xTile
+						+ (yTile + i) * sheet.boxes, color, flip, scale, sheet);
+
+				// Upper body
+				screen.render(xOffset + modifier, yOffset + (modifier * i), (xTile + 1) + (yTile + i)
+						* sheet.boxes, color, flip, scale, sheet);
+				// Upper body
+				screen.render(xOffset + 2 * modifier - (2 * modifier * flip),
+						yOffset + (modifier * i), (xTile + 2) + (yTile + i) * sheet.boxes, color,
+						flip, scale, sheet);
 			}
-
-			// Upper body
-			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-					* sheet.boxes, color, flip, scale, sheet);
-
-			// Upper body
-			screen.render(xOffset + modifier - (modifier * flip), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
-					sheet);
-			// Upper body
-			screen.render(xOffset + xOff2 + 2 * modifier - (modifier * flip),
-					yOffset, (xTile + 2) + yTile * sheet.boxes, color, flip,
-					scale, sheet);
-
-			// Middle Body
-			screen.render(xOffset + (modifier * flip), yOffset + modifier,
-					xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
-					sheet);
-
-			// Middle Body
-			screen.render(xOffset + modifier - (modifier * flip), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-					flip, scale, sheet);
-
-			// Middle Body
-			screen.render(xOffset + xOff2 + 2 * modifier - (modifier * flip),
-					yOffset + modifier,
-					(xTile + 2) + (yTile + 1) * sheet.boxes, color, flip,
-					scale, sheet);
-
-			// Lower Body
-			screen.render(xOffset + (modifier * flip), yOffset + 2 * modifier,
-					xTile + (yTile + 2) * sheet.boxes, color, flip, scale,
-					sheet);
-
-			// Lower Body
-			screen.render(xOffset + modifier - (modifier * flip), yOffset + 2
-					* modifier, (xTile + 1) + (yTile + 2) * sheet.boxes, color,
-					flip, scale, sheet);
-
-			// Lower Body
-			screen.render(xOffset + xOff2 + 2 * modifier - (modifier * flip),
-					yOffset + 2 * modifier, (xTile + 2) + (yTile + 2)
-							* sheet.boxes, color, flip, scale, sheet);
 		}
 
 		if (!cooldown) {

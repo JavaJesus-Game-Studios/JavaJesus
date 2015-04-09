@@ -606,4 +606,5 @@ public class Mob extends Entity {
 	public int getWidth() {
 		return width;
 	}
+
 }
