@@ -4,9 +4,11 @@ import java.awt.Point;
 
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.npcs.NPC;
+import ca.javajesus.game.entities.structures.ApartmentHighRise;
 import ca.javajesus.game.entities.structures.Castle;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChapel;
+import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.CaveEntrance;
 import ca.javajesus.game.entities.structures.GenericHospital;
 import ca.javajesus.game.entities.structures.GunStore;
@@ -14,6 +16,14 @@ import ca.javajesus.game.entities.structures.Hotel;
 import ca.javajesus.game.entities.structures.Hut;
 import ca.javajesus.game.entities.structures.NiceHouse;
 import ca.javajesus.game.entities.structures.NiceHouse2;
+import ca.javajesus.game.entities.structures.PoorHouse;
+import ca.javajesus.game.entities.structures.Projects;
+import ca.javajesus.game.entities.structures.RancheroHouse;
+import ca.javajesus.game.entities.structures.RefugeeTent;
+import ca.javajesus.game.entities.structures.RussianOrthodoxChurch;
+import ca.javajesus.game.entities.structures.ShantyHouse;
+import ca.javajesus.game.entities.structures.Tippee;
+import ca.javajesus.game.entities.structures.Warehouse;
 import ca.javajesus.game.entities.structures.trees.Forest;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 
@@ -45,6 +55,8 @@ public class LordHillsboroughsDomain extends Level{
 	protected void otherEntityPlacement() {
 
 		this.addEntity(Vehicle.vehicle1);
+		
+		this.addEntity(new CatholicChurch(this, 1400, 1450));
 		
 		//The Huts
 		this.addEntity(new Hut(this, 632, 288));
@@ -100,11 +112,11 @@ public class LordHillsboroughsDomain extends Level{
 		this.addEntity(new CaveEntrance(this, 744, 2208));
 		this.addEntity(new CaveEntrance(this, 3216, 1624));
 
-		this.addEntity(new Forest(this, 1360, 2040, 500, 500));
-		this.addEntity(new Forest(this, 2968, 1000, 256, 624));
+		//this.addEntity(new Forest(this, 1360, 2040, 500, 500));
+		//this.addEntity(new Forest(this, 2968, 1000, 256, 624));
 		
-		this.addEntity(new Forest(this, 1366, 1450, 500, 500));
-		this.addEntity(new Forest(this, 0, 0, 3000, 3000));
+		//this.addEntity(new Forest(this, 1366, 1450, 500, 500));
+		//this.addEntity(new Forest(this, 0, 0, 3000, 3000));
 		
 	}
 }

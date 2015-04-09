@@ -1,5 +1,4 @@
-  N/A	  N/A		Bag End
-PLACED  INTERIOR	Catholic Chapel
+PLACED  INTERIOR	Catholic Chapel	  ~~COMPLETED~~
 PLACED	INTERIOR	Factory			MULTIPLE FLOORS
 PLACED  INTERIOR	Generic Apartments 1
 PLACED  INTERIOR	Generic Castle 1	Interior Incorrect MULTIPLE FLOORS
@@ -7,43 +6,43 @@ PLACED  INTERIOR	Generic Castle Tower	Stairs/Roof not implemented
 PLACED  INTERIOR	Generic Catholic Church	NEEDS CLUTTER
 PLACED  INTERIOR	Generic Cave Entrance
 PLACED  INTERIOR	Generic Hospital
-PLACED  INTERIOR	Generic Hut Exterior	NEEDS CLUTTER
+PLACED  INTERIOR	Generic Hut Exterior~~COMPLETED~~
 PLACED  INTERIOR	Generic Nice House	MULTIPLE FLOORS
-PLACED  INTERIOR	Generic Nice House 2	MULTIPLE FLOORS
-PLACED  INTERIOR	Generic Poor House	NEEDS CLUTTER
+PLACED  INTERIOR	Generic Nice House 2MULTIPLE FLOORS
+PLACED  INTERIOR	Generic Poor House	~~COMPLETED~~
 PLACED  INTERIOR	Generic Skyscraper  ~~COMPLETED~~
-PLACED  INTERIOR	Gun Store
+PLACED  INTERIOR	Gun Store			~~COMPLETED~~
 PLACED  INTERIOR	Hotel
 PLACED    N/A		Mine Shaft
 PLACED	INTERIOR	Modern Skyscraper
 PLACED  INTERIOR	Police Building
-PLACED  INTERIOR	Prison
-PLACED 	INTERIOR	Projects	NEW TOP FLOOR, ADD IN, DON’T CHANGE # OF FLOORS
-PLACED  INTERIOR	Ranchero House
-PLACED  INTERIOR	Refugee Tent
-PLACED  INTERIOR	Russian Orthodox Church
-PLACED  INTERIOR	Shanty House
-PLACED  INTERIOR	Tippee
-PLACED  INTERIOR	Warehouse		NEEDS CLUTTER
-PLACED    N/A		The Great Tree		COLORS
-PLACED    N/A		Tree House		COLORS
-PLACED    N/A		UC Grizzly		COLORS
-PLACED    N/A		Oakwood City Hall	COLORS
+PLACED  INTERIOR	Prison				
+PLACED 	INTERIOR	Projects			~~COMPLETED~~
+PLACED  INTERIOR	Ranchero House		~~COMPLETED~~
+PLACED  INTERIOR	Refugee Tent		~~COMPLETED~~
+PLACED  INTERIOR	Ru. Orthodox Church	~~COMPLETED~~
+PLACED  INTERIOR	Shanty House		~~COMPLETED~~
+PLACED  INTERIOR	Tippee				~~COMPLETED~~
+PLACED  INTERIOR	Warehouse			~~COMPLETED~~
+PLACED    N/A		The Great Tree		
+PLACED    N/A		Tree House		
+PLACED    N/A		UC Grizzly		
+PLACED    N/A		Oakwood City Hall	
 PLACED    N/A		Chinatown House
 PLACED    N/A		Russian Club
 PLACED    N/A		San Cisco City Hall
 PLACED 	  WIP		San Cisco Skyscraper Triangle	LOBBY DONE, MULTIPLE FLOORS
-PLACED    N/A		Radar Dish	COLORS
+PLACED    N/A		Radar Dish	
 PLACED    N/A		Triad HQ	
-PLACED    N/A		Jugle HQ			COLORS
-PLACED    N/A		Quaker HQ			COLORS
-PLACED    N/A		San Juan City Hall	COLORS
-PLACED    N/A		The Hub 			COLORS
-PLACED    N/A		Sequoia City Cinema COLORS
-PLACED    N/A		Sequoia City School COLORS
-PLACED	  N/A		Cafe					""
-PLACED	  N/A		Cardinal University		""
-PLACED	  N/A		Pear HQ					""
-PLACED	  N/A		Tech Topia City Hall	""
-PLACED	  N/A		Weird Tech Building 1	""	
-PLACED	  N/A		Weird Tech Building 2	""
+PLACED    N/A		Jungle HQ			
+PLACED    N/A		Quaker HQ			
+PLACED    N/A		San Juan City Hall	
+PLACED    N/A		The Hub 			
+PLACED    N/A		Sequoia City Cinema 
+PLACED    N/A		Sequoia City School 
+PLACED	  N/A		Cafe					
+PLACED	  N/A		Cardinal University		
+PLACED	  N/A		Pear HQ				
+PLACED	  N/A		Tech Topia City Hall	
+PLACED	  N/A		Weird Tech Building 1
+PLACED	  N/A		Weird Tech Building 2

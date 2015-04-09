@@ -10,6 +10,7 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.CastleTowerInterior;
+import ca.javajesus.level.interior.RussianChurchInterior;
 
 public class RussianOrthodoxChurch extends SolidEntity {
 
@@ -20,7 +21,7 @@ public class RussianOrthodoxChurch extends SolidEntity {
 		this.bounds = new JavaRectangle(width, (height / 6) - 8, this);
 		this.bounds.setLocation(x + 12, y + shadow.height);
 		level.addEntity(new Transporter(level, x + 43, y + 64,
-				new CastleTowerInterior(new Point(x + 43, y + 167), this.level)));
+				new RussianChurchInterior(new Point(x + 49, y + 75), this.level)));
 
 	}
 

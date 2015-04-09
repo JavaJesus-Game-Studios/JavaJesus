@@ -168,7 +168,7 @@ public class Level1 extends Level {
 		this.addEntity(new RussianOrthodoxChurch(this, 1202, 757));
 		this.addEntity(new SanCiscoCityHall(this, 1202, 957));
 		this.addEntity(new CatholicChapel(this, 1022, 957));
-		this.addEntity(new ShantyHouse(this, 802, 957, 802, 957));
+		this.addEntity(new ShantyHouse(this, 802, 957));
 		
 		this.addEntity(new Projects(this, 1200, 1200));
 		this.addEntity(new RadarDish(this, 1200, 1300));

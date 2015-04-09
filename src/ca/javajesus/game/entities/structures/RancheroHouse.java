@@ -8,13 +8,14 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.CatholicChurchInterior;
+import ca.javajesus.level.interior.RancheroHouseInterior;
 
 public class RancheroHouse extends SolidEntity {
 
 	public RancheroHouse(Level level, int x, int y) {
 		super(level, x, y, 100, 61);
 		level.addEntity(new Transporter(level, x + 44, y + 45,
-				new CatholicChurchInterior(new Point(x + 40, y + 67),
+				new RancheroHouseInterior(new Point(x + 50, y + 56),
 						this.level)));
 	}
 

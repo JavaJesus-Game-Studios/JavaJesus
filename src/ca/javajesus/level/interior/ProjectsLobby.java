@@ -59,6 +59,6 @@ public class ProjectsLobby extends Interior {
 	protected void otherEntityPlacement() {
 		this.addEntity(new TransporterInterior(this, 585, 700, nextLevel,
 				exitPoint));
-		this.addEntity(new TransporterStairCarpet(this, 344, 468, new ProjectsFloor(new Point(353, 536), this, 1), new Point(353, 480), Direction.WEST));
+		this.addEntity(new TransporterStairCarpet(this, 344, 472, new ProjectsFloor(new Point(353, 536), this, 1), new Point(353, 536), Direction.WEST));
 	}
 }

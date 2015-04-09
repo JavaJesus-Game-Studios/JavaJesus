@@ -5,13 +5,13 @@ import java.awt.Point;
 import ca.javajesus.game.entities.structures.transporters.TransporterInterior;
 import ca.javajesus.level.Level;
 
-public class CatholicChapelInterior extends Interior {
+public class RefugeeTentInterior extends Interior {
 
 	private Point exitPoint;
 
-	public CatholicChapelInterior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Catholic_Chapel_Interior.png", new Point(256,
-				272), level);
+	public RefugeeTentInterior(Point point, Level level) {
+		super("/Buildings/Generic Interiors/Refugee_Tent_Interior.png", new Point(288,
+				264), level);
 		this.exitPoint = point;
 	}
 
@@ -28,7 +28,7 @@ public class CatholicChapelInterior extends Interior {
 	}
 
 	protected void otherEntityPlacement() {
-		this.addEntity(new TransporterInterior(this, 256, 278, nextLevel,
+		this.addEntity(new TransporterInterior(this, 288, 264, nextLevel,
 				exitPoint));
 	}
 

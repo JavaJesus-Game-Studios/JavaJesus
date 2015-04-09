@@ -14,13 +14,13 @@ public class HutInterior extends Interior {
 	private Spawner spawner;
 
 	public HutInterior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Hut_Interior.png", new Point(252,
+		super("/Buildings/Generic Interiors/Hut_Interior.png", new Point(256,
 				272), level);
 		this.exitPoint = point;
 	}
 
 	public HutInterior(Point point, Level level, Entity entity, Spawner spawner) {
-		super("/Buildings/Generic Interiors/Hut_Interior.png", new Point(252,
+		super("/Buildings/Generic Interiors/Hut_Interior.png", new Point(256,
 				272), level);
 		this.exitPoint = point;
 		this.entity = entity;
@@ -30,7 +30,7 @@ public class HutInterior extends Interior {
 	}
 
 	public HutInterior(Point point, Level level, Entity entity) {
-		super("/Buildings/Generic Interiors/Hut_Interior.png", new Point(252,
+		super("/Buildings/Generic Interiors/Hut_Interior.png", new Point(256,
 				272), level);
 		this.exitPoint = point;
 		this.entity = entity;

@@ -14,7 +14,7 @@ public class CatholicChurch extends SolidEntity {
 	public CatholicChurch(Level level, int x, int y) {
 		super(level, x, y, 78, 75);
 		level.addEntity(new Transporter(level, x + 38, y + 59,
-				new CatholicChurchInterior(new Point(x + 40, y + 67),
+				new CatholicChurchInterior(new Point(x + 44, y + 70),
 						this.level)));
 	}
 

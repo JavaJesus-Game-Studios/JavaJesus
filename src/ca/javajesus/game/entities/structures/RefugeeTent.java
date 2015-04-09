@@ -8,13 +8,14 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.PoorHouseInterior;
+import ca.javajesus.level.interior.RefugeeTentInterior;
 
 public class RefugeeTent  extends SolidEntity {
 
 	public RefugeeTent(Level level, int x, int y) {
 		super(level, x, y, 47, 23);
 		level.addEntity(new Transporter(level, x + 34, y + 7,
-				new PoorHouseInterior(new Point(x + 40, y + 67), this.level)));
+				new RefugeeTentInterior(new Point(x + 40, y + 18), this.level)));
 	}
 
 	public void render(Screen screen) {
