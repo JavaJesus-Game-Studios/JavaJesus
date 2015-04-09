@@ -31,7 +31,7 @@ public abstract class Tile {
 	public static final Tile SAND = new BaseTile(4, 0, 1, new int[] {
 			0xFFEEBB00, 0xFFFFFF00, 0xFF000000 }, 0xFFFFFF00);
 	public static final Tile ROAD1 = new BaseTile(6, 0, 2, new int[] {
-			0xFF222222, 0xFF353535, 0xFF000000 }, 0xFF565656);
+			0xFFa7a7a7, 0xFF353535, 0xFF000000 }, 0xFF565656);
 	public static final Tile ROAD2 = new BaseTile(7, 1, 2, new int[] {
 			0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 }, 0xFF3f3f3f);
 	public static final Tile WATERSAND = new AnimatedTile(8, new int[][] {
@@ -71,6 +71,9 @@ public abstract class Tile {
 			0xFFA40101, 0xFFEBCB00, 0xFF000000 }, 0xFFFF00FF);
 	public static final Tile BOTTOMCARPET = new BaseTile(27, 8, 1, new int[] {
 			0xFFA40101, 0xFFEBCB00, 0xFF000000 }, 0xFF6600A7);
+	public static final Tile CHECKERED_TILE = new BaseTile(49, 11, 1, new int[] {
+			0xFF111111, 0xFF111111, 0xFFFFFFFF }, 0xFFe3350c);
+
 
 	public static final Tile WOOD_WALL_HORIZONTAL_UP = new BasicSolidTile(10,
 			7, 0, new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF6D4300);
