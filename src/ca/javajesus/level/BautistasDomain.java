@@ -2,14 +2,9 @@ package ca.javajesus.level;
 
 import java.awt.Point;
 
-import ca.javajesus.game.entities.structures.Castle;
-import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChapel;
 import ca.javajesus.game.entities.structures.CaveEntrance;
-import ca.javajesus.game.entities.structures.GenericHospital;
 import ca.javajesus.game.entities.structures.GunStore;
-import ca.javajesus.game.entities.structures.Hotel;
-import ca.javajesus.game.entities.structures.Hut;
 import ca.javajesus.game.entities.structures.NiceHouse;
 import ca.javajesus.game.entities.structures.NiceHouse2;
 

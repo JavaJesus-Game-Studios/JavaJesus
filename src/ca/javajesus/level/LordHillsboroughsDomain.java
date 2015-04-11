@@ -77,7 +77,7 @@ public class LordHillsboroughsDomain extends Level{
 		
 		this.addEntity(new NiceHouse(this, 1824, 1511));
 		this.addEntity(new NiceHouse(this, 2216, 1511));
-		this.addEntity(new NiceHouse(this, 1766, 1863));
+		this.addEntity(new NiceHouse(this, 1736, 1863));
 		this.addEntity(new NiceHouse(this, 1832, 1863));
 		this.addEntity(new NiceHouse(this, 1928, 1863));
 		this.addEntity(new NiceHouse(this, 2024, 1863));
