@@ -1,5 +1,6 @@
 package ca.javajesus.items;
 
+import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
@@ -11,7 +12,7 @@ public class Bazooka extends Gun {
 	public Bazooka() {
 		super("Bazooka", 10, 5, 0, new int[] { 0xFF000000, 0xFF434343, 0xFF371B09 },
 				"Standard Explosive Artillery", 5, 0, 2, 10, 20, 300,
-				Ammo.MISSILE);
+				Ammo.MISSILE, SoundHandler.sound.explosion);
 	}
 
 	public void addPlayer(Player player) {

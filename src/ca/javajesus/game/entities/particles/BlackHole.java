@@ -26,7 +26,7 @@ public class BlackHole extends Particle {
 		this.posNumber = tileNumber;
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
 				RADIUS, RADIUS);
-		SoundHandler.sound.play(SoundHandler.sound.gunshot3);
+		SoundHandler.sound.play(SoundHandler.sound.explosion);
 	}
 
 	public void tick() {

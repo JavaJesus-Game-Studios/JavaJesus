@@ -1,5 +1,7 @@
 package ca.javajesus.items;
 
+import javax.sound.sampled.Clip;
+
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.projectiles.Arrow;
 import ca.javajesus.game.entities.projectiles.BlackHoleDetonator;
@@ -25,6 +27,7 @@ public class Gun extends Item {
 	protected int damage;
 	public int playerOffset;
 	private Ammo type;
+	private Clip clip;
 
 	public enum Ammo {
 		BULLET, ARROW, FIREBALL, LASER, MISSILE, BLACKHOLE, FLAMETHROWER, SHELL;
@@ -32,7 +35,7 @@ public class Gun extends Item {
 
 	public Gun(String name, int id, int xTile, int yTile, int[] color,
 			String description, int gunHUDType, int xPlayerSheet, int clipSize,
-			int rate, int reload, int damage, Ammo type) {
+			int rate, int reload, int damage, Ammo type, Clip clip) {
 		super(name, id, xTile, yTile, color, description);
 		this.gunType = gunHUDType;
 		this.playerOffset = xPlayerSheet;
@@ -42,6 +45,7 @@ public class Gun extends Item {
 		this.FIRE_RATE = rate * 10;
 		this.damage = damage;
 		this.type = type;
+		this.clip = clip;
 	}
 
 	public void tick() {
@@ -78,19 +82,19 @@ public class Gun extends Item {
 		if (ammo > 0 && !isReloading && canFire) {
 			switch (type) {
 			case BULLET:
-				level.addEntity(new Bullet(level, x, y, dir, player, damage));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage, clip));
 				break;
 			case ARROW:
-				level.addEntity(new Arrow(level, x, y, dir, player, damage));
+				level.addEntity(new Arrow(level, x, y, dir, player, damage, clip));
 				break;
 			case FIREBALL:
 				level.addEntity(new FireBall(level, x, y, dir, player));
 				break;
 			case LASER:
-				level.addEntity(new Laser(level, x, y, dir, player, damage));
+				level.addEntity(new Laser(level, x, y, dir, player, damage, clip));
 				break;
 			case MISSILE:
-				level.addEntity(new Missile(level, x, y, dir, player, damage));
+				level.addEntity(new Missile(level, x, y, dir, player, damage, clip));
 				break;
 			case BLACKHOLE:
 				level.addEntity(new BlackHoleDetonator(level, x, y, dir, player, damage));
@@ -103,10 +107,10 @@ public class Gun extends Item {
 			    level.addEntity(new FireBall(level, x, y, dir, player));
                 break;
 			case SHELL:
-				level.addEntity(new Bullet(level, x, y, dir, player, damage));
-				level.addEntity(new Bullet(level, x, y, dir, player, damage));
-				level.addEntity(new Bullet(level, x, y, dir, player, damage));
-				level.addEntity(new Bullet(level, x, y, dir, player, damage));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage, clip));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage, clip));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage, clip));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage, clip));
 				break;
 			}
 			ammo--;

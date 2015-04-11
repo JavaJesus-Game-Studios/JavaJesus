@@ -14,8 +14,8 @@ public class SoundHandler implements java.io.Serializable {
 
 	public Clip sheathe, background1, chest, chimpanzee, click, demon,
 			fireball, footsteps1, footstepsDirt, footstepsFarmland,
-			footstepsGrass, footstepsRoad, footstepsWood, gunshot, gunshot2,
-			gunshot3, levelup, shortSword1, shortSword2, swimming, walking,
+			footstepsGrass, footstepsRoad, footstepsWood, assaultRifle, revolver,
+			shotgun, levelup, shortSword1, shortSword2, swimming, walking,
 			background2, explosion, carAcceleration, carDriving, carIdle,
 			carStartUp;
 
@@ -26,8 +26,8 @@ public class SoundHandler implements java.io.Serializable {
 
 		AudioInputStream sheathe, background1, chest, chimpanzee, click, demon, 
 		fireball, footsteps1, footstepsDirt, footstepsFarmland, footstepsGrass, 
-		footstepsRoad, footstepsWaterSand, footstepsWood, gunshot, gunshot2, 
-		gunshot3, levelup, shortSword1, shortSword2, swimming, walking, background2, 
+		footstepsRoad, footstepsWaterSand, footstepsWood, assaultRifle, revolver, shotgun,
+		levelup, shortSword1, shortSword2, swimming, walking, background2, 
 		explosion, carAcceleration, carDriving, carIdle, carStartUp;
 
 		try {
@@ -79,20 +79,20 @@ public class SoundHandler implements java.io.Serializable {
 			footstepsWood = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Footstep_Sounds/Footsteps_Wood.wav"));
 
-			gunshot = AudioSystem
+			assaultRifle = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Projectile_Sounds/Gunshot2_Sidd_v2.wav"));
+							.getResource("/Sound/Projectile_Sounds/Assault_Rifle_Sound_1.wav"));
 
-			gunshot2 = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Projectile_Sounds/Gun_Shot_v2.wav"));
+			revolver = AudioSystem.getAudioInputStream(SoundHandler.class
+					.getResource("/Sound/Projectile_Sounds/Revolver_Sound.wav"));
 
-			gunshot3 = AudioSystem
+			shotgun = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Projectile_Sounds/Gunshot_Sidd_v2.wav"));
+							.getResource("/Sound/Projectile_Sounds/Shotgun_Sound.wav"));
 
 			explosion = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Projectile_Sounds/Gunshot_Sidd_v2.wav"));
+							.getResource("/Sound/Projectile_Sounds/Explosion.wav"));
 
 			levelup = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/8-bit_Sounds/Level_Up_v2.wav"));
@@ -137,14 +137,16 @@ public class SoundHandler implements java.io.Serializable {
 			this.footstepsGrass = AudioSystem.getClip();
 			this.footstepsRoad = AudioSystem.getClip();
 			this.footstepsWood = AudioSystem.getClip();
-			this.gunshot = AudioSystem.getClip();
-			this.gunshot2 = AudioSystem.getClip();
-			this.gunshot3 = AudioSystem.getClip();
+			this.assaultRifle = AudioSystem.getClip();
+			this.revolver = AudioSystem.getClip();
+			this.shotgun = AudioSystem.getClip();
 			this.levelup = AudioSystem.getClip();
 			this.shortSword1 = AudioSystem.getClip();
 			this.shortSword2 = AudioSystem.getClip();
 			this.swimming = AudioSystem.getClip();
 			this.walking = AudioSystem.getClip();
+			
+			this.explosion = AudioSystem.getClip();
 			
 			this.carAcceleration = AudioSystem.getClip();
 			this.carDriving = AudioSystem.getClip();
@@ -155,12 +157,15 @@ public class SoundHandler implements java.io.Serializable {
 			this.click.open(click);
 			this.demon.open(demon);
 			this.fireball.open(fireball);
-			this.gunshot.open(gunshot);
-			this.gunshot3.open(gunshot3);
+			this.assaultRifle.open(assaultRifle);
+			this.revolver.open(revolver);
+			this.shotgun.open(shotgun);
 			this.background1.open(background1);
 			this.background2.open(background2);
 			this.sheathe.open(sheathe);
 			this.swimming.open(swimming);
+			
+			this.explosion.open(explosion);
 
 			this.chest.open(chest);
 			this.levelup.open(levelup);

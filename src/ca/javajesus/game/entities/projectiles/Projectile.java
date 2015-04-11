@@ -2,6 +2,8 @@ package ca.javajesus.game.entities.projectiles;
 
 import java.util.Random;
 
+import javax.sound.sampled.Clip;
+
 import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
@@ -36,7 +38,7 @@ public class Projectile extends Entity {
 	protected int height;
 	public boolean renderOnTop = false;
 	protected double x, y;
-
+	
 	/**
 	 * Creates a new Projectile will a single direction
 	 * 
@@ -59,7 +61,7 @@ public class Projectile extends Entity {
 	 */
 	public Projectile(Level level, int width, int height, int tileNumber,
 			int[] color, double x, double y, int speed, int direction, Mob mob,
-			double damage) {
+			double damage, Clip clip) {
 		super(level);
 		this.tileNumber = tileNumber;
 		this.color = color;
@@ -70,11 +72,11 @@ public class Projectile extends Entity {
 		this.bounds = new JavaRectangle(width, height, this);
 		this.bounds.setLocation((int) x, (int) y);
 		this.mob = mob;
-
 		xOrigin = x;
 		yOrigin = y;
 		range = 200;
 		this.damage = damage;
+		sound.fire(clip);
 	}
 
 	private void calcSimpleDirection(int direction) {
@@ -130,7 +132,7 @@ public class Projectile extends Entity {
 	 */
 	public Projectile(Level level, int width, int height, int tileNumber,
 			int[] color, double x, double y, int speed, double xPos,
-			double yPos, Mob mob, double damage) {
+			double yPos, Mob mob, double damage, Clip clip) {
 		super(level);
 		this.tileNumber = tileNumber;
 		this.color = color;
@@ -146,6 +148,8 @@ public class Projectile extends Entity {
 		yOrigin = y;
 		range = 200;
 		this.damage = damage;
+		
+		sound.fire(clip);
 	}
 
 	private void calcAngle(double x, double y) {

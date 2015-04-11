@@ -580,76 +580,10 @@ public class Player extends Mob {
 
 		// Handles Swinging Animation
 		if (isSwinging) {
-			xTile = sword.swordType;
-			yTile = 0;
-
-			if (getDirection() == Direction.NORTH) {
-				xTile = 2;
-			} else if (isLatitudinal(getDirection())) {
-				xTile = 4;
-				if (getDirection() == Direction.WEST) {
-					flip = 1;
-					flip = 1;
-				} else {
-					flip = 0;
-					flip = 0;
-				}
-			}
-
-			// Upper Body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-					* sheet.boxes, color, flip, scale, SpriteSheet.swords);
-			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
-					SpriteSheet.swords);
-
-			// Lower Body 1
-			screen.render(xOffset + (modifier * flip), yOffset + modifier,
-					xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
-					SpriteSheet.swords);
-
-			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-					flip, scale, SpriteSheet.swords);
-
-			if (isLongitudinal(getDirection())) {
-				// Lower Body 1
-				screen.render(xOffset + (modifier * flip), yOffset + 2
-						* modifier, xTile + (yTile + 2) * sheet.boxes, color,
-						flip, scale, SpriteSheet.swords);
-
-				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flip), yOffset
-						+ 2 * modifier,
-						(xTile + 1) + (yTile + 2) * sheet.boxes, color, flip,
-						scale, SpriteSheet.swords);
-			} else {
-				int num = 0;
-				if (getDirection() == Direction.WEST) {
-					num = 16;
-				}
-				// Upper Body 2
-				screen.render(xOffset + 2 * modifier - num - (modifier * flip),
-						yOffset, (xTile + 2) + yTile * sheet.boxes, color,
-						flip, scale, SpriteSheet.swords);
-
-				// Lower Body 2
-				screen.render(xOffset + 2 * modifier - num - (modifier * flip),
-						yOffset + modifier, (xTile + 2) + (yTile + 1)
-								* sheet.boxes, color, flip, scale,
-						SpriteSheet.swords);
-			}
-
-			// Renders the Actual Sword
-			if (sword != null) {
-				sword.render(screen);
-			}
-
+			sword.render(screen);
 		}
 
-		if (isHit) {
+		if (isHit && !isDriving) {
 			JJFont.render(damageTaken, screen, (int) xOffset + isHitX,
 					(int) yOffset - 10 + isHitY, isHitColor, 1);
 		}
@@ -737,7 +671,10 @@ public class Player extends Mob {
 		if (damage <= 0) {
 			damage = 0;
 		}
-		this.health -= damage;
+		if (isDriving)
+			this.vehicle.health -= damage;
+		else
+			this.health -= damage;
 		damageTaken = String.valueOf(damage);
 		isHit = true;
 		isHitX = random.nextInt(10) - 5;

@@ -9,7 +9,6 @@ import ca.javajesus.game.entities.structures.transporters.Transporter;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.Sprite;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.SanCisco;
 import ca.javajesus.level.interior.SkyscraperLobby;
 
 public class Skyscraper extends SolidEntity {

@@ -19,7 +19,7 @@ public class Explosion extends Particle {
 				0xFFFF3C00, 0xFFFF0000 }, x, y);
 		this.sheet = SpriteSheet.explosions;
 		this.posNumber = tileNumber;
-		SoundHandler.sound.play(SoundHandler.sound.gunshot3);
+		SoundHandler.sound.play(SoundHandler.sound.explosion);
 		this.bounds = new Rectangle(16, 16);
 		bounds.setLocation((int) x, (int) y);
 	}

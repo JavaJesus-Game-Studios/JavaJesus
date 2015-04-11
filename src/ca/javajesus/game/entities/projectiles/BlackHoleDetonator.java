@@ -1,5 +1,6 @@
 package ca.javajesus.game.entities.projectiles;
 
+import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
@@ -15,15 +16,14 @@ public class BlackHoleDetonator extends Projectile {
 	public BlackHoleDetonator(Level level, double x, double y, double xPos,
 			double yPos, Mob mob, double damage) {
 		super(level, 2, 1, SpriteSheet.particles.boxes, new int[] { 0xFF000000,
-				0xFF000000, 0xFFFFFF00 }, x, y, 6, xPos, yPos, mob, damage);
-		sound.fire(sound.gunshot);
+				0xFF000000, 0xFFFFFF00 }, x, y, 6, xPos, yPos, mob, damage, SoundHandler.sound.explosion);
 	}
 
 	public BlackHoleDetonator(Level level, double x, double y, int direction,
 			Mob mob, double damage) {
 		super(level, 2, 1, SpriteSheet.particles.boxes, new int[] { 0xFF000000,
-				0xFF000000, 0xFFFFFF00 }, x, y, 6, direction, mob, damage);
-		sound.fire(sound.gunshot);
+				0xFF000000, 0xFFFFFF00 }, x, y, 6, direction, mob, damage, SoundHandler.sound.explosion);
+		sound.fire(sound.revolver);
 	}
 
 	public void render(Screen screen) {

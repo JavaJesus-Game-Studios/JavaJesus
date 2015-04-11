@@ -1,5 +1,7 @@
 package ca.javajesus.game.entities.projectiles;
 
+import javax.sound.sampled.Clip;
+
 import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
@@ -12,17 +14,17 @@ import ca.javajesus.level.Level;
 public class Missile extends Projectile {
 
 	public Missile(Level level, double x, double y, double xPos, double yPos,
-			Mob mob, double damage) {
+			Mob mob, double damage, Clip clip) {
 		super(level, 6, 6, 1, new int[] { 0xFF000000, 0xFF5B5B5B, 0xFFFFEA02 },
-				x, y, 5, xPos, yPos, mob, damage);
-		sound.fire(sound.gunshot);
+				x, y, 5, xPos, yPos, mob, damage, clip);
+		sound.fire(sound.revolver);
 	}
 
 	public Missile(Level level, double x, double y, int direction, Mob mob,
-			double damage) {
+			double damage, Clip clip) {
 		super(level, 6, 6, 1, new int[] { 0xFF000000, 0xFF5B5B5B, 0xFFFFEA02 },
-				x, y, 5, direction, mob, damage);
-		sound.fire(sound.gunshot);
+				x, y, 5, direction, mob, damage, clip);
+		sound.fire(sound.revolver);
 		switch (direction) {
 		case 0:
 			this.tileNumber = 3 + 3 * sheet.boxes;

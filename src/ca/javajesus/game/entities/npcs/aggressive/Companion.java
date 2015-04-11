@@ -32,7 +32,7 @@ public class Companion extends Shooter {
 			if (!cooldown) {
 				cooldown = true;
 				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7), mob
-						.getX(), mob.getY(), this, 3));
+						.getX(), mob.getY(), this, 3, sound.revolver));
 			}
 			if (!this.standRange.intersects(mob.getBounds())) {
 

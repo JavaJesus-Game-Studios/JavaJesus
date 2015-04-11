@@ -173,14 +173,12 @@ public class Centaur extends Monster {
 
 			for (int i = 0; i < 3; i++) {
 
-				// Upper body
 				screen.render(xOffset + (2 * modifier * flip), yOffset + (modifier * i), xTile
 						+ (yTile + i) * sheet.boxes, color, flip, scale, sheet);
 
-				// Upper body
 				screen.render(xOffset + modifier, yOffset + (modifier * i), (xTile + 1) + (yTile + i)
 						* sheet.boxes, color, flip, scale, sheet);
-				// Upper body
+
 				screen.render(xOffset + 2 * modifier - (2 * modifier * flip),
 						yOffset + (modifier * i), (xTile + 2) + (yTile + i) * sheet.boxes, color,
 						flip, scale, sheet);

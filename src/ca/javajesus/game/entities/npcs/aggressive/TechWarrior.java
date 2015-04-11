@@ -29,7 +29,7 @@ public class TechWarrior extends Shooter {
 			if (!cooldown) {
 				isShooting = true;
 				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7), mob
-						.getX(), mob.getY() - 4, this, 3));
+						.getX(), mob.getY() - 4, this, 3, sound.shotgun));
 			}
 			if (!this.standRange.intersects(mob.getBounds())
 					&& !this.getOuterBounds().intersects(mob.getBounds())) {
