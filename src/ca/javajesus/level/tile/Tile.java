@@ -127,11 +127,21 @@ public abstract class Tile {
 			42, 13, 0, new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA },
 			0xFFFFB400);
 
-	public static final Tile Floor_Carpet_1 = new BaseTile(46, 10, 1,
+	public static final Tile FLOOR_CARPET_1 = new BaseTile(46, 10, 1,
 			new int[] { 0xFF1F7901, 0xFF1F4001, 0xFF000000 }, 0xFF1f7a01);
 	
 	public static final Tile LINOLEUM = new BaseTile(47, 0, 1, new int[] {
 			0xFFf9ffd8, 0xFF000000, 0xFF000000 }, 0xFFFFFFFF);
+	
+	public static final Tile MOUNTAIN_UP = new BasicSolidTile(50, 5, 2, new int[] {
+			0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 }, 0xFF9e7013);
+	public static final Tile MOUNTAIN_DOWN = new BasicSolidTile(51, 6, 2, new int[] {
+			0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 }, 0xFF875a00);
+	public static final Tile MOUNTAIN_LEFT = new BasicSolidTile(52, 8, 2, new int[] {
+			0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 }, 0xFF564015);
+	public static final Tile MOUNTAIN_RIGHT = new BasicSolidTile(53, 7, 2, new int[] {
+			0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 }, 0xFF5e3f00);
+
 
 	protected byte id;
 	protected boolean solid;

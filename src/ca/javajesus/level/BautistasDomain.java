@@ -15,13 +15,13 @@ import ca.javajesus.game.entities.structures.RancheroHouse;
 import ca.javajesus.game.entities.structures.RefugeeTent;
 import ca.javajesus.game.entities.structures.ShantyHouse;
 import ca.javajesus.game.entities.structures.Warehouse;
-import ca.javajesus.game.entities.structures.Cinema;
-import ca.javajesus.game.entities.structures.School;
+import ca.javajesus.game.entities.structures.SequoiaCinema;
+import ca.javajesus.game.entities.structures.SequoiaSchool;
 
 
 public class BautistasDomain extends Level{
 	public BautistasDomain(){
-		super("/Levels/Cities/Domain_of_Rancher_Bautista", true);
+		super("/Levels/Cities/Domain_of_Ranchero_Bautista.png", true);
 		this.spawnPoint = new Point(2896, 64);
 		startingSpawnPoint = new Point(2896, 64);
 
@@ -45,7 +45,8 @@ public class BautistasDomain extends Level{
 
 	 
 	protected void otherEntityPlacement() {
-		
+		//Sequoia City
+
 	    //churches and chapels
 	    this.addEntity(new CatholicChapel(this, 2312, 1280));
 	    this.addEntity(new CatholicChurch(this, 920, 2048));
@@ -56,7 +57,7 @@ public class BautistasDomain extends Level{
 	    this.addEntity(new CaveEntrance(this, 1808, 432));
 	    
 	    //cinema
-	    this.addEntity(new Cinema(this, 2800, 1832));
+	    this.addEntity(new SequoiaCinema(this, 2800, 1832));
 	    
 	    ///gunstore
 	    this.addEntity(new GunStore(this, 2952, 1896));
@@ -150,7 +151,7 @@ public class BautistasDomain extends Level{
 	    this.addEntity(new RefugeeTent(this, 3432, 1504));
 
 	    //caucasian lodging
-	    this.addEntity(new School(this, 2264, 1688));
+	    this.addEntity(new SequoiaSchool(this, 2264, 1688));
 
 	    //warehouses
 	    this.addEntity(new Warehouse(this, 2968, 1408));
@@ -161,8 +162,6 @@ public class BautistasDomain extends Level{
 	    this.addEntity(new Warehouse(this, 3280, 752));
 	    this.addEntity(new Warehouse(this, 3440, 712));
 		
-		//Sequoia City
-		//Bautista's Cattle Ranch
 		
 		
 	}
