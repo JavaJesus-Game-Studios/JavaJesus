@@ -15,13 +15,10 @@ import ca.javajesus.game.entities.structures.RancheroHouse;
 import ca.javajesus.game.entities.structures.RefugeeTent;
 import ca.javajesus.game.entities.structures.ShantyHouse;
 import ca.javajesus.game.entities.structures.Warehouse;
-import ca.javajesus.game.entities.structures.Cinema;
-import ca.javajesus.game.entities.structures.School;
-
 
 public class BautistasDomain extends Level{
 	public BautistasDomain(){
-		super("/Levels/Cities/Domain_of_Rancher_Bautista", true);
+		super("/Levels/Cities/Domain_of_Ranchero_Bautista.png", true);
 		this.spawnPoint = new Point(2896, 64);
 		startingSpawnPoint = new Point(2896, 64);
 
@@ -56,7 +53,7 @@ public class BautistasDomain extends Level{
 	    this.addEntity(new CaveEntrance(this, 1808, 432));
 	    
 	    //cinema
-	    this.addEntity(new Cinema(this, 2800, 1832));
+	    //this.addEntity(new Cinema(this, 2800, 1832));
 	    
 	    ///gunstore
 	    this.addEntity(new GunStore(this, 2952, 1896));
@@ -150,7 +147,7 @@ public class BautistasDomain extends Level{
 	    this.addEntity(new RefugeeTent(this, 3432, 1504));
 
 	    //caucasian lodging
-	    this.addEntity(new School(this, 2264, 1688));
+	   // this.addEntity(new School(this, 2264, 1688));
 
 	    //warehouses
 	    this.addEntity(new Warehouse(this, 2968, 1408));

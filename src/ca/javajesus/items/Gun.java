@@ -34,11 +34,11 @@ public class Gun extends Item {
 	}
 
 	public Gun(String name, int id, int xTile, int yTile, int[] color,
-			String description, int gunHUDType, int xPlayerSheet, int clipSize,
+			String description, int gunHUDType, int yPlayerSheet, int clipSize,
 			int rate, int reload, int damage, Ammo type, Clip clip) {
 		super(name, id, xTile, yTile, color, description);
 		this.gunType = gunHUDType;
-		this.playerOffset = xPlayerSheet;
+		this.playerOffset = yPlayerSheet;
 		this.clipSize = clipSize;
 		this.ammo = clipSize;
 		this.RELOAD_TIME = reload * 10;
@@ -49,6 +49,7 @@ public class Gun extends Item {
 	}
 
 	public void tick() {
+			fireTicks++;
 		if (isReloading) {
 			if (ammo < clipSize)
 				ammo += (double) clipSize / RELOAD_TIME;
@@ -71,7 +72,6 @@ public class Gun extends Item {
 			canFire = true;
 		}
 
-		fireTicks++;
 	}
 
 	public void reload() {
@@ -82,39 +82,49 @@ public class Gun extends Item {
 		if (ammo > 0 && !isReloading && canFire) {
 			switch (type) {
 			case BULLET:
-				level.addEntity(new Bullet(level, x, y, dir, player, damage, clip));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage,
+						clip));
 				break;
 			case ARROW:
-				level.addEntity(new Arrow(level, x, y, dir, player, damage, clip));
+				level.addEntity(new Arrow(level, x, y, dir, player, damage,
+						clip));
 				break;
 			case FIREBALL:
 				level.addEntity(new FireBall(level, x, y, dir, player));
 				break;
 			case LASER:
-				level.addEntity(new Laser(level, x, y, dir, player, damage, clip));
+				level.addEntity(new Laser(level, x, y, dir, player, damage,
+						clip));
 				break;
 			case MISSILE:
-				level.addEntity(new Missile(level, x, y, dir, player, damage, clip));
+				level.addEntity(new Missile(level, x, y, dir, player, damage,
+						clip));
 				break;
 			case BLACKHOLE:
-				level.addEntity(new BlackHoleDetonator(level, x, y, dir, player, damage));
+				level.addEntity(new BlackHoleDetonator(level, x, y, dir,
+						player, damage));
 				break;
 			case FLAMETHROWER:
-			    level.addEntity(new FireBall(level, x, y, dir, player));
-			    level.addEntity(new FireBall(level, x, y, dir, player));
-			    level.addEntity(new FireBall(level, x, y, dir, player));
-			    level.addEntity(new FireBall(level, x, y, dir, player));
-			    level.addEntity(new FireBall(level, x, y, dir, player));
-                break;
+				level.addEntity(new FireBall(level, x, y, dir, player));
+				level.addEntity(new FireBall(level, x, y, dir, player));
+				level.addEntity(new FireBall(level, x, y, dir, player));
+				level.addEntity(new FireBall(level, x, y, dir, player));
+				level.addEntity(new FireBall(level, x, y, dir, player));
+				break;
 			case SHELL:
-				level.addEntity(new Bullet(level, x, y, dir, player, damage, clip));
-				level.addEntity(new Bullet(level, x, y, dir, player, damage, clip));
-				level.addEntity(new Bullet(level, x, y, dir, player, damage, clip));
-				level.addEntity(new Bullet(level, x, y, dir, player, damage, clip));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage,
+						clip));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage,
+						clip));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage,
+						clip));
+				level.addEntity(new Bullet(level, x, y, dir, player, damage,
+						clip));
 				break;
 			}
 			ammo--;
 			canFire = false;
+			fireTicks = 0;
 		}
 	}
 

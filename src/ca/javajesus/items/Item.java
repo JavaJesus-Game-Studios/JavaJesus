@@ -7,7 +7,7 @@ import ca.javajesus.items.Armor.ArmorSet;
 import ca.javajesus.items.Gun.Ammo;
 
 public class Item implements java.io.Serializable {
-	
+
 	public static Item apple = new Item("Apple", 0, 2, 5, new int[] {
 			0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "This is a red fruit!");
 	public static Item banana = new Item("Banana", 1, 3, 5, new int[] {
@@ -23,13 +23,15 @@ public class Item implements java.io.Serializable {
 			10, 20, 50, Ammo.BULLET, SoundHandler.sound.revolver);
 	public static Item laserRevolver = new Gun("Laser Revolver", 5, 1, 0,
 			new int[] { 0xFF111111, 0xFF4D2607, 0xFFFFAE00 },
-			"Standard Firearm", 1, 0, 5, 10, 20, 75, Ammo.LASER, SoundHandler.sound.revolver);
+			"Standard Firearm", 1, 4, 5, 10, 20, 75, Ammo.LASER,
+			SoundHandler.sound.revolver);
 	public static Item shotgun = new Gun("Shotgun", 6, 3, 0, new int[] {
-			0xFF111111, 0xFF4D2607, 0xFFCFCFCF }, "Standard Firearm", 2, 4, 2,
+			0xFF111111, 0xFF4D2607, 0xFFCFCFCF }, "Standard Firearm", 2, 12, 2,
 			10, 20, 85, Ammo.SHELL, SoundHandler.sound.shotgun);
-	public static Item assaultRifle = new Gun("Assault Rifle", 7, 2, 0,
+	public static Item assaultRifle = new Gun("Assault Rifle", 7, 8, 0,
 			new int[] { 0xFF111111, 0xFFCFCFCF, 0xFF000000 },
-			"Standard Firearm", 3, 8, 30, 1, 6, 10, Ammo.BULLET, SoundHandler.sound.assaultRifle);
+			"Standard Firearm", 3, 8, 30, 1, 6, 10, Ammo.BULLET,
+			SoundHandler.sound.assaultRifle);
 	public static Item crossBow = new Gun("Crossbow", 8, 4, 0, new int[] {
 			0xFF111111, 0xFF4D2607, 0xFFCFCFCF }, "Standard Firearm", 4, 16, 1,
 			10, 20, 75, Ammo.ARROW, SoundHandler.sound.revolver);
@@ -40,22 +42,22 @@ public class Item implements java.io.Serializable {
 			"This is a sword", 0, 25, 30, new int[] { 7, 12, 16, 21 });
 	public static Item longSword = new Sword("Long Sword", 10, 0, 1, 0, 4,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC },
-			"This is a sword", 0, 40, 50, new int[] { 7, 12, 16, 21 });
+			"This is a sword", 0, 40, 50, new int[] { 7, 13, 18, 23 }, 1);
 	public static Item claymore = new Sword("Claymore", 11, 2, 1, 0, 10,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC },
-			"This is a sword", 0, 60, 75, new int[] { 7, 12, 16, 21 });
+			"This is a sword", 0, 60, 75, new int[] { 7, 13, 18, 23 }, 1);
 	public static Item sabre = new Sword("Sabre", 12, 3, 1, 0, 19, new int[] {
 			0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "This is a sword", 0, 20, 45,
-			new int[] { 7, 12, 16, 21 });
+			new int[] { 7, 13, 18, 23 }, 1);
 	public static Item heavenlySword = new Sword("Heavenly Sword", 13, 4, 1, 0,
 			15, new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
-			"This is a sword", 0, 30, 5, new int[] { 7, 12, 16, 21 });
+			"This is a sword", 0, 30, 5, new int[] { 7, 13, 18, 23 }, 1);
 	public static Item heavenlyShortSword = new Sword("Heavenly Short Sword",
 			14, 4, 1, 0, 22, new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
 			"This is a sword", 0, 30, 5, new int[] { 7, 12, 16, 21 });
 	public static Item kingSword = new Sword("King Short Sword", 22, 4, 1, 0,
 			25, new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
-			"This is a sword", 0, 30, 5, new int[] { 7, 12, 16, 21 });
+			"This is a sword", 0, 30, 5, new int[] { 7, 13, 18, 23 }, 1);
 
 	public static Item vest = new Armor("Simple Vest", 15, 0, 0, new int[] {
 			0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.VEST);
@@ -73,6 +75,20 @@ public class Item implements java.io.Serializable {
 			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 },
 			"Please apply cold water to burn", 0, 0, 6, 10, 20, 50,
 			Ammo.FLAMETHROWER, SoundHandler.sound.revolver);
+
+	public static Item assaultRifleAmmo = new Item("Ammo", 22, 0, 6, new int[] {
+			0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Assault Rifle AMmo");
+	public static Item revolverAmmo = new Item("Ammo", 23, 2, 6, new int[] {
+			0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Assault Rifle AMmo");
+	public static Item shotgunAmmo = new Item("Ammo", 24, 3, 6, new int[] {
+			0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Assault Rifle AMmo");
+	public static Item laserAmmo = new Item("Ammo", 25, 4, 6, new int[] {
+			0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Assault Rifle AMmo");
+	public static Item arrowAmmo = new Item("Ammo", 26, 1, 7, new int[] {
+			0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Assault Rifle AMmo");
+	
+	public static Item strongHealthPack = new Item("Health", 27, 1, 5, new int[] {
+			0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Health Pack");
 
 	public String name;
 	public int id;
@@ -104,21 +120,15 @@ public class Item implements java.io.Serializable {
 	public static Item returnItem(String item) {
 		switch (item) {
 		case "Apple":
-			return new Item("Apple", 0, 2, 5, new int[] { 0xFF111111,
-					0xFFFF0000, 0xFF0CA101 }, "This is a red fruit!");
+			return Item.apple;
 		case "Banana":
-			return new Item("Banana", 1, 3, 5, new int[] { 0xFF111111,
-					0xFFFFF600, 0xFF000000 }, "Monkey like.");
+			return Item.banana;
 		case "Orange":
-			return new Item("Orange", 2, 2, 5, new int[] { 0xFF111111,
-					0xFFFFAE00, 0xFF0CA101 }, "Orange you glad I said banana.");
+			return Item.orange;
 		case "Feather":
-			return new Item("Feather", 3, 4, 5, new int[] { 0xFF111111,
-					0xFF79B2FF, 0xFF000000 }, "So light.");
+			return Item.feather;
 		case "Revolver":
-			return new Gun("Revolver", 4, 0, 0, new int[] { 0xFF4D2607,
-					0xFFCFCFCF, 0xFFF7F7F7 }, "Standard Firearm", 0, 0, 6, 10,
-					20, 50, Ammo.BULLET, SoundHandler.sound.revolver);
+			return Item.revolver;
 		case "Laser Revolver":
 			return Item.laserRevolver;
 		case "Shotgun":
@@ -142,14 +152,9 @@ public class Item implements java.io.Serializable {
 		case "Bazooka":
 			return Item.bazooka;
 		case "Secret":
-			return new Gun("Secret", 20, 0, 0, new int[] { 0xFF4D2607,
-					0xFFCFCFCF, 0xFFF7F7F7 }, "??????", 0, 0, 6, 10, 20, 50,
-					Ammo.BLACKHOLE, SoundHandler.sound.revolver);
+			return Item.blackHoleGun;
 		case "Flamethrower":
-			return new Gun("Flamethrower", 21, 0, 0, new int[] { 0xFF4D2607,
-					0xFFCFCFCF, 0xFFF7F7F7 },
-					"Please apply cold water to burn", 0, 0, 6, 10, 20, 50,
-					Ammo.FLAMETHROWER, SoundHandler.sound.revolver);
+			return Item.flameThrower;
 		default:
 			return null;
 		}

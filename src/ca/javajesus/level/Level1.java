@@ -21,7 +21,17 @@ import ca.javajesus.game.entities.npcs.Zorra;
 import ca.javajesus.game.entities.npcs.aggressive.Gorilla;
 import ca.javajesus.game.entities.npcs.aggressive.NativeAmerican;
 import ca.javajesus.game.entities.npcs.aggressive.SWATOfficer;
-import ca.javajesus.game.entities.particles.Pickup;
+import ca.javajesus.game.entities.particles.pickups.ArrowPickup;
+import ca.javajesus.game.entities.particles.pickups.AssaultRifleAmmo;
+import ca.javajesus.game.entities.particles.pickups.HornedPickup;
+import ca.javajesus.game.entities.particles.pickups.IstrahiimPickup;
+import ca.javajesus.game.entities.particles.pickups.KnightPickup;
+import ca.javajesus.game.entities.particles.pickups.LaserAmmoPickup;
+import ca.javajesus.game.entities.particles.pickups.QuickHealthPickup;
+import ca.javajesus.game.entities.particles.pickups.RevolverAmmoPickup;
+import ca.javajesus.game.entities.particles.pickups.ShotgunAmmoPickup;
+import ca.javajesus.game.entities.particles.pickups.StrongHealthPack;
+import ca.javajesus.game.entities.particles.pickups.VestPickup;
 import ca.javajesus.game.entities.structures.ApartmentHighRise;
 import ca.javajesus.game.entities.structures.Cafe;
 import ca.javajesus.game.entities.structures.CardinalUniversity;
@@ -158,10 +168,18 @@ public class Level1 extends Level {
 		this.addEntity(new Skyscraper(this, 200, 200));
 		this.addEntity(new SanCiscoSkyscraper(this, 10, 2084));
 		
-		this.addEntity(new Pickup(this, 110, 25, Item.vest));
-		this.addEntity(new Pickup(this, 120, 25, Item.knight));
-		this.addEntity(new Pickup(this, 130, 25, Item.horned));
-		this.addEntity(new Pickup(this, 140, 25, Item.owl));
+		this.addEntity(new VestPickup(this, 110, 25));
+		this.addEntity(new KnightPickup(this, 120, 25));
+		this.addEntity(new HornedPickup(this, 130, 25));
+		this.addEntity(new IstrahiimPickup(this, 140, 25));
+		
+		this.addEntity(new QuickHealthPickup(this, 150, 25));
+		this.addEntity(new StrongHealthPack(this, 160, 25));
+		this.addEntity(new AssaultRifleAmmo(this, 170, 25));
+		this.addEntity(new RevolverAmmoPickup(this, 180, 25));
+		this.addEntity(new ShotgunAmmoPickup(this, 190, 25));
+		this.addEntity(new LaserAmmoPickup(this, 200, 25));
+		this.addEntity(new ArrowPickup(this, 210, 25));
 		
 		this.addEntity(new GenericHospital(this, 700, 50));
 		this.addEntity(new Tippee(this, 838, 85));

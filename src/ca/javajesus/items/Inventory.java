@@ -66,6 +66,12 @@ public class Inventory implements java.io.Serializable{
 		addItem(Item.heavenlySword);
 		addItem(Item.heavenlyShortSword);
 		addItem(Item.kingSword);
+		
+		addItem(Item.revolver);
+		addItem(Item.laserRevolver);
+		addItem(Item.assaultRifle);
+		addItem(Item.shotgun);
+		addItem(Item.crossBow);
 	}
 
 	public void addItem(Item item) {

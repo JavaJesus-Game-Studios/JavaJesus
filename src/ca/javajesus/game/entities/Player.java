@@ -207,18 +207,6 @@ public class Player extends Mob {
 				Game.displayPause();
 			}
 		}
-		if (input.up.isPressed()) {
-			shootingDir = 0;
-		}
-		if (input.down.isPressed()) {
-			shootingDir = 1;
-		}
-		if (input.left.isPressed()) {
-			shootingDir = 2;
-		}
-		if (input.right.isPressed()) {
-			shootingDir = 3;
-		}
 		if (input.e.isPressed()) {
 			if (!isDriving) {
 				for (Entity entity : level.getEntities()) {
@@ -333,6 +321,23 @@ public class Player extends Mob {
 			}
 		} else {
 			setMoving(false);
+		}
+		
+		if (input.up.isPressed()) {
+			shootingDir = 0;
+			setDirection(Direction.NORTH);
+		}
+		if (input.down.isPressed()) {
+			shootingDir = 1;
+			setDirection(Direction.SOUTH);
+		}
+		if (input.left.isPressed()) {
+			shootingDir = 2;
+			setDirection(Direction.WEST);
+		}
+		if (input.right.isPressed()) {
+			shootingDir = 3;
+			setDirection(Direction.EAST);
 		}
 		int xx = (int) x;
 		int yy = (int) y;
@@ -493,37 +498,24 @@ public class Player extends Mob {
 
 		// Handles Shooting Animation
 		if (isShooting) {
-			xTile = gun.playerOffset;
-			yTile += 2;
-			if ((gun instanceof Bazooka)) {
-				yTile = 6;
+			xTile = 0;
+			yTile = gun.playerOffset;
+			
+			if (getDirection() == Direction.NORTH) {
+				xTile += 8;
 			}
-
-			if (shootingDir == 1) {
-				if (!(gun instanceof Bazooka))
-					yTile += 2;
-				else {
-					xTile += 7;
-					flip = 0;
-					flip = 0;
-				}
-			} else if (shootingDir == 0) {
-				if (!(gun instanceof Bazooka)) {
-					yTile = 4;
-					xTile = 22;
-					flip = 0;
-					flip = 0;
+			if (getDirection() == Direction.SOUTH) {
+				xTile += 4;
+			} else if (isLatitudinal(getDirection())) {
+				xTile += ((numSteps >> walkingAnimationSpeed) & 1) * 2;
+				if (getDirection() == Direction.WEST) {
+					flip = 1;
 				} else {
-					xTile += 15;
-					flip = 0;
 					flip = 0;
 				}
-			} else if (shootingDir > 1) {
-				if (!(gun instanceof Bazooka))
-					xTile += ((numSteps >> walkingAnimationSpeed) & 1) * 2;
-				flip = (shootingDir - 1) % 2;
-				flip = (shootingDir - 1) % 2;
 			}
+			
+			SpriteSheet sheet = SpriteSheet.playerGuns;
 
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
@@ -542,10 +534,6 @@ public class Player extends Mob {
 			screen.render(xOffset + modifier - (modifier * flip), yOffset
 					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
 					flip, scale, sheet);
-
-			if ((gun instanceof Bazooka)) {
-				((Bazooka) gun).renderGun(screen);
-			}
 
 			int bulletOffset = -4;
 			if (shootingDir == 2) {

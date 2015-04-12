@@ -172,14 +172,11 @@ public class NPC extends Mob {
 		int yTile = this.yTile;
 
 		int walkingAnimationSpeed = 4;
-
+		
 		int flip = (numSteps >> walkingAnimationSpeed) & 1;
 
 		if (getDirection() == Direction.NORTH) {
-			xTile += 10;
-		}
-		if (getDirection() == Direction.SOUTH) {
-			xTile += 2;
+			xTile += 8;
 		} else if (isLatitudinal(getDirection())) {
 			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
 			if (getDirection() == Direction.WEST) {
@@ -201,11 +198,17 @@ public class NPC extends Mob {
 		if (isShooting && !isDead && !isSwimming) {
 
 			xTile = 14;
+
 			if (getDirection() == Direction.NORTH) {
-				xTile += 2;
+				xTile += 8;
 			}
-			if (getDirection() == Direction.SOUTH) {
-				xTile += 4;
+			if (isLatitudinal(getDirection())) {
+				xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
+				if (getDirection() == Direction.WEST) {
+					flip = 1;
+				} else {
+					flip = 0;
+				}
 			}
 
 			// Upper body 1

@@ -11,12 +11,13 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class GangMember extends Monster {
-	private static int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB };
+
 	protected Ellipse2D.Double standRange;
 
 	public GangMember(Level level, String name, int x, int y, int speed,
 			int health, int type) {
-		super(level, name, x, y, speed, 14, 16, 1, health, color);
+		super(level, name, x, y, speed, 14, 16, 1, health, new int[] {
+				0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB });
 		getType(type);
 		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
 				RADIUS / 2, RADIUS / 2);
@@ -108,10 +109,6 @@ public class GangMember extends Monster {
 
 	public void render(Screen screen) {
 		super.render(screen);
-		this.getBounds().setLocation((int) this.x - 7, (int) this.y - 16);
-		this.getOuterBounds().setLocation((int) this.x - 9, (int) this.y - 18);
-		this.aggroRadius.setFrame(x - RADIUS / 2, y - RADIUS / 2, RADIUS,
-				RADIUS);
 		this.standRange.setFrame(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2,
 				RADIUS / 2);
 		int xTile = 0;
@@ -119,10 +116,7 @@ public class GangMember extends Monster {
 		int flip = (numSteps >> walkingSpeed) & 1;
 
 		if (getDirection() == Direction.NORTH) {
-			xTile += 10;
-		}
-		if (getDirection() == Direction.SOUTH) {
-			xTile += 2;
+			xTile += 8;
 		} else if (isLatitudinal(getDirection())) {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
 			if (getDirection() == Direction.WEST) {
@@ -142,48 +136,31 @@ public class GangMember extends Monster {
 		}
 
 		if (isShooting) {
-
 			xTile = 14;
-
-			// Upper body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-					* sheet.boxes, color, flip, scale, sheet);
-
-			// Upper body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
-					sheet);
-
-			// Lower Body 1
-			screen.render(xOffset + (modifier * flip), yOffset + modifier,
-					xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
-					sheet);
-
-			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-					flip, scale, sheet);
-		} else {
-
-			// Upper body
-			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-					* sheet.boxes, color, flip, scale, sheet);
-
-			// Upper body
-			screen.render(xOffset + modifier - (modifier * flip), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
-					sheet);
-
-			// Lower Body
-			screen.render(xOffset + (modifier * flip), yOffset + modifier,
-					xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
-					sheet);
-
-			// Lower Body
-			screen.render(xOffset + modifier - (modifier * flip), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-					flip, scale, sheet);
+			if (getDirection() == Direction.NORTH) {
+				xTile += 12;
+			}
+			if (getDirection() == Direction.SOUTH) {
+				xTile += 6;
+			}
 		}
+
+		// Upper body 1
+		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+				* sheet.boxes, color, flip, scale, sheet);
+
+		// Upper body 2
+		screen.render(xOffset + modifier - (modifier * flip), yOffset,
+				(xTile + 1) + yTile * sheet.boxes, color, flip, scale, sheet);
+
+		// Lower Body 1
+		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile
+				+ (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
+
+		// Lower Body 2
+		screen.render(xOffset + modifier - (modifier * flip), yOffset
+				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
+				flip, scale, sheet);
 
 	}
 
