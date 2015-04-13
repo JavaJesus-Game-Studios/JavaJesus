@@ -25,7 +25,7 @@ public class BaseTile extends Tile {
 	}
 
 	public void setTileID(int x, int y) {
-		this.tileId = x + y * 32;
+		this.tileId = x + y * sheet.boxes;
 	}
 
 }

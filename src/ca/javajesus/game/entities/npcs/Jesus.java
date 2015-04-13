@@ -4,6 +4,7 @@ import java.awt.geom.Ellipse2D;
 
 import ca.javajesus.level.Level;
 import ca.javajesus.quests.SampleQuest;
+import ca.javajesus.quests.SampleScript;
 
 public class Jesus extends NPC {
 	private static int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFFFD89B };

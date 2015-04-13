@@ -1,11 +1,8 @@
 package ca.javajesus.game.entities;
 
 import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-import ca.javajesus.game.Game;
 import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
@@ -15,6 +12,7 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.tile.Tile;
+import ca.javajesus.quests.Script;
 
 public class Mob extends Entity {
 
@@ -54,6 +52,7 @@ public class Mob extends Entity {
 	protected int[] isHitColor = { 0xFF000000, 0xFF000000, 0xFFFF0000 };
 
 	protected int tickCount = 0;
+	public Script script;
 
 	public int strength, defense, accuracy, evasion;
 
@@ -283,7 +282,7 @@ public class Mob extends Entity {
 		return false;
 	}
 
-	protected boolean isMobCollision(int xa, int ya) {
+	public boolean isMobCollision(int xa, int ya) {
 		for (Mob mob : level.getMobs()) {
 			if (mob != this && !mob.isDead) {
 				Rectangle temp = new Rectangle(mob.getBounds().width + 2 * xa,

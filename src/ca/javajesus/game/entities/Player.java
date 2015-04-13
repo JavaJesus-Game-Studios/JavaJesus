@@ -27,6 +27,7 @@ import ca.javajesus.level.Level;
 import ca.javajesus.level.Level1;
 import ca.javajesus.level.tile.Tile;
 import ca.javajesus.quests.Quest;
+import ca.javajesus.quests.SampleScript;
 
 public class Player extends Mob {
 
@@ -125,6 +126,10 @@ public class Player extends Mob {
 				isHitTicks = 0;
 				isHit = false;
 			}
+		}
+		
+		if (script != null) {
+			script.tick();
 		}
 
 		int xa = 0;

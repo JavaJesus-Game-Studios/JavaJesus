@@ -1,5 +1,6 @@
 package ca.javajesus.quests;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import ca.javajesus.game.entities.Player;
@@ -13,11 +14,19 @@ public abstract class Quest {
 	protected Player player;
 	protected String title;
 	protected int phase = 0;
+	public Point walkLocation;
 	
 	public Quest(NPC giver, String title) {
 		this.giver = giver;
 		this.title = title;
 		objectives.add(false);
+	}
+	
+	public Quest(NPC giver, String title, Point point) {
+		this.giver = giver;
+		this.title = title;
+		objectives.add(false);
+		this.walkLocation = point;
 	}
 	
 	public int getPhase() {

@@ -102,7 +102,9 @@ public class NPC extends Mob {
 			movingToOrigin = true;
 		}
 		if (!(this instanceof Shooter) && (tickCount % 2 == 0)) {
-			if (movingToOrigin)
+			if (script != null)
+				script.tick();
+			else if (movingToOrigin)
 				findOrigin();
 			else {
 				findPath();
@@ -172,7 +174,7 @@ public class NPC extends Mob {
 		int yTile = this.yTile;
 
 		int walkingAnimationSpeed = 4;
-		
+
 		int flip = (numSteps >> walkingAnimationSpeed) & 1;
 
 		if (getDirection() == Direction.NORTH) {
