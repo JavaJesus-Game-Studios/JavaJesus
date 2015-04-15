@@ -28,7 +28,7 @@ public abstract class Tile {
 	public static final Tile WATER = new AnimatedTile(3, new int[][] {
 			{ 0, 14 }, { 1, 14 }, { 2, 14 }, { 3, 14 }, { 2, 14 }, { 1, 14 } },
 			new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 0xFF0000FF, 800);
-	public static final Tile SAND = new BaseTile(4, 0, 1, new int[] {
+	public static final Tile SAND = new BaseTile(4, 9, 2, new int[] {
 			0xFFEEBB00, 0xFFFFFF00, 0xFF000000 }, 0xFFFFFF00);
 	public static final Tile ROAD1 = new BaseTile(6, 0, 2, new int[] {
 			0xFF222222, 0xFF353535, 0xFF000000 }, 0xFF565656);
@@ -45,7 +45,7 @@ public abstract class Tile {
 			0xFF0C6600, 0xFF5D3102, 0xFF000000 }, 0xFF1E6A00);
 	public static final Tile FARMPLOT2 = new BaseTile(13, 3, 1, new int[] {
 			0xFF0C6600, 0xFF5D3102, 0xFF000000 }, 0xFF123F00);
-	public static final Tile DIRTROAD = new BaseTile(14, 0, 2, new int[] {
+	public static final Tile DIRTROAD = new BaseTile(14, 10, 2, new int[] {
 			0xFF935409, 0xFF000000, 0xFF000000 }, 0xFFA06201);
 	public static final Tile BRICKROAD = new BaseTile(15, 1, 0, new int[] {
 			0xFFD40000, 0xFFB40000, 0xFF000000 }, 0xFFA50000);
