@@ -34,9 +34,9 @@ public abstract class Tile {
 			0xFF222222, 0xFF353535, 0xFF000000 }, 0xFF565656);
 	public static final Tile ROAD2 = new BaseTile(7, 1, 2, new int[] {
 			0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 }, 0xFF3f3f3f);
-	public static final Tile WATERSAND = new AnimatedTile(8, new int[][] {
+	public static final Tile WATERSAND = new AnimatedTile(5, new int[][] {
 			{ 0, 14 }, { 1, 14 }, { 2, 14 }, { 3, 14 }, { 2, 14 }, { 1, 14 } },
-			new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 0xFF64FFFF, 1000);
+			new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 0xFF64FFFF, 800);
 	public static final Tile ROAD3 = new BaseTile(9, 2, 2, new int[] {
 			0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 }, 0xFF9b9b9b);
 	public static final Tile MUD = new BaseTile(11, 0, 2, new int[] {

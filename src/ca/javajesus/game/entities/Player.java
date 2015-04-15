@@ -127,7 +127,7 @@ public class Player extends Mob {
 				isHit = false;
 			}
 		}
-		
+
 		if (script != null) {
 			script.tick();
 		}
@@ -327,7 +327,7 @@ public class Player extends Mob {
 		} else {
 			setMoving(false);
 		}
-		
+
 		if (input.up.isPressed()) {
 			shootingDir = 0;
 			setDirection(Direction.NORTH);
@@ -344,13 +344,9 @@ public class Player extends Mob {
 			shootingDir = 3;
 			setDirection(Direction.EAST);
 		}
-		int xx = (int) x;
-		int yy = (int) y;
-		if (level.getTile(xx >> 3, yy >> 3).getId() == 3) {
-			if (!jesusMode)
+		if (level.getTile(x >> 3, (y + 3) >> 3).getId() == 3 && !jesusMode) {
 				isSwimming = true;
-		}
-		if (isSwimming && level.getTile(xx >> 3, yy >> 3).getId() != 3) {
+		} else {
 			isSwimming = false;
 		}
 
@@ -505,7 +501,7 @@ public class Player extends Mob {
 		if (isShooting) {
 			xTile = 0;
 			yTile = gun.playerOffset;
-			
+
 			if (getDirection() == Direction.NORTH) {
 				xTile += 8;
 			}
@@ -519,7 +515,7 @@ public class Player extends Mob {
 					flip = 0;
 				}
 			}
-			
+
 			SpriteSheet sheet = SpriteSheet.playerGuns;
 
 			// Upper Body 1

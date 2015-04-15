@@ -357,7 +357,7 @@ public class Mob extends Entity {
 			}
 		}
 
-		if (level.getTile(x >> 3, y >> 3).getId() == 3) {
+		if (level.getTile(x >> 3, (y + 3) >> 3).getId() == 3) {
 			isSwimming = true;
 		} else {
 			isSwimming = false;
@@ -378,9 +378,6 @@ public class Mob extends Entity {
 		this.getOuterBounds().setLocation(
 				this.x - (int) getBounds().getWidth() / 2 - 2,
 				this.y - (int) getBounds().getHeight() / 2 - 2);
-
-		// returnObjects.clear();
-		// Game.quad.retrieve(returnObjects, this.bounds);
 
 		int modifier = 8 * scale;
 		int xOffset = x - modifier;
