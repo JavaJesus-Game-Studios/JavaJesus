@@ -8,13 +8,14 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.PoorHouseInterior;
+import ca.javajesus.level.interior.RadarDishInterior;
 
 public class RadarDish extends SolidEntity {
 
 	public RadarDish(Level level, int x, int y) {
 		super(level, x, y, 85, 133);
 		level.addEntity(new Transporter(level, x + 37, y + 117,
-				new PoorHouseInterior(new Point(x + 44, y + 67), this.level)));
+				new RadarDishInterior(new Point(x + 43, y + 125), this.level)));
 	}
 	
 	public void render(Screen screen) {

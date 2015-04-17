@@ -99,6 +99,8 @@ public class Level1 extends Level {
 	}
 
 	public void initNPCPlacement() {
+		this.addEntity(new UCGrizzly(this, 50, 50));
+		
 		this.addEntity(new LordHillsborough(this, 50, 50));
 		this.addEntity(new Wife(this, 50, 70));
 		this.addEntity(new Daughter(this, 50, 90));

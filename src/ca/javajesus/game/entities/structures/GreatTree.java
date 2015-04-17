@@ -14,7 +14,7 @@ public class GreatTree extends SolidEntity {
 	public GreatTree(Level level, int x, int y) {
 		super(level, x, y, 56, 120);
 		level.addEntity(new Transporter(level, x + 22, y + 30,
-				new PoorHouseInterior(new Point(x + 40, y + 67), this.level)));
+				new PoorHouseInterior(new Point(x + 28, y + 42), this.level)));
 	}
 	
 	public void render(Screen screen) {

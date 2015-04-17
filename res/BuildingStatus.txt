@@ -25,14 +25,14 @@ PLACED  INTERIOR	Shanty House		~~COMPLETED~~
 PLACED  INTERIOR	Tippee				~~COMPLETED~~
 PLACED  INTERIOR	Warehouse			~~COMPLETED~~
 PLACED  INTERIOR 	The Great Tree		
-PLACED  INTERIOR 	Tree House		
+PLACED  INTERIOR 	Tree House			~~COMPLETED~~	
 PLACED  INTERIOR	UC Grizzly		
 PLACED  INTERIOR	Oakwood City Hall	
-PLACED  INTERIOR	Chinatown House
+PLACED  INTERIOR	Chinatown House		~~COMPLETED~~
 PLACED  INTERIOR	Russian Club
 PLACED  INTERIOR	San Cisco City Hall
 PLACED 	INTERIOR	San Cisco Skyscraper Triangle
-PLACED  INTERIOR	Radar Dish	
+PLACED  INTERIOR	Radar Dish			~~COMPLETED~~
 PLACED  INTERIOR	Triad HQ	
 PLACED  INTERIOR	Jungle HQ			
 PLACED  INTERIOR	Quaker HQ			
@@ -40,7 +40,7 @@ PLACED    N/A		San Juan City Hall
 PLACED  INTERIOR	The Hub 			
 PLACED  INTERIOR	Sequoia City Cinema 
 PLACED  INTERIOR	Sequoia City School 
-PLACED  INTERIOR	Cafe					
+PLACED  INTERIOR	Cafe				~~COMPLETED~~			
 PLACED  INTERIOR	Cardinal University		
 PLACED  INTERIOR	Pear HQ				
 PLACED  INTERIOR	Tech Topia City Hall	
