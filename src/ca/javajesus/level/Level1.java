@@ -8,6 +8,7 @@ import ca.javajesus.game.entities.monsters.Cyclops;
 import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.npcs.Bautista;
 import ca.javajesus.game.entities.npcs.Daughter;
+import ca.javajesus.game.entities.npcs.Istrahiim;
 import ca.javajesus.game.entities.npcs.Jobs;
 import ca.javajesus.game.entities.npcs.Kobe;
 import ca.javajesus.game.entities.npcs.LordHillsborough;
@@ -111,6 +112,9 @@ public class Level1 extends Level {
 		this.addEntity(new NativeAmerican(this, 20, 70, Gender.MALE));
 		this.addEntity(new NativeAmerican(this, 20, 90, Gender.FEMALE));
 		this.addEntity(new Gorilla(this, 200, 200));
+		
+		this.addEntity(new Istrahiim(this, 250, 180));
+		
 		this.addEntity(NPC.knight);
 		this.addEntity(NPC.policeman);
 		this.addEntity(NPC.citizenFemale);

@@ -144,7 +144,7 @@ public class ItemScreenGUI extends ScreenGUI {
 					&& InputHandler.MouseX < (266 + i * 48)
 					&& InputHandler.MouseY > 107 && InputHandler.MouseY < 155) {
 				isHovering = true;
-				hoverText = player.inventory.guns.get(i).name;
+				hoverText = player.inventory.guns.get(i).name + " Qty: " + player.inventory.guns.get(i).amount;
 				repaint();
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
@@ -162,7 +162,7 @@ public class ItemScreenGUI extends ScreenGUI {
 					&& InputHandler.MouseX < (266 + i * 48)
 					&& InputHandler.MouseY > 265 && InputHandler.MouseY < 313) {
 				isHovering = true;
-				hoverText = player.inventory.swords.get(i).name;
+				hoverText = player.inventory.swords.get(i).name + " Qty: " + player.inventory.swords.get(i).amount;
 				repaint();
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
@@ -180,7 +180,7 @@ public class ItemScreenGUI extends ScreenGUI {
 					&& InputHandler.MouseX < (266 + i * 48)
 					&& InputHandler.MouseY > 423 && InputHandler.MouseY < 471) {
 				isHovering = true;
-				hoverText = player.inventory.usables.get(i).name;
+				hoverText = player.inventory.usables.get(i).name + " Qty: " + player.inventory.usables.get(i).amount;
 				repaint();
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
@@ -198,7 +198,7 @@ public class ItemScreenGUI extends ScreenGUI {
 					&& InputHandler.MouseX < (266 + i * 48)
 					&& InputHandler.MouseY > 581 && InputHandler.MouseY < 629) {
 				isHovering = true;
-				hoverText = player.inventory.misc.get(i).name;
+				hoverText = player.inventory.misc.get(i).name + " Qty: " + player.inventory.swords.get(i).amount;
 				repaint();
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;

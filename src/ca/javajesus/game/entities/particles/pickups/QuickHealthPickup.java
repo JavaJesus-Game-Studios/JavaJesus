@@ -7,7 +7,7 @@ import ca.javajesus.level.Level;
 public class QuickHealthPickup extends Pickup {
 
 	public QuickHealthPickup(Level level, int x, int y) {
-		super(level, x, y, null, new int[] { 0xFFFFFFFF, 0xFF990000, 0xFFFF0000 }, 0, 5);
+		super(level, x, y, null, new int[] { 0xFFFFFFFF, 0xFF990000, 0xFFFF0000 }, 0, 5, 1);
 
 	}
 	

@@ -7,7 +7,7 @@ public class ShotgunAmmoPickup extends Pickup {
 	
 	public ShotgunAmmoPickup(Level level, int x, int y) {
 		super(level, x, y, Item.shotgunAmmo, new int[] { 0xFFFFFFFF,
-				0xFF990000, 0xFFFF0000 }, 3, 6);
+				0xFF990000, 0xFFFF0000 }, 3, 6, 20);
 	}
 
 }

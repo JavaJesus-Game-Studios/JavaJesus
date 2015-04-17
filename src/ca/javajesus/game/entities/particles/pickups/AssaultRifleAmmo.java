@@ -7,7 +7,7 @@ public class AssaultRifleAmmo extends Pickup {
 	
 	public AssaultRifleAmmo(Level level, int x, int y) {
 		super(level, x, y, Item.assaultRifleAmmo, new int[] { 0xFFFFFFFF,
-				0xFF990000, 0xFFFF0000 }, 0, 6);
+				0xFF990000, 0xFFFF0000 }, 0, 6, 30);
 	}
 
 }

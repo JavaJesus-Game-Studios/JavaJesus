@@ -30,7 +30,7 @@ public class Item implements java.io.Serializable {
 			10, 20, 85, Ammo.SHELL, SoundHandler.sound.shotgun);
 	public static Item assaultRifle = new Gun("Assault Rifle", 7, 8, 0,
 			new int[] { 0xFF111111, 0xFFCFCFCF, 0xFF000000 },
-			"Standard Firearm", 3, 8, 30, 1, 6, 10, Ammo.BULLET,
+			"Standard Firearm", 3, 8, 30, 1, 10, 10, Ammo.BULLET,
 			SoundHandler.sound.assaultRifle);
 	public static Item crossBow = new Gun("Crossbow", 8, 4, 0, new int[] {
 			0xFF111111, 0xFF4D2607, 0xFFCFCFCF }, "Standard Firearm", 4, 16, 1,
@@ -40,7 +40,7 @@ public class Item implements java.io.Serializable {
 	public static Item shortSword = new Sword("Short Sword", 9, 0, 1, 0, 0,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC },
 			"This is a sword", 0, 25, 30, new int[] { 7, 12, 16, 21 });
-	public static Item longSword = new Sword("Long Sword", 10, 0, 1, 0, 4,
+	public static Item longSword = new Sword("Long Sword", 10, 1, 1, 0, 4,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC },
 			"This is a sword", 0, 40, 50, new int[] { 7, 13, 18, 23 }, 1);
 	public static Item claymore = new Sword("Claymore", 11, 2, 1, 0, 10,
@@ -53,19 +53,19 @@ public class Item implements java.io.Serializable {
 			15, new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
 			"This is a sword", 0, 30, 5, new int[] { 7, 13, 18, 23 }, 1);
 	public static Item heavenlyShortSword = new Sword("Heavenly Short Sword",
-			14, 4, 1, 0, 22, new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
+			14, 0, 1, 0, 22, new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
 			"This is a sword", 0, 30, 5, new int[] { 7, 12, 16, 21 });
-	public static Item kingSword = new Sword("King Short Sword", 22, 4, 1, 0,
+	public static Item kingSword = new Sword("King Short Sword", 22, 3, 1, 0,
 			25, new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
 			"This is a sword", 0, 30, 5, new int[] { 7, 13, 18, 23 }, 1);
 
-	public static Item vest = new Armor("Simple Vest", 15, 0, 0, new int[] {
+	public static Item vest = new Armor("Simple Vest", 15, 0, 9, new int[] {
 			0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.VEST);
-	public static Item knight = new Armor("Knight Gear", 16, 0, 0, new int[] {
+	public static Item knight = new Armor("Knight Gear", 16, 1, 9, new int[] {
 			0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.KNIGHT);
-	public static Item horned = new Armor("Horned Armor", 17, 0, 0, new int[] {
+	public static Item horned = new Armor("Horned Armor", 17, 2, 9, new int[] {
 			0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.HORNED);
-	public static Item owl = new Armor("Fancy Suit", 19, 0, 0, new int[] { -1,
+	public static Item owl = new Armor("Fancy Suit", 19, 4, 9, new int[] { -1,
 			0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.OWL);
 
 	public static Item blackHoleGun = new Gun("Secret", 20, 0, 0, new int[] {
@@ -96,7 +96,7 @@ public class Item implements java.io.Serializable {
 	protected int xTile;
 	protected int yTile;
 	public String description;
-	protected int amount = 1;
+	public int amount = 1;
 
 	public Item(String name, int id, int xTile, int yTile, int[] color,
 			String description) {
@@ -113,7 +113,7 @@ public class Item implements java.io.Serializable {
 	}
 
 	public void render(Screen screen, int xOffset, int yOffset) {
-		screen.render(xOffset, yOffset, xTile + yTile * 32, color, 0, 6,
+		screen.render(xOffset, yOffset, xTile + yTile * SpriteSheet.items.boxes, color, 0, 6,
 				SpriteSheet.items);
 	}
 

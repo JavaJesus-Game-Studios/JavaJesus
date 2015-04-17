@@ -12,6 +12,7 @@ import ca.javajesus.level.Level;
 public class Pickup extends Particle {
 
 	private Item item;
+	private int quantity;
 
 	public Pickup(Level level, int x, int y, Item item) {
 		super(level, 9, new int[] { 0xFFFFFFFF, 0xFF990000, 0xFFFF0000 }, x, y);
@@ -20,9 +21,11 @@ public class Pickup extends Particle {
 		this.item = item;
 		this.bounds = new JavaRectangle(8, 8, this);
 		bounds.setLocation((int) this.x, (int) this.y);
+		this.quantity = 1;
 	}
 
-	public Pickup(Level level, int x, int y, Item item, int[] color, int xTile, int yTile) {
+	public Pickup(Level level, int x, int y, Item item, int[] color, int xTile,
+			int yTile, int amount) {
 		super(level, 9, color, x, y);
 		this.x = x;
 		this.y = y;
@@ -32,6 +35,7 @@ public class Pickup extends Particle {
 		bounds.setLocation((int) this.x, (int) this.y);
 		this.sheet = SpriteSheet.items;
 		this.tileNumber = xTile + yTile * this.sheet.boxes;
+		this.quantity = amount;
 	}
 
 	public void render(Screen screen) {
@@ -39,7 +43,8 @@ public class Pickup extends Particle {
 		screen.render((int) this.x, (int) this.y, tileNumber, color, 1, 1,
 				sheet);
 		if (bounds.intersects(Game.player.getBounds())) {
-			Game.player.inventory.addItem(item);
+			for (int i = 0; i < quantity; i++)
+				Game.player.inventory.addItem(item);
 			sound.play(SoundHandler.sound.click);
 			level.remEntity(this);
 		}

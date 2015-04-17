@@ -2,6 +2,7 @@ package ca.javajesus.items;
 
 import javax.sound.sampled.Clip;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.projectiles.Arrow;
 import ca.javajesus.game.entities.projectiles.BlackHoleDetonator;
@@ -17,7 +18,8 @@ public class Gun extends Item {
 
 	public int gunType;
 	public int clipSize;
-	public double ammo;
+	public int ammo;
+	public int availableAmmo;
 	public boolean isReloading = false;
 	private int RELOAD_TIME;
 	private int reloadTicks = 0;
@@ -49,22 +51,25 @@ public class Gun extends Item {
 	}
 
 	public void tick() {
-			fireTicks++;
-		if (isReloading) {
-			if (ammo < clipSize)
-				ammo += (double) clipSize / RELOAD_TIME;
-			else {
+		fireTicks++;
+		if (isReloading && reloadTicks % 10 == 0) {
+			if (ammo < clipSize && availableAmmo > 0) {
+				int num = 1;
+				ammo += num;
+				availableAmmo -= num;
+			} else {
 				isReloading = false;
 				reloadTicks = 0;
-				ammo = clipSize;
 				return;
 			}
 			if (reloadTicks >= RELOAD_TIME) {
 				isReloading = false;
 				reloadTicks = 0;
-				ammo = clipSize;
 				return;
 			}
+		}
+		
+		if (isReloading) {
 			reloadTicks++;
 		}
 
@@ -76,6 +81,89 @@ public class Gun extends Item {
 
 	public void reload() {
 		isReloading = true;
+
+		switch (type) {
+		case BULLET:
+			if (Game.player.inventory.items.contains(Item.revolverAmmo)) {
+				for (Item e : Game.player.inventory.items) {
+					if (e.equals(Item.revolverAmmo)) {
+						availableAmmo = e.amount;
+						e.amount -= clipSize;
+						break;
+					}
+				}
+			}
+			break;
+		case ARROW:
+			if (Game.player.inventory.items.contains(Item.arrowAmmo)) {
+				for (Item e : Game.player.inventory.items) {
+					if (e.equals(Item.arrowAmmo)) {
+						availableAmmo = e.amount;
+						e.amount -= clipSize;
+						break;
+					}
+				}
+			}
+			break;
+		case FIREBALL:
+			availableAmmo = 100;
+			break;
+		case LASER:
+			if (Game.player.inventory.items.contains(Item.laserAmmo)) {
+				for (Item e : Game.player.inventory.items) {
+					if (e.equals(Item.laserAmmo)) {
+						availableAmmo = e.amount;
+						e.amount -= clipSize;
+						break;
+					}
+				}
+			}
+			break;
+		case MISSILE:
+			if (Game.player.inventory.items.contains(Item.revolverAmmo)) {
+				for (Item e : Game.player.inventory.items) {
+					if (e.equals(Item.revolverAmmo)) {
+						availableAmmo = e.amount;
+						e.amount -= clipSize;
+						break;
+					}
+				}
+			}
+			break;
+		case BLACKHOLE:
+			if (Game.player.inventory.items.contains(Item.revolverAmmo)) {
+				for (Item e : Game.player.inventory.items) {
+					if (e.equals(Item.revolverAmmo)) {
+						availableAmmo = e.amount;
+						e.amount -= clipSize;
+						break;
+					}
+				}
+			}
+			break;
+		case FLAMETHROWER:
+			if (Game.player.inventory.items.contains(Item.revolverAmmo)) {
+				for (Item e : Game.player.inventory.items) {
+					if (e.equals(Item.revolverAmmo)) {
+						availableAmmo = e.amount;
+						e.amount -= clipSize;
+						break;
+					}
+				}
+			}
+			break;
+		case SHELL:
+			if (Game.player.inventory.items.contains(Item.revolverAmmo)) {
+				for (Item e : Game.player.inventory.items) {
+					if (e.equals(Item.revolverAmmo)) {
+						availableAmmo = e.amount;
+						e.amount -= clipSize;
+						break;
+					}
+				}
+			}
+			break;
+		}
 	}
 
 	public void fire(Level level, double x, double y, int dir, Player player) {

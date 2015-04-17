@@ -9,6 +9,7 @@ import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.entities.npcs.aggressive.Knight;
 import ca.javajesus.game.entities.npcs.aggressive.PoliceOfficer;
 import ca.javajesus.game.entities.npcs.aggressive.Shooter;
 import ca.javajesus.game.entities.npcs.aggressive.TechWarrior;
@@ -21,9 +22,7 @@ import ca.javajesus.quests.Quest;
 
 public class NPC extends Mob {
 
-	public static NPC knight = new NPC(Level.level1, "Knight", 200, 100, 1, 16,
-			16, 100, new int[] { 0xFF111111, 0xFF7E7E7E, 0xFFFFFFFF }, 0, 2,
-			"linear", 20);
+	public static NPC knight = new Knight(Level.level1, 200, 100, "linear", 20);
 	public static NPC policeman = new PoliceOfficer(Level.level1, 160, 250);
 	public static NPC citizenFemale = new NPC(Level.level1, "Citizen-Female",
 			200, 400, 1, 16, 16, 100, new int[] { 0xFF111111, 0xFFA51818,
@@ -197,7 +196,7 @@ public class NPC extends Mob {
 			isShooting = false;
 		}
 
-		if (isShooting && !isDead && !isSwimming) {
+		if (isShooting && !isDead && !isSwimming && !(this instanceof Knight)) {
 
 			xTile = 14;
 
@@ -231,6 +230,70 @@ public class NPC extends Mob {
 			screen.render(xOffset + modifier - (modifier * flip), yOffset
 					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
 					this.color, flip, scale, sheet);
+		} else if (isShooting && !isDead && !isSwimming) {
+
+			xTile = 14;
+
+			if (getDirection() == Direction.NORTH) {
+				xTile += 14;
+			} else if (getDirection() == Direction.SOUTH) {
+				xTile += 12;
+			} else {
+				if (getDirection() == Direction.WEST) {
+					flip = 1;
+				} else {
+					flip = 0;
+				}
+			}
+
+			if (isLatitudinal(getDirection())) {
+				for (int i = 0; i < 2; i++) {
+
+					screen.render(xOffset + (2 * modifier * flip), yOffset
+							+ (modifier * i),
+							xTile + (yTile + i) * sheet.boxes, color, flip,
+							scale, sheet);
+
+					screen.render(xOffset + modifier, yOffset + (modifier * i),
+							(xTile + 1) + (yTile + i) * sheet.boxes, color,
+							flip, scale, sheet);
+
+					screen.render(xOffset + 2 * modifier
+							- (2 * modifier * flip), yOffset + (modifier * i),
+							(xTile + 2) + (yTile + i) * sheet.boxes, color,
+							flip, scale, sheet);
+				}
+			} else {
+				// Upper body 1
+				screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+						* sheet.boxes, this.color, flip, scale, sheet);
+
+				// Upper body 2
+				screen.render(xOffset + modifier - (modifier * flip), yOffset,
+						(xTile + 1) + yTile * sheet.boxes, this.color, flip, scale,
+						sheet);
+
+				// Lower Body 1
+				screen.render(xOffset + (modifier * flip), yOffset + modifier,
+						xTile + (yTile + 1) * sheet.boxes, this.color, flip, scale,
+						sheet);
+
+				// Lower Body 2
+				screen.render(xOffset + modifier - (modifier * flip), yOffset
+						+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
+						this.color, flip, scale, sheet);
+				
+				// Lower Body 1
+				screen.render(xOffset + (modifier * flip), yOffset + 2 * modifier,
+						xTile + (yTile + 2) * sheet.boxes, this.color, flip, scale,
+						sheet);
+
+				// Lower Body 2
+				screen.render(xOffset + modifier - (modifier * flip), yOffset
+						+ 2 * modifier, (xTile + 1) + (yTile + 2) * sheet.boxes,
+						this.color, flip, scale, sheet);
+			}
+
 		} else {
 
 			if (!isSwimming) {
