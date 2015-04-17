@@ -25,7 +25,13 @@ public class SpriteSheet implements java.io.Serializable{
     public static SpriteSheet npcs = new SpriteSheet("/Sprites/FriendlyNPC_Sprites/mob_friendly_sheet.png", 32);
     public static SpriteSheet characters = new SpriteSheet("/Sprites/FriendlyNPC_Sprites/Character_Sheet.png", 32);
     public static SpriteSheet player = new SpriteSheet("/Sprites/Player_Sprites/player_sheet.png", 32);
-    public static SpriteSheet playerGuns = new SpriteSheet("/Sprites/Player_Sprites/player_gun_sheet.png", 32);
+    
+    public static SpriteSheet playerGuns = new SpriteSheet("/Sprites/Player_Sprites/player_gun_sheet.png", 50);
+    public static SpriteSheet playerVestedGuns = new SpriteSheet("/Sprites/Player_Sprites/player_vested_gun_sheet.png", 50);
+    public static SpriteSheet playerKnightedGuns = new SpriteSheet("/Sprites/Player_Sprites/player_knight_armor_gun_sheet.png", 50);
+    public static SpriteSheet playerHornedGuns = new SpriteSheet("/Sprites/Player_Sprites/player_horned_armor_gun_sheet.png", 50);
+    public static SpriteSheet playerIstrahiimGuns = new SpriteSheet("/Sprites/Player_Sprites/player_istrahiim_armor_gun_sheet.png", 50);
+    
     public static SpriteSheet vehicles = new SpriteSheet("/Sprites/Vehicle_Sprites/vehicle_sheet.png", 36);
     public static SpriteSheet items = new SpriteSheet("/Tiles/Inventory&Weapon_Sprites/item_sheet.png", 32);
 	public static SpriteSheet horses = new SpriteSheet("/Sprites/Vehicle_Sprites/Horse_Sheet.png", 32);

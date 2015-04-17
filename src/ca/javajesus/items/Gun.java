@@ -68,7 +68,7 @@ public class Gun extends Item {
 				return;
 			}
 		}
-		
+
 		if (isReloading) {
 			reloadTicks++;
 		}
@@ -217,13 +217,14 @@ public class Gun extends Item {
 	}
 
 	public void render(Screen screen) {
-		screen.render(0, 0, xTile + yTile * 32, color, 0, 1, SpriteSheet.items);
-		screen.render(0, 0, xTile + 1 + yTile * 32, color, 0, 1,
-				SpriteSheet.items);
-		screen.render(0, 0, xTile + (yTile + 1) * 32, color, 0, 1,
-				SpriteSheet.items);
-		screen.render(0, 0, xTile + 1 + (yTile + 1) * 32, color, 0, 1,
-				SpriteSheet.items);
+		screen.render(0, 0, xTile + yTile * SpriteSheet.items.boxes, color, 0,
+				1, SpriteSheet.items);
+		screen.render(0, 0, xTile + 1 + yTile * SpriteSheet.items.boxes, color,
+				0, 1, SpriteSheet.items);
+		screen.render(0, 0, xTile + (yTile + 1) * SpriteSheet.items.boxes,
+				color, 0, 1, SpriteSheet.items);
+		screen.render(0, 0, xTile + 1 + (yTile + 1) * SpriteSheet.items.boxes,
+				color, 0, 1, SpriteSheet.items);
 	}
 
 }

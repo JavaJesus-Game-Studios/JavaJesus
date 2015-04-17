@@ -12,7 +12,6 @@ public class Armor extends Item {
 		super(name, id, xTile, yTile, color, description);
 		this.armor = armor;
 		calcStats();
-
 	}
 
 	public int getShield() {
@@ -25,6 +24,10 @@ public class Armor extends Item {
 
 	public int getRow() {
 		return yRow;
+	}
+	
+	public ArmorSet getType() {
+		return armor;
 	}
 
 	private void calcStats() {

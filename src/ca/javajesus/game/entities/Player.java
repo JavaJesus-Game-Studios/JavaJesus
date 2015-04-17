@@ -56,6 +56,8 @@ public class Player extends Mob {
 	public int maxShield = 1;
 	public double shield;
 
+	private SpriteSheet gunSheet = SpriteSheet.playerGuns;
+
 	public static NPC companion;
 	public boolean jesusMode = false;
 
@@ -91,6 +93,23 @@ public class Player extends Mob {
 		this.defense = armor.getDefense();
 		this.maxShield = armor.getShield();
 		shield = maxShield;
+		switch (armor.getType()) {
+		case VEST:
+			this.gunSheet = SpriteSheet.playerVestedGuns;
+			break;
+		case KNIGHT:
+			this.gunSheet = SpriteSheet.playerKnightedGuns;
+			break;
+		case HORNED:
+			this.gunSheet = SpriteSheet.playerHornedGuns;
+			break;
+		case OWL:
+			this.gunSheet = SpriteSheet.playerIstrahiimGuns;
+			break;
+		default:
+			this.gunSheet = SpriteSheet.playerGuns;
+			break;
+		}
 	}
 
 	public void changeLevel(Level level) {
@@ -345,7 +364,7 @@ public class Player extends Mob {
 			setDirection(Direction.EAST);
 		}
 		if (level.getTile(x >> 3, (y + 3) >> 3).getId() == 3 && !jesusMode) {
-				isSwimming = true;
+			isSwimming = true;
 		} else {
 			isSwimming = false;
 		}
@@ -516,7 +535,7 @@ public class Player extends Mob {
 				}
 			}
 
-			SpriteSheet sheet = SpriteSheet.playerGuns;
+			SpriteSheet sheet = this.gunSheet;
 
 			// Upper Body 1
 			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile

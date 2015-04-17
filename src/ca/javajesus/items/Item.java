@@ -23,17 +23,17 @@ public class Item implements java.io.Serializable {
 			10, 20, 50, Ammo.BULLET, SoundHandler.sound.revolver);
 	public static Item laserRevolver = new Gun("Laser Revolver", 5, 1, 0,
 			new int[] { 0xFF111111, 0xFF4D2607, 0xFFFFAE00 },
-			"Standard Firearm", 1, 4, 5, 10, 20, 75, Ammo.LASER,
+			"Standard Firearm", 1, 2, 5, 10, 20, 75, Ammo.LASER,
 			SoundHandler.sound.revolver);
 	public static Item shotgun = new Gun("Shotgun", 6, 3, 0, new int[] {
-			0xFF111111, 0xFF4D2607, 0xFFCFCFCF }, "Standard Firearm", 2, 12, 2,
+			0xFF111111, 0xFF4D2607, 0xFFCFCFCF }, "Standard Firearm", 2, 6, 2,
 			10, 20, 85, Ammo.SHELL, SoundHandler.sound.shotgun);
 	public static Item assaultRifle = new Gun("Assault Rifle", 7, 8, 0,
 			new int[] { 0xFF111111, 0xFFCFCFCF, 0xFF000000 },
-			"Standard Firearm", 3, 8, 30, 1, 10, 10, Ammo.BULLET,
+			"Standard Firearm", 3, 4, 30, 1, 10, 10, Ammo.BULLET,
 			SoundHandler.sound.assaultRifle);
 	public static Item crossBow = new Gun("Crossbow", 8, 4, 0, new int[] {
-			0xFF111111, 0xFF4D2607, 0xFFCFCFCF }, "Standard Firearm", 4, 16, 1,
+			0xFF111111, 0xFF4D2607, 0xFFCFCFCF }, "Standard Firearm", 4, 8, 1,
 			10, 20, 75, Ammo.ARROW, SoundHandler.sound.revolver);
 	public static Item bazooka = new Bazooka();
 
