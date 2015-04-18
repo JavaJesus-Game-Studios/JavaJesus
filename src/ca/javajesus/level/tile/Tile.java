@@ -130,7 +130,7 @@ public abstract class Tile {
 	public static final Tile FLOOR_CARPET_1 = new BaseTile(46, 10, 1,
 			new int[] { 0xFF1F7901, 0xFF1F4001, 0xFF000000 }, 0xFF1f7a01);
 	
-	public static final Tile LINOLEUM = new BaseTile(47, 0, 1, new int[] {
+	public static final Tile LINOLEUM = new BaseTile(47, 9, 2, new int[] {
 			0xFFf9ffd8, 0xFF000000, 0xFF000000 }, 0xFFFFFFFF);
 	
 	public static final Tile MOUNTAIN_UP = new BasicSolidTile(50, 5, 2, new int[] {
