@@ -13,12 +13,25 @@ public class HeightMap {
 	private ArrayList<Point> finalVillageCenters = new ArrayList<Point>();
 
 	Random random = new Random();
-
+	
+	//Grass Tiles
 	protected final byte GRASS = 0;
 	protected final byte GRASS2 = 9;
 	protected final byte GRASS3 = 10;
 	protected final byte GRASS_FLOWER = 11;
-
+	protected final byte GRASS_POPPY = 12;
+	protected final byte GRASS4 = 13;
+	protected final byte GRASS5 = 14;
+	
+	//Concrete/Wasteland Tiles
+	protected final byte WASTELAND_GROUND1 = 15;
+	protected final byte WASTELAND_GROUND2 = 16;
+	protected final byte WASTELAND_GROUND3 = 17;
+	protected final byte WASTELAND_GROUND4 = 18;
+	protected final byte WASTELAND_GROUND5 = 19;
+	protected final byte WASTELAND_GROUND6 = 20;
+	protected final byte WASTELAND_GROUND7 = 21;
+	
 	protected final byte SAND = 1;
 	protected final byte ROCK = 2;
 	protected final byte DIRT = 3;

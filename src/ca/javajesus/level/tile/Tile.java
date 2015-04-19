@@ -130,7 +130,7 @@ public abstract class Tile {
 	public static final Tile FLOOR_CARPET_1 = new BaseTile(46, 10, 1,
 			new int[] { 0xFF1F7901, 0xFF1F4001, 0xFF000000 }, 0xFF1f7a01);
 	
-	public static final Tile LINOLEUM = new BaseTile(47, 9, 2, new int[] {
+	public static final Tile LINOLEUM = new BaseTile(47, 11, 2, new int[] {
 			0xFFf9ffd8, 0xFF000000, 0xFF000000 }, 0xFFFFFFFF);
 	
 	public static final Tile MOUNTAIN_UP = new BasicSolidTile(50, 5, 2, new int[] {
@@ -141,8 +141,30 @@ public abstract class Tile {
 			0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 }, 0xFF564015);
 	public static final Tile MOUNTAIN_RIGHT = new BasicSolidTile(53, 7, 2, new int[] {
 			0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 }, 0xFF5e3f00);
-
-
+	
+	public static final Tile GRASS_POPPY = new BaseTile(54, 16, 1, new int[] {
+			0xFF339933, 0xFF33BB33, 0xFF000000 }, 0xFF00FF00);
+	public static final Tile GRASS4 = new BaseTile(62, 19, 1, new int[] {
+			0xFF339933, 0xFF33BB33, 0xFF000000 }, 0xFF00FF00);
+	public static final Tile GRASS5 = new BaseTile(63, 20, 1, new int[] {
+			0xFF339933, 0xFF33BB33, 0xFF000000 }, 0xFF00FF00);
+	
+	
+	public static final Tile WASTELAND_GROUND1 = new BaseTile(55, 12, 1, new int[] {
+			0xFFa7a7a7, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
+	public static final Tile WASTELAND_GROUND2 = new BaseTile(56, 13, 1, new int[] {
+			0xFFa7a7a7, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
+	public static final Tile WASTELAND_GROUND3 = new BaseTile(57, 14, 1, new int[] {
+			0xFFa7a7a7, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
+	public static final Tile WASTELAND_GROUND4 = new BaseTile(58, 15, 1, new int[] {
+			0xFFa7a7a7, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
+	public static final Tile WASTELAND_GROUND5 = new BaseTile(59, 0, 2, new int[] {
+			0xFF8e8e8e, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
+	public static final Tile WASTELAND_GROUND6 = new BaseTile(60, 17, 1, new int[] {
+			0xFF8e8e8e, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
+	public static final Tile WASTELAND_GROUND7 = new BaseTile(61, 18, 1, new int[] {
+			0xFF8e8e8e, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
+	
 	protected byte id;
 	protected boolean solid;
 	protected boolean emitter;
