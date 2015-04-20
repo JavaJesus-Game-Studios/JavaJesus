@@ -152,4 +152,10 @@ public class RandomLevel2 extends Level {
 		}
 
 	}
+
+	@Override
+	protected void initMapTransporters() {
+		// TODO Auto-generated method stub
+		
+	}
 }

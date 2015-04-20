@@ -100,8 +100,10 @@ public class Sword extends Item {
 			powerSwingTicks++;
 			if (powerSwingTicks % (COOLDOWN_TIME / 5) == 0) {
 				powerSwingModifier += 2;
-				if (player.isLatitudinal(player.getDirection())
-						|| (diagonal && powerOffset > 0)) {
+				if (powerOffset == 2) {
+					powerSwingModifier += 2;
+				}else if (player.isLatitudinal(player.getDirection())
+						|| (diagonal && powerOffset == 1)) {
 					powerSwingModifier++;
 				}
 				if (powerSwingTicks == COOLDOWN_TIME) {
@@ -195,7 +197,12 @@ public class Sword extends Item {
 		}
 
 		if (powerSwinging) {
-			if (startPos + powerSwingModifier > powerPoints[3] + 3) {
+			if (powerOffset == 2) {
+				if (startPos + powerSwingModifier > powerPoints[3] + 5) {
+					startPos = powerPoints[0];
+					powerSwingModifier = 0;
+				}
+			} else if (startPos + powerSwingModifier > powerPoints[3] + 3) {
 				startPos = powerPoints[0];
 				powerSwingModifier = 0;
 			}
@@ -221,9 +228,40 @@ public class Sword extends Item {
 			} else {
 				diagonal = false;
 			}
+
 		}
 
-		if (player.isLatitudinal(player.getDirection())) {
+		if (powerOffset == 2 && powerSwinging) {
+			int num = 2;
+			if (player.getDirection() == Direction.SOUTH) {
+				num = 4;
+			}
+			int other = 0;
+			if (player.getDirection() == Direction.NORTH) {
+				other = -1;
+				num = 3;
+			}
+			for (int i = other; i < num; i++) {
+				screen.render(xOffset + (modifier * flip * 3), yOffset + i
+						* modifier, xTile + (yTile + i) * sheet.boxes, color,
+						flip, player.getScale(), sheet);
+
+				screen.render(xOffset + modifier + (modifier * flip), yOffset
+						+ i * modifier,
+						(xTile + 1) + (yTile + i) * sheet.boxes, color, flip,
+						player.getScale(), sheet);
+
+				screen.render(xOffset + 2 * modifier - (modifier * flip),
+						yOffset + i * modifier, (xTile + 2) + (yTile + i)
+								* sheet.boxes, color, flip, player.getScale(),
+						sheet);
+
+				screen.render(xOffset + 3 * modifier - (modifier * flip * 3),
+						yOffset + i * modifier, (xTile + 3) + (yTile + i)
+								* sheet.boxes, color, flip, player.getScale(),
+						sheet);
+			}
+		} else if (player.isLatitudinal(player.getDirection())) {
 
 			if (player.getDirection() == Direction.WEST && !powerSwinging) {
 				xOffset -= modifier;
@@ -267,45 +305,45 @@ public class Sword extends Item {
 			} else {
 				// Upper Body 1
 				screen.render(xOffset + (modifier * flip), yOffset, xTile
-						+ yTile * 32, color, flip, player.getScale(),
-						SpriteSheet.swords);
+						+ yTile * sheet.boxes, color, flip, player.getScale(),
+						sheet);
 				// Upper Body 2
 				screen.render(xOffset + modifier - (modifier * flip), yOffset,
-						(xTile + 1) + yTile * 32, color, flip,
-						player.getScale(), SpriteSheet.swords);
+						(xTile + 1) + yTile * sheet.boxes, color, flip,
+						player.getScale(), sheet);
 
 				// Lower Body 1
 				screen.render(xOffset + (modifier * flip), yOffset + modifier,
-						xTile + (yTile + 1) * 32, color, flip,
-						player.getScale(), SpriteSheet.swords);
+						xTile + (yTile + 1) * sheet.boxes, color, flip,
+						player.getScale(), sheet);
 
 				// Lower Body 2
 				screen.render(xOffset + modifier - (modifier * flip), yOffset
-						+ modifier, (xTile + 1) + (yTile + 1) * 32, color,
-						flip, player.getScale(), SpriteSheet.swords);
+						+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
+						flip, player.getScale(), sheet);
 
 				if (player.getDirection() == Direction.SOUTH) {
 
 					// Lower Body 1
 					screen.render(xOffset + (modifier * flip), yOffset + 2
-							* modifier, xTile + (yTile + 2) * 32, color, flip,
-							player.getScale(), SpriteSheet.swords);
+							* modifier, xTile + (yTile + 2) * sheet.boxes, color, flip,
+							player.getScale(), sheet);
 
 					// Lower Body 2
 					screen.render(xOffset + modifier - (modifier * flip),
 							yOffset + 2 * modifier, (xTile + 1) + (yTile + 2)
-									* 32, color, flip, player.getScale(),
-							SpriteSheet.swords);
+									* sheet.boxes, color, flip, player.getScale(),
+							sheet);
 
 				} else if (isLong && player.getDirection() == Direction.NORTH) {
 
 					screen.render(xOffset + (modifier * flip), yOffset
-							- modifier, xTile + (yTile - 1) * 32, color, flip,
-							player.getScale(), SpriteSheet.swords);
+							- modifier, xTile + (yTile - 1) * sheet.boxes, color, flip,
+							player.getScale(), sheet);
 
 					screen.render(xOffset + modifier - (modifier * flip),
-							yOffset - modifier, (xTile + 1) + (yTile - 1) * 32,
-							color, flip, player.getScale(), SpriteSheet.swords);
+							yOffset - modifier, (xTile + 1) + (yTile - 1) * sheet.boxes,
+							color, flip, player.getScale(), sheet);
 
 				}
 

@@ -2,6 +2,7 @@ package ca.javajesus.level;
 
 import java.awt.Point;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.structures.ApartmentHighRise;
 import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.ChinatownHouse;
@@ -22,12 +23,13 @@ import ca.javajesus.game.entities.structures.SanCiscoSkyscraper;
 import ca.javajesus.game.entities.structures.Skyscraper;
 import ca.javajesus.game.entities.structures.TriadHQ;
 import ca.javajesus.game.entities.structures.Warehouse;
+import ca.javajesus.game.entities.structures.transporters.MapTransporter;
 import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 
 public class SanCisco extends Level {
 
 	public SanCisco() {
-		super("/Levels/Cities/San_Cisco.png", true);
+		super("/Levels/Cities/San_Cisco.png", true, "San Cisco");
 		this.spawnPoint = new Point(3400, 2688);
 		startingSpawnPoint = new Point(3400, 2688);
 	}
@@ -265,12 +267,14 @@ public class SanCisco extends Level {
 			this.addEntity(new Projects(this, 1544, 1672));
 			this.addEntity(new Projects(this, 1752, 1672));
 
+	}
 
-
-
-
-
-
+	@Override
+	protected void initMapTransporters() {
+		this.addEntity(new MapTransporter(this, 0, (this.height * 8) - 8, Level.lordHillsboroughsDomain,
+				new Point(Game.player.getX(), 16),
+				this.width * 8, 8));
+		
 	}
 	
 	

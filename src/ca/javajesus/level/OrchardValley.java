@@ -12,7 +12,7 @@ public class OrchardValley extends Level
 
     public OrchardValley()
     {
-        super("/Levels/Cities/Orchard_Valley.png", true);
+        super("/Levels/Cities/Orchard_Valley.png", true, "Orchard Valley");
         this.spawnPoint = new Point(136, 1816);
         startingSpawnPoint = new Point(136, 1816);
 
@@ -52,6 +52,12 @@ public class OrchardValley extends Level
         this.addEntity(new RancheroHouse(this, 1480, 1064));
         this.addEntity(new RancheroHouse(this, 1552, 2392));
         this.addEntity(new RancheroHouse(this, 4056, 1552));
+    }
+
+    protected void initMapTransporters()
+    {
+        // TODO Auto-generated method stub
+        
     }
 
 }

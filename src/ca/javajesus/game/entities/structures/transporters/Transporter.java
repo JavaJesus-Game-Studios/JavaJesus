@@ -17,7 +17,7 @@ public class Transporter extends SolidEntity {
 		super(currentLevel, x, y, 8, 16);
 		this.nextLevel = nextLevel;
 		this.bounds = new JavaRectangle(8, 16, this);
-		this.bounds.setLocation(x, y);
+		this.bounds.setLocation(x - 4, y - 8);
 	}
 
 	public Transporter(Level currentLevel, int x, int y, Level nextLevel,
@@ -32,7 +32,9 @@ public class Transporter extends SolidEntity {
 	public void tick() {
 		for (Player player : level.getPlayers()) {
 			if (this.bounds.intersects(player.getBounds())) {
-				player.changeLevel(nextLevel);
+				if (player.input.e.isPressed()) {
+					player.changeLevel(nextLevel);
+				}
 			}
 		}
 	}

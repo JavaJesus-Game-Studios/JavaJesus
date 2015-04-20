@@ -24,7 +24,7 @@ public class Item implements java.io.Serializable {
 	public static Item laserRevolver = new Gun("Laser Revolver", 5, 1, 0,
 			new int[] { 0xFF111111, 0xFF4D2607, 0xFFFFAE00 },
 			"Standard Firearm", 1, 2, 5, 10, 20, 75, Ammo.LASER,
-			SoundHandler.sound.revolver);
+			SoundHandler.sound.laser);
 	public static Item shotgun = new Gun("Shotgun", 6, 3, 0, new int[] {
 			0xFF111111, 0xFF4D2607, 0xFFCFCFCF }, "Standard Firearm", 2, 6, 2,
 			10, 20, 85, Ammo.SHELL, SoundHandler.sound.shotgun);
@@ -45,7 +45,7 @@ public class Item implements java.io.Serializable {
 			"This is a sword", 0, 40, 50, new int[] { 7, 13, 18, 23 }, 1);
 	public static Item claymore = new Sword("Claymore", 11, 2, 1, 0, 10,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC },
-			"This is a sword", 0, 60, 75, new int[] { 7, 13, 18, 23 }, 1);
+			"This is a sword", 0, 60, 75, new int[] { 8, 16, 24, 32 }, 2);
 	public static Item sabre = new Sword("Sabre", 12, 3, 1, 0, 19, new int[] {
 			0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "This is a sword", 0, 20, 45,
 			new int[] { 7, 13, 18, 23 }, 1);

@@ -17,7 +17,7 @@ public class SoundHandler implements java.io.Serializable {
 			footstepsGrass, footstepsRoad, footstepsWood, assaultRifle, revolver,
 			shotgun, levelup, shortSword1, shortSword2, swimming, walking,
 			background2, explosion, carAcceleration, carDriving, carIdle,
-			carStartUp;
+			carStartUp, laser;
 
 	public Clip[] list = { background1, background2 };
 
@@ -28,7 +28,7 @@ public class SoundHandler implements java.io.Serializable {
 		fireball, footsteps1, footstepsDirt, footstepsFarmland, footstepsGrass, 
 		footstepsRoad, footstepsWaterSand, footstepsWood, assaultRifle, revolver, shotgun,
 		levelup, shortSword1, shortSword2, swimming, walking, background2, 
-		explosion, carAcceleration, carDriving, carIdle, carStartUp;
+		explosion, carAcceleration, carDriving, carIdle, carStartUp, laser;
 
 		try {
 
@@ -93,6 +93,10 @@ public class SoundHandler implements java.io.Serializable {
 			explosion = AudioSystem
 					.getAudioInputStream(SoundHandler.class
 							.getResource("/Sound/Projectile_Sounds/Explosion.wav"));
+			
+			laser = AudioSystem
+					.getAudioInputStream(SoundHandler.class
+							.getResource("/Sound/Projectile_Sounds/Laser_Gun_Sound.wav"));
 
 			levelup = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/8-bit_Sounds/Level_Up_v2.wav"));
@@ -145,7 +149,7 @@ public class SoundHandler implements java.io.Serializable {
 			this.shortSword2 = AudioSystem.getClip();
 			this.swimming = AudioSystem.getClip();
 			this.walking = AudioSystem.getClip();
-			
+			this.laser = AudioSystem.getClip();
 			this.explosion = AudioSystem.getClip();
 			
 			this.carAcceleration = AudioSystem.getClip();
@@ -166,6 +170,7 @@ public class SoundHandler implements java.io.Serializable {
 			this.swimming.open(swimming);
 			
 			this.explosion.open(explosion);
+			this.laser.open(laser);
 
 			this.chest.open(chest);
 			this.levelup.open(levelup);

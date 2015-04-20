@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
 
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -201,6 +202,7 @@ public class Game extends Canvas implements Runnable {
 				player = new Player(getLevel(), getLevel().spawnPoint.x,
 						getLevel().spawnPoint.y, input);
 			}
+			player.getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 			getLevel().addEntity(player);
 			getLevel().init();
 
@@ -362,7 +364,7 @@ public class Game extends Canvas implements Runnable {
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
 		g.drawString(player + ": " + player.getX() + ", " + player.getY()
-				+ " Time: " + hours + ":" + minutes, 5, 20);
+				+ " Time: " + hours + ":" + minutes + " Level: " + player.getLevel(), 5, 20);
 		hud.draw(g);
 		ChatHandler.drawMessages(g);
 		if (player.isDead() || returnToMenu) {

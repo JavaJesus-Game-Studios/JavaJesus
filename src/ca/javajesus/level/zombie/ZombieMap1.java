@@ -19,7 +19,7 @@ import ca.javajesus.level.Level;
 public class ZombieMap1 extends Level {
 
 	public ZombieMap1() {
-		super("/Levels/Test_Levels/zombies_test_map.png", true);
+		super("/Levels/Test_Levels/zombies_test_map.png", true, "Zombie Map");
 		this.spawnPoint = new Point(1360, 70);
 	}
 
@@ -64,6 +64,12 @@ public class ZombieMap1 extends Level {
 		ArrayList<Item> chest1 = new ArrayList<Item>();
 		chest1.add(Item.revolver);
 		this.addEntity(new Chest(this, 1460, 70, chest1));
+	}
+
+	@Override
+	protected void initMapTransporters() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

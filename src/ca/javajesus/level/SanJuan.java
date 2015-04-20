@@ -25,7 +25,7 @@ public class SanJuan extends Level
 
     public SanJuan()
     {
-        super("/Levels/Cities/San_Juan.png", true);
+        super("/Levels/Cities/San_Juan.png", true, "San Juan");
         this.spawnPoint = new Point(1680, 2648);
         startingSpawnPoint = new Point(1680, 2648);
 

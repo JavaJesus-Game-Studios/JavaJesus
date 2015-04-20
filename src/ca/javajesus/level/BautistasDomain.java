@@ -2,6 +2,7 @@ package ca.javajesus.level;
 
 import java.awt.Point;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.structures.CatholicChapel;
 import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.CaveEntrance;
@@ -17,10 +18,11 @@ import ca.javajesus.game.entities.structures.ShantyHouse;
 import ca.javajesus.game.entities.structures.Warehouse;
 import ca.javajesus.game.entities.structures.SequoiaCinema;
 import ca.javajesus.game.entities.structures.SequoiaSchool;
+import ca.javajesus.game.entities.structures.transporters.MapTransporter;
 
 public class BautistasDomain extends Level{
 	public BautistasDomain(){
-		super("/Levels/Cities/Domain_of_Ranchero_Bautista.png", true);
+		super("/Levels/Cities/Domain_of_Ranchero_Bautista.png", true, "Bautista's Domain");
 		this.spawnPoint = new Point(2896, 64);
 		startingSpawnPoint = new Point(2896, 64);
 
@@ -162,6 +164,13 @@ public class BautistasDomain extends Level{
 	    this.addEntity(new Warehouse(this, 3440, 712));
 		
 		
+		
+	}
+
+	protected void initMapTransporters() {
+		this.addEntity(new MapTransporter(this, 0, 0, Level.lordHillsboroughsDomain,
+				new Point(Game.player.getX(), (Level.lordHillsboroughsDomain.height * 8) - 16),
+				(this.width * 8), 8));
 		
 	}
 }
