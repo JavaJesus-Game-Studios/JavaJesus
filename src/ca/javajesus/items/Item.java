@@ -24,7 +24,7 @@ public class Item implements java.io.Serializable {
 	public static Item laserRevolver = new Gun("Laser Revolver", 5, 1, 0,
 			new int[] { 0xFF111111, 0xFF4D2607, 0xFFFFAE00 },
 			"Standard Firearm", 1, 2, 5, 10, 20, 75, Ammo.LASER,
-			SoundHandler.sound.revolver);
+			SoundHandler.sound.laser);
 	public static Item shotgun = new Gun("Shotgun", 6, 3, 0, new int[] {
 			0xFF111111, 0xFF4D2607, 0xFFCFCFCF }, "Standard Firearm", 2, 6, 2,
 			10, 20, 85, Ammo.SHELL, SoundHandler.sound.shotgun);
