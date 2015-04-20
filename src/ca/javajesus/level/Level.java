@@ -47,8 +47,14 @@ public abstract class Level implements Serializable {
 
 	protected int[] tileColours;
 
-	public static Level level1 = new Level1();
+	public static Level level1 = new LordHillsboroughsDomain();
+	
 	public static Level lordHillsboroughsDomain = new LordHillsboroughsDomain();
+	public static Level sanCisco = new SanCisco();
+	public static Level edgeOfTheWoodsMain = new EdgeOfTheWoods();
+	public static Level edgeOfTheWoodsTop = new EdgeOfTheWoodsTop();
+	public static Level bautistasDomain = new BautistasDomain();
+	
 	public static Level roadlevel = new RoadLevel();
 	public static Level random = new RandomLevel(level1.width, level1.height);
 	public static Level random2 = new RandomLevel2(level1.width, level1.height,
@@ -58,10 +64,12 @@ public abstract class Level implements Serializable {
 
 	public boolean isLoaded = false;
 	private int loadType = 0;
+	private String name;
 
 	public static Rectangle screenRectangle = new Rectangle(500, 500);
 
-	public Level(String imagePath, boolean loadNow) {
+	public Level(String imagePath, boolean loadNow, String name) {
+		this.name = name;
 		spawnPoint = new Point(0, 0);
 		startingSpawnPoint = new Point(0, 0);
 		if (imagePath != null) {
@@ -122,6 +130,8 @@ public abstract class Level implements Serializable {
 	protected abstract void initChestPlacement();
 
 	protected abstract void otherEntityPlacement();
+	
+	protected abstract void initMapTransporters();
 
 	private void loadLevelFromFile() {
 		try {
@@ -398,6 +408,7 @@ public abstract class Level implements Serializable {
 
 	public void init() {
 		if (this.mobs.size() <= 1) {
+			initMapTransporters();
 			initNPCPlacement();
 			initSpawnerPlacement();
 			initChestPlacement();
@@ -454,5 +465,9 @@ public abstract class Level implements Serializable {
 			e.printStackTrace();
 		}
 		return level1;
+	}
+	
+	public String toString() {
+		return name;
 	}
 }

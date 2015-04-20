@@ -2,8 +2,7 @@ package ca.javajesus.level;
 
 import java.awt.Point;
 
-import ca.javajesus.game.entities.Entity;
-import ca.javajesus.game.entities.npcs.NPC;
+import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.structures.Castle;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChapel;
@@ -14,38 +13,31 @@ import ca.javajesus.game.entities.structures.Hotel;
 import ca.javajesus.game.entities.structures.Hut;
 import ca.javajesus.game.entities.structures.NiceHouse;
 import ca.javajesus.game.entities.structures.NiceHouse2;
-import ca.javajesus.game.entities.structures.trees.Forest;
-import ca.javajesus.game.entities.vehicles.Vehicle;
+import ca.javajesus.game.entities.structures.transporters.MapTransporter;
 
-public class LordHillsboroughsDomain extends Level{
-	public LordHillsboroughsDomain(){
-		super("/Levels/Cities/Domain of Lord Hillsborough.png", true);
+public class LordHillsboroughsDomain extends Level {
+	public LordHillsboroughsDomain() {
+		super("/Levels/Cities/Domain of Lord Hillsborough.png", true, "Lord Hillsborough's Domain");
 		this.spawnPoint = new Point(1366, 1450);
 		startingSpawnPoint = new Point(1366, 1450);
 
 	}
 
 	protected void initNPCPlacement() {
-		
+
 	}
 
-	 
 	protected void initSpawnerPlacement() {
-		 
-		
+
 	}
 
-	 
 	protected void initChestPlacement() {
-		 
-		
+
 	}
 
-	 
 	protected void otherEntityPlacement() {
-		
-		
-		//The Huts
+
+		// The Huts
 		this.addEntity(new Hut(this, 632, 288));
 		this.addEntity(new Hut(this, 1560, 288));
 		this.addEntity(new Hut(this, 632, 784));
@@ -55,14 +47,14 @@ public class LordHillsboroughsDomain extends Level{
 		this.addEntity(new Hut(this, 1064, 1416));
 		this.addEntity(new Hut(this, 936, 1480));
 		this.addEntity(new Hut(this, 1088, 1528));
-		
-		//Knight's Tower
+
+		// Knight's Tower
 		this.addEntity(new CastleTower(this, 1721, 1025));
-		
-		//Lord Hillsborough's Castle
+
+		// Lord Hillsborough's Castle
 		this.addEntity(new Castle(this, 1208, 1240));
 
-		//White Oaks 
+		// White Oaks
 		this.addEntity(new GenericHospital(this, 1734, 1656));
 		this.addEntity(new GunStore(this, 2160, 1694));
 		this.addEntity(new Hotel(this, 2208, 1840));
@@ -74,7 +66,7 @@ public class LordHillsboroughsDomain extends Level{
 		this.addEntity(new NiceHouse2(this, 1976, 1676));
 		this.addEntity(new NiceHouse2(this, 2072, 1676));
 		this.addEntity(new NiceHouse2(this, 2264, 1676));
-		
+
 		this.addEntity(new NiceHouse(this, 1824, 1511));
 		this.addEntity(new NiceHouse(this, 2216, 1511));
 		this.addEntity(new NiceHouse(this, 1736, 1863));
@@ -82,10 +74,8 @@ public class LordHillsboroughsDomain extends Level{
 		this.addEntity(new NiceHouse(this, 1928, 1863));
 		this.addEntity(new NiceHouse(this, 2024, 1863));
 		this.addEntity(new NiceHouse(this, 2120, 1863));
-		
 
-		
-		//Sequoia Shores
+		// Sequoia Shores
 		this.addEntity(new NiceHouse2(this, 3063, 308));
 		this.addEntity(new NiceHouse2(this, 2976, 448));
 		this.addEntity(new NiceHouse2(this, 3264, 448));
@@ -93,17 +83,33 @@ public class LordHillsboroughsDomain extends Level{
 		this.addEntity(new NiceHouse(this, 3160, 431));
 		this.addEntity(new NiceHouse(this, 2876, 431));
 
-
-		//Caves
+		// Caves
 		this.addEntity(new CaveEntrance(this, 1024, 40));
 		this.addEntity(new CaveEntrance(this, 744, 2208));
 		this.addEntity(new CaveEntrance(this, 3216, 1624));
 
-		//this.addEntity(new Forest(this, 1360, 2040, 500, 500));
-		//this.addEntity(new Forest(this, 2968, 1000, 256, 624));
-		
-		//this.addEntity(new Forest(this, 1366, 1450, 500, 500));
-		//this.addEntity(new Forest(this, 0, 0, 3000, 3000));
-		
+		// this.addEntity(new Forest(this, 1360, 2040, 500, 500));
+		// this.addEntity(new Forest(this, 2968, 1000, 256, 624));
+
+		// this.addEntity(new Forest(this, 1366, 1450, 500, 500));
+		// this.addEntity(new Forest(this, 0, 0, 3000, 3000));
+
+	}
+
+	protected void initMapTransporters() {
+
+		this.addEntity(new MapTransporter(this, 0, 0, Level.sanCisco,
+				new Point(Game.player.getX(), (Level.sanCisco.height * 8) - 16),
+				this.width * 8, 8));
+		this.addEntity(new MapTransporter(this, 0, 0, Level.edgeOfTheWoodsTop,
+				new Point((Level.edgeOfTheWoodsTop.width * 8) - 16, Game.player.getY()),
+				8, (this.height * 8) / 2));
+		this.addEntity(new MapTransporter(this, 0, (this.height * 8) / 2, Level.edgeOfTheWoodsMain,
+				new Point((Level.edgeOfTheWoodsMain.width * 8) - 16, Game.player.getY()),
+				8, (this.height * 8) / 2));
+		this.addEntity(new MapTransporter(this, 0, (this.height * 8) - 8, Level.bautistasDomain,
+				new Point(Game.player.getX(), 16),
+				(this.width * 8), 8));
+
 	}
 }

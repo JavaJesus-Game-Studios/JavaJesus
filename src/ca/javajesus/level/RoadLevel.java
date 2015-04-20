@@ -7,7 +7,7 @@ import ca.javajesus.game.entities.vehicles.Vehicle;
 public class RoadLevel extends Level {
 
 	public RoadLevel() {
-		super("/Levels/Test_Levels/Road_Test_Level.png", false);
+		super("/Levels/Test_Levels/Road_Test_Level.png", false, "Road Level");
 		this.spawnPoint = new Point(50, 50);
 	}
 
@@ -32,6 +32,12 @@ public class RoadLevel extends Level {
 	@Override
 	protected void otherEntityPlacement() {
 		this.addEntity(Vehicle.vehicle1);
+		
+	}
+
+	@Override
+	protected void initMapTransporters() {
+		// TODO Auto-generated method stub
 		
 	}
 

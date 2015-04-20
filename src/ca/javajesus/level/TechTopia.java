@@ -22,7 +22,7 @@ public class TechTopia extends Level
 
     public TechTopia()
     {
-        super("/Levels/Cities/Tech_Topia.png", true);
+        super("/Levels/Cities/Tech_Topia.png", true, "Tech Topia");
         this.spawnPoint = new Point(1512, 584);
         startingSpawnPoint = new Point(1512, 584);
     }
@@ -125,6 +125,12 @@ public class TechTopia extends Level
 
         
     }
+
+	@Override
+	protected void initMapTransporters() {
+		// TODO Auto-generated method stub
+		
+	}
     
     
     

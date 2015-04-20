@@ -91,4 +91,10 @@ public class RandomCave extends Level {
 		this.addEntity(new TransporterLadder(this, (int) spawnPoint.getX(), (int) spawnPoint.getY(), prevLevel,
 				prevSpawn));
 	}
+
+	@Override
+	protected void initMapTransporters() {
+		// TODO Auto-generated method stub
+		
+	}
 }

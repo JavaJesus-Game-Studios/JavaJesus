@@ -2,18 +2,20 @@ package ca.javajesus.level;
 
 import java.awt.Point;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.structures.CaveEntrance;
 import ca.javajesus.game.entities.structures.Hotel;
 import ca.javajesus.game.entities.structures.Hut;
 import ca.javajesus.game.entities.structures.NiceHouse;
 import ca.javajesus.game.entities.structures.PoorHouse;
 import ca.javajesus.game.entities.structures.Tippee;
+import ca.javajesus.game.entities.structures.transporters.MapTransporter;
 import ca.javajesus.game.entities.structures.trees.Forest;
 
 public class EdgeOfTheWoods extends Level{
 
 	public EdgeOfTheWoods() {
-		super("/Levels/Wilderness_Areas/Edge_of_the_Woods_Main.png", true);
+		super("/Levels/Wilderness_Areas/Edge_of_the_Woods_Main.png", true, "Edge of the Woods");
 		this.spawnPoint = new Point(2224, 2816);
 		startingSpawnPoint = new Point(2224, 2816);
 	}
@@ -62,6 +64,13 @@ public class EdgeOfTheWoods extends Level{
 		this.addEntity(new Tippee(this, 2856, 936));
 
 
+	}
+	
+	protected void initMapTransporters() {
+		this.addEntity(new MapTransporter(this, (this.width * 8) - 8, 0, Level.lordHillsboroughsDomain,
+				new Point(16, Game.player.getY()),
+				8, this.height * 8));
+		
 	}
 
 }

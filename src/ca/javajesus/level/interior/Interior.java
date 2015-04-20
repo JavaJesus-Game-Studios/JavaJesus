@@ -9,7 +9,7 @@ public class Interior extends Level {
 	protected Level nextLevel;
 	
 	public Interior(String string, Point point, Level level) {
-		super(string, false);
+		super(string, false, "Interior");
 		this.spawnPoint = point;
 		this.nextLevel = level;
 	}
@@ -27,6 +27,12 @@ public class Interior extends Level {
 	}
 
 	protected void otherEntityPlacement() {
+		
+	}
+
+	@Override
+	protected void initMapTransporters() {
+		// TODO Auto-generated method stub
 		
 	}
 

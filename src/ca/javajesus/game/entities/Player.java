@@ -74,6 +74,7 @@ public class Player extends Mob {
 
 		companion = new Companion(level, "Companion", x + 10, y, 16, 16, 100,
 				new int[] { 0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB }, 0, 4, this);
+
 	}
 
 	public Level getLevel() {
@@ -113,22 +114,19 @@ public class Player extends Mob {
 	}
 
 	public void changeLevel(Level level) {
-		if (input.e.isPressed()) {
-			int frame = this.level.getBackgroundMusic().getFramePosition();
+		
+		sound.play(SoundHandler.sound.click);
+		if (!this.level.getBackgroundMusic().equals(level.getBackgroundMusic())) {
 			this.level.getBackgroundMusic().stop();
 			this.level.getBackgroundMusic().setFramePosition(0);
-
-			this.nextLevel = level;
-			if (!level.isLoaded) {
-				level.load();
-			}
-			this.canChangeLevel = true;
-			sound.play(SoundHandler.sound.click);
-			if (this.level.getBackgroundMusic().equals(
-					level.getBackgroundMusic()))
-				level.getBackgroundMusic().setFramePosition(frame);
 			level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 		}
+
+		this.nextLevel = level;
+		if (!level.isLoaded) {
+			level.load();
+		}
+		this.canChangeLevel = true;
 	}
 
 	public void tick() {
@@ -398,11 +396,9 @@ public class Player extends Mob {
 			}
 			return;
 		}
-		this.getBounds().setLocation(this.x - this.width / 2,
-				this.y - this.height / 2);
-		this.getOuterBounds().setLocation(this.x - this.width / 2 - 2,
-				this.y - this.height / 2 - 2);
 		if (canChangeLevel) {
+			canChangeLevel = false;
+			input.e.toggle(false);
 			level.remEntity(this);
 			if (isOnFire()) {
 				setOnFire(false);
@@ -410,16 +406,15 @@ public class Player extends Mob {
 			level.clear();
 			init(nextLevel);
 			level.init();
-			canChangeLevel = false;
 			level.addEntity(this);
 			this.x = level.spawnPoint.x;
 			this.y = level.spawnPoint.y;
-			input.e.toggle(false);
-			this.getBounds().setLocation(this.x - this.width / 2,
-					this.y - this.height / 2);
-			this.getOuterBounds().setLocation(this.x - this.width / 2 - 2,
-					this.y - this.height / 2 - 2);
 		}
+
+		this.getBounds().setLocation(this.x - this.width / 2,
+				this.y - this.height / 2);
+		this.getOuterBounds().setLocation(this.x - this.width / 2 - 2,
+				this.y - this.height / 2 - 2);
 
 		if (health < 20) {
 			// screen.setShader(16711680);
