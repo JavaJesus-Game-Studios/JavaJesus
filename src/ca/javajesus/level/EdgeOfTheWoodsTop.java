@@ -30,16 +30,20 @@ public class EdgeOfTheWoodsTop extends Level
     }
 
     protected void otherEntityPlacement() {
+        //caves
         this.addEntity(new CaveEntrance(this, 1856, 688));
         this.addEntity(new CaveEntrance(this, 2616, 1176));
+        this.addEntity(new CaveEntrance(this, 2448, 2440));
+        
+        //hotel
         this.addEntity(new Hotel(this, 1872, 1408));
+
+        //houses
         this.addEntity(new PoorHouse(this, 2040, 1536));
         this.addEntity(new PoorHouse(this, 2056, 1632));
         this.addEntity(new PoorHouse(this, 1920, 1568));
         this.addEntity(new PoorHouse(this, 1936, 1672));
         this.addEntity(new NiceHouse(this, 2048, 1416));
-        this.addEntity(new CaveEntrance(this, 2448, 2440));
-
     }
 
 }

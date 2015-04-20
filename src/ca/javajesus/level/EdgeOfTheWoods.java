@@ -14,8 +14,8 @@ public class EdgeOfTheWoods extends Level{
 
 	public EdgeOfTheWoods() {
 		super("/Levels/Wilderness_Areas/Edge_of_the_Woods_Main.png", true);
-		this.spawnPoint = new Point(2224, 2816);
-		startingSpawnPoint = new Point(2224, 2816);
+		this.spawnPoint = new Point(2704, 552);
+		startingSpawnPoint = new Point(2704, 552);
 	}
 
 	protected void initNPCPlacement() {
