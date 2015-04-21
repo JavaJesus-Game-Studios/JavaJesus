@@ -126,7 +126,7 @@ public class RandomLevel2 extends Level {
 			return Tile.VOID;
 		switch (tiles[x + y * width]) {
 		case 0:
-			return Tile.GRASS;
+			return Tile.GRASS();
 		case 1:
 			return Tile.SAND;
 		case 2:
@@ -141,12 +141,6 @@ public class RandomLevel2 extends Level {
 			return Tile.WATERSAND;
 		case 8:
 			return Tile.ROAD2;
-		case 9:
-			return Tile.GRASS2;
-		case 10:
-			return Tile.GRASS3;
-		case 11:
-			return Tile.GRASS_FLOWER;
 		default:
 			return Tile.VOID;
 		}

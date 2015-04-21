@@ -154,7 +154,7 @@ public abstract class Level implements Serializable {
 					if (t != null
 							&& t.getLevelColour() == tileColours[x + y * width]) {
 						if (t == Tile.GRASS) {
-							t = getGrass();
+							t = Tile.GRASS();
 						}
 						this.tiles[x + y * width] = t.getId();
 						break tileCheck;

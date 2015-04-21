@@ -1,5 +1,7 @@
 package ca.javajesus.level.tile;
 
+import java.util.Random;
+
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -206,6 +208,56 @@ public abstract class Tile {
 
 	public SpriteSheet getSpriteSheet() {
 		return sheet;
+	}
+	
+	public static Tile GRASS() {
+		Random random = new Random();
+		if (random.nextInt(100) == 0) {
+			return GRASS_FLOWER;
+		}
+		if (random.nextInt(100) == 0) {
+			return GRASS_POPPY;
+		}
+		if (random.nextInt(6) == 0) {
+			return GRASS2;
+		}
+		if (random.nextInt(6) == 0) {
+			return GRASS3;
+		}
+		if (random.nextInt(6) == 0) {
+			return GRASS4;
+		}
+		if (random.nextInt(6) == 0) {
+			return GRASS5;
+		}
+		else {
+			return GRASS;
+		}
+	}
+	
+	public Tile CONCRETE() {
+		Random random = new Random();
+		if (random.nextInt(6) == 0) {
+			return WASTELAND_GROUND1;
+		}
+		if (random.nextInt(6) == 0) {
+			return WASTELAND_GROUND2;
+		}
+		if (random.nextInt(6) == 0) {
+			return WASTELAND_GROUND3;
+		}
+		if (random.nextInt(6) == 0) {
+			return WASTELAND_GROUND4;
+		}
+		if (random.nextInt(6) == 0) {
+			return WASTELAND_GROUND5;
+		}
+		if (random.nextInt(6) == 0) {
+			return WASTELAND_GROUND6;
+		}
+		else {
+			return WASTELAND_GROUND7;
+		}
 	}
 
 	public abstract void tick();

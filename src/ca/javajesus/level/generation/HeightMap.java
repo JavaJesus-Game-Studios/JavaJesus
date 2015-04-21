@@ -99,19 +99,6 @@ public class HeightMap {
 	 * 
 	 * @return randomized grass tiles
 	 */
-	private byte GRASS() {
-		if (random.nextInt(100) == 0) {
-			return GRASS_FLOWER;
-		}
-		if (random.nextInt(6) == 0) {
-			return GRASS2;
-		}
-		if (random.nextInt(6) == 0) {
-			return GRASS3;
-		} else {
-			return GRASS;
-		}
-	}
 
 	/**
 	 * Checks if there is a grass tile at the desired spot
@@ -196,7 +183,7 @@ public class HeightMap {
 					heightmap[row][col].setTile(WATER);
 				} else if (heightmap[row][col].tile() > cutoff
 						&& heightmap[row][col].tile() <= dirtCutoff) {
-					heightmap[row][col].setTile(GRASS());
+					heightmap[row][col].setTile(GRASS);
 				} else if (heightmap[row][col].tile() > dirtCutoff
 						&& heightmap[row][col].tile() <= mountainCutoff) {
 					heightmap[row][col].setTile(DIRT);

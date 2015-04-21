@@ -159,4 +159,10 @@ public class SanJuan extends Level
         this.addEntity(new Warehouse(this, 2560, 1048));
     }
 
+	@Override
+	protected void initMapTransporters() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
