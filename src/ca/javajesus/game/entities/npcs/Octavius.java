@@ -4,12 +4,13 @@ import java.awt.Color;
 
 import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Octavius extends NPC {
+
+	private static final long serialVersionUID = -6699489501735991630L;
 
 	public Octavius(Level level, int x, int y) {
 		super(level, "Octavius", x, y, 1, 16, 24, 500, null, 0, 12, "",

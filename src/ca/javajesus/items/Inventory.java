@@ -7,6 +7,8 @@ import ca.javajesus.game.entities.Player;
 
 public class Inventory implements java.io.Serializable{
 
+	private static final long serialVersionUID = 2802272780270201723L;
+	
 	public List<Item> items = new ArrayList<Item>();
 	public List<Item> guns = new ArrayList<Item>();
 	public List<Item> swords = new ArrayList<Item>();

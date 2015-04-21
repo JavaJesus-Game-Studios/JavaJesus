@@ -16,6 +16,8 @@ import ca.javajesus.level.Level;
 
 public class Gun extends Item {
 
+	private static final long serialVersionUID = 2308714802801627285L;
+	
 	public int gunType;
 	public int clipSize;
 	public int ammo;

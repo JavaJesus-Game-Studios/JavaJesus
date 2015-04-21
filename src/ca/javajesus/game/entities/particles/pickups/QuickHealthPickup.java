@@ -6,6 +6,8 @@ import ca.javajesus.level.Level;
 
 public class QuickHealthPickup extends Pickup {
 
+	private static final long serialVersionUID = -5640816578680329613L;
+
 	public QuickHealthPickup(Level level, int x, int y) {
 		super(level, x, y, null, new int[] { 0xFFFFFFFF, 0xFF990000, 0xFFFF0000 }, 0, 5, 1);
 

@@ -6,7 +6,7 @@ import ca.javajesus.game.entities.Entity;
 
 public class JavaRectangle extends Rectangle {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3117483081821612098L;
 	
 	private Entity entity;
 	

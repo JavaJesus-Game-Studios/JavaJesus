@@ -9,6 +9,8 @@ import ca.javajesus.level.Level;
 
 public class Bautista extends NPC {
 	
+	private static final long serialVersionUID = -4685371991295485791L;
+
 	public Bautista(Level level, int x, int y) {
 		super(level, "Ranchero Bautista", x, y, 1, 16, 16, 500, null, 0, 16, "",
 				0);

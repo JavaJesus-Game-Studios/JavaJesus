@@ -8,10 +8,11 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Demon extends Monster {
-	private static int[] color = { 0xFF111111, 0xFF700000, 0xFFDBA800 };
-
+	
+	private static final long serialVersionUID = 1670392462486505990L;
+	
 	public Demon(Level level, String name, int x, int y, int speed) {
-		super(level, name, x, y, speed, 14, 24, 0, 150, color);
+		super(level, name, x, y, speed, 14, 24, 0, 150, new int[] { 0xFF111111, 0xFF700000, 0xFFDBA800 });
 		this.bar = new HealthBar(level, this.x, this.y, this);
 		if (level != null)
 			level.addEntity(bar);

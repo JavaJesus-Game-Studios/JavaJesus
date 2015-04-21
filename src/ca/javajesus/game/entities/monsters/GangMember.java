@@ -12,6 +12,8 @@ import ca.javajesus.level.Level;
 
 public class GangMember extends Monster {
 
+	private static final long serialVersionUID = 3322532159669147419L;
+	
 	protected Ellipse2D.Double standRange;
 
 	public GangMember(Level level, String name, int x, int y, int speed,

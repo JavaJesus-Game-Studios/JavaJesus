@@ -6,13 +6,14 @@ import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.graphics.JJFont;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Gorilla extends Shooter {
+	
+	private static final long serialVersionUID = 5350816667470294053L;
 	
 	private boolean isAttacking;
 	private int coolTicks;

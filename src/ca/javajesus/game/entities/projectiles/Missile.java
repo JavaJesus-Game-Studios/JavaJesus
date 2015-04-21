@@ -13,6 +13,8 @@ import ca.javajesus.level.Level;
 
 public class Missile extends Projectile {
 
+	private static final long serialVersionUID = 4423384187877615283L;
+
 	public Missile(Level level, double x, double y, double xPos, double yPos,
 			Mob mob, double damage, Clip clip) {
 		super(level, 6, 6, 1, new int[] { 0xFF000000, 0xFF5B5B5B, 0xFFFFEA02 },

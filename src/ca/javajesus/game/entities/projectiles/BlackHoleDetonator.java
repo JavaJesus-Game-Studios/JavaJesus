@@ -13,6 +13,8 @@ import ca.javajesus.level.Level;
 
 public class BlackHoleDetonator extends Projectile {
 
+	private static final long serialVersionUID = 2546446873996072596L;
+
 	public BlackHoleDetonator(Level level, double x, double y, double xPos,
 			double yPos, Mob mob, double damage) {
 		super(level, 2, 1, SpriteSheet.particles.boxes, new int[] { 0xFF000000,

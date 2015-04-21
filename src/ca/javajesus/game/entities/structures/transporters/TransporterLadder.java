@@ -8,6 +8,8 @@ import ca.javajesus.level.Level;
 
 public class TransporterLadder extends Transporter {
 
+	private static final long serialVersionUID = 2030814150855374528L;
+
 	public TransporterLadder(Level currentLevel, int x, int y,
 			Level nextLevel) {
 		super(currentLevel, x, y, nextLevel);

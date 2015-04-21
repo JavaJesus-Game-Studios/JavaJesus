@@ -32,7 +32,7 @@ import ca.javajesus.saves.FileData;
 
 public class Game extends Canvas implements Runnable {
 
-	protected static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6951816659288924373L;
 
 	/** Determines how long the loading screen lasts */
 	protected static final int LOAD_SPEED = 10;

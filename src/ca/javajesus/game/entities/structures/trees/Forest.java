@@ -12,6 +12,8 @@ import ca.javajesus.level.tile.Tile;
 
 public class Forest extends Entity {
 
+	private static final long serialVersionUID = 7226541615386170385L;
+	
 	public int width, height;
 	private int treeHeight;
 	private ArrayList<Tree> trees = new ArrayList<Tree>();

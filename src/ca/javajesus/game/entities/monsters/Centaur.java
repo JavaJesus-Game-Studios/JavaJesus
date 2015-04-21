@@ -5,10 +5,11 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Centaur extends Monster {
-	private static int[] color = { 0xFF111111, 0xFF8F4C1F, 0xFFEDC5AB };
-
+	
+	private static final long serialVersionUID = -6742106160330069216L;
+	
 	public Centaur(Level level, String name, int x, int y, int speed, int health) {
-		super(level, name, x, y, speed, 14, 24, 5, health, color);
+		super(level, name, x, y, speed, 14, 24, 5, health, new int[] { 0xFF111111, 0xFF8F4C1F, 0xFFEDC5AB });
 		this.bar = new HealthBar(level, this.x, this.y, this);
 		if (level != null)
 			level.addEntity(bar);

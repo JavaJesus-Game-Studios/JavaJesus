@@ -10,6 +10,8 @@ import ca.javajesus.level.Level;
 
 public class Tree extends SolidEntity {
 	
+	private static final long serialVersionUID = 5310167130019869321L;
+	
 	public static Sprite DEAD_SEQUOIA = new Sprite("/Buildings/Trees/Coniferous_Trees/Dead_Sequoia.png");
 	public static Sprite SMALL_SEQUOIA = new Sprite("/Buildings/Trees/Coniferous_Trees/Sequoia_Small.png");
 	public static Sprite MEDIUM_SEQUOIA = new Sprite("/Buildings/Trees/Coniferous_Trees/Sequoia_Medium.png");

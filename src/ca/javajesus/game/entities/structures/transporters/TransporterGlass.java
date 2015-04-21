@@ -8,6 +8,7 @@ import ca.javajesus.level.Level;
 
 public class TransporterGlass extends Transporter {
 	
+	private static final long serialVersionUID = -3300095979447928983L;
 
 	public TransporterGlass(Level currentLevel, int x, int y, Level nextLevel) {
 		super(currentLevel, x, y, nextLevel);

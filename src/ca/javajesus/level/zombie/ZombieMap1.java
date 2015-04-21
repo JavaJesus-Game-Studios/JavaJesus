@@ -18,6 +18,8 @@ import ca.javajesus.level.Level;
 
 public class ZombieMap1 extends Level {
 
+	private static final long serialVersionUID = 259027073546330929L;
+
 	public ZombieMap1() {
 		super("/Levels/Test_Levels/zombies_test_map.png", true, "Zombie Map");
 		this.spawnPoint = new Point(1360, 70);

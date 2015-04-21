@@ -1,12 +1,13 @@
 package ca.javajesus.game.entities.vehicles;
 
-import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.tile.Tile;
 
 public class Boat extends Vehicle {
+
+	private static final long serialVersionUID = -762864479769291428L;
 
 	public Boat(Level level, String name, int x, int y, int speed,
 			int defaultHealth) {

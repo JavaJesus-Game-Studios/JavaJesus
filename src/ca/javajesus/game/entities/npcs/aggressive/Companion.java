@@ -1,20 +1,17 @@
 package ca.javajesus.game.entities.npcs.aggressive;
 
 import java.awt.Color;
-import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
 import ca.javajesus.game.ChatHandler;
-import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.entities.monsters.Monster;
-import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.projectiles.Bullet;
-import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Companion extends Shooter {
 
+	private static final long serialVersionUID = 1114048658566656656L;
+	
 	private Player player;
 
 	public Companion(Level level, String name, int x, int y, int width,

@@ -12,6 +12,8 @@ import ca.javajesus.level.Level;
 
 public class BlackHole extends Particle {
 
+	private static final long serialVersionUID = 2827325538515820858L;
+	
 	private int posNumber;
 	private int tickCount = 1;
 	protected Ellipse2D.Double aggroRadius;

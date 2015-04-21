@@ -1,13 +1,17 @@
 package ca.javajesus.items;
 
+import java.io.Serializable;
+
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.items.Armor.ArmorSet;
 import ca.javajesus.items.Gun.Ammo;
 
-public class Item implements java.io.Serializable {
+public class Item implements Serializable {
 
+	private static final long serialVersionUID = 6019227186916064573L;
+	
 	public static Item apple = new Item("Apple", 0, 2, 5, new int[] {
 			0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "This is a red fruit!");
 	public static Item banana = new Item("Banana", 1, 3, 5, new int[] {

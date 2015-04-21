@@ -9,6 +9,8 @@ import ca.javajesus.level.Level;
 
 public class Daughter extends NPC {
 
+	private static final long serialVersionUID = -6160414459786768128L;
+
 	public Daughter(Level level, int x, int y) {
 		super(level, "Daughter", x, y, 1, 16, 16, 500, null, 0, 5, "",
 				0);

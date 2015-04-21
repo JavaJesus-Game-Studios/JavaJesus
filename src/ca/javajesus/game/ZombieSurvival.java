@@ -11,7 +11,7 @@ import ca.javajesus.level.zombie.ZombieMap1;
 
 public class ZombieSurvival extends Game {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7932832151967677217L;
 
 	public ZombieSurvival(Launcher launcher) {
 		super(launcher);

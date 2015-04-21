@@ -10,6 +10,8 @@ import ca.javajesus.level.Level;
 
 public class Explosion extends Particle {
 
+	private static final long serialVersionUID = 3716434059942612881L;
+	
 	private int posNumber;
 	private int tickCount = 1;
 	private Rectangle bounds;

@@ -11,6 +11,8 @@ import ca.javajesus.level.Level;
 
 public class Transporter extends SolidEntity {
 
+	private static final long serialVersionUID = -7494182586888198075L;
+	
 	protected Level nextLevel;
 
 	public Transporter(Level currentLevel, int x, int y, Level nextLevel) {

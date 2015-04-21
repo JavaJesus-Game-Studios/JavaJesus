@@ -12,12 +12,13 @@ import ca.javajesus.level.Level;
 
 public class Monkey extends Monster {
 	
-	private static int[] color = { 0xFF2A1609, 0xFF391E0C, 0xFFB08162 };
+	private static final long serialVersionUID = -2503364257598403097L;
+	
 	private boolean isAttacking = false;
 	private int coolTicks = 0;
 
 	public Monkey(Level level, String name, int x, int y, int speed, int health) {
-		super(level, name, x, y, speed, 12, 16, 8, health, color);
+		super(level, name, x, y, speed, 12, 16, 8, health, new int[] { 0xFF2A1609, 0xFF391E0C, 0xFFB08162 });
 		this.bar = new HealthBar(level, this.x, this.y, this);
 		this.strength = 10;
 		if (level != null)

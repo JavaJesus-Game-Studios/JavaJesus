@@ -9,6 +9,8 @@ import ca.javajesus.level.Level;
 
 public class Zorra extends NPC {
 	
+	private static final long serialVersionUID = -4981994300664864597L;
+
 	public Zorra(Level level, int x, int y) {
 		super(level, "Zorra", x, y, 1, 16, 16, 500, null, 10, 5, "",
 				0);

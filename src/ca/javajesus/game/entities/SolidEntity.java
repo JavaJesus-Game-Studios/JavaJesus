@@ -8,6 +8,8 @@ import ca.javajesus.level.Level;
 
 public class SolidEntity extends Entity {
 
+	private static final long serialVersionUID = -3116586717644036975L;
+	
 	public Rectangle shadow;
 	protected int width;
 	protected int height;

@@ -7,6 +7,8 @@ import ca.javajesus.game.graphics.SpriteSheet;
 
 public class Bazooka extends Gun {
 
+	private static final long serialVersionUID = -2457352828009998981L;
+	
 	private Player player;
 
 	public Bazooka() {

@@ -12,7 +12,7 @@ import ca.javajesus.level.RandomLevel2;
 
 public class ZombieEndurance extends Game {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7481471327948380362L;
 
 	public ZombieEndurance(Launcher launcher) {
 		super(launcher);

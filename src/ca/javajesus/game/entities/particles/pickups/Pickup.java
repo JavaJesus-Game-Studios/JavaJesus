@@ -11,6 +11,8 @@ import ca.javajesus.level.Level;
 
 public class Pickup extends Particle {
 
+	private static final long serialVersionUID = 8454550791664174098L;
+	
 	private Item item;
 	private int quantity;
 

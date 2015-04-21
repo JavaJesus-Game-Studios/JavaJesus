@@ -8,6 +8,8 @@ import ca.javajesus.level.Level;
 
 public class HealthBar extends Particle {
 
+	private static final long serialVersionUID = -4825483165347265874L;
+	
 	private int yOffset;
 	private int xOffset;
 	private int yChange;

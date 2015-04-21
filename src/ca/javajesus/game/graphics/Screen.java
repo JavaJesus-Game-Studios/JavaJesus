@@ -1,7 +1,6 @@
 package ca.javajesus.game.graphics;
 
 import java.awt.Color;
-import java.util.Random;
 
 import ca.javajesus.game.Game;
 
@@ -19,8 +18,6 @@ public class Screen {
 	public static final byte BIT_MIRROR_X = 0x01;
 	public static final byte BIT_MIRROR_Y = 0x02;
 	
-	private Random random = new Random();
-
 	public int[] pixels;
 	public int[] colors = new int[MAP_WIDTH * MAP_WIDTH];
 

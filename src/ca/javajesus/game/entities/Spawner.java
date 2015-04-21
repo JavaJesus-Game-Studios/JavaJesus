@@ -7,12 +7,13 @@ import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.monsters.Demon;
 import ca.javajesus.game.entities.monsters.GangMember;
 import ca.javajesus.game.entities.particles.HealthPack;
-import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Spawner extends Entity {
 
+	private static final long serialVersionUID = -1243740183193796893L;
+	
 	private String type;
 	private Random random = new Random();
 	private int amount = 0;

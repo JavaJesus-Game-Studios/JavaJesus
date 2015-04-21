@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import ca.javajesus.game.entities.Mob;
 
+@SuppressWarnings("unused")
 public abstract class Event {
 	
 	private String name;

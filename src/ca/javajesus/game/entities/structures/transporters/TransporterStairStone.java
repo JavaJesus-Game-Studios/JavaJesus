@@ -8,6 +8,9 @@ import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class TransporterStairStone extends Transporter {
+	
+	private static final long serialVersionUID = 701072748737534313L;
+	
 	private Direction direction;
 
 	/**

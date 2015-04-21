@@ -10,6 +10,8 @@ import ca.javajesus.level.Level;
 
 public class HealthPack extends Particle {
 
+	private static final long serialVersionUID = -7889833550875856663L;
+	
 	private final Rectangle BOX = new Rectangle(10, 10);
 
 	public HealthPack(Level level, double x, double y) {

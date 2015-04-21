@@ -9,6 +9,8 @@ import ca.javajesus.level.Level;
 
 public class Knight extends Shooter {
 
+	private static final long serialVersionUID = 4729539304976811370L;
+	
 	private int coolTicks = 0;
 
 	public Knight(Level level, int x, int y, String walkPath, int walkDistance) {

@@ -7,6 +7,8 @@ import ca.javajesus.level.Level;
 
 public class TransporterInterior extends Transporter {
 	
+	private static final long serialVersionUID = 2329949542471763366L;
+
 	public TransporterInterior(Level currentLevel, int x, int y, Level nextLevel) {
 		super(currentLevel, x, y, nextLevel);
 	}

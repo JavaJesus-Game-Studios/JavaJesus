@@ -12,6 +12,8 @@ import ca.javajesus.game.graphics.SpriteSheet;
 
 public class Sword extends Item {
 
+	private static final long serialVersionUID = -3339710504468683415L;
+	
 	public int swordType;
 	public boolean isCoolingDown = false;
 	private int COOLDOWN_TIME;

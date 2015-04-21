@@ -1,17 +1,16 @@
 package ca.javajesus.game.entities.vehicles;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import ca.javajesus.game.Game;
-import ca.javajesus.game.entities.npcs.aggressive.Shooter;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
-import ca.javajesus.quests.Quest;
 
 public class Horse extends Vehicle {
 
+	private static final long serialVersionUID = -3649878712351708546L;
+	
 	private int yTile;
 	private int xTile;
 

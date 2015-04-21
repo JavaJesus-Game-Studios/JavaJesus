@@ -4,12 +4,13 @@ import java.awt.Color;
 
 import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class LordHillsborough extends NPC {
+
+	private static final long serialVersionUID = -4740270757337394209L;
 
 	public LordHillsborough(Level level, int x, int y) {
 		super(level, "Lord Hillsborough", x, y, 1, 16, 18, 500, null, 0, 1, "",

@@ -1,8 +1,6 @@
 package ca.javajesus.game.entities;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.SoundHandler;
@@ -11,9 +9,9 @@ import ca.javajesus.level.Level;
 
 public abstract class Entity implements Serializable {
 
-	protected static final long serialVersionUID = 1L;
-
-	protected SoundHandler sound;
+	private static final long serialVersionUID = 7152333070540764158L;
+	
+	protected transient SoundHandler sound;
 	protected int x, y;
 	protected Level level;
 	protected JavaRectangle bounds;

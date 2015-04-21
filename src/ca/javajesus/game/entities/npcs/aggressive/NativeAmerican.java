@@ -9,6 +9,8 @@ import ca.javajesus.level.Level;
 
 public class NativeAmerican extends Shooter {
 
+	private static final long serialVersionUID = 4219698068135987513L;
+	
 	private boolean shooter;
 
 	public NativeAmerican(Level level, int x, int y, int defaultHealth,

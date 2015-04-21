@@ -9,6 +9,8 @@ import ca.javajesus.level.Level;
 
 public class DestructibleTile extends Entity {
 
+	private static final long serialVersionUID = 3662337682501677071L;
+	
 	private int health;
 	protected int healthTickCount = 0;
 	protected int[] color;

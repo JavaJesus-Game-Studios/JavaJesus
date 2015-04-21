@@ -9,6 +9,8 @@ import ca.javajesus.level.Level;
 
 public class Kobe extends NPC {
 	
+	private static final long serialVersionUID = 4773669926144737010L;
+
 	public Kobe(Level level, int x, int y) {
 		super(level, "Kobe", x, y, 1, 16, 16, 500, null, 0, 14, "",
 				0);

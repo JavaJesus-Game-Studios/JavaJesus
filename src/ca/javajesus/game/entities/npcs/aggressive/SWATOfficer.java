@@ -1,17 +1,14 @@
 package ca.javajesus.game.entities.npcs.aggressive;
 
 import java.awt.Color;
-import java.awt.geom.Ellipse2D;
-
 import ca.javajesus.game.ChatHandler;
-import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.entities.monsters.Monster;
 import ca.javajesus.game.entities.projectiles.Bullet;
-import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class SWATOfficer extends Shooter {
+
+	private static final long serialVersionUID = -2320584920776635420L;
 
 	public SWATOfficer(Level level, int x, int y, int defaultHealth,
 			String walkPath, int walkDistance) {

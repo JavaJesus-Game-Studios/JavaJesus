@@ -13,6 +13,8 @@ import ca.javajesus.level.Level;
 
 public class Monster extends Mob {
 
+	private static final long serialVersionUID = 4156279188503056448L;
+	
 	public static Monster gang1 = new GangMember(Level.level1, "Gang Member 1",
 			430, 120, 1, 100, 0);
 	public static Monster horseThing1 = new Centaur(Level.level1, "HorseThing",

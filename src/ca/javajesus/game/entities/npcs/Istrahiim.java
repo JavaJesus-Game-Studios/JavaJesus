@@ -3,15 +3,15 @@ package ca.javajesus.game.entities.npcs;
 import java.awt.Color;
 
 import ca.javajesus.game.ChatHandler;
-import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.Player;
-import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.graphics.JJFont;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
 
 public class Istrahiim extends NPC {
+
+	private static final long serialVersionUID = -344533173854730970L;
 
 	public Istrahiim(Level level, int x, int y, String walkPath,
 			int walkDistance) {

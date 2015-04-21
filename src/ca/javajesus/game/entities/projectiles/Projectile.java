@@ -22,6 +22,8 @@ public class Projectile extends Entity {
 	// final, and it will be used to countdown the ticks till next shoot, such
 	// as if (gun.firerate >0) player.firerate--; then reset when it reaches 0
 
+	private static final long serialVersionUID = 3377536695812898799L;
+	
 	protected double speed;
 	private double range;
 	protected double damage;

@@ -9,6 +9,8 @@ import ca.javajesus.level.Level;
 
 public class Jobs extends NPC {
 	
+	private static final long serialVersionUID = -7655486644422463084L;
+
 	public Jobs(Level level, int x, int y) {
 		super(level, "Brokovsky", x, y, 1, 16, 16, 500, null, 10, 0, "",
 				0);

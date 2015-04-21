@@ -6,7 +6,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class SpriteSheet implements java.io.Serializable{
-    public String path;
+	
+	private static final long serialVersionUID = 8851049246466607160L;
+	
+	public String path;
     public int width;
     public int height;
     public int boxes;

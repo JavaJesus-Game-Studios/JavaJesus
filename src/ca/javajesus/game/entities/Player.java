@@ -27,11 +27,12 @@ import ca.javajesus.level.Level;
 import ca.javajesus.level.Level1;
 import ca.javajesus.level.tile.Tile;
 import ca.javajesus.quests.Quest;
-import ca.javajesus.quests.SampleScript;
 
 public class Player extends Mob {
 
-	public InputHandler input;
+	private static final long serialVersionUID = -94467185570467260L;
+	
+	public transient InputHandler input;
 	protected int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };
 	protected int shirtColor = 0xFFFF0000;
 	protected int skinColor = 0xFFFFCC99;

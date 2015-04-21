@@ -16,6 +16,8 @@ import ca.javajesus.quests.Script;
 
 public class Mob extends Entity {
 
+	private static final long serialVersionUID = -1507733585991126012L;
+	
 	protected String name;
 	protected int[] color;
 	protected int speed;

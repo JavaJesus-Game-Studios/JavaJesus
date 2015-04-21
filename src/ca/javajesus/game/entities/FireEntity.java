@@ -7,6 +7,8 @@ import ca.javajesus.level.Level;
 
 public class FireEntity extends Entity  {
 
+	private static final long serialVersionUID = 4640952686511603038L;
+	
 	private long lastIterationTime;
 	private int delay;
 	private int xTile;

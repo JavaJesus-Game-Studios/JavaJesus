@@ -10,6 +10,8 @@ import ca.javajesus.level.Level;
 
 public class Particle extends Entity {
 
+	private static final long serialVersionUID = -1910855426543317119L;
+	
 	protected SpriteSheet sheet = SpriteSheet.particles;
 	protected int tileNumber;
 	protected int[] color;

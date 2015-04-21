@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class FileData {
 	Convert c = new Convert();
 

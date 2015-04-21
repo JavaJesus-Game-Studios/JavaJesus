@@ -9,6 +9,8 @@ import ca.javajesus.level.Level;
 
 public class MapTransporter extends Transporter {
 
+	private static final long serialVersionUID = -788215519977991994L;
+
 	public MapTransporter(Level currentLevel, int x, int y, Level nextLevel,
 			Point point, int width, int height) {
 		super(currentLevel, x, y, nextLevel, point);

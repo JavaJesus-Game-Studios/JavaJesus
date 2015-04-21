@@ -7,6 +7,8 @@ import ca.javajesus.level.Level;
 
 public class Arrow extends Projectile {
 
+	private static final long serialVersionUID = 4965425722844381258L;
+
 	public Arrow(Level level, double x, double y, double xPos, double yPos,
 			Mob mob, double damage, Clip clip) {
 		super(level, 2, 1, 1, new int[] { 0xFF000000, 0xFF000000, 0xFFFFFF00 },

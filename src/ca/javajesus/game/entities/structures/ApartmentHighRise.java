@@ -13,6 +13,8 @@ import ca.javajesus.level.interior.ApartmentLobby;
 
 public class ApartmentHighRise extends SolidEntity {
 
+	private static final long serialVersionUID = 3895374472641199582L;
+
 	public ApartmentHighRise(Level level, int x, int y) {
 		super(level, x, y, 71, 222);
 		this.shadow = new Rectangle(width, (2 * height / 3));

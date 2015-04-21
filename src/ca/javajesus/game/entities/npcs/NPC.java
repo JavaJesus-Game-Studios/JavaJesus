@@ -22,6 +22,8 @@ import ca.javajesus.quests.Quest;
 
 public class NPC extends Mob {
 
+	private static final long serialVersionUID = 7279751732700782799L;
+	
 	public static NPC knight = new Knight(Level.level1, 200, 100, "linear", 20);
 	public static NPC policeman = new PoliceOfficer(Level.level1, 160, 250);
 	public static NPC citizenFemale = new NPC(Level.level1, "Citizen-Female",

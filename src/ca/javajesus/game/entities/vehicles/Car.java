@@ -8,6 +8,8 @@ import ca.javajesus.level.Level;
 
 public class Car extends Vehicle {
 	
+	private static final long serialVersionUID = -1861142691248572564L;
+	
 	private int yTile;
 
 	public Car(Level level, String name, int x, int y, int yTile) {

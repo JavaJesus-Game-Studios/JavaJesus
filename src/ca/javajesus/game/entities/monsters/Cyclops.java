@@ -1,13 +1,13 @@
 package ca.javajesus.game.entities.monsters;
 
 import ca.javajesus.game.Game;
-import ca.javajesus.game.SoundHandler;
-import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.Level;
 
 public class Cyclops extends Monster {
+	
+	private static final long serialVersionUID = -6014297804180801819L;
 	
 	protected boolean isAttacking = false;
 	private int coolTicks = 0;

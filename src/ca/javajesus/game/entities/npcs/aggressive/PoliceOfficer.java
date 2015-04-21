@@ -9,6 +9,8 @@ import ca.javajesus.level.Level;
 
 public class PoliceOfficer extends Shooter {
 
+	private static final long serialVersionUID = -7410940331032155987L;
+
 	public PoliceOfficer(Level level, int x, int y, int defaultHealth,
 			String walkPath, int walkDistance) {
 		super(level, "Police Officer", x, y, 1, 16, 16, defaultHealth,

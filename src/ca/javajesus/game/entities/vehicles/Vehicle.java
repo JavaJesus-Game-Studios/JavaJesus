@@ -13,9 +13,11 @@ import ca.javajesus.level.Level;
 
 public class Vehicle extends Mob {
 
+	private static final long serialVersionUID = -190937210314016793L;
+	
 	public boolean isUsed = false;
 	protected Player player;
-	protected InputHandler input;
+	protected transient InputHandler input;
 	protected int tickCount = 0;
 	protected Point acceleration = new Point(0, 0);
 	protected int DELAY = 3;

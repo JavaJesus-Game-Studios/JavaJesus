@@ -2,6 +2,8 @@ package ca.javajesus.items;
 
 public class Armor extends Item {
 
+	private static final long serialVersionUID = 5210600935647831893L;
+	
 	private int defense;
 	private int yRow;
 	private ArmorSet armor;

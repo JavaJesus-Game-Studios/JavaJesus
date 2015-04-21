@@ -9,6 +9,8 @@ import ca.javajesus.level.Level;
 
 public class TechWarrior extends Shooter {
 
+	private static final long serialVersionUID = 2154670871278842088L;
+
 	public TechWarrior(Level level, int x, int y, int defaultHealth,
 			String walkPath, int walkDistance) {
 		super(level, "Tech Warrior", x, y, 1, 16, 16, defaultHealth, new int[] {

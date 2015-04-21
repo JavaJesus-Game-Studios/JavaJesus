@@ -10,6 +10,8 @@ import ca.javajesus.level.Level;
 
 public class Shooter extends NPC {
 
+	private static final long serialVersionUID = -4738701705942228492L;
+	
 	protected Ellipse2D.Double standRange;
 	protected Mob mob;
 	protected Ellipse2D.Double aggroRadius;

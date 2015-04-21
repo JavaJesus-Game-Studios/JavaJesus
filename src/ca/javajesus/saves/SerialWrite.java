@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+@SuppressWarnings("unused")
 public class SerialWrite {
 	private FileOutputStream fileOut;
 	private ObjectOutputStream objectOut;
