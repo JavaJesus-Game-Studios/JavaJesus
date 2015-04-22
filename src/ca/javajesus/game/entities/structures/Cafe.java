@@ -8,9 +8,10 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.Sprite;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.interior.CafeInterior;
-import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class Cafe extends SolidEntity {
+
+	private static final long serialVersionUID = 1292938033962226188L;
 
 	public Cafe(Level level, int x, int y) {
 		super(level, x, y, 100, 59);

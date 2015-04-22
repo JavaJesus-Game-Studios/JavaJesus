@@ -11,6 +11,8 @@ import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class GreatTree extends SolidEntity {
 
+	private static final long serialVersionUID = -2057500563473932212L;
+
 	public GreatTree(Level level, int x, int y) {
 		super(level, x, y, 56, 120);
 		level.addEntity(new Transporter(level, x + 22, y + 30,

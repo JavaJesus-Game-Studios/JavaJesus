@@ -11,6 +11,8 @@ import ca.javajesus.level.interior.PoorHouseInterior;
 
 public class CardinalUniversity extends SolidEntity {
 
+	private static final long serialVersionUID = 8968241141418375189L;
+
 	public CardinalUniversity(Level level, int x, int y) {
 		super(level, x, y, 200, 56);
 		level.addEntity(new Transporter(level, x + 82, y + 40,
