@@ -1,10 +1,7 @@
 package ca.javajesus.game.entities;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.sound.sampled.Clip;
-
 import ca.javajesus.game.ChatHandler;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
@@ -27,6 +24,7 @@ import ca.javajesus.level.Level;
 import ca.javajesus.level.Level1;
 import ca.javajesus.level.tile.Tile;
 import ca.javajesus.quests.Quest;
+import ca.javajesus.saves.GameData;
 
 public class Player extends Mob {
 
@@ -39,7 +37,7 @@ public class Player extends Mob {
 	protected int hairColor = 0xFF343434;
 	private int tickCount = 0;
 	private boolean canChangeLevel;
-	private Level nextLevel;
+	private transient Level nextLevel;
 	public Gun gun;
 	private boolean genericCooldown;
 	public boolean isDriving;
@@ -270,16 +268,7 @@ public class Player extends Mob {
 
 		// Saving
 		if (input.m.isPressed()) {
-			try {
-				Game.saves.save();
-				Game.saves.saveGuns();
-				Game.saves.saveItems();
-				Game.saves.saveSwords();
-				Game.saves.saveUsables();
-				Game.saves.saveMisc();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			GameData.saveGame();
 			input.m.toggle(false);
 		}
 		if (sword != null) {
@@ -565,21 +554,6 @@ public class Player extends Mob {
 				isShooting = false;
 			}
 
-		}
-
-		if (input.v.isPressed()) {
-			ChatHandler.toggle();
-			input.v.toggle(false);
-		}
-
-		// Saving
-		if (input.m.isPressed()) {
-			/*
-			 * try { Game.saves.save(); Game.saves.saveGuns(); } catch
-			 * (IOException e) { e.printStackTrace(); }
-			 */
-			Level.saveData();
-			input.m.toggle(false);
 		}
 
 		// Handles Swinging Animation

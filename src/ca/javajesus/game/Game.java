@@ -27,8 +27,7 @@ import ca.javajesus.game.gui.ScreenGUI;
 import ca.javajesus.game.gui.intro.IntroGUI;
 import ca.javajesus.game.gui.inventory.InventoryGUI;
 import ca.javajesus.level.Level;
-import ca.javajesus.saves.Convert;
-import ca.javajesus.saves.FileData;
+import ca.javajesus.saves.GameData;
 
 public class Game extends Canvas implements Runnable {
 
@@ -43,14 +42,14 @@ public class Game extends Canvas implements Runnable {
 	/** Scales the size of the screen */
 	public static final int SCALE = 3;
 	public static final String NAME = "Java Jesus by the Coders of Anarchy";
-	
+
 	public static int DELAY = 4;
 
 	public final static int ENTITY_LIMIT = 1000;
 
 	public final static int MOB_LIMIT = 300;
 
-	//public static QuadTree quad;
+	// public static QuadTree quad;
 	public boolean running = false; // this is a change
 
 	public static int hours = 10;
@@ -65,7 +64,7 @@ public class Game extends Canvas implements Runnable {
 	public int tickCount;
 
 	/** Creates the buffered image to be rendered onto the game screen */
-	protected BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
+	protected transient BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
 			BufferedImage.TYPE_INT_RGB);
 
 	/** Pixel data to be used in the buffered image */
@@ -76,7 +75,7 @@ public class Game extends Canvas implements Runnable {
 	public Screen screen;
 
 	/** Creates instances of the handlers */
-	public InputHandler input;
+	public transient InputHandler input;
 
 	/** Creates instance of the player */
 	public static Player player;
@@ -92,10 +91,6 @@ public class Game extends Canvas implements Runnable {
 	public static boolean inGameScreen = false;
 	private static int guiID = 0;
 
-	public boolean isLoaded = false;
-
-	/** Used for game saves */
-	public static FileData saves = new FileData();
 	public Launcher launcher;
 
 	/** This starts the game */
@@ -157,57 +152,16 @@ public class Game extends Canvas implements Runnable {
 	/** Initializes the image on the screen */
 	public void init() {
 
-		//quad = new QuadTree(0, new JavaRectangle(0, 0, getLevel().width, getLevel().height));
+		GameData.load();
 		screen = new Screen(WIDTH, HEIGHT, this);
-		String x;
-		try {
-			x = saves.data("res/Saves/JavaTest.txt");
-			if (Launcher.load == true) {
-				Convert con = new Convert();
-				int xPos = Integer.parseInt(x.substring(0, x.indexOf("a")));
-				int yPos = Integer.parseInt(x.substring(x.indexOf("a") + 1,
-						x.indexOf("b")));
-				player = new Player(getLevel(), xPos, yPos, input);
-				player.setHealth(Integer.parseInt(x.substring(
-						x.indexOf("b") + 1, x.indexOf("c"))));
-				player.stamina = Double.parseDouble(x.substring(
-						x.indexOf("c") + 1, x.indexOf("d")));
-				player.score = Integer.parseInt(x.substring(x.indexOf("d") + 1,
-						x.indexOf("e")));
-				player.setName(con.binaryToString(x.substring(
-						x.indexOf("e") + 1, x.indexOf("f"))));
-				/*
-				 * String loadGun =
-				 * con.binaryToString(x.substring(x.indexOf("f")+1 ,
-				 * x.indexOf("g"))); double loadAmmo =
-				 * Double.parseDouble(x.substring(x.indexOf("g")+1,
-				 * x.indexOf("h"))); if(loadGun.length() > 0) { //player.gun =
-				 * (Gun) Item.returnItem(loadGun);
-				 * player.inventory.equip(Item.returnItem(loadGun), player);
-				 * player.gun.ammo = loadAmmo; }
-				 */
-				player.inventory.guns = saves.loadGuns();
-				player.inventory.items = saves.loadItems();
-				player.inventory.swords = saves.loadSwords();
-				player.inventory.usables = saves.loadUsables();
-				player.inventory.misc = saves.loadMisc();
-
-				// Read from disk using FileInputStream
-
-				// player = new Player(Level.loadData(),
-				// Level.loadData().spawnPoint.x,
-				// Level.loadData().spawnPoint.y, input);
-
-			} else {
-				player = new Player(getLevel(), getLevel().spawnPoint.x,
-						getLevel().spawnPoint.y, input);
-			}
-			player.getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
+		if (player == null) {
+			player = new Player(getLevel(), getLevel().spawnPoint.x,
+					getLevel().spawnPoint.y, input);
+		}
+		player.getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
+		if (getLevel().getMobs().isEmpty()) {
 			getLevel().addEntity(player);
 			getLevel().init();
-
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 	}
@@ -260,12 +214,6 @@ public class Game extends Canvas implements Runnable {
 				frames++;
 				render();
 
-				//quad.clear();
-				/*for (int i = 0; i < getLevel().getEntities().size(); i++) {
-					if (getLevel().getEntities().get(i).getBounds() != null)
-						quad.insert(getLevel().getEntities().get(i).getBounds());
-				}*/
-
 				if (System.currentTimeMillis() - lastTimer >= 1000) {
 					lastTimer += 1000;
 					frame.setTitle(NAME + "  |   " + ticks + " tps, " + frames
@@ -273,13 +221,13 @@ public class Game extends Canvas implements Runnable {
 					frames = 0;
 					ticks = 0;
 				}
-				
+
 				try {
 					Thread.sleep(DELAY);
 				} catch (Exception e) {
-					
+
 				}
-				
+
 			} catch (Exception e) {
 				renderCrashReport(e);
 			}
@@ -331,8 +279,8 @@ public class Game extends Canvas implements Runnable {
 
 	/** Renders the screen */
 	protected void render() {
-		
-		//quad.retrieve(player.returnObjects, player.getBounds());
+
+		// quad.retrieve(player.returnObjects, player.getBounds());
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
@@ -363,8 +311,10 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
-		g.drawString(player + ": " + player.getX() + ", " + player.getY()
-				+ " Time: " + hours + ":" + minutes + " Level: " + player.getLevel(), 5, 20);
+		g.drawString(
+				player + ": " + player.getX() + ", " + player.getY()
+						+ " Time: " + hours + ":" + minutes + " Level: "
+						+ player.getLevel(), 5, 20);
 		hud.draw(g);
 		ChatHandler.drawMessages(g);
 		if (player.isDead() || returnToMenu) {

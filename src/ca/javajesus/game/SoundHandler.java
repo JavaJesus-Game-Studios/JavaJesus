@@ -10,16 +10,16 @@ public class SoundHandler {
 
 	public boolean muted = false;
 
-	public static SoundHandler sound = new SoundHandler();
+	public transient static SoundHandler sound = new SoundHandler();
 
-	public Clip sheathe, background1, chest, chimpanzee, click, demon,
+	public transient Clip sheathe, background1, chest, chimpanzee, click, demon,
 			fireball, footsteps1, footstepsDirt, footstepsFarmland,
 			footstepsGrass, footstepsRoad, footstepsWood, assaultRifle, revolver,
 			shotgun, levelup, shortSword1, shortSword2, swimming, walking,
 			background2, explosion, carAcceleration, carDriving, carIdle,
 			carStartUp, laser;
 
-	public Clip[] list = { background1, background2 };
+	public transient Clip[] list = { background1, background2 };
 
 	@SuppressWarnings("unused")
 	public SoundHandler() {
@@ -252,9 +252,32 @@ public class SoundHandler {
 		}
 	}
 
-	public void stopBackgrounds() {
-		background1.stop();
-		background2.stop();
+	public void closeAll() {
+		this.chimpanzee.close();
+		this.click.close();
+		this.demon.close();
+		this.fireball.close();
+		this.assaultRifle.close();
+		this.revolver.close();
+		this.shotgun.close();
+		this.background1.close();
+		this.background2.close();
+		this.sheathe.close();
+		this.swimming.close();
+		this.explosion.close();
+		this.laser.close();
+		this.chest.close();
+		this.levelup.close();
+		this.footstepsDirt.close();
+		this.footstepsGrass.close();
+		this.footstepsRoad.close();
+		this.footstepsWood.close();
+		this.shortSword1.close();
+		this.shortSword2.close();
+		this.carAcceleration.close();
+		this.carDriving.close();
+		this.carIdle.close();
+		this.carStartUp.close();
 	}
 
 }

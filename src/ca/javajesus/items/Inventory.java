@@ -1,11 +1,12 @@
 package ca.javajesus.items;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import ca.javajesus.game.entities.Player;
 
-public class Inventory implements java.io.Serializable{
+public class Inventory implements Serializable {
 
 	private static final long serialVersionUID = 2802272780270201723L;
 	
