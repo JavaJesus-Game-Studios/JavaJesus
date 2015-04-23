@@ -25,9 +25,9 @@ import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.tile.Tile;
 
 public abstract class Level implements Serializable {
-	
+
 	private static final long serialVersionUID = -5963535226522522466L;
-	
+
 	protected int[] tiles;
 	public int width;
 	public int height;
@@ -43,19 +43,19 @@ public abstract class Level implements Serializable {
 
 	protected int[] tileColours;
 
-	public static Level level1 = new LordHillsboroughsDomain();
-	
-	public static Level lordHillsboroughsDomain = new LordHillsboroughsDomain();
-	public static Level sanCisco = new SanCisco();
-	public static Level edgeOfTheWoodsMain = new EdgeOfTheWoods();
-	public static Level edgeOfTheWoodsTop = new EdgeOfTheWoodsTop();
-	public static Level bautistasDomain = new BautistasDomain();
-	
-	public static Level roadlevel = new RoadLevel();
-	public static Level random = new RandomLevel(level1.width, level1.height);
-	public static Level random2 = new RandomLevel2(level1.width, level1.height,
+	public transient static Level level1 = new LordHillsboroughsDomain();
+
+	public transient static Level lordHillsboroughsDomain = new LordHillsboroughsDomain();
+	public transient static Level sanCisco = new SanCisco();
+	public transient static Level edgeOfTheWoodsMain = new EdgeOfTheWoods();
+	public transient static Level edgeOfTheWoodsTop = new EdgeOfTheWoodsTop();
+	public transient static Level bautistasDomain = new BautistasDomain();
+
+	public transient static Level roadlevel = new RoadLevel();
+	public transient static Level random = new RandomLevel(level1.width, level1.height);
+	public transient static Level random2 = new RandomLevel2(level1.width, level1.height,
 			new Point(500, 500));
-	public static Level randomCave = new RandomCave(level1.width,
+	public transient static Level randomCave = new RandomCave(level1.width,
 			level1.height, 5, level1, new Point(220, 79));
 
 	public boolean isLoaded = false;
@@ -102,7 +102,7 @@ public abstract class Level implements Serializable {
 	}
 
 	public Clip getBackgroundMusic() {
-		
+
 		return SoundHandler.sound.background1;
 	}
 
@@ -127,7 +127,7 @@ public abstract class Level implements Serializable {
 	protected abstract void initChestPlacement();
 
 	protected abstract void otherEntityPlacement();
-	
+
 	protected abstract void initMapTransporters();
 
 	private void loadLevelFromFile() {
@@ -378,6 +378,13 @@ public abstract class Level implements Serializable {
 		return players;
 	}
 
+	public Player getPlayer() {
+		if (players.size() > 0)
+			return players.get(0);
+		else 
+			return null;
+	}
+
 	public void addSpawner(int x, int y, String type) {
 		this.addEntity(new Spawner(this, x, y, type));
 	}
@@ -396,7 +403,7 @@ public abstract class Level implements Serializable {
 		}
 
 	}
-	
+
 	public String toString() {
 		return name;
 	}

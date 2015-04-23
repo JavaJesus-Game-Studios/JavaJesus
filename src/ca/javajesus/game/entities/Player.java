@@ -75,6 +75,10 @@ public class Player extends Mob {
 				new int[] { 0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB }, 0, 4, this);
 
 	}
+	
+	public void setInput(InputHandler input) {
+		this.input = input;
+	}
 
 	public Level getLevel() {
 		if (level == null) {
@@ -85,6 +89,9 @@ public class Player extends Mob {
 
 	public void equip() {
 		gun = inventory.getGun(this);
+		if (gun.getClip() == null) {
+			gun.initSound();
+		}
 		sword = inventory.getSword(this);
 	}
 

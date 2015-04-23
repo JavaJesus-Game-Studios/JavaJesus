@@ -3,6 +3,7 @@ package ca.javajesus.items;
 import javax.sound.sampled.Clip;
 
 import ca.javajesus.game.Game;
+import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.projectiles.Arrow;
 import ca.javajesus.game.entities.projectiles.BlackHoleDetonator;
@@ -17,7 +18,7 @@ import ca.javajesus.level.Level;
 public class Gun extends Item {
 
 	private static final long serialVersionUID = 2308714802801627285L;
-	
+
 	public int gunType;
 	public int clipSize;
 	public int ammo;
@@ -31,7 +32,7 @@ public class Gun extends Item {
 	protected int damage;
 	public int playerOffset;
 	private Ammo type;
-	private Clip clip;
+	private transient Clip clip;
 
 	public enum Ammo {
 		BULLET, ARROW, FIREBALL, LASER, MISSILE, BLACKHOLE, FLAMETHROWER, SHELL;
@@ -168,6 +169,26 @@ public class Gun extends Item {
 		}
 	}
 
+	public void initSound() {
+		switch (name) {
+		case "Revolver":
+			this.clip = SoundHandler.sound.revolver;
+			break;
+		case "Shotgun":
+			this.clip = SoundHandler.sound.shotgun;
+			break;
+		case "Assault Rifle":
+			this.clip = SoundHandler.sound.assaultRifle;
+			break;
+		case "Laser Revolver":
+			this.clip = SoundHandler.sound.laser;
+			break;
+		default:
+			this.clip = SoundHandler.sound.revolver;
+			break;
+		}
+	}
+
 	public void fire(Level level, double x, double y, int dir, Player player) {
 		if (ammo > 0 && !isReloading && canFire) {
 			switch (type) {
@@ -227,6 +248,10 @@ public class Gun extends Item {
 				color, 0, 1, SpriteSheet.items);
 		screen.render(0, 0, xTile + 1 + (yTile + 1) * SpriteSheet.items.boxes,
 				color, 0, 1, SpriteSheet.items);
+	}
+
+	public Clip getClip() {
+		return clip;
 	}
 
 }

@@ -1,10 +1,13 @@
 package ca.javajesus.quests;
 
 import java.awt.Point;
+import java.io.Serializable;
 
 import ca.javajesus.game.entities.Mob;
 
-public abstract class Script {
+public abstract class Script implements Serializable {
+	
+	private static final long serialVersionUID = -7841027938100196923L;
 	
 	protected int steps;
 	protected Mob mob;

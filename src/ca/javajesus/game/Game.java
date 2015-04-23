@@ -19,6 +19,7 @@ import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ca.javajesus.game.entities.Entity;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.gui.Launcher;
@@ -155,15 +156,19 @@ public class Game extends Canvas implements Runnable {
 		GameData.load();
 		screen = new Screen(WIDTH, HEIGHT, this);
 		if (player == null) {
-			player = new Player(getLevel(), getLevel().spawnPoint.x,
-					getLevel().spawnPoint.y, input);
+			if (getLevel().getPlayer() != null) {
+				player = getLevel().getPlayer();
+				player.setInput(this.input);
+				Entity.initSound();
+				player.gun.initSound();
+			} else {
+				player = new Player(getLevel(), getLevel().spawnPoint.x,
+						getLevel().spawnPoint.y, input);
+				getLevel().addEntity(player);
+				getLevel().init();
+			}
 		}
 		player.getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
-		if (getLevel().getMobs().isEmpty()) {
-			getLevel().addEntity(player);
-			getLevel().init();
-		}
-
 	}
 
 	/** Starts the game */

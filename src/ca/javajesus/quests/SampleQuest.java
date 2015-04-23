@@ -6,6 +6,8 @@ public class SampleQuest extends Quest {
 	
 	// This is a sample Quest I will give to Jesus
 
+	private static final long serialVersionUID = 5869993939695932122L;
+
 	public SampleQuest(NPC giver) {
 		super(giver, "The Evil Fox");
 	}

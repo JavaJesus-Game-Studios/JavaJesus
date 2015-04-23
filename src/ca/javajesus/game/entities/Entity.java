@@ -11,7 +11,7 @@ public abstract class Entity implements Serializable {
 
 	private static final long serialVersionUID = 7152333070540764158L;
 	
-	protected transient SoundHandler sound;
+	protected static transient SoundHandler sound;
 	protected int x, y;
 	protected Level level;
 	protected JavaRectangle bounds;
@@ -24,6 +24,10 @@ public abstract class Entity implements Serializable {
 
 	public int getX() {
 		return x;
+	}
+	
+	public static void initSound() {
+		sound = SoundHandler.sound;
 	}
 
 	public int getY() {

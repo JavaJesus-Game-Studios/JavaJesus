@@ -19,7 +19,7 @@ public class SaveFile {
 	public void save() {
 
 		try (ObjectOutputStream out = new ObjectOutputStream(
-				new FileOutputStream(fileName))) {
+				new FileOutputStream(fileName, false))) {
 			
 			out.writeObject(object);
 
@@ -34,11 +34,10 @@ public class SaveFile {
 
 		try (ObjectInputStream in = new ObjectInputStream(
 				new FileInputStream(fileName))) {
-			
 			return in.readObject();
 
 		} catch (IOException | ClassNotFoundException e) {
-			System.out.println("There was a problem loading!");
+			System.out.println("There was a problem loading " + object);
 			System.out.println(e.getMessage());
 		}
 		return null;

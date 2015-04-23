@@ -1,11 +1,14 @@
 package ca.javajesus.quests;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import ca.javajesus.game.entities.Mob;
 
 @SuppressWarnings("unused")
-public abstract class Event {
+public abstract class Event implements Serializable {
+	
+	private static final long serialVersionUID = 776382962177295971L;
 	
 	private String name;
 	private String description;

@@ -1,12 +1,15 @@
 package ca.javajesus.quests;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.npcs.NPC;
 
-public abstract class Quest {
+public abstract class Quest implements Serializable {
+	
+	private static final long serialVersionUID = 8675321530565601615L;
 	
 	protected NPC giver;
 	protected ArrayList<Boolean> objectives = new ArrayList<Boolean>();

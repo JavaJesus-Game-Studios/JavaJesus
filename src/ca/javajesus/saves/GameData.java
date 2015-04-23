@@ -10,8 +10,8 @@ public class GameData {
 	public static SaveFile player = new SaveFile("player", Game.player);
 
 	public static void saveGame() {
-		//level1.save();
-		player.save();
+		level1.save();
+		//player.save();
 		System.out.println("SAVED");
 	}
 
@@ -20,11 +20,14 @@ public class GameData {
 	}
 
 	public static void load() {
-		if (level1.load() != null)
+		if (level1.load() != null) {
 			Level.level1 = (Level) level1.load();
-		if (player.load() != null) {
-			Game.player = (Player) player.load();
+			System.out.println("LOADED");
 		}
+		/*if (player.load() != null) {
+			Game.player = (Player) player.load();
+			System.out.println("LOADED");
+		}*/
 	}
 
 }
