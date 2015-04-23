@@ -22,7 +22,6 @@ public class CastleInterior extends Interior{
 	protected void initNPCPlacement() {
 		this.addEntity(new LordHillsborough(this, 504, 160));
 		this.addEntity(new Throne(this, 504, 128 ));
-		
 	}
 
 	protected void initSpawnerPlacement() {

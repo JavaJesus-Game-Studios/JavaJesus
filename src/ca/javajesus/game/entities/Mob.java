@@ -77,7 +77,6 @@ public class Mob extends Entity {
 				this.x - (int) getBounds().getWidth() / 2 - 2,
 				this.y - (int) getBounds().getHeight() / 2 - 2);
 		this.sheet = sheet;
-		// Game.quad.retrieve(returnObjects, this.bounds);
 	}
 
 	public enum Direction {
@@ -373,14 +372,18 @@ public class Mob extends Entity {
 		bar.tick();
 
 	}
-
-	public void render(Screen screen) {
+	
+	public void updateBounds() {
 		this.getBounds().setLocation(this.x - (this.width / 2),
 				this.y - (this.height / 2));
 		this.getOuterBounds().setLocation(
 				this.x - (int) getBounds().getWidth() / 2 - 2,
 				this.y - (int) getBounds().getHeight() / 2 - 2);
+	}
 
+	public void render(Screen screen) {
+
+		updateBounds();
 		int modifier = 8 * scale;
 		int xOffset = x - modifier;
 		int yOffset = y - modifier;

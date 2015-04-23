@@ -272,7 +272,6 @@ public abstract class Level implements Serializable {
 			}
 			if (!(e instanceof Mob || e instanceof HealthBar || e instanceof Projectile)) {
 				e.render(screen);
-
 			}
 		}
 		for (Entity entity : this.getEntities()) {
@@ -400,8 +399,14 @@ public abstract class Level implements Serializable {
 			initSpawnerPlacement();
 			initChestPlacement();
 			otherEntityPlacement();
+			initMobLocations();
 		}
-
+	}
+	
+	public void initMobLocations() {
+		for (Mob m: this.getMobs()) {
+			m.updateBounds();
+		}
 	}
 
 	public String toString() {

@@ -35,5 +35,9 @@ public class SolidEntity extends Entity {
 	public void render(Screen screen) {
 
 	}
+	
+	public String toString() {
+		return "Solid Entity";
+	}
 
 }

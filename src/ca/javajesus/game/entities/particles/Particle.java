@@ -42,5 +42,9 @@ public class Particle extends Entity {
 		screen.render((int) this.x, (int) this.y, tileNumber, color, 1, 1,
 				sheet);
 	}
+	
+	public String toString() {
+		return "Particle";
+	}
 
 }

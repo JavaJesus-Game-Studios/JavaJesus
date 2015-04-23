@@ -4,7 +4,7 @@ import java.awt.Point;
 
 import ca.javajesus.level.Level;
 
-public class Interior extends Level {
+public abstract class Interior extends Level {
 	
 	protected Level nextLevel;
 	
@@ -14,26 +14,7 @@ public class Interior extends Level {
 		this.nextLevel = level;
 	}
 	
-	protected void initNPCPlacement() {
-		
-	}
-
-	protected void initSpawnerPlacement() {
-	
-	}
-
-	protected void initChestPlacement() {
-		
-	}
-
-	protected void otherEntityPlacement() {
-		
-	}
-
-	@Override
 	protected void initMapTransporters() {
-		// TODO Auto-generated method stub
 		
 	}
-
 }
