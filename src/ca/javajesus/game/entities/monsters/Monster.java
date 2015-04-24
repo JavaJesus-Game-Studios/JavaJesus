@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 import ca.javajesus.game.ChatHandler;
+import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.npcs.NPC;
@@ -15,13 +16,13 @@ public class Monster extends Mob {
 
 	private static final long serialVersionUID = 4156279188503056448L;
 	
-	public static Monster gang1 = new GangMember(Level.level1, "Gang Member 1",
+	public static Monster gang1 = new GangMember(Game.levels.level1, "Gang Member 1",
 			430, 120, 1, 100, 0);
-	public static Monster horseThing1 = new Centaur(Level.level1, "HorseThing",
+	public static Monster horseThing1 = new Centaur(Game.levels.level1, "HorseThing",
 			500, 200, 1, 100);
-	public static Monster monkey = new Monkey(Level.level1, "Monkey", 70, 70,
+	public static Monster monkey = new Monkey(Game.levels.level1, "Monkey", 70, 70,
 			1, 100);
-	public static Monster gang2 = new GangMember(Level.level1, "Criminal", 100,
+	public static Monster gang2 = new GangMember(Game.levels.level1, "Criminal", 100,
 			150, 1, 100, 1);
 	public static Monster man2;
 

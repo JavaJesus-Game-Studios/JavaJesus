@@ -10,9 +10,9 @@ public class SaveFile {
 
 	private String fileName;
 	private Object object;
-	
+
 	public SaveFile(String file, Object object) {
-		this.fileName = "src/Saves/" + file +".ser";
+		this.fileName = "src/Saves/" + file + ".ser";
 		this.object = object;
 	}
 
@@ -20,20 +20,19 @@ public class SaveFile {
 
 		try (ObjectOutputStream out = new ObjectOutputStream(
 				new FileOutputStream(fileName, false))) {
-			
+
 			out.writeObject(object);
 
 		} catch (IOException e) {
 			System.out.println("There was a problem saving " + object);
 			System.out.println(e.getMessage());
-			e.printStackTrace();
 		}
 	}
-	
+
 	public Object load() {
 
-		try (ObjectInputStream in = new ObjectInputStream(
-				new FileInputStream(fileName))) {
+		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(
+				fileName))) {
 			return in.readObject();
 
 		} catch (IOException | ClassNotFoundException e) {

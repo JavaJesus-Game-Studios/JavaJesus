@@ -2,6 +2,7 @@ package ca.javajesus.game.entities.structures.transporters;
 
 import java.awt.Point;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -12,13 +13,13 @@ public class TransporterCave extends Transporter {
 	private static final long serialVersionUID = 3445699890339737978L;
 
 	public TransporterCave(Level currentLevel, int x, int y) {
-		super(currentLevel, x, y, new RandomCave(Level.level1.width,
-				Level.level1.height, 5, currentLevel, new Point(x + 1, y + 10)));
+		super(currentLevel, x, y, new RandomCave(3000,
+				3000, 5, currentLevel, new Point(x + 1, y + 10)));
 	}
 
 	public TransporterCave(Level currentLevel, int x, int y, Point point) {
 		super(currentLevel, x, y,
-				new RandomCave(Level.level1.width, Level.level1.height, 5,
+				new RandomCave(3000, 3000, 5,
 						currentLevel, new Point(x + 1, y + 10)), point);
 	}
 

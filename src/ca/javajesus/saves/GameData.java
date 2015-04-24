@@ -1,33 +1,35 @@
 package ca.javajesus.saves;
 
 import ca.javajesus.game.Game;
-import ca.javajesus.game.entities.Player;
-import ca.javajesus.level.Level;
+import ca.javajesus.level.LevelList;
 
 public class GameData {
 
-	public static SaveFile level1 = new SaveFile("level1", Level.level1);
-	public static SaveFile player = new SaveFile("player", Game.player);
+	public static SaveFile levels;
 
 	public static void saveGame() {
-		level1.save();
-		//player.save();
+		Game.levels.setSaveLevel(Game.player.getLevel());
+		levels.save();
 		System.out.println("SAVED");
+		System.out.println(levels.load());
 	}
 
 	public static void saveObject(SaveFile f) {
 		f.save();
 	}
 
-	public static void load() {
-		if (level1.load() != null) {
-			Level.level1 = (Level) level1.load();
+	public static boolean load() {
+		if (levels != null && levels.load() != null) {
+			Game.levels = (LevelList) levels.load();
+			System.out.println(Game.levels.playerLevel);
 			System.out.println("LOADED");
+			return true;
 		}
-		/*if (player.load() != null) {
-			Game.player = (Player) player.load();
-			System.out.println("LOADED");
-		}*/
+		return false;
+	}
+	
+	public static void initFile() {
+		levels = new SaveFile("levels", Game.levels);
 	}
 
 }

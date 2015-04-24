@@ -49,7 +49,7 @@ public class EdgeOfTheWoodsTop extends Level
     }
 
 	protected void initMapTransporters() {
-		this.addEntity(new MapTransporter(this, (this.width * 8) - 8, 0, Level.lordHillsboroughsDomain,
+		this.addEntity(new MapTransporter(this, (this.width * 8) - 8, 0, Game.levels.lordHillsboroughsDomain,
 				new Point(16, Game.player.getY()),
 				8, this.height * 8));
 		

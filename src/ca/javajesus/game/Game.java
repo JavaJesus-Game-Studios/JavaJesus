@@ -13,7 +13,6 @@ import java.awt.SplashScreen;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.io.IOException;
 
 import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
@@ -28,7 +27,9 @@ import ca.javajesus.game.gui.ScreenGUI;
 import ca.javajesus.game.gui.intro.IntroGUI;
 import ca.javajesus.game.gui.inventory.InventoryGUI;
 import ca.javajesus.level.Level;
+import ca.javajesus.level.LevelList;
 import ca.javajesus.saves.GameData;
+import ca.javajesus.saves.SaveFile;
 
 public class Game extends Canvas implements Runnable {
 
@@ -50,11 +51,12 @@ public class Game extends Canvas implements Runnable {
 
 	public final static int MOB_LIMIT = 300;
 
-	// public static QuadTree quad;
-	public boolean running = false; // this is a change
+	public boolean running = false;
 
 	public static int hours = 10;
 	public static int minutes;
+
+	public static LevelList levels;
 
 	/** Creates the JFrame */
 	protected static JFrame frame;
@@ -153,21 +155,22 @@ public class Game extends Canvas implements Runnable {
 	/** Initializes the image on the screen */
 	public void init() {
 
-		GameData.load();
 		screen = new Screen(WIDTH, HEIGHT, this);
-		if (player == null) {
-			if (getLevel().getPlayer() != null) {
-				player = getLevel().getPlayer();
-				player.setInput(this.input);
-				Entity.initSound();
-				player.gun.initSound();
-			} else {
-				player = new Player(getLevel(), getLevel().spawnPoint.x,
-						getLevel().spawnPoint.y, input);
-				getLevel().addEntity(player);
-				getLevel().init();
-			}
-		}
+		levels = new LevelList();
+		GameData.initFile();
+		
+		if (GameData.load()) {
+			player = getLevel().getPlayer();
+			player.setInput(this.input);
+			Entity.initSound();
+			player.gun.initSound();
+		} else {
+			player = new Player(getLevel(), getLevel().spawnPoint.x,
+					getLevel().spawnPoint.y, input);
+			getLevel().addEntity(player);
+			getLevel().init();
+		} 
+		
 		player.getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
@@ -275,10 +278,13 @@ public class Game extends Canvas implements Runnable {
 
 	/** Returns the instance of the current Level */
 	protected Level getLevel() {
-		if (player == null) {
-			return Level.level1;
+		if (player != null) {
+			return player.getLevel();
 		}
-		return player.getLevel();
+		if (levels != null && levels.playerLevel != null) {
+			return levels.playerLevel;
+		}
+		return levels.getDefaultLevel();
 
 	}
 
@@ -327,7 +333,7 @@ public class Game extends Canvas implements Runnable {
 			g.setColor(Color.BLACK);
 			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);
 			frame.dispose();
-			Level.level1.reset();
+			player.getLevel().reset();
 			inGameScreen = false;
 			guiID = 0;
 			returnToMenu = false;

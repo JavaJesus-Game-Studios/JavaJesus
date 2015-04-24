@@ -16,11 +16,14 @@ import ca.javajesus.game.entities.structures.NiceHouse2;
 import ca.javajesus.game.entities.structures.transporters.MapTransporter;
 
 public class LordHillsboroughsDomain extends Level {
+	
+	private static final long serialVersionUID = 636992239040959822L;
+
 	public LordHillsboroughsDomain() {
 		super("/Levels/Cities/Domain of Lord Hillsborough.png", true, "Lord Hillsborough's Domain");
 		this.spawnPoint = new Point(1366, 1450);
 		startingSpawnPoint = new Point(1366, 1450);
-
+		System.out.println("CREATED");
 	}
 
 	protected void initNPCPlacement() {
@@ -98,16 +101,16 @@ public class LordHillsboroughsDomain extends Level {
 
 	protected void initMapTransporters() {
 
-		this.addEntity(new MapTransporter(this, 0, 0, Level.sanCisco,
-				new Point(Game.player.getX(), (Level.sanCisco.height * 8) - 16),
+		this.addEntity(new MapTransporter(this, 0, 0, Game.levels.sanCisco,
+				new Point(Game.player.getX(), (Game.levels.sanCisco.height * 8) - 16),
 				this.width * 8, 8));
-		this.addEntity(new MapTransporter(this, 0, 0, Level.edgeOfTheWoodsTop,
-				new Point((Level.edgeOfTheWoodsTop.width * 8) - 16, Game.player.getY()),
+		this.addEntity(new MapTransporter(this, 0, 0, Game.levels.edgeOfTheWoodsTop,
+				new Point((Game.levels.edgeOfTheWoodsTop.width * 8) - 16, Game.player.getY()),
 				8, (this.height * 8) / 2));
-		this.addEntity(new MapTransporter(this, 0, (this.height * 8) / 2, Level.edgeOfTheWoodsMain,
-				new Point((Level.edgeOfTheWoodsMain.width * 8) - 16, Game.player.getY()),
+		this.addEntity(new MapTransporter(this, 0, (this.height * 8) / 2, Game.levels.edgeOfTheWoodsMain,
+				new Point((Game.levels.edgeOfTheWoodsMain.width * 8) - 16, Game.player.getY()),
 				8, (this.height * 8) / 2));
-		this.addEntity(new MapTransporter(this, 0, (this.height * 8) - 8, Level.bautistasDomain,
+		this.addEntity(new MapTransporter(this, 0, (this.height * 8) - 8, Game.levels.bautistasDomain,
 				new Point(Game.player.getX(), 16),
 				(this.width * 8), 8));
 

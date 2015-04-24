@@ -43,21 +43,6 @@ public abstract class Level implements Serializable {
 
 	protected int[] tileColours;
 
-	public transient static Level level1 = new LordHillsboroughsDomain();
-
-	public transient static Level lordHillsboroughsDomain = new LordHillsboroughsDomain();
-	public transient static Level sanCisco = new SanCisco();
-	public transient static Level edgeOfTheWoodsMain = new EdgeOfTheWoods();
-	public transient static Level edgeOfTheWoodsTop = new EdgeOfTheWoodsTop();
-	public transient static Level bautistasDomain = new BautistasDomain();
-
-	public transient static Level roadlevel = new RoadLevel();
-	public transient static Level random = new RandomLevel(level1.width, level1.height);
-	public transient static Level random2 = new RandomLevel2(level1.width, level1.height,
-			new Point(500, 500));
-	public transient static Level randomCave = new RandomCave(level1.width,
-			level1.height, 5, level1, new Point(220, 79));
-
 	public boolean isLoaded = false;
 	private int loadType = 0;
 	private String name;
@@ -100,7 +85,7 @@ public abstract class Level implements Serializable {
 			isLoaded = true;
 		}
 	}
-
+	
 	public Clip getBackgroundMusic() {
 
 		return SoundHandler.sound.background1;
@@ -202,7 +187,7 @@ public abstract class Level implements Serializable {
 	}
 
 	public void tick() {
-
+		
 		for (Entity e : this.getEntities()) {
 			if (!e.getBounds().intersects(screenRectangle)) {
 				continue;
@@ -410,6 +395,6 @@ public abstract class Level implements Serializable {
 	}
 
 	public String toString() {
-		return name;
+		return name + "\n Mobs: " + this.getMobs();
 	}
 }

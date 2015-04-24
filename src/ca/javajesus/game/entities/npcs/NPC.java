@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import ca.javajesus.game.ChatHandler;
+import ca.javajesus.game.Game;
 import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
@@ -24,28 +25,28 @@ public class NPC extends Mob {
 
 	private static final long serialVersionUID = 7279751732700782799L;
 	
-	public static NPC knight = new Knight(Level.level1, 200, 100, "linear", 20);
-	public static NPC policeman = new PoliceOfficer(Level.level1, 160, 250);
-	public static NPC citizenFemale = new NPC(Level.level1, "Citizen-Female",
+	public static NPC knight = new Knight(Game.levels.level1, 200, 100, "linear", 20);
+	public static NPC policeman = new PoliceOfficer(Game.levels.level1, 160, 250);
+	public static NPC citizenFemale = new NPC(Game.levels.level1, "Citizen-Female",
 			200, 400, 1, 16, 16, 100, new int[] { 0xFF111111, 0xFFA51818,
 					0xFFEDC5AB }, 0, 8, "cross", 30);
-	public static NPC citizenMale = new NPC(Level.level1, "Citizen-Male", 200,
+	public static NPC citizenMale = new NPC(Game.levels.level1, "Citizen-Male", 200,
 			500, 1, 16, 16, 100,
 			new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 0, "circle", 2);
-	public static NPC fox = new NPC(Level.level1, "Fox", 250, 75, 1, 16, 16,
+	public static NPC fox = new NPC(Game.levels.level1, "Fox", 250, 75, 1, 16, 16,
 			100, new int[] { 0xFF111111, 0xFFFFA800, 0xFFFFFFFF }, 0, 14,
 			"cross", 50);
-	public static NPC techWarrior = new TechWarrior(Level.level1, 400, 250);
-	public static NPC peasantMale = new Peasant(Level.level1, 2005, 950,
+	public static NPC techWarrior = new TechWarrior(Game.levels.level1, 400, 250);
+	public static NPC peasantMale = new Peasant(Game.levels.level1, 2005, 950,
 			Gender.MALE);
-	public static NPC peasantFemale = new Peasant(Level.level1, 2025, 950,
+	public static NPC peasantFemale = new Peasant(Game.levels.level1, 2025, 950,
 			Gender.FEMALE);
-	public static NPC peasantBoy = new Peasant(Level.level1, 2035, 950,
+	public static NPC peasantBoy = new Peasant(Game.levels.level1, 2035, 950,
 			Gender.BOY);
-	public static NPC peasantGirl = new Peasant(Level.level1, 2045, 950,
+	public static NPC peasantGirl = new Peasant(Game.levels.level1, 2045, 950,
 			Gender.GIRL);
 
-	public static NPC Jesus = new Jesus(Level.level1, 300, 400, "stand", 30);
+	public static NPC Jesus = new Jesus(Game.levels.level1, 300, 400, "stand", 30);
 
 	/** Range that the NPC can walk */
 	protected Ellipse2D.Double walkRadius;

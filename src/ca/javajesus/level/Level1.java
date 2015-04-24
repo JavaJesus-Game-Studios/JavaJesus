@@ -92,6 +92,8 @@ import ca.javajesus.items.Item;
 
 public class Level1 extends Level {
 
+	private static final long serialVersionUID = 5943407753519754342L;
+
 	public Level1() {
 		super("/Levels/Test_Levels/tile_tester_level.png", true, "Tester Level 1");
 		this.spawnPoint = new Point(50, 50);

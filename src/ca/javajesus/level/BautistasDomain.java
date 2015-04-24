@@ -21,6 +21,7 @@ import ca.javajesus.game.entities.structures.SequoiaSchool;
 import ca.javajesus.game.entities.structures.transporters.MapTransporter;
 
 public class BautistasDomain extends Level{
+	
 	public BautistasDomain(){
 		super("/Levels/Cities/Domain_of_Ranchero_Bautista.png", true, "Bautista's Domain");
 		this.spawnPoint = new Point(2896, 64);
@@ -168,8 +169,8 @@ public class BautistasDomain extends Level{
 	}
 
 	protected void initMapTransporters() {
-		this.addEntity(new MapTransporter(this, 0, 0, Level.lordHillsboroughsDomain,
-				new Point(Game.player.getX(), (Level.lordHillsboroughsDomain.height * 8) - 16),
+		this.addEntity(new MapTransporter(this, 0, 0, Game.levels.lordHillsboroughsDomain,
+				new Point(Game.player.getX(), (Game.levels.lordHillsboroughsDomain.height * 8) - 16),
 				(this.width * 8), 8));
 		
 	}

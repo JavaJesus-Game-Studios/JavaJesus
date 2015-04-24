@@ -28,7 +28,7 @@ import ca.javajesus.saves.GameData;
 
 public class Player extends Mob {
 
-	private static final long serialVersionUID = -94467185570467260L;
+	private static final long serialVersionUID = -4170571410784465465L;
 	
 	public transient InputHandler input;
 	protected int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };

@@ -28,6 +28,8 @@ import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 
 public class SanCisco extends Level {
 
+	private static final long serialVersionUID = 220527283938650811L;
+
 	public SanCisco() {
 		super("/Levels/Cities/San_Cisco.png", true, "San Cisco");
 		this.spawnPoint = new Point(3400, 2688);
@@ -271,7 +273,7 @@ public class SanCisco extends Level {
 
 	@Override
 	protected void initMapTransporters() {
-		this.addEntity(new MapTransporter(this, 0, (this.height * 8) - 8, Level.lordHillsboroughsDomain,
+		this.addEntity(new MapTransporter(this, 0, (this.height * 8) - 8, Game.levels.lordHillsboroughsDomain,
 				new Point(Game.player.getX(), 16),
 				this.width * 8, 8));
 		
