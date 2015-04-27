@@ -156,8 +156,6 @@ public class Game extends Canvas implements Runnable {
 	public void init() {
 
 		screen = new Screen(WIDTH, HEIGHT, this);
-		levels = new LevelList();
-		GameData.initFile();
 		
 		if (GameData.load()) {
 			player = getLevel().getPlayer();
@@ -165,6 +163,7 @@ public class Game extends Canvas implements Runnable {
 			Entity.initSound();
 			player.gun.initSound();
 		} else {
+			levels = new LevelList();
 			player = new Player(getLevel(), getLevel().spawnPoint.x,
 					getLevel().spawnPoint.y, input);
 			getLevel().addEntity(player);

@@ -5,31 +5,31 @@ import ca.javajesus.level.LevelList;
 
 public class GameData {
 
-	public static SaveFile levels;
+	public static SaveFile levels = new SaveFile("levels");
 
-	public static void saveGame() {
+	public static boolean saveGame() {
 		Game.levels.setSaveLevel(Game.player.getLevel());
-		levels.save();
-		System.out.println("SAVED");
-		System.out.println(levels.load());
+		if (levels.save(Game.levels)) {
+			System.out.println("SAVED");
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 
-	public static void saveObject(SaveFile f) {
-		f.save();
+	public static void saveObject(String file, Object o) {
+		new SaveFile(file).save(o);
 	}
 
 	public static boolean load() {
-		if (levels != null && levels.load() != null) {
-			Game.levels = (LevelList) levels.load();
-			System.out.println(Game.levels.playerLevel);
+		Object obj = levels.load();
+		if (obj != null) {
+			Game.levels = (LevelList) obj;
 			System.out.println("LOADED");
 			return true;
 		}
 		return false;
-	}
-	
-	public static void initFile() {
-		levels = new SaveFile("levels", Game.levels);
 	}
 
 }

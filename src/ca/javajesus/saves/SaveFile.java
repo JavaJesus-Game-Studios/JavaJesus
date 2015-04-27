@@ -9,23 +9,23 @@ import java.io.ObjectOutputStream;
 public class SaveFile {
 
 	private String fileName;
-	private Object object;
 
-	public SaveFile(String file, Object object) {
+	public SaveFile(String file) {
 		this.fileName = "src/Saves/" + file + ".ser";
-		this.object = object;
 	}
 
-	public void save() {
+	public boolean save(Object object) {
 
 		try (ObjectOutputStream out = new ObjectOutputStream(
 				new FileOutputStream(fileName, false))) {
 
 			out.writeObject(object);
+			return true;
 
 		} catch (IOException e) {
 			System.out.println("There was a problem saving " + object);
 			System.out.println(e.getMessage());
+			return false;
 		}
 	}
 
@@ -36,7 +36,7 @@ public class SaveFile {
 			return in.readObject();
 
 		} catch (IOException | ClassNotFoundException e) {
-			System.out.println("There was a problem loading " + object);
+			System.out.println("There was a problem loading");
 			System.out.println(e.getMessage());
 		}
 		return null;

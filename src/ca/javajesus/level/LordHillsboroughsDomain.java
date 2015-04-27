@@ -23,7 +23,6 @@ public class LordHillsboroughsDomain extends Level {
 		super("/Levels/Cities/Domain of Lord Hillsborough.png", true, "Lord Hillsborough's Domain");
 		this.spawnPoint = new Point(1366, 1450);
 		startingSpawnPoint = new Point(1366, 1450);
-		System.out.println("CREATED");
 	}
 
 	protected void initNPCPlacement() {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.Spawner;
+import ca.javajesus.game.entities.npcs.Jesus;
 import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChurch;
@@ -60,9 +61,9 @@ public class ZombieMap1 extends Level {
 		this.addEntity(new Hut(this, 259, 300,
 				new Chest(this, 272, 232, chest3), new Spawner(this, 252, 252,
 						"Demon")));
-		this.addEntity(new Hut(this, 473, 300, NPC.Jesus));
+		this.addEntity(new Hut(this, 473, 300, new Jesus(this, 300, 400, "stand", 30)));
 		this.addEntity(new Hut(this, 687, 300));
-		this.addEntity(new Hut(this, 900, 300, NPC.citizenMale));
+		this.addEntity(new Hut(this, 900, 300, new Jesus(this, 300, 400, "stand", 30)));
 		ArrayList<Item> chest1 = new ArrayList<Item>();
 		chest1.add(Item.revolver);
 		this.addEntity(new Chest(this, 1460, 70, chest1));

@@ -5,3 +5,4 @@
 .settings/org.eclipse.jdt.core.prefs
 res/Saves/JavaTest.txt
 res/Saves/JavaTest.txt
+*.ser

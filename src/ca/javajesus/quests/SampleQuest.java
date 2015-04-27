@@ -1,5 +1,6 @@
 package ca.javajesus.quests;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.npcs.NPC;
 
 public class SampleQuest extends Quest {
@@ -25,7 +26,7 @@ public class SampleQuest extends Quest {
 	}
 
 	public boolean condition1() {
-		if (NPC.fox.isDead()) {
+		if (Game.player.isDead()) {
 			return true;
 		} else {
 			return false;

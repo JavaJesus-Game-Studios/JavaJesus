@@ -3,25 +3,33 @@ package ca.javajesus.level;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.FireEntity;
+import ca.javajesus.game.entities.monsters.Centaur;
 import ca.javajesus.game.entities.monsters.Cyclops;
-import ca.javajesus.game.entities.monsters.Monster;
+import ca.javajesus.game.entities.monsters.GangMember;
+import ca.javajesus.game.entities.monsters.Monkey;
 import ca.javajesus.game.entities.npcs.Bautista;
 import ca.javajesus.game.entities.npcs.Daughter;
 import ca.javajesus.game.entities.npcs.Istrahiim;
+import ca.javajesus.game.entities.npcs.Jesus;
 import ca.javajesus.game.entities.npcs.Jobs;
 import ca.javajesus.game.entities.npcs.Kobe;
 import ca.javajesus.game.entities.npcs.LordHillsborough;
 import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.npcs.NPC.Gender;
 import ca.javajesus.game.entities.npcs.Octavius;
+import ca.javajesus.game.entities.npcs.Peasant;
 import ca.javajesus.game.entities.npcs.Ranchero;
 import ca.javajesus.game.entities.npcs.Son;
 import ca.javajesus.game.entities.npcs.Wife;
 import ca.javajesus.game.entities.npcs.Zorra;
 import ca.javajesus.game.entities.npcs.aggressive.Gorilla;
+import ca.javajesus.game.entities.npcs.aggressive.Knight;
 import ca.javajesus.game.entities.npcs.aggressive.NativeAmerican;
+import ca.javajesus.game.entities.npcs.aggressive.PoliceOfficer;
 import ca.javajesus.game.entities.npcs.aggressive.SWATOfficer;
+import ca.javajesus.game.entities.npcs.aggressive.TechWarrior;
 import ca.javajesus.game.entities.particles.pickups.ArrowPickup;
 import ca.javajesus.game.entities.particles.pickups.AssaultRifleAmmo;
 import ca.javajesus.game.entities.particles.pickups.HornedPickup;
@@ -95,14 +103,15 @@ public class Level1 extends Level {
 	private static final long serialVersionUID = 5943407753519754342L;
 
 	public Level1() {
-		super("/Levels/Test_Levels/tile_tester_level.png", true, "Tester Level 1");
+		super("/Levels/Test_Levels/tile_tester_level.png", true,
+				"Tester Level 1");
 		this.spawnPoint = new Point(50, 50);
 		startingSpawnPoint = new Point(50, 50);
 	}
 
 	public void initNPCPlacement() {
 		this.addEntity(new UCGrizzly(this, 50, 50));
-		
+
 		this.addEntity(new LordHillsborough(this, 50, 50));
 		this.addEntity(new Wife(this, 50, 70));
 		this.addEntity(new Daughter(this, 50, 90));
@@ -116,28 +125,35 @@ public class Level1 extends Level {
 		this.addEntity(new NativeAmerican(this, 20, 70, Gender.MALE));
 		this.addEntity(new NativeAmerican(this, 20, 90, Gender.FEMALE));
 		this.addEntity(new Gorilla(this, 200, 200));
-		
+
 		this.addEntity(new Istrahiim(this, 250, 180));
-		
-		this.addEntity(NPC.knight);
-		this.addEntity(NPC.policeman);
-		this.addEntity(NPC.citizenFemale);
-		this.addEntity(NPC.citizenMale);
-		this.addEntity(NPC.fox);
-		this.addEntity(NPC.techWarrior);
+
+		this.addEntity(new Knight(this, 200, 100, "linear", 20));
+		this.addEntity(new PoliceOfficer(this, 160, 250));
+		this.addEntity(new NPC(this, "Citizen-Female", 200, 400,
+				1, 16, 16, 100,
+				new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 8,
+				"cross", 30));
+		this.addEntity(new NPC(this, "Citizen-Male", 200, 500, 1,
+				16, 16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB },
+				0, 0, "circle", 2));
+		this.addEntity(new NPC(this, "Fox", 250, 75, 1, 16, 16,
+				100, new int[] { 0xFF111111, 0xFFFFA800, 0xFFFFFFFF }, 0, 14,
+				"cross", 50));
+		this.addEntity(new TechWarrior(this, 400, 250));
 		this.addEntity(new SWATOfficer(this, 370, 120, 200, "linear", 20));
-		this.addEntity(NPC.peasantMale);
-		this.addEntity(NPC.peasantFemale);
-		this.addEntity(NPC.peasantBoy);
-		this.addEntity(NPC.peasantGirl);
-		this.addEntity(NPC.Jesus);
-		
+		this.addEntity(new Peasant(this, 2005, 950, Gender.MALE));
+		this.addEntity(new Peasant(this, 2025, 950, Gender.FEMALE));
+		this.addEntity(new Peasant(this, 2035, 950, Gender.BOY));
+		this.addEntity(new Peasant(this, 2045, 950, Gender.GIRL));
+		this.addEntity(new Jesus(this, 300, 400, "stand", 30));
+
 		this.addEntity(new Cyclops(this, 600, 300));
-		this.addEntity(Monster.gang1);
-		this.addEntity(Monster.horseThing1);
-		this.addEntity(Monster.monkey);
-		this.addEntity(Monster.gang2);
-		// this.addEntity(Monster.man2);
+		this.addEntity(new GangMember(this, "Gang Member 1", 430, 120, 1, 100,
+				0));
+		this.addEntity(new Centaur(this, "HorseThing", 500, 200, 1, 100));
+		this.addEntity(new Monkey(this, "Monkey", 70, 70, 1, 100));
+		this.addEntity(new GangMember(this, "Criminal", 100, 150, 1, 100, 1));
 
 	}
 
@@ -157,16 +173,16 @@ public class Level1 extends Level {
 
 	@Override
 	public void otherEntityPlacement() {
-		
+
 		this.addEntity(new Forest(this, 0, 500, 500, 500));
-		
+
 		this.addEntity(Vehicle.vehicle1);
 		this.addEntity(new Truck(this, 400, 300));
 		this.addEntity(new SportsCar(this, 450, 300));
 		this.addEntity(new Boat(this, null, 357, 532, 2, 100));
-		
+
 		this.addEntity(new Horse(this, 666, 930, 0));
-		
+
 		this.addEntity(new PoorHouse(this, 100, 50));
 		this.addEntity(new NiceHouse(this, 600, 50));
 		this.addEntity(new Hut(this, 300, 50));
@@ -175,12 +191,12 @@ public class Level1 extends Level {
 		this.addEntity(new CaveEntrance(this, 200, 50));
 		this.addEntity(new Skyscraper(this, 200, 200));
 		this.addEntity(new SanCiscoSkyscraper(this, 10, 2084));
-		
+
 		this.addEntity(new VestPickup(this, 110, 25));
 		this.addEntity(new KnightPickup(this, 120, 25));
 		this.addEntity(new HornedPickup(this, 130, 25));
 		this.addEntity(new IstrahiimPickup(this, 140, 25));
-		
+
 		this.addEntity(new QuickHealthPickup(this, 150, 25));
 		this.addEntity(new StrongHealthPack(this, 160, 25));
 		this.addEntity(new AssaultRifleAmmo(this, 170, 25));
@@ -188,7 +204,7 @@ public class Level1 extends Level {
 		this.addEntity(new ShotgunAmmoPickup(this, 190, 25));
 		this.addEntity(new LaserAmmoPickup(this, 200, 25));
 		this.addEntity(new ArrowPickup(this, 210, 25));
-		
+
 		this.addEntity(new GenericHospital(this, 700, 50));
 		this.addEntity(new Tippee(this, 838, 85));
 		this.addEntity(new RefugeeTent(this, 936, 85));
@@ -211,7 +227,7 @@ public class Level1 extends Level {
 		this.addEntity(new SanCiscoCityHall(this, 1202, 957));
 		this.addEntity(new CatholicChapel(this, 1022, 957));
 		this.addEntity(new ShantyHouse(this, 802, 957));
-		
+
 		this.addEntity(new Projects(this, 1200, 1200));
 		this.addEntity(new RadarDish(this, 1200, 1300));
 		this.addEntity(new GreatTree(this, 1200, 1450));
@@ -224,16 +240,13 @@ public class Level1 extends Level {
 		this.addEntity(new TheHub(this, 1500, 1100));
 		this.addEntity(new SequoiaCinema(this, 1500, 1300));
 		this.addEntity(new SequoiaSchool(this, 1500, 1400));
-		
+
 		this.addEntity(new Cafe(this, 1400, 400));
 		this.addEntity(new CardinalUniversity(this, 1400, 600));
 		this.addEntity(new PearHQ(this, 1400, 700));
 		this.addEntity(new TechTopiaCityHall(this, 1400, 890));
 		this.addEntity(new WeirdTechBuilding1(this, 1500, 900));
 		this.addEntity(new WeirdTechBuilding2(this, 1546, 900));
-
-
-
 
 		for (int i = 0; i < 4; i++)
 			this.addEntity(new FireEntity(this, 230 + i * 8, 130));
@@ -243,7 +256,7 @@ public class Level1 extends Level {
 	@Override
 	protected void initMapTransporters() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
