@@ -13,6 +13,9 @@ import ca.javajesus.items.Item;
 import ca.javajesus.level.generation.CaveGeneration;
 
 public class RandomCave extends Level {
+
+	private static final long serialVersionUID = 5464371630174344690L;
+	
 	private int[][] caveMap;
 	private Level prevLevel;
 	private Point prevSpawn;

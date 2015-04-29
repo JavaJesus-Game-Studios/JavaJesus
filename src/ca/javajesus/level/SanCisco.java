@@ -277,6 +277,11 @@ public class SanCisco extends Level {
 				new Point(Game.player.getX(), 16),
 				this.width * 8, 8));
 		
+		this.addEntity(new MapTransporter(this, 0, 0,
+				Game.levels.edgeOfTheWoodsTop, new Point(
+						(Game.levels.edgeOfTheWoodsTop.width * 8) - 16,
+						Game.player.getY()), 8, this.height * 8));
+		
 	}
 	
 	

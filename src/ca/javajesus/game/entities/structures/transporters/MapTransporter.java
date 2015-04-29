@@ -23,6 +23,10 @@ public class MapTransporter extends Transporter {
 			for (Player player : level.getPlayers()) {
 				if (this.bounds.intersects(player.getBounds())) {
 					player.changeLevel(nextLevel);
+				} else if (player.isDriving
+						&& this.getBounds().intersects(
+								player.vehicle.getBounds())) {
+					player.changeLevel(nextLevel);
 				}
 			}
 	}

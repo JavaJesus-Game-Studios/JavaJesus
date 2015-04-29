@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.Spawner;
 import ca.javajesus.game.entities.npcs.Jesus;
-import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.structures.CastleTower;
 import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.CaveEntrance;

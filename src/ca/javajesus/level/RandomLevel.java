@@ -9,6 +9,8 @@ import ca.javajesus.level.tile.Tile;
 
 public class RandomLevel extends Level {
 
+	private static final long serialVersionUID = 1188981262817559405L;
+	
 	/** temporary ints */
 	protected final byte grass = 0;
 	protected final byte sand = 1;

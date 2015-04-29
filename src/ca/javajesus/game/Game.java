@@ -29,7 +29,6 @@ import ca.javajesus.game.gui.inventory.InventoryGUI;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.LevelList;
 import ca.javajesus.saves.GameData;
-import ca.javajesus.saves.SaveFile;
 
 public class Game extends Canvas implements Runnable {
 

@@ -2,7 +2,6 @@ package ca.javajesus.game.entities.structures.transporters;
 
 import java.awt.Point;
 
-import ca.javajesus.game.Game;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;

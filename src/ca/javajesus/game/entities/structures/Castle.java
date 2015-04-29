@@ -13,6 +13,8 @@ import ca.javajesus.level.interior.CastleInterior;
 
 public class Castle extends SolidEntity {
 
+	private static final long serialVersionUID = -5648283117813621970L;
+
 	public Castle(Level level, int x, int y) {
 		super(level, x, y, 321, 176);
 		this.shadow = new Rectangle(width, (5 * height / 6));

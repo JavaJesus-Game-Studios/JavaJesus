@@ -14,6 +14,9 @@ public class LevelList implements Serializable {
 	public Level edgeOfTheWoodsMain;
 	public Level edgeOfTheWoodsTop;
 	public Level bautistasDomain;
+	public Level techTopia;
+	public Level sanJuan;
+	public Level orchardValley;
 
 	public Level roadlevel;
 	public Level random;
@@ -37,7 +40,9 @@ public class LevelList implements Serializable {
 				new Point(500, 500));
 		randomCave = new RandomCave(3000,
 				3000, 5, null, new Point(220, 79));
-		
+		techTopia = new TechTopia();
+		sanJuan = new SanJuan();
+		orchardValley = new OrchardValley();
 	}
 	
 	public Level getDefaultLevel() {

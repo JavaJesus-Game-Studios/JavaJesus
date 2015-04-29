@@ -6,14 +6,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import ca.javajesus.game.ChatHandler;
-import ca.javajesus.game.Game;
 import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.npcs.aggressive.Knight;
-import ca.javajesus.game.entities.npcs.aggressive.PoliceOfficer;
 import ca.javajesus.game.entities.npcs.aggressive.Shooter;
-import ca.javajesus.game.entities.npcs.aggressive.TechWarrior;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.graphics.JJFont;
 import ca.javajesus.game.graphics.Screen;

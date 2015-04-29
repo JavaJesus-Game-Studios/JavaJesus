@@ -15,6 +15,8 @@ import ca.javajesus.level.tile.Tile;
 
 public class RandomLevel2 extends Level {
 	
+	private static final long serialVersionUID = 9158523502013380330L;
+
 	Point spawn;
 
 	private HeightMapTile[][] heightmap;

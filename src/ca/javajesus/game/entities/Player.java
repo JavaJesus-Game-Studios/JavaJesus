@@ -24,7 +24,6 @@ import ca.javajesus.level.Level;
 import ca.javajesus.level.Level1;
 import ca.javajesus.level.tile.Tile;
 import ca.javajesus.quests.Quest;
-import ca.javajesus.saves.GameData;
 
 public class Player extends Mob {
 

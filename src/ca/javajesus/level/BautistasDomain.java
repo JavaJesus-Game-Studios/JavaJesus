@@ -22,6 +22,8 @@ import ca.javajesus.game.entities.structures.transporters.MapTransporter;
 
 public class BautistasDomain extends Level{
 	
+	private static final long serialVersionUID = 7176790184478980943L;
+
 	public BautistasDomain(){
 		super("/Levels/Cities/Domain_of_Ranchero_Bautista.png", true, "Bautista's Domain");
 		this.spawnPoint = new Point(2896, 64);
@@ -172,6 +174,13 @@ public class BautistasDomain extends Level{
 		this.addEntity(new MapTransporter(this, 0, 0, Game.levels.lordHillsboroughsDomain,
 				new Point(Game.player.getX(), (Game.levels.lordHillsboroughsDomain.height * 8) - 16),
 				(this.width * 8), 8));
+		this.addEntity(new MapTransporter(this, 0, (this.height * 8) - 8,
+				Game.levels.techTopia, new Point(Game.player.getX(), 16),
+				(this.width * 8), 8));
+		this.addEntity(new MapTransporter(this, 0, 0,
+				Game.levels.edgeOfTheWoodsMain, new Point(
+						(Game.levels.edgeOfTheWoodsMain.width * 8) - 16,
+						Game.player.getY() + Game.levels.edgeOfTheWoodsMain.height * 8 / 3), 8, this.height * 8));
 		
 	}
 }

@@ -2,9 +2,9 @@ package ca.javajesus.level;
 
 import java.awt.Point;
 
-import ca.javajesus.game.entities.vehicles.Vehicle;
-
 public class RoadLevel extends Level {
+
+	private static final long serialVersionUID = 4367488134635605719L;
 
 	public RoadLevel() {
 		super("/Levels/Test_Levels/Road_Test_Level.png", false, "Road Level");

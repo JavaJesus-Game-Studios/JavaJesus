@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 import ca.javajesus.game.ChatHandler;
-import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.entities.npcs.NPC;
