@@ -26,8 +26,8 @@ public class Launcher extends JFrame implements Runnable {
 	public boolean running = false;
 	public static boolean load = false;
 
-	private final String VERSION = "Beta 0.1.9";
-	private final String LAST_UPDATED = "Last Updated 3/17/2015";
+	private final String VERSION = "Beta 0.5.3";
+	private final String LAST_UPDATED = "Last Updated 4/29/2015";
 
 	private int swordOffset;
 	private boolean nextScreen = false;

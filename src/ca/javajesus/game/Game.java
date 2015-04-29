@@ -78,7 +78,7 @@ public class Game extends Canvas implements Runnable {
 	public Screen screen;
 
 	/** Creates instances of the handlers */
-	public transient InputHandler input;
+	public transient static InputHandler input;
 
 	/** Creates instance of the player */
 	public static Player player;
@@ -98,9 +98,11 @@ public class Game extends Canvas implements Runnable {
 
 	/** This starts the game */
 	public Game(Launcher launcher) {
+		boolean temp = Launcher.load;
 		this.launcher = launcher;
 		input = new InputHandler(this);
 		new ChatHandler();
+		screen = new Screen(WIDTH, HEIGHT, this);
 		init();
 		inventory = new InventoryGUI(player);
 		hud = new PlayerHUD(player);
@@ -125,6 +127,9 @@ public class Game extends Canvas implements Runnable {
 		frame.setVisible(true);
 		frame.toFront();
 		frame.repaint();
+		if (temp) {
+			displayGame();
+		}
 	}
 
 	public static void displayInventory() {
@@ -153,23 +158,23 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	/** Initializes the image on the screen */
-	public void init() {
+	public static void init() {
 
-		screen = new Screen(WIDTH, HEIGHT, this);
-		
-		if (GameData.load()) {
+		if (Launcher.load && GameData.load()) {
+			player = null;
 			player = getLevel().getPlayer();
-			player.setInput(this.input);
+			player.setInput(input);
 			Entity.initSound();
 			player.gun.initSound();
+			Launcher.load = false;
 		} else {
 			levels = new LevelList();
 			player = new Player(getLevel(), getLevel().spawnPoint.x,
 					getLevel().spawnPoint.y, input);
 			getLevel().addEntity(player);
 			getLevel().init();
-		} 
-		
+		}
+
 		player.getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
@@ -253,7 +258,7 @@ public class Game extends Canvas implements Runnable {
 		for (int i = 0; i < e.getStackTrace().length; i++) {
 			g.drawString(e.getStackTrace()[i].toString(), 0, 100 + 50 * i);
 		}
-		running = false;
+		stop();
 	}
 
 	/** Ticks the game */
@@ -276,7 +281,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	/** Returns the instance of the current Level */
-	protected Level getLevel() {
+	protected static Level getLevel() {
 		if (player != null) {
 			return player.getLevel();
 		}
@@ -323,8 +328,7 @@ public class Game extends Canvas implements Runnable {
 		g.setColor(Color.YELLOW);
 		g.drawString(
 				player + ": " + player.getX() + ", " + player.getY()
-						+ " Time: " + hours + ":" + minutes + " Level: "
-						+ player.getLevel(), 5, 20);
+						+ " Time: " + hours + ":" + minutes, 5, 20);
 		hud.draw(g);
 		ChatHandler.drawMessages(g);
 		if (player.isDead() || returnToMenu) {
@@ -332,12 +336,11 @@ public class Game extends Canvas implements Runnable {
 			g.setColor(Color.BLACK);
 			g.drawString("RIP", WIDTH * SCALE / 2 - 50, HEIGHT * SCALE / 2);
 			frame.dispose();
-			player.getLevel().reset();
 			inGameScreen = false;
 			guiID = 0;
 			returnToMenu = false;
 			new Launcher(0).startMenu();
-			running = false;
+			stop();
 			return;
 		}
 		g.dispose();

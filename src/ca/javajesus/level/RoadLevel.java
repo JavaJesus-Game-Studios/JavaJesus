@@ -31,7 +31,6 @@ public class RoadLevel extends Level {
 
 	@Override
 	protected void otherEntityPlacement() {
-		this.addEntity(Vehicle.vehicle1);
 		
 	}
 

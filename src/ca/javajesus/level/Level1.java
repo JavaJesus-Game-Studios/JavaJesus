@@ -3,7 +3,6 @@ package ca.javajesus.level;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.FireEntity;
 import ca.javajesus.game.entities.monsters.Centaur;
 import ca.javajesus.game.entities.monsters.Cyclops;
@@ -92,10 +91,10 @@ import ca.javajesus.game.entities.structures.WeirdTechBuilding2;
 import ca.javajesus.game.entities.structures.furniture.Chest;
 import ca.javajesus.game.entities.structures.trees.Forest;
 import ca.javajesus.game.entities.vehicles.Boat;
+import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 import ca.javajesus.game.entities.vehicles.Horse;
 import ca.javajesus.game.entities.vehicles.SportsCar;
 import ca.javajesus.game.entities.vehicles.Truck;
-import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.items.Item;
 
 public class Level1 extends Level {
@@ -176,10 +175,10 @@ public class Level1 extends Level {
 
 		this.addEntity(new Forest(this, 0, 500, 500, 500));
 
-		this.addEntity(Vehicle.vehicle1);
+		this.addEntity(new CenturyLeSabre(this, 350, 300));
 		this.addEntity(new Truck(this, 400, 300));
 		this.addEntity(new SportsCar(this, 450, 300));
-		this.addEntity(new Boat(this, null, 357, 532, 2, 100));
+		this.addEntity(new Boat(this, "Boat", 357, 532, 2, 100));
 
 		this.addEntity(new Horse(this, 666, 930, 0));
 

@@ -18,7 +18,7 @@ public class ZombieEndurance extends Game {
 		super(launcher);
 	}
 	
-	protected Level getLevel() {
+	protected static Level getLevel() {
 		if (player == null) {
 			return new RandomLevel2(3000, 3000, new Point(1000, 1000), true);
 		}

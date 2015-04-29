@@ -17,7 +17,7 @@ public class ZombieSurvival extends Game {
 		super(launcher);
 	}
 	
-	protected Level getLevel() {
+	protected static Level getLevel() {
 		if (player == null) {
 			return new ZombieMap1();
 		}

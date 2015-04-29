@@ -272,12 +272,6 @@ public class Player extends Mob {
 			ChatHandler.toggle();
 			input.v.toggle(false);
 		}
-
-		// Saving
-		if (input.m.isPressed()) {
-			GameData.saveGame();
-			input.m.toggle(false);
-		}
 		if (sword != null) {
 			isSwinging = sword.isSwinging;
 		}

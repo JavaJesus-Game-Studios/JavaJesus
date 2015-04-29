@@ -11,6 +11,7 @@ import javax.swing.UIManager;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
+import ca.javajesus.saves.GameData;
 
 public class PausePanelGUI extends JPanel {
 
@@ -326,14 +327,13 @@ public class PausePanelGUI extends JPanel {
 		}
 		case 1: {
 			// save
-			// this.id = 1;
-			System.out.println("Save coming soon");
+			GameData.saveGame();
 			return;
 		}
 		case 2: {
 			// load
-			// this.id = 2;
-			System.out.println("Load coming soon");
+			//Launcher.load = true;
+			//Game.init();
 			return;
 		}
 		case 3: {

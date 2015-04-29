@@ -235,33 +235,37 @@ public abstract class Tile {
 		}
 	}
 	
-	public Tile CONCRETE() {
+	public static Tile CONCRETE() {
 		Random random = new Random();
-		if (random.nextInt(6) == 0) {
+		if (random.nextInt(100) == 0) {
 			return WASTELAND_GROUND1;
 		}
-		if (random.nextInt(6) == 0) {
+		if (random.nextInt(100) == 0) {
 			return WASTELAND_GROUND2;
 		}
-		if (random.nextInt(6) == 0) {
+		if (random.nextInt(100) == 0) {
 			return WASTELAND_GROUND3;
 		}
-		if (random.nextInt(6) == 0) {
+		if (random.nextInt(100) == 0) {
 			return WASTELAND_GROUND4;
 		}
-		if (random.nextInt(6) == 0) {
-			return WASTELAND_GROUND5;
+		if (random.nextInt(100) == 0) {
+			return WASTELAND_GROUND7;
 		}
-		if (random.nextInt(6) == 0) {
+		if (random.nextInt(100) == 0) {
 			return WASTELAND_GROUND6;
 		}
 		else {
-			return WASTELAND_GROUND7;
+			return WASTELAND_GROUND5;
 		}
 	}
 
 	public abstract void tick();
 
 	public abstract void render(Screen screen, Level level, int x, int y);
+	
+	public String toString() {
+		return String.valueOf(id);
+	}
 
 }

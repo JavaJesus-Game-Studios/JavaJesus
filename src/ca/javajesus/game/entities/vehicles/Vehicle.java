@@ -24,11 +24,6 @@ public class Vehicle extends Mob {
 	protected final int MAX_ACCELERATION = 5;
 	protected boolean isSlowingDown = true;
 
-	public static Vehicle vehicle1 = new CenturyLeSabre(Game.levels.level1, 350, 300);
-
-	public static Vehicle boat1 = new Boat(Game.levels.level1, "Century LeSabre",
-			300, 500, 1, 200);
-
 	public Vehicle(Level level, String name, int x, int y, int speed,
 			int width, int height, SpriteSheet sheet, int defaultHealth) {
 		super(level, name, x, y, speed, width, height, sheet, defaultHealth);
