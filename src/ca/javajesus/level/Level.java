@@ -137,7 +137,7 @@ public abstract class Level implements Serializable {
 							&& t.getLevelColour() == tileColours[x + y * width]) {
 						if (t == Tile.GRASS) {
 							t = Tile.GRASS();
-						} else if (t == Tile.CAVEFLOOR) {
+						} else if (t == Tile.WASTELAND_GROUND1) {
 							t = Tile.CONCRETE();
 						}
 						this.tiles[x + y * width] = t.getId();
