@@ -56,7 +56,7 @@ public class Sprite implements Serializable {
 	public transient static Sprite grizzly = new Sprite("/Buildings/Unique_HippyVille_Exteriors/UC_Grizzly.png");
 	
 	//Unique Oakwood Buildings
-	public transient static Sprite oakwoodcityhall = new Sprite("/Buildings/Unique_Oakwood_Exteriors/OakWood_City_Hall.png");
+	public transient static Sprite oakwoodcityhall = new Sprite("/Buildings/Unique_Oakwood_Exteriors/Oakwood_City_Hall.png");
 	
 	//Unique San Cisco Buildings
 	public transient static Sprite sanCisco_skyscraper = new Sprite("/Buildings/Unique_San_Cisco_Exteriors/San_Cisco_Skyscraper_Triangle.png");
