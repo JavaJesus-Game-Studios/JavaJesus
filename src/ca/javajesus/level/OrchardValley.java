@@ -3,6 +3,7 @@ package ca.javajesus.level;
 import java.awt.Point;
 
 import ca.javajesus.game.Game;
+import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.entities.structures.CatholicChapel;
 import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.CaveEntrance;
@@ -14,7 +15,7 @@ public class OrchardValley extends Level {
 	private static final long serialVersionUID = -5221999559788504392L;
 
 	public OrchardValley() {
-		super("/Levels/Cities/Orchard_Valley.png", true, "Orchard Valley");
+		super("/Levels/Cities/Dubland.png", true, "Orchard Valley");
 		this.spawnPoint = new Point(136, 1816);
 		startingSpawnPoint = new Point(136, 1816);
 
@@ -53,8 +54,7 @@ public class OrchardValley extends Level {
 
 	protected void initMapTransporters() {
 		this.addEntity(new MapTransporter(this, 0, 0, Game.levels.sanJuan,
-				new Point((Game.levels.sanJuan.width * 8) - 16, Game.player
-						.getY()), 8, this.height * 8));
+				Direction.WEST, 8, this.height * 8));
 
 	}
 

@@ -77,6 +77,9 @@ public class Player extends Mob {
 	
 	public void setInput(InputHandler input) {
 		this.input = input;
+		if (isDriving) {
+			vehicle.input = input;
+		}
 	}
 
 	public Level getLevel() {

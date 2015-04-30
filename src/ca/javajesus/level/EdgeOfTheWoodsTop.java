@@ -3,6 +3,7 @@ package ca.javajesus.level;
 import java.awt.Point;
 
 import ca.javajesus.game.Game;
+import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.entities.structures.CaveEntrance;
 import ca.javajesus.game.entities.structures.Hotel;
 import ca.javajesus.game.entities.structures.NiceHouse;
@@ -14,7 +15,7 @@ public class EdgeOfTheWoodsTop extends Level {
 	private static final long serialVersionUID = -6149629568236162343L;
 
 	public EdgeOfTheWoodsTop() {
-		super("/Levels/Wilderness_Areas/Edge_of_the_Woods_Top.png", true,
+		super("/Levels/Wilderness_Areas/Edge_of_The_Woods_Top.png", true,
 				"Edge of the Woods Top");
 		this.spawnPoint = new Point(1832, 1544);
 		startingSpawnPoint = new Point(1832, 1544);
@@ -51,10 +52,9 @@ public class EdgeOfTheWoodsTop extends Level {
 
 	protected void initMapTransporters() {
 		this.addEntity(new MapTransporter(this, 0, (this.height * 8) - 8,
-				Game.levels.edgeOfTheWoodsMain, new Point(Game.player.getX(),
-						16), (this.width * 8), 8));
+				Game.levels.edgeOfTheWoodsMain, Direction.SOUTH, (this.width * 8), 8));
 		this.addEntity(new MapTransporter(this, (this.width * 8) - 8, 0,
-				Game.levels.sanCisco, new Point(16, Game.player.getY()), 8,
+				Game.levels.sanCisco, Direction.EAST, 8,
 				this.height * 8));
 
 	}

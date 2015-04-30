@@ -3,6 +3,7 @@ package ca.javajesus.level;
 import java.awt.Point;
 
 import ca.javajesus.game.Game;
+import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.entities.structures.Cafe;
 import ca.javajesus.game.entities.structures.CardinalUniversity;
 import ca.javajesus.game.entities.structures.GenericHospital;
@@ -125,18 +126,13 @@ public class TechTopia extends Level {
 	protected void initMapTransporters() {
 
 		this.addEntity(new MapTransporter(this, 0, 0,
-				Game.levels.bautistasDomain, new Point(Game.player.getX(),
-						(Game.levels.bautistasDomain.height * 8) - 16),
-				this.width * 8, 8));
+				Game.levels.bautistasDomain, Direction.NORTH, this.width * 8, 8));
 		this.addEntity(new MapTransporter(this, 0, 0,
-				Game.levels.edgeOfTheWoodsMain, new Point(
-						(Game.levels.edgeOfTheWoodsMain.width * 8) - 16,
-						Game.player.getY()
-								+ Game.levels.edgeOfTheWoodsMain.height * 16
-								/ 3), 8, this.height * 8));
+				Game.levels.edgeOfTheWoodsMain, Direction.WEST, 8,
+				this.height * 8, Game.levels.edgeOfTheWoodsMain.height * 16 / 3));
 
 		this.addEntity(new MapTransporter(this, (this.width * 8) - 8, 0,
-				Game.levels.sanJuan, new Point(16, Game.player.getY()), 8,
+				Game.levels.sanJuan, Direction.EAST, 8,
 				this.height * 8));
 
 	}

@@ -3,6 +3,7 @@ package ca.javajesus.level;
 import java.awt.Point;
 
 import ca.javajesus.game.Game;
+import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.entities.structures.CaveEntrance;
 import ca.javajesus.game.entities.structures.Hotel;
 import ca.javajesus.game.entities.structures.Hut;
@@ -72,21 +73,20 @@ public class EdgeOfTheWoods extends Level {
 	protected void initMapTransporters() {
 
 		this.addEntity(new MapTransporter(this, 0, 0,
-				Game.levels.edgeOfTheWoodsTop, new Point(Game.player.getX(),
-						(Game.levels.edgeOfTheWoodsTop.height * 8) - 16),
-				this.width * 8, 8));
+				Game.levels.edgeOfTheWoodsTop, Direction.NORTH, this.width * 8,
+				8));
 
 		this.addEntity(new MapTransporter(this, (this.width * 8) - 8, 0,
-				Game.levels.lordHillsboroughsDomain, new Point(16,
-						(int) (Game.player.getY())), 8, this.height * 8 / 3));
+				Game.levels.lordHillsboroughsDomain, Direction.EAST, 8,
+				this.height * 8 / 3));
 
 		this.addEntity(new MapTransporter(this, (this.width * 8) - 8,
-				this.height * 8 / 3, Game.levels.bautistasDomain, new Point(16,
-						Game.player.getY() - (this.height * 8 / 3) ), 8, this.height * 8 / 3));
+				this.height * 8 / 3, Game.levels.bautistasDomain,
+				Direction.EAST, 8, this.height * 8 / 3, -(this.height * 8 / 3)));
 
-		this.addEntity(new MapTransporter(this, (this.width * 8) - 8, this.height * 16 / 3,
-				Game.levels.techTopia, new Point(16,
-						Game.player.getY() - (this.height * 16 / 3)), 8, this.height * 8 / 3));
+		this.addEntity(new MapTransporter(this, (this.width * 8) - 8,
+				this.height * 16 / 3, Game.levels.techTopia, Direction.EAST, 8,
+				this.height * 8 / 3, -(this.height * 16 / 3)));
 
 	}
 

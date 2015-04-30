@@ -3,6 +3,7 @@ package ca.javajesus.level;
 import java.awt.Point;
 
 import ca.javajesus.game.Game;
+import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.entities.structures.ApartmentHighRise;
 import ca.javajesus.game.entities.structures.CatholicChapel;
 import ca.javajesus.game.entities.structures.CatholicChurch;
@@ -160,11 +161,10 @@ public class SanJuan extends Level {
 	protected void initMapTransporters() {
 
 		this.addEntity(new MapTransporter(this, 0, 0, Game.levels.techTopia,
-				new Point((Game.levels.techTopia.width * 8) - 16, Game.player
-						.getY()), 8, this.height * 8));
+				Direction.WEST, 8, this.height * 8));
 
 		this.addEntity(new MapTransporter(this, (this.width * 8) - 8, 0,
-				Game.levels.orchardValley, new Point(16, Game.player.getY()),
+				Game.levels.orchardValley, Direction.EAST,
 				8, this.height * 8));
 
 	}

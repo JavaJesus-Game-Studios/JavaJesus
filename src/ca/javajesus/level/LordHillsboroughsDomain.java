@@ -3,6 +3,7 @@ package ca.javajesus.level;
 import java.awt.Point;
 
 import ca.javajesus.game.Game;
+import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.entities.npcs.NPC;
 import ca.javajesus.game.entities.npcs.Peasant;
 import ca.javajesus.game.entities.npcs.NPC.Gender;
@@ -34,64 +35,91 @@ public class LordHillsboroughsDomain extends Level {
 	}
 
 	protected void initNPCPlacement() {
-		this.addEntity(new Horse(this, 181*8, 182*8, 0));
-		this.addEntity(new CenturyLeSabre(this, 354*8, 182*8));
+		this.addEntity(new Horse(this, 181 * 8, 182 * 8, 0));
+		this.addEntity(new CenturyLeSabre(this, 354 * 8, 182 * 8));
 
-		
-		//Peasants
-		this.addEntity(new Peasant(this, 80*8, 44*8, Gender.MALE, "circle", 10));
-		this.addEntity(new Peasant(this, 198*8, 44*8, Gender.MALE, "circle", 12));
-		this.addEntity(new Peasant(this, 280*8, 45*8, Gender.MALE, "cross", 10));
-		this.addEntity(new Peasant(this, 72*8, 108*8, Gender.MALE, "triangle", 10));
-		this.addEntity(new Peasant(this, 123*8, 174*8, Gender.MALE, "triangle", 20));
-		this.addEntity(new Peasant(this, 142*8, 173*8, Gender.MALE, "square", 10));
-		this.addEntity(new Peasant(this, 136*8, 176*8, Gender.MALE, "square", 5));
-		this.addEntity(new Peasant(this, 120*8, 191*8, Gender.MALE, "linear", 2));
-		this.addEntity(new Peasant(this, 139*8, 197*8, Gender.MALE, "linear", 8));
+		// Peasants
+		this.addEntity(new Peasant(this, 80 * 8, 44 * 8, Gender.MALE, "circle",
+				10));
+		this.addEntity(new Peasant(this, 198 * 8, 44 * 8, Gender.MALE,
+				"circle", 12));
+		this.addEntity(new Peasant(this, 280 * 8, 45 * 8, Gender.MALE, "cross",
+				10));
+		this.addEntity(new Peasant(this, 72 * 8, 108 * 8, Gender.MALE,
+				"triangle", 10));
+		this.addEntity(new Peasant(this, 123 * 8, 174 * 8, Gender.MALE,
+				"triangle", 20));
+		this.addEntity(new Peasant(this, 142 * 8, 173 * 8, Gender.MALE,
+				"square", 10));
+		this.addEntity(new Peasant(this, 136 * 8, 176 * 8, Gender.MALE,
+				"square", 5));
+		this.addEntity(new Peasant(this, 120 * 8, 191 * 8, Gender.MALE,
+				"linear", 2));
+		this.addEntity(new Peasant(this, 139 * 8, 197 * 8, Gender.MALE,
+				"linear", 8));
 
-		this.addEntity(new Peasant(this, 96*8, 42*8, Gender.FEMALE, "cross", 13));
-		this.addEntity(new Peasant(this, 212*8, 42*8, Gender.FEMALE, "circle", 12));
-		this.addEntity(new Peasant(this, 296*8, 44*8, Gender.FEMALE, "circle", 12));
-		this.addEntity(new Peasant(this, 88*8, 100*8, Gender.FEMALE, "circle", 10));
-		this.addEntity(new Peasant(this, 139*8, 176*8, Gender.FEMALE, "square", 10));
-		this.addEntity(new Peasant(this, 148*8, 174*8, Gender.FEMALE, "square", 10));
-		this.addEntity(new Peasant(this, 154*8, 186*8, Gender.FEMALE, "square", 10));
-		this.addEntity(new Peasant(this, 138*8, 196*8, Gender.FEMALE, "linear", 2));
-		this.addEntity(new Peasant(this, 154*8, 200*8, Gender.FEMALE, "linear", 8));
+		this.addEntity(new Peasant(this, 96 * 8, 42 * 8, Gender.FEMALE,
+				"cross", 13));
+		this.addEntity(new Peasant(this, 212 * 8, 42 * 8, Gender.FEMALE,
+				"circle", 12));
+		this.addEntity(new Peasant(this, 296 * 8, 44 * 8, Gender.FEMALE,
+				"circle", 12));
+		this.addEntity(new Peasant(this, 88 * 8, 100 * 8, Gender.FEMALE,
+				"circle", 10));
+		this.addEntity(new Peasant(this, 139 * 8, 176 * 8, Gender.FEMALE,
+				"square", 10));
+		this.addEntity(new Peasant(this, 148 * 8, 174 * 8, Gender.FEMALE,
+				"square", 10));
+		this.addEntity(new Peasant(this, 154 * 8, 186 * 8, Gender.FEMALE,
+				"square", 10));
+		this.addEntity(new Peasant(this, 138 * 8, 196 * 8, Gender.FEMALE,
+				"linear", 2));
+		this.addEntity(new Peasant(this, 154 * 8, 200 * 8, Gender.FEMALE,
+				"linear", 8));
 
-		this.addEntity(new Peasant(this, 88*8, 56*8, Gender.BOY, "circle", 12));
-		this.addEntity(new Peasant(this, 96*8, 56*8, Gender.GIRL, "circle", 12));
-		this.addEntity(new Peasant(this, 98*8, 56*8, Gender.BOY, "circle", 4));
-		this.addEntity(new Peasant(this, 214*8, 56*8, Gender.GIRL, "circle", 10));
-		this.addEntity(new Peasant(this, 280*8, 60*8, Gender.BOY, "circle", 2));
-		this.addEntity(new Peasant(this, 294*8, 60*8, Gender.GIRL, "circle", 12));
-		this.addEntity(new Peasant(this, 123*8, 190*8, Gender.BOY, "circle", 5));
-		this.addEntity(new Peasant(this, 128*8, 190*8, Gender.GIRL, "circle", 8));
-		this.addEntity(new Peasant(this, 142*8, 185*8, Gender.BOY, "circle", 10));
-		this.addEntity(new Peasant(this, 148*8, 185*8, Gender.GIRL, "circle", 5));
-		this.addEntity(new Peasant(this, 136*8, 182*8, Gender.BOY, "circle", 3));
-		this.addEntity(new Peasant(this, 140*8, 182*8, Gender.GIRL, "circle", 10));
-		
-		//Citizens
-		this.addEntity(new NPC(this, "Citizen-Female", 232*8, 199*8,
-				1, 16, 16, 100,
-				new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 8,
-				"linear", 30));
-		this.addEntity(new NPC(this, "Citizen-Male", 281*8, 197*8, 1,
-				16, 16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB },
-				0, 0, "linear", 80));
-		this.addEntity(new NPC(this, "Citizen-Female", 232*8, 219*8,
-				1, 16, 16, 100,
-				new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 8,
-				"linear", 30));
-		this.addEntity(new NPC(this, "Citizen-Male", 281*8, 217*8, 1,
-				16, 16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB },
-				0, 0, "linear", 80));
-		
-		//Knights
-		this.addEntity(new Knight(this, 153*8, 183*8, "linear", 40));
-		this.addEntity(new Knight(this, 221*8, 152*8, "cross", 20));
-		this.addEntity(new Knight(this, 227*8, 151*8, "cross", 20));
+		this.addEntity(new Peasant(this, 88 * 8, 56 * 8, Gender.BOY, "circle",
+				12));
+		this.addEntity(new Peasant(this, 96 * 8, 56 * 8, Gender.GIRL, "circle",
+				12));
+		this.addEntity(new Peasant(this, 98 * 8, 56 * 8, Gender.BOY, "circle",
+				4));
+		this.addEntity(new Peasant(this, 214 * 8, 56 * 8, Gender.GIRL,
+				"circle", 10));
+		this.addEntity(new Peasant(this, 280 * 8, 60 * 8, Gender.BOY, "circle",
+				2));
+		this.addEntity(new Peasant(this, 294 * 8, 60 * 8, Gender.GIRL,
+				"circle", 12));
+		this.addEntity(new Peasant(this, 123 * 8, 190 * 8, Gender.BOY,
+				"circle", 5));
+		this.addEntity(new Peasant(this, 128 * 8, 190 * 8, Gender.GIRL,
+				"circle", 8));
+		this.addEntity(new Peasant(this, 142 * 8, 185 * 8, Gender.BOY,
+				"circle", 10));
+		this.addEntity(new Peasant(this, 148 * 8, 185 * 8, Gender.GIRL,
+				"circle", 5));
+		this.addEntity(new Peasant(this, 136 * 8, 182 * 8, Gender.BOY,
+				"circle", 3));
+		this.addEntity(new Peasant(this, 140 * 8, 182 * 8, Gender.GIRL,
+				"circle", 10));
+
+		// Citizens
+		this.addEntity(new NPC(this, "Citizen-Female", 232 * 8, 199 * 8, 1, 16,
+				16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0,
+				8, "linear", 30));
+		this.addEntity(new NPC(this, "Citizen-Male", 281 * 8, 197 * 8, 1, 16,
+				16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0,
+				0, "linear", 80));
+		this.addEntity(new NPC(this, "Citizen-Female", 232 * 8, 219 * 8, 1, 16,
+				16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0,
+				8, "linear", 30));
+		this.addEntity(new NPC(this, "Citizen-Male", 281 * 8, 217 * 8, 1, 16,
+				16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0,
+				0, "linear", 80));
+
+		// Knights
+		this.addEntity(new Knight(this, 153 * 8, 183 * 8, "linear", 40));
+		this.addEntity(new Knight(this, 221 * 8, 152 * 8, "cross", 20));
+		this.addEntity(new Knight(this, 227 * 8, 151 * 8, "cross", 20));
 
 	}
 
@@ -159,21 +187,16 @@ public class LordHillsboroughsDomain extends Level {
 		this.addEntity(new Forest(this, 1360, 2040, 500, 500));
 		this.addEntity(new Forest(this, 2968, 1000, 256, 624));
 
-
 	}
 
 	protected void initMapTransporters() {
 
 		this.addEntity(new MapTransporter(this, 0, 0, Game.levels.sanCisco,
-				new Point(Game.player.getX(),
-						(Game.levels.sanCisco.height * 8) - 16),
-				this.width * 8, 8));
+				Direction.NORTH, this.width * 8, 8));
 		this.addEntity(new MapTransporter(this, 0, 0,
-				Game.levels.edgeOfTheWoodsMain, new Point(
-						(Game.levels.edgeOfTheWoodsMain.width * 8) - 16,
-						Game.player.getY()), 8, this.height * 8));
+				Game.levels.edgeOfTheWoodsMain, Direction.WEST, 8, this.height * 8));
 		this.addEntity(new MapTransporter(this, 0, (this.height * 8) - 8,
-				Game.levels.bautistasDomain, new Point(Game.player.getX(), 16),
+				Game.levels.bautistasDomain, Direction.SOUTH,
 				(this.width * 8), 8));
 
 	}

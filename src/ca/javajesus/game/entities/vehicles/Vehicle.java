@@ -17,7 +17,7 @@ public class Vehicle extends Mob {
 	
 	public boolean isUsed = false;
 	protected Player player;
-	protected transient InputHandler input;
+	public transient InputHandler input;
 	protected int tickCount = 0;
 	protected Point acceleration = new Point(0, 0);
 	protected int DELAY = 3;

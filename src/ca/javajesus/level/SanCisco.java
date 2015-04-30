@@ -3,6 +3,7 @@ package ca.javajesus.level;
 import java.awt.Point;
 
 import ca.javajesus.game.Game;
+import ca.javajesus.game.entities.Mob.Direction;
 import ca.javajesus.game.entities.structures.ApartmentHighRise;
 import ca.javajesus.game.entities.structures.CatholicChurch;
 import ca.javajesus.game.entities.structures.ChinatownHouse;
@@ -274,13 +275,11 @@ public class SanCisco extends Level {
 	@Override
 	protected void initMapTransporters() {
 		this.addEntity(new MapTransporter(this, 0, (this.height * 8) - 8, Game.levels.lordHillsboroughsDomain,
-				new Point(Game.player.getX(), 16),
+				Direction.SOUTH,
 				this.width * 8, 8));
 		
 		this.addEntity(new MapTransporter(this, 0, 0,
-				Game.levels.edgeOfTheWoodsTop, new Point(
-						(Game.levels.edgeOfTheWoodsTop.width * 8) - 16,
-						Game.player.getY()), 8, this.height * 8));
+				Game.levels.edgeOfTheWoodsTop, Direction.WEST, 8, this.height * 8));
 		
 	}
 	

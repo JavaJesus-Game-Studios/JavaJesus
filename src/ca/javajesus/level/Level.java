@@ -40,6 +40,8 @@ public abstract class Level implements Serializable {
 	private transient BufferedImage image;
 	public Point spawnPoint;
 	public Point startingSpawnPoint;
+	
+	public boolean initEntities = false;
 
 	protected int[] tileColours;
 
@@ -380,7 +382,8 @@ public abstract class Level implements Serializable {
 	}
 
 	public void init() {
-		if (this.mobs.size() <= 1) {
+		if (!initEntities && this.mobs.size() <= 1) {
+			initEntities = true;
 			initMapTransporters();
 			initNPCPlacement();
 			initSpawnerPlacement();

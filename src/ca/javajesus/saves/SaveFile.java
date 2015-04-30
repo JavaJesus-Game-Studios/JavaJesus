@@ -25,6 +25,7 @@ public class SaveFile {
 		} catch (IOException e) {
 			System.out.println("There was a problem saving " + object);
 			System.out.println(e.getMessage());
+			e.printStackTrace();
 			return false;
 		}
 	}
