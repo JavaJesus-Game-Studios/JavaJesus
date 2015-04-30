@@ -676,6 +676,7 @@ public class Player extends Mob {
 		this.maxShield = 1000;
 		this.shield = maxShield;
 		inventory.addItem(Item.blackHoleGun);
+		inventory.addItem(Item.bazooka);
 	}
 
 	public int[] getColor() {

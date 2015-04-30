@@ -157,8 +157,6 @@ public class Item implements Serializable {
 			return Item.bazooka;
 		case "Secret":
 			return Item.blackHoleGun;
-		case "Flamethrower":
-			return Item.flameThrower;
 		default:
 			return null;
 		}

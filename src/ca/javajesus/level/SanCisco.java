@@ -25,6 +25,7 @@ import ca.javajesus.game.entities.structures.Skyscraper;
 import ca.javajesus.game.entities.structures.TriadHQ;
 import ca.javajesus.game.entities.structures.Warehouse;
 import ca.javajesus.game.entities.structures.transporters.MapTransporter;
+import ca.javajesus.game.entities.vehicles.Boat;
 import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 
 public class SanCisco extends Level {
@@ -40,6 +41,8 @@ public class SanCisco extends Level {
 	protected void initNPCPlacement() {
 		
 		this.addEntity(new CenturyLeSabre(this, 3425, 2688));
+		this.addEntity(new Boat(this, "Boat", 488*8, 127*8, 2, 100));
+
 		
 	}
 

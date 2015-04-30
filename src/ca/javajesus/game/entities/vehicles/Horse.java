@@ -99,7 +99,7 @@ public class Horse extends Vehicle {
 		int flip = (numSteps >> walkingSpeed) & 1;
 
 		if (getDirection() == Direction.NORTH) {
-			xTile += 12;
+			xTile += 14;
 		}
 
 		if (getDirection() == Direction.SOUTH) {

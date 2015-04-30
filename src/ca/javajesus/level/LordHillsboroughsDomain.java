@@ -1,6 +1,7 @@
 package ca.javajesus.level;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.Mob.Direction;
@@ -18,10 +19,14 @@ import ca.javajesus.game.entities.structures.Hotel;
 import ca.javajesus.game.entities.structures.Hut;
 import ca.javajesus.game.entities.structures.NiceHouse;
 import ca.javajesus.game.entities.structures.NiceHouse2;
+import ca.javajesus.game.entities.structures.furniture.Chest;
 import ca.javajesus.game.entities.structures.transporters.MapTransporter;
 import ca.javajesus.game.entities.structures.trees.Forest;
 import ca.javajesus.game.entities.vehicles.CenturyLeSabre;
 import ca.javajesus.game.entities.vehicles.Horse;
+import ca.javajesus.game.entities.vehicles.SportsCar;
+import ca.javajesus.game.entities.vehicles.Truck;
+import ca.javajesus.items.Item;
 
 public class LordHillsboroughsDomain extends Level {
 
@@ -37,6 +42,8 @@ public class LordHillsboroughsDomain extends Level {
 	protected void initNPCPlacement() {
 		this.addEntity(new Horse(this, 181 * 8, 182 * 8, 0));
 		this.addEntity(new CenturyLeSabre(this, 354 * 8, 182 * 8));
+		this.addEntity(new Truck(this, 360*8, 182*8));
+		this.addEntity(new SportsCar(this, 355*8, 200*8));
 
 		// Peasants
 		this.addEntity(new Peasant(this, 80 * 8, 44 * 8, Gender.MALE, "circle",
@@ -87,20 +94,7 @@ public class LordHillsboroughsDomain extends Level {
 				"circle", 10));
 		this.addEntity(new Peasant(this, 280 * 8, 60 * 8, Gender.BOY, "circle",
 				2));
-		this.addEntity(new Peasant(this, 294 * 8, 60 * 8, Gender.GIRL,
-				"circle", 12));
-		this.addEntity(new Peasant(this, 123 * 8, 190 * 8, Gender.BOY,
-				"circle", 5));
-		this.addEntity(new Peasant(this, 128 * 8, 190 * 8, Gender.GIRL,
-				"circle", 8));
-		this.addEntity(new Peasant(this, 142 * 8, 185 * 8, Gender.BOY,
-				"circle", 10));
-		this.addEntity(new Peasant(this, 148 * 8, 185 * 8, Gender.GIRL,
-				"circle", 5));
-		this.addEntity(new Peasant(this, 136 * 8, 182 * 8, Gender.BOY,
-				"circle", 3));
-		this.addEntity(new Peasant(this, 140 * 8, 182 * 8, Gender.GIRL,
-				"circle", 10));
+
 
 		// Citizens
 		this.addEntity(new NPC(this, "Citizen-Female", 232 * 8, 199 * 8, 1, 16,
@@ -128,7 +122,19 @@ public class LordHillsboroughsDomain extends Level {
 	}
 
 	protected void initChestPlacement() {
-
+		ArrayList<Item> chest1 = new ArrayList<Item>();
+		chest1.add(Item.shotgun);
+		chest1.add(Item.bazooka);
+		chest1.add(Item.arrowAmmo);
+		chest1.add(Item.assaultRifleAmmo);
+		chest1.add(Item.laserAmmo);
+		chest1.add(Item.revolverAmmo);
+		chest1.add(Item.shotgunAmmo);
+		chest1.add(Item.horned);
+		chest1.add(Item.knight);
+		chest1.add(Item.vest);
+		chest1.add(Item.owl);
+		this.addEntity(new Chest(this, 1366, 1466, chest1));
 	}
 
 	protected void otherEntityPlacement() {
