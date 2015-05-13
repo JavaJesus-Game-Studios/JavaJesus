@@ -63,7 +63,7 @@ public class RandomCave extends Level {
 					this.addSpawner(col * 8, row * 8, "Demon", 5);
 				} else if (caveMap[row][col] == 6) {
 					tiles[tile] = 20;
-					this.addEntity(new TransporterLadder(this, col * 8, row * 8, new RandomLevel2(3000, 3000, new Point(col * 8, row * 8)),
+					this.addEntity(new TransporterLadder(this, col * 8, row * 8, new RandomLevel(200, 200, new Point(col * 8, row * 8)),
 							prevSpawn));
 					
 				}

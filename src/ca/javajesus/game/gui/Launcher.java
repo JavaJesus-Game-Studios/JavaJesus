@@ -26,8 +26,8 @@ public class Launcher extends JFrame implements Runnable {
 	public boolean running = false;
 	public static boolean load = false;
 
-	private final String VERSION = "Beta 0.5.3";
-	private final String LAST_UPDATED = "Last Updated 4/29/2015";
+	private final String VERSION = "Beta 0.5.9";
+	private final String LAST_UPDATED = "Last Updated 5/12/2015";
 
 	private int swordOffset;
 	private boolean nextScreen = false;
@@ -581,7 +581,7 @@ public class Launcher extends JFrame implements Runnable {
 			loading = true;
 			renderMenu();
 			sound.background1.stop();
-			new Game(this).start();
+			new Game(this, 0).start();
 			this.stopMenu();
 			return;
 		}
@@ -591,7 +591,7 @@ public class Launcher extends JFrame implements Runnable {
 			loading = true;
 			renderMenu();
 			sound.background1.stop();
-			new Game(this).start();
+			new Game(this, 0).start();
 			this.stopMenu();
 			return;
 		}

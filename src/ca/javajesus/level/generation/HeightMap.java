@@ -3,8 +3,14 @@ package ca.javajesus.level.generation;
 import java.util.Random;
 import java.util.ArrayList;
 import java.awt.Point;
+import java.io.Serializable;
 
-public class HeightMap {
+import ca.javajesus.level.tile.Tile;
+
+public class HeightMap implements Serializable {
+	
+	private static final long serialVersionUID = -6302584582079069785L;
+	
 	private int height;
 	private int width;
 	private boolean checkBuildings;
@@ -13,36 +19,6 @@ public class HeightMap {
 	private ArrayList<Point> finalVillageCenters = new ArrayList<Point>();
 
 	Random random = new Random();
-	
-	//Grass Tiles
-	protected final byte GRASS = 0;
-	protected final byte GRASS2 = 9;
-	protected final byte GRASS3 = 10;
-	protected final byte GRASS_FLOWER = 11;
-	protected final byte GRASS_POPPY = 12;
-	protected final byte GRASS4 = 13;
-	protected final byte GRASS5 = 14;
-	
-	//Concrete/Wasteland Tiles
-	protected final byte WASTELAND_GROUND1 = 15;
-	protected final byte WASTELAND_GROUND2 = 16;
-	protected final byte WASTELAND_GROUND3 = 17;
-	protected final byte WASTELAND_GROUND4 = 18;
-	protected final byte WASTELAND_GROUND5 = 19;
-	protected final byte WASTELAND_GROUND6 = 20;
-	protected final byte WASTELAND_GROUND7 = 21;
-	
-	protected final byte SAND = 1;
-	protected final byte ROCK = 2;
-	protected final byte DIRT = 3;
-	protected final byte WATER = 4;
-
-	protected final byte ROAD1 = 5;
-	protected final byte ROAD2 = 8;
-	protected final byte ROAD3 = 9;
-
-	protected final byte FIRE = 6;
-	protected final byte WATERSAND = 7;
 
 	/**
 	 * Methods for generating and using a heightmap for random worlds
@@ -112,9 +88,7 @@ public class HeightMap {
 	 * @return Boolean true if there is grass
 	 */
 	private boolean checkGrass(int row, int col, HeightMapTile[][] heightmap) {
-		if (heightmap[row][col].tile() == 0 || heightmap[row][col].tile() == 9
-				|| heightmap[row][col].tile() == 10
-				|| heightmap[row][col].tile() == 11)
+		if (Tile.isGrass(heightmap[row][col].tile()))
 			return true;
 		else
 			return false;
@@ -180,15 +154,15 @@ public class HeightMap {
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
 				if (heightmap[row][col].tile() <= cutoff) {
-					heightmap[row][col].setTile(WATER);
+					heightmap[row][col].setTile(Tile.WATER.getId());
 				} else if (heightmap[row][col].tile() > cutoff
 						&& heightmap[row][col].tile() <= dirtCutoff) {
-					heightmap[row][col].setTile(GRASS);
+					heightmap[row][col].setTile(Tile.GRASS().getId());
 				} else if (heightmap[row][col].tile() > dirtCutoff
 						&& heightmap[row][col].tile() <= mountainCutoff) {
-					heightmap[row][col].setTile(DIRT);
+					heightmap[row][col].setTile(Tile.DIRTROAD.getId());
 				} else {
-					heightmap[row][col].setTile(ROCK);
+					heightmap[row][col].setTile(Tile.STONE.getId());
 				}
 			}
 		}
@@ -196,7 +170,7 @@ public class HeightMap {
 			for (int col = 0; col < heightmap[0].length; col++) {
 				int waterCounter = 0;
 				if (this.checkGrass(row, col, heightmap)
-						|| heightmap[row][col].tile() == DIRT) {
+						|| heightmap[row][col].tile() == Tile.DIRTROAD.getId()) {
 					for (int rowSum = -1; rowSum <= 1; rowSum++) {
 						for (int colSum = -1; colSum <= 1; colSum++) {
 							int row2 = row + rowSum, col2 = col + colSum;
@@ -204,16 +178,16 @@ public class HeightMap {
 									&& !(col2 < 0)
 									&& !(col2 > heightmap[0].length - 1)
 									&& (row2 != 0) && (col2 != 0)) {
-								if (heightmap[row2][col2].tile() == WATER
-										|| heightmap[row2][col2].tile() == WATERSAND) {
+								if (heightmap[row2][col2].tile() == Tile.WATER.getId()
+										|| heightmap[row2][col2].tile() == Tile.WATERSAND.getId()) {
 									waterCounter++;
-									heightmap[row2][col2].setTile(WATERSAND);
+									heightmap[row2][col2].setTile(Tile.WATERSAND.getId());
 								}
 							}
 						}
 					}
 					if (waterCounter > 0) {
-						heightmap[row][col].setTile(SAND);
+						heightmap[row][col].setTile(Tile.SAND.getId());
 					}
 				}
 			}
@@ -224,11 +198,8 @@ public class HeightMap {
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
 				boolean groundCheck = false;
-				if (heightmap[row][col].tile() == SAND
-						|| heightmap[row][col].tile() == GRASS
-						|| heightmap[row][col].tile() == GRASS2
-						|| heightmap[row][col].tile() == GRASS3
-						|| heightmap[row][col].tile() == GRASS_FLOWER)
+				if (heightmap[row][col].tile() == Tile.SAND.getId()
+						|| Tile.isGrass(heightmap[row][col].tile()))
 					groundCheck = true;
 				heightmap[row][col].setGroundCheck(groundCheck);
 			}
@@ -288,9 +259,9 @@ public class HeightMap {
 					for (int row2 = -9; row2 < 7; row2++) {
 						for (int col2 = -8; col2 < 7; col2++) {
 							if (row2 > -2 && col2 > -2) {
-								if (heightmap[row + row2][col + col2].tile() == WATER
-										|| heightmap[row + row2][col + col2].tile() == WATERSAND
-										|| heightmap[row + row2][col + col2].tile() == ROCK) {
+								if (heightmap[row + row2][col + col2].tile() == Tile.WATER.getId()
+										|| heightmap[row + row2][col + col2].tile() == Tile.WATERSAND.getId()
+										|| heightmap[row + row2][col + col2].tile() == Tile.STONE.getId()) {
 									grassChecker = false;
 								}
 							}

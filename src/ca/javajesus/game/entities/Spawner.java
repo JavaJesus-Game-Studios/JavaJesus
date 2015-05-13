@@ -25,7 +25,8 @@ public class Spawner extends Entity {
 		this.y = y;
 		this.type = type;
 		amount = -1;
-		this.bounds = new JavaRectangle(0, 0, this);
+		this.bounds = new JavaRectangle(1, 1, this);
+		this.bounds.setLocation(x, y);
 	}
 
 	public Spawner(Level level, int x, int y, String type, int amount) {
@@ -34,6 +35,8 @@ public class Spawner extends Entity {
 		this.y = y;
 		this.type = type;
 		this.amount = amount;
+		this.bounds = new JavaRectangle(1, 1, this);
+		this.bounds.setLocation(x, y);
 	}
 
 	public void tick() {
@@ -46,7 +49,7 @@ public class Spawner extends Entity {
 					&& level.getMobs().size() < Game.ENTITY_LIMIT)
 				spawnMob();
 		} else if (random.nextInt(1000) == 0
-				&& level.getMobs().size() < Game.ENTITY_LIMIT) {
+				&& level.getEntities().size() < Game.ENTITY_LIMIT) {
 			spawnMob();
 		}
 
@@ -76,8 +79,6 @@ public class Spawner extends Entity {
 					200, random.nextInt(2));
 		case "Health":
 			return currentEntity = new HealthPack(this.level, x, y);
-		case "DemonSpawner":
-			return currentEntity = new Spawner(this.level, x, y, "Demon");
 		default:
 			return null;
 		}

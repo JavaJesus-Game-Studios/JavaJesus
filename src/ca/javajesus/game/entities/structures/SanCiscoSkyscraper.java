@@ -9,7 +9,7 @@ import ca.javajesus.game.entities.structures.transporters.TransporterGlass;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.Sprite;
 import ca.javajesus.level.Level;
-import ca.javajesus.level.RandomLevel;
+import ca.javajesus.level.generation.OldRandomGeneration;
 
 public class SanCiscoSkyscraper extends SolidEntity {
 
@@ -20,11 +20,11 @@ public class SanCiscoSkyscraper extends SolidEntity {
 		this.bounds = new JavaRectangle(width, (height / 9) - 8, this);
 		this.bounds.setLocation(x, y + shadow.height);
 		level.addEntity(new TransporterGlass(level, x + 44, y + 660,
-				new RandomLevel(Game.WIDTH, Game.HEIGHT)));
+				new OldRandomGeneration(Game.WIDTH, Game.HEIGHT)));
 		level.addEntity(new TransporterGlass(level, x + 100, y + 660,
-				new RandomLevel(Game.WIDTH, Game.HEIGHT)));
+				new OldRandomGeneration(Game.WIDTH, Game.HEIGHT)));
 		level.addEntity(new TransporterGlass(level, x + 156, y + 660,
-				new RandomLevel(Game.WIDTH, Game.HEIGHT)));
+				new OldRandomGeneration(Game.WIDTH, Game.HEIGHT)));
 	}
 
 	public void render(Screen screen) {

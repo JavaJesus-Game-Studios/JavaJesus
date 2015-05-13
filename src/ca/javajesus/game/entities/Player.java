@@ -229,6 +229,11 @@ public class Player extends Mob {
 			input.i.toggle(false);
 			if (Game.inGameScreen) {
 				Game.displayInventory();
+				input.w.toggle(false);
+				input.a.toggle(false);
+				input.s.toggle(false);
+				input.d.toggle(false);
+				input.shift.toggle(false);
 			}
 		}
 		if (input.esc.isPressed()) {

@@ -1,6 +1,11 @@
 package ca.javajesus.level.generation;
 
-public class HeightMapTile {
+import java.io.Serializable;
+
+public class HeightMapTile implements Serializable {
+	
+	private static final long serialVersionUID = 4994549437552769494L;
+	
 	private int tile;
 	private boolean checkGround;
 	private double probability;

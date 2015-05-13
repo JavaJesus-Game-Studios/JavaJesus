@@ -3,11 +3,11 @@ package ca.javajesus.level;
 import java.awt.Point;
 import java.io.Serializable;
 
-public class LevelList implements Serializable {
-	
-	private static final long serialVersionUID = -7172043005873698065L;
+import ca.javajesus.level.zombie.ZombieMap1;
 
-	public Level level1;
+public class LevelList implements Serializable {
+
+	private static final long serialVersionUID = -7172043005873698065L;
 
 	public Level lordHillsboroughsDomain;
 	public Level sanCisco;
@@ -18,38 +18,36 @@ public class LevelList implements Serializable {
 	public Level sanJuan;
 	public Level orchardValley;
 
-	public Level roadlevel;
-	public Level random;
-	public Level random2;
-	public Level randomCave;
-	
 	public Level playerLevel;
-	
-	public LevelList() {
-		
-		level1 = new Level1();
+
+	private int numDefault;
+
+	public LevelList(int num) {
+
+		numDefault = num;
+
 		lordHillsboroughsDomain = new LordHillsboroughsDomain();
 		sanCisco = new SanCisco();
 		edgeOfTheWoodsMain = new EdgeOfTheWoods();
 		edgeOfTheWoodsTop = new EdgeOfTheWoodsTop();
 		bautistasDomain = new BautistasDomain();
 
-		roadlevel = new RoadLevel();
-		random = new RandomLevel(level1.width, level1.height);
-		random2 = new RandomLevel2(level1.width, level1.height,
-				new Point(500, 500));
-		randomCave = new RandomCave(3000,
-				3000, 5, null, new Point(220, 79));
 		techTopia = new TechTopia();
 		sanJuan = new SanJuan();
 		orchardValley = new OrchardValley();
 	}
-	
+
 	public Level getDefaultLevel() {
-		
-		return this.lordHillsboroughsDomain;
+		switch (numDefault) {
+		case 1: return new RandomLevel(200, 200, new Point(500,
+				500), true);
+		case 2: return new ZombieMap1();
+		default:
+			return this.lordHillsboroughsDomain;
+		}
+
 	}
-	
+
 	public void setSaveLevel(Level l) {
 		this.playerLevel = l;
 	}

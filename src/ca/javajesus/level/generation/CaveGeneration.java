@@ -1,9 +1,13 @@
 package ca.javajesus.level.generation;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.Random;
 
-public class CaveGeneration {
+public class CaveGeneration implements Serializable {
+	
+	private static final long serialVersionUID = -7313326091785979411L;
+	
 	private boolean[][] caveMap;
 	private int[][] caveReturn;
 	private int width;

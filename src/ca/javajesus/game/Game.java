@@ -94,9 +94,11 @@ public class Game extends Canvas implements Runnable {
 	private static int guiID = 0;
 
 	public Launcher launcher;
+	public static int mode;
 
 	/** This starts the game */
-	public Game(Launcher launcher) {
+	public Game(Launcher launcher, int mode) {
+		Game.mode = mode;
 		boolean temp = Launcher.load;
 		this.launcher = launcher;
 		input = new InputHandler(this);
@@ -167,7 +169,7 @@ public class Game extends Canvas implements Runnable {
 			player.gun.initSound();
 			Launcher.load = false;
 		} else {
-			levels = new LevelList();
+			levels = new LevelList(mode);
 			player = new Player(getLevel(), getLevel().spawnPoint.x,
 					getLevel().spawnPoint.y, input);
 			getLevel().addEntity(player);
@@ -294,7 +296,6 @@ public class Game extends Canvas implements Runnable {
 	/** Renders the screen */
 	protected void render() {
 
-		// quad.retrieve(player.returnObjects, player.getBounds());
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
