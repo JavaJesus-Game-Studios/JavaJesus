@@ -3,6 +3,8 @@ package ca.javajesus.level;
 import java.awt.Point;
 import java.io.Serializable;
 
+import ca.javajesus.game.Game;
+import ca.javajesus.game.Game.GameMode;
 import ca.javajesus.level.zombie.ZombieMap1;
 
 public class LevelList implements Serializable {
@@ -20,35 +22,39 @@ public class LevelList implements Serializable {
 
 	public Level playerLevel;
 
-	private int numDefault;
+	private Game.GameMode mode;
 
-	public LevelList(int num) {
+	public LevelList(GameMode mode) {
+		
+		this.mode = mode;
 
-		numDefault = num;
+		if (mode == Game.GameMode.ADVENTURE) {
+			lordHillsboroughsDomain = new LordHillsboroughsDomain();
+			sanCisco = new SanCisco();
+			edgeOfTheWoodsMain = new EdgeOfTheWoods();
+			edgeOfTheWoodsTop = new EdgeOfTheWoodsTop();
+			bautistasDomain = new BautistasDomain();
 
-		lordHillsboroughsDomain = new LordHillsboroughsDomain();
-		sanCisco = new SanCisco();
-		edgeOfTheWoodsMain = new EdgeOfTheWoods();
-		edgeOfTheWoodsTop = new EdgeOfTheWoodsTop();
-		bautistasDomain = new BautistasDomain();
-
-		techTopia = new TechTopia();
-		sanJuan = new SanJuan();
-		orchardValley = new OrchardValley();
+			techTopia = new TechTopia();
+			sanJuan = new SanJuan();
+			orchardValley = new OrchardValley();
+		}
 	}
 
 	public Level getDefaultLevel() {
-		switch (numDefault) {
-		case 1: return new RandomLevel(200, 200, new Point(500,
-				500), true);
-		case 2: return new ZombieMap1();
-		default:
+		switch (mode) {
+		case MINI:
+			return new RandomLevel(200, 200, new Point(500, 500), true);
+		case SURVIVAL:
+			return new ZombieMap1();
+		case ADVENTURE:
 			return this.lordHillsboroughsDomain;
 		}
+		return null;
 
 	}
 
-	public void setSaveLevel(Level l) {
+	public void setCurrentLevel(Level l) {
 		this.playerLevel = l;
 	}
 

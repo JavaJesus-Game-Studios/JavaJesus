@@ -19,12 +19,13 @@ public class SanCiscoSkyscraper extends SolidEntity {
 		this.shadow.setLocation(x, y);
 		this.bounds = new JavaRectangle(width, (height / 9) - 8, this);
 		this.bounds.setLocation(x, y + shadow.height);
+		/*
 		level.addEntity(new TransporterGlass(level, x + 44, y + 660,
 				new OldRandomGeneration(Game.WIDTH, Game.HEIGHT)));
 		level.addEntity(new TransporterGlass(level, x + 100, y + 660,
 				new OldRandomGeneration(Game.WIDTH, Game.HEIGHT)));
 		level.addEntity(new TransporterGlass(level, x + 156, y + 660,
-				new OldRandomGeneration(Game.WIDTH, Game.HEIGHT)));
+				new OldRandomGeneration(Game.WIDTH, Game.HEIGHT)));*/
 	}
 
 	public void render(Screen screen) {

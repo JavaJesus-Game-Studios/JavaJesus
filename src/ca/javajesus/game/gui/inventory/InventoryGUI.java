@@ -11,7 +11,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JPanel;
 
-import ca.javajesus.game.Game;
+import ca.javajesus.game.Display;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
@@ -40,8 +40,8 @@ public class InventoryGUI extends ScreenGUI {
 
 		this.setFocusable(true);
 		this.setLayout(new BorderLayout());
-		this.setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE,
-				Game.HEIGHT * Game.SCALE));
+		this.setPreferredSize(new Dimension(Display.WIDTH * Display.SCALE,
+				Display.HEIGHT * Display.SCALE));
 
 		this.input = new InputHandler(this);
 		inventory = new ItemScreenGUI(player, input);
@@ -79,7 +79,7 @@ public class InventoryGUI extends ScreenGUI {
 		if (input.i.isPressed() || input.esc.isPressed()) {
 			input.i.toggle(false);
 			input.esc.toggle(false);
-			Game.displayGame();
+			Display.displayGame();
 		}
 		
 		if (id == 3) {

@@ -18,8 +18,8 @@ import ca.javajesus.game.gui.inventory.InventoryGUI;
 
 public class InputHandler implements KeyListener, FocusListener, MouseListener, MouseMotionListener {
 	
-	public InputHandler(Game game) {
-		game.addKeyListener(this);
+	public InputHandler(Display d) {
+		d.addKeyListener(this);
 	}
 	
 	public InputHandler(InventoryGUI i) {

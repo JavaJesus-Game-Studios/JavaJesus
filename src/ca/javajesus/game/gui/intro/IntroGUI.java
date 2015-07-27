@@ -1,14 +1,18 @@
 package ca.javajesus.game.gui.intro;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ca.javajesus.game.Display;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.entities.Player;
@@ -33,41 +37,46 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 		this.setLayout(new BorderLayout(0, 0));
 		this.input = new InputHandler(this);
 
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel mainPanel = new JPanel(new FlowLayout());
 
-		JPanel p1 = new JPanel(new BorderLayout());
+		mainPanel.add(pScreen);
+
+		JPanel infoPanel = new JPanel();
+		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.PAGE_AXIS));
+
 		JLabel label = new JLabel("Enter your name: ");
 		nameBox = new JTextField(20);
 		nameBox.addActionListener(this);
+		infoPanel.add(label);
+		infoPanel.add(nameBox);
 
-		JPanel p3 = new JPanel(new BorderLayout());
-		p3.add(label, BorderLayout.NORTH);
-		p3.add(nameBox, BorderLayout.SOUTH);
-
-		p1.add(p3, BorderLayout.NORTH);
-		p1.add(pScreen, BorderLayout.CENTER);
-
-		JPanel p2 = new JPanel(new BorderLayout());
-		JLabel l2 = new JLabel("Choose a shirt color: ");
-		p2.add(l2, BorderLayout.NORTH);
+		JLabel label2 = new JLabel("Choose a shirt color: ");
 		colorList = new ColorListGUI(player);
-		p2.add(colorList, BorderLayout.CENTER);
+		infoPanel.add(label2);
+		infoPanel.add(colorList);
 
-		JPanel p4 = new JPanel(new BorderLayout());
-		JLabel l3 = new JLabel("Choose a skin color: ");
-		p4.add(l3, BorderLayout.NORTH);
+		JLabel label3 = new JLabel("Choose a skin color: ");
 		sclist = new SkinColorGUI(player);
-		p4.add(sclist, BorderLayout.CENTER);
+		infoPanel.add(label3);
+		infoPanel.add(sclist);
 
-		JPanel p5 = new JPanel(new GridLayout(4, 0));
-		p5.add(p3);
-		p5.add(p2);
-		p5.add(p4);
+		Dimension size = new Dimension((int) infoPanel.getPreferredSize()
+				.getWidth(), (int) infoPanel.getPreferredSize().getHeight() / 2);
 
-		panel.add(p1, BorderLayout.CENTER);
-		panel.add(p5, BorderLayout.EAST);
+		label.setPreferredSize(size);
+		nameBox.setPreferredSize(size);
+		label2.setPreferredSize(size);
+		colorList.setPreferredSize(size);
+		label3.setPreferredSize(size);
+		sclist.setPreferredSize(size);
+		
+		label.setFont(new Font(label.getFont().getName(), Font.PLAIN, 25));
+		label2.setFont(new Font(label2.getFont().getName(), Font.PLAIN, 25));
+		label3.setFont(new Font(label3.getFont().getName(), Font.PLAIN, 25));
 
-		this.add(panel, BorderLayout.CENTER);
+		mainPanel.add(infoPanel);
+
+		this.add(mainPanel);
 
 	}
 
@@ -75,15 +84,13 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 
 		pScreen.tick();
 		nameBox.grabFocus();
+		if (nameBox.getText().length() > 13) {
+			nameBox.setText(nameBox.getText().substring(0, 13));
+		}
 		player.setName(nameBox.getText());
 		player.setShirtColor(colorList.getColor());
 		player.setSkinColor(sclist.getColor());
 		player.updateColor();
-		if (nameBox.getText().equals("Derek Jow")
-				|| nameBox.getText().equals("Stephen Pacwa")
-				|| nameBox.getText().equals("Stephen Northway")) {
-			player.grantDevPowers();
-		}
 	}
 
 	@Override
@@ -95,7 +102,11 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 			player.updateColor();
 			player.setSkinColor(sclist.getColor());
 			player.updateColor();
-			Game.displayGame();
+			if (player.getName().equals("Derek Jow")
+					|| player.getName().equals("Stephen Northway")) {
+				player.grantDevPowers();
+			}
+			Display.displayGame();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}

@@ -5,11 +5,9 @@ import ca.javajesus.level.LevelList;
 
 public class GameData {
 
-	public static SaveFile levels = new SaveFile("levels");
-
 	public static boolean saveGame() {
-		Game.levels.setSaveLevel(Game.player.getLevel());
-		if (levels.save(Game.levels)) {
+		Game.levels.setCurrentLevel(Game.player.getLevel());
+		if (Game.player.getLevel().saveData.save(Game.levels.playerLevel)) {
 			System.out.println("SAVED");
 			return true;
 		} else {
@@ -23,7 +21,7 @@ public class GameData {
 	}
 
 	public static boolean load() {
-		Object obj = levels.load();
+		Object obj = Game.player.getLevel().saveData.load();
 		if (obj != null) {
 			Game.levels = (LevelList) obj;
 			System.out.println("LOADED");

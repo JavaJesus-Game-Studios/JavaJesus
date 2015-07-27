@@ -2,8 +2,6 @@ package ca.javajesus.game.graphics;
 
 import java.awt.Color;
 
-import ca.javajesus.game.Game;
-
 public class Screen {
 
 	// adding a FF in front of a hex string converts RGB to Hexadecimal
@@ -27,15 +25,7 @@ public class Screen {
 	public int width;
 	public int height;
 
-	private Game game;
 	private int shader = 0;
-
-	public Screen(int width, int height, Game game) {
-		this.width = width;
-		this.height = height;
-		this.game = game;
-		pixels = new int[width * height];
-	}
 
 	public Screen(int width, int height) {
 		this.width = width;
@@ -117,10 +107,6 @@ public class Screen {
 	public void setOffset(int xOffset, int yOffset) {
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
-	}
-
-	public Game getGame() {
-		return game;
 	}
 
 	/** Used for rendering large entities */

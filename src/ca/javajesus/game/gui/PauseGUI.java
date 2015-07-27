@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import ca.javajesus.game.Game;
+import ca.javajesus.game.Display;
 import ca.javajesus.game.InputHandler;
 
 public class PauseGUI extends ScreenGUI {
@@ -27,7 +27,7 @@ public class PauseGUI extends ScreenGUI {
 		if (input.esc.isPressed() || panel.resumeIsPressed) {
 			input.esc.toggle(false);
 			panel.resumeIsPressed = false;
-			Game.displayGame();
+			Display.displayGame();
 		}
 		panel.repaint();
 	}

@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
+
 import ca.javajesus.game.Game;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Entity;
@@ -23,6 +25,7 @@ import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.graphics.JJFont;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.level.tile.Tile;
+import ca.javajesus.saves.SaveFile;
 
 public abstract class Level implements Serializable {
 
@@ -41,6 +44,8 @@ public abstract class Level implements Serializable {
 	public Point spawnPoint;
 	public Point startingSpawnPoint;
 	
+	public SaveFile saveData;
+	
 	public boolean initEntities = false;
 
 	protected int[] tileColours;
@@ -53,6 +58,7 @@ public abstract class Level implements Serializable {
 
 	public Level(String imagePath, boolean loadNow, String name) {
 		this.name = name;
+		this.saveData = new SaveFile(name);
 		spawnPoint = new Point(0, 0);
 		startingSpawnPoint = new Point(0, 0);
 		if (imagePath != null) {

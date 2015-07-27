@@ -3,7 +3,7 @@ package ca.javajesus.level.generation;
 import java.awt.Point;
 import java.util.Random;
 
-import ca.javajesus.game.Game;
+import ca.javajesus.game.Display;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
 import ca.javajesus.level.Level;
 import ca.javajesus.level.tile.Tile;
@@ -440,8 +440,8 @@ public class OldRandomGeneration extends Level {
 					random.nextInt(this.height * 8), "Health");
 			
 			this.addEntity(new Transporter(this, random.nextInt(this.width * 8),
-					random.nextInt(this.height * 8), new OldRandomGeneration(Game.WIDTH,
-							Game.HEIGHT)));
+					random.nextInt(this.height * 8), new OldRandomGeneration(Display.WIDTH,
+							Display.HEIGHT)));
 		}
 
 	}

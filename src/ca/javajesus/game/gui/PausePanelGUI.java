@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import ca.javajesus.game.Display;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
@@ -374,7 +375,8 @@ public class PausePanelGUI extends JPanel {
 		}
 		case 9: {
 			// Main Menu
-			Game.returnToMenu = true;
+			//Display.returnToMenu = true;
+			Game.player.kill();
 			return;
 		}
 		default: {

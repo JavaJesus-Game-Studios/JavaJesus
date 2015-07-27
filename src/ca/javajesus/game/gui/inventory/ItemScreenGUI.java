@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import ca.javajesus.game.Game;
+import ca.javajesus.game.Display;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
 import ca.javajesus.game.entities.Player;
@@ -23,8 +23,8 @@ public class ItemScreenGUI extends ScreenGUI {
 
 	private static final long serialVersionUID = 1L;
 	private Player player;
-	private final int width = (int) (Game.WIDTH * Game.SCALE + 10);
-	private final int height = (int) (Game.HEIGHT * Game.SCALE + 85);
+	private final int width = (int) (Display.WIDTH * Display.SCALE + 10);
+	private final int height = (int) (Display.HEIGHT * Display.SCALE + 85);
 	private Screen screen;
 	private Screen screen3;
 	private Screen screen4;

@@ -55,7 +55,8 @@ public class PlayerHUD {
 				650);
 
 		g.setColor(Color.blue);
-		g.fillRect(750, 680, (int) (150 * (player.shield / player.maxShield)), 20);
+		g.fillRect(750, 680, (int) (150 * (player.shield / player.maxShield)),
+				20);
 
 		g.setColor(Color.green);
 		g.fillRect(750, 710,
@@ -63,6 +64,9 @@ public class PlayerHUD {
 	}
 
 	private BufferedImage getGunType() {
+		if (player == null) {
+			return null;
+		}
 		if (player.gun == null) {
 			return null;
 		}

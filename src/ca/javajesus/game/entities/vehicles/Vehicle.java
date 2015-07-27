@@ -2,7 +2,7 @@ package ca.javajesus.game.entities.vehicles;
 
 import java.awt.Point;
 
-import ca.javajesus.game.Game;
+import ca.javajesus.game.Display;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.Mob;
@@ -124,14 +124,14 @@ public class Vehicle extends Mob {
 
 			if (input.i.isPressed()) {
 				input.i.toggle(false);
-				if (Game.inGameScreen) {
-					Game.displayInventory();
+				if (Display.inGameScreen) {
+					Display.displayInventory();
 				}
 			}
 			if (input.esc.isPressed()) {
 				input.esc.toggle(false);
-				if (Game.inGameScreen) {
-					Game.displayPause();
+				if (Display.inGameScreen) {
+					Display.displayPause();
 				}
 			}
 			if (input.e.isPressed()) {

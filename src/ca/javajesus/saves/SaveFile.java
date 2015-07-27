@@ -23,7 +23,7 @@ public class SaveFile {
 			return true;
 
 		} catch (IOException e) {
-			System.out.println("There was a problem saving " + object);
+			System.out.println("There was a problem saving " + object.toString());
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 			return false;
@@ -37,7 +37,7 @@ public class SaveFile {
 			return in.readObject();
 
 		} catch (IOException | ClassNotFoundException e) {
-			System.out.println("There was a problem loading");
+			System.out.println("There was a problem loading" + fileName);
 			System.out.println(e.getMessage());
 		}
 		return null;

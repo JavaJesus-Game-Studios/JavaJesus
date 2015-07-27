@@ -1,8 +1,11 @@
 package ca.javajesus.game.entities;
 
 import java.util.ArrayList;
+
 import javax.sound.sampled.Clip;
+
 import ca.javajesus.game.ChatHandler;
+import ca.javajesus.game.Display;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
@@ -59,9 +62,8 @@ public class Player extends Mob {
 	public static NPC companion;
 	public boolean jesusMode = false;
 
-	public Player(Level level, int x, int y, InputHandler input) {
+	public Player(Level level, int x, int y) {
 		super(level, "", x, y, 1, 14, 16, SpriteSheet.player, 100);
-		this.input = input;
 		this.score = 0;
 		this.inventory = new Inventory();
 		gun = inventory.getGun(this);
@@ -227,8 +229,8 @@ public class Player extends Mob {
 		}
 		if (input.i.isPressed()) {
 			input.i.toggle(false);
-			if (Game.inGameScreen) {
-				Game.displayInventory();
+			if (Display.inGameScreen) {
+				Display.displayInventory();
 				input.w.toggle(false);
 				input.a.toggle(false);
 				input.s.toggle(false);
@@ -238,8 +240,8 @@ public class Player extends Mob {
 		}
 		if (input.esc.isPressed()) {
 			input.esc.toggle(false);
-			if (Game.inGameScreen) {
-				Game.displayPause();
+			if (Display.inGameScreen) {
+				Display.displayPause();
 			}
 		}
 		if (input.e.isPressed()) {
