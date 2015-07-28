@@ -455,6 +455,7 @@ public class Player extends Mob {
 
 		// Handles swimming animation
 		if (isSwimming) {
+			isShooting = false;
 			if (isOnFire()) {
 				setOnFire(false);
 			}

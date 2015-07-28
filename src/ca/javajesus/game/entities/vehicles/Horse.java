@@ -3,6 +3,7 @@ package ca.javajesus.game.entities.vehicles;
 import java.util.Random;
 
 import ca.javajesus.game.Game;
+import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -40,6 +41,7 @@ public class Horse extends Vehicle {
 		this.walkDistance = 8;
 		this.xPos = x;
 		this.yPos = y;
+		this.bar = new HealthBar(level, this.x, this.y, this);
 	}
 
 	public void tick() {
@@ -49,6 +51,11 @@ public class Horse extends Vehicle {
 			xTile = 0;
 		} else {
 			xTile = 16;
+		}
+		
+		if (!isUsed && isMobCollision()) {
+			moveAroundMobCollision();
+			return;
 		}
 
 		if ((tickCount % 2 == 0)) {
@@ -95,7 +102,7 @@ public class Horse extends Vehicle {
 			}
 
 		int xTile = this.xTile;
-		int walkingSpeed = 4;
+		int walkingSpeed = 3;
 		int flip = (numSteps >> walkingSpeed) & 1;
 
 		if (getDirection() == Direction.NORTH) {

@@ -122,11 +122,7 @@ public class Demon extends Monster {
 			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
 			if (getDirection() == Direction.WEST) {
 				flip = 1;
-				flip = 1;
-				flip = 1;
 			} else {
-				flip = 0;
-				flip = 0;
 				flip = 0;
 			}
 		}

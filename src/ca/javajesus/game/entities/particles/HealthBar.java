@@ -1,6 +1,7 @@
 package ca.javajesus.game.entities.particles;
 
 import ca.javajesus.game.entities.Mob;
+import ca.javajesus.game.entities.vehicles.Horse;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
@@ -9,7 +10,7 @@ import ca.javajesus.level.Level;
 public class HealthBar extends Particle {
 
 	private static final long serialVersionUID = -4825483165347265874L;
-	
+
 	private int yOffset;
 	private int xOffset;
 	private int yChange;
@@ -26,8 +27,14 @@ public class HealthBar extends Particle {
 				0xFF000000, 0xFFDD0000 }, x, y);
 		this.mob = mob;
 		if (mob instanceof Vehicle) {
-			this.yOffset = mob.getHeight() / 2 + 8;
-			this.xOffset = mob.getWidth() / 2 - 4;
+			if (mob instanceof Horse) {
+				this.yOffset = mob.getHeight() / 2 - 4;
+				this.xOffset = mob.getWidth() / 2;
+			} else {
+				this.yOffset = mob.getHeight() / 2 + 8;
+				this.xOffset = mob.getWidth() / 2 - 4;
+			}
+
 		} else {
 			this.yOffset = mob.getHeight() / 2;
 			this.xOffset = mob.getWidth() / 2;

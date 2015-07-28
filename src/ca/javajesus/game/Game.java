@@ -11,10 +11,6 @@ import ca.javajesus.saves.GameData;
 
 public class Game implements Runnable {
 	
-	
-	
-	//Note Levels become null after transporting, fix it with Level list or something
-
 	public final static int ENTITY_LIMIT = 1000;
 	public final static int MOB_LIMIT = 300;
 

@@ -6,6 +6,7 @@ import java.util.Random;
 import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.particles.HealthBar;
 import ca.javajesus.game.entities.structures.transporters.Transporter;
+import ca.javajesus.game.entities.vehicles.Horse;
 import ca.javajesus.game.entities.vehicles.Vehicle;
 import ca.javajesus.game.graphics.JJFont;
 import ca.javajesus.game.graphics.Screen;
@@ -244,7 +245,7 @@ public class Mob extends Entity {
 						((SolidEntity) entity).bounds.y - 3 * ya);
 				if (this.getBounds().intersects(temp))
 					return true;
-			} else if (entity instanceof Vehicle && entity != this) {
+			} else if (entity instanceof Vehicle && entity != this && !(entity instanceof Horse)) {
 				Rectangle temp;
 				Vehicle vehicle = (Vehicle) entity;
 				if (isLongitudinal(vehicle.getDirection())) {
