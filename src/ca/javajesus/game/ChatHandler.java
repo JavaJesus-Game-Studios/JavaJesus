@@ -11,14 +11,17 @@ import javax.imageio.ImageIO;
 public class ChatHandler {
 
 	private static final int LENGTH = 90;
-	
+
+	// Time in seconds that the message appears
+	private static final int TIME_DISPLAYED = 4;
+
 	public static ArrayList<String> chatlog = new ArrayList<String>();
 
 	protected static ArrayList<String> chatwindow = new ArrayList<String>();
 
 	private static ArrayList<Color> colors = new ArrayList<Color>();
 
-	private static int ticks = 0;
+	private static long lastTime;
 	private static boolean isVisible = false;
 	private static boolean tickTimer = false;
 
@@ -37,7 +40,7 @@ public class ChatHandler {
 
 	public static void sendMessage(String string, Color color) {
 		tickTimer = true;
-		ticks = 0;
+		lastTime = System.currentTimeMillis();
 		isVisible = true;
 		chatlog.add(string);
 		String check = string;
@@ -70,13 +73,12 @@ public class ChatHandler {
 				}
 			}
 		}
-		if (tickTimer) {
-			ticks++;
-		}
-		if (ticks > 150) {
+		if (tickTimer
+				&& (System.currentTimeMillis() > lastTime
+						+ (TIME_DISPLAYED * 1000))) {
 			isVisible = false;
-			ticks = 0;
 			tickTimer = false;
+			lastTime = 0;
 		}
 	}
 
@@ -92,10 +94,10 @@ public class ChatHandler {
 		}
 
 	}
-	
+
 	public static void toggle() {
 		tickTimer = false;
-		ticks = 0;
+		lastTime = 0;
 		isVisible = !isVisible;
 	}
 

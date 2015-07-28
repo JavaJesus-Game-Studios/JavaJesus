@@ -17,7 +17,7 @@ import ca.javajesus.quests.Script;
 public class Mob extends Entity {
 
 	private static final long serialVersionUID = -1507733585991126012L;
-	
+
 	protected String name;
 	protected int[] color;
 	protected int speed;
@@ -303,7 +303,8 @@ public class Mob extends Entity {
 		int ya = 0;
 
 		for (Mob mob : level.getMobs()) {
-			if (!(this.getBounds().intersects(mob.getBounds())) || mob == this || mob.isDead)
+			if (!(this.getBounds().intersects(mob.getBounds())) || mob == this
+					|| mob.isDead)
 				continue;
 
 			Rectangle intersection = getBounds().intersection(mob.getBounds());
@@ -372,7 +373,7 @@ public class Mob extends Entity {
 		bar.tick();
 
 	}
-	
+
 	public void updateBounds() {
 		this.getBounds().setLocation(this.x - (this.width / 2),
 				this.y - (this.height / 2));
@@ -452,12 +453,13 @@ public class Mob extends Entity {
 	public void kill() {
 
 		isDead = true;
-		//this.getBounds().setSize(0, 0);
-		//this.getBounds().setLocation(0, 0);
-		//this.getOuterBounds().setSize(0, 0);
-		//this.getOuterBounds().setLocation(0, 0);
+		// this.getBounds().setSize(0, 0);
+		// this.getBounds().setLocation(0, 0);
+		// this.getOuterBounds().setSize(0, 0);
+		// this.getOuterBounds().setLocation(0, 0);
 		level.remEntity(this);
-		level.addEntity(this, 0);
+		if (!(this instanceof Player))
+			level.addEntity(this, 0);
 		level.killList.add(this);
 		isHit = false;
 		isTalking = false;

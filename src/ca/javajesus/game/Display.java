@@ -176,5 +176,9 @@ public class Display extends Canvas {
 		g.dispose();
 		bs.show();
 	}
+	
+	public void stop() {
+		frame.dispose();
+	}
 
 }

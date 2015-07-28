@@ -181,6 +181,7 @@ public class Launcher extends JFrame implements Runnable {
 		int frames = 0;
 		long lastTimer = System.currentTimeMillis();
 		double delta = 0;
+		long previousTime = System.currentTimeMillis();
 
 		while (running) {
 			try {
@@ -196,7 +197,19 @@ public class Launcher extends JFrame implements Runnable {
 				}
 				frames++;
 				render();
-
+				
+				if (System.currentTimeMillis() > previousTime + 20) {
+					previousTime = System.currentTimeMillis();
+					if (nextScreen) {
+						swordOffset += 10;
+						if (swordOffset > 100) {
+							swordOffset = 0;
+							nextScreen = false;
+							transferScreen(buttonId);
+						}
+					}
+				}
+				
 				if (System.currentTimeMillis() - lastTimer >= 1000) {
 					lastTimer += 1000;
 					System.out.println(frames + " fps");
@@ -527,16 +540,6 @@ public class Launcher extends JFrame implements Runnable {
 		g.setFont(new Font("Verdana", 0, 20));
 		g.drawString(VERSION, 5, 20);
 		g.drawString(LAST_UPDATED, 5, 725);
-
-		if (nextScreen) {
-			swordOffset += 10;
-			if (swordOffset > 100) {
-				swordOffset = 0;
-				nextScreen = false;
-				transferScreen(buttonId);
-			}
-		}
-
 		g.dispose();
 		bs.show();
 

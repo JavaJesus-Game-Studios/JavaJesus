@@ -38,8 +38,6 @@ public class Player extends Mob {
 	protected int skinColor = 0xFFFFCC99;
 	protected int hairColor = 0xFF343434;
 	private int tickCount = 0;
-	private boolean canChangeLevel;
-	private transient Level nextLevel;
 	public Gun gun;
 	private boolean genericCooldown;
 	public boolean isDriving;
@@ -132,11 +130,24 @@ public class Player extends Mob {
 			level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 		}
 
-		this.nextLevel = level;
 		if (!level.isLoaded) {
 			level.load();
 		}
-		this.canChangeLevel = true;
+		input.e.toggle(false);
+		this.level.remEntity(this);
+		if (isOnFire()) {
+			setOnFire(false);
+		}
+		this.level.clear();
+		init(level);
+		level.init();
+		level.addEntity(this);
+		this.x = level.spawnPoint.x;
+		this.y = level.spawnPoint.y;
+		this.getBounds().setLocation(this.x - this.width / 2,
+				this.y - this.height / 2);
+		this.getOuterBounds().setLocation(this.x - this.width / 2 - 2,
+				this.y - this.height / 2 - 2);
 	}
 
 	public void tick() {
@@ -395,20 +406,6 @@ public class Player extends Mob {
 				vehicle.remPlayer();
 			}
 			return;
-		}
-		if (canChangeLevel) {
-			canChangeLevel = false;
-			input.e.toggle(false);
-			level.remEntity(this);
-			if (isOnFire()) {
-				setOnFire(false);
-			}
-			level.clear();
-			init(nextLevel);
-			level.init();
-			level.addEntity(this);
-			this.x = level.spawnPoint.x;
-			this.y = level.spawnPoint.y;
 		}
 
 		this.getBounds().setLocation(this.x - this.width / 2,

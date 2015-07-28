@@ -10,6 +10,10 @@ import ca.javajesus.level.LevelList;
 import ca.javajesus.saves.GameData;
 
 public class Game implements Runnable {
+	
+	
+	
+	//Note Levels become null after transporting, fix it with Level list or something
 
 	public final static int ENTITY_LIMIT = 1000;
 	public final static int MOB_LIMIT = 300;
@@ -50,6 +54,7 @@ public class Game implements Runnable {
 					getLevel().spawnPoint.y);
 			display = new Display();
 			player.setInput(new InputHandler(display));
+			getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 			getLevel().addEntity(player);
 			getLevel().init();
 			running = true;
@@ -135,6 +140,7 @@ public class Game implements Runnable {
 	public void tick() {
 		if (player.isDead()) {
 			stop();
+			display.stop();
 			display = null;
 			start();
 		} else
