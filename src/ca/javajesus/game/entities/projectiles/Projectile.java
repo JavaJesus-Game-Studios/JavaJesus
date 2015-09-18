@@ -188,8 +188,8 @@ public class Projectile extends Entity {
 			return;
 		}
 
-		this.y += speed * yPoint;
-		this.x += speed * xPoint;
+		this.y += speed / 2.0 * yPoint;
+		this.x += speed / 2.0 * xPoint;
 
 		bounds.setLocation((int) this.x - (this.width / 2), (int) this.y
 				- (this.height / 2));

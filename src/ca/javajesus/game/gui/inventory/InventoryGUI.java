@@ -34,14 +34,13 @@ public class InventoryGUI extends ScreenGUI {
 
 	public InventoryGUI(Player player) {
 
-		image = new BufferedImage(250, 300, BufferedImage.TYPE_INT_RGB);
+		image = new BufferedImage(Display.IMAGE_WIDTH, Display.IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		this.player = player;
 
 		this.setFocusable(true);
 		this.setLayout(new BorderLayout());
-		this.setPreferredSize(new Dimension(Display.WIDTH * Display.SCALE,
-				Display.HEIGHT * Display.SCALE));
+		this.setPreferredSize(new Dimension(Display.FRAME_WIDTH, Display.FRAME_HEIGHT));
 
 		this.input = new InputHandler(this);
 		inventory = new ItemScreenGUI(player, input);
@@ -81,7 +80,7 @@ public class InventoryGUI extends ScreenGUI {
 			input.esc.toggle(false);
 			Display.displayGame();
 		}
-		
+
 		if (id == 3) {
 			inventory.tick();
 		}
@@ -182,7 +181,8 @@ public class InventoryGUI extends ScreenGUI {
 
 			for (int y = 0; y < screen.height; y++) {
 				for (int x = 0; x < screen.width; x++) {
-						pixels[x + y * image.getWidth()] = screen.pixels[x + y * screen.width];
+					pixels[x + y * image.getWidth()] = screen.pixels[x + y
+							* screen.width];
 				}
 
 			}

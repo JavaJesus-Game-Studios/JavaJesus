@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import ca.javajesus.game.Display;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.SoundHandler;
@@ -33,7 +35,7 @@ public class Launcher extends JFrame implements Runnable {
 	private int lastId;
 
 	private int width = 800;
-	private int height = 750;
+	private int height = Toolkit.getDefaultToolkit().getScreenSize().height;
 	protected int button_width = 80;
 	protected int button_height = 40;
 
@@ -72,6 +74,7 @@ public class Launcher extends JFrame implements Runnable {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);
+		setAlwaysOnTop(true);
 		swordOffset = 0;
 		init();
 		toFront();
@@ -539,7 +542,7 @@ public class Launcher extends JFrame implements Runnable {
 		g.setColor(Color.RED);
 		g.setFont(new Font("Verdana", 0, 20));
 		g.drawString(VERSION, 5, 20);
-		g.drawString(LAST_UPDATED, 5, 725);
+		g.drawString(LAST_UPDATED, 5, height - 10);
 		g.dispose();
 		bs.show();
 

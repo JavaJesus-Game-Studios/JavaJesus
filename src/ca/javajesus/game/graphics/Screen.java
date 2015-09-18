@@ -1,6 +1,7 @@
 package ca.javajesus.game.graphics;
 
 import java.awt.Color;
+import java.util.Random;
 
 public class Screen {
 
@@ -39,6 +40,15 @@ public class Screen {
 			pixels[i] = 0;
 		}
 	}
+	
+	/**
+	 * @param xOffset
+	 * @param yOffset
+	 * @param tile
+	 * @param color
+	 * @param mirrorDir Determines the direction the pixels are rendered, usually from left to right. Mirror Dir renders from right to left.
+	 * @param sheet
+	 */
 
 	public void render(int xOffset, int yOffset, int tile, int[] color,
 			int mirrorDir, SpriteSheet sheet) {
@@ -211,7 +221,7 @@ public class Screen {
 						break;
 					}
 					}
-				//col += random.nextInt(100) - 50;
+				//col += new Random().nextInt(100) - 50;
 				if (col != 0xFF000000)
 					for (int yScale = 0; yScale < scale; yScale++) {
 						if (yPixel + yScale < 0 || yPixel + yScale >= height)

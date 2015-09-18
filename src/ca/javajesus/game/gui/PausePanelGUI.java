@@ -49,8 +49,8 @@ public class PausePanelGUI extends JPanel {
 		super.paintComponent(g);
 		try {
 			g.drawImage(ImageIO.read(Launcher.class
-					.getResource("/GUI/GUI_Menus/Main_Menu.png")), 0, 0, 800,
-					800, null);
+					.getResource("/GUI/GUI_Menus/Main_Menu.png")), 0, 0, Display.FRAME_WIDTH,
+					Display.FRAME_HEIGHT, null);
 
 			switch (id) {
 

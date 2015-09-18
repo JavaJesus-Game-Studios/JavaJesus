@@ -25,14 +25,16 @@ public class Display extends Canvas {
 	
 	public static final String NAME = "Java Jesus by the Coders of Anarchy";
 	
-	public static final int WIDTH = 300;
-	public static final int HEIGHT = WIDTH / 12 * 9;
-	public static final int SCALE = 3;
+	public static final int FRAME_WIDTH = 720 * 12 / 9;
+	public static final int FRAME_HEIGHT = 720;
+	
+	public static final int IMAGE_WIDTH = 225 * 12 / 9;
+	public static final int IMAGE_HEIGHT = 225;
 	
 	protected static JFrame frame;
 	
 	/** Creates the buffered image to be rendered onto the game screen */
-	protected transient BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
+	protected transient BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT,
 			BufferedImage.TYPE_INT_RGB);
 
 	/** Pixel data to be used in the buffered image */
@@ -55,7 +57,7 @@ public class Display extends Canvas {
 	public static boolean inGameScreen;
 	
 	public Display() {
-		screen = new Screen(WIDTH, HEIGHT);
+		screen = new Screen(IMAGE_WIDTH, IMAGE_HEIGHT);
 		inventory = new InventoryGUI(Game.player);
 		hud = new PlayerHUD(Game.player);
 		pause = new PauseGUI();
@@ -69,7 +71,9 @@ public class Display extends Canvas {
 		
 		cardlayout = (CardLayout) display.getLayout();
 		
-		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+		//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		
 		frame = new JFrame(NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,7 +83,8 @@ public class Display extends Canvas {
 		frame.requestFocus();
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
-		
+		frame.setAlwaysOnTop(true);
+
 		new ChatHandler();
 	}
 	
@@ -109,7 +114,7 @@ public class Display extends Canvas {
 	public void sendCrashReportToScreen(Exception e) {
 		
 		Graphics g = getGraphics();
-		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+		g.fillRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.WHITE);
 		g.drawString(e.toString(), 0, 50);
@@ -159,7 +164,7 @@ public class Display extends Canvas {
 
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {
-				pixels[x + y * WIDTH] = screen.pixels[x + y * screen.width];
+				pixels[x + y * IMAGE_WIDTH] = screen.pixels[x + y * screen.width];
 			}
 
 		}

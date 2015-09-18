@@ -23,14 +23,14 @@ public class ItemScreenGUI extends ScreenGUI {
 
 	private static final long serialVersionUID = 1L;
 	private Player player;
-	private final int width = (int) (Display.WIDTH * Display.SCALE + 10);
-	private final int height = (int) (Display.HEIGHT * Display.SCALE + 85);
+	private final int width = (int) (Display.FRAME_WIDTH + 10);
+	private final int height = (int) (Display.FRAME_HEIGHT + 85);
 	private Screen screen;
 	private Screen screen3;
 	private Screen screen4;
 	private Screen screen5;
-	private final int rowWidth = 630;
-	private final int rowHeight = 140;
+	private final int rowWidth = (int) (630.0 / 900 * Display.FRAME_WIDTH);
+	private final int rowHeight = (int) (140.0 / (300.0 / 12 * 9) * Display.FRAME_HEIGHT);
 	protected BufferedImage image2 = new BufferedImage(rowWidth, rowHeight,
 			BufferedImage.TYPE_INT_RGB);
 	protected BufferedImage image3 = new BufferedImage(rowWidth, rowHeight,

@@ -14,8 +14,8 @@ public class MainScreenGUI extends ScreenGUI {
 
 	private static final long serialVersionUID = 1L;
 
-	private final int WIDTH = (int) (Display.WIDTH * Display.SCALE + 10);
-	private final int HEIGHT = (int) (Display.HEIGHT * Display.SCALE + 85);
+	private final int WIDTH = (int) (Display.FRAME_WIDTH + 10);
+	private final int HEIGHT = (int) (Display.FRAME_HEIGHT  + 85);
 
 	public MainScreenGUI() {
 		this.input = new InputHandler(this);

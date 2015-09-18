@@ -7,6 +7,7 @@ import ca.javajesus.game.InputHandler;
 import ca.javajesus.game.JavaRectangle;
 import ca.javajesus.game.entities.Mob;
 import ca.javajesus.game.entities.Player;
+import ca.javajesus.game.graphics.JJFont;
 import ca.javajesus.game.graphics.Screen;
 import ca.javajesus.game.graphics.SpriteSheet;
 import ca.javajesus.level.Level;
@@ -14,15 +15,19 @@ import ca.javajesus.level.Level;
 public class Vehicle extends Mob {
 
 	private static final long serialVersionUID = -190937210314016793L;
-	
+
 	public boolean isUsed = false;
 	protected Player player;
 	public transient InputHandler input;
 	protected int tickCount = 0;
 	protected Point acceleration = new Point(0, 0);
-	protected int DELAY = 3;
+	protected int DELAY = 10;
 	protected final int MAX_ACCELERATION = 5;
-	protected boolean isSlowingDown = true;
+	protected boolean isXSlowingDown = true;
+	protected boolean isYSlowingDown = true;
+
+	protected boolean showCantExitVehicle = false;
+	protected int exitTickCount = 0;
 
 	public Vehicle(Level level, String name, int x, int y, int speed,
 			int width, int height, SpriteSheet sheet, int defaultHealth) {
@@ -86,12 +91,13 @@ public class Vehicle extends Mob {
 			}
 		}
 
-		isSlowingDown = true;
+		isXSlowingDown = true;
+		isYSlowingDown = true;
 		if (this.isUsed) {
 
 			if (input.w.isPressed()) {
 
-				isSlowingDown = false;
+				isYSlowingDown = false;
 				if (Math.abs(acceleration.y - 1) < MAX_ACCELERATION
 						&& tickCount % DELAY == 0) {
 					acceleration.y--;
@@ -99,7 +105,7 @@ public class Vehicle extends Mob {
 			}
 
 			if (input.s.isPressed()) {
-				isSlowingDown = false;
+				isYSlowingDown = false;
 				if (Math.abs(acceleration.y + 1) < MAX_ACCELERATION
 						&& tickCount % DELAY == 0) {
 					acceleration.y++;
@@ -107,7 +113,7 @@ public class Vehicle extends Mob {
 			}
 
 			if (input.a.isPressed()) {
-				isSlowingDown = false;
+				isXSlowingDown = false;
 				if (Math.abs(acceleration.x - 1) < MAX_ACCELERATION
 						&& tickCount % DELAY == 0) {
 					acceleration.x--;
@@ -115,7 +121,7 @@ public class Vehicle extends Mob {
 			}
 
 			if (input.d.isPressed()) {
-				isSlowingDown = false;
+				isXSlowingDown = false;
 				if (Math.abs(acceleration.x + 1) < MAX_ACCELERATION
 						&& tickCount % DELAY == 0) {
 					acceleration.x++;
@@ -135,11 +141,16 @@ public class Vehicle extends Mob {
 				}
 			}
 			if (input.e.isPressed()) {
-				this.isUsed = false;
-				player.isDriving = false;
-				input.e.toggle(false);
-				player.setX(player.getX() - 30);
-				remPlayer();
+				if (!player.isSolidEntityCollision(-6, 0)
+						&& !player.hasCollided(-6, 0)) {
+					player.setX(player.getX() - 20);
+					this.isUsed = false;
+					player.isDriving = false;
+					input.e.toggle(false);
+					remPlayer();
+				} else {
+					showCantExitVehicle = true;
+				}
 			}
 
 		}
@@ -169,22 +180,33 @@ public class Vehicle extends Mob {
 				player.setMoving(false);
 		}
 
-		if (tickCount % DELAY == 0 && isSlowingDown) {
-			if (acceleration.x > 0) {
-				acceleration.x--;
+		if (tickCount % DELAY == 0) {
+			if (isXSlowingDown) {
+				if (acceleration.x > 0) {
+					acceleration.x--;
+				}
+				if (acceleration.x < 0) {
+					acceleration.x++;
+				}
 			}
-			if (acceleration.x < 0) {
-				acceleration.x++;
-			}
-			if (acceleration.y > 0) {
-				acceleration.y--;
-			}
-			if (acceleration.y < 0) {
-				acceleration.y++;
+			if (isYSlowingDown) {
+				if (acceleration.y > 0) {
+					acceleration.y--;
+				}
+				if (acceleration.y < 0) {
+					acceleration.y++;
+				}
 			}
 		}
 
 		tickCount++;
+		if (showCantExitVehicle) {
+			exitTickCount++;
+			if (exitTickCount >= 60) {
+				showCantExitVehicle = false;
+				exitTickCount = 0;
+			}
+		}
 	}
 
 	public void kill() {
@@ -196,8 +218,10 @@ public class Vehicle extends Mob {
 	}
 
 	public void render(Screen screen) {
-		// returnObjects.clear();
-		// Game.quad.retrieve(returnObjects, this.bounds);
+		if (player != null && showCantExitVehicle) {
+			JJFont.render("!", screen, player.getX() - 20, player.getY(),
+					new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
+		}
 	}
 
 }

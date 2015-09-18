@@ -405,13 +405,17 @@ public class Player extends Mob {
 				vehicle.isUsed = false;
 				vehicle.remPlayer();
 			}
-			return;
+			
 		}
 
 		this.getBounds().setLocation(this.x - this.width / 2,
 				this.y - this.height / 2);
 		this.getOuterBounds().setLocation(this.x - this.width / 2 - 2,
 				this.y - this.height / 2 - 2);
+		
+		if (isDriving) {
+			return;
+		}
 
 		if (health < 20) {
 			// screen.setShader(16711680);

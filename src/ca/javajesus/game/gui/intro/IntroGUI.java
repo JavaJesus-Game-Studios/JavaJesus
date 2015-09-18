@@ -36,6 +36,7 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 		this.setFocusable(true);
 		this.setLayout(new BorderLayout(0, 0));
 		this.input = new InputHandler(this);
+		this.setPreferredSize(new Dimension(Display.FRAME_WIDTH, Display.FRAME_HEIGHT));
 
 		JPanel mainPanel = new JPanel(new FlowLayout());
 

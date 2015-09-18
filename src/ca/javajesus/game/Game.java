@@ -62,7 +62,6 @@ public class Game implements Runnable {
 
 	public synchronized void startWithLoad() {
 		if (GameData.load()) {
-			player = null;
 			player = getLevel().getPlayer();
 			display = new Display();
 			player.setInput(new InputHandler(display));
