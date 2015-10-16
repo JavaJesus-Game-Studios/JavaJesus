@@ -2,12 +2,10 @@ package ca.javajesus.game.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-
 import ca.javajesus.game.Display;
 import ca.javajesus.game.Game;
 import ca.javajesus.game.InputHandler;
@@ -16,349 +14,228 @@ import ca.javajesus.saves.GameData;
 
 public class PausePanelGUI extends JPanel {
 
+	// / Used for serialization
 	private static final long serialVersionUID = 1L;
 
+	// offset of the sword to render
 	private int swordOffset;
-	private boolean nextScreen = false;
-	private int buttonId = 0;
-	private int id;
-	public int width = 800;
-	public int height = 750;
-	protected int button_width = 80;
-	protected int button_height = 40;
-	InputHandler input;
+
+	// starting position of sword
+	private int swordStart = 110;
+
+	// determines if one of the buttons has been clicked
+	private boolean isClicked;
+
+	// The selected button that was clicked
+	private LauncherButton selectedButton;
+
+	// Id of the page
+	private int pageId;
+
+	private int width = Display.FRAME_WIDTH + 20,
+			height = Display.FRAME_HEIGHT + 20;
+
+	// Checks if the resume button is clicked
 	public boolean resumeIsPressed = false;
 
-	public SoundHandler sound = SoundHandler.sound;
-	Thread thread;
+	/**
+	 * IDs of the page screens
+	 */
+	private static final int MAINMENU = 0, OPTIONSMENU = 1, AUDIOMENU = 2;
+
+	/**
+	 * Ids of the buttons
+	 */
+	private static final int RESUME = 0, SAVE = 1, LOAD = 2, OPTIONS = 3,
+			BACK = 4, QUIT = 5, AUDIO = 6, VIDEO = 7, CONTROLS = 8, MUTE = 9;
+
+	// Buttons on the launcher
+	private LauncherButton resume, save, load, options, back, quit, audio,
+			video, controls, mute;
+
+	// sound handler
+	private SoundHandler sound = SoundHandler.sound;
+
+	// buffered images that are displayed on the screen
+	private BufferedImage background, sword_selector;
 
 	public PausePanelGUI() {
-		this.id = 0;
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		this.input = new InputHandler(this);
+		new InputHandler(this);
 		setPreferredSize(new Dimension(width, height));
-		swordOffset = 0;
+		init();
 	}
 
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
+	/**
+	 * Initializes instance variables and loads button images
+	 */
+	private void init() {
+		BufferedImage resume_on, resume_off, save_on, save_off, options_on, options_off, load_on, load_off, audio_on, audio_off, video_on, video_off, controls_on, controls_off, mute_on, mute_off, back_on, back_off, quit_on, quit_off;
 		try {
-			g.drawImage(ImageIO.read(Launcher.class
-					.getResource("/GUI/GUI_Menus/Main_Menu.png")), 0, 0, Display.FRAME_WIDTH,
-					Display.FRAME_HEIGHT, null);
+			background = ImageIO.read(Launcher.class
+					.getResource("/GUI/GUI_Menus/Main_Menu.png"));
 
-			switch (id) {
+			sword_selector = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/sword_selector.png"));
 
-			case 0: {
-				/** Resume Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
-						&& InputHandler.MouseY > 450
-						&& InputHandler.MouseY < 450 + 30) {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/resume_on.png")), 365,
-							450, 100, 30, null);
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/sword_selector.png")),
-							365 - 110 + swordOffset, 450, 100, 30, null);
-					if (InputHandler.MouseButton == 1) {
-						InputHandler.MouseButton = 0;
-						sound.play(sound.sheathe);
-						nextScreen = true;
-						buttonId = 0;
-					}
+			resume_on = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/resume_on.png"));
 
-				} else {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/resume_off.png")), 365,
-							450, 100, 30, null);
-				}
+			resume_off = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/resume_off.png"));
 
-				/** Save Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
-						&& InputHandler.MouseY > 510
-						&& InputHandler.MouseY < 510 + 30) {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/save_on.png")), 365,
-							510, 100, 30, null);
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/sword_selector.png")),
-							365 - 110 + swordOffset, 510, 100, 30, null);
-					if (InputHandler.MouseButton == 1) {
-						InputHandler.MouseButton = 0;
-						sound.play(sound.sheathe);
-						nextScreen = true;
-						buttonId = 1;
-					}
+			save_on = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/save_on.png"));
 
-				} else {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/save_off.png")), 365,
-							510, 100, 30, null);
-				}
+			save_off = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/save_off.png"));
 
-				/** Load Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
-						&& InputHandler.MouseY > 570
-						&& InputHandler.MouseY < 570 + 30) {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/load_on.png")), 365,
-							570, 100, 30, null);
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/sword_selector.png")),
-							365 - 110 + swordOffset, 570, 100, 30, null);
-					if (InputHandler.MouseButton == 1) {
-						InputHandler.MouseButton = 0;
-						sound.play(sound.sheathe);
-						nextScreen = true;
-						buttonId = 2;
-					}
+			load_on = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/load_on.png"));
 
-				} else {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/load_off.png")), 365,
-							570, 100, 30, null);
-				}
+			load_off = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/load_off.png"));
 
-				/** Options */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
-						&& InputHandler.MouseY > 630
-						&& InputHandler.MouseY < 630 + 30) {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/options_on.png")), 365,
-							630, 100, 30, null);
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/sword_selector.png")),
-							365 - 110 + swordOffset, 630, 100, 30, null);
-					if (InputHandler.MouseButton == 1) {
-						InputHandler.MouseButton = 0;
-						sound.play(sound.sheathe);
-						nextScreen = true;
-						buttonId = 3;
-					}
+			options_on = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/options_on.png"));
 
-				} else {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/options_off.png")), 365,
-							630, 100, 30, null);
-				}
-				break;
+			options_off = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/options_off.png"));
 
-			}
-			case 1: {
+			audio_on = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/audio_on.png"));
 
-				// Save Screen
+			audio_off = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/audio_off.png"));
 
-			}
-			case 2: {
-				// Load Screen
-			}
-			case 3: {
-				/** Audio Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
-						&& InputHandler.MouseY > 450
-						&& InputHandler.MouseY < 450 + 30) {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/audio_on.png")), 365,
-							450, 100, 30, null);
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/sword_selector.png")),
-							365 - 110 + swordOffset, 450, 100, 30, null);
-					if (InputHandler.MouseButton == 1) {
-						InputHandler.MouseButton = 0;
-						sound.play(sound.sheathe);
-						nextScreen = true;
-						buttonId = 4;
-					}
+			video_on = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/video_on.png"));
 
-				} else {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/audio_off.png")), 365,
-							450, 100, 30, null);
-				}
+			video_off = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/video_off.png"));
 
-				/** Video Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
-						&& InputHandler.MouseY > 510
-						&& InputHandler.MouseY < 510 + 30) {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/video_on.png")), 365,
-							510, 100, 30, null);
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/sword_selector.png")),
-							365 - 110 + swordOffset, 510, 100, 30, null);
-					if (InputHandler.MouseButton == 1) {
-						InputHandler.MouseButton = 0;
-						sound.play(sound.sheathe);
-						nextScreen = true;
-						buttonId = 5;
-					}
+			controls_on = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/controls_on.png"));
 
-				} else {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/video_off.png")), 365,
-							510, 100, 30, null);
-				}
+			controls_off = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/controls_off.png"));
 
-				/** Controls Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
-						&& InputHandler.MouseY > 570
-						&& InputHandler.MouseY < 570 + 30) {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/controls_on.png")), 365,
-							570, 100, 30, null);
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/sword_selector.png")),
-							365 - 110 + swordOffset, 570, 100, 30, null);
-					if (InputHandler.MouseButton == 1) {
-						InputHandler.MouseButton = 0;
-						sound.play(sound.sheathe);
-						nextScreen = true;
-						buttonId = 6;
-					}
-				} else {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/controls_off.png")),
-							365, 570, 100, 30, null);
-				}
-				break;
-			}
+			mute_on = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/mute_on.png"));
 
-			case 4: {
-				/** Mute Button */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
-						&& InputHandler.MouseY > 450
-						&& InputHandler.MouseY < 450 + 30) {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/mute_on.png")), 365,
-							450, 100, 30, null);
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/sword_selector.png")),
-							365 - 110 + swordOffset, 450, 100, 30, null);
-					if (InputHandler.MouseButton == 1) {
-						InputHandler.MouseButton = 0;
-						sound.play(sound.sheathe);
-						nextScreen = true;
-						buttonId = 7;
-					}
+			mute_off = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/mute_off.png"));
 
-				} else {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/mute_off.png")), 365,
-							450, 100, 30, null);
-				}
-				break;
-			}
+			back_on = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/back_on.png"));
 
-			}
+			back_off = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/back_off.png"));
 
-			if (id != 0) {
-				/** Back */
-				if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
-						&& InputHandler.MouseY > 630
-						&& InputHandler.MouseY < 630 + 30) {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/back_on.png")), 365,
-							630, 100, 30, null);
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/sword_selector.png")),
-							365 - 110 + swordOffset, 630, 100, 30, null);
-					if (InputHandler.MouseButton == 1) {
-						InputHandler.MouseButton = 0;
-						sound.play(sound.sheathe);
-						nextScreen = true;
-						buttonId = 8;
-					}
+			quit_on = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/quit_on.png"));
 
-				} else {
-					g.drawImage(ImageIO.read(Launcher.class
-							.getResource("/GUI/Buttons/back_off.png")), 365,
-							630, 100, 30, null);
-				}
-			}
+			quit_off = ImageIO.read(Launcher.class
+					.getResource("/GUI/Buttons/quit_off.png"));
 
-			/** Main Menu */
-			if (InputHandler.MouseX > 365 && InputHandler.MouseX < 365 + 80
-					&& InputHandler.MouseY > 690
-					&& InputHandler.MouseY < 690 + 30) {
-				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/GUI/Buttons/quit_on.png")), 365, 690,
-						100, 30, null);
-				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/GUI/Buttons/sword_selector.png")),
-						365 - 110 + swordOffset, 690, 100, 30, null);
-				if (InputHandler.MouseButton == 1) {
-					InputHandler.MouseButton = 0;
-					sound.play(sound.sheathe);
-					nextScreen = true;
-					buttonId = 9;
-				}
+			resume = new LauncherButton(450, RESUME, resume_off, resume_on);
+			save = new LauncherButton(500, SAVE, save_off, save_on);
+			load = new LauncherButton(550, LOAD, load_off, load_on);
+			options = new LauncherButton(600, OPTIONS, options_off, options_on);
 
-			} else {
-				g.drawImage(ImageIO.read(Launcher.class
-						.getResource("/GUI/Buttons/quit_off.png")), 365, 690,
-						100, 30, null);
-			}
+			audio = new LauncherButton(450, AUDIO, audio_off, audio_on);
+			video = new LauncherButton(500, VIDEO, video_off, video_on);
+			controls = new LauncherButton(550, CONTROLS, controls_off,
+					controls_on);
+			mute = new LauncherButton(450, MUTE, mute_off, mute_on);
+
+			back = new LauncherButton(650, BACK, back_off, back_on);
+			quit = new LauncherButton(700, QUIT, quit_off, quit_on);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		if (nextScreen) {
+	}
+
+	protected void paintComponent(Graphics g) {
+		g.drawImage(background, 0, 0, this.width,
+				this.height, null);
+
+		switch (pageId) {
+
+		case MAINMENU: {
+
+			resume.draw(g);
+			save.draw(g);
+			load.draw(g);
+			options.draw(g);
+			break;
+
+		}
+		case OPTIONSMENU: {
+			audio.draw(g);
+			video.draw(g);
+			controls.draw(g);
+			break;
+		}
+
+		case AUDIOMENU: {
+			mute.draw(g);
+			break;
+		}
+
+		}
+
+		if (pageId != MAINMENU) {
+			back.draw(g);
+		}
+
+		quit.draw(g);
+
+		if (isClicked) {
 			swordOffset += 10;
 			if (swordOffset > 100) {
 				swordOffset = 0;
-				nextScreen = false;
-				transferScreen(buttonId);
+				isClicked = false;
+				doAction();
 			}
 		}
 	}
 
-	private void transferScreen(int id) {
+	private void doAction() {
+
+		int id = selectedButton.getActionId();
+		selectedButton = null;
 
 		switch (id) {
-		case 0: {
-			// resume
+		case RESUME: {
 			resumeIsPressed = true;
 			return;
 		}
-		case 1: {
-			// save
+		case SAVE: {
 			GameData.saveGame();
 			return;
 		}
-		case 2: {
-			// load
-			//Launcher.load = true;
-			//Game.init();
+		case LOAD: {
 			return;
 		}
-		case 3: {
-			// options
-			this.id = 3;
+		case OPTIONS: {
+			this.pageId = OPTIONSMENU;
 			return;
 		}
-		case 4: {
-			// Audio
-			this.id = 4;
+		case AUDIO: {
+			this.pageId = AUDIOMENU;
 			return;
 		}
-		case 5: {
-			// Video
+		case VIDEO: {
 			System.out.println("Video coming soon");
 			return;
 		}
-		case 6: {
-			// Controls
+		case CONTROLS: {
 			System.out.println("Controls coming soon");
 			return;
 		}
-		case 7: {
-			// Mute
+		case MUTE: {
 			if (!sound.muted) {
 				sound.muted = true;
 				sound.background1.stop();
@@ -368,22 +245,76 @@ public class PausePanelGUI extends JPanel {
 			}
 			return;
 		}
-		case 8: {
-			// Back
-			this.id = 0;
+		case BACK: {
+			switch (pageId) {
+			case OPTIONSMENU:
+				this.pageId = MAINMENU;
+				break;
+			case AUDIOMENU:
+				this.pageId = OPTIONSMENU;
+				break;
+			}
 			return;
 		}
-		case 9: {
+		case QUIT: {
 			// Main Menu
-			//Display.returnToMenu = true;
-			Game.player.kill();
+			// Display.returnToMenu = true;
+			//Display.stop();
+			//new Launcher();
 			return;
 		}
 		default: {
+			System.out.println("ID NOT FOUND");
 			return;
 		}
 		}
 
+	}
+
+	/**
+	 * Launcher Button that is used on the launcher screen
+	 */
+	private class LauncherButton {
+
+		private int x, y;
+		private int actionId;
+		private BufferedImage imageOff, imageOn;
+
+		public LauncherButton(int yPos, int actionId, BufferedImage imageOff,
+				BufferedImage imageOn) {
+			x = PausePanelGUI.this.width / 2 - imageOff.getWidth() / 2;
+			y = yPos;
+			this.imageOff = imageOff;
+			this.imageOn = imageOn;
+			this.actionId = actionId;
+		}
+
+		public int getActionId() {
+			return actionId;
+		}
+
+		public void draw(Graphics g) {
+			if (InputHandler.MouseX > x
+					&& InputHandler.MouseX < x + imageOff.getWidth()
+					&& InputHandler.MouseY > y
+					&& InputHandler.MouseY < y + imageOff.getHeight()) {
+				g.drawImage(imageOn, x, y, null);
+
+				if (!isClicked || selectedButton == this) {
+					g.drawImage(sword_selector, x - swordStart + swordOffset,
+							y, null);
+				}
+				if (InputHandler.MouseButton == 1) {
+					InputHandler.MouseButton = 0;
+					sound.play(sound.sheathe);
+					isClicked = true;
+					selectedButton = this;
+				}
+
+			} else {
+				g.drawImage(imageOff, x, y, null);
+			}
+		}
 	}
 
 }

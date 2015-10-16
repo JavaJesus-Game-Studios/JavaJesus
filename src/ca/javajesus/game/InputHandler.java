@@ -91,6 +91,7 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener, 
 	public Key j = new Key();
 	public Key m = new Key();
 	public Key v = new Key();
+	public Key f3 = new Key();
 	
 	public static int MouseX;
 	public static int MouseY;
@@ -180,6 +181,9 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener, 
         }
         if (keyCode == KeyEvent.VK_V) {
             v.toggle(isPressed);
+        }
+        if (keyCode == KeyEvent.VK_F3) {
+        	f3.toggle(isPressed);
         }
 
 	}

@@ -141,8 +141,15 @@ public class Vehicle extends Mob {
 				}
 			}
 			if (input.e.isPressed()) {
-				if (!player.isSolidEntityCollision(-6, 0)
-						&& !player.hasCollided(-6, 0)) {
+				int distance = -6;
+				if (this instanceof Car) {
+					distance = -15;
+					if (player.isLatitudinal(player.getDirection())) {
+						distance = -18;
+					}
+				}
+				if (!player.isSolidEntityCollision(distance, 0)
+						&& !player.hasCollided(distance, 0)) {
 					player.setX(player.getX() - 20);
 					this.isUsed = false;
 					player.isDriving = false;

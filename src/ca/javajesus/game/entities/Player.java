@@ -238,6 +238,10 @@ public class Player extends Mob {
 				input.r.toggle(false);
 			}
 		}
+		if (input.f3.isPressed()) {
+			Game.setDisplayDevScreen(!Game.getDisplayDevScreen());
+			input.f3.toggle(false);
+		}
 		if (input.i.isPressed()) {
 			input.i.toggle(false);
 			if (Display.inGameScreen) {

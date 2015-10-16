@@ -10,56 +10,75 @@ import ca.javajesus.level.LevelList;
 import ca.javajesus.saves.GameData;
 
 public class Game implements Runnable {
-	
+
+	// Font name
+	public final static String font_name = "Impact";
+
+	// Maximum amount of entities rendered at once
 	public final static int ENTITY_LIMIT = 1000;
+
+	// Maximum amount of mobs rendered at once
 	public final static int MOB_LIMIT = 300;
 
+	// Determines if the game is running or not
 	private boolean running = false;
 
-	public static int hours = 10;
-	public static int minutes;
+	// Default Time of Day
+	private static int hours = 10;
 
+	// Default Time of day
+	private static int minutes;
+
+	// Stored List of all known levels
 	public static LevelList levels;
 
-	/** Creates instance of the player */
+	// Instance of the single player
 	public static Player player;
 
+	// Starts the game based on the game mode
 	public static GameMode mode;
 
+	// The Display object that processes the image
 	private static Display display;
 
-	private Launcher launcher;
+	private static boolean displayDevOverlay;
 
+	/**
+	 * @author Derek
+	 * @see Distinguishes the three different game modes available
+	 */
 	public enum GameMode {
 		ADVENTURE, MINI, SURVIVAL
 	}
 
-	public Game() {
-		mode = GameMode.ADVENTURE;
-
+	/**
+	 * Constructor that creates a new instance of the game with a default
+	 * Adventure type
+	 */
+	public Game(GameMode m) {
+		mode = m;
+		levels = new LevelList(mode);
+		player = new Player(getLevel(), getLevel().spawnPoint.x,
+				getLevel().spawnPoint.y);
+		display = new Display();
+		player.setInput(new InputHandler(display));
+		getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
+		getLevel().addEntity(player);
+		getLevel().init();
 	}
 
-	/** Called before the game is initialized */
+	/**
+	 * Starts the game
+	 */
 	public synchronized void start() {
-		if (launcher == null) {
-			launcher = new Launcher(this);
-			launcher.start();
-		} else {
-			levels = new LevelList(mode);
-			player = new Player(getLevel(), getLevel().spawnPoint.x,
-					getLevel().spawnPoint.y);
-			display = new Display();
-			player.setInput(new InputHandler(display));
-			getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
-			getLevel().addEntity(player);
-			getLevel().init();
-			running = true;
-			new Thread(this, "Game").start();
-			launcher = null;
-		}
 
+		running = true;
+		new Thread(this, "Game").start();
 	}
 
+	/**
+	 * Starts the game by first checking for a save file
+	 */
 	public synchronized void startWithLoad() {
 		if (GameData.load()) {
 			player = getLevel().getPlayer();
@@ -70,7 +89,6 @@ public class Game implements Runnable {
 			player.getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 			running = true;
 			new Thread(this, "Game").start();
-			launcher = null;
 		} else {
 			System.out.println("Save not found!");
 			this.start();
@@ -118,7 +136,7 @@ public class Game implements Runnable {
 
 				if (System.currentTimeMillis() - lastTimer >= 1000) {
 					lastTimer += 1000;
-					//System.out.println(frames + " fps");
+					// System.out.println(frames + " fps");
 					frames = 0;
 				}
 
@@ -142,7 +160,10 @@ public class Game implements Runnable {
 			display.tick();
 	}
 
-	/** Returns the instance of the current Level */
+	/**
+	 * @return returns the current level the game is rendering if the current
+	 *         level is null, then the default level is chosen (for startup)
+	 */
 	protected static Level getLevel() {
 		if (player != null) {
 			return player.getLevel();
@@ -160,10 +181,29 @@ public class Game implements Runnable {
 
 	}
 
-	/** Main Method Creation */
-	public static void main(String[] args) {
-		new Game().start();
+	/**
+	 * @return Current Game Hour
+	 */
+	public static int getHour() {
+		return hours;
+	}
 
+	/**
+	 * @return Current Game minute
+	 */
+	public static int getMinutes() {
+		return minutes;
+	}
+
+	/**
+	 * @return Returns true if the display should render the dev overlay
+	 */
+	public static boolean getDisplayDevScreen() {
+		return displayDevOverlay;
+	}
+
+	public static void setDisplayDevScreen(boolean doesDisplay) {
+		displayDevOverlay = doesDisplay;
 	}
 
 }
