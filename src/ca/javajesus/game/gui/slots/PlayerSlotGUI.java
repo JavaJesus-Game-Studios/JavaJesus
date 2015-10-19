@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import ca.javajesus.game.Game;
 import ca.javajesus.game.entities.Player;
 import ca.javajesus.game.graphics.Screen;
 
@@ -70,12 +71,8 @@ public class PlayerSlotGUI extends Slot {
 		g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), this);
 		g.drawImage(image2, xOffset, yOffset, width - 50, height - 300, null);
 		g.setColor(Color.YELLOW);
-		g.setFont(new Font("Verdana", 0, 50));
+		g.setFont(new Font(Game.font_name, 0, 50));
 		g.drawString(player.toString(), 50, 65);
-	}
-
-	public void tick() {
-		repaint();
 	}
 
 }

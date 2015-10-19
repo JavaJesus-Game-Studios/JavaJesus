@@ -257,10 +257,7 @@ public class PausePanelGUI extends JPanel {
 			return;
 		}
 		case QUIT: {
-			// Main Menu
-			// Display.returnToMenu = true;
-			//Display.stop();
-			//new Launcher();
+			Game.stop();
 			return;
 		}
 		default: {

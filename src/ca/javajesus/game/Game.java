@@ -21,7 +21,7 @@ public class Game implements Runnable {
 	public final static int MOB_LIMIT = 300;
 
 	// Determines if the game is running or not
-	private boolean running = false;
+	private static boolean running = false;
 
 	// Default Time of Day
 	private static int hours = 10;
@@ -97,7 +97,7 @@ public class Game implements Runnable {
 	}
 
 	/** Stops the game */
-	public synchronized void stop() {
+	public static synchronized void stop() {
 		running = false;
 	}
 
@@ -146,18 +146,20 @@ public class Game implements Runnable {
 				running = false;
 			}
 		}
+		
+		Display.stop();
+		display = null;
+		new Launcher().start();
 
 	}
 
 	/** Called 60 times a second */
 	public void tick() {
-		if (player.isDead()) {
-			stop();
-			display.stop();
-			display = null;
-			start();
-		} else
+		if (!player.isDead()) {
 			display.tick();
+		} else {
+			stop();
+		}
 	}
 
 	/**
