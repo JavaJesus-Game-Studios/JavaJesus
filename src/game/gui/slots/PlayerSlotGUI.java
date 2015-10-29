@@ -3,6 +3,7 @@ package game.gui.slots;
 import game.Game;
 import game.entities.Player;
 import game.graphics.Screen;
+import game.graphics.SpriteSheet;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,26 +16,25 @@ public class PlayerSlotGUI extends Slot {
 
 	private static final long serialVersionUID = 1L;
 
-	private Player player;
-	private int width;
-	private int height;
-
 	private Screen screen;
-	public BufferedImage image2;
+	private BufferedImage playerImage;
 	private int[] pixels;
-	protected int[] colors = new int[6 * 6 * 6];
+	private int[] colors = new int[6 * 6 * 6];
+	
+	private static final int PLAYER_WIDTH = 16, PLAYER_HEIGHT = 16;
+	
+	private double heightRatio;
 
-	public PlayerSlotGUI(Player player) {
-		super("/GUI/GUI_Inventory/GUI_PLAYER.png");
-		width = image.getWidth();
-		height = image.getHeight();
-		image2 = new BufferedImage(width - 50, height - 300,
-				BufferedImage.TYPE_INT_RGB);
-		pixels = ((DataBufferInt) image2.getRaster().getDataBuffer()).getData();
-		this.player = player;
+	public PlayerSlotGUI(int width, int height, String file, double heightRatio) {
+		super(file);
+
+		this.heightRatio = heightRatio;
 		this.setPreferredSize(new Dimension(width, height));
+		playerImage = new BufferedImage(PLAYER_WIDTH, PLAYER_HEIGHT,
+				BufferedImage.TYPE_INT_RGB);
+		pixels = ((DataBufferInt) playerImage.getRaster().getDataBuffer())
+				.getData();
 		init();
-
 	}
 
 	private void init() {
@@ -50,29 +50,56 @@ public class PlayerSlotGUI extends Slot {
 				}
 			}
 		}
-		screen = new Screen(width - 50, height - 300);
+		screen = new Screen(PLAYER_WIDTH, PLAYER_HEIGHT);
 	}
 
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		int xOffset = image.getWidth() / 2 - image2.getWidth() / 2 + 10;
-		int yOffset = image.getHeight() / 2 - image2.getHeight() / 2;
-
-		player.renderDisplay(screen, 25);
 
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {
-				pixels[x + y * (width - 50)] = screen.pixels[x + y
-						* screen.width];
+				pixels[x + y * (PLAYER_WIDTH)] = screen.pixels[x + y * screen.width];
 			}
 
 		}
 
-		g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), this);
-		g.drawImage(image2, xOffset, yOffset, width - 50, height - 300, null);
+		renderPlayer(screen, 1);
+
+		int xOffset = this.getWidth()  / 8;
+		int yOffset = (int) (this.getHeight() * ((1 - heightRatio) / 2));
+
+		g.drawImage(playerImage, xOffset, yOffset, this.getWidth() * 3 / 4,
+				(int) (this.getHeight() * heightRatio), null);
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font(Game.FONT_NAME, 0, 50));
-		g.drawString(player.toString(), 50, 65);
+		g.drawString(Game.player.toString(), 50, 65);
 	}
 
+	public void renderPlayer(Screen screen, int scale) {
+
+		int modifier = 8 * scale;
+		int xOffset = 0;
+		int yOffset = 0;
+
+		int flip = 0, xTile = 0, yTile = 0;
+		int[] color = Game.player.getColor();
+		SpriteSheet sheet = SpriteSheet.player;
+
+		// Upper body 1
+		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
+				* sheet.boxes, color, flip, scale, sheet);
+		// Upper Body 2
+		screen.render(xOffset + modifier - (modifier * flip), yOffset,
+				(xTile + 1) + yTile * sheet.boxes, color, flip, scale, sheet);
+
+		// Lower Body 1
+		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile
+				+ (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
+		// Lower Body 2
+		screen.render(xOffset + modifier - (modifier * flip), yOffset
+				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
+				flip, scale, sheet);
+
+	}
+	
 }

@@ -626,33 +626,6 @@ public class Player extends Mob {
 		this.hairColor = num;
 	}
 
-	public void renderDisplay(Screen screen, int scale) {
-
-		int modifier = 8 * scale;
-		int xOffset = modifier / 2;
-		int yOffset = modifier / 2 - 4;
-
-		int flip = 0;
-		int xTile = 0;
-
-		// Normal Player movement -- Not Attacking Anything
-		// Upper body 1
-		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-				* sheet.boxes, color, flip, scale, sheet);
-		// Upper Body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset,
-				(xTile + 1) + yTile * sheet.boxes, color, flip, scale, sheet);
-
-		// Lower Body 1
-		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile
-				+ (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
-		// Lower Body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset
-				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-				flip, scale, sheet);
-
-	}
-
 	public void damage(int a, int b) {
 		int damage = random.nextInt(b - a + 1) + a;
 		while (shield > 0 && damage > 0) {
@@ -695,6 +668,10 @@ public class Player extends Mob {
 
 	public int[] getColor() {
 		return color;
+	}
+	
+	public SpriteSheet getSpriteSheet() {
+		return this.gunSheet;
 	}
 
 }

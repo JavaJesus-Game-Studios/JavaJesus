@@ -44,8 +44,8 @@ public class LordHillsboroughsDomain extends Level {
 	protected void initNPCPlacement() {
 		this.addEntity(new Horse(this, 181 * 8, 182 * 8, 0));
 		this.addEntity(new CenturyLeSabre(this, 354 * 8, 182 * 8));
-		this.addEntity(new Truck(this, 360*8, 182*8));
-		this.addEntity(new SportsCar(this, 355*8, 200*8));
+		this.addEntity(new Truck(this, 360 * 8, 182 * 8));
+		this.addEntity(new SportsCar(this, 355 * 8, 200 * 8));
 
 		// Peasants
 		this.addEntity(new Peasant(this, 80 * 8, 44 * 8, Gender.MALE, "circle",
@@ -97,7 +97,6 @@ public class LordHillsboroughsDomain extends Level {
 		this.addEntity(new Peasant(this, 280 * 8, 60 * 8, Gender.BOY, "circle",
 				2));
 
-
 		// Citizens
 		this.addEntity(new NPC(this, "Citizen-Female", 232 * 8, 199 * 8, 1, 16,
 				16, 100, new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0,
@@ -127,11 +126,13 @@ public class LordHillsboroughsDomain extends Level {
 		ArrayList<Item> chest1 = new ArrayList<Item>();
 		chest1.add(Item.shotgun);
 		chest1.add(Item.bazooka);
-		chest1.add(Item.arrowAmmo);
-		chest1.add(Item.assaultRifleAmmo);
-		chest1.add(Item.laserAmmo);
-		chest1.add(Item.revolverAmmo);
-		chest1.add(Item.shotgunAmmo);
+		for (int i = 0; i < 50; i++) {
+			chest1.add(Item.arrowAmmo);
+			chest1.add(Item.assaultRifleAmmo);
+			chest1.add(Item.laserAmmo);
+			chest1.add(Item.revolverAmmo);
+			chest1.add(Item.shotgunAmmo);
+		}
 		chest1.add(Item.horned);
 		chest1.add(Item.knight);
 		chest1.add(Item.vest);
@@ -202,10 +203,11 @@ public class LordHillsboroughsDomain extends Level {
 		this.addEntity(new MapTransporter(this, 0, 0, Game.levels.sanCisco,
 				Direction.NORTH, this.width * 8, 8));
 		this.addEntity(new MapTransporter(this, 0, 0,
-				Game.levels.edgeOfTheWoodsMain, Direction.WEST, 8, this.height * 8));
+				Game.levels.edgeOfTheWoodsMain, Direction.WEST, 8,
+				this.height * 8));
 		this.addEntity(new MapTransporter(this, 0, (this.height * 8) - 8,
-				Game.levels.bautistasDomain, Direction.SOUTH,
-				(this.width * 8), 8));
+				Game.levels.bautistasDomain, Direction.SOUTH, (this.width * 8),
+				8));
 
 	}
 }

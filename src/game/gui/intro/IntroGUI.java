@@ -25,19 +25,19 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 
 	// Used for serialization
 	private static final long serialVersionUID = 1L;
-	
+
 	// Name that is displayed
 	private String name;
-	
+
 	// TextField to enter the name
 	private JTextField nameBox;
-	
-	//Color List Panel
+
+	// Color List Panel
 	private ColorListGUI colorList;
-	
+
 	// Skin Color Panel
 	private SkinColorGUI sclist;
-	
+
 	// Instance of player to display
 	private Player player = Game.player;
 
@@ -49,27 +49,29 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 	 */
 	public IntroGUI() {
 
-		this.pScreen = new PlayerSlotGUI(player);
+		this.pScreen = new PlayerSlotGUI(Display.FRAME_WIDTH / 2,
+				Display.FRAME_HEIGHT + 10, "/GUI/GUI_Inventory/GUI_PLAYER.png", 0.5);
 		this.setFocusable(true);
 		this.setLayout(new BorderLayout(0, 0));
 		this.input = new InputHandler(this);
-		this.setPreferredSize(new Dimension(Display.FRAME_WIDTH, Display.FRAME_HEIGHT));
+		this.setPreferredSize(new Dimension(Display.FRAME_WIDTH,
+				Display.FRAME_HEIGHT));
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(Color.BLACK);
-		
+
 		JPanel p1 = new JPanel(new BorderLayout());
-		pScreen.setPreferredSize(new Dimension(Display.FRAME_WIDTH / 2, Display.FRAME_HEIGHT + 10));
 		p1.add(pScreen, BorderLayout.CENTER);
 
 		mainPanel.add(p1);
 
 		JPanel p2 = new JPanel(new BorderLayout());
-		
+
 		JPanel infoPanel = new JPanel();
 		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.PAGE_AXIS));
 		infoPanel.setBackground(Color.GRAY);
-		infoPanel.setPreferredSize(new Dimension(Display.FRAME_WIDTH / 2, Display.FRAME_HEIGHT + 10));
+		infoPanel.setPreferredSize(new Dimension(Display.FRAME_WIDTH / 2,
+				Display.FRAME_HEIGHT + 10));
 		p2.add(infoPanel, BorderLayout.CENTER);
 
 		JLabel label = new JLabel("Enter your name: ");
@@ -89,13 +91,13 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 		label3.setAlignmentX(Component.CENTER_ALIGNMENT);
 		infoPanel.add(label3);
 		infoPanel.add(sclist);
-		
+
 		JButton confirm = new JButton("Confirm");
 		confirm.setAlignmentX(Component.CENTER_ALIGNMENT);
 		confirm.setFont(new Font(Game.FONT_NAME, Font.PLAIN, 25));
 		confirm.addActionListener(this);
 		infoPanel.add(confirm);
-		
+
 		label.setFont(new Font(Game.FONT_NAME, Font.PLAIN, 25));
 		label2.setFont(new Font(Game.FONT_NAME, Font.PLAIN, 25));
 		label3.setFont(new Font(Game.FONT_NAME, Font.PLAIN, 25));
@@ -124,7 +126,9 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 
 	/**
 	 * When clicked, the game is started and the player is updated
-	 * @param arg0 the action that was performed
+	 * 
+	 * @param arg0
+	 *            the action that was performed
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -147,6 +151,7 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 
 	/**
 	 * Returns the player's name
+	 * 
 	 * @return The Player's Name
 	 */
 	public String getPlayerName() {

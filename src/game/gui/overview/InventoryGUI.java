@@ -1,4 +1,4 @@
-package game.gui.inventory;
+package game.gui.overview;
 
 import game.Display;
 import game.InputHandler;

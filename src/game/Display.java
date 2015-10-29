@@ -4,7 +4,7 @@ import game.graphics.Screen;
 import game.gui.PauseGUI;
 import game.gui.ScreenGUI;
 import game.gui.intro.IntroGUI;
-import game.gui.inventory.OverviewGUI;
+import game.gui.overview.OverviewGUI;
 
 import java.awt.Canvas;
 import java.awt.CardLayout;
@@ -98,7 +98,7 @@ public class Display extends Canvas {
 	 */
 	public Display() {
 		screen = new Screen(IMAGE_WIDTH, IMAGE_HEIGHT);
-		inventory = new OverviewGUI(Game.player);
+		inventory = new OverviewGUI();
 		hud = new PlayerHUD(Game.player);
 		pause = new PauseGUI();
 		introScreen = new IntroGUI();
@@ -134,7 +134,7 @@ public class Display extends Canvas {
 		guiID = INVENTORY_DISPLAY;
 		cardlayout.show(display, "Inventory");
 		inventory.requestFocusInWindow();
-		inventory.inventory.repaint();
+		inventory.getInventory().repaint();
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package game.gui.inventory;
+package game.gui.overview;
 
 import game.gui.ScreenGUI;
 
@@ -11,15 +11,15 @@ import javax.imageio.ImageIO;
 public class MapScreenGUI extends ScreenGUI {
 
 	private static final long serialVersionUID = 1L;
-
-	public MapScreenGUI() {
+	
+	public MapScreenGUI(int width, int height) {
 		try {
 			this.image = ImageIO.read(MapScreenGUI.class
 					.getResource("/GUI/GUI_Inventory/GUI_MAP_2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+		this.setPreferredSize(new Dimension(width, height));
 	}
 	
 	public void tick() {
@@ -27,8 +27,7 @@ public class MapScreenGUI extends ScreenGUI {
 	}
 	
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), this);
+		g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this);
 	}
 
 }

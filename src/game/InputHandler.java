@@ -4,7 +4,7 @@ import game.gui.Launcher;
 import game.gui.PauseGUI;
 import game.gui.PausePanelGUI;
 import game.gui.ScreenGUI;
-import game.gui.inventory.OverviewGUI;
+import game.gui.overview.OverviewGUI;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
