@@ -231,7 +231,6 @@ public class Mob extends Entity {
 
 	public boolean isSolidEntityCollision(int xa, int ya) {
 		renderOnTop = true;
-		// for (JavaRectangle r : returnObjects) {
 		for (Entity entity : level.getEntities()) {
 			if (entity instanceof SolidEntity
 					&& !(entity instanceof Transporter)) {

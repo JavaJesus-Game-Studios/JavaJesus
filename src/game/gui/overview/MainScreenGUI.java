@@ -1,20 +1,22 @@
 package game.gui.overview;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JPanel;
+
 import game.Display;
 import game.InputHandler;
 import game.gui.ScreenGUI;
 import game.gui.slots.PlayerSlotGUI;
 import game.gui.slots.Slot;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.JPanel;
-
 /*
  * The Overview Panel that displays the character, map, quests, and factions
  */
-public class MainScreenGUI extends ScreenGUI {
+public class MainScreenGUI extends ScreenGUI implements MouseListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,6 +30,8 @@ public class MainScreenGUI extends ScreenGUI {
 	private static String LARGE_FILE_NAME = "/GUI/GUI_Inventory/GUI_large_panel.png";
 	
 	private PlayerSlotGUI pScreen;
+	
+	private JPanel factionPanel, questPanel;
 
 	/**
 	 * Initializes the inputhandler and background panels
@@ -40,12 +44,12 @@ public class MainScreenGUI extends ScreenGUI {
 		JPanel bottomRow = new JPanel(new BorderLayout());
 		bottomRow.setPreferredSize(new Dimension(WIDTH,
 				(int) (HEIGHT * BOTTOM_ROW_RATIO)));
-		Slot p1 = new Slot(WIDE_FILE_NAME);
-		p1.setPreferredSize(new Dimension(WIDTH / 2, bottomRow.getHeight()));
-		Slot p2 = new Slot(WIDE_FILE_NAME);
-		p2.setPreferredSize(new Dimension(WIDTH / 2, bottomRow.getHeight()));
-		bottomRow.add(p1, BorderLayout.WEST);
-		bottomRow.add(p2, BorderLayout.CENTER);
+		questPanel = new Slot(WIDE_FILE_NAME);
+		questPanel.setPreferredSize(new Dimension(WIDTH / 2, bottomRow.getHeight()));
+		factionPanel = new Slot(WIDE_FILE_NAME);
+		factionPanel.setPreferredSize(new Dimension(WIDTH / 2, bottomRow.getHeight()));
+		bottomRow.add(questPanel, BorderLayout.WEST);
+		bottomRow.add(factionPanel, BorderLayout.CENTER);
 		this.add(bottomRow, BorderLayout.SOUTH);
 
 		JPanel topRow = new JPanel(new BorderLayout());
@@ -57,11 +61,51 @@ public class MainScreenGUI extends ScreenGUI {
 		this.add(topRow, BorderLayout.CENTER);
 
 		this.validate();
+		
+		pScreen.addMouseListener(this);
+		questPanel.addMouseListener(this);
+		factionPanel.addMouseListener(this);
 
 	}
 
 	public void tick() {
 		pScreen.tick();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == pScreen) {
+			OverviewGUI.displayInventory();
+		} else if (e.getSource() == questPanel) {
+			OverviewGUI.displayQuest();
+		} else if (e.getSource() == factionPanel) {
+			OverviewGUI.displayFaction();
+		}
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
