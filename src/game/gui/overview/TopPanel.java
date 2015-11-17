@@ -13,19 +13,19 @@ import javax.swing.JPanel;
 
 import game.Game;
 
-public class InventorySmallPanel extends JPanel {
-
+public class TopPanel extends JPanel {
+	
 	private static final long serialVersionUID = 1L;
 	
 	private BufferedImage image;
-	private String file = "/GUI/GUI_Inventory/GUI_small_panel.png";
+	private String file = "/GUI/GUI_Inventory/GUI_top_panel.png";
 	
 	private final static int FONT_SIZE = 60;
 	
-	public InventorySmallPanel(int width, int height, String text) {
+	public TopPanel(int width, int height, String text) {
 
 		try {
-			this.image = ImageIO.read(InventorySmallPanel.class.getResource(file));
+			this.image = ImageIO.read(TopPanel.class.getResource(file));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

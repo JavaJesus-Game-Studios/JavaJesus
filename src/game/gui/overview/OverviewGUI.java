@@ -48,7 +48,7 @@ public class OverviewGUI extends ScreenGUI {
 		this.setBackground(Color.BLACK);
 
 		this.input = new InputHandler(this);
-		inventory = new InventoryGUI(Game.player, input);
+		inventory = new InventoryGUI();
 		main = new MainScreenGUI();
 
 		mainScreen = new JPanel(new CardLayout());
