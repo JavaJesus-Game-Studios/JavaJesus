@@ -117,7 +117,7 @@ public class Item implements Serializable {
 	}
 
 	public void render(Screen screen, int xOffset, int yOffset) {
-		screen.render(xOffset, yOffset, xTile + yTile * SpriteSheet.items.boxes, color, 0, 6,
+		screen.render(xOffset, yOffset, xTile + yTile * SpriteSheet.items.boxes, color, 0, 1,
 				SpriteSheet.items);
 	}
 

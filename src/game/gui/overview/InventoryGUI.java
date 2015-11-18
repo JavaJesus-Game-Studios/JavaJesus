@@ -2,8 +2,11 @@ package game.gui.overview;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
-import javax.swing.BoxLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import game.Display;
@@ -22,9 +25,11 @@ public class InventoryGUI extends ScreenGUI {
 
 	private static final double TOP_PANEL_HEIGHT_RATIO = 0.15;
 	private static final double SMALL_PANEL_WIDTH_RATIO = 0.3;
-	private static final int NUM_ROWS = 5;
+	private static final int NUM_ROWS = 4;
 
 	private InventoryRow r1, r2, r3, r4;
+
+	private TopPanel topPanel;
 
 	public InventoryGUI() {
 
@@ -34,12 +39,15 @@ public class InventoryGUI extends ScreenGUI {
 		int height = Display.FRAME_HEIGHT;
 
 		this.setLayout(new BorderLayout());
+		BorderLayout l = (BorderLayout) this.getLayout();
+		l.setVgap(-10);
 
-		this.add(new TopPanel(width, (int) (height * TOP_PANEL_HEIGHT_RATIO), hoverText), BorderLayout.NORTH);
+		topPanel = new TopPanel(width, (int) (height * TOP_PANEL_HEIGHT_RATIO), hoverText);
+		this.add(topPanel, BorderLayout.NORTH);
 
-		JPanel body = new JPanel();
+		JPanel body = new JPanel(new GridLayout(NUM_ROWS, 1));
+		((GridLayout) body.getLayout()).setVgap(-10);
 
-		body.setLayout(new BoxLayout(body, BoxLayout.Y_AXIS));
 		r1 = new InventoryRow("Guns", (ArrayList<Item>) inventory.guns);
 		r2 = new InventoryRow("Swords", (ArrayList<Item>) inventory.swords);
 		r3 = new InventoryRow("Usables", (ArrayList<Item>) inventory.usables);
@@ -52,11 +60,15 @@ public class InventoryGUI extends ScreenGUI {
 
 		update();
 
-		this.add(body, BorderLayout.CENTER);
-
+		this.add(body, BorderLayout.WEST);
+		
 		this.setPreferredSize(new Dimension(width, height));
 		this.validate();
 
+	}
+
+	public void updateText(String text) {
+		topPanel.updateText(text);
 	}
 
 	public void update() {
@@ -76,6 +88,7 @@ public class InventoryGUI extends ScreenGUI {
 
 			int width = Display.FRAME_WIDTH;
 			int height = Display.FRAME_HEIGHT;
+			((FlowLayout) this.getLayout()).setHgap(0);
 
 			this.add(new InventorySmallPanel((int) (width * SMALL_PANEL_WIDTH_RATIO), height / NUM_ROWS, name));
 

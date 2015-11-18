@@ -3,6 +3,8 @@ package game.graphics;
 import java.awt.Color;
 import java.util.Random;
 
+import game.Game;
+
 public class Screen {
 
 	// adding a FF in front of a hex string converts RGB to Hexadecimal
@@ -96,6 +98,9 @@ public class Screen {
 						break;
 					}
 					}
+				if (Game.getDisplayDevScreen() && col == 0xFF000000){ // shows blank space
+					col = 0xFFFF0000;
+				}
 				if (col != 0xFF000000)
 					for (int yScale = 0; yScale < scale; yScale++) {
 						if (yPixel + yScale < 0 || yPixel + yScale >= height)

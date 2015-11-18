@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import game.Game;
 
@@ -22,6 +23,8 @@ public class TopPanel extends JPanel {
 	
 	private final static int FONT_SIZE = 60;
 	
+	private JLabel label;
+	
 	public TopPanel(int width, int height, String text) {
 
 		try {
@@ -30,7 +33,7 @@ public class TopPanel extends JPanel {
 			e.printStackTrace();
 		}
 		
-		JLabel label = new JLabel(text);
+		label = new JLabel(text, SwingConstants.CENTER);
 		label.setOpaque(false);
 		label.setFont(new Font(Game.FONT_NAME, Font.BOLD, FONT_SIZE));
 		
@@ -41,6 +44,10 @@ public class TopPanel extends JPanel {
 		
 		this.validate();
 
+	}
+	
+	public void updateText(String text) {
+		label.setText(text);
 	}
 
 	public void paintComponent(Graphics g) {

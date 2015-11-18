@@ -74,13 +74,6 @@ public class MainScreenGUI extends ScreenGUI implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == pScreen) {
-			OverviewGUI.displayInventory();
-		} else if (e.getSource() == questPanel) {
-			OverviewGUI.displayQuest();
-		} else if (e.getSource() == factionPanel) {
-			OverviewGUI.displayFaction();
-		}
 		
 	}
 
@@ -98,7 +91,13 @@ public class MainScreenGUI extends ScreenGUI implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if (e.getSource() == pScreen) {
+			OverviewGUI.displayInventory();
+		} else if (e.getSource() == questPanel) {
+			OverviewGUI.displayQuest();
+		} else if (e.getSource() == factionPanel) {
+			OverviewGUI.displayFaction();
+		}
 		
 	}
 

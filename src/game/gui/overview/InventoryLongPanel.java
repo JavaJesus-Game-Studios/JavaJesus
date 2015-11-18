@@ -1,11 +1,14 @@
 package game.gui.overview;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import items.Item;
@@ -17,28 +20,30 @@ public class InventoryLongPanel extends JPanel {
 	private BufferedImage image;
 	private String file = "/GUI/GUI_Inventory/GUI_long_panel.png";
 
-	private int size;
-
-	private static final int SIZE_OFFSET = 5;
-
 	private InventoryGUI inven;
 
 	private ArrayList<Item> items = new ArrayList<>();
 
 	private ArrayList<Item> inventory;
 
+	private static final int NUM_ROW = 2, NUM_COL = 8;
+
+	private static final int MAX_ITEMS = NUM_ROW * NUM_COL;
+
 	public InventoryLongPanel(int width, int height, InventoryGUI i, ArrayList<Item> inventory) {
 
 		this.inven = i;
 		this.inventory = inventory;
+
+		this.setLayout(new GridLayout(NUM_ROW, NUM_COL));
+
+		this.setBackground(Color.BLACK);
 
 		try {
 			this.image = ImageIO.read(InventoryLongPanel.class.getResource(file));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		size = width / (height - SIZE_OFFSET);
 
 		this.setPreferredSize(new Dimension(width, height));
 
@@ -47,17 +52,30 @@ public class InventoryLongPanel extends JPanel {
 	}
 
 	public void update() {
+		for (int i = items.size(); i < MAX_ITEMS; i++) {
+			items.add(null);
+			this.add(new JLabel(""));
+		}
 		for (Item e : inventory) {
 			if (!items.contains(e)) {
-				items.add(e);
-				this.add(new InventoryItemPanel(size, size, e, inven));
+				for (int i = 0; i < items.size(); i++) {
+					if (items.get(i) == null) {
+						items.set(i, e);
+						this.remove(i);
+						this.add(new InventoryItemPanel(e, inven), i);
+						break;
+					}
+				}
+
 			}
 		}
+		this.validate();
 		this.repaint();
 	}
 
 	public void paintComponent(Graphics g) {
-		g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this);
+		super.paintComponent(g);
+		// g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this);
 	}
 
 }

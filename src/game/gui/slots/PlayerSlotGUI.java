@@ -19,7 +19,6 @@ public class PlayerSlotGUI extends Slot {
 	private Screen screen;
 	private BufferedImage playerImage;
 	private int[] pixels;
-	private int[] colors = new int[6 * 6 * 6];
 	
 	private static final int PLAYER_WIDTH = 16, PLAYER_HEIGHT = 16;
 	
@@ -34,22 +33,6 @@ public class PlayerSlotGUI extends Slot {
 				BufferedImage.TYPE_INT_RGB);
 		pixels = ((DataBufferInt) playerImage.getRaster().getDataBuffer())
 				.getData();
-		init();
-	}
-
-	private void init() {
-		int index = 0;
-		for (int r = 0; r < 6; r++) {
-			for (int g = 0; g < 6; g++) {
-				for (int b = 0; b < 6; b++) {
-					int rr = (r * 255 / 5);
-					int gg = (g * 255 / 5);
-					int bb = (b * 255 / 5);
-
-					colors[index++] = rr << 16 | gg << 8 | bb;
-				}
-			}
-		}
 		screen = new Screen(PLAYER_WIDTH, PLAYER_HEIGHT);
 	}
 

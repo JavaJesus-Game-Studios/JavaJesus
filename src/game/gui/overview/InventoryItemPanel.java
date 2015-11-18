@@ -23,29 +23,29 @@ public class InventoryItemPanel extends JPanel implements MouseListener {
 	private InventoryGUI panel;
 	private Item item;
 
-	public InventoryItemPanel(int width, int height, Item item, InventoryGUI panel) {
+	private static final int Y_OFFSET = 30;
+
+	private static final int SIZE = 16;
+
+	public InventoryItemPanel(Item item, InventoryGUI panel) {
 
 		this.panel = panel;
-		panel.addMouseListener(this);
+		this.addMouseListener(this);
 		this.item = item;
 
-		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		image = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_RGB);
 		int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		hoverText = item.name;
 
-		Screen screen = new Screen(width, height);
+		Screen screen = new Screen(SIZE, SIZE);
 
 		item.render(screen, 0, 0);
-
 		for (int y = 0; y < screen.height; y++) {
 			for (int x = 0; x < screen.width; x++) {
-				pixels[x + y * width] = screen.pixels[x + y * screen.width];
+				pixels[x + y * SIZE] = screen.pixels[x + y * screen.width];
 			}
 
 		}
-
-		this.setPreferredSize(new Dimension(width, height));
-		this.setOpaque(false);
 
 		this.validate();
 	}
@@ -55,29 +55,29 @@ public class InventoryItemPanel extends JPanel implements MouseListener {
 	}
 
 	public void paintComponent(Graphics g) {
-		g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this);
+		g.drawImage(image, SIZE, Y_OFFSET, this.getWidth(), this.getHeight(), null);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		SoundHandler.sound.play(SoundHandler.sound.click);
-		Game.player.inventory.equip(item, Game.player);
-		panel.update();
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		panel.setToolTipText(hoverText);
+		panel.updateText(hoverText);
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-
+		panel.updateText("Inventory");
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
+		SoundHandler.sound.play(SoundHandler.sound.click);
+		Game.player.inventory.equip(item, Game.player);
+		panel.update();
 	}
 
 	@Override

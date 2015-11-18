@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import game.Game;
 
@@ -30,7 +31,7 @@ public class InventorySmallPanel extends JPanel {
 			e.printStackTrace();
 		}
 		
-		JLabel label = new JLabel(text);
+		JLabel label = new JLabel(text, SwingConstants.CENTER);
 		label.setOpaque(false);
 		label.setFont(new Font(Game.FONT_NAME, Font.BOLD, FONT_SIZE));
 		
