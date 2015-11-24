@@ -1,13 +1,13 @@
 package game.entities.vehicles;
 
+import java.util.Random;
+
 import game.Game;
 import game.entities.particles.HealthBar;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
-
-import java.util.Random;
-
 import level.Level;
+import utility.Direction;
 
 public class Horse extends Vehicle {
 

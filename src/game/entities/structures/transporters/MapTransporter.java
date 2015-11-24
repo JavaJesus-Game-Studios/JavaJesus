@@ -1,14 +1,13 @@
 package game.entities.structures.transporters;
 
-import game.Game;
-import game.entities.Mob.Direction;
-import game.entities.Player;
-import game.graphics.Screen;
-
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import game.Game;
+import game.entities.Player;
+import game.graphics.Screen;
 import level.Level;
+import utility.Direction;
 
 public class MapTransporter extends Transporter {
 

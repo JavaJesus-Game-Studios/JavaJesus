@@ -14,6 +14,7 @@ import java.util.Random;
 import level.Level;
 import level.tile.Tile;
 import quests.Script;
+import utility.Direction;
 
 public class Mob extends Entity {
 
@@ -78,10 +79,6 @@ public class Mob extends Entity {
 				this.x - (int) getBounds().getWidth() / 2 - 2,
 				this.y - (int) getBounds().getHeight() / 2 - 2);
 		this.sheet = sheet;
-	}
-
-	public enum Direction {
-		NORTH, SOUTH, EAST, WEST
 	}
 
 	public void changeHealth(int health) {

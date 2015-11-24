@@ -1,7 +1,8 @@
 package level.story;
 
+import java.awt.Point;
+
 import game.Game;
-import game.entities.Mob.Direction;
 import game.entities.structures.ApartmentHighRise;
 import game.entities.structures.CatholicChapel;
 import game.entities.structures.CatholicChurch;
@@ -20,10 +21,8 @@ import game.entities.structures.SanJuanCityHall;
 import game.entities.structures.TheHub;
 import game.entities.structures.Warehouse;
 import game.entities.structures.transporters.MapTransporter;
-
-import java.awt.Point;
-
 import level.Level;
+import utility.Direction;
 
 public class SanJuan extends Level {
 

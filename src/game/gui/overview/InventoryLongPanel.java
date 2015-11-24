@@ -52,11 +52,22 @@ public class InventoryLongPanel extends JPanel {
 	}
 
 	public void update() {
+		// removes used items
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i) != null && !inventory.contains(items.get(i))) {
+				items.remove(i);
+				this.remove(i);
+				i--;
+			}
+		}
+		// adds blank items
 		for (int i = items.size(); i < MAX_ITEMS; i++) {
 			items.add(null);
 			this.add(new JLabel(""));
 		}
-		for (Item e : inventory) {
+		// adds items
+		for (int j = 0; j < inventory.size(); j++) {
+			Item e = inventory.get(j);
 			if (!items.contains(e)) {
 				for (int i = 0; i < items.size(); i++) {
 					if (items.get(i) == null) {

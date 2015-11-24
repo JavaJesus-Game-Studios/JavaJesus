@@ -1,16 +1,14 @@
 package level.interior;
 
+import java.awt.Point;
+
 import game.Game;
-import game.entities.Mob.Direction;
 import game.entities.npcs.LordHillsborough;
 import game.entities.structures.furniture.Throne;
 import game.entities.structures.transporters.TransporterInterior;
 import game.entities.structures.transporters.TransporterStairStone;
-
-import java.awt.Point;
-
 import level.Level;
-import level.story.LordHillsboroughsDomain;
+import utility.Direction;
 
 public class CastleInterior extends Interior{
 	private Point exitPoint;

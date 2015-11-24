@@ -8,6 +8,7 @@ import game.graphics.SpriteSheet;
 import java.awt.Color;
 
 import level.Level;
+import utility.Direction;
 
 public class LordHillsborough extends NPC {
 

@@ -1,7 +1,8 @@
 package level.story;
 
+import java.awt.Point;
+
 import game.Game;
-import game.entities.Mob.Direction;
 import game.entities.structures.CatholicChapel;
 import game.entities.structures.CatholicChurch;
 import game.entities.structures.CaveEntrance;
@@ -18,10 +19,8 @@ import game.entities.structures.SequoiaSchool;
 import game.entities.structures.ShantyHouse;
 import game.entities.structures.Warehouse;
 import game.entities.structures.transporters.MapTransporter;
-
-import java.awt.Point;
-
 import level.Level;
+import utility.Direction;
 
 public class BautistasDomain extends Level {
 

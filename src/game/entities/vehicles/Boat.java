@@ -1,9 +1,10 @@
 package game.entities.vehicles;
 
-import level.Level;
-import level.tile.Tile;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
+import level.Level;
+import level.tile.Tile;
+import utility.Direction;
 
 public class Boat extends Vehicle {
 

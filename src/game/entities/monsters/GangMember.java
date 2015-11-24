@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 import level.Level;
+import utility.Direction;
 
 public class GangMember extends Monster {
 

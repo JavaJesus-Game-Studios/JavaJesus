@@ -1,14 +1,14 @@
 package items;
 
+import java.awt.Rectangle;
+import java.util.ArrayList;
+
 import game.SoundHandler;
 import game.entities.Mob;
 import game.entities.Player;
-import game.entities.Mob.Direction;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
-
-import java.awt.Rectangle;
-import java.util.ArrayList;
+import utility.Direction;
 
 public class Sword extends Item {
 

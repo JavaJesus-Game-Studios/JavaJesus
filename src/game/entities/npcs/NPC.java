@@ -18,6 +18,7 @@ import java.util.Random;
 
 import level.Level;
 import quests.Quest;
+import utility.Direction;
 
 public class NPC extends Mob {
 

@@ -5,6 +5,7 @@ import game.entities.Player;
 import game.entities.SolidEntity;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
+import game.gui.overview.InventoryGUI;
 import items.Gun;
 import items.Item;
 import items.Sword;
@@ -17,6 +18,8 @@ import level.Level;
 
 public class Chest extends SolidEntity {
 
+	private static final long serialVersionUID = 1L;
+	
 	protected int[] color = new int[] { 0xFF111111, 0xFF452909, 0xFFFFE011 };
 	protected boolean isOpen = false;
 	ArrayList<Item> contents;
@@ -134,6 +137,7 @@ public class Chest extends SolidEntity {
 				ChatHandler.displayText("You have obtained " + e, Color.GREEN);
 			}
 			player.equip();
+			InventoryGUI.update();
 		}
 	}
 

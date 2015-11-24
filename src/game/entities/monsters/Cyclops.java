@@ -1,6 +1,7 @@
 package game.entities.monsters;
 
 import level.Level;
+import utility.Direction;
 import game.Game;
 import game.entities.particles.HealthBar;
 import game.graphics.Screen;

@@ -1,7 +1,8 @@
 package level.story;
 
+import java.awt.Point;
+
 import game.Game;
-import game.entities.Mob.Direction;
 import game.entities.structures.ApartmentHighRise;
 import game.entities.structures.CatholicChurch;
 import game.entities.structures.ChinatownHouse;
@@ -25,10 +26,8 @@ import game.entities.structures.Warehouse;
 import game.entities.structures.transporters.MapTransporter;
 import game.entities.vehicles.Boat;
 import game.entities.vehicles.CenturyLeSabre;
-
-import java.awt.Point;
-
 import level.Level;
+import utility.Direction;
 
 public class SanCisco extends Level {
 

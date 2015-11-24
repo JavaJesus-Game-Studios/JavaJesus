@@ -1,12 +1,11 @@
 package game.entities.structures.transporters;
 
-import game.entities.Mob.Direction;
-import game.graphics.Screen;
-import game.graphics.SpriteSheet;
-
 import java.awt.Point;
 
+import game.graphics.Screen;
+import game.graphics.SpriteSheet;
 import level.Level;
+import utility.Direction;
 
 public class TransporterStairStone extends Transporter {
 	

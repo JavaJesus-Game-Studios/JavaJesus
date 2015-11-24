@@ -1,16 +1,15 @@
 package level.story;
 
+import java.awt.Point;
+
 import game.Game;
-import game.entities.Mob.Direction;
 import game.entities.structures.CaveEntrance;
 import game.entities.structures.Hotel;
 import game.entities.structures.NiceHouse;
 import game.entities.structures.PoorHouse;
 import game.entities.structures.transporters.MapTransporter;
-
-import java.awt.Point;
-
 import level.Level;
+import utility.Direction;
 
 public class EdgeOfTheWoodsTop extends Level {
 

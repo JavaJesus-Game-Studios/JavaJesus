@@ -35,6 +35,10 @@ public class Inventory implements Serializable {
 	}
 
 	public void equip(Item item, Player player) {
+		if (item instanceof Armor) {
+			this.equip((Armor) item, player);
+			return;
+		}
 		items.remove(item);
 		items.add(0, item);
 		if (!(item instanceof Gun || item instanceof Sword)) {

@@ -1,10 +1,11 @@
 package game.entities.vehicles;
 
-import level.Level;
 import game.entities.Player;
 import game.entities.particles.HealthBar;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
+import level.Level;
+import utility.Direction;
 
 public class Car extends Vehicle {
 	

@@ -1,7 +1,8 @@
 package level.story;
 
+import java.awt.Point;
+
 import game.Game;
-import game.entities.Mob.Direction;
 import game.entities.structures.Cafe;
 import game.entities.structures.CardinalUniversity;
 import game.entities.structures.GenericHospital;
@@ -17,10 +18,8 @@ import game.entities.structures.TechTopiaCityHall;
 import game.entities.structures.WeirdTechBuilding1;
 import game.entities.structures.WeirdTechBuilding2;
 import game.entities.structures.transporters.MapTransporter;
-
-import java.awt.Point;
-
 import level.Level;
+import utility.Direction;
 
 public class TechTopia extends Level {
 

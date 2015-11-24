@@ -1,10 +1,12 @@
 package level.story;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
 import game.Game;
-import game.entities.Mob.Direction;
 import game.entities.npcs.NPC;
-import game.entities.npcs.Peasant;
 import game.entities.npcs.NPC.Gender;
+import game.entities.npcs.Peasant;
 import game.entities.npcs.aggressive.Knight;
 import game.entities.structures.Castle;
 import game.entities.structures.CastleTower;
@@ -24,11 +26,8 @@ import game.entities.vehicles.Horse;
 import game.entities.vehicles.SportsCar;
 import game.entities.vehicles.Truck;
 import items.Item;
-
-import java.awt.Point;
-import java.util.ArrayList;
-
 import level.Level;
+import utility.Direction;
 
 public class LordHillsboroughsDomain extends Level {
 

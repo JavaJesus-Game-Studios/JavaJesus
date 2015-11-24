@@ -27,7 +27,7 @@ public class InventoryGUI extends ScreenGUI {
 	private static final double SMALL_PANEL_WIDTH_RATIO = 0.3;
 	private static final int NUM_ROWS = 4;
 
-	private InventoryRow r1, r2, r3, r4;
+	private static InventoryRow r1, r2, r3, r4;
 
 	private TopPanel topPanel;
 
@@ -71,7 +71,7 @@ public class InventoryGUI extends ScreenGUI {
 		topPanel.updateText(text);
 	}
 
-	public void update() {
+	public static void update() {
 		r1.update();
 		r2.update();
 		r3.update();

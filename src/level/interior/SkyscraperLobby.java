@@ -1,12 +1,11 @@
 package level.interior;
 
-import game.entities.Mob.Direction;
-import game.entities.structures.transporters.TransporterInterior;
-import game.entities.structures.transporters.TransporterStairWood;
-
 import java.awt.Point;
 
+import game.entities.structures.transporters.TransporterInterior;
+import game.entities.structures.transporters.TransporterStairWood;
 import level.Level;
+import utility.Direction;
 
 public class SkyscraperLobby extends Interior {
 

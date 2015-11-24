@@ -75,7 +75,7 @@ public class PausePanelGUI extends JPanel {
 		BufferedImage resume_on, resume_off, save_on, save_off, options_on, options_off, load_on, load_off, audio_on, audio_off, video_on, video_off, controls_on, controls_off, mute_on, mute_off, back_on, back_off, quit_on, quit_off;
 		try {
 			background = ImageIO.read(Launcher.class
-					.getResource("/GUI/GUI_Menus/Main_Menu.png"));
+					.getResource("/GUI/GUI_Menus/Main_Menu_Old.png"));
 
 			sword_selector = ImageIO.read(Launcher.class
 					.getResource("/GUI/Buttons/sword_selector.png"));

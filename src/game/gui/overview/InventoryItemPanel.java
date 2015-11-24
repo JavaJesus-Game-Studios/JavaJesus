@@ -1,6 +1,5 @@
 package game.gui.overview;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -77,7 +76,7 @@ public class InventoryItemPanel extends JPanel implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		SoundHandler.sound.play(SoundHandler.sound.click);
 		Game.player.inventory.equip(item, Game.player);
-		panel.update();
+		InventoryGUI.update();
 	}
 
 	@Override

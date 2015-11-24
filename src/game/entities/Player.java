@@ -28,6 +28,7 @@ import level.Level;
 import level.Level1;
 import level.tile.Tile;
 import quests.Quest;
+import utility.Direction;
 
 public class Player extends Mob {
 
