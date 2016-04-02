@@ -34,6 +34,14 @@ public class RandomLevel extends Level {
 		super(width, height, false);
 		this.spawnPoint = spawn;
 	}
+	
+	private RandomCave lastCave; 
+	
+	public RandomLevel(int width, int height, Point spawn, RandomCave lastCave) {
+		super(width, height, false);
+		this.spawnPoint = spawn;
+		this.lastCave = lastCave;
+	}
 
 	public RandomLevel(int width, int height, Point spawn, boolean load) {
 		super(width, height, load);
@@ -41,6 +49,12 @@ public class RandomLevel extends Level {
 	}
 
 	protected void generateLevel() {
+		
+		// generates last cave if there is one
+		if (lastCave != null)
+			this.addEntity(new CaveEntrance(this, spawnPoint.x - 18,
+				spawnPoint.y - 28, lastCave));
+		
 		Random rand = new Random();
 		heightmap = new HeightMap(width, height, true, false)
 				.generateHeightMap(20);

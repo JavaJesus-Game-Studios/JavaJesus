@@ -13,7 +13,7 @@ import level.Level;
 public class Transporter extends SolidEntity {
 
 	private static final long serialVersionUID = -7494182586888198075L;
-	
+
 	protected Level nextLevel;
 
 	public Transporter(Level currentLevel, int x, int y, Level nextLevel) {
@@ -23,8 +23,7 @@ public class Transporter extends SolidEntity {
 		this.bounds.setLocation(x - 4, y - 8);
 	}
 
-	public Transporter(Level currentLevel, int x, int y, Level nextLevel,
-			Point point) {
+	public Transporter(Level currentLevel, int x, int y, Level nextLevel, Point point) {
 		super(currentLevel, x, y, 8, 16);
 		this.nextLevel = nextLevel;
 		this.bounds = new Rectangle(8, 16);
@@ -36,6 +35,7 @@ public class Transporter extends SolidEntity {
 		for (Player player : level.getPlayers()) {
 			if (this.bounds.intersects(player.getBounds())) {
 				if (player.input.e.isPressed()) {
+					level.spawnPoint = new Point(player.getX(), player.getY());
 					player.changeLevel(nextLevel);
 				}
 			}

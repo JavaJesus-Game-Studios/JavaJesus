@@ -20,6 +20,7 @@ import items.Inventory;
 import items.Item;
 import items.Sword;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.sound.sampled.Clip;
@@ -33,7 +34,7 @@ import utility.Direction;
 public class Player extends Mob {
 
 	private static final long serialVersionUID = -4170571410784465465L;
-	
+
 	public transient InputHandler input;
 	protected int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };
 	protected int shirtColor = 0xFFFF0000;
@@ -76,7 +77,7 @@ public class Player extends Mob {
 				new int[] { 0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB }, 0, 4, this);
 
 	}
-	
+
 	public void setInput(InputHandler input) {
 		this.input = input;
 		if (isDriving) {
@@ -124,7 +125,7 @@ public class Player extends Mob {
 	}
 
 	public void changeLevel(Level level) {
-		
+
 		sound.play(SoundHandler.sound.click);
 		if (!this.level.getBackgroundMusic().equals(level.getBackgroundMusic())) {
 			this.level.getBackgroundMusic().stop();
@@ -146,10 +147,8 @@ public class Player extends Mob {
 		level.addEntity(this);
 		this.x = level.spawnPoint.x;
 		this.y = level.spawnPoint.y;
-		this.getBounds().setLocation(this.x - this.width / 2,
-				this.y - this.height / 2);
-		this.getOuterBounds().setLocation(this.x - this.width / 2 - 2,
-				this.y - this.height / 2 - 2);
+		this.getBounds().setLocation(this.x - this.width / 2, this.y - this.height / 2);
+		this.getOuterBounds().setLocation(this.x - this.width / 2 - 2, this.y - this.height / 2 - 2);
 	}
 
 	public void tick() {
@@ -181,22 +180,18 @@ public class Player extends Mob {
 		}
 		if (input.t.isPressed()) {
 			if (!genericCooldown) {
-				level.addEntity(new Demon(level, "Demon", (int) this.x,
-						(int) this.y, 1));
+				level.addEntity(new Demon(level, "Demon", (int) this.x, (int) this.y, 1));
 			}
 			genericCooldown = true;
 		}
-		if (input.up.isPressed() || input.down.isPressed()
-				|| input.left.isPressed() || input.right.isPressed()) {
-			if (!isSwinging && !isSwimming && !isDriving && gun != null
-					&& !this.gun.isReloading)
+		if (input.up.isPressed() || input.down.isPressed() || input.left.isPressed() || input.right.isPressed()) {
+			if (!isSwinging && !isSwimming && !isDriving && gun != null && !this.gun.isReloading)
 				isShooting = true;
 		} else {
 			isShooting = false;
 		}
 		if (input.space.isPressed()) {
-			if (!isShooting && !isSwimming && !isDriving && !isSwinging
-					&& sword != null) {
+			if (!isShooting && !isSwimming && !isDriving && !isSwinging && sword != null) {
 				if (sword != null) {
 					sword.swing();
 					isSwinging = true;
@@ -265,9 +260,7 @@ public class Player extends Mob {
 			if (!isDriving) {
 				for (Entity entity : level.getEntities()) {
 					if (entity instanceof Vehicle) {
-						if (this.getBounds().intersects(
-								((Vehicle) entity).getBounds())
-								&& !((Vehicle) entity).isDead) {
+						if (this.getBounds().intersects(((Vehicle) entity).getBounds()) && !((Vehicle) entity).isDead) {
 							this.vehicle = (Vehicle) entity;
 							this.vehicle.addPlayer(this);
 							this.x = vehicle.x;
@@ -278,14 +271,11 @@ public class Player extends Mob {
 							return;
 						}
 					}
-					if (entity instanceof Chest
-							&& this.getOuterBounds().intersects(
-									((Chest) entity).bounds)) {
+					if (entity instanceof Chest && this.getOuterBounds().intersects(((Chest) entity).bounds)) {
 						((Chest) entity).open(this);
 					}
 					if (entity instanceof Mob && !(entity instanceof Player)) {
-						if (this.getOuterBounds().intersects(
-								((Mob) entity).getOuterBounds())
+						if (this.getOuterBounds().intersects(((Mob) entity).getOuterBounds())
 								&& !((Mob) entity).isDead) {
 							((Mob) entity).speak(this);
 							input.e.toggle(false);
@@ -305,8 +295,7 @@ public class Player extends Mob {
 			speed = 1;
 			if (!sound.swimming.isRunning())
 				sound.play(SoundHandler.sound.swimming);
-		} else if (input.shift.isPressed() && !isDriving && !isTired
-				&& isMoving() && !isShooting && !isSwinging) {
+		} else if (input.shift.isPressed() && !isDriving && !isTired && isMoving() && !isShooting && !isSwinging) {
 			speed = 2;
 			stamina--;
 			if (stamina <= 0)
@@ -332,10 +321,8 @@ public class Player extends Mob {
 		if (jesusMode) {
 			move(xa, ya, true);
 			setMoving(true);
-		} else if ((xa != 0 || ya != 0)
-				&& !isSolidEntityCollision((int) (xa * speed),
-						(int) (ya * speed)) && !isDriving && speed > 1
-				&& !isSwinging) {
+		} else if ((xa != 0 || ya != 0) && !isSolidEntityCollision((int) (xa * speed), (int) (ya * speed)) && !isDriving
+				&& speed > 1 && !isSwinging) {
 			if (gun != null && gun instanceof Bazooka && !isShooting) {
 				move(xa, ya);
 				setMoving(true);
@@ -346,8 +333,7 @@ public class Player extends Mob {
 				move(xa, ya);
 				setMoving(true);
 			}
-		} else if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isDriving && !isSwinging) {
+		} else if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isDriving && !isSwinging) {
 			if (gun != null && gun instanceof Bazooka && !isShooting) {
 				move(xa, ya);
 				setMoving(true);
@@ -411,14 +397,12 @@ public class Player extends Mob {
 				vehicle.isUsed = false;
 				vehicle.remPlayer();
 			}
-			
+
 		}
 
-		this.getBounds().setLocation(this.x - this.width / 2,
-				this.y - this.height / 2);
-		this.getOuterBounds().setLocation(this.x - this.width / 2 - 2,
-				this.y - this.height / 2 - 2);
-		
+		this.getBounds().setLocation(this.x - this.width / 2, this.y - this.height / 2);
+		this.getOuterBounds().setLocation(this.x - this.width / 2 - 2, this.y - this.height / 2 - 2);
+
 		if (isDriving) {
 			return;
 		}
@@ -490,31 +474,25 @@ public class Player extends Mob {
 				waterColor[1] = 0xFF5266FF;
 				waterColor[2] = 0xFF000000;
 			}
-			screen.render(xOffset, yOffset + 3, 0 + 10 * sheet.boxes,
-					waterColor, 0x00, 1, sheet);
-			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * sheet.boxes,
-					waterColor, 0x01, 1, sheet);
+			screen.render(xOffset, yOffset + 3, 0 + 10 * sheet.boxes, waterColor, 0x00, 1, sheet);
+			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * sheet.boxes, waterColor, 0x01, 1, sheet);
 		}
 
 		// Normal Player movement -- Not Attacking Anything
 		if (!isShooting && !isSwinging) {
 			// Upper body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-					* sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile * sheet.boxes, color, flip, scale, sheet);
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
-					sheet);
+			screen.render(xOffset + modifier - (modifier * flip), yOffset, (xTile + 1) + yTile * sheet.boxes, color,
+					flip, scale, sheet);
 
 			if (!isSwimming) {
 				// Lower Body 1
-				screen.render(xOffset + (modifier * flip), yOffset + modifier,
-						xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
-						sheet);
+				screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile + (yTile + 1) * sheet.boxes, color,
+						flip, scale, sheet);
 				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flip), yOffset
-						+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
-						color, flip, scale, sheet);
+				screen.render(xOffset + modifier - (modifier * flip), yOffset + modifier,
+						(xTile + 1) + (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
 
 			}
 		}
@@ -541,22 +519,18 @@ public class Player extends Mob {
 			SpriteSheet sheet = this.gunSheet;
 
 			// Upper Body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-					* sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile * sheet.boxes, color, flip, scale, sheet);
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
-					sheet);
+			screen.render(xOffset + modifier - (modifier * flip), yOffset, (xTile + 1) + yTile * sheet.boxes, color,
+					flip, scale, sheet);
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flip), yOffset + modifier,
-					xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
-					sheet);
+			screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile + (yTile + 1) * sheet.boxes, color,
+					flip, scale, sheet);
 
 			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-					flip, scale, sheet);
+			screen.render(xOffset + modifier - (modifier * flip), yOffset + modifier,
+					(xTile + 1) + (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
 
 			int bulletOffset = -4;
 			if (shootingDir == 2) {
@@ -564,8 +538,7 @@ public class Player extends Mob {
 			}
 
 			if (stamina > 0 && gun != null) {
-				gun.fire(level, this.x + bulletOffset, this.y - 2, shootingDir,
-						this);
+				gun.fire(level, this.x + bulletOffset, this.y - 2, shootingDir, this);
 			}
 
 			if (gun.isReloading) {
@@ -580,8 +553,7 @@ public class Player extends Mob {
 		}
 
 		if (isHit && !isDriving) {
-			JJFont.render(damageTaken, screen, (int) xOffset + isHitX,
-					(int) yOffset - 10 + isHitY, isHitColor, 1);
+			JJFont.render(damageTaken, screen, (int) xOffset + isHitX, (int) yOffset - 10 + isHitY, isHitColor, 1);
 		}
 
 	}
@@ -597,8 +569,7 @@ public class Player extends Mob {
 			} else if (currentTile == Tile.MUD) {
 				if (!sound.footstepsWood.isRunning())
 					sound.play(sound.footstepsWood);
-			} else if (currentTile == Tile.ROAD1 || currentTile == Tile.ROAD2
-					|| currentTile == Tile.ROAD3) {
+			} else if (currentTile == Tile.ROAD1 || currentTile == Tile.ROAD2 || currentTile == Tile.ROAD3) {
 				if (!sound.footstepsRoad.isRunning())
 					sound.play(sound.footstepsRoad);
 			} else if (currentTile == Tile.DIRTROAD) {
@@ -670,7 +641,7 @@ public class Player extends Mob {
 	public int[] getColor() {
 		return color;
 	}
-	
+
 	public SpriteSheet getSpriteSheet() {
 		return this.gunSheet;
 	}
