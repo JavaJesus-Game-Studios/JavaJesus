@@ -13,8 +13,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * The game KeyListener, FocusListener, MouseListener, and MouseMotionListener
@@ -99,8 +97,6 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener,
 				numTimesPressed++;
 		}
 	}
-
-	public List<Key> keys = new ArrayList<Key>();
 
 	public Key up = new Key();
 	public Key down = new Key();

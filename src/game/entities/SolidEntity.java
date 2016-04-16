@@ -1,43 +1,19 @@
 package game.entities;
 
-import game.graphics.Screen;
-
 import java.awt.Rectangle;
 
-import level.Level;
+/*
+ * A SolidEntity cannot be clipped by the player
+ */
+public interface SolidEntity {
 
-public class SolidEntity extends Entity {
-
-	private static final long serialVersionUID = -3116586717644036975L;
-
-	public Rectangle shadow;
-	protected int width;
-	protected int height;
-	// public final int x, y;
-	protected int[] color;
-
-	public SolidEntity(Level level, int x, int y, int width, int height) {
-		super(level);
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.shadow = new Rectangle(width, (height / 2));
-		this.shadow.setLocation(x, y);
-		this.bounds = new Rectangle(width, (height / 2) - 8);
-		this.bounds.setLocation(x, y + shadow.height);
-	}
-
-	public void tick() {
-
-	}
-
-	public void render(Screen screen) {
-
-	}
-
-	public String toString() {
-		return "Solid Entity";
-	}
+	/**
+	 * The area where the player can walk behind the building
+	 * @return the clip through back part of the building
+	 */
+	public abstract Rectangle getShadow();
+	
+	// Ratios for the shadow height
+	public static final double QUARTER = 0.25, HALF = 0.5, TWO_THIRDS = .66;
 
 }

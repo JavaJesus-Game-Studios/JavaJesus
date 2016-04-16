@@ -131,5 +131,13 @@ public class Sprite implements Serializable {
 			}
 		}
 	}
+	
+	public int getWidth() {
+		return xSize;
+	}
+	
+	public int getHeight() {
+		return ySize;
+	}
 
 }

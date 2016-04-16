@@ -21,6 +21,8 @@ public abstract class Tile {
 	 * Or, use my Colours.toHex
 	 */
 	public static final Tile[] tiles = new Tile[256];
+	
+	public static final int SIZE = 8;
 
 	public static final Tile VOID = new BasicSolidTile(0, 0, 0, new int[] {
 			0xFF000000, 0xFF000000, 0xFF000000 }, 0xFF000000);

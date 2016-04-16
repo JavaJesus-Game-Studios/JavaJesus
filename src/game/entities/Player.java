@@ -20,7 +20,6 @@ import items.Inventory;
 import items.Item;
 import items.Sword;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.sound.sampled.Clip;

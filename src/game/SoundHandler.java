@@ -6,23 +6,30 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+/*
+ * The sound engine for the game
+ * Controls all sounds that can be called by any entity
+ */
 public class SoundHandler {
 
-	public boolean muted = false;
+	// determines if sounds will actually play
+	private static boolean muted = false;
 
-	public transient static SoundHandler sound = new SoundHandler();
-
-	public transient Clip sheathe, background1, chest, chimpanzee, click, demon,
+	// audio clips that can be opened from the sound stream
+	public static Clip sheathe, background1, chest, chimpanzee, click, demon,
 			fireball, footsteps1, footstepsDirt, footstepsFarmland,
 			footstepsGrass, footstepsRoad, footstepsWood, assaultRifle, revolver,
 			shotgun, levelup, shortSword1, shortSword2, swimming, walking,
 			background2, explosion, carAcceleration, carDriving, carIdle,
 			carStartUp, laser;
 
-	public transient Clip[] list = { background1, background2 };
+	public SoundHandler(Clip test) {}
 
 	@SuppressWarnings("unused")
-	public SoundHandler() {
+	/**
+	 * Initializes the sounds for the game
+	 */
+	public static void initialize() {
 
 		AudioInputStream sheathe, background1, chest, chimpanzee, click, demon, 
 		fireball, footsteps1, footstepsDirt, footstepsFarmland, footstepsGrass, 
@@ -127,66 +134,66 @@ public class SoundHandler {
 			carStartUp = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/Car_Sounds/Car_Start_up.wav"));
 
-			this.sheathe = AudioSystem.getClip();
-			this.background1 = AudioSystem.getClip();
-			this.background2 = AudioSystem.getClip();
-			this.chest = AudioSystem.getClip();
-			this.chimpanzee = AudioSystem.getClip();
-			this.click = AudioSystem.getClip();
-			this.demon = AudioSystem.getClip();
-			this.fireball = AudioSystem.getClip();
-			this.footsteps1 = AudioSystem.getClip();
-			this.footstepsDirt = AudioSystem.getClip();
-			this.footstepsFarmland = AudioSystem.getClip();
-			this.footstepsGrass = AudioSystem.getClip();
-			this.footstepsRoad = AudioSystem.getClip();
-			this.footstepsWood = AudioSystem.getClip();
-			this.assaultRifle = AudioSystem.getClip();
-			this.revolver = AudioSystem.getClip();
-			this.shotgun = AudioSystem.getClip();
-			this.levelup = AudioSystem.getClip();
-			this.shortSword1 = AudioSystem.getClip();
-			this.shortSword2 = AudioSystem.getClip();
-			this.swimming = AudioSystem.getClip();
-			this.walking = AudioSystem.getClip();
-			this.laser = AudioSystem.getClip();
-			this.explosion = AudioSystem.getClip();
+			SoundHandler.sheathe = AudioSystem.getClip();
+			SoundHandler.background1 = AudioSystem.getClip();
+			SoundHandler.background2 = AudioSystem.getClip();
+			SoundHandler.chest = AudioSystem.getClip();
+			SoundHandler.chimpanzee = AudioSystem.getClip();
+			SoundHandler.click = AudioSystem.getClip();
+			SoundHandler.demon = AudioSystem.getClip();
+			SoundHandler.fireball = AudioSystem.getClip();
+			SoundHandler.footsteps1 = AudioSystem.getClip();
+			SoundHandler.footstepsDirt = AudioSystem.getClip();
+			SoundHandler.footstepsFarmland = AudioSystem.getClip();
+			SoundHandler.footstepsGrass = AudioSystem.getClip();
+			SoundHandler.footstepsRoad = AudioSystem.getClip();
+			SoundHandler.footstepsWood = AudioSystem.getClip();
+			SoundHandler.assaultRifle = AudioSystem.getClip();
+			SoundHandler.revolver = AudioSystem.getClip();
+			SoundHandler.shotgun = AudioSystem.getClip();
+			SoundHandler.levelup = AudioSystem.getClip();
+			SoundHandler.shortSword1 = AudioSystem.getClip();
+			SoundHandler.shortSword2 = AudioSystem.getClip();
+			SoundHandler.swimming = AudioSystem.getClip();
+			SoundHandler.walking = AudioSystem.getClip();
+			SoundHandler.laser = AudioSystem.getClip();
+			SoundHandler.explosion = AudioSystem.getClip();
 			
-			this.carAcceleration = AudioSystem.getClip();
-			this.carDriving = AudioSystem.getClip();
-			this.carIdle = AudioSystem.getClip();
-			this.carStartUp = AudioSystem.getClip();
+			SoundHandler.carAcceleration = AudioSystem.getClip();
+			SoundHandler.carDriving = AudioSystem.getClip();
+			SoundHandler.carIdle = AudioSystem.getClip();
+			SoundHandler.carStartUp = AudioSystem.getClip();
 
-			this.chimpanzee.open(chimpanzee);
-			this.click.open(click);
-			this.demon.open(demon);
-			this.fireball.open(fireball);
-			this.assaultRifle.open(assaultRifle);
-			this.revolver.open(revolver);
-			this.shotgun.open(shotgun);
-			this.background1.open(background1);
-			this.background2.open(background2);
-			this.sheathe.open(sheathe);
-			this.swimming.open(swimming);
+			SoundHandler.chimpanzee.open(chimpanzee);
+			SoundHandler.click.open(click);
+			SoundHandler.demon.open(demon);
+			SoundHandler.fireball.open(fireball);
+			SoundHandler.assaultRifle.open(assaultRifle);
+			SoundHandler.revolver.open(revolver);
+			SoundHandler.shotgun.open(shotgun);
+			SoundHandler.background1.open(background1);
+			SoundHandler.background2.open(background2);
+			SoundHandler.sheathe.open(sheathe);
+			SoundHandler.swimming.open(swimming);
 			
-			this.explosion.open(explosion);
-			this.laser.open(laser);
+			SoundHandler.explosion.open(explosion);
+			SoundHandler.laser.open(laser);
 
-			this.chest.open(chest);
-			this.levelup.open(levelup);
+			SoundHandler.chest.open(chest);
+			SoundHandler.levelup.open(levelup);
 
-			this.footstepsDirt.open(footstepsDirt);
-			this.footstepsGrass.open(footstepsGrass);
-			this.footstepsRoad.open(footstepsRoad);
-			this.footstepsWood.open(footstepsWood);
+			SoundHandler.footstepsDirt.open(footstepsDirt);
+			SoundHandler.footstepsGrass.open(footstepsGrass);
+			SoundHandler.footstepsRoad.open(footstepsRoad);
+			SoundHandler.footstepsWood.open(footstepsWood);
 
-			this.shortSword1.open(shortSword1);
-			this.shortSword2.open(shortSword2);
+			SoundHandler.shortSword1.open(shortSword1);
+			SoundHandler.shortSword2.open(shortSword2);
 			
-			this.carAcceleration.open(carAcceleration);
-			this.carDriving.open(carDriving);
-			this.carIdle.open(carIdle);
-			this.carStartUp.open(carStartUp);
+			SoundHandler.carAcceleration.open(carAcceleration);
+			SoundHandler.carDriving.open(carDriving);
+			SoundHandler.carIdle.open(carIdle);
+			SoundHandler.carStartUp.open(carStartUp);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -194,6 +201,10 @@ public class SoundHandler {
 
 	}
 
+	/**
+	 * Plays an audio clip that will restart the same clip if it is already playing
+	 * @param clip to play
+	 */
 	public void play(Clip clip) {
 		if (!muted) {
 			if (clip.isRunning()) {
@@ -204,7 +215,11 @@ public class SoundHandler {
 		}
 	}
 	
-	public void playContinuously(Clip clip) {
+	/**
+	 * Plays an audio clip that will play over another audio clip if that is already playing
+	 * @param clip to play
+	 */
+	public void playSmoothly(Clip clip) {
 		if (!muted) {
 			if (clip.isRunning()) {
 				return;
@@ -215,6 +230,9 @@ public class SoundHandler {
 		}
 	}
 
+	/**
+	 * Randomly selects a short sword sound to play
+	 */
 	public void playShortSword() {
 		if (!muted) {
 			Clip clip;
@@ -235,6 +253,10 @@ public class SoundHandler {
 		}
 	}
 
+	/**
+	 * Loops a certain clip, generally background clips
+	 * @param clip to play
+	 */
 	public void playLoop(Clip clip) {
 		if (!muted) {
 			if (clip.isRunning()) {
@@ -245,39 +267,53 @@ public class SoundHandler {
 		}
 	}
 
+	/**
+	 * Continuously plays a clip, used for bullets
+	 * @param clip to play
+	 */
 	public void fire(Clip clip) {
 		if (!muted) {
 			clip.setFramePosition(0);
 			clip.start();
 		}
 	}
+	
+	/**
+	 * Toggles mute
+	 */
+	public void toggleMute() {
+		muted = !muted;
+	}
 
+	/**
+	 * Closes all audio clips
+	 */
 	public void closeAll() {
-		this.chimpanzee.close();
-		this.click.close();
-		this.demon.close();
-		this.fireball.close();
-		this.assaultRifle.close();
-		this.revolver.close();
-		this.shotgun.close();
-		this.background1.close();
-		this.background2.close();
-		this.sheathe.close();
-		this.swimming.close();
-		this.explosion.close();
-		this.laser.close();
-		this.chest.close();
-		this.levelup.close();
-		this.footstepsDirt.close();
-		this.footstepsGrass.close();
-		this.footstepsRoad.close();
-		this.footstepsWood.close();
-		this.shortSword1.close();
-		this.shortSword2.close();
-		this.carAcceleration.close();
-		this.carDriving.close();
-		this.carIdle.close();
-		this.carStartUp.close();
+		SoundHandler.chimpanzee.close();
+		SoundHandler.click.close();
+		SoundHandler.demon.close();
+		SoundHandler.fireball.close();
+		SoundHandler.assaultRifle.close();
+		SoundHandler.revolver.close();
+		SoundHandler.shotgun.close();
+		SoundHandler.background1.close();
+		SoundHandler.background2.close();
+		SoundHandler.sheathe.close();
+		SoundHandler.swimming.close();
+		SoundHandler.explosion.close();
+		SoundHandler.laser.close();
+		SoundHandler.chest.close();
+		SoundHandler.levelup.close();
+		SoundHandler.footstepsDirt.close();
+		SoundHandler.footstepsGrass.close();
+		SoundHandler.footstepsRoad.close();
+		SoundHandler.footstepsWood.close();
+		SoundHandler.shortSword1.close();
+		SoundHandler.shortSword2.close();
+		SoundHandler.carAcceleration.close();
+		SoundHandler.carDriving.close();
+		SoundHandler.carIdle.close();
+		SoundHandler.carStartUp.close();
 	}
 
 }

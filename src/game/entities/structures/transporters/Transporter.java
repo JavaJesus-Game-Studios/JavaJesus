@@ -1,5 +1,6 @@
 package game.entities.structures.transporters;
 
+import game.entities.Entity;
 import game.entities.Player;
 import game.entities.SolidEntity;
 import game.graphics.Screen;
@@ -10,7 +11,7 @@ import java.awt.Rectangle;
 
 import level.Level;
 
-public class Transporter extends SolidEntity {
+public class Transporter extends Entity implements SolidEntity{
 
 	private static final long serialVersionUID = -7494182586888198075L;
 

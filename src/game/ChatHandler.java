@@ -30,24 +30,28 @@ public class ChatHandler {
 	// circmstances
 	private static ArrayList<Color> colors = new ArrayList<Color>();
 
+	// used in counting the ticks the window has been displayed
 	private static long lastTime;
+	
+	// whether or not the chat window is currently visible
 	private static boolean isVisible;
+	
+	// whether the window is currently being timed
 	private static boolean tickTimer;
 
+	// background image of the chat handler
 	public static BufferedImage image;
 
 	/**
 	 * Initializes the image of the window
 	 */
-	public ChatHandler() {
-
+	public static void initialize() {
 		try {
 			image = ImageIO.read(ChatHandler.class
 					.getResource("/GUI/GUI_Hud/GUI_Dialogue.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -78,7 +82,7 @@ public class ChatHandler {
 	 * @param g
 	 *            The Graphics class that draws it on the screen
 	 */
-	public void drawWindow(Graphics g) {
+	public static void drawWindow(Graphics g) {
 		if (isVisible) {
 			g.drawImage(image, 0,
 					Display.FRAME_HEIGHT - image.getHeight() + 22,

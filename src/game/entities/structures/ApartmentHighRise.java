@@ -1,5 +1,6 @@
 package game.entities.structures;
 
+import game.entities.Entity;
 import game.entities.SolidEntity;
 import game.entities.structures.transporters.Transporter;
 import game.graphics.Screen;
@@ -11,23 +12,51 @@ import java.awt.Rectangle;
 import level.Level;
 import level.interior.ApartmentLobby;
 
-public class ApartmentHighRise extends SolidEntity {
+/*
+ * An apartment building 
+ */
+public class ApartmentHighRise extends Entity implements SolidEntity {
 
 	private static final long serialVersionUID = 3895374472641199582L;
+	
+	// The area where the player can walk behind the building
+	private Rectangle shadow;
+	
+	// the building texture
+	private static final Sprite sprite = Sprite.apartment;
 
+	/**
+	 * Creates an apartment
+	 * @param level the level it is on
+	 * @param x the x coord on the level
+	 * @param y the y coord on the level
+	 */
 	public ApartmentHighRise(Level level, int x, int y) {
-		super(level, x, y, 71, 222);
-		this.shadow = new Rectangle(width, (2 * height / 3));
-		this.shadow.setLocation(x, y);
-		this.bounds = new Rectangle(width, (height / 3) - 8);
-		this.bounds.setLocation(x, y + shadow.height);
-		level.addEntity(new Transporter(level, x + 30, y + 206, new ApartmentLobby(new Point(x + 36, y + 216), level)));
+		super(level, x, y);
+		
+		shadow = new Rectangle(sprite.getWidth(), (int) (sprite.getHeight() * SolidEntity.TWO_THIRDS));
+		shadow.setLocation(x, y);
+		
+		this.setBounds(x, y + shadow.height, sprite.getWidth(), sprite.getHeight());
+		
+		getLevel().addEntity(new Transporter(level, x + 30, y + 206, new ApartmentLobby(new Point(x + 36, y + 216), level)));
 	}
 
+	/**
+	 * Displays the pixels on the screen
+	 */
 	public void render(Screen screen) {
 
-		screen.render(x, y, new int[] { 0xFF111111, 0xFF673101, 0xFFABD3FF }, Sprite.apartment);
+		screen.render(getX(), getY(), new int[] { 0xFF111111, 0xFF673101, 0xFFABD3FF }, sprite);
 
 	}
+
+	@Override
+	public Rectangle getShadow() {
+		return shadow;
+	}
+
+	@Override
+	public void tick() {}
 
 }

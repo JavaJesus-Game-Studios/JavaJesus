@@ -6,80 +6,117 @@ import game.entities.monsters.GangMember;
 import game.entities.particles.HealthPack;
 import game.graphics.Screen;
 
-import java.awt.Rectangle;
 import java.util.Random;
 
 import level.Level;
 
+/*
+ * An entity that creates other entities
+ */
 public class Spawner extends Entity {
 
 	private static final long serialVersionUID = -1243740183193796893L;
+	
+	// types of entities to spawn
+	public static final int DEMON = 0;
+	public static final int GANG_MEMBER = 1;
+	public static final int HEALTH_PACK = 2;
 
-	private String type;
-	private Random random = new Random();
-	private int amount = 0;
+	// the type of mob to spawn
+	private int type;
+	
+	// used to spawn mobs at random times
+	private static final Random random = new Random();
+	
+	// the number of mobs spawned
+	private int amount;
+	
+	// the last entity spawned
 	private Entity currentEntity;
-
-	public Spawner(Level level, int x, int y, String type) {
-		super(level);
-		this.x = x;
-		this.y = y;
+	
+	/**
+	 * Creates an invisible entity to spawn an infinite amount of entities
+	 * @param level the level to place it on
+	 * @param x the x coord on the level
+	 * @param y the y coord on the level
+	 * @param type Types are found in the Spawner class
+	 */
+	public Spawner(Level level, int x, int y, int type) {
+		super(level, x, y);
 		this.type = type;
+		
+		// infinite
 		amount = -1;
-		this.bounds = new Rectangle(1, 1);
-		this.bounds.setLocation(x, y);
 	}
 
-	public Spawner(Level level, int x, int y, String type, int amount) {
-		super(level);
-		this.x = x;
-		this.y = y;
+	/**
+	 * Creates an invisible entity to spawn a finite amount of entities
+	 * @param level the level to place it on
+	 * @param x the x coord on the level
+	 * @param y the y coord on the level
+	 * @param type Types are found in the Spawner class
+	 * @param amount the amount of entities to spawn
+	 */
+	public Spawner(Level level, int x, int y, int type, int amount) {
+		super(level, x, y);
 		this.type = type;
 		this.amount = amount;
-		this.bounds = new Rectangle(1, 1);
-		this.bounds.setLocation(x, y);
 	}
 
+	/**
+	 * Randomly generates entities
+	 */
 	public void tick() {
 
+		// always have at least something spawned
 		if (currentEntity == null) {
 			spawnMob();
 		}
+		
+		// only spawn another mob if the current one is dead
 		if (currentEntity instanceof Mob) {
 			if (((Mob) currentEntity).isDead && random.nextInt(1000) == 0
-					&& level.getMobs().size() < Game.ENTITY_LIMIT)
+					&& getLevel().getMobs().size() < Game.ENTITY_LIMIT)
 				spawnMob();
 		} else if (random.nextInt(1000) == 0
-				&& level.getEntities().size() < Game.ENTITY_LIMIT) {
+				&& getLevel().getEntities().size() < Game.ENTITY_LIMIT) {
 			spawnMob();
 		}
 
+		// remove the spawner if the amount left is 0
 		if (amount == 0) {
-			level.remEntity(this);
+			getLevel().remEntity(this);
 		}
 
 	}
 
-	public void spawnMob() {
+	/**
+	 * Generates the entity
+	 */
+	private void spawnMob() {
 
 		if (amount > 0) {
 			amount--;
-			this.level.addEntity(getEntity());
+			getLevel().addEntity(getEntity());
 		} else if (amount == -1) {
-			this.level.addEntity(getEntity());
+			getLevel().addEntity(getEntity());
 		}
 
 	}
 
+	/**
+	 * gets the appropriate entity to spawn
+	 * @return the Entity to spawn
+	 */
 	private Entity getEntity() {
 		switch (type) {
-		case "Demon":
-			return currentEntity = new Demon(this.level, "Demon", x, y, 1);
-		case "Gang":
-			return currentEntity = new GangMember(this.level, "Gang", x, y, 1,
+		case DEMON:
+			return currentEntity = new Demon(getLevel(), "Demon", getX(), getY(), 1);
+		case GANG_MEMBER:
+			return currentEntity = new GangMember(getLevel(), "Gang", getX(), getY(), 1,
 					200, random.nextInt(2));
-		case "Health":
-			return currentEntity = new HealthPack(this.level, x, y);
+		case HEALTH_PACK:
+			return currentEntity = new HealthPack(getLevel(), getX(), getY());
 		default:
 			return null;
 		}

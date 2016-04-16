@@ -43,21 +43,21 @@ public class Display extends Canvas {
 	public static final int IMAGE_HEIGHT = 225;
 
 	// Contains the canvas
-	protected static JFrame frame;
+	private static JFrame frame;
 
 	// Creates the buffered image to be rendered onto the game screen
-	protected transient BufferedImage image = new BufferedImage(IMAGE_WIDTH,
+	private transient BufferedImage image = new BufferedImage(IMAGE_WIDTH,
 			IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
 
 	// Pixel data to be used in the buffered image
-	protected int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
+	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
 			.getData();
 
 	// Processes the in-game screen
-	public Screen screen;
+	private Screen screen;
 
 	// The graphical overlay of the player stats
-	protected PlayerHUD hud;
+	private PlayerHUD hud;
 
 	// Instance of the Pause GUI
 	private static PauseGUI pause;
@@ -90,8 +90,6 @@ public class Display extends Canvas {
 	// inGameScreen reveals if the game gui is being displayed
 	public static boolean inGameScreen;
 	
-	private ChatHandler chatHandler;
-
 	/**
 	 * Initializes the Screen processor and other GUIs
 	 * Defaults the first screen to the introduction screen
@@ -123,7 +121,7 @@ public class Display extends Canvas {
 		frame.setLocationRelativeTo(null);
 		frame.setAlwaysOnTop(true);
 
-		chatHandler = new ChatHandler();
+		ChatHandler.initialize();
 	}
 
 	/**
@@ -209,11 +207,11 @@ public class Display extends Canvas {
 			return;
 		}
 
-		int xOffset = Game.player.getX() - (screen.width / 2);
-		int yOffset = Game.player.getY() - (screen.height / 2);
+		int xOffset = Game.player.getX() - (screen.getWidth() / 2);
+		int yOffset = Game.player.getY() - (screen.getHeight() / 2);
 		if (Game.player.isDriving) {
-			xOffset = Game.player.vehicle.getX() - (screen.width / 2);
-			yOffset = Game.player.vehicle.getY() - (screen.height / 2);
+			xOffset = Game.player.vehicle.getX() - (screen.getWidth() / 2);
+			yOffset = Game.player.vehicle.getY() - (screen.getHeight() / 2);
 		}
 
 		if (inGameScreen) {
@@ -221,10 +219,10 @@ public class Display extends Canvas {
 			Game.getLevel().renderEntities(screen);
 		}
 
-		for (int y = 0; y < screen.height; y++) {
-			for (int x = 0; x < screen.width; x++) {
-				pixels[x + y * IMAGE_WIDTH] = screen.pixels[x + y
-						* screen.width];
+		for (int y = 0; y < screen.getHeight(); y++) {
+			for (int x = 0; x < screen.getWidth(); x++) {
+				pixels[x + y * IMAGE_WIDTH] = screen.getPixels()[x + y
+						* screen.getWidth()];
 			}
 
 		}
@@ -240,7 +238,7 @@ public class Display extends Canvas {
 					+ Game.getMinutes(), 5, 20);
 		}
 		hud.draw(g);
-		chatHandler.drawWindow(g);
+		ChatHandler.drawWindow(g);
 		g.dispose();
 		bs.show();
 	}

@@ -3,49 +3,62 @@ package game.entities;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 
-import java.awt.Rectangle;
-
 import level.Level;
+import level.tile.Tile;
 
+/*
+ * A pseudo animated tile that damages the player over time
+ */
 public class FireEntity extends Entity  {
 
 	private static final long serialVersionUID = 4640952686511603038L;
 	
+	// last iteration time in milliseconds
 	private long lastIterationTime;
-	private int delay;
+	
+	// the delay between animations
+	private static final int delay = 100;
+	
+	// horizontal x position on sprite sheet
 	private int xTile;
-	private int yTile = 15;
-	private int[] color = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
+	
+	// vertical y position on sprite sheet
+	private static final int yTile = 15;
+	
+	// colors of the flames
+	private static final int[] color = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
+	
+	// the number of animated tiles on spritesheet
+	private static final int NUM_TILES = 4;
 
+	/**
+	 * Creates a fire entity that damages the player
+	 * @param level the current level
+	 * @param x the x coord on the map
+	 * @param y the y coord on the map
+	 */
 	public FireEntity(Level level, int x, int y) {
-		super(level);
-		this.x = x;
-		this.y = y;
+		super(level, x, y);
 		this.lastIterationTime = System.currentTimeMillis();
-		this.delay = 100;
-		this.bounds = new Rectangle(8, 8);
-		this.bounds.setLocation(x, y);
+		setBounds(getX(), getY(), Tile.SIZE, Tile.SIZE);
 	}
 
+	/**
+	 * Animates the fire tile
+	 */
 	public void tick() {
 		if ((System.currentTimeMillis() - lastIterationTime) >= (delay)) {
 			lastIterationTime = System.currentTimeMillis();
-			if (xTile < 4) {
-				xTile++;
-			} else {
-				xTile = 0;
-			}
+			xTile = ++xTile % NUM_TILES;
 		}
-
 	}
 
-	public int getXTile() {
-		return xTile;
-	}
-
+	/**
+	 * Displays the pixels on the screen
+	 */
 	public void render(Screen screen) {
 
-		screen.render(x, y, xTile + yTile * SpriteSheet.tiles.boxes, color, 0, 1, SpriteSheet.tiles);
+		screen.render(getX(), getY(), xTile + yTile * SpriteSheet.tiles.boxes, color, SpriteSheet.tiles);
 
 	}
 

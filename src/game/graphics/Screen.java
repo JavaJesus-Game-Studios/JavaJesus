@@ -1,35 +1,29 @@
 package game.graphics;
 
-import java.awt.Color;
-import java.util.Random;
-
 import game.Game;
 
+/*
+ * Handles the pixel manipulation and data that is displayed on the screen elsewhere
+ */
 public class Screen {
 
-	// adding a FF in front of a hex string converts RGB to Hexadecimal
-	// ex 0xFF00FF - > 0xFFFF00FF
+	// the pixels in the screen
+	private int[] pixels;
 
-	// Width of Tiles
-	public static final int MAP_WIDTH = 64;
-	// Used in Binary bitwise looping operations with &
-	public static final int MAP_WIDTH_MASK = MAP_WIDTH - 1;
+	// will offset the position of the screen
+	private int xOffset, yOffset;
 
-	/** 0xA indicates it will be used in binary operations, where A = an integer */
-	public static final byte BIT_MIRROR_X = 0x01;
-	public static final byte BIT_MIRROR_Y = 0x02;
-	
-	public int[] pixels;
-	public int[] colors = new int[MAP_WIDTH * MAP_WIDTH];
+	// the dimensions of the screen
+	private int width, height;
 
-	public int xOffset = 0;
-	public int yOffset = 0;
+	// blends all the screen pixels by this decimal color
+	private int shader;
 
-	public int width;
-	public int height;
-
-	private int shader = 0;
-
+	/**
+	 * Creates a new screen that can modify pixels used for display elsewhere
+	 * @param width width of the screen
+	 * @param height height of the screen
+	 */
 	public Screen(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -37,6 +31,9 @@ public class Screen {
 
 	}
 
+	/**
+	 * Resets the pixels on the screen
+	 */
 	public void clear() {
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = 0;
@@ -44,27 +41,47 @@ public class Screen {
 	}
 	
 	/**
-	 * @param xOffset
-	 * @param yOffset
-	 * @param tile
-	 * @param color
-	 * @param mirrorDir Determines the direction the pixels are rendered, usually from left to right. Mirror Dir renders from right to left.
-	 * @param sheet
+	 * Displays a tile at a particular position
+	 * @param xOffset the x coordinate on the level
+	 * @param yOffset the y coordinate on the level
+	 * @param tile the sprite sheet offset to use
+	 * @param color the color set
+	 * @param mirror if the pixels should be rendered right to left
+	 * @param sheet the sprite sheet to use
 	 */
-
 	public void render(int xOffset, int yOffset, int tile, int[] color,
-			int mirrorDir, SpriteSheet sheet) {
-		render(xOffset, yOffset, tile, color, mirrorDir, 1, sheet);
+			boolean mirror, SpriteSheet sheet) {
+		render(xOffset, yOffset, tile, color, mirror, 1, sheet);
+	}
+	
+	/**
+	 * Displays a tile at a particular position
+	 * @param xOffset the x coordinate on the level
+	 * @param yOffset the y coordinate on the level
+	 * @param tile the sprite sheet offset to use
+	 * @param color the color set
+	 * @param sheet the sprite sheet to use
+	 */
+	public void render(int xOffset, int yOffset, int tile, int[] color, SpriteSheet sheet) {
+		render(xOffset, yOffset, tile, color, false, 1, sheet);
 	}
 
+	/**
+	 * Displays a tile at a particular position
+	 * @param xOffset the x coordinate on the level
+	 * @param yOffset the y coordinate on the level
+	 * @param tile the sprite sheet offset to use
+	 * @param color the color set
+	 * @param mirror if the pixels should be rendered right to left
+	 * @param scale modifier to how big the sprite should be displayed
+	 * @param sheet the sprite sheet to use
+	 */
 	public void render(int xOffset, int yOffset, int tile, int[] color,
-			int mirrorDir, int scale, SpriteSheet sheet) {
+			boolean mirror, int scale, SpriteSheet sheet) {
 
+		// shifts the position of the screen by the global offset
 		xOffset -= this.xOffset;
 		yOffset -= this.yOffset;
-
-		boolean mirrorX = (mirrorDir & BIT_MIRROR_X) > 0;
-		boolean mirrorY = (mirrorDir & BIT_MIRROR_Y) > 0;
 
 		int scaleMap = scale - 1;
 		int xTile = tile % sheet.boxes;
@@ -72,14 +89,15 @@ public class Screen {
 		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.width;
 		for (int y = 0; y < 8; y++) {
 			int ySheet = y;
+			/* Mirrors bottom to top
 			if (mirrorY)
-				ySheet = 7 - y;
+				ySheet = 7 - y; */
 			int yPixel = y + yOffset + (y * scaleMap) - ((scaleMap << 3) / 2);
 			for (int x = 0; x < 8; x++) {
 				int xPixel = x + xOffset + (x * scaleMap)
 						- ((scaleMap << 3) / 2);
 				int xSheet = x;
-				if (mirrorX)
+				if (mirror)
 					xSheet = 7 - x;
 				int col = sheet.pixels[tileOffset + xSheet + ySheet
 						* sheet.width];
@@ -109,7 +127,7 @@ public class Screen {
 							if (xPixel + xScale < 0 || xPixel + xScale >= width)
 								continue;
 							pixels[(xPixel + xScale) + (yPixel + yScale)
-									* width] = (shader > 0) ? blend(col,
+									* width] = (shader > 0) ? Colors.blend(col,
 									shader, 0.5) : col;
 
 						}
@@ -119,14 +137,26 @@ public class Screen {
 		}
 	}
 
+	/**
+	 * Changes the offset of the screen
+	 * @param xOffset the new horizontal offset
+	 * @param yOffset the new vertical offset
+	 */
 	public void setOffset(int xOffset, int yOffset) {
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
 	}
 
-	/** Used for rendering large entities */
+	/**
+	 * Displays a large building or object on the screen
+	 * @param xOffset the x coordinate on the level
+	 * @param yOffset the y coordinate on the level
+	 * @param color the color set
+	 * @param sprite the sprite to use
+	 */
 	public void render(int xOffset, int yOffset, int[] color, Sprite sprite) {
 
+		// shifts the position of the screen by the global offset
 		xOffset -= this.xOffset;
 		yOffset -= this.yOffset;
 
@@ -153,7 +183,7 @@ public class Screen {
 						}
 						}
 					if (col != 0xFF000000)
-						pixels[(xPixel) + (yPixel) * width] = (shader > 0) ? blend(
+						pixels[(xPixel) + (yPixel) * width] = (shader > 0) ? Colors.blend(
 								col, shader, 0.5) : col;
 				}
 
@@ -161,38 +191,19 @@ public class Screen {
 		}
 	}
 
+	/**
+	 * @param color the color of the new shader in decimal
+	 */
 	public void setShader(int color) {
 		this.shader = color;
 	}
 
-	public static int blend(int color1, int color2, double ratio) {
-		Color color3 = new Color(color1);
-		Color color4 = new Color(color2);
-
-		float r = (float) ratio;
-		float ir = (float) 1.0 - r;
-
-		float rgb1[] = new float[3];
-		float rgb2[] = new float[3];
-
-		color3.getColorComponents(rgb1);
-		color4.getColorComponents(rgb2);
-
-		Color color = new Color(rgb1[0] * r + rgb2[0] * ir, rgb1[1] * r
-				+ rgb2[1] * ir, rgb1[2] * r + rgb2[2] * ir);
-
-		return color.getRGB();
-	}
-	
 	/** Blends the pixels of Tiles */
 	public void renderBlended(int xOffset, int yOffset, int tile, int[] color,
-			int mirrorDir, int scale, SpriteSheet sheet) {
+			boolean mirror, int scale, SpriteSheet sheet) {
 
 		xOffset -= this.xOffset;
 		yOffset -= this.yOffset;
-
-		boolean mirrorX = (mirrorDir & BIT_MIRROR_X) > 0;
-		boolean mirrorY = (mirrorDir & BIT_MIRROR_Y) > 0;
 
 		int scaleMap = scale - 1;
 		int xTile = tile % sheet.boxes;
@@ -200,14 +211,15 @@ public class Screen {
 		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.width;
 		for (int y = 0; y < 8; y++) {
 			int ySheet = y;
+			/*
 			if (mirrorY)
-				ySheet = 7 - y;
+				ySheet = 7 - y; */
 			int yPixel = y + yOffset + (y * scaleMap) - ((scaleMap << 3) / 2);
 			for (int x = 0; x < 8; x++) {
 				int xPixel = x + xOffset + (x * scaleMap)
 						- ((scaleMap << 3) / 2);
 				int xSheet = x;
-				if (mirrorX)
+				if (mirror)
 					xSheet = 7 - x;
 				int col = sheet.pixels[tileOffset + xSheet + ySheet
 						* sheet.width];
@@ -235,7 +247,7 @@ public class Screen {
 							if (xPixel + xScale < 0 || xPixel + xScale >= width)
 								continue;
 							pixels[(xPixel + xScale) + (yPixel + yScale)
-									* width] = (shader > 0) ? blend(col,
+									* width] = (shader > 0) ? Colors.blend(col,
 									shader, 0.5) : col;
 
 						}
@@ -243,5 +255,17 @@ public class Screen {
 
 			}
 		}
+	}
+
+	public int[] getPixels() {
+		return pixels;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 }

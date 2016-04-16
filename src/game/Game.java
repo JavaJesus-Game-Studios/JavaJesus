@@ -1,6 +1,5 @@
 package game;
 
-import game.entities.Entity;
 import game.entities.Player;
 import game.gui.Launcher;
 
@@ -91,7 +90,6 @@ public class Game implements Runnable {
 			player = getLevel().getPlayer();
 			display = new Display();
 			player.setInput(new InputHandler(display));
-			Entity.initSound();
 			player.gun.initSound();
 			player.getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 			running = true;

@@ -27,9 +27,9 @@ public class Car extends Vehicle {
 		
 		if (player != null)
 			if (!isMoving()) {
-				sound.playContinuously(sound.carIdle);
+				sound.playSmoothly(sound.carIdle);
 			} else {
-				sound.playContinuously(sound.carDriving);
+				sound.playSmoothly(sound.carDriving);
 			}
 	}
 	
