@@ -55,9 +55,9 @@ public class PlayerHUD {
 		// draws the health bar
 		g.setColor(Color.red);
 		g.fillRect(BAR_OFFSET, YOFFSET,
-				(int) (BAR_WIDTH_MODIFIER * ((double) player.getHealth() / player.getStartHealth())), BAR_HEIGHT);
+				(int) (BAR_WIDTH_MODIFIER * ((double) player.getCurrentHealth() / player.getMaxHealth())), BAR_HEIGHT);
 		g.setColor(Color.BLACK);
-		g.drawString(player.getHealth() + " / " + player.getStartHealth(), BAR_OFFSET, YOFFSET);
+		g.drawString(player.getCurrentHealth() + " / " + player.getMaxHealth(), BAR_OFFSET, YOFFSET);
 
 		// draws the shield bar
 		g.setColor(Color.blue);

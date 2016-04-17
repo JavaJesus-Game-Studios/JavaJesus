@@ -20,7 +20,7 @@ public abstract class Entity implements Serializable {
 	// current level
 	private Level level;
 	
-	// the dimensions to hit/interact with others
+	// the dimensions to damage this entity
 	private Rectangle bounds;
 
 	/**
@@ -119,7 +119,7 @@ public abstract class Entity implements Serializable {
 	 */
 	public void setBounds(int xPos, int yPos, int width, int height) {
 		bounds = new Rectangle(xPos, yPos, width, height);
-		bounds.setLocation(getX(), getY());
+		bounds.setLocation(xPos, yPos);
 	}
 
 	/**
@@ -135,6 +135,15 @@ public abstract class Entity implements Serializable {
 	
 	public String toString() {
 		return "Location: (" + getX() + ", " + getY() +")";
+	}
+	
+	/**
+	 * Converts seconds to ticks
+	 * @param seconds
+	 * @return the proper tick count from seconds
+	 */
+	public static final int secondsToTicks(int seconds) {
+		return seconds * 60;
 	}
 
 }

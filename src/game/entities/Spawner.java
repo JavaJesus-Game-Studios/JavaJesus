@@ -75,7 +75,7 @@ public class Spawner extends Entity {
 		
 		// only spawn another mob if the current one is dead
 		if (currentEntity instanceof Mob) {
-			if (((Mob) currentEntity).isDead && random.nextInt(1000) == 0
+			if (((Mob) currentEntity).isDead() && random.nextInt(1000) == 0
 					&& getLevel().getMobs().size() < Game.ENTITY_LIMIT)
 				spawnMob();
 		} else if (random.nextInt(1000) == 0

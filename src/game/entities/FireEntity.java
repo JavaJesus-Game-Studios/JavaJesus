@@ -14,13 +14,13 @@ public class FireEntity extends Entity  {
 	private static final long serialVersionUID = 4640952686511603038L;
 	
 	// last iteration time in milliseconds
-	private long lastIterationTime;
+	private static long lastIterationTime;
 	
 	// the delay between animations
 	private static final int delay = 100;
 	
 	// horizontal x position on sprite sheet
-	private int xTile;
+	public static int xTile;
 	
 	// vertical y position on sprite sheet
 	private static final int yTile = 15;
@@ -39,7 +39,7 @@ public class FireEntity extends Entity  {
 	 */
 	public FireEntity(Level level, int x, int y) {
 		super(level, x, y);
-		this.lastIterationTime = System.currentTimeMillis();
+		lastIterationTime = System.currentTimeMillis();
 		setBounds(getX(), getY(), Tile.SIZE, Tile.SIZE);
 	}
 

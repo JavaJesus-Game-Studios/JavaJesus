@@ -30,12 +30,12 @@ import level.tile.Tile;
 import quests.Quest;
 import utility.Direction;
 
-public class Player extends Mob {
+public class Player extends Mob implements Skills{
 
 	private static final long serialVersionUID = -4170571410784465465L;
 
 	public transient InputHandler input;
-	protected int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };
+	private static final int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };
 	protected int shirtColor = 0xFFFF0000;
 	protected int skinColor = 0xFFFFCC99;
 	protected int hairColor = 0xFF343434;
@@ -643,6 +643,30 @@ public class Player extends Mob {
 
 	public SpriteSheet getSpriteSheet() {
 		return this.gunSheet;
+	}
+
+	@Override
+	public int getStrength() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDefense() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getAccuracy() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getEvasion() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

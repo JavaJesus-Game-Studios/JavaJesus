@@ -38,7 +38,6 @@ public abstract class Level implements Serializable {
 	protected List<Entity> entities = new CopyOnWriteArrayList<Entity>();
 	protected List<Mob> mobs = new CopyOnWriteArrayList<Mob>();
 	protected List<Player> players = new CopyOnWriteArrayList<Player>();
-	public List<FireEntity> fireList = new CopyOnWriteArrayList<FireEntity>();
 	public List<Mob> killList = new CopyOnWriteArrayList<Mob>();
 	private String imagePath;
 	private transient BufferedImage image;
@@ -89,7 +88,6 @@ public abstract class Level implements Serializable {
 				this.generateLevel();
 			} else {
 				generateLevel();
-				fireList.add(new FireEntity(this, -10, -10));
 			}
 			isLoaded = true;
 		}
@@ -110,7 +108,6 @@ public abstract class Level implements Serializable {
 		if (loadNow) {
 			isLoaded = true;
 			generateLevel();
-			fireList.add(new FireEntity(this, -10, -10));
 		}
 	}
 
@@ -297,7 +294,7 @@ public abstract class Level implements Serializable {
 	}
 
 	public Tile getTile(int x, int y) {
-		if (0 > x || x >= width || 0 > y || y >= height)
+		if (x < 0 || x >= width || y < 0 || y >= height)
 			return Tile.VOID;
 		return Tile.tiles[tiles[x + y * width]];
 
@@ -317,10 +314,7 @@ public abstract class Level implements Serializable {
 			if (entity instanceof Player) {
 				this.players.add((Player) entity);
 			}
-		} else if (entity instanceof FireEntity) {
-			this.fireList.add((FireEntity) entity);
-		}
-
+		} 
 	}
 
 	public void addEntity(Entity entity, int index) {
@@ -333,9 +327,7 @@ public abstract class Level implements Serializable {
 			if (entity instanceof Player) {
 				this.players.add(index, (Player) entity);
 			}
-		} else if (entity instanceof FireEntity) {
-			this.fireList.add(index, (FireEntity) entity);
-		}
+		} 
 
 	}
 
@@ -346,16 +338,13 @@ public abstract class Level implements Serializable {
 			if (entity instanceof Player) {
 				this.players.remove((Player) entity);
 			}
-		} else if (entity instanceof FireEntity) {
-			this.fireList.remove((FireEntity) entity);
-		}
+		} 
 	}
 
 	public void reset() {
 		entities.clear();
 		mobs.clear();
 		players.clear();
-		fireList.clear();
 		killList.clear();
 		this.init();
 		spawnPoint = new Point(startingSpawnPoint.x, startingSpawnPoint.y);

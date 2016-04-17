@@ -11,7 +11,7 @@ import java.awt.Rectangle;
 
 import level.Level;
 
-public class Transporter extends Entity implements SolidEntity{
+public class Transporter extends Entity {
 
 	private static final long serialVersionUID = -7494182586888198075L;
 
