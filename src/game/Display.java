@@ -209,9 +209,9 @@ public class Display extends Canvas {
 
 		int xOffset = Game.player.getX() - (screen.getWidth() / 2);
 		int yOffset = Game.player.getY() - (screen.getHeight() / 2);
-		if (Game.player.isDriving) {
-			xOffset = Game.player.vehicle.getX() - (screen.getWidth() / 2);
-			yOffset = Game.player.vehicle.getY() - (screen.getHeight() / 2);
+		if (Game.player.isDriving()) {
+			xOffset = Game.player.getVehicle().getX() - (screen.getWidth() / 2);
+			yOffset = Game.player.getVehicle().getY() - (screen.getHeight() / 2);
 		}
 
 		if (inGameScreen) {

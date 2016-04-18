@@ -13,6 +13,7 @@ import game.entities.vehicles.Vehicle;
 import game.graphics.JJFont;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
+import game.gui.overview.InventoryGUI;
 import items.Armor;
 import items.Bazooka;
 import items.Gun;
@@ -20,6 +21,7 @@ import items.Inventory;
 import items.Item;
 import items.Sword;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.sound.sampled.Clip;
@@ -30,214 +32,243 @@ import level.tile.Tile;
 import quests.Quest;
 import utility.Direction;
 
-public class Player extends Mob implements Skills{
+/*
+ * The Player is a mob that is directly controlled by a user
+ * It interacts with the world through keyboard input
+ */
+public class Player extends Mob implements Skills {
 
 	private static final long serialVersionUID = -4170571410784465465L;
 
-	public transient InputHandler input;
-	private static final int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };
-	protected int shirtColor = 0xFFFF0000;
-	protected int skinColor = 0xFFFFCC99;
-	protected int hairColor = 0xFF343434;
-	private int tickCount = 0;
-	public Gun gun;
-	private boolean genericCooldown;
-	public boolean isDriving;
-	public Vehicle vehicle;
-	public int shootingDir;
-	public int score;
-	public Sword sword;
-	public int yTile = 0;
-	public Inventory inventory;
-	public double stamina;
-	public double startStamina;
-	public boolean isTired;
-	public ArrayList<Quest> activeQuests = new ArrayList<Quest>();
-	public ArrayList<Quest> completedQuests = new ArrayList<Quest>();
-	public int maxShield = 1;
-	public double shield;
+	// keyboard input
+	private transient InputHandler input;
 
+	// player color set: hair, shirt, skin
+	private static final int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };
+
+	// the internal tick timer
+	private int tickCount;
+
+	// spawn demon cooldown
+	private boolean demonCooldown;
+
+	// the vehicle the player is in, null if not driving
+	private Vehicle vehicle;
+
+	// direction the player is shooting
+	private Direction shootingDir;
+
+	// the y tile on the spritesheet to render
+	private int yTile;
+
+	// the inventory of the player
+	private Inventory inventory;
+
+	// the current stamina, influences special swings and running
+	private double stamina;
+
+	// the max stamina
+	private double maxStamina;
+
+	// List of the active quests
+	private ArrayList<Quest> activeQuests = new ArrayList<Quest>();
+
+	// List of completed quests
+	private ArrayList<Quest> completedQuests = new ArrayList<Quest>();
+
+	// takes hits before using health
+	private double shield;
+
+	// the max shield
+	private int maxShield = 1;
+
+	// the spritesheet to use when the player is shooting
 	private SpriteSheet gunSheet = SpriteSheet.playerGuns;
 
-	public static NPC companion;
-	public boolean jesusMode = false;
+	// whether or not the player can clip through walls
+	public boolean jesusMode;
 
+	// the size of the sprite
+	private static final int SIZE = 16;
+
+	// the starting health value
+	private static final int START_HEALTH = 100;
+
+	// the starting stamina value
+	private static final int START_STAMINA = 200;
+	
+	// player stats
+	private int strength, defense;
+
+	/**
+	 * Creates a new player for the game
+	 * 
+	 * @param level
+	 *            the initial level
+	 * @param x
+	 *            the x coordinate
+	 * @param y
+	 *            the y coordinate
+	 */
 	public Player(Level level, int x, int y) {
-		super(level, "", x, y, 1, 14, 16, SpriteSheet.player, 100);
-		this.score = 0;
-		this.inventory = new Inventory();
-		gun = inventory.getGun(this);
-		sword = inventory.getSword(this);
-		isTired = false;
-		startStamina = 200;
-		stamina = startStamina;
+		super(level, "", x, y, 1, SIZE, SIZE, SpriteSheet.player, START_HEALTH);
 
-		companion = new Companion(level, "Companion", x + 10, y, 16, 16, 100,
-				new int[] { 0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB }, 0, 4, this);
+		inventory = new Inventory(this);
+		maxStamina = START_STAMINA;
+		stamina = maxStamina;
 
 	}
 
+	// TODO will change how this works
 	public void setInput(InputHandler input) {
 		this.input = input;
-		if (isDriving) {
+		if (vehicle != null) {
 			vehicle.input = input;
 		}
 	}
 
-	public Level getLevel() {
-		if (level == null) {
-			return new Level1();
-		}
-		return level;
-	}
-
-	public void equip() {
-		gun = inventory.getGun(this);
-		if (gun.getClip() == null) {
-			gun.initSound();
-		}
-		sword = inventory.getSword(this);
-	}
-
 	public void equip(Armor armor) {
 		this.yTile = armor.getRow();
-		this.defense = armor.getDefense();
 		this.maxShield = armor.getShield();
-		shield = maxShield;
-		switch (armor.getType()) {
-		case VEST:
-			this.gunSheet = SpriteSheet.playerVestedGuns;
-			break;
-		case KNIGHT:
-			this.gunSheet = SpriteSheet.playerKnightedGuns;
-			break;
-		case HORNED:
-			this.gunSheet = SpriteSheet.playerHornedGuns;
-			break;
-		case OWL:
-			this.gunSheet = SpriteSheet.playerIstrahiimGuns;
-			break;
-		default:
-			this.gunSheet = SpriteSheet.playerGuns;
-			break;
-		}
+		this.gunSheet = armor.getGunSpritesheet();
 	}
 
-	public void changeLevel(Level level) {
+	/**
+	 * Transitions the player from one level to another
+	 */
+	public void updateLevel(Level level) {
 
-		sound.play(SoundHandler.sound.click);
-		if (!this.level.getBackgroundMusic().equals(level.getBackgroundMusic())) {
-			this.level.getBackgroundMusic().stop();
-			this.level.getBackgroundMusic().setFramePosition(0);
-			level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
+		// play the click sound
+		SoundHandler.play(SoundHandler.click);
+
+		// loop the new background music if applicable
+		if (!getLevel().getBackgroundMusic().equals(level.getBackgroundMusic())) {
+			SoundHandler.playLoop(level.getBackgroundMusic());
 		}
 
+		// load the new level if it has not been loaded yet
 		if (!level.isLoaded) {
 			level.load();
 		}
+
 		input.e.toggle(false);
-		this.level.remEntity(this);
+
+		getLevel().remEntity(this);
+
+		// TODO temporary fix
 		if (isOnFire()) {
 			setOnFire(false);
 		}
-		this.level.clear();
-		init(level);
-		level.init();
+
+		// clears all the dead mobs on the last level
+		getLevel().clear();
+
+		// change the global level variable
+		super.updateLevel(level);
+
+		// adds the player to the new level
 		level.addEntity(this);
-		this.x = level.spawnPoint.x;
-		this.y = level.spawnPoint.y;
-		this.getBounds().setLocation(this.x - this.width / 2, this.y - this.height / 2);
-		this.getOuterBounds().setLocation(this.x - this.width / 2 - 2, this.y - this.height / 2 - 2);
+
+		// go to the spawn location for that level
+		moveTo(level.spawnPoint.x, level.spawnPoint.y);
 	}
 
+	/**
+	 * Internal tick clock that updates the player
+	 */
 	public void tick() {
 
-		if (isDriving) {
+		// do not update if driving
+		if (vehicle != null) {
 			return;
 		}
 
-		checkTile(x, y);
+		// do basic checks
+		super.tick();
 
-		if (isHit) {
-			isHitTicks++;
-			if (isHitTicks > 20) {
-				isHitTicks = 0;
-				isHit = false;
-			}
-		}
-
+		// automate movement with a script
 		if (script != null && !script.isCompleted()) {
 			script.moveToPoint();
+			return;
 		}
 
-		int xa = 0;
-		int ya = 0;
+		// the change in x and y (movement)
+		int dx = 0, dy = 0;
+
+		// TODO move input out of the tick loop
+		// toggles jesus mode (no clip)
 		if (input.j.isPressed()) {
 			jesusMode = !jesusMode;
 			isSwimming = false;
 			input.j.toggle(false);
 		}
+
+		// spawns a demon
 		if (input.t.isPressed()) {
-			if (!genericCooldown) {
-				level.addEntity(new Demon(level, "Demon", (int) this.x, (int) this.y, 1));
+			if (!demonCooldown) {
+				getLevel().addEntity(new Demon(getLevel(), "Demon", getX(), getY(), 1));
 			}
-			genericCooldown = true;
+			demonCooldown = true;
 		}
+
+		// shooting keys
 		if (input.up.isPressed() || input.down.isPressed() || input.left.isPressed() || input.right.isPressed()) {
-			if (!isSwinging && !isSwimming && !isDriving && gun != null && !this.gun.isReloading)
-				isShooting = true;
-		} else {
-			isShooting = false;
+
+			isShooting = !isSwinging && !isSwimming && inventory.getGun() != null && !inventory.getGun().isReloading;
+
 		}
+
+		// swing key
 		if (input.space.isPressed()) {
-			if (!isShooting && !isSwimming && !isDriving && !isSwinging && sword != null) {
-				if (sword != null) {
-					sword.swing();
-					isSwinging = true;
-				}
+			if (!isShooting && !isSwimming && !isSwinging && inventory.getSword() != null) {
+				inventory.getSword().swing();
+				isSwinging = true;
 			}
 		}
 
+		// displays names of all mobs
 		if (input.h.isPressed()) {
-			for (Mob m : level.getMobs()) {
+			for (Mob m : getLevel().getMobs()) {
 				if (!m.isDead())
 					m.isTalking = true;
 			}
 		}
+
+		// upwards movement
 		if (input.w.isPressed()) {
-			ya--;
-			if (!jesusMode && isSolidEntityCollision(0, ya)) {
-				ya++;
-			}
+			dy--;
 		}
+
+		// downwards movement
 		if (input.s.isPressed()) {
-			ya++;
-			if (!jesusMode && isSolidEntityCollision(0, ya)) {
-				ya--;
-			}
+			dy++;
 		}
+
+		// left movement
 		if (input.a.isPressed()) {
-			xa--;
-			if (!jesusMode && isSolidEntityCollision(xa, 0)) {
-				xa++;
-			}
+			dx--;
 		}
+
+		// right movement
 		if (input.d.isPressed()) {
-			xa++;
-			if (!jesusMode && isSolidEntityCollision(xa, 0)) {
-				xa--;
-			}
+			dx++;
 		}
+
+		// reload
 		if (input.r.isPressed()) {
-			if (gun != null) {
-				gun.reload();
+			if (inventory.getGun() != null) {
+				inventory.getGun().reload();
 				input.r.toggle(false);
 			}
 		}
+
+		// toggle developer mode
 		if (input.f3.isPressed()) {
 			Game.setDisplayDevScreen(!Game.getDisplayDevScreen());
 			input.f3.toggle(false);
 		}
+
+		// open inventory
 		if (input.i.isPressed()) {
 			input.i.toggle(false);
 			if (Display.inGameScreen) {
@@ -249,143 +280,169 @@ public class Player extends Mob implements Skills{
 				input.shift.toggle(false);
 			}
 		}
+
+		// open pause menu
 		if (input.esc.isPressed()) {
 			input.esc.toggle(false);
 			if (Display.inGameScreen) {
 				Display.displayPause();
 			}
 		}
+
+		// action button
 		if (input.e.isPressed()) {
-			if (!isDriving) {
-				for (Entity entity : level.getEntities()) {
-					if (entity instanceof Vehicle) {
-						if (this.getBounds().intersects(((Vehicle) entity).getBounds()) && !((Vehicle) entity).isDead) {
-							this.vehicle = (Vehicle) entity;
-							this.vehicle.addPlayer(this);
-							this.x = vehicle.x;
-							this.y = vehicle.y;
-							isDriving = true;
-							vehicle.isUsed = true;
-							input.e.toggle(false);
-							return;
-						}
+			for (Entity entity : getLevel().getEntities()) {
+
+				// enter a vehicle
+				if (entity instanceof Vehicle) {
+
+					Vehicle vehicle = (Vehicle) entity;
+
+					// TODO check if vehicle is destroyed
+					if (getOuterBounds().intersects(vehicle.getBounds())) {
+						this.vehicle = vehicle;
+						this.vehicle.addPlayer(this);
+						moveTo(vehicle.getX(), vehicle.getY());
+						vehicle.isUsed = true;
+						input.e.toggle(false);
+						return;
 					}
-					if (entity instanceof Chest && this.getOuterBounds().intersects(((Chest) entity).bounds)) {
-						((Chest) entity).open(this);
-					}
-					if (entity instanceof Mob && !(entity instanceof Player)) {
-						if (this.getOuterBounds().intersects(((Mob) entity).getOuterBounds())
-								&& !((Mob) entity).isDead) {
-							((Mob) entity).speak(this);
-							input.e.toggle(false);
-						}
+				}
+
+				// open a chest
+				if (entity instanceof Chest && getOuterBounds().intersects(entity.getBounds())) {
+					openChest((Chest) entity);
+				}
+
+				// talk to a mob
+				if (entity instanceof Mob && entity != this) {
+
+					// the other mob
+					Mob other = (Mob) entity;
+					if (getOuterBounds().intersects(other.getOuterBounds()) && !other.isDead()) {
+
+						// TODO change from mob.speak to this.speak(other
+						// mob)
+						other.speak(this);
+						input.e.toggle(false);
 					}
 				}
 			}
 		}
+
+		// toggles chat window
 		if (input.v.isPressed()) {
 			ChatHandler.toggle();
 			input.v.toggle(false);
 		}
-		if (sword != null) {
-			isSwinging = sword.isSwinging;
+
+		// TODO repetitive
+		if (inventory.getSword() != null) {
+			isSwinging = inventory.getSword().isSwinging;
 		}
+
+		// determines if the player is going to move
+		boolean isMoving = (dx != 0 || dy != 0);
+
+		// play swimming sound
 		if (isSwimming) {
-			speed = 1;
-			if (!sound.swimming.isRunning())
-				sound.play(SoundHandler.sound.swimming);
-		} else if (input.shift.isPressed() && !isDriving && !isTired && isMoving() && !isShooting && !isSwinging) {
-			speed = 2;
+			SoundHandler.playSmoothly(SoundHandler.swimming);
+
+			// shift sprints, can't sprint in water
+		} else if (input.shift.isPressed() && stamina > 0 && isMoving && !isShooting && !isSwinging) {
+
+			// shift doubles the speed
+			dx *= 2;
+			dy *= 2;
+
+			// reduce stamina
 			stamina--;
-			if (stamina <= 0)
-				isTired = true;
-		} else {
-			speed = 1;
+
 		}
-		if (!isMoving() && stamina < startStamina && !isShooting) {
+
+		// regenerate stamina when not moving
+		if (!isMoving && stamina < maxStamina && !isShooting) {
 			stamina += 0.5;
-			isTired = false;
 		}
-		if (!isMoving() && shield < maxShield && !isShooting) {
+		// regenerate shield when not moving
+		if (!isMoving && shield < maxShield && !isShooting) {
 			shield += (0.0005 * maxShield);
 		}
-		if (isMoving() && !input.shift.isPressed()) {
-			if (stamina < startStamina)
+		// regenerate stats very slowing if moving (but not sprinting)
+		if (isMoving && !input.shift.isPressed()) {
+			if (stamina < maxStamina)
 				stamina += 0.1;
 			if (shield < maxShield)
 				shield += (0.00001 * maxShield);
-			isTired = false;
 		}
 
-		if (jesusMode) {
-			move(xa, ya, true);
-			setMoving(true);
-		} else if ((xa != 0 || ya != 0) && !isSolidEntityCollision((int) (xa * speed), (int) (ya * speed)) && !isDriving
-				&& speed > 1 && !isSwinging) {
-			if (gun != null && gun instanceof Bazooka && !isShooting) {
-				move(xa, ya);
-				setMoving(true);
-			} else if (gun != null && !(gun instanceof Bazooka)) {
-				move(xa, ya);
-				setMoving(true);
-			} else if (gun == null) {
-				move(xa, ya);
-				setMoving(true);
+		// move the player
+		if (isMoving) {
+			if (jesusMode) {
+				move(dx, dy, true);
+				isSwimming = false;
+			} else {
+				move(dx, dy);
 			}
-		} else if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isDriving && !isSwinging) {
-			if (gun != null && gun instanceof Bazooka && !isShooting) {
-				move(xa, ya);
-				setMoving(true);
-			} else if (gun != null && !(gun instanceof Bazooka)) {
-				move(xa, ya);
-				setMoving(true);
-			} else if (gun == null) {
-				move(xa, ya);
-				setMoving(true);
-			}
-		} else {
-			setMoving(false);
+			playTileSound();
 		}
 
+		// update the shooting directions if applicable
 		if (input.up.isPressed()) {
-			shootingDir = 0;
-			setDirection(Direction.NORTH);
+			shootingDir = Direction.NORTH;
 		}
 		if (input.down.isPressed()) {
-			shootingDir = 1;
-			setDirection(Direction.SOUTH);
+			shootingDir = Direction.SOUTH;
 		}
 		if (input.left.isPressed()) {
-			shootingDir = 2;
-			setDirection(Direction.WEST);
+			shootingDir = Direction.WEST;
 		}
 		if (input.right.isPressed()) {
-			shootingDir = 3;
-			setDirection(Direction.EAST);
-		}
-		if (level.getTile(x >> 3, (y + 3) >> 3).getId() == 3 && !jesusMode) {
-			isSwimming = true;
-		} else {
-			isSwimming = false;
+			shootingDir = Direction.EAST;
 		}
 
-		if (gun != null) {
-			gun.tick();
+		// TODO Look into this
+		if (inventory.getGun() != null) {
+			inventory.getGun().tick();
 		}
 
-		if (sword != null) {
-			sword.tick();
+		if (inventory.getSword() != null) {
+			inventory.getSword().tick();
 		}
 
-		if (genericCooldown) {
+		// spawn demon cooldown loop
+		if (demonCooldown) {
 			if (tickCount % 100 == 0) {
-				genericCooldown = false;
+				demonCooldown = false;
 			}
 		}
+
 		tickCount++;
 
 	}
 
+	/**
+	 * Opens a chest
+	 * 
+	 * @param chest
+	 *            the chest to open
+	 */
+	private void openChest(Chest chest) {
+
+		// change the chest to be open
+		chest.open();
+
+		// get the contents
+		for (Item e : chest.getContents()) {
+			inventory.addItem(e);
+			ChatHandler.displayText("You have obtained " + e, Color.GREEN);
+		}
+		InventoryGUI.update();
+	}
+
+	/**
+	 * Processes the image of the player on the screen
+	 */
 	public void render(Screen screen) {
 		super.render(screen);
 		if (isDriving) {
@@ -557,48 +614,71 @@ public class Player extends Mob implements Skills{
 
 	}
 
-	public void checkTile(double x, double y) {
-		Tile currentTile = level.getTile((int) x / 8, (int) y / 8);
+	/**
+	 * Play the appropriate sound for the tile
+	 */
+	public void playTileSound() {
 
-		if (isMoving()) {
+		// get the current tile
+		Tile currentTile = getLevel().getTile(getX() >> 3, getY() >> 3);
 
-			if (currentTile == Tile.GRASS) {
-				if (!sound.footstepsGrass.isRunning())
-					sound.play(sound.footstepsGrass);
-			} else if (currentTile == Tile.MUD) {
-				if (!sound.footstepsWood.isRunning())
-					sound.play(sound.footstepsWood);
-			} else if (currentTile == Tile.ROAD1 || currentTile == Tile.ROAD2 || currentTile == Tile.ROAD3) {
-				if (!sound.footstepsRoad.isRunning())
-					sound.play(sound.footstepsRoad);
-			} else if (currentTile == Tile.DIRTROAD) {
-				if (!sound.footstepsDirt.isRunning())
-					sound.play(sound.footstepsDirt);
-			}
+		// Grass sound
+		if (currentTile == Tile.GRASS) {
+			SoundHandler.playSmoothly(SoundHandler.footstepsGrass);
+
+			// Mud sound
+		} else if (currentTile == Tile.MUD) {
+			SoundHandler.playSmoothly(SoundHandler.footstepsWood);
+
+			// Road sounds
+		} else if (currentTile == Tile.ROAD1 || currentTile == Tile.ROAD2 || currentTile == Tile.ROAD3) {
+			SoundHandler.playSmoothly(SoundHandler.footstepsRoad);
+
+			// Dirt road sound
+		} else if (currentTile == Tile.DIRTROAD) {
+			SoundHandler.playSmoothly(SoundHandler.footstepsDirt);
 		}
 
 	}
 
-	public void updateColor() {
-		color[0] = hairColor;
-		color[1] = shirtColor;
-		color[2] = skinColor;
-	}
-
-	public void setShirtColor(int num) {
-		this.shirtColor = num;
-	}
-
-	public void setSkinColor(int num) {
-		this.skinColor = num;
-	}
-
+	/**
+	 * Sets the hair color
+	 * 
+	 * @param num
+	 *            the hair color in hexadecimal
+	 */
 	public void setHairColor(int num) {
-		this.hairColor = num;
+		color[0] = num;
 	}
 
-	public void damage(int a, int b) {
-		int damage = random.nextInt(b - a + 1) + a;
+	/**
+	 * Sets the shirt color
+	 * 
+	 * @param num
+	 *            the shirt color in hexadecimal
+	 */
+	public void setShirtColor(int num) {
+		color[1] = num;
+	}
+
+	/**
+	 * Sets the skin color
+	 * 
+	 * @param num
+	 *            the skin color in hexadecimal
+	 */
+	public void setSkinColor(int num) {
+		color[2] = num;
+	}
+	
+	/**
+	 * Player uses shield and has defense unlike other mobs
+	 * @param damage the value of damage
+	 */
+	@Override
+	protected void doDamageToHealth(int damage) {
+		
+		// use shield to deflect damage
 		while (shield > 0 && damage > 0) {
 			shield--;
 			damage--;
@@ -606,55 +686,46 @@ public class Player extends Mob implements Skills{
 		if (shield < 0) {
 			shield = 0;
 		}
-		damage -= defense;
+		damage -= getDefense();
 		if (damage <= 0) {
 			damage = 0;
 		}
-		if (isDriving)
-			this.vehicle.health -= damage;
-		else
-			this.health -= damage;
-		damageTaken = String.valueOf(damage);
-		isHit = true;
-		isHitX = random.nextInt(10) - 5;
-		isHitY = random.nextInt(6) - 3;
-		isHitColor = new int[] { 0xFF000000, 0xFF000000, 0xFFFF0000 };
-		if (health <= 0) {
-			kill();
-		}
+		
+		super.doDamageToHealth(damage);
 	}
 
+	/**
+	 * Give developers special perks that make them invincible
+	 */
 	public void grantDevPowers() {
 		this.strength = 100;
-		this.startStamina = Integer.MAX_VALUE;
-		this.stamina = startStamina;
+		this.maxStamina = Integer.MAX_VALUE;
+		this.stamina = maxStamina;
 		this.defense = 10;
-		this.startHealth = Integer.MAX_VALUE;
-		this.health = startHealth;
+		setMaxHealth(Integer.MAX_VALUE);
+		heal();
 		this.maxShield = 1000;
 		this.shield = maxShield;
 		inventory.addItem(Item.blackHoleGun);
 		inventory.addItem(Item.bazooka);
 	}
 
+	/**
+	 * @return The player's colorset
+	 */
 	public int[] getColor() {
 		return color;
 	}
 
-	public SpriteSheet getSpriteSheet() {
-		return this.gunSheet;
-	}
-
 	@Override
 	public int getStrength() {
-		// TODO Auto-generated method stub
-		return 0;
+		return strength;
 	}
 
 	@Override
 	public int getDefense() {
-		// TODO Auto-generated method stub
-		return 0;
+		// TODO armor defense (will be static)
+		return defense;
 	}
 
 	@Override
@@ -668,5 +739,33 @@ public class Player extends Mob implements Skills{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	/**
+	 * @return whether or not the player is driving
+	 */
+	public boolean isDriving() {
+		return vehicle != null;
+	}
+	
+	/**
+	 * @return The vehicle the player is driving
+	 * Null if the player is not riding anything
+	 */
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+	
+	/**
+	 * @return The player's inventory
+	 */
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
+	public double getCurrentStamina() {
+		return stamina;
+	}
+	
+	//public double get
 
 }

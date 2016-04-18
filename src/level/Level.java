@@ -89,6 +89,7 @@ public abstract class Level implements Serializable {
 			} else {
 				generateLevel();
 			}
+			init();
 			isLoaded = true;
 		}
 	}

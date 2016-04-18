@@ -1,6 +1,7 @@
 package game.entities.structures.furniture;
 
 import game.ChatHandler;
+import game.entities.Entity;
 import game.entities.Player;
 import game.entities.SolidEntity;
 import game.graphics.Screen;
@@ -11,12 +12,13 @@ import items.Item;
 import items.Sword;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 
 import level.Level;
 
-public class Chest extends SolidEntity {
+public class Chest extends Entity implements SolidEntity {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -129,16 +131,12 @@ public class Chest extends SolidEntity {
 			fillRandomItems(string, amt - 1);
 	}
 
-	public void open(Player player) {
-		if (!isOpen) {
-			isOpen = true;
-			for (Item e : contents) {
-				player.inventory.addItem(e);
-				ChatHandler.displayText("You have obtained " + e, Color.GREEN);
-			}
-			player.equip();
-			InventoryGUI.update();
-		}
+	public void open() {
+		isOpen = true;
+	}
+	
+	public ArrayList<Item> getContents() {
+		return contents;
 	}
 
 	public void render(Screen screen) {
@@ -151,6 +149,18 @@ public class Chest extends SolidEntity {
 			screen.render(x + 8, y, 3 + 20 * 32, color, 0, 1, SpriteSheet.tiles);
 		}
 
+	}
+
+	@Override
+	public Rectangle getShadow() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

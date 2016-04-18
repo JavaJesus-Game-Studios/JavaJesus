@@ -23,6 +23,7 @@ public class SoundHandler {
 			background2, explosion, carAcceleration, carDriving, carIdle,
 			carStartUp, laser;
 
+	//TODO this should not be called
 	public SoundHandler(Clip test) {}
 
 	@SuppressWarnings("unused")
@@ -205,7 +206,7 @@ public class SoundHandler {
 	 * Plays an audio clip that will restart the same clip if it is already playing
 	 * @param clip to play
 	 */
-	public void play(Clip clip) {
+	public static void play(Clip clip) {
 		if (!muted) {
 			if (clip.isRunning()) {
 				clip.stop();
@@ -219,7 +220,7 @@ public class SoundHandler {
 	 * Plays an audio clip that will play over another audio clip if that is already playing
 	 * @param clip to play
 	 */
-	public void playSmoothly(Clip clip) {
+	public static void playSmoothly(Clip clip) {
 		if (!muted) {
 			if (clip.isRunning()) {
 				return;
@@ -257,7 +258,7 @@ public class SoundHandler {
 	 * Loops a certain clip, generally background clips
 	 * @param clip to play
 	 */
-	public void playLoop(Clip clip) {
+	public static void playLoop(Clip clip) {
 		if (!muted) {
 			if (clip.isRunning()) {
 				clip.stop();

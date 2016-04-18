@@ -49,7 +49,7 @@ public class PlayerHUD {
 		BufferedImage gun = getGunType();
 		if (gun != null) {
 			g.drawImage(gun, XOFFSET, YOFFSET, gun.getWidth() * MODIFIER, gun.getHeight() * MODIFIER, null);
-			g.drawString((int) player.gun.ammo + " / " + player.gun.clipSize, XOFFSET, AMMO_OFFSET);
+			g.drawString((int) player.getInventory().getGun().ammo + " / " + player.getInventory().getGun().clipSize, XOFFSET, AMMO_OFFSET);
 		}
 
 		// draws the health bar

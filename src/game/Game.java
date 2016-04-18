@@ -47,6 +47,9 @@ public class Game implements Runnable {
 	// True if special developer numbers should be displayed
 	private static boolean displayDevOverlay;
 	
+	// the gamescore 
+	public static int score;
+	
 	public static Integer fps;
 
 	/**
@@ -90,7 +93,7 @@ public class Game implements Runnable {
 			player = getLevel().getPlayer();
 			display = new Display();
 			player.setInput(new InputHandler(display));
-			player.gun.initSound();
+			player.getInventory().getGun().initSound();
 			player.getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 			running = true;
 			new Thread(this, "Game").start();

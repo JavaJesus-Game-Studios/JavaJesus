@@ -53,7 +53,7 @@ public class Mob extends Entity {
 	private boolean isTargeted;
 
 	// randomly generates colors and damage
-	private static final Random random = new Random();
+	protected static final Random random = new Random();
 
 	// the padding around each mob where other mobs can interact
 	private Rectangle outerBounds;
@@ -578,16 +578,24 @@ public class Mob extends Entity {
 		isTalking = false;
 		setTargeted(false);
 	}
-
+	
 	/**
-	 * Randomizes the damage when attacked
+	 * Deals damage to another mob
 	 * @param min the minimum damage dealt
 	 * @param max the maximum damage dealt
+	 * @param other the other mob to attack
 	 */
-	public void damage(int min, int max) {
+	public void attack(int min, int max, Mob other) {
+		other.damage(random.nextInt(max - min + 1) + min);
+	}
+
+	/**
+	 * Randomizes the damage done to THIS MOB when attacked
+	 * @param damage the damage inflicted to THIS mob
+	 */
+	protected void damage(int damage) {
 		
-		int damage = random.nextInt(max - min + 1) + min;
-		this.health -= damage;
+		doDamageToHealth(damage);
 		
 		damageTaken = String.valueOf(damage);
 		isHit = true;
@@ -602,14 +610,15 @@ public class Mob extends Entity {
 	}
 
 	/**
-	 * Do absolute damage
-	 * @param d damage
+	 * Decreases a mob's health
+	 * Can be overridden for other stats
+	 * @param damage the value of damage
 	 */
-	public void damage(int d) {
-		damage(d, d);
+	protected void doDamageToHealth(int damage) {
+		this.health -= damage;
 	}
 
-	// TODO find out what this does
+	// TODO change to player.speak(Mob)
 	public void speak(Player player) {
 	}
 
@@ -668,6 +677,17 @@ public class Mob extends Entity {
 	 */
 	protected void moveOuterBounds(int dx, int dy) {
 		outerBounds.setLocation((int) outerBounds.getX() + dx, (int) outerBounds.getY() + dy);
+	}
+	
+	/**
+	 * Moves the mob to the specified x and y coord
+	 * Also updates the bounds and outer bounds
+	 * @param x the x coord
+	 * @param y the y coord
+	 */
+	protected void moveTo(int x, int y) {
+		super.moveTo(x, y);
+		outerBounds.setLocation(x - OUTER_BOUNDS_RANGE, y - OUTER_BOUNDS_RANGE);
 	}
 
 	/**
@@ -757,6 +777,13 @@ public class Mob extends Entity {
 	 */
 	public int getMaxHealth() {
 		return maxHealth;
+	}
+	
+	/**
+	 * Changes the mob's max health
+	 */
+	public void setMaxHealth(int health) {
+		maxHealth = health;
 	}
 
 	/**

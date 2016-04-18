@@ -15,12 +15,15 @@ public class Inventory implements Serializable {
 	public List<Item> swords = new ArrayList<Item>();
 	public List<Item> usables = new ArrayList<Item>();
 	public List<Item> misc = new ArrayList<Item>();
-
-	public Inventory() {
+	
+	private Player player;
+	
+	public Inventory(Player player) {
 		giveDefaultItems();
+		this.player = player;
 	}
 
-	public Sword getSword(Player player) {
+	public Sword getSword() {
 		for (Item e : items) {
 			if (e instanceof Sword) {
 				((Sword) e).addPlayer(player);
@@ -30,13 +33,13 @@ public class Inventory implements Serializable {
 		return null;
 	}
 
-	public void equip(Armor armor, Player player) {
+	public void equip(Armor armor) {
 		player.equip(armor);
 	}
 
-	public void equip(Item item, Player player) {
+	public void equip(Item item) {
 		if (item instanceof Armor) {
-			this.equip((Armor) item, player);
+			this.equip((Armor) item);
 			return;
 		}
 		items.remove(item);
@@ -52,12 +55,9 @@ public class Inventory implements Serializable {
 		player.equip();
 	}
 
-	public Gun getGun(Player player) {
+	public Gun getGun() {
 		for (Item e : items) {
 			if (e instanceof Gun) {
-				if (e instanceof Bazooka) {
-					((Bazooka) e).addPlayer(player);
-				}
 				return (Gun) e;
 			}
 		}

@@ -9,16 +9,10 @@ public class Bazooka extends Gun {
 
 	private static final long serialVersionUID = -2457352828009998981L;
 	
-	private Player player;
-
 	public Bazooka() {
 		super("Bazooka", 10, 5, 0, new int[] { 0xFF000000, 0xFF434343, 0xFF371B09 },
 				"Standard Explosive Artillery", 5, 0, 2, 10, 20, 300,
 				Ammo.MISSILE, SoundHandler.sound.explosion);
-	}
-
-	public void addPlayer(Player player) {
-		this.player = player;
 	}
 
 	public void renderGun(Screen screen) {
