@@ -272,7 +272,7 @@ public class SoundHandler {
 	 * Continuously plays a clip, used for bullets
 	 * @param clip to play
 	 */
-	public void fire(Clip clip) {
+	public static void fire(Clip clip) {
 		if (!muted) {
 			clip.setFramePosition(0);
 			clip.start();

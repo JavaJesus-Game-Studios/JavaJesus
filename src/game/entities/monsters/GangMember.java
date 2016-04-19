@@ -12,34 +12,64 @@ import java.awt.geom.Ellipse2D;
 import level.Level;
 import utility.Direction;
 
+/*
+ * A generic gang member to attack others
+ */
 public class GangMember extends Monster {
 
 	private static final long serialVersionUID = 3322532159669147419L;
-	
+
+	// the range the gang member will stand when shooting
 	protected Ellipse2D.Double standRange;
 
-	public GangMember(Level level, String name, int x, int y, int speed,
-			int health, int type) {
-		super(level, name, x, y, speed, 14, 16, 1, health, new int[] {
-				0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB });
+	// dimensions of the centaur
+	private static final int WIDTH = 16, HEIGHT = 16;
+
+	// how fast the player toggles steps
+	private static final int WALKING_ANIMATION_SPEED = 4;
+
+	// color set of a centaur
+	private static final int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB };
+	
+	// types of gang members
+	public static final int TRIAD = 0, RUSSIAN = 1;
+
+	public GangMember(Level level, int x, int y, int speed, int health, int type) {
+		super(level, "Gangster", x, y, speed, WIDTH, HEIGHT, 1, health, 100);
+		
+		// sets the appropriate y tile on the pixel sheet
 		getType(type);
-		standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4,
-				RADIUS / 2, RADIUS / 2);
-		this.bar = new HealthBar(level, this.x, this.y, this);
-		if (level != null)
-			level.addEntity(bar);
+		
+		// creates the standing range
+		standRange = new Ellipse2D.Double(getX() - RADIUS / 4, getY() - RADIUS / 4, RADIUS / 2, RADIUS / 2);
+		
+	}
+	
+	/**
+	 * Moves a monster on the level
+	 * 
+	 * @param dx
+	 *            the total change in x
+	 * @param dy
+	 *            the total change in y
+	 */
+	@Override
+	protected void move(int dx, int dy) {
+		super.move(dx, dy);
+
+		standRange.setFrame(getX() - RADIUS / 4, getY() - RADIUS / 4, RADIUS / 2, RADIUS / 2);
 	}
 
+	/**
+	 * @param type The type of gang member to render
+	 */
 	private void getType(int type) {
 		switch (type) {
-		case 0:
+		case TRIAD:
 			yTile = 3;
-			break;
-		case 1:
-			yTile = 10;
 			break;
 		default:
-			yTile = 3;
+			yTile = 10;
 			break;
 		}
 	}
@@ -60,8 +90,8 @@ public class GangMember extends Monster {
 		if (mob != null && this.aggroRadius.intersects(mob.getBounds())) {
 			if (!cooldown) {
 				isShooting = true;
-				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7), mob
-						.getX(), mob.getY() - 4, this, 3, sound.revolver));
+				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7), mob.getX(), mob.getY() - 4, this, 3,
+						sound.revolver));
 			}
 			if (!this.standRange.intersects(mob.getBounds())) {
 
@@ -101,8 +131,7 @@ public class GangMember extends Monster {
 			cooldown = true;
 		}
 
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isMobCollision(xa, ya)) {
+		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
 			setMoving(true);
 			move(xa, ya);
 		} else {
@@ -113,8 +142,7 @@ public class GangMember extends Monster {
 
 	public void render(Screen screen) {
 		super.render(screen);
-		this.standRange.setFrame(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2,
-				RADIUS / 2);
+		this.standRange.setFrame(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2, RADIUS / 2);
 		int xTile = 0;
 		int walkingSpeed = 4;
 		int flip = (numSteps >> walkingSpeed) & 1;
@@ -150,21 +178,19 @@ public class GangMember extends Monster {
 		}
 
 		// Upper body 1
-		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-				* sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile * sheet.boxes, color, flip, scale, sheet);
 
 		// Upper body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset,
-				(xTile + 1) + yTile * sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset + modifier - (modifier * flip), yOffset, (xTile + 1) + yTile * sheet.boxes, color, flip,
+				scale, sheet);
 
 		// Lower Body 1
-		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile
-				+ (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile + (yTile + 1) * sheet.boxes, color, flip,
+				scale, sheet);
 
 		// Lower Body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset
-				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-				flip, scale, sheet);
+		screen.render(xOffset + modifier - (modifier * flip), yOffset + modifier,
+				(xTile + 1) + (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
 
 	}
 

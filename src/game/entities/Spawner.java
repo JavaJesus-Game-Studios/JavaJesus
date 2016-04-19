@@ -111,7 +111,7 @@ public class Spawner extends Entity {
 	private Entity getEntity() {
 		switch (type) {
 		case DEMON:
-			return currentEntity = new Demon(getLevel(), "Demon", getX(), getY(), 1);
+			return currentEntity = new Demon(getLevel(), getX(), getY(), 1, 100);
 		case GANG_MEMBER:
 			return currentEntity = new GangMember(getLevel(), "Gang", getX(), getY(), 1,
 					200, random.nextInt(2));

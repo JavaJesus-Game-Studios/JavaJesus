@@ -6,7 +6,6 @@ import game.graphics.Screen;
 
 /*
  * A Cyclops is a powerful monster that strikes fear into any foe
- * TODO fix attack animation - attacks very fast, don't see rendering
  */
 public class Cyclops extends Monster {
 
@@ -31,26 +30,12 @@ public class Cyclops extends Monster {
 	 * @param y
 	 *            the y coord
 	 * @param speed
-	 *            how fast the centaur moves
+	 *            how fast the demon moves
 	 * @param health
 	 *            the base health
 	 */
 	public Cyclops(Level level, int x, int y, int speed, int health) {
 		super(level, "Cyclops", x, y, speed, WIDTH, HEIGHT, 14, health, 40);
-
-	}
-
-	/**
-	 * Updates the cyclops
-	 */
-	public void tick() {
-		super.tick();
-
-		// attack the target if given a chance
-		if (isShooting && getOuterBounds().intersects(target.getOuterBounds())) {
-			cooldown = true;
-			this.attack(getStrength(), getStrength() * 2, target);
-		}
 
 	}
 

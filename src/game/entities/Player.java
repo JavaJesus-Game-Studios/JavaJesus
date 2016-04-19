@@ -194,7 +194,7 @@ public class Player extends Mob implements Skills {
 		// spawns a demon
 		if (input.t.isPressed()) {
 			if (!demonCooldown) {
-				getLevel().addEntity(new Demon(getLevel(), "Demon", getX(), getY(), 1));
+				getLevel().addEntity(new Demon(getLevel(), getX(), getY(), 1, 100));
 			}
 			demonCooldown = true;
 		}

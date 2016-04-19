@@ -26,7 +26,7 @@ public class Monster extends Mob implements Skills {
 	private Ellipse2D.Double aggroRadius;
 
 	// the attack range radius, 32 (number of units) * 8 (units) = 256
-	private static final int RADIUS = 256;
+	protected static final int RADIUS = 256;
 
 	// cooldown from attacks
 	protected boolean cooldown = true;
@@ -39,6 +39,9 @@ public class Monster extends Mob implements Skills {
 
 	// the amount of ticks between attacks
 	private int attackDelay;
+
+	// how long the attack position is rendered in ticks
+	private static final int attackAnimationLength = 20;
 
 	/**
 	 * Creates a Monster that attacks other mobs
@@ -109,13 +112,18 @@ public class Monster extends Mob implements Skills {
 		// attacking cooldown loop
 		if (cooldown) {
 			attackTickCount++;
+			isShooting = attackTickCount < attackAnimationLength;
 			if (attackTickCount > attackDelay) {
 				attackTickCount = 0;
 				cooldown = false;
 			}
 		}
-		
-		isShooting = !cooldown && target != null;
+
+		// attack the target if given a chance
+		if (!cooldown && target != null && getOuterBounds().intersects(target.getOuterBounds())) {
+			cooldown = true;
+			this.attack(getStrength(), getStrength() * 2, target);
+		}
 
 		// change in x and y
 		int dx = 0, dy = 0;

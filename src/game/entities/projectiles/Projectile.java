@@ -1,5 +1,6 @@
 package game.entities.projectiles;
 
+import game.SoundHandler;
 import game.entities.Entity;
 import game.entities.Mob;
 import game.entities.Player;
@@ -16,9 +17,9 @@ import javax.sound.sampled.Clip;
 import level.Level;
 import level.tile.Tile;
 
-public class Projectile extends Entity {
+public abstract class Projectile extends Entity {
 
-	// In the future with guns, create two vars, firerate in gun class and
+	// TODO In the future with guns, create two vars, firerate in gun class and
 	// firerate in player class. The firerate in gun class will be static and
 	// final, and it will be used to countdown the ticks till next shoot, such
 	// as if (gun.firerate >0) player.firerate--; then reset when it reaches 0
@@ -36,50 +37,48 @@ public class Projectile extends Entity {
 	public Mob mob;
 	protected SpriteSheet sheet = SpriteSheet.particles;
 	protected int tileNumber;
-	protected int[] color;
 	protected int width;
 	protected int height;
 	public boolean renderOnTop = false;
-	protected double x, y;
+	private double x, y;
 
 	/**
 	 * Creates a new Projectile will a single direction
 	 * 
 	 * @param level
 	 *            : What level does it render on
-	 * @param tileNumber
-	 *            : the tile id on the SpriteSheet (xTile) + (yTile) *
-	 *            sheet.boxes
-	 * @param color
-	 *            : gets the color, use Colours.get()
 	 * @param x
 	 *            : The X position it will spawn at
 	 * @param y
 	 *            : The Y position it will spawn at
+	 * @param tileNumber
+	 *            : the tile id on the SpriteSheet (xTile) + (yTile) *
+	 *            getSpriteSheet().boxes
 	 * @param speed
 	 *            : The speed at which the projectile will move (player speed is
 	 *            1)
 	 * @param direction
 	 *            : The direction it will move; Currently only 0 1 2 or 3
+	 * @param mob
+	 *            the mob that fired the projectile
+	 * @param damage
+	 *            the damage this projectile should do
+	 * @param clip
+	 *            the sound this projectile makes
 	 */
-	public Projectile(Level level, int width, int height, int tileNumber,
-			int[] color, double x, double y, int speed, int direction, Mob mob,
-			double damage, Clip clip) {
-		super(level);
+	public Projectile(Level level, double x, double y, int width, int height, int tileNumber, int speed, int direction,
+			Mob mob, double damage, Clip clip) {
+		super(level, (int) x, (int) y);
 		this.tileNumber = tileNumber;
-		this.color = color;
-		this.x = x;
-		this.y = y;
 		this.speed = speed;
 		calcSimpleDirection(direction);
-		this.bounds = new Rectangle(width, height);
-		this.bounds.setLocation((int) x, (int) y);
+		setBounds(getX(), getY(), width, height);
 		this.mob = mob;
 		xOrigin = x;
 		yOrigin = y;
 		range = 200;
 		this.damage = damage;
-		sound.fire(clip);
+		SoundHandler.fire(clip);
 	}
 
 	private void calcSimpleDirection(int direction) {
@@ -118,13 +117,7 @@ public class Projectile extends Entity {
 	 *            : What level does it render on
 	 * @param tileNumber
 	 *            : the tile id on the SpriteSheet (xTile) + (yTile) *
-	 *            sheet.boxes
-	 * @param color
-	 *            : gets the color, use Colours.get()
-	 * @param x
-	 *            : The X position it will spawn at
-	 * @param y
-	 *            : The Y position it will spawn at
+	 *            getSpriteSheet().boxes
 	 * @param speed
 	 *            : The speed at which the projectile will move (player speed is
 	 *            1)
@@ -132,18 +125,20 @@ public class Projectile extends Entity {
 	 *            : The x velocity -- currently broken, only 3 or 4
 	 * @param direction2
 	 *            : The y velocity - currently broken, only 1 or 0
+	 * @param mob
+	 *            the mob that fired the projectile
+	 * @param damage
+	 *            the damage this projectile should do
+	 * @param clip
+	 *            the sound this projectile makes
+	 * 
 	 */
-	public Projectile(Level level, int width, int height, int tileNumber,
-			int[] color, double x, double y, int speed, double xPos,
-			double yPos, Mob mob, double damage, Clip clip) {
-		super(level);
+	public Projectile(Level level, double x, double y, int width, int height, int tileNumber, int speed,
+			double xPos, double yPos, Mob mob, double damage, Clip clip) {
+		super(level, (int) x, (int) y);
 		this.tileNumber = tileNumber;
-		this.color = color;
-		this.x = x;
-		this.y = y;
 		this.speed = speed;
-		this.bounds = new Rectangle(width, height);
-		this.bounds.setLocation((int) x, (int) y);
+		setBounds(getX(), getY(), width, height);
 		calcAngle(xPos, yPos);
 		this.mob = mob;
 
@@ -152,7 +147,7 @@ public class Projectile extends Entity {
 		range = 200;
 		this.damage = damage;
 
-		sound.fire(clip);
+		SoundHandler.fire(clip);
 	}
 
 	private void calcAngle(double x, double y) {
@@ -175,8 +170,7 @@ public class Projectile extends Entity {
 
 	// Pythag Theorem
 	private double distance() {
-		double d = Math.sqrt(Math.pow(Math.abs(xOrigin - x), 2)
-				+ Math.pow(Math.abs(yOrigin - y), 2));
+		double d = Math.sqrt(Math.pow(Math.abs(xOrigin - x), 2) + Math.pow(Math.abs(yOrigin - y), 2));
 		return d;
 	}
 
@@ -192,8 +186,7 @@ public class Projectile extends Entity {
 		this.y += speed / 2.0 * yPoint;
 		this.x += speed / 2.0 * xPoint;
 
-		bounds.setLocation((int) this.x - (this.width / 2), (int) this.y
-				- (this.height / 2));
+		bounds.setLocation((int) this.x - (this.width / 2), (int) this.y - (this.height / 2));
 		for (Entity entity : level.getEntities()) {
 			if (entity instanceof SolidEntity) {
 				if (bounds.intersects(((SolidEntity) entity).getBounds())) {
@@ -222,8 +215,7 @@ public class Projectile extends Entity {
 			}
 
 		}
-		screen.render((int) this.x, (int) this.y, tileNumber
-				+ (yOffset * sheet.boxes), color, 1, 1, sheet);
+		screen.render((int) this.x, (int) this.y, tileNumber + (yOffset * sheet.boxes), color, 1, 1, sheet);
 	}
 
 	protected boolean isSolidTile(int xa, int ya, int x, int y) {
@@ -269,5 +261,7 @@ public class Projectile extends Entity {
 
 		return false;
 	}
+	
+	protected abstract int[] getColor();
 
 }
