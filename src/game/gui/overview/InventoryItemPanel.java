@@ -39,9 +39,9 @@ public class InventoryItemPanel extends JPanel implements MouseListener {
 		Screen screen = new Screen(SIZE, SIZE);
 
 		item.render(screen, 0, 0);
-		for (int y = 0; y < screen.height; y++) {
-			for (int x = 0; x < screen.width; x++) {
-				pixels[x + y * SIZE] = screen.pixels[x + y * screen.width];
+		for (int y = 0; y < screen.getHeight(); y++) {
+			for (int x = 0; x < screen.getWidth(); x++) {
+				pixels[x + y * SIZE] = screen.getPixels()[x + y * screen.getWidth()];
 			}
 
 		}
@@ -74,8 +74,8 @@ public class InventoryItemPanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		SoundHandler.sound.play(SoundHandler.sound.click);
-		Game.player.inventory.equip(item, Game.player);
+		SoundHandler.play(SoundHandler.click);
+		Game.player.getInventory().equip(item);
 		InventoryGUI.update();
 	}
 

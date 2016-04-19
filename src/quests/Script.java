@@ -13,9 +13,11 @@ public class Script implements Serializable {
 
 	private static final long serialVersionUID = -7841027938100196923L;
 
+	// the mob that has the script
 	private Mob mob;
+
+	// the destination of where to send the mob
 	private Point destination;
-	private boolean isCompleted;
 
 	/**
 	 * @param mob
@@ -29,46 +31,17 @@ public class Script implements Serializable {
 	}
 
 	/**
-	 * Handles movement for the Mob
+	 * @return The destination of the script
 	 */
-	public void moveToPoint() {
-
-		if (destination.x == mob.getX() && destination.y == mob.getY()) {
-			finish();
-			return;
-		}
-		int xa = 0;
-		int ya = 0;
-		if (destination.x > mob.getX()) {
-			xa++;
-		}
-		if (destination.x < mob.getX()) {
-			xa--;
-		}
-		if (destination.y > mob.getY()) {
-			ya++;
-		}
-		if (destination.y < mob.getY()) {
-			ya--;
-		}
-		if ((xa != 0 || ya != 0) && !mob.isSolidEntityCollision(xa, ya)
-				&& !mob.isMobCollision(xa, ya)) {
-			mob.setMoving(true);
-			mob.move(xa, ya);
-		} else {
-			mob.setMoving(false);
-		}
+	public Point getDestination() {
+		return destination;
 	}
-	
+
 	/**
 	 * @return True if the script has been completed
 	 */
 	public boolean isCompleted() {
-		return isCompleted;
-	}
-
-	private void finish() {
-		isCompleted = true;
+		return destination.getX() == mob.getX() && destination.getY() == mob.getY();
 	}
 
 }

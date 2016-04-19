@@ -1,25 +1,13 @@
 package game.gui.overview;
 
 import game.Display;
-import game.Game;
 import game.InputHandler;
-import game.SoundHandler;
-import game.entities.Player;
-import game.graphics.Screen;
 import game.gui.ScreenGUI;
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
-
 import javax.swing.JPanel;
-
-import quests.Quest;
 
 /*
  * The Overview Menu of the Inventory Screen

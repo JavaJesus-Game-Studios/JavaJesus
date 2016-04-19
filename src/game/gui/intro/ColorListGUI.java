@@ -79,7 +79,6 @@ public class ColorListGUI extends JPanel implements ListSelectionListener,
 			break;
 		}
 		player.setShirtColor(color);
-		player.updateColor();
 	}
 	
 	public int getNum() {

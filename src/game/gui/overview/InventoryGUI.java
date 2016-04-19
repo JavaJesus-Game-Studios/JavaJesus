@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import game.Display;
@@ -33,7 +32,7 @@ public class InventoryGUI extends ScreenGUI {
 
 	public InventoryGUI() {
 
-		inventory = Game.player.inventory;
+		inventory = Game.player.getInventory();
 
 		int width = Display.FRAME_WIDTH;
 		int height = Display.FRAME_HEIGHT;

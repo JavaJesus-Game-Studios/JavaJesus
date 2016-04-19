@@ -56,9 +56,6 @@ public class PausePanelGUI extends JPanel {
 	private LauncherButton resume, save, load, options, back, quit, audio,
 			video, controls, mute;
 
-	// sound handler
-	private SoundHandler sound = SoundHandler.sound;
-
 	// buffered images that are displayed on the screen
 	private BufferedImage background, sword_selector;
 
@@ -239,12 +236,11 @@ public class PausePanelGUI extends JPanel {
 			return;
 		}
 		case MUTE: {
-			if (!sound.muted) {
-				sound.muted = true;
-				sound.background1.stop();
+			SoundHandler.toggleMute();
+			if (!SoundHandler.isMuted()) {
+				SoundHandler.background1.stop();
 			} else {
-				sound.muted = false;
-				sound.playLoop(sound.background1);
+				SoundHandler.playLoop(SoundHandler.background1);
 			}
 			return;
 		}
@@ -306,7 +302,7 @@ public class PausePanelGUI extends JPanel {
 				}
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
-					sound.play(sound.sheathe);
+					SoundHandler.play(SoundHandler.sheathe);
 					isClicked = true;
 					selectedButton = this;
 				}

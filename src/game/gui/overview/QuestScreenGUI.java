@@ -1,7 +1,6 @@
 package game.gui.overview;
 
 import game.Display;
-import game.Game;
 import game.InputHandler;
 import game.gui.ScreenGUI;
 

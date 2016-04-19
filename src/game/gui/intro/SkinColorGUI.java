@@ -82,7 +82,6 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 			color = 0xFF774600;
 		}
 		player.setSkinColor(color);
-		player.updateColor();
 	}
 	
 	public int getNum() {

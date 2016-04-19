@@ -102,7 +102,9 @@ public class Mob extends Entity {
 	protected int[] isHitColor = { 0xFF000000, 0xFF000000, 0xFFFF0000 };
 
 	protected int tickCount = 0;
-	public Script script;
+	
+	// an action script a mob might follow
+	private Script script;
 
 	// the extra space, or padding, around each mob
 	public static final int OUTER_BOUNDS_RANGE = 4;
@@ -487,6 +489,29 @@ public class Mob extends Entity {
 			setOnFire(false);
 		}
 
+		// automate movement with a script
+		if (script != null && !script.isCompleted()) {
+
+			// change in x and y
+			int dx = 0, dy = 0;
+
+			if (script.getDestination().getX() > getX()) {
+				dx++;
+			} else if (script.getDestination().getX() < getX()) {
+				dx--;
+			}
+
+			if (script.getDestination().getY() > getY()) {
+				dy++;
+			} else if (script.getDestination().getY() < getY()) {
+				dy--;
+			}
+			if (dx != 0 || dy != 0) {
+				move(dx, dy);
+			}
+			return;
+		}
+
 		// force the mob to move around the mob collision
 		if (isCollidingWithMob) {
 			moveAroundMobCollision();
@@ -506,7 +531,7 @@ public class Mob extends Entity {
 		// no x or y offset, use the upper left corner as absolute
 		int xOffset = getX(), yOffset = getY();
 
-		// render only the top half and water down the bottom half
+		// render only the water animation down the bottom half
 		if (isSwimming) {
 			int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
 			// TODO look into this offset, might fix awkward water entrance?
@@ -578,12 +603,16 @@ public class Mob extends Entity {
 		isTalking = false;
 		setTargeted(false);
 	}
-	
+
 	/**
 	 * Deals damage to another mob
-	 * @param min the minimum damage dealt
-	 * @param max the maximum damage dealt
-	 * @param other the other mob to attack
+	 * 
+	 * @param min
+	 *            the minimum damage dealt
+	 * @param max
+	 *            the maximum damage dealt
+	 * @param other
+	 *            the other mob to attack
 	 */
 	public void attack(int min, int max, Mob other) {
 		other.damage(random.nextInt(max - min + 1) + min);
@@ -591,28 +620,31 @@ public class Mob extends Entity {
 
 	/**
 	 * Randomizes the damage done to THIS MOB when attacked
-	 * @param damage the damage inflicted to THIS mob
+	 * 
+	 * @param damage
+	 *            the damage inflicted to THIS mob
 	 */
 	protected void damage(int damage) {
-		
+
 		doDamageToHealth(damage);
-		
+
 		damageTaken = String.valueOf(damage);
 		isHit = true;
-		
+
 		// random offsets for damage indicators
 		isHitX = random.nextInt(10) - 5;
 		isHitY = random.nextInt(6) - 3;
-		
+
 		if (health <= 0) {
 			remove();
 		}
 	}
 
 	/**
-	 * Decreases a mob's health
-	 * Can be overridden for other stats
-	 * @param damage the value of damage
+	 * Decreases a mob's health Can be overridden for other stats
+	 * 
+	 * @param damage
+	 *            the value of damage
 	 */
 	protected void doDamageToHealth(int damage) {
 		this.health -= damage;
@@ -630,24 +662,24 @@ public class Mob extends Entity {
 	}
 
 	/**
-	 * @param dir the direction to check
 	 * @return true if the mob is aligned horizontally
 	 */
-	public boolean isLatitudinal(Direction dir) {
-		return dir == Direction.EAST || dir == Direction.WEST;
+	public boolean isLatitudinal() {
+		return getDirection() == Direction.EAST || getDirection() == Direction.WEST;
 	}
 
 	/**
-	 * @param dir the direction to check
-	 * @return  true if the mob is aligned vertically
+	 * @return true if the mob is aligned vertically
 	 */
-	public boolean isLongitudinal(Direction dir) {
-		return dir == Direction.NORTH || dir == Direction.SOUTH;
+	public boolean isLongitudinal() {
+		return getDirection() == Direction.NORTH || getDirection() == Direction.SOUTH;
 	}
 
 	/**
 	 * Changes the direction of the mob
-	 * @param dir the direction the mob should face
+	 * 
+	 * @param dir
+	 *            the direction the mob should face
 	 */
 	public void setDirection(Direction dir) {
 		this.movingDir = dir;
@@ -662,8 +694,11 @@ public class Mob extends Entity {
 
 	/**
 	 * Changes the outer bounds range
-	 * @param width width of the mob
-	 * @param height height of the mob
+	 * 
+	 * @param width
+	 *            width of the mob
+	 * @param height
+	 *            height of the mob
 	 */
 	protected void setOuterBounds(int width, int height) {
 		outerBounds = new Rectangle(getX() - OUTER_BOUNDS_RANGE, getY() - OUTER_BOUNDS_RANGE,
@@ -672,18 +707,24 @@ public class Mob extends Entity {
 
 	/**
 	 * Updates the location of the outer range
-	 * @param dx the change in x
-	 * @param dy the change in y
+	 * 
+	 * @param dx
+	 *            the change in x
+	 * @param dy
+	 *            the change in y
 	 */
 	protected void moveOuterBounds(int dx, int dy) {
 		outerBounds.setLocation((int) outerBounds.getX() + dx, (int) outerBounds.getY() + dy);
 	}
-	
+
 	/**
-	 * Moves the mob to the specified x and y coord
-	 * Also updates the bounds and outer bounds
-	 * @param x the x coord
-	 * @param y the y coord
+	 * Moves the mob to the specified x and y coord Also updates the bounds and
+	 * outer bounds
+	 * 
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
 	 */
 	protected void moveTo(int x, int y) {
 		super.moveTo(x, y);
@@ -699,7 +740,8 @@ public class Mob extends Entity {
 
 	/**
 	 * Sets the mob as being targeted by another
-	 * @param isTargeted 
+	 * 
+	 * @param isTargeted
 	 */
 	public void setTargeted(boolean isTargeted) {
 		this.isTargeted = isTargeted;
@@ -714,7 +756,9 @@ public class Mob extends Entity {
 
 	/**
 	 * Toggles whether the mob is on fire
-	 * @param onFire value of on fire or not
+	 * 
+	 * @param onFire
+	 *            value of on fire or not
 	 */
 	public void setOnFire(boolean onFire) {
 		this.onFire = onFire;
@@ -729,7 +773,9 @@ public class Mob extends Entity {
 
 	/**
 	 * Changes the mob's name
-	 * @param s the new name
+	 * 
+	 * @param s
+	 *            the new name
 	 */
 	public void setName(String s) {
 		this.name = s;
@@ -744,7 +790,9 @@ public class Mob extends Entity {
 
 	/**
 	 * Changes the mob's speed
-	 * @param speed the new speed
+	 * 
+	 * @param speed
+	 *            the new speed
 	 */
 	protected void setSpeed(int speed) {
 		this.speed = speed;
@@ -752,6 +800,7 @@ public class Mob extends Entity {
 
 	/**
 	 * Determines if the mob is alive or not
+	 * 
 	 * @return true if dead
 	 */
 	public boolean isDead() {
@@ -763,6 +812,14 @@ public class Mob extends Entity {
 	 */
 	protected HealthBar getHealthBar() {
 		return bar;
+	}
+
+	/**
+	 * @return create the mob's health bar
+	 */
+	protected void createHealthBar() {
+		bar = new HealthBar(getLevel(), getX(), getY() + (int) getBounds().getHeight() + 2, this);
+		getLevel().addEntity(bar);
 	}
 
 	/**
@@ -778,7 +835,7 @@ public class Mob extends Entity {
 	public int getMaxHealth() {
 		return maxHealth;
 	}
-	
+
 	/**
 	 * Changes the mob's max health
 	 */
@@ -791,6 +848,20 @@ public class Mob extends Entity {
 	 */
 	public int getCurrentHealth() {
 		return health;
+	}
+
+	/**
+	 * @return the rendering scale of the mob
+	 */
+	protected int getScale() {
+		return scale;
+	}
+
+	/**
+	 * @return the mob's spritesheet
+	 */
+	protected SpriteSheet getSpriteSheet() {
+		return sheet;
 	}
 
 }

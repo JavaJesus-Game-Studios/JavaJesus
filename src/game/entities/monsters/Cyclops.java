@@ -2,196 +2,151 @@ package game.entities.monsters;
 
 import level.Level;
 import utility.Direction;
-import game.Game;
-import game.entities.particles.HealthBar;
 import game.graphics.Screen;
 
+/*
+ * A Cyclops is a powerful monster that strikes fear into any foe
+ * TODO fix attack animation - attacks very fast, don't see rendering
+ */
 public class Cyclops extends Monster {
-	
+
 	private static final long serialVersionUID = -6014297804180801819L;
-	
-	protected boolean isAttacking = false;
-	private int coolTicks = 0;
 
-	public Cyclops(Level level, int x, int y) {
-		super(level, "Cyclops", x, y, 1, 32, 48, 14, 5000, new int[] {
-				0xFF111111, 0xFFFFD99C, 0xFFFFFFFF });
-		this.bar = new HealthBar(level, x, y, this);
-		level.addEntity(bar);
-		this.strength = 20;
+	// dimensions of the centaur
+	private static final int WIDTH = 32, HEIGHT = 48;
+
+	// how fast the player toggles steps
+	private static final int WALKING_ANIMATION_SPEED = 4;
+
+	// color set of a centaur
+	private static final int[] color = { 0xFF111111, 0xFFFFD99C, 0xFFFFFFFF };
+
+	/**
+	 * Creates a cyclops
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param speed
+	 *            how fast the centaur moves
+	 * @param health
+	 *            the base health
+	 */
+	public Cyclops(Level level, int x, int y, int speed, int health) {
+		super(level, "Cyclops", x, y, speed, WIDTH, HEIGHT, 14, health, 40);
+
 	}
 
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 7;
-		int yMin = 3;
-		int yMax = 7;
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin) || isWaterTile(xa, ya, x, yMin)) {
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax) || isWaterTile(xa, ya, x, yMax)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y) || isWaterTile(xa, ya, xMin, y)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y) || isWaterTile(xa, ya, xMax, y)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
+	/**
+	 * Updates the cyclops
+	 */
 	public void tick() {
 		super.tick();
-		if (this.aggroRadius.intersects(Game.player.getBounds())
-				&& random.nextInt(400) == 0) {
-			//sound.play(SoundHandler.sound.chimpanzee);
-		}
 
-		if (mob != null && !cooldown
-				&& this.getOuterBounds().intersects(mob.getBounds())) {
-			isAttacking = true;
+		// attack the target if given a chance
+		if (isShooting && getOuterBounds().intersects(target.getOuterBounds())) {
 			cooldown = true;
-			mob.damage(this.strength);
-		}
-
-		if (isAttacking) {
-			shootTickCount++;
-			if (shootTickCount % 40 == 0) {
-				shootTickCount = 0;
-				isAttacking = false;
-			}
-		}
-
-		if (cooldown) {
-			coolTicks++;
-			if (coolTicks % 100 == 0) {
-				coolTicks = 0;
-				cooldown = false;
-			}
-		}
-
-		int xa = 0;
-		int ya = 0;
-
-		if (mob != null && !isAttacking
-				&& this.aggroRadius.intersects(mob.getBounds())
-				&& !this.getOuterBounds().intersects(mob.getBounds())) {
-
-			if (mob.getX() > this.x) {
-				xa++;
-			}
-			if (mob.getX() < this.x) {
-				xa--;
-			}
-			if (mob.getY() > this.y) {
-				ya++;
-			}
-			if (mob.getY() < this.y) {
-				ya--;
-			}
-		}
-
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isMobCollision(xa, ya)) {
-			setMoving(true);
-			move(xa, ya);
-		} else {
-			setMoving(false);
+			this.attack(getStrength(), getStrength() * 2, target);
 		}
 
 	}
 
+	/**
+	 * Displays the cyclops to the screen
+	 */
 	public void render(Screen screen) {
 		super.render(screen);
-		this.getBounds().setLocation((int) this.x - 16, (int) this.y - 24);
-		this.getOuterBounds().setLocation((int) this.x - 18, (int) this.y - 26);
 
+		// modifier used for rendering in different scales/directions
+		int modifier = UNIT_SIZE * getScale();
+
+		// no x or y offset, use the upper left corner as absolute
+		int xOffset = getX(), yOffset = getY();
+
+		// the horizontal position on the spritesheet
 		int xTile = 0;
-		int walkingSpeed = 4;
-		int flip = (numSteps >> walkingSpeed) & 1;
 
+		// whether or not to render backwards
+		// Cyclops has an asymmetric drumstick so it fake flips!
+		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
+
+		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
 			xTile = 24;
-			if (flip == 1) {
+			if (flip) {
 				xTile += 4;
-				flip = 0;
+				flip = false;
 			}
-		}
-		if (getDirection() == Direction.SOUTH) {
+		} else if (getDirection() == Direction.SOUTH) {
 			xTile = 4;
-			if (flip == 1) {
+			if (flip) {
 				xTile += 4;
-				flip = 0;
+				flip = false;
 			}
-		} else if (isLatitudinal(getDirection())) {
-			xTile = 12 + ((numSteps >> walkingSpeed) & 1) * 4;
-			if (getDirection() == Direction.WEST) {
-				flip = 1;
-			} else {
-				flip = 0;
-			}
+		} else {
+			xTile = 12 + (flip ? 4 : 0);
+			flip = getDirection() == Direction.WEST;
 		}
 
-		int modifier = 8 * scale;
-		int xOffset = x - modifier * 3;
-		int yOffset = y - modifier * 2;
-
+		// position of walking or attacking
 		int yTile = this.yTile;
-		if (isDead) {
-			flip = 0;
-			flip = 0;
+
+		// dead has an absolute position
+		if (isDead()) {
+			flip = false;
 			xTile = 32;
 			yTile = 18;
 		}
-		
-		if (isAttacking) {
+
+		// attacking animation
+		if (isShooting) {
 			yTile += 6;
 		}
 
+		// draw all 6 rows
 		for (int i = 0; i < 6; i++) {
 
-			if (isDead && i > 1) {
+			// dead display only has 2 rows
+			if (isDead() && i > 1) {
 				break;
 			}
 
-			screen.render(xOffset + (modifier * flip * 3), yOffset + i
-					* modifier, xTile + (yTile + i) * sheet.boxes, color, flip,
-					scale, sheet);
+			// left
+			screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + i * modifier,
+					xTile + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
-			screen.render(xOffset + modifier + (modifier * flip), yOffset + i
-					* modifier, (xTile + 1) + (yTile + i) * sheet.boxes, color,
-					flip, scale, sheet);
+			// left center
+			screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + i * modifier,
+					(xTile + 1) + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
-			screen.render(xOffset + 2 * modifier - (modifier * flip), yOffset
-					+ i * modifier, (xTile + 2) + (yTile + i) * sheet.boxes,
-					color, flip, scale, sheet);
+			// right center
+			screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier,
+					(xTile + 2) + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
-			screen.render(xOffset + 3 * modifier - (modifier * flip * 3),
-					yOffset + i * modifier, (xTile + 3) + (yTile + i)
-							* sheet.boxes, color, flip, scale, sheet);
+			// right
+			screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier,
+					(xTile + 3) + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
-			if (isDead) {
-				screen.render(xOffset + 4 * modifier - (modifier * flip * 3),
-						yOffset + i * modifier, (xTile + 4) + (yTile + i)
-								* sheet.boxes, color, flip, scale, sheet);
+			if (isDead()) {
+				screen.render(xOffset + 4 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier,
+						(xTile + 4) + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
-				screen.render(xOffset + 5 * modifier - (modifier * flip),
-						yOffset + i * modifier, (xTile + 5) + (yTile + i)
-								* sheet.boxes, color, flip, scale, sheet);
+				screen.render(xOffset + 5 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier,
+						(xTile + 5) + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 			}
 		}
 
+	}
+
+	/**
+	 * @return the Cyclop's strength
+	 */
+	public int getStrength() {
+		return 20;
 	}
 
 }

@@ -1,7 +1,6 @@
 package game.gui.slots;
 
 import game.Game;
-import game.entities.Player;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 
@@ -39,9 +38,9 @@ public class PlayerSlotGUI extends Slot {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		for (int y = 0; y < screen.height; y++) {
-			for (int x = 0; x < screen.width; x++) {
-				pixels[x + y * (PLAYER_WIDTH)] = screen.pixels[x + y * screen.width];
+		for (int y = 0; y < screen.getHeight(); y++) {
+			for (int x = 0; x < screen.getWidth(); x++) {
+				pixels[x + y * (PLAYER_WIDTH)] = screen.getPixels()[x + y * screen.getWidth()];
 			}
 
 		}
@@ -64,24 +63,24 @@ public class PlayerSlotGUI extends Slot {
 		int xOffset = 0;
 		int yOffset = 0;
 
-		int flip = 0, xTile = 0, yTile = 0;
+		int xTile = 0, yTile = 0;
 		int[] color = Game.player.getColor();
 		SpriteSheet sheet = SpriteSheet.player;
 
 		// Upper body 1
-		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-				* sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset, yOffset, xTile + yTile
+				* sheet.boxes, color, false, scale, sheet);
 		// Upper Body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset,
-				(xTile + 1) + yTile * sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset + modifier, yOffset,
+				(xTile + 1) + yTile * sheet.boxes, color, false, scale, sheet);
 
 		// Lower Body 1
-		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile
-				+ (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset, yOffset + modifier, xTile
+				+ (yTile + 1) * sheet.boxes, color, false, scale, sheet);
 		// Lower Body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset
+		screen.render(xOffset + modifier, yOffset
 				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-				flip, scale, sheet);
+				false, scale, sheet);
 
 	}
 	

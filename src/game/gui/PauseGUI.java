@@ -4,7 +4,6 @@ import game.Display;
 import game.InputHandler;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 
 public class PauseGUI extends ScreenGUI {

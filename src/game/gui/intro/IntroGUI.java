@@ -121,7 +121,6 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 		player.setName(nameBox.getText());
 		player.setShirtColor(colorList.getColor());
 		player.setSkinColor(sclist.getColor());
-		player.updateColor();
 	}
 
 	/**
@@ -136,9 +135,7 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 			name = nameBox.getText();
 			player.setName(name);
 			player.setShirtColor(colorList.getColor());
-			player.updateColor();
 			player.setSkinColor(sclist.getColor());
-			player.updateColor();
 			if (player.getName().equals("Derek Jow")
 					|| player.getName().equals("Stephen Northway")) {
 				player.grantDevPowers();

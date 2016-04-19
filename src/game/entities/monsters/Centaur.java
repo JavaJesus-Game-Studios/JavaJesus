@@ -2,197 +2,149 @@ package game.entities.monsters;
 
 import level.Level;
 import utility.Direction;
-import game.entities.particles.HealthBar;
 import game.graphics.Screen;
 
+/*
+ * A Centaur is half man half horse creature that attacks others
+ * TODO attacking animation
+ */
 public class Centaur extends Monster {
-	
+
 	private static final long serialVersionUID = -6742106160330069216L;
-	
-	public Centaur(Level level, String name, int x, int y, int speed, int health) {
-		super(level, name, x, y, speed, 14, 24, 5, health, new int[] { 0xFF111111, 0xFF8F4C1F, 0xFFEDC5AB });
-		this.bar = new HealthBar(level, this.x, this.y, this);
-		if (level != null)
-			level.addEntity(bar);
+
+	// dimensions of the centaur
+	private static final int WIDTH = 16, HEIGHT = 24;
+
+	// how fast the player toggles steps
+	private static final int WALKING_ANIMATION_SPEED = 4;
+
+	// color set of a centaur
+	private static final int[] color = { 0xFF111111, 0xFF8F4C1F, 0xFFEDC5AB };
+
+	/**
+	 * Creates a centaur
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param speed
+	 *            how fast the centaur moves
+	 * @param health
+	 *            the base health
+	 */
+	public Centaur(Level level, int x, int y, int speed, int health) {
+		super(level, "Centaur", x, y, speed, WIDTH, HEIGHT, 5, health, 20);
+
 	}
 
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 7;
-		int yMin = 3;
-		int yMax = 7;
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin) || isWaterTile(xa, ya, x, yMin)) {
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax) || isWaterTile(xa, ya, x, yMax)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y) || isWaterTile(xa, ya, xMin, y)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y) || isWaterTile(xa, ya, xMax, y)) {
-				return true;
-			}
-		}
+	/**
+	 * Moves a centaur on the level
+	 * 
+	 * @param dx
+	 *            the total change in x
+	 * @param dy
+	 *            the total change in y
+	 */
+	protected void move(int dx, int dy) {
 
-		return false;
-	}
+		// standing upright
+		if (isLongitudinal()) {
 
-	public void tick() {
+			setBounds(getX(), getY(), WIDTH, HEIGHT);
+			setOuterBounds(WIDTH, HEIGHT);
 
-		super.tick();
-
-		if (isShooting) {
-			shootTickCount++;
-			if (shootTickCount > 20) {
-				shootTickCount = 0;
-				isShooting = false;
-			}
-		}
-
-		int xa = 0;
-		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.getBounds())
-				&& !this.getOuterBounds().intersects(mob.getOuterBounds())) {
-
-			if (mob.getX() > this.x) {
-				xa++;
-			}
-			if (mob.getX() < this.x) {
-				xa--;
-			}
-			if (mob.getY() > this.y) {
-				ya++;
-			}
-			if (mob.getY() < this.y) {
-				ya--;
-			}
-
-			if (tickCount % 100 == 0) {
-				cooldown = false;
-			} else {
-				cooldown = true;
-			}
-		}
-
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isMobCollision(xa, ya)) {
-			setMoving(true);
-			move(xa, ya);
+			// standing sideways
 		} else {
-			setMoving(false);
+			setBounds(getX(), getY(), HEIGHT, HEIGHT);
+			setOuterBounds(HEIGHT, HEIGHT);
 		}
 
+		super.move(dx, dy);
 	}
 
+	/**
+	 * Display the centaur on the screen
+	 */
 	public void render(Screen screen) {
 		super.render(screen);
-		int modifier = 8 * scale;
-		int xOffset = (x - modifier - modifier / 2);
-		int yOffset = (y - modifier - modifier / 2);
-		if (!isDead)
-			if (isLongitudinal(getDirection())) {
-				xOffset = x - modifier;
-				this.width = 14;
-				this.height = 24;
-				this.getBounds().setSize(width, height);
-				this.getBounds().setLocation(this.x - 7, this.y - 12);
-				this.getOuterBounds().setSize(18, height);
-				this.getOuterBounds().setLocation(this.x - 9, this.y - 14);
-			} else {
-				xOffset = x - modifier - modifier / 2;
-				this.width = 24;
-				this.height = 24;
-				this.getBounds().setSize(width, height);
-				this.getBounds().setLocation(this.x - 12, this.y - 12);
-				this.getOuterBounds().setSize(width + 5, height);
-				this.getOuterBounds().setLocation(this.x - 14, this.y - 14);
-			}
 
+		// modifier used for rendering in different scales/directions
+		int modifier = UNIT_SIZE * getScale();
+
+		// no x or y offset, use the upper left corner as absolute
+		int xOffset = getX(), yOffset = getY();
+
+		// the horizontal position on the spritesheet
 		int xTile = 0;
-		int walkingSpeed = 4;
-		int flip = (numSteps >> walkingSpeed) & 1;
 
+		// whether or not to render backwards
+		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
+
+		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile += 12;
+			xTile = 12;
+		} else if (getDirection() == Direction.SOUTH) {
+			xTile = 2;
+		} else {
+			xTile = 4 + (flip ? 3 : 0);
+			flip = getDirection() == Direction.WEST;
 		}
 
-		if (getDirection() == Direction.SOUTH) {
-			xTile += 2;
-		} else if (isLatitudinal(getDirection())) {
-			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 3;
-			if (getDirection() == Direction.WEST) {
-				flip = 1;
-			} else {
-				flip = 0;
-			}
-		}
-
-		if (isDead) {
-			if (isLongitudinal(getDirection())) {
-				setDirection(Direction.WEST);
+		// the dead sprite has a certain location
+		if (isDead()) {
+			if (isLongitudinal()) {
+				setDirection(Direction.EAST);
 			}
 			xTile = 14;
 		}
 
-		if (isLongitudinal(getDirection())) {
+		// standing vertical
+		if (isLongitudinal()) {
 			// Upper body
-			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-					* sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes, color,
+					flip, getScale(), getSpriteSheet());
 
 			// Upper body
-			screen.render(xOffset + modifier - (modifier * flip), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
-					sheet);
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
+					(xTile + 1) + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 			// Middle Body
-			screen.render(xOffset + (modifier * flip), yOffset + modifier,
-					xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
-					sheet);
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
+					xTile + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 			// Middle Body
-			screen.render(xOffset + modifier - (modifier * flip), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-					flip, scale, sheet);
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
+					(xTile + 1) + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 			// Lower Body
-			screen.render(xOffset + (modifier * flip), yOffset + 2 * modifier,
-					xTile + (yTile + 2) * sheet.boxes, color, flip, scale,
-					sheet);
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
+					xTile + (yTile + 2) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 			// Lower Body
-			screen.render(xOffset + modifier - (modifier * flip), yOffset + 2
-					* modifier, (xTile + 1) + (yTile + 2) * sheet.boxes, color,
-					flip, scale, sheet);
-		} else {
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
+					(xTile + 1) + (yTile + 2) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+		}
+		// standing horizontal
+		else {
 
+			// loop through top to bottom
 			for (int i = 0; i < 3; i++) {
 
-				screen.render(xOffset + (2 * modifier * flip), yOffset + (modifier * i), xTile
-						+ (yTile + i) * sheet.boxes, color, flip, scale, sheet);
+				// left
+				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
+						xTile + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
-				screen.render(xOffset + modifier, yOffset + (modifier * i), (xTile + 1) + (yTile + i)
-						* sheet.boxes, color, flip, scale, sheet);
+				// middle
+				screen.render(xOffset + modifier, yOffset + (modifier * i),
+						(xTile + 1) + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
-				screen.render(xOffset + 2 * modifier - (2 * modifier * flip),
-						yOffset + (modifier * i), (xTile + 2) + (yTile + i) * sheet.boxes, color,
-						flip, scale, sheet);
+				// right
+				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
+						(xTile + 2) + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 			}
-		}
-
-		if (!cooldown) {
-			if (mob == null) {
-				return;
-			}
-			isShooting = true;
-
 		}
 
 	}

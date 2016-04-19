@@ -282,10 +282,10 @@ public class SoundHandler {
 	/**
 	 * Toggles mute
 	 */
-	public void toggleMute() {
+	public static void toggleMute() {
 		muted = !muted;
 	}
-
+	
 	/**
 	 * Closes all audio clips
 	 */
@@ -315,6 +315,13 @@ public class SoundHandler {
 		SoundHandler.carDriving.close();
 		SoundHandler.carIdle.close();
 		SoundHandler.carStartUp.close();
+	}
+	
+	/**
+	 * @return True if the sound is muted
+	 */
+	public static boolean isMuted() {
+		return muted;
 	}
 
 }

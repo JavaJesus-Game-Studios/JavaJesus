@@ -61,13 +61,13 @@ public class PlayerHUD {
 
 		// draws the shield bar
 		g.setColor(Color.blue);
-		g.fillRect(BAR_OFFSET, YOFFSET + BAR_VSPACE, (int) (BAR_WIDTH_MODIFIER * (player.shield / player.maxShield)),
+		g.fillRect(BAR_OFFSET, YOFFSET + BAR_VSPACE, (int) (BAR_WIDTH_MODIFIER * (player.getCurrentShield() / player.getMaxShield())),
 				BAR_HEIGHT);
 
 		// draws the stamina bar
 		g.setColor(Color.green);
 		g.fillRect(BAR_OFFSET, YOFFSET + 2 * BAR_VSPACE,
-				(int) (BAR_WIDTH_MODIFIER * (player.stamina / player.startStamina)), BAR_HEIGHT);
+				(int) (BAR_WIDTH_MODIFIER * (player.getCurrentStamina() / player.getMaxStamina())), BAR_HEIGHT);
 	}
 
 	/*
@@ -76,10 +76,10 @@ public class PlayerHUD {
 	private BufferedImage getGunType() {
 
 		// Checks if there is a gun to display
-		if (player == null || player.gun == null) {
+		if (player == null || player.getInventory().getGun() == null) {
 			return null;
 		}
-		switch (player.gun.gunType) {
+		switch (player.getInventory().getGun().gunType) {
 		case 0:
 			return revolver;
 		case 1:

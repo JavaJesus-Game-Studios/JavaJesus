@@ -101,9 +101,6 @@ public class Launcher extends JFrame implements Runnable {
 	private LauncherButton story, sandbox, options, help, survival, zombies, audio, video, controls, newStory,
 			continueStory, mute, back, quit;
 
-	// sound handler
-	private SoundHandler sound = SoundHandler.sound;
-
 	// buffered images that are displayed on the screen
 	private BufferedImage background, sword_selector;
 	
@@ -122,7 +119,7 @@ public class Launcher extends JFrame implements Runnable {
 
 		random = new Random();
 		new InputHandler(this);
-		sound.playLoop(sound.background1);
+		SoundHandler.playLoop(SoundHandler.background1);
 		setUndecorated(true);
 		setSize(new Dimension(width, height));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -315,9 +312,9 @@ public class Launcher extends JFrame implements Runnable {
 
 		this.level.renderTile(screen, xOffset, yOffset);
 
-		for (int y = 0; y < screen.height; y++) {
-			for (int x = 0; x < screen.width; x++) {
-				pixels[x + y * Display.IMAGE_WIDTH] = screen.pixels[x + y * screen.width];
+		for (int y = 0; y < screen.getHeight(); y++) {
+			for (int x = 0; x < screen.getWidth(); x++) {
+				pixels[x + y * Display.IMAGE_WIDTH] = screen.getPixels()[x + y * screen.getWidth()];
 			}
 
 		}
@@ -413,13 +410,13 @@ public class Launcher extends JFrame implements Runnable {
 			return;
 		}
 		case SURVIVAL: {
-			sound.background1.stop();
+			SoundHandler.background1.stop();
 			new Game(GameMode.SURVIVAL).start();
 			this.stop();
 			return;
 		}
 		case ZOMBIES: {
-			sound.background1.stop();
+			SoundHandler.background1.stop();
 			new Game(GameMode.MINI).start();
 			this.stop();
 			return;
@@ -450,24 +447,23 @@ public class Launcher extends JFrame implements Runnable {
 			return;
 		}
 		case NEWSTORY: {
-			sound.background1.stop();
+			SoundHandler.background1.stop();
 			new Game(GameMode.ADVENTURE).start();
 			this.stop();
 			return;
 		}
 		case CONTINUESTORY: {
-			sound.background1.stop();
+			SoundHandler.background1.stop();
 			new Game(GameMode.ADVENTURE).startWithLoad();
 			this.stop();
 			return;
 		}
 		case MUTE: {
-			if (!sound.muted) {
-				sound.muted = true;
-				sound.background1.stop();
+			SoundHandler.toggleMute();
+			if (!SoundHandler.isMuted()) {
+				SoundHandler.background1.stop();
 			} else {
-				sound.muted = false;
-				sound.play(sound.background1);
+				SoundHandler.play(SoundHandler.background1);
 			}
 			return;
 		}
@@ -509,7 +505,7 @@ public class Launcher extends JFrame implements Runnable {
 				}
 				if (InputHandler.MouseButton == 1) {
 					InputHandler.MouseButton = 0;
-					sound.play(sound.sheathe);
+					SoundHandler.play(SoundHandler.sheathe);
 					isClicked = true;
 					selectedButton = this;
 				}

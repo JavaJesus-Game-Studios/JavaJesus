@@ -1,5 +1,7 @@
 package items;
 
+import javax.sound.sampled.Clip;
+
 import game.Game;
 import game.SoundHandler;
 import game.entities.Player;
@@ -11,10 +13,8 @@ import game.entities.projectiles.Laser;
 import game.entities.projectiles.Missile;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
-
-import javax.sound.sampled.Clip;
-
 import level.Level;
+import utility.Direction;
 
 public class Gun extends Item {
 
@@ -190,7 +190,7 @@ public class Gun extends Item {
 		}
 	}
 
-	public void fire(Level level, double x, double y, int dir, Player player) {
+	public void fire(Level level, double x, double y, Direction dir, Player player) {
 		if (ammo > 0 && !isReloading && canFire) {
 			switch (type) {
 			case BULLET:
