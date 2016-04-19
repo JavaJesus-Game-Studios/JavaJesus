@@ -6,30 +6,17 @@ import game.Game;
 import game.InputHandler;
 import game.SoundHandler;
 import game.entities.monsters.Demon;
-import game.entities.npcs.NPC;
-import game.entities.npcs.aggressive.Companion;
 import game.entities.structures.furniture.Chest;
 import game.entities.vehicles.Vehicle;
-import game.graphics.JJFont;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 import game.gui.overview.InventoryGUI;
 import items.Armor;
-import items.Bazooka;
-import items.Gun;
 import items.Inventory;
 import items.Item;
-import items.Sword;
-
 import java.awt.Color;
-import java.util.ArrayList;
-
-import javax.sound.sampled.Clip;
-
 import level.Level;
-import level.Level1;
 import level.tile.Tile;
-import quests.Quest;
 import utility.Direction;
 
 /*
@@ -71,10 +58,10 @@ public class Player extends Mob implements Skills {
 	private double maxStamina;
 
 	// List of the active quests
-	private ArrayList<Quest> activeQuests = new ArrayList<Quest>();
+	// private ArrayList<Quest> activeQuests = new ArrayList<Quest>();
 
 	// List of completed quests
-	private ArrayList<Quest> completedQuests = new ArrayList<Quest>();
+	// private ArrayList<Quest> completedQuests = new ArrayList<Quest>();
 
 	// takes hits before using health
 	private double shield;
@@ -96,7 +83,13 @@ public class Player extends Mob implements Skills {
 
 	// the starting stamina value
 	private static final int START_STAMINA = 200;
-	
+
+	// how fast the player toggles steps
+	private static final int WALKING_ANIMATION_SPEED = 4;
+
+	// determines if a player is moving in any direction
+	private boolean isMoving;
+
 	// player stats
 	private int strength, defense;
 
@@ -180,17 +173,12 @@ public class Player extends Mob implements Skills {
 
 		// do not update if driving
 		if (vehicle != null) {
+			moveTo(vehicle.getX(), vehicle.getY());
 			return;
 		}
 
 		// do basic checks
 		super.tick();
-
-		// automate movement with a script
-		if (script != null && !script.isCompleted()) {
-			script.moveToPoint();
-			return;
-		}
 
 		// the change in x and y (movement)
 		int dx = 0, dy = 0;
@@ -342,7 +330,7 @@ public class Player extends Mob implements Skills {
 		}
 
 		// determines if the player is going to move
-		boolean isMoving = (dx != 0 || dy != 0);
+		isMoving = (dx != 0 || dy != 0);
 
 		// play swimming sound
 		if (isSwimming) {
@@ -354,6 +342,9 @@ public class Player extends Mob implements Skills {
 			// shift doubles the speed
 			dx *= 2;
 			dy *= 2;
+
+			// make a faster step animation
+			numSteps++;
 
 			// reduce stamina
 			stamina--;
@@ -444,172 +435,115 @@ public class Player extends Mob implements Skills {
 	 * Processes the image of the player on the screen
 	 */
 	public void render(Screen screen) {
-		super.render(screen);
-		if (isDriving) {
-			this.x = vehicle.x;
-			this.y = vehicle.y;
-			if (this.vehicle.isDead) {
-				isDriving = false;
-				vehicle.isUsed = false;
-				vehicle.remPlayer();
-			}
 
-		}
-
-		this.getBounds().setLocation(this.x - this.width / 2, this.y - this.height / 2);
-		this.getOuterBounds().setLocation(this.x - this.width / 2 - 2, this.y - this.height / 2 - 2);
-
-		if (isDriving) {
+		// don't render if driving
+		if (vehicle != null) {
 			return;
 		}
 
-		if (health < 20) {
-			// screen.setShader(16711680);
-		}
+		// do basic rendering
+		super.render(screen);
 
-		int xTile = 0;
-		int yTile = this.yTile;
-		int walkingAnimationSpeed = 4;
-		if (speed == 3) {
-			numSteps++;
-		}
+		// x and y tile on spritesheet
+		int xTile = 0, yTile = this.yTile;
 
-		int flip = (numSteps >> walkingAnimationSpeed) & 1;
+		// whether or not to flip horizontally (walking animation)
+		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
 
+		// north direction
 		if (getDirection() == Direction.NORTH) {
-			xTile += 10;
-			if (!isMoving()) {
+			xTile = 10;
+			if (!isMoving) {
 				xTile = 8;
 			}
-		}
-		if (getDirection() == Direction.SOUTH) {
-			xTile += 2;
-			if (!isMoving()) {
+			// south direction
+		} else if (getDirection() == Direction.SOUTH) {
+			xTile = 2;
+			if (!isMoving) {
 				xTile = 0;
 			}
-		} else if (isLatitudinal(getDirection())) {
-			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
-			if (getDirection() == Direction.WEST) {
-				flip = 1;
-			} else {
-				flip = 0;
-			}
-			if (!isMoving()) {
-				xTile = 4;
-			}
+			// left or right
+		} else if (isLatitudinal()) {
+			xTile = 4;
+			if (isMoving)
+				xTile += 2;
+			flip = getDirection() == Direction.WEST;
 		}
 
-		int modifier = 8 * scale;
-		int xOffset = x - modifier;
-		int yOffset = y - modifier;
+		// modifier used for rendering in different scales/directions
+		int modifier = UNIT_SIZE * getScale();
 
-		// Handles swimming animation
-		if (isSwimming) {
-			isShooting = false;
-			if (isOnFire()) {
-				setOnFire(false);
-			}
-			int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
-			yOffset += 4;
-			if (tickCount % 60 < 15) {
-				waterColor[0] = 0xFF5266FF;
-				waterColor[1] = 0xFF000000;
-				waterColor[2] = 0xFF000000;
-			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
-				yOffset -= 1;
-				waterColor[0] = 0xFF3D54FF;
-				waterColor[1] = 0xFF5266FF;
-				waterColor[2] = 0xFF000000;
-			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
-				waterColor[0] = 0xFF3D54FF;
-				waterColor[1] = 0xFF000000;
-				waterColor[2] = 0xFF000000;
-			} else {
-				yOffset -= 1;
-				waterColor[0] = 0xFF5266FF;
-				waterColor[1] = 0xFF5266FF;
-				waterColor[2] = 0xFF000000;
-			}
-			screen.render(xOffset, yOffset + 3, 0 + 10 * sheet.boxes, waterColor, 0x00, 1, sheet);
-			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * sheet.boxes, waterColor, 0x01, 1, sheet);
-		}
+		// no x or y offset, use the upper left corner as absolute
+		int xOffset = getX(), yOffset = getY();
 
 		// Normal Player movement -- Not Attacking Anything
 		if (!isShooting && !isSwinging) {
 			// Upper body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile * sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes, color,
+					flip, getScale(), getSpriteSheet());
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset, (xTile + 1) + yTile * sheet.boxes, color,
-					flip, scale, sheet);
+			screen.render(xOffset + modifier - (flip ? 1 : 0), yOffset, (xTile + 1) + yTile * getSpriteSheet().boxes,
+					color, flip, getScale(), getSpriteSheet());
 
 			if (!isSwimming) {
 				// Lower Body 1
-				screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile + (yTile + 1) * sheet.boxes, color,
-						flip, scale, sheet);
+				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
+						xTile + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flip), yOffset + modifier,
-						(xTile + 1) + (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
+				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
+						(xTile + 1) + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 			}
 		}
 
 		// Handles Shooting Animation
 		if (isShooting) {
+
+			// tile positions for player
 			xTile = 0;
-			yTile = gun.playerOffset;
+			yTile = inventory.getGun().playerOffset;
 
 			if (getDirection() == Direction.NORTH) {
-				xTile += 8;
+				xTile = 8;
 			}
 			if (getDirection() == Direction.SOUTH) {
-				xTile += 4;
-			} else if (isLatitudinal(getDirection())) {
-				xTile += ((numSteps >> walkingAnimationSpeed) & 1) * 2;
-				if (getDirection() == Direction.WEST) {
-					flip = 1;
-				} else {
-					flip = 0;
-				}
+				xTile = 4;
+			} else if (isLatitudinal()) {
+				xTile = isMoving ? 0 : 2;
+				flip = getDirection() == Direction.WEST;
 			}
 
 			SpriteSheet sheet = this.gunSheet;
 
 			// Upper Body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile * sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * sheet.boxes, color, flip,
+					getScale(), sheet);
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset, (xTile + 1) + yTile * sheet.boxes, color,
-					flip, scale, sheet);
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, (xTile + 1) + yTile * sheet.boxes,
+					color, flip, getScale(), sheet);
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile + (yTile + 1) * sheet.boxes, color,
-					flip, scale, sheet);
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
+					color, flip, getScale(), sheet);
 
 			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset + modifier,
-					(xTile + 1) + (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
+					(xTile + 1) + (yTile + 1) * sheet.boxes, color, flip, getScale(), sheet);
 
-			int bulletOffset = -4;
-			if (shootingDir == 2) {
-				bulletOffset = -7;
-			}
+			// horizontal bullet offset
+			int bulletOffset = shootingDir == Direction.EAST ? 2 * modifier + 1 : -1;
 
-			if (stamina > 0 && gun != null) {
-				gun.fire(level, this.x + bulletOffset, this.y - 2, shootingDir, this);
-			}
-
-			if (gun.isReloading) {
-				isShooting = false;
+			// fire the gun
+			// TODO this shouldn't be under render
+			if (inventory.getGun() != null) {
+				inventory.getGun().fire(getLevel(), getX() + bulletOffset, getY() + 3, shootingDir, this);
 			}
 
 		}
 
 		// Handles Swinging Animation
 		if (isSwinging) {
-			sword.render(screen);
-		}
-
-		if (isHit && !isDriving) {
-			JJFont.render(damageTaken, screen, (int) xOffset + isHitX, (int) yOffset - 10 + isHitY, isHitColor, 1);
+			inventory.getSword().render(screen);
 		}
 
 	}
@@ -670,15 +604,19 @@ public class Player extends Mob implements Skills {
 	public void setSkinColor(int num) {
 		color[2] = num;
 	}
-	
+
 	/**
 	 * Player uses shield and has defense unlike other mobs
-	 * @param damage the value of damage
+	 * 
+	 * @param damage
+	 *            the value of damage
+	 * 
+	 *            TODO set shader to 16711680 when health < 20
 	 */
 	@Override
 	protected void doDamageToHealth(int damage) {
-		
-		// use shield to deflect damage
+
+		// use shield to absorb damage
 		while (shield > 0 && damage > 0) {
 			shield--;
 			damage--;
@@ -690,7 +628,7 @@ public class Player extends Mob implements Skills {
 		if (damage <= 0) {
 			damage = 0;
 		}
-		
+
 		super.doDamageToHealth(damage);
 	}
 
@@ -739,33 +677,55 @@ public class Player extends Mob implements Skills {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	/**
 	 * @return whether or not the player is driving
 	 */
 	public boolean isDriving() {
 		return vehicle != null;
 	}
-	
+
 	/**
-	 * @return The vehicle the player is driving
-	 * Null if the player is not riding anything
+	 * @return The vehicle the player is driving Null if the player is not
+	 *         riding anything
 	 */
 	public Vehicle getVehicle() {
 		return vehicle;
 	}
-	
+
 	/**
 	 * @return The player's inventory
 	 */
 	public Inventory getInventory() {
 		return inventory;
 	}
-	
+
+	/**
+	 * @return the current stamina
+	 */
 	public double getCurrentStamina() {
 		return stamina;
 	}
-	
-	//public double get
+
+	/**
+	 * @return the max stamina
+	 */
+	public double getMaxStamina() {
+		return maxStamina;
+	}
+
+	/**
+	 * @return the current shield
+	 */
+	public double getCurrentShield() {
+		return stamina;
+	}
+
+	/**
+	 * @return the max shield
+	 */
+	public double getMaxShield() {
+		return maxShield;
+	}
 
 }
