@@ -11,13 +11,13 @@ public class Cyclops extends Monster {
 
 	private static final long serialVersionUID = -6014297804180801819L;
 
-	// dimensions of the centaur
+	// dimensions of the cyclops
 	private static final int WIDTH = 32, HEIGHT = 48;
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
 
-	// color set of a centaur
+	// color set of a cyclops
 	private static final int[] color = { 0xFF111111, 0xFFFFD99C, 0xFFFFFFFF };
 
 	/**
@@ -30,7 +30,7 @@ public class Cyclops extends Monster {
 	 * @param y
 	 *            the y coord
 	 * @param speed
-	 *            how fast the demon moves
+	 *            how fast the cyclops moves
 	 * @param health
 	 *            the base health
 	 */

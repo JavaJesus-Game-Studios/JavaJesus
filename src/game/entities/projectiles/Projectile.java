@@ -51,6 +51,10 @@ public abstract class Projectile extends Entity {
 	 *            : The X position it will spawn at
 	 * @param y
 	 *            : The Y position it will spawn at
+	 * @param width
+	 *            the width of the sprite
+	 * @param height
+	 *            the height of the sprite
 	 * @param tileNumber
 	 *            : the tile id on the SpriteSheet (xTile) + (yTile) *
 	 *            getSpriteSheet().boxes
@@ -115,6 +119,14 @@ public abstract class Projectile extends Entity {
 	 * 
 	 * @param level
 	 *            : What level does it render on
+	 * @param x
+	 *            : The X position it will spawn at
+	 * @param y
+	 *            : The Y position it will spawn at
+	 * @param width
+	 *            the width of the sprite
+	 * @param height
+	 *            the height of the sprite
 	 * @param tileNumber
 	 *            : the tile id on the SpriteSheet (xTile) + (yTile) *
 	 *            getSpriteSheet().boxes
@@ -133,8 +145,8 @@ public abstract class Projectile extends Entity {
 	 *            the sound this projectile makes
 	 * 
 	 */
-	public Projectile(Level level, double x, double y, int width, int height, int tileNumber, int speed,
-			double xPos, double yPos, Mob mob, double damage, Clip clip) {
+	public Projectile(Level level, double x, double y, int width, int height, int tileNumber, int speed, double xPos,
+			double yPos, Mob mob, double damage, Clip clip) {
 		super(level, (int) x, (int) y);
 		this.tileNumber = tileNumber;
 		this.speed = speed;
@@ -261,7 +273,7 @@ public abstract class Projectile extends Entity {
 
 		return false;
 	}
-	
+
 	protected abstract int[] getColor();
 
 }

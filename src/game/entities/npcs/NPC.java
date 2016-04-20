@@ -1,65 +1,91 @@
 package game.entities.npcs;
 
+import java.awt.Color;
+import java.util.ArrayList;
+
 import game.ChatHandler;
+import game.SoundHandler;
+import game.entities.Entity;
 import game.entities.Mob;
 import game.entities.Player;
-import game.entities.npcs.aggressive.Knight;
-import game.entities.npcs.aggressive.Shooter;
-import game.entities.particles.HealthBar;
 import game.graphics.JJFont;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
-
-import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
-import java.util.Random;
-
 import level.Level;
 import quests.Quest;
 import utility.Direction;
 
+/*
+ * Non player characters are friendly mobs that the player can interact with
+ */
 public class NPC extends Mob {
 
 	private static final long serialVersionUID = 7279751732700782799L;
 
-	/** Range that the NPC can walk */
-	protected Ellipse2D.Double walkRadius;
-	protected final int RADIUS = 32 * 8;
-	protected int xTile;
+	// the coordinates on the spritesheet
+	private int xTile;
+
 	protected int yTile;
 
-	/** Movement type and the distance they travel */
-	protected String walkPath;
-	protected int walkDistance;
+	// Movement type and the distance they travel
+	private String walkPath;
+	private int walkDistance;
 
-	/** NPC origin */
-	protected double xPos;
-	protected double yPos;
+	// NPC origin - spawn location of NPCs
+	private int xPos, yPos;
 
-	/** Determines direction for NPC movement */
-	protected boolean dir1 = true;
-	protected boolean dir2;
-	protected boolean dir3;
-	protected boolean dir4;
+	// quests a NPC might have
+	private ArrayList<Quest> quests = new ArrayList<Quest>();
 
-	public ArrayList<Quest> quests = new ArrayList<Quest>();
-	public Quest currentQuest;
+	// active quest
+	private Quest currentQuest;
 
-	protected boolean movingToOrigin = false;
+	// whether or not the NPC is moving to its origin
+	private boolean movingToOrigin;
 
-	public enum Gender {
-		MALE, FEMALE, BOY, GIRL
-	}
+	// color of the NPC
+	private int[] color;
 
-	public NPC(Level level, String name, int x, int y, int speed, int width,
-			int height, int defaultHealth, int[] color, int xTile, int yTile,
-			String walkPath, int walkDistance) {
-		super(level, name, x, y, speed, width, height, SpriteSheet.npcs,
-				defaultHealth);
-		this.walkRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
-				RADIUS, RADIUS);
+	// How long a NPC will wait before moving back to the origin
+	private static final int MOVE_TO_ORIGIN_TIMEOUT = Entity.secondsToTicks(30);
+
+	// how fast the npcs toggles steps
+	private static final int WALKING_ANIMATION_SPEED = 4;
+
+	/**
+	 * Creates a NPC that interacts with the environment
+	 * 
+	 * @param level
+	 *            the level to place it on
+	 * @param name
+	 *            the name of the NPC
+	 * @param x
+	 *            the X coord
+	 * @param y
+	 *            the Y coord
+	 * @param speed
+	 *            the base speed
+	 * @param width
+	 *            the width in pixels
+	 * @param height
+	 *            the height in pixels
+	 * @param health
+	 *            the base health
+	 * @param color
+	 *            the color set
+	 * @param xTile
+	 *            the column on the spritesheet
+	 * @param yTile
+	 *            the row on the spritesheet
+	 * @param walkPath
+	 *            the type of idle formation
+	 * @param walkDistance
+	 *            the distance of each idle formation
+	 */
+	public NPC(Level level, String name, int x, int y, int speed, int width, int height, int health, int[] color,
+			int xTile, int yTile, String walkPath, int walkDistance) {
+		super(level, name, x, y, speed, width, height, SpriteSheet.npcs, health);
+
 		this.color = color;
 		this.xTile = xTile;
 		this.yTile = yTile;
@@ -67,59 +93,57 @@ public class NPC extends Mob {
 		this.walkDistance = walkDistance;
 		this.xPos = x;
 		this.yPos = y;
-		this.setHitBox(new Rectangle(width, height));
-		this.bar = new HealthBar(level, this.x, this.y, this);
-		if (level != null)
-			level.addEntity(bar);
+		this.setBounds(getX(), getY(), width, height);
+
+		createHealthBar();
+
 	}
 
+	/**
+	 * Updates the NPC 60 times per second
+	 */
 	public void tick() {
 		super.tick();
-		if (tickCount > 360) {
-			tickCount = 0;
-			movingToOrigin = true;
+
+		// will move the NPC back to the origin
+		if (tickCount % MOVE_TO_ORIGIN_TIMEOUT == 0) {
+			movingToOrigin = getX() != xPos || getY() != yPos;
 		}
-		if (!(this instanceof Shooter) && (tickCount % 2 == 0)) {
-			if (script != null && !script.isCompleted())
-				script.moveToPoint();
-			else if (movingToOrigin)
-				findOrigin();
-			else {
-				findPath();
-			}
-		}
+
+		// simple pathfinding for the NPC
+		if (movingToOrigin)
+			findOrigin();
+		else
+			findPath();
+
 	}
 
-	protected void findOrigin() {
+	/**
+	 * Moves a NPC back to the origin
+	 */
+	private void findOrigin() {
 
-		if (xPos == this.x && yPos == this.y) {
-			movingToOrigin = false;
-			return;
+		// the change in x and y
+		int dx = 0, dy = 0;
+		if (xPos > getX()) {
+			dx++;
+		} else if (xPos < getX()) {
+			dx--;
 		}
-		int xa = 0;
-		int ya = 0;
-		if (xPos > this.x) {
-			xa++;
+		if (yPos > getY()) {
+			dy++;
+		} else if (yPos < getY()) {
+			dy--;
 		}
-		if (xPos < this.x) {
-			xa--;
-		}
-		if (yPos > this.y) {
-			ya++;
-		}
-		if (yPos < this.y) {
-			ya--;
-		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isMobCollision(xa, ya)) {
-			setMoving(true);
-			move(xa, ya);
-		} else {
-			setMoving(false);
-		}
+
+		// move the NPC
+		move(dx, dy);
 	}
 
-	protected void findPath() {
+	/**
+	 * Selects the appropriate walk path
+	 */
+	private void findPath() {
 		switch (walkPath) {
 		case "linear": {
 			moveLinear();
@@ -141,350 +165,324 @@ public class NPC extends Mob {
 			moveCircle();
 			break;
 		}
+		// stand still
 		default:
 			break;
 		}
 	}
 
+	/**
+	 * Displays the NPC on the screen
+	 */
 	public void render(Screen screen) {
 		super.render(screen);
-		int xTile = this.xTile;
-		int yTile = this.yTile;
 
-		int walkingAnimationSpeed = 4;
+		// modifier used for rendering in different scales/directions
+		int modifier = UNIT_SIZE * getScale();
 
-		int flip = (numSteps >> walkingAnimationSpeed) & 1;
+		// no x or y offset, use the upper left corner as absolute
+		int xOffset = getX(), yOffset = getY();
 
+		// the horizontal/vertical position on the spritesheet
+		int xTile = this.xTile, yTile = this.yTile;
+
+		// whether or not to render backwards
+		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
+
+		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
 			xTile += 8;
-		} else if (isLatitudinal(getDirection())) {
-			xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
-			if (getDirection() == Direction.WEST) {
-				flip = 1;
-			} else {
-				flip = 0;
-			}
+		} else if (isLatitudinal()) {
+			xTile = 4 + (flip ? 2 : 0);
+			flip = getDirection() == Direction.WEST;
 		}
 
-		int modifier = 8 * scale;
-		int xOffset = x - modifier;
-		int yOffset = y - modifier;
-
-		if (isDead) {
+		// dead image has an exact location
+		if (isDead()) {
 			xTile = 12;
-			isShooting = false;
 		}
 
-		if (isShooting && !isDead && !isSwimming && !(this instanceof Knight)) {
+		// Upper body 1
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes, color,
+				flip, getScale(), getSpriteSheet());
 
-			xTile = 14;
+		// Upper Body 2
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
+				(xTile + 1) + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
-			if (getDirection() == Direction.NORTH) {
-				xTile += 8;
-			}
-			if (isLatitudinal(getDirection())) {
-				xTile += 4 + ((numSteps >> walkingAnimationSpeed) & 1) * 2;
-				if (getDirection() == Direction.WEST) {
-					flip = 1;
-				} else {
-					flip = 0;
-				}
-			}
-
-			// Upper body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-					* sheet.boxes, this.color, flip, scale, sheet);
-
-			// Upper body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, this.color, flip, scale,
-					sheet);
+		if (!isSwimming) {
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * flip), yOffset + modifier,
-					xTile + (yTile + 1) * sheet.boxes, this.color, flip, scale,
-					sheet);
-
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
+					xTile + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset
-					+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
-					this.color, flip, scale, sheet);
-		} else if (isShooting && !isDead && !isSwimming) {
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
+					(xTile + 1) + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
-			xTile = 14;
-
-			if (getDirection() == Direction.NORTH) {
-				xTile += 14;
-			} else if (getDirection() == Direction.SOUTH) {
-				xTile += 12;
-			} else {
-				if (getDirection() == Direction.WEST) {
-					flip = 1;
-				} else {
-					flip = 0;
-				}
-			}
-
-			if (isLatitudinal(getDirection())) {
-				for (int i = 0; i < 2; i++) {
-
-					screen.render(xOffset + (2 * modifier * flip), yOffset
-							+ (modifier * i),
-							xTile + (yTile + i) * sheet.boxes, color, flip,
-							scale, sheet);
-
-					screen.render(xOffset + modifier, yOffset + (modifier * i),
-							(xTile + 1) + (yTile + i) * sheet.boxes, color,
-							flip, scale, sheet);
-
-					screen.render(xOffset + 2 * modifier
-							- (2 * modifier * flip), yOffset + (modifier * i),
-							(xTile + 2) + (yTile + i) * sheet.boxes, color,
-							flip, scale, sheet);
-				}
-			} else {
-				// Upper body 1
-				screen.render(xOffset + (modifier * flip), yOffset, xTile
-						+ yTile * sheet.boxes, this.color, flip, scale, sheet);
-
-				// Upper body 2
-				screen.render(xOffset + modifier - (modifier * flip), yOffset,
-						(xTile + 1) + yTile * sheet.boxes, this.color, flip,
-						scale, sheet);
-
-				// Lower Body 1
-				screen.render(xOffset + (modifier * flip), yOffset + modifier,
-						xTile + (yTile + 1) * sheet.boxes, this.color, flip,
-						scale, sheet);
-
-				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flip), yOffset
-						+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
-						this.color, flip, scale, sheet);
-
-				// Lower Body 1
-				screen.render(xOffset + (modifier * flip), yOffset + 2
-						* modifier, xTile + (yTile + 2) * sheet.boxes,
-						this.color, flip, scale, sheet);
-
-				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flip), yOffset
-						+ 2 * modifier,
-						(xTile + 1) + (yTile + 2) * sheet.boxes, this.color,
-						flip, scale, sheet);
-			}
-
-		} else {
-
-			if (!isSwimming) {
-				// Lower Body 1
-				screen.render(xOffset + (modifier * flip), yOffset + modifier,
-						xTile + (yTile + 1) * sheet.boxes, color, flip, scale,
-						sheet);
-				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flip), yOffset
-						+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
-						color, flip, scale, sheet);
-
-			}
-
-			// Upper body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-					* sheet.boxes, color, flip, scale, sheet);
-			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
-					sheet);
 		}
 
+		// notifies the player this NPC has a quest
 		if (currentQuest != null && !isTalking) {
-			JJFont.render("?", screen, (int) xOffset + 4, (int) yOffset - 10,
-					new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
+			JJFont.render("?", screen, xOffset + 4, yOffset - 10, new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
 		}
 
 	}
 
+	/**
+	 * Moves the NPC in a straight line
+	 */
 	private void moveLinear() {
-		int xa = 0;
-		int ya = 0;
-		if (dir1) {
-			xa++;
-			if (this.x > this.walkDistance + xPos) {
-				dir1 = false;
-				dir2 = true;
-			}
-		} else if (dir2) {
-			xa--;
-			if (this.x < xPos - this.walkDistance) {
-				dir1 = true;
-				dir2 = false;
-			}
-		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isMobCollision(xa, ya)) {
-			move(xa, ya);
-			setMoving(true);
-		} else {
-			setMoving(false);
-		}
 
+		// the change in x
+		int dx = 0;
+
+		if (getDirection() == Direction.EAST) {
+			if (getX() > walkDistance + xPos) {
+				dx--;
+			} else {
+				dx++;
+			}
+		} else {
+			if (getX() < xPos - walkDistance) {
+				dx++;
+			} else {
+				dx--;
+			}
+		}
+		// move the npc
+		move(dx, 0);
 	}
 
+	/**
+	 * Moves the NPC in a triangle
+	 */
 	private void moveTriangle() {
-		int xa = 0;
-		int ya = 0;
-		if (dir1) {
-			xa++;
-			if (this.x > this.walkDistance + xPos) {
-				dir1 = false;
-				dir2 = true;
+		int dx = 0, dy = 0;
+		if (getDirection() == Direction.EAST) {
+			if (getX() > walkDistance + xPos) {
+				dx--;
+			} else {
+				dy++;
 			}
-		} else if (dir2) {
-			xa--;
-			ya--;
-			if (this.x < xPos) {
-				dir2 = false;
-				dir3 = true;
+		} else if (getDirection() == Direction.NORTH) {
+			dx--;
+			if (getX() > xPos) {
+				dy--;
+			} else {
+				dy++;
 			}
-		} else if (dir3) {
-			xa--;
-			ya++;
-			if (this.x < xPos - this.walkDistance) {
-				dir3 = false;
-				dir1 = true;
-			}
-		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isMobCollision(xa, ya)) {
-			move(xa, ya);
-			setMoving(true);
 		} else {
-			setMoving(false);
+			if (getX() < xPos - walkDistance) {
+				dx++;
+			} else {
+				dx--;
+				dy++;
+			}
 		}
-
+		// move the npc
+		move(dx, dy);
 	}
 
+	/**
+	 * Move the NPC in a square
+	 */
 	private void moveSquare() {
-		int xa = 0;
-		int ya = 0;
-		if (dir1) {
-			xa++;
-			if (this.x > this.walkDistance + xPos) {
-				dir1 = false;
-				dir2 = true;
+		int dx = 0, dy = 0;
+		if (getDirection() == Direction.EAST) {
+			if (getX() > walkDistance + xPos) {
+				dy++;
+			} else {
+				dx++;
 			}
-		} else if (dir2) {
-			ya++;
-			if (this.y > this.walkDistance + yPos) {
-				dir2 = false;
-				dir3 = true;
+		} else if (getDirection() == Direction.SOUTH) {
+			if (getY() > walkDistance + yPos) {
+				dx--;
+			} else {
+				dy++;
 			}
-		} else if (dir3) {
-			xa--;
-			if (this.x < xPos - this.walkDistance) {
-				dir3 = false;
-				dir4 = true;
+		} else if (getDirection() == Direction.WEST) {
+			if (getX() < xPos - walkDistance) {
+				dy--;
+			} else {
+				dx--;
 			}
-		} else if (dir4) {
-			ya--;
-			if (this.y < yPos - this.walkDistance) {
-				dir4 = false;
-				dir1 = true;
-			}
-		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isMobCollision(xa, ya)) {
-			move(xa, ya);
-			setMoving(true);
 		} else {
-			setMoving(false);
+			if (getY() < yPos - walkDistance) {
+				dx++;
+			} else {
+				dy--;
+			}
 		}
-
+		// moves the npc
+		move(dx, dy);
 	}
 
+	/**
+	 * Moves the NPC in a cross
+	 */
 	private void moveCross() {
-		int xa = 0;
-		int ya = 0;
-		if (!dir1 && !dir2 && !dir3 && !dir4) {
-			Random random = new Random();
+
+		// change in x and y
+		int dx = 0, dy = 0;
+
+		// if at origin, randomly get a direction
+		if (getX() == xPos && getY() == yPos) {
 			switch (random.nextInt(4)) {
 			case 0: {
-				dir1 = true;
+				setDirection(Direction.NORTH);
 				break;
 			}
 			case 1: {
-				dir2 = true;
+				setDirection(Direction.SOUTH);
 				break;
 			}
 			case 2: {
-				dir3 = true;
+				setDirection(Direction.EAST);
 				break;
 			}
 			case 3: {
-				dir4 = true;
+				setDirection(Direction.WEST);
 				break;
 			}
 			}
 		}
 
-		if (dir1) {
-			xa++;
-			if (this.x > this.walkDistance + xPos) {
-				dir1 = false;
+		if (getDirection() == Direction.EAST) {
+			if (getX() > walkDistance + xPos) {
+				dx--;
+			} else {
+				dx++;
 			}
-		} else if (dir2) {
-			ya++;
-			if (this.y > this.walkDistance + yPos) {
-				dir2 = false;
+		} else if (getDirection() == Direction.WEST) {
+			if (getX() < xPos - walkDistance) {
+				dx++;
+			} else {
+				dx--;
 			}
-		} else if (dir3) {
-			xa--;
-			if (this.x < xPos - this.walkDistance) {
-				dir3 = false;
+		} else if (getDirection() == Direction.NORTH) {
+			if (getY() < yPos - walkDistance) {
+				dy++;
+			} else {
+				dy--;
 			}
-		} else if (dir4) {
-			ya--;
-			if (this.y < yPos - this.walkDistance) {
-				dir4 = false;
-			}
-		}
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isMobCollision(xa, ya)) {
-			move(xa, ya);
-			setMoving(true);
 		} else {
-			setMoving(false);
+			if (getY() > walkDistance + yPos) {
+				dy--;
+			} else {
+				dy++;
+			}
 		}
-
+		// move the npc
+		move(dx, dy);
 	}
 
+	/**
+	 * Moves the NPC in a circle
+	 */
 	private void moveCircle() {
 
-		// Some random code with some random values. Don't ask me how it works.
-		double miniTick = tickCount / 20.0;
-		int xa = (int) (walkDistance * Math.cos(miniTick / walkDistance));
-		int ya = (int) (walkDistance * Math.sin(miniTick / walkDistance));
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isMobCollision(xa, ya)) {
-			move(xa, ya);
-			setMoving(true);
-		} else {
-			setMoving(false);
-		}
-
+		// parametric function
+		// x = r cos(ticks)
+		// y = r sin (ticks)
+		int xa = (int) (walkDistance * Math.cos(Math.toRadians(tickCount % 360)));
+		int ya = (int) (walkDistance * Math.sin(Math.toRadians(tickCount % 360)));
+		move(xa, ya);
 	}
 
+	/**
+	 * @param quest
+	 *            the quest to add
+	 */
 	public void addQuest(Quest quest) {
 		quests.add(quest);
 	}
 
+	/**
+	 * @param num
+	 *            the index of the quest to set
+	 */
 	public void setQuest(int num) {
 		this.currentQuest = quests.get(num);
 	}
 
+	/**
+	 * Dialogue options that can easily be overridden
+	 */
+	protected void doDialogue() {
+		switch (random.nextInt(13)) {
+		case 0: {
+			ChatHandler.displayText(getName() + ": I used to be an adventurer too!", Color.black);
+			return;
+		}
+		case 1: {
+			ChatHandler.displayText(getName() + ": Nice shirt!", Color.white);
+			return;
+		}
+		case 2: {
+			ChatHandler.displayText(getName() + ": Are you Jesus?", Color.white);
+			return;
+		}
+		case 3: {
+			ChatHandler.displayText(getName() + ": This is some nice weather we've been having.", Color.white);
+			return;
+		}
+		case 4: {
+			ChatHandler.displayText(getName() + ": You are not from around here are you!", Color.white);
+			return;
+		}
+		case 5: {
+			ChatHandler.displayText(getName() + ": Hello Officer!", Color.white);
+			return;
+		}
+		case 6: {
+			ChatHandler.displayText(getName() + ": Who goes there!", Color.white);
+			return;
+		}
+		case 7: {
+			ChatHandler.displayText(getName() + ": Have you been to San Cisco? I hear they're having lovely weather.",
+					Color.white);
+			return;
+		}
+		case 8: {
+			ChatHandler.displayText(getName() + ": It's you! It really is! All Hail the Hero of the Bay!", Color.white);
+			return;
+		}
+		case 9: {
+			ChatHandler.displayText(getName() + ": I'm not racist but when you're driving in the East Bay,"
+					+ " roll up your windows and lock your doors.", Color.white);
+			return;
+		}
+		case 10: {
+			ChatHandler.displayText(getName() + ": Have you seen my friend Bob? He's a peasant and he seems to have"
+					+ "literally dissapeared!", Color.white);
+			return;
+		}
+		case 11: {
+			ChatHandler.displayText(
+					getName() + ": Nasty business it is with those Apes in the North!" + " Nasty business indeed.",
+					Color.white);
+			return;
+		}
+		case 12: {
+			ChatHandler.displayText(getName() + ": Hola, mi nombre es Esteban Norteruta!", Color.white);
+			return;
+		}
+		default: {
+			ChatHandler.displayText(getName() + ": Hello!", Color.white);
+			return;
+		}
+		}
+	}
+
+	/**
+	 * Text to player
+	 */
 	public void speak(Player player) {
 
 		isTalking = true;
+
+		// generally the NPC will face the opposite direction of the player when
+		// talking
 		switch (player.getDirection()) {
 		case NORTH: {
 			setDirection(Direction.SOUTH);
@@ -498,37 +496,34 @@ public class NPC extends Mob {
 			setDirection(Direction.EAST);
 			break;
 		}
-		case EAST: {
+		default: {
 			setDirection(Direction.WEST);
 			break;
 		}
 		}
 
 		if (currentQuest != null) {
-			if (!player.activeQuests.contains(currentQuest)) {
-				player.activeQuests.add(currentQuest);
+			if (!player.getActiveQuests().contains(currentQuest)) {
+				player.getActiveQuests().add(currentQuest);
 			}
 			currentQuest.update();
 			switch (currentQuest.getPhase()) {
 			case 0: {
-				ChatHandler.displayText(
-						name + ": " + currentQuest.preDialogue(), Color.blue);
-				sound.play(sound.levelup);
+				ChatHandler.displayText(getName() + ": " + currentQuest.preDialogue(), Color.blue);
+				SoundHandler.play(SoundHandler.levelup);
 				currentQuest.nextPhase();
 				return;
 			}
 			case 1: {
-				ChatHandler.displayText(name + ": " + currentQuest.dialogue(),
-						Color.blue);
+				ChatHandler.displayText(getName() + ": " + currentQuest.dialogue(), Color.blue);
 				return;
 			}
 			case 2: {
-				ChatHandler.displayText(
-						name + ": " + currentQuest.postDialogue(), Color.CYAN);
-				sound.play(sound.chest);
-				if (!player.completedQuests.contains(currentQuest)) {
-					player.completedQuests.add(currentQuest);
-					player.activeQuests.remove(currentQuest);
+				ChatHandler.displayText(getName() + ": " + currentQuest.postDialogue(), Color.CYAN);
+				SoundHandler.play(SoundHandler.chest);
+				if (!player.getCompletedQuests().contains(currentQuest)) {
+					player.getCompletedQuests().add(currentQuest);
+					player.getActiveQuests().remove(currentQuest);
 				}
 				nextQuest();
 				return;
@@ -536,91 +531,13 @@ public class NPC extends Mob {
 			}
 		}
 
-		switch (random.nextInt(13)) {
-		case 0: {
-			ChatHandler.displayText(name + ": I used to be an adventurer too!",
-					Color.black);
-			return;
-		}
-		case 1: {
-			ChatHandler.displayText(name + ": Nice shirt!", Color.white);
-			return;
-		}
-		case 2: {
-			ChatHandler.displayText(name + ": Are you Jesus?", Color.white);
-			return;
-		}
-		case 3: {
-			ChatHandler.displayText(name
-					+ ": This is some nice weather we've been having.",
-					Color.white);
-			return;
-		}
-		case 4: {
-			ChatHandler.displayText(name
-					+ ": You are not from around here are you!", Color.white);
-			return;
-		}
-		case 5: {
-			ChatHandler.displayText(name + ": Hello Officer!", Color.white);
-			return;
-		}
-		case 6: {
-			ChatHandler.displayText(name + ": Who goes there!", Color.white);
-			return;
-		}
-		case 7: {
-			ChatHandler
-					.displayText(
-							name
-									+ ": Have you been to San Cisco? I hear they're having lovely weather.",
-							Color.white);
-			return;
-		}
-		case 8: {
-			ChatHandler
-					.displayText(
-							name
-									+ ": It's you! It really is! All Hail the Hero of the Bay!",
-							Color.white);
-			return;
-		}
-		case 9: {
-			ChatHandler
-					.displayText(
-							name
-									+ ": I'm not racist but when you're driving in the East Bay,"
-									+ " roll up your windows and lock your doors.",
-							Color.white);
-			return;
-		}
-		case 10: {
-			ChatHandler
-					.displayText(
-							name
-									+ ": Have you seen my friend Bob? He's a peasant and he seems to have"
-									+ "literally dissapeared!", Color.white);
-			return;
-		}
-		case 11: {
-			ChatHandler.displayText(name
-					+ ": Nasty business it is with those Apes in the North!"
-					+ " Nasty business indeed.", Color.white);
-			return;
-		}
-		case 12: {
-			ChatHandler.displayText(name
-					+ ": Hola, mi nombre es Esteban Norteruta!", Color.white);
-			return;
-		}
-		default: {
-			ChatHandler.displayText(name + ": Hello!", Color.white);
-			return;
-		}
-		}
+		doDialogue();
 
 	}
 
+	/**
+	 * Sets the npc to the next quest
+	 */
 	protected void nextQuest() {
 		quests.remove(currentQuest);
 		currentQuest = null;
@@ -629,52 +546,61 @@ public class NPC extends Mob {
 		}
 	}
 
+	/**
+	 * Returns a random NPC at the specified location
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the desired x coord
+	 * @param y
+	 *            the desired y coord
+	 * @return the random NPC
+	 */
 	public static NPC getRandomNPC(Level level, int x, int y) {
-		Random random = new Random();
 		switch (random.nextInt(11)) {
 
 		case 0:
-			return new NPC(level, "Knight", x, y, 1, 16, 16, 100, new int[] {
-					0xFF111111, 0xFF7E7E7E, 0xFFFFFFFF }, 0, 2, "linear", 20);
+			return new Knight(level, x, y, 100, "linear", 20);
 		case 1:
-			return new NPC(level, "Policeman", x, y, 1, 16, 16, 100, new int[] {
-					0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB }, 0, 4, "triangle", 20);
+			return new NPC(level, "Policeman", x, y, 1, 16, 16, 100, new int[] { 0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB },
+					0, 4, "triangle", 20);
 		case 2:
 			return new NPC(level, "Citizen-Female", x, y, 1, 16, 16, 100,
-					new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 8,
-					"cross", 30);
+					new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 8, "cross", 30);
 		case 3:
 			return new NPC(level, "Citizen-Male", x, y, 1, 16, 16, 100,
-					new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 0,
-					"circle", 2);
+					new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 0, "circle", 2);
 		case 4:
-			return new NPC(level, "Fox", x, y, 1, 16, 16, 100, new int[] {
-					0xFF111111, 0xFFFFA800, 0xFFFFFFFF }, 0, 14, "cross", 50);
+			return new NPC(level, "Fox", x, y, 1, 16, 16, 100, new int[] { 0xFF111111, 0xFFFFA800, 0xFFFFFFFF }, 0, 14,
+					"cross", 50);
 		case 5:
 			return new NPC(level, "Tech Warrior", x, y, 1, 16, 16, 100,
-					new int[] { 0xFF000000, 0xFF42FF00, 0xFFEDC5AB }, 0, 12,
-					"triangle", 20);
+					new int[] { 0xFF000000, 0xFF42FF00, 0xFFEDC5AB }, 0, 12, "triangle", 20);
 		case 6:
 			return new NPC(level, "Peasant-Male", x, y, 1, 16, 16, 100,
-					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 0, 16,
-					"square", 100);
+					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 0, 16, "square", 100);
 		case 7:
 			return new NPC(level, "Peasant-Female", x, y, 1, 16, 16, 100,
-					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 0, 18,
-					"cross", 0);
+					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 0, 18, "cross", 0);
 		case 8:
 			return new NPC(level, "Peasant-Boychild", x, y, 1, 16, 16, 9001,
-					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 14, 16,
-					"square", 0);
+					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 14, 16, "square", 0);
 		case 9:
 			return new NPC(level, "Peasant-Girlchild", x, y, 1, 16, 16, 9000,
-					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 14, 18,
-					"cross", 0);
+					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 14, 18, "cross", 0);
 
 		default:
 			return new Jesus(level, x, y, "stand", 30);
 
 		}
+	}
+
+	/**
+	 * @return the colorset
+	 */
+	protected int[] getColor() {
+		return color;
 	}
 
 }

@@ -1,15 +1,15 @@
 package game.entities.monsters;
 
+import java.awt.Color;
+import java.awt.geom.Ellipse2D;
+
 import game.ChatHandler;
+import game.entities.LongRange;
 import game.entities.Mob;
 import game.entities.Player;
 import game.entities.Skills;
 import game.entities.npcs.NPC;
 import game.graphics.SpriteSheet;
-
-import java.awt.Color;
-import java.awt.geom.Ellipse2D;
-
 import level.Level;
 
 /*
@@ -128,7 +128,19 @@ public class Monster extends Mob implements Skills {
 		// change in x and y
 		int dx = 0, dy = 0;
 
-		if (target != null && !getOuterBounds().intersects(target.getOuterBounds())) {
+		// whether or not the monster should move
+		boolean shouldMove = false;
+		
+		// check the bounds if the monster prefers long range or not
+		if (target != null) {
+			if (this instanceof LongRange) {
+				shouldMove = !((LongRange) this).getRange().intersects(target.getOuterBounds());
+			} else {
+				shouldMove = !getOuterBounds().intersects(target.getOuterBounds());
+			}
+		}
+
+		if (shouldMove) {
 
 			// move towards the target horizontally
 			if (target.getX() > getX()) {

@@ -1,5 +1,8 @@
 package game.entities;
 
+import java.awt.Color;
+import java.util.ArrayList;
+
 import game.ChatHandler;
 import game.Display;
 import game.Game;
@@ -14,9 +17,9 @@ import game.gui.overview.InventoryGUI;
 import items.Armor;
 import items.Inventory;
 import items.Item;
-import java.awt.Color;
 import level.Level;
 import level.tile.Tile;
+import quests.Quest;
 import utility.Direction;
 
 /*
@@ -58,10 +61,12 @@ public class Player extends Mob implements Skills {
 	private double maxStamina;
 
 	// List of the active quests
-	// private ArrayList<Quest> activeQuests = new ArrayList<Quest>();
+	@SuppressWarnings("unused")
+	private ArrayList<Quest> activeQuests = new ArrayList<Quest>();
 
-	// List of completed quests
-	// private ArrayList<Quest> completedQuests = new ArrayList<Quest>();
+	//List of completed quests
+	@SuppressWarnings("unused")
+	private ArrayList<Quest> completedQuests = new ArrayList<Quest>();
 
 	// takes hits before using health
 	private double shield;
@@ -726,6 +731,20 @@ public class Player extends Mob implements Skills {
 	 */
 	public double getMaxShield() {
 		return maxShield;
+	}
+	
+	/**
+	 * @return The player's active quest
+	 */
+	public ArrayList<Quest> getActiveQuests() {
+		return this.getActiveQuests();
+	}
+	
+	/**
+	 * @return The player's completed quests
+	 */
+	public ArrayList<Quest> getCompletedQuests() {
+		return this.getCompletedQuests();
 	}
 
 }

@@ -1,50 +1,67 @@
 package game.entities.monsters;
 
-import game.ChatHandler;
-import game.entities.Player;
-import game.entities.particles.HealthBar;
-import game.entities.projectiles.Bullet;
-import game.graphics.Screen;
-
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
+import game.ChatHandler;
+import game.SoundHandler;
+import game.entities.LongRange;
+import game.entities.Mob;
+import game.entities.Player;
+import game.entities.projectiles.Bullet;
+import game.graphics.Screen;
 import level.Level;
 import utility.Direction;
 
 /*
  * A generic gang member to attack others
  */
-public class GangMember extends Monster {
+public class GangMember extends Monster implements LongRange {
 
 	private static final long serialVersionUID = 3322532159669147419L;
 
 	// the range the gang member will stand when shooting
-	protected Ellipse2D.Double standRange;
+	private Ellipse2D.Double standRange;
 
-	// dimensions of the centaur
+	// dimensions of the gang member
 	private static final int WIDTH = 16, HEIGHT = 16;
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
 
-	// color set of a centaur
+	// color set of a gang member
 	private static final int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB };
-	
+
 	// types of gang members
 	public static final int TRIAD = 0, RUSSIAN = 1;
 
+	/**
+	 * Creates a gang member
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param speed
+	 *            the base speed
+	 * @param health
+	 *            the base health
+	 * @param type
+	 *            the appearance, either GangMember.TRIAD or GangMember.RUSSIAN
+	 */
 	public GangMember(Level level, int x, int y, int speed, int health, int type) {
 		super(level, "Gangster", x, y, speed, WIDTH, HEIGHT, 1, health, 100);
-		
+
 		// sets the appropriate y tile on the pixel sheet
 		getType(type);
-		
+
 		// creates the standing range
 		standRange = new Ellipse2D.Double(getX() - RADIUS / 4, getY() - RADIUS / 4, RADIUS / 2, RADIUS / 2);
-		
+
 	}
-	
+
 	/**
 	 * Moves a monster on the level
 	 * 
@@ -61,7 +78,8 @@ public class GangMember extends Monster {
 	}
 
 	/**
-	 * @param type The type of gang member to render
+	 * @param type
+	 *            The type of gang member to render
 	 */
 	private void getType(int type) {
 		switch (type) {
@@ -74,99 +92,40 @@ public class GangMember extends Monster {
 		}
 	}
 
-	public void tick() {
-
-		super.tick();
-
-		if (isShooting) {
-			shootTickCount++;
-			if (shootTickCount > 20) {
-				shootTickCount = 0;
-				isShooting = false;
-			}
-		}
-		int xa = 0;
-		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.getBounds())) {
-			if (!cooldown) {
-				isShooting = true;
-				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7), mob.getX(), mob.getY() - 4, this, 3,
-						sound.revolver));
-			}
-			if (!this.standRange.intersects(mob.getBounds())) {
-
-				if (mob.getX() > this.x) {
-					xa++;
-				}
-				if (mob.getX() < this.x) {
-					xa--;
-				}
-				if (mob.getY() > this.y) {
-					ya++;
-				}
-				if (mob.getY() < this.y) {
-					ya--;
-				}
-			} else {
-				if (mob.isMoving()) {
-					if (mob.getX() > this.x) {
-						xa--;
-					}
-					if (mob.getX() < this.x) {
-						xa++;
-					}
-					if (mob.getY() > this.y) {
-						ya--;
-					}
-					if (mob.getY() < this.y) {
-						ya++;
-					}
-				}
-			}
-		}
-
-		if (tickCount % 100 == 0) {
-			cooldown = false;
-		} else {
-			cooldown = true;
-		}
-
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya) && !isMobCollision(xa, ya)) {
-			setMoving(true);
-			move(xa, ya);
-		} else {
-			setMoving(false);
-		}
-
-	}
-
+	/**
+	 * Displays the Demon to the screen
+	 */
 	public void render(Screen screen) {
 		super.render(screen);
-		this.standRange.setFrame(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2, RADIUS / 2);
-		int xTile = 0;
-		int walkingSpeed = 4;
-		int flip = (numSteps >> walkingSpeed) & 1;
 
+		// modifier used for rendering in different scales/directions
+		int modifier = UNIT_SIZE * getScale();
+
+		// no x or y offset, use the upper left corner as absolute
+		int xOffset = getX(), yOffset = getY();
+
+		// the horizontal position on the spritesheet
+		int xTile = 0;
+
+		// whether or not to render backwards
+		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
+
+		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile += 8;
-		} else if (isLatitudinal(getDirection())) {
-			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
-			if (getDirection() == Direction.WEST) {
-				flip = 1;
-			} else {
-				flip = 0;
-			}
+			xTile = 8;
+		} else if (getDirection() == Direction.SOUTH) {
+			xTile = 0;
+		} else {
+			xTile = 4 + (flip ? 2 : 0);
+			flip = getDirection() == Direction.WEST;
 		}
 
-		int modifier = 8 * scale;
-		int xOffset = x - modifier;
-		int yOffset = y - modifier;
-
-		if (isDead) {
-			isShooting = false;
+		// dead has an absolute position
+		if (isDead()) {
 			xTile = 12;
 		}
 
+		// shooting has an absolute position
 		if (isShooting) {
 			xTile = 14;
 			if (getDirection() == Direction.NORTH) {
@@ -178,26 +137,57 @@ public class GangMember extends Monster {
 		}
 
 		// Upper body 1
-		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile * sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes, color,
+				flip, getScale(), getSpriteSheet());
 
 		// Upper body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset, (xTile + 1) + yTile * sheet.boxes, color, flip,
-				scale, sheet);
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
+				(xTile + 1) + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body 1
-		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile + (yTile + 1) * sheet.boxes, color, flip,
-				scale, sheet);
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
+				xTile + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset + modifier,
-				(xTile + 1) + (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
+				(xTile + 1) + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 	}
 
+	/**
+	 * Shoots a bullet at a target 
+	 * Uses dummy parameters to conform to Mob class
+	 */
+	@Override
+	public void attack(int fake, int fake2, Mob other) {
+
+		getLevel().addEntity(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength(),
+				SoundHandler.revolver));
+	}
+
+	/**
+	 * Sets the Gangster's strength
+	 */
+	@Override
+	public int getStrength() {
+		return 5;
+	}
+
+	/**
+	 * Text to player
+	 */
 	public void speak(Player player) {
 		isTalking = true;
 		ChatHandler.displayText("I'm in charge here.", Color.white);
 		return;
+	}
+
+	/**
+	 * The long distance range
+	 */
+	@Override
+	public Ellipse2D.Double getRange() {
+		return standRange;
 	}
 
 }

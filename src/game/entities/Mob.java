@@ -863,5 +863,26 @@ public class Mob extends Entity {
 	protected SpriteSheet getSpriteSheet() {
 		return sheet;
 	}
+	
+	/**
+	 * Sets the mob's spritesheet to this sheet
+	 */
+	protected void setSpriteSheet(SpriteSheet sheet) {
+		this.sheet = sheet;
+	}
+	
+	/**
+	 * @return the mob's script
+	 */
+	public Script getScript() {
+		return script;
+	}
+	
+	/**
+	 * @param script the new script for the mob
+	 */
+	public void setScript(Script script) {
+		this.script = script;
+	}
 
 }

@@ -16,7 +16,7 @@ import level.Level;
 public class Spawner extends Entity {
 
 	private static final long serialVersionUID = -1243740183193796893L;
-	
+
 	// types of entities to spawn
 	public static final int DEMON = 0;
 	public static final int GANG_MEMBER = 1;
@@ -24,38 +24,49 @@ public class Spawner extends Entity {
 
 	// the type of mob to spawn
 	private int type;
-	
+
 	// used to spawn mobs at random times
 	private static final Random random = new Random();
-	
+
 	// the number of mobs spawned
 	private int amount;
-	
+
 	// the last entity spawned
 	private Entity currentEntity;
-	
+
 	/**
 	 * Creates an invisible entity to spawn an infinite amount of entities
-	 * @param level the level to place it on
-	 * @param x the x coord on the level
-	 * @param y the y coord on the level
-	 * @param type Types are found in the Spawner class
+	 * 
+	 * @param level
+	 *            the level to place it on
+	 * @param x
+	 *            the x coord on the level
+	 * @param y
+	 *            the y coord on the level
+	 * @param type
+	 *            Types are found in the Spawner class
 	 */
 	public Spawner(Level level, int x, int y, int type) {
 		super(level, x, y);
 		this.type = type;
-		
+
 		// infinite
 		amount = -1;
 	}
 
 	/**
 	 * Creates an invisible entity to spawn a finite amount of entities
-	 * @param level the level to place it on
-	 * @param x the x coord on the level
-	 * @param y the y coord on the level
-	 * @param type Types are found in the Spawner class
-	 * @param amount the amount of entities to spawn
+	 * 
+	 * @param level
+	 *            the level to place it on
+	 * @param x
+	 *            the x coord on the level
+	 * @param y
+	 *            the y coord on the level
+	 * @param type
+	 *            Types are found in the Spawner class
+	 * @param amount
+	 *            the amount of entities to spawn
 	 */
 	public Spawner(Level level, int x, int y, int type, int amount) {
 		super(level, x, y);
@@ -72,14 +83,13 @@ public class Spawner extends Entity {
 		if (currentEntity == null) {
 			spawnMob();
 		}
-		
+
 		// only spawn another mob if the current one is dead
 		if (currentEntity instanceof Mob) {
 			if (((Mob) currentEntity).isDead() && random.nextInt(1000) == 0
 					&& getLevel().getMobs().size() < Game.ENTITY_LIMIT)
 				spawnMob();
-		} else if (random.nextInt(1000) == 0
-				&& getLevel().getEntities().size() < Game.ENTITY_LIMIT) {
+		} else if (random.nextInt(1000) == 0 && getLevel().getEntities().size() < Game.ENTITY_LIMIT) {
 			spawnMob();
 		}
 
@@ -106,6 +116,7 @@ public class Spawner extends Entity {
 
 	/**
 	 * gets the appropriate entity to spawn
+	 * 
 	 * @return the Entity to spawn
 	 */
 	private Entity getEntity() {
@@ -113,8 +124,7 @@ public class Spawner extends Entity {
 		case DEMON:
 			return currentEntity = new Demon(getLevel(), getX(), getY(), 1, 100);
 		case GANG_MEMBER:
-			return currentEntity = new GangMember(getLevel(), "Gang", getX(), getY(), 1,
-					200, random.nextInt(2));
+			return currentEntity = new GangMember(getLevel(), getX(), getY(), 1, 200, random.nextInt(2));
 		case HEALTH_PACK:
 			return currentEntity = new HealthPack(getLevel(), getX(), getY());
 		default:

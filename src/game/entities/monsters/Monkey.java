@@ -1,162 +1,119 @@
 package game.entities.monsters;
 
 import game.ChatHandler;
-import game.Game;
-import game.SoundHandler;
 import game.entities.Player;
-import game.entities.particles.HealthBar;
 import game.graphics.Screen;
-
 import java.awt.Color;
-
 import level.Level;
 import utility.Direction;
 
+/*
+ * A monkey is a powerful monster that strikes fear into any foe
+ */
 public class Monkey extends Monster {
-	
+
 	private static final long serialVersionUID = -2503364257598403097L;
-	
-	private boolean isAttacking = false;
-	private int coolTicks = 0;
 
-	public Monkey(Level level, String name, int x, int y, int speed, int health) {
-		super(level, name, x, y, speed, 12, 16, 8, health, new int[] { 0xFF2A1609, 0xFF391E0C, 0xFFB08162 });
-		this.bar = new HealthBar(level, this.x, this.y, this);
-		this.strength = 10;
-		if (level != null)
-			level.addEntity(bar);
+	// dimensions of the monkey
+	private static final int WIDTH = 16, HEIGHT = 16;
+
+	// how fast the player toggles steps
+	private static final int WALKING_ANIMATION_SPEED = 4;
+
+	// color set of a monkey
+	private static final int[] color = { 0xFF2A1609, 0xFF391E0C, 0xFFB08162 };
+
+	/**
+	 * Creates a monkey
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param speed
+	 *            how fast the monkey moves
+	 * @param health
+	 *            the base health
+	 */
+	public Monkey(Level level, int x, int y, int speed, int health) {
+		super(level, "Monkey", x, y, speed, WIDTH, HEIGHT, 8, health, 40);
 	}
 
-	public void tick() {
-		super.tick();
-
-		if (this.aggroRadius.intersects(Game.player.getBounds())
-				&& random.nextInt(400) == 0) {
-			sound.play(SoundHandler.sound.chimpanzee);
-		}
-
-		if (mob != null && !cooldown
-				&& this.getOuterBounds().intersects(mob.getBounds())) {
-			isAttacking = true;
-			cooldown = true;
-			mob.damage(this.strength);
-		}
-
-		if (isAttacking) {
-			shootTickCount++;
-			if (shootTickCount % 40 == 0) {
-				shootTickCount = 0;
-				isAttacking = false;
-			}
-		}
-
-		if (cooldown) {
-			coolTicks++;
-			if (coolTicks % 100 == 0) {
-				coolTicks = 0;
-				cooldown = false;
-			}
-		}
-
-		int xa = 0;
-		int ya = 0;
-
-		if (mob != null && !isAttacking
-				&& this.aggroRadius.intersects(mob.getBounds())
-				&& !this.getOuterBounds().intersects(mob.getBounds())) {
-
-			if (mob.getX() > this.x) {
-				xa++;
-			}
-			if (mob.getX() < this.x) {
-				xa--;
-			}
-			if (mob.getY() > this.y) {
-				ya++;
-			}
-			if (mob.getY() < this.y) {
-				ya--;
-			}
-		}
-
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isMobCollision(xa, ya)) {
-			setMoving(true);
-			move(xa, ya);
-		} else {
-			setMoving(false);
-		}
-	}
-
+	/**
+	 * Displays the cyclops to the screen
+	 */
 	public void render(Screen screen) {
 		super.render(screen);
 
+		// modifier used for rendering in different scales/directions
+		int modifier = UNIT_SIZE * getScale();
+
+		// no x or y offset, use the upper left corner as absolute
+		int xOffset = getX(), yOffset = getY();
+
+		// the horizontal position on the spritesheet
 		int xTile = 0;
-		int walkingSpeed = 4;
-		int flip = (numSteps >> walkingSpeed) & 1;
 
+		// whether or not to render backwards
+		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
+
+		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile += 10;
-		}
-		if (getDirection() == Direction.SOUTH) {
-			xTile += 2;
-		} else if (isLatitudinal(getDirection())) {
-			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
-			if (getDirection() == Direction.WEST) {
-				flip = 1;
-				flip = 1;
-			} else {
-				flip = 0;
-				flip = 0;
-			}
+			xTile = 10;
+		} else if (getDirection() == Direction.SOUTH) {
+			xTile = 2;
+		} else {
+			xTile = 4 + (flip ? 2 : 0);
+			flip = getDirection() == Direction.WEST;
 		}
 
-		int modifier = 8 * scale;
-		int xOffset = x - modifier;
-		int yOffset = y - modifier;
-
-		if (isAttacking) {
+		// attacking animation
+		if (isShooting) {
 			if (getDirection() == Direction.NORTH) {
 				xTile = 18;
-			}
-			if (getDirection() == Direction.SOUTH) {
+			} else if (getDirection() == Direction.SOUTH) {
 				xTile = 14;
-			} else if (isLatitudinal(getDirection())) {
-				xTile = 16 + ((numSteps >> walkingSpeed) & 1) * 2;
-				if (getDirection() == Direction.WEST) {
-					flip = 1;
-					flip = 1;
-				} else {
-					flip = 0;
-					flip = 0;
-				}
+			} else {
+				xTile = 16 + (flip ? 2 : 0);
 			}
 		}
 
-		if (isDead)
+		// death image
+		if (isDead())
 			xTile = 12;
 
 		// Upper body
-		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-				* sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes, color,
+				flip, getScale(), getSpriteSheet());
 
 		// Upper body
-		screen.render(xOffset + modifier - (modifier * flip), yOffset,
-				(xTile + 1) + yTile * sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
+				(xTile + 1) + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body
-		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile
-				+ (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
+				xTile + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body
-		screen.render(xOffset + modifier - (modifier * flip), yOffset
-				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-				flip, scale, sheet);
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
+				(xTile + 1) + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 	}
 
+	/**
+	 * Text to player
+	 */
 	public void speak(Player player) {
 		isTalking = true;
 		ChatHandler.displayText("Chimp no speak with human.", Color.white);
 		return;
+	}
+
+	/**
+	 * @return the Cyclop's strength
+	 */
+	public int getStrength() {
+		return 10;
 	}
 }

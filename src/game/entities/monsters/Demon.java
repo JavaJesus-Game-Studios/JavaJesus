@@ -2,196 +2,147 @@ package game.entities.monsters;
 
 import level.Level;
 import utility.Direction;
-import game.Game;
-import game.SoundHandler;
-import game.entities.particles.HealthBar;
+import game.entities.Mob;
 import game.entities.projectiles.FireBall;
 import game.graphics.Screen;
 
+/*
+ * A generic demon that populates most of the game
+ */
 public class Demon extends Monster {
-	
+
 	private static final long serialVersionUID = 1670392462486505990L;
-	
-	public Demon(Level level, String name, int x, int y, int speed) {
-		super(level, name, x, y, speed, 14, 24, 0, 150, new int[] { 0xFF111111, 0xFF700000, 0xFFDBA800 });
-		this.bar = new HealthBar(level, this.x, this.y, this);
-		if (level != null)
-			level.addEntity(bar);
-	}
 
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 0;
-		int xMax = 7;
-		int yMin = 3;
-		int yMax = 7;
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin) || isWaterTile(xa, ya, x, yMin)) {
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax) || isWaterTile(xa, ya, x, yMax)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y) || isWaterTile(xa, ya, xMin, y)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y) || isWaterTile(xa, ya, xMax, y)) {
-				return true;
-			}
-		}
+	// dimensions of the centaur
+	private static final int WIDTH = 16, HEIGHT = 24;
 
-		return false;
-	}
+	// how fast the player toggles steps
+	private static final int WALKING_ANIMATION_SPEED = 4;
 
-	public void tick() {
-		super.tick();
+	// color set of a centaur
+	private static final int[] color = { 0xFF111111, 0xFF700000, 0xFFDBA800 };
 
-		if (this.aggroRadius.intersects(Game.player.getBounds())
-				&& random.nextInt(400) == 0) {
-			sound.play(SoundHandler.sound.demon);
-		}
-		if (tickCount % 100 == 0) {
-			cooldown = false;
-		} else {
-			cooldown = true;
-		}
-
-		if (isShooting) {
-			shootTickCount++;
-			if (shootTickCount > 20) {
-				shootTickCount = 0;
-				isShooting = false;
-			}
-		}
-		int xa = 0;
-		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.getBounds())
-				&& !this.getOuterBounds().intersects(mob.getBounds())) {
-
-			if (mob.getX() > this.x) {
-				xa++;
-			}
-			if (mob.getX() < this.x) {
-				xa--;
-			}
-			if (mob.getY() > this.y) {
-				ya++;
-			}
-			if (mob.getY() < this.y) {
-				ya--;
-			}
-		}
-
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-				&& !isMobCollision(xa, ya)) {
-			setMoving(true);
-			move(xa, ya);
-		} else {
-			setMoving(false);
-		}
-
-		if (!cooldown && mob != null) {
-			isShooting = true;
-			level.addEntity(new FireBall(level, this.x + 5, (this.y - 7), mob
-					.getX(), mob.getY(), this));
-		}
+	/**
+	 * Creates a Demon
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param speed
+	 *            how fast the demon moves
+	 * @param health
+	 *            the base health
+	 */
+	public Demon(Level level, int x, int y, int speed, int health) {
+		super(level, "Demon", x, y, speed, WIDTH, HEIGHT, 0, health, 100);
 
 	}
 
+	/**
+	 * Displays the Demon to the screen
+	 */
 	public void render(Screen screen) {
 		super.render(screen);
-		if (!isDead) {
-			this.getBounds().setLocation((int) this.x - 7, (int) this.y - 12);
-			this.getOuterBounds().setLocation((int) this.x - 9,
-					(int) this.y - 14);
-		}
+
+		// modifier used for rendering in different scales/directions
+		int modifier = UNIT_SIZE * getScale();
+
+		// no x or y offset, use the upper left corner as absolute
+		int xOffset = getX(), yOffset = getY();
+
+		// the horizontal position on the spritesheet
 		int xTile = 0;
-		int walkingSpeed = 4;
-		int flip = (numSteps >> walkingSpeed) & 1;
 
+		// whether or not to render backwards
+		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
+
+		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile += 10;
-		}
-		if (getDirection() == Direction.SOUTH) {
-			xTile += 2;
-		} else if (isLatitudinal(getDirection())) {
-			xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
-			if (getDirection() == Direction.WEST) {
-				flip = 1;
-			} else {
-				flip = 0;
-			}
+			xTile = 10;
+		} else if (getDirection() == Direction.SOUTH) {
+			xTile = 2;
+		} else {
+			xTile = 4 + (flip ? 2 : 0);
+			flip = getDirection() == Direction.WEST;
 		}
 
-		int modifier = 8 * scale;
-		int xOffset = x - modifier;
-		int yOffset = y - modifier - modifier / 2;
-
+		// attacking animation
 		if (isShooting)
 			xTile += 12;
 
-		if (isDead) {
-			if (isLongitudinal(getDirection())) {
+		// dead has an absolute position
+		if (isDead()) {
+			if (isLongitudinal()) {
 				setDirection(Direction.WEST);
 			}
 			xTile = 24;
 		}
 
-		if (!isDead) {
+		// only a living demon has a top layer
+		if (!isDead()) {
 
 			// Upper body 1
-			screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-					* sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes, color,
+					flip, getScale(), getSpriteSheet());
 
 			// Upper body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset,
-					(xTile + 1) + yTile * sheet.boxes, color, flip, scale,
-					sheet);
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
+					(xTile + 1) + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 		}
 
 		// Middle Body 1
-		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile
-				+ (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
+				xTile + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 		// Middle Body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset
-				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-				flip, scale, sheet);
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
+				(xTile + 1) + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body 1
-		screen.render(xOffset + (modifier * flip), yOffset + 2 * modifier,
-				xTile + (yTile + 2) * sheet.boxes, color, flip, scale, sheet);
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
+				xTile + (yTile + 2) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset + 2
-				* modifier, (xTile + 1) + (yTile + 2) * sheet.boxes, color,
-				flip, scale, sheet);
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
+				(xTile + 1) + (yTile + 2) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
-		if (isDead) {
+		// dead bodies have an extended segment
+		if (isDead()) {
 
-			int offset = 0;
-
-			if (getDirection() == Direction.WEST)
-				offset = -16;
+			int offset = getDirection() == Direction.WEST ? -16 : 0;
 
 			// Middle Body 3
-			screen.render(xOffset + offset + 2 * modifier - (modifier * flip),
-					yOffset + modifier,
-					(xTile + 2) + (yTile + 1) * sheet.boxes, color, flip,
-					scale, sheet);
+			screen.render(xOffset + offset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
+					(xTile + 2) + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 			// Lower Body 3
-			screen.render(xOffset + offset + 2 * modifier - (modifier * flip),
-					yOffset + 2 * modifier, (xTile + 2) + (yTile + 2)
-							* sheet.boxes, color, flip, scale, sheet);
+			screen.render(xOffset + offset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
+					(xTile + 2) + (yTile + 2) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 		}
 
+	}
+
+	/**
+	 * Throws a fireball at a target Uses dummy parameters to conform to Mob
+	 * class
+	 */
+	@Override
+	public void attack(int fake, int fake2, Mob other) {
+
+		getLevel()
+				.addEntity(new FireBall(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength()));
+	}
+
+	/**
+	 * Sets the demon's strength
+	 */
+	@Override
+	public int getStrength() {
+		return 3;
 	}
 
 }

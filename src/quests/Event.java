@@ -44,7 +44,7 @@ public abstract class Event implements Serializable {
 	 */
 	private void init() {
 		for (int i = 0; i < people.size(); i++) {
-			people.get(i).script = scripts.get(i);
+			people.get(i).setScript(scripts.get(i));
 		}
 	}
 
