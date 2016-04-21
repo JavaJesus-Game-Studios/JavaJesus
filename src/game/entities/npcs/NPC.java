@@ -23,9 +23,7 @@ public class NPC extends Mob {
 	private static final long serialVersionUID = 7279751732700782799L;
 
 	// the coordinates on the spritesheet
-	private int xTile;
-
-	protected int yTile;
+	protected int xTile, yTile;
 
 	// Movement type and the distance they travel
 	private String walkPath;
@@ -51,6 +49,9 @@ public class NPC extends Mob {
 
 	// how fast the npcs toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
+	
+	// determines if the npc is moving in any direction
+	protected boolean isMoving;
 
 	/**
 	 * Creates a NPC that interacts with the environment
@@ -109,6 +110,9 @@ public class NPC extends Mob {
 		if (tickCount % MOVE_TO_ORIGIN_TIMEOUT == 0) {
 			movingToOrigin = getX() != xPos || getY() != yPos;
 		}
+		
+		// NPC's are always moving unless they are just standing
+		isMoving = true;
 
 		// simple pathfinding for the NPC
 		if (movingToOrigin)
@@ -167,6 +171,7 @@ public class NPC extends Mob {
 		}
 		// stand still
 		default:
+			isMoving = false;
 			break;
 		}
 	}

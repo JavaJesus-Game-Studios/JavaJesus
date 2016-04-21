@@ -1,158 +1,100 @@
 package game.entities.npcs;
 
 import game.ChatHandler;
-import game.entities.Player;
 import game.graphics.SpriteSheet;
-
 import java.awt.Color;
-
 import level.Level;
-import utility.Direction;
 
+/*
+ * Zorra
+ */
 public class Zorra extends NPC {
-	
+
 	private static final long serialVersionUID = -4981994300664864597L;
 
+	// dimensions Zorra
+	private static final int WIDTH = 16, HEIGHT = 16;
+
+	/**
+	 * Creates Zorra
+	 * 
+	 * @param level
+	 *            the level she is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 */
 	public Zorra(Level level, int x, int y) {
-		super(level, "Zorra", x, y, 1, 16, 16, 500, null, 10, 5, "",
-				0);
-		this.sheet = SpriteSheet.characters;
+		super(level, "Zorra", x, y, 1, WIDTH, HEIGHT, 500, null, 10, 5, "", 0);
+		setSpriteSheet(SpriteSheet.characters);
 	}
 
-	public void speak(Player player) {
-
-		isTalking = true;
-		switch (player.getDirection()) {
-		case NORTH: {
-			setDirection(Direction.SOUTH);
-			break;
-		}
-		case SOUTH: {
-			setDirection(Direction.NORTH);
-			break;
-		}
-		case WEST: {
-			setDirection(Direction.EAST);
-			break;
-		}
-		case EAST: {
-			setDirection(Direction.WEST);
-			break;
-		}
-		}
-
-		if (currentQuest != null) {
-			if (!player.activeQuests.contains(currentQuest)) {
-				player.activeQuests.add(currentQuest);
-			}
-			currentQuest.update();
-			switch (currentQuest.getPhase()) {
-			case 0: {
-				ChatHandler.displayText(
-						name + ": " + currentQuest.preDialogue(), Color.blue);
-				sound.play(sound.levelup);
-				currentQuest.nextPhase();
-				return;
-			}
-			case 1: {
-				ChatHandler.displayText(name + ": " + currentQuest.dialogue(),
-						Color.blue);
-				return;
-			}
-			case 2: {
-				ChatHandler.displayText(
-						name + ": " + currentQuest.postDialogue(), Color.CYAN);
-				sound.play(sound.chest);
-				if (!player.completedQuests.contains(currentQuest)) {
-					player.completedQuests.add(currentQuest);
-					player.activeQuests.remove(currentQuest);
-				}
-				nextQuest();
-				return;
-			}
-			}
-		}
+	/**
+	 * Zorra's dialogue options
+	 */
+	public void doDialogue() {
 
 		switch (random.nextInt(13)) {
 		case 0: {
-			ChatHandler.displayText(name + ": We freed you, now help us!",
-					Color.black);
+			ChatHandler.displayText(getName() + ": We freed you, now help us!", Color.black);
 			return;
 		}
 		case 1: {
-			ChatHandler.displayText(name
-					+ ": Bautista is terrorizing my people!", Color.white);
+			ChatHandler.displayText(getName() + ": Bautista is terrorizing my people!", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.displayText(name + ": Help me win back my city!",
-					Color.white);
+			ChatHandler.displayText(getName() + ": Help me win back my city!", Color.white);
 			return;
 		}
 		case 3: {
-			ChatHandler.displayText(name + ": Mierda!",
-					Color.white);
+			ChatHandler.displayText(getName() + ": Mierda!", Color.white);
 			return;
 		}
 		case 4: {
-			ChatHandler
-					.displayText(name + ": Bautista es un punto!", Color.white);
+			ChatHandler.displayText(getName() + ": Bautista es un punto!", Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.displayText(name + ": Hello Officer!", Color.white);
+			ChatHandler.displayText(getName() + ": Hello Officer!", Color.white);
 			return;
 		}
 		case 6: {
-			ChatHandler.displayText(name + ": Bendejo!", Color.white);
+			ChatHandler.displayText(getName() + ": Bendejo!", Color.white);
 			return;
 		}
 		case 7: {
-			ChatHandler
-					.displayText(
-							name
-									+ ": Have you been to San Cisco? I hear they're having lovely weather.",
-							Color.white);
+			ChatHandler.displayText(getName() + ": Have you been to San Cisco? I hear they're having lovely weather.",
+					Color.white);
 			return;
 		}
 		case 8: {
-			ChatHandler
-					.displayText(
-							name
-									+ ": It's you! It really is! All Hail the Hero of the Bay!",
-							Color.white);
+			ChatHandler.displayText(getName() + ": It's you! It really is! All Hail the Hero of the Bay!", Color.white);
 			return;
 		}
 		case 9: {
-			ChatHandler
-					.displayText(
-							name
-									+ ": I'm not racist but when you're driving in the East Bay,"
-									+ " roll up your windows and lock your doors.",
-							Color.white);
+			ChatHandler.displayText(getName() + ": I'm not racist but when you're driving in the East Bay,"
+					+ " roll up your windows and lock your doors.", Color.white);
 			return;
 		}
 		case 10: {
-			ChatHandler
-					.displayText(
-							name
-									+ ": Have you seen my friend Bob? He's a peasant and he seems to have"
-									+ "literally dissapeared!", Color.white);
+			ChatHandler.displayText(getName() + ": Have you seen my friend Bob? He's a peasant and he seems to have"
+					+ "literally dissapeared!", Color.white);
 			return;
 		}
 		case 11: {
-			ChatHandler.displayText(name
-					+ ": Nasty business it is with those Apes in the North!"
-					+ " Nasty business indeed.", Color.white);
+			ChatHandler.displayText(
+					getName() + ": Nasty business it is with those Apes in the North!" + " Nasty business indeed.",
+					Color.white);
 			return;
 		}
 		case 12: {
-			ChatHandler.displayText(name
-					+ ": Hola, mi nombre es Zorra!", Color.white);
+			ChatHandler.displayText(getName() + ": Hola, mi nombre es Zorra!", Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.displayText(name + ": Hola!", Color.white);
+			ChatHandler.displayText(getName() + ": Hola!", Color.white);
 			return;
 		}
 		}
