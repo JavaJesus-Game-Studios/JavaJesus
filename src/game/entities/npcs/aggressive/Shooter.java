@@ -195,7 +195,7 @@ public class Shooter extends NPC implements LongRange, Skills {
 	 *            the total change in y
 	 */
 	@Override
-	protected void move(int dx, int dy) {
+	public void move(int dx, int dy) {
 		super.move(dx, dy);
 		
 		aggroRadius.setFrame(getX() - RADIUS / 2, getY() - RADIUS / 2, RADIUS, RADIUS);

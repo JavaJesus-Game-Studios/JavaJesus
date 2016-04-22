@@ -1,79 +1,79 @@
 package game.entities.npcs.aggressive;
 
 import game.ChatHandler;
-import game.entities.Player;
+import game.SoundHandler;
+import game.entities.Mob;
 import game.entities.projectiles.Bullet;
-
 import java.awt.Color;
-
 import level.Level;
 
 public class TechWarrior extends Shooter {
 
 	private static final long serialVersionUID = 2154670871278842088L;
 
-	public TechWarrior(Level level, int x, int y, int defaultHealth,
-			String walkPath, int walkDistance) {
-		super(level, "Tech Warrior", x, y, 1, 16, 16, defaultHealth, new int[] {
-				0xFF111111, 0xFF42FF00, 0xFFEDC5AB }, 0, 12, walkPath,
-				walkDistance);
+	// dimensions the tech warrior
+	private static final int WIDTH = 16, HEIGHT = 16;
+
+	/**
+	 * Creates a tech warrior
+	 * 
+	 * @param level
+	 *            the level to place it on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param defaultHealth
+	 *            the default health
+	 * @param color
+	 *            the colorset
+	 * @param xTile
+	 *            the xtile on the spritesheet
+	 * @param yTile
+	 *            the y tile on the spritesheet
+	 * @param player
+	 *            the player to follow
+	 */
+	public TechWarrior(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance) {
+		super(level, "Tech Warrior", x, y, 1, WIDTH, HEIGHT, defaultHealth,
+				new int[] { 0xFF111111, 0xFF42FF00, 0xFFEDC5AB }, 0, 12, walkPath, walkDistance);
 	}
 
+	/**
+	 * Creates a default tech warrior
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 */
 	public TechWarrior(Level level, int x, int y) {
-		super(level, "Tech Warrior", x, y, 1, 16, 16, 200, new int[] {
-				0xFF111111, 0xFF42FF00, 0xFFEDC5AB }, 0, 12, "", 0);
+		this(level, x, y, 220, "", 0);
 	}
 
-	public void tick() {
-		super.tick();
-		int xa = 0;
-		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.getBounds())) {
-			if (!cooldown) {
-				isShooting = true;
-				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7), mob
-						.getX(), mob.getY() - 4, this, 3, sound.shotgun));
-			}
-			if (!this.standRange.intersects(mob.getBounds())
-					&& !this.getOuterBounds().intersects(mob.getBounds())) {
+	/**
+	 * Shoots a bullet at a target Uses dummy parameters to conform to Mob class
+	 */
+	@Override
+	public void attack(int fake, int fake2, Mob other) {
 
-				if (mob.getX() > this.x) {
-					xa++;
-				}
-				if (mob.getX() < this.x) {
-					xa--;
-				}
-				if (mob.getY() > this.y) {
-					ya++;
-				}
-				if (mob.getY() < this.y) {
-					ya--;
-				}
-			}
-
-			if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-					&& !isMobCollision(xa, ya)) {
-				setMoving(true);
-				move(xa, ya);
-			} else {
-				setMoving(false);
-			}
-
-		} else {
-			if (movingToOrigin)
-				findOrigin();
-			else {
-				findPath();
-			}
-		}
-
+		getLevel().addEntity(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength(),
+				SoundHandler.shotgun));
 	}
 
-	public void speak(Player player) {
-		isTalking = true;
-		ChatHandler.displayText(name + ": Have you tried the latest IPear?",
-				Color.white);
+	/**
+	 * Dialogue options for Tech Warrior
+	 */
+	public void doDialogue() {
+		ChatHandler.displayText(getName() + ": Have you tried the latest IPear?", Color.white);
 		return;
+	}
+
+	@Override
+	public int getStrength() {
+		return 6;
 	}
 
 }

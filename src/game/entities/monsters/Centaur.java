@@ -48,7 +48,7 @@ public class Centaur extends Monster {
 	 * @param dy
 	 *            the total change in y
 	 */
-	protected void move(int dx, int dy) {
+	public void move(int dx, int dy) {
 
 		// standing upright
 		if (isLongitudinal()) {

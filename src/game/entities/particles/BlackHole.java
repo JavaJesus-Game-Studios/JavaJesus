@@ -1,103 +1,114 @@
 package game.entities.particles;
 
 import game.SoundHandler;
-import game.entities.Entity;
 import game.entities.Mob;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
-
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
-
 import level.Level;
 
+/*
+ * A black hole sucks in mobs and deals extreme damage to all mobs in its vicinity
+ * Dev weapon only
+ */
 public class BlackHole extends Particle {
 
 	private static final long serialVersionUID = 2827325538515820858L;
-	
-	private int posNumber;
-	private int tickCount = 1;
-	protected Ellipse2D.Double aggroRadius;
-	protected final int RADIUS = 32 * 32;
-	private boolean darken = true;
-	private boolean lighten = false;
-	private Random random = new Random();
 
+	// yTile offset
+	private int posNumber;
+
+	// internal timer
+	private int tickCount = 1;
+
+	// radius of the black hole
+	private Ellipse2D.Double radius;
+
+	// size of the black hole
+	private static final int SIZE = 1024;
+
+	// randomly creates explosions
+	private static final Random random = new Random();
+
+	// the number of ticks per animation segment
+	private static final int ANIMATION_LENGTH = 20;
+
+	// damage per tick to mobs inside
+	private static final int DPT = 1;
+
+	/**
+	 * Creates a black hole
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord AT THE CENTER
+	 * @param y
+	 *            the y coord A THE CENTER
+	 */
 	public BlackHole(Level level, double x, double y) {
-		super(level, 0, new int[] { 0xFF000000, 0xFF000000, 0xFF000000 }, x, y);
-		this.sheet = SpriteSheet.explosions;
-		this.posNumber = tileNumber;
-		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2,
-				RADIUS, RADIUS);
-		SoundHandler.sound.play(SoundHandler.sound.explosion);
+		super(level, x - SIZE / 2, y - SIZE / 2, 0, new int[] { 0xFF000000, 0xFF000000, 0xFF000000 });
+
+		setSpriteSheet(SpriteSheet.explosions);
+		posNumber = getTileNumber();
+		radius = new Ellipse2D.Double(getX(), getY(), SIZE, SIZE);
+		SoundHandler.play(SoundHandler.explosion);
+
+		// darken the screen
+		getLevel().getScreen().setShader(983082);
 	}
 
+	/**
+	 * Updates the black hole
+	 */
 	public void tick() {
-		if (this.x > level.width * sheet.boxes || this.x < 0
-				|| this.y > level.height * sheet.boxes || this.y < 0) {
-			level.remEntity(this);
-		}
 
-		if (tickCount % 20 == 0) {
+		// increment animation
+		if (tickCount % ANIMATION_LENGTH == 0) {
 			posNumber += 4;
 		}
 
-		if (posNumber > tileNumber + (14 * 4)) {
-			level.remEntity(this);
-		} else if (posNumber > tileNumber + (13 * 4)) {
-			lighten = true;
+		// animation is over
+		if (posNumber > getTileNumber() + (14 * 4)) {
+
+			// remove the shader and the blackhole
+			getLevel().getScreen().setShader(0);
+			getLevel().remEntity(this);
+
 		}
 
+		// randomly create an explosion
 		if (random.nextInt(2) == 0) {
-			level.addEntity(new Explosion(level, random.nextInt(100) - 50
-					+ this.x, random.nextInt(100) - 50 + this.y));
+			getLevel().addEntity(
+					new Explosion(getLevel(), random.nextInt(100) - 50 + getX(), random.nextInt(100) - 50 + getY()));
 		}
 
-		for (Entity e : level.getEntities()) {
-			/*
-			 * if (e instanceof SolidEntity) { if (e.getX() > this.x) {
-			 * e.setX(e.getX() - 1); } if (e.getX() < this.x) { e.setX(e.getX()
-			 * + 1); } if (e.getY() > this.y) { e.setY(e.getY() - 1); } if
-			 * (e.getY() < this.y) { e.setY(e.getY() + 1); } }
-			 */
-			if (!(e instanceof Mob)) {
-				continue;
-			}
-			Mob mob = (Mob) e;
-			int xa = 0;
-			int ya = 0;
-			if (this.aggroRadius.intersects(mob.getBounds())) {
-				mob.damage(1);
-				if (mob.getX() > this.x) {
-					xa -= 1;
+		// suck in all the mobs!
+		for (Mob mob : getLevel().getMobs()) {
+
+			// the change in x and y
+			int dx = 0, dy = 0;
+
+			if (radius.intersects(mob.getBounds())) {
+
+				mob.damage(DPT);
+
+				if (mob.getX() > getX()) {
+					dx--;
+				} else if (mob.getX() < getX()) {
+					dx++;
 				}
-				if (mob.getX() < this.x) {
-					xa += 1;
-				}
-				if (mob.getY() > this.y) {
-					ya -= 1;
-				}
-				if (mob.getY() < this.y) {
-					ya += 1;
-				}
-			} else if (mob.isDead()) {
-				if (mob.getX() > this.x) {
-					mob.setX(mob.getX() - 1);
-				}
-				if (mob.getX() < this.x) {
-					mob.setX(mob.getX() + 1);
-				}
-				if (mob.getY() > this.y) {
-					mob.setY(mob.getY() - 1);
-				}
-				if (mob.getY() < this.y) {
-					mob.setY(mob.getY() + 1);
+				if (mob.getY() > getY()) {
+					dy--;
+				} else if (mob.getY() < getY()) {
+					dy++;
 				}
 			}
 
-			if ((xa != 0 || ya != 0) && !mob.isSolidEntityCollision(xa, ya)) {
-				mob.setMoving(true);
-				mob.move(xa, ya);
+			// move the mob
+			if (dx != 0 || dy != 0) {
+				mob.move(dx, dy);
 			}
 
 		}
@@ -105,22 +116,18 @@ public class BlackHole extends Particle {
 		tickCount++;
 	}
 
+	/**
+	 * Display the black hole
+	 */
 	public void render(Screen screen) {
-		if (darken) {
-			screen.setShader(983082);
-			darken = false;
-		}
-		if (lighten) {
-			screen.setShader(0);
-			lighten = false;
-		}
+
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				screen.render((int) this.x + (j * 24) - 24, (int) this.y
-						+ (i * 24) - 48, posNumber + j + (i * sheet.boxes),
-						color, 0, 3, sheet);
+				screen.render(getX() + (j * 24) - 24, getY() + (i * 24) - 48,
+						posNumber + j + (i * getSpriteSheet().boxes), getColor(), false, 3, getSpriteSheet());
 			}
 		}
+
 	}
 
 }

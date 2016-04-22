@@ -203,7 +203,7 @@ public class Mob extends Entity {
 	 * @param dy
 	 *            the total change in y
 	 */
-	protected void move(int dx, int dy) {
+	public void move(int dx, int dy) {
 
 		numSteps++;
 
@@ -624,7 +624,7 @@ public class Mob extends Entity {
 	 * @param damage
 	 *            the damage inflicted to THIS mob
 	 */
-	protected void damage(int damage) {
+	public void damage(int damage) {
 
 		doDamageToHealth(damage);
 

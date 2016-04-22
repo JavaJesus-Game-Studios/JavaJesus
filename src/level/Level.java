@@ -53,10 +53,12 @@ public abstract class Level implements Serializable {
 	public boolean isLoaded = false;
 	private int loadType = 0;
 	private String name;
+	
+	private Screen screen;
 
 	public static Rectangle screenRectangle = new Rectangle(500, 500);
 
-	public Level(String imagePath, boolean loadNow, String name) {
+	public Level(String imagePath, boolean loadNow, String name, Screen screen) {
 		this.name = name;
 		this.saveData = new SaveFile(name);
 		spawnPoint = new Point(0, 0);
@@ -78,6 +80,7 @@ public abstract class Level implements Serializable {
 				this.generateLevel();
 			}
 		}
+		this.screen = screen;
 	}
 
 	public void load() {
@@ -99,7 +102,7 @@ public abstract class Level implements Serializable {
 		return SoundHandler.sound.background1;
 	}
 
-	public Level(int width, int height, boolean loadNow) {
+	public Level(int width, int height, boolean loadNow, Screen screen) {
 		spawnPoint = new Point(0, 0);
 		startingSpawnPoint = new Point(0, 0);
 		this.width = width;
@@ -110,6 +113,7 @@ public abstract class Level implements Serializable {
 			isLoaded = true;
 			generateLevel();
 		}
+		this.screen = screen;
 	}
 
 	protected abstract void initNPCPlacement();
@@ -398,5 +402,9 @@ public abstract class Level implements Serializable {
 
 	public String toString() {
 		return name + "\n Mobs: " + this.getMobs();
+	}
+	
+	public Screen getScreen() {
+		return screen;
 	}
 }

@@ -2,103 +2,76 @@ package game.entities.npcs.aggressive;
 
 import game.ChatHandler;
 import game.entities.Player;
-import game.entities.projectiles.Bullet;
-
 import java.awt.Color;
-import java.util.Random;
-
 import level.Level;
 
+/*
+ * Friendly shooter that follows the player
+ */
 public class Companion extends Shooter {
 
 	private static final long serialVersionUID = 1114048658566656656L;
-	
+
+	// the player to accompany
 	private Player player;
 
-	public Companion(Level level, String name, int x, int y, int width,
-			int height, int defaultHealth, int[] color, int xTile, int yTile, Player player) {
-		super(level, name, x, y, 1, width, height, defaultHealth, color, xTile,
-				yTile, "", 0);
+	// dimensions the companion
+	private static final int WIDTH = 16, HEIGHT = 16;
+
+	/**
+	 * Creates a NPC that follows the player
+	 * @param level the level to place it on
+	 * @param x the x coord
+	 * @param y the y coord
+	 * @param defaultHealth the default health
+	 * @param color the colorset
+	 * @param xTile the xtile on the spritesheet
+	 * @param yTile the y tile on the spritesheet
+	 * @param player the player to follow
+	 */
+	public Companion(Level level, int x, int y, int defaultHealth, int[] color, int xTile, int yTile, Player player) {
+		super(level, "Companion", x, y, 1, WIDTH, HEIGHT, defaultHealth, color, xTile, yTile, "", 0);
 		this.player = player;
 	}
 
+	/**
+	 * Updates the companion
+	 */
 	public void tick() {
 		super.tick();
-		int xa = 0;
-		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.getBounds())) {
-			if (!cooldown) {
-				cooldown = true;
-				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7), mob
-						.getX(), mob.getY(), this, 3, sound.revolver));
+
+		// change in x and y
+		int dx = 0, dy = 0;
+
+		if (!this.getOuterBounds().intersects(player.getOuterBounds())) {
+
+			if (player.getX() > getX()) {
+				dx++;
+			} else if (player.getX() < getX()) {
+				dx--;
 			}
-			if (!this.standRange.intersects(mob.getBounds())) {
-
-				if ((int) mob.getX() > (int) this.x) {
-					xa++;
-				}
-				if ((int) mob.getX() < (int) this.x) {
-					xa--;
-				}
-				if ((int) mob.getY() > (int) this.y) {
-					ya++;
-				}
-				if ((int) mob.getY() < (int) this.y) {
-					ya--;
-				}
+			if (player.getY() > getY()) {
+				dy++;
+			} else if (player.getY() < getY()) {
+				dy--;
 			}
-
-			if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-					&& !isMobCollision(xa, ya)) {
-				move(xa, ya);
-				setMoving(true);
-			} else {
-				setMoving(false);
-			}
-
-		} else {
-			if (!this.getBounds().intersects(player.getBounds())) {
-
-				if ((int) player.getX() > (int) this.x) {
-					xa++;
-				}
-				if ((int) player.getX() < (int) this.x) {
-					xa--;
-				}
-				if ((int) player.getY() > (int) this.y) {
-					ya++;
-				}
-				if ((int) player.getY() < (int) this.y) {
-					ya--;
-				}
-				if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-						&& !isMobCollision(xa, ya)) {
-					move(xa, ya);
-					setMoving(true);
-				} else {
-					setMoving(false);
-				}
-			}
-
-		}
-
-		if (cooldown) {
-			if (tickCount % 100 == 0) {
-				cooldown = false;
+			if ((dx != 0 || dy != 0) && !isMobCollision(dx, dy)) {
+				move(dx, dy);
 			}
 		}
 
 	}
 
-	public void speak(Player player) {
-		isTalking = true;
-		Random random = new Random();
+	/**
+	 * Companion Dialogue options
+	 */
+	public void doDialogue() {
 		switch (random.nextInt(2)) {
 		case 0:
-			ChatHandler.displayText(name + ": What's up, bud?", Color.white);
+			ChatHandler.displayText(getName() + ": What's up, bud?", Color.white);
 			break;
 		case 1:
-			ChatHandler.displayText(name + ": I got your back!", Color.white);
+			ChatHandler.displayText(getName() + ": I got your back!", Color.white);
 			break;
 		}
 		return;

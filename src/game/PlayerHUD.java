@@ -23,7 +23,7 @@ public class PlayerHUD {
 	private final static int XOFFSET = 20, YOFFSET = 650, MODIFIER = 4, AMMO_OFFSET = 724, BAR_OFFSET = 750,
 			BAR_VSPACE = 30, BAR_WIDTH_MODIFIER = 150, BAR_HEIGHT = 20;
 
-	/*
+	/**
 	 * Loads all the images of the weapons
 	 */
 	public PlayerHUD(Player player) {
@@ -40,7 +40,7 @@ public class PlayerHUD {
 		}
 	}
 
-	/*
+	/**
 	 * Draws the sprites and stat bars
 	 */
 	public void draw(Graphics g) {
@@ -70,7 +70,7 @@ public class PlayerHUD {
 				(int) (BAR_WIDTH_MODIFIER * (player.getCurrentStamina() / player.getMaxStamina())), BAR_HEIGHT);
 	}
 
-	/*
+	/**
 	 * Returns the equipped gun type of the player
 	 */
 	private BufferedImage getGunType() {

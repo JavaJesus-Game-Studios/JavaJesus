@@ -11,6 +11,7 @@ import game.SoundHandler;
 import game.entities.monsters.Demon;
 import game.entities.structures.furniture.Chest;
 import game.entities.vehicles.Vehicle;
+import game.graphics.Colors;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 import game.gui.overview.InventoryGUI;
@@ -64,7 +65,7 @@ public class Player extends Mob implements Skills {
 	@SuppressWarnings("unused")
 	private ArrayList<Quest> activeQuests = new ArrayList<Quest>();
 
-	//List of completed quests
+	// List of completed quests
 	@SuppressWarnings("unused")
 	private ArrayList<Quest> completedQuests = new ArrayList<Quest>();
 
@@ -732,19 +733,44 @@ public class Player extends Mob implements Skills {
 	public double getMaxShield() {
 		return maxShield;
 	}
-	
+
 	/**
 	 * @return The player's active quest
 	 */
 	public ArrayList<Quest> getActiveQuests() {
 		return this.getActiveQuests();
 	}
-	
+
 	/**
 	 * @return The player's completed quests
 	 */
 	public ArrayList<Quest> getCompletedQuests() {
 		return this.getCompletedQuests();
+	}
+
+	/**
+	 * Replenishes the health to full
+	 */
+	public void heal() {
+		super.heal();
+
+		// resets the shader to default
+		getLevel().getScreen().setShader(0);
+	}
+
+	/**
+	 * Randomizes the damage done to the player when hit
+	 * 
+	 * @param damage
+	 *            the damage inflicted to THIS mob
+	 */
+	public void damage(int damage) {
+		super.damage(damage);
+
+		// sets a shader when health is low
+		if ((double) getCurrentHealth() / getMaxHealth() <= 0.25) {
+			getLevel().getScreen().setShader(Colors.fromHex("ff0000"));
+		}
 	}
 
 }

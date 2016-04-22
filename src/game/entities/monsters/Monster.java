@@ -205,7 +205,7 @@ public class Monster extends Mob implements Skills {
 	 * @param dy
 	 *            the total change in y
 	 */
-	protected void move(int dx, int dy) {
+	public void move(int dx, int dy) {
 		super.move(dx, dy);
 
 		aggroRadius.setFrame(getX() - RADIUS / 2, getY() - RADIUS / 2, RADIUS, RADIUS);

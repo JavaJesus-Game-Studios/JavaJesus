@@ -16,7 +16,7 @@ public class Istrahiim extends NPC {
 	// how fast the npcs toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
 
-	// dimensions Bautista
+	// dimensions Istrahiim
 	private static final int WIDTH = 16, HEIGHT = 24;
 
 	/**

@@ -1,92 +1,69 @@
 package game.entities.npcs.aggressive;
 
 import game.ChatHandler;
-import game.entities.Player;
-import game.entities.projectiles.Bullet;
-
 import java.awt.Color;
-
 import level.Level;
 
+/*
+ * A Native American NPC
+ */
 public class NativeAmerican extends Shooter {
 
 	private static final long serialVersionUID = 4219698068135987513L;
-	
-	private boolean shooter;
 
-	public NativeAmerican(Level level, int x, int y, int defaultHealth,
-			String walkPath, int walkDistance, Gender g) {
-		super(level, "Native American", x, y, 1, 16, 16, defaultHealth,
-				new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0, 28,
-				walkPath, walkDistance);
-		if (g == Gender.MALE) {
-			shooter = true;
-		} else {
-			shooter = false;
-			yTile += 2;
-		}
+	// dimensions the companion
+	private static final int WIDTH = 16, HEIGHT = 16;
+
+	// different types of native americans
+	public static final int MALE = 0;
+	public static final int FEMALE = 1;
+
+	/**
+	 * Creates a Native American with different abilities
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param defaultHealth
+	 *            the base health
+	 * @param walkPath
+	 *            the walk pattern
+	 * @param walkDistance
+	 *            the walk distance
+	 * @param type
+	 *            NativeAmerican.MALE or NativeAmerican.FEMALE
+	 */
+	public NativeAmerican(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance, int type) {
+		super(level, "Native American", x, y, 1, WIDTH, HEIGHT, defaultHealth,
+				new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0, 28, walkPath, walkDistance);
+		// adjusts the offset if a FEMALE
+		yTile += type * 2;
 	}
 
-	public NativeAmerican(Level level, int x, int y, Gender g) {
-		super(level, "Native American", x, y, 1, 16, 16, 200, new int[] {
-				0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0, 28, "", 0);
-		if (g == Gender.MALE) {
-			shooter = true;
-		} else {
-			shooter = false;
-			yTile += 2;
-		}
+	/**
+	 * Creates a default Native American
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param type
+	 *            NativeAmerican.MALE or NativeAmerican.FEMALE
+	 */
+	public NativeAmerican(Level level, int x, int y, int type) {
+		this(level, x, y, 200, "", 0, type);
 	}
 
-	public void tick() {
-		super.tick();
-		int xa = 0;
-		int ya = 0;
-		if (mob != null && this.aggroRadius.intersects(mob.getBounds())
-				&& shooter) {
-			if (!cooldown) {
-				isShooting = true;
-				level.addEntity(new Bullet(level, this.x + 5, (this.y - 7), mob
-						.getX(), mob.getY() - 4, this, 3, sound.revolver));
-			}
-			if (!this.standRange.intersects(mob.getBounds())
-					&& !this.getOuterBounds().intersects(mob.getBounds())) {
-
-				if (mob.getX() > this.x) {
-					xa++;
-				}
-				if (mob.getX() < this.x) {
-					xa--;
-				}
-				if (mob.getY() > this.y) {
-					ya++;
-				}
-				if (mob.getY() < this.y) {
-					ya--;
-				}
-			}
-
-			if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa, ya)
-					&& !isMobCollision(xa, ya)) {
-				setMoving(true);
-				move(xa, ya);
-			} else {
-				setMoving(false);
-			}
-
-		} else {
-			if (movingToOrigin)
-				findOrigin();
-			else {
-				findPath();
-			}
-		}
-
-	}
-
-	public void speak(Player player) {
-		isTalking = true;
-		ChatHandler.displayText(name + ": I belong to the wind.", Color.white);
+	/**
+	 * Dialogue options for Native Americans
+	 */
+	public void doDialogue() {
+		ChatHandler.displayText(getName() + ": I belong to the wind.", Color.white);
 		return;
 	}
 

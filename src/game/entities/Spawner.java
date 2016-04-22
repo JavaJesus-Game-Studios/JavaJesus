@@ -126,7 +126,7 @@ public class Spawner extends Entity {
 		case GANG_MEMBER:
 			return currentEntity = new GangMember(getLevel(), getX(), getY(), 1, 200, random.nextInt(2));
 		case HEALTH_PACK:
-			return currentEntity = new HealthPack(getLevel(), getX(), getY());
+			return currentEntity = new HealthPack(getLevel(), getX(), getY(), true);
 		default:
 			return null;
 		}

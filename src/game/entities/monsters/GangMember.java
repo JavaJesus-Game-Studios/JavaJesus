@@ -71,7 +71,7 @@ public class GangMember extends Monster implements LongRange {
 	 *            the total change in y
 	 */
 	@Override
-	protected void move(int dx, int dy) {
+	public void move(int dx, int dy) {
 		super.move(dx, dy);
 
 		standRange.setFrame(getX() - RADIUS / 4, getY() - RADIUS / 4, RADIUS / 2, RADIUS / 2);

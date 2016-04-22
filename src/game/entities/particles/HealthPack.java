@@ -1,41 +1,58 @@
 package game.entities.particles;
 
+import java.util.Random;
+
 import game.SoundHandler;
 import game.entities.Mob;
-import game.entities.Player;
-import game.graphics.Screen;
-
-import java.awt.Rectangle;
-
 import level.Level;
 
+/*
+ * A health pack can be picked up by the player to restore health
+ */
 public class HealthPack extends Particle {
 
 	private static final long serialVersionUID = -7889833550875856663L;
-	
-	private final Rectangle BOX = new Rectangle(10, 10);
 
-	public HealthPack(Level level, double x, double y) {
-		super(level, 9, new int[] { 0xFFF6F4EE, 0xFFFFFFFF, 0xFFFF0000 }, x, y);
+	// random generator for location on map
+	private static final Random random = new Random();
 
-		this.x += random.nextInt(400) - 200;
-		this.y += random.nextInt(400) - 200;
+	// sprite size
+	private static int SIZE = 8;
+
+	/**
+	 * Creates a Health Pack
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the base x coord
+	 * @param y
+	 *            the base y coord
+	 * @param randomize
+	 *            whether or not to randomize the healthpack around the base
+	 *            coordinates
+	 */
+	public HealthPack(Level level, double x, double y, boolean randomize) {
+		super(level, x, y, 9, new int[] { 0xFFF6F4EE, 0xFFFFFFFF, 0xFFFF0000 });
+
+		if (randomize) {
+			setX(random.nextInt(400) - 200);
+			setX(random.nextInt(400) - 200);
+		}
+
+		this.setBounds(getX(), getY(), SIZE, SIZE);
 	}
 
-	public void render(Screen screen) {
+	/**
+	 * Checks for collision with any mob
+	 */
+	public void tick() {
+		for (Mob mob : getLevel().getMobs()) {
 
-		screen.render((int) this.x, (int) this.y, tileNumber, color, 1, 1,
-				sheet);
-		BOX.setLocation((int) this.x, (int) this.y);
-		for (Mob mob : level.getMobs()) {
-
-			if (BOX.intersects(mob.getBounds())) {
+			if (getBounds().intersects(mob.getBounds())) {
 				mob.heal();
-				if (mob instanceof Player) {
-					screen.setShader(0);
-				}
-				level.remEntity(this);
-				sound.play(SoundHandler.sound.click);
+				getLevel().remEntity(this);
+				SoundHandler.play(SoundHandler.click);
 			}
 
 		}

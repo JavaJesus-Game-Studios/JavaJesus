@@ -1,7 +1,9 @@
 package game.entities.npcs;
 
+import java.awt.Color;
 import java.awt.geom.Ellipse2D;
-
+import game.ChatHandler;
+import game.Game;
 import game.entities.Mob;
 import game.entities.Skills;
 import game.entities.monsters.Monster;
@@ -13,7 +15,7 @@ public class Knight extends NPC implements Skills {
 
 	private static final long serialVersionUID = -990363786904488287L;
 
-	// dimensions of the centaur
+	// dimensions of the knight
 	private static final int WIDTH = 16, HEIGHT = 16;
 
 	// the target of this mob
@@ -201,16 +203,24 @@ public class Knight extends NPC implements Skills {
 	 *            the total change in y
 	 */
 	@Override
-	protected void move(int dx, int dy) {
+	public void move(int dx, int dy) {
 		super.move(dx, dy);
 
 		aggroRadius.setFrame(getX() - RADIUS / 2, getY() - RADIUS / 2, RADIUS, RADIUS);
 	}
 
+	/**
+	 * Dialogue options for the Knight
+	 */
+	public void doDialogue() {
+		ChatHandler.displayText(getName() + ": Hello " + Game.player.getName(), Color.white);
+		return;
+	}
+
 	@Override
 	public int getStrength() {
 		// TODO Auto-generated method stub
-		return 4;
+		return 10;
 	}
 
 	@Override
