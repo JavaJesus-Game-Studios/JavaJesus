@@ -119,6 +119,13 @@ public class Particle extends Entity {
 	protected int getTileNumber() {
 		return tileNumber;
 	}
+	
+	/**
+	 * @param num the new tile number
+	 */
+	protected void setTileNumber(int num) {
+		tileNumber = num;
+	}
 
 	/**
 	 * @return the colorset

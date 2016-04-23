@@ -2,13 +2,12 @@ package game.entities.structures.furniture;
 
 import level.Level;
 
-public class ChairFront extends Furniture{
+public class ChairFront extends Furniture {
+
+	private static final long serialVersionUID = -8672768299698721334L;
 
 	public ChairFront(Level level, int x, int y) {
-		super(level, x, y, Furniture.chairFront, new int[] {444, 123, 323});
-		this.bounds.setSize(getSprite().xSize - 8, getSprite().ySize);
-		this.shadow.setSize(0, 0);
-		this.bounds.setLocation(x, y);
+		super(level, x, y, Furniture.chairFront, new int[] { 444, 123, 323 });
 
 	}
 

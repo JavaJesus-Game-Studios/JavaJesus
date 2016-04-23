@@ -1,59 +1,96 @@
 package game.entities.structures.furniture;
 
-import game.ChatHandler;
 import game.entities.Entity;
-import game.entities.Player;
 import game.entities.SolidEntity;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
-import game.gui.overview.InventoryGUI;
 import items.Gun;
 import items.Item;
 import items.Sword;
-
-import java.awt.Color;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.util.Random;
-
 import level.Level;
 
+/*
+ * Creates a chest that stores items for the player to use
+ */
 public class Chest extends Entity implements SolidEntity {
 
 	private static final long serialVersionUID = 1L;
-	
-	protected int[] color = new int[] { 0xFF111111, 0xFF452909, 0xFFFFE011 };
-	protected boolean isOpen = false;
-	ArrayList<Item> contents;
 
-	Random random = new Random();
+	// color set of the chest
+	private static final int[] color = new int[] { 0xFF111111, 0xFF452909, 0xFFFFE011 };
 
+	// whether or not the chest is open
+	private boolean isOpen;
+
+	// what items are in the chest
+	private Item[] contents;
+
+	// randomizes items
+	private static final Random random = new Random();
+
+	// the size of the chest
+	private static final int SIZE = 8;
+
+	/**
+	 * Creates an empty chest
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 */
 	public Chest(Level level, int x, int y) {
-		super(level, x, y, 5, 9);
-		contents = new ArrayList<Item>();
-		this.shadow.setSize(0, 0);
-		this.bounds.setSize(5, 9);
-		this.bounds.setLocation(x, y);
+		this(level, x, y, new Item[] {});
 
 	}
 
-	public Chest(Level level, int x, int y, ArrayList<Item> items) {
-		super(level, x, y, 5, 9);
+	/**
+	 * Creates a chest filled with certain items
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param items
+	 *            the items it contains
+	 */
+	public Chest(Level level, int x, int y, Item... items) {
+		super(level, x, y);
+
 		this.contents = items;
-		this.shadow.setSize(0, 0);
-		this.bounds.setSize(5, 9);
-		this.bounds.setLocation(x, y);
+		setBounds(getX(), getY(), SIZE, SIZE);
 	}
 
+	/**
+	 * Creates a chest with random items
+	 * 
+	 * @param level
+	 *            level it is on
+	 * @param x
+	 *            x coord
+	 * @param y
+	 *            y cord
+	 * @param type
+	 *            the type of item it should have
+	 * @param amt
+	 *            the amount of items it should have
+	 */
 	public Chest(Level level, int x, int y, String type, int amt) {
-		super(level, x, y, 5, 9);
-		contents = new ArrayList<Item>();
-		fillRandomItems(type, amt);
-		this.shadow.setSize(0, 0);
-		this.bounds.setSize(5, 9);
-		this.bounds.setLocation(x, y);
+		super(level, x, y);
+		contents = new Item[amt];
+		fillRandomItems(type, amt, 0);
+		setBounds(getX(), getY(), SIZE, SIZE);
 	}
 
+	/**
+	 * @return a random Gun
+	 */
 	private Gun getRandomGun() {
 		switch (random.nextInt(5)) {
 		case 0:
@@ -71,6 +108,9 @@ public class Chest extends Entity implements SolidEntity {
 		}
 	}
 
+	/**
+	 * @return a random sword
+	 */
 	private Sword getRandomSword() {
 		switch (random.nextInt(5)) {
 		case 0:
@@ -89,6 +129,9 @@ public class Chest extends Entity implements SolidEntity {
 		}
 	}
 
+	/**
+	 * @return a random Item
+	 */
 	private Item getRandomItem() {
 		switch (random.nextInt(4)) {
 		case 0:
@@ -103,64 +146,85 @@ public class Chest extends Entity implements SolidEntity {
 		}
 	}
 
-	private void fillRandomItems(String string, int amt) {
+	/**
+	 * Fills the contents of the chest with random items
+	 * 
+	 * @param string
+	 *            the type of item
+	 * @param amt
+	 *            the amount of items
+	 * @param index
+	 *            the index of the item array to fill
+	 */
+	private void fillRandomItems(String string, int amt, int index) {
+
+		// fills a random item into the contents array
 		switch (string) {
 		case "gun":
-			contents.add(getRandomGun());
+			contents[index] = getRandomGun();
 			break;
 		case "sword":
-			contents.add(getRandomSword());
+			contents[index] = getRandomSword();
 			break;
 		case "item":
-			contents.add(getRandomItem());
+			contents[index] = getRandomItem();
 			break;
 		default:
 			switch (random.nextInt(3)) {
 			case 0:
-				contents.add(getRandomGun());
+				contents[index] = getRandomGun();
 				break;
 			case 1:
-				contents.add(getRandomSword());
+				contents[index] = getRandomSword();
 				break;
 			default:
-				contents.add(getRandomItem());
+				contents[index] = getRandomItem();
 				break;
 			}
 		}
-		if (amt > 0)
-			fillRandomItems(string, amt - 1);
+
+		// recursive case if more items need to be filled in the array
+		if (amt > 1)
+			fillRandomItems(string, amt - 1, index + 1);
 	}
 
+	/**
+	 * Opens the chest
+	 */
 	public void open() {
 		isOpen = true;
 	}
-	
-	public ArrayList<Item> getContents() {
+
+	/**
+	 * @return the items in the chest
+	 */
+	public Item[] getContents() {
 		return contents;
 	}
 
+	/**
+	 * Display the chest on the screen
+	 */
 	public void render(Screen screen) {
 
 		if (!isOpen) {
-			screen.render(x, y, 0 + 20 * 32, color, 0, 1, SpriteSheet.tiles);
-			screen.render(x + 8, y, 1 + 20 * 32, color, 0, 1, SpriteSheet.tiles);
+			screen.render(getX(), getY(), 0 + 20 * 32, color, SpriteSheet.tiles);
+			screen.render(getX() + 8, getY(), 1 + 20 * 32, color, SpriteSheet.tiles);
 		} else {
-			screen.render(x, y, 2 + 20 * 32, color, 0, 1, SpriteSheet.tiles);
-			screen.render(x + 8, y, 3 + 20 * 32, color, 0, 1, SpriteSheet.tiles);
+			screen.render(getX(), getY(), 2 + 20 * 32, color, SpriteSheet.tiles);
+			screen.render(getX() + 8, getY(), 3 + 20 * 32, color, SpriteSheet.tiles);
 		}
 
 	}
 
 	@Override
 	public Rectangle getShadow() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -3,56 +3,67 @@ package game.entities.particles.pickups;
 import game.Game;
 import game.SoundHandler;
 import game.entities.particles.Particle;
-import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 import items.Item;
-
-import java.awt.Rectangle;
-
 import level.Level;
 
+/*
+ * A Pickup is a particle that contains an Item to give to the player
+ */
 public class Pickup extends Particle {
 
 	private static final long serialVersionUID = 8454550791664174098L;
-	
+
+	// the item it stores
 	private Item item;
+	
+	// number of items it stores
 	private int quantity;
 
+	/**
+	 * Creates a generic pickup
+	 * @param level the level it is on
+	 * @param x the x coord
+	 * @param y the y coord
+	 * @param item the Item it holds
+	 */
 	public Pickup(Level level, int x, int y, Item item) {
-		super(level, 9, new int[] { 0xFFFFFFFF, 0xFF990000, 0xFFFF0000 }, x, y);
-		this.x = x;
-		this.y = y;
+		super(level, x, y, 9, new int[] { 0xFFFFFFFF, 0xFF990000, 0xFFFF0000 });
 		this.item = item;
-		this.bounds = new Rectangle(8, 8);
-		bounds.setLocation((int) this.x, (int) this.y);
+		setBounds(getX(), getY(), 8, 8);
 		this.quantity = 1;
 	}
 
-	public Pickup(Level level, int x, int y, Item item, int[] color, int xTile,
-			int yTile, int amount) {
-		super(level, 9, color, x, y);
-		this.x = x;
-		this.y = y;
+	/**
+	 * Creates a Pickup object
+	 * @param level the level it is on
+	 * @param x the x coord
+	 * @param y the y coord
+	 * @param item the item it holds
+	 * @param color the colorset
+	 * @param xTile the horizontal space on the tile sheet
+	 * @param yTile
+	 * @param amount
+	 */
+	public Pickup(Level level, int x, int y, Item item, int[] color, int xTile, int yTile, int amount) {
+		super(level, x, y, 9, color);
 		this.item = item;
-		this.color = color;
-		this.bounds = new Rectangle(8, 8);
-		bounds.setLocation((int) this.x, (int) this.y);
-		this.sheet = SpriteSheet.items;
-		this.tileNumber = xTile + yTile * this.sheet.boxes;
+		setBounds(getX(), getY(), 8, 8);
+		setSpriteSheet(SpriteSheet.items);
+		setTileNumber(xTile + yTile * getSpriteSheet().boxes);
 		this.quantity = amount;
 	}
 
-	public void render(Screen screen) {
-
-		screen.render((int) this.x, (int) this.y, tileNumber, color, 1, 1,
-				sheet);
-		if (bounds.intersects(Game.player.getBounds())) {
+	/**
+	 * Updates the item
+	 */
+	public void tick() {
+		if (getBounds().intersects(Game.player.getBounds())) {
 			for (int i = 0; i < quantity; i++)
-				Game.player.inventory.addItem(item);
-			sound.play(SoundHandler.sound.click);
-			level.remEntity(this);
+				Game.player.getInventory().addItem(item);
+			SoundHandler.play(SoundHandler.click);
+			getLevel().remEntity(this);
 		}
-
 	}
 
 }
