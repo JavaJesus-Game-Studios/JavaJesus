@@ -1,35 +1,33 @@
 package game.entities.structures;
 
-import game.entities.SolidEntity;
-import game.entities.structures.transporters.Transporter;
-import game.graphics.Screen;
-import game.graphics.Sprite;
-
 import java.awt.Point;
 import java.util.Random;
-
+import game.entities.SolidEntity;
+import game.entities.structures.transporters.Transporter;
+import game.graphics.Sprite;
 import level.Level;
 import level.interior.PoorHouseInterior;
 
-public class Hotel  extends SolidEntity {
+/*
+ * A typical hotel
+ */
+public class Hotel extends Building {
 
+	private static final long serialVersionUID = -5284679863668170333L;
 
-	private Random random = new Random();
+	// randomizes color
+	private static final Random random = new Random();
 
 	public Hotel(Level level, int x, int y) {
-		super(level, x, y, 101, 80);
-		getColor();
-		level.addEntity(new Transporter(level, x + 21, y + 64,
-				new PoorHouseInterior(new Point(x + 40, y + 67), this.level)));
+		super(level, x, y, getColor(), Sprite.hotel, SolidEntity.TWO_THIRDS);
+		level.addEntity(
+				new Transporter(level, x + 21, y + 64, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
 
-	public void render(Screen screen) {
-
-		screen.render((int) x, (int) y, color, Sprite.hotel);
-
-	}
-
-	private void getColor() {
+	/**
+	 * @return color of the hotel
+	 */
+	private static int[] getColor() {
 		int[] color = { 0xFF111111, 0xFFD50000, 0xFFFFFFFF };
 		switch (random.nextInt(8)) {
 		case 0: {
@@ -76,6 +74,6 @@ public class Hotel  extends SolidEntity {
 			break;
 		}
 		}
-		this.color = color;
+		return color;
 	}
 }

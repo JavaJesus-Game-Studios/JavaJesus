@@ -1,81 +1,75 @@
 package game.entities.projectiles;
 
-import level.Level;
 import game.SoundHandler;
-import game.entities.Entity;
 import game.entities.Mob;
-import game.entities.Player;
-import game.entities.SolidEntity;
 import game.entities.particles.BlackHole;
-import game.entities.vehicles.Vehicle;
-import game.graphics.Screen;
 import game.graphics.SpriteSheet;
+import level.Level;
+import utility.Direction;
 
+/*
+ * BlackHoleDetonators create black holes!
+ */
 public class BlackHoleDetonator extends Projectile {
 
 	private static final long serialVersionUID = 2546446873996072596L;
 
-	public BlackHoleDetonator(Level level, double x, double y, double xPos,
-			double yPos, Mob mob, double damage) {
-		super(level, 2, 1, SpriteSheet.particles.boxes, new int[] { 0xFF000000,
-				0xFF000000, 0xFFFFFF00 }, x, y, 6, xPos, yPos, mob, damage, SoundHandler.sound.explosion);
+	// the colorset for all detonators
+	private static final int[] color = { 0xFF000000, 0xFF000000, 0xFFFFFF00 };
+
+	/**
+	 * Creates a detonator
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param xPos
+	 *            the x coord to move to
+	 * @param yPos
+	 *            the y coord to move to
+	 * @param mob
+	 *            the mob that is firing
+	 * @param damage
+	 *            the damage of this detonator
+	 */
+	public BlackHoleDetonator(Level level, double x, double y, int xPos, int yPos, Mob mob, int damage) {
+		super(level, x, y, 2, 1, SpriteSheet.particles.boxes, 6, xPos, yPos, mob, damage, SoundHandler.explosion);
 	}
 
-	public BlackHoleDetonator(Level level, double x, double y, int direction,
-			Mob mob, double damage) {
-		super(level, 2, 1, SpriteSheet.particles.boxes, new int[] { 0xFF000000,
-				0xFF000000, 0xFFFFFF00 }, x, y, 6, direction, mob, damage, SoundHandler.sound.explosion);
-		sound.fire(sound.revolver);
+	/**
+	 * Creates a detonator with a simple direction
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param direction
+	 *            the direction the missile should move
+	 * @param mob
+	 *            the mob that is firing
+	 * @param damage
+	 *            the damage of this detonator
+	 */
+	public BlackHoleDetonator(Level level, double x, double y, Direction direction, Mob mob, int damage) {
+		super(level, x, y, 2, 1, SpriteSheet.particles.boxes, 6, direction, mob, damage, SoundHandler.explosion);
 	}
 
-	public void render(Screen screen) {
+	@Override
+	protected void onDestroyed() {
 
-		renderOnTop = true;
+		getLevel().addEntity(new BlackHole(getLevel(), getX(), getY()));
+		super.onDestroyed();
 
-		if (hasCollided((int) x, (int) y)) {
-			level.remEntity(this);
-			level.addEntity(new BlackHole(level, x, y - 8));
-			return;
-		}
+	}
 
-		this.y += speed * yPoint;
-		this.x += speed * xPoint;
-
-		bounds.setLocation((int) this.x - (this.width / 2), (int) this.y
-				- (this.height / 2));
-		for (Entity entity : level.getEntities()) {
-			if (entity instanceof SolidEntity) {
-				if (bounds.intersects(((SolidEntity) entity).getBounds())) {
-					level.remEntity(this);
-					level.addEntity(new BlackHole(level, x, y - 8));
-					return;
-				} else if (bounds.intersects(((SolidEntity) entity).shadow)) {
-					renderOnTop = false;
-				}
-			}
-			if (entity instanceof Mob) {
-				Mob mobs = (Mob) entity;
-				if (bounds.intersects(mobs.getBounds())) {
-					if (mobs != mob) {
-						if (mobs instanceof Vehicle) {
-							mobs.damage((int) damage, (int) damage + 4);
-							level.remEntity(this);
-							level.addEntity(new BlackHole(level, x, y - 8));
-						} else if (!mobs.isDead()) {
-							mobs.damage((int) damage, (int) damage + 4);
-							level.remEntity(this);
-							level.addEntity(new BlackHole(level, x, y - 8));
-							if (mobs.getHealth() < 0 && mob instanceof Player) {
-								((Player) mob).score += 10;
-							}
-						}
-					}
-				}
-			}
-
-		}
-		screen.render((int) this.x, (int) this.y, tileNumber, color, 1, 1,
-				sheet);
+	@Override
+	protected int[] getColor() {
+		return color;
 	}
 
 }

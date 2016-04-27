@@ -1,53 +1,93 @@
 package game.entities.projectiles;
 
+import game.SoundHandler;
 import game.entities.Mob;
-
-import javax.sound.sampled.Clip;
-
 import level.Level;
+import utility.Direction;
 
+/*
+ * an arrow shot by native americans
+ */
 public class Arrow extends Projectile {
 
 	private static final long serialVersionUID = 4965425722844381258L;
 
-	public Arrow(Level level, double x, double y, double xPos, double yPos,
-			Mob mob, double damage, Clip clip) {
-		super(level, 2, 1, 1, new int[] { 0xFF000000, 0xFF000000, 0xFFFFFF00 },
-				x, y, 6, xPos, yPos, mob, damage, clip);
+	// the colorset for all arrows
+	private static final int[] color = { 0xFF000000, 0xFF000000, 0xFFFFFF00 };
+
+	/**
+	 * Creates an arrow
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param xPos
+	 *            the x coord to move to
+	 * @param yPos
+	 *            the y coord to move to
+	 * @param mob
+	 *            the mob that is firing
+	 * @param damage
+	 *            the damage of this arrow
+	 */
+	public Arrow(Level level, double x, double y, int xPos, int yPos, Mob mob, int damage) {
+		super(level, x, y, 2, 1, 1, 6, xPos, yPos, mob, damage, SoundHandler.laser);
+
+		adjustOffset(mob);
+	}
+
+	/**
+	 * Creates a arrow with a simple direction
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param direction
+	 *            the direction the arrow should move
+	 * @param mob
+	 *            the mob that is firing
+	 * @param damage
+	 *            the damage of this arrow
+	 */
+	public Arrow(Level level, double x, double y, Direction direction, Mob mob, int damage) {
+		super(level, x, y, 2, 1, 1, 6, direction, mob, damage, SoundHandler.laser);
+
+		adjustOffset(mob);
+
+	}
+
+	/**
+	 * Adjusts the offset of the arrow
+	 * 
+	 * @param mob
+	 *            the mob that is firing
+	 */
+	private void adjustOffset(Mob mob) {
 		switch (mob.getDirection()) {
 		case NORTH:
-			this.tileNumber = 2 + 2 * sheet.boxes;
+			this.tileNumber = 2 + 2 * getSpriteSheet().boxes;
 			return;
 		case SOUTH:
-			this.tileNumber = 2 + 1 * sheet.boxes;
+			this.tileNumber = 2 + 1 * getSpriteSheet().boxes;
 			return;
 		case WEST:
-			this.tileNumber = 2 + 3 * sheet.boxes;
+			this.tileNumber = 2 + 3 * getSpriteSheet().boxes;
 			return;
-		case EAST:
-			this.tileNumber = 2 + 0 * sheet.boxes;
+		default:
+			this.tileNumber = 2 + 0 * getSpriteSheet().boxes;
 			return;
 		}
 	}
 
-	public Arrow(Level level, double x, double y, int direction, Mob mob,
-			double damage, Clip clip) {
-		super(level, 2, 1, 1, new int[] { 0xFF000000, 0xFF000000, 0xFFFFFF00 },
-				x, y, 6, direction, mob, damage, clip);
-		switch (mob.getDirection()) {
-		case NORTH:
-			this.tileNumber = 2 + 2 * sheet.boxes;
-			return;
-		case SOUTH:
-			this.tileNumber = 2 + 1 * sheet.boxes;
-			return;
-		case WEST:
-			this.tileNumber = 2 + 3 * sheet.boxes;
-			return;
-		case EAST:
-			this.tileNumber = 2 + 0 * sheet.boxes;
-			return;
-		}
+	@Override
+	protected int[] getColor() {
+		return color;
 	}
 
 }

@@ -1,8 +1,9 @@
 package game.entities.projectiles;
 
-import level.Level;
 import game.SoundHandler;
 import game.entities.Mob;
+import level.Level;
+import utility.Direction;
 
 /*
  * A fireball projectile usually made by demons
@@ -17,12 +18,31 @@ public class FireBall extends Projectile {
 	// pixel size of a fireball
 	private static final int SIZE = 6;
 
-	public FireBall(Level level, double x, double y, int direction, Mob mob, int damage) {
-		super(level, x, y, SIZE, SIZE, 0, 1, direction, mob, damage, SoundHandler.fireball);
+	/**
+	 * Creates a fireball
+	 * @param level the level it is on
+	 * @param x the x coord
+	 * @param y the y coord
+	 * @param xPos the x coord to move  to
+	 * @param yPos the y coord to move to
+	 * @param mob the mob that is firing
+	 * @param damage the damage of this fireball
+	 */
+	public FireBall(Level level, double x, double y, int xPos, int yPos, Mob mob, int damage) {
+		super(level, x, y, SIZE, SIZE, 0, 1, xPos, yPos, mob, damage, SoundHandler.fireball);
 	}
 
-	public FireBall(Level level, double x, double y, double xPos, double yPos, Mob mob, int damage) {
-		super(level, x, y, SIZE, SIZE, 0, 1, xPos, yPos, mob, damage, SoundHandler.fireball);
+	/**
+	 * Creates a fireball with a simple direction
+	 * @param level the level it is on
+	 * @param x the x coord
+	 * @param y the y coord
+	 * @param direction the direction the fireball should move
+	 * @param mob the mob that is firing
+	 * @param damage the damage of this fireball
+	 */
+	public FireBall(Level level, double x, double y, Direction direction, Mob mob, int damage) {
+		super(level, x, y, SIZE, SIZE, 0, 1, direction, mob, damage, SoundHandler.fireball);
 	}
 
 	@Override

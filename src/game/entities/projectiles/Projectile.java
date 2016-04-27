@@ -3,43 +3,43 @@ package game.entities.projectiles;
 import game.SoundHandler;
 import game.entities.Entity;
 import game.entities.Mob;
-import game.entities.Player;
 import game.entities.SolidEntity;
-import game.entities.vehicles.Vehicle;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
-
-import java.awt.Rectangle;
-import java.util.Random;
-
 import javax.sound.sampled.Clip;
-
 import level.Level;
 import level.tile.Tile;
+import utility.Direction;
 
+/*
+ * A projectile is a fleeting particle that moves very fast across the screen to deal damage
+ */
 public abstract class Projectile extends Entity {
-
-	// TODO In the future with guns, create two vars, firerate in gun class and
-	// firerate in player class. The firerate in gun class will be static and
-	// final, and it will be used to countdown the ticks till next shoot, such
-	// as if (gun.firerate >0) player.firerate--; then reset when it reaches 0
 
 	private static final long serialVersionUID = 3377536695812898799L;
 
-	protected double speed;
-	private double range;
-	protected double damage;
-	/** Origin points */
-	private final double xOrigin, yOrigin;
-	protected double xPoint;
-	protected double yPoint;
-	protected int yOffset = 0;
-	public Mob mob;
-	protected SpriteSheet sheet = SpriteSheet.particles;
+	// the stats of the projectile
+	private int speed, damage;
+
+	// the change in x and y that the projectile will travel towards
+	private double dx, dy;
+
+	// y offset in spritesheet for texture for vertical or horizontal bullet
+	private int yOffset;
+
+	// the mob that fired the projectile
+	private Mob mob;
+
+	// the spritesheet
+	private static final SpriteSheet sheet = SpriteSheet.particles;
+
+	// position on the spritesheet
 	protected int tileNumber;
-	protected int width;
-	protected int height;
-	public boolean renderOnTop = false;
+
+	// do not render if the projectile is behind a building
+	private boolean isBehindBuilding;
+
+	// x and y coordinates should be in double precision
 	private double x, y;
 
 	/**
@@ -70,48 +70,16 @@ public abstract class Projectile extends Entity {
 	 * @param clip
 	 *            the sound this projectile makes
 	 */
-	public Projectile(Level level, double x, double y, int width, int height, int tileNumber, int speed, int direction,
-			Mob mob, double damage, Clip clip) {
+	public Projectile(Level level, double x, double y, int width, int height, int tileNumber, int speed,
+			Direction direction, Mob mob, int damage, Clip clip) {
 		super(level, (int) x, (int) y);
 		this.tileNumber = tileNumber;
 		this.speed = speed;
 		calcSimpleDirection(direction);
 		setBounds(getX(), getY(), width, height);
 		this.mob = mob;
-		xOrigin = x;
-		yOrigin = y;
-		range = 200;
 		this.damage = damage;
 		SoundHandler.fire(clip);
-	}
-
-	private void calcSimpleDirection(int direction) {
-		Random rand = new Random();
-		switch (direction) {
-		case 0:
-			xPoint = (rand.nextDouble() - rand.nextDouble()) / 10;
-			yPoint = -1;
-			yOffset++;
-			break;
-		case 1:
-			xPoint = (rand.nextDouble() - rand.nextDouble()) / 10;
-			yPoint = 1;
-			yOffset++;
-			break;
-		case 2:
-			xPoint = -1;
-			yPoint = (rand.nextDouble() - rand.nextDouble()) / 10;
-			break;
-		case 3:
-			xPoint = 1;
-			yPoint = (rand.nextDouble() - rand.nextDouble()) / 10;
-			break;
-		default:
-			xPoint = 0;
-			yPoint = 0;
-			break;
-
-		}
 	}
 
 	/**
@@ -145,135 +113,197 @@ public abstract class Projectile extends Entity {
 	 *            the sound this projectile makes
 	 * 
 	 */
-	public Projectile(Level level, double x, double y, int width, int height, int tileNumber, int speed, double xPos,
-			double yPos, Mob mob, double damage, Clip clip) {
+	public Projectile(Level level, double x, double y, int width, int height, int tileNumber, int speed, int xPos,
+			int yPos, Mob mob, int damage, Clip clip) {
 		super(level, (int) x, (int) y);
 		this.tileNumber = tileNumber;
 		this.speed = speed;
 		setBounds(getX(), getY(), width, height);
-		calcAngle(xPos, yPos);
+		calcChange(xPos, yPos);
 		this.mob = mob;
-
-		xOrigin = x;
-		yOrigin = y;
-		range = 200;
 		this.damage = damage;
 
 		SoundHandler.fire(clip);
 	}
 
-	private void calcAngle(double x, double y) {
-		double angle = Math.atan((x - this.x) / (y - this.y));
-		// this.yPoint = Math.cos(angle);
-		// this.xPoint = Math.sin(angle);
-		if (y - this.y < 0) {
-			this.yPoint = -Math.cos(angle);
-			this.xPoint = -Math.sin(angle);
-		} else {
-			this.yPoint = Math.cos(angle);
-			this.xPoint = Math.sin(angle);
+	/**
+	 * Calculates the x and y points it will move to
+	 * 
+	 * @param direction
+	 *            the direction it was fired
+	 */
+	private void calcSimpleDirection(Direction direction) {
+		switch (direction) {
+		case SOUTH:
+			dy--;
+			yOffset++;
+			break;
+		case NORTH:
+			dy++;
+			yOffset++;
+			break;
+		case WEST:
+			dx--;
+			break;
+		case EAST:
+			dx++;
+			break;
+		default:
+			break;
+
 		}
 	}
 
+	/**
+	 * Calculates the change in x and y when at detailed angles Finds the unit
+	 * vectors between THIS coordinates and the specified coordinates Treats
+	 * THIS position as the origin
+	 * 
+	 * @param x
+	 *            the x coordinate destination
+	 * @param y
+	 *            the y coordinate destination
+	 */
+	private void calcChange(int x, int y) {
+
+		// relative x coordinates
+		double xa = x - this.x;
+
+		// relative y coordinates
+		double ya = y - this.y;
+
+		// magnitude = squareroot of x^2 + y^2
+		double magnitude = Math.sqrt(xa * xa + ya * ya);
+
+		// j hat = Vx / magnitude
+		dx = xa / magnitude;
+
+		// i hat = Vy / magnitude
+		dy = ya / magnitude;
+
+		/*
+		 * Old double angle = Math.atan((x - this.x) / (y - this.y)); if (y -
+		 * this.y < 0) { this.yPoint = -Math.cos(angle); this.xPoint =
+		 * -Math.sin(angle); } else { this.yPoint = Math.cos(angle); this.xPoint
+		 * = Math.sin(angle); }
+		 */
+	}
+
+	/**
+	 * Updates the projectile TODO levels should remove projectiles when player
+	 * enters/exits buildings
+	 */
 	public void tick() {
-		if (distance() > range)
-			level.remEntity(this);
-	}
 
-	// Pythag Theorem
-	private double distance() {
-		double d = Math.sqrt(Math.pow(Math.abs(xOrigin - x), 2) + Math.pow(Math.abs(yOrigin - y), 2));
-		return d;
-	}
+		// move the projectile
+		move();
 
-	public void render(Screen screen) {
-
-		renderOnTop = true;
-
-		if (hasCollided((int) x, (int) y)) {
-			level.remEntity(this);
+		// check for collision with solid tile
+		if (isOnSolidTile()) {
+			onDestroyed();
 			return;
 		}
 
-		this.y += speed / 2.0 * yPoint;
-		this.x += speed / 2.0 * xPoint;
+		isBehindBuilding = false;
 
-		bounds.setLocation((int) this.x - (this.width / 2), (int) this.y - (this.height / 2));
-		for (Entity entity : level.getEntities()) {
-			if (entity instanceof SolidEntity) {
-				if (bounds.intersects(((SolidEntity) entity).getBounds())) {
-					level.remEntity(this);
-					return;
-				} else if (bounds.intersects(((SolidEntity) entity).shadow)) {
-					renderOnTop = false;
+		// check for collisions
+		for (Entity e : getLevel().getEntities()) {
+
+			// damage a mob
+			if (e instanceof Mob) {
+				if (this.getBounds().intersects(e.getBounds()) && e != mob) {
+					((Mob) e).damage(damage);
+					onDestroyed();
+				}
+				// disappear if hitting a building
+			} else if (e instanceof SolidEntity) {
+				if (this.getBounds().intersects(e.getBounds())) {
+					onDestroyed();
+				} else if (this.getBounds().intersects(((SolidEntity) e).getShadow())) {
+					isBehindBuilding = true;
 				}
 			}
-			if (entity instanceof Mob) {
-				Mob mobs = (Mob) entity;
-				if (bounds.intersects(mobs.getBounds())) {
-					if (mobs != mob) {
-						if (mobs instanceof Vehicle) {
-							mobs.damage((int) damage, (int) damage + 4);
-							level.remEntity(this);
-						} else if (!mobs.isDead()) {
-							mobs.damage((int) damage, (int) damage + 4);
-							level.remEntity(this);
-							if (mobs.getHealth() < 0 && mob instanceof Player) {
-								((Player) mob).score += 10;
-							}
-						}
-					}
-				}
-			}
-
 		}
-		screen.render((int) this.x, (int) this.y, tileNumber + (yOffset * sheet.boxes), color, 1, 1, sheet);
 	}
 
-	protected boolean isSolidTile(int xa, int ya, int x, int y) {
-		if (level == null) {
-			return false;
-		}
-		int xx = (int) this.x;
-		int yy = (int) this.y;
-		Tile lastTile = level.getTile((xx + x) >> 3, (yy + y) >> 3);
-		// Tile newTile = level.getTile((xx + x + xa) >> 3, (yy + y + ya) >> 3);
-		if (lastTile.isSolid()) {
-			return true;
-		}
-		return false;
+	/**
+	 * Moves the entity in different directions Also updates the bounds
+	 */
+	private void move() {
+		setX(getX() + speed * dx);
+		setY(getY() + speed * dy);
+		getBounds().setLocation(getX(), getY());
 	}
 
-	public boolean hasCollided(int xa, int ya) {
-		int xMin = 1;
-		int xMax = 2;
-		int yMin = 1;
-		int yMax = 2;
+	/**
+	 * Display the projectile on the screen
+	 */
+	public void render(Screen screen) {
 
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMin)) {
-				return true;
-			}
-		}
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(xa, ya, x, yMax)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMin, y)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(xa, ya, xMax, y)) {
-				return true;
-			}
+		// don't render if it isn't visible
+		if (isBehindBuilding) {
+			return;
 		}
 
-		return false;
+		screen.render((int) this.x, (int) this.y, tileNumber + (yOffset * sheet.boxes), getColor(), sheet);
+	}
+
+	/**
+	 * @return True if the projectile is on a solid tile
+	 */
+	private boolean isOnSolidTile() {
+		Tile lastTile = getLevel().getTile(getX() >> 3, getY() >> 3);
+		return lastTile.isSolid();
 	}
 
 	protected abstract int[] getColor();
+
+	/**
+	 * @return the X coordinate of the entity
+	 */
+	public int getX() {
+		return (int) x;
+	}
+
+	/**
+	 * @return the Y coordinate of the entity
+	 */
+	public int getY() {
+		return (int) y;
+	}
+
+	/**
+	 * Changes the entity horizontally
+	 * 
+	 * @param x
+	 *            the location to move the entity
+	 */
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	/**
+	 * Changes the entity vertically
+	 * 
+	 * @param y
+	 *            the location to move the entity
+	 */
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	/**
+	 * @return the spritesheet
+	 */
+	protected SpriteSheet getSpriteSheet() {
+		return sheet;
+	}
+
+	/**
+	 * Executes this code when the projectile will be removed
+	 */
+	protected void onDestroyed() {
+		getLevel().remEntity(this);
+	}
 
 }

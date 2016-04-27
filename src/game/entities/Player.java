@@ -387,15 +387,27 @@ public class Player extends Mob implements Skills {
 		// update the shooting directions if applicable
 		if (input.up.isPressed()) {
 			shootingDir = Direction.NORTH;
+			if (isShooting) {
+				inventory.getGun().fire(getLevel(), getX() + 4, getY(), shootingDir, this);
+			}
 		}
 		if (input.down.isPressed()) {
 			shootingDir = Direction.SOUTH;
+			if (isShooting) {
+				inventory.getGun().fire(getLevel(), getX() + 4, getY() + 8, shootingDir, this);
+			}
 		}
 		if (input.left.isPressed()) {
 			shootingDir = Direction.WEST;
+			if (isShooting) {
+				inventory.getGun().fire(getLevel(), getX(), getY() + 4, shootingDir, this);
+			}
 		}
 		if (input.right.isPressed()) {
 			shootingDir = Direction.EAST;
+			if (isShooting) {
+				inventory.getGun().fire(getLevel(), getX() + 8, getY() + 4, shootingDir, this);
+			}
 		}
 
 		// TODO Look into this

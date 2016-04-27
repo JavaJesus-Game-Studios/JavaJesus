@@ -14,6 +14,6 @@ public interface SolidEntity {
 	public abstract Rectangle getShadow();
 	
 	// Ratios for the shadow height
-	public static final double QUARTER = 0.25, HALF = 0.5, TWO_THIRDS = .66;
+	public static final double QUARTER = 0.25, HALF = 0.5, TWO_THIRDS = .66, FIVE_SIXTHS = .83, SEVEN_EIGTHS = .88;
 
 }

@@ -1,33 +1,33 @@
 package game.entities.structures;
 
-import game.entities.SolidEntity;
-import game.entities.structures.transporters.Transporter;
-import game.graphics.Screen;
-import game.graphics.Sprite;
-
 import java.awt.Point;
 import java.util.Random;
-
+import game.entities.SolidEntity;
+import game.entities.structures.transporters.Transporter;
+import game.graphics.Sprite;
 import level.Level;
 import level.interior.NiceHouse1Interior;
 
-public class NiceHouse2 extends SolidEntity {
-	private Random random = new Random();
+/*
+ * A variation of a nice house
+ */
+public class NiceHouse2 extends Building {
+
+	private static final long serialVersionUID = 8144972879680844749L;
+	
+	// randomizes house color
+	private static final Random random = new Random();
 
 	public NiceHouse2(Level level, int x, int y) {
-		super(level, x, y, 50, 60);
-		getColor();
-		level.addEntity(new Transporter(level, x + 19, y + 39,
-				new NiceHouse1Interior(new Point(x + 23, y + 49), this.level)));
+		super(level, x, y, getColor(), Sprite.nice_house_2, SolidEntity.HALF);
+		level.addEntity(
+				new Transporter(level, x + 19, y + 39, new NiceHouse1Interior(new Point(x + 23, y + 49), getLevel())));
 	}
 
-	public void render(Screen screen) {
-
-		screen.render(x, y, color, Sprite.nice_house_2);
-
-	}
-
-	private void getColor() {
+	/**
+	 * @return A random color for the house
+	 */
+	private static int[] getColor() {
 		int[] color = { 0xFF111111, 0xFFD50000, 0xFFFFFFFF };
 		switch (random.nextInt(8)) {
 		case 0: {
@@ -74,6 +74,7 @@ public class NiceHouse2 extends SolidEntity {
 			break;
 		}
 		}
-		this.color = color;
+
+		return color;
 	}
 }
