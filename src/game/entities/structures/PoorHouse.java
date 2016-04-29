@@ -1,34 +1,33 @@
 package game.entities.structures;
 
-import game.entities.SolidEntity;
-import game.entities.structures.transporters.Transporter;
-import game.graphics.Screen;
-import game.graphics.Sprite;
-
 import java.awt.Point;
 import java.util.Random;
-
+import game.entities.SolidEntity;
+import game.entities.structures.transporters.Transporter;
+import game.graphics.Sprite;
 import level.Level;
 import level.interior.PoorHouseInterior;
 
-public class PoorHouse extends SolidEntity {
+/*
+ * A typical poor house
+ */
+public class PoorHouse extends Building {
 
-	private Random random = new Random();
+	private static final long serialVersionUID = 6601315410399638769L;
+	
+	// randomly assigns a color
+	private static final Random random = new Random();
 
 	public PoorHouse(Level level, int x, int y) {
-		super(level, x, y, 32, 55);
-		getColor();
+		super(level, x, y, getColor(), Sprite.poor_house, SolidEntity.HALF);
 		level.addEntity(new Transporter(level, x + 14, y + 39,
-				new PoorHouseInterior(new Point(x + 20, y + 50), this.level)));
+				new PoorHouseInterior(new Point(x + 20, y + 50), getLevel())));
 	}
 
-	public void render(Screen screen) {
-
-		screen.render(x, y, color, Sprite.poor_house);
-
-	}
-
-	private void getColor() {
+	/**
+	 * @return The color for the poor house
+	 */
+	private static int[] getColor() {
 		int[] color = { 0xFF111111, 0xFFD50000, 0xFFFFFFFF };
 		switch (random.nextInt(8)) {
 		case 0: {
@@ -75,7 +74,7 @@ public class PoorHouse extends SolidEntity {
 			break;
 		}
 		}
-		this.color = color;
+		return color;
 	}
 
 }

@@ -784,5 +784,13 @@ public class Player extends Mob implements Skills {
 			getLevel().getScreen().setShader(Colors.fromHex("ff0000"));
 		}
 	}
+	
+	/**
+	 * TODO Temporary method to workaround input
+	 * @return The inputhandler
+	 */
+	public InputHandler getInput() {
+		return input;
+	}
 
 }

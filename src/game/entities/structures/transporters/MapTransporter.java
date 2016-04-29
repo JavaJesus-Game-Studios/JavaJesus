@@ -1,77 +1,119 @@
 package game.entities.structures.transporters;
 
-import java.awt.Point;
-import java.awt.Rectangle;
-
 import game.Game;
 import game.entities.Player;
 import game.graphics.Screen;
 import level.Level;
 import utility.Direction;
 
+/*
+ * A map transporter is placed on the edges of a level to transition  between two outisde levels
+ */
 public class MapTransporter extends Transporter {
 
 	private static final long serialVersionUID = -788215519977991994L;
 
+	// which side the map transporter is placed on a map
 	private Direction dir;
-	double offset = 0;
 
-	public MapTransporter(Level currentLevel, int x, int y, Level nextLevel,
-			Direction dir, int width, int height) {
-		super(currentLevel, x, y, nextLevel, null);
+	/**
+	 * Creates a Map transporter that automatically transports a player that is
+	 * on the edge of a map
+	 * 
+	 * @param currentLevel
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param nextLevel
+	 *            the next level
+	 * @param dir
+	 *            the side on the map
+	 * @param width
+	 *            the width of the transporter
+	 * @param height
+	 *            the height of the transporter
+	 */
+	public MapTransporter(Level currentLevel, int x, int y, Level nextLevel, Direction dir, int width, int height) {
+		super(currentLevel, x, y, nextLevel);
 		this.dir = dir;
-		calcPoint();
-		this.bounds = new Rectangle(width, height);
-		this.bounds.setLocation(x, y);
+		setBounds(getX(), getY(), width, height);
 	}
 
-	public MapTransporter(Level currentLevel, int x, int y, Level nextLevel,
-			Direction dir, int width, int height, double offset) {
-		super(currentLevel, x, y, nextLevel, null);
-		this.dir = dir;
-		calcPoint();
-		this.bounds = new Rectangle(width, height);
-		this.bounds.setLocation(x, y);
-		this.offset = offset;
-	}
-
+	/**
+	 * Updates the transporter
+	 */
 	public void tick() {
-		if (nextLevel != null)
-			for (Player player : level.getPlayers()) {
-				if (this.bounds.intersects(player.getBounds())
-						&& !player.isDriving) {
-					calcPoint();
-					player.changeLevel(nextLevel);
-				}
+
+		for (Player player : getLevel().getPlayers()) {
+			if (getBounds().intersects(player.getBounds()) && !player.isDriving()) {
+				calcNewSpawn();
+				player.updateLevel(getNextLevel());
 			}
+		}
+
 	}
 
-	private void calcPoint() {
-		Point point;
+	/**
+	 * Calculates the new spawnpoint for the next level
+	 */
+	private void calcNewSpawn() {
+
+		// the x and y spawn coords
+		int x, y;
+
 		switch (dir) {
+
+		// NORTH EDGE OF MAP
 		case NORTH: {
-			point = new Point(Game.player.getX(), (nextLevel.height * 8) - 16);
+
+			// X is proportional to width
+			x = getNextLevel().width * Game.player.getX() / getLevel().width;
+
+			y = (getNextLevel().height * 8) - 16;
 			break;
 		}
+
+		// SOUTH EDGE OF MAP
 		case SOUTH: {
-			point = new Point(Game.player.getX(), 16);
+
+			// X is proportional to width
+			x = getNextLevel().width * Game.player.getX() / getLevel().width;
+
+			y = 16;
 			break;
 		}
+
+		// EAST EDGE OF MAP
 		case EAST: {
-			point = new Point(16, Game.player.getY() + (int) offset);
+
+			x = 16;
+
+			// Y is proportional to height
+			y = getNextLevel().height * Game.player.getY() / getLevel().height;
 			break;
 		}
+
+		// WEST EDGE OF MAP
 		default: {
-			point = new Point((nextLevel.width * 8) - 16, Game.player.getY()
-					+ (int) offset);
+
+			x = (getNextLevel().width * 8) - 16;
+
+			// Y is proportional to height
+			y = getNextLevel().height * Game.player.getY() / getLevel().height;
 			break;
 		}
 		}
-		nextLevel.spawnPoint = point;
+
+		// update the next level spawnpoint
+		getNextLevel().setSpawnPoint(x, y);
 	}
 
+	/**
+	 * Blank because it is invisible
+	 */
 	public void render(Screen screen) {
-
 	}
 
 }

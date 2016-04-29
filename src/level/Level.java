@@ -407,4 +407,8 @@ public abstract class Level implements Serializable {
 	public Screen getScreen() {
 		return screen;
 	}
+	
+	public void setSpawnPoint(int x, int y) {
+		spawnPoint = new Point(x, y);
+	}
 }
