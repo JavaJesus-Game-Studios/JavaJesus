@@ -220,6 +220,9 @@ public class Mob extends Entity {
 		for (int i = 0; i < Math.abs(dx); i++) {
 			if (!hasCollided(1 * sign, 0)) {
 				super.move(1 * sign, 0);
+				if (isSolidEntityCollision()) {
+					super.move(-1 * sign, 0);
+				}
 				this.moveOuterBounds(1 * sign, 0);
 			} else {
 				break;
@@ -238,6 +241,9 @@ public class Mob extends Entity {
 		for (int i = 0; i < Math.abs(dy); i++) {
 			if (!hasCollided(0, 1 * sign)) {
 				super.move(0, 1 * sign);
+				if (isSolidEntityCollision()) {
+					super.move(0, -1 * sign);
+				}
 				this.moveOuterBounds(0, 1 * sign);
 			} else {
 				break;
@@ -350,7 +356,7 @@ public class Mob extends Entity {
 	 *            the change in y
 	 * @return true if the new position will create a collision
 	 */
-	protected boolean isSolidEntityCollision(int xa, int ya) {
+	private boolean isSolidEntityCollision() {
 
 		isBehindBuilding = false;
 
@@ -363,8 +369,9 @@ public class Mob extends Entity {
 
 				if (getBounds().intersects(building.getShadow())) {
 					isBehindBuilding = true;
+				} else if (getBounds().intersects(entity.getBounds())) {
+					return true;
 				}
-				return getBounds().intersects(entity.getBounds());
 
 			} else if (entity instanceof FireEntity && getBounds().intersects((entity.getBounds()))) {
 				setOnFire(true);

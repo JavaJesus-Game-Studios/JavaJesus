@@ -3,7 +3,7 @@ package level.interior;
 import java.awt.Point;
 
 import game.entities.structures.transporters.TransporterInterior;
-import game.entities.structures.transporters.TransporterStairWood;
+import game.entities.structures.transporters.TransporterStair;
 import level.Level;
 import utility.Direction;
 
@@ -32,7 +32,7 @@ public class SkyscraperLobby extends Interior {
 	protected void otherEntityPlacement() {
 		this.addEntity(new TransporterInterior(this, 1944, 2048, nextLevel,
 				exitPoint));
-		this.addEntity(new TransporterStairWood(this, 2112, 1968, 
+		this.addEntity(new TransporterStair(this, 2112, 1968, 
 				new SkyscraperFloor(new Point(2116, 1971), this, 1), new Point(2105, 2016), Direction.EAST));
 	}
 }

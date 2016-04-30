@@ -1,34 +1,75 @@
 package game.entities.structures.trees;
 
+import java.awt.Rectangle;
+
+import game.entities.Entity;
 import game.entities.SolidEntity;
 import game.graphics.Screen;
 import game.graphics.Sprite;
-
-import java.awt.Rectangle;
-
 import level.Level;
 
-public class Tree extends SolidEntity {
-	
+/*
+ * A tree cannot be clipped
+ */
+public class Tree extends Entity implements SolidEntity {
+
 	private static final long serialVersionUID = 5310167130019869321L;
-	
+
+	// The area where the player can walk behind the tree
+	private Rectangle shadow;
+
+	// the tree texture
 	private Sprite sprite;
 
-	public Tree(Level level, int x, int y, int height, Sprite sprite) {
-		super(level, x, y, 15, height);
+	/**
+	 * Creates a tree from a specified sprite
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param sprite
+	 *            the sprite to use
+	 */
+	public Tree(Level level, int x, int y, Sprite sprite) {
+		super(level, x, y);
+
 		this.sprite = sprite;
-		this.shadow = new Rectangle(width, (height - 9));
-		this.shadow.setLocation(x + 1, y);
-		this.bounds = new Rectangle(4, 9);
-		this.bounds.setLocation(x + 5, y + shadow.height);
+
+		shadow = new Rectangle(sprite.getWidth(), sprite.getHeight() - 9);
+		shadow.setLocation(x, y);
+
+		setBounds(x, y + shadow.height, sprite.getWidth(), sprite.getHeight() - (int) shadow.getHeight());
+
 	}
-	
+
+	/**
+	 * Displays the tree on the screen
+	 */
 	public void render(Screen screen) {
-		screen.render(x, y, null, sprite);
+		screen.render(getX(), getY(), null, sprite);
 	}
-	
+
+	/**
+	 * @return The height of the tree
+	 */
 	public int getHeight() {
-		return height;
+		return sprite.getHeight();
+	}
+
+	/**
+	 * @return the area behind the tree
+	 */
+	public Rectangle getShadow() {
+		return shadow;
+	}
+
+	/**
+	 * Trees don't really update
+	 */
+	public void tick() {
 	}
 
 }

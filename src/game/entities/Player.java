@@ -121,9 +121,6 @@ public class Player extends Mob implements Skills {
 	// TODO will change how this works
 	public void setInput(InputHandler input) {
 		this.input = input;
-		if (vehicle != null) {
-			vehicle.input = input;
-		}
 	}
 
 	public void equip(Armor armor) {
@@ -295,9 +292,8 @@ public class Player extends Mob implements Skills {
 					// TODO check if vehicle is destroyed
 					if (getOuterBounds().intersects(vehicle.getBounds())) {
 						this.vehicle = vehicle;
-						this.vehicle.addPlayer(this);
 						moveTo(vehicle.getX(), vehicle.getY());
-						vehicle.isUsed = true;
+						vehicle.drive(this);
 						input.e.toggle(false);
 						return;
 					}
@@ -564,6 +560,14 @@ public class Player extends Mob implements Skills {
 			inventory.getSword().render(screen);
 		}
 
+	}
+	
+	/**
+	 * Makes a player exit vehicle
+	 */
+	public void exitVehicle() {
+		vehicle = null;
+		move(-8, 0);
 	}
 
 	/**
