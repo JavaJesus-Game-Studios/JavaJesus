@@ -65,7 +65,7 @@ public class Screen {
 	public void render(int xOffset, int yOffset, int tile, int[] color, SpriteSheet sheet) {
 		render(xOffset, yOffset, tile, color, false, 1, sheet);
 	}
-
+	
 	/**
 	 * Displays a tile at a particular position
 	 * @param xOffset the x coordinate on the level
@@ -78,6 +78,22 @@ public class Screen {
 	 */
 	public void render(int xOffset, int yOffset, int tile, int[] color,
 			boolean mirror, int scale, SpriteSheet sheet) {
+		this.render(xOffset, yOffset, tile, color, mirror, false, scale, sheet);
+	}
+
+	/**
+	 * Displays a tile at a particular position
+	 * @param xOffset the x coordinate on the level
+	 * @param yOffset the y coordinate on the level
+	 * @param tile the sprite sheet offset to use
+	 * @param color the color set
+	 * @param mirror if the pixels should be rendered right to left
+	 * @param mirrorY if the pixels should be rendered bottom to top
+	 * @param scale modifier to how big the sprite should be displayed
+	 * @param sheet the sprite sheet to use
+	 */
+	public void render(int xOffset, int yOffset, int tile, int[] color,
+			boolean mirror, boolean mirrorY, int scale, SpriteSheet sheet) {
 
 		// shifts the position of the screen by the global offset
 		xOffset -= this.xOffset;
@@ -89,16 +105,21 @@ public class Screen {
 		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.width;
 		for (int y = 0; y < 8; y++) {
 			int ySheet = y;
-			/* Mirrors bottom to top
+			
+			//Mirrors bottom to top
 			if (mirrorY)
-				ySheet = 7 - y; */
+				ySheet = 7 - y;
+			
 			int yPixel = y + yOffset + (y * scaleMap) - ((scaleMap << 3) / 2);
 			for (int x = 0; x < 8; x++) {
 				int xPixel = x + xOffset + (x * scaleMap)
 						- ((scaleMap << 3) / 2);
 				int xSheet = x;
+				
+				// Mirrors right to left
 				if (mirror)
 					xSheet = 7 - x;
+				
 				int col = sheet.pixels[tileOffset + xSheet + ySheet
 						* sheet.width];
 				if (color != null)

@@ -1,12 +1,12 @@
 package game.entities.particles;
 
 import level.Level;
-import game.entities.Mob;
+import game.entities.Damageable;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 
 /*
- * A healthbar follows underneath any mob
+ * A healthbar follows underneath any entity
  */
 public class HealthBar extends Particle {
 
@@ -18,8 +18,8 @@ public class HealthBar extends Particle {
 	// segment compared to total number of health bar sprites
 	private static final double SEGMENT = 1 / 13.0;
 
-	// the mob it follows
-	private Mob mob;
+	// the entity it follows
+	private Damageable entity;
 
 	/**
 	 * Creates a health bar
@@ -30,12 +30,12 @@ public class HealthBar extends Particle {
 	 *            the x coordinate
 	 * @param y
 	 *            the y coordinate
-	 * @param mob
-	 *            the mob it tracks
+	 * @param entity
+	 *            the entity it tracks
 	 */
-	public HealthBar(Level level, int x, int y, Mob mob) {
+	public HealthBar(Level level, int x, int y, Damageable entity) {
 		super(level, x, y, 2 * SpriteSheet.particles.boxes, new int[] { 0xFF111111, 0xFF000000, 0xFFDD0000 });
-		this.mob = mob;
+		this.entity = entity;
 	}
 
 	/**
@@ -54,40 +54,40 @@ public class HealthBar extends Particle {
 	 */
 	public void tick() {
 
-		if ((double) mob.getCurrentHealth() / mob.getMaxHealth() >= 1) {
+		if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1) {
 			yChange = 0;
 			getColor()[2] = 0xFF0079E0;
-		} else if ((double) mob.getCurrentHealth() / mob.getMaxHealth() >= 1 - SEGMENT) {
+		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - SEGMENT) {
 			yChange = 1;
 			getColor()[2] = 0xFF0079E0;
-		} else if ((double) mob.getCurrentHealth() / mob.getMaxHealth() >= 1 - 2 * SEGMENT) {
+		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 2 * SEGMENT) {
 			yChange = 2;
 			getColor()[2] = 0xFF0079E0;
-		} else if ((double) mob.getCurrentHealth() / mob.getMaxHealth() >= 1 - 3 * SEGMENT) {
+		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 3 * SEGMENT) {
 			yChange = 3;
 			getColor()[2] = 0xFF0079E0;
-		} else if ((double) mob.getCurrentHealth() / mob.getMaxHealth() >= 1 - 4 * SEGMENT) {
+		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 4 * SEGMENT) {
 			yChange = 4;
 			getColor()[2] = 0xFFFF6000;
-		} else if ((double) mob.getCurrentHealth() / mob.getMaxHealth() >= 1 - 5 * SEGMENT) {
+		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 5 * SEGMENT) {
 			yChange = 5;
 			getColor()[2] = 0xFFFF6000;
-		} else if ((double) mob.getCurrentHealth() / mob.getMaxHealth() >= 1 - 6 * SEGMENT) {
+		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 6 * SEGMENT) {
 			yChange = 6;
 			getColor()[2] = 0xFFFF6000;
-		} else if ((double) mob.getCurrentHealth() / mob.getMaxHealth() >= 1 - 7 * SEGMENT) {
+		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 7 * SEGMENT) {
 			yChange = 7;
 			getColor()[2] = 0xFFFF6000;
-		} else if ((double) mob.getCurrentHealth() / mob.getMaxHealth() >= 1 - 8 * SEGMENT) {
+		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 8 * SEGMENT) {
 			yChange = 8;
 			getColor()[2] = 0xFFFF6000;
-		} else if ((double) mob.getCurrentHealth() / mob.getMaxHealth() >= 1 - 9 * SEGMENT) {
+		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 9 * SEGMENT) {
 			yChange = 9;
 			getColor()[2] = 0xFFE50000;
-		} else if ((double) mob.getCurrentHealth() / mob.getMaxHealth() >= 1 - 10 * SEGMENT) {
+		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 10 * SEGMENT) {
 			yChange = 10;
 			getColor()[2] = 0xFFE50000;
-		} else if ((double) mob.getCurrentHealth() / mob.getMaxHealth() >= 1 - 11 * SEGMENT) {
+		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 11 * SEGMENT) {
 			yChange = 11;
 			getColor()[2] = 0xFFE50000;
 		} else {

@@ -10,7 +10,7 @@ import game.InputHandler;
 import game.SoundHandler;
 import game.entities.monsters.Demon;
 import game.entities.structures.furniture.Chest;
-import game.entities.vehicles.Vehicle;
+import game.entities.vehicles.Ridable;
 import game.graphics.Colors;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
@@ -44,7 +44,7 @@ public class Player extends Mob implements Skills {
 	private boolean demonCooldown;
 
 	// the vehicle the player is in, null if not driving
-	private Vehicle vehicle;
+	private Ridable vehicle;
 
 	// direction the player is shooting
 	private Direction shootingDir;
@@ -285,9 +285,9 @@ public class Player extends Mob implements Skills {
 			for (Entity entity : getLevel().getEntities()) {
 
 				// enter a vehicle
-				if (entity instanceof Vehicle) {
+				if (entity instanceof Ridable) {
 
-					Vehicle vehicle = (Vehicle) entity;
+					Ridable vehicle = (Ridable) entity;
 
 					// TODO check if vehicle is destroyed
 					if (getOuterBounds().intersects(vehicle.getBounds())) {
@@ -561,7 +561,7 @@ public class Player extends Mob implements Skills {
 		}
 
 	}
-	
+
 	/**
 	 * Makes a player exit vehicle
 	 */
@@ -652,6 +652,11 @@ public class Player extends Mob implements Skills {
 		}
 
 		super.doDamageToHealth(damage);
+
+		// sets a shader when health is low
+		if ((double) getCurrentHealth() / getMaxHealth() <= 0.25) {
+			getLevel().getScreen().setShader(Colors.fromHex("ff0000"));
+		}
 	}
 
 	/**
@@ -711,7 +716,7 @@ public class Player extends Mob implements Skills {
 	 * @return The vehicle the player is driving Null if the player is not
 	 *         riding anything
 	 */
-	public Vehicle getVehicle() {
+	public Ridable getVehicle() {
 		return vehicle;
 	}
 
@@ -775,22 +780,8 @@ public class Player extends Mob implements Skills {
 	}
 
 	/**
-	 * Randomizes the damage done to the player when hit
-	 * 
-	 * @param damage
-	 *            the damage inflicted to THIS mob
-	 */
-	public void damage(int damage) {
-		super.damage(damage);
-
-		// sets a shader when health is low
-		if ((double) getCurrentHealth() / getMaxHealth() <= 0.25) {
-			getLevel().getScreen().setShader(Colors.fromHex("ff0000"));
-		}
-	}
-	
-	/**
 	 * TODO Temporary method to workaround input
+	 * 
 	 * @return The inputhandler
 	 */
 	public InputHandler getInput() {

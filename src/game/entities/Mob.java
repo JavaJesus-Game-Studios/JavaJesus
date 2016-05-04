@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import game.entities.particles.HealthBar;
+import game.entities.vehicles.Vehicle;
 import game.graphics.JJFont;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
@@ -15,7 +16,7 @@ import utility.Direction;
 /*
  * A mob is an entity that has complex interactions in a level with other entities
  */
-public class Mob extends Entity {
+public class Mob extends Entity implements Damageable {
 
 	private static final long serialVersionUID = -1507733585991126012L;
 
@@ -102,7 +103,7 @@ public class Mob extends Entity {
 	protected int[] isHitColor = { 0xFF000000, 0xFF000000, 0xFFFF0000 };
 
 	protected int tickCount = 0;
-	
+
 	// an action script a mob might follow
 	private Script script;
 
@@ -370,6 +371,9 @@ public class Mob extends Entity {
 				if (getBounds().intersects(building.getShadow())) {
 					isBehindBuilding = true;
 				} else if (getBounds().intersects(entity.getBounds())) {
+					if (entity instanceof Vehicle) {
+						damage(((Vehicle) entity).getDamage());
+					}
 					return true;
 				}
 
@@ -626,7 +630,7 @@ public class Mob extends Entity {
 	}
 
 	/**
-	 * Randomizes the damage done to THIS MOB when attacked
+	 * Displays an indicator that shows damage done to THIS MOB when attacked
 	 * 
 	 * @param damage
 	 *            the damage inflicted to THIS mob
@@ -870,23 +874,24 @@ public class Mob extends Entity {
 	protected SpriteSheet getSpriteSheet() {
 		return sheet;
 	}
-	
+
 	/**
 	 * Sets the mob's spritesheet to this sheet
 	 */
 	protected void setSpriteSheet(SpriteSheet sheet) {
 		this.sheet = sheet;
 	}
-	
+
 	/**
 	 * @return the mob's script
 	 */
 	public Script getScript() {
 		return script;
 	}
-	
+
 	/**
-	 * @param script the new script for the mob
+	 * @param script
+	 *            the new script for the mob
 	 */
 	public void setScript(Script script) {
 		this.script = script;

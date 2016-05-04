@@ -1,45 +1,109 @@
 package game.entities.vehicles;
 
+import java.util.Random;
+
+import game.SoundHandler;
 import game.entities.Player;
-import game.entities.particles.HealthBar;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 import level.Level;
 import utility.Direction;
 
+/*
+ * A car is a set of vehicles with similar shapes
+ */
 public class Car extends Vehicle {
-	
+
 	private static final long serialVersionUID = -1861142691248572564L;
-	
+
+	// colorset for this car
+	private int[] color;
+
+	// the offset on the tilesheet
 	private int yTile;
 
+	// randomly chooses colors
+	private static final Random random = new Random();
+
+	// size of each box
+	private static final int UNIT_SIZE = 8;
+
+	// used for offsetting the bounds based on direction
+	private static final int SHORT_SIDE = 32, LONG_SIDE = 40;
+
+	/**
+	 * Creates a car
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param name
+	 *            the name of the car
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param yTile
+	 *            the y tile on the spritesheet
+	 */
 	public Car(Level level, String name, int x, int y, int yTile) {
-		super(level, name, x, y, 2, 24, 15, SpriteSheet.vehicles, 200);
+		super(level, name, x, y, 2, SHORT_SIDE, LONG_SIDE, SpriteSheet.vehicles, 200);
 		getColor();
-		this.bar = new HealthBar(level, this.x, this.y, this);
-		if (level != null)
-			level.addEntity(bar);
 		this.yTile = yTile;
 	}
-	
+
+	/**
+	 * Updates the car
+	 */
 	public void tick() {
 		super.tick();
-		
-		if (player != null)
+
+		// plays sound
+		if (isUsed()) {
 			if (!isMoving()) {
-				sound.playSmoothly(sound.carIdle);
+				SoundHandler.playSmoothly(SoundHandler.carIdle);
 			} else {
-				sound.playSmoothly(sound.carDriving);
+				SoundHandler.playSmoothly(SoundHandler.carDriving);
 			}
-	}
-	
-	public void addPlayer(Player player) {
-		super.addPlayer(player);
-		sound.play(sound.carStartUp);
+		}
+
 	}
 
+	/**
+	 * Moves a car on the level
+	 * 
+	 * @param dx
+	 *            the total change in x
+	 * @param dy
+	 *            the total change in y
+	 */
+	public void move(int dx, int dy) {
+
+		// adjust the bounds depending on direction
+		if (getDirection() == Direction.NORTH || getDirection() == Direction.SOUTH) {
+			setBounds(getX(), getY(), SHORT_SIDE, LONG_SIDE);
+		} else {
+			setBounds(getX(), getY(), LONG_SIDE, SHORT_SIDE);
+		}
+
+		super.move(dx, dy);
+	}
+
+	/**
+	 * Adds the player into the vehicle
+	 * 
+	 * @param player
+	 *            the player to drive
+	 */
+	public void drive(Player player) {
+		super.drive(player);
+		SoundHandler.play(SoundHandler.carStartUp);
+	}
+
+	/**
+	 * Randomly assigns a color
+	 */
 	private void getColor() {
-		int[] color = { 0xFF111111, 0xFF000000, 0xFFC2FEFF };
+		color = new int[] { 0xFF111111, 0xFF000000, 0xFFC2FEFF };
 		switch (random.nextInt(8)) {
 		case 0: {
 			// red color
@@ -82,156 +146,93 @@ public class Car extends Vehicle {
 			break;
 		}
 		}
-		super.color = color;
 	}
 
+	/**
+	 * Displays the car on the screen
+	 */
 	public void render(Screen screen) {
 		super.render(screen);
-		int modifier = 8 * scale;
-		int xOffset = 0;
-		int yOffset = 0;
 
-		if (isLongitudinal(getDirection())) {
-			xOffset = x - modifier * 2;
-			yOffset = y - modifier * 2 - modifier / 2;
-			this.width = 32;
-			this.height = 40;
-		} else {
-			xOffset = x - modifier * 2 - modifier / 2;
-			yOffset = y - modifier * 2;
-			this.width = 40;
-			this.height = 32;
-		}
-		this.getBounds().setSize(width, height);
-		this.getBounds().setLocation(this.x - width / 2, this.y - height / 2);
+		// modifier used for rendering in different scales/directions
+		int modifier = UNIT_SIZE;
+
+		// no x or y offset, use the upper left corner as absolute
+		int xOffset = getX(), yOffset = getY();
+
+		// horizontal offset on spritesheet
 		int xTile = 0;
-		int yTile = this.yTile;
 
-		int flip = 0;
+		// whether or not to render backwards horizontally
+		boolean flipX = getDirection() == Direction.WEST;
 
-		if (getDirection() == Direction.NORTH) {
-			xTile += 14;
-		} else if (getDirection() == Direction.WEST) {
-			xTile += 9;
-		} else if (getDirection() == Direction.EAST) {
-			xTile += 4;
+		// whether or not to render backwards horizontally
+		boolean flipY = getDirection() == Direction.NORTH;
+
+		// gets the right offset
+		if (getDirection() == Direction.EAST || getDirection() == Direction.WEST) {
+			xTile = 4;
+			if (isBroken()) {
+				xTile = 22;
+			}
+		} else if (isBroken()) {
+			xTile = 18;
 		}
 
-		if (isDead) {
-			xTile += 18;
-		}
+		// renders the horizontal car
+		if (getDirection() == Direction.EAST || getDirection() == Direction.WEST) {
 
-		// Upper body 1
-		screen.render(xOffset + (modifier * flip), yOffset, xTile + yTile
-				* sheet.boxes, color, flip, scale, sheet);
-		// Upper Body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset,
-				(xTile + 1) + yTile * sheet.boxes, color, flip, scale, sheet);
+			// iterate downwards
+			for (int i = 0; i < 4; i++) {
 
-		// Upper Body 3
-		screen.render(xOffset + 2 * modifier - (modifier * flip), yOffset,
-				(xTile + 2) + yTile * sheet.boxes, color, flip, scale, sheet);
+				// Body 1
+				screen.render(xOffset + (modifier * (flipX ? 4 : 0)), (yOffset + modifier * i),
+						xTile + (yTile + i) * getSpriteSheet().boxes, color, getSpriteSheet());
 
-		// Upper Body 4
-		screen.render(xOffset + 3 * modifier - (modifier * flip), yOffset,
-				(xTile + 3) + yTile * sheet.boxes, color, flip, scale, sheet);
+				// Body 2
+				screen.render(xOffset + modifier + (modifier * (flipX ? 2 : 0)), (yOffset + modifier * i),
+						(xTile + 1) + (yTile + i) * getSpriteSheet().boxes, color, getSpriteSheet());
 
-		// Second Body 1
-		screen.render(xOffset + (modifier * flip), yOffset + modifier, xTile
-				+ (yTile + 1) * sheet.boxes, color, flip, scale, sheet);
+				// Body 3
+				screen.render(xOffset + 2 * modifier, (yOffset + modifier * i),
+						(xTile + 2) + (yTile + i) * getSpriteSheet().boxes, color, getSpriteSheet());
 
-		// Second Body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset
-				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-				flip, scale, sheet);
+				// Body 4
+				screen.render(xOffset + 3 * modifier - (modifier * (flipX ? 2 : 0)), (yOffset + modifier * i),
+						(xTile + 3) + (yTile + i) * getSpriteSheet().boxes, color, getSpriteSheet());
 
-		// Second Body 3
-		screen.render(xOffset + 2 * modifier - (modifier * flip), yOffset
-				+ modifier, (xTile + 2) + (yTile + 1) * sheet.boxes, color,
-				flip, scale, sheet);
+				// Body 5
+				screen.render(xOffset + 4 * modifier - (modifier * (flipX ? 4 : 0)), (yOffset + modifier * i),
+						(xTile + 4) + (yTile + i) * getSpriteSheet().boxes, color, getSpriteSheet());
 
-		// Second Body 4
-		screen.render(xOffset + 3 * modifier - (modifier * flip), yOffset
-				+ modifier, (xTile + 3) + (yTile + 1) * sheet.boxes, color,
-				flip, scale, sheet);
-
-		// Third Body 1
-		screen.render(xOffset + (modifier * flip), yOffset + 2 * modifier,
-				xTile + (yTile + 2) * sheet.boxes, color, flip, scale, sheet);
-
-		// Third Body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset + 2
-				* modifier, (xTile + 1) + (yTile + 2) * sheet.boxes, color,
-				flip, scale, sheet);
-
-		// Third Body 3
-		screen.render(xOffset + 2 * modifier - (modifier * flip), yOffset + 2
-				* modifier, (xTile + 2) + (yTile + 2) * sheet.boxes, color,
-				flip, scale, sheet);
-
-		// Third Body 4
-		screen.render(xOffset + 3 * modifier - (modifier * flip), yOffset + 2
-				* modifier, (xTile + 3) + (yTile + 2) * sheet.boxes, color,
-				flip, scale, sheet);
-
-		// Fourth Body 1
-		screen.render(xOffset + (modifier * flip), yOffset + 3 * modifier,
-				xTile + (yTile + 3) * sheet.boxes, color, flip, scale, sheet);
-
-		// Fourth Body 2
-		screen.render(xOffset + modifier - (modifier * flip), yOffset + 3
-				* modifier, (xTile + 1) + (yTile + 3) * sheet.boxes, color,
-				flip, scale, sheet);
-
-		// Fourth Body 3
-		screen.render(xOffset + 2 * modifier - (modifier * flip), yOffset + 3
-				* modifier, (xTile + 2) + (yTile + 3) * sheet.boxes, color,
-				flip, scale, sheet);
-
-		// Fourth Body 4
-		screen.render(xOffset + 3 * modifier - (modifier * flip), yOffset + 3
-				* modifier, (xTile + 3) + (yTile + 3) * sheet.boxes, color,
-				flip, scale, sheet);
-
-		if (isLongitudinal(getDirection())) {
-			// Lower Body 1
-			screen.render(xOffset + (modifier * flip), yOffset + 4 * modifier,
-					xTile + (yTile + 4) * sheet.boxes, color, flip, scale,
-					sheet);
-
-			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * flip), yOffset + 4
-					* modifier, (xTile + 1) + (yTile + 4) * sheet.boxes, color,
-					flip, scale, sheet);
-
-			// Lower Body 3
-			screen.render(xOffset + 2 * modifier - (modifier * flip), yOffset
-					+ 4 * modifier, (xTile + 2) + (yTile + 4) * sheet.boxes,
-					color, flip, scale, sheet);
-
-			// Lower Body 4
-			screen.render(xOffset + 3 * modifier - (modifier * flip), yOffset
-					+ 4 * modifier, (xTile + 3) + (yTile + 4) * sheet.boxes,
-					color, flip, scale, sheet);
+			}
 
 		} else {
-			// Upper Body 5
-			screen.render(xOffset + 4 * modifier - (modifier * flip), yOffset,
-					(xTile + 4) + yTile * sheet.boxes, color, flip, scale,
-					sheet);
-			// Second Body 5
-			screen.render(xOffset + 4 * modifier - (modifier * flip), yOffset
-					+ modifier, (xTile + 4) + (yTile + 1) * sheet.boxes, color,
-					flip, scale, sheet);
-			// Third Body 5
-			screen.render(xOffset + 4 * modifier - (modifier * flip), yOffset
-					+ 2 * modifier, (xTile + 4) + (yTile + 2) * sheet.boxes,
-					color, flip, scale, sheet);
-			// Fourth Body 5
-			screen.render(xOffset + 4 * modifier - (modifier * flip), yOffset
-					+ 3 * modifier, (xTile + 4) + (yTile + 3) * sheet.boxes,
-					color, flip, scale, sheet);
 
+			// iterate sideways
+			for (int i = 0; i < 5; i++) {
+
+				// Body 1
+				screen.render(xOffset + modifier * i, yOffset + (modifier * (flipY ? 4 : 0)),
+						(xTile + i) + yTile * getSpriteSheet().boxes, color, false, flipY, 1, getSpriteSheet());
+
+				// Body 2
+				screen.render(xOffset + modifier * i, yOffset + modifier + (modifier * (flipY ? 2 : 0)),
+						(xTile + i) + (yTile + 1) * getSpriteSheet().boxes, color, false, flipY, 1, getSpriteSheet());
+
+				// Body 3
+				screen.render(xOffset + modifier * i, yOffset + 2 * modifier,
+						(xTile + i) + (yTile + 2) * getSpriteSheet().boxes, color, false, flipY, 1, getSpriteSheet());
+
+				// Body 4
+				screen.render(xOffset + modifier * i, yOffset + 3 * modifier - (modifier * (flipY ? 2 : 0)),
+						(xTile + i) + (yTile + 3) * getSpriteSheet().boxes, color, false, flipY, 1, getSpriteSheet());
+
+				// Body 5
+				screen.render(xOffset + modifier * i, yOffset + 4 * modifier - (modifier * (flipY ? 4 : 0)),
+						(xTile + i) + (yTile + 4) * getSpriteSheet().boxes, color, false, flipY, 1, getSpriteSheet());
+
+			}
 		}
 
 	}

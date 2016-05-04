@@ -1,19 +1,17 @@
 package game.entities.vehicles;
 
-import game.Display;
-import game.InputHandler;
-import game.entities.Entity;
-import game.entities.FireEntity;
-import game.entities.Mob;
-import game.entities.Player;
-import game.entities.SolidEntity;
-import game.graphics.JJFont;
-import game.graphics.Screen;
-import game.graphics.SpriteSheet;
-
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import game.Display;
+import game.entities.Damageable;
+import game.entities.Entity;
+import game.entities.Player;
+import game.entities.SolidEntity;
+import game.entities.particles.HealthBar;
+import game.graphics.JJFont;
+import game.graphics.Screen;
+import game.graphics.SpriteSheet;
 import level.Level;
 import level.tile.Tile;
 import utility.Direction;
@@ -22,7 +20,7 @@ import utility.Direction;
  * A vehicle can be ridden by the player
  * Vehicles must continue the render() method
  */
-public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
+public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Damageable {
 
 	private static final long serialVersionUID = -190937210314016793L;
 
@@ -65,6 +63,9 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 	// the max health (upper bound)
 	private int maxHealth;
 
+	// the direction the vehicle is facing
+	private Direction direction;
+
 	/**
 	 * Creates a Vehicle
 	 * 
@@ -97,6 +98,8 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 		this.maxHealth = maxHealth;
 
 		setBounds(getX(), getY(), width, height);
+
+		level.addEntity(new HealthBar(level, getX(), getY() + height + 2, this));
 	}
 
 	/**
@@ -167,7 +170,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 	 *            the y offset
 	 * @return true if the new tile is solid
 	 */
-	private boolean isSolidTile(int dx, int dy, int x, int y) {
+	protected boolean isSolidTile(int dx, int dy, int x, int y) {
 
 		// tile the mob is on (bottom half)
 		Tile lastTile = getLevel().getTile((getX() + x) >> 3, (getY() + y) >> 3);
@@ -177,7 +180,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 
 		// checking the last tile allows the player to move through solids if
 		// already on a solid
-		if (!lastTile.equals(newTile) && newTile.isSolid()) {
+		if (!lastTile.equals(newTile) && (newTile.isSolid() || newTile == Tile.WATER)) {
 			return true;
 		}
 		return false;
@@ -188,12 +191,9 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 	 */
 	public void tick() {
 
-		// change in x and y
-		int dx = 0, dy = 0;
-
 		// vehicle will always try to slow down
 		isXSlowingDown = isYSlowingDown = true;
-		
+
 		// check for input
 		if (isUsed()) {
 
@@ -238,16 +238,11 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 					Display.displayPause();
 				}
 			}
-			
+
 			// TODO Change the way this works to exit vehicles
 			if (player.getInput().e.isPressed()) {
-				int distance = -6;
-				if (this instanceof Car) {
-					distance = -15;
-				}
 				player.getInput().e.toggle(false);
 				exit();
-
 			}
 
 		}
@@ -257,34 +252,15 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 			return;
 		}
 
-		xa += acceleration.x;
-		ya += acceleration.y;
+		// change in x and y
+		int dx = 0, dy = 0;
 
-		if ((xa != 0 || ya != 0) && !isSolidEntityCollision(xa * (int) speed, ya * (int) speed)) {
-			move(xa, ya);
-			setMoving(true);
-			if (isUsed)
-				player.setMoving(true);
-		} else {
-			if (isSolidEntityCollision(xa * (int) speed, 0)) {
-				acceleration.x = 0;
-			}
-			if (isSolidEntityCollision(0, ya * (int) speed)) {
-				acceleration.y = 0;
-			}
-			setMoving(false);
-			if (isUsed)
-				player.setMoving(false);
-		}
-		
-		if (isMobCollision() && this.isMoving()) {
-			for (Mob mob : level.getMobs()) {
-				if (!(mob == this || mob instanceof Player)) {
-					if (mob.getBounds().intersects(this.getBounds()))
-						mob.damage(3, 15);
-				}
-			}
-		}
+		// move the mob
+		dx += acceleration.x * speed;
+		dy += acceleration.y * speed;
+
+		if (dx != 0 || dy != 0)
+			move(dx, dy);
 
 		if (tickCount % DELAY == 0) {
 			if (isXSlowingDown) {
@@ -306,6 +282,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 		}
 
 		tickCount++;
+
 		if (showCantExitVehicle) {
 			exitTickCount++;
 			if (exitTickCount >= 60) {
@@ -314,7 +291,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 			}
 		}
 	}
-	
+
 	/**
 	 * Moves a vehicle on the level
 	 * 
@@ -326,11 +303,19 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 	public void move(int dx, int dy) {
 
 		int sign = 0;
+
+		// assigns direction
 		if (dx < 0) {
+			setDirection(Direction.WEST);
 			sign = 1;
 		} else if (dx > 0) {
+			setDirection(Direction.EAST);
 			sign = -1;
 		}
+		if (dy < 0)
+			setDirection(Direction.NORTH);
+		else if (dy > 0)
+			setDirection(Direction.SOUTH);
 
 		// move pixel by pixel for maximum accuracy
 		for (int i = 0; i < Math.abs(dx); i++) {
@@ -338,6 +323,8 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 				super.move(1 * sign, 0);
 				if (isSolidEntityCollision()) {
 					super.move(-1 * sign, 0);
+					acceleration.x = 0;
+					return;
 				}
 			} else {
 				break;
@@ -356,13 +343,23 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 				super.move(0, 1 * sign);
 				if (isSolidEntityCollision()) {
 					super.move(0, -1 * sign);
+					acceleration.y = 0;
+					return;
 				}
 			} else {
 				break;
 			}
 		}
 	}
-	
+
+	/**
+	 * @param dir
+	 *            the direction the vehicle is facing
+	 */
+	private void setDirection(Direction dir) {
+		this.direction = dir;
+	}
+
 	/**
 	 * Checks if the new position collides with a solid entity
 	 * 
@@ -378,7 +375,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 		for (Entity entity : getLevel().getEntities()) {
 			if (entity instanceof SolidEntity && getBounds().intersects(entity.getBounds())) {
 				return true;
-			} 
+			}
 		}
 
 		return false;
@@ -389,7 +386,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 	 */
 	public void render(Screen screen) {
 		if (isUsed() && showCantExitVehicle) {
-			JJFont.render("!", screen, player.getX() - 20, player.getY(),
+			JJFont.render("!", screen, player.getX() - 8, player.getY(),
 					new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
 		}
 	}
@@ -430,6 +427,58 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * @return true if the vehicle is moving
+	 */
+	public boolean isMoving() {
+		return acceleration.x != 0 || acceleration.y != 0;
+	}
+
+	/**
+	 * @return the damage inflicted when a mob is hit by this vehicle
+	 */
+	public int getDamage() {
+		return 5;
+	}
+
+	/**
+	 * Decreases a vehicle's health
+	 * 
+	 * @param damage
+	 *            the value of damage
+	 */
+	public void damage(int damage) {
+		this.health -= damage;
+	}
+
+	/**
+	 * Fully heals the vehicle
+	 */
+	public void heal() {
+		this.health = this.maxHealth;
+	}
+
+	/**
+	 * @return the vehicle's max health
+	 */
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	/**
+	 * @return the vehicle's current health
+	 */
+	public int getCurrentHealth() {
+		return health;
+	}
+	
+	/**
+	 * @return the direction the vehicle is facing
+	 */
+	public Direction getDirection() {
+		return direction;
 	}
 
 }
