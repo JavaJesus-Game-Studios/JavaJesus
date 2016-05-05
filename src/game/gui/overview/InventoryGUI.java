@@ -47,10 +47,10 @@ public class InventoryGUI extends ScreenGUI {
 		JPanel body = new JPanel(new GridLayout(NUM_ROWS, 1));
 		((GridLayout) body.getLayout()).setVgap(-10);
 
-		r1 = new InventoryRow("Guns", (ArrayList<Item>) inventory.guns);
-		r2 = new InventoryRow("Swords", (ArrayList<Item>) inventory.swords);
-		r3 = new InventoryRow("Usables", (ArrayList<Item>) inventory.usables);
-		r4 = new InventoryRow("Misc", (ArrayList<Item>) inventory.misc);
+		r1 = new InventoryRow("Guns", (ArrayList<Item>) inventory.getGuns());
+		r2 = new InventoryRow("Swords", (ArrayList<Item>) inventory.getSwords());
+		r3 = new InventoryRow("Usables", (ArrayList<Item>) inventory.getConsumables());
+		r4 = new InventoryRow("Misc", (ArrayList<Item>) inventory.getMisc());
 
 		body.add(r1);
 		body.add(r2);

@@ -1,116 +1,165 @@
 package items;
 
-import game.entities.Player;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * A container that holds various items 
+ */
 public class Inventory implements Serializable {
 
 	private static final long serialVersionUID = 2802272780270201723L;
-	
-	public List<Item> items = new ArrayList<Item>();
-	public List<Item> guns = new ArrayList<Item>();
-	public List<Item> swords = new ArrayList<Item>();
-	public List<Item> usables = new ArrayList<Item>();
-	public List<Item> misc = new ArrayList<Item>();
-	
-	private Player player;
-	
-	public Inventory(Player player) {
+
+	// list of all items
+	private final List<Item> items = new ArrayList<Item>();
+
+	// all guns
+	private final List<Item> guns = new ArrayList<Item>();
+
+	// all swords
+	private final List<Item> swords = new ArrayList<Item>();
+
+	// all usables
+	private final List<Item> usables = new ArrayList<Item>();
+
+	// everything else
+	private final List<Item> misc = new ArrayList<Item>();
+
+	// the most recently used sword
+	private Sword selectedSword;
+
+	// the most recently used gun
+	private Gun selectedGun;
+
+	// the current armor in use
+	private Armor selectedArmor;
+
+	/**
+	 * Creates an inventory
+	 */
+	public Inventory() {
 		giveDefaultItems();
-		this.player = player;
 	}
 
-	public Sword getSword() {
-		for (Item e : items) {
-			if (e instanceof Sword) {
-				((Sword) e).addPlayer(player);
-				return (Sword) e;
-			}
+	/**
+	 * @return the most recently used sword
+	 */
+	public final Sword getSword() {
+		return selectedSword;
+	}
+
+	/**
+	 * @return the most recently used gun
+	 */
+	public final Gun getGun() {
+		return selectedGun;
+	}
+
+	/**
+	 * @return the armor in use
+	 */
+	public final Armor getArmor() {
+		return selectedArmor;
+	}
+
+	/**
+	 * @param gun
+	 *            the selected gun
+	 */
+	public final void select(Gun gun) {
+		selectedGun = gun;
+	}
+
+	/**
+	 * @param armor
+	 *            the selected armor
+	 */
+	public final void select(Armor armor) {
+		selectedArmor = armor;
+	}
+
+	/**
+	 * @param sword
+	 *            the selected sword
+	 */
+	public final void select(Sword sword) {
+		selectedSword = sword;
+	}
+
+	/**
+	 * Handles what happens when an item is selected
+	 * 
+	 * @param item
+	 *            the item clicked
+	 */
+	public final void select(Item item) {
+
+		item.use();
+		if (item.getQuantity() == 0) {
+			remove(item);
 		}
-		return null;
+
 	}
 
-	public void equip(Armor armor) {
-		player.equip(armor);
-	}
-
-	public void equip(Item item) {
-		if (item instanceof Armor) {
-			this.equip((Armor) item);
-			return;
-		}
-		items.remove(item);
-		items.add(0, item);
-		if (!(item instanceof Gun || item instanceof Sword)) {
-			removeItem(item);
-			player.changeHealth(10);
-			player.stamina = player.startStamina;
-			if (player.getHealth() > player.getStartHealth()) {
-				player.heal();
-			}
-		}
-		player.equip();
-	}
-
-	public Gun getGun() {
-		for (Item e : items) {
-			if (e instanceof Gun) {
-				return (Gun) e;
-			}
-		}
-		return null;
-	}
-
+	/**
+	 * Initial items in the list
+	 */
 	private void giveDefaultItems() {
-		addItem(Item.apple);
-		addItem(Item.shortSword);
-		addItem(Item.longSword);
-		addItem(Item.claymore);
-		addItem(Item.sabre);
-		addItem(Item.heavenlySword);
-		addItem(Item.heavenlyShortSword);
-		addItem(Item.kingSword);
-		
-		addItem(Item.revolver);
-		addItem(Item.laserRevolver);
-		addItem(Item.assaultRifle);
-		addItem(Item.shotgun);
-		addItem(Item.crossBow);
+
+		add(Item.apple);
+		add(Item.shortSword);
+		add(Item.longSword);
+		add(Item.claymore);
+		add(Item.sabre);
+		add(Item.heavenlySword);
+		add(Item.heavenlyShortSword);
+		add(Item.kingSword);
+
+		add(Item.revolver);
+		add(Item.laserRevolver);
+		add(Item.assaultRifle);
+		add(Item.shotgun);
+		add(Item.crossBow);
 	}
 
-	public void addItem(Item item) {
-		int num = item.id;
+	/**
+	 * Adds an item to the inventory
+	 * 
+	 * @param item
+	 *            the new item
+	 */
+	public void add(Item item) {
+
+		// checks if the item is already added
 		for (Item e : items) {
-			if (e.id == num) {
-				e.amount++;
+			if (e == item) {
+				e.take();
 				return;
 			}
 		}
+
+		// adds the item to the lists
 		if (item instanceof Gun) {
-			guns.add(item);
+			guns.add((Gun) item);
 		} else if (item instanceof Sword) {
-			swords.add(item);
+			swords.add((Sword) item);
 		} else if (item instanceof Armor) {
 			misc.add(item);
 		} else {
 			usables.add(item);
 		}
+
 		items.add(item);
 	}
 
-	public void removeItem(Item item) {
-		String ident = item.toString();
-		for (Item e : items) {
-		    if (e.toString().equals(ident)) {
-				if (item.amount > 1) {
-					item.amount--;
-					return;
-				}
-			}
-		}
+	/**
+	 * Removes an item from the inventory
+	 * 
+	 * @param item
+	 */
+	public void remove(Item item) {
+
 		if (item instanceof Gun) {
 			guns.remove(item);
 		} else if (item instanceof Sword) {
@@ -121,42 +170,86 @@ public class Inventory implements Serializable {
 		items.remove(item);
 	}
 
+	/**
+	 * Sorts items alphabetically
+	 */
 	public void sortItemsAlphabetically() {
-		int[] tempList = new int[items.size()];
-		String tempString = items.get(0).name;
-		for (int i = 0; i < tempList.length; i++) {
-			for (int j = 1; j < tempList.length; j++) {
-				if (tempString.compareToIgnoreCase(items.get(j).name) > 0) {
-					tempString = items.get(j).name;
-					tempList[i] = j;
+
+		// like a bubble sort
+		for (int i = 1; i < items.size(); i++) {
+
+			// index of the item with the smallest name
+			int low = i;
+
+			for (int j = i + 1; j < items.size(); j++) {
+
+				// moves the smallest name to the bottom
+				if (items.get(j).getName().compareToIgnoreCase(items.get(low).getName()) < 0) {
+					low = j;
 				}
 			}
-			items.add(items.get(tempList[i]));
-			items.set(tempList[i], new Item("ZZZZZZZ", Integer.MAX_VALUE, 0, 0,
-					new int[] { 0, 0, 0 }, "Filler object"));
-			tempString = items.get(0).name;
+
+			// swap the elements
+			Item temp = items.get(i);
+			items.set(i, items.get(low));
+			items.set(low, temp);
+
 		}
-		for (int i = 0; i < tempList.length; i++)
-			items.remove(0);
 	}
 
+	/**
+	 * Sorts items by ID
+	 */
 	public void sortItemsByID() {
-		int[] tempList = new int[items.size()];
-		int tempNum = Integer.MAX_VALUE;
-		for (int i = 0; i < tempList.length; i++) {
-			for (int j = 0; j < tempList.length; j++) {
-				if (items.get(j).id < tempNum) {
-					tempNum = items.get(j).id;
-					tempList[i] = j;
+
+		// like a bubble sort
+		for (int i = 1; i < items.size(); i++) {
+
+			// index of the item with the smallest ID
+			int low = i;
+
+			for (int j = i + 1; j < items.size(); j++) {
+
+				// moves the smallest ID to the bottom
+				if (items.get(j).getId() < items.get(low).getId()) {
+					low = j;
 				}
 			}
-			items.add(items.get(tempList[i]));
-			items.set(tempList[i], new Item("ZZZZZZZ", Integer.MAX_VALUE, 0, 0,
-					new int[] { 0, 0, 0 }, "Filler object"));
-			tempNum = Integer.MAX_VALUE;
+
+			// swap the elements
+			Item temp = items.get(i);
+			items.set(i, items.get(low));
+			items.set(low, temp);
+
 		}
-		for (int i = 0; i < tempList.length; i++)
-			items.remove(0);
+	}
+
+	/**
+	 * @return a list of the guns in this inventory
+	 */
+	public final List<Item> getGuns() {
+		return guns;
+	}
+
+	/**
+	 * @return a list of the guns in this inventory
+	 */
+	public final List<Item> getSwords() {
+		return swords;
+	}
+
+	/**
+	 * @return a list of the guns in this inventory
+	 */
+	public final List<Item> getConsumables() {
+		return usables;
+	}
+
+	/**
+	 * @return a list of the guns in this inventory
+	 */
+	public final List<Item> getMisc() {
+		return misc;
 	}
 
 }

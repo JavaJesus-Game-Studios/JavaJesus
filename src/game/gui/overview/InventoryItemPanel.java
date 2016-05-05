@@ -75,7 +75,7 @@ public class InventoryItemPanel extends JPanel implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		SoundHandler.play(SoundHandler.click);
-		Game.player.getInventory().equip(item);
+		Game.player.getInventory().select(item);
 		InventoryGUI.update();
 	}
 

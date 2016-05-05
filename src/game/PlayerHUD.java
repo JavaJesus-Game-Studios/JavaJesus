@@ -16,7 +16,7 @@ public class PlayerHUD {
 
 	// the player to use
 	private Player player;
-	
+
 	// the different gun types
 	private BufferedImage assaultRifle, crossbow, laserRevolver, revolver, shotgun, bazooka;
 
@@ -49,7 +49,8 @@ public class PlayerHUD {
 		BufferedImage gun = getGunType();
 		if (gun != null) {
 			g.drawImage(gun, XOFFSET, YOFFSET, gun.getWidth() * MODIFIER, gun.getHeight() * MODIFIER, null);
-			g.drawString((int) player.getInventory().getGun().ammo + " / " + player.getInventory().getGun().clipSize, XOFFSET, AMMO_OFFSET);
+			g.drawString((int) player.getInventory().getGun().getCurrentAmmo() + " / " + player.getInventory().getGun().getClipSize(),
+					XOFFSET, AMMO_OFFSET);
 		}
 
 		// draws the health bar
@@ -61,8 +62,8 @@ public class PlayerHUD {
 
 		// draws the shield bar
 		g.setColor(Color.blue);
-		g.fillRect(BAR_OFFSET, YOFFSET + BAR_VSPACE, (int) (BAR_WIDTH_MODIFIER * (player.getCurrentShield() / player.getMaxShield())),
-				BAR_HEIGHT);
+		g.fillRect(BAR_OFFSET, YOFFSET + BAR_VSPACE,
+				(int) (BAR_WIDTH_MODIFIER * (player.getCurrentShield() / player.getMaxShield())), BAR_HEIGHT);
 
 		// draws the stamina bar
 		g.setColor(Color.green);
@@ -79,18 +80,18 @@ public class PlayerHUD {
 		if (player == null || player.getInventory().getGun() == null) {
 			return null;
 		}
-		switch (player.getInventory().getGun().gunType) {
-		case 0:
+		switch (player.getInventory().getGun().getName()) {
+		case "Revolver":
 			return revolver;
-		case 1:
+		case "Laser Revolver":
 			return laserRevolver;
-		case 2:
+		case "Shotgun":
 			return shotgun;
-		case 3:
+		case "Assault Rifle":
 			return assaultRifle;
-		case 4:
+		case "Crossbow":
 			return crossbow;
-		case 5:
+		case "Bazooka":
 			return bazooka;
 		default:
 			return null;

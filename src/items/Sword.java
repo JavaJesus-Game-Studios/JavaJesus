@@ -152,7 +152,16 @@ public class Sword extends Item {
 		}
 	}
 
-	public void render(Screen screen) {
+	/**
+	 * Some items require the player to have additional animations that aren't
+	 * available normally for the player
+	 * 
+	 * Delegate the rendering calls of the player here
+	 * 
+	 * @param screen the screen to display it on
+	 * @param player the player to display
+	 */
+	public void renderPlayer(Screen screen, Player player) {
 		if (!isSwinging)
 			return;
 		if (player != null) {

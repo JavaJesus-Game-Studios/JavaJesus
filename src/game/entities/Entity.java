@@ -82,7 +82,7 @@ public abstract class Entity implements Serializable {
 	/** 
 	 * @return the bounds of the entity
 	 */
-	public Rectangle getBounds() {
+	public final Rectangle getBounds() {
 		return bounds;
 	}
 	

@@ -16,6 +16,7 @@ import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 import game.gui.overview.InventoryGUI;
 import items.Armor;
+import items.Bazooka;
 import items.Inventory;
 import items.Item;
 import level.Level;
@@ -112,7 +113,7 @@ public class Player extends Mob implements Skills {
 	public Player(Level level, int x, int y) {
 		super(level, "", x, y, 1, SIZE, SIZE, SpriteSheet.player, START_HEALTH);
 
-		inventory = new Inventory(this);
+		inventory = new Inventory();
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
 
@@ -183,6 +184,16 @@ public class Player extends Mob implements Skills {
 		// do basic checks
 		super.tick();
 
+		// update the gun
+		if (inventory.getGun() != null) {
+			inventory.getGun().tick();
+		}
+
+		// update the sword
+		if (inventory.getSword() != null) {
+			inventory.getSword().tick();
+		}
+
 		// the change in x and y (movement)
 		int dx = 0, dy = 0;
 
@@ -205,7 +216,17 @@ public class Player extends Mob implements Skills {
 		// shooting keys
 		if (input.up.isPressed() || input.down.isPressed() || input.left.isPressed() || input.right.isPressed()) {
 
-			isShooting = !isSwinging && !isSwimming && inventory.getGun() != null && !inventory.getGun().isReloading;
+			if (isShooting = !isSwinging && !isSwimming && inventory.getGun() != null
+					&& !inventory.getGun().isReloading()) {
+
+				// horizontal bullet offset
+				int bulletOffset = shootingDir == Direction.EAST ? 2 * UNIT_SIZE + 1 : -1;
+
+				// fire the gun
+				if (inventory.getGun() != null) {
+					inventory.getGun().fire(getX() + bulletOffset, getY() + 3, shootingDir, this);
+				}
+			}
 
 		}
 
@@ -248,7 +269,7 @@ public class Player extends Mob implements Skills {
 		// reload
 		if (input.r.isPressed()) {
 			if (inventory.getGun() != null) {
-				inventory.getGun().reload();
+				inventory.getGun().reload(inventory);
 				input.r.toggle(false);
 			}
 		}
@@ -384,35 +405,26 @@ public class Player extends Mob implements Skills {
 		if (input.up.isPressed()) {
 			shootingDir = Direction.NORTH;
 			if (isShooting) {
-				inventory.getGun().fire(getLevel(), getX() + 4, getY(), shootingDir, this);
+				inventory.getGun().fire(getX() + 4, getY(), shootingDir, this);
 			}
 		}
 		if (input.down.isPressed()) {
 			shootingDir = Direction.SOUTH;
 			if (isShooting) {
-				inventory.getGun().fire(getLevel(), getX() + 4, getY() + 8, shootingDir, this);
+				inventory.getGun().fire(getX() + 4, getY() + 8, shootingDir, this);
 			}
 		}
 		if (input.left.isPressed()) {
 			shootingDir = Direction.WEST;
 			if (isShooting) {
-				inventory.getGun().fire(getLevel(), getX(), getY() + 4, shootingDir, this);
+				inventory.getGun().fire(getX(), getY() + 4, shootingDir, this);
 			}
 		}
 		if (input.right.isPressed()) {
 			shootingDir = Direction.EAST;
 			if (isShooting) {
-				inventory.getGun().fire(getLevel(), getX() + 8, getY() + 4, shootingDir, this);
+				inventory.getGun().fire(getX() + 8, getY() + 4, shootingDir, this);
 			}
-		}
-
-		// TODO Look into this
-		if (inventory.getGun() != null) {
-			inventory.getGun().tick();
-		}
-
-		if (inventory.getSword() != null) {
-			inventory.getSword().tick();
 		}
 
 		// spawn demon cooldown loop
@@ -439,7 +451,7 @@ public class Player extends Mob implements Skills {
 
 		// get the contents
 		for (Item e : chest.getContents()) {
-			inventory.addItem(e);
+			inventory.add(e);
 			ChatHandler.displayText("You have obtained " + e, Color.GREEN);
 		}
 		InventoryGUI.update();
@@ -512,18 +524,30 @@ public class Player extends Mob implements Skills {
 
 		// Handles Shooting Animation
 		if (isShooting) {
+			
+			// bazooka is special :)
+			if (inventory.getGun() instanceof Bazooka) {
+				((Bazooka) inventory.getGun()).renderPlayer(screen, this);
+				return;
+			}
 
 			// tile positions for player
 			xTile = 0;
-			yTile = inventory.getGun().playerOffset;
+			yTile = inventory.getGun().getPlayerOffset();
 
 			if (getDirection() == Direction.NORTH) {
-				xTile = 8;
+				xTile = 8 + (flip ? 2 : 0);
+				if (!isMoving)
+					xTile = 10;
 			}
 			if (getDirection() == Direction.SOUTH) {
-				xTile = 4;
+				xTile = 4 + (flip ? 2 : 0);
+				if (!isMoving)
+					xTile = 6;
 			} else if (isLatitudinal()) {
-				xTile = isMoving ? 0 : 2;
+				xTile = flip ? 2 : 0;
+				if (!isMoving)
+					xTile = 2;
 				flip = getDirection() == Direction.WEST;
 			}
 
@@ -544,20 +568,10 @@ public class Player extends Mob implements Skills {
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
 					(xTile + 1) + (yTile + 1) * sheet.boxes, color, flip, getScale(), sheet);
 
-			// horizontal bullet offset
-			int bulletOffset = shootingDir == Direction.EAST ? 2 * modifier + 1 : -1;
-
-			// fire the gun
-			// TODO this shouldn't be under render
-			if (inventory.getGun() != null) {
-				inventory.getGun().fire(getLevel(), getX() + bulletOffset, getY() + 3, shootingDir, this);
-			}
-
 		}
-
 		// Handles Swinging Animation
 		if (isSwinging) {
-			inventory.getSword().render(screen);
+			inventory.getSword().renderPlayer(screen, this);
 		}
 
 	}
@@ -671,8 +685,8 @@ public class Player extends Mob implements Skills {
 		heal();
 		this.maxShield = 1000;
 		this.shield = maxShield;
-		inventory.addItem(Item.blackHoleGun);
-		inventory.addItem(Item.bazooka);
+		inventory.add(Item.blackHoleGun);
+		inventory.add(Item.bazooka);
 	}
 
 	/**
@@ -786,6 +800,20 @@ public class Player extends Mob implements Skills {
 	 */
 	public InputHandler getInput() {
 		return input;
+	}
+
+	/**
+	 * @return the number of steps the player has taken
+	 */
+	public int getNumSteps() {
+		return numSteps;
+	}
+	
+	/**
+	 * @return true if the player is moving
+	 */
+	public boolean isMoving() {
+		return isMoving;
 	}
 
 }

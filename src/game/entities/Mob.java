@@ -864,7 +864,7 @@ public class Mob extends Entity implements Damageable {
 	/**
 	 * @return the rendering scale of the mob
 	 */
-	protected int getScale() {
+	public int getScale() {
 		return scale;
 	}
 

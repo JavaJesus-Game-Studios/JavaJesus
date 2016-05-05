@@ -60,7 +60,7 @@ public class Pickup extends Particle {
 	public void tick() {
 		if (getBounds().intersects(Game.player.getBounds())) {
 			for (int i = 0; i < quantity; i++)
-				Game.player.getInventory().addItem(item);
+				Game.player.getInventory().add(item);
 			SoundHandler.play(SoundHandler.click);
 			getLevel().remEntity(this);
 		}
