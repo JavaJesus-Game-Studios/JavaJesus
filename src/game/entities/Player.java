@@ -238,6 +238,8 @@ public class Player extends Mob implements Skills {
 				if (input.shift.isPressed() && stamina > 20) {
 					stamina -= 20;
 					inventory.getSword().swing(getLevel(), getX(), getY(), getDirection(), true);
+				} else {
+					inventory.getSword().swing(getLevel(), getX(), getY(), getDirection(), false);
 				}
 			}
 		}
