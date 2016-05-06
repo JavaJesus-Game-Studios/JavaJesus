@@ -191,7 +191,8 @@ public class Player extends Mob implements Skills {
 
 		// update the sword
 		if (inventory.getSword() != null) {
-			inventory.getSword().tick();
+			inventory.getSword().tick(getLevel(), getX(), getY());
+			setDirection(inventory.getSword().getDirection());
 		}
 
 		// the change in x and y (movement)
@@ -233,8 +234,11 @@ public class Player extends Mob implements Skills {
 		// swing key
 		if (input.space.isPressed()) {
 			if (!isShooting && !isSwimming && !isSwinging && inventory.getSword() != null) {
-				inventory.getSword().swing();
-				isSwinging = true;
+
+				if (input.shift.isPressed() && stamina > 20) {
+					stamina -= 20;
+					inventory.getSword().swing(getLevel(), getX(), getY(), getDirection(), true);
+				}
 			}
 		}
 
@@ -347,9 +351,9 @@ public class Player extends Mob implements Skills {
 			input.v.toggle(false);
 		}
 
-		// TODO repetitive
+		// sets the status of the sword
 		if (inventory.getSword() != null) {
-			isSwinging = inventory.getSword().isSwinging;
+			isSwinging = inventory.getSword().isSwinging();
 		}
 
 		// determines if the player is going to move
@@ -524,7 +528,7 @@ public class Player extends Mob implements Skills {
 
 		// Handles Shooting Animation
 		if (isShooting) {
-			
+
 			// bazooka is special :)
 			if (inventory.getGun() instanceof Bazooka) {
 				((Bazooka) inventory.getGun()).renderPlayer(screen, this);
@@ -571,7 +575,7 @@ public class Player extends Mob implements Skills {
 		}
 		// Handles Swinging Animation
 		if (isSwinging) {
-			inventory.getSword().renderPlayer(screen, this);
+			inventory.getSword().render(screen, xOffset, yOffset, getColor());
 		}
 
 	}
@@ -808,7 +812,7 @@ public class Player extends Mob implements Skills {
 	public int getNumSteps() {
 		return numSteps;
 	}
-	
+
 	/**
 	 * @return true if the player is moving
 	 */

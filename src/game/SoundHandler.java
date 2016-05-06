@@ -234,7 +234,7 @@ public class SoundHandler {
 	/**
 	 * Randomly selects a short sword sound to play
 	 */
-	public void playShortSword() {
+	public static void playShortSword() {
 		if (!muted) {
 			Clip clip;
 			Random random = new Random();

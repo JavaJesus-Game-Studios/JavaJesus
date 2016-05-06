@@ -1,115 +1,214 @@
 package items;
 
 import java.awt.Rectangle;
-import java.util.ArrayList;
 
 import game.SoundHandler;
 import game.entities.Mob;
-import game.entities.Player;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
+import level.Level;
 import utility.Direction;
 
+/*
+ * A sword is an item that also renders a swinging animation for the player
+ */
 public class Sword extends Item {
 
 	private static final long serialVersionUID = -3339710504468683415L;
-	
-	public int swordType;
-	public boolean isCoolingDown = false;
-	private int COOLDOWN_TIME;
-	private int cooldownTicks = 0;
-	private int damage;
-	private Player player;
-	public boolean isSwinging = false;
-	private Rectangle hitBox;
-	ArrayList<Mob> mobsHit = new ArrayList<Mob>();
-	private int swordX;
-	private int swordY;
-	private SpriteSheet sheet = SpriteSheet.swords;
-	private boolean isLong;
 
-	private int[] powerPoints;
+	// whether or not the sword is in cooldown
+	private boolean cooldown;
+
+	// the number of ticks between swings
+	private int cooldownTime;
+
+	// tracks the time elapsed for cooldown
+	private int cooldownTicks;
+
+	// damage per swing
+	private int damage;
+
+	// whether or not the player is swinging
+	private boolean isSwinging;
+
+	// cooridnates for the player swinging animatino
+	private int xSwingOffset, ySwingOffset;
+
+	// spritesheet for player
+	private static final SpriteSheet sheet = SpriteSheet.swords;
+
+	// the offsets for the power swing positions
+	private int[] powerSwingOffsets;
+
+	// first powerSwingOffset position based on direction
 	private int startPos;
 
-	private boolean powerSwinging = false;
-	private int powerSwingTicks = 0;
-	private int powerSwingModifier = 0;
-	private int powerOffset;
-	private boolean diagonal = false;
+	// current offset in the swing position
+	private int currentPowerOffset;
 
-	public Sword(String name, int id, int xTile, int yTile, int swordX,
-			int swordY, int[] color, String description, int swordType,
-			int cooldown, int damage, int[] powerPoints) {
+	// tracks the time elapsed for the power swing attack
+	private int powerSwingTicks;
+
+	// whether or not the sword is power swinging
+	private boolean powerSwinging;
+
+	// power swing offset modifier that changes the current position
+	// 2 = GREATSWORD (even 2 spaces extra in each)
+	// 1 = the swords with the awkward 1 space in diagonals
+	private int powerSwingModifier;
+
+	// TODO should fix in spritesheet
+	// there is an extra offset when diagonal and facing south
+	private boolean diagonal;
+
+	// the hit area of the sword
+	private Rectangle bounds = new Rectangle();
+
+	// length of the sword
+	private int length;
+
+	// sword bound offsets
+	public static final int SHORT = 4, MEDIUM = 8, LONG = 12;
+
+	// unit size of player
+	private static final int PLAYER_SIZE = 16;
+
+	// base size of each spritesheet square
+	private static final int UNIT_SIZE = 8;
+
+	// the direction of the sword
+	private Direction direction;
+
+	/**
+	 * Creates a Sword defaults to short swords
+	 * 
+	 * @param name
+	 *            the name of the sword
+	 * @param id
+	 *            the unique ID
+	 * @param xTile
+	 *            the xTile on the item sheet
+	 * @param yTile
+	 *            the yTile on the item sheet
+	 * @param xSwingOffset
+	 *            the x offset on the player sheet
+	 * @param ySwingOffset
+	 *            the y offset on the player sheet
+	 * @param color
+	 *            color of the sword
+	 * @param description
+	 *            description of the sword
+	 * @param cooldown
+	 *            the cooldown between swings
+	 * @param damage
+	 *            the damage dealt
+	 * @param powerSwingOffsets
+	 *            the offset points on the player spritesheet for the extended
+	 *            swing
+	 */
+	public Sword(String name, int id, int xTile, int yTile, int xSwingOffset, int ySwingOffset, int[] color,
+			String description, int cooldown, int damage, int[] powerSwingOffsets) {
+		this(name, id, xTile, yTile, xSwingOffset, ySwingOffset, color, description, cooldown, damage,
+				powerSwingOffsets, 0, SHORT);
+
+	}
+
+	/**
+	 * Creates a Sword
+	 * 
+	 * @param name
+	 *            the name of the sword
+	 * @param id
+	 *            the unique ID
+	 * @param xTile
+	 *            the xTile on the item sheet
+	 * @param yTile
+	 *            the yTile on the item sheet
+	 * @param xSwingOffset
+	 *            the x offset on the player sheet
+	 * @param ySwingOffset
+	 *            the y offset on the player sheet
+	 * @param color
+	 *            color of the sword
+	 * @param description
+	 *            description of the sword
+	 * @param cooldown
+	 *            the cooldown between swings
+	 * @param damage
+	 *            the damage dealt
+	 * @param powerSwingOffsets
+	 *            the offset points on the player spritesheet for the extended
+	 *            swing
+	 * @param swingoffset
+	 *            the swing modifier offset inbetween swing animations
+	 * @param length
+	 *            either SHORT, MEDIUM, or LONG
+	 */
+	public Sword(String name, int id, int xTile, int yTile, int xSwingOffset, int ySwingOffset, int[] color,
+			String description, int cooldown, int damage, int[] powerSwingOffsets, int swingoffset, int length) {
 		super(name, id, xTile, yTile, color, description);
-		this.swordType = swordType;
-		this.COOLDOWN_TIME = cooldown;
+		this.cooldownTime = cooldown;
 		this.damage = damage;
-		this.hitBox = new Rectangle(8, 8);
-		this.swordX = swordX;
-		this.swordY = swordY;
-		if (swordY > 0 && swordY < 20) {
-			isLong = true;
-		}
-		this.powerPoints = powerPoints;
-		this.powerOffset = 0;
+		this.xSwingOffset = xSwingOffset;
+		this.ySwingOffset = ySwingOffset;
+		this.length = length;
+		this.powerSwingOffsets = powerSwingOffsets;
+		this.powerSwingModifier = swingoffset;
+
 	}
 
-	public Sword(String name, int id, int xTile, int yTile, int swordX,
-			int swordY, int[] color, String description, int swordType,
-			int cooldown, int damage, int[] powerPoints, int swingoffset) {
-		super(name, id, xTile, yTile, color, description);
-		this.swordType = swordType;
-		this.COOLDOWN_TIME = cooldown;
-		this.damage = damage;
-		this.hitBox = new Rectangle(8, 8);
-		this.swordX = swordX;
-		this.swordY = swordY;
-		if (swordY > 0 && swordY < 20) {
-			isLong = true;
-		}
-		this.powerPoints = powerPoints;
-		this.powerOffset = swingoffset;
-	}
+	/**
+	 * Updates the sword
+	 * 
+	 * @param level
+	 *            the level the mob is on
+	 * @param x
+	 *            the mob's x coord
+	 * @param y
+	 *            the mob'x y coord
+	 */
+	public void tick(Level level, int x, int y) {
 
-	public void addPlayer(Player player) {
-		this.player = player;
-		hitBox.setLocation(player.getBounds().x, player.getBounds().y);
-	}
-
-	public void tick() {
-
-		if (player != null && isSwinging) {
-			for (Mob m : player.getLevel().getMobs()) {
-				if (m != player && !mobsHit.contains(m)
-						&& this.hitBox.intersects(m.getBounds())) {
-					m.damage(damage, damage + 2);
-					mobsHit.add(m);
-				}
-			}
-		}
-
-		if (isCoolingDown) {
+		// timer for the cooldown
+		if (cooldown) {
 			cooldownTicks++;
 		}
 
-		if (cooldownTicks % COOLDOWN_TIME == 0) {
+		// timer for the cooldown
+		if (cooldownTicks >= cooldownTime) {
 			cooldownTicks = 0;
-			isCoolingDown = false;
-			isSwinging = false;
+			cooldown = isSwinging = false;
 		}
 
+		// update the directions and sprites if power swinging
 		if (powerSwinging) {
-			powerSwingTicks++;
-			if (powerSwingTicks % (COOLDOWN_TIME / 5) == 0) {
-				powerSwingModifier += 2;
-				if (powerOffset == 2) {
-					powerSwingModifier += 2;
-				}else if (player.isLatitudinal(player.getDirection())
-						|| (diagonal && powerOffset == 1)) {
-					powerSwingModifier++;
+
+			// update the area box
+			updateBounds(x, y);
+
+			// hit da mobs
+			attackMobs(level);
+
+			if (++powerSwingTicks % (cooldownTime / 5) == 0) {
+
+				// increment the current phase by at least 2 (always) on the
+				// spritesheet
+				currentPowerOffset += 2;
+
+				// long sword will always have two extra boxes
+				if (powerSwingModifier == 2) {
+					currentPowerOffset += 2;
+
+					// east/west always has an extra box, while some medium
+					// diagonal downwardfacing sprites also have an extra box
+				} else if (direction == Direction.EAST || direction == Direction.WEST
+						|| (diagonal && powerSwingModifier == 1)) {
+					currentPowerOffset++;
 				}
-				if (powerSwingTicks == COOLDOWN_TIME) {
-					powerSwingModifier = 0;
+
+				// power swing timer
+				if (powerSwingTicks >= cooldownTime) {
+					currentPowerOffset = 0;
 					powerSwingTicks = 0;
 					powerSwinging = false;
 				}
@@ -118,36 +217,96 @@ public class Sword extends Item {
 
 	}
 
-	public void swing() {
-		if (!isCoolingDown) {
-			isCoolingDown = true;
-			isSwinging = true;
-			mobsHit.clear();
-			SoundHandler.sound.playShortSword();
-			if (player.input.shift.isPressed()) {
-				if (player.stamina > 20) {
-					player.stamina -= 20;
-				} else {
-					powerSwinging = false;
-					return;
-				}
-				powerSwinging = true;
-				switch (player.getDirection()) {
+	/**
+	 * Sets the bounds for attacking enemies
+	 * 
+	 * @param x
+	 *            the mob's x position
+	 * @param y
+	 *            the mob's y position
+	 */
+	private void updateBounds(int x, int y) {
+		switch (direction) {
+		case NORTH:
+			bounds.setBounds(x, y - length, PLAYER_SIZE, length);
+			break;
+		case SOUTH:
+			bounds.setBounds(x, y + PLAYER_SIZE, PLAYER_SIZE, length);
+			break;
+		case WEST:
+			bounds.setBounds(x - length, y, length, PLAYER_SIZE);
+			break;
+		case EAST:
+			bounds.setBounds(x + PLAYER_SIZE, y, length, PLAYER_SIZE);
+			break;
+		default:
+			bounds.setBounds(x, y, PLAYER_SIZE, PLAYER_SIZE);
+			break;
+		}
+	}
+
+	/**
+	 * Swings the sword!
+	 * 
+	 * @param x
+	 *            the mob's x position
+	 * @param y
+	 *            the mob's y position
+	 * @param dir
+	 *            the direction the mob is facing
+	 * @param power
+	 *            whether or not it is a power swing
+	 */
+	public void swing(Level level, int x, int y, Direction dir, boolean power) {
+
+		if (!cooldown) {
+
+			direction = dir;
+
+			// enables power swinging
+			// sets initial offset for power swinging
+			if (powerSwinging = power) {
+				switch (dir) {
 				case NORTH:
-					startPos = powerPoints[3];
+					startPos = powerSwingOffsets[3];
 					break;
 				case SOUTH:
-					startPos = powerPoints[1];
+					startPos = powerSwingOffsets[1];
 					break;
 				case EAST:
-					startPos = powerPoints[2];
+					startPos = powerSwingOffsets[2];
 					break;
 				default:
-					startPos = powerPoints[0];
+					startPos = powerSwingOffsets[0];
 					break;
 				}
-			} else {
-				powerSwinging = false;
+			}
+
+			// update area box
+			updateBounds(x, y);
+
+			// hits mobs
+			attackMobs(level);
+
+			cooldown = isSwinging = true;
+
+			// TODO implement different sounds
+			SoundHandler.playShortSword();
+
+		}
+
+	}
+
+	/**
+	 * Damages mobs in the bounds
+	 * 
+	 * @param level
+	 *            the level to check
+	 */
+	private void attackMobs(Level level) {
+		for (Mob m : level.getMobs()) {
+			if (bounds.intersects(m.getBounds())) {
+				m.damage(damage);
 			}
 		}
 	}
@@ -158,209 +317,179 @@ public class Sword extends Item {
 	 * 
 	 * Delegate the rendering calls of the player here
 	 * 
-	 * @param screen the screen to display it on
-	 * @param player the player to display
+	 * @param screen
+	 *            the screen to display it on
+	 * @param player
+	 *            the player to display TODO fix offsets with modifiers
 	 */
-	public void renderPlayer(Screen screen, Player player) {
-		if (!isSwinging)
-			return;
-		if (player != null) {
-			switch (player.getDirection()) {
-			case NORTH:
-				hitBox.setLocation(player.getBounds().x,
-						player.getBounds().y - 10);
-				break;
-			case SOUTH:
-				hitBox.setLocation(player.getBounds().x,
-						player.getBounds().y + 10);
-				break;
-			case WEST:
-				hitBox.setLocation(player.getBounds().x - 10,
-						player.getBounds().y);
-				break;
-			case EAST:
-				hitBox.setLocation(player.getBounds().x + 10,
-						player.getBounds().y);
-				break;
-			default:
-				hitBox.setLocation(player.getBounds().x, player.getBounds().y);
-				break;
-			}
+	public void render(Screen screen, int xOffset, int yOffset, int[] color) {
 
-		}
-		int xTile = swordX;
-		int yTile = swordY;
-		int[] color = player.getColor();
-		int flip = 0;
-		int modifier = 8 * player.getScale();
-		int xOffset = player.getX() - modifier;
-		int yOffset = player.getY() - modifier;
+		// tile offsets
+		int xTile = xSwingOffset, yTile = ySwingOffset;
 
-		if (player.getDirection() == Direction.NORTH) {
+		// whether to render the player backwards
+		boolean flip = false;
+
+		// base modifier size
+		int modifier = UNIT_SIZE;
+
+		// sprite offset for SIMPLE swing in one direction
+		if (direction == Direction.NORTH) {
 			xTile += 2;
-		} else if (player.isLatitudinal(player.getDirection())) {
-			xTile += 4 + flip * 3;
-			if (player.getDirection() == Direction.WEST) {
-				flip = 1;
-			} else {
-				flip = 0;
-			}
+		} else if (direction == Direction.WEST || direction == Direction.EAST) {
+			flip = direction == Direction.WEST;
+			xTile += 4 + (flip ? 3 : 0);
 		}
 
+		// adjsut offsets for power swinging
 		if (powerSwinging) {
-			if (powerOffset == 2) {
-				if (startPos + powerSwingModifier > powerPoints[3] + 5) {
-					startPos = powerPoints[0];
-					powerSwingModifier = 0;
+
+			// if the sword is long
+			if (powerSwingModifier == 2) {
+
+				// if the swing animation is over, roll back
+				if (startPos + currentPowerOffset > powerSwingOffsets[3] + 5) {
+					startPos = powerSwingOffsets[0];
+					currentPowerOffset = 0;
 				}
-			} else if (startPos + powerSwingModifier > powerPoints[3] + 3) {
-				startPos = powerPoints[0];
-				powerSwingModifier = 0;
-			}
-			xTile = startPos + powerSwingModifier;
-			flip = 0;
-			if (xTile == powerPoints[0]) {
-				player.setDirection(Direction.WEST);
-			} else if (xTile == powerPoints[2]) {
-				player.setDirection(Direction.EAST);
-			} else if (xTile < powerPoints[2]) {
-				player.setDirection(Direction.SOUTH);
-			} else {
-				player.setDirection(Direction.NORTH);
+
+				// short or medium swords, roll back
+			} else if (startPos + currentPowerOffset > powerSwingOffsets[3] + 3) {
+				startPos = powerSwingOffsets[0];
+				currentPowerOffset = 0;
 			}
 
-			if (player.getDirection() == Direction.SOUTH) {
-				if ((xTile < powerPoints[2] && xTile > powerPoints[1])
-						|| (xTile > powerPoints[0] && xTile < powerPoints[1])) {
-					diagonal = true;
-				} else {
-					diagonal = false;
-				}
+			// get the right xTile for power swinging
+			xTile = startPos + currentPowerOffset;
+
+			// do not render backwards
+			flip = false;
+
+			// update the direction
+			if (xTile == powerSwingOffsets[0]) {
+				direction = Direction.WEST;
+			} else if (xTile == powerSwingOffsets[2]) {
+				direction = Direction.EAST;
+			} else if (xTile < powerSwingOffsets[2]) {
+				direction = Direction.SOUTH;
 			} else {
-				diagonal = false;
+				direction = Direction.NORTH;
 			}
+
+			// set diagonal
+			diagonal = direction == Direction.SOUTH && ((xTile < powerSwingOffsets[2] && xTile > powerSwingOffsets[1])
+					|| (xTile > powerSwingOffsets[0] && xTile < powerSwingOffsets[1]));
 
 		}
 
-		if (powerOffset == 2 && powerSwinging) {
-			int num = 2;
-			if (player.getDirection() == Direction.SOUTH) {
-				num = 4;
+		// render the long sword power swinging animation
+		if (powerSwingModifier == 2 && powerSwinging) {
+
+			// long sword
+			for (int i = 0; i < 5; i++) {
+				screen.render(xOffset, yOffset + i * modifier, xTile + (yTile + i) * sheet.boxes, color, sheet);
+
+				screen.render(xOffset + modifier, yOffset + i * modifier, (xTile + 1) + (yTile + i) * sheet.boxes,
+						color, sheet);
+
+				screen.render(xOffset + 2 * modifier, yOffset + i * modifier, (xTile + 2) + (yTile + i) * sheet.boxes,
+						color, sheet);
+
+				screen.render(xOffset + 3 * modifier, yOffset + i * modifier, (xTile + 3) + (yTile + i) * sheet.boxes,
+						color, sheet);
 			}
-			int other = 0;
-			if (player.getDirection() == Direction.NORTH) {
-				other = -1;
-				num = 3;
-			}
-			for (int i = other; i < num; i++) {
-				screen.render(xOffset + (modifier * flip * 3), yOffset + i
-						* modifier, xTile + (yTile + i) * sheet.boxes, color,
-						flip, player.getScale(), sheet);
 
-				screen.render(xOffset + modifier + (modifier * flip), yOffset
-						+ i * modifier,
-						(xTile + 1) + (yTile + i) * sheet.boxes, color, flip,
-						player.getScale(), sheet);
+			// render normal east/west
+		} else if (direction == Direction.EAST || direction == Direction.WEST) {
 
-				screen.render(xOffset + 2 * modifier - (modifier * flip),
-						yOffset + i * modifier, (xTile + 2) + (yTile + i)
-								* sheet.boxes, color, flip, player.getScale(),
-						sheet);
-
-				screen.render(xOffset + 3 * modifier - (modifier * flip * 3),
-						yOffset + i * modifier, (xTile + 3) + (yTile + i)
-								* sheet.boxes, color, flip, player.getScale(),
-						sheet);
-			}
-		} else if (player.isLatitudinal(player.getDirection())) {
-
-			if (player.getDirection() == Direction.WEST && !powerSwinging) {
+			// TODO look into this
+			if (direction == Direction.WEST && !powerSwinging) {
 				xOffset -= modifier;
 			}
 
+			// render east/west display
 			for (int i = 0; i < 2; i++) {
 
-				screen.render(xOffset + (2 * modifier * flip), yOffset
-						+ (modifier * i), xTile + (yTile + i) * sheet.boxes,
-						color, flip, player.getScale(), sheet);
+				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
+						xTile + (yTile + i) * sheet.boxes, color, flip, sheet);
 
-				screen.render(xOffset + modifier, yOffset + (modifier * i),
-						(xTile + 1) + (yTile + i) * sheet.boxes, color, flip,
-						player.getScale(), sheet);
+				screen.render(xOffset + modifier, yOffset + (modifier * i), (xTile + 1) + (yTile + i) * sheet.boxes,
+						color, flip, sheet);
 
-				screen.render(xOffset + 2 * modifier - (2 * modifier * flip),
-						yOffset + (modifier * i), (xTile + 2) + (yTile + i)
-								* sheet.boxes, color, flip, player.getScale(),
-						sheet);
+				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
+						(xTile + 2) + (yTile + i) * sheet.boxes, color, flip, sheet);
 			}
 
+			// north south display
 		} else {
 
-			if (diagonal && powerOffset > 0) {
+			// render the awkward diagonals with an extra space
+			if (diagonal && powerSwingModifier > 0) {
 				for (int i = 0; i < 2; i++) {
 
-					screen.render(xOffset + (2 * modifier * flip), yOffset
-							+ (modifier * i),
-							xTile + (yTile + i) * sheet.boxes, color, flip,
-							player.getScale(), sheet);
+					screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
+							xTile + (yTile + i) * sheet.boxes, color, flip, sheet);
 
-					screen.render(xOffset + modifier, yOffset + (modifier * i),
-							(xTile + 1) + (yTile + i) * sheet.boxes, color,
-							flip, player.getScale(), sheet);
+					screen.render(xOffset + modifier, yOffset + (modifier * i), (xTile + 1) + (yTile + i) * sheet.boxes,
+							color, flip, sheet);
 
-					screen.render(xOffset + 2 * modifier
-							- (2 * modifier * flip), yOffset + (modifier * i),
-							(xTile + 2) + (yTile + i) * sheet.boxes, color,
-							flip, player.getScale(), sheet);
+					screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
+							(xTile + 2) + (yTile + i) * sheet.boxes, color, flip, sheet);
 				}
+
+				// render the normal up down
 			} else {
-				// Upper Body 1
-				screen.render(xOffset + (modifier * flip), yOffset, xTile
-						+ yTile * sheet.boxes, color, flip, player.getScale(),
+
+				// render the core body 2x2
+				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * sheet.boxes, color, flip,
 						sheet);
-				// Upper Body 2
-				screen.render(xOffset + modifier - (modifier * flip), yOffset,
-						(xTile + 1) + yTile * sheet.boxes, color, flip,
-						player.getScale(), sheet);
 
-				// Lower Body 1
-				screen.render(xOffset + (modifier * flip), yOffset + modifier,
-						xTile + (yTile + 1) * sheet.boxes, color, flip,
-						player.getScale(), sheet);
+				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
+						(xTile + 1) + yTile * sheet.boxes, color, flip, sheet);
 
-				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * flip), yOffset
-						+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
-						flip, player.getScale(), sheet);
+				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
+						xTile + (yTile + 1) * sheet.boxes, color, flip, sheet);
 
-				if (player.getDirection() == Direction.SOUTH) {
+				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
+						(xTile + 1) + (yTile + 1) * sheet.boxes, color, flip, sheet);
 
-					// Lower Body 1
-					screen.render(xOffset + (modifier * flip), yOffset + 2
-							* modifier, xTile + (yTile + 2) * sheet.boxes, color, flip,
-							player.getScale(), sheet);
+				// render the extra tip for swords
+				if (direction == Direction.SOUTH) {
 
-					// Lower Body 2
-					screen.render(xOffset + modifier - (modifier * flip),
-							yOffset + 2 * modifier, (xTile + 1) + (yTile + 2)
-									* sheet.boxes, color, flip, player.getScale(),
-							sheet);
+					screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
+							xTile + (yTile + 2) * sheet.boxes, color, flip, sheet);
 
-				} else if (isLong && player.getDirection() == Direction.NORTH) {
+					screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
+							(xTile + 1) + (yTile + 2) * sheet.boxes, color, flip, sheet);
 
-					screen.render(xOffset + (modifier * flip), yOffset
-							- modifier, xTile + (yTile - 1) * sheet.boxes, color, flip,
-							player.getScale(), sheet);
+					// render the extra tip for north
+				} else if (length == MEDIUM && direction == Direction.NORTH) {
 
-					screen.render(xOffset + modifier - (modifier * flip),
-							yOffset - modifier, (xTile + 1) + (yTile - 1) * sheet.boxes,
-							color, flip, player.getScale(), sheet);
+					screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset - modifier,
+							xTile + (yTile - 1) * sheet.boxes, color, flip, sheet);
+
+					screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset - modifier,
+							(xTile + 1) + (yTile - 1) * sheet.boxes, color, flip, sheet);
 
 				}
 
 			}
 		}
 
+	}
+
+	/**
+	 * @return whether or not the sword is swinging
+	 */
+	public boolean isSwinging() {
+		return isSwinging;
+	}
+
+	/**
+	 * @return the direction of the sword
+	 */
+	public Direction getDirection() {
+		return direction;
 	}
 
 }
