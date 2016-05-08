@@ -54,7 +54,7 @@ public class Display extends Canvas {
 			.getData();
 
 	// Processes the in-game screen
-	private Screen screen;
+	private static Screen screen;
 
 	// The graphical overlay of the player stats
 	private PlayerHUD hud;
@@ -216,7 +216,7 @@ public class Display extends Canvas {
 
 		if (inGameScreen) {
 			Game.getLevel().renderTile(screen, xOffset, yOffset);
-			Game.getLevel().renderEntities(screen);
+			Game.getLevel().renderEntities(screen, Game.player);
 		}
 
 		for (int y = 0; y < screen.getHeight(); y++) {
@@ -248,6 +248,10 @@ public class Display extends Canvas {
 	 */
 	public static void stop() {
 		frame.dispose();
+	}
+	
+	public static Screen getScreen() {
+		return screen;
 	}
 
 }

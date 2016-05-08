@@ -1,12 +1,14 @@
 package game.entities.projectiles;
 
+import javax.sound.sampled.Clip;
+
+import game.Hideable;
 import game.SoundHandler;
 import game.entities.Entity;
 import game.entities.Mob;
 import game.entities.SolidEntity;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
-import javax.sound.sampled.Clip;
 import level.Level;
 import level.tile.Tile;
 import utility.Direction;
@@ -14,7 +16,7 @@ import utility.Direction;
 /*
  * A projectile is a fleeting particle that moves very fast across the screen to deal damage
  */
-public abstract class Projectile extends Entity {
+public abstract class Projectile extends Entity implements Hideable {
 
 	private static final long serialVersionUID = 3377536695812898799L;
 
@@ -303,7 +305,14 @@ public abstract class Projectile extends Entity {
 	 * Executes this code when the projectile will be removed
 	 */
 	protected void onDestroyed() {
-		getLevel().remEntity(this);
+		getLevel().remove(this);
+	}
+	
+	/**
+	 * @return true if the projectile is behind a building
+	 */
+	public boolean isBehindBuilding() {
+		return isBehindBuilding;
 	}
 
 }

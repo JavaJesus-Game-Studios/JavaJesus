@@ -62,7 +62,7 @@ public class Pickup extends Particle {
 			for (int i = 0; i < quantity; i++)
 				Game.player.getInventory().add(item);
 			SoundHandler.play(SoundHandler.click);
-			getLevel().remEntity(this);
+			getLevel().remove(this);
 		}
 	}
 

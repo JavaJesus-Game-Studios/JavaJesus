@@ -62,7 +62,7 @@ public class BlackHoleDetonator extends Projectile {
 	@Override
 	protected void onDestroyed() {
 
-		getLevel().addEntity(new BlackHole(getLevel(), getX(), getY()));
+		getLevel().add(new BlackHole(getLevel(), getX(), getY()));
 		super.onDestroyed();
 
 	}

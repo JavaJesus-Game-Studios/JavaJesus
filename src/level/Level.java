@@ -3,25 +3,21 @@ package level;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
 
 import game.Game;
+import game.Hideable;
 import game.SoundHandler;
 import game.entities.Entity;
 import game.entities.Mob;
 import game.entities.Player;
 import game.entities.Spawner;
-import game.entities.particles.HealthBar;
-import game.entities.projectiles.Projectile;
-import game.entities.vehicles.Vehicle;
 import game.graphics.JJFont;
 import game.graphics.Screen;
 import level.tile.Tile;
@@ -49,6 +45,8 @@ public abstract class Level implements Serializable {
 
 	// list of all mobs on the map
 	private List<Mob> mobs = new ArrayList<Mob>(Game.ENTITY_LIMIT);
+
+	private List<Hideable> hideables = new ArrayList<Hideable>(Game.ENTITY_LIMIT);
 
 	// image path to load a level
 	private String imagePath;
@@ -236,19 +234,20 @@ public abstract class Level implements Serializable {
 		}
 	}
 
+	/**
+	 * Updates all entities and tiles on the map
+	 */
 	public void tick() {
 
-		for (Entity e : this.getEntities()) {
-			if (!e.getBounds().intersects(renderRange)) {
-				continue;
-			}
-			if (e instanceof Mob) {
-				if (!((Mob) e).isDead())
-					e.tick();
-			} else
+		// update all entities and living mobs
+		for (Entity e : getEntities()) {
+
+			if (e.getBounds().intersects(renderRange) && (!(e instanceof Mob) || !((Mob) e).isDead())) {
 				e.tick();
+			}
 		}
 
+		// update all tiles
 		for (Tile t : Tile.tiles) {
 			if (t == null) {
 				break;
@@ -257,82 +256,103 @@ public abstract class Level implements Serializable {
 		}
 	}
 
+	/**
+	 * Renders a tile on the screen
+	 * 
+	 * @param screen
+	 *            the screen to display it on
+	 * @param xOffset
+	 *            the xoffset on the screen
+	 * @param yOffset
+	 *            the yoffset on the screen
+	 */
 	public void renderTile(Screen screen, int xOffset, int yOffset) {
+
+		// if the player moves off-screen, fix the tiles in place
 		if (xOffset < 0)
 			xOffset = 0;
-		if (xOffset > ((width << 3) - screen.width))
-			xOffset = ((width << 3) - screen.width);
+
+		if (xOffset > ((width << 3) - screen.getWidth()))
+			xOffset = ((width << 3) - screen.getWidth());
+
 		if (yOffset < 0)
 			yOffset = 0;
-		if (yOffset > ((height << 3) - screen.height))
-			yOffset = ((height << 3) - screen.height);
+
+		if (yOffset > ((height << 3) - screen.getHeight()))
+			yOffset = ((height << 3) - screen.getHeight());
 
 		screen.setOffset(xOffset, yOffset);
 
-		for (int y = (yOffset >> 3); y < (yOffset + screen.height >> 3) + 1; y++) {
-			for (int x = (xOffset >> 3); x < (xOffset + screen.width >> 3) + 1; x++) {
+		// render the tiles visible on the screen
+		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
+			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
 				getTile(x, y).render(screen, this, x << 3, y << 3);
 			}
 
 		}
 	}
 
-	public void renderEntities(Screen screen) {
+	/**
+	 * Displays the entities of the level on the screen
+	 * 
+	 * @param screen
+	 *            the screen to display it on
+	 * @param player
+	 *            the player to render entities around
+	 */
+	public void renderEntities(Screen screen, Player player) {
 
-		renderRange.setLocation(Game.player.getX() - 250, Game.player.getY() - 250);
+		// the range around the player to display the entities
+		renderRange.setLocation(player.getX() - 250, player.getY() - 250);
 
-		for (Entity entity : this.getEntities()) {
-			if (!entity.getBounds().intersects(renderRange)) {
-				continue;
+		// render everything that is behind a building first
+		for (Hideable entity : hideables) {
+
+			if (entity.getBounds().intersects(renderRange) && entity.isBehindBuilding()) {
+				entity.render(screen);
 			}
-			if (entity instanceof Projectile) {
-				Projectile p = (Projectile) entity;
-				if (!p.renderOnTop) {
-					p.render(screen);
-				}
-			}
-			if (entity instanceof Mob) {
-				Mob m = (Mob) entity;
-				if (!m.renderOnTop()) {
-					m.render(screen);
-					if (m.getHealthBar() != null && !m.isDead())
-						m.getHealthBar().render(screen);
-				}
-			}
+
 		}
+
+		// now render everything else on top
 		for (Entity e : this.getEntities()) {
-			if (!e.getBounds().intersects(renderRange)) {
-				continue;
-			}
-			if (!(e instanceof Mob || e instanceof HealthBar || e instanceof Projectile)) {
+			if (e.getBounds().intersects(renderRange)
+					&& (!(e instanceof Hideable) || !((Hideable) e).isBehindBuilding())) {
 				e.render(screen);
 			}
-		}
-		for (Entity entity : this.getEntities()) {
-			if (!entity.getBounds().intersects(renderRange)) {
-				continue;
-			}
-			if (entity instanceof Projectile) {
-				Projectile p = (Projectile) entity;
-				if (p.renderOnTop) {
-					p.render(screen);
-				}
-			}
-			if (entity instanceof Mob) {
-				Mob m = (Mob) entity;
-				if (m.renderOnTop()) {
-					m.render(screen);
-					if (m.getHealthBar() != null && !m.isDead())
-						m.getHealthBar().render(screen);
-				}
-			}
+
 		}
 	}
 
+	/**
+	 * Renders text on the screen
+	 * 
+	 * @param msg
+	 *            message to display
+	 * @param screen
+	 *            the screen to display it on
+	 * @param x
+	 *            the x offset
+	 * @param y
+	 *            the y offset
+	 * @param color
+	 *            the color of the message
+	 * @param scale
+	 *            how big to render it
+	 */
 	public void renderFont(String msg, Screen screen, int x, int y, int[] color, int scale) {
 		JJFont.render(msg, screen, x, y, color, scale);
 	}
 
+	/**
+	 * Gets the tile type at the specified x,y coords
+	 * 
+	 * @param x
+	 *            the x coord in tile coordinates
+	 * @param y
+	 *            the y coord in tile coordinates
+	 * @return the type of tile, VOID if nothing
+	 */
 	public Tile getTile(int x, int y) {
 		if (x < 0 || x >= width || y < 0 || y >= height)
 			return Tile.VOID;
@@ -340,81 +360,70 @@ public abstract class Level implements Serializable {
 
 	}
 
-	public void addEntity(Entity entity) {
-		if (!(entity instanceof Player)) {
-			this.entities.add(0, entity);
-		} else {
-			this.entities.add(entity);
-		}
+	/**
+	 * Adds an entity to this level
+	 * 
+	 * @param entity
+	 *            the entity to add
+	 */
+	public void add(Entity entity) {
+
 		if (entity instanceof Mob) {
-			if (entity instanceof Vehicle) {
-				this.mobs.add((Vehicle) entity);
-			} else
-				this.mobs.add((Mob) entity);
-			if (entity instanceof Player) {
-				this.players.add((Player) entity);
-			}
+			mobs.add((Mob) entity);
+		}
+		if (entity instanceof Hideable) {
+			hideables.add((Hideable) entity);
+		}
+
+		entities.add(entity);
+	}
+
+	/**
+	 * Removes an entity from the level
+	 * 
+	 * @param entity
+	 *            the entity to remove
+	 */
+	public void remove(Entity entity) {
+		entities.remove(entity);
+		if (entity instanceof Mob) {
+			mobs.remove(entity);
+		}
+		if (entity instanceof Hideable) {
+			hideables.remove(entity);
 		}
 	}
 
-	public void addEntity(Entity entity, int index) {
-		this.entities.add(index, entity);
-		if (entity instanceof Mob) {
-			if (entity instanceof Vehicle) {
-				this.mobs.add(index, (Vehicle) entity);
-			} else
-				this.mobs.add(index, (Mob) entity);
-			if (entity instanceof Player) {
-				this.players.add(index, (Player) entity);
-			}
-		}
-
-	}
-
-	public void remEntity(Entity entity) {
-		this.entities.remove(entity);
-		if (entity instanceof Mob) {
-			this.mobs.remove((Mob) entity);
-			if (entity instanceof Player) {
-				this.players.remove((Player) entity);
-			}
-		}
-	}
-
+	/**
+	 * Resets a level to its simplest state
+	 */
 	public void reset() {
 		entities.clear();
 		mobs.clear();
-		players.clear();
-		killList.clear();
-		this.init();
-		spawnPoint = new Point(startingSpawnPoint.x, startingSpawnPoint.y);
+		hideables.clear();
+		init();
 	}
 
+	/**
+	 * @return a list of all entities on the map
+	 */
 	public List<Entity> getEntities() {
 		return entities;
 	}
 
+	/**
+	 * @return a list of all mobs on this map
+	 */
 	public List<Mob> getMobs() {
 		return mobs;
 	}
 
-	public List<Player> getPlayers() {
-		return players;
-	}
-
-	public Player getPlayer() {
-		if (players.size() > 0)
-			return players.get(0);
-		else
-			return null;
-	}
-
 	public void addSpawner(int x, int y, String type) {
-		this.addEntity(new Spawner(this, x, y, type));
+		add(new Spawner(this, x, y, type));
 	}
 
 	public void addSpawner(int x, int y, String type, int amt) {
-		this.addEntity(new Spawner(this, x, y, type, amt));
+		add(new Spawner(this, x, y, type, amt));
 	}
 
 	public void init() {
@@ -439,11 +448,23 @@ public abstract class Level implements Serializable {
 		return name + "\n Mobs: " + this.getMobs();
 	}
 
-	public Screen getScreen() {
-		return screen;
-	}
-
 	public void setSpawnPoint(int x, int y) {
 		spawnPoint = new Point(x, y);
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public Point getSpawnPoint() {
+		return spawnPoint;
+	}
+	
+	public boolean isLoaded() {
+		return isLoaded;
 	}
 }

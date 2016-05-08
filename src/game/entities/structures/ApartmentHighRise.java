@@ -1,9 +1,10 @@
 package game.entities.structures;
 
+import java.awt.Point;
+
 import game.entities.SolidEntity;
 import game.entities.structures.transporters.Transporter;
 import game.graphics.Sprite;
-import java.awt.Point;
 import level.Level;
 import level.interior.ApartmentLobby;
 
@@ -27,8 +28,7 @@ public class ApartmentHighRise extends Building {
 	public ApartmentHighRise(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF673101, 0xFFABD3FF }, Sprite.apartment, SolidEntity.TWO_THIRDS);
 
-		getLevel().addEntity(
-				new Transporter(level, x + 30, y + 206, new ApartmentLobby(new Point(x + 36, y + 216), level)));
+		getLevel().add(new Transporter(level, x + 30, y + 206, new ApartmentLobby(new Point(x + 36, y + 216), level)));
 	}
 
 }

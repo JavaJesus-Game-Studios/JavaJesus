@@ -51,7 +51,7 @@ public class HealthPack extends Particle {
 
 			if (getBounds().intersects(mob.getBounds())) {
 				mob.heal();
-				getLevel().remEntity(this);
+				getLevel().remove(this);
 				SoundHandler.play(SoundHandler.click);
 			}
 

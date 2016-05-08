@@ -99,7 +99,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 
 		setBounds(getX(), getY(), width, height);
 
-		level.addEntity(new HealthBar(level, getX(), getY() + height + 2, this));
+		level.add(new HealthBar(level, getX(), getY() + height + 2, this));
 	}
 
 	/**

@@ -155,13 +155,12 @@ public class GangMember extends Monster implements LongRange {
 	}
 
 	/**
-	 * Shoots a bullet at a target 
-	 * Uses dummy parameters to conform to Mob class
+	 * Shoots a bullet at a target Uses dummy parameters to conform to Mob class
 	 */
 	@Override
 	public void attack(int fake, int fake2, Mob other) {
 
-		getLevel().addEntity(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength(),
+		getLevel().add(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength(),
 				SoundHandler.revolver));
 	}
 

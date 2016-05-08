@@ -81,7 +81,7 @@ public class Forest {
 				case 0: {
 					treeHeight = 58 + random.nextInt(10);
 					if (checkTile(level, i, j)) {
-						level.addEntity(new DeadSequoia(level, x + i, y + j));
+						level.add(new DeadSequoia(level, x + i, y + j));
 					}
 					break;
 				}
@@ -90,7 +90,7 @@ public class Forest {
 				case 3: {
 					treeHeight = 58 + random.nextInt(10);
 					if (checkTile(level, i, j)) {
-						level.addEntity(new LargeSequoia(level, x + i, y + j));
+						level.add(new LargeSequoia(level, x + i, y + j));
 					}
 					break;
 				}
@@ -99,14 +99,14 @@ public class Forest {
 				case 6: {
 					treeHeight = 44 + random.nextInt(10);
 					if (checkTile(level, i, j)) {
-						level.addEntity(new MediumSequoia(level, x + i, y + j));
+						level.add(new MediumSequoia(level, x + i, y + j));
 					}
 					break;
 				}
 				default: {
 					treeHeight = 32 + random.nextInt(10);
 					if (checkTile(level, i, j)) {
-						level.addEntity(new SmallSequoia(level, x + i, y + j));
+						level.add(new SmallSequoia(level, x + i, y + j));
 					}
 
 					break;

@@ -1,5 +1,6 @@
 package game.entities.particles;
 
+import game.Display;
 import game.SoundHandler;
 import game.entities.Mob;
 import game.graphics.Screen;
@@ -56,7 +57,7 @@ public class BlackHole extends Particle {
 		SoundHandler.play(SoundHandler.explosion);
 
 		// darken the screen
-		getLevel().getScreen().setShader(983082);
+		Display.getScreen().setShader(983082);
 	}
 
 	/**
@@ -73,14 +74,14 @@ public class BlackHole extends Particle {
 		if (posNumber > getTileNumber() + (14 * 4)) {
 
 			// remove the shader and the blackhole
-			getLevel().getScreen().setShader(0);
-			getLevel().remEntity(this);
+			Display.getScreen().setShader(0);
+			getLevel().remove(this);
 
 		}
 
 		// randomly create an explosion
 		if (random.nextInt(2) == 0) {
-			getLevel().addEntity(
+			getLevel().add(
 					new Explosion(getLevel(), random.nextInt(100) - 50 + getX(), random.nextInt(100) - 50 + getY()));
 		}
 

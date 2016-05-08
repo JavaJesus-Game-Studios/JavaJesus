@@ -59,7 +59,7 @@ public class TechWarrior extends Shooter {
 	@Override
 	public void attack(int fake, int fake2, Mob other) {
 
-		getLevel().addEntity(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength(),
+		getLevel().add(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength(),
 				SoundHandler.shotgun));
 	}
 

@@ -2,7 +2,6 @@ package game.entities.structures.transporters;
 
 import java.awt.Point;
 import game.entities.Entity;
-import game.entities.Player;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 import level.Level;
@@ -46,22 +45,13 @@ public class Transporter extends Entity {
 	 */
 	public Transporter(Level currentLevel, int x, int y, Level nextLevel, Point point) {
 		this(currentLevel, x, y, nextLevel);
-		nextLevel.spawnPoint = point;
+		nextLevel.setSpawnPoint(point.x, point.y);
 	}
 
 	/**
 	 * Updates the transporter TODO Handle this in the player class
 	 */
 	public void tick() {
-
-		for (Player player : getLevel().getPlayers()) {
-			if (getBounds().intersects(player.getBounds())) {
-				if (player.getInput().e.isPressed()) {
-					getLevel().setSpawnPoint(player.getX(), player.getY());
-					player.updateLevel(nextLevel);
-				}
-			}
-		}
 
 	}
 

@@ -67,12 +67,12 @@ public class Game implements Runnable {
 	public Game(GameMode m) {
 		mode = m;
 		levels = new LevelList(mode);
-		player = new Player(getLevel(), getLevel().spawnPoint.x,
-				getLevel().spawnPoint.y);
+		player = new Player(getLevel(), getLevel().getSpawnPoint().x,
+				getLevel().getSpawnPoint().y);
 		display = new Display();
 		player.setInput(new InputHandler(display));
 		getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
-		getLevel().addEntity(player);
+		getLevel().add(player);
 		getLevel().init();
 	}
 

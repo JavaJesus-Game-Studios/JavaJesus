@@ -239,30 +239,30 @@ public class Gun extends Item {
 		if (ammo > 0 && !isReloading && canFire) {
 			switch (type) {
 			case BULLET:
-				level.addEntity(new Bullet(level, x, y, dir, player, damage, clip));
+				level.add(new Bullet(level, x, y, dir, player, damage, clip));
 				break;
 			case ARROW:
-				level.addEntity(new Arrow(level, x, y, dir, player, damage));
+				level.add(new Arrow(level, x, y, dir, player, damage));
 				break;
 			case FIREBALL:
-				level.addEntity(new FireBall(level, x, y, dir, player, damage));
+				level.add(new FireBall(level, x, y, dir, player, damage));
 				break;
 			case LASER:
-				level.addEntity(new Laser(level, x, y, dir, player, damage));
+				level.add(new Laser(level, x, y, dir, player, damage));
 				break;
 			case MISSILE:
-				level.addEntity(new Missile(level, x, y, dir, player, damage, clip));
+				level.add(new Missile(level, x, y, dir, player, damage, clip));
 				break;
 			case BLACKHOLE:
-				level.addEntity(new BlackHoleDetonator(level, x, y, dir, player, damage));
+				level.add(new BlackHoleDetonator(level, x, y, dir, player, damage));
 				break;
 			case FLAMETHROWER:
-				level.addEntity(new FireBall(level, x, y, dir, player, damage));
+				level.add(new FireBall(level, x, y, dir, player, damage));
 				break;
 			case SHELL:
-				level.addEntity(new Bullet(player.getLevel(), x, y, dir, player, damage, clip));
-				level.addEntity(new Bullet(player.getLevel(), x + 2, y + 2, dir, player, damage, clip));
-				level.addEntity(new Bullet(player.getLevel(), x - 2, y - 2, dir, player, damage, clip));
+				level.add(new Bullet(player.getLevel(), x, y, dir, player, damage, clip));
+				level.add(new Bullet(player.getLevel(), x + 2, y + 2, dir, player, damage, clip));
+				level.add(new Bullet(player.getLevel(), x - 2, y - 2, dir, player, damage, clip));
 				break;
 			}
 			ammo--;

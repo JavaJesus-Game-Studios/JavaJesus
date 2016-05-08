@@ -31,7 +31,7 @@ public class QuickHealthPickup extends Pickup {
 	public void tick() {
 		if (getBounds().intersects(Game.player.getBounds())) {
 			Game.player.changeHealth(20);
-			getLevel().remEntity(this);
+			getLevel().remove(this);
 		}
 	}
 

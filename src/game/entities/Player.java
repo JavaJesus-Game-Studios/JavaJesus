@@ -1,7 +1,9 @@
 package game.entities;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import game.ChatHandler;
 import game.Display;
@@ -10,6 +12,7 @@ import game.InputHandler;
 import game.SoundHandler;
 import game.entities.monsters.Demon;
 import game.entities.structures.furniture.Chest;
+import game.entities.structures.transporters.Transporter;
 import game.entities.vehicles.Ridable;
 import game.graphics.Colors;
 import game.graphics.Screen;
@@ -100,6 +103,12 @@ public class Player extends Mob implements Skills {
 	// player stats
 	private int strength, defense;
 
+	// contains a list of where each player should spawn when entering that
+	// level
+	// Integer is the level hash code
+	// Point is the location
+	private HashMap<Integer, Point> levelSpawnPoints = new HashMap<Integer, Point>();;
+
 	/**
 	 * Creates a new player for the game
 	 * 
@@ -135,6 +144,10 @@ public class Player extends Mob implements Skills {
 	 */
 	public void updateLevel(Level level) {
 
+		if (!levelSpawnPoints.containsKey(level.hashCode())) {
+			levelSpawnPoints.put(level.hashCode(), level.getSpawnPoint());
+		}
+
 		// play the click sound
 		SoundHandler.play(SoundHandler.click);
 
@@ -144,13 +157,13 @@ public class Player extends Mob implements Skills {
 		}
 
 		// load the new level if it has not been loaded yet
-		if (!level.isLoaded) {
+		if (!level.isLoaded()) {
 			level.load();
 		}
 
 		input.e.toggle(false);
 
-		getLevel().remEntity(this);
+		getLevel().remove(this);
 
 		// TODO temporary fix
 		if (isOnFire()) {
@@ -164,10 +177,13 @@ public class Player extends Mob implements Skills {
 		super.updateLevel(level);
 
 		// adds the player to the new level
-		level.addEntity(this);
+		level.add(this);
+
+		// where the player should go
+		Point location = levelSpawnPoints.get(level.hashCode());
 
 		// go to the spawn location for that level
-		moveTo(level.spawnPoint.x, level.spawnPoint.y);
+		moveTo(location.x, location.y);
 	}
 
 	/**
@@ -209,7 +225,7 @@ public class Player extends Mob implements Skills {
 		// spawns a demon
 		if (input.t.isPressed()) {
 			if (!demonCooldown) {
-				getLevel().addEntity(new Demon(getLevel(), getX(), getY(), 1, 100));
+				getLevel().add(new Demon(getLevel(), getX(), getY(), 1, 100));
 			}
 			demonCooldown = true;
 		}
@@ -343,6 +359,12 @@ public class Player extends Mob implements Skills {
 						other.speak(this);
 						input.e.toggle(false);
 					}
+				}
+
+				// handles transporters
+				if (entity instanceof Transporter && getBounds().intersects(entity.getBounds())) {
+					levelSpawnPoints.put(getLevel().hashCode(), new Point(getX(), getY()));
+					updateLevel(((Transporter) entity).getNextLevel());
 				}
 			}
 		}
@@ -675,7 +697,7 @@ public class Player extends Mob implements Skills {
 
 		// sets a shader when health is low
 		if ((double) getCurrentHealth() / getMaxHealth() <= 0.25) {
-			getLevel().getScreen().setShader(Colors.fromHex("ff0000"));
+			Display.getScreen().setShader(Colors.fromHex("ff0000"));
 		}
 	}
 
@@ -796,7 +818,7 @@ public class Player extends Mob implements Skills {
 		super.heal();
 
 		// resets the shader to default
-		getLevel().getScreen().setShader(0);
+		Display.getScreen().setShader(0);
 	}
 
 	/**

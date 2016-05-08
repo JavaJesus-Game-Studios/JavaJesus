@@ -65,7 +65,7 @@ public class DestructibleTile extends Entity {
 		int damage = random.nextInt(max - min + 1) + min;
 		this.health -= damage;
 		if (health <= 0) {
-			getLevel().remEntity(this);
+			getLevel().remove(this);
 		}
 	}
 

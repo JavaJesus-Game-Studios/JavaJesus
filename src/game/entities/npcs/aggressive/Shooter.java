@@ -137,9 +137,9 @@ public class Shooter extends NPC implements LongRange, Skills {
 
 		// if not shooting, render with the parent
 		if (!isShooting || isSwimming) {
-			
+
 			super.render(screen);
-			
+
 		} else {
 
 			// attack animation
@@ -197,7 +197,7 @@ public class Shooter extends NPC implements LongRange, Skills {
 	@Override
 	public void move(int dx, int dy) {
 		super.move(dx, dy);
-		
+
 		aggroRadius.setFrame(getX() - RADIUS / 2, getY() - RADIUS / 2, RADIUS, RADIUS);
 		standRange.setFrame(getX() - RADIUS / 4, getY() - RADIUS / 4, RADIUS / 2, RADIUS / 2);
 	}
@@ -208,7 +208,7 @@ public class Shooter extends NPC implements LongRange, Skills {
 	@Override
 	public void attack(int fake, int fake2, Mob other) {
 
-		getLevel().addEntity(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength(),
+		getLevel().add(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength(),
 				SoundHandler.revolver));
 	}
 

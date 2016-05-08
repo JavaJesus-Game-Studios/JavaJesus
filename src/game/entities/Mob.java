@@ -3,9 +3,9 @@ package game.entities;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import game.Hideable;
 import game.entities.particles.HealthBar;
 import game.entities.vehicles.Vehicle;
-import game.graphics.JJFont;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 import level.Level;
@@ -16,7 +16,7 @@ import utility.Direction;
 /*
  * A mob is an entity that has complex interactions in a level with other entities
  */
-public class Mob extends Entity implements Damageable {
+public class Mob extends Entity implements Damageable, Hideable {
 
 	private static final long serialVersionUID = -1507733585991126012L;
 
@@ -584,13 +584,13 @@ public class Mob extends Entity implements Damageable {
 
 		// displays text overhead
 		if (isTalking) {
-			JJFont.render(name, screen, xOffset, yOffset - modifier, new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 },
-					1);
+			getLevel().renderFont(name, screen, xOffset, yOffset - modifier,
+					new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
 		}
 
 		// displays damage indicators overhead
 		if (isHit) {
-			JJFont.render(damageTaken, screen, xOffset + isHitX, yOffset - modifier + isHitY, isHitColor, 1);
+			getLevel().renderFont(damageTaken, screen, xOffset + isHitX, yOffset - modifier + isHitY, isHitColor, 1);
 		}
 	}
 
@@ -608,8 +608,7 @@ public class Mob extends Entity implements Damageable {
 	 */
 	public void remove() {
 
-		getLevel().remEntity(this);
-		getLevel().killList.add(this);
+		getLevel().remove(this);
 		isHit = false;
 		isTalking = false;
 		setTargeted(false);
@@ -830,7 +829,7 @@ public class Mob extends Entity implements Damageable {
 	 */
 	protected void createHealthBar() {
 		bar = new HealthBar(getLevel(), getX(), getY() + (int) getBounds().getHeight() + 2, this);
-		getLevel().addEntity(bar);
+		getLevel().add(bar);
 	}
 
 	/**

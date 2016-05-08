@@ -51,7 +51,7 @@ public class Explosion extends Particle {
 
 		// if no more animations, remove it
 		if (posNumber > getTileNumber() + 26) {
-			getLevel().remEntity(this);
+			getLevel().remove(this);
 		}
 
 		// damage all mobs in its radius

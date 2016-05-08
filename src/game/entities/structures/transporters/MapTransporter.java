@@ -54,7 +54,7 @@ public class MapTransporter extends Transporter {
 		}
 
 	}
-
+	
 	/**
 	 * Calculates the new spawnpoint for the next level
 	 */
@@ -69,9 +69,9 @@ public class MapTransporter extends Transporter {
 		case NORTH: {
 
 			// X is proportional to width
-			x = getNextLevel().width * Game.player.getX() / getLevel().width;
+			x = getNextLevel().getWidth() * Game.player.getX() / getLevel().getWidth();
 
-			y = (getNextLevel().height * 8) - 16;
+			y = (getNextLevel().getHeight() * 8) - 16;
 			break;
 		}
 
@@ -79,7 +79,7 @@ public class MapTransporter extends Transporter {
 		case SOUTH: {
 
 			// X is proportional to width
-			x = getNextLevel().width * Game.player.getX() / getLevel().width;
+			x = getNextLevel().getWidth() * Game.player.getX() / getLevel().getWidth();
 
 			y = 16;
 			break;
@@ -91,17 +91,17 @@ public class MapTransporter extends Transporter {
 			x = 16;
 
 			// Y is proportional to height
-			y = getNextLevel().height * Game.player.getY() / getLevel().height;
+			y = getNextLevel().getHeight() * Game.player.getY() / getLevel().getHeight();
 			break;
 		}
 
 		// WEST EDGE OF MAP
 		default: {
 
-			x = (getNextLevel().width * 8) - 16;
+			x = (getNextLevel().getWidth() * 8) - 16;
 
 			// Y is proportional to height
-			y = getNextLevel().height * Game.player.getY() / getLevel().height;
+			y = getNextLevel().getHeight() * Game.player.getY() / getLevel().getHeight();
 			break;
 		}
 		}

@@ -95,7 +95,7 @@ public class Spawner extends Entity {
 
 		// remove the spawner if the amount left is 0
 		if (amount == 0) {
-			getLevel().remEntity(this);
+			getLevel().remove(this);
 		}
 
 	}
@@ -107,9 +107,9 @@ public class Spawner extends Entity {
 
 		if (amount > 0) {
 			amount--;
-			getLevel().addEntity(getEntity());
+			getLevel().add(getEntity());
 		} else if (amount == -1) {
-			getLevel().addEntity(getEntity());
+			getLevel().add(getEntity());
 		}
 
 	}

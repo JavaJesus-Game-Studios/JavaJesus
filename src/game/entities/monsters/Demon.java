@@ -133,8 +133,7 @@ public class Demon extends Monster {
 	@Override
 	public void attack(int fake, int fake2, Mob other) {
 
-		getLevel()
-				.addEntity(new FireBall(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength()));
+		getLevel().add(new FireBall(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength()));
 	}
 
 	/**

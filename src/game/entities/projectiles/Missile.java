@@ -89,7 +89,7 @@ public class Missile extends Projectile {
 	@Override
 	protected void onDestroyed() {
 
-		getLevel().addEntity(new Explosion(getLevel(), getX() + 4, getY() + 4));
+		getLevel().add(new Explosion(getLevel(), getX() + 4, getY() + 4));
 		super.onDestroyed();
 
 	}
