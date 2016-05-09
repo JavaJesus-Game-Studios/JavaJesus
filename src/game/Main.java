@@ -12,6 +12,7 @@ public class Main {
 	 *            Run time arguments
 	 */
 	public static void main(String[] args) {
+		SoundHandler.initialize();
 		new Launcher().start();
 	}
 

@@ -75,7 +75,7 @@ public class Item implements Serializable {
 			Sword.MEDIUM);
 	public static final Item heavenlyShortSword = new Sword("Heavenly Short Sword", 14, 0, 1, 0, 22,
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF }, "This is a sword", 30, 5, new int[] { 7, 12, 16, 21 });
-	public static final Item kingSword = new Sword("King Short Sword", 22, 3, 1, 0, 25,
+	public static final Item kingSword = new Sword("King Short Sword", 18, 3, 1, 0, 25,
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF }, "This is a sword", 30, 5, new int[] { 7, 13, 18, 23 }, 1,
 			Sword.MEDIUM);
 

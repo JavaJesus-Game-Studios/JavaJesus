@@ -65,6 +65,9 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 
 	// the direction the vehicle is facing
 	private Direction direction;
+	
+	// fake shadow, but used to conform to solid entity
+	private static final Rectangle shadow = new Rectangle(0,0, 0, 0);
 
 	/**
 	 * Creates a Vehicle
@@ -396,7 +399,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 	 * treated as a solid
 	 */
 	public Rectangle getShadow() {
-		return null;
+		return shadow;
 	}
 
 	/**

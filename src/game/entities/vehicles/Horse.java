@@ -1,6 +1,5 @@
 package game.entities.vehicles;
 
-import game.Game;
 import game.entities.Player;
 import game.entities.npcs.NPC;
 import game.graphics.Screen;
@@ -25,7 +24,7 @@ public class Horse extends NPC implements Ridable {
 	private static final int SHORT_SIDE = 16, LONG_SIDE = 24;
 
 	// the xTile offset when not used
-	private static final int NOT_USED_XTILE = 14;
+	private static final int NOT_USED_XTILE = 16;
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
@@ -44,7 +43,7 @@ public class Horse extends NPC implements Ridable {
 	 * @param type the color of the horse
 	 */
 	public Horse(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance, int type) {
-		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, Game.player.getColor(), NOT_USED_XTILE,
+		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, null, NOT_USED_XTILE,
 				type, walkPath, walkDistance);
 		setSpriteSheet(SpriteSheet.horses);
 
@@ -59,7 +58,7 @@ public class Horse extends NPC implements Ridable {
 	 * @param type the color of the horse
 	 */
 	public Horse(Level level, int x, int y, int defaultHealth, int type) {
-		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, Game.player.getColor(), NOT_USED_XTILE,
+		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, null, NOT_USED_XTILE,
 				type, "stand", 0);
 		setSpriteSheet(SpriteSheet.horses);
 
@@ -171,6 +170,7 @@ public class Horse extends NPC implements Ridable {
 	@Override
 	public void drive(Player player) {
 		this.player = player;
+		this.setColor(player.getColor());
 		xTile = 0;
 	}
 

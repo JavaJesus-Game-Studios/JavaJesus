@@ -35,6 +35,9 @@ public class Chest extends Entity implements SolidEntity {
 	// the size of the chest
 	private static final int SIZE = 8;
 
+	// fake shadow, but used to conform to solid entity
+	private static final Rectangle shadow = new Rectangle(0, 0, 0, 0);
+
 	/**
 	 * Creates an empty chest
 	 * 
@@ -68,7 +71,7 @@ public class Chest extends Entity implements SolidEntity {
 		this.contents = items;
 		setBounds(getX(), getY(), SIZE, SIZE);
 	}
-	
+
 	/**
 	 * Creates a chest filled with certain items
 	 * 
@@ -84,7 +87,11 @@ public class Chest extends Entity implements SolidEntity {
 	public Chest(Level level, int x, int y, List<Item> items) {
 		super(level, x, y);
 
-		this.contents = (Item[]) items.toArray();
+		contents = new Item[items.size()];
+
+		for (int i = 0; i < items.size(); i++)
+			contents[i] = items.get(i);
+
 		setBounds(getX(), getY(), SIZE, SIZE);
 	}
 
@@ -240,7 +247,7 @@ public class Chest extends Entity implements SolidEntity {
 
 	@Override
 	public Rectangle getShadow() {
-		return null;
+		return shadow;
 	}
 
 	@Override

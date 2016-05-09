@@ -54,7 +54,7 @@ public class PlayerSlotGUI extends Slot {
 				(int) (this.getHeight() * heightRatio), null);
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font(Game.FONT_NAME, 0, 50));
-		g.drawString(Game.player.toString(), 50, 65);
+		g.drawString(Game.player.getName(), 50, 65);
 	}
 
 	public void renderPlayer(Screen screen, int scale) {

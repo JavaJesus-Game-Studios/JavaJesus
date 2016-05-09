@@ -211,10 +211,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 		int sign = 0;
 		if (dx < 0) {
 			setDirection(Direction.WEST);
-			sign = 1;
+			sign = -1;
 		} else if (dx > 0) {
 			setDirection(Direction.EAST);
-			sign = -1;
+			sign = 1;
 		}
 
 		// move pixel by pixel for maximum accuracy
@@ -232,10 +232,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 
 		if (dy < 0) {
 			setDirection(Direction.NORTH);
-			sign = 1;
+			sign = -1;
 		} else if (dy > 0) {
 			setDirection(Direction.SOUTH);
-			sign = -1;
+			sign = 1;
 		}
 
 		// move pixel by pixel for maximum accuracy
@@ -244,6 +244,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 				super.move(0, 1 * sign);
 				if (isSolidEntityCollision()) {
 					super.move(0, -1 * sign);
+					
+					// TODO bugfix for walking south behind buildings
+					if (sign == 1)
+						isBehindBuilding = true;
 				}
 				this.moveOuterBounds(0, 1 * sign);
 			} else {
@@ -267,10 +271,11 @@ public class Mob extends Entity implements Damageable, Hideable {
 	protected boolean hasCollided(int dx, int dy) {
 
 		// the left bound of the mob
-		int xMin = 0;
+		//TODO These offsets are for player specifically
+		int xMin = 4;
 
 		// the right bound of the mob
-		int xMax = getBounds().width;
+		int xMax = getBounds().width - 6;
 
 		// the top bound of the mob
 		int yMin = getBounds().width / 2;
@@ -360,6 +365,8 @@ public class Mob extends Entity implements Damageable, Hideable {
 	private boolean isSolidEntityCollision() {
 
 		isBehindBuilding = false;
+		
+		try {
 
 		// loop through the buildings/possible entities
 		for (Entity entity : getLevel().getEntities()) {
@@ -367,7 +374,9 @@ public class Mob extends Entity implements Damageable, Hideable {
 			if (entity instanceof SolidEntity) {
 
 				SolidEntity building = (SolidEntity) entity;
-
+				
+				
+				
 				if (getBounds().intersects(building.getShadow())) {
 					isBehindBuilding = true;
 				} else if (getBounds().intersects(entity.getBounds())) {
@@ -381,6 +390,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 				setOnFire(true);
 			}
 
+		}
+		} catch (Exception e) {
+			System.err.println(this.getName() + getBounds());
+			e.getMessage();
 		}
 
 		return false;
@@ -524,7 +537,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 		}
 
 		// force the mob to move around the mob collision
-		if (isCollidingWithMob) {
+		if (isCollidingWithMob && !(this instanceof Player)) {
 			moveAroundMobCollision();
 			return;
 		}
@@ -568,8 +581,8 @@ public class Mob extends Entity implements Damageable, Hideable {
 			}
 			// TODO Look into yoffset + 3 and false = 0x00, true = 0x01
 			// originally
-			screen.render(xOffset, yOffset + 3, 0 + 10 * sheet.boxes, waterColor, false, 1, sheet);
-			screen.render(xOffset + 8, yOffset + 3, 0 + 10 * sheet.boxes, waterColor, true, 1, sheet);
+			screen.render(xOffset, yOffset, 0 + 10 * sheet.boxes, waterColor, false, 1, sheet);
+			screen.render(xOffset + 8, yOffset, 0 + 10 * sheet.boxes, waterColor, true, 1, sheet);
 		}
 
 		// Handles fire animation

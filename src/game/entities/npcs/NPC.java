@@ -607,5 +607,12 @@ public class NPC extends Mob {
 	protected int[] getColor() {
 		return color;
 	}
+	
+	/**
+	 * @param color the new color
+	 */
+	protected void setColor(int[] color) {
+		this.color = color;
+	}
 
 }

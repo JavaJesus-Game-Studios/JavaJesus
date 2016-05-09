@@ -182,7 +182,7 @@ public class Game implements Runnable {
 
 	/** Renders the screen */
 	private void render() {
-		display.render();
+		display.render(player);
 
 	}
 

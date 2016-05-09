@@ -1,11 +1,5 @@
 package game;
 
-import game.graphics.Screen;
-import game.gui.PauseGUI;
-import game.gui.ScreenGUI;
-import game.gui.intro.IntroGUI;
-import game.gui.overview.OverviewGUI;
-
 import java.awt.Canvas;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -18,6 +12,13 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import game.entities.Player;
+import game.graphics.Screen;
+import game.gui.PauseGUI;
+import game.gui.ScreenGUI;
+import game.gui.intro.IntroGUI;
+import game.gui.overview.OverviewGUI;
 
 /*
  * The canvas that puts the images together
@@ -200,23 +201,23 @@ public class Display extends Canvas {
 	/**
 	 * Process that displays an image on the screen as many times as possible
 	 */
-	protected void render() {
+	protected void render(Player player) {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
 			return;
 		}
 
-		int xOffset = Game.player.getX() - (screen.getWidth() / 2);
-		int yOffset = Game.player.getY() - (screen.getHeight() / 2);
-		if (Game.player.isDriving()) {
-			xOffset = Game.player.getVehicle().getX() - (screen.getWidth() / 2);
-			yOffset = Game.player.getVehicle().getY() - (screen.getHeight() / 2);
+		int xOffset = player.getX() - (screen.getWidth() / 2) - 8;
+		int yOffset = player.getY() - (screen.getHeight() / 2) - 8;
+		if (player.isDriving()) {
+			xOffset = player.getVehicle().getX() - (screen.getWidth() / 2);
+			yOffset = player.getVehicle().getY() - (screen.getHeight() / 2);
 		}
 
 		if (inGameScreen) {
-			Game.player.getLevel().renderTile(screen, xOffset, yOffset);
-			Game.player.getLevel().renderEntities(screen, Game.player);
+			player.getLevel().renderTile(screen, xOffset, yOffset);
+			player.getLevel().renderEntities(screen, player);
 		}
 
 		for (int y = 0; y < screen.getHeight(); y++) {

@@ -23,7 +23,7 @@ public class Bazooka extends Gun {
 	 * Creates a bazooka, BOOM!
 	 */
 	public Bazooka() {
-		super("Bazooka", 10, 5, 0, new int[] { 0xFF000000, 0xFF434343, 0xFF371B09 }, "Standard Explosive Artillery", 0,
+		super("Bazooka", 28, 5, 0, new int[] { 0xFF000000, 0xFF434343, 0xFF371B09 }, "Standard Explosive Artillery", 0,
 				2, 10, 20, 300, Ammo.MISSILE, SoundHandler.explosion);
 	}
 

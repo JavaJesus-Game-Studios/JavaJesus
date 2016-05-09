@@ -73,8 +73,7 @@ public abstract class Level implements Serializable {
 		if (imagePath != null) {
 			this.imagePath = imagePath;
 			if (loadNow) {
-				isLoaded = true;
-				loadLevelFromFile();
+				load();
 			}
 		} else {
 			throw new RuntimeException("Level path is null");
@@ -99,8 +98,7 @@ public abstract class Level implements Serializable {
 		this.name = name;
 		tiles = new int[width * height];
 		if (loadNow) {
-			isLoaded = true;
-			generateLevel();
+			load();
 		}
 	}
 
@@ -225,7 +223,8 @@ public abstract class Level implements Serializable {
 	public void tick() {
 
 		// update all entities and living mobs
-		for (Entity e : getEntities()) {
+		for (int i = 0; i < getEntities().size(); i++) {
+			Entity e = getEntities().get(i);
 
 			if (e.getBounds().intersects(renderRange) && (!(e instanceof Mob) || !((Mob) e).isDead())) {
 				e.tick();
@@ -351,7 +350,7 @@ public abstract class Level implements Serializable {
 	 * @param entity
 	 *            the entity to add
 	 */
-	public void add(Entity entity) {
+	public synchronized void add(Entity entity) {
 
 		if (entity instanceof Mob) {
 			mobs.add((Mob) entity);
@@ -362,7 +361,7 @@ public abstract class Level implements Serializable {
 
 		entities.add(entity);
 	}
-	
+
 	/**
 	 * Adds entities to this level
 	 * 
@@ -371,7 +370,7 @@ public abstract class Level implements Serializable {
 	 */
 	public void add(Entity... entities) {
 
-		for (Entity e: entities) {
+		for (Entity e : entities) {
 			add(e);
 		}
 	}
@@ -382,7 +381,7 @@ public abstract class Level implements Serializable {
 	 * @param entity
 	 *            the entity to remove
 	 */
-	public void remove(Entity entity) {
+	public synchronized void remove(Entity entity) {
 		entities.remove(entity);
 		if (entity instanceof Mob) {
 			mobs.remove(entity);
@@ -390,6 +389,7 @@ public abstract class Level implements Serializable {
 		if (entity instanceof Hideable) {
 			hideables.remove(entity);
 		}
+		
 	}
 
 	/**
@@ -420,13 +420,11 @@ public abstract class Level implements Serializable {
 	 * Loads the entites on the level
 	 */
 	private void loadEntities() {
-		if (entities.isEmpty()) {
-			initMapTransporters();
-			initNPCPlacement();
-			initSpawnerPlacement();
-			initChestPlacement();
-			otherEntityPlacement();
-		}
+		initMapTransporters();
+		initNPCPlacement();
+		initSpawnerPlacement();
+		initChestPlacement();
+		otherEntityPlacement();
 	}
 
 	/**
@@ -437,41 +435,43 @@ public abstract class Level implements Serializable {
 	}
 
 	/**
-	 * @param x the new x point
-	 * @param y the new y point
+	 * @param x
+	 *            the new x point
+	 * @param y
+	 *            the new y point
 	 */
 	public void setSpawnPoint(int x, int y) {
 		spawnPoint = new Point(x, y);
 	}
-	
+
 	/**
 	 * @return the width of this level
 	 */
 	public int getWidth() {
 		return width;
 	}
-	
+
 	/**
 	 * @return the height of this level
 	 */
 	public int getHeight() {
 		return height;
 	}
-	
+
 	/**
 	 * @return the spawnpoint of this level
 	 */
 	public Point getSpawnPoint() {
 		return spawnPoint;
 	}
-	
+
 	/**
 	 * @return true if this level is loaded
 	 */
 	public boolean isLoaded() {
 		return isLoaded;
 	}
-	
+
 	/**
 	 * @return the name of the level
 	 */

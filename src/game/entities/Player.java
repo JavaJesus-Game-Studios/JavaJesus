@@ -314,8 +314,8 @@ public class Player extends Mob implements Skills {
 		// action button
 		if (input.e.isPressed()) {
 			input.e.toggle(false);
-			for (Entity entity : getLevel().getEntities()) {
-
+			for (int i = 0; i < getLevel().getEntities().size(); i++) {
+				Entity entity = getLevel().getEntities().get(i);
 				// enter a vehicle
 				if (entity instanceof Ridable) {
 
@@ -513,7 +513,7 @@ public class Player extends Mob implements Skills {
 		} else if (isLatitudinal()) {
 			xTile = 4;
 			if (isMoving)
-				xTile += 2;
+				xTile += (flip ? 2 : 0);
 			flip = getDirection() == Direction.WEST;
 		}
 
@@ -529,7 +529,7 @@ public class Player extends Mob implements Skills {
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes, color,
 					flip, getScale(), getSpriteSheet());
 			// Upper Body 2
-			screen.render(xOffset + modifier - (flip ? 1 : 0), yOffset, (xTile + 1) + yTile * getSpriteSheet().boxes,
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, (xTile + 1) + yTile * getSpriteSheet().boxes,
 					color, flip, getScale(), getSpriteSheet());
 
 			if (!isSwimming) {

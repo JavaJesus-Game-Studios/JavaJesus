@@ -44,6 +44,7 @@ public class Building extends Entity implements SolidEntity {
 		super(level, x, y);
 
 		this.sprite = sprite;
+		this.color = color;
 
 		shadow = new Rectangle(sprite.getWidth(), (int) (sprite.getHeight() * ratio));
 		shadow.setLocation(x, y);

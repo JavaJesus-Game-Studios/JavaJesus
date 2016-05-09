@@ -30,9 +30,10 @@ public abstract class Entity implements Serializable {
 	 * @param y the y coord
 	 */
 	public Entity(final Level level, int x, int y) {
-		updateLevel(level);
+		this.level = level;
 		setX(x);
 		setY(y);
+		setBounds(0, 0, 0, 0);
 	}
 
 	/**
