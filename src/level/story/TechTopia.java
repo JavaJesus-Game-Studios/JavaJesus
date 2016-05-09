@@ -1,8 +1,5 @@
 package level.story;
 
-import java.awt.Point;
-
-import game.Game;
 import game.entities.structures.Cafe;
 import game.entities.structures.CardinalUniversity;
 import game.entities.structures.GenericHospital;
@@ -29,8 +26,7 @@ public class TechTopia extends Level {
 
 	public TechTopia() {
 		super("/Levels/Cities/Tech_Topia.png", true, "Tech Topia");
-		this.spawnPoint = new Point(1512, 584);
-		startingSpawnPoint = new Point(1512, 584);
+		setSpawnPoint(1512, 584);
 	}
 
 	protected void initNPCPlacement() {
@@ -46,97 +42,97 @@ public class TechTopia extends Level {
 	}
 
 	protected void otherEntityPlacement() {
-		this.addEntity(new Cafe(this, 2224, 1224));
-		this.addEntity(new CardinalUniversity(this, 1392, 448));
-		this.addEntity(new GenericHospital(this, 1576, 1792));
-		this.addEntity(new GenericHospital(this, 1872, 1056));
-		this.addEntity(new Hotel(this, 1720, 1160));
-		this.addEntity(new Hotel(this, 1808, 1808));
-		this.addEntity(new NiceHouse(this, 1408, 1480));
-		this.addEntity(new NiceHouse(this, 1496, 1320));
-		this.addEntity(new NiceHouse(this, 1560, 1208));
-		this.addEntity(new NiceHouse(this, 1608, 1120));
-		this.addEntity(new NiceHouse(this, 1656, 1040));
-		this.addEntity(new NiceHouse(this, 2000, 1704));
-		this.addEntity(new NiceHouse(this, 2168, 2024));
-		this.addEntity(new NiceHouse(this, 2240, 1104));
-		this.addEntity(new NiceHouse(this, 2392, 1080));
-		this.addEntity(new NiceHouse(this, 2512, 1280));
-		this.addEntity(new NiceHouse(this, 2568, 1376));
-		this.addEntity(new NiceHouse2(this, 1824, 960));
-		this.addEntity(new NiceHouse2(this, 1912, 960));
-		this.addEntity(new NiceHouse2(this, 1936, 1176));
-		this.addEntity(new NiceHouse2(this, 1984, 1256));
-		this.addEntity(new NiceHouse2(this, 2000, 960));
-		this.addEntity(new NiceHouse2(this, 2088, 960));
-		this.addEntity(new NiceHouse2(this, 2096, 1864));
-		this.addEntity(new NiceHouse2(this, 2176, 960));
-		this.addEntity(new NiceHouse2(this, 2352, 1000));
-		this.addEntity(new NiceHouse2(this, 2384, 1880));
-		this.addEntity(new NiceHouse2(this, 2424, 1808));
-		this.addEntity(new NiceHouse2(this, 2464, 1736));
-		this.addEntity(new NiceHouse2(this, 2504, 1656));
-		this.addEntity(new NiceHouse2(this, 2544, 1584));
-		this.addEntity(new NiceHouse2(this, 2584, 1512));
-		this.addEntity(new PearHQ(this, 280, 1928));
-		this.addEntity(new Police(this, 1928, 1552));
-		this.addEntity(new PoorHouse(this, 1632, 1888));
-		this.addEntity(new PoorHouse(this, 1672, 1968));
-		this.addEntity(new PoorHouse(this, 1744, 2024));
-		this.addEntity(new PoorHouse(this, 1840, 2024));
-		this.addEntity(new PoorHouse(this, 1936, 2024));
-		this.addEntity(new PoorHouse(this, 2008, 1864));
-		this.addEntity(new PoorHouse(this, 2032, 2024));
-		this.addEntity(new PoorHouse(this, 3192, 3224));
-		this.addEntity(new PoorHouse(this, 3224, 2648));
-		this.addEntity(new PoorHouse(this, 3288, 3224));
-		this.addEntity(new PoorHouse(this, 3320, 2648));
-		this.addEntity(new PoorHouse(this, 3384, 3224));
-		this.addEntity(new PoorHouse(this, 3416, 2648));
-		this.addEntity(new PoorHouse(this, 3480, 3224));
-		this.addEntity(new PoorHouse(this, 3568, 2648));
-		this.addEntity(new PoorHouse(this, 3576, 3224));
-		this.addEntity(new PoorHouse(this, 3664, 2648));
-		this.addEntity(new PoorHouse(this, 3760, 2648));
-		this.addEntity(new PoorHouse(this, 3800, 3224));
-		this.addEntity(new PoorHouse(this, 3896, 3224));
-		this.addEntity(new PoorHouse(this, 3984, 3184));
-		this.addEntity(new PoorHouse(this, 4096, 3184));
-		this.addEntity(new PoorHouse(this, 4168, 3288));
-		this.addEntity(new RadarDish(this, 552, 384));
-		this.addEntity(new SequoiaSchool(this, 2304, 1480));
-		this.addEntity(new TechTopiaCityHall(this, 1832, 1416));
-		this.addEntity(new WeirdTechBuilding1(this, 640, 2240));
-		this.addEntity(new WeirdTechBuilding1(this, 1648, 1496));
-		this.addEntity(new WeirdTechBuilding1(this, 1736, 1448));
-		this.addEntity(new WeirdTechBuilding1(this, 2128, 1440));
-		this.addEntity(new WeirdTechBuilding1(this, 2152, 1208));
-		this.addEntity(new WeirdTechBuilding1(this, 2192, 1536));
-		this.addEntity(new WeirdTechBuilding1(this, 2248, 1656));
-		this.addEntity(new WeirdTechBuilding2(this, 296, 2184));
-		this.addEntity(new WeirdTechBuilding2(this, 296, 2368));
-		this.addEntity(new WeirdTechBuilding2(this, 1576, 1456));
-		this.addEntity(new WeirdTechBuilding2(this, 1648, 1296));
-		this.addEntity(new WeirdTechBuilding2(this, 1736, 1632));
-		this.addEntity(new WeirdTechBuilding2(this, 1848, 1576));
-		this.addEntity(new WeirdTechBuilding2(this, 2056, 1296));
-		this.addEntity(new WeirdTechBuilding2(this, 2240, 1352));
-		this.addEntity(new WeirdTechBuilding2(this, 2344, 1296));
+		add(new Cafe(this, 2224, 1224));
+		add(new CardinalUniversity(this, 1392, 448));
+		add(new GenericHospital(this, 1576, 1792));
+		add(new GenericHospital(this, 1872, 1056));
+		add(new Hotel(this, 1720, 1160));
+		add(new Hotel(this, 1808, 1808));
+		add(new NiceHouse(this, 1408, 1480));
+		add(new NiceHouse(this, 1496, 1320));
+		add(new NiceHouse(this, 1560, 1208));
+		add(new NiceHouse(this, 1608, 1120));
+		add(new NiceHouse(this, 1656, 1040));
+		add(new NiceHouse(this, 2000, 1704));
+		add(new NiceHouse(this, 2168, 2024));
+		add(new NiceHouse(this, 2240, 1104));
+		add(new NiceHouse(this, 2392, 1080));
+		add(new NiceHouse(this, 2512, 1280));
+		add(new NiceHouse(this, 2568, 1376));
+		add(new NiceHouse2(this, 1824, 960));
+		add(new NiceHouse2(this, 1912, 960));
+		add(new NiceHouse2(this, 1936, 1176));
+		add(new NiceHouse2(this, 1984, 1256));
+		add(new NiceHouse2(this, 2000, 960));
+		add(new NiceHouse2(this, 2088, 960));
+		add(new NiceHouse2(this, 2096, 1864));
+		add(new NiceHouse2(this, 2176, 960));
+		add(new NiceHouse2(this, 2352, 1000));
+		add(new NiceHouse2(this, 2384, 1880));
+		add(new NiceHouse2(this, 2424, 1808));
+		add(new NiceHouse2(this, 2464, 1736));
+		add(new NiceHouse2(this, 2504, 1656));
+		add(new NiceHouse2(this, 2544, 1584));
+		add(new NiceHouse2(this, 2584, 1512));
+		add(new PearHQ(this, 280, 1928));
+		add(new Police(this, 1928, 1552));
+		add(new PoorHouse(this, 1632, 1888));
+		add(new PoorHouse(this, 1672, 1968));
+		add(new PoorHouse(this, 1744, 2024));
+		add(new PoorHouse(this, 1840, 2024));
+		add(new PoorHouse(this, 1936, 2024));
+		add(new PoorHouse(this, 2008, 1864));
+		add(new PoorHouse(this, 2032, 2024));
+		add(new PoorHouse(this, 3192, 3224));
+		add(new PoorHouse(this, 3224, 2648));
+		add(new PoorHouse(this, 3288, 3224));
+		add(new PoorHouse(this, 3320, 2648));
+		add(new PoorHouse(this, 3384, 3224));
+		add(new PoorHouse(this, 3416, 2648));
+		add(new PoorHouse(this, 3480, 3224));
+		add(new PoorHouse(this, 3568, 2648));
+		add(new PoorHouse(this, 3576, 3224));
+		add(new PoorHouse(this, 3664, 2648));
+		add(new PoorHouse(this, 3760, 2648));
+		add(new PoorHouse(this, 3800, 3224));
+		add(new PoorHouse(this, 3896, 3224));
+		add(new PoorHouse(this, 3984, 3184));
+		add(new PoorHouse(this, 4096, 3184));
+		add(new PoorHouse(this, 4168, 3288));
+		add(new RadarDish(this, 552, 384));
+		add(new SequoiaSchool(this, 2304, 1480));
+		add(new TechTopiaCityHall(this, 1832, 1416));
+		add(new WeirdTechBuilding1(this, 640, 2240));
+		add(new WeirdTechBuilding1(this, 1648, 1496));
+		add(new WeirdTechBuilding1(this, 1736, 1448));
+		add(new WeirdTechBuilding1(this, 2128, 1440));
+		add(new WeirdTechBuilding1(this, 2152, 1208));
+		add(new WeirdTechBuilding1(this, 2192, 1536));
+		add(new WeirdTechBuilding1(this, 2248, 1656));
+		add(new WeirdTechBuilding2(this, 296, 2184));
+		add(new WeirdTechBuilding2(this, 296, 2368));
+		add(new WeirdTechBuilding2(this, 1576, 1456));
+		add(new WeirdTechBuilding2(this, 1648, 1296));
+		add(new WeirdTechBuilding2(this, 1736, 1632));
+		add(new WeirdTechBuilding2(this, 1848, 1576));
+		add(new WeirdTechBuilding2(this, 2056, 1296));
+		add(new WeirdTechBuilding2(this, 2240, 1352));
+		add(new WeirdTechBuilding2(this, 2344, 1296));
 
 	}
 
 	@Override
 	protected void initMapTransporters() {
 
-		this.addEntity(new MapTransporter(this, 0, 0,
-				Game.levels.bautistasDomain, Direction.NORTH, this.width * 8, 8));
-		this.addEntity(new MapTransporter(this, 0, 0,
-				Game.levels.edgeOfTheWoodsMain, Direction.WEST, 8,
-				this.height * 8, Game.levels.edgeOfTheWoodsMain.height * 16 / 3));
+		add(new MapTransporter(this, 0, 0,
+				BautistasDomain.level, Direction.NORTH, this.getWidth() * 8, 8));
+		add(new MapTransporter(this, 0, 0,
+				EdgeOfTheWoods.level, Direction.WEST, 8,
+				this.getHeight() * 8));
 
-		this.addEntity(new MapTransporter(this, (this.width * 8) - 8, 0,
-				Game.levels.sanJuan, Direction.EAST, 8,
-				this.height * 8));
+		add(new MapTransporter(this, (this.getWidth() * 8) - 8, 0,
+				SanJuan.level, Direction.EAST, 8,
+				this.getHeight() * 8));
 
 	}
 

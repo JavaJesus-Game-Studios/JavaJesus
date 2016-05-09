@@ -15,7 +15,7 @@ public class SanCiscoCityHall extends Building {
 	public SanCiscoCityHall(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFFFF, 0xFFFFBC02 }, Sprite.san_cisco_city_hall,
 				SolidEntity.FIVE_SIXTHS);
-		level.addEntity(new Transporter(level, x + 90, y + 104, level));
+		level.add(new Transporter(level, x + 90, y + 104, level));
 	}
 
 }

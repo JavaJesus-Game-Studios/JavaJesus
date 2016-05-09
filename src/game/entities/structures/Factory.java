@@ -16,7 +16,7 @@ public class Factory extends Building {
 
 	public Factory(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF3B312A, 0xFF002244 }, Sprite.factory, SolidEntity.TWO_THIRDS);
-		level.addEntity(
+		level.add(
 				new Transporter(level, x + 45, y + 69, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
 

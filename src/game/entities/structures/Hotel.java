@@ -20,7 +20,7 @@ public class Hotel extends Building {
 
 	public Hotel(Level level, int x, int y) {
 		super(level, x, y, getColor(), Sprite.hotel, SolidEntity.TWO_THIRDS);
-		level.addEntity(
+		level.add(
 				new Transporter(level, x + 21, y + 64, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
 

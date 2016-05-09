@@ -362,6 +362,19 @@ public abstract class Level implements Serializable {
 
 		entities.add(entity);
 	}
+	
+	/**
+	 * Adds entities to this level
+	 * 
+	 * @param entity
+	 *            the entity to add
+	 */
+	public void add(Entity... entities) {
+
+		for (Entity e: entities) {
+			add(e);
+		}
+	}
 
 	/**
 	 * Removes an entity from the level

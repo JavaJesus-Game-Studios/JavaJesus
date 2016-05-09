@@ -16,7 +16,7 @@ public class TriadHQ extends Building {
 
 	public TriadHQ(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF335C33, 0xFF8D1919, 0xFF4D4DFF }, Sprite.triad_HQ, SolidEntity.FIVE_SIXTHS);
-		level.addEntity(
+		level.add(
 				new Transporter(level, x + 90, y + 155, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 

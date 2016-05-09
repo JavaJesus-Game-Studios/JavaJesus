@@ -16,9 +16,9 @@ public class JungleHQ extends Building {
 
 	public JungleHQ(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF248F24, 0xFF4D4DFF }, Sprite.jungle_hq, SolidEntity.TWO_THIRDS);
-		level.addEntity(new Transporter(level, x + 61, y + 80,
+		level.add(new Transporter(level, x + 61, y + 80,
 				new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
-		level.addEntity(new Transporter(level, x + 75, y + 80,
+		level.add(new Transporter(level, x + 75, y + 80,
 				new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
 	

@@ -14,7 +14,7 @@ public class GenericHospital extends Building {
 
 	public GenericHospital(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFFFF, 0xFF496787 }, Sprite.generic_hospital, SolidEntity.TWO_THIRDS);
-		level.addEntity(new Transporter(level, x + 45, y + 64, getLevel()));
+		level.add(new Transporter(level, x + 45, y + 64, getLevel()));
 	}
 
 }

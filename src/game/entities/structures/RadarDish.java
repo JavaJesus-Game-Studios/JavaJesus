@@ -16,7 +16,7 @@ public class RadarDish extends Building {
 
 	public RadarDish(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFA3A3C2, 0xFF75758C }, Sprite.radardish, SolidEntity.QUARTER);
-		level.addEntity(new Transporter(level, x + 37, y + 117,
+		level.add(new Transporter(level, x + 37, y + 117,
 				new RadarDishInterior(new Point(x + 43, y + 125), level)));
 	}
 	

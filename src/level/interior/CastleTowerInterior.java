@@ -1,14 +1,15 @@
 package level.interior;
 
-import game.entities.structures.furniture.DiningTable;
-import game.entities.structures.transporters.TransporterInterior;
-
 import java.awt.Point;
 
+import game.entities.structures.furniture.DiningTable;
+import game.entities.structures.transporters.TransporterInterior;
 import level.Level;
 
 public class CastleTowerInterior extends Interior {
 
+	private static final long serialVersionUID = -4157297082918985024L;
+	
 	private Point exitPoint;
 
 	public CastleTowerInterior(Point point, Level level) {
@@ -19,7 +20,7 @@ public class CastleTowerInterior extends Interior {
 
 	protected void initNPCPlacement() {
 
-		this.addEntity(new DiningTable(this, 1900, 1900));
+		add(new DiningTable(this, 1900, 1900));
 
 	}
 
@@ -32,7 +33,7 @@ public class CastleTowerInterior extends Interior {
 	}
 
 	protected void otherEntityPlacement() {
-		this.addEntity(new TransporterInterior(this, 1935, 2088, nextLevel,
+		add(new TransporterInterior(this, 1935, 2088, nextLevel,
 				exitPoint));
 	}
 

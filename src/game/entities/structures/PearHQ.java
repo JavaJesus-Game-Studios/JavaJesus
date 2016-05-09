@@ -18,7 +18,7 @@ public class PearHQ extends Building {
 	public PearHQ(Level level, int x, int y) {
 		super(level, x, y, new int[] { -1, 111, Colors.fromHex("#648ca4"), Colors.fromHex("#f87a36") }, Sprite.pear_hq,
 				SolidEntity.TWO_THIRDS);
-		level.addEntity(
+		level.add(
 				new Transporter(level, x + 46, y + 176, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
 }

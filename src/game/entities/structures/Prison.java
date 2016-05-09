@@ -16,7 +16,7 @@ public class Prison  extends Building {
 
 	public Prison(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFAB0, 0xFFABD3FF }, Sprite.prison, SolidEntity.HALF);
-		level.addEntity(new Transporter(level, x + 77, y + 64,
+		level.add(new Transporter(level, x + 77, y + 64,
 				new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
 

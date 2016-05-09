@@ -17,17 +17,17 @@ public class CaveEntrance extends Building {
 
 	public CaveEntrance(Level level, int x, int y) {
 		super(level, x, y, color, Sprite.cave_entrance, SolidEntity.QUARTER);
-		level.addEntity(new TransporterCave(level, x + 18, y + 20));
+		level.add(new TransporterCave(level, x + 18, y + 20));
 	}
 
 	public CaveEntrance(Level level, int x, int y, Point spawn) {
 		super(level, x, y, color, Sprite.cave_entrance, SolidEntity.QUARTER);
-		level.addEntity(new TransporterCave(level, x + 18, y + 20, spawn));
+		level.add(new TransporterCave(level, x + 18, y + 20, spawn));
 	}
 
 	public CaveEntrance(Level level, int x, int y, Level nextLevel) {
 		super(level, x, y, color, Sprite.cave_entrance, SolidEntity.QUARTER);
-		level.addEntity(new TransporterCave(level, x + 18, y + 20, nextLevel));
+		level.add(new TransporterCave(level, x + 18, y + 20, nextLevel));
 	}
 
 }

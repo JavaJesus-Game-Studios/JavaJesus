@@ -16,7 +16,7 @@ public class CatholicChurch extends Building {
 
 	public CatholicChurch(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFAB0, 0xFFD30000 }, Sprite.catholic_church, SolidEntity.HALF);
-		level.addEntity(new Transporter(level, x + 38, y + 59,
+		level.add(new Transporter(level, x + 38, y + 59,
 				new CatholicChurchInterior(new Point(x + 44, y + 70), getLevel())));
 	}
 

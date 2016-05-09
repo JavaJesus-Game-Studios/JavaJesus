@@ -17,7 +17,7 @@ public class TechTopiaCityHall extends Building {
 	public TechTopiaCityHall(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF283A28, 0xFF1F5C1F, 0xFFABD3FF }, Sprite.techTopia_city_hall,
 				SolidEntity.TWO_THIRDS);
-		level.addEntity(
+		level.add(
 				new Transporter(level, x + 42, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 }

@@ -1,7 +1,6 @@
 package level.sandbox;
 
 import game.entities.Spawner;
-import game.entities.npcs.Jesus;
 import game.entities.structures.CastleTower;
 import game.entities.structures.CatholicChurch;
 import game.entities.structures.CaveEntrance;
@@ -49,11 +48,7 @@ public class SandboxSurvivalMap1 extends Level {
 		add(new Spawner(this, 1475, 1433, Spawner.DEMON));
 		add(new Spawner(this, 1097, 890, Spawner.DEMON));
 		add(new Spawner(this, 1350, 100, Spawner.DEMON));
-		add(new Hut(this, 259, 300, new Chest(this, 272, 232, Item.shortSword),
-				new Spawner(this, 252, 252, Spawner.DEMON)));
-		add(new Hut(this, 473, 300, new Jesus(this, 300, 400, "stand", 30)));
 		add(new Hut(this, 687, 300));
-		add(new Hut(this, 900, 300, new Jesus(this, 300, 400, "stand", 30)));
 		add(new Chest(this, 1460, 70, Item.revolver));
 	}
 

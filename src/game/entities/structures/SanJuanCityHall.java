@@ -17,7 +17,7 @@ public class SanJuanCityHall extends Building {
 	public SanJuanCityHall(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF919192, 0xFF4D4DFF }, Sprite.sanJuan_City_Hall,
 				SolidEntity.TWO_THIRDS);
-		level.addEntity(
+		level.add(
 				new Transporter(level, x + 67, y + 104, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 

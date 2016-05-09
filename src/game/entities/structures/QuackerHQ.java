@@ -16,7 +16,7 @@ public class QuackerHQ extends Building {
 
 	public QuackerHQ(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFFFF, 0xFF4D4DFF }, Sprite.quacker_hq, SolidEntity.TWO_THIRDS);
-		level.addEntity(
+		level.add(
 				new Transporter(level, x + 53, y + 83, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 }

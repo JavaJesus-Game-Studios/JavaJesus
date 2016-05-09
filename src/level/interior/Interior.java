@@ -6,11 +6,13 @@ import level.Level;
 
 public abstract class Interior extends Level {
 	
+	private static final long serialVersionUID = 5670120122380275578L;
+	
 	protected Level nextLevel;
 	
 	public Interior(String string, Point point, Level level) {
 		super(string, false, "Interior");
-		this.spawnPoint = point;
+		setSpawnPoint(point.x, point.y);
 		this.nextLevel = level;
 	}
 	

@@ -16,7 +16,7 @@ public class GunStore extends Building {
 
 	public GunStore(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFAB0, 0xFFABD3FF }, Sprite.gunstore, SolidEntity.HALF);
-		level.addEntity(new Transporter(level, x + 29, y + 26,
+		level.add(new Transporter(level, x + 29, y + 26,
 				new GunStoreInterior(new Point(x + 35, y + 37), getLevel())));
 	}
 

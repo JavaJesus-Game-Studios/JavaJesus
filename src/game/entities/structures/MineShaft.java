@@ -16,7 +16,7 @@ public class MineShaft extends Building {
 
 	public MineShaft(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF3B312A, 0xFFFFEA5D }, Sprite.mineshaft, SolidEntity.QUARTER);
-		level.addEntity(
+		level.add(
 				new Transporter(level, x + 79, y + 48, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
 

@@ -17,7 +17,7 @@ public class SequoiaSchool extends Building {
 	public SequoiaSchool(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF8D1919, 0xFF4D4DFF }, Sprite.sequoiaSchool,
 				SolidEntity.TWO_THIRDS);
-		level.addEntity(
+		level.add(
 				new Transporter(level, x + 60, y + 99, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 

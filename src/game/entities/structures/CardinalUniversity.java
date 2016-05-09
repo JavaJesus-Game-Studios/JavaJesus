@@ -28,9 +28,9 @@ public class CardinalUniversity extends Building {
 		super(level, x, y, new int[] { 0xFFFF1111, 0xFFFFFFB2, 0xFFFFFFFF }, Sprite.cardinalUniversity,
 				SolidEntity.TWO_THIRDS);
 
-		level.addEntity(
+		level.add(
 				new Transporter(level, x + 82, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
-		level.addEntity(
+		level.add(
 				new Transporter(level, x + 106, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 }

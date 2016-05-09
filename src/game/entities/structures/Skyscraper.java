@@ -17,7 +17,7 @@ public class Skyscraper extends Building {
 	public Skyscraper(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF673101, 0xFFABD3FF }, Sprite.skyscraper,
 				SolidEntity.SEVEN_EIGTHS);
-		level.addEntity(
+		level.add(
 				new Transporter(level, x + 38, y + 234, new SkyscraperLobby(new Point(x + 44, y + 243), level)));
 	}
 

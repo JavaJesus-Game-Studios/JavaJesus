@@ -18,7 +18,7 @@ public class CastleTower extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF8D8D8D, 0xFFEEFEFF }, Sprite.castle_tower,
 				SolidEntity.FIVE_SIXTHS);
 
-		level.addEntity(new Transporter(level, x + 41, y + 159,
+		level.add(new Transporter(level, x + 41, y + 159,
 				new CastleTowerInterior(new Point(x + 43, y + 167), getLevel())));
 
 	}

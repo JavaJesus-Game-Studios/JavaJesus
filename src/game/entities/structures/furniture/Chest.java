@@ -1,5 +1,9 @@
 package game.entities.structures.furniture;
 
+import java.awt.Rectangle;
+import java.util.List;
+import java.util.Random;
+
 import game.entities.Entity;
 import game.entities.SolidEntity;
 import game.graphics.Screen;
@@ -7,8 +11,6 @@ import game.graphics.SpriteSheet;
 import items.Gun;
 import items.Item;
 import items.Sword;
-import java.awt.Rectangle;
-import java.util.Random;
 import level.Level;
 
 /*
@@ -64,6 +66,25 @@ public class Chest extends Entity implements SolidEntity {
 		super(level, x, y);
 
 		this.contents = items;
+		setBounds(getX(), getY(), SIZE, SIZE);
+	}
+	
+	/**
+	 * Creates a chest filled with certain items
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param items
+	 *            the items it contains
+	 */
+	public Chest(Level level, int x, int y, List<Item> items) {
+		super(level, x, y);
+
+		this.contents = (Item[]) items.toArray();
 		setBounds(getX(), getY(), SIZE, SIZE);
 	}
 

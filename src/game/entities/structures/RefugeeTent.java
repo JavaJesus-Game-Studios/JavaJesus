@@ -16,7 +16,7 @@ public class RefugeeTent  extends Building {
 
 	public RefugeeTent(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFF8FA8F, 0xFF000000 }, Sprite.refugee_tent, SolidEntity.QUARTER);
-		level.addEntity(new Transporter(level, x + 34, y + 7,
+		level.add(new Transporter(level, x + 34, y + 7,
 				new RefugeeTentInterior(new Point(x + 40, y + 18), level)));
 	}
 

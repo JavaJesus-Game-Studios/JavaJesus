@@ -20,7 +20,7 @@ public class PoorHouse extends Building {
 
 	public PoorHouse(Level level, int x, int y) {
 		super(level, x, y, getColor(), Sprite.poor_house, SolidEntity.HALF);
-		level.addEntity(new Transporter(level, x + 14, y + 39,
+		level.add(new Transporter(level, x + 14, y + 39,
 				new PoorHouseInterior(new Point(x + 20, y + 50), getLevel())));
 	}
 
