@@ -49,6 +49,21 @@ public class Horse extends NPC implements Ridable {
 		setSpriteSheet(SpriteSheet.horses);
 
 	}
+	
+	/**
+	 * Creates a horse
+	 * @param level the level it is on
+	 * @param x the x coord
+	 * @param y the y coord
+	 * @param defaultHealth the default health
+	 * @param type the color of the horse
+	 */
+	public Horse(Level level, int x, int y, int defaultHealth, int type) {
+		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, Game.player.getColor(), NOT_USED_XTILE,
+				type, "stand", 0);
+		setSpriteSheet(SpriteSheet.horses);
+
+	}
 
 	/**
 	 * Moves a horse on the level

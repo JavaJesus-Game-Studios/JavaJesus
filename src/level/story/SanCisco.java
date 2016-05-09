@@ -32,6 +32,8 @@ import utility.Direction;
 public class SanCisco extends Level {
 
 	private static final long serialVersionUID = 220527283938650811L;
+	
+	public static final Level level = new SanCisco();
 
 	public SanCisco() {
 		super("/Levels/Cities/San_Cisco.png", true, "San Cisco");

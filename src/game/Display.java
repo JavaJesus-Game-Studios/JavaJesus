@@ -191,7 +191,7 @@ public class Display extends Canvas {
 		}
 
 		if (inGameScreen) {
-			Game.getLevel().tick();
+			Game.player.getLevel().tick();
 		} else {
 			((ScreenGUI) display.getComponent(guiID)).tick();
 		}
@@ -215,8 +215,8 @@ public class Display extends Canvas {
 		}
 
 		if (inGameScreen) {
-			Game.getLevel().renderTile(screen, xOffset, yOffset);
-			Game.getLevel().renderEntities(screen, Game.player);
+			Game.player.getLevel().renderTile(screen, xOffset, yOffset);
+			Game.player.getLevel().renderEntities(screen, Game.player);
 		}
 
 		for (int y = 0; y < screen.getHeight(); y++) {

@@ -1,6 +1,5 @@
 package game.entities.structures.transporters;
 
-import game.Game;
 import game.entities.Player;
 import game.graphics.Screen;
 import level.Level;
@@ -40,25 +39,11 @@ public class MapTransporter extends Transporter {
 		this.dir = dir;
 		setBounds(getX(), getY(), width, height);
 	}
-
-	/**
-	 * Updates the transporter
-	 */
-	public void tick() {
-
-		for (Player player : getLevel().getPlayers()) {
-			if (getBounds().intersects(player.getBounds()) && !player.isDriving()) {
-				calcNewSpawn();
-				player.updateLevel(getNextLevel());
-			}
-		}
-
-	}
 	
 	/**
 	 * Calculates the new spawnpoint for the next level
 	 */
-	private void calcNewSpawn() {
+	public void calcNewSpawn(Player player) {
 
 		// the x and y spawn coords
 		int x, y;
@@ -69,7 +54,7 @@ public class MapTransporter extends Transporter {
 		case NORTH: {
 
 			// X is proportional to width
-			x = getNextLevel().getWidth() * Game.player.getX() / getLevel().getWidth();
+			x = getNextLevel().getWidth() * player.getX() / getLevel().getWidth();
 
 			y = (getNextLevel().getHeight() * 8) - 16;
 			break;
@@ -79,7 +64,7 @@ public class MapTransporter extends Transporter {
 		case SOUTH: {
 
 			// X is proportional to width
-			x = getNextLevel().getWidth() * Game.player.getX() / getLevel().getWidth();
+			x = getNextLevel().getWidth() * player.getX() / getLevel().getWidth();
 
 			y = 16;
 			break;
@@ -91,7 +76,7 @@ public class MapTransporter extends Transporter {
 			x = 16;
 
 			// Y is proportional to height
-			y = getNextLevel().getHeight() * Game.player.getY() / getLevel().getHeight();
+			y = getNextLevel().getHeight() * player.getY() / getLevel().getHeight();
 			break;
 		}
 
@@ -101,7 +86,7 @@ public class MapTransporter extends Transporter {
 			x = (getNextLevel().getWidth() * 8) - 16;
 
 			// Y is proportional to height
-			y = getNextLevel().getHeight() * Game.player.getY() / getLevel().getHeight();
+			y = getNextLevel().getHeight() * player.getY() / getLevel().getHeight();
 			break;
 		}
 		}

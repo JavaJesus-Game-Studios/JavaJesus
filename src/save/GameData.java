@@ -1,42 +1,59 @@
 package save;
 
-import level.LevelList;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import game.Game;
 
 /*
- * This class manages the saving of level files
+ * This class manages the saving of files
  */
 public class GameData {
 
-	/**
-	 * Saves the current player's level
-	 * @return True if the game is saved successfully
-	 */
-	public static boolean saveGame() {
-		Game.levels.setCurrentLevel(Game.player.getLevel());
-		return Game.player.getLevel().saveData.save(Game.levels.playerLevel);
-	}
 
 	/**
-	 * 
-	 * @param file the name of the file
-	 * @param o the object to serialize
+	 * @param object
+	 *            The object to serialize
+	 * @return True if the object is saved successfully
 	 */
-	public static void saveObject(String file, Object o) {
-		new SaveFile(file).save(o);
-	}
+	public static boolean save(String name, Object object) {
 
-	/**
-	 * 
-	 * @return True if the level was loaded successfully
-	 */
-	public static boolean load() {
-		Object obj = Game.player.getLevel().saveData.load();
-		if (obj != null) {
-			Game.levels = (LevelList) obj;
+		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(name, false))) {
+
+			out.writeObject(object);
 			return true;
+
+		} catch (IOException e) {
+			System.err.println("There was a problem saving " + name);
+			e.printStackTrace();
+			return false;
 		}
-		return false;
+	}
+
+	/**
+	 * @return the object in memory if loaded successfully 
+	 * null if no object was found
+	 */
+	public static Object load(String name) {
+
+		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(name))) {
+			return in.readObject();
+
+		} catch (IOException | ClassNotFoundException e) {
+			System.err.println("There was a problem loading" + name);
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * @return Saves the main player
+	 */
+	public static boolean savePlayer() {
+		return save("Player", Game.player);
 	}
 
 }

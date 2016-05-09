@@ -14,6 +14,8 @@ import utility.Direction;
 public class EdgeOfTheWoodsTop extends Level {
 
 	private static final long serialVersionUID = -6149629568236162343L;
+	
+	public static final Level level = new EdgeOfTheWoodsTop();
 
 	public EdgeOfTheWoodsTop() {
 		super("/Levels/Wilderness_Areas/Edge_of_The_Woods_Top.png", true,

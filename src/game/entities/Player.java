@@ -3,7 +3,6 @@ package game.entities;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import game.ChatHandler;
 import game.Display;
@@ -12,6 +11,7 @@ import game.InputHandler;
 import game.SoundHandler;
 import game.entities.monsters.Demon;
 import game.entities.structures.furniture.Chest;
+import game.entities.structures.transporters.MapTransporter;
 import game.entities.structures.transporters.Transporter;
 import game.entities.vehicles.Ridable;
 import game.graphics.Colors;
@@ -103,12 +103,6 @@ public class Player extends Mob implements Skills {
 	// player stats
 	private int strength, defense;
 
-	// contains a list of where each player should spawn when entering that
-	// level
-	// Integer is the level hash code
-	// Point is the location
-	private HashMap<Integer, Point> levelSpawnPoints = new HashMap<Integer, Point>();;
-
 	/**
 	 * Creates a new player for the game
 	 * 
@@ -144,10 +138,6 @@ public class Player extends Mob implements Skills {
 	 */
 	public void updateLevel(Level level) {
 
-		if (!levelSpawnPoints.containsKey(level.hashCode())) {
-			levelSpawnPoints.put(level.hashCode(), level.getSpawnPoint());
-		}
-
 		// play the click sound
 		SoundHandler.play(SoundHandler.click);
 
@@ -155,13 +145,6 @@ public class Player extends Mob implements Skills {
 		if (!getLevel().getBackgroundMusic().equals(level.getBackgroundMusic())) {
 			SoundHandler.playLoop(level.getBackgroundMusic());
 		}
-
-		// load the new level if it has not been loaded yet
-		if (!level.isLoaded()) {
-			level.load();
-		}
-
-		input.e.toggle(false);
 
 		getLevel().remove(this);
 
@@ -173,6 +156,11 @@ public class Player extends Mob implements Skills {
 		// clears all the dead mobs on the last level
 		getLevel().clear();
 
+		// load the new level if it has not been loaded yet
+		if (!level.isLoaded()) {
+			level.load();
+		}
+
 		// change the global level variable
 		super.updateLevel(level);
 
@@ -180,7 +168,7 @@ public class Player extends Mob implements Skills {
 		level.add(this);
 
 		// where the player should go
-		Point location = levelSpawnPoints.get(level.hashCode());
+		Point location = level.getSpawnPoint();
 
 		// go to the spawn location for that level
 		moveTo(location.x, location.y);
@@ -325,6 +313,7 @@ public class Player extends Mob implements Skills {
 
 		// action button
 		if (input.e.isPressed()) {
+			input.e.toggle(false);
 			for (Entity entity : getLevel().getEntities()) {
 
 				// enter a vehicle
@@ -337,7 +326,6 @@ public class Player extends Mob implements Skills {
 						this.vehicle = vehicle;
 						moveTo(vehicle.getX(), vehicle.getY());
 						vehicle.drive(this);
-						input.e.toggle(false);
 						return;
 					}
 				}
@@ -357,13 +345,18 @@ public class Player extends Mob implements Skills {
 						// TODO change from mob.speak to this.speak(other
 						// mob)
 						other.speak(this);
-						input.e.toggle(false);
 					}
 				}
 
 				// handles transporters
 				if (entity instanceof Transporter && getBounds().intersects(entity.getBounds())) {
-					levelSpawnPoints.put(getLevel().hashCode(), new Point(getX(), getY()));
+
+					getLevel().setSpawnPoint(getX(), getY());
+
+					if (entity instanceof MapTransporter) {
+						((MapTransporter) entity).calcNewSpawn(this);
+					}
+
 					updateLevel(((Transporter) entity).getNextLevel());
 				}
 			}

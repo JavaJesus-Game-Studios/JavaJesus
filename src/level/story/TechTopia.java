@@ -24,6 +24,8 @@ import utility.Direction;
 public class TechTopia extends Level {
 
 	private static final long serialVersionUID = 3330749489914073847L;
+	
+	public static final Level level = new TechTopia();
 
 	public TechTopia() {
 		super("/Levels/Cities/Tech_Topia.png", true, "Tech Topia");

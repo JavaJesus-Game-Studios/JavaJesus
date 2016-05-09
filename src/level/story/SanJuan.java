@@ -27,6 +27,8 @@ import utility.Direction;
 public class SanJuan extends Level {
 
 	private static final long serialVersionUID = -1623870972641933936L;
+	
+	public static final Level level = new SanJuan();
 
 	public SanJuan() {
 		super("/Levels/Cities/San_Juan.png", true, "San Juan");

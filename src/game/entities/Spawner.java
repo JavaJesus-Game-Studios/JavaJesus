@@ -18,9 +18,7 @@ public class Spawner extends Entity {
 	private static final long serialVersionUID = -1243740183193796893L;
 
 	// types of entities to spawn
-	public static final int DEMON = 0;
-	public static final int GANG_MEMBER = 1;
-	public static final int HEALTH_PACK = 2;
+	public static final int DEMON = 0, GANG_MEMBER = 1, HEALTH_PACK = 2, CAR = 3;
 
 	// the type of mob to spawn
 	private int type;

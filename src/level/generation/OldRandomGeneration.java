@@ -1,18 +1,17 @@
 package level.generation;
 
-import game.Display;
-import game.entities.structures.transporters.Transporter;
-
-import java.awt.Point;
 import java.util.Random;
 
+import game.Display;
+import game.entities.Spawner;
+import game.entities.structures.transporters.Transporter;
 import level.Level;
 import level.tile.Tile;
 
 public class OldRandomGeneration extends Level {
 
 	private static final long serialVersionUID = 1188981262817559405L;
-	
+
 	/** temporary ints */
 	protected final byte grass = 0;
 	protected final byte sand = 1;
@@ -34,19 +33,19 @@ public class OldRandomGeneration extends Level {
 	protected int[] grid;
 
 	public OldRandomGeneration(int width, int height) {
-		super(width, height, false);
-		spawnPoint = new Point(random.nextInt(width), random.nextInt(height));
+		super(width, height, false, "Old Random Level");
+		setSpawnPoint(random.nextInt(getWidth()), random.nextInt(getHeight()));
 	}
 
 	/** Generates the tiles array of the map */
 	protected void generateLevel() {
 
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				int tile = x + y * width;
+		for (int y = 0; y < getHeight(); y++) {
+			for (int x = 0; x < getWidth(); x++) {
+				int tile = x + y * getWidth();
 
 				// Makes sand borders around the map
-				if (x < 3 || x > width - 3 || y < 3 || y > height - 3) {
+				if (x < 3 || x > getWidth() - 3 || y < 3 || y > getHeight() - 3) {
 					if (tiles[tile] != water) {
 						tiles[tile] = sand;
 					}
@@ -116,13 +115,12 @@ public class OldRandomGeneration extends Level {
 		for (int i = 0; i < length; i++) {
 			byte type = road1;
 			for (int j = 0; j < 3; j++) {
-				if (i + x + (y + j) * width >= tiles.length
-						|| i + x + (y + j) * width <= 0)
+				if (i + x + (y + j) * getWidth() >= tiles.length || i + x + (y + j) * getWidth() <= 0)
 					continue;
-				if (tiles[i + x + (y + j) * width] == water) {
-					tiles[i + x + (y + j) * width] = lily;
+				if (tiles[i + x + (y + j) * getWidth()] == water) {
+					tiles[i + x + (y + j) * getWidth()] = lily;
 				} else {
-					tiles[i + x + (y + j) * width] = type;
+					tiles[i + x + (y + j) * getWidth()] = type;
 				}
 				if (j == 0) {
 					type = road2;
@@ -171,13 +169,12 @@ public class OldRandomGeneration extends Level {
 		for (int i = length; i > 0; i--) {
 			byte type = road1;
 			for (int j = 0; j < 3; j++) {
-				if (i + x + (y + j) * width <= 0
-						|| i + x + (y + j) * width >= tiles.length)
+				if (i + x + (y + j) * getWidth() <= 0 || i + x + (y + j) * getWidth() >= tiles.length)
 					continue;
-				if (tiles[i + x + (y + j) * width] == water) {
-					tiles[i + x + (y + j) * width] = lily;
+				if (tiles[i + x + (y + j) * getWidth()] == water) {
+					tiles[i + x + (y + j) * getWidth()] = lily;
 				} else {
-					tiles[i + x + (y + j) * width] = type;
+					tiles[i + x + (y + j) * getWidth()] = type;
 				}
 				if (j == 0) {
 					type = road2;
@@ -226,13 +223,12 @@ public class OldRandomGeneration extends Level {
 		for (int i = length; i > 0; i--) {
 			byte type = road1;
 			for (int j = 0; j < 3; j++) {
-				if (x + j + (y + i) * width <= 0
-						|| x + j + (y + i) * width >= tiles.length)
+				if (x + j + (y + i) * getWidth() <= 0 || x + j + (y + i) * getWidth() >= tiles.length)
 					continue;
-				if (tiles[x + j + (y + i) * width] == water) {
-					tiles[x + j + (y + i) * width] = lily;
+				if (tiles[x + j + (y + i) * getWidth()] == water) {
+					tiles[x + j + (y + i) * getWidth()] = lily;
 				} else {
-					tiles[x + j + (y + i) * width] = type;
+					tiles[x + j + (y + i) * getWidth()] = type;
 				}
 				if (j == 0) {
 					type = road2;
@@ -278,13 +274,12 @@ public class OldRandomGeneration extends Level {
 		for (int i = 0; i < length; i++) {
 			byte type = road1;
 			for (int j = 0; j < 3; j++) {
-				if (x + j + (y + i) * width >= tiles.length
-						|| x + j + (y + i) * width <= 0)
+				if (x + j + (y + i) * getWidth() >= tiles.length || x + j + (y + i) * getWidth() <= 0)
 					continue;
-				if (tiles[x + j + (y + i) * width] == water) {
-					tiles[x + j + (y + i) * width] = lily;
+				if (tiles[x + j + (y + i) * getWidth()] == water) {
+					tiles[x + j + (y + i) * getWidth()] = lily;
 				} else {
-					tiles[x + j + (y + i) * width] = type;
+					tiles[x + j + (y + i) * getWidth()] = type;
 				}
 				if (j == 0) {
 					type = road2;
@@ -327,11 +322,9 @@ public class OldRandomGeneration extends Level {
 		for (int i = radius; i > 1; i--) {
 			for (int angle = 0; angle < 360; angle++) {
 				double theta = angle;
-				int tile = (int) (x + radius
-						* (Math.sin(theta) * Math.cos(theta)))
-						+ (int) (y + radius
-								* (Math.sin(theta) * Math.sin(theta))) * width;
-				if (tile <= 0 || tile >= width * height) {
+				int tile = (int) (x + radius * (Math.sin(theta) * Math.cos(theta)))
+						+ (int) (y + radius * (Math.sin(theta) * Math.sin(theta))) * getWidth();
+				if (tile <= 0 || tile >= getWidth() * getHeight()) {
 					break;
 				} else if (tiles[tile] != 0) {
 
@@ -364,12 +357,10 @@ public class OldRandomGeneration extends Level {
 			}
 			for (int angle = 0; angle < 360; angle++) {
 				double theta = angle;
-				int tile = (int) (x + radius
-						* (Math.sin(theta) * Math.cos(theta)))
-						+ (int) (y + radius
-								* (Math.sin(theta) * Math.sin(theta))) * width;
+				int tile = (int) (x + radius * (Math.sin(theta) * Math.cos(theta)))
+						+ (int) (y + radius * (Math.sin(theta) * Math.sin(theta))) * getWidth();
 
-				if (tile <= 0 || tile >= width * height) {
+				if (tile <= 0 || tile >= getWidth() * getHeight()) {
 					break;
 				} else if (tiles[tile] == road1 || tiles[tile] == road2) {
 					tiles[tile] = lily;
@@ -383,9 +374,9 @@ public class OldRandomGeneration extends Level {
 	}
 
 	public Tile getTile(int x, int y) {
-		if (0 > x || x >= width || 0 > y || y >= height)
+		if (0 > x || x >= getWidth() || 0 > y || y >= getHeight())
 			return Tile.VOID;
-		switch (tiles[x + y * width]) {
+		switch (tiles[x + y * getWidth()]) {
 		case 0:
 			return Tile.GRASS;
 		case 1:
@@ -417,14 +408,11 @@ public class OldRandomGeneration extends Level {
 	public void initSpawnerPlacement() {
 
 		for (int i = 0; i < 50; i++) {
-			this.addSpawner(random.nextInt(this.width * 8),
-					random.nextInt(this.height * 8), "Demon");
-			this.addSpawner(random.nextInt(this.width * 8),
-					random.nextInt(this.height * 8), "Gang");
+			add(new Spawner(this,random.nextInt(this.getWidth() * 8), random.nextInt(this.getHeight() * 8), Spawner.DEMON));
+			add(new Spawner(this,random.nextInt(this.getWidth() * 8), random.nextInt(this.getHeight() * 8), Spawner.GANG_MEMBER));
 		}
 		for (int i = 0; i < 3; i++) {
-			this.addSpawner(random.nextInt(this.width * 8),
-					random.nextInt(this.height * 8), "Car");
+			add(new Spawner(this,random.nextInt(this.getWidth() * 8), random.nextInt(this.getHeight() * 8), Spawner.CAR));
 		}
 
 	}
@@ -437,12 +425,11 @@ public class OldRandomGeneration extends Level {
 
 	public void otherEntityPlacement() {
 		for (int i = 0; i < 3; i++) {
-			this.addSpawner(random.nextInt(this.width * 8),
-					random.nextInt(this.height * 8), "Health");
-			
-			this.addEntity(new Transporter(this, random.nextInt(this.width * 8),
-					random.nextInt(this.height * 8), new OldRandomGeneration(Display.WIDTH,
-							Display.HEIGHT)));
+			add(new Spawner(this, random.nextInt(getWidth() * 8), random.nextInt(getHeight() * 8),
+					Spawner.HEALTH_PACK));
+
+			add(new Transporter(this, random.nextInt(getWidth() * 8), random.nextInt(this.getHeight() * 8),
+					new OldRandomGeneration(Display.WIDTH, Display.HEIGHT)));
 		}
 
 	}
@@ -456,7 +443,7 @@ public class OldRandomGeneration extends Level {
 	@Override
 	protected void initMapTransporters() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

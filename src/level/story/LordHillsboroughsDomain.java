@@ -32,6 +32,8 @@ import utility.Direction;
 public class LordHillsboroughsDomain extends Level {
 
 	private static final long serialVersionUID = 636992239040959822L;
+	
+	public static final Level level = new LordHillsboroughsDomain();
 
 	public LordHillsboroughsDomain() {
 		super("/Levels/Cities/Domain of Lord Hillsborough.png", true,

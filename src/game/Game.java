@@ -1,13 +1,16 @@
 package game;
 
-import game.entities.Player;
-import game.gui.Launcher;
+import java.awt.Point;
 
 import javax.sound.sampled.Clip;
 
-import save.GameData;
+import game.entities.Player;
+import game.gui.Launcher;
 import level.Level;
-import level.LevelList;
+import level.RandomLevel;
+import level.sandbox.SandboxSurvivalMap1;
+import level.story.LordHillsboroughsDomain;
+import save.GameData;
 
 /*
  * Handles intialization of essential game components
@@ -32,9 +35,6 @@ public class Game implements Runnable {
 	// Default Time of day
 	private static int minutes;
 
-	// Stored List of all known levels
-	public static LevelList levels;
-
 	// Instance of the single player
 	public static Player player;
 
@@ -46,10 +46,10 @@ public class Game implements Runnable {
 
 	// True if special developer numbers should be displayed
 	private static boolean displayDevOverlay;
-	
-	// the gamescore 
+
+	// the gamescore
 	public static int score;
-	
+
 	public static Integer fps;
 
 	/**
@@ -62,18 +62,30 @@ public class Game implements Runnable {
 
 	/**
 	 * Constructor that creates a new instance of the game with a default
-	 * Adventure type
+	 * Adventure type TODO should be IntroGui -> new game -> passes player
+	 * parameters -> initialize player and level
 	 */
 	public Game(GameMode m) {
 		mode = m;
-		levels = new LevelList(mode);
-		player = new Player(getLevel(), getLevel().getSpawnPoint().x,
-				getLevel().getSpawnPoint().y);
+
+		Level level;
+
+		switch (mode) {
+		case MINI:
+			level = new RandomLevel(200, 200, new Point(500, 500), true);
+			break;
+		case SURVIVAL:
+			level = new SandboxSurvivalMap1();
+			break;
+		default:
+			level = LordHillsboroughsDomain.level;
+		}
+
+		player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
 		display = new Display();
 		player.setInput(new InputHandler(display));
-		getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
-		getLevel().add(player);
-		getLevel().init();
+		level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
+		level.add(player);
 	}
 
 	/**
@@ -89,18 +101,16 @@ public class Game implements Runnable {
 	 * Starts the game by first checking for a save file
 	 */
 	public synchronized void startWithLoad() {
-		if (GameData.load()) {
-			player = getLevel().getPlayer();
+		if ((player = (Player) GameData.load("Player")) != null) {
 			display = new Display();
 			player.setInput(new InputHandler(display));
 			player.getInventory().getGun().initSound();
 			player.getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
-			running = true;
-			new Thread(this, "Game").start();
 		} else {
 			System.out.println("Save not found!");
-			this.start();
 		}
+
+		this.start();
 
 	}
 
@@ -154,7 +164,7 @@ public class Game implements Runnable {
 				running = false;
 			}
 		}
-		
+
 		Display.stop();
 		display = null;
 		new Launcher().start();
@@ -168,21 +178,6 @@ public class Game implements Runnable {
 		} else {
 			stop();
 		}
-	}
-
-	/**
-	 * @return returns the current level the game is rendering if the current
-	 *         level is null, then the default level is chosen (for startup)
-	 */
-	protected static Level getLevel() {
-		if (player != null) {
-			return player.getLevel();
-		}
-		if (levels != null && levels.playerLevel != null) {
-			return levels.playerLevel;
-		}
-		return levels.getDefaultLevel();
-
 	}
 
 	/** Renders the screen */

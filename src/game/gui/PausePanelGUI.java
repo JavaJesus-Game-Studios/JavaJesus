@@ -213,7 +213,7 @@ public class PausePanelGUI extends JPanel {
 			return;
 		}
 		case SAVE: {
-			GameData.saveGame();
+			GameData.savePlayer();
 			return;
 		}
 		case LOAD: {

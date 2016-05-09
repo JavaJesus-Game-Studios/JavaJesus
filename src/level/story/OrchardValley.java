@@ -14,6 +14,8 @@ import utility.Direction;
 public class OrchardValley extends Level {
 
 	private static final long serialVersionUID = -5221999559788504392L;
+	
+	public static final Level level = new OrchardValley();
 
 	public OrchardValley() {
 		super("/Levels/Cities/Dubland.png", true, "Orchard Valley");

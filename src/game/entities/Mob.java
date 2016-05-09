@@ -598,7 +598,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Returns basic information about the mob
 	 */
 	public String toString() {
-		return "Type: " + name;
+		return "Type: " + name + "\n" + super.toString();
 	}
 
 	/**

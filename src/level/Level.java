@@ -17,11 +17,9 @@ import game.SoundHandler;
 import game.entities.Entity;
 import game.entities.Mob;
 import game.entities.Player;
-import game.entities.Spawner;
 import game.graphics.JJFont;
 import game.graphics.Screen;
 import level.tile.Tile;
-import save.SaveFile;
 
 /*
  * A Level contains a set of tiles that can be displayed on the screen
@@ -32,13 +30,10 @@ public abstract class Level implements Serializable {
 	private static final long serialVersionUID = -5963535226522522466L;
 
 	// all tiles on each level
-	private int[] tiles;
+	protected int[] tiles;
 
 	// width and height in terms of tiles
 	private int width, height;
-
-	// instance of the player on the level
-	private Player player;
 
 	// list of all entities on the map
 	private List<Entity> entities = new ArrayList<Entity>(Game.ENTITY_LIMIT);
@@ -52,13 +47,7 @@ public abstract class Level implements Serializable {
 	private String imagePath;
 
 	// where the player will go when changing levels here
-	private Point spawnPoint;
-
-	// where the level data is saved
-	private SaveFile saveData;
-
-	// whether or not entities have been added on the map
-	private boolean initEntities;
+	private Point spawnPoint = new Point(0, 0);
 
 	// whether or not the map is loaded
 	private boolean isLoaded;
@@ -81,8 +70,6 @@ public abstract class Level implements Serializable {
 	 */
 	public Level(String imagePath, boolean loadNow, String name) {
 		this.name = name;
-		this.saveData = new SaveFile(name);
-		spawnPoint = new Point(0, 0);
 		if (imagePath != null) {
 			this.imagePath = imagePath;
 			if (loadNow) {
@@ -107,11 +94,9 @@ public abstract class Level implements Serializable {
 	 *            the name of this level
 	 */
 	public Level(int width, int height, boolean loadNow, String name) {
-		spawnPoint = new Point(0, 0);
 		this.width = width;
 		this.height = height;
 		this.name = name;
-		this.saveData = new SaveFile(name);
 		tiles = new int[width * height];
 		if (loadNow) {
 			isLoaded = true;
@@ -401,7 +386,7 @@ public abstract class Level implements Serializable {
 		entities.clear();
 		mobs.clear();
 		hideables.clear();
-		init();
+		loadEntities();
 	}
 
 	/**
@@ -418,53 +403,66 @@ public abstract class Level implements Serializable {
 		return mobs;
 	}
 
-	public void addSpawner(int x, int y, String type) {
-		add(new Spawner(this, x, y, type));
-	}
-
-	public void addSpawner(int x, int y, String type, int amt) {
-		add(new Spawner(this, x, y, type, amt));
-	}
-
-	public void init() {
-		if (!initEntities && this.mobs.size() <= 1) {
-			initEntities = true;
+	/**
+	 * Loads the entites on the level
+	 */
+	private void loadEntities() {
+		if (entities.isEmpty()) {
 			initMapTransporters();
 			initNPCPlacement();
 			initSpawnerPlacement();
 			initChestPlacement();
 			otherEntityPlacement();
-			initMobLocations();
 		}
 	}
 
-	public void initMobLocations() {
-		for (Mob m : this.getMobs()) {
-			m.updateBounds();
-		}
-	}
-
+	/**
+	 * Returns a representation of this object as a string
+	 */
 	public String toString() {
 		return name + "\n Mobs: " + this.getMobs();
 	}
 
+	/**
+	 * @param x the new x point
+	 * @param y the new y point
+	 */
 	public void setSpawnPoint(int x, int y) {
 		spawnPoint = new Point(x, y);
 	}
 	
+	/**
+	 * @return the width of this level
+	 */
 	public int getWidth() {
 		return width;
 	}
 	
+	/**
+	 * @return the height of this level
+	 */
 	public int getHeight() {
 		return height;
 	}
 	
+	/**
+	 * @return the spawnpoint of this level
+	 */
 	public Point getSpawnPoint() {
 		return spawnPoint;
 	}
 	
+	/**
+	 * @return true if this level is loaded
+	 */
 	public boolean isLoaded() {
 		return isLoaded;
+	}
+	
+	/**
+	 * @return the name of the level
+	 */
+	public String getName() {
+		return name;
 	}
 }
