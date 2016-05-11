@@ -45,13 +45,16 @@ public class NPC extends Mob {
 	private int[] color;
 
 	// How long a NPC will wait before moving back to the origin
-	private static final int MOVE_TO_ORIGIN_TIMEOUT = Entity.secondsToTicks(30);
+	private static final int MOVE_TO_ORIGIN_TIMEOUT = Entity.secondsToTicks(10);
 
 	// how fast the npcs toggles steps
-	private static final int WALKING_ANIMATION_SPEED = 4;
-	
+	private static final int WALKING_ANIMATION_SPEED = 3;
+
 	// determines if the npc is moving in any direction
 	protected boolean isMoving;
+
+	// allows npcs to move every other tick
+	private int moveTick;
 
 	/**
 	 * Creates a NPC that interacts with the environment
@@ -110,15 +113,19 @@ public class NPC extends Mob {
 		if (tickCount % MOVE_TO_ORIGIN_TIMEOUT == 0) {
 			movingToOrigin = getX() != xPos || getY() != yPos;
 		}
-		
+
 		// NPC's are always moving unless they are just standing
 		isMoving = true;
 
-		// simple pathfinding for the NPC
-		if (movingToOrigin)
-			findOrigin();
-		else
-			findPath();
+		// move if not colliding
+		if (!isCollidingWithMob()) {
+
+			// simple pathfinding for the NPC
+			if (movingToOrigin)
+				findOrigin();
+			else
+				findPath();
+		}
 
 	}
 
@@ -142,6 +149,8 @@ public class NPC extends Mob {
 
 		// move the NPC
 		move(dx, dy);
+		
+		movingToOrigin = getX() != xPos || getY() != yPos;
 	}
 
 	/**
@@ -197,8 +206,15 @@ public class NPC extends Mob {
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
 			xTile += 8;
+			if (isMoving)
+				xTile += 2;
+		} else if (getDirection() == Direction.SOUTH) {
+			if (isMoving)
+				xTile += 2;
 		} else if (isLatitudinal()) {
-			xTile = 4 + (flip ? 2 : 0);
+			xTile += 4;
+			if (isMoving)
+				xTile += (flip ? 2 : 0);
 			flip = getDirection() == Direction.WEST;
 		}
 
@@ -207,12 +223,15 @@ public class NPC extends Mob {
 			xTile = 12;
 		}
 
+		// depth effect when swimming
+		int swimOffset = modifier * (isSwimming ? 1 : 0);
+
 		// Upper body 1
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes, color,
-				flip, getScale(), getSpriteSheet());
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
+				xTile + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 		// Upper Body 2
-		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
 				(xTile + 1) + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 		if (!isSwimming) {
@@ -602,14 +621,30 @@ public class NPC extends Mob {
 	}
 
 	/**
+	 * Moves a npc on the level every other tick
+	 * 
+	 * @param dx
+	 *            the total change in x
+	 * @param dy
+	 *            the total change in y
+	 */
+	public void move(int dx, int dy) {
+
+		if (moveTick++ % 2 == 0) {
+			super.move(dx * getSpeed(), dy * getSpeed());
+		}
+	}
+
+	/**
 	 * @return the colorset
 	 */
 	protected int[] getColor() {
 		return color;
 	}
-	
+
 	/**
-	 * @param color the new color
+	 * @param color
+	 *            the new color
 	 */
 	protected void setColor(int[] color) {
 		this.color = color;

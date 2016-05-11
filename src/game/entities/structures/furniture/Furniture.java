@@ -22,6 +22,9 @@ public class Furniture extends Entity implements SolidEntity {
 	// the colorset
 	private int[] color;
 
+	// fake shadow, but used to conform to solid entity
+	private static final Rectangle shadow = new Rectangle(0, 0, 0, 0);
+
 	protected final static Sprite diningTableSprite = new Sprite(
 			"/Buildings/Clutter/Furniture/Long_Castle_Dining_Table.png");
 	protected final static Sprite bed = new Sprite("/Buildings/Clutter/Furniture/Simple_Bed.png");
@@ -29,7 +32,8 @@ public class Furniture extends Entity implements SolidEntity {
 	protected final static Sprite bench = new Sprite("/Buildings/Clutter/Furniture/Simple_Bench.png");
 	protected final static Sprite chairFront = new Sprite("/Buildings/Clutter/Furniture/Simple_Chair_Front_Facing.png");
 	protected final static Sprite chairSide = new Sprite("/Buildings/Clutter/Furniture/Simple_Chair.png");
-	protected final static Sprite computerMonitor = new Sprite("/Buildings/Clutter/Furniture/Simple_Computer_monitor.png");
+	protected final static Sprite computerMonitor = new Sprite(
+			"/Buildings/Clutter/Furniture/Simple_Computer_monitor.png");
 	protected final static Sprite computerTower = new Sprite("/Buildings/Clutter/Furniture/Simple_Computer_Tower.png");
 	protected final static Sprite filingCabinet = new Sprite("/Buildings/Clutter/Furniture/Simple_Filing_Cabinet.png");
 	protected final static Sprite longTable = new Sprite("/Buildings/Clutter/Furniture/Simple_Long_Table.png");
@@ -41,11 +45,17 @@ public class Furniture extends Entity implements SolidEntity {
 
 	/**
 	 * Creates clutter
-	 * @param level the level it is on
-	 * @param x the x coord
-	 * @param y the y coord
-	 * @param sprite the sprite to use
-	 * @param color the color
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param sprite
+	 *            the sprite to use
+	 * @param color
+	 *            the color
 	 */
 	public Furniture(Level level, int x, int y, Sprite sprite, int[] color) {
 		super(level, x, y);
@@ -73,7 +83,7 @@ public class Furniture extends Entity implements SolidEntity {
 
 	@Override
 	public Rectangle getShadow() {
-		return null;
+		return shadow;
 	}
 
 	@Override

@@ -23,6 +23,7 @@ import items.Bazooka;
 import items.Inventory;
 import items.Item;
 import level.Level;
+import level.story.LordHillsboroughsDomain;
 import level.tile.Tile;
 import quests.Quest;
 import utility.Direction;
@@ -136,10 +137,12 @@ public class Player extends Mob implements Skills {
 	/**
 	 * Transitions the player from one level to another
 	 */
-	public void updateLevel(Level level) {
+	public synchronized void updateLevel(Level level) {
 
 		// play the click sound
 		SoundHandler.play(SoundHandler.click);
+		
+		System.err.println("Current: " + getLevel().getName() + " Next: " + level.getName() + "\n");
 
 		// loop the new background music if applicable
 		if (!getLevel().getBackgroundMusic().equals(level.getBackgroundMusic())) {
@@ -217,6 +220,8 @@ public class Player extends Mob implements Skills {
 			}
 			demonCooldown = true;
 		}
+		
+		System.err.println(LordHillsboroughsDomain.level.getSpawnPoint());
 
 		// shooting keys
 		if (input.up.isPressed() || input.down.isPressed() || input.left.isPressed() || input.right.isPressed()) {
@@ -352,6 +357,7 @@ public class Player extends Mob implements Skills {
 				if (entity instanceof Transporter && getBounds().intersects(entity.getBounds())) {
 
 					getLevel().setSpawnPoint(getX(), getY());
+					System.err.println("Set Spawn to: " + getLevel().getSpawnPoint());
 
 					if (entity instanceof MapTransporter) {
 						((MapTransporter) entity).calcNewSpawn(this);
@@ -525,11 +531,14 @@ public class Player extends Mob implements Skills {
 
 		// Normal Player movement -- Not Attacking Anything
 		if (!isShooting && !isSwinging) {
+			
+			int swimOffset = modifier * (isSwimming ? 1 : 0);
+			
 			// Upper body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes, color,
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + swimOffset, xTile + yTile * getSpriteSheet().boxes, color,
 					flip, getScale(), getSpriteSheet());
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, (xTile + 1) + yTile * getSpriteSheet().boxes,
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + swimOffset, (xTile + 1) + yTile * getSpriteSheet().boxes,
 					color, flip, getScale(), getSpriteSheet());
 
 			if (!isSwimming) {
@@ -780,7 +789,7 @@ public class Player extends Mob implements Skills {
 	 * @return the current shield
 	 */
 	public double getCurrentShield() {
-		return stamina;
+		return shield;
 	}
 
 	/**

@@ -244,7 +244,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 				super.move(0, 1 * sign);
 				if (isSolidEntityCollision()) {
 					super.move(0, -1 * sign);
-					
+
 					// TODO bugfix for walking south behind buildings
 					if (sign == 1)
 						isBehindBuilding = true;
@@ -271,17 +271,17 @@ public class Mob extends Entity implements Damageable, Hideable {
 	protected boolean hasCollided(int dx, int dy) {
 
 		// the left bound of the mob
-		//TODO These offsets are for player specifically
+		// TODO These offsets are for player specifically
 		int xMin = 4;
 
 		// the right bound of the mob
 		int xMax = getBounds().width - 6;
 
 		// the top bound of the mob
-		int yMin = getBounds().width / 2;
+		int yMin = getBounds().height / 2;
 
 		// the bottom bound of the mob
-		int yMax = getBounds().width;
+		int yMax = getBounds().height - 2;
 
 		for (int x = xMin; x < xMax; x++) {
 			if (isSolidTile(dx, dy, x, yMin) || isSolidTile(dx, dy, x, yMax)) {
@@ -365,8 +365,6 @@ public class Mob extends Entity implements Damageable, Hideable {
 	private boolean isSolidEntityCollision() {
 
 		isBehindBuilding = false;
-		
-		try {
 
 		// loop through the buildings/possible entities
 		for (Entity entity : getLevel().getEntities()) {
@@ -374,9 +372,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 			if (entity instanceof SolidEntity) {
 
 				SolidEntity building = (SolidEntity) entity;
-				
-				
-				
+
 				if (getBounds().intersects(building.getShadow())) {
 					isBehindBuilding = true;
 				} else if (getBounds().intersects(entity.getBounds())) {
@@ -390,10 +386,6 @@ public class Mob extends Entity implements Damageable, Hideable {
 				setOnFire(true);
 			}
 
-		}
-		} catch (Exception e) {
-			System.err.println(this.getName() + getBounds());
-			e.getMessage();
 		}
 
 		return false;
@@ -507,7 +499,8 @@ public class Mob extends Entity implements Damageable, Hideable {
 		}
 
 		// checks if the mob is on water
-		isSwimming = getLevel().getTile(getX() >> 3, (getY() + getBounds().height / 2) >> 3).equals(Tile.WATER);
+		isSwimming = getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3)
+				.equals(Tile.WATER);
 
 		if (isSwimming && isOnFire()) {
 			setOnFire(false);
@@ -579,10 +572,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 				waterColor[1] = 0xFF5266FF;
 				waterColor[2] = 0xFF000000;
 			}
-			// TODO Look into yoffset + 3 and false = 0x00, true = 0x01
-			// originally
-			screen.render(xOffset, yOffset, 0 + 10 * sheet.boxes, waterColor, false, 1, sheet);
-			screen.render(xOffset + 8, yOffset, 0 + 10 * sheet.boxes, waterColor, true, 1, sheet);
+			// water rings
+			// add modifier to yoffset to add a depth effect
+			screen.render(xOffset, yOffset + modifier, 0 + 10 * sheet.boxes, waterColor, false, 1, sheet);
+			screen.render(xOffset + 8, yOffset + modifier, 0 + 10 * sheet.boxes, waterColor, true, 1, sheet);
 		}
 
 		// Handles fire animation
@@ -907,6 +900,13 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 */
 	public void setScript(Script script) {
 		this.script = script;
+	}
+
+	/**
+	 * @return true if colliding with a mob
+	 */
+	protected boolean isCollidingWithMob() {
+		return isCollidingWithMob;
 	}
 
 }
