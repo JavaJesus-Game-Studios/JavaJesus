@@ -32,7 +32,7 @@ public class HealthPack extends Particle {
 	 *            whether or not to randomize the healthpack around the base
 	 *            coordinates
 	 */
-	public HealthPack(Level level, double x, double y, boolean randomize) {
+	public HealthPack(Level level, int x, int y, boolean randomize) {
 		super(level, x, y, 9, new int[] { 0xFFF6F4EE, 0xFFFFFFFF, 0xFFFF0000 });
 
 		if (randomize) {

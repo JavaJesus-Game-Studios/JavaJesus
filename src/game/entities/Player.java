@@ -23,7 +23,6 @@ import items.Bazooka;
 import items.Inventory;
 import items.Item;
 import level.Level;
-import level.story.LordHillsboroughsDomain;
 import level.tile.Tile;
 import quests.Quest;
 import utility.Direction;
@@ -142,8 +141,6 @@ public class Player extends Mob implements Skills {
 		// play the click sound
 		SoundHandler.play(SoundHandler.click);
 		
-		System.err.println("Current: " + getLevel().getName() + " Next: " + level.getName() + "\n");
-
 		// loop the new background music if applicable
 		if (!getLevel().getBackgroundMusic().equals(level.getBackgroundMusic())) {
 			SoundHandler.playLoop(level.getBackgroundMusic());
@@ -158,12 +155,12 @@ public class Player extends Mob implements Skills {
 
 		// clears all the dead mobs on the last level
 		getLevel().clear();
-
+		
 		// load the new level if it has not been loaded yet
 		if (!level.isLoaded()) {
 			level.load();
 		}
-
+		
 		// change the global level variable
 		super.updateLevel(level);
 
@@ -175,6 +172,7 @@ public class Player extends Mob implements Skills {
 
 		// go to the spawn location for that level
 		moveTo(location.x, location.y);
+		
 	}
 
 	/**
@@ -220,8 +218,6 @@ public class Player extends Mob implements Skills {
 			}
 			demonCooldown = true;
 		}
-		
-		System.err.println(LordHillsboroughsDomain.level.getSpawnPoint());
 
 		// shooting keys
 		if (input.up.isPressed() || input.down.isPressed() || input.left.isPressed() || input.right.isPressed()) {
@@ -315,7 +311,7 @@ public class Player extends Mob implements Skills {
 				Display.displayPause();
 			}
 		}
-
+		
 		// action button
 		if (input.e.isPressed()) {
 			input.e.toggle(false);
@@ -338,6 +334,7 @@ public class Player extends Mob implements Skills {
 				// open a chest
 				if (entity instanceof Chest && getOuterBounds().intersects(entity.getBounds())) {
 					openChest((Chest) entity);
+					break;
 				}
 
 				// talk to a mob
@@ -350,20 +347,21 @@ public class Player extends Mob implements Skills {
 						// TODO change from mob.speak to this.speak(other
 						// mob)
 						other.speak(this);
+						break;
 					}
 				}
 
 				// handles transporters
 				if (entity instanceof Transporter && getBounds().intersects(entity.getBounds())) {
-
+					
 					getLevel().setSpawnPoint(getX(), getY());
-					System.err.println("Set Spawn to: " + getLevel().getSpawnPoint());
 
 					if (entity instanceof MapTransporter) {
 						((MapTransporter) entity).calcNewSpawn(this);
 					}
 
 					updateLevel(((Transporter) entity).getNextLevel());
+					break;
 				}
 			}
 		}

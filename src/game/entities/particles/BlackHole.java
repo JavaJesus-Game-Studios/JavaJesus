@@ -48,7 +48,7 @@ public class BlackHole extends Particle {
 	 * @param y
 	 *            the y coord A THE CENTER
 	 */
-	public BlackHole(Level level, double x, double y) {
+	public BlackHole(Level level, int x, int y) {
 		super(level, x - SIZE / 2, y - SIZE / 2, 0, new int[] { 0xFF000000, 0xFF000000, 0xFF000000 });
 
 		setSpriteSheet(SpriteSheet.explosions);

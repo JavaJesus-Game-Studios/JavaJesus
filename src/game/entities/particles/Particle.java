@@ -22,9 +22,6 @@ public class Particle extends Entity {
 	// colorset for the particle
 	private int[] color;
 
-	// coordinates in double precision
-	private double x, y;
-
 	/**
 	 * Creates a particle
 	 * 
@@ -39,8 +36,8 @@ public class Particle extends Entity {
 	 * @param color
 	 *            the colorset
 	 */
-	public Particle(Level level, double x, double y, int tileNumber, int[] color) {
-		super(level, (int) x, (int) y);
+	public Particle(Level level, int x, int y, int tileNumber, int[] color) {
+		super(level, x, y);
 		this.tileNumber = tileNumber;
 		this.color = color;
 	}
@@ -77,40 +74,6 @@ public class Particle extends Entity {
 	 */
 	protected void setSpriteSheet(SpriteSheet sheet) {
 		this.sheet = sheet;
-	}
-
-	/**
-	 * @return the X coordinate of the entity
-	 */
-	public int getX() {
-		return (int) x;
-	}
-
-	/**
-	 * @return the Y coordinate of the entity
-	 */
-	public int getY() {
-		return (int) y;
-	}
-
-	/**
-	 * Changes the entity horizontally
-	 * 
-	 * @param x
-	 *            the location to move the entity
-	 */
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	/**
-	 * Changes the entity vertically
-	 * 
-	 * @param y
-	 *            the location to move the entity
-	 */
-	public void setY(double y) {
-		this.y = y;
 	}
 
 	/**

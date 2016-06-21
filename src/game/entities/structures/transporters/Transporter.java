@@ -45,7 +45,9 @@ public class Transporter extends Entity {
 	 */
 	public Transporter(Level currentLevel, int x, int y, Level nextLevel, Point point) {
 		this(currentLevel, x, y, nextLevel);
-		nextLevel.setSpawnPoint(point.x, point.y);
+		
+		if(nextLevel.getSpawnPoint() == null)
+			nextLevel.setSpawnPoint(point.x, point.y);
 	}
 
 	/**

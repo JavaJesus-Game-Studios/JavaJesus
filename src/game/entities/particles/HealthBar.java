@@ -42,7 +42,7 @@ public class HealthBar extends Particle {
 	 * Displays the healthbar on the screen
 	 */
 	public void render(Screen screen) {
-
+		
 		screen.render(getX(), getY(), getTileNumber() + yChange * getSpriteSheet().boxes, getColor(), false,
 				getSpriteSheet());
 		screen.render(getX() + 8, getY(), getTileNumber() + 1 + yChange * getSpriteSheet().boxes, getColor(), false,

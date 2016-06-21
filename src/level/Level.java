@@ -47,7 +47,7 @@ public abstract class Level implements Serializable {
 	private String imagePath;
 
 	// where the player will go when changing levels here
-	private Point spawnPoint = new Point(0, 0);
+	private Point spawnPoint;
 
 	// whether or not the map is loaded
 	private boolean isLoaded;
@@ -294,6 +294,8 @@ public abstract class Level implements Serializable {
 
 			if (entity.getBounds().intersects(renderRange) && entity.isBehindBuilding()) {
 				entity.render(screen);
+				if (entity instanceof Mob && ((Mob) entity).getHealthBar() != null)
+					((Mob) entity).getHealthBar().render(screen);
 			}
 
 		}
@@ -303,6 +305,8 @@ public abstract class Level implements Serializable {
 			if (e.getBounds().intersects(renderRange)
 					&& (!(e instanceof Hideable) || !((Hideable) e).isBehindBuilding())) {
 				e.render(screen);
+				if (e instanceof Mob && ((Mob) e).getHealthBar() != null)
+					((Mob) e).getHealthBar().render(screen);
 			}
 
 		}
@@ -368,7 +372,7 @@ public abstract class Level implements Serializable {
 	 * @param entity
 	 *            the entity to add
 	 */
-	public void add(Entity... entities) {
+	public synchronized void add(Entity... entities) {
 
 		for (Entity e : entities) {
 			add(e);
@@ -433,7 +437,7 @@ public abstract class Level implements Serializable {
 	public String toString() {
 		return name + "\n Mobs: " + this.getMobs();
 	}
-
+	
 	/**
 	 * @param x
 	 *            the new x point

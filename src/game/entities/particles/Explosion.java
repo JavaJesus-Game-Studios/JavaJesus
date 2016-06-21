@@ -31,7 +31,7 @@ public class Explosion extends Particle {
 	 * @param x the x coord AT THE CENTER
 	 * @param y the y coord AT THE CENTER
 	 */
-	public Explosion(Level level, double x, double y) {
+	public Explosion(Level level, int x, int y) {
 		super(level, x - 8, y - 8, 4 * SpriteSheet.explosions.boxes, new int[] { 0xFFFF9900, 0xFFFF3C00, 0xFFFF0000 });
 		setSpriteSheet(SpriteSheet.explosions);
 		this.posNumber = getTileNumber();

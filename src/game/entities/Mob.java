@@ -223,6 +223,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 				super.move(1 * sign, 0);
 				if (isSolidEntityCollision()) {
 					super.move(-1 * sign, 0);
+					break;
 				}
 				this.moveOuterBounds(1 * sign, 0);
 			} else {
@@ -248,11 +249,17 @@ public class Mob extends Entity implements Damageable, Hideable {
 					// TODO bugfix for walking south behind buildings
 					if (sign == 1)
 						isBehindBuilding = true;
+					
+					break;
 				}
 				this.moveOuterBounds(0, 1 * sign);
 			} else {
 				break;
 			}
+		}
+		
+		if (bar != null) {
+			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
 		}
 
 		isCollidingWithMob = getMobCollision() != null;
@@ -745,6 +752,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 	protected void moveTo(int x, int y) {
 		super.moveTo(x, y);
 		outerBounds.setLocation(x - OUTER_BOUNDS_RANGE, y - OUTER_BOUNDS_RANGE);
+		
+		if (bar != null) {
+			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
+		}
 	}
 
 	/**
@@ -826,7 +837,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * @return the mob's health bar
 	 */
-	protected HealthBar getHealthBar() {
+	public HealthBar getHealthBar() {
 		return bar;
 	}
 
