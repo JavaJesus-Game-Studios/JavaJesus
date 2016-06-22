@@ -35,7 +35,7 @@ public class Missile extends Projectile {
 	 * @param damage
 	 *            the damage of this missile
 	 */
-	public Missile(Level level, double x, double y, int xPos, int yPos, Mob mob, int damage) {
+	public Missile(Level level, int x, int y, int xPos, int yPos, Mob mob, int damage) {
 		super(level, x, y, 6, 6, 1, 5, xPos, yPos, mob, damage, SoundHandler.fireball);
 
 		adjustOffset(mob);
@@ -57,7 +57,7 @@ public class Missile extends Projectile {
 	 * @param damage
 	 *            the damage of this missile
 	 */
-	public Missile(Level level, double x, double y, Direction direction, Mob mob, int damage, Clip clip) {
+	public Missile(Level level, int x, int y, Direction direction, Mob mob, int damage, Clip clip) {
 		super(level, x, y, 6, 6, 1, 5, direction, mob, damage, SoundHandler.fireball);
 
 		adjustOffset(mob);

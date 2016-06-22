@@ -291,7 +291,7 @@ public abstract class Level implements Serializable {
 
 		// render everything that is behind a building first
 		for (Hideable entity : hideables) {
-
+			
 			if (entity.getBounds().intersects(renderRange) && entity.isBehindBuilding()) {
 				entity.render(screen);
 				if (entity instanceof Mob && ((Mob) entity).getHealthBar() != null)
@@ -299,11 +299,17 @@ public abstract class Level implements Serializable {
 			}
 
 		}
+		
+		// render all buildings
+		for (Entity e: this.getEntities()) {
+			if (!(e instanceof Hideable)&& e.getBounds().intersects(renderRange)) {
+				e.render(screen);
+			}
+		}
 
 		// now render everything else on top
-		for (Entity e : this.getEntities()) {
-			if (e.getBounds().intersects(renderRange)
-					&& (!(e instanceof Hideable) || !((Hideable) e).isBehindBuilding())) {
+		for (Hideable e: hideables) {
+			if (e.getBounds().intersects(renderRange)&& !e.isBehindBuilding()) {
 				e.render(screen);
 				if (e instanceof Mob && ((Mob) e).getHealthBar() != null)
 					((Mob) e).getHealthBar().render(screen);

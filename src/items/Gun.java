@@ -232,7 +232,7 @@ public class Gun extends Item {
 	 * @param player
 	 *            the player shooting the gun
 	 */
-	public void fire(double x, double y, Direction dir, Player player) {
+	public void fire(int x, int y, Direction dir, Player player) {
 
 		Level level = player.getLevel();
 

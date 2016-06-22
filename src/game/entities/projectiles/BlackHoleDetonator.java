@@ -35,7 +35,7 @@ public class BlackHoleDetonator extends Projectile {
 	 * @param damage
 	 *            the damage of this detonator
 	 */
-	public BlackHoleDetonator(Level level, double x, double y, int xPos, int yPos, Mob mob, int damage) {
+	public BlackHoleDetonator(Level level, int x, int y, int xPos, int yPos, Mob mob, int damage) {
 		super(level, x, y, 2, 1, SpriteSheet.particles.boxes, 6, xPos, yPos, mob, damage, SoundHandler.explosion);
 	}
 
@@ -55,7 +55,7 @@ public class BlackHoleDetonator extends Projectile {
 	 * @param damage
 	 *            the damage of this detonator
 	 */
-	public BlackHoleDetonator(Level level, double x, double y, Direction direction, Mob mob, int damage) {
+	public BlackHoleDetonator(Level level, int x, int y, Direction direction, Mob mob, int damage) {
 		super(level, x, y, 2, 1, SpriteSheet.particles.boxes, 6, direction, mob, damage, SoundHandler.explosion);
 	}
 

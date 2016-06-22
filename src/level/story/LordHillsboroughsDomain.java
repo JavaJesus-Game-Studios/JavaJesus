@@ -45,7 +45,7 @@ public class LordHillsboroughsDomain extends Level {
 		add(new SportsCar(this, 355 * 8, 200 * 8));
 
 		// Peasants
-		add(new Peasant(this, 80 * 8, 44 * 8, Peasant.MALE, "circle",
+		/*add(new Peasant(this, 80 * 8, 44 * 8, Peasant.MALE, "circle",
 				10));
 		add(new Peasant(this, 198 * 8, 44 * 8, Peasant.MALE,
 				"circle", 12));
@@ -78,7 +78,7 @@ public class LordHillsboroughsDomain extends Level {
 				"square", 10));
 		add(new Peasant(this, 154 * 8, 186 * 8, Peasant.FEMALE,
 				"square", 10));
-		add(new Peasant(this, 138 * 8, 196 * 8, Peasant.FEMALE,
+		ssdadd(new Peasant(this, 138 * 8, 196 * 8, Peasant.FEMALE,
 				"linear", 2));
 		add(new Peasant(this, 154 * 8, 200 * 8, Peasant.FEMALE,
 				"linear", 8));
@@ -92,7 +92,10 @@ public class LordHillsboroughsDomain extends Level {
 		add(new Peasant(this, 214 * 8, 56 * 8, Peasant.GIRL,
 				"circle", 10));
 		add(new Peasant(this, 280 * 8, 60 * 8, Peasant.BOY, "circle",
-				2));
+				2));*/
+		
+		add(new Peasant(this, 138 * 8, 196 * 8, Peasant.FEMALE,
+				"linear", 10));
 
 		// Citizens
 		add(new NPC(this, "Citizen-Female", 232 * 8, 199 * 8, 1, 16,

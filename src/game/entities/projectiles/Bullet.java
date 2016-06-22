@@ -31,7 +31,7 @@ public class Bullet extends Projectile {
 	 * @param damage the damage of this bullet
 	 * @param clip the Sound of this projectile
 	 */
-	public Bullet(Level level, double x, double y, int xPos, int yPos, Mob mob, int damage, Clip clip) {
+	public Bullet(Level level, int x, int y, int xPos, int yPos, Mob mob, int damage, Clip clip) {
 		super(level, x, y, SIZE, SIZE, 1, 6, xPos, yPos, mob, damage, clip);
 	}
 
@@ -45,7 +45,7 @@ public class Bullet extends Projectile {
 	 * @param damage the damage of this bullet
 	 * @param clip the Sound of this projectile
 	 */
-	public Bullet(Level level, double x, double y, Direction direction, Mob mob, int damage, Clip clip) {
+	public Bullet(Level level, int x, int y, Direction direction, Mob mob, int damage, Clip clip) {
 		super(level, x, y, SIZE, SIZE, 1, 6, direction, mob, damage, clip);
 	}
 

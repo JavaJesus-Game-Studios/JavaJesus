@@ -261,7 +261,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 		if (bar != null) {
 			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
 		}
-
+		
 		isCollidingWithMob = getMobCollision() != null;
 	}
 

@@ -697,7 +697,7 @@ public class Player extends Mob implements Skills {
 
 		// sets a shader when health is low
 		if ((double) getCurrentHealth() / getMaxHealth() <= 0.25) {
-			Display.getScreen().setShader(Colors.fromHex("ff0000"));
+			Display.getScreen().setShader(Colors.fromHex("FF0000"));
 		}
 	}
 

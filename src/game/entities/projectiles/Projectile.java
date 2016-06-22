@@ -40,7 +40,7 @@ public abstract class Projectile extends Entity implements Hideable {
 
 	// do not render if the projectile is behind a building
 	private boolean isBehindBuilding;
-
+	
 	// x and y coordinates should be in double precision
 	private double x, y;
 
@@ -72,9 +72,11 @@ public abstract class Projectile extends Entity implements Hideable {
 	 * @param clip
 	 *            the sound this projectile makes
 	 */
-	public Projectile(Level level, double x, double y, int width, int height, int tileNumber, int speed,
+	public Projectile(Level level, int x, int y, int width, int height, int tileNumber, int speed,
 			Direction direction, Mob mob, int damage, Clip clip) {
-		super(level, (int) x, (int) y);
+		super(level, x, y);
+		this.x = x;
+		this.y = y;
 		this.tileNumber = tileNumber;
 		this.speed = speed;
 		calcSimpleDirection(direction);
@@ -115,9 +117,11 @@ public abstract class Projectile extends Entity implements Hideable {
 	 *            the sound this projectile makes
 	 * 
 	 */
-	public Projectile(Level level, double x, double y, int width, int height, int tileNumber, int speed, int xPos,
+	public Projectile(Level level, int x, int y, int width, int height, int tileNumber, int speed, int xPos,
 			int yPos, Mob mob, int damage, Clip clip) {
-		super(level, (int) x, (int) y);
+		super(level, x, y);
+		this.x = x;
+		this.y = y;
 		this.tileNumber = tileNumber;
 		this.speed = speed;
 		setBounds(getX(), getY(), width, height);
@@ -169,10 +173,10 @@ public abstract class Projectile extends Entity implements Hideable {
 	private void calcChange(int x, int y) {
 
 		// relative x coordinates
-		double xa = x - this.x;
+		double xa = x - getX();
 
 		// relative y coordinates
-		double ya = y - this.y;
+		double ya = y - getY();
 
 		// magnitude = squareroot of x^2 + y^2
 		double magnitude = Math.sqrt(xa * xa + ya * ya);
@@ -182,14 +186,10 @@ public abstract class Projectile extends Entity implements Hideable {
 
 		// i hat = Vy / magnitude
 		dy = ya / magnitude;
-
-		/*
-		 * Old double angle = Math.atan((x - this.x) / (y - this.y)); if (y -
-		 * this.y < 0) { this.yPoint = -Math.cos(angle); this.xPoint =
-		 * -Math.sin(angle); } else { this.yPoint = Math.cos(angle); this.xPoint
-		 * = Math.sin(angle); }
-		 */
+		
 	}
+	
+	int test = 0;
 
 	/**
 	 * Updates the projectile TODO levels should remove projectiles when player
@@ -209,18 +209,22 @@ public abstract class Projectile extends Entity implements Hideable {
 		isBehindBuilding = false;
 
 		// check for collisions
-		for (Entity e : getLevel().getEntities()) {
+		for (int i = 0; i < getLevel().getEntities().size(); i++) {
+			
+			Entity e = getLevel().getEntities().get(i);
 
 			// damage a mob
 			if (e instanceof Mob) {
 				if (this.getBounds().intersects(e.getBounds()) && e != mob) {
 					((Mob) e).damage(damage);
 					onDestroyed();
+					break;
 				}
 				// disappear if hitting a building
 			} else if (e instanceof SolidEntity) {
 				if (this.getBounds().intersects(e.getBounds())) {
 					onDestroyed();
+					break;
 				} else if (this.getBounds().intersects(((SolidEntity) e).getShadow())) {
 					isBehindBuilding = true;
 				}
@@ -232,8 +236,8 @@ public abstract class Projectile extends Entity implements Hideable {
 	 * Moves the entity in different directions Also updates the bounds
 	 */
 	private void move() {
-		setX(getX() + speed * dx);
-		setY(getY() + speed * dy);
+		x += speed * dx;
+		y += speed * dy;
 		getBounds().setLocation(getX(), getY());
 	}
 
@@ -247,7 +251,7 @@ public abstract class Projectile extends Entity implements Hideable {
 			return;
 		}
 
-		screen.render((int) this.x, (int) this.y, tileNumber + (yOffset * sheet.boxes), getColor(), sheet);
+		screen.render(getX(), getY(), tileNumber + (yOffset * sheet.boxes), getColor(), sheet);
 	}
 
 	/**
@@ -259,7 +263,7 @@ public abstract class Projectile extends Entity implements Hideable {
 	}
 
 	protected abstract int[] getColor();
-
+	
 	/**
 	 * @return the X coordinate of the entity
 	 */
@@ -272,26 +276,6 @@ public abstract class Projectile extends Entity implements Hideable {
 	 */
 	public int getY() {
 		return (int) y;
-	}
-
-	/**
-	 * Changes the entity horizontally
-	 * 
-	 * @param x
-	 *            the location to move the entity
-	 */
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	/**
-	 * Changes the entity vertically
-	 * 
-	 * @param y
-	 *            the location to move the entity
-	 */
-	public void setY(double y) {
-		this.y = y;
 	}
 
 	/**
