@@ -110,6 +110,9 @@ public class Inventory implements Serializable {
 		add(Item.assaultRifle);
 		add(Item.shotgun);
 		add(Item.crossBow);
+		
+		add(Item.flameThrower);
+		add(Item.blackHoleGun);
 	}
 
 	/**

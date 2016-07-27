@@ -104,7 +104,7 @@ public class Gun extends Item {
 		this.playerOffset = yPlayerSheet;
 		this.clipSize = clipSize;
 		this.ammo = clipSize;
-		this.RELOAD_TIME = reload * 10;
+		this.RELOAD_TIME = 10;
 		this.FIRE_RATE = rate * 10;
 		this.damage = damage;
 		this.type = type;
@@ -119,7 +119,7 @@ public class Gun extends Item {
 		fireTicks++;
 
 		// increase the count displayed while reloading
-		if (isReloading && reloadTicks % 10 == 0) {
+		if (isReloading && reloadTicks % RELOAD_TIME == 0) {
 			if (ammo < clipSize && availableAmmo > 0) {
 				ammo++;
 				availableAmmo--;
@@ -173,7 +173,7 @@ public class Gun extends Item {
 			break;
 		case FLAMETHROWER:
 			// TODO implement lighter fluid ammo
-			bulletType = Item.revolverAmmo;
+			availableAmmo = 200;
 			break;
 		case SHELL:
 			// TODO shells

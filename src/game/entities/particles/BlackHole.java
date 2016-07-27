@@ -49,11 +49,13 @@ public class BlackHole extends Particle {
 	 *            the y coord A THE CENTER
 	 */
 	public BlackHole(Level level, int x, int y) {
-		super(level, x - SIZE / 2, y - SIZE / 2, 0, new int[] { 0xFF000000, 0xFF000000, 0xFF000000 });
-
+		super(level, x, y, 0, new int[] { 0xFF000000, 0xFF000000, 0xFF000000 });
+		
+		this.setBounds(x - SIZE / 2, y - SIZE / 2, SIZE, SIZE);
+		
 		setSpriteSheet(SpriteSheet.explosions);
 		posNumber = getTileNumber();
-		radius = new Ellipse2D.Double(getX(), getY(), SIZE, SIZE);
+		radius = new Ellipse2D.Double(x - SIZE / 2, y - SIZE / 2, SIZE, SIZE);
 		SoundHandler.play(SoundHandler.explosion);
 
 		// darken the screen
@@ -80,9 +82,9 @@ public class BlackHole extends Particle {
 		}
 
 		// randomly create an explosion
-		if (random.nextInt(2) == 0) {
+		if (random.nextInt(10) == 0) {
 			getLevel().add(
-					new Explosion(getLevel(), random.nextInt(100) - 50 + getX(), random.nextInt(100) - 50 + getY()));
+					new Explosion(getLevel(), random.nextInt(300) - 150 + getX(), random.nextInt(300) - 150 + getY()));
 		}
 
 		// suck in all the mobs!
@@ -121,7 +123,7 @@ public class BlackHole extends Particle {
 	 * Display the black hole
 	 */
 	public void render(Screen screen) {
-
+		
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				screen.render(getX() + (j * 24) - 24, getY() + (i * 24) - 48,
