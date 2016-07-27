@@ -45,7 +45,7 @@ public class LordHillsborough extends NPC {
 		int modifier = UNIT_SIZE * getScale();
 
 		// no x or y offset, use the upper left corner as absolute
-		int xOffset = getX(), yOffset = getY();
+		int xOffset = getX(), yOffset = getY() - modifier;
 
 		// the crown position
 		int xTile = this.xTile, yTile = this.yTile - 1;

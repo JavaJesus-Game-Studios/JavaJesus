@@ -34,10 +34,10 @@ public class Gorilla extends NPC implements Skills {
 	private int attackTickCount;
 
 	// the amount of ticks between attacks
-	private static final int attackDelay = 20;
+	private static final int attackDelay = 40;
 
 	// how long the attack position is rendered in ticks
-	private static final int attackAnimationLength = 20;
+	private static final int attackAnimationLength = 30;
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
@@ -97,8 +97,13 @@ public class Gorilla extends NPC implements Skills {
 	 * Updates the Gorilla
 	 */
 	public void tick() {
-		super.tick();
 		checkRadius();
+		
+		if (target == null) {
+			super.tick();
+		} else {
+			getHealthBar().tick();
+		}
 
 		// attacking cooldown loop
 		if (cooldown) {

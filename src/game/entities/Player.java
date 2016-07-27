@@ -140,7 +140,7 @@ public class Player extends Mob implements Skills {
 
 		// play the click sound
 		SoundHandler.play(SoundHandler.click);
-		
+
 		// loop the new background music if applicable
 		if (!getLevel().getBackgroundMusic().equals(level.getBackgroundMusic())) {
 			SoundHandler.playLoop(level.getBackgroundMusic());
@@ -155,12 +155,12 @@ public class Player extends Mob implements Skills {
 
 		// clears all the dead mobs on the last level
 		getLevel().clear();
-		
+
 		// load the new level if it has not been loaded yet
 		if (!level.isLoaded()) {
 			level.load();
 		}
-		
+
 		// change the global level variable
 		super.updateLevel(level);
 
@@ -172,7 +172,7 @@ public class Player extends Mob implements Skills {
 
 		// go to the spawn location for that level
 		moveTo(location.x, location.y);
-		
+
 	}
 
 	/**
@@ -311,7 +311,7 @@ public class Player extends Mob implements Skills {
 				Display.displayPause();
 			}
 		}
-		
+
 		// action button
 		if (input.e.isPressed()) {
 			input.e.toggle(false);
@@ -353,7 +353,7 @@ public class Player extends Mob implements Skills {
 
 				// handles transporters
 				if (entity instanceof Transporter && getBounds().intersects(entity.getBounds())) {
-					
+
 					getLevel().setSpawnPoint(getX(), getY());
 
 					if (entity instanceof MapTransporter) {
@@ -471,15 +471,16 @@ public class Player extends Mob implements Skills {
 	 */
 	private void openChest(Chest chest) {
 
-		// change the chest to be open
-		chest.open();
+		// checks if chest can be opened
+		if (chest.open()) {
 
-		// get the contents
-		for (Item e : chest.getContents()) {
-			inventory.add(e);
-			ChatHandler.displayText("You have obtained " + e, Color.GREEN);
+			// get the contents
+			for (Item e : chest.getContents()) {
+				inventory.add(e);
+				ChatHandler.displayText("You have obtained " + e, Color.GREEN);
+			}
+			InventoryGUI.update();
 		}
-		InventoryGUI.update();
 	}
 
 	/**
@@ -529,15 +530,15 @@ public class Player extends Mob implements Skills {
 
 		// Normal Player movement -- Not Attacking Anything
 		if (!isShooting && !isSwinging) {
-			
+
 			int swimOffset = modifier * (isSwimming ? 1 : 0);
-			
+
 			// Upper body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + swimOffset, xTile + yTile * getSpriteSheet().boxes, color,
-					flip, getScale(), getSpriteSheet());
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
+					xTile + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + swimOffset, (xTile + 1) + yTile * getSpriteSheet().boxes,
-					color, flip, getScale(), getSpriteSheet());
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
+					(xTile + 1) + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
 
 			if (!isSwimming) {
 				// Lower Body 1

@@ -51,6 +51,7 @@ public class Shooter extends NPC implements LongRange, Skills {
 		super(level, name, x, y, speed, width, height, defaultHealth, color, xTile, yTile, walkPath, walkDistance);
 
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
+		this.standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2, RADIUS / 2);
 
 		checkRadius();
 	}
@@ -98,6 +99,7 @@ public class Shooter extends NPC implements LongRange, Skills {
 		// attack the target if given a chance
 		if (!cooldown && target != null && getOuterBounds().intersects(target.getOuterBounds())) {
 			cooldown = true;
+			checkDirection();
 			this.attack(getStrength(), getStrength() * 2, target);
 		}
 
@@ -127,6 +129,26 @@ public class Shooter extends NPC implements LongRange, Skills {
 		// move the monster towards the target
 		if ((dx != 0 || dy != 0) && !isMobCollision(dx, dy)) {
 			move(dx, dy);
+		}
+	}
+	
+	/**
+	 * Updates the direction the mob is shooting
+	 */
+	private void checkDirection() {
+		
+		// move towards the target horizontally
+		if (target.getX() > getX()) {
+			setDirection(Direction.EAST);
+		} else if (target.getX() < getX()) {
+			setDirection(Direction.WEST);
+		}
+
+		// move towards the target vertically
+		if (target.getY() > getY()) {
+			setDirection(Direction.SOUTH);
+		} else if (target.getY() < getY()) {
+			setDirection(Direction.NORTH);
 		}
 	}
 
@@ -200,6 +222,7 @@ public class Shooter extends NPC implements LongRange, Skills {
 
 		aggroRadius.setFrame(getX() - RADIUS / 2, getY() - RADIUS / 2, RADIUS, RADIUS);
 		standRange.setFrame(getX() - RADIUS / 4, getY() - RADIUS / 4, RADIUS / 2, RADIUS / 2);
+		
 	}
 
 	/**

@@ -146,7 +146,7 @@ public class Horse extends NPC implements Ridable {
 	 *            the total change in y
 	 */
 	public void move(int dx, int dy) {
-
+		
 		// standing upright
 		if (isLongitudinal()) {
 
@@ -260,7 +260,7 @@ public class Horse extends NPC implements Ridable {
 		Mob other = getMobCollision();
 
 		// if there is no collision, do nothing
-		if (other == null || other instanceof Player)
+		if (other == null)
 			return;
 
 		// the direction the mob should go to escape

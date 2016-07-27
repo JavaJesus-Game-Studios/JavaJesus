@@ -74,9 +74,6 @@ public class Mob extends Entity implements Damageable, Hideable {
 	// determines if the mob should have the talking animation
 	protected boolean isTalking;
 
-	// determines if the mob is colliding with another mob
-	private boolean isCollidingWithMob;
-
 	// the hit cooldown in ticks
 	private static final int HIT_COOLDOWN = 20;
 
@@ -262,7 +259,6 @@ public class Mob extends Entity implements Damageable, Hideable {
 			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
 		}
 		
-		isCollidingWithMob = getMobCollision() != null;
 	}
 
 	/**
@@ -486,6 +482,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 	public void tick() {
 
 		tickCount++;
+		
+		// updates the health bar
+		if(bar != null)
+			bar.tick();
 
 		// talking cooldown loop
 		if (isTalking) {
@@ -537,7 +537,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 		}
 
 		// force the mob to move around the mob collision
-		if (isCollidingWithMob && !(this instanceof Player)) {
+		if (isCollidingWithMob()) {
 			moveAroundMobCollision();
 			return;
 		}
@@ -597,7 +597,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 
 		// displays text overhead
 		if (isTalking) {
-			getLevel().renderFont(name, screen, xOffset, yOffset - modifier,
+			getLevel().renderFont(name, screen, xOffset - (name.length() * 4 - 8), yOffset - modifier,
 					new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
 		}
 
@@ -917,7 +917,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * @return true if colliding with a mob
 	 */
 	protected boolean isCollidingWithMob() {
-		return isCollidingWithMob;
+		return getMobCollision() != null;
 	}
 
 }

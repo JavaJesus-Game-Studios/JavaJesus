@@ -29,7 +29,7 @@ public class FireBall extends Projectile {
 	 * @param damage the damage of this fireball
 	 */
 	public FireBall(Level level, int x, int y, int xPos, int yPos, Mob mob, int damage) {
-		super(level, x, y, SIZE, SIZE, 0, 1, xPos, yPos, mob, damage, SoundHandler.fireball);
+		super(level, x, y, SIZE, SIZE, 0, 2, xPos, yPos, mob, damage, SoundHandler.fireball);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class FireBall extends Projectile {
 	 * @param damage the damage of this fireball
 	 */
 	public FireBall(Level level, int x, int y, Direction direction, Mob mob, int damage) {
-		super(level, x, y, SIZE, SIZE, 0, 1, direction, mob, damage, SoundHandler.fireball);
+		super(level, x, y, SIZE, SIZE, 0, 2, direction, mob, damage, SoundHandler.fireball);
 	}
 
 	@Override

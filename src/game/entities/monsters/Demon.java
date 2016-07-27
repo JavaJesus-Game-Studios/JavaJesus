@@ -1,26 +1,33 @@
 package game.entities.monsters;
 
-import level.Level;
-import utility.Direction;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Ellipse2D.Double;
+
+import game.entities.LongRange;
 import game.entities.Mob;
 import game.entities.projectiles.FireBall;
 import game.graphics.Screen;
+import level.Level;
+import utility.Direction;
 
 /*
  * A generic demon that populates most of the game
  */
-public class Demon extends Monster {
+public class Demon extends Monster implements LongRange {
 
 	private static final long serialVersionUID = 1670392462486505990L;
 
-	// dimensions of the centaur
+	// dimensions of the demon
 	private static final int WIDTH = 16, HEIGHT = 24;
 
 	// how fast the player toggles steps
-	private static final int WALKING_ANIMATION_SPEED = 4;
+	private static final int WALKING_ANIMATION_SPEED = 3;
 
-	// color set of a centaur
+	// color set of a demon
 	private static final int[] color = { 0xFF111111, 0xFF700000, 0xFFDBA800 };
+
+	// the range the shooter will stand back when shooting
+	private Ellipse2D.Double standRange;
 
 	/**
 	 * Creates a Demon
@@ -38,6 +45,8 @@ public class Demon extends Monster {
 	 */
 	public Demon(Level level, int x, int y, int speed, int health) {
 		super(level, "Demon", x, y, speed, WIDTH, HEIGHT, 0, health, 100);
+
+		this.standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2, RADIUS / 2);
 
 	}
 
@@ -132,8 +141,25 @@ public class Demon extends Monster {
 	 */
 	@Override
 	public void attack(int fake, int fake2, Mob other) {
+		
+		getLevel().add(new FireBall(getLevel(), getX() + WIDTH / 2, getY() + HEIGHT / 2,
+				target.getX() + (int) target.getBounds().getWidth() / 2,
+				target.getY() + (int) target.getBounds().getHeight() / 2, this, getStrength()));
+	}
 
-		getLevel().add(new FireBall(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength()));
+	/**
+	 * Moves a monster on the level
+	 * 
+	 * @param dx
+	 *            the total change in x
+	 * @param dy
+	 *            the total change in y
+	 */
+	public void move(int dx, int dy) {
+
+		standRange.setFrame(getX() - RADIUS / 4, getY() - RADIUS / 4, RADIUS / 2, RADIUS / 2);
+
+		super.move(dx, dy);
 	}
 
 	/**
@@ -142,6 +168,11 @@ public class Demon extends Monster {
 	@Override
 	public int getStrength() {
 		return 3;
+	}
+
+	@Override
+	public Double getRange() {
+		return standRange;
 	}
 
 }

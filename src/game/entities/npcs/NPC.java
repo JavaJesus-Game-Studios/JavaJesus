@@ -125,7 +125,7 @@ public class NPC extends Mob {
 				findOrigin();
 			else
 				findPath();
-		}
+		} 
 
 	}
 

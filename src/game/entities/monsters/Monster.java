@@ -11,6 +11,7 @@ import game.entities.Skills;
 import game.entities.npcs.NPC;
 import game.graphics.SpriteSheet;
 import level.Level;
+import utility.Direction;
 
 /*
  * A Monster is a mob that attacks NPCs and the player
@@ -25,7 +26,7 @@ public class Monster extends Mob implements Skills {
 	// Range that the monster can target another
 	private Ellipse2D.Double aggroRadius;
 
-	// the attack range radius, 32 (number of units) * 8 (units) = 256
+	// the global attack range radius, 32 (number of units) * 8 (units) = 256
 	protected static final int RADIUS = 256;
 
 	// cooldown from attacks
@@ -42,6 +43,9 @@ public class Monster extends Mob implements Skills {
 
 	// how long the attack position is rendered in ticks
 	private static final int attackAnimationLength = 20;
+
+	// makes npcs move every other tick
+	private int moveTick;
 
 	/**
 	 * Creates a Monster that attacks other mobs
@@ -108,7 +112,7 @@ public class Monster extends Mob implements Skills {
 	public void tick() {
 		super.tick();
 		checkRadius();
-
+		
 		// attacking cooldown loop
 		if (cooldown) {
 			attackTickCount++;
@@ -120,8 +124,12 @@ public class Monster extends Mob implements Skills {
 		}
 
 		// attack the target if given a chance
-		if (!cooldown && target != null && getOuterBounds().intersects(target.getOuterBounds())) {
+		if (!cooldown && target != null && 
+				(getOuterBounds().intersects(target.getOuterBounds()) || 
+						(this instanceof LongRange && 
+								(((LongRange) this).getRange().intersects(target.getOuterBounds()))))) {
 			cooldown = true;
+			checkDirection();
 			this.attack(getStrength(), getStrength() * 2, target);
 		}
 
@@ -196,6 +204,26 @@ public class Monster extends Mob implements Skills {
 		}
 		}
 	}
+	
+	/**
+	 * Updates the direction the mob is shooting
+	 */
+	private void checkDirection() {
+		
+		// move towards the target horizontally
+		if (target.getX() > getX()) {
+			setDirection(Direction.EAST);
+		} else if (target.getX() < getX()) {
+			setDirection(Direction.WEST);
+		}
+
+		// move towards the target vertically
+		if (target.getY() > getY()) {
+			setDirection(Direction.SOUTH);
+		} else if (target.getY() < getY()) {
+			setDirection(Direction.NORTH);
+		}
+	}
 
 	/**
 	 * Moves a monster on the level
@@ -206,9 +234,12 @@ public class Monster extends Mob implements Skills {
 	 *            the total change in y
 	 */
 	public void move(int dx, int dy) {
-		super.move(dx, dy);
 
 		aggroRadius.setFrame(getX() - RADIUS / 2, getY() - RADIUS / 2, RADIUS, RADIUS);
+
+		if (moveTick++ % 2 == 0) {
+			super.move(dx * getSpeed(), dy * getSpeed());
+		}
 	}
 
 	@Override

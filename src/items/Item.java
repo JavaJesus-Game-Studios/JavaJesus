@@ -96,15 +96,15 @@ public class Item implements Serializable {
 			Ammo.FLAMETHROWER, SoundHandler.revolver);
 
 	public static final Item assaultRifleAmmo = new Item("Ammo", 22, 0, 6,
-			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Assault Rifle AMmo");
+			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Assault Rifle Ammo");
 	public static final Item revolverAmmo = new Item("Ammo", 23, 2, 6, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
-			"Assault Rifle AMmo");
+			"Revolver Ammo");
 	public static final Item shotgunAmmo = new Item("Ammo", 24, 3, 6, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
-			"Assault Rifle AMmo");
+			"Shotgun Ammo");
 	public static final Item laserAmmo = new Item("Ammo", 25, 4, 6, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
-			"Assault Rifle AMmo");
+			"Laser Ammo");
 	public static final Item arrowAmmo = new Item("Ammo", 26, 1, 7, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
-			"Assault Rifle AMmo");
+			"Arrow Ammo");
 
 	public static final Item strongHealthPack = new Item("Health", 27, 1, 5,
 			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Health Pack");

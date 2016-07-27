@@ -219,8 +219,11 @@ public class Chest extends Entity implements SolidEntity {
 	/**
 	 * Opens the chest
 	 */
-	public void open() {
-		isOpen = true;
+	public boolean open() {
+		if (isOpen)
+			return false;
+		else
+			return isOpen = true;
 	}
 
 	/**
