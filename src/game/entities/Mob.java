@@ -407,9 +407,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 		for (Mob mob : getLevel().getMobs()) {
 			if (mob == this)
 				continue;
-			// TODO Mobs might get stuck over the bounds of mobs that are dead
-			// Fix: Remove dead mobs from the mob list
-			if (this.getBounds().intersects(mob.getBounds()))
+			if (this.getBounds().intersects(mob.getBounds()) && !mob.isDead())
 				return mob;
 		}
 		return null;
@@ -621,7 +619,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 */
 	public void remove() {
 
-		getLevel().remove(this);
+		getLevel().remove(bar);
 		isHit = false;
 		isTalking = false;
 		setTargeted(false);

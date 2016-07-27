@@ -37,8 +37,10 @@ public class Bazooka extends Gun {
 	 *            the screen to display it on
 	 * @param player
 	 *            the player to display
+	 * @param sheet
+	 * 			  the spritesheet to use
 	 */
-	public void renderPlayer(Screen screen, Player player) {
+	public void renderPlayer(Screen screen, Player player, SpriteSheet sheet, Direction shootingDir) {
 
 		// modifier used for rendering in different scales/directions
 		int modifier = UNIT_SIZE * player.getScale();
@@ -53,43 +55,45 @@ public class Bazooka extends Gun {
 		boolean flip = ((player.getNumSteps() >> WALKING_ANIMATION_SPEED) & 1) == 1;
 
 		// adjust spritesheet offsets
-		if (player.getDirection() == Direction.NORTH) {
+		if (shootingDir == Direction.NORTH) {
 			xTile = 15 + (flip ? 3 : 0);
+			flip = false;
 			if (!player.isMoving())
 				xTile = 21;
-		} else if (player.getDirection() == Direction.SOUTH) {
+		} else if (shootingDir == Direction.SOUTH) {
 			xTile = 6 + (flip ? 3 : 0);
+			flip = false;
 			if (!player.isMoving())
 				xTile = 12;
 		} else {
 			xTile = (flip ? 3 : 0);
 			if (!player.isMoving())
 				xTile = 3;
-			flip = player.getDirection() == Direction.WEST;
+			flip = shootingDir == Direction.WEST;
 		}
 
 		// Upper Body 1
-		screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset, xTile + yTile * 32, getColor(), flip,
-				player.getScale(), SpriteSheet.player);
+		screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset, xTile + yTile * sheet.boxes, player.getColor(), flip,
+				player.getScale(), sheet);
 		// Upper Body 2
-		screen.render(xOffset + modifier, yOffset, (xTile + 1) + yTile * 32, getColor(), flip,
-				player.getScale(), SpriteSheet.player);
+		screen.render(xOffset + modifier, yOffset, (xTile + 1) + yTile * sheet.boxes, player.getColor(), flip,
+				player.getScale(), sheet);
 
 		// Upper Body 3
-		screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset, (xTile + 2) + yTile * 32,
-				getColor(), flip, player.getScale(), SpriteSheet.player);
+		screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset, (xTile + 2) + yTile * sheet.boxes,
+				player.getColor(), flip, player.getScale(), sheet);
 
 		// Lower Body 1
-		screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + modifier, xTile + (yTile + 1) * 32, getColor(),
-				flip, player.getScale(), SpriteSheet.player);
+		screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + modifier, xTile + (yTile + 1) * sheet.boxes, player.getColor(),
+				flip, player.getScale(), sheet);
 
 		// Lower Body 2
-		screen.render(xOffset + modifier, yOffset + modifier, (xTile + 1) + (yTile + 1) * 32,
-				getColor(), flip, player.getScale(), SpriteSheet.player);
+		screen.render(xOffset + modifier, yOffset + modifier, (xTile + 1) + (yTile + 1) * sheet.boxes,
+				player.getColor(), flip, player.getScale(), sheet);
 
 		// Lower Body 3
 		screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + modifier,
-				(xTile + 2) + (yTile + 1) * 32, getColor(), flip, player.getScale(), SpriteSheet.player);
+				(xTile + 2) + (yTile + 1) * sheet.boxes, player.getColor(), flip, player.getScale(), sheet);
 
 	}
 

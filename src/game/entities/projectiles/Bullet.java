@@ -33,6 +33,8 @@ public class Bullet extends Projectile {
 	 */
 	public Bullet(Level level, int x, int y, int xPos, int yPos, Mob mob, int damage, Clip clip) {
 		super(level, x, y, SIZE, SIZE, 1, 6, xPos, yPos, mob, damage, clip);
+		
+		adjustOffset(mob.getDirection());
 	}
 
 	/**
@@ -47,6 +49,29 @@ public class Bullet extends Projectile {
 	 */
 	public Bullet(Level level, int x, int y, Direction direction, Mob mob, int damage, Clip clip) {
 		super(level, x, y, SIZE, SIZE, 1, 6, direction, mob, damage, clip);
+		
+		adjustOffset(direction);
+	}
+	
+	/**
+	 * Adjusts the offset of the arrow
+	 * 
+	 */
+	private void adjustOffset(Direction direction) {
+		switch (direction) {
+		case NORTH:
+			this.tileNumber = 1 + getSpriteSheet().boxes;
+			return;
+		case SOUTH:
+			this.tileNumber = 1 + getSpriteSheet().boxes;
+			return;
+		case EAST:
+			this.tileNumber = 1;
+			return;
+		default:
+			this.tileNumber = 1;
+			return;
+		}
 	}
 
 	/**

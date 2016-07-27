@@ -74,7 +74,11 @@ public class Inventory implements Serializable {
 		if (item instanceof Gun) {
 			selectedGun = (Gun) item;
 		} else if (item instanceof Armor) {
-			selectedArmor = (Armor) item;
+			if (item == selectedArmor) {
+				selectedArmor = null;
+			} else {
+				selectedArmor = (Armor) item;
+			}
 		} else if (item instanceof Sword) {
 			selectedSword = (Sword) item;
 		} else {

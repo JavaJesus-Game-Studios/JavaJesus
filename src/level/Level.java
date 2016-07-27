@@ -211,7 +211,8 @@ public abstract class Level implements Serializable {
 	 * Removes dead mobs from the level
 	 */
 	public void clear() {
-		for (Mob m : mobs) {
+		for (int i = 0; i < mobs.size(); i++) {
+			Mob m = mobs.get(i);
 			if (m.isDead())
 				remove(m);
 		}

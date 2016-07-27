@@ -38,7 +38,7 @@ public class Missile extends Projectile {
 	public Missile(Level level, int x, int y, int xPos, int yPos, Mob mob, int damage) {
 		super(level, x, y, 6, 6, 1, 5, xPos, yPos, mob, damage, SoundHandler.fireball);
 
-		adjustOffset(mob);
+		adjustOffset(mob.getDirection());
 	}
 
 	/**
@@ -60,17 +60,15 @@ public class Missile extends Projectile {
 	public Missile(Level level, int x, int y, Direction direction, Mob mob, int damage, Clip clip) {
 		super(level, x, y, 6, 6, 1, 5, direction, mob, damage, SoundHandler.fireball);
 
-		adjustOffset(mob);
+		adjustOffset(direction);
 	}
 
 	/**
 	 * Adjusts the offset of the arrow
 	 * 
-	 * @param mob
-	 *            the mob that is firing
 	 */
-	private void adjustOffset(Mob mob) {
-		switch (mob.getDirection()) {
+	private void adjustOffset(Direction direction) {
+		switch (direction) {
 		case NORTH:
 			this.tileNumber = 3 + 3 * getSpriteSheet().boxes;
 			return;

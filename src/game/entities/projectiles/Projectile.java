@@ -26,9 +26,6 @@ public abstract class Projectile extends Entity implements Hideable {
 	// the change in x and y that the projectile will travel towards
 	private double dx, dy;
 
-	// y offset in spritesheet for texture for vertical or horizontal bullet
-	private int yOffset;
-
 	// the mob that fired the projectile
 	private Mob mob;
 
@@ -142,11 +139,9 @@ public abstract class Projectile extends Entity implements Hideable {
 		switch (direction) {
 		case SOUTH:
 			dy++;
-			yOffset++;
 			break;
 		case NORTH:
 			dy--;
-			yOffset++;
 			break;
 		case WEST:
 			dx--;
@@ -251,7 +246,7 @@ public abstract class Projectile extends Entity implements Hideable {
 			return;
 		}
 
-		screen.render(getX(), getY(), tileNumber + (yOffset * sheet.boxes), getColor(), sheet);
+		screen.render(getX(), getY(), tileNumber, getColor(), sheet);
 	}
 
 	/**

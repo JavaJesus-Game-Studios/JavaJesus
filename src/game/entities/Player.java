@@ -128,10 +128,15 @@ public class Player extends Mob implements Skills {
 	}
 
 	public void equip(Armor armor) {
-		this.yTile = armor.getRow();
-		this.maxShield = armor.getShield();
-		this.gunSheet = armor.getGunSpritesheet();
-		inventory.select(armor);
+		if (armor != null) {
+			this.yTile = armor.getRow();
+			this.maxShield = armor.getShield();
+			this.gunSheet = armor.getGunSpritesheet();
+		} else {
+			this.yTile = 0;
+			this.maxShield = 1;
+			this.gunSheet = SpriteSheet.playerGuns;
+		}
 	}
 
 	/**
@@ -198,7 +203,7 @@ public class Player extends Mob implements Skills {
 		// update the sword
 		if (inventory.getSword() != null) {
 			inventory.getSword().tick(getLevel(), getX(), getY());
-			//            sdsetDirection(inventory.getSword().getDirection());
+			// sdsetDirection(inventory.getSword().getDirection());
 		}
 
 		// the change in x and y (movement)
@@ -221,10 +226,10 @@ public class Player extends Mob implements Skills {
 		}
 
 		// shooting requirements
-		isShooting = (input.up.isPressed() || input.down.isPressed() || input.left.isPressed() || input.right.isPressed())
-				&& !isSwinging && !isSwimming && inventory.getGun() != null
-						&& !inventory.getGun().isReloading();
-		
+		isShooting = (input.up.isPressed() || input.down.isPressed() || input.left.isPressed()
+				|| input.right.isPressed()) && !isSwinging && !isSwimming && inventory.getGun() != null
+				&& !inventory.getGun().isReloading();
+
 		// update the shooting directions if applicable
 		if (input.up.isPressed()) {
 			shootingDir = Direction.NORTH;
@@ -254,7 +259,7 @@ public class Player extends Mob implements Skills {
 		// swing key
 		if (input.space.isPressed()) {
 			if (!isShooting && !isSwimming && !isSwinging && inventory.getSword() != null) {
-				
+
 				if (input.shift.isPressed() && stamina > 20) {
 					stamina -= 20;
 					inventory.getSword().swing(getLevel(), getX(), getY(), getDirection(), true);
@@ -306,6 +311,9 @@ public class Player extends Mob implements Skills {
 			input.f3.toggle(false);
 		}
 
+		// update player armor TODO not efficient
+		equip(inventory.getArmor());
+
 		// open inventory
 		if (input.i.isPressed()) {
 			input.i.toggle(false);
@@ -317,6 +325,7 @@ public class Player extends Mob implements Skills {
 				input.d.toggle(false);
 				input.shift.toggle(false);
 			}
+
 		}
 
 		// open pause menu
@@ -415,11 +424,11 @@ public class Player extends Mob implements Skills {
 		}
 
 		// regenerate stamina when not moving
-		if (!isMoving && stamina < maxStamina && !isShooting) {
+		if (!isMoving && stamina < maxStamina && !isShooting && !isSwinging) {
 			stamina += 0.5;
 		}
 		// regenerate shield when not moving
-		if (!isMoving && shield < maxShield && !isShooting) {
+		if (!isMoving && shield < maxShield && !isShooting && !isSwinging) {
 			shield += (0.0005 * maxShield);
 		}
 		// regenerate stats very slowing if moving (but not sprinting)
@@ -504,7 +513,7 @@ public class Player extends Mob implements Skills {
 				xTile = 0;
 			}
 			// left or right
-		} else if (isLatitudinal()) {
+		} else {
 			xTile = 4;
 			if (isMoving)
 				xTile += (flip ? 2 : 0);
@@ -541,11 +550,11 @@ public class Player extends Mob implements Skills {
 		}
 
 		// Handles Shooting Animation
-		if (isShooting) { 
-			
+		if (isShooting) {
+
 			// bazooka is special :)
 			if (inventory.getGun() instanceof Bazooka) {
-				((Bazooka) inventory.getGun()).renderPlayer(screen, this);
+				((Bazooka) inventory.getGun()).renderPlayer(screen, this, gunSheet, shootingDir);
 				return;
 			}
 
@@ -554,15 +563,31 @@ public class Player extends Mob implements Skills {
 			yTile = inventory.getGun().getPlayerOffset();
 
 			if (shootingDir == Direction.NORTH) {
-				xTile = 8 + (flip ? 2 : 0);
-				if (!isMoving)
+				xTile = 8;
+				if (inventory.getGun() == Item.assaultRifle) {
 					xTile = 10;
-			}
-			if (shootingDir == Direction.SOUTH) {
-				xTile = 4 + (flip ? 2 : 0);
-				if (!isMoving)
+				}
+				if (!isMoving) {
+					xTile = 10;
+					if (inventory.getGun() == Item.assaultRifle) {
+						xTile = 12;
+					}
+				}
+			} else if (shootingDir == Direction.SOUTH) {
+				xTile = 4;
+				if (inventory.getGun() == Item.assaultRifle) {
+					xTile += flip ? 2 : 0;
+					flip = false;
+				}
+				if (!isMoving) {
 					xTile = 6;
-			} else if (isLatitudinal()) {
+					if (inventory.getGun() == Item.assaultRifle) {
+						xTile = 8;
+					}
+				}
+			} else {
+				// reset the flip for horizontal movement
+				flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
 				xTile = flip ? 2 : 0;
 				if (!isMoving)
 					xTile = 2;
@@ -590,6 +615,7 @@ public class Player extends Mob implements Skills {
 		// Handles Swinging Animation
 		if (isSwinging) {
 			inventory.getSword().render(screen, xOffset, yOffset, getColor());
+			setDirection(inventory.getSword().getDirection());
 		}
 
 	}

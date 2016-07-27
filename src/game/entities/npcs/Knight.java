@@ -64,7 +64,7 @@ public class Knight extends NPC implements Skills {
 		// assign a new target
 		if (target == null) {
 			for (Mob mob : getLevel().getMobs()) {
-				if ((mob instanceof Monster) && aggroRadius.intersects(mob.getBounds())) {
+				if ((mob instanceof Monster) && aggroRadius.intersects(mob.getBounds()) && !mob.isDead()) {
 					target = mob;
 					mob.setTargeted(true);
 					return;

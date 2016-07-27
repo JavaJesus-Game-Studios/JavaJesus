@@ -329,17 +329,16 @@ public class Sword extends Item {
 		int xTile = xSwingOffset, yTile = ySwingOffset;
 
 		// whether to render the player backwards
-		boolean flip = false;
+		boolean flip = direction == Direction.WEST;
 
 		// base modifier size
 		int modifier = UNIT_SIZE;
 
 		// sprite offset for SIMPLE swing in one direction
 		if (direction == Direction.NORTH) {
-			xTile += 2;
-		} else if (direction == Direction.WEST || direction == Direction.EAST) {
-			flip = direction == Direction.WEST;
-			xTile += 4 + (flip ? 3 : 0);
+			xTile = 2;
+		} else if (direction != Direction.SOUTH) {
+			xTile = 4;
 		}
 
 		// adjsut offsets for power swinging
