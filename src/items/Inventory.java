@@ -64,30 +64,6 @@ public class Inventory implements Serializable {
 	}
 
 	/**
-	 * @param gun
-	 *            the selected gun
-	 */
-	public final void select(Gun gun) {
-		selectedGun = gun;
-	}
-
-	/**
-	 * @param armor
-	 *            the selected armor
-	 */
-	public final void select(Armor armor) {
-		selectedArmor = armor;
-	}
-
-	/**
-	 * @param sword
-	 *            the selected sword
-	 */
-	public final void select(Sword sword) {
-		selectedSword = sword;
-	}
-
-	/**
 	 * Handles what happens when an item is selected
 	 * 
 	 * @param item
@@ -95,9 +71,18 @@ public class Inventory implements Serializable {
 	 */
 	public final void select(Item item) {
 
-		item.use();
-		if (item.getQuantity() == 0) {
-			remove(item);
+		if (item instanceof Gun) {
+			selectedGun = (Gun) item;
+		} else if (item instanceof Armor) {
+			selectedArmor = (Armor) item;
+		} else if (item instanceof Sword) {
+			selectedSword = (Sword) item;
+		} else {
+
+			item.use();
+			if (item.getQuantity() == 0) {
+				remove(item);
+			}
 		}
 
 	}
@@ -144,10 +129,10 @@ public class Inventory implements Serializable {
 			guns.add((Gun) item);
 		} else if (item instanceof Sword) {
 			swords.add((Sword) item);
-		} else if (item instanceof Armor) {
-			misc.add(item);
-		} else {
+		} else if (item == Item.apple) {
 			usables.add(item);
+		} else {
+			misc.add(item);
 		}
 
 		items.add(item);

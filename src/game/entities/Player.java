@@ -131,6 +131,7 @@ public class Player extends Mob implements Skills {
 		this.yTile = armor.getRow();
 		this.maxShield = armor.getShield();
 		this.gunSheet = armor.getGunSpritesheet();
+		inventory.select(armor);
 	}
 
 	/**
@@ -197,7 +198,7 @@ public class Player extends Mob implements Skills {
 		// update the sword
 		if (inventory.getSword() != null) {
 			inventory.getSword().tick(getLevel(), getX(), getY());
-			setDirection(inventory.getSword().getDirection());
+			//            sdsetDirection(inventory.getSword().getDirection());
 		}
 
 		// the change in x and y (movement)
@@ -219,27 +220,41 @@ public class Player extends Mob implements Skills {
 			demonCooldown = true;
 		}
 
-		// shooting keys
-		if (input.up.isPressed() || input.down.isPressed() || input.left.isPressed() || input.right.isPressed()) {
-
-			if (isShooting = !isSwinging && !isSwimming && inventory.getGun() != null
-					&& !inventory.getGun().isReloading()) {
-
-				// horizontal bullet offset
-				int bulletOffset = shootingDir == Direction.EAST ? 2 * UNIT_SIZE + 1 : -1;
-
-				// fire the gun
-				if (inventory.getGun() != null) {
-					inventory.getGun().fire(getX() + bulletOffset, getY() + 3, shootingDir, this);
-				}
+		// shooting requirements
+		isShooting = (input.up.isPressed() || input.down.isPressed() || input.left.isPressed() || input.right.isPressed())
+				&& !isSwinging && !isSwimming && inventory.getGun() != null
+						&& !inventory.getGun().isReloading();
+		
+		// update the shooting directions if applicable
+		if (input.up.isPressed()) {
+			shootingDir = Direction.NORTH;
+			if (isShooting) {
+				inventory.getGun().fire(getX() + 7, getY(), shootingDir, this);
 			}
-
+		}
+		if (input.down.isPressed()) {
+			shootingDir = Direction.SOUTH;
+			if (isShooting) {
+				inventory.getGun().fire(getX() + 7, getY() + 8, shootingDir, this);
+			}
+		}
+		if (input.left.isPressed()) {
+			shootingDir = Direction.WEST;
+			if (isShooting) {
+				inventory.getGun().fire(getX(), getY() + 6, shootingDir, this);
+			}
+		}
+		if (input.right.isPressed()) {
+			shootingDir = Direction.EAST;
+			if (isShooting) {
+				inventory.getGun().fire(getX() + 8, getY() + 6, shootingDir, this);
+			}
 		}
 
 		// swing key
 		if (input.space.isPressed()) {
 			if (!isShooting && !isSwimming && !isSwinging && inventory.getSword() != null) {
-
+				
 				if (input.shift.isPressed() && stamina > 20) {
 					stamina -= 20;
 					inventory.getSword().swing(getLevel(), getX(), getY(), getDirection(), true);
@@ -426,32 +441,6 @@ public class Player extends Mob implements Skills {
 			playTileSound();
 		}
 
-		// update the shooting directions if applicable
-		if (input.up.isPressed()) {
-			shootingDir = Direction.NORTH;
-			if (isShooting) {
-				inventory.getGun().fire(getX() + 4, getY(), shootingDir, this);
-			}
-		}
-		if (input.down.isPressed()) {
-			shootingDir = Direction.SOUTH;
-			if (isShooting) {
-				inventory.getGun().fire(getX() + 4, getY() + 8, shootingDir, this);
-			}
-		}
-		if (input.left.isPressed()) {
-			shootingDir = Direction.WEST;
-			if (isShooting) {
-				inventory.getGun().fire(getX(), getY() + 4, shootingDir, this);
-			}
-		}
-		if (input.right.isPressed()) {
-			shootingDir = Direction.EAST;
-			if (isShooting) {
-				inventory.getGun().fire(getX() + 8, getY() + 4, shootingDir, this);
-			}
-		}
-
 		// spawn demon cooldown loop
 		if (demonCooldown) {
 			if (tickCount % 100 == 0) {
@@ -552,8 +541,8 @@ public class Player extends Mob implements Skills {
 		}
 
 		// Handles Shooting Animation
-		if (isShooting) {
-
+		if (isShooting) { 
+			
 			// bazooka is special :)
 			if (inventory.getGun() instanceof Bazooka) {
 				((Bazooka) inventory.getGun()).renderPlayer(screen, this);
@@ -564,12 +553,12 @@ public class Player extends Mob implements Skills {
 			xTile = 0;
 			yTile = inventory.getGun().getPlayerOffset();
 
-			if (getDirection() == Direction.NORTH) {
+			if (shootingDir == Direction.NORTH) {
 				xTile = 8 + (flip ? 2 : 0);
 				if (!isMoving)
 					xTile = 10;
 			}
-			if (getDirection() == Direction.SOUTH) {
+			if (shootingDir == Direction.SOUTH) {
 				xTile = 4 + (flip ? 2 : 0);
 				if (!isMoving)
 					xTile = 6;
@@ -577,7 +566,7 @@ public class Player extends Mob implements Skills {
 				xTile = flip ? 2 : 0;
 				if (!isMoving)
 					xTile = 2;
-				flip = getDirection() == Direction.WEST;
+				flip = shootingDir == Direction.WEST;
 			}
 
 			SpriteSheet sheet = this.gunSheet;

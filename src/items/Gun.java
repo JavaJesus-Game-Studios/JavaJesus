@@ -34,8 +34,8 @@ public class Gun extends Item {
 	// whether or not the player is reloading
 	private boolean isReloading;
 
-	// the reload time
-	private int RELOAD_TIME;
+	// the reload time between bullets TODO implement it
+	private int RELOAD_TIME = 10;
 
 	// ticks inbetween each reload
 	private int reloadTicks;
@@ -128,13 +128,6 @@ public class Gun extends Item {
 				reloadTicks = 0;
 				return;
 			}
-
-			// reloading is done!
-			if (reloadTicks >= RELOAD_TIME) {
-				isReloading = false;
-				reloadTicks = 0;
-				return;
-			}
 		}
 
 		if (isReloading) {
@@ -164,7 +157,7 @@ public class Gun extends Item {
 			bulletType = Item.arrowAmmo;
 			break;
 		case FIREBALL:
-			// TODO for mobs?
+			// TODO for flamethrower
 			availableAmmo = 100;
 			break;
 		case LASER:
@@ -187,13 +180,17 @@ public class Gun extends Item {
 			bulletType = Item.revolverAmmo;
 			break;
 		}
-
+		
 		// get the right available ammo
 		if (bulletType != null && inven.getMisc().contains(bulletType)) {
 			for (Item e : inven.getMisc()) {
 				if (e.equals(bulletType)) {
-					availableAmmo = e.getQuantity();
-					e.use(clipSize);
+					// clipSize - ammo is the difference needed to reload
+					availableAmmo = clipSize - ammo;
+					if (e.getQuantity() < clipSize - ammo) {
+						availableAmmo = e.getQuantity();
+					}
+					e.use(availableAmmo);
 					break;
 				}
 			}

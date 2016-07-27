@@ -304,7 +304,8 @@ public class Sword extends Item {
 	 *            the level to check
 	 */
 	private void attackMobs(Level level) {
-		for (Mob m : level.getMobs()) {
+		for (int i = 0; i < level.getMobs().size(); i++) {
+			Mob m = level.getMobs().get(i);
 			if (bounds.intersects(m.getBounds())) {
 				m.damage(damage);
 			}

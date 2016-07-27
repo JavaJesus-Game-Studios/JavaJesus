@@ -141,11 +141,11 @@ public abstract class Projectile extends Entity implements Hideable {
 	private void calcSimpleDirection(Direction direction) {
 		switch (direction) {
 		case SOUTH:
-			dy--;
+			dy++;
 			yOffset++;
 			break;
 		case NORTH:
-			dy++;
+			dy--;
 			yOffset++;
 			break;
 		case WEST:
