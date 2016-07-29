@@ -8,7 +8,6 @@ import game.entities.Damageable;
 import game.entities.Entity;
 import game.entities.Player;
 import game.entities.SolidEntity;
-import game.entities.particles.HealthBar;
 import game.graphics.JJFont;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
@@ -68,7 +67,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 	
 	// fake shadow, but used to conform to solid entity
 	private static final Rectangle shadow = new Rectangle(0,0, 0, 0);
-
+	
 	/**
 	 * Creates a Vehicle
 	 * 
@@ -99,10 +98,9 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 		this.speed = speed;
 		this.sheet = sheet;
 		this.maxHealth = maxHealth;
+		health = maxHealth;
 
 		setBounds(getX(), getY(), width, height);
-
-		level.add(new HealthBar(level, getX(), getY() + height + 2, this));
 	}
 
 	/**
@@ -193,15 +191,15 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 	 * Update the vehicle
 	 */
 	public void tick() {
-
+		
 		// vehicle will always try to slow down
 		isXSlowingDown = isYSlowingDown = true;
-
+		
 		// check for input
 		if (isUsed()) {
 
 			if (player.getInput().w.isPressed()) {
-
+				
 				isYSlowingDown = false;
 				if (Math.abs(acceleration.y - 1) < MAX_ACCELERATION && tickCount % DELAY == 0) {
 					acceleration.y--;
@@ -259,8 +257,8 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 		int dx = 0, dy = 0;
 
 		// move the mob
-		dx += acceleration.x * speed;
-		dy += acceleration.y * speed;
+		dx = acceleration.x * speed;
+		dy = acceleration.y * speed;
 
 		if (dx != 0 || dy != 0)
 			move(dx, dy);
@@ -304,16 +302,16 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 	 *            the total change in y
 	 */
 	public void move(int dx, int dy) {
-
+		
 		int sign = 0;
 
 		// assigns direction
 		if (dx < 0) {
 			setDirection(Direction.WEST);
-			sign = 1;
+			sign = -1;
 		} else if (dx > 0) {
 			setDirection(Direction.EAST);
-			sign = -1;
+			sign = 1;
 		}
 		if (dy < 0)
 			setDirection(Direction.NORTH);
@@ -335,9 +333,9 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 		}
 
 		if (dy < 0) {
-			sign = 1;
-		} else if (dy > 0) {
 			sign = -1;
+		} else if (dy > 0) {
+			sign = 1;
 		}
 
 		// move pixel by pixel for maximum accuracy
@@ -353,6 +351,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 				break;
 			}
 		}
+		
 	}
 
 	/**
@@ -376,7 +375,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 
 		// loop through the buildings/possible entities
 		for (Entity entity : getLevel().getEntities()) {
-			if (entity instanceof SolidEntity && getBounds().intersects(entity.getBounds())) {
+			if (entity instanceof SolidEntity && getBounds().intersects(entity.getBounds()) && entity != this) {
 				return true;
 			}
 		}
@@ -482,6 +481,13 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 	 */
 	public Direction getDirection() {
 		return direction;
+	}
+	
+	/**
+	 * @return the player driving the  vehicle
+	 */
+	public Player getPlayer() {
+		return player;
 	}
 
 }

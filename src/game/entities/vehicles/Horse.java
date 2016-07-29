@@ -1,7 +1,5 @@
 package game.entities.vehicles;
 
-import java.awt.Rectangle;
-
 import game.Display;
 import game.entities.Mob;
 import game.entities.Player;
@@ -85,8 +83,8 @@ public class Horse extends NPC implements Ridable {
 	 * Updates the horse
 	 */
 	public void tick() {
-
-		super.tick();
+		
+		isMoving = false;
 
 		// change in x and y
 		int dx = 0, dy = 0;
@@ -131,9 +129,12 @@ public class Horse extends NPC implements Ridable {
 			}
 
 			if (dx != 0 || dy != 0) {
+				isMoving = true;
 				move(dx, dy);
 			}
 
+		} else {
+			super.tick();
 		}
 	}
 
@@ -158,8 +159,11 @@ public class Horse extends NPC implements Ridable {
 			setBounds(getX(), getY(), LONG_SIDE, LONG_SIDE);
 			setOuterBounds(LONG_SIDE, LONG_SIDE);
 		}
-
-		super.move(dx, dy);
+		
+		if(isUsed())
+			super.moveSmoothly(dx, dy);
+		else
+			super.move(dx, dy);
 	}
 
 	/**
@@ -178,7 +182,7 @@ public class Horse extends NPC implements Ridable {
 
 		// whether or not to render backwards
 		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
-
+		
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
 			xTile += 12;
@@ -251,44 +255,25 @@ public class Horse extends NPC implements Ridable {
 		}
 
 	}
-
+	
 	/**
-	 * Forces a mob to move out of a collision
+	 * Determines if a mob's bounds are intersecting another mob's bounds as it
+	 * is
+	 * 
+	 * @return the other mob that is colliding with this mob, null if there
+	 *         isn't one
 	 */
-	protected void moveAroundMobCollision() {
+	@Override
+	protected Mob getMobCollision() {
 
-		Mob other = getMobCollision();
-
-		// if there is no collision, do nothing
-		if (other == null)
-			return;
-
-		// the direction the mob should go to escape
-		int dx = 0;
-		int dy = 0;
-
-		// where the two mobs are colliding
-		Rectangle intersection = getBounds().intersection(other.getBounds());
-
-		// the center intersection points
-		double xx = intersection.getCenterX();
-		double yy = intersection.getCenterY();
-
-		// get the optimal direction to escape
-		if (xx >= this.getBounds().getCenterX()) {
-			dx--;
+		// loop through the list of mobs
+		for (Mob mob : getLevel().getMobs()) {
+			if (mob == this)
+				continue;
+			if (this.getBounds().intersects(mob.getBounds()) && !mob.isDead() && (!isUsed() || mob != player))
+				return mob;
 		}
-		if (xx < this.getBounds().getCenterX()) {
-			dx++;
-		}
-		if (yy >= this.getBounds().getCenterY()) {
-			dy--;
-		}
-		if (yy < this.getBounds().getCenterY()) {
-			dy++;
-		}
-
-		this.move(dx, dy);
+		return null;
 	}
 
 	@Override

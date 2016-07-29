@@ -14,7 +14,6 @@ import game.entities.structures.furniture.Chest;
 import game.entities.structures.transporters.MapTransporter;
 import game.entities.structures.transporters.Transporter;
 import game.entities.vehicles.Ridable;
-import game.graphics.Colors;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 import game.gui.overview.InventoryGUI;
@@ -624,8 +623,8 @@ public class Player extends Mob implements Skills {
 	 * Makes a player exit vehicle
 	 */
 	public void exitVehicle() {
+		moveTo(vehicle.getX() - 16, vehicle.getY());
 		vehicle = null;
-		move(-8, 0);
 	}
 
 	/**
@@ -713,7 +712,7 @@ public class Player extends Mob implements Skills {
 
 		// sets a shader when health is low
 		if ((double) getCurrentHealth() / getMaxHealth() <= 0.25) {
-			Display.getScreen().setShader(Colors.fromHex("FF0000"));
+			Display.getScreen().setShader(0xFF0000);
 		}
 	}
 

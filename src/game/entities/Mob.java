@@ -379,8 +379,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 				if (getBounds().intersects(building.getShadow())) {
 					isBehindBuilding = true;
 				} else if (getBounds().intersects(entity.getBounds())) {
-					if (entity instanceof Vehicle) {
-						damage(((Vehicle) entity).getDamage());
+					if (entity instanceof  Vehicle) {
+						Vehicle v = (Vehicle) entity;
+						if (v.isMoving() && this != v.getPlayer())
+							damage(v.getDamage());
 					}
 					return true;
 				}

@@ -7,6 +7,7 @@ import game.SoundHandler;
 import game.entities.Entity;
 import game.entities.Mob;
 import game.entities.SolidEntity;
+import game.entities.vehicles.Vehicle;
 import game.graphics.Screen;
 import game.graphics.SpriteSheet;
 import level.Level;
@@ -218,6 +219,9 @@ public abstract class Projectile extends Entity implements Hideable {
 				// disappear if hitting a building
 			} else if (e instanceof SolidEntity) {
 				if (this.getBounds().intersects(e.getBounds())) {
+					if (e instanceof Vehicle) {
+						((Vehicle) e).damage(damage);
+					}
 					onDestroyed();
 					break;
 				} else if (this.getBounds().intersects(((SolidEntity) e).getShadow())) {

@@ -47,12 +47,10 @@ public class Display extends Canvas {
 	private static JFrame frame;
 
 	// Creates the buffered image to be rendered onto the game screen
-	private transient BufferedImage image = new BufferedImage(IMAGE_WIDTH,
-			IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
+	private transient BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
 
 	// Pixel data to be used in the buffered image
-	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
-			.getData();
+	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
 	// Processes the in-game screen
 	private static Screen screen;
@@ -69,7 +67,7 @@ public class Display extends Canvas {
 	// Default JPanel container used to hold other GUI panels
 	private static JPanel display;
 
-	// Instance of the Set-Up introduction screen GUI 
+	// Instance of the Set-Up introduction screen GUI
 	private static IntroGUI introScreen;
 
 	// Instance of the card layout that holds other guis, used to display other
@@ -90,10 +88,10 @@ public class Display extends Canvas {
 
 	// inGameScreen reveals if the game gui is being displayed
 	public static boolean inGameScreen;
-	
+
 	/**
-	 * Initializes the Screen processor and other GUIs
-	 * Defaults the first screen to the introduction screen
+	 * Initializes the Screen processor and other GUIs Defaults the first screen
+	 * to the introduction screen
 	 */
 	public Display() {
 		screen = new Screen(IMAGE_WIDTH, IMAGE_HEIGHT);
@@ -181,15 +179,16 @@ public class Display extends Canvas {
 	public void tick() {
 		frame.setTitle(NAME + " | FPS: " + Game.fps);
 		int hours = Game.getHour();
-		//TODO make time more efficient
-		if (hours >= 6 && hours < 10) {
-			//screen.setShader(0x5C3D99);
-		} else if (hours >= 10 && hours < 17) {
-			//screen.setShader(0);
-		} else if (hours >= 17 && hours < 21) {
-			//screen.setShader(0xB24700);
-		} else {
-			//screen.setShader(0x0A1433);
+		if (Game.getMinutes() == 0) {
+			if (hours == 6) {
+				screen.setShader(0x5C3D99);
+			} else if (hours == 10) {
+				screen.setShader(0);
+			} else if (hours == 17) {
+				screen.setShader(0xB24700);
+			} else if (hours == 21) {
+				screen.setShader(0x0A1433);
+			}
 		}
 
 		if (inGameScreen) {
@@ -209,8 +208,8 @@ public class Display extends Canvas {
 			return;
 		}
 
-		int xOffset = player.getX() - (screen.getWidth() / 2) - 8;
-		int yOffset = player.getY() - (screen.getHeight() / 2) - 8;
+		int xOffset = player.getX() - (screen.getWidth() / 2);
+		int yOffset = player.getY() - (screen.getHeight() / 2);
 		if (player.isDriving()) {
 			xOffset = player.getVehicle().getX() - (screen.getWidth() / 2);
 			yOffset = player.getVehicle().getY() - (screen.getHeight() / 2);
@@ -223,8 +222,7 @@ public class Display extends Canvas {
 
 		for (int y = 0; y < screen.getHeight(); y++) {
 			for (int x = 0; x < screen.getWidth(); x++) {
-				pixels[x + y * IMAGE_WIDTH] = screen.getPixels()[x + y
-						* screen.getWidth()];
+				pixels[x + y * IMAGE_WIDTH] = screen.getPixels()[x + y * screen.getWidth()];
 			}
 
 		}
@@ -235,9 +233,8 @@ public class Display extends Canvas {
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
 		if (Game.getDisplayDevScreen()) {
-			g.drawString(Game.player + ": " + Game.player.getX() + ", "
-					+ Game.player.getY() + " Time: " + Game.getHour() + ":"
-					+ Game.getMinutes(), 5, 20);
+			g.drawString(Game.player + ": " + Game.player.getX() + ", " + Game.player.getY() + " Time: "
+					+ Game.getHour() + ":" + Game.getMinutes(), 5, 20);
 		}
 		hud.draw(g);
 		ChatHandler.drawWindow(g);
@@ -251,7 +248,7 @@ public class Display extends Canvas {
 	public static void stop() {
 		frame.dispose();
 	}
-	
+
 	public static Screen getScreen() {
 		return screen;
 	}

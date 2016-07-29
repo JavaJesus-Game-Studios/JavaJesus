@@ -634,6 +634,19 @@ public class NPC extends Mob {
 			super.move(dx * getSpeed(), dy * getSpeed());
 		}
 	}
+	
+	/**
+	 * Moves a npc every tick (will cause faster movement)
+	 * 
+	 * @param dx
+	 *            the total change in x
+	 * @param dy
+	 *            the total change in y
+	 */
+	public void moveSmoothly(int dx, int dy) {
+
+		super.move(dx * getSpeed(), dy * getSpeed());
+	}
 
 	/**
 	 * @return the colorset

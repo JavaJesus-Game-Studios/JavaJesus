@@ -79,7 +79,7 @@ public class BlackHole extends Particle {
 			Display.getScreen().setShader(0);
 			getLevel().remove(this);
 
-		}
+		}	
 
 		// randomly create an explosion
 		if (random.nextInt(10) == 0) {
