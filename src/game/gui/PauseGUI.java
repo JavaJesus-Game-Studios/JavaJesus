@@ -12,7 +12,7 @@ public class PauseGUI extends ScreenGUI {
 	private static final long serialVersionUID = 1L;
 	
 	// Pause screen that is added to the screen
-	PausePanelGUI panel;
+	private PausePanelGUI panel;
 
 	/**
 	 * Creates a Pause screen

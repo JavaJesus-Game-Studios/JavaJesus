@@ -1,13 +1,10 @@
 package game;
 
-import java.awt.Point;
-
 import javax.sound.sampled.Clip;
 
 import game.entities.Player;
 import game.gui.Launcher;
 import level.Level;
-import level.RandomLevel;
 import level.sandbox.SandboxSurvivalMap1;
 import level.story.LordHillsboroughsDomain;
 import save.GameData;
@@ -65,27 +62,41 @@ public class Game implements Runnable {
 	 * Adventure type TODO should be IntroGui -> new game -> passes player
 	 * parameters -> initialize player and level
 	 */
-	public Game(GameMode m) {
+	public Game(GameMode m, boolean load) {
 		mode = m;
 
 		Level level;
 
 		switch (mode) {
 		case MINI:
-			level = new RandomLevel(200, 200, new Point(500, 500), true);
+			level = Launcher.level;
+			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
+			level.add(player);
 			break;
 		case SURVIVAL:
 			level = new SandboxSurvivalMap1();
+			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
+			level.add(player);
 			break;
 		default:
-			level = LordHillsboroughsDomain.level;
+			if (load && (player = (Player) GameData.load("Player")) != null) {
+				player.getInventory().getGun().initSound();
+				level = player.getLevel();
+			} else {
+				System.out.println("Not loading game.");
+				level = LordHillsboroughsDomain.level;
+				level.reset();
+				player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
+				level.add(player);
+			}
 		}
 
-		player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
 		display = new Display();
 		player.setInput(new InputHandler(display));
+
 		level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
-		level.add(player);
+
+		start();
 	}
 
 	/**
@@ -95,23 +106,6 @@ public class Game implements Runnable {
 
 		running = true;
 		new Thread(this, "Game").start();
-	}
-
-	/**
-	 * Starts the game by first checking for a save file
-	 */
-	public synchronized void startWithLoad() {
-		if ((player = (Player) GameData.load("Player")) != null) {
-			display = new Display();
-			player.setInput(new InputHandler(display));
-			player.getInventory().getGun().initSound();
-			player.getLevel().getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
-		} else {
-			System.out.println("Save not found!");
-		}
-
-		this.start();
-
 	}
 
 	/** Stops the game */

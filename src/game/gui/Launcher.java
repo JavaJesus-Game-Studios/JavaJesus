@@ -33,10 +33,10 @@ public class Launcher extends JFrame implements Runnable {
 	private boolean running;
 
 	// Version of the game
-	private final String VERSION = "Alpha 0.6.5";
+	private final String VERSION = "Alpha 0.7.0";
 
 	// Last known update
-	private final String LAST_UPDATED = "Last Updated 10/15/2015";
+	private final String LAST_UPDATED = "Last Updated 7/29/2016";
 
 	// offset of the sword to render
 	private int swordOffset;
@@ -63,22 +63,23 @@ public class Launcher extends JFrame implements Runnable {
 	private static final int DELAY = 20;
 
 	// the color of the text
-	private Color color = Color.RED;
+	private Color color;
 
 	// Random generator
-	private Random random;
+	private static final Random random = new Random();
 
-	// the background level
-	private Level level;
+	// the randomly generated background level
+	public static final Level level = new RandomLevel(500, 500, new Point(10, 10), true);;
 
 	// the image of the level
-	private BufferedImage image;
+	private static final BufferedImage image =
+			new BufferedImage(Display.IMAGE_WIDTH, Display.IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
 
 	// Pixel data to be used in the buffered image
 	private int[] pixels;
 
 	// Processes the level pixels
-	private Screen screen;
+	private Screen screen = new Screen(Display.IMAGE_WIDTH, Display.IMAGE_HEIGHT);
 	
 	// level width and height
 	public static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
@@ -111,13 +112,12 @@ public class Launcher extends JFrame implements Runnable {
 	 * Constructor that creates the JFrame
 	 */
 	public Launcher() {
+		
+		// sets text color on gui
+		color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
 
-		screen = new Screen(Display.IMAGE_WIDTH, Display.IMAGE_HEIGHT);
-		image = new BufferedImage(Display.IMAGE_WIDTH, Display.IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-		this.level = new RandomLevel(500, 500, new Point(10, 10), true);
 
-		random = new Random();
 		new InputHandler(this);
 		SoundHandler.playLoop(SoundHandler.background1);
 		setUndecorated(true);
@@ -264,7 +264,7 @@ public class Launcher extends JFrame implements Runnable {
 
 			if (System.currentTimeMillis() > previousTime + DELAY) {
 				previousTime = System.currentTimeMillis();
-				color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+				
 				if (isClicked) {
 					swordOffset += 10;
 					if (swordOffset > 100) {
@@ -310,7 +310,7 @@ public class Launcher extends JFrame implements Runnable {
 			return;
 		}
 
-		this.level.renderTile(screen, xOffset, yOffset);
+		level.renderTile(screen, xOffset, yOffset);
 
 		for (int y = 0; y < screen.getHeight(); y++) {
 			for (int x = 0; x < screen.getWidth(); x++) {
@@ -411,13 +411,13 @@ public class Launcher extends JFrame implements Runnable {
 		}
 		case SURVIVAL: {
 			SoundHandler.background1.stop();
-			new Game(GameMode.SURVIVAL).start();
+			new Game(GameMode.SURVIVAL, false);
 			this.stop();
 			return;
 		}
 		case ZOMBIES: {
 			SoundHandler.background1.stop();
-			new Game(GameMode.MINI).start();
+			new Game(GameMode.MINI, false);
 			this.stop();
 			return;
 		}
@@ -448,13 +448,13 @@ public class Launcher extends JFrame implements Runnable {
 		}
 		case NEWSTORY: {
 			SoundHandler.background1.stop();
-			new Game(GameMode.ADVENTURE).start();
+			new Game(GameMode.ADVENTURE, false);
 			this.stop();
 			return;
 		}
 		case CONTINUESTORY: {
 			SoundHandler.background1.stop();
-			new Game(GameMode.ADVENTURE).startWithLoad();
+			new Game(GameMode.ADVENTURE, true);
 			this.stop();
 			return;
 		}
