@@ -5,6 +5,7 @@ import javax.sound.sampled.Clip;
 import game.entities.Player;
 import game.gui.Launcher;
 import level.Level;
+import level.Level1;
 import level.sandbox.SandboxSurvivalMap1;
 import level.story.LordHillsboroughsDomain;
 import save.GameData;
@@ -84,7 +85,8 @@ public class Game implements Runnable {
 				level = player.getLevel();
 			} else {
 				System.out.println("Not loading game.");
-				level = LordHillsboroughsDomain.level;
+				//level = LordHillsboroughsDomain.level;
+				level = Level1.level;
 				level.reset();
 				player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
 				level.add(player);

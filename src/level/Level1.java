@@ -98,6 +98,8 @@ public class Level1 extends Level {
 	private static final long serialVersionUID = 5943407753519754342L;
 	
 	public static final String NAME = "Tester Level 1";
+	
+	public static final Level level = new Level1();
 
 	public Level1() {
 		super("/Levels/Test_Levels/tile_tester_level.png", true,
