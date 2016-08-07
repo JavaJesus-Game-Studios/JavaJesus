@@ -85,8 +85,8 @@ public class Game implements Runnable {
 				level = player.getLevel();
 			} else {
 				System.out.println("Not loading game.");
-				//level = LordHillsboroughsDomain.level;
-				level = Level1.level;
+				level = LordHillsboroughsDomain.level;
+				//level = Level1.level;
 				level.reset();
 				player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
 				level.add(player);
