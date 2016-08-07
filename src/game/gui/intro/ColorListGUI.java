@@ -1,7 +1,5 @@
 package game.gui.intro;
 
-import game.entities.Player;
-
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,11 +21,9 @@ public class ColorListGUI extends JPanel implements ListSelectionListener,
 	private JButton colorButton;
 	private int color = 0xFFFF0000;
 	private JList<String> list;
-	private Player player;
-
-	public ColorListGUI(Player player) {
-
-		this.player = player;
+	
+	public ColorListGUI() {
+		
 		model = new DefaultListModel<String>();
 		model.addElement("Red");
 		model.addElement("Blue");
@@ -78,7 +74,7 @@ public class ColorListGUI extends JPanel implements ListSelectionListener,
 			color = 0xFF009700;
 			break;
 		}
-		player.setShirtColor(color);
+		System.out.println("TEST");
 	}
 	
 	public int getNum() {

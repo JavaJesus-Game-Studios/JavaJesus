@@ -8,8 +8,8 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JPanel;
 
-import game.Game;
 import game.SoundHandler;
+import game.entities.Player;
 import game.graphics.Screen;
 import items.Item;
 
@@ -25,10 +25,13 @@ public class InventoryItemPanel extends JPanel implements MouseListener {
 	private static final int Y_OFFSET = 30;
 
 	private static final int SIZE = 16;
+	
+	private static Player player;
 
-	public InventoryItemPanel(Item item, InventoryGUI panel) {
+	public InventoryItemPanel(Item item, InventoryGUI panel, Player player) {
 
 		this.panel = panel;
+		InventoryItemPanel.player = player;
 		this.addMouseListener(this);
 		this.item = item;
 
@@ -75,7 +78,7 @@ public class InventoryItemPanel extends JPanel implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		SoundHandler.play(SoundHandler.click);
-		Game.player.getInventory().select(item);
+		player.getInventory().select(item);
 		InventoryGUI.update();
 	}
 

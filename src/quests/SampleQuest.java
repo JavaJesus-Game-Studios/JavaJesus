@@ -1,7 +1,7 @@
 package quests;
 
-import game.Game;
 import game.entities.npcs.NPC;
+import level.Level;
 
 public class SampleQuest extends Quest {
 	
@@ -28,7 +28,7 @@ public class SampleQuest extends Quest {
 	public boolean condition1() {
 		// It Was Game.FOX.isDead()
 		// This sample quest is impossible to complete
-		if (Game.player.isDead()) {
+		if (Level.getPlayer().isDead()) {
 			return true;
 		} else {
 			return false;

@@ -1,7 +1,6 @@
 package game.entities.particles.pickups;
 
 import level.Level;
-import game.Game;
 
 /*
  * Creates a pickup that heals the player
@@ -29,8 +28,8 @@ public class QuickHealthPickup extends Pickup {
 	 * Updates the pickup
 	 */
 	public void tick() {
-		if (getBounds().intersects(Game.player.getBounds())) {
-			Game.player.changeHealth(20);
+		if (getBounds().intersects(Level.getPlayer().getBounds())) {
+			Level.getPlayer().changeHealth(20);
 			getLevel().remove(this);
 		}
 	}

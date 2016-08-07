@@ -1,7 +1,5 @@
 package game.gui.intro;
 
-import game.entities.Player;
-
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,11 +21,9 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 	private JButton colorButton;
 	private int color = 0xFFFFCC99;
 	private JList<String> list;
-	private Player player;
 
-	public SkinColorGUI(Player player) {
+	public SkinColorGUI() {
 
-		this.player = player;
 		model = new DefaultListModel<String>();
 		model.addElement("Skin 1");
 		model.addElement("Skin 2");
@@ -81,7 +77,6 @@ public class SkinColorGUI extends JPanel implements ListSelectionListener,
 		default: 
 			color = 0xFF774600;
 		}
-		player.setSkinColor(color);
 	}
 	
 	public int getNum() {

@@ -1,13 +1,16 @@
 package game.gui.overview;
 
-import game.Display;
-import game.InputHandler;
-import game.gui.ScreenGUI;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+
 import javax.swing.JPanel;
+
+import game.Display;
+import game.InputHandler;
+import game.entities.Player;
+import game.gui.ScreenGUI;
 
 /*
  * The Overview Menu of the Inventory Screen
@@ -28,7 +31,7 @@ public class OverviewGUI extends ScreenGUI {
 	private InventoryGUI inventory;
 	private MainScreenGUI main;
 
-	public OverviewGUI() {
+	public OverviewGUI(Player player) {
 
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(Display.FRAME_WIDTH,
@@ -36,7 +39,7 @@ public class OverviewGUI extends ScreenGUI {
 		this.setBackground(Color.BLACK);
 
 		this.input = new InputHandler(this);
-		inventory = new InventoryGUI();
+		inventory = new InventoryGUI(player);
 		main = new MainScreenGUI();
 
 		mainScreen = new JPanel(new CardLayout());

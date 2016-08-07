@@ -10,15 +10,22 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import game.Game.GameMode;
 import game.entities.Player;
 import game.graphics.Screen;
+import game.gui.Launcher;
 import game.gui.PauseGUI;
 import game.gui.ScreenGUI;
 import game.gui.intro.IntroGUI;
 import game.gui.overview.OverviewGUI;
+import level.Level;
+import level.sandbox.SandboxSurvivalMap1;
+import level.story.LordHillsboroughsDomain;
+import save.GameData;
 
 /*
  * The canvas that puts the images together
@@ -89,24 +96,47 @@ public class Display extends Canvas {
 	// inGameScreen reveals if the game gui is being displayed
 	public static boolean inGameScreen;
 
+	// the in game player
+	public Player player;
+
+	private GameMode mode;
+
 	/**
 	 * Initializes the Screen processor and other GUIs Defaults the first screen
 	 * to the introduction screen
 	 */
-	public Display() {
-		screen = new Screen(IMAGE_WIDTH, IMAGE_HEIGHT);
-		inventory = new OverviewGUI();
-		hud = new PlayerHUD(Game.player);
-		pause = new PauseGUI();
-		introScreen = new IntroGUI();
+	public Display(GameMode m, boolean load) {
 
+		mode = m;
+		
+		// resets the gui to intro
+		guiID = 0;
+
+		screen = new Screen(IMAGE_WIDTH, IMAGE_HEIGHT);
+		pause = new PauseGUI();
+		
 		display = new JPanel(new CardLayout());
+		cardlayout = (CardLayout) display.getLayout();
+		
+		introScreen = new IntroGUI(this);
 		display.add(introScreen, "Intro");
 		display.add(this, "Main");
-		display.add(inventory, "Inventory");
-		display.add(pause, "Pause");
 
-		cardlayout = (CardLayout) display.getLayout();
+		if (load && (player = (Player) GameData.load("Player")) != null) {
+			System.err.println("Loaded Successfully");
+			inventory = new OverviewGUI(player);
+			player.getInventory().getGun().initSound();
+			hud = new PlayerHUD(player);
+			
+			display.add(inventory, "Inventory");
+			display.add(pause, "Pause");
+			
+			displayGame();
+			
+			
+		} else {
+			System.err.println("Not loading game.");
+		}
 
 		setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 
@@ -119,8 +149,54 @@ public class Display extends Canvas {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setAlwaysOnTop(true);
-
+		
 		ChatHandler.initialize();
+
+	}
+
+	/**
+	 * Called when the IntroGUI finishes selecting player preferences
+	 */
+	public synchronized void createPlayer(String name, int shirtColor, int skinColor) {
+
+		Level level;
+
+		switch (mode) {
+		case MINI:
+			level = Launcher.level;
+			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
+			break;
+		case SURVIVAL:
+			level = new SandboxSurvivalMap1();
+			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
+			break;
+		default:
+			level = LordHillsboroughsDomain.level;
+			// level = Level1.level;
+			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
+			
+		}
+
+		Level.setPlayer(player);
+		
+		level.reset();
+		level.add(player);
+		level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
+
+		player.setShirtColor(shirtColor);
+		player.setSkinColor(skinColor);
+
+		player.setInput(new InputHandler(this));
+		
+		inventory = new OverviewGUI(player);
+
+		hud = new PlayerHUD(player);
+		
+		display.add(inventory, "Inventory");
+		display.add(pause, "Pause");
+		
+		displayGame();
+
 	}
 
 	/**
@@ -192,7 +268,7 @@ public class Display extends Canvas {
 		}
 
 		if (inGameScreen) {
-			Game.player.getLevel().tick();
+			player.getLevel().tick();
 		} else {
 			((ScreenGUI) display.getComponent(guiID)).tick();
 		}
@@ -201,7 +277,9 @@ public class Display extends Canvas {
 	/**
 	 * Process that displays an image on the screen as many times as possible
 	 */
-	protected void render(Player player) {
+	protected void render() {
+		if (player == null)
+			return;
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
@@ -233,10 +311,11 @@ public class Display extends Canvas {
 		g.setFont(new Font("Verdana", 0, 20));
 		g.setColor(Color.YELLOW);
 		if (Game.getDisplayDevScreen()) {
-			g.drawString(Game.player + ": " + Game.player.getX() + ", " + Game.player.getY() + " Time: "
+			g.drawString(player + ": " + player.getX() + ", " + player.getY() + " Time: "
 					+ Game.getHour() + ":" + Game.getMinutes(), 5, 20);
 		}
-		hud.draw(g);
+		if (hud != null)
+			hud.draw(g);
 		ChatHandler.drawWindow(g);
 		g.dispose();
 		bs.show();

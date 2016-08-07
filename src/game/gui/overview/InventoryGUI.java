@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import game.Display;
-import game.Game;
+import game.entities.Player;
 import game.gui.ScreenGUI;
 import items.Inventory;
 import items.Item;
@@ -29,10 +29,14 @@ public class InventoryGUI extends ScreenGUI {
 	private static InventoryRow r1, r2, r3, r4;
 
 	private TopPanel topPanel;
+	
+	private static Player player;
 
-	public InventoryGUI() {
+	public InventoryGUI(Player player) {
+		
+		InventoryGUI.player = player;
 
-		inventory = Game.player.getInventory();
+		inventory = player.getInventory();
 
 		int width = Display.FRAME_WIDTH;
 		int height = Display.FRAME_HEIGHT;
@@ -92,7 +96,7 @@ public class InventoryGUI extends ScreenGUI {
 			this.add(new InventorySmallPanel((int) (width * SMALL_PANEL_WIDTH_RATIO), height / NUM_ROWS, name));
 
 			p = new InventoryLongPanel((int) (width * (1 - SMALL_PANEL_WIDTH_RATIO)), height / NUM_ROWS,
-					InventoryGUI.this, items);
+					InventoryGUI.this, items, player);
 
 			this.add(p);
 

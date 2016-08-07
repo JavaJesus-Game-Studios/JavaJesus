@@ -3,7 +3,6 @@ package game.gui.intro;
 import game.Display;
 import game.Game;
 import game.InputHandler;
-import game.entities.Player;
 import game.gui.ScreenGUI;
 import game.gui.slots.PlayerSlotGUI;
 
@@ -26,9 +25,6 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 	// Used for serialization
 	private static final long serialVersionUID = 1L;
 
-	// Name that is displayed
-	private String name;
-
 	// TextField to enter the name
 	private JTextField nameBox;
 
@@ -38,16 +34,18 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 	// Skin Color Panel
 	private SkinColorGUI sclist;
 
-	// Instance of player to display
-	private Player player = Game.player;
-
 	// Slot Panel where the played is displayed
 	private PlayerSlotGUI pScreen;
+	
+	// instance of what created this screen
+	private Display main;
 
 	/**
 	 * Initializes instance variables and puts the panels together
 	 */
-	public IntroGUI() {
+	public IntroGUI(Display main) {
+		
+		this.main = main;
 
 		this.pScreen = new PlayerSlotGUI(Display.FRAME_WIDTH / 2,
 				Display.FRAME_HEIGHT + 10, "/GUI/GUI_Inventory/GUI_PLAYER.png", 0.5);
@@ -81,13 +79,13 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 		infoPanel.add(nameBox);
 
 		JLabel label2 = new JLabel("Choose a shirt color: ");
-		colorList = new ColorListGUI(player);
+		colorList = new ColorListGUI();
 		label2.setAlignmentX(Component.CENTER_ALIGNMENT);
 		infoPanel.add(label2);
 		infoPanel.add(colorList);
 
 		JLabel label3 = new JLabel("Choose a skin color: ");
-		sclist = new SkinColorGUI(player);
+		sclist = new SkinColorGUI();
 		label3.setAlignmentX(Component.CENTER_ALIGNMENT);
 		infoPanel.add(label3);
 		infoPanel.add(sclist);
@@ -118,9 +116,11 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 		if (nameBox.getText().length() > 13) {
 			nameBox.setText(nameBox.getText().substring(0, 13));
 		}
-		player.setName(nameBox.getText());
-		player.setShirtColor(colorList.getColor());
-		player.setSkinColor(sclist.getColor());
+		
+		pScreen.setPlayerName(nameBox.getText());
+		pScreen.setShirtColor(colorList.getColor());
+		pScreen.setSkinColor(sclist.getColor());
+		
 	}
 
 	/**
@@ -132,27 +132,12 @@ public class IntroGUI extends ScreenGUI implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		try {
-			name = nameBox.getText();
-			player.setName(name);
-			player.setShirtColor(colorList.getColor());
-			player.setSkinColor(sclist.getColor());
-			if (player.getName().equals("Derek Jow")
-					|| player.getName().equals("Stephen Northway")) {
-				player.grantDevPowers();
-			}
-			Display.displayGame();
+			// starts the game
+			main.createPlayer(pScreen.getPlayerName(), pScreen.getShirtColor(), pScreen.getSkinColor());
+			
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Returns the player's name
-	 * 
-	 * @return The Player's Name
-	 */
-	public String getPlayerName() {
-		return name;
 	}
 
 }

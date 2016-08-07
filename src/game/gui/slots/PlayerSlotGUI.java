@@ -22,6 +22,12 @@ public class PlayerSlotGUI extends Slot {
 	private static final int PLAYER_WIDTH = 16, PLAYER_HEIGHT = 16;
 	
 	private double heightRatio;
+	
+	// color set of the player
+	private final int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };
+	
+	// name of the player
+	private String playerName = "";
 
 	public PlayerSlotGUI(int width, int height, String file, double heightRatio) {
 		super(file);
@@ -54,7 +60,67 @@ public class PlayerSlotGUI extends Slot {
 				(int) (this.getHeight() * heightRatio), null);
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font(Game.FONT_NAME, 0, 50));
-		g.drawString(Game.player.getName(), 50, 65);
+		g.drawString(playerName, 50, 65);
+	}
+	
+	/**
+	 * @return the player name
+	 */
+	public String getPlayerName() {
+		return playerName;
+	}
+	
+	public int getShirtColor() {
+		return color[1];
+	}
+	
+	public int getSkinColor() {
+		return color[2];
+	}
+	
+	/**
+	 * Sets the display of the player slot
+	 * @param name the name of the player
+	 */
+	public void setPlayerName(String name) {
+		playerName = name;
+	}
+	
+	/**
+	 * Sets the hair color
+	 * 
+	 * @param num
+	 *            the hair color in hexadecimal
+	 */
+	public void setHairColor(int num) {
+		color[0] = num;
+	}
+
+	/**
+	 * Sets the shirt color
+	 * 
+	 * @param num
+	 *            the shirt color in hexadecimal
+	 */
+	public void setShirtColor(int num) {
+		color[1] = num;
+	}
+
+	/**
+	 * Sets the skin color
+	 * 
+	 * @param num
+	 *            the skin color in hexadecimal
+	 */
+	public void setSkinColor(int num) {
+		color[2] = num;
+	}
+	
+	/**
+	 * @return the color set of the player in the container
+	 */
+	public int[] getColors() {
+		return color;
 	}
 
 	public void renderPlayer(Screen screen, int scale) {
@@ -64,7 +130,6 @@ public class PlayerSlotGUI extends Slot {
 		int yOffset = 0;
 
 		int xTile = 0, yTile = 0;
-		int[] color = Game.player.getColor();
 		SpriteSheet sheet = SpriteSheet.player;
 
 		// Upper body 1

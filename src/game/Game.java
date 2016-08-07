@@ -33,9 +33,6 @@ public class Game implements Runnable {
 	// Default Time of day
 	private static int minutes;
 
-	// Instance of the single player
-	public static Player player;
-
 	// Starts the game based on the game mode
 	public static GameMode mode;
 
@@ -60,43 +57,13 @@ public class Game implements Runnable {
 
 	/**
 	 * Constructor that creates a new instance of the game with a default
-	 * Adventure type TODO should be IntroGui -> new game -> passes player
-	 * parameters -> initialize player and level
+	 * Adventure type 
 	 */
 	public Game(GameMode m, boolean load) {
+
 		mode = m;
 
-		Level level;
-
-		switch (mode) {
-		case MINI:
-			level = Launcher.level;
-			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
-			level.add(player);
-			break;
-		case SURVIVAL:
-			level = new SandboxSurvivalMap1();
-			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
-			level.add(player);
-			break;
-		default:
-			if (load && (player = (Player) GameData.load("Player")) != null) {
-				player.getInventory().getGun().initSound();
-				level = player.getLevel();
-			} else {
-				System.out.println("Not loading game.");
-				level = LordHillsboroughsDomain.level;
-				//level = Level1.level;
-				level.reset();
-				player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
-				level.add(player);
-			}
-		}
-
-		display = new Display();
-		player.setInput(new InputHandler(display));
-
-		level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
+		display = new Display(m, load);
 
 		start();
 	}
@@ -169,16 +136,13 @@ public class Game implements Runnable {
 
 	/** Called 60 times a second */
 	public void tick() {
-		if (!player.isDead()) {
-			display.tick();
-		} else {
-			stop();
-		}
+		display.tick();
+		//stop();
 	}
 
 	/** Renders the screen */
 	private void render() {
-		display.render(player);
+		display.render();
 
 	}
 

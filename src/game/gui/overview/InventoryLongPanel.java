@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import game.entities.Player;
 import items.Item;
 
 public class InventoryLongPanel extends JPanel {
@@ -27,9 +28,13 @@ public class InventoryLongPanel extends JPanel {
 	private static final int NUM_ROW = 2, NUM_COL = 8;
 
 	private static final int MAX_ITEMS = NUM_ROW * NUM_COL;
+	
+	private static Player player;
 
-	public InventoryLongPanel(int width, int height, InventoryGUI i, ArrayList<Item> inventory) {
+	public InventoryLongPanel(int width, int height, InventoryGUI i, ArrayList<Item> inventory, Player player) {
 
+		InventoryLongPanel.player = player;
+		
 		this.inven = i;
 		this.inventory = inventory;
 
@@ -71,7 +76,7 @@ public class InventoryLongPanel extends JPanel {
 					if (items.get(i) == null) {
 						items.set(i, e);
 						this.remove(i);
-						this.add(new InventoryItemPanel(e, inven), i);
+						this.add(new InventoryItemPanel(e, inven, player), i);
 						break;
 					}
 				}

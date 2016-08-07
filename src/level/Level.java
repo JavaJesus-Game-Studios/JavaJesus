@@ -57,6 +57,9 @@ public abstract class Level implements Serializable {
 
 	// the range of how many entities to render/tick on the screen
 	public static final Rectangle renderRange = new Rectangle(500, 500);
+	
+	// instance of the player on the level
+	private static Player player;
 
 	/**
 	 * Creates a level from the specified image path
@@ -488,5 +491,19 @@ public abstract class Level implements Serializable {
 	 */
 	public String getName() {
 		return name;
+	}
+	
+	/**
+	 * @return the default player
+	 */
+	public final static Player getPlayer() {
+		return player;
+	}
+	
+	/**
+	 * Initialize the default player
+	 */
+	public final static void setPlayer(Player p) {
+		player = p;
 	}
 }

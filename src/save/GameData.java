@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import game.Game;
-
 /*
  * This class manages the saving of files
  */
@@ -53,7 +51,8 @@ public class GameData {
 	 * @return Saves the main player
 	 */
 	public static boolean savePlayer() {
-		return save("Player", Game.player);
+		//return save("Player", Game.player); TODO
+		return false;
 	}
 
 }
