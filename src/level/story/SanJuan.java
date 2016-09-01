@@ -21,15 +21,24 @@ import game.entities.structures.transporters.MapTransporter;
 import level.Level;
 import utility.Direction;
 
+/*
+ * A Parody of San Jose
+ */
 public class SanJuan extends Level {
 
 	private static final long serialVersionUID = -1623870972641933936L;
 	
-	public static final Level level = new SanJuan();
+	// instance of the level that the player uses
+	public static Level level;
 
+	/**
+	 * Creates San Juan
+	 */
 	public SanJuan() {
 		super("/Levels/Cities/San_Juan.png", true, "San Juan");
 		setSpawnPoint(1680, 2648);
+		
+		System.err.println("Creating San Juan");
 
 	}
 
@@ -156,6 +165,9 @@ public class SanJuan extends Level {
 		add(new Warehouse(this, 2560, 1048));
 	}
 
+	/**
+	 * Edges of the map
+	 */
 	@Override
 	protected void initMapTransporters() {
 

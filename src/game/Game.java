@@ -1,14 +1,6 @@
 package game;
 
-import javax.sound.sampled.Clip;
-
-import game.entities.Player;
 import game.gui.Launcher;
-import level.Level;
-import level.Level1;
-import level.sandbox.SandboxSurvivalMap1;
-import level.story.LordHillsboroughsDomain;
-import save.GameData;
 
 /*
  * Handles intialization of essential game components

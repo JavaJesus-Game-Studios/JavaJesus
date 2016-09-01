@@ -69,6 +69,14 @@ public class Transporter extends Entity {
 	}
 	
 	/**
+	 * Sets the nextLevel
+	 * @param next
+	 */
+	public final void setNextLevel(Level next) {
+		nextLevel = next;
+	}
+	
+	/**
 	 * @return the next level
 	 */
 	public Level getNextLevel() {

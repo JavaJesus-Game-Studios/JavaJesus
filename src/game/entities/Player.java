@@ -38,7 +38,7 @@ public class Player extends Mob implements Skills {
 	private transient InputHandler input;
 
 	// player color set: hair, shirt, skin
-	private static final int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };
+	private final int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };
 
 	// the internal tick timer
 	private int tickCount;
@@ -118,6 +118,8 @@ public class Player extends Mob implements Skills {
 		inventory = new Inventory();
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
+		
+		System.err.println("Creating Player");
 
 	}
 
@@ -207,7 +209,7 @@ public class Player extends Mob implements Skills {
 
 		// the change in x and y (movement)
 		int dx = 0, dy = 0;
-
+		
 		// TODO move input out of the tick loop
 		// toggles jesus mode (no clip)
 		if (input.j.isPressed()) {

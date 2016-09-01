@@ -15,12 +15,18 @@ public class EdgeOfTheWoods extends Level {
 
 	private static final long serialVersionUID = 7087469826147389899L;
 	
-	public static final Level level = new EdgeOfTheWoods();
+	// instance of the level that the player uses
+	public static Level level;
 	
+	/**
+	 * Creates Edge Of The Woods level
+	 */
 	public EdgeOfTheWoods() {
 		super("/Levels/Wilderness_Areas/Edge_of_the_Woods_Main.png", true,
 				"Edge of the Woods");
 		setSpawnPoint(2704, 552);
+		
+		System.err.println("Creating Edge Of The Woods");
 
 	}
 
@@ -69,6 +75,9 @@ public class EdgeOfTheWoods extends Level {
 
 	}
 
+	/**
+	 * Edges of the map
+	 */
 	protected void initMapTransporters() {
 
 		add(new MapTransporter(this, 0, 0,

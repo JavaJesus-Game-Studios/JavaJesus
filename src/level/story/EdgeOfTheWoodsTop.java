@@ -12,12 +12,18 @@ public class EdgeOfTheWoodsTop extends Level {
 
 	private static final long serialVersionUID = -6149629568236162343L;
 	
-	public static final Level level = new EdgeOfTheWoodsTop();
+	// instance of the level that the player uses
+	public static Level level;
 
+	/**
+	 * Creates Edge Of The Woods Top section
+	 */
 	public EdgeOfTheWoodsTop() {
 		super("/Levels/Wilderness_Areas/Edge_of_The_Woods_Top.png", true,
 				"Edge of the Woods Top");
 		setSpawnPoint(1832, 1544);
+		
+		System.err.println("Creating Edge Of The Woods Top");
 	}
 
 	protected void initNPCPlacement() {
@@ -49,6 +55,9 @@ public class EdgeOfTheWoodsTop extends Level {
 		add(new NiceHouse(this, 2048, 1416));
 	}
 
+	/**
+	 * Edges of the map
+	 */
 	protected void initMapTransporters() {
 		add(new MapTransporter(this, 0, (this.getHeight() * 8) - 8,
 				EdgeOfTheWoods.level, Direction.SOUTH, (this.getWidth() * 8), 8));

@@ -97,7 +97,7 @@ public class Display extends Canvas {
 	public static boolean inGameScreen;
 
 	// the in game player
-	public Player player;
+	private Player player;
 
 	private GameMode mode;
 
@@ -122,10 +122,15 @@ public class Display extends Canvas {
 		display.add(introScreen, "Intro");
 		display.add(this, "Main");
 
-		if (load && (player = (Player) GameData.load("Player")) != null) {
-			System.err.println("Loaded Successfully");
+		if (load) {
+			System.err.println("Loading");
+			player = (Player) GameData.load("Player");
+			GameData.loadLevels();
+			GameData.setPlayer(player);
+			Level.setPlayer(player);
+			player.setInput(new InputHandler(this));
 			inventory = new OverviewGUI(player);
-			player.getInventory().getGun().initSound();
+			//player.getInventory().getGun().initSound(); // TODO init sound of ALL guns
 			hud = new PlayerHUD(player);
 			
 			display.add(inventory, "Inventory");
@@ -171,6 +176,7 @@ public class Display extends Canvas {
 			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
 			break;
 		default:
+			Level.createStoryLevels();
 			level = LordHillsboroughsDomain.level;
 			// level = Level1.level;
 			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
@@ -178,6 +184,7 @@ public class Display extends Canvas {
 		}
 
 		Level.setPlayer(player);
+		GameData.setPlayer(player);
 		
 		level.reset();
 		level.add(player);

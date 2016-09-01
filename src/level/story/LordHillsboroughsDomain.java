@@ -30,12 +30,18 @@ public class LordHillsboroughsDomain extends Level {
 
 	private static final long serialVersionUID = 636992239040959822L;
 	
-	public static final Level level = new LordHillsboroughsDomain();
+	// instance of the level that the player uses
+	public static Level level;
 
+	/**
+	 * Creates Lord Hillsborough's Domain
+	 */
 	public LordHillsboroughsDomain() {
 		super("/Levels/Cities/Domain of Lord Hillsborough.png", true,
 				"Lord Hillsborough's Domain");
 		setSpawnPoint(1366, 1450);
+		
+		System.err.println("Creating Lord Hillsborough's Domain");
 	}
 
 	protected void initNPCPlacement() {
@@ -198,6 +204,9 @@ public class LordHillsboroughsDomain extends Level {
 
 	}
 
+	/**
+	 * Edges of the map
+	 */
 	protected void initMapTransporters() {
 
 		add(new MapTransporter(this, 0, 0, SanCisco.level,

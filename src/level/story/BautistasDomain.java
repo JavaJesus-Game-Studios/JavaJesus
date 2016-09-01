@@ -23,13 +23,18 @@ public class BautistasDomain extends Level {
 
 	private static final long serialVersionUID = 7176790184478980943L;
 	
-	public static final Level level = new BautistasDomain();
+	// instance of the level that the player uses
+	public static Level level;
 
+	/**
+	 * Creates Bautistas Domain
+	 */
 	public BautistasDomain() {
 		super("/Levels/Cities/Domain_of_Ranchero_Bautista.png", true,
 				"Bautista's Domain");
 		setSpawnPoint(2896, 64);
 
+		System.err.println("Creating Bautistas Domain");
 	}
 
 	protected void initNPCPlacement() {
@@ -164,6 +169,9 @@ public class BautistasDomain extends Level {
 
 	}
 
+	/**
+	 * Edges of the map
+	 */
 	protected void initMapTransporters() {
 		add(new MapTransporter(this, 0, 0,
 				LordHillsboroughsDomain.level, Direction.NORTH,

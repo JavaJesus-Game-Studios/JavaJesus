@@ -19,6 +19,14 @@ import game.entities.Mob;
 import game.entities.Player;
 import game.graphics.JJFont;
 import game.graphics.Screen;
+import level.story.BautistasDomain;
+import level.story.EdgeOfTheWoods;
+import level.story.EdgeOfTheWoodsTop;
+import level.story.LordHillsboroughsDomain;
+import level.story.OrchardValley;
+import level.story.SanCisco;
+import level.story.SanJuan;
+import level.story.TechTopia;
 import level.tile.Tile;
 
 /*
@@ -36,12 +44,12 @@ public abstract class Level implements Serializable {
 	private int width, height;
 
 	// list of all entities on the map
-	private List<Entity> entities = new ArrayList<Entity>(Game.ENTITY_LIMIT);
+	private final List<Entity> entities = new ArrayList<Entity>(Game.ENTITY_LIMIT);
 
 	// list of all mobs on the map
-	private List<Mob> mobs = new ArrayList<Mob>(Game.ENTITY_LIMIT);
+	private final List<Mob> mobs = new ArrayList<Mob>(Game.ENTITY_LIMIT);
 
-	private List<Hideable> hideables = new ArrayList<Hideable>(Game.ENTITY_LIMIT);
+	private final List<Hideable> hideables = new ArrayList<Hideable>(Game.ENTITY_LIMIT);
 
 	// image path to load a level
 	private String imagePath;
@@ -60,6 +68,9 @@ public abstract class Level implements Serializable {
 	
 	// instance of the player on the level
 	private static Player player;
+	
+	// list of all levels the player visited that need to be saved
+	//private static final transient List<Level> visitedLevels = new ArrayList<Level>(); 
 
 	/**
 	 * Creates a level from the specified image path
@@ -505,5 +516,32 @@ public abstract class Level implements Serializable {
 	 */
 	public final static void setPlayer(Player p) {
 		player = p;
+	}
+	
+	/**
+	 * Initializes the class wide Player variable used throughout the game
+	 * @return the main player
+	 */
+	public Player loadPlayer() {
+		for (int i = 0; i < mobs.size(); i++) {
+			if (mobs.get(i) instanceof Player){
+				return player = (Player) mobs.get(i);
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Creates story levels
+	 */
+	public static void createStoryLevels() {
+		BautistasDomain.level = new BautistasDomain();
+		EdgeOfTheWoods.level = new EdgeOfTheWoods();
+		EdgeOfTheWoodsTop.level = new EdgeOfTheWoodsTop();
+		LordHillsboroughsDomain.level = new LordHillsboroughsDomain();
+		OrchardValley.level = new OrchardValley();
+		SanCisco.level = new SanCisco();
+		SanJuan.level = new SanJuan();
+		TechTopia.level = new TechTopia();
 	}
 }

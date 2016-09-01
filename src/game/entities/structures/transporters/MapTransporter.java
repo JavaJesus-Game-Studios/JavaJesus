@@ -14,7 +14,7 @@ public class MapTransporter extends Transporter {
 
 	// which side the map transporter is placed on a map
 	private Direction dir;
-
+	
 	/**
 	 * Creates a Map transporter that automatically transports a player that is
 	 * on the edge of a map
@@ -35,7 +35,7 @@ public class MapTransporter extends Transporter {
 	 *            the height of the transporter
 	 */
 	public MapTransporter(Level currentLevel, int x, int y, Level nextLevel, Direction dir, int width, int height) {
-		super(currentLevel, x, y, nextLevel);
+		super(currentLevel, x, y, null);
 		this.dir = dir;
 		setBounds(getX(), getY(), width, height);
 	}

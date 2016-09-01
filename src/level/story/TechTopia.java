@@ -22,11 +22,17 @@ public class TechTopia extends Level {
 
 	private static final long serialVersionUID = 3330749489914073847L;
 	
-	public static final Level level = new TechTopia();
+	// instance of the level that the player uses
+	public static Level level;
 
+	/**
+	 * Creates Tech Topia
+	 */
 	public TechTopia() {
 		super("/Levels/Cities/Tech_Topia.png", true, "Tech Topia");
 		setSpawnPoint(1512, 584);
+		
+		System.err.println("Creating Tech Topia");
 	}
 
 	protected void initNPCPlacement() {
@@ -121,6 +127,9 @@ public class TechTopia extends Level {
 
 	}
 
+	/**
+	 * Edges of the map
+	 */
 	@Override
 	protected void initMapTransporters() {
 

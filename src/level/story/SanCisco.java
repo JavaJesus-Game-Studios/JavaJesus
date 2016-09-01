@@ -26,15 +26,24 @@ import game.entities.vehicles.CenturyLeSabre;
 import level.Level;
 import utility.Direction;
 
+/*
+ * A Parody of San Francisco
+ */
 public class SanCisco extends Level {
 
 	private static final long serialVersionUID = 220527283938650811L;
 	
-	public static final Level level = new SanCisco();
+	// instance of the level that the player uses
+	public static Level level;
 
+	/**
+	 * Creates San Cisco
+	 */
 	public SanCisco() {
 		super("/Levels/Cities/San_Cisco.png", true, "San Cisco");
 		setSpawnPoint(3400, 2688);
+		
+		System.err.println("Creating San Cisco");
 	}
 
 	protected void initNPCPlacement() {
@@ -274,6 +283,9 @@ public class SanCisco extends Level {
 
 	}
 
+	/**
+	 * Edges of the map
+	 */
 	@Override
 	protected void initMapTransporters() {
 		add(new MapTransporter(this, 0, (this.getHeight() * 8) - 8, LordHillsboroughsDomain.level,

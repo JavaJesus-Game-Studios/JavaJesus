@@ -12,11 +12,17 @@ public class OrchardValley extends Level {
 
 	private static final long serialVersionUID = -5221999559788504392L;
 	
-	public static final Level level = new OrchardValley();
+	// instance of the level that the player uses
+	public static Level level;
 
+	/**
+	 * Creates Orchard Valley
+	 */
 	public OrchardValley() {
 		super("/Levels/Cities/Dubland.png", true, "Orchard Valley");
 		setSpawnPoint(136, 1816);
+		
+		System.err.println("Creating Orchard Valley");
 
 	}
 
@@ -51,6 +57,9 @@ public class OrchardValley extends Level {
 		add(new RancheroHouse(this, 4056, 1552));
 	}
 
+	/**
+	 * Edges of the map
+	 */
 	protected void initMapTransporters() {
 		add(new MapTransporter(this, 0, 0, SanJuan.level,
 				Direction.WEST, 8, this.getHeight() * 8));
