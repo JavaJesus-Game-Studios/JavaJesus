@@ -38,6 +38,9 @@ public class Game implements Runnable {
 	public static int score;
 
 	public static Integer fps;
+	
+	// name of the main player
+	public static String PLAYER_NAME;
 
 	/**
 	 * @author Derek

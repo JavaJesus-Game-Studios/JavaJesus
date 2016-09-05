@@ -31,7 +31,7 @@ public class BautistasDomain extends Level {
 	 */
 	public BautistasDomain() {
 		super("/Levels/Cities/Domain_of_Ranchero_Bautista.png", true,
-				"Bautista's Domain");
+				Level.BAUTISTA);
 		setSpawnPoint(2896, 64);
 
 		System.err.println("Creating Bautistas Domain");
@@ -174,12 +174,12 @@ public class BautistasDomain extends Level {
 	 */
 	protected void initMapTransporters() {
 		add(new MapTransporter(this, 0, 0,
-				LordHillsboroughsDomain.level, Direction.NORTH,
+				Level.HILLSBOROUGH, Direction.NORTH,
 				(this.getWidth() * 8), 8));
 		add(new MapTransporter(this, 0, (this.getHeight() * 8) - 8,
-				TechTopia.level, Direction.SOUTH, (this.getWidth() * 8), 8));
+				Level.TECH, Direction.SOUTH, (this.getWidth() * 8), 8));
 		add(new MapTransporter(this, 0, 0,
-				EdgeOfTheWoods.level, Direction.WEST, 8,
+				Level.EDGE_MAIN, Direction.WEST, 8,
 				this.getHeight() * 8));
 
 	}

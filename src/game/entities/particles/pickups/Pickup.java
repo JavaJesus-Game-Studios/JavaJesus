@@ -1,5 +1,6 @@
 package game.entities.particles.pickups;
 
+import game.Game;
 import game.SoundHandler;
 import game.entities.particles.Particle;
 import game.graphics.SpriteSheet;
@@ -57,9 +58,9 @@ public class Pickup extends Particle {
 	 * Updates the item
 	 */
 	public void tick() {
-		if (getBounds().intersects(Level.getPlayer().getBounds())) {
+		if (getBounds().intersects(getLevel().getPlayer(Game.PLAYER_NAME).getBounds())) {
 			for (int i = 0; i < quantity; i++)
-				Level.getPlayer().getInventory().add(item);
+				getLevel().getPlayer(Game.PLAYER_NAME).getInventory().add(item);
 			SoundHandler.play(SoundHandler.click);
 			getLevel().remove(this);
 		}

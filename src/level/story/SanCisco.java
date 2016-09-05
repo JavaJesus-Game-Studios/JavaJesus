@@ -40,7 +40,7 @@ public class SanCisco extends Level {
 	 * Creates San Cisco
 	 */
 	public SanCisco() {
-		super("/Levels/Cities/San_Cisco.png", true, "San Cisco");
+		super("/Levels/Cities/San_Cisco.png", true, Level.CISCO);
 		setSpawnPoint(3400, 2688);
 		
 		System.err.println("Creating San Cisco");
@@ -288,12 +288,12 @@ public class SanCisco extends Level {
 	 */
 	@Override
 	protected void initMapTransporters() {
-		add(new MapTransporter(this, 0, (this.getHeight() * 8) - 8, LordHillsboroughsDomain.level,
+		add(new MapTransporter(this, 0, (this.getHeight() * 8) - 8, Level.HILLSBOROUGH,
 				Direction.SOUTH,
 				this.getWidth() * 8, 8));
 		
 		add(new MapTransporter(this, 0, 0,
-				EdgeOfTheWoodsTop.level, Direction.WEST, 8, this.getHeight() * 8));
+				Level.EDGE_TOP, Direction.WEST, 8, this.getHeight() * 8));
 		
 	}
 	

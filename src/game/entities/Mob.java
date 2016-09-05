@@ -133,7 +133,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 			int defaultHealth) {
 		super(level, x, y);
 
-		this.name = name;
+		this.name = new String(name);
 		this.speed = speed;
 		this.health = defaultHealth;
 		this.maxHealth = defaultHealth;
@@ -805,7 +805,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 *            the new name
 	 */
 	public void setName(String s) {
-		this.name = s;
+		this.name = new String(s);
 	}
 
 	/**

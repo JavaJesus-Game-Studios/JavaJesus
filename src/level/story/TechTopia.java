@@ -29,7 +29,7 @@ public class TechTopia extends Level {
 	 * Creates Tech Topia
 	 */
 	public TechTopia() {
-		super("/Levels/Cities/Tech_Topia.png", true, "Tech Topia");
+		super("/Levels/Cities/Tech_Topia.png", true, Level.TECH);
 		setSpawnPoint(1512, 584);
 		
 		System.err.println("Creating Tech Topia");
@@ -134,13 +134,13 @@ public class TechTopia extends Level {
 	protected void initMapTransporters() {
 
 		add(new MapTransporter(this, 0, 0,
-				BautistasDomain.level, Direction.NORTH, this.getWidth() * 8, 8));
+				Level.BAUTISTA, Direction.NORTH, this.getWidth() * 8, 8));
 		add(new MapTransporter(this, 0, 0,
-				EdgeOfTheWoods.level, Direction.WEST, 8,
+				Level.EDGE_MAIN, Direction.WEST, 8,
 				this.getHeight() * 8));
 
 		add(new MapTransporter(this, (this.getWidth() * 8) - 8, 0,
-				SanJuan.level, Direction.EAST, 8,
+				Level.JUAN, Direction.EAST, 8,
 				this.getHeight() * 8));
 
 	}

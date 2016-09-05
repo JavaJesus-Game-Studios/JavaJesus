@@ -24,6 +24,7 @@ import game.gui.intro.IntroGUI;
 import game.gui.overview.OverviewGUI;
 import level.Level;
 import level.sandbox.SandboxSurvivalMap1;
+import level.story.BautistasDomain;
 import level.story.LordHillsboroughsDomain;
 import save.GameData;
 
@@ -122,22 +123,41 @@ public class Display extends Canvas {
 		display.add(introScreen, "Intro");
 		display.add(this, "Main");
 
+		// do game initializtions from save files
 		if (load) {
+			
 			System.err.println("Loading");
-			player = (Player) GameData.load("Player");
+			
+			// load all story levels
 			GameData.loadLevels();
+			
+			// contains the important player data
+			String[] data = (String[]) GameData.load("Player");
+			
+			// assign the player name
+			Game.PLAYER_NAME = data[GameData.NAME];
+			
+			// assign the player from the level mob list
+			player = Level.getLevel(data[GameData.LEVEL]).getPlayer(data[GameData.NAME]);
+			
+			// set the player info for the game data 
 			GameData.setPlayer(player);
-			Level.setPlayer(player);
+			
+			// inputhandler is not saved in file
 			player.setInput(new InputHandler(this));
 			inventory = new OverviewGUI(player);
-			//player.getInventory().getGun().initSound(); // TODO init sound of ALL guns
+			
+			// sound is not saved in file
+			player.initSound(); 
+			
+			// hud is not saved in save file
 			hud = new PlayerHUD(player);
 			
+			// skip the player selection intro gui screen
 			display.add(inventory, "Inventory");
 			display.add(pause, "Pause");
 			
 			displayGame();
-			
 			
 		} else {
 			System.err.println("Not loading game.");
@@ -165,7 +185,7 @@ public class Display extends Canvas {
 	public synchronized void createPlayer(String name, int shirtColor, int skinColor) {
 
 		Level level;
-
+		
 		switch (mode) {
 		case MINI:
 			level = Launcher.level;
@@ -183,8 +203,8 @@ public class Display extends Canvas {
 			
 		}
 
-		Level.setPlayer(player);
 		GameData.setPlayer(player);
+		Game.PLAYER_NAME = player.getName();
 		
 		level.reset();
 		level.add(player);

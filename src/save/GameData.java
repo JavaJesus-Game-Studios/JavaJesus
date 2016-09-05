@@ -25,12 +25,20 @@ import level.story.TechTopia;
  * This class manages the saving of files
  */
 public class GameData {
-	
+
 	// player that will be saved
 	private static Player player;
-	
+
 	// gets the home directory
-	private static final String DIR = FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + "/My Games/JavaJesus/";
+	private static final String DIR = FileSystemView.getFileSystemView()
+			.getDefaultDirectory().getPath()
+			+ "/My Games/JavaJesus/";
+	
+	// player data
+	private static String[] playerData = new String[2];
+	
+	// constants for saving and loading
+	public static final int NAME = 0, LEVEL = 1;
 
 	/**
 	 * @param object
@@ -39,18 +47,19 @@ public class GameData {
 	 */
 	public static boolean save(String name, Object object) {
 
-		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(DIR + name, false))) {
+		try (ObjectOutputStream out = new ObjectOutputStream(
+				new FileOutputStream(DIR + name, false))) {
 
 			out.writeObject(object);
 			return true;
 
 			// create the directory if it doesnt exist
 		} catch (FileNotFoundException e) {
-			
+
 			File dir = new File(DIR);
-			
+
 			System.err.println("Creating directory " + dir);
-			
+
 			// if succesful, then resave
 			if (dir.mkdirs()) {
 				return save(name, object);
@@ -58,9 +67,8 @@ public class GameData {
 				System.err.println("Could not  create file");
 				return false;
 			}
-			
-		}
-		catch (IOException e) {
+
+		} catch (IOException e) {
 			System.err.println("There was a problem saving " + name);
 			e.printStackTrace();
 			return false;
@@ -68,12 +76,13 @@ public class GameData {
 	}
 
 	/**
-	 * @return the object in memory if loaded successfully 
-	 * null if no object was found
+	 * @return the object in memory if loaded successfully null if no object was
+	 *         found
 	 */
 	public static Object load(String name) {
 
-		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(DIR + name))) {
+		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(
+				DIR + name))) {
 			return in.readObject();
 
 		} catch (IOException | ClassNotFoundException e) {
@@ -82,18 +91,20 @@ public class GameData {
 		}
 		return null;
 	}
-	
+
 	/**
-	 * @return Saves the main player
+	 * @return Saves the player's level's name
 	 */
-	public static boolean savePlayer() {
-		return save("Player", player);
+	public static boolean savePlayerLevelData() {
+		playerData[NAME] = player.getName();
+		playerData[LEVEL] = player.getLevel().getName();
+		return save("Player", playerData);
 	}
-	
+
 	public static void setPlayer(Player p) {
 		player = p;
 	}
-	
+
 	/**
 	 * Save all the story mode levels to file
 	 */
@@ -107,7 +118,7 @@ public class GameData {
 		save("SanJuan", SanJuan.level);
 		save("TechTopia", TechTopia.level);
 	}
-	
+
 	public static void loadLevels() {
 		BautistasDomain.level = (Level) load("BautistasDomain");
 		EdgeOfTheWoods.level = (Level) load("EdgeOfTheWoods");
@@ -117,7 +128,7 @@ public class GameData {
 		SanCisco.level = (Level) load("SanCisco");
 		SanJuan.level = (Level) load("SanJuan");
 		TechTopia.level = (Level) load("TechTopia");
-		
+
 	}
 
 }

@@ -19,9 +19,18 @@ import game.graphics.SpriteSheet;
 import game.gui.overview.InventoryGUI;
 import items.Armor;
 import items.Bazooka;
+import items.Gun;
 import items.Inventory;
 import items.Item;
 import level.Level;
+import level.story.BautistasDomain;
+import level.story.EdgeOfTheWoods;
+import level.story.EdgeOfTheWoodsTop;
+import level.story.LordHillsboroughsDomain;
+import level.story.OrchardValley;
+import level.story.SanCisco;
+import level.story.SanJuan;
+import level.story.TechTopia;
 import level.tile.Tile;
 import quests.Quest;
 import utility.Direction;
@@ -101,7 +110,10 @@ public class Player extends Mob implements Skills {
 
 	// player stats
 	private int strength, defense;
-
+	
+	// the name of the level the player is on to determine which level to load
+	private String savedLevel;
+	
 	/**
 	 * Creates a new player for the game
 	 * 
@@ -119,12 +131,15 @@ public class Player extends Mob implements Skills {
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
 		
+		this.savedLevel = level.getName();
+
 		System.err.println("Creating Player");
 
 	}
 
 	// TODO will change how this works
 	public void setInput(InputHandler input) {
+		System.err.println("Input Handler initialized");
 		this.input = input;
 	}
 
@@ -173,6 +188,9 @@ public class Player extends Mob implements Skills {
 
 		// adds the player to the new level
 		level.add(this);
+		
+		// name of the level for loading
+		savedLevel = level.getName();
 
 		// where the player should go
 		Point location = level.getSpawnPoint();
@@ -210,12 +228,18 @@ public class Player extends Mob implements Skills {
 		// the change in x and y (movement)
 		int dx = 0, dy = 0;
 		
+		if (input == null) {
+			//System.out.println("NULL INPUT");
+			return;
+		}
+
 		// TODO move input out of the tick loop
 		// toggles jesus mode (no clip)
 		if (input.j.isPressed()) {
 			jesusMode = !jesusMode;
 			isSwimming = false;
 			input.j.toggle(false);
+			
 		}
 
 		// spawns a demon
@@ -227,8 +251,11 @@ public class Player extends Mob implements Skills {
 		}
 
 		// shooting requirements
-		isShooting = (input.up.isPressed() || input.down.isPressed() || input.left.isPressed()
-				|| input.right.isPressed()) && !isSwinging && !isSwimming && inventory.getGun() != null
+		isShooting = (input.up.isPressed() || input.down.isPressed()
+				|| input.left.isPressed() || input.right.isPressed())
+				&& !isSwinging
+				&& !isSwimming
+				&& inventory.getGun() != null
 				&& !inventory.getGun().isReloading();
 
 		// update the shooting directions if applicable
@@ -241,7 +268,8 @@ public class Player extends Mob implements Skills {
 		if (input.down.isPressed()) {
 			shootingDir = Direction.SOUTH;
 			if (isShooting) {
-				inventory.getGun().fire(getX() + 7, getY() + 8, shootingDir, this);
+				inventory.getGun().fire(getX() + 7, getY() + 8, shootingDir,
+						this);
 			}
 		}
 		if (input.left.isPressed()) {
@@ -253,19 +281,23 @@ public class Player extends Mob implements Skills {
 		if (input.right.isPressed()) {
 			shootingDir = Direction.EAST;
 			if (isShooting) {
-				inventory.getGun().fire(getX() + 8, getY() + 6, shootingDir, this);
+				inventory.getGun().fire(getX() + 8, getY() + 6, shootingDir,
+						this);
 			}
 		}
 
 		// swing key
 		if (input.space.isPressed()) {
-			if (!isShooting && !isSwimming && !isSwinging && inventory.getSword() != null) {
+			if (!isShooting && !isSwimming && !isSwinging
+					&& inventory.getSword() != null) {
 
 				if (input.shift.isPressed() && stamina > 20) {
 					stamina -= 20;
-					inventory.getSword().swing(getLevel(), getX(), getY(), getDirection(), true);
+					inventory.getSword().swing(getLevel(), getX(), getY(),
+							getDirection(), true);
 				} else {
-					inventory.getSword().swing(getLevel(), getX(), getY(), getDirection(), false);
+					inventory.getSword().swing(getLevel(), getX(), getY(),
+							getDirection(), false);
 				}
 			}
 		}
@@ -357,7 +389,8 @@ public class Player extends Mob implements Skills {
 				}
 
 				// open a chest
-				if (entity instanceof Chest && getOuterBounds().intersects(entity.getBounds())) {
+				if (entity instanceof Chest
+						&& getOuterBounds().intersects(entity.getBounds())) {
 					openChest((Chest) entity);
 					break;
 				}
@@ -367,7 +400,8 @@ public class Player extends Mob implements Skills {
 
 					// the other mob
 					Mob other = (Mob) entity;
-					if (getOuterBounds().intersects(other.getOuterBounds()) && !other.isDead()) {
+					if (getOuterBounds().intersects(other.getOuterBounds())
+							&& !other.isDead()) {
 
 						// TODO change from mob.speak to this.speak(other
 						// mob)
@@ -377,7 +411,8 @@ public class Player extends Mob implements Skills {
 				}
 
 				// handles transporters
-				if (entity instanceof Transporter && getBounds().intersects(entity.getBounds())) {
+				if (entity instanceof Transporter
+						&& getBounds().intersects(entity.getBounds())) {
 
 					getLevel().setSpawnPoint(getX(), getY());
 
@@ -410,7 +445,8 @@ public class Player extends Mob implements Skills {
 			SoundHandler.playSmoothly(SoundHandler.swimming);
 
 			// shift sprints, can't sprint in water
-		} else if (input.shift.isPressed() && stamina > 0 && isMoving && !isShooting && !isSwinging) {
+		} else if (input.shift.isPressed() && stamina > 0 && isMoving
+				&& !isShooting && !isSwinging) {
 
 			// shift doubles the speed
 			dx *= 2;
@@ -533,19 +569,26 @@ public class Player extends Mob implements Skills {
 			int swimOffset = modifier * (isSwimming ? 1 : 0);
 
 			// Upper body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
-					xTile + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset
+					+ swimOffset, xTile + yTile * getSpriteSheet().boxes,
+					color, flip, getScale(), getSpriteSheet());
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
-					(xTile + 1) + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)),
+					yOffset + swimOffset, (xTile + 1) + yTile
+							* getSpriteSheet().boxes, color, flip, getScale(),
+					getSpriteSheet());
 
 			if (!isSwimming) {
 				// Lower Body 1
-				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-						xTile + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset
+						+ modifier, xTile + (yTile + 1)
+						* getSpriteSheet().boxes, color, flip, getScale(),
+						getSpriteSheet());
 				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-						(xTile + 1) + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)),
+						yOffset + modifier, (xTile + 1) + (yTile + 1)
+								* getSpriteSheet().boxes, color, flip,
+						getScale(), getSpriteSheet());
 
 			}
 		}
@@ -555,7 +598,8 @@ public class Player extends Mob implements Skills {
 
 			// bazooka is special :)
 			if (inventory.getGun() instanceof Bazooka) {
-				((Bazooka) inventory.getGun()).renderPlayer(screen, this, gunSheet, shootingDir);
+				((Bazooka) inventory.getGun()).renderPlayer(screen, this,
+						gunSheet, shootingDir);
 				return;
 			}
 
@@ -598,19 +642,23 @@ public class Player extends Mob implements Skills {
 			SpriteSheet sheet = this.gunSheet;
 
 			// Upper Body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * sheet.boxes, color, flip,
-					getScale(), sheet);
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile
+					+ yTile * sheet.boxes, color, flip, getScale(), sheet);
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, (xTile + 1) + yTile * sheet.boxes,
-					color, flip, getScale(), sheet);
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)),
+					yOffset, (xTile + 1) + yTile * sheet.boxes, color, flip,
+					getScale(), sheet);
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + (yTile + 1) * sheet.boxes,
-					color, flip, getScale(), sheet);
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset
+					+ modifier, xTile + (yTile + 1) * sheet.boxes, color, flip,
+					getScale(), sheet);
 
 			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					(xTile + 1) + (yTile + 1) * sheet.boxes, color, flip, getScale(), sheet);
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)),
+					yOffset + modifier,
+					(xTile + 1) + (yTile + 1) * sheet.boxes, color, flip,
+					getScale(), sheet);
 
 		}
 		// Handles Swinging Animation
@@ -646,7 +694,8 @@ public class Player extends Mob implements Skills {
 			SoundHandler.playSmoothly(SoundHandler.footstepsWood);
 
 			// Road sounds
-		} else if (currentTile == Tile.ROAD1 || currentTile == Tile.ROAD2 || currentTile == Tile.ROAD3) {
+		} else if (currentTile == Tile.ROAD1 || currentTile == Tile.ROAD2
+				|| currentTile == Tile.ROAD3) {
 			SoundHandler.playSmoothly(SoundHandler.footstepsRoad);
 
 			// Dirt road sound
@@ -732,6 +781,15 @@ public class Player extends Mob implements Skills {
 		this.shield = maxShield;
 		inventory.add(Item.blackHoleGun);
 		inventory.add(Item.bazooka);
+	}
+
+	/**
+	 * Must be called after loading a save file because sounds are not saved
+	 */
+	public void initSound() {
+		for (Item g : inventory.getGuns()) {
+			((Gun) g).initSound();
+		}
 	}
 
 	/**

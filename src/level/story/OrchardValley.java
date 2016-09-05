@@ -19,7 +19,7 @@ public class OrchardValley extends Level {
 	 * Creates Orchard Valley
 	 */
 	public OrchardValley() {
-		super("/Levels/Cities/Dubland.png", true, "Orchard Valley");
+		super("/Levels/Cities/Dubland.png", true, Level.ORCHARD);
 		setSpawnPoint(136, 1816);
 		
 		System.err.println("Creating Orchard Valley");
@@ -61,7 +61,7 @@ public class OrchardValley extends Level {
 	 * Edges of the map
 	 */
 	protected void initMapTransporters() {
-		add(new MapTransporter(this, 0, 0, SanJuan.level,
+		add(new MapTransporter(this, 0, 0, Level.JUAN,
 				Direction.WEST, 8, this.getHeight() * 8));
 
 	}

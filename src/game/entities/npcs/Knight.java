@@ -2,7 +2,9 @@ package game.entities.npcs;
 
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
+
 import game.ChatHandler;
+import game.Game;
 import game.entities.Mob;
 import game.entities.Skills;
 import game.entities.monsters.Monster;
@@ -218,7 +220,7 @@ public class Knight extends NPC implements Skills {
 	 * Dialogue options for the Knight
 	 */
 	public void doDialogue() {
-		ChatHandler.displayText(getName() + ": Hello " + Level.getPlayer().getName(), Color.white);
+		ChatHandler.displayText(getName() + ": Hello " + getLevel().getPlayer(Game.PLAYER_NAME).getName(), Color.white);
 		return;
 	}
 

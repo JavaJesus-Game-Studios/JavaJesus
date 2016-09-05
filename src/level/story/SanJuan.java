@@ -35,7 +35,7 @@ public class SanJuan extends Level {
 	 * Creates San Juan
 	 */
 	public SanJuan() {
-		super("/Levels/Cities/San_Juan.png", true, "San Juan");
+		super("/Levels/Cities/San_Juan.png", true, Level.JUAN);
 		setSpawnPoint(1680, 2648);
 		
 		System.err.println("Creating San Juan");
@@ -171,11 +171,11 @@ public class SanJuan extends Level {
 	@Override
 	protected void initMapTransporters() {
 
-		add(new MapTransporter(this, 0, 0, TechTopia.level,
+		add(new MapTransporter(this, 0, 0, Level.TECH,
 				Direction.WEST, 8, this.getHeight() * 8));
 
 		add(new MapTransporter(this, (this.getWidth() * 8) - 8, 0,
-				OrchardValley.level, Direction.EAST,
+				Level.ORCHARD, Direction.EAST,
 				8, this.getHeight() * 8));
 
 	}

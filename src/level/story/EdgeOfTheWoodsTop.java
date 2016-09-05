@@ -20,7 +20,7 @@ public class EdgeOfTheWoodsTop extends Level {
 	 */
 	public EdgeOfTheWoodsTop() {
 		super("/Levels/Wilderness_Areas/Edge_of_The_Woods_Top.png", true,
-				"Edge of the Woods Top");
+				Level.EDGE_TOP);
 		setSpawnPoint(1832, 1544);
 		
 		System.err.println("Creating Edge Of The Woods Top");
@@ -60,9 +60,9 @@ public class EdgeOfTheWoodsTop extends Level {
 	 */
 	protected void initMapTransporters() {
 		add(new MapTransporter(this, 0, (this.getHeight() * 8) - 8,
-				EdgeOfTheWoods.level, Direction.SOUTH, (this.getWidth() * 8), 8));
+				Level.EDGE_MAIN, Direction.SOUTH, (this.getWidth() * 8), 8));
 		add(new MapTransporter(this, (this.getWidth() * 8) - 8, 0,
-				SanCisco.level, Direction.EAST, 8,
+				Level.CISCO, Direction.EAST, 8,
 				this.getHeight() * 8));
 
 	}

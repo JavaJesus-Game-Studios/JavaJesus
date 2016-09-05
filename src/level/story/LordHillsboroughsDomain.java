@@ -38,7 +38,7 @@ public class LordHillsboroughsDomain extends Level {
 	 */
 	public LordHillsboroughsDomain() {
 		super("/Levels/Cities/Domain of Lord Hillsborough.png", true,
-				"Lord Hillsborough's Domain");
+				Level.HILLSBOROUGH);
 		setSpawnPoint(1366, 1450);
 		
 		System.err.println("Creating Lord Hillsborough's Domain");
@@ -209,13 +209,13 @@ public class LordHillsboroughsDomain extends Level {
 	 */
 	protected void initMapTransporters() {
 
-		add(new MapTransporter(this, 0, 0, SanCisco.level,
+		add(new MapTransporter(this, 0, 0, Level.CISCO,
 				Direction.NORTH, this.getWidth() * 8, 8));
 		add(new MapTransporter(this, 0, 0,
-				EdgeOfTheWoods.level, Direction.WEST, 8,
+				Level.EDGE_MAIN, Direction.WEST, 8,
 				this.getHeight() * 8));
 		add(new MapTransporter(this, 0, (this.getHeight() * 8) - 8,
-				BautistasDomain.level, Direction.SOUTH, (this.getWidth() * 8),
+				Level.BAUTISTA, Direction.SOUTH, (this.getWidth() * 8),
 				8));
 
 	}

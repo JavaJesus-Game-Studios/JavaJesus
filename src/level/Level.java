@@ -44,12 +44,14 @@ public abstract class Level implements Serializable {
 	private int width, height;
 
 	// list of all entities on the map
-	private final List<Entity> entities = new ArrayList<Entity>(Game.ENTITY_LIMIT);
+	private final List<Entity> entities = new ArrayList<Entity>(
+			Game.ENTITY_LIMIT);
 
 	// list of all mobs on the map
 	private final List<Mob> mobs = new ArrayList<Mob>(Game.ENTITY_LIMIT);
 
-	private final List<Hideable> hideables = new ArrayList<Hideable>(Game.ENTITY_LIMIT);
+	private final List<Hideable> hideables = new ArrayList<Hideable>(
+			Game.ENTITY_LIMIT);
 
 	// image path to load a level
 	private String imagePath;
@@ -65,12 +67,21 @@ public abstract class Level implements Serializable {
 
 	// the range of how many entities to render/tick on the screen
 	public static final Rectangle renderRange = new Rectangle(500, 500);
-	
+
 	// instance of the player on the level
 	private static Player player;
-	
+
+	// names for each main city
+	public static final String BAUTISTA = "Bautista's Domain",
+			EDGE_MAIN = "Edge of the Woods",
+			EDGE_TOP = "Edge of the Woods Top",
+			HILLSBOROUGH = "Lord Hillsborough's Domain",
+			ORCHARD = "Orchard Valley", CISCO = "San Cisco", JUAN = "San Juan",
+			TECH = "Tech Topia";
+
 	// list of all levels the player visited that need to be saved
-	//private static final transient List<Level> visitedLevels = new ArrayList<Level>(); 
+	// private static final transient List<Level> visitedLevels = new
+	// ArrayList<Level>();
 
 	/**
 	 * Creates a level from the specified image path
@@ -157,19 +168,23 @@ public abstract class Level implements Serializable {
 	private void loadLevelFromFile() {
 		try {
 			// load the file
-			BufferedImage image = ImageIO.read(Level.class.getResource(imagePath));
+			BufferedImage image = ImageIO.read(Level.class
+					.getResource(imagePath));
 			width = image.getWidth();
 			height = image.getHeight();
 			tiles = new int[width * height];
 
 			// get the tile colors
-			int[] tileColors = image.getRGB(0, 0, width, height, null, 0, width);
+			int[] tileColors = image
+					.getRGB(0, 0, width, height, null, 0, width);
 
 			// initialize the tiles
 			for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
 					tileCheck: for (Tile t : Tile.tiles) {
-						if (t != null && t.getLevelColor() == tileColors[x + y * width]) {
+						if (t != null
+								&& t.getLevelColor() == tileColors[x + y
+										* width]) {
 							if (t == Tile.GRASS) {
 								t = Tile.GRASS();
 							} else if (t == Tile.WASTELAND_GROUND1) {
@@ -181,6 +196,7 @@ public abstract class Level implements Serializable {
 					}
 				}
 			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -241,7 +257,8 @@ public abstract class Level implements Serializable {
 		for (int i = 0; i < getEntities().size(); i++) {
 			Entity e = getEntities().get(i);
 
-			if (e.getBounds().intersects(renderRange) && (!(e instanceof Mob) || !((Mob) e).isDead())) {
+			if (e.getBounds().intersects(renderRange)
+					&& (!(e instanceof Mob) || !((Mob) e).isDead())) {
 				e.tick();
 			}
 		}
@@ -306,25 +323,28 @@ public abstract class Level implements Serializable {
 
 		// render everything that is behind a building first
 		for (Hideable entity : hideables) {
-			
-			if (entity.getBounds().intersects(renderRange) && entity.isBehindBuilding()) {
+
+			if (entity.getBounds().intersects(renderRange)
+					&& entity.isBehindBuilding()) {
 				entity.render(screen);
-				if (entity instanceof Mob && ((Mob) entity).getHealthBar() != null)
+				if (entity instanceof Mob
+						&& ((Mob) entity).getHealthBar() != null)
 					((Mob) entity).getHealthBar().render(screen);
 			}
 
 		}
-		
+
 		// render all buildings
-		for (Entity e: this.getEntities()) {
-			if (!(e instanceof Hideable)&& e.getBounds().intersects(renderRange)) {
+		for (Entity e : this.getEntities()) {
+			if (!(e instanceof Hideable)
+					&& e.getBounds().intersects(renderRange)) {
 				e.render(screen);
 			}
 		}
 
 		// now render everything else on top
-		for (Hideable e: hideables) {
-			if (e.getBounds().intersects(renderRange)&& !e.isBehindBuilding()) {
+		for (Hideable e : hideables) {
+			if (e.getBounds().intersects(renderRange) && !e.isBehindBuilding()) {
 				e.render(screen);
 				if (e instanceof Mob && ((Mob) e).getHealthBar() != null)
 					((Mob) e).getHealthBar().render(screen);
@@ -349,7 +369,8 @@ public abstract class Level implements Serializable {
 	 * @param scale
 	 *            how big to render it
 	 */
-	public void renderFont(String msg, Screen screen, int x, int y, int[] color, int scale) {
+	public void renderFont(String msg, Screen screen, int x, int y,
+			int[] color, int scale) {
 		JJFont.render(msg, screen, x, y, color, scale);
 	}
 
@@ -379,6 +400,7 @@ public abstract class Level implements Serializable {
 
 		if (entity instanceof Mob) {
 			mobs.add((Mob) entity);
+
 		}
 		if (entity instanceof Hideable) {
 			hideables.add((Hideable) entity);
@@ -414,7 +436,7 @@ public abstract class Level implements Serializable {
 		if (entity instanceof Hideable) {
 			hideables.remove(entity);
 		}
-		
+
 	}
 
 	/**
@@ -458,7 +480,7 @@ public abstract class Level implements Serializable {
 	public String toString() {
 		return name + "\n Mobs: " + this.getMobs();
 	}
-	
+
 	/**
 	 * @param x
 	 *            the new x point
@@ -503,34 +525,20 @@ public abstract class Level implements Serializable {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
-	 * @return the default player
+	 * @return the specified player from the name
 	 */
-	public final static Player getPlayer() {
-		return player;
-	}
-	
-	/**
-	 * Initialize the default player
-	 */
-	public final static void setPlayer(Player p) {
-		player = p;
-	}
-	
-	/**
-	 * Initializes the class wide Player variable used throughout the game
-	 * @return the main player
-	 */
-	public Player loadPlayer() {
-		for (int i = 0; i < mobs.size(); i++) {
-			if (mobs.get(i) instanceof Player){
-				return player = (Player) mobs.get(i);
+	public final Player getPlayer(final String name) {
+		for (Mob m: mobs) {
+			if (m.getName().equals(name)) {
+				return (Player) m;
 			}
 		}
+		
 		return null;
 	}
-	
+
 	/**
 	 * Creates story levels
 	 */
@@ -544,4 +552,35 @@ public abstract class Level implements Serializable {
 		SanJuan.level = new SanJuan();
 		TechTopia.level = new TechTopia();
 	}
+
+	/**
+	 * Returns the level based on the name for loading
+	 */
+	public final static Level getLevel(final String name) {
+
+		switch (name) {
+
+		case Level.BAUTISTA:
+			return BautistasDomain.level;
+		case Level.EDGE_MAIN:
+			return EdgeOfTheWoods.level;
+		case Level.EDGE_TOP:
+			return EdgeOfTheWoodsTop.level;
+		case Level.HILLSBOROUGH:
+			return LordHillsboroughsDomain.level;
+		case Level.ORCHARD:
+			return OrchardValley.level;
+		case Level.CISCO:
+			return SanCisco.level;
+		case Level.JUAN:
+			return SanJuan.level;
+		case Level.TECH:
+			return TechTopia.level;
+		default:
+			System.err.println("Could not find level from name");
+			return null;
+		}
+
+	}
+
 }

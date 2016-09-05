@@ -3,6 +3,14 @@ package game.entities.structures.transporters;
 import game.entities.Player;
 import game.graphics.Screen;
 import level.Level;
+import level.story.BautistasDomain;
+import level.story.EdgeOfTheWoods;
+import level.story.EdgeOfTheWoodsTop;
+import level.story.LordHillsboroughsDomain;
+import level.story.OrchardValley;
+import level.story.SanCisco;
+import level.story.SanJuan;
+import level.story.TechTopia;
 import utility.Direction;
 
 /*
@@ -14,7 +22,10 @@ public class MapTransporter extends Transporter {
 
 	// which side the map transporter is placed on a map
 	private Direction dir;
-	
+
+	// name of the next level
+	private String savedLevel;
+
 	/**
 	 * Creates a Map transporter that automatically transports a player that is
 	 * on the edge of a map
@@ -33,13 +44,52 @@ public class MapTransporter extends Transporter {
 	 *            the width of the transporter
 	 * @param height
 	 *            the height of the transporter
+	 * 
+	 *            Map Transporters dont use the next level variable to avoid
+	 *            saving recursion, so next Level will always return null.
+	 * 
+	 *            Use savedLevel instead, the name of the nextLevel
 	 */
-	public MapTransporter(Level currentLevel, int x, int y, Level nextLevel, Direction dir, int width, int height) {
+	public MapTransporter(Level currentLevel, int x, int y, String savedLevel,
+			Direction dir, int width, int height) {
 		super(currentLevel, x, y, null);
 		this.dir = dir;
 		setBounds(getX(), getY(), width, height);
+
+		this.savedLevel = savedLevel;
 	}
 	
+	/**
+	 * Overwrites the returning nextLevel
+	 * Instead it returns the static instance of the city it leads to based on the name
+	 */
+	public Level getNextLevel() {
+		
+		switch (savedLevel) {
+		
+		case Level.BAUTISTA:
+			return BautistasDomain.level;
+		case Level.EDGE_MAIN: 
+			return EdgeOfTheWoods.level;
+		case Level.EDGE_TOP: 
+			return EdgeOfTheWoodsTop.level;
+		case Level.HILLSBOROUGH:
+			return LordHillsboroughsDomain.level;
+		case Level.ORCHARD:
+			return OrchardValley.level;
+		case Level.CISCO:
+			return SanCisco.level;
+		case Level.JUAN:
+			return SanJuan.level;
+		case Level.TECH:
+			return TechTopia.level;
+		default:
+			System.err.println("Could not map transporter level");
+			return null;
+		}
+		
+	}
+
 	/**
 	 * Calculates the new spawnpoint for the next level
 	 */
@@ -54,7 +104,8 @@ public class MapTransporter extends Transporter {
 		case NORTH: {
 
 			// X is proportional to width
-			x = getNextLevel().getWidth() * player.getX() / getLevel().getWidth();
+			x = getNextLevel().getWidth() * player.getX()
+					/ getLevel().getWidth();
 
 			y = (getNextLevel().getHeight() * 8) - 16;
 			break;
@@ -64,7 +115,8 @@ public class MapTransporter extends Transporter {
 		case SOUTH: {
 
 			// X is proportional to width
-			x = getNextLevel().getWidth() * player.getX() / getLevel().getWidth();
+			x = getNextLevel().getWidth() * player.getX()
+					/ getLevel().getWidth();
 
 			y = 16;
 			break;
@@ -76,7 +128,8 @@ public class MapTransporter extends Transporter {
 			x = 16;
 
 			// Y is proportional to height
-			y = getNextLevel().getHeight() * player.getY() / getLevel().getHeight();
+			y = getNextLevel().getHeight() * player.getY()
+					/ getLevel().getHeight();
 			break;
 		}
 
@@ -86,7 +139,8 @@ public class MapTransporter extends Transporter {
 			x = (getNextLevel().getWidth() * 8) - 16;
 
 			// Y is proportional to height
-			y = getNextLevel().getHeight() * player.getY() / getLevel().getHeight();
+			y = getNextLevel().getHeight() * player.getY()
+					/ getLevel().getHeight();
 			break;
 		}
 		}

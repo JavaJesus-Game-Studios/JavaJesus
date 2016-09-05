@@ -28,11 +28,12 @@ public class SampleQuest extends Quest {
 	public boolean condition1() {
 		// It Was Game.FOX.isDead()
 		// This sample quest is impossible to complete
-		if (Level.getPlayer().isDead()) {
+		/*if (Level.getPlayer().isDead()) {
 			return true;
 		} else {
 			return false;
-		}
+		}*/
+		return false;
 	}
 
 	public void checkForCompletion() {

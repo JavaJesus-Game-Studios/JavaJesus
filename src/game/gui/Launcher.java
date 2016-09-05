@@ -33,10 +33,10 @@ public class Launcher extends JFrame implements Runnable {
 	private boolean running;
 
 	// Version of the game
-	private final String VERSION = "Alpha 0.7.0";
+	private final String VERSION = "Alpha 0.7.5";
 
 	// Last known update
-	private final String LAST_UPDATED = "Last Updated 7/29/2016";
+	private final String LAST_UPDATED = "Last Updated 9/4/2016";
 
 	// offset of the sword to render
 	private int swordOffset;
@@ -120,7 +120,7 @@ public class Launcher extends JFrame implements Runnable {
 
 		new InputHandler(this);
 		SoundHandler.playLoop(SoundHandler.background1);
-		setUndecorated(true);
+		//setUndecorated(true);
 		setSize(new Dimension(width, height));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
