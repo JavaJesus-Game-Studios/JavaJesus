@@ -23,14 +23,6 @@ import items.Gun;
 import items.Inventory;
 import items.Item;
 import level.Level;
-import level.story.BautistasDomain;
-import level.story.EdgeOfTheWoods;
-import level.story.EdgeOfTheWoodsTop;
-import level.story.LordHillsboroughsDomain;
-import level.story.OrchardValley;
-import level.story.SanCisco;
-import level.story.SanJuan;
-import level.story.TechTopia;
 import level.tile.Tile;
 import quests.Quest;
 import utility.Direction;
@@ -111,9 +103,6 @@ public class Player extends Mob implements Skills {
 	// player stats
 	private int strength, defense;
 	
-	// the name of the level the player is on to determine which level to load
-	private String savedLevel;
-	
 	/**
 	 * Creates a new player for the game
 	 * 
@@ -131,8 +120,6 @@ public class Player extends Mob implements Skills {
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
 		
-		this.savedLevel = level.getName();
-
 		System.err.println("Creating Player");
 
 	}
@@ -189,9 +176,6 @@ public class Player extends Mob implements Skills {
 		// adds the player to the new level
 		level.add(this);
 		
-		// name of the level for loading
-		savedLevel = level.getName();
-
 		// where the player should go
 		Point location = level.getSpawnPoint();
 

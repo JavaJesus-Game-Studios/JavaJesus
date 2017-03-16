@@ -9,6 +9,8 @@ public class MediumSequoia extends Tree {
 
 	public MediumSequoia(Level level, int x, int y) {
 		super(level, x, y, Sprite.MEDIUM_SEQUOIA);
+		
+		setBounds(x + 10, (int) getBounds().getY(), 1, (int) getBounds().getHeight());
 	}
 
 }

@@ -22,6 +22,9 @@ public class Forest {
 
 	// spacing used between tree widths
 	private static final int HORIZONTAL_SPACING = 23;
+	
+	// Minimum space  between tree  heights
+	private static final int VERTICAL_SPACING = 16;
 
 	/**
 	 * Determines if a tree can be placed at this location
@@ -74,43 +77,43 @@ public class Forest {
 
 		for (int i = 0; i < width; i += (HORIZONTAL_SPACING + random.nextInt(6))) {
 
-			for (int j = 0; j < height; j += treeHeight) {
+			for (int j = 0; j < height; j += treeHeight + VERTICAL_SPACING) {
 
 				switch (random.nextInt(10)) {
 
-				case 0: {
+				case 0: 
 					treeHeight = 58 + random.nextInt(10);
 					if (checkTile(level, i, j)) {
 						level.add(new DeadSequoia(level, x + i, y + j));
-					}
 					break;
 				}
 				case 1:
-				case 2:
-				case 3: {
+				case 2: 
 					treeHeight = 58 + random.nextInt(10);
 					if (checkTile(level, i, j)) {
 						level.add(new LargeSequoia(level, x + i, y + j));
-					}
 					break;
 				}
-				case 4:
-				case 5:
-				case 6: {
+				case 3:
+				case 4: 
 					treeHeight = 44 + random.nextInt(10);
 					if (checkTile(level, i, j)) {
 						level.add(new MediumSequoia(level, x + i, y + j));
-					}
 					break;
 				}
-				default: {
+				case 5:
+				case 6:
+				case 7:
 					treeHeight = 32 + random.nextInt(10);
 					if (checkTile(level, i, j)) {
 						level.add(new SmallSequoia(level, x + i, y + j));
 					}
-
 					break;
-				}
+				default: 
+					// No tree spawns
+					treeHeight = random.nextInt(35) + 32;
+					break;
+					
 				}
 			}
 		}

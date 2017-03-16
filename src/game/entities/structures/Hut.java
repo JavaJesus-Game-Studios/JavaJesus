@@ -19,6 +19,9 @@ public class Hut extends Building {
 
 	public Hut(Level level, int x, int y) {
 		super(level, x, y, color, Sprite.hut_exterior, SolidEntity.QUARTER);
+		
+		this.setBounds(getBounds().x + 4, getBounds().y, getBounds().width - 8, getBounds().height);
+
 		level.add(new Transporter(level, x + 18, y + 32, new HutInterior(
 				new Point(x + 24, y + 43), getLevel())));
 	}

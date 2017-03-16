@@ -2,6 +2,10 @@ package level.interior;
 
 import java.awt.Point;
 
+import game.entities.Entity;
+import game.entities.Spawner;
+import game.entities.npcs.NPC;
+import game.entities.structures.furniture.Chest;
 import game.entities.structures.furniture.DiningTable;
 import game.entities.structures.transporters.TransporterInterior;
 import level.Level;
@@ -18,23 +22,22 @@ public class CastleTowerInterior extends Interior {
 		this.exitPoint = point;
 	}
 
-	protected void initNPCPlacement() {
-
-		add(new DiningTable(this, 1900, 1900));
-
+	protected NPC[] getNPCPlacement() {
+		return null;
 	}
 
-	protected void initSpawnerPlacement() {
-
+	protected Spawner[] getSpawnerPlacement() {
+		return null;
 	}
 
-	protected void initChestPlacement() {
-
+	protected Chest[] getChestPlacement() {
+		return null;
 	}
 
-	protected void otherEntityPlacement() {
-		add(new TransporterInterior(this, 1935, 2088, nextLevel,
-				exitPoint));
+	protected Entity[] getOtherPlacement() {
+		
+		return new Entity[] { new TransporterInterior(this, 1935, 2088, nextLevel, exitPoint),
+				new DiningTable(this, 1900, 1900)};
 	}
 
 }

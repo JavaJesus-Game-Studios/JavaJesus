@@ -1,6 +1,7 @@
-package game.entities.structures;
+package game.entities.structures.techtopia;
 
 import game.entities.SolidEntity;
+import game.entities.structures.Building;
 import game.entities.structures.transporters.Transporter;
 import game.graphics.Sprite;
 import java.awt.Point;
@@ -23,6 +24,8 @@ public class Cafe extends Building {
 	 */
 	public Cafe(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFF99, 0xFFFFFFCC }, Sprite.cafe, SolidEntity.TWO_THIRDS);
+
+		this.setBounds(getBounds().x + 4, getBounds().y, getBounds().width - 8, getBounds().height);
 
 		level.add(
 				new Transporter(level, x + 77, y + 43, new CafeInterior(new Point(x + 83, y + 55), getLevel())));

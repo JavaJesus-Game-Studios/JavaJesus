@@ -2,6 +2,10 @@ package level.interior;
 
 import java.awt.Point;
 
+import game.entities.Entity;
+import game.entities.Spawner;
+import game.entities.npcs.NPC;
+import game.entities.structures.furniture.Chest;
 import game.entities.structures.transporters.TransporterInterior;
 import game.entities.structures.transporters.TransporterStair;
 import level.Level;
@@ -18,21 +22,21 @@ public class SkyscraperLobby extends Interior {
 		this.exitPoint = point;
 	}
 
-	protected void initNPCPlacement() {
-
+	protected NPC[] getNPCPlacement() {
+		return null;
 	}
 
-	protected void initSpawnerPlacement() {
-
+	protected Spawner[] getSpawnerPlacement() {
+		return null;
 	}
 
-	protected void initChestPlacement() {
-
+	protected Chest[] getChestPlacement() {
+		return null;
 	}
 
-	protected void otherEntityPlacement() {
-		add(new TransporterInterior(this, 1944, 2048, nextLevel, exitPoint));
-		add(new TransporterStair(this, 2112, 1968, new SkyscraperFloor(new Point(2116, 1971), this, 1),
-				new Point(2105, 2016), Direction.EAST, TransporterStair.WOOD));
+	protected Entity[] getOtherPlacement() {
+		return new Entity[] { new TransporterInterior(this, 1944, 2048, nextLevel, exitPoint),
+				new TransporterStair(this, 2112, 1968, new SkyscraperFloor(new Point(2116, 1971), this, 1),
+						new Point(2105, 2016), Direction.EAST, TransporterStair.WOOD) };
 	}
 }

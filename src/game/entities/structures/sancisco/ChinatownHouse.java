@@ -1,7 +1,8 @@
-package game.entities.structures;
+package game.entities.structures.sancisco;
 
 import java.awt.Point;
 import game.entities.SolidEntity;
+import game.entities.structures.Building;
 import game.entities.structures.transporters.Transporter;
 import game.graphics.Sprite;
 import level.Level;
@@ -16,6 +17,10 @@ public class ChinatownHouse extends Building {
 
 	public ChinatownHouse(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF618249, 0xFF992B2B, 0xFFFFFFFF }, Sprite.chinatown_house, SolidEntity.HALF);
+		
+		this.setBounds(getBounds().x + 9, getBounds().y, getBounds().width - 18, getBounds().height);
+
+		
 		level.add(new Transporter(level, x + 26, y + 41,
 				new ChinatownHouseInterior(new Point(x + 32, y + 53), getLevel())));
 	}

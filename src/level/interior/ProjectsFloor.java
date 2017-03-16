@@ -2,6 +2,10 @@ package level.interior;
 
 import java.awt.Point;
 
+import game.entities.Entity;
+import game.entities.Spawner;
+import game.entities.npcs.NPC;
+import game.entities.structures.furniture.Chest;
 import game.entities.structures.transporters.TransporterStair;
 import level.Level;
 import utility.Direction;
@@ -20,25 +24,34 @@ public class ProjectsFloor extends Interior {
 		this.floor = floor;
 	}
 
-	protected void initNPCPlacement() {
-
+	protected NPC[] getNPCPlacement() {
+		return null;
 	}
 
-	protected void initSpawnerPlacement() {
+	protected Spawner[] getSpawnerPlacement() {
+		return null;
 	}
 
-	protected void initChestPlacement() {
+	protected Chest[] getChestPlacement() {
+		return null;
 	}
 
-	protected void otherEntityPlacement() {
-		add(new TransporterStair(this, 344, 528, nextLevel, new Point(353, 480), Direction.EAST,
-				TransporterStair.CARPET));
+	protected Entity[] getOtherPlacement() {
+		
+		Entity[] entities = new Entity[2];
+		
+		entities[0] = new TransporterStair(this, 344, 528, nextLevel, new Point(353, 480), Direction.EAST,
+				TransporterStair.CARPET);
+		
 		if (floor < 2) {
-			add(new TransporterStair(this, 344, 472, new ProjectsFloor(new Point(353, 536), this, floor + 1), exitPoint,
-					Direction.WEST, TransporterStair.CARPET));
+			entities[1] = new TransporterStair(this, 344, 472, new ProjectsFloor(new Point(353, 536), this, floor + 1), exitPoint,
+					Direction.WEST, TransporterStair.CARPET);
 		} else {
-			add(new TransporterStair(this, 344, 472, new ProjectsTop(new Point(353, 536), this, floor + 1), exitPoint,
-					Direction.WEST, TransporterStair.CARPET));
+			entities[1] = new TransporterStair(this, 344, 472, new ProjectsTop(new Point(353, 536), this, floor + 1), exitPoint,
+					Direction.WEST, TransporterStair.CARPET);
 		}
+		
+		return entities;
+		
 	}
 }

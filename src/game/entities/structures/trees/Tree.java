@@ -38,11 +38,11 @@ public class Tree extends Entity implements SolidEntity {
 
 		this.sprite = sprite;
 
-		shadow = new Rectangle(sprite.getWidth(), sprite.getHeight() - 8);
+		shadow = new Rectangle(sprite.getWidth(), sprite.getHeight() - 16);
 		shadow.setLocation(x, y);
 
 		// makes smoother collision points for the player
-		setBounds(x + shadow.width / 2 - 3, y + shadow.height, 6, sprite.getHeight() - shadow.height);
+		setBounds(x + 4, y + shadow.height, 1, sprite.getHeight() - shadow.height - 8);
 
 	}
 
@@ -71,6 +71,7 @@ public class Tree extends Entity implements SolidEntity {
 	 * Trees don't really update
 	 */
 	public void tick() {
+		
 	}
 
 }

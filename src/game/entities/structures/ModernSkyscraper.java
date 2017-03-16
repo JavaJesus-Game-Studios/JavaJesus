@@ -15,6 +15,9 @@ public class ModernSkyscraper extends Building {
 	public ModernSkyscraper(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF182D42, 0xFF3E89D5 }, Sprite.modern_skyscraper,
 				SolidEntity.SEVEN_EIGTHS);
+		
+		this.setBounds(getBounds().x + 4, getBounds().y, getBounds().width - 8, getBounds().height);
+
 		level.add(new Transporter(level, x + 43, y + 235, getLevel()));
 	}
 

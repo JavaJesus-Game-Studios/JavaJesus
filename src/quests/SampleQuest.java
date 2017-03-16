@@ -1,7 +1,6 @@
 package quests;
 
 import game.entities.npcs.NPC;
-import level.Level;
 
 public class SampleQuest extends Quest {
 	

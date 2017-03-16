@@ -24,7 +24,6 @@ import game.gui.intro.IntroGUI;
 import game.gui.overview.OverviewGUI;
 import level.Level;
 import level.sandbox.SandboxSurvivalMap1;
-import level.story.BautistasDomain;
 import level.story.LordHillsboroughsDomain;
 import save.GameData;
 
@@ -198,7 +197,7 @@ public class Display extends Canvas {
 		default:
 			Level.createStoryLevels();
 			level = LordHillsboroughsDomain.level;
-			// level = Level1.level;
+			//level = LevelTester.level;
 			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
 			
 		}

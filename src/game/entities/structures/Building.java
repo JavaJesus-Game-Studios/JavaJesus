@@ -53,17 +53,23 @@ public class Building extends Entity implements SolidEntity {
 
 	}
 
-	@Override
+	/**
+	 * Get the bounds behind the building
+	 */
 	public Rectangle getShadow() {
 		return shadow;
 	}
 
-	@Override
+	/**
+	 * Doesn't do anything for buildings
+	 */
 	public void tick() {
 
 	}
 
-	@Override
+	/**
+	 * Renders the building on the screen
+	 */
 	public void render(Screen screen) {
 		screen.render(getX(), getY(), color, sprite);
 

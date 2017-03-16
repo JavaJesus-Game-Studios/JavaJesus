@@ -28,6 +28,8 @@ public class ApartmentHighRise extends Building {
 	public ApartmentHighRise(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF673101, 0xFFABD3FF }, Sprite.apartment, SolidEntity.TWO_THIRDS);
 
+		this.setBounds(getBounds().x + 4, getBounds().y, getBounds().width - 8, getBounds().height);
+		
 		getLevel().add(new Transporter(level, x + 30, y + 206, new ApartmentLobby(new Point(x + 36, y + 216), level)));
 	}
 

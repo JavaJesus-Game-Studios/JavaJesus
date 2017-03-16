@@ -33,10 +33,10 @@ public class Launcher extends JFrame implements Runnable {
 	private boolean running;
 
 	// Version of the game
-	private final String VERSION = "Alpha 0.7.5";
+	private final String VERSION = "Alpha 0.7.9";
 
 	// Last known update
-	private final String LAST_UPDATED = "Last Updated 9/4/2016";
+	private final String LAST_UPDATED = "Last Updated 3/16/2017";
 
 	// offset of the sword to render
 	private int swordOffset;

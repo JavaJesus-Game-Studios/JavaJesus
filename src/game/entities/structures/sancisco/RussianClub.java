@@ -1,7 +1,8 @@
-package game.entities.structures;
+package game.entities.structures.sancisco;
 
 import java.awt.Point;
 import game.entities.SolidEntity;
+import game.entities.structures.Building;
 import game.entities.structures.transporters.Transporter;
 import game.graphics.Sprite;
 import level.Level;
@@ -16,6 +17,9 @@ public class RussianClub extends Building {
 
 	public RussianClub(Level level, int x, int y) {
 		super(level, x, y,  new int[] { 0xFFFFEB0A, 0xFF80004B, 0xFFE934F9 }, Sprite.russian_club, SolidEntity.TWO_THIRDS);
+		
+		this.setBounds(getBounds().x + 4, getBounds().y, getBounds().width - 8, getBounds().height);
+
 		level.add(new Transporter(level, x + 38, y + 45, 
 				new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 		level.add(new Transporter(level, x + 51, y + 45, level));

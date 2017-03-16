@@ -9,6 +9,8 @@ public class SmallSequoia extends Tree {
 
 	public SmallSequoia(Level level, int x, int y) {
 		super(level, x, y, Sprite.SMALL_SEQUOIA);
+		
+		setBounds(x + 8, (int) getBounds().getY(), 1, (int) getBounds().getHeight());
 	}
 
 }

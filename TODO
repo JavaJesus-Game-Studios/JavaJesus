@@ -1,0 +1,12 @@
+TODO:
+Add save points on the level and eliminate saving in interiors
+Clean up the inventory screen and add proper [back] buttons
+Ability to change screen size from options (Game already supports multiple screen sizes)
+
+Planned:
+Make sandbox mode and survival mode fun....
+Real pathfinding using A*
+
+Things I would like to change but not a top priority:
+Make the launcher faster (Or create an option light launcher)
+Make saving more efficient (Currently just saves the heap, very very bulky)

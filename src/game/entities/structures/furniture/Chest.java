@@ -69,7 +69,7 @@ public class Chest extends Entity implements SolidEntity {
 		super(level, x, y);
 
 		this.contents = items;
-		setBounds(getX(), getY(), SIZE, SIZE);
+		setBounds(getX() + 4, getY(), SIZE - 6, SIZE - 5);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class Chest extends Entity implements SolidEntity {
 		for (int i = 0; i < items.size(); i++)
 			contents[i] = items.get(i);
 
-		setBounds(getX(), getY(), SIZE, SIZE);
+		setBounds(getX() + 4, getY(), SIZE - 6, SIZE - 5);
 	}
 
 	/**

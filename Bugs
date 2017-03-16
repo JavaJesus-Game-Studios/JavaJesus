@@ -1,0 +1,10 @@
+List of Known Bugs:
+Health bar not disappearing on enemy death
+Trees width bound is off (Temporary work around by setting to 1)
+Cyclops attacking too low to player
+Exiting Vehicles (implement an algorithm that checks every tile around the car and selects
+the best one)
+Player death sometimes freezes screen
+Fire animation off horizontally
+Need to click mute twice for it to work
+Horse walks back to spawn very fast

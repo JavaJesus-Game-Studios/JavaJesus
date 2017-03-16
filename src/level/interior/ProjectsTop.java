@@ -2,6 +2,10 @@ package level.interior;
 
 import java.awt.Point;
 
+import game.entities.Entity;
+import game.entities.Spawner;
+import game.entities.npcs.NPC;
+import game.entities.structures.furniture.Chest;
 import game.entities.structures.transporters.TransporterStair;
 import level.Level;
 import utility.Direction;
@@ -14,18 +18,20 @@ public class ProjectsTop extends Interior {
 		super("/Buildings/Generic Interiors/Projects_Interiors/Projects_Top_Floor.png", new Point(588, 688), level);
 	}
 
-	protected void initNPCPlacement() {
-
+	protected NPC[] getNPCPlacement() {
+		return null;
 	}
 
-	protected void initSpawnerPlacement() {
+	protected Spawner[] getSpawnerPlacement() {
+		return null;
 	}
 
-	protected void initChestPlacement() {
+	protected Chest[] getChestPlacement() {
+		return null;
 	}
 
-	protected void otherEntityPlacement() {
-		add(new TransporterStair(this, 344, 528, nextLevel, new Point(353, 480), Direction.EAST,
-				TransporterStair.CARPET));
+	protected Entity[] getOtherPlacement() {
+		return new Entity[] { new TransporterStair(this, 344, 528, nextLevel, new Point(353, 480), Direction.EAST,
+				TransporterStair.CARPET) };
 	}
 }

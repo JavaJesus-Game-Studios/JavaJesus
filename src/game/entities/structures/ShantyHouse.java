@@ -16,6 +16,9 @@ public class ShantyHouse extends Building {
 
 	public ShantyHouse(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFADADAD, 0xFF000000 }, Sprite.shantyhouse, SolidEntity.QUARTER);
+		
+		this.setBounds(getBounds().x + 4, getBounds().y, getBounds().width - 8, getBounds().height);
+
 		level.add(
 				new Transporter(level, x + 12, y + 31, new ShantyHouseInterior(new Point(x + 18, y + 42), level)));
 	}

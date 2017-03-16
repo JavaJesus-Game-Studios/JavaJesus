@@ -2,6 +2,10 @@ package level.interior;
 
 import java.awt.Point;
 
+import game.entities.Entity;
+import game.entities.Spawner;
+import game.entities.npcs.NPC;
+import game.entities.structures.furniture.Chest;
 import game.entities.structures.transporters.TransporterStair;
 import level.Level;
 import utility.Direction;
@@ -17,20 +21,20 @@ public class SkyscraperPent extends Interior {
 		this.level = level;
 	}
 
-	protected void initNPCPlacement() {
-
+	protected NPC[] getNPCPlacement() {
+		return null;
 	}
 
-	protected void initSpawnerPlacement() {
-
+	protected Spawner[] getSpawnerPlacement() {
+		return null;
 	}
 
-	protected void initChestPlacement() {
-
+	protected Chest[] getChestPlacement() {
+		return null;
 	}
 
-	protected void otherEntityPlacement() {
-		add(new TransporterStair(this, 2112, 2008, level, new Point(2105, 1975), Direction.SOUTH,
-				TransporterStair.WOOD));
+	protected Entity[] getOtherPlacement() {
+		return new Entity[] {new TransporterStair(this, 2112, 2008, level, new Point(2105, 1975), Direction.SOUTH,
+				TransporterStair.WOOD)};
 	}
 }

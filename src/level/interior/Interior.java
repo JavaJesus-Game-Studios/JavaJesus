@@ -2,6 +2,7 @@ package level.interior;
 
 import java.awt.Point;
 
+import game.entities.structures.transporters.MapTransporter;
 import level.Level;
 
 public abstract class Interior extends Level {
@@ -16,7 +17,7 @@ public abstract class Interior extends Level {
 		this.nextLevel = level;
 	}
 	
-	protected void initMapTransporters() {
-		
+	protected MapTransporter[] getMapTransporterPlacement() {
+		return null;
 	}
 }

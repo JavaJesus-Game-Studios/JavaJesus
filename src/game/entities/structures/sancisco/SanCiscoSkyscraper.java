@@ -1,6 +1,7 @@
-package game.entities.structures;
+package game.entities.structures.sancisco;
 
 import game.entities.SolidEntity;
+import game.entities.structures.Building;
 import game.graphics.Sprite;
 import level.Level;
 
@@ -15,6 +16,8 @@ public class SanCiscoSkyscraper extends Building {
 	public SanCiscoSkyscraper(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFFEDECE0, 0xFFFFFFFF, 0xFF030074 },
 				Sprite.sanCisco_skyscraper, SolidEntity.SEVEN_EIGTHS);
+		
+		this.setBounds(getBounds().x + 4, getBounds().y, getBounds().width - 8, getBounds().height);
 
 		/*
 		level.addEntity(new TransporterGlass(level, x + 44, y + 660,

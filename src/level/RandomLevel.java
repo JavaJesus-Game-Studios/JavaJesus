@@ -3,6 +3,7 @@ package level;
 import java.awt.Point;
 import java.util.Random;
 
+import game.entities.Entity;
 import game.entities.Spawner;
 import game.entities.npcs.NPC;
 import game.entities.structures.Building;
@@ -10,6 +11,8 @@ import game.entities.structures.CaveEntrance;
 import game.entities.structures.Hut;
 import game.entities.structures.NiceHouse;
 import game.entities.structures.PoorHouse;
+import game.entities.structures.furniture.Chest;
+import game.entities.structures.transporters.MapTransporter;
 import level.generation.HeightMap;
 import level.generation.HeightMapTile;
 
@@ -91,30 +94,6 @@ public class RandomLevel extends Level {
 		}
 	}
 
-	@Override
-	protected void initNPCPlacement() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void initSpawnerPlacement() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void initChestPlacement() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void otherEntityPlacement() {
-		// TODO Auto-generated method stub
-
-	}
-
 	private Building getBuilding(int x, int y) {
 		Random random = new Random();
 		switch (random.nextInt(10)) {
@@ -128,8 +107,28 @@ public class RandomLevel extends Level {
 	}
 
 	@Override
-	protected void initMapTransporters() {
-		// TODO Auto-generated method stub
-
+	protected NPC[] getNPCPlacement() {
+		return null;
 	}
+
+	@Override
+	protected Spawner[] getSpawnerPlacement() {
+		return null;
+	}
+
+	@Override
+	protected Chest[] getChestPlacement() {
+		return null;
+	}
+
+	@Override
+	protected MapTransporter[] getMapTransporterPlacement() {
+		return null;
+	}
+
+	@Override
+	protected Entity[] getOtherPlacement() {
+		return null;
+	}
+
 }

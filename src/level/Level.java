@@ -17,6 +17,10 @@ import game.SoundHandler;
 import game.entities.Entity;
 import game.entities.Mob;
 import game.entities.Player;
+import game.entities.Spawner;
+import game.entities.npcs.NPC;
+import game.entities.structures.furniture.Chest;
+import game.entities.structures.transporters.MapTransporter;
 import game.graphics.JJFont;
 import game.graphics.Screen;
 import level.story.BautistasDomain;
@@ -44,14 +48,12 @@ public abstract class Level implements Serializable {
 	private int width, height;
 
 	// list of all entities on the map
-	private final List<Entity> entities = new ArrayList<Entity>(
-			Game.ENTITY_LIMIT);
+	private final List<Entity> entities = new ArrayList<Entity>(Game.ENTITY_LIMIT);
 
 	// list of all mobs on the map
 	private final List<Mob> mobs = new ArrayList<Mob>(Game.ENTITY_LIMIT);
 
-	private final List<Hideable> hideables = new ArrayList<Hideable>(
-			Game.ENTITY_LIMIT);
+	private final List<Hideable> hideables = new ArrayList<Hideable>(Game.ENTITY_LIMIT);
 
 	// image path to load a level
 	private String imagePath;
@@ -68,16 +70,10 @@ public abstract class Level implements Serializable {
 	// the range of how many entities to render/tick on the screen
 	public static final Rectangle renderRange = new Rectangle(500, 500);
 
-	// instance of the player on the level
-	private static Player player;
-
 	// names for each main city
-	public static final String BAUTISTA = "Bautista's Domain",
-			EDGE_MAIN = "Edge of the Woods",
-			EDGE_TOP = "Edge of the Woods Top",
-			HILLSBOROUGH = "Lord Hillsborough's Domain",
-			ORCHARD = "Orchard Valley", CISCO = "San Cisco", JUAN = "San Juan",
-			TECH = "Tech Topia";
+	public static final String BAUTISTA = "Bautista's Domain", EDGE_MAIN = "Edge of the Woods",
+			EDGE_TOP = "Edge of the Woods Top", HILLSBOROUGH = "Lord Hillsborough's Domain", ORCHARD = "Orchard Valley",
+			CISCO = "San Cisco", JUAN = "San Juan", TECH = "Tech Topia";
 
 	// list of all levels the player visited that need to be saved
 	// private static final transient List<Level> visitedLevels = new
@@ -127,15 +123,30 @@ public abstract class Level implements Serializable {
 		}
 	}
 
-	protected abstract void initNPCPlacement();
+	/**
+	 * @return list of all NPCs on the level
+	 */
+	protected abstract NPC[] getNPCPlacement();
 
-	protected abstract void initSpawnerPlacement();
+	/**
+	 * @return list of all mob spawners on the level
+	 */
+	protected abstract Spawner[] getSpawnerPlacement();
 
-	protected abstract void initChestPlacement();
+	/**
+	 * @return list of all chests on the level
+	 */
+	protected abstract Chest[] getChestPlacement();
 
-	protected abstract void otherEntityPlacement();
+	/**
+	 * @return list of all map transporters on the level
+	 */
+	protected abstract MapTransporter[] getMapTransporterPlacement();
 
-	protected abstract void initMapTransporters();
+	/**
+	 * @return list of everything else on the level
+	 */
+	protected abstract Entity[] getOtherPlacement();
 
 	/**
 	 * Loads a level
@@ -168,23 +179,19 @@ public abstract class Level implements Serializable {
 	private void loadLevelFromFile() {
 		try {
 			// load the file
-			BufferedImage image = ImageIO.read(Level.class
-					.getResource(imagePath));
+			BufferedImage image = ImageIO.read(Level.class.getResource(imagePath));
 			width = image.getWidth();
 			height = image.getHeight();
 			tiles = new int[width * height];
 
 			// get the tile colors
-			int[] tileColors = image
-					.getRGB(0, 0, width, height, null, 0, width);
+			int[] tileColors = image.getRGB(0, 0, width, height, null, 0, width);
 
 			// initialize the tiles
 			for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
 					tileCheck: for (Tile t : Tile.tiles) {
-						if (t != null
-								&& t.getLevelColor() == tileColors[x + y
-										* width]) {
+						if (t != null && t.getLevelColor() == tileColors[x + y * width]) {
 							if (t == Tile.GRASS) {
 								t = Tile.GRASS();
 							} else if (t == Tile.WASTELAND_GROUND1) {
@@ -257,8 +264,7 @@ public abstract class Level implements Serializable {
 		for (int i = 0; i < getEntities().size(); i++) {
 			Entity e = getEntities().get(i);
 
-			if (e.getBounds().intersects(renderRange)
-					&& (!(e instanceof Mob) || !((Mob) e).isDead())) {
+			if (e.getBounds().intersects(renderRange) && (!(e instanceof Mob) || !((Mob) e).isDead())) {
 				e.tick();
 			}
 		}
@@ -324,11 +330,9 @@ public abstract class Level implements Serializable {
 		// render everything that is behind a building first
 		for (Hideable entity : hideables) {
 
-			if (entity.getBounds().intersects(renderRange)
-					&& entity.isBehindBuilding()) {
+			if (entity.getBounds().intersects(renderRange) && entity.isBehindBuilding()) {
 				entity.render(screen);
-				if (entity instanceof Mob
-						&& ((Mob) entity).getHealthBar() != null)
+				if (entity instanceof Mob && ((Mob) entity).getHealthBar() != null)
 					((Mob) entity).getHealthBar().render(screen);
 			}
 
@@ -336,8 +340,7 @@ public abstract class Level implements Serializable {
 
 		// render all buildings
 		for (Entity e : this.getEntities()) {
-			if (!(e instanceof Hideable)
-					&& e.getBounds().intersects(renderRange)) {
+			if (!(e instanceof Hideable) && e.getBounds().intersects(renderRange)) {
 				e.render(screen);
 			}
 		}
@@ -369,8 +372,7 @@ public abstract class Level implements Serializable {
 	 * @param scale
 	 *            how big to render it
 	 */
-	public void renderFont(String msg, Screen screen, int x, int y,
-			int[] color, int scale) {
+	public void renderFont(String msg, Screen screen, int x, int y, int[] color, int scale) {
 		JJFont.render(msg, screen, x, y, color, scale);
 	}
 
@@ -467,11 +469,42 @@ public abstract class Level implements Serializable {
 	 * Loads the entites on the level
 	 */
 	private void loadEntities() {
-		initMapTransporters();
-		initNPCPlacement();
-		initSpawnerPlacement();
-		initChestPlacement();
-		otherEntityPlacement();
+
+		// First load map transporters
+		Entity[] entities = (Entity[]) getMapTransporterPlacement();
+		if (entities != null)
+			for (int i = 0; i < entities.length; i++) {
+				add(entities[i]);
+			}
+
+		// load NPCS
+		entities = (Entity[]) getNPCPlacement();
+		if (entities != null)
+			for (int i = 0; i < entities.length; i++) {
+				add(entities[i]);
+			}
+
+		// load spawners
+		entities = (Entity[]) getSpawnerPlacement();
+		if (entities != null)
+			for (int i = 0; i < entities.length; i++) {
+				add(entities[i]);
+			}
+
+		// load chests
+		entities = (Entity[]) getChestPlacement();
+		if (entities != null)
+			for (int i = 0; i < entities.length; i++) {
+				add(entities[i]);
+			}
+
+		// load everything else
+		entities = (Entity[]) getOtherPlacement();
+		if (entities != null)
+			for (int i = 0; i < entities.length; i++) {
+				add(entities[i]);
+			}
+
 	}
 
 	/**
@@ -530,12 +563,12 @@ public abstract class Level implements Serializable {
 	 * @return the specified player from the name
 	 */
 	public final Player getPlayer(final String name) {
-		for (Mob m: mobs) {
+		for (Mob m : mobs) {
 			if (m.getName().equals(name)) {
 				return (Player) m;
 			}
 		}
-		
+
 		return null;
 	}
 

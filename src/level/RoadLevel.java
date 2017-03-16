@@ -1,5 +1,11 @@
 package level;
 
+import game.entities.Entity;
+import game.entities.Spawner;
+import game.entities.npcs.NPC;
+import game.entities.structures.furniture.Chest;
+import game.entities.structures.transporters.MapTransporter;
+
 public class RoadLevel extends Level {
 
 	private static final long serialVersionUID = 4367488134635605719L;
@@ -10,32 +16,28 @@ public class RoadLevel extends Level {
 	}
 
 	@Override
-	protected void initNPCPlacement() {
-		// TODO Auto-generated method stub
-		
+	protected NPC[] getNPCPlacement() {
+		return null;
 	}
 
 	@Override
-	protected void initSpawnerPlacement() {
-		// TODO Auto-generated method stub
-		
+	protected Spawner[] getSpawnerPlacement() {
+		return null;
 	}
 
 	@Override
-	protected void initChestPlacement() {
-		// TODO Auto-generated method stub
-		
+	protected Chest[] getChestPlacement() {
+		return null;
 	}
 
 	@Override
-	protected void otherEntityPlacement() {
-		
+	protected MapTransporter[] getMapTransporterPlacement() {
+		return null;
 	}
 
 	@Override
-	protected void initMapTransporters() {
-		// TODO Auto-generated method stub
-		
+	protected Entity[] getOtherPlacement() {
+		return null;
 	}
 
 }

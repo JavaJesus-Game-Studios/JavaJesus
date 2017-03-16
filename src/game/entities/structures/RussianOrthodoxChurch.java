@@ -17,6 +17,9 @@ public class RussianOrthodoxChurch extends Building {
 	public RussianOrthodoxChurch(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF0069AC, 0xFFFFBC02 }, Sprite.russian_orthodox_church,
 				SolidEntity.TWO_THIRDS);
+		
+		this.setBounds(getBounds().x + 8, getBounds().y, getBounds().width - 16, getBounds().height);
+
 
 		level.add(
 				new Transporter(level, x + 43, y + 64, new RussianChurchInterior(new Point(x + 49, y + 75), level)));

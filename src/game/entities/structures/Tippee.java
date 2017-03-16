@@ -16,6 +16,9 @@ public class Tippee extends Building {
 
 	public Tippee(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF522900, 0xFF977F66, 0xFF335C33 }, Sprite.tippee, SolidEntity.QUARTER);
+		
+		this.setBounds(getBounds().x + 4, getBounds().y, getBounds().width - 8, getBounds().height);
+
 		level.add(new Transporter(level, x + 10, y + 34, new TippeeInterior(new Point(x + 16, y + 45), level)));
 	}
 

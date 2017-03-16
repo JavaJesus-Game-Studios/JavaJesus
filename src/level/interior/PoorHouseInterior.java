@@ -2,14 +2,10 @@ package level.interior;
 
 import java.awt.Point;
 
-import game.entities.structures.furniture.Bed;
-import game.entities.structures.furniture.ChairFront;
-import game.entities.structures.furniture.FilingCabinet;
-import game.entities.structures.furniture.LongTable;
-import game.entities.structures.furniture.Nightstand;
-import game.entities.structures.furniture.Sofa;
-import game.entities.structures.furniture.SquareTable;
-import game.entities.structures.furniture.Television;
+import game.entities.Entity;
+import game.entities.Spawner;
+import game.entities.npcs.NPC;
+import game.entities.structures.furniture.Chest;
 import game.entities.structures.transporters.TransporterInterior;
 import level.Level;
 
@@ -24,20 +20,20 @@ public class PoorHouseInterior extends Interior {
 		this.exitPoint = point;
 	}
 
-	protected void initNPCPlacement() {
-
+	protected NPC[] getNPCPlacement() {
+		return null;
 	}
 
-	protected void initSpawnerPlacement() {
-
+	protected Spawner[] getSpawnerPlacement() {
+		return null;
 	}
 
-	protected void initChestPlacement() {
-
+	protected Chest[] getChestPlacement() {
+		return null;
 	}
 
-	protected void otherEntityPlacement() {
-		add(new TransporterInterior(this, 252, 278, nextLevel, exitPoint));
+	protected Entity[] getOtherPlacement() {
+		return new Entity[] {new TransporterInterior(this, 252, 278, nextLevel, exitPoint)};
 		
 		
 	}
