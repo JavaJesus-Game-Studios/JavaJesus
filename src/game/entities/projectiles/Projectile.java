@@ -211,7 +211,7 @@ public abstract class Projectile extends Entity implements Hideable {
 
 			// damage a mob
 			if (e instanceof Mob) {
-				if (this.getBounds().intersects(e.getBounds()) && e != mob) {
+				if (this.getBounds().intersects(e.getBounds()) && e != mob && !((Mob) e).isDead()) {
 					((Mob) e).damage(damage);
 					onDestroyed();
 					break;

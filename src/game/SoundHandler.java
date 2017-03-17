@@ -14,6 +14,9 @@ public class SoundHandler {
 
 	// determines if sounds will actually play
 	private static boolean muted = false;
+	
+	// background clip that is currently playing
+	private static Clip current;
 
 	// audio clips that can be opened from the sound stream
 	public static Clip sheathe, background1, chest, chimpanzee, click, demon,
@@ -259,6 +262,7 @@ public class SoundHandler {
 	 * @param clip to play
 	 */
 	public static void playLoop(Clip clip) {
+		current = clip;
 		if (!muted) {
 			if (clip.isRunning()) {
 				clip.stop();
@@ -284,6 +288,12 @@ public class SoundHandler {
 	 */
 	public static void toggleMute() {
 		muted = !muted;
+		
+		// toggles background music
+		if (current != null) {
+			current.stop();
+			playLoop(current);
+		}
 	}
 	
 	/**

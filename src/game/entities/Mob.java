@@ -154,7 +154,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 		if (health > maxHealth) {
 			this.health = maxHealth;
 		}
-		if (health < 0) {
+		if (health <= 0) {
 			remove();
 		}
 	}
@@ -620,8 +620,14 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * in Player class
 	 */
 	public void remove() {
-
-		getLevel().remove(bar);
+		
+		// remove the healthbar
+		if (bar != null) {
+			getLevel().remove(bar);
+			bar.setBounds(0, 0, 0, 0);
+			bar = null;
+		}
+		
 		isHit = false;
 		isTalking = false;
 		setTargeted(false);
@@ -657,7 +663,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 		// random offsets for damage indicators
 		isHitX = random.nextInt(10) - 5;
 		isHitY = random.nextInt(6) - 3;
-
+		
 		if (health <= 0) {
 			remove();
 		}

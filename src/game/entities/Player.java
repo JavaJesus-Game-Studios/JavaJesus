@@ -902,5 +902,15 @@ public class Player extends Mob implements Skills {
 	public boolean isMoving() {
 		return isMoving;
 	}
+	
+	/**
+	 * If the player dies, then stop the game
+	 */
+	@Override
+	public void remove() {
+		super.remove();
+		
+		Game.stop();
+	}
 
 }

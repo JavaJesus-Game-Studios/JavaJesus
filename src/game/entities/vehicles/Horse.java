@@ -33,6 +33,9 @@ public class Horse extends NPC implements Ridable {
 
 	// the type/color of horse
 	public static final int BROWN = 0, WHITE = 3, BLACK = 6;
+	
+	// horse speed
+	private static final int HORSE_SPEED = 3;
 
 	/**
 	 * Creates a horse
@@ -53,7 +56,7 @@ public class Horse extends NPC implements Ridable {
 	 *            the color of the horse
 	 */
 	public Horse(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance, int type) {
-		super(level, "Horse", x, y, 3, SHORT_SIDE, LONG_SIDE, defaultHealth, null, NOT_USED_XTILE, type, walkPath,
+		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, null, NOT_USED_XTILE, type, walkPath,
 				walkDistance);
 		setSpriteSheet(SpriteSheet.horses);
 
@@ -74,7 +77,7 @@ public class Horse extends NPC implements Ridable {
 	 *            the color of the horse
 	 */
 	public Horse(Level level, int x, int y, int defaultHealth, int type) {
-		super(level, "Horse", x, y, 3, SHORT_SIDE, LONG_SIDE, defaultHealth, null, NOT_USED_XTILE, type, "stand", 0);
+		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, null, NOT_USED_XTILE, type, "stand", 0);
 		setSpriteSheet(SpriteSheet.horses);
 
 	}
@@ -281,6 +284,7 @@ public class Horse extends NPC implements Ridable {
 		this.player = player;
 		this.setColor(player.getColor());
 		xTile = 0;
+		this.setSpeed(HORSE_SPEED);
 	}
 
 	@Override
@@ -288,6 +292,7 @@ public class Horse extends NPC implements Ridable {
 		player.exitVehicle();
 		player = null;
 		xTile = NOT_USED_XTILE;
+		this.setSpeed(1);
 	}
 
 	@Override

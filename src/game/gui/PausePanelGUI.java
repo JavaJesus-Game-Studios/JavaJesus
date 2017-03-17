@@ -238,11 +238,6 @@ public class PausePanelGUI extends JPanel {
 		}
 		case MUTE: {
 			SoundHandler.toggleMute();
-			if (!SoundHandler.isMuted()) {
-				SoundHandler.background1.stop();
-			} else {
-				SoundHandler.playLoop(SoundHandler.background1);
-			}
 			return;
 		}
 		case BACK: {
