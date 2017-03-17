@@ -4,3 +4,9 @@ Cyclops attacking too low to player
 Exiting Vehicles (implement an algorithm that checks every tile around the car and selects
 the best one)
 Fire animation off horizontally
+Lord Hillsborough death sprite is broken
+
+Mob spawning broken in survival and zombies
+zombies no entity generation
+
+Walking when swinging swords

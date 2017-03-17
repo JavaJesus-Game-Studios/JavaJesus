@@ -1,13 +1,12 @@
 package game;
 
-import game.entities.Player;
-
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import game.entities.Player;
 
 /*
  * Manages the display of the current equipped item status and health bars stats
@@ -18,10 +17,10 @@ public class PlayerHUD {
 	private Player player;
 
 	// the different gun types
-	private BufferedImage assaultRifle, crossbow, laserRevolver, revolver, shotgun, bazooka;
+	private BufferedImage assaultRifle, crossbow, laserRevolver, revolver, shotgun, bazooka, heart_full, heart_half, heart_empty, orb_full, orb_half, orb_empty;
 
 	private final static int XOFFSET = 20, YOFFSET = 650, MODIFIER = 4, AMMO_OFFSET = 724, BAR_OFFSET = 750,
-			BAR_VSPACE = 30, BAR_WIDTH_MODIFIER = 150, BAR_HEIGHT = 20;
+			BAR_VSPACE = 30, NUM_HEARTS = 6;
 
 	/**
 	 * Loads all the images of the weapons
@@ -35,6 +34,12 @@ public class PlayerHUD {
 			revolver = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/Revolver_Icon.png"));
 			shotgun = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/Shotgun_Icon.png"));
 			bazooka = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/Bazooka_Icon.png"));
+			heart_full = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/heart_full.png"));
+			heart_half = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/heart_half.png"));
+			heart_empty = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/heart_empty.png"));
+			orb_full = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/orb_full.png"));
+			orb_half = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/orb_half.png"));
+			orb_empty = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/orb_empty.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -53,22 +58,50 @@ public class PlayerHUD {
 					XOFFSET, AMMO_OFFSET);
 		}
 
-		// draws the health bar
-		g.setColor(Color.red);
-		g.fillRect(BAR_OFFSET, YOFFSET,
-				(int) (BAR_WIDTH_MODIFIER * ((double) player.getCurrentHealth() / player.getMaxHealth())), BAR_HEIGHT);
-		g.setColor(Color.BLACK);
-		g.drawString(player.getCurrentHealth() + " / " + player.getMaxHealth(), BAR_OFFSET, YOFFSET);
+		// used for calculating which heart to draw
+		double health = player.getCurrentHealth();
+		
+		// draw 6 hearts
+		for (int i = 0; i < NUM_HEARTS; i++) {
+			
+			BufferedImage image;
+			
+			if (health - (1 / (double) NUM_HEARTS * player.getMaxHealth()) > 0) {
+				health -= 1 / (double) NUM_HEARTS * player.getMaxHealth();
+				image = heart_full;
+			} else if (health - (1 / (double) (NUM_HEARTS * 2) * player.getMaxHealth()) > 0) {
+				health -= 1 / (double) (NUM_HEARTS * 2) * player.getMaxHealth();
+				image = heart_half;
+			} else {
+				image = heart_empty;
 
-		// draws the shield bar
-		g.setColor(Color.blue);
-		g.fillRect(BAR_OFFSET, YOFFSET + BAR_VSPACE,
-				(int) (BAR_WIDTH_MODIFIER * (player.getCurrentShield() / player.getMaxShield())), BAR_HEIGHT);
+			}
+			
+			g.drawImage(image, BAR_OFFSET + i * image.getWidth(), YOFFSET, image.getWidth(), image.getHeight(), null);
+		}
+		
+		// used for calculating which orb to draw
+		double stamina = player.getCurrentStamina();
+		
+		// draw 6 orbs
+		for (int i = 0; i < NUM_HEARTS; i++) {
+			
+			BufferedImage image;
+			
+			if (stamina - (1 / (double) NUM_HEARTS * player.getMaxStamina()) > 0) {
+				stamina -= 1 / (double) NUM_HEARTS * player.getMaxStamina();
+				image = orb_full;
+			} else if (stamina - (1 / (double) (NUM_HEARTS * 2) * player.getMaxStamina()) > 0) {
+				stamina -= 1 / (double) (NUM_HEARTS * 2) * player.getMaxStamina();
+				image = orb_half;
+			} else {
+				image = orb_empty;
 
-		// draws the stamina bar
-		g.setColor(Color.green);
-		g.fillRect(BAR_OFFSET, YOFFSET + 2 * BAR_VSPACE,
-				(int) (BAR_WIDTH_MODIFIER * (player.getCurrentStamina() / player.getMaxStamina())), BAR_HEIGHT);
+			}
+			
+			g.drawImage(image, BAR_OFFSET + i * image.getWidth(), YOFFSET + BAR_VSPACE, image.getWidth(), image.getHeight(), null);
+		}
+		
 	}
 
 	/**
