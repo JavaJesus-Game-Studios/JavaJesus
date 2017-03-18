@@ -34,7 +34,7 @@ public class InventoryItemPanel extends JPanel implements MouseListener {
 		InventoryItemPanel.player = player;
 		this.addMouseListener(this);
 		this.item = item;
-
+		
 		image = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_RGB);
 		int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		hoverText = item.getName();

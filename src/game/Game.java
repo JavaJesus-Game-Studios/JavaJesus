@@ -34,13 +34,14 @@ public class Game implements Runnable {
 	// True if special developer numbers should be displayed
 	private static boolean displayDevOverlay;
 
-	// the gamescore
+	// the gamescore in survival mode
 	public static int score;
 
 	public static Integer fps;
 	
 	// name of the main player
 	public static String PLAYER_NAME;
+	
 
 	/**
 	 * @author Derek

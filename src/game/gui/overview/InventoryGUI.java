@@ -1,6 +1,7 @@
 package game.gui.overview;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -37,7 +38,7 @@ public class InventoryGUI extends ScreenGUI {
 		InventoryGUI.player = player;
 
 		inventory = player.getInventory();
-
+		
 		int width = Display.FRAME_WIDTH;
 		int height = Display.FRAME_HEIGHT;
 
@@ -63,7 +64,7 @@ public class InventoryGUI extends ScreenGUI {
 
 		update();
 
-		this.add(body, BorderLayout.WEST);
+		this.add(body, BorderLayout.CENTER);
 		
 		this.setPreferredSize(new Dimension(width, height));
 		this.validate();
@@ -99,9 +100,11 @@ public class InventoryGUI extends ScreenGUI {
 					InventoryGUI.this, items, player);
 
 			this.add(p);
+			this.setBackground(Color.white);
 
-			this.setPreferredSize(new Dimension(width, height / NUM_ROWS));
+			this.setMinimumSize(new Dimension(width, height / NUM_ROWS));
 			this.validate();
+			
 		}
 
 		public void update() {

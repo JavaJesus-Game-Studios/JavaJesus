@@ -1,6 +1,7 @@
 package game.gui.overview;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -33,6 +34,7 @@ public class InventorySmallPanel extends JPanel {
 		JLabel label = new JLabel(text, SwingConstants.CENTER);
 		label.setOpaque(false);
 		label.setFont(new Font(Game.FONT_NAME, Font.BOLD, FONT_SIZE));
+		label.setForeground(Color.white);
 		
 		this.setLayout(new BorderLayout());
 		this.add(label, BorderLayout.CENTER);

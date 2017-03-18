@@ -4,11 +4,16 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 import game.ChatHandler;
+import game.Game;
+import game.Game.GameMode;
 import game.entities.LongRange;
 import game.entities.Mob;
 import game.entities.Player;
 import game.entities.Skills;
+import game.entities.Spawner;
 import game.entities.npcs.NPC;
+import game.entities.particles.pickups.QuickHealthPickup;
+import game.entities.particles.pickups.RevolverAmmoPickup;
 import game.graphics.SpriteSheet;
 import level.Level;
 import utility.Direction;
@@ -239,6 +244,35 @@ public class Monster extends Mob implements Skills {
 
 		if (moveTick++ % 2 == 0) {
 			super.move(dx * getSpeed(), dy * getSpeed());
+		}
+	}
+	
+	/**
+	 * Monsters can drop stuff on death
+	 */
+	public void remove() {
+		super.remove();
+		
+		if (Game.mode == GameMode.SURVIVAL) {
+			survivalDrops();
+		}
+		
+	}
+	
+	/**
+	 * Unique drops to survival mode
+	 */
+	private void survivalDrops() {
+		
+		// every kill makes the game harder
+		getLevel().add(new Spawner(getLevel(), getX(), getY(), Spawner.DEMON));
+		Game.score++;
+		
+		int value = (int) (Math.random() * 10);
+		if(value * 10 > 5) {
+			getLevel().add(new RevolverAmmoPickup(getLevel(), getX(), getY(), value));
+		} else if (Math.random() * 10 > 9) {
+			getLevel().add(new QuickHealthPickup(getLevel(), getX(), getY()));
 		}
 	}
 

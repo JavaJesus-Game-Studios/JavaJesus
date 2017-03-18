@@ -95,6 +95,9 @@ public class Display extends Canvas {
 
 	// inGameScreen reveals if the game gui is being displayed
 	public static boolean inGameScreen;
+	
+	// font used
+	private static final Font DISPLAY_FONT = new Font("Verdana", 0, 20);
 
 	// the in game player
 	private Player player;
@@ -334,7 +337,7 @@ public class Display extends Canvas {
 
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		g.setFont(new Font("Verdana", 0, 20));
+		g.setFont(DISPLAY_FONT);
 		g.setColor(Color.YELLOW);
 		if (Game.getDisplayDevScreen()) {
 			g.drawString(player + ": " + player.getX() + ", " + player.getY() + " Time: "
@@ -342,6 +345,7 @@ public class Display extends Canvas {
 		}
 		if (hud != null)
 			hud.draw(g);
+		g.setFont(DISPLAY_FONT);
 		ChatHandler.drawWindow(g);
 		g.dispose();
 		bs.show();

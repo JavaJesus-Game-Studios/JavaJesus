@@ -1,6 +1,7 @@
 package game.gui.overview;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -17,7 +18,7 @@ public class TopPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private BufferedImage image;
-	private String file = "/GUI/GUI_Inventory/GUI_top_panel.png";
+	private String file = "/GUI/GUI_Inventory/inventory_top_panel.png";
 	
 	private final static int FONT_SIZE = 60;
 	
@@ -34,6 +35,7 @@ public class TopPanel extends JPanel {
 		label = new JLabel(text, SwingConstants.CENTER);
 		label.setOpaque(false);
 		label.setFont(new Font(Game.FONT_NAME, Font.BOLD, FONT_SIZE));
+		label.setForeground(Color.white);
 		
 		this.setLayout(new BorderLayout());
 		this.add(label, BorderLayout.CENTER);
@@ -41,7 +43,7 @@ public class TopPanel extends JPanel {
 		this.setPreferredSize(new Dimension(width, height));
 		
 		this.validate();
-
+		
 	}
 	
 	public void updateText(String text) {

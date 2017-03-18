@@ -50,6 +50,8 @@ public class Spawner extends Entity {
 
 		// infinite
 		amount = -1;
+		
+		this.setBounds(x, y, 1, 1);
 	}
 
 	/**
@@ -70,21 +72,28 @@ public class Spawner extends Entity {
 		super(level, x, y);
 		this.type = type;
 		this.amount = amount;
+		
+		this.setBounds(x, y, 1, 1);
 	}
 
 	/**
 	 * Randomly generates entities
 	 */
 	public void tick() {
-
-		// always have at least something spawned
+		
+		// first spawn
 		if (currentEntity == null) {
-			spawnMob();
+			
+			if (random.nextInt(1000) == 0) {
+				spawnMob();
+			} else {
+				return;
+			}
 		}
 
 		// only spawn another mob if the current one is dead
 		if (currentEntity instanceof Mob) {
-			if (((Mob) currentEntity).isDead() && random.nextInt(1000) == 0
+			if (((Mob) currentEntity).isDead() && random.nextInt(1500) == 0
 					&& getLevel().getMobs().size() < Game.ENTITY_LIMIT)
 				spawnMob();
 		} else if (random.nextInt(1000) == 0 && getLevel().getEntities().size() < Game.ENTITY_LIMIT) {

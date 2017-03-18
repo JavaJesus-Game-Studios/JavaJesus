@@ -1,11 +1,12 @@
 package game.gui.overview;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -30,6 +31,10 @@ public class InventoryLongPanel extends JPanel {
 	private static final int MAX_ITEMS = NUM_ROW * NUM_COL;
 	
 	private static Player player;
+	
+	BufferedImage image;
+	
+	private String file = "/GUI/GUI_Inventory/GUI_long_panel.png";
 
 	public InventoryLongPanel(int width, int height, InventoryGUI i, ArrayList<Item> inventory, Player player) {
 
@@ -39,14 +44,13 @@ public class InventoryLongPanel extends JPanel {
 		this.inventory = inventory;
 
 		this.setLayout(new GridLayout(NUM_ROW, NUM_COL));
+		((GridLayout)getLayout()).setVgap(0);
 
-		this.setBackground(Color.BLACK);
-
-		/*try {
+		try {
 			this.image = ImageIO.read(InventoryLongPanel.class.getResource(file));
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 
 		this.setPreferredSize(new Dimension(width, height));
 
@@ -89,7 +93,7 @@ public class InventoryLongPanel extends JPanel {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		// g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this);
+		g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this);
 	}
 
 }

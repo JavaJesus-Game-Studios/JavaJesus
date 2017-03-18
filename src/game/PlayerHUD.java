@@ -1,11 +1,14 @@
 package game;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import game.Game.GameMode;
 import game.entities.Player;
 
 /*
@@ -17,10 +20,11 @@ public class PlayerHUD {
 	private Player player;
 
 	// the different gun types
-	private BufferedImage assaultRifle, crossbow, laserRevolver, revolver, shotgun, bazooka, heart_full, heart_half, heart_empty, orb_full, orb_half, orb_empty;
+	private BufferedImage assaultRifle, crossbow, laserRevolver, revolver, shotgun, bazooka, heart_full, 
+	heart_half, heart_empty, orb_full, orb_half, orb_empty, box;
 
-	private final static int XOFFSET = 20, YOFFSET = 650, MODIFIER = 4, AMMO_OFFSET = 724, BAR_OFFSET = 750,
-			BAR_VSPACE = 30, NUM_HEARTS = 6;
+	private final static int XOFFSET = 20, YOFFSET = 650, MODIFIER = 4, AMMO_OFFSET = 722, BAR_OFFSET = 750,
+			BAR_VSPACE = 30, NUM_HEARTS = 6, BOX_YOFFSET = YOFFSET - 40, STRING_OFFSET = XOFFSET + 30;
 
 	/**
 	 * Loads all the images of the weapons
@@ -40,6 +44,7 @@ public class PlayerHUD {
 			orb_full = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/orb_full.png"));
 			orb_half = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/orb_half.png"));
 			orb_empty = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/orb_empty.png"));
+			box = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/box.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -49,13 +54,16 @@ public class PlayerHUD {
 	 * Draws the sprites and stat bars
 	 */
 	public void draw(Graphics g) {
+		
+		// draws a box to display the gun in
+		g.drawImage(box, 0, BOX_YOFFSET, box.getWidth() * MODIFIER, box.getHeight() * MODIFIER, null);
 
 		// draws the gun and ammo
 		BufferedImage gun = getGunType();
 		if (gun != null) {
 			g.drawImage(gun, XOFFSET, YOFFSET, gun.getWidth() * MODIFIER, gun.getHeight() * MODIFIER, null);
 			g.drawString((int) player.getInventory().getGun().getCurrentAmmo() + " / " + player.getInventory().getGun().getClipSize(),
-					XOFFSET, AMMO_OFFSET);
+					STRING_OFFSET, AMMO_OFFSET);
 		}
 
 		// used for calculating which heart to draw
@@ -100,6 +108,13 @@ public class PlayerHUD {
 			}
 			
 			g.drawImage(image, BAR_OFFSET + i * image.getWidth(), YOFFSET + BAR_VSPACE, image.getWidth(), image.getHeight(), null);
+		}
+		
+		// for survival mode
+		if (Game.mode == GameMode.SURVIVAL) {
+			g.setColor(Color.white);
+			g.setFont(new Font(Game.FONT_NAME, Font.BOLD, 30));
+			g.drawString("Kills: " + Game.score, Display.FRAME_WIDTH / 2 - 10, 30);
 		}
 		
 	}

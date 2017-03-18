@@ -22,9 +22,9 @@ Sandbox Mode:
 
 Survival Mode:
 - Fixed map with monster spawns
-- Companion NPC will help you defend
-- No goals to play (Will be updated sometime)
-- Has not been updated in a while
+- Companion NPC will help you defend (Removed atm)
+- Get as many kills as you can!
+- Every kill makes it harder to stay alive
 
 Basic Controls and How to Play:
 - WASD to move
@@ -39,6 +39,7 @@ Basic Controls and How to Play:
 - Press F3 to enter debug mode
 - Space to swing a sword
 - Shift + Space to do a power swing
+- V to open/close message board
 
 Other Notes:
 - Save files are stored in ~/Documents/My Games/JavaJesus

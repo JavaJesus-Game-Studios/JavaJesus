@@ -430,7 +430,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 		Rectangle range = new Rectangle(getX() + dx, getY() + dy, getBounds().width, getBounds().height);
 
 		for (Mob mob : getLevel().getMobs()) {
-			if (range.intersects(mob.getBounds()) && mob != this)
+			if (range.intersects(mob.getBounds()) && mob != this && !mob.isDead())
 				return true;
 		}
 
@@ -631,6 +631,9 @@ public class Mob extends Entity implements Damageable, Hideable {
 		isHit = false;
 		isTalking = false;
 		setTargeted(false);
+		
+		// renders the mob in the background
+		isBehindBuilding = true;
 	}
 
 	/**
@@ -654,6 +657,11 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 *            the damage inflicted to THIS mob
 	 */
 	public void damage(int damage) {
+		
+		// if the mob is dead, dont do more damage
+		if (isDead()) {
+			return;
+		}
 
 		doDamageToHealth(damage);
 

@@ -97,22 +97,7 @@ public class Inventory implements Serializable {
 	private void giveDefaultItems() {
 
 		add(Item.apple);
-		add(Item.shortSword);
-		add(Item.longSword);
-		add(Item.claymore);
-		add(Item.sabre);
-		add(Item.heavenlySword);
-		add(Item.heavenlyShortSword);
-		add(Item.kingSword);
 
-		add(Item.revolver);
-		add(Item.laserRevolver);
-		add(Item.assaultRifle);
-		add(Item.shotgun);
-		add(Item.crossBow);
-		
-		add(Item.flameThrower);
-		add(Item.blackHoleGun);
 	}
 
 	/**

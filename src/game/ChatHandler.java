@@ -15,10 +15,16 @@ import javax.imageio.ImageIO;
 public class ChatHandler {
 
 	// Max length of text on one line
-	private static final int LENGTH = 90;
+	private static final int LENGTH = 75;
 
 	// Time in seconds that the message appears
 	private static final int TIME_DISPLAYED = 4;
+	
+	// Number of lines that can appear in chat
+	private static final int NUM_LINES = 5;
+	
+	// x offset from the width of the box on the left side
+	private static final int XOFFSET = 160, TEXT_OFFSET = 190;
 
 	// Entire list of text recorded since the start of the game
 	public static ArrayList<String> chatlog = new ArrayList<String>();
@@ -84,24 +90,24 @@ public class ChatHandler {
 	 */
 	public static void drawWindow(Graphics g) {
 		if (isVisible) {
-			g.drawImage(image, 0,
-					Display.FRAME_HEIGHT - image.getHeight() + 22,
-					Display.FRAME_WIDTH + 20, image.getHeight(), null);
+			g.drawImage(image, XOFFSET,
+					Display.FRAME_HEIGHT - image.getHeight() + 10,
+					Display.FRAME_WIDTH - XOFFSET + 10, image.getHeight(), null);
 			FontMetrics font = g.getFontMetrics();
-			int yOffset = 730;
+			int yOffset = Display.FRAME_HEIGHT - 5;
 			for (int i = 0; i < chatwindow.size(); i++) {
 				if (chatwindow.get(i).contains(":")) {
 					int split = chatwindow.get(i).indexOf(":") + 1;
 					String name = chatwindow.get(i).substring(0, split);
 					String message = chatwindow.get(i).substring(split);
 					g.setColor(Color.WHITE);
-					g.drawString(name, 10, yOffset);
+					g.drawString(name, TEXT_OFFSET, yOffset);
 					g.setColor(colors.get(i));
-					g.drawString(message, 10 + font.stringWidth(name), yOffset);
+					g.drawString(message, TEXT_OFFSET + font.stringWidth(name), yOffset);
 					yOffset -= 20;
 				} else if (chatwindow.get(i) != null) {
 					g.setColor(colors.get(i));
-					g.drawString(chatwindow.get(i), 10, yOffset);
+					g.drawString(chatwindow.get(i), TEXT_OFFSET, yOffset);
 					yOffset -= 20;
 				}
 			}
@@ -126,12 +132,12 @@ public class ChatHandler {
 	 *            Color of the text
 	 */
 	private static void updateWindow(String string, Color color) {
-		if (chatwindow.size() < 13) {
+		if (chatwindow.size() < NUM_LINES) {
 			chatwindow.add(0, string);
 			colors.add(0, color);
 		} else {
-			chatwindow.remove(12);
-			colors.remove(12);
+			chatwindow.remove(NUM_LINES - 1);
+			colors.remove(NUM_LINES - 1);
 			chatwindow.add(0, string);
 			colors.add(0, color);
 		}
