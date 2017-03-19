@@ -8,6 +8,7 @@ import game.entities.npcs.NPC;
 import game.entities.structures.furniture.Chest;
 import game.entities.structures.furniture.DiningTable;
 import game.entities.structures.transporters.TransporterInterior;
+import items.Item;
 import level.Level;
 
 public class CastleTowerInterior extends Interior {
@@ -31,7 +32,7 @@ public class CastleTowerInterior extends Interior {
 	}
 
 	protected Chest[] getChestPlacement() {
-		return null;
+		return new Chest[] {new Chest(this, 1924, 2011, Item.longSword, Item.knight)};
 	}
 
 	protected Entity[] getOtherPlacement() {

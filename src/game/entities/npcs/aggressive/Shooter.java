@@ -38,7 +38,7 @@ public class Shooter extends NPC implements LongRange, Skills {
 	private int attackTickCount;
 
 	// the amount of ticks between attacks
-	private static final int attackDelay = 20;
+	private static final int attackDelay = 100;
 
 	// how long the attack position is rendered in ticks
 	private static final int attackAnimationLength = 20;
@@ -95,9 +95,9 @@ public class Shooter extends NPC implements LongRange, Skills {
 				cooldown = false;
 			}
 		}
-
+		
 		// attack the target if given a chance
-		if (!cooldown && target != null && getOuterBounds().intersects(target.getOuterBounds())) {
+		if (!cooldown && target != null && aggroRadius.intersects(target.getOuterBounds())) {
 			cooldown = true;
 			checkDirection();
 			this.attack(getStrength(), getStrength() * 2, target);
@@ -126,7 +126,7 @@ public class Shooter extends NPC implements LongRange, Skills {
 
 		}
 
-		// move the monster towards the target
+		// move the shooter towards the target
 		if ((dx != 0 || dy != 0) && !isMobCollision(dx, dy)) {
 			move(dx, dy);
 		}
@@ -188,20 +188,20 @@ public class Shooter extends NPC implements LongRange, Skills {
 				}
 
 				// Upper body 1
-				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes,
+				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getNumBoxes(),
 						getColor(), flip, getScale(), getSpriteSheet());
 
 				// Upper body 2
 				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-						(xTile + 1) + yTile * getSpriteSheet().boxes, getColor(), flip, getScale(), getSpriteSheet());
+						(xTile + 1) + yTile * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
 
 				// Lower Body 1
 				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-						xTile + (yTile + 1) * getSpriteSheet().boxes, getColor(), flip, getScale(), getSpriteSheet());
+						xTile + (yTile + 1) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
 
 				// Lower Body 2
 				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-						(xTile + 1) + (yTile + 1) * getSpriteSheet().boxes, getColor(), flip, getScale(),
+						(xTile + 1) + (yTile + 1) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(),
 						getSpriteSheet());
 			}
 		}
@@ -230,9 +230,26 @@ public class Shooter extends NPC implements LongRange, Skills {
 	 */
 	@Override
 	public void attack(int fake, int fake2, Mob other) {
+		
+		// bullet offset
+		int xOffset = 0, yOffset = 0;
+		
+		// offset is dependent on the direction of the shooter
+		if (getDirection() == Direction.NORTH) {
+			xOffset = 7;
+		} else if (getDirection() == Direction.SOUTH) {
+			xOffset = 7;
+			yOffset = 8;
+		} else if (getDirection() == Direction.WEST) {
+			yOffset = 6;
+		} else {
+			xOffset = 8;
+			yOffset = 6;
+		}
 
-		getLevel().add(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength(),
-				SoundHandler.revolver));
+		getLevel().add(new Bullet(getLevel(), getX() + xOffset, getY() + yOffset, 
+				target.getX() + (int)target.getBounds().getWidth() / 2, target.getY() + (int) target.getBounds().getHeight() / 2, 
+				this, getStrength(), SoundHandler.revolver));
 	}
 
 	@Override

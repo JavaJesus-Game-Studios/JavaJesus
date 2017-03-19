@@ -1,5 +1,8 @@
 package game.entities;
 
+/*
+ * Anything that can be destroyed via a health system
+ */
 public interface Damageable {
 	
 	public int getCurrentHealth();

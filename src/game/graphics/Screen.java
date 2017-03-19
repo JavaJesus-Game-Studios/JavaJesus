@@ -100,9 +100,9 @@ public class Screen {
 		yOffset -= this.yOffset;
 
 		int scaleMap = scale - 1;
-		int xTile = tile % sheet.boxes;
-		int yTile = tile / sheet.boxes;
-		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.width;
+		int xTile = tile % sheet.getNumBoxes();
+		int yTile = tile / sheet.getNumBoxes();
+		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.getWidth();
 		for (int y = 0; y < 8; y++) {
 			int ySheet = y;
 			
@@ -120,8 +120,8 @@ public class Screen {
 				if (mirror)
 					xSheet = 7 - x;
 				
-				int col = sheet.pixels[tileOffset + xSheet + ySheet
-						* sheet.width];
+				int col = sheet.getPixels()[tileOffset + xSheet + ySheet
+						* sheet.getWidth()];
 				if (color != null)
 					switch (col) {
 					case 0xFF555555: {
@@ -227,9 +227,9 @@ public class Screen {
 		yOffset -= this.yOffset;
 
 		int scaleMap = scale - 1;
-		int xTile = tile % sheet.boxes;
-		int yTile = tile / sheet.boxes;
-		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.width;
+		int xTile = tile % sheet.getNumBoxes();
+		int yTile = tile / sheet.getNumBoxes();
+		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.getWidth();
 		for (int y = 0; y < 8; y++) {
 			int ySheet = y;
 			/*
@@ -242,8 +242,8 @@ public class Screen {
 				int xSheet = x;
 				if (mirror)
 					xSheet = 7 - x;
-				int col = sheet.pixels[tileOffset + xSheet + ySheet
-						* sheet.width];
+				int col = sheet.getPixels()[tileOffset + xSheet + ySheet
+						* sheet.getWidth()];
 				if (color != null)
 					switch (col) {
 					case 0xFF555555: {

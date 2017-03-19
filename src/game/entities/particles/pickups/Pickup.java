@@ -50,7 +50,7 @@ public class Pickup extends Particle {
 		this.item = item;
 		setBounds(getX(), getY(), 8, 8);
 		setSpriteSheet(SpriteSheet.items);
-		setTileNumber(xTile + yTile * getSpriteSheet().boxes);
+		setTileNumber(xTile + yTile * getSpriteSheet().getNumBoxes());
 		this.quantity = amount;
 	}
 

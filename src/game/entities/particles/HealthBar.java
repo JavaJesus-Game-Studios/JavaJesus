@@ -34,7 +34,7 @@ public class HealthBar extends Particle {
 	 *            the entity it tracks
 	 */
 	public HealthBar(Level level, int x, int y, Damageable entity) {
-		super(level, x, y, 2 * SpriteSheet.particles.boxes, new int[] { 0xFF111111, 0xFF000000, 0xFFDD0000 });
+		super(level, x, y, 2 * SpriteSheet.particles.getNumBoxes(), new int[] { 0xFF111111, 0xFF000000, 0xFFDD0000 });
 		this.entity = entity;
 	}
 
@@ -43,9 +43,9 @@ public class HealthBar extends Particle {
 	 */
 	public void render(Screen screen) {
 		
-		screen.render(getX(), getY(), getTileNumber() + yChange * getSpriteSheet().boxes, getColor(), false,
+		screen.render(getX(), getY(), getTileNumber() + yChange * getSpriteSheet().getNumBoxes(), getColor(), false,
 				getSpriteSheet());
-		screen.render(getX() + 8, getY(), getTileNumber() + 1 + yChange * getSpriteSheet().boxes, getColor(), false,
+		screen.render(getX() + 8, getY(), getTileNumber() + 1 + yChange * getSpriteSheet().getNumBoxes(), getColor(), false,
 				getSpriteSheet());
 	}
 

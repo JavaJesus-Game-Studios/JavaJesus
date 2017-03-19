@@ -554,24 +554,24 @@ public class Player extends Mob implements Skills {
 
 			// Upper body 1
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset
-					+ swimOffset, xTile + yTile * getSpriteSheet().boxes,
+					+ swimOffset, xTile + yTile * getSpriteSheet().getNumBoxes(),
 					color, flip, getScale(), getSpriteSheet());
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)),
 					yOffset + swimOffset, (xTile + 1) + yTile
-							* getSpriteSheet().boxes, color, flip, getScale(),
+							* getSpriteSheet().getNumBoxes(), color, flip, getScale(),
 					getSpriteSheet());
 
 			if (!isSwimming) {
 				// Lower Body 1
 				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset
 						+ modifier, xTile + (yTile + 1)
-						* getSpriteSheet().boxes, color, flip, getScale(),
+						* getSpriteSheet().getNumBoxes(), color, flip, getScale(),
 						getSpriteSheet());
 				// Lower Body 2
 				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)),
 						yOffset + modifier, (xTile + 1) + (yTile + 1)
-								* getSpriteSheet().boxes, color, flip,
+								* getSpriteSheet().getNumBoxes(), color, flip,
 						getScale(), getSpriteSheet());
 
 			}
@@ -627,21 +627,21 @@ public class Player extends Mob implements Skills {
 
 			// Upper Body 1
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile
-					+ yTile * sheet.boxes, color, flip, getScale(), sheet);
+					+ yTile * sheet.getNumBoxes(), color, flip, getScale(), sheet);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)),
-					yOffset, (xTile + 1) + yTile * sheet.boxes, color, flip,
+					yOffset, (xTile + 1) + yTile * sheet.getNumBoxes(), color, flip,
 					getScale(), sheet);
 
 			// Lower Body 1
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset
-					+ modifier, xTile + (yTile + 1) * sheet.boxes, color, flip,
+					+ modifier, xTile + (yTile + 1) * sheet.getNumBoxes(), color, flip,
 					getScale(), sheet);
 
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)),
 					yOffset + modifier,
-					(xTile + 1) + (yTile + 1) * sheet.boxes, color, flip,
+					(xTile + 1) + (yTile + 1) * sheet.getNumBoxes(), color, flip,
 					getScale(), sheet);
 
 		}

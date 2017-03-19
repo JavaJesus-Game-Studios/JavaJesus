@@ -167,6 +167,7 @@ public class Display extends Canvas {
 
 		setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 
+		// Basic Jframe stuff to set up the window
 		frame = new JFrame(NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);

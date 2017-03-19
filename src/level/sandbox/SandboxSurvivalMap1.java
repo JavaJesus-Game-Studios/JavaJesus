@@ -2,22 +2,27 @@ package level.sandbox;
 
 import game.entities.Entity;
 import game.entities.Spawner;
+import game.entities.npcs.Knight;
 import game.entities.npcs.NPC;
+import game.entities.npcs.Peasant;
+import game.entities.npcs.aggressive.Companion;
 import game.entities.structures.CastleTower;
 import game.entities.structures.CatholicChurch;
-import game.entities.structures.CaveEntrance;
+import game.entities.structures.GunStore;
 import game.entities.structures.Hut;
 import game.entities.structures.furniture.Chest;
 import game.entities.structures.transporters.MapTransporter;
 import game.entities.vehicles.Boat;
 import game.entities.vehicles.CenturyLeSabre;
+import game.entities.vehicles.SportsCar;
+import game.entities.vehicles.Truck;
 import items.Item;
 import level.Level;
 
 public class SandboxSurvivalMap1 extends Level {
 
 	private static final long serialVersionUID = 259027073546330929L;
-
+	
 	public SandboxSurvivalMap1() {
 		super("/Levels/Test_Levels/zombies_test_map.png", true, "Zombie Map");
 		setSpawnPoint(1360, 70);
@@ -37,17 +42,55 @@ public class SandboxSurvivalMap1 extends Level {
 
 	protected Entity[] getOtherPlacement() {
 		
-		return new Entity[] { new CenturyLeSabre(this, 1400, 70), new Boat(this, null, 270, 858, 2, 100),
+		return new Entity[] {  new Boat(this, null, 270, 858, 2, 100),
 				new CastleTower(this, 175, 1180), new CatholicChurch(this, 1330, 1480),
-				new CaveEntrance(this, 700, 810), new Spawner(this, 1360, 300, Spawner.DEMON),
-				new Spawner(this, 1180, 160, Spawner.DEMON), new Spawner(this, 130, 34, Spawner.DEMON),
-				new Spawner(this, 88, 644, Spawner.DEMON), new Spawner(this, 96, 1477, Spawner.DEMON),
-				new Spawner(this, 840, 1155, Spawner.DEMON), new Spawner(this, 1475, 1433, Spawner.DEMON),
-				new Spawner(this, 1097, 890, Spawner.DEMON), new Spawner(this, 1350, 100, Spawner.DEMON),
-				new Spawner(this, 638, 110, Spawner.DEMON), new Spawner(this, 253, 496, Spawner.DEMON),
-				new Spawner(this, 806, 666, Spawner.DEMON),new Spawner(this, 861, 1491, Spawner.DEMON),
-				new Spawner(this, 223, 1041, Spawner.DEMON), new Spawner(this, 1205, 1197, Spawner.DEMON),
-				new Spawner(this, 1508, 968, Spawner.DEMON),new Spawner(this, 1435, 653, Spawner.DEMON),
+				new GunStore(this, 700, 810), 
+				
+				// cars
+				new CenturyLeSabre(this, 1400, 70),
+				new CenturyLeSabre(this, 1567, 455), new CenturyLeSabre(this, 1567, 411),
+				new Truck(this, 0, 455), new Truck(this, 0, 411), new SportsCar(this, 565, 518),
+				
+				//companion
+				new Companion(this, 1274, 76, 500, new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0, 4),
+				
+				// Upper right of map
+				new Spawner(this, 1369, 202, Spawner.DEMON), new Peasant(this, 1379, 264, Peasant.FEMALE),
+				new Knight(this, 1470, 230, 50, "Linear", 50), new Spawner(this, 1076, 86, Spawner.DEMON),
+				new Spawner(this, 1090, 248, Spawner.DEMON), new Spawner(this, 1316, 379, Spawner.DEMON),
+				new Spawner(this, 1089, 571, Spawner.DEMON),new Spawner(this, 921, 395, Spawner.DEMON),
+				
+				// farmlands
+				new Peasant(this, 703, 427, Peasant.MALE),new Peasant(this, 627, 363, Peasant.FEMALE),
+				new Spawner(this, 900, 105, Spawner.MONKEY),new Spawner(this, 800, 105, Spawner.MONKEY),
+				new Spawner(this, 700, 105, Spawner.MONKEY),new Spawner(this, 600, 105, Spawner.MONKEY),
+				new Spawner(this, 500, 105, Spawner.MONKEY),new Spawner(this, 400, 105, Spawner.MONKEY),
+				new Spawner(this, 300, 105, Spawner.MONKEY),new Spawner(this, 200, 105, Spawner.MONKEY),
+				new Spawner(this, 150, 300, Spawner.MONKEY),new Knight(this, 614, 384, 50, "Circle", 50),
+				
+				// above river
+				new Spawner(this, 1428, 723, Spawner.GANG_MEMBER),new Spawner(this, 200, 750, Spawner.GANG_MEMBER),
+				new Spawner(this, 540, 680, Spawner.GANG_MEMBER),new Spawner(this, 1000, 575, Spawner.GANG_MEMBER),
+				
+				// below river
+				new Spawner(this, 1440, 1060, Spawner.GANG_MEMBER),new Spawner(this, 1375, 1330, Spawner.GANG_MEMBER),
+				
+				// bottom of map
+				new Spawner(this, 1040, 1410, Spawner.GANG_MEMBER),
+				
+				// near castle
+				new Spawner(this, 646, 1416, Spawner.CENTAUR),new Spawner(this, 483, 1515, Spawner.CENTAUR),
+				new Spawner(this, 314, 1044, Spawner.CENTAUR),new Spawner(this, 103, 1112, Spawner.CENTAUR),
+				new Knight(this, 328, 1393, 50, "", 50), new Knight(this, 278, 1393, 50, "", 50),
+				new Knight(this, 228, 1393, 50, "", 50),new Knight(this, 178, 1393, 50, "", 50),
+				
+				// near church
+				new Peasant(this, 1365, 1570, Peasant.GIRL),
+				
+				//cyclops spawner
+				new Spawner(this, 1092, 888, Spawner.CYCLOPS), new Spawner(this, 1088, 1271, Spawner.CYCLOPS),
+				new Spawner(this, 745, 1115, Spawner.CYCLOPS),
+				
 				new Hut(this, 687, 300), new Chest(this, 1460, 70, Item.revolver, Item.shortSword)
 
 		};

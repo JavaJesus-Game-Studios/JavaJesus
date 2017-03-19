@@ -127,7 +127,7 @@ public class BlackHole extends Particle {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				screen.render(getX() + (j * 24) - 24, getY() + (i * 24) - 48,
-						posNumber + j + (i * getSpriteSheet().boxes), getColor(), false, 3, getSpriteSheet());
+						posNumber + j + (i * getSpriteSheet().getNumBoxes()), getColor(), false, 3, getSpriteSheet());
 			}
 		}
 

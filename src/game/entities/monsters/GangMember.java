@@ -2,12 +2,15 @@ package game.entities.monsters;
 
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
+import java.util.Random;
 
 import game.ChatHandler;
+import game.Game;
 import game.SoundHandler;
 import game.entities.LongRange;
 import game.entities.Mob;
 import game.entities.Player;
+import game.entities.particles.pickups.VestPickup;
 import game.entities.projectiles.Bullet;
 import game.graphics.Screen;
 import level.Level;
@@ -137,20 +140,20 @@ public class GangMember extends Monster implements LongRange {
 		}
 
 		// Upper body 1
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes, color,
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getNumBoxes(), color,
 				flip, getScale(), getSpriteSheet());
 
 		// Upper body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-				(xTile + 1) + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+				(xTile + 1) + yTile * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				xTile + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+				xTile + (yTile + 1) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				(xTile + 1) + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+				(xTile + 1) + (yTile + 1) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 	}
 
@@ -187,6 +190,23 @@ public class GangMember extends Monster implements LongRange {
 	@Override
 	public Ellipse2D.Double getRange() {
 		return standRange;
+	}
+	
+	/**
+	 * Gang member specific loot
+	 */
+	protected void dropLoot() {
+		
+		// drop basic loot first
+		super.dropLoot();
+		
+		// random value for % chance
+		int value = (new Random()).nextInt(10);
+		
+		// 10% chance of vest, 10% health
+		if (value < 1) {
+			getLevel().add(new VestPickup(getLevel(), getX() + Game.getRandomOffset(8), getY() + Game.getRandomOffset(8)));
+		} 
 	}
 
 }

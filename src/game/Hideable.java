@@ -3,7 +3,11 @@ package game;
 import java.awt.Rectangle;
 
 import game.graphics.Screen;
-
+/*
+ * Something where order of rendering matters
+ * Background = Render First
+ * Foreground = Render Last
+ */
 public interface Hideable {
 
 	/**

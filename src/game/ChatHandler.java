@@ -89,12 +89,18 @@ public class ChatHandler {
 	 *            The Graphics class that draws it on the screen
 	 */
 	public static void drawWindow(Graphics g) {
+		
+		// draw only when a new message appears or player opens it
 		if (isVisible) {
 			g.drawImage(image, XOFFSET,
 					Display.FRAME_HEIGHT - image.getHeight() + 10,
 					Display.FRAME_WIDTH - XOFFSET + 10, image.getHeight(), null);
+			
+			// get font data
 			FontMetrics font = g.getFontMetrics();
 			int yOffset = Display.FRAME_HEIGHT - 5;
+			
+			// process each message to ensure it fits in the window
 			for (int i = 0; i < chatwindow.size(); i++) {
 				if (chatwindow.get(i).contains(":")) {
 					int split = chatwindow.get(i).indexOf(":") + 1;

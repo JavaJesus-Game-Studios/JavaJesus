@@ -2,6 +2,7 @@ package game.entities.monsters;
 
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
+import java.util.Random;
 
 import game.ChatHandler;
 import game.Game;
@@ -12,8 +13,12 @@ import game.entities.Player;
 import game.entities.Skills;
 import game.entities.Spawner;
 import game.entities.npcs.NPC;
+import game.entities.particles.pickups.ArrowPickup;
+import game.entities.particles.pickups.AssaultRifleAmmo;
+import game.entities.particles.pickups.LaserAmmoPickup;
 import game.entities.particles.pickups.QuickHealthPickup;
 import game.entities.particles.pickups.RevolverAmmoPickup;
+import game.entities.particles.pickups.ShotgunAmmoPickup;
 import game.graphics.SpriteSheet;
 import level.Level;
 import utility.Direction;
@@ -85,6 +90,7 @@ public class Monster extends Mob implements Skills {
 
 		createHealthBar();
 
+		// find a target to attack
 		checkRadius();
 	}
 
@@ -265,14 +271,43 @@ public class Monster extends Mob implements Skills {
 	private void survivalDrops() {
 		
 		// every kill makes the game harder
-		getLevel().add(new Spawner(getLevel(), getX(), getY(), Spawner.DEMON));
+		getLevel().add(new Spawner(getLevel(), getX(), getY(), this.getName()));
 		Game.score++;
 		
-		int value = (int) (Math.random() * 10);
-		if(value * 10 > 5) {
-			getLevel().add(new RevolverAmmoPickup(getLevel(), getX(), getY(), value));
-		} else if (Math.random() * 10 > 9) {
-			getLevel().add(new QuickHealthPickup(getLevel(), getX(), getY()));
+		// drop monster specific loot
+		dropLoot();
+	}
+	
+	/**
+	 * Adds specific items to loot on death
+	 */
+	protected void dropLoot() {
+		
+		// randomly drop an item of any time
+		int value = (new Random()).nextInt(10);
+		switch (value) {
+		case 0:
+			getLevel().add(new ArrowPickup(getLevel(), getX() + Game.getRandomOffset(8), getY() + Game.getRandomOffset(8)));
+			break;
+		case 1:
+			getLevel().add(new AssaultRifleAmmo(getLevel(), getX() + Game.getRandomOffset(8), getY() + Game.getRandomOffset(8)));
+			break;
+		case 2:
+			getLevel().add(new LaserAmmoPickup(getLevel(), getX() + Game.getRandomOffset(8), getY() + Game.getRandomOffset(8)));
+			break;
+		case 3:
+			getLevel().add(new RevolverAmmoPickup(getLevel(), getX() + Game.getRandomOffset(8), getY() + Game.getRandomOffset(8), 6));
+			break;
+		case 4:
+			getLevel().add(new ShotgunAmmoPickup(getLevel(), getX() + Game.getRandomOffset(8), getY() + Game.getRandomOffset(8)));
+			break;
+		case 5:
+			getLevel().add(new QuickHealthPickup(getLevel(), getX() + Game.getRandomOffset(8), getY() + Game.getRandomOffset(8)));
+			break;
+
+		// drop nothing
+		default:
+			break;
 		}
 	}
 

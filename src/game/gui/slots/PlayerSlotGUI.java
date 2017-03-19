@@ -134,17 +134,17 @@ public class PlayerSlotGUI extends Slot {
 
 		// Upper body 1
 		screen.render(xOffset, yOffset, xTile + yTile
-				* sheet.boxes, color, false, scale, sheet);
+				* sheet.getNumBoxes(), color, false, scale, sheet);
 		// Upper Body 2
 		screen.render(xOffset + modifier, yOffset,
-				(xTile + 1) + yTile * sheet.boxes, color, false, scale, sheet);
+				(xTile + 1) + yTile * sheet.getNumBoxes(), color, false, scale, sheet);
 
 		// Lower Body 1
 		screen.render(xOffset, yOffset + modifier, xTile
-				+ (yTile + 1) * sheet.boxes, color, false, scale, sheet);
+				+ (yTile + 1) * sheet.getNumBoxes(), color, false, scale, sheet);
 		// Lower Body 2
 		screen.render(xOffset + modifier, yOffset
-				+ modifier, (xTile + 1) + (yTile + 1) * sheet.boxes, color,
+				+ modifier, (xTile + 1) + (yTile + 1) * sheet.getNumBoxes(), color,
 				false, scale, sheet);
 
 	}

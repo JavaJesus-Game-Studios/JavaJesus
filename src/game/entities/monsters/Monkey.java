@@ -1,9 +1,10 @@
 package game.entities.monsters;
 
+import java.awt.Color;
+
 import game.ChatHandler;
 import game.entities.Player;
 import game.graphics.Screen;
-import java.awt.Color;
 import level.Level;
 import utility.Direction;
 
@@ -39,6 +40,10 @@ public class Monkey extends Monster {
 	 */
 	public Monkey(Level level, int x, int y, int speed, int health) {
 		super(level, "Monkey", x, y, speed, WIDTH, HEIGHT, 8, health, 40);
+	}
+	
+	public Monkey(Level level, int x, int y, int health) {
+		super(level, "Monkey", x, y, 1, WIDTH, HEIGHT, 8, health, 40);
 	}
 
 	/**
@@ -85,20 +90,20 @@ public class Monkey extends Monster {
 			xTile = 12;
 
 		// Upper body
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes, color,
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getNumBoxes(), color,
 				flip, getScale(), getSpriteSheet());
 
 		// Upper body
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-				(xTile + 1) + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+				(xTile + 1) + yTile * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				xTile + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+				xTile + (yTile + 1) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				(xTile + 1) + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+				(xTile + 1) + (yTile + 1) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 	}
 
 	/**
@@ -108,6 +113,17 @@ public class Monkey extends Monster {
 		isTalking = true;
 		ChatHandler.displayText("Chimp no speak with human.", Color.white);
 		return;
+	}
+	
+	/**
+	 * Gang member specific loot
+	 */
+	protected void dropLoot() {
+		
+		// drop 2x basic loot first
+		super.dropLoot();
+		super.dropLoot();
+		
 	}
 
 	/**

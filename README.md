@@ -16,9 +16,9 @@ Adventure Mode:
 
 Sandbox Mode:
 - Randomly generated map
+- Companion helps you fight
 - Can explore caves and find chests
 - No incentive to play (Will be updated sometime)
-- Has not been updated in a while
 
 Survival Mode:
 - Fixed map with monster spawns

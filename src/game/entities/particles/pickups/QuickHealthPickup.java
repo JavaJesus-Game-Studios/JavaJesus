@@ -7,6 +7,9 @@ import level.Level;
  * Creates a pickup that heals the player
  */
 public class QuickHealthPickup extends Pickup {
+	
+	// amount to heal the player
+	private static final int HEALTH = 20;
 
 	private static final long serialVersionUID = -5640816578680329613L;
 
@@ -30,7 +33,7 @@ public class QuickHealthPickup extends Pickup {
 	 */
 	public void tick() {
 		if (getBounds().intersects(getLevel().getPlayer(Game.PLAYER_NAME).getBounds())) {
-			getLevel().getPlayer(Game.PLAYER_NAME).changeHealth(20);
+			getLevel().getPlayer(Game.PLAYER_NAME).changeHealth(HEALTH);
 			getLevel().remove(this);
 		}
 	}

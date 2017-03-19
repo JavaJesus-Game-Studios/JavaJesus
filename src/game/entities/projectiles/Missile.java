@@ -70,16 +70,16 @@ public class Missile extends Projectile {
 	private void adjustOffset(Direction direction) {
 		switch (direction) {
 		case NORTH:
-			this.tileNumber = 3 + 3 * getSpriteSheet().boxes;
+			this.tileNumber = 3 + 3 * getSpriteSheet().getNumBoxes();
 			return;
 		case SOUTH:
-			this.tileNumber = 3 + 2 * getSpriteSheet().boxes;
+			this.tileNumber = 3 + 2 * getSpriteSheet().getNumBoxes();
 			return;
 		case EAST:
-			this.tileNumber = 3 + 1 * getSpriteSheet().boxes;
+			this.tileNumber = 3 + 1 * getSpriteSheet().getNumBoxes();
 			return;
 		default:
-			this.tileNumber = 4 + 1 * getSpriteSheet().boxes;
+			this.tileNumber = 4 + 1 * getSpriteSheet().getNumBoxes();
 			return;
 		}
 	}

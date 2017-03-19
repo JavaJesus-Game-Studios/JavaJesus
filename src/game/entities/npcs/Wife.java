@@ -97,7 +97,7 @@ public class Wife extends NPC {
 			return;
 		}
 		case 12: {
-			ChatHandler.displayText(getName() + ": Can you pick up some food on you're way home?", Color.white);
+			ChatHandler.displayText(getName() + ": Can you pick up some food on your way home?", Color.white);
 			return;
 		}
 		default: {

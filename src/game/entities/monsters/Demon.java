@@ -2,9 +2,14 @@ package game.entities.monsters;
 
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Ellipse2D.Double;
+import java.util.Random;
 
+import game.Game;
 import game.entities.LongRange;
 import game.entities.Mob;
+import game.entities.particles.pickups.HornedPickup;
+import game.entities.particles.pickups.QuickHealthPickup;
+import game.entities.particles.pickups.RevolverAmmoPickup;
 import game.entities.projectiles.FireBall;
 import game.graphics.Screen;
 import level.Level;
@@ -94,29 +99,29 @@ public class Demon extends Monster implements LongRange {
 		if (!isDead()) {
 
 			// Upper body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes, color,
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getNumBoxes(), color,
 					flip, getScale(), getSpriteSheet());
 
 			// Upper body 2
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-					(xTile + 1) + yTile * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+					(xTile + 1) + yTile * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 		}
 
 		// Middle Body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				xTile + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+				xTile + (yTile + 1) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 		// Middle Body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				(xTile + 1) + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+				(xTile + 1) + (yTile + 1) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-				xTile + (yTile + 2) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+				xTile + (yTile + 2) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-				(xTile + 1) + (yTile + 2) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+				(xTile + 1) + (yTile + 2) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 		// dead bodies have an extended segment
 		if (isDead()) {
@@ -125,16 +130,34 @@ public class Demon extends Monster implements LongRange {
 
 			// Middle Body 3
 			screen.render(xOffset + offset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					(xTile + 2) + (yTile + 1) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+					(xTile + 2) + (yTile + 1) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 			// Lower Body 3
 			screen.render(xOffset + offset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-					(xTile + 2) + (yTile + 2) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+					(xTile + 2) + (yTile + 2) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 		}
 
 	}
 
+	/**
+	 * Demon specific loot
+	 */
+	protected void dropLoot() {
+		
+		// random value for % chance
+		int value = (new Random()).nextInt(100);
+		
+		// 40% chance of revolver, 15% health, 3% horned armor
+		if (value < 40) {
+			getLevel().add(new RevolverAmmoPickup(getLevel(), getX() + Game.getRandomOffset(8), getY() + Game.getRandomOffset(16), 6));
+		} else if (value < 65) {
+			getLevel().add(new QuickHealthPickup(getLevel(), getX() + Game.getRandomOffset(8), getY() + Game.getRandomOffset(16)));
+		} else if (value < 68) {
+			getLevel().add(new HornedPickup(getLevel(), getX() + Game.getRandomOffset(8), getY() + Game.getRandomOffset(16)));
+		}
+	}
+	
 	/**
 	 * Throws a fireball at a target Uses dummy parameters to conform to Mob
 	 * class
@@ -167,7 +190,7 @@ public class Demon extends Monster implements LongRange {
 	 */
 	@Override
 	public int getStrength() {
-		return 3;
+		return 4;
 	}
 
 	@Override

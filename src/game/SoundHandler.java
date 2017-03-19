@@ -35,6 +35,7 @@ public class SoundHandler {
 	 */
 	public static void initialize() {
 
+		// all the different audio streams that will be played at some point in the game
 		AudioInputStream sheathe, background1, chest, chimpanzee, click, demon, 
 		fireball, footsteps1, footstepsDirt, footstepsFarmland, footstepsGrass, 
 		footstepsRoad, footstepsWaterSand, footstepsWood, assaultRifle, revolver, shotgun,
@@ -43,6 +44,7 @@ public class SoundHandler {
 
 		try {
 
+			// initialize all the audio streams
 			sheathe = AudioSystem
 					.getAudioInputStream(SoundHandler.class
 							.getResource("/Sound/Sword_Sounds/Short_Sword_Sound_v2.wav"));
@@ -297,7 +299,7 @@ public class SoundHandler {
 	}
 	
 	/**
-	 * Closes all audio clips
+	 * Closes all audio clips to free memory
 	 */
 	public void closeAll() {
 		SoundHandler.chimpanzee.close();

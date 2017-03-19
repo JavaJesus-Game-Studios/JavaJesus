@@ -1,8 +1,13 @@
 package game.entities.monsters;
 
+import java.util.Random;
+
+import game.Game;
+import game.entities.particles.pickups.IstrahiimPickup;
+import game.entities.particles.pickups.StrongHealthPack;
+import game.graphics.Screen;
 import level.Level;
 import utility.Direction;
-import game.graphics.Screen;
 
 /*
  * A Cyclops is a powerful monster that strikes fear into any foe
@@ -36,6 +41,23 @@ public class Cyclops extends Monster {
 	 */
 	public Cyclops(Level level, int x, int y, int speed, int health) {
 		super(level, "Cyclops", x, y, speed, WIDTH, HEIGHT, 14, health, 40);
+
+	}
+	
+	/**
+	 * Creates a cyclops
+	 * 
+	 * @param level
+	 *            the level it is on
+	 * @param x
+	 *            the x coord
+	 * @param y
+	 *            the y coord
+	 * @param health
+	 *            the base health
+	 */
+	public Cyclops(Level level, int x, int y, int health) {
+		super(level, "Cyclops", x, y, 1, WIDTH, HEIGHT, 14, health, 40);
 
 	}
 
@@ -101,30 +123,51 @@ public class Cyclops extends Monster {
 
 			// left
 			screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + i * modifier,
-					xTile + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+					xTile + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 			// left center
 			screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + i * modifier,
-					(xTile + 1) + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+					(xTile + 1) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 			// right center
 			screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier,
-					(xTile + 2) + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+					(xTile + 2) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 			// right
 			screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier,
-					(xTile + 3) + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+					(xTile + 3) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 			if (isDead()) {
 				screen.render(xOffset + 4 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier,
-						(xTile + 4) + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+						(xTile + 4) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 				screen.render(xOffset + 5 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier,
-						(xTile + 5) + (yTile + i) * getSpriteSheet().boxes, color, flip, getScale(), getSpriteSheet());
+						(xTile + 5) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
 
 			}
 		}
 
+	}
+	
+	/**
+	 * Cyclops specific loot
+	 */
+	protected void dropLoot() {
+		
+		// drop 4x basic loot first
+		for (int i = 0; i < 4; i++) {
+			super.dropLoot();
+		}
+		
+		// random value for % chance
+		int value = (new Random()).nextInt(100);
+		
+		// 5% chance of istrahiim armor, 20% large health
+		if (value < 5) {
+			getLevel().add(new IstrahiimPickup(getLevel(), getX() + Game.getRandomOffset(40), getY() + Game.getRandomOffset(40)));
+		} else if (value < 25) {
+			getLevel().add(new StrongHealthPack(getLevel(), getX() + Game.getRandomOffset(40), getY() + Game.getRandomOffset(40)));
+		}
 	}
 
 	/**

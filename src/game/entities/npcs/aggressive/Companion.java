@@ -1,6 +1,7 @@
 package game.entities.npcs.aggressive;
 
 import game.ChatHandler;
+import game.Game;
 import game.entities.Player;
 import java.awt.Color;
 import level.Level;
@@ -29,20 +30,35 @@ public class Companion extends Shooter {
 	 * @param yTile the y tile on the spritesheet
 	 * @param player the player to follow
 	 */
-	public Companion(Level level, int x, int y, int defaultHealth, int[] color, int xTile, int yTile, Player player) {
+	public Companion(Level level, int x, int y, int defaultHealth, int[] color, int xTile, int yTile) {
 		super(level, "Companion", x, y, 1, WIDTH, HEIGHT, defaultHealth, color, xTile, yTile, "", 0);
-		this.player = player;
 	}
 
 	/**
 	 * Updates the companion
 	 */
 	public void tick() {
+		
+		// prevents companion from walking back to spawn
+		this.tickCount = 0;
+		
 		super.tick();
 
 		// change in x and y
 		int dx = 0, dy = 0;
+		
+		// find the closest player
+		if (player == null) {
+			player = getLevel().getPlayer(Game.PLAYER_NAME);
+			return;
+		}
+		
+		// Dont follow the player if shooting
+		if (target != null) {
+			return;
+		}
 
+		// makes the companion follow the player
 		if (!this.getOuterBounds().intersects(player.getOuterBounds())) {
 
 			if (player.getX() > getX()) {
@@ -56,6 +72,7 @@ public class Companion extends Shooter {
 				dy--;
 			}
 			if ((dx != 0 || dy != 0) && !isMobCollision(dx, dy)) {
+				isMoving = true;
 				move(dx, dy);
 			}
 		}

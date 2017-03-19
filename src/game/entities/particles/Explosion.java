@@ -32,7 +32,7 @@ public class Explosion extends Particle {
 	 * @param y the y coord AT THE CENTER
 	 */
 	public Explosion(Level level, int x, int y) {
-		super(level, x - 8, y - 8, 4 * SpriteSheet.explosions.boxes, new int[] { 0xFFFF9900, 0xFFFF3C00, 0xFFFF0000 });
+		super(level, x - 8, y - 8, 4 * SpriteSheet.explosions.getNumBoxes(), new int[] { 0xFFFF9900, 0xFFFF3C00, 0xFFFF0000 });
 		setSpriteSheet(SpriteSheet.explosions);
 		this.posNumber = getTileNumber();
 		SoundHandler.play(SoundHandler.explosion);
@@ -70,8 +70,8 @@ public class Explosion extends Particle {
 	public void render(Screen screen) {
 		screen.render(getX(), getY(), posNumber, getColor(), getSpriteSheet());
 		screen.render(getX() + 8, getY(), posNumber + 1, getColor(), getSpriteSheet());
-		screen.render(getX(), getY() + 8, posNumber + getSpriteSheet().boxes, getColor(), getSpriteSheet());
-		screen.render(getX() + 8, getY() + 8, posNumber + 1 + getSpriteSheet().boxes, getColor(), getSpriteSheet());
+		screen.render(getX(), getY() + 8, posNumber + getSpriteSheet().getNumBoxes(), getColor(), getSpriteSheet());
+		screen.render(getX() + 8, getY() + 8, posNumber + 1 + getSpriteSheet().getNumBoxes(), getColor(), getSpriteSheet());
 	}
 
 }

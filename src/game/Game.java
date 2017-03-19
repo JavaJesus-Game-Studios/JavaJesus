@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Random;
+
 import game.gui.Launcher;
 
 /*
@@ -80,6 +82,8 @@ public class Game implements Runnable {
 
 	/** Code executed during runtime */
 	public synchronized void run() {
+		
+		// set up the internal clock
 		long lastMinute = System.currentTimeMillis();
 		long lastTime = System.nanoTime();
 		double nsPerTick = 1000000000 / 60.0;
@@ -87,6 +91,7 @@ public class Game implements Runnable {
 		long lastTimer = System.currentTimeMillis();
 		double delta = 0;
 
+		// makes everything tick and render in the game
 		while (running) {
 			try {
 				if (System.currentTimeMillis() > lastMinute + 1000) {
@@ -155,7 +160,7 @@ public class Game implements Runnable {
 	public static int getMinutes() {
 		return minutes;
 	}
-
+	
 	/**
 	 * @return Returns true if the display should render the dev overlay
 	 */
@@ -165,6 +170,15 @@ public class Game implements Runnable {
 
 	public static void setDisplayDevScreen(boolean doesDisplay) {
 		displayDevOverlay = doesDisplay;
+	}
+	
+	/**
+	 * utility method for getting random offset values
+	 * @param distance value between 0 and distance
+	 * @return random value between 0 and distance
+	 */
+	public static int getRandomOffset(int distance) {
+		return (new Random()).nextInt(distance);
 	}
 
 }

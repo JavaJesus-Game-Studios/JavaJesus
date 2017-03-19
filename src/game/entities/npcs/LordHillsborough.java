@@ -64,12 +64,12 @@ public class LordHillsborough extends NPC {
 		}
 
 		// Upper crown 1
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().boxes,
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getNumBoxes(),
 				getColor(), flip, getScale(), getSpriteSheet());
 
 		// Upper crown 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-				(xTile + 1) + yTile * getSpriteSheet().boxes, getColor(), flip, getScale(), getSpriteSheet());
+				(xTile + 1) + yTile * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
 	}
 
 	/**

@@ -32,6 +32,7 @@ public class PlayerHUD {
 	public PlayerHUD(Player player) {
 		this.player = player;
 		try {
+			// initialize all the images into memory that will be rendered on the screen
 			assaultRifle = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/AssaultRifle_Icon.png"));
 			crossbow = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/Crossbow_Icon.png"));
 			laserRevolver = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/LaserRevolver_Icon.png"));

@@ -36,6 +36,7 @@ public class Item implements Serializable {
 	// A set of all Items types in the game
 	public static final Item[] items = new Item[256];
 
+	// consumables
 	public static final Item apple = new Item("Apple", 0, 2, 5, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"This is a red fruit!");
 	public static final Item banana = new Item("Banana", 1, 3, 5, new int[] { 0xFF111111, 0xFFFFF600, 0xFF000000 },
@@ -45,6 +46,7 @@ public class Item implements Serializable {
 	public static final Item feather = new Item("Feather", 3, 4, 5, new int[] { 0xFF111111, 0xFF79B2FF, 0xFF000000 },
 			"So light.");
 
+	// guns
 	public static final Item revolver = new Gun("Revolver", 4, 0, 0, new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 },
 			"Standard Firearm", 0, 6, 10, 20, 50, Ammo.BULLET, SoundHandler.revolver);
 	public static final Item laserRevolver = new Gun("Laser Revolver", 5, 1, 0,
@@ -59,10 +61,11 @@ public class Item implements Serializable {
 			"Standard Firearm", 8, 1, 10, 20, 75, Ammo.ARROW, SoundHandler.revolver);
 	public static final Item bazooka = new Bazooka();
 
+	// swords
 	public static final Item shortSword = new Sword("Short Sword", 9, 0, 1, 0, 0,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, "This is a sword", 25, 30, new int[] { 7, 12, 16, 21 });
 	public static final Item longSword = new Sword("Long Sword", 10, 1, 1, 0, 4,
-			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, "This is a sword", 40, 50, new int[] { 7, 13, 18, 23 }, 1,
+			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, "This is a sword", 40, 40, new int[] { 7, 13, 18, 23 }, 1,
 			Sword.MEDIUM);
 	public static final Item claymore = new Sword("Claymore", 11, 2, 1, 0, 10,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, "This is a sword", 60, 75, new int[] { 8, 16, 24, 32 }, 2,
@@ -79,6 +82,7 @@ public class Item implements Serializable {
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF }, "This is a sword", 30, 5, new int[] { 7, 13, 18, 23 }, 1,
 			Sword.MEDIUM);
 
+	// armor
 	public static final Item vest = new Armor("Simple Vest", 15, 0, 9, new int[] { 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC },
 			"", ArmorSet.VEST);
 	public static final Item knight = new Armor("Knight Gear", 16, 1, 9,
@@ -95,6 +99,7 @@ public class Item implements Serializable {
 			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Please apply cold water to burn", 0, 200, 1, 0, 3,
 			Ammo.FLAMETHROWER, SoundHandler.revolver);
 
+	// ammo
 	public static final Item assaultRifleAmmo = new Item("Ammo", 22, 0, 6,
 			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Assault Rifle Ammo");
 	public static final Item revolverAmmo = new Item("Ammo", 23, 2, 6, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
@@ -159,7 +164,7 @@ public class Item implements Serializable {
 	 *            the y position
 	 */
 	public void render(final Screen screen, final int xOffset, final int yOffset) {
-		screen.render(xOffset, yOffset, xTile + yTile * SpriteSheet.items.boxes, color, SpriteSheet.items);
+		screen.render(xOffset, yOffset, xTile + yTile * SpriteSheet.items.getNumBoxes(), color, SpriteSheet.items);
 	}
 
 	/**

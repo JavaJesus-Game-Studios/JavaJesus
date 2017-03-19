@@ -7,6 +7,7 @@ import game.entities.Spawner;
 import game.entities.npcs.NPC;
 import game.entities.structures.furniture.Chest;
 import game.entities.structures.transporters.TransporterInterior;
+import items.Item;
 import level.Level;
 
 public class GunStoreInterior extends Interior {
@@ -29,7 +30,7 @@ public class GunStoreInterior extends Interior {
 	}
 
 	protected Chest[] getChestPlacement() {
-		return null;
+		return new Chest[] {new Chest(this, 343, 96, Item.assaultRifle, Item.shotgun, Item.laserRevolver)};
 	}
 
 	protected Entity[] getOtherPlacement() {

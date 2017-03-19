@@ -7,6 +7,7 @@ import game.entities.Spawner;
 import game.entities.npcs.NPC;
 import game.entities.structures.furniture.Chest;
 import game.entities.structures.transporters.TransporterInterior;
+import items.Item;
 import level.Level;
 
 public class HutInterior extends Interior {
@@ -29,7 +30,7 @@ public class HutInterior extends Interior {
 	}
 
 	protected Chest[] getChestPlacement() {
-		return null;
+		return new Chest[] {new Chest(this, 247, 216, Item.apple, Item.apple, Item.apple, Item.crossBow)};
 	}
 
 	protected Entity[] getOtherPlacement() {

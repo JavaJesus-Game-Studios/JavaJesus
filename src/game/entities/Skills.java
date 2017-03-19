@@ -1,5 +1,8 @@
 package game.entities;
 
+/*
+ * Anything that has combat
+ */
 public interface Skills {
 
 	public int getStrength();

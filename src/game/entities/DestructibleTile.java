@@ -11,6 +11,8 @@ import level.tile.Tile;
 /*
  * A facade that acts like a tile but is actually an entity
  * Basically a tile but can be destroyed
+ * 
+ * TODO implement damageable
  */
 public class DestructibleTile extends Entity {
 

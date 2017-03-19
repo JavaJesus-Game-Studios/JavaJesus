@@ -57,6 +57,7 @@ public class Gorilla extends NPC implements Skills {
 
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
 
+		// find a target
 		checkRadius();
 	}
 
@@ -197,13 +198,13 @@ public class Gorilla extends NPC implements Skills {
 		for (int i = 0; i < 3; i++) {
 
 			screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-					xTile + (yTile + i) * getSpriteSheet().boxes, getColor(), flip, getScale(), getSpriteSheet());
+					xTile + (yTile + i) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
 
 			screen.render(xOffset + modifier, yOffset + (modifier * i),
-					(xTile + 1) + (yTile + i) * getSpriteSheet().boxes, getColor(), flip, getScale(), getSpriteSheet());
+					(xTile + 1) + (yTile + i) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
 
 			screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-					(xTile + 2) + (yTile + i) * getSpriteSheet().boxes, getColor(), flip, getScale(), getSpriteSheet());
+					(xTile + 2) + (yTile + i) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
 		}
 	}
 

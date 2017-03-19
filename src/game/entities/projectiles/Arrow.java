@@ -71,16 +71,16 @@ public class Arrow extends Projectile {
 	private void adjustOffset(Mob mob) {
 		switch (mob.getDirection()) {
 		case NORTH:
-			this.tileNumber = 2 + 2 * getSpriteSheet().boxes;
+			this.tileNumber = 2 + 2 * getSpriteSheet().getNumBoxes();
 			return;
 		case SOUTH:
-			this.tileNumber = 2 + 1 * getSpriteSheet().boxes;
+			this.tileNumber = 2 + 1 * getSpriteSheet().getNumBoxes();
 			return;
 		case WEST:
-			this.tileNumber = 2 + 3 * getSpriteSheet().boxes;
+			this.tileNumber = 2 + 3 * getSpriteSheet().getNumBoxes();
 			return;
 		default:
-			this.tileNumber = 2 + 0 * getSpriteSheet().boxes;
+			this.tileNumber = 2 + 0 * getSpriteSheet().getNumBoxes();
 			return;
 		}
 	}

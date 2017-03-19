@@ -80,6 +80,7 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener,
 	 */
 	public class Key {
 
+		// key statistics
 		private int numTimesPressed;
 		private boolean pressed = false;
 
@@ -98,6 +99,7 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener,
 		}
 	}
 
+	// all of the different keys we want listeners on
 	public Key up = new Key();
 	public Key down = new Key();
 	public Key left = new Key();
@@ -121,6 +123,7 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener,
 	public Key v = new Key();
 	public Key f3 = new Key();
 
+	// different states of the mouse
 	public static int MouseX;
 	public static int MouseY;
 	public static int MouseDX; // D = drag
@@ -256,6 +259,9 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener,
 
 	}
 
+	/**
+	 * Pause the game when the user exits the screen
+	 */
 	public void focusLost(FocusEvent e) {
 		if (Display.inGameScreen) {
 			Display.displayPause();

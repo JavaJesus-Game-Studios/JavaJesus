@@ -10,9 +10,16 @@ public class Sprite implements Serializable {
 
 	private static final long serialVersionUID = 5323068320900962483L;
 	
+	// width and height
 	public int xSize, ySize;
+	
+	// offset in spritesheet
 	private int x, y;
+	
+	// pixel data of the image
 	public int[] pixels;
+	
+	// the sprite sheet it was loaded from
 	private SpriteSheet sheet;
 	
 	// Trees
@@ -84,6 +91,13 @@ public class Sprite implements Serializable {
 	public transient static Sprite weirdTechBuilding2 = new Sprite("/Buildings/Unique_TechTopia_Exteriors/Weird_Tech_Building_2.png");
 	public transient static Sprite radardish = new Sprite("/Buildings/Unique_TechTopia_Exteriors/Radar_Dish.png");
 
+	/**
+	 * For square images
+	 * @param size size of the image
+	 * @param x horizontal offset in spritesheet
+	 * @param y vertical offset in spritesheet
+	 * @param sheet spritesheet to load an image from
+	 */
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.xSize = size;
 		this.ySize = size;
@@ -94,6 +108,14 @@ public class Sprite implements Serializable {
 		load(xSize, ySize);
 	}
 
+	/**
+	 * For rectangular images
+	 * @param xSize image width
+	 * @param ySize image height
+	 * @param x horizontal offset in spritesheet
+	 * @param y vertical offset in spritesheet
+	 * @param sheet spritesheet to load an image from
+	 */
 	public Sprite(int xSize, int ySize, int x, int y, SpriteSheet sheet) {
 		this.xSize = xSize;
 		this.ySize = ySize;
@@ -104,38 +126,58 @@ public class Sprite implements Serializable {
 		load(xSize, ySize);
 	}
 	
+	/**
+	 * For individual sprites not on a spritesheet
+	 * @param path the file path to the sprite image
+	 */
 	public Sprite(String path) {
+		
+		// image in memory
         BufferedImage image = null;
 
         try {
             image = ImageIO.read(Sprite.class.getResource(path));
         } catch (IOException e) {
+        	System.err.println("Error loading sprite: " + path);
             e.printStackTrace();
         }
 
+        // return if load was unsuccessful
         if (image == null) {
             return;
         }
 
+        // initialize instance data
         this.xSize = image.getWidth();
         this.ySize = image.getHeight();
         pixels = image.getRGB(0, 0, xSize, ySize, pixels, 0, xSize);
        
     }
 
+	/**
+	 * Copy the specified pixels from the spritesheet here
+	 * @param xSize width of sprite
+	 * @param ySize height of sprite
+	 */
 	private void load(int xSize, int ySize) {
 		for (int y = 0; y < ySize; y++) {
 			for (int x = 0; x < xSize; x++) {
-				pixels[x + y * xSize] = sheet.pixels[(x + this.x)
-						+ (y + this.y) * sheet.width];
+				pixels[x + y * xSize] = sheet.getPixels()[(x + this.x)
+						+ (y + this.y) * sheet.getWidth()];
 			}
 		}
 	}
 	
+	/**
+	 * @return width of the sprite
+	 */
 	public int getWidth() {
 		return xSize;
 	}
 	
+	/**
+	 * @return height of the sprite
+	 */
 	public int getHeight() {
 		return ySize;
 	}

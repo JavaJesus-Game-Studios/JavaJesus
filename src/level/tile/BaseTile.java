@@ -60,7 +60,7 @@ public class BaseTile extends Tile {
 	 *            the y position on the spritesheet
 	 */
 	protected void setTileID(int x, int y) {
-		this.tileId = x + y * getSpriteSheet().boxes;
+		this.tileId = x + y * getSpriteSheet().getNumBoxes();
 	}
 
 	/**
