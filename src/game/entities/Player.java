@@ -82,9 +82,6 @@ public class Player extends Mob implements Skills {
 	// the spritesheet to use when the player is shooting
 	private SpriteSheet gunSheet = SpriteSheet.playerGuns;
 
-	// whether or not the player can clip through walls
-	public boolean jesusMode;
-
 	// the size of the sprite
 	private static final int SIZE = 16;
 
@@ -220,7 +217,7 @@ public class Player extends Mob implements Skills {
 		// TODO move input out of the tick loop
 		// toggles jesus mode (no clip)
 		if (input.j.isPressed()) {
-			jesusMode = !jesusMode;
+			toggleClip();
 			isSwimming = false;
 			input.j.toggle(false);
 			
@@ -462,12 +459,7 @@ public class Player extends Mob implements Skills {
 
 		// move the player
 		if (isMoving) {
-			if (jesusMode) {
-				move(dx, dy, true);
-				isSwimming = false;
-			} else {
-				move(dx, dy);
-			}
+			move(dx, dy);
 			playTileSound();
 		}
 

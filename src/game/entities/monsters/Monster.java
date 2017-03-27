@@ -249,7 +249,7 @@ public class Monster extends Mob implements Skills {
 		aggroRadius.setFrame(getX() - RADIUS / 2, getY() - RADIUS / 2, RADIUS, RADIUS);
 
 		if (moveTick++ % 2 == 0) {
-			super.move(dx * getSpeed(), dy * getSpeed());
+			super.move(dx * (int) getSpeed(), dy * (int) getSpeed());
 		}
 	}
 	

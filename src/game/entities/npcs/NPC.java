@@ -631,7 +631,7 @@ public class NPC extends Mob {
 	public void move(int dx, int dy) {
 
 		if (moveTick++ % 2 == 0) {
-			super.move(dx * getSpeed(), dy * getSpeed());
+			super.move(dx * (int) getSpeed(), dy * (int) getSpeed());
 		}
 	}
 	
@@ -645,7 +645,7 @@ public class NPC extends Mob {
 	 */
 	public void moveSmoothly(int dx, int dy) {
 
-		super.move(dx * getSpeed(), dy * getSpeed());
+		super.move(dx * (int) getSpeed(), dy * (int) getSpeed());
 	}
 
 	/**

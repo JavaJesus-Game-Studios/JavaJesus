@@ -1,5 +1,14 @@
 package game;
 
+import game.Game.GameMode;
+import game.entities.Player;
+import game.graphics.Screen;
+import game.gui.Launcher;
+import game.gui.PauseGUI;
+import game.gui.ScreenGUI;
+import game.gui.intro.IntroGUI;
+import game.gui.overview.OverviewGUI;
+
 import java.awt.Canvas;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -14,14 +23,6 @@ import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import game.Game.GameMode;
-import game.entities.Player;
-import game.graphics.Screen;
-import game.gui.Launcher;
-import game.gui.PauseGUI;
-import game.gui.ScreenGUI;
-import game.gui.intro.IntroGUI;
-import game.gui.overview.OverviewGUI;
 import level.Level;
 import level.sandbox.SandboxSurvivalMap1;
 import level.story.LordHillsboroughsDomain;

@@ -1,13 +1,13 @@
 package game.entities;
 
+import game.Hideable;
+import game.entities.particles.HealthBar;
+import game.graphics.Screen;
+import game.graphics.SpriteSheet;
+
 import java.awt.Rectangle;
 import java.util.Random;
 
-import game.Hideable;
-import game.entities.particles.HealthBar;
-import game.entities.vehicles.Vehicle;
-import game.graphics.Screen;
-import game.graphics.SpriteSheet;
 import level.Level;
 import level.tile.Tile;
 import quests.Script;
@@ -24,7 +24,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 	private String name;
 
 	// the base speed of the mob
-	private int speed;
+	private double speed;
+
+	// extra movement remainder TODO
+	//private double speedRemainder;
 
 	// flip value
 	protected int numSteps;
@@ -107,30 +110,24 @@ public class Mob extends Entity implements Damageable, Hideable {
 	// the extra space, or padding, around each mob
 	public static final int OUTER_BOUNDS_RANGE = 4;
 
+	// whether or not the mob can clip through bounds
+	private boolean clip;
+
 	/**
 	 * Creates a mob that can interact with other entities on a level
 	 * 
-	 * @param level
-	 *            the level to place it on
-	 * @param name
-	 *            the name of the mob
-	 * @param x
-	 *            the x coordinate on the map
-	 * @param y
-	 *            the y coordiante on the map
-	 * @param speed
-	 *            the base speed of the mob (usually 1)
-	 * @param width
-	 *            the horizontal space of the mob
-	 * @param height
-	 *            the vertical space of the mob
-	 * @param sheet
-	 *            the spritesheet that contains the image of the mob
-	 * @param defaultHealth
-	 *            the starting highest health value
+	 * @param level the level to place it on
+	 * @param name the name of the mob
+	 * @param x the x coordinate on the map
+	 * @param y the y coordinate on the map
+	 * @param speed the base speed of the mob (usually 1)
+	 * @param width the horizontal space of the mob
+	 * @param height the vertical space of the mob
+	 * @param sheet the spritesheet that contains the image of the mob
+	 * @param defaultHealth the starting highest health value
 	 */
-	public Mob(Level level, String name, int x, int y, int speed, int width, int height, SpriteSheet sheet,
-			int defaultHealth) {
+	public Mob(Level level, String name, int x, int y, double speed, int width, int height,
+			SpriteSheet sheet, int defaultHealth) {
 		super(level, x, y);
 
 		this.name = new String(name);
@@ -147,7 +144,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Increases or decreases the mob's health
 	 * 
 	 * @param dh
-	 *            the change in health
+	 * the change in health
 	 */
 	public void changeHealth(int dh) {
 		this.health += dh;
@@ -167,44 +164,20 @@ public class Mob extends Entity implements Damageable, Hideable {
 	}
 
 	/**
-	 * Moves a mob on the map
-	 * 
-	 * @param dx
-	 *            the change in x
-	 * @param dy
-	 *            the change in y
-	 * @param canClip
-	 *            whether or not it can move through solids
-	 */
-	protected void move(int dx, int dy, boolean canClip) {
-
-		numSteps++;
-
-		if (dx < 0)
-			setDirection(Direction.WEST);
-		else if (dx > 0)
-			setDirection(Direction.EAST);
-		if (dy < 0)
-			setDirection(Direction.NORTH);
-		else if (dy > 0)
-			setDirection(Direction.SOUTH);
-
-		super.move(dx, dy);
-		this.moveOuterBounds(dx, dy);
-	}
-
-	/**
 	 * Moves a mob on the level
 	 * 
-	 * @param dx
-	 *            the total change in x
-	 * @param dy
-	 *            the total change in y
+	 * @param dx the total change in x
+	 * @param dy the total change in y
 	 */
 	public void move(int dx, int dy) {
 
+		// move animation proportional to speed
 		numSteps++;
 
+		// TODO remaining movement after integer movement
+		// speedRemainder += speed - (int) speed;
+
+		// sign of movement along x axis
 		int sign = 0;
 		if (dx < 0) {
 			setDirection(Direction.WEST);
@@ -216,18 +189,15 @@ public class Mob extends Entity implements Damageable, Hideable {
 
 		// move pixel by pixel for maximum accuracy
 		for (int i = 0; i < Math.abs(dx); i++) {
-			if (!hasCollided(1 * sign, 0)) {
+			if (!hasCollided(1 * sign, 0) || clip) {
 				super.move(1 * sign, 0);
-				if (isSolidEntityCollision()) {
-					super.move(-1 * sign, 0);
-					break;
-				}
 				this.moveOuterBounds(1 * sign, 0);
 			} else {
 				break;
 			}
 		}
 
+		// sign of movement along y axis
 		if (dy < 0) {
 			setDirection(Direction.NORTH);
 			sign = -1;
@@ -238,38 +208,33 @@ public class Mob extends Entity implements Damageable, Hideable {
 
 		// move pixel by pixel for maximum accuracy
 		for (int i = 0; i < Math.abs(dy); i++) {
-			if (!hasCollided(0, 1 * sign)) {
+			if (!hasCollided(0, 1 * sign) || clip) {
 				super.move(0, 1 * sign);
-				if (isSolidEntityCollision()) {
-					super.move(0, -1 * sign);
-
-					// TODO bugfix for walking south behind buildings
-					if (sign == 1)
-						isBehindBuilding = true;
-					
-					break;
-				}
 				this.moveOuterBounds(0, 1 * sign);
 			} else {
 				break;
 			}
 		}
 		
+		// update the layer
+		updateLayer();
+
+		// move the health bar
 		if (bar != null) {
 			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
 		}
-		
+
 	}
 
 	/**
-	 * Determines if the change in x or y results in a solid tile collision
+	 * Determines if the change in x or y results in a solid collision
 	 * 
 	 * @param dx
-	 *            the change in x
+	 * the change in x
 	 * @param dy
-	 *            the change in y
+	 * the change in y
 	 * @return true if the change in coordinates results in a solid tile
-	 *         collision
+	 * collision
 	 */
 	protected boolean hasCollided(int dx, int dy) {
 
@@ -286,6 +251,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 		// the bottom bound of the mob
 		int yMax = getBounds().height - 2;
 
+		// check for solid tile collisions
 		for (int x = xMin; x < xMax; x++) {
 			if (isSolidTile(dx, dy, x, yMin) || isSolidTile(dx, dy, x, yMax)) {
 				return true;
@@ -296,6 +262,21 @@ public class Mob extends Entity implements Damageable, Hideable {
 				return true;
 			}
 		}
+
+		// check for solid entity collisions
+		Rectangle temp = new Rectangle((int) getBounds().getX() + dx,
+				(int) getBounds().getY() + dy, (int) getBounds().getWidth(),
+				(int) getBounds().getHeight());
+
+		// loop through all entities
+		for (Entity entity : getLevel().getEntities()) {
+
+			if (entity instanceof SolidEntity
+					&& temp.intersects(entity.getBounds())) {
+				return true;
+			} 
+
+		}
 		return false;
 	}
 
@@ -303,22 +284,24 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Checks if the position is a solid tile
 	 * 
 	 * @param dx
-	 *            the new x
+	 * the new x
 	 * @param dy
-	 *            the new y
+	 * the new y
 	 * @param x
-	 *            the x offset
+	 * the x offset
 	 * @param y
-	 *            the y offset
+	 * the y offset
 	 * @return true if the new tile is solid
 	 */
 	protected boolean isSolidTile(int dx, int dy, int x, int y) {
 
 		// tile the mob is on (bottom half)
-		Tile lastTile = getLevel().getTile((getX() + x) >> 3, (getY() + y) >> 3);
+		Tile lastTile = getLevel().getTile((getX() + x) / Tile.SIZE,
+				(getY() + y) / Tile.SIZE);
 
 		// tile the mob will move to
-		Tile newTile = getLevel().getTile((getX() + x + dx) >> 3, (getY() + y + dy) >> 3);
+		Tile newTile = getLevel().getTile((getX() + x + dx) / Tile.SIZE,
+				(getY() + y + dy) / Tile.SIZE);
 
 		// checking the last tile allows the player to move through solids if
 		// already on a solid
@@ -332,22 +315,24 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Checks if the position is a water tile
 	 * 
 	 * @param dx
-	 *            the new x
+	 * the new x
 	 * @param dy
-	 *            the new y
+	 * the new y
 	 * @param x
-	 *            the x offset
+	 * the x offset
 	 * @param y
-	 *            the y offset
+	 * the y offset
 	 * @return true if the new tile is water
 	 */
 	protected boolean isWaterTile(int dx, int dy, int x, int y) {
 
 		// tile the mob is on (bottom half)
-		Tile lastTile = getLevel().getTile((getX() + x) >> 3, (getY() + y) >> 3);
+		Tile lastTile = getLevel().getTile((getX() + x) / Tile.SIZE,
+				(getY() + y) / Tile.SIZE);
 
 		// tile the mob will move to
-		Tile newTile = getLevel().getTile((getX() + x + dx) >> 3, (getY() + y + dy) >> 3);
+		Tile newTile = getLevel().getTile((getX() + x + dx) / Tile.SIZE,
+				(getY() + y + dy) / Tile.SIZE);
 
 		// water entry looks a bit jumpy TODO
 		if (!lastTile.equals(newTile) && newTile.equals(Tile.WATER)) {
@@ -357,15 +342,9 @@ public class Mob extends Entity implements Damageable, Hideable {
 	}
 
 	/**
-	 * Checks if the new position collides with a solid entity
-	 * 
-	 * @param dx
-	 *            the change in x
-	 * @param dy
-	 *            the change in y
-	 * @return true if the new position will create a collision
+	 * Updates the rendering layer of the mob
 	 */
-	private boolean isSolidEntityCollision() {
+	private void updateLayer() {
 
 		isBehindBuilding = false;
 
@@ -374,26 +353,16 @@ public class Mob extends Entity implements Damageable, Hideable {
 
 			if (entity instanceof SolidEntity) {
 
-				SolidEntity building = (SolidEntity) entity;
-
-				if (getBounds().intersects(building.getShadow())) {
+				// if the mob is behind a building, render in the background
+				if (getBounds().intersects(((SolidEntity) entity).getShadow())) {
 					isBehindBuilding = true;
-				} else if (getBounds().intersects(entity.getBounds())) {
-					if (entity instanceof  Vehicle) {
-						Vehicle v = (Vehicle) entity;
-						if (v.isMoving() && this != v.getPlayer())
-							damage(v.getDamage());
-					}
-					return true;
-				}
+					return;
+				} 
 
-			} else if (entity instanceof FireEntity && getBounds().intersects((entity.getBounds()))) {
-				setOnFire(true);
-			}
+			} 
 
 		}
 
-		return false;
 	}
 
 	/**
@@ -401,7 +370,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * is
 	 * 
 	 * @return the other mob that is colliding with this mob, null if there
-	 *         isn't one
+	 * isn't one
 	 */
 	protected Mob getMobCollision() {
 
@@ -419,18 +388,20 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Checks if a mob will collide with another mob at the new location
 	 * 
 	 * @param dx
-	 *            the change in x
+	 * the change in x
 	 * @param dy
-	 *            the change in y
+	 * the change in y
 	 * @return true if a mob is already occupying that space
 	 */
 	public boolean isMobCollision(int dx, int dy) {
 
 		// create a temporary range box shifted by dx and dy
-		Rectangle range = new Rectangle(getX() + dx, getY() + dy, getBounds().width, getBounds().height);
+		Rectangle range = new Rectangle(getX() + dx, getY() + dy,
+				getBounds().width, getBounds().height);
 
 		for (Mob mob : getLevel().getMobs()) {
-			if (range.intersects(mob.getBounds()) && mob != this && !mob.isDead())
+			if (range.intersects(mob.getBounds()) && mob != this
+					&& !mob.isDead())
 				return true;
 		}
 
@@ -482,9 +453,9 @@ public class Mob extends Entity implements Damageable, Hideable {
 	public void tick() {
 
 		tickCount++;
-		
+
 		// updates the health bar
-		if(bar != null)
+		if (bar != null)
 			bar.tick();
 
 		// talking cooldown loop
@@ -506,8 +477,8 @@ public class Mob extends Entity implements Damageable, Hideable {
 		}
 
 		// checks if the mob is on water
-		isSwimming = getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3)
-				.equals(Tile.WATER);
+		isSwimming = getLevel().getTile((getX() + UNIT_SIZE) >> 3,
+				(getY() + getBounds().height) >> 3).equals(Tile.WATER);
 
 		if (isSwimming && isOnFire()) {
 			setOnFire(false);
@@ -581,8 +552,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 			}
 			// water rings
 			// add modifier to yoffset to add a depth effect
-			screen.render(xOffset, yOffset + modifier, 0 + 10 * sheet.getNumBoxes(), waterColor, false, 1, sheet);
-			screen.render(xOffset + 8, yOffset + modifier, 0 + 10 * sheet.getNumBoxes(), waterColor, true, 1, sheet);
+			screen.render(xOffset, yOffset + modifier,
+					0 + 10 * sheet.getNumBoxes(), waterColor, false, 1, sheet);
+			screen.render(xOffset + 8, yOffset + modifier,
+					0 + 10 * sheet.getNumBoxes(), waterColor, true, 1, sheet);
 		}
 
 		// Handles fire animation
@@ -590,20 +563,23 @@ public class Mob extends Entity implements Damageable, Hideable {
 
 			int[] firecolor = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
 
-			screen.render(xOffset, yOffset, FireEntity.xTile + 15 * sheet.getNumBoxes(), firecolor, false, 2,
-					SpriteSheet.tiles);
+			screen.render(xOffset, yOffset,
+					FireEntity.xTile + 15 * sheet.getNumBoxes(), firecolor,
+					false, 2, SpriteSheet.tiles);
 
 		}
 
 		// displays text overhead
 		if (isTalking) {
-			getLevel().renderFont(name, screen, xOffset - (name.length() * 4 - 8), yOffset - modifier,
+			getLevel().renderFont(name, screen,
+					xOffset - (name.length() * 4 - 8), yOffset - modifier,
 					new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
 		}
 
 		// displays damage indicators overhead
 		if (isHit) {
-			getLevel().renderFont(damageTaken, screen, xOffset + isHitX, yOffset - modifier + isHitY, isHitColor, 1);
+			getLevel().renderFont(damageTaken, screen, xOffset + isHitX,
+					yOffset - modifier + isHitY, isHitColor, 1);
 		}
 	}
 
@@ -620,18 +596,18 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * in Player class
 	 */
 	public void remove() {
-		
+
 		// remove the healthbar
 		if (bar != null) {
 			getLevel().remove(bar);
 			bar.setBounds(0, 0, 0, 0);
 			bar = null;
 		}
-		
+
 		isHit = false;
 		isTalking = false;
 		setTargeted(false);
-		
+
 		// renders the mob in the background
 		isBehindBuilding = true;
 	}
@@ -640,11 +616,11 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Deals damage to another mob
 	 * 
 	 * @param min
-	 *            the minimum damage dealt
+	 * the minimum damage dealt
 	 * @param max
-	 *            the maximum damage dealt
+	 * the maximum damage dealt
 	 * @param other
-	 *            the other mob to attack
+	 * the other mob to attack
 	 */
 	public void attack(int min, int max, Mob other) {
 		other.damage(random.nextInt(max - min + 1) + min);
@@ -654,10 +630,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Displays an indicator that shows damage done to THIS MOB when attacked
 	 * 
 	 * @param damage
-	 *            the damage inflicted to THIS mob
+	 * the damage inflicted to THIS mob
 	 */
 	public void damage(int damage) {
-		
+
 		// if the mob is dead, dont do more damage
 		if (isDead()) {
 			return;
@@ -671,7 +647,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 		// random offsets for damage indicators
 		isHitX = random.nextInt(10) - 5;
 		isHitY = random.nextInt(6) - 3;
-		
+
 		if (health <= 0) {
 			remove();
 		}
@@ -681,7 +657,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Decreases a mob's health Can be overridden for other stats
 	 * 
 	 * @param damage
-	 *            the value of damage
+	 * the value of damage
 	 */
 	protected void doDamageToHealth(int damage) {
 		this.health -= damage;
@@ -702,21 +678,23 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * @return true if the mob is aligned horizontally
 	 */
 	public boolean isLatitudinal() {
-		return getDirection() == Direction.EAST || getDirection() == Direction.WEST;
+		return getDirection() == Direction.EAST
+				|| getDirection() == Direction.WEST;
 	}
 
 	/**
 	 * @return true if the mob is aligned vertically
 	 */
 	public boolean isLongitudinal() {
-		return getDirection() == Direction.NORTH || getDirection() == Direction.SOUTH;
+		return getDirection() == Direction.NORTH
+				|| getDirection() == Direction.SOUTH;
 	}
 
 	/**
 	 * Changes the direction of the mob
 	 * 
 	 * @param dir
-	 *            the direction the mob should face
+	 * the direction the mob should face
 	 */
 	public void setDirection(Direction dir) {
 		this.movingDir = dir;
@@ -733,25 +711,27 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Changes the outer bounds range
 	 * 
 	 * @param width
-	 *            width of the mob
+	 * width of the mob
 	 * @param height
-	 *            height of the mob
+	 * height of the mob
 	 */
 	protected void setOuterBounds(int width, int height) {
-		outerBounds = new Rectangle(getX() - OUTER_BOUNDS_RANGE, getY() - OUTER_BOUNDS_RANGE,
-				width + OUTER_BOUNDS_RANGE * 2, height + OUTER_BOUNDS_RANGE * 2);
+		outerBounds = new Rectangle(getX() - OUTER_BOUNDS_RANGE, getY()
+				- OUTER_BOUNDS_RANGE, width + OUTER_BOUNDS_RANGE * 2, height
+				+ OUTER_BOUNDS_RANGE * 2);
 	}
 
 	/**
 	 * Updates the location of the outer range
 	 * 
 	 * @param dx
-	 *            the change in x
+	 * the change in x
 	 * @param dy
-	 *            the change in y
+	 * the change in y
 	 */
 	protected void moveOuterBounds(int dx, int dy) {
-		outerBounds.setLocation((int) outerBounds.getX() + dx, (int) outerBounds.getY() + dy);
+		outerBounds.setLocation((int) outerBounds.getX() + dx,
+				(int) outerBounds.getY() + dy);
 	}
 
 	/**
@@ -759,14 +739,14 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * outer bounds
 	 * 
 	 * @param x
-	 *            the x coord
+	 * the x coord
 	 * @param y
-	 *            the y coord
+	 * the y coord
 	 */
 	protected void moveTo(int x, int y) {
 		super.moveTo(x, y);
 		outerBounds.setLocation(x - OUTER_BOUNDS_RANGE, y - OUTER_BOUNDS_RANGE);
-		
+
 		if (bar != null) {
 			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
 		}
@@ -799,7 +779,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Toggles whether the mob is on fire
 	 * 
 	 * @param onFire
-	 *            value of on fire or not
+	 * value of on fire or not
 	 */
 	public void setOnFire(boolean onFire) {
 		this.onFire = onFire;
@@ -816,7 +796,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Changes the mob's name
 	 * 
 	 * @param s
-	 *            the new name
+	 * the new name
 	 */
 	public void setName(String s) {
 		this.name = new String(s);
@@ -825,7 +805,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * @return the mob's speed
 	 */
-	public int getSpeed() {
+	public double getSpeed() {
 		return speed;
 	}
 
@@ -833,9 +813,9 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Changes the mob's speed
 	 * 
 	 * @param speed
-	 *            the new speed
+	 * the new speed
 	 */
-	protected void setSpeed(int speed) {
+	protected void setSpeed(double speed) {
 		this.speed = speed;
 	}
 
@@ -858,8 +838,9 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * @return create the mob's health bar
 	 */
-	protected void createHealthBar() {
-		bar = new HealthBar(getLevel(), getX(), getY() + (int) getBounds().getHeight() + 2, this);
+	public void createHealthBar() {
+		bar = new HealthBar(getLevel(), getX(), getY()
+				+ (int) getBounds().getHeight() + 2, this);
 		getLevel().add(bar);
 	}
 
@@ -921,7 +902,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 
 	/**
 	 * @param script
-	 *            the new script for the mob
+	 * the new script for the mob
 	 */
 	public void setScript(Script script) {
 		this.script = script;
@@ -932,6 +913,13 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 */
 	protected boolean isCollidingWithMob() {
 		return getMobCollision() != null;
+	}
+	
+	/**
+	 * Toggles whether or not the mob should clip solids
+	 */
+	protected void toggleClip() {
+		clip = !clip;
 	}
 
 }
