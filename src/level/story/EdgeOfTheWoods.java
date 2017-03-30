@@ -1,17 +1,17 @@
 package level.story;
 
-import game.entities.Entity;
-import game.entities.Spawner;
-import game.entities.npcs.NPC;
-import game.entities.structures.CaveEntrance;
-import game.entities.structures.Hotel;
-import game.entities.structures.Hut;
-import game.entities.structures.NiceHouse;
-import game.entities.structures.PoorHouse;
-import game.entities.structures.Tippee;
-import game.entities.structures.furniture.Chest;
-import game.entities.structures.transporters.MapTransporter;
-import game.entities.structures.trees.Forest;
+import javajesus.entities.Entity;
+import javajesus.entities.Spawner;
+import javajesus.entities.npcs.NPC;
+import javajesus.entities.structures.CaveEntrance;
+import javajesus.entities.structures.Hotel;
+import javajesus.entities.structures.Hut;
+import javajesus.entities.structures.NiceHouse;
+import javajesus.entities.structures.PoorHouse;
+import javajesus.entities.structures.Tippee;
+import javajesus.entities.structures.furniture.Chest;
+import javajesus.entities.structures.transporters.MapTransporter;
+import javajesus.entities.structures.trees.Forest;
 import level.Level;
 import utility.Direction;
 

@@ -1,11 +1,11 @@
 package quests;
 
-import game.entities.Player;
-import game.entities.npcs.NPC;
-
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import javajesus.entities.Player;
+import javajesus.entities.npcs.NPC;
 
 /*
  * A Quest is given by a NPC that requires a set of specific dialogue and action events completed

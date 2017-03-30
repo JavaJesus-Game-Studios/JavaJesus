@@ -1,10 +1,10 @@
 package level;
 
-import game.entities.Entity;
-import game.entities.Spawner;
-import game.entities.npcs.NPC;
-import game.entities.structures.furniture.Chest;
-import game.entities.structures.transporters.MapTransporter;
+import javajesus.entities.Entity;
+import javajesus.entities.Spawner;
+import javajesus.entities.npcs.NPC;
+import javajesus.entities.structures.furniture.Chest;
+import javajesus.entities.structures.transporters.MapTransporter;
 
 public class RoadLevel extends Level {
 

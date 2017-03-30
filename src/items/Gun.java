@@ -1,17 +1,18 @@
 package items;
 
+import javajesus.SoundHandler;
+import javajesus.entities.Player;
+import javajesus.entities.projectiles.Arrow;
+import javajesus.entities.projectiles.BlackHoleDetonator;
+import javajesus.entities.projectiles.Bullet;
+import javajesus.entities.projectiles.FireBall;
+import javajesus.entities.projectiles.Laser;
+import javajesus.entities.projectiles.Missile;
+import javajesus.graphics.Screen;
+import javajesus.graphics.SpriteSheet;
+
 import javax.sound.sampled.Clip;
 
-import game.SoundHandler;
-import game.entities.Player;
-import game.entities.projectiles.Arrow;
-import game.entities.projectiles.BlackHoleDetonator;
-import game.entities.projectiles.Bullet;
-import game.entities.projectiles.FireBall;
-import game.entities.projectiles.Laser;
-import game.entities.projectiles.Missile;
-import game.graphics.Screen;
-import game.graphics.SpriteSheet;
 import level.Level;
 import utility.Direction;
 

@@ -1,6 +1,6 @@
 package quests;
 
-import game.entities.npcs.NPC;
+import javajesus.entities.npcs.NPC;
 
 public class SampleQuest extends Quest {
 	

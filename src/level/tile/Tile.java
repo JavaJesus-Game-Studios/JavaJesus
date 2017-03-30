@@ -1,15 +1,14 @@
 package level.tile;
 
-import game.graphics.Screen;
-import game.graphics.SpriteSheet;
-
 import java.util.Random;
 
+import javajesus.graphics.Screen;
+import javajesus.graphics.SpriteSheet;
 import level.Level;
 
 /*
  * A Tile is a background unit on each level
- * Tiles are 8x8 and cannot interact with other entities
+ * Tiles are 32x32 and cannot interact with entities
  */
 public abstract class Tile {
 
@@ -17,7 +16,10 @@ public abstract class Tile {
 	public static final Tile[] tiles = new Tile[256];
 
 	// base size of tiles
-	public static final int SIZE = 8;
+	public static final int SIZE = 32;
+	
+	// for bit wise operations log2(SIZE)
+	public static final int TILE_SHIFT = 5;
 
 	// used for randomly getting tiles
 	private static final Random random = new Random();
@@ -166,12 +168,9 @@ public abstract class Tile {
 	/**
 	 * Creates a tile
 	 * 
-	 * @param id
-	 *            UNIQUE identifier for this type of tile
-	 * @param isSolid
-	 *            determines if an entity can walk through this tile
-	 * @param levelColor
-	 *            the pixel color on the level file
+	 * @param id UNIQUE identifier for this type of tile
+	 * @param isSolid determines if an entity can walk through this tile
+	 * @param levelColor the pixel color on the level file
 	 */
 	public Tile(int id, boolean isSolid, int levelColor) {
 		this.id = (byte) id;

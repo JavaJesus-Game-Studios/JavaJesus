@@ -2,9 +2,9 @@ package items;
 
 import java.io.Serializable;
 
-import game.SoundHandler;
-import game.graphics.Screen;
-import game.graphics.SpriteSheet;
+import javajesus.SoundHandler;
+import javajesus.graphics.Screen;
+import javajesus.graphics.SpriteSheet;
 import items.Armor.ArmorSet;
 import items.Gun.Ammo;
 

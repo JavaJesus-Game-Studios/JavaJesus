@@ -2,14 +2,14 @@ package level.interior;
 
 import java.awt.Point;
 
-import game.entities.Entity;
-import game.entities.Spawner;
-import game.entities.npcs.LordHillsborough;
-import game.entities.npcs.NPC;
-import game.entities.structures.furniture.Chest;
-import game.entities.structures.furniture.Throne;
-import game.entities.structures.transporters.TransporterInterior;
-import game.entities.structures.transporters.TransporterStair;
+import javajesus.entities.Entity;
+import javajesus.entities.Spawner;
+import javajesus.entities.npcs.LordHillsborough;
+import javajesus.entities.npcs.NPC;
+import javajesus.entities.structures.furniture.Chest;
+import javajesus.entities.structures.furniture.Throne;
+import javajesus.entities.structures.transporters.TransporterInterior;
+import javajesus.entities.structures.transporters.TransporterStair;
 import level.Level;
 import level.story.LordHillsboroughsDomain;
 import utility.Direction;

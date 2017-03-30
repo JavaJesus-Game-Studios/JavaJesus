@@ -1,8 +1,8 @@
 package quests;
 
-import game.entities.Mob;
-
 import java.awt.Point;
+
+import javajesus.entities.Mob;
 
 public class SampleScript extends Script {
 

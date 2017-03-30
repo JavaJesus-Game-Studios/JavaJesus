@@ -1,6 +1,6 @@
 package items;
 
-import game.graphics.SpriteSheet;
+import javajesus.graphics.SpriteSheet;
 
 public class Armor extends Item {
 

@@ -2,20 +2,20 @@ package level.interior;
 
 import java.awt.Point;
 
-import game.entities.Entity;
-import game.entities.Spawner;
-import game.entities.npcs.NPC;
-import game.entities.structures.furniture.Bed;
-import game.entities.structures.furniture.ChairFront;
-import game.entities.structures.furniture.ChairSide;
-import game.entities.structures.furniture.Chest;
-import game.entities.structures.furniture.FilingCabinet;
-import game.entities.structures.furniture.LongTable;
-import game.entities.structures.furniture.Nightstand;
-import game.entities.structures.furniture.Sofa;
-import game.entities.structures.furniture.SquareTable;
-import game.entities.structures.furniture.Television;
-import game.entities.structures.transporters.TransporterInterior;
+import javajesus.entities.Entity;
+import javajesus.entities.Spawner;
+import javajesus.entities.npcs.NPC;
+import javajesus.entities.structures.furniture.Bed;
+import javajesus.entities.structures.furniture.ChairFront;
+import javajesus.entities.structures.furniture.ChairSide;
+import javajesus.entities.structures.furniture.Chest;
+import javajesus.entities.structures.furniture.FilingCabinet;
+import javajesus.entities.structures.furniture.LongTable;
+import javajesus.entities.structures.furniture.Nightstand;
+import javajesus.entities.structures.furniture.Sofa;
+import javajesus.entities.structures.furniture.SquareTable;
+import javajesus.entities.structures.furniture.Television;
+import javajesus.entities.structures.transporters.TransporterInterior;
 import level.Level;
 
 public class NiceHouse1Interior extends Interior {

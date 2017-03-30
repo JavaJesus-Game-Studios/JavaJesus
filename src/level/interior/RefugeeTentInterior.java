@@ -2,11 +2,11 @@ package level.interior;
 
 import java.awt.Point;
 
-import game.entities.Entity;
-import game.entities.Spawner;
-import game.entities.npcs.NPC;
-import game.entities.structures.furniture.Chest;
-import game.entities.structures.transporters.TransporterInterior;
+import javajesus.entities.Entity;
+import javajesus.entities.Spawner;
+import javajesus.entities.npcs.NPC;
+import javajesus.entities.structures.furniture.Chest;
+import javajesus.entities.structures.transporters.TransporterInterior;
 import level.Level;
 
 public class RefugeeTentInterior extends Interior {

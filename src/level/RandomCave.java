@@ -4,15 +4,16 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javajesus.SoundHandler;
+import javajesus.entities.Entity;
+import javajesus.entities.Spawner;
+import javajesus.entities.npcs.NPC;
+import javajesus.entities.structures.furniture.Chest;
+import javajesus.entities.structures.transporters.MapTransporter;
+import javajesus.entities.structures.transporters.TransporterLadder;
+
 import javax.sound.sampled.Clip;
 
-import game.SoundHandler;
-import game.entities.Entity;
-import game.entities.Spawner;
-import game.entities.npcs.NPC;
-import game.entities.structures.furniture.Chest;
-import game.entities.structures.transporters.MapTransporter;
-import game.entities.structures.transporters.TransporterLadder;
 import items.Item;
 import level.generation.CaveGeneration;
 

@@ -8,9 +8,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javajesus.entities.Player;
+
 import javax.swing.filechooser.FileSystemView;
 
-import game.entities.Player;
 import level.Level;
 import level.story.BautistasDomain;
 import level.story.EdgeOfTheWoods;

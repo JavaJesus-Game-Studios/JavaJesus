@@ -1,9 +1,9 @@
 package quests;
 
-import game.entities.Mob;
-
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import javajesus.entities.Mob;
 
 /*
  * An Event consists of a list of mobs and specific actions that constitute a situation in the game

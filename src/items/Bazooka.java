@@ -1,9 +1,9 @@
 package items;
 
-import game.SoundHandler;
-import game.entities.Player;
-import game.graphics.Screen;
-import game.graphics.SpriteSheet;
+import javajesus.SoundHandler;
+import javajesus.entities.Player;
+import javajesus.graphics.Screen;
+import javajesus.graphics.SpriteSheet;
 import utility.Direction;
 
 /*

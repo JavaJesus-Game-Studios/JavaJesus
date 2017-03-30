@@ -2,10 +2,10 @@ package items;
 
 import java.awt.Rectangle;
 
-import game.SoundHandler;
-import game.entities.Mob;
-import game.graphics.Screen;
-import game.graphics.SpriteSheet;
+import javajesus.SoundHandler;
+import javajesus.entities.Mob;
+import javajesus.graphics.Screen;
+import javajesus.graphics.SpriteSheet;
 import level.Level;
 import utility.Direction;
 

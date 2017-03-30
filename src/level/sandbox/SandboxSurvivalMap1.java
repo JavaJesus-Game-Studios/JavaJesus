@@ -1,21 +1,21 @@
 package level.sandbox;
 
-import game.entities.Entity;
-import game.entities.Spawner;
-import game.entities.npcs.Knight;
-import game.entities.npcs.NPC;
-import game.entities.npcs.Peasant;
-import game.entities.npcs.aggressive.Companion;
-import game.entities.structures.CastleTower;
-import game.entities.structures.CatholicChurch;
-import game.entities.structures.GunStore;
-import game.entities.structures.Hut;
-import game.entities.structures.furniture.Chest;
-import game.entities.structures.transporters.MapTransporter;
-import game.entities.vehicles.Boat;
-import game.entities.vehicles.CenturyLeSabre;
-import game.entities.vehicles.SportsCar;
-import game.entities.vehicles.Truck;
+import javajesus.entities.Entity;
+import javajesus.entities.Spawner;
+import javajesus.entities.npcs.Knight;
+import javajesus.entities.npcs.NPC;
+import javajesus.entities.npcs.Peasant;
+import javajesus.entities.npcs.aggressive.Companion;
+import javajesus.entities.structures.CastleTower;
+import javajesus.entities.structures.CatholicChurch;
+import javajesus.entities.structures.GunStore;
+import javajesus.entities.structures.Hut;
+import javajesus.entities.structures.furniture.Chest;
+import javajesus.entities.structures.transporters.MapTransporter;
+import javajesus.entities.vehicles.Boat;
+import javajesus.entities.vehicles.CenturyLeSabre;
+import javajesus.entities.vehicles.SportsCar;
+import javajesus.entities.vehicles.Truck;
 import items.Item;
 import level.Level;
 

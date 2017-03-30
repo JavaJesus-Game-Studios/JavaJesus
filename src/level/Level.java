@@ -8,21 +8,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javajesus.Game;
+import javajesus.Hideable;
+import javajesus.SoundHandler;
+import javajesus.entities.Entity;
+import javajesus.entities.Mob;
+import javajesus.entities.Player;
+import javajesus.entities.Spawner;
+import javajesus.entities.npcs.NPC;
+import javajesus.entities.structures.furniture.Chest;
+import javajesus.entities.structures.transporters.MapTransporter;
+import javajesus.graphics.JJFont;
+import javajesus.graphics.Screen;
+
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
 
-import game.Game;
-import game.Hideable;
-import game.SoundHandler;
-import game.entities.Entity;
-import game.entities.Mob;
-import game.entities.Player;
-import game.entities.Spawner;
-import game.entities.npcs.NPC;
-import game.entities.structures.furniture.Chest;
-import game.entities.structures.transporters.MapTransporter;
-import game.graphics.JJFont;
-import game.graphics.Screen;
 import level.story.BautistasDomain;
 import level.story.EdgeOfTheWoods;
 import level.story.EdgeOfTheWoodsTop;
@@ -104,8 +105,7 @@ public abstract class Level implements Serializable {
 	/**
 	 * Creates a randomly generated level
 	 * 
-	 * @param width
-	 *            the tiles in the width
+	 * @param width the tiles in the width
 	 * @param height
 	 *            the tiles in the height
 	 * @param loadNow
@@ -294,21 +294,21 @@ public abstract class Level implements Serializable {
 		if (xOffset < 0)
 			xOffset = 0;
 
-		if (xOffset > ((width << 3) - screen.getWidth()))
-			xOffset = ((width << 3) - screen.getWidth());
+		if (xOffset > ((width << Tile.TILE_SHIFT) - screen.getWidth()))
+			xOffset = ((width << Tile.TILE_SHIFT) - screen.getWidth());
 
 		if (yOffset < 0)
 			yOffset = 0;
 
-		if (yOffset > ((height << 3) - screen.getHeight()))
-			yOffset = ((height << 3) - screen.getHeight());
+		if (yOffset > ((height << Tile.TILE_SHIFT) - screen.getHeight()))
+			yOffset = ((height << Tile.TILE_SHIFT) - screen.getHeight());
 
 		screen.setOffset(xOffset, yOffset);
 
 		// render the tiles visible on the screen
-		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
-			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
-				getTile(x, y).render(screen, this, x << 3, y << 3);
+		for (int y = (yOffset >> Tile.TILE_SHIFT); y < (yOffset + screen.getHeight() >> Tile.TILE_SHIFT) + 1; y++) {
+			for (int x = (xOffset >> Tile.TILE_SHIFT); x < (xOffset + screen.getWidth() >> Tile.TILE_SHIFT) + 1; x++) {
+				getTile(x, y).render(screen, this, x << Tile.TILE_SHIFT, y << Tile.TILE_SHIFT);
 			}
 
 		}
@@ -332,8 +332,8 @@ public abstract class Level implements Serializable {
 
 			if (entity.getBounds().intersects(renderRange) && entity.isBehindBuilding()) {
 				entity.render(screen);
-				if (entity instanceof Mob && ((Mob) entity).getHealthBar() != null)
-					((Mob) entity).getHealthBar().render(screen);
+				//if (entity instanceof Mob && ((Mob) entity).getHealthBar() != null)
+					//((Mob) entity).getHealthBar().render(screen);
 			}
 
 		}
@@ -349,8 +349,8 @@ public abstract class Level implements Serializable {
 		for (Hideable e : hideables) {
 			if (e.getBounds().intersects(renderRange) && !e.isBehindBuilding()) {
 				e.render(screen);
-				if (e instanceof Mob && ((Mob) e).getHealthBar() != null)
-					((Mob) e).getHealthBar().render(screen);
+				//if (e instanceof Mob && ((Mob) e).getHealthBar() != null)
+					//((Mob) e).getHealthBar().render(screen);
 			}
 
 		}

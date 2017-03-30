@@ -1,9 +1,9 @@
 package quests;
 
-import game.entities.Mob;
-
 import java.awt.Point;
 import java.io.Serializable;
+
+import javajesus.entities.Mob;
 
 /*
  * A Script is a specific action on a specific mob

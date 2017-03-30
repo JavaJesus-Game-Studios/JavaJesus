@@ -2,7 +2,7 @@ package level.interior;
 
 import java.awt.Point;
 
-import game.entities.structures.transporters.MapTransporter;
+import javajesus.entities.structures.transporters.MapTransporter;
 import level.Level;
 
 public abstract class Interior extends Level {
