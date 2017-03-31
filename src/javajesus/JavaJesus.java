@@ -24,6 +24,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+import static org.lwjgl.opengl.GL11.*;
 
 import utility.JJStrings;
 
@@ -92,6 +93,16 @@ public class JavaJesus implements Runnable {
 
 		// set the clear color
 		glClearColor(0f, 0f, 0f, 0f);
+		
+		// set up the projection matrix
+		glMatrixMode(GL_PROJECTION);
+		
+		// resets previous projection matrices
+		glLoadIdentity();
+		
+		// parallel projection
+		glOrtho(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 1, -1);
+		glMatrixMode(GL_MODELVIEW);
 
 		// set up the internal clock
 		long lastTime = System.nanoTime();
