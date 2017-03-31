@@ -65,22 +65,22 @@ public class RandomLevel extends Level {
 			for (int col = 0; col < heightmap[row].length; col++) {
 				int tile = col + row * getWidth();
 				if (heightmap[row][col].tile() < 500) {
-					tiles[tile] = heightmap[row][col].tile();
+					levelTiles[tile] = heightmap[row][col].tile();
 				}
 				if (heightmap[row][col].getHouse()) {
-					tiles[tile] = heightmap[row][col].tile();
+					levelTiles[tile] = heightmap[row][col].tile();
 					add(getBuilding(col * 8, row * 8));
 					if (rand.nextInt(4) == 0) {
 						add(NPC.getRandomNPC(this, (col - 1) * 8, (row + 6) * 8));
 					}
 				}
 				if (heightmap[row][col].getCave()) {
-					tiles[tile] = heightmap[row][col].tile();
+					levelTiles[tile] = heightmap[row][col].tile();
 					add(new CaveEntrance(this, col * 8 - 18, row * 8 - 28,
 							new RandomCave(200, 200, 5, this, new Point(col * 8, row * 8))));
 				}
 				if (heightmap[row][col].getSpawner()) {
-					tiles[tile] = heightmap[row][col].tile();
+					levelTiles[tile] = heightmap[row][col].tile();
 					add(new Spawner(this, col * 8, row * 8, Spawner.DEMON));
 				}
 				if (heightmap[row][col].tile() == 0) {

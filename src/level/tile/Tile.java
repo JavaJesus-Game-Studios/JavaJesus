@@ -13,8 +13,8 @@ import level.Level;
  */
 public abstract class Tile {
 
-	// A set of all Tile types in the game
-	public static final Tile[] tiles = new Tile[256];
+	// A set of all the available tiles implemented in the game
+	public static final Tile[] tileList = new Tile[256];
 
 	// base size of tiles
 	public static final int SIZE = 8;
@@ -175,11 +175,11 @@ public abstract class Tile {
 	 */
 	public Tile(int id, boolean isSolid, int levelColor) {
 		this.id = (byte) id;
-		if (tiles[id] != null)
+		if (tileList[id] != null)
 			throw new RuntimeException("Duplicate tile id on " + id);
 		this.solid = isSolid;
 		this.levelColor = levelColor;
-		tiles[id] = this;
+		tileList[id] = this;
 	}
 
 	/**

@@ -58,7 +58,7 @@ public class RandomCave extends Level {
 			for (int col = 0; col < getWidth(); col++) {
 				int tile = col + row * getWidth();
 				if (caveMap[row][col] == 1) {
-					tiles[tile] = 20;
+					levelTiles[tile] = 20;
 					if (row > 5 * 8 && col > 5 * 8) {
 						if (!spawnFound) {
 							setSpawnPoint(col * 8, row * 8);
@@ -67,17 +67,17 @@ public class RandomCave extends Level {
 						}
 					}
 				} else if (caveMap[row][col] == 2) {
-					tiles[tile] = 19;
+					levelTiles[tile] = 19;
 				} else if (caveMap[row][col] == 0) {
-					tiles[tile] = 0;
+					levelTiles[tile] = 0;
 				} else if (caveMap[row][col] == 4) {
-					tiles[tile] = 20;
+					levelTiles[tile] = 20;
 					add(new Chest(this, col * 8, row * 8, "", rand.nextInt(2) + 1));
 				} else if (caveMap[row][col] == 5) {
-					tiles[tile] = 20;
+					levelTiles[tile] = 20;
 					add(new Spawner(this, col * 8, row * 8, Spawner.DEMON, 5));
 				} else if (caveMap[row][col] == 6) {
-					tiles[tile] = 20;
+					levelTiles[tile] = 20;
 					add(new TransporterLadder(this, col * 8, row * 8,
 							new RandomLevel(200, 200, new Point(col * 8, row * 8), this), new Point(col * 8, row * 8)));
 

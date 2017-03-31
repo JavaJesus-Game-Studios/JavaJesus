@@ -42,7 +42,7 @@ public abstract class Level implements Serializable {
 	private static final long serialVersionUID = -5963535226522522466L;
 
 	// all tiles on each level
-	protected int[] tiles;
+	protected int[] levelTiles;
 
 	// width and height in terms of tiles
 	private int width, height;
@@ -117,7 +117,7 @@ public abstract class Level implements Serializable {
 		this.width = width;
 		this.height = height;
 		this.name = name;
-		tiles = new int[width * height];
+		levelTiles = new int[width * height];
 		if (loadNow) {
 			load();
 		}
@@ -182,7 +182,7 @@ public abstract class Level implements Serializable {
 			BufferedImage image = ImageIO.read(Level.class.getResource(imagePath));
 			width = image.getWidth();
 			height = image.getHeight();
-			tiles = new int[width * height];
+			levelTiles = new int[width * height];
 
 			// get the tile colors
 			int[] tileColors = image.getRGB(0, 0, width, height, null, 0, width);
@@ -190,14 +190,14 @@ public abstract class Level implements Serializable {
 			// initialize the tiles
 			for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
-					tileCheck: for (Tile t : Tile.tiles) {
+					tileCheck: for (Tile t : Tile.tileList) {
 						if (t != null && t.getLevelColor() == tileColors[x + y * width]) {
 							if (t == Tile.GRASS) {
 								t = Tile.GRASS();
 							} else if (t == Tile.WASTELAND_GROUND1) {
 								t = Tile.CONCRETE();
 							}
-							this.tiles[x + y * width] = t.getId();
+							this.levelTiles[x + y * width] = t.getId();
 							break tileCheck;
 						}
 					}
@@ -219,9 +219,9 @@ public abstract class Level implements Serializable {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				if (x * y % 10 < 10) {
-					tiles[x + y * width] = Tile.GRASS.getId();
+					levelTiles[x + y * width] = Tile.GRASS.getId();
 				} else {
-					tiles[x + y * width] = Tile.STONE.getId();
+					levelTiles[x + y * width] = Tile.STONE.getId();
 
 				}
 
@@ -241,7 +241,7 @@ public abstract class Level implements Serializable {
 	 *            the tile to replace it with
 	 */
 	public void alterTile(int x, int y, Tile newTile) {
-		this.tiles[x + y * width] = newTile.getId();
+		this.levelTiles[x + y * width] = newTile.getId();
 	}
 
 	/**
@@ -270,7 +270,7 @@ public abstract class Level implements Serializable {
 		}
 
 		// update all tiles
-		for (Tile t : Tile.tiles) {
+		for (Tile t : Tile.tileList) {
 			if (t == null) {
 				break;
 			}
@@ -388,7 +388,7 @@ public abstract class Level implements Serializable {
 	public Tile getTile(int x, int y) {
 		if (x < 0 || x >= width || y < 0 || y >= height)
 			return Tile.VOID;
-		return Tile.tiles[tiles[x + y * width]];
+		return Tile.tileList[levelTiles[x + y * width]];
 
 	}
 
