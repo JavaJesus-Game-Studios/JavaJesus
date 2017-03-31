@@ -254,11 +254,40 @@ public class Mob extends Entity implements Damageable, Hideable {
 		}
 		
 		// If the path is straight, will check for collisions
+		// East Only
 		boolean collision = false;
 		if(dx > 0 && dy == 0) {
+			// Check for solid tiles
 			for(int i = 0; i < dx; i++) {
-					
+				if(this.getLevel().getTile(getX() >> 3, getY() >> 3).isSolid()) {
+					collision = true;
+				}
+			}
 			
+			//If no solid, returns simple movement
+			if(collision) {
+				for(int i = 0; i < dx; i++)
+					stepInst[i] = 2;
+				stepInst[dx] = 8;
+				return stepInst;
+			}
+		}
+		
+		// West Only
+		if(dx < 0 && dy == 0) {
+			// Check for solid tiles
+			for(int i = 0; i > dx; i--) {
+				if(this.getLevel().getTile(getX() >> 3, getY() >> 3).isSolid()) {
+					collision = true;
+				}
+			}
+					
+			//If no solid, returns simple movement
+			if(collision) {
+				for(int i = 0; i > dx; i--)
+					stepInst[i] = 6;
+				stepInst[dx] = 8;
+				return stepInst;
 			}
 		}
 
