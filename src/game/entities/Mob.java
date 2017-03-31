@@ -225,6 +225,46 @@ public class Mob extends Entity implements Damageable, Hideable {
 		}
 
 	}
+	
+	/**
+	 * Determines the shortest path to reach a certain point while avoiding obstacles
+	 * @param dx The number of steps on x-coordinate (-dx is west, +dx is east)
+	 * @param dy The number of steps on y-coordinate (-dy is south, +dy is north)
+	 * @return An array that determines the steps that must be taken in order to reach the goal<br>
+	 * 
+	 * <b>The return types are as specified.</b>
+	 * <ul>
+	 * <li>0 - North</li>
+	 * <li>1 - North-East</li>
+	 * <li>2 - East</li>
+	 * <li>3 - South-East</li>
+	 * <li>4 - South</li>
+	 * <li>5 - South-West</li>
+	 * <li>6 - West</li>
+	 * <li>7 - North-West</li>
+	 * <li>8 - Terminator</li>
+	 * </ul>
+	 */
+	public int[] findPath(int dx, int dy) {
+		int[] stepInst = new int[100];
+		
+		// If no change is requested then the terminated array is returned.
+		if(dx==0 && dy==0) {
+			stepInst[0] = 8;
+		}
+		
+		// If the path is straight, will check for collisions
+		boolean collision = false;
+		if(dx > 0 && dy == 0) {
+			for(int i = 0; i < dx; i++) {
+					
+			
+			}
+		}
+
+		
+		return stepInst;
+	}
 
 	/**
 	 * Determines if the change in x or y results in a solid collision
