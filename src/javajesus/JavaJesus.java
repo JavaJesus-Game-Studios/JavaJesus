@@ -20,12 +20,13 @@ import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.system.MemoryUtil.NULL;
+import level.LevelTester;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-import static org.lwjgl.opengl.GL11.*;
 
+import static org.lwjgl.opengl.GL11.*;
 import utility.JJStrings;
 
 /**
@@ -140,7 +141,7 @@ public class JavaJesus implements Runnable {
 			frames++;
 			
 			// display things on the screen
-			render();
+			//render();
 
 			// display the fps
 			if (System.currentTimeMillis() - lastTimer >= 1000) {
@@ -216,11 +217,41 @@ public class JavaJesus implements Runnable {
 		// checks for window events
 		glfwPollEvents();
 	}
-
+	
+	// tmp
+	//int textureID = LevelTester.level.getTileTextureMap();
+	
 	public void render() {
 
 		// clear the frame buffer
 		glClear(GL_COLOR_BUFFER_BIT);
+		
+		// begin the pixel matrix
+		glPushMatrix();
+		
+		// idk
+		glTranslatef(100, 100, 0);
+		
+		// bind texture to load
+		//glBindTexture(GL_TEXTURE_2D, textureID);
+		
+		// begin the rendering
+		glBegin(GL_QUADS);
+		
+		glTexCoord2f(0, 0);
+        glVertex2f(0, 0);
+        
+        glTexCoord2f(1, 0);
+        glVertex2f(WINDOW_WIDTH, 0);
+        
+        glTexCoord2f(1, 1);
+        glVertex2f(WINDOW_WIDTH, WINDOW_HEIGHT);
+        
+        glTexCoord2f(0, 1);
+        glVertex2f(0, WINDOW_HEIGHT);
+        
+        glEnd();
+        glPopMatrix();
 
 		// swaps buffers using the gpu
 		glfwSwapBuffers(window);

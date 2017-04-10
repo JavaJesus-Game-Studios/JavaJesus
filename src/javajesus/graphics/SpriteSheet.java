@@ -18,6 +18,9 @@ public class SpriteSheet implements java.io.Serializable{
     // pixel array of the spritesheet in memory
     private int[] pixels;
     
+    private BufferedImage image;
+    
+    // Spritesheets used in the game
     public static SpriteSheet tiles = new SpriteSheet("/Tiles/tile_sheet.png", 32);
     public static SpriteSheet guns = new SpriteSheet("/Tiles/Inventory&Weapon_Sprites/firearm_sheet.png", 32);
     public static SpriteSheet letters = new SpriteSheet("/GUI/GUI_Menus/letter_sheet.png", 32);
@@ -47,18 +50,13 @@ public class SpriteSheet implements java.io.Serializable{
     	// set the num of boxes
     	setNumBoxes(boxes);
     	
-    	// spritesheet in memory
-        BufferedImage image = null;
-        
         try {
             image = ImageIO.read(SpriteSheet.class.getResource(path));
         } catch (IOException e) {
         	System.err.println("Error loading spritesheet: " + path);
             e.printStackTrace();
-        }
-
-        // can't initialize if there is no spritesheet found
-        if (image == null) {
+            
+            // can't initialize if there is no spritesheet found
             return;
         }
 
@@ -102,6 +100,10 @@ public class SpriteSheet implements java.io.Serializable{
 	 */
 	public int[] getPixels() {
 		return pixels;
+	}
+	
+	public BufferedImage getImage() {
+		return image;
 	}
     
 }

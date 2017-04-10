@@ -164,7 +164,7 @@ public abstract class Tile {
 
 	// the pixel color on the level drawings
 	private int levelColor;
-
+	
 	/**
 	 * Creates a tile
 	 * 
@@ -276,4 +276,5 @@ public abstract class Tile {
 				|| num == Tile.GRASS4.getId() || num == Tile.GRASS5.getId() || num == Tile.GRASS_POPPY.getId()
 				|| num == Tile.GRASS_FLOWER.getId();
 	}
+	
 }

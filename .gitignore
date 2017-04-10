@@ -1,8 +1,5 @@
 /bin/
 .settings/org.eclipse.jdt.core.prefs
 *.prefs
-*.prefs
-.settings/org.eclipse.jdt.core.prefs
-res/Saves/JavaTest.txt
 res/Saves/JavaTest.txt
 *.ser

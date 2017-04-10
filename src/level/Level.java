@@ -1,10 +1,40 @@
 package level;
 
 import java.awt.Point;
+
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
+import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
+import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
+import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
+import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
+import static org.lwjgl.glfw.GLFW.glfwInit;
+import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
+import static org.lwjgl.glfw.GLFW.glfwPollEvents;
+import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowPos;
+import static org.lwjgl.glfw.GLFW.glfwShowWindow;
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
+import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
+import static org.lwjgl.glfw.GLFW.glfwTerminate;
+import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.system.MemoryUtil.NULL;
+
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL12;
+
+import static org.lwjgl.opengl.GL11.*;
+
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +53,8 @@ import javajesus.graphics.Screen;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
+
+import org.lwjgl.BufferUtils;
 
 import level.story.BautistasDomain;
 import level.story.EdgeOfTheWoods;
@@ -614,6 +646,58 @@ public abstract class Level implements Serializable {
 			return null;
 		}
 
+	}
+	
+	public int getTileTextureMap() {
+		
+		Screen display = new Screen(width * Tile.SIZE, height * Tile.SIZE);
+		
+		// load the pixel data into the screen
+		for (int y = 0; y < display.getHeight() >> Tile.TILE_SHIFT + 1; y++) {
+			for (int x = 0; x < display.getWidth() >> Tile.TILE_SHIFT + 1; x++) {
+				getTile(x, y).render(display, this, x << Tile.TILE_SHIFT,
+						y << Tile.TILE_SHIFT);
+			}
+
+		}
+		
+		// create a byte buffer to store into a texture
+		ByteBuffer buffer = BufferUtils.createByteBuffer(display.getWidth() * display.getHeight() * 4);
+		
+		// extract the rgb data in each pixel
+		for(int y = 0; y < display.getHeight(); y++){
+            for(int x = 0; x < display.getWidth(); x++){
+                int pixel = display.getPixels()[y * display.getWidth() + x];
+                buffer.put((byte) ((pixel >> 16) & 0xFF));     // Red component
+                buffer.put((byte) ((pixel >> 8) & 0xFF));      // Green component
+                buffer.put((byte) (pixel & 0xFF));               // Blue component
+            }
+        }
+		
+		// Not sure what it does but we need it
+		buffer.flip();
+		
+		// generate the texture ID
+		int textureID = glGenTextures();
+		
+		// bind the texture to the ID
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		
+		// Dont know what anything is beyond this point
+		
+		//Setup wrap mode
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
+
+        //Setup texture scaling filtering
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        
+        //Send texel data to OpenGL
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, display.getWidth(), display.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+        
+        // the ID of texture of the tiles
+		return textureID;
 	}
 
 }
