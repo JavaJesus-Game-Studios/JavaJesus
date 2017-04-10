@@ -648,8 +648,7 @@ public abstract class Level implements Serializable {
 
 	}
 	
-	public int getTileTextureMap() {
-		
+	public int tmp() {
 		Screen display = new Screen(width * Tile.SIZE, height * Tile.SIZE);
 		
 		// load the pixel data into the screen
@@ -698,6 +697,13 @@ public abstract class Level implements Serializable {
         
         // the ID of texture of the tiles
 		return textureID;
+	}
+	
+	int textureId = tmp();
+	
+	public int getTileTextureMap() {
+		
+		return textureId;
 	}
 
 }

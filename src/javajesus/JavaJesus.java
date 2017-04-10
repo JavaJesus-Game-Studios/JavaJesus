@@ -1,32 +1,15 @@
 package javajesus;
 
-import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
-import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
-import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
-import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
-import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
-import static org.lwjgl.glfw.GLFW.glfwInit;
-import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
-import static org.lwjgl.glfw.GLFW.glfwPollEvents;
-import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowPos;
-import static org.lwjgl.glfw.GLFW.glfwShowWindow;
-import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
-import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
-import static org.lwjgl.glfw.GLFW.glfwTerminate;
-import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearColor;
-import static org.lwjgl.system.MemoryUtil.NULL;
-import level.LevelTester;
+import static org.lwjgl.glfw.Callbacks.*;
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.system.MemoryUtil.*;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
-import static org.lwjgl.opengl.GL11.*;
+import level.LevelTester;
 import utility.JJStrings;
 
 /**
@@ -43,7 +26,7 @@ public class JavaJesus implements Runnable {
 	// Window height (Actual Size)
 	public static final int WINDOW_HEIGHT = 700;
 
-	// handle of the window
+	// address of the window
 	private long window;
 
 	// whether or not the game is running
@@ -86,13 +69,13 @@ public class JavaJesus implements Runnable {
 	 */
 	public void run() {
 
-		// initialize the window
+		// initialize the window on same thread for openGL
 		init();
 
 		// makes open GL bindings available for use
 		GL.createCapabilities();
 
-		// set the clear color
+		// set the clear color to black
 		glClearColor(0f, 0f, 0f, 0f);
 		
 		// set up the projection matrix
@@ -104,6 +87,11 @@ public class JavaJesus implements Runnable {
 		// parallel projection
 		glOrtho(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
+		
+		// glEnable(GL_DEPTH_TEST);
+		
+		// enable texture drawing
+		glEnable(GL_TEXTURE_2D);
 
 		// set up the internal clock
 		long lastTime = System.nanoTime();
@@ -141,7 +129,7 @@ public class JavaJesus implements Runnable {
 			frames++;
 			
 			// display things on the screen
-			//render();
+			render();
 
 			// display the fps
 			if (System.currentTimeMillis() - lastTimer >= 1000) {
@@ -162,7 +150,7 @@ public class JavaJesus implements Runnable {
 		// terminate the window and free memory
 		glfwTerminate();
 		glfwSetErrorCallback(null).free();
-
+		
 	}
 
 	/**
@@ -170,9 +158,9 @@ public class JavaJesus implements Runnable {
 	 */
 	public void init() {
 
-		// create error callback
+		// set error callback stream to System.err
 		GLFWErrorCallback.createPrint(System.err).set();
-
+		
 		// Check if the window initializes successfully
 		if (!glfwInit()) {
 
@@ -180,7 +168,7 @@ public class JavaJesus implements Runnable {
 			throw new IllegalStateException(JJStrings.ERR_INIT);
 		}
 
-		// create the window
+		// create the window, save its address
 		window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT,
 				JJStrings.JAVAJESUS, NULL, NULL);
 
@@ -190,6 +178,9 @@ public class JavaJesus implements Runnable {
 			// Window was not created, print an error
 			throw new RuntimeException(JJStrings.ERR_WINDOW);
 		}
+		
+		// set input listener
+		glfwSetKeyCallback(window, new Input());
 
 		// get resolution of monitor
 		GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -201,8 +192,8 @@ public class JavaJesus implements Runnable {
 		// makes the context of the window current on the thread
 		glfwMakeContextCurrent(window);
 
-		// turn on v sync
-		glfwSwapInterval(1);
+		// turn on v sync (keeps 60 fps)
+		glfwSwapInterval(GL_TRUE);
 
 		// display the window
 		glfwShowWindow(window);
@@ -216,27 +207,26 @@ public class JavaJesus implements Runnable {
 
 		// checks for window events
 		glfwPollEvents();
+		
+		// temporary test
+		if (Input.keys[GLFW_KEY_SPACE]) {
+			System.out.println("Space!");
+		}
 	}
-	
-	// tmp
-	//int textureID = LevelTester.level.getTileTextureMap();
 	
 	public void render() {
 
 		// clear the frame buffer
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		// begin the pixel matrix
-		glPushMatrix();
-		
-		// idk
-		glTranslatef(100, 100, 0);
+		//glPushMatrix();
 		
 		// bind texture to load
-		//glBindTexture(GL_TEXTURE_2D, textureID);
+		//glBindTexture(GL_TEXTURE_2D, LevelTester.level.getTileTextureMap());
 		
 		// begin the rendering
-		glBegin(GL_QUADS);
+		/*glBegin(GL_QUADS);
 		
 		glTexCoord2f(0, 0);
         glVertex2f(0, 0);
@@ -251,7 +241,7 @@ public class JavaJesus implements Runnable {
         glVertex2f(0, WINDOW_HEIGHT);
         
         glEnd();
-        glPopMatrix();
+        glPopMatrix();*/
 
 		// swaps buffers using the gpu
 		glfwSwapBuffers(window);
