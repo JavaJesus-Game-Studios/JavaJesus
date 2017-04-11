@@ -9,6 +9,8 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
+import javajesus.graphics.Shader;
+import javajesus.math.Matrix4f;
 import level.LevelTester;
 import utility.JJStrings;
 
@@ -72,12 +74,6 @@ public class JavaJesus implements Runnable {
 		// initialize the window on same thread for openGL
 		init();
 
-		// makes open GL bindings available for use
-		GL.createCapabilities();
-
-		// set the clear color to black
-		glClearColor(0f, 0f, 0f, 0f);
-		
 		// set up the projection matrix
 		glMatrixMode(GL_PROJECTION);
 		
@@ -197,6 +193,22 @@ public class JavaJesus implements Runnable {
 
 		// display the window
 		glfwShowWindow(window);
+		
+		// makes open GL bindings available for use
+		GL.createCapabilities();
+
+		// set the clear color to black
+		glClearColor(0f, 0f, 0f, 0f);
+		
+		// enable depth test
+		glEnable(GL_DEPTH_TEST);
+		
+		// load all the shaders
+		Shader.loadAll();
+		
+		// set projection of tile shader
+		Matrix4f pr_matrix = Matrix4f.orthographic(-10f, 10f, -10f * 9f / 16f, 10f * 9f / 16f, -1f, 1f);
+		Shader.TILES.setUniformMat4f("pr_matrix", pr_matrix);
 
 	}
 
