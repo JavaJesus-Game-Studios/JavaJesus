@@ -23,6 +23,8 @@ import javajesus.entities.structures.furniture.Chest;
 import javajesus.entities.structures.transporters.MapTransporter;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
+import javajesus.graphics.Shader;
+import javajesus.graphics.VertexArray;
 import level.story.BautistasDomain;
 import level.story.EdgeOfTheWoods;
 import level.story.EdgeOfTheWoodsTop;
@@ -613,22 +615,6 @@ public abstract class Level implements Serializable {
 			return null;
 		}
 
-	}
-	
-	/**
-	 * Temporary
-	 */
-	public Level() {
-		
-		// TODO
-		float[] vertices = new float[] {
-				
-				-10f, -10f * 9f / 16f, 0f,
-				-10f,  10f * 9f / 16f, 0f,
-				  0f,  10f * 9f / 16f, 0f,
-				  0f, -10f * 9f / 16f, 0f
-		};
-		
 	}
 
 }

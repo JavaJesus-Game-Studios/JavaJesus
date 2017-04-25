@@ -3,6 +3,7 @@ package javajesus;
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -11,7 +12,7 @@ import org.lwjgl.opengl.GL;
 
 import javajesus.graphics.Shader;
 import javajesus.math.Matrix4f;
-import level.LevelTester;
+import level.TempLevel;
 import utility.JJStrings;
 
 /**
@@ -33,6 +34,9 @@ public class JavaJesus implements Runnable {
 
 	// whether or not the game is running
 	private boolean running;
+	
+	// Level
+	private TempLevel level;
 
 	/**
 	 * main()
@@ -203,12 +207,26 @@ public class JavaJesus implements Runnable {
 		// enable depth test
 		glEnable(GL_DEPTH_TEST);
 		
+		// which texture we are using
+		glActiveTexture(GL_TEXTURE1);
+		
 		// load all the shaders
 		Shader.loadAll();
 		
 		// set projection of tile shader
 		Matrix4f pr_matrix = Matrix4f.orthographic(-10f, 10f, -10f * 9f / 16f, 10f * 9f / 16f, -1f, 1f);
 		Shader.TILES.setUniformMat4f("pr_matrix", pr_matrix);
+		
+		// id of which texture being used
+		Shader.TILES.setUniform1i("tex", 1);
+		
+		Shader.PLAYER.setUniformMat4f("pr_matrix", pr_matrix);
+		
+		// id of which texture being used
+		Shader.PLAYER.setUniform1i("tex", 1);
+		
+		// initialize the level
+		level = new TempLevel();
 
 	}
 
@@ -220,6 +238,8 @@ public class JavaJesus implements Runnable {
 		// checks for window events
 		glfwPollEvents();
 		
+		level.tick();
+		
 		// temporary test
 		if (Input.keys[GLFW_KEY_SPACE]) {
 			System.out.println("Space!");
@@ -230,6 +250,9 @@ public class JavaJesus implements Runnable {
 
 		// clear the frame buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+		// render the level
+		level.render();
 		
 		// begin the pixel matrix
 		//glPushMatrix();

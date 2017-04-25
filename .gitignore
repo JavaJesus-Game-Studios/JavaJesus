@@ -3,3 +3,4 @@
 *.prefs
 res/Saves/JavaTest.txt
 *.ser
+*.log

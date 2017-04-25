@@ -24,7 +24,7 @@ public class FileUtils {
 			
 			// read in every line in the  file
 			while ((buffer = reader.readLine()) != null) {
-				result.append(buffer);
+				result.append(buffer + "\n");
 			}
 			
 			// close the reader once finished
