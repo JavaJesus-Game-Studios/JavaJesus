@@ -10,10 +10,11 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
-import javajesus.graphics.Shader;
-import javajesus.math.Matrix4f;
-import level.TempLevel;
-import utility.JJStrings;
+import engine.Input;
+import engine.graphics.Shader;
+import engine.math.Matrix4f;
+import engine.utility.Strings;
+import javajesus.utility.JJStrings;
 
 /**
  * @author Derek
@@ -66,7 +67,7 @@ public class JavaJesus implements Runnable {
 		running = true;
 
 		// start the thread
-		new Thread(this, JJStrings.JAVAJESUS).start();
+		new Thread(this, JJStrings.NAME).start();
 	}
 
 	/**
@@ -165,18 +166,18 @@ public class JavaJesus implements Runnable {
 		if (!glfwInit()) {
 
 			// Window did not initializes, print an error
-			throw new IllegalStateException(JJStrings.ERR_INIT);
+			throw new IllegalStateException(Strings.ERR_INIT);
 		}
 
 		// create the window, save its address
 		window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT,
-				JJStrings.JAVAJESUS, NULL, NULL);
+				JJStrings.NAME, NULL, NULL);
 
 		// check to make sure window was created
 		if (window == NULL) {
 
 			// Window was not created, print an error
-			throw new RuntimeException(JJStrings.ERR_WINDOW);
+			throw new RuntimeException(Strings.ERR_WINDOW);
 		}
 		
 		// set input listener
