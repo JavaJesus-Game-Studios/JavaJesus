@@ -2,7 +2,7 @@ package javajesus;
 
 import org.lwjgl.glfw.GLFW;
 
-import engine.Input;
+import engine.Window;
 import engine.graphics.Shader;
 import engine.graphics.Texture;
 import engine.graphics.VertexArray;
@@ -18,7 +18,6 @@ public class TempPlayer {
 	private Vector3f position = new Vector3f(0, 0, 0);
 	
 	private float rot;
-	private float delta;
 	
 	public TempPlayer() {
 		
@@ -47,25 +46,29 @@ public class TempPlayer {
 		
 	}
 	
-	public void update() {
-		if (Input.keys[GLFW.GLFW_KEY_UP]) {
+	public void input(Window window) {
+		if (window.isKeyPressed(GLFW.GLFW_KEY_UP)) {
 			position.y++;
 		}
-		if (Input.keys[GLFW.GLFW_KEY_DOWN]) {
+		if (window.isKeyPressed(GLFW.GLFW_KEY_DOWN)) {
 			position.y--;
 		}
-		if (Input.keys[GLFW.GLFW_KEY_LEFT]) {
+		if (window.isKeyPressed(GLFW.GLFW_KEY_LEFT)) {
 			position.x--;
 		}
-		if (Input.keys[GLFW.GLFW_KEY_RIGHT]) {
+		if (window.isKeyPressed(GLFW.GLFW_KEY_RIGHT)) {
 			position.x++;
 		}
-		if (Input.keys[GLFW.GLFW_KEY_Q]) {
+		if (window.isKeyPressed(GLFW.GLFW_KEY_Q)) {
 			rot++;
 		}
-		if (Input.keys[GLFW.GLFW_KEY_E]) {
+		if (window.isKeyPressed(GLFW.GLFW_KEY_E)) {
 			rot--;
 		}
+	}
+	
+	public void update() {
+
 	}
 	
 	public void render() {

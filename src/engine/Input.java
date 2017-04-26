@@ -9,7 +9,7 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 public class Input extends GLFWKeyCallback {
 	
 	// create an array of keys C style
-	public static boolean[] keys = new boolean[1024];
+	private boolean[] keys = new boolean[1024];
 
 	/**
 	 * invoke()
@@ -24,6 +24,16 @@ public class Input extends GLFWKeyCallback {
 		// Not GLFW_PRESS or GLFW_REPEATED
 		keys[key] = action != GLFW.GLFW_RELEASE;
 		
+	}
+	
+	/**
+	 * isKeyPressed()
+	 * 
+	 * @param keyCode - key pressed
+	 * @return whether it is down or not
+	 */
+	public boolean isKeyPressed(int keyCode) {
+		return keys[keyCode];
 	}
 
 }

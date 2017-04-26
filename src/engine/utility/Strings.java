@@ -9,5 +9,8 @@ public class Strings {
 	// Error messages
 	public static final String ERR_INIT = "Error window was not initialized";
 	public static final String ERR_WINDOW = "Error window could not be created";
+	
+	// strings
+	public static final String THREAD_NAME = "GAME_LOOP_THREAD";
 
 }

@@ -1,5 +1,6 @@
 package javajesus;
 
+import engine.Window;
 import engine.graphics.Shader;
 import engine.graphics.Texture;
 import engine.graphics.VertexArray;
@@ -50,6 +51,10 @@ public class TempLevel {
 		
 		player = new TempPlayer();
 		
+	}
+	
+	public void input(Window window) {
+		player.input(window);
 	}
 	
 	public void tick() {
