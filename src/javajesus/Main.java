@@ -1,7 +1,6 @@
 package javajesus;
 
 import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.SplashScreen;
 import java.io.File;
@@ -28,6 +27,15 @@ public class Main {
 			
 			// create a splash loading screen
 			SplashScreen splash = SplashScreen.getSplashScreen();
+			
+			// error checking
+			if (splash == null) {
+				System.err.println("Splash is null");
+				System.err.println("Add VM Arg in Run Configurations: -splash:res/GUI/logo.png");
+				return;
+			}
+			
+			// render the splash screen
 	        splash.createGraphics();
 	        splash.update();
 

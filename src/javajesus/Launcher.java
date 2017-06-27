@@ -58,12 +58,6 @@ public class Launcher extends Canvas implements IGameLogic {
 	// Id of the page
 	private int pageId;
 
-	// the color of the text
-	private Color color;
-
-	// Random generator
-	private static final Random rand = new Random();
-
 	// the randomly generated background level
 	public static final Level level = new RandomLevel(500, 500, new Point(10, 10), true);;
 
@@ -111,9 +105,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	 */
 	public Launcher() {
 		
-		// sets text color on gui
-		color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
-
+		// map pixels
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
 		SoundHandler.playLoop(SoundHandler.background1);
@@ -290,7 +282,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			back.draw(g);
 		}
 
-		g.setColor(color);
+		g.setColor(Color.WHITE);
 		g.setFont(LAUNCHER_FONT);
 		g.drawString(VERSION, 5, 20);
 		g.drawString(LAST_UPDATED, 5, JavaJesus.WINDOW_HEIGHT - 30);
