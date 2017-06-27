@@ -39,6 +39,9 @@ public class Launcher extends Canvas implements IGameLogic {
 
 	// Last known update
 	private final String LAST_UPDATED = "Last Updated 6/26/2017";
+	
+	// launcher font
+	private static final Font LAUNCHER_FONT = new Font(JavaJesus.FONT_NAME, 0, 15);
 
 	// offset of the sword to render
 	private int swordOffset;
@@ -59,7 +62,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	private Color color;
 
 	// Random generator
-	private static final Random random = new Random();
+	private static final Random rand = new Random();
 
 	// the randomly generated background level
 	public static final Level level = new RandomLevel(500, 500, new Point(10, 10), true);;
@@ -87,11 +90,11 @@ public class Launcher extends Canvas implements IGameLogic {
 	private static final int MAINMENU = 0, SANDBOXMENU = 1, OPTIONSMENU = 2, STORYMENU = 3, AUDIOMENU = 4;
 
 	// Ids of the buttons
-	private static final int STORY = 0, SANDBOX = 1, OPTIONS = 2, HELP = 3, QUIT = 4, SURVIVAL = 5, ZOMBIES = 6,
+	private static final int STORY = 0, SANDBOX = 1, OPTIONS = 2, HELP = 3, QUIT = 4, FIXED = 5, RANDOM = 6,
 			BACK = 7, AUDIO = 8, VIDEO = 9, CONTROLS = 10, NEWSTORY = 11, CONTINUESTORY = 12, MUTE = 13;
 
 	// Buttons on the launcher
-	private LauncherButton story, sandbox, options, help, survival, zombies, audio, video, controls, newStory,
+	private LauncherButton story, sandbox, options, help, fixed, random, audio, video, controls, newStory,
 			continueStory, mute, back, quit;
 
 	// buffered images that are displayed on the screen
@@ -109,7 +112,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	public Launcher() {
 		
 		// sets text color on gui
-		color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+		color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
 
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
@@ -123,7 +126,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	public void init() throws Exception {
 		
 		BufferedImage story_on, story_off, sandbox_on, sandbox_off, options_on, options_off, help_on, help_off,
-		        survival_on, survival_off, zombies_on, zombies_off, audio_on, audio_off, video_on, video_off,
+		        fixed_on, fixed_off, random_on, random_off, audio_on, audio_off, video_on, video_off,
 		        controls_on, controls_off, new_on, new_off, continue_on, continue_off, mute_on, mute_off, back_on,
 		        back_off, quit_on, quit_off;
 		
@@ -147,13 +150,13 @@ public class Launcher extends Canvas implements IGameLogic {
 
 		help_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/help_off.png"));
 
-		survival_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/survival_on.png"));
+		fixed_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/fixed_on.png"));
 
-		survival_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/survival_off.png"));
+		fixed_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/fixed_off.png"));
 
-		zombies_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/zombies_on.png"));
+		random_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/random_on.png"));
 
-		zombies_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/zombies_off.png"));
+		random_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/random_off.png"));
 
 		audio_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/audio_on.png"));
 
@@ -191,8 +194,8 @@ public class Launcher extends Canvas implements IGameLogic {
 		sandbox = new LauncherButton(500, SANDBOX, sandbox_off, sandbox_on);
 		options = new LauncherButton(550, OPTIONS, options_off, options_on);
 		help = new LauncherButton(600, HELP, help_off, help_on);
-		survival = new LauncherButton(450, SURVIVAL, survival_off, survival_on);
-		zombies = new LauncherButton(500, ZOMBIES, zombies_off, zombies_on);
+		fixed = new LauncherButton(450, FIXED, fixed_off, fixed_on);
+		random = new LauncherButton(500, RANDOM, random_off, random_on);
 		audio = new LauncherButton(450, AUDIO, audio_off, audio_on);
 		video = new LauncherButton(500, VIDEO, video_off, video_on);
 		controls = new LauncherButton(550, CONTROLS, controls_off, controls_on);
@@ -250,13 +253,14 @@ public class Launcher extends Canvas implements IGameLogic {
 			sandbox.draw(g);
 			options.draw(g);
 			help.draw(g);
+			quit.draw(g);
 			break;
 
 		}
 		case SANDBOXMENU: {
 
-			survival.draw(g);
-			zombies.draw(g);
+			fixed.draw(g);
+			random.draw(g);
 			break;
 
 		}
@@ -286,10 +290,8 @@ public class Launcher extends Canvas implements IGameLogic {
 			back.draw(g);
 		}
 
-		quit.draw(g);
-
 		g.setColor(color);
-		g.setFont(new Font(JavaJesus.FONT_NAME, 0, 20));
+		g.setFont(LAUNCHER_FONT);
 		g.drawString(VERSION, 5, 20);
 		g.drawString(LAST_UPDATED, 5, JavaJesus.WINDOW_HEIGHT - 30);
 		g.dispose();
@@ -327,7 +329,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			running = false;
 			return;
 		}
-		case SURVIVAL: {
+		case FIXED: {
 			try {
 
 				// initialize a new game
@@ -344,7 +346,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			}
 			return;
 		}
-		case ZOMBIES: {
+		case RANDOM: {
 			try {
 
 				// initialize a new game

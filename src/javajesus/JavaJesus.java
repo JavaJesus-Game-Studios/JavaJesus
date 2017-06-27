@@ -37,22 +37,22 @@ import javajesus.utility.JJStrings;
  */
 public class JavaJesus extends Canvas implements IGameLogic {
 	
-	// Window width
-	public static final int WINDOW_WIDTH = 720 * 12 / 9;
+	// Window width 12:9
+	public static final int WINDOW_WIDTH = 960;
 
 	// Window height
 	public static final int WINDOW_HEIGHT = 720;
 	
 	// Game Screen width (Size of the In-Game Map displayed within the Actual
 	// Frame)
-	public static final int IMAGE_WIDTH = 225 * 12 / 9;
+	public static final int IMAGE_WIDTH = 300;
 
 	// Game Screen height (Size of the In-Game Map displayed within the Actual
 	// Frame)
 	public static final int IMAGE_HEIGHT = 225;
 	
 	// Font name used in the game
-	public final static String FONT_NAME = "Impact";
+	public final static String FONT_NAME = "Press Start 2P";
 
 	// Maximum amount of entities rendered at once
 	public final static int ENTITY_LIMIT = 1000;
