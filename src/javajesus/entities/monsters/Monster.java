@@ -21,6 +21,7 @@ import javajesus.entities.particles.pickups.ShotgunAmmoPickup;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
+import javajesus.utility.GameMode;
 
 /*
  * A Monster is a mob that attacks NPCs and the player
@@ -258,7 +259,7 @@ public class Monster extends Mob implements Skills {
 	public void remove() {
 		super.remove();
 		
-		if (JavaJesus.mode == JavaJesus.GameMode.FIXED) {
+		if (JavaJesus.mode == GameMode.FIXED) {
 			survivalDrops();
 		}
 		

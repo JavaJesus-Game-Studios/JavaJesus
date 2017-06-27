@@ -1,5 +1,6 @@
 package engine;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -24,7 +25,7 @@ public class Window extends JFrame implements WindowListener {
 	
 	// whether or not the window is closed
 	private boolean closed;
-
+	
 	/**
 	 * Window
 	 * 
@@ -56,6 +57,29 @@ public class Window extends JFrame implements WindowListener {
 		// add window listener
 		addWindowListener(this);
 		
+	}
+	
+	/**
+	 * Adds listeners to the following component
+	 * @param c - component to add listeners
+	 * @param l - list of listners
+	 */
+	public void addListeners(Component c, int ... listeners) {
+		
+		for (int i = 0 ; i < listeners.length; i++) {
+			if (listeners[i] == Input.KEY) {
+				c.addKeyListener(input);
+			}
+			if (listeners[i] == Input.FOCUS) {
+				c.addFocusListener(input);
+			}
+			if (listeners[i] == Input.MOUSE) {
+				c.addMouseListener(input);
+			}
+			if (listeners[i] == Input.MOUSE_MOTION) {
+				c.addMouseMotionListener(input);
+			}
+		}
 	}
 
 	/**
@@ -167,11 +191,59 @@ public class Window extends JFrame implements WindowListener {
 	}
 	
 	/**
-	 * Gets the input handler for this window
-	 * @return Input
+	 * @return the mouseX
 	 */
-	public Input getInput() {
-		return input;
+	public final int getMouseX() {
+		return input.mouseX;
+	}
+
+	/**
+	 * @return the mouseY
+	 */
+	public final int getMouseY() {
+		return input.mouseY;
+	}
+
+	/**
+	 * @return the mouseDX
+	 */
+	public final int getMouseDX() {
+		return input.mouseDX;
+	}
+
+	/**
+	 * @return the mouseDY
+	 */
+	public final int getMouseDY() {
+		return input.mouseDY;
+	}
+
+	/**
+	 * @return the mousePX
+	 */
+	public final int getMousePX() {
+		return input.mousePX;
+	}
+
+	/**
+	 * @return the mousePY
+	 */
+	public final int getMousePY() {
+		return input.mousePY;
+	}
+
+	/**
+	 * @return the mouseButton
+	 */
+	public final int getMouseButton() {
+		return input.mouseButton;
+	}
+
+	/**
+	 * @return the dragged
+	 */
+	public final boolean isDragged() {
+		return input.dragged;
 	}
 
 }

@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import javajesus.entities.Player;
+import javajesus.utility.GameMode;
 
 /*
  * Manages the display of the current equipped item status and health bars stats
@@ -111,7 +112,7 @@ public class PlayerHUD {
 		}
 		
 		// for survival mode
-		if (JavaJesus.mode == JavaJesus.GameMode.FIXED) {
+		if (JavaJesus.mode == GameMode.FIXED) {
 			g.setColor(Color.white);
 			g.setFont(new Font(JavaJesus.FONT_NAME, Font.BOLD, 30));
 			g.drawString("Kills: " + JavaJesus.score, JavaJesus.WINDOW_WIDTH / 2 - 10, 30);

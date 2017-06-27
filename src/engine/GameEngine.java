@@ -86,7 +86,7 @@ public class GameEngine implements Runnable {
 		double delta = 0;
 
 		// run while the window is open
-		while (!window.isClosed()) {
+		while (logic.running() && !window.isClosed()) {
 
 			// get difference in time
 			long now = System.nanoTime();

@@ -1,24 +1,26 @@
 package javajesus;
 
+import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.io.IOException;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 
 import engine.GameEngine;
+import engine.IGameLogic;
+import engine.Input;
+import engine.Window;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
 import javajesus.level.RandomLevel;
 import javajesus.utility.Direction;
+import javajesus.utility.GameMode;
 import javajesus.utility.JJStrings;
 
 /**
@@ -27,13 +29,10 @@ import javajesus.utility.JJStrings;
  * It uses the JavaJesus external engine to
  * instantiate a game of a specified type
  */
-public class Launcher extends JFrame implements Runnable {
+public class Launcher extends Canvas implements IGameLogic {
 
 	// Used for serialization
 	private static final long serialVersionUID = 1L;
-
-	// determines if the game is running
-	private boolean running;
 
 	// Version of the game
 	private final String VERSION = "Alpha 0.8.0";
@@ -55,15 +54,6 @@ public class Launcher extends JFrame implements Runnable {
 
 	// Id of the page
 	private int pageId;
-
-	// Width of the game
-	private int width = JavaJesus.WINDOW_WIDTH;
-
-	// height of the screen
-	private int height = JavaJesus.WINDOW_HEIGHT + 100;
-
-	// delay between sword frames
-	private static final int DELAY = 20;
 
 	// the color of the text
 	private Color color;
@@ -89,15 +79,14 @@ public class Launcher extends JFrame implements Runnable {
 	
 	// offset of the level
 	private int xOffset, yOffset;
-
-	/**
-	 * IDs of the page screens
-	 */
+	
+	// mouse coordinates
+	private int mouseX, mouseY, mouseButton;
+	
+	// IDs of the page screens
 	private static final int MAINMENU = 0, SANDBOXMENU = 1, OPTIONSMENU = 2, STORYMENU = 3, AUDIOMENU = 4;
 
-	/**
-	 * Ids of the buttons
-	 */
+	// Ids of the buttons
 	private static final int STORY = 0, SANDBOX = 1, OPTIONS = 2, HELP = 3, QUIT = 4, SURVIVAL = 5, ZOMBIES = 6,
 			BACK = 7, AUDIO = 8, VIDEO = 9, CONTROLS = 10, NEWSTORY = 11, CONTINUESTORY = 12, MUTE = 13;
 
@@ -110,6 +99,9 @@ public class Launcher extends JFrame implements Runnable {
 	
 	// direction the level moves
 	private Direction dir = Direction.SOUTH_EAST;
+	
+	// whether or not the loop should continue running
+	private boolean running = true;
 
 	/**
 	 * Constructor that creates the JFrame
@@ -121,192 +113,115 @@ public class Launcher extends JFrame implements Runnable {
 
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
-		new InputHandler(this);
 		SoundHandler.playLoop(SoundHandler.background1);
-		//setUndecorated(true);
-		setSize(new Dimension(width, height));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		setVisible(true);
-		setAlwaysOnTop(true);
-		init();
-		toFront();
-		setResizable(false);
-
+		
 	}
 
 	/**
 	 * Initializes instance variables and loads button images
 	 */
-	private void init() {
+	public void init() throws Exception {
+		
 		BufferedImage story_on, story_off, sandbox_on, sandbox_off, options_on, options_off, help_on, help_off,
-				survival_on, survival_off, zombies_on, zombies_off, audio_on, audio_off, video_on, video_off,
-				controls_on, controls_off, new_on, new_off, continue_on, continue_off, mute_on, mute_off, back_on,
-				back_off, quit_on, quit_off;
-		try {
-			background = ImageIO.read(Launcher.class.getResource("/GUI/GUI_Menus/Main_Menu.png"));
+		        survival_on, survival_off, zombies_on, zombies_off, audio_on, audio_off, video_on, video_off,
+		        controls_on, controls_off, new_on, new_off, continue_on, continue_off, mute_on, mute_off, back_on,
+		        back_off, quit_on, quit_off;
+		
+		background = ImageIO.read(Launcher.class.getResource("/GUI/GUI_Menus/Main_Menu.png"));
 
-			sword_selector = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/sword_selector.png"));
+		sword_selector = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/sword_selector.png"));
 
-			story_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/story_on.png"));
+		story_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/story_on.png"));
 
-			story_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/story_off.png"));
+		story_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/story_off.png"));
 
-			sandbox_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/sandbox_on.png"));
+		sandbox_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/sandbox_on.png"));
 
-			sandbox_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/sandbox_off.png"));
+		sandbox_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/sandbox_off.png"));
 
-			options_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/options_on.png"));
+		options_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/options_on.png"));
 
-			options_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/options_off.png"));
+		options_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/options_off.png"));
 
-			help_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/help_on.png"));
+		help_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/help_on.png"));
 
-			help_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/help_off.png"));
+		help_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/help_off.png"));
 
-			survival_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/survival_on.png"));
+		survival_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/survival_on.png"));
 
-			survival_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/survival_off.png"));
+		survival_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/survival_off.png"));
 
-			zombies_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/zombies_on.png"));
+		zombies_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/zombies_on.png"));
 
-			zombies_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/zombies_off.png"));
+		zombies_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/zombies_off.png"));
 
-			audio_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/audio_on.png"));
+		audio_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/audio_on.png"));
 
-			audio_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/audio_off.png"));
+		audio_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/audio_off.png"));
 
-			video_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/video_on.png"));
+		video_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/video_on.png"));
 
-			video_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/video_off.png"));
+		video_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/video_off.png"));
 
-			controls_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/controls_on.png"));
+		controls_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/controls_on.png"));
 
-			controls_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/controls_off.png"));
+		controls_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/controls_off.png"));
 
-			new_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/new_on.png"));
+		new_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/new_on.png"));
 
-			new_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/new_off.png"));
+		new_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/new_off.png"));
 
-			continue_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/continue_on.png"));
+		continue_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/continue_on.png"));
 
-			continue_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/continue_off.png"));
+		continue_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/continue_off.png"));
 
-			mute_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/mute_on.png"));
+		mute_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/mute_on.png"));
 
-			mute_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/mute_off.png"));
+		mute_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/mute_off.png"));
 
-			back_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/back_on.png"));
+		back_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/back_on.png"));
 
-			back_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/back_off.png"));
+		back_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/back_off.png"));
 
-			quit_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/quit_on.png"));
+		quit_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/quit_on.png"));
 
-			quit_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/quit_off.png"));
+		quit_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/quit_off.png"));
 
-			story = new LauncherButton(450, STORY, story_off, story_on);
-			sandbox = new LauncherButton(500, SANDBOX, sandbox_off, sandbox_on);
-			options = new LauncherButton(550, OPTIONS, options_off, options_on);
-			help = new LauncherButton(600, HELP, help_off, help_on);
-			survival = new LauncherButton(450, SURVIVAL, survival_off, survival_on);
-			zombies = new LauncherButton(500, ZOMBIES, zombies_off, zombies_on);
-			audio = new LauncherButton(450, AUDIO, audio_off, audio_on);
-			video = new LauncherButton(500, VIDEO, video_off, video_on);
-			controls = new LauncherButton(550, CONTROLS, controls_off, controls_on);
-			newStory = new LauncherButton(450, NEWSTORY, new_off, new_on);
-			continueStory = new LauncherButton(500, CONTINUESTORY, continue_off, continue_on);
-			mute = new LauncherButton(450, MUTE, mute_off, mute_on);
-			back = new LauncherButton(650, BACK, back_off, back_on);
-			quit = new LauncherButton(700, QUIT, quit_off, quit_on);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		story = new LauncherButton(450, STORY, story_off, story_on);
+		sandbox = new LauncherButton(500, SANDBOX, sandbox_off, sandbox_on);
+		options = new LauncherButton(550, OPTIONS, options_off, options_on);
+		help = new LauncherButton(600, HELP, help_off, help_on);
+		survival = new LauncherButton(450, SURVIVAL, survival_off, survival_on);
+		zombies = new LauncherButton(500, ZOMBIES, zombies_off, zombies_on);
+		audio = new LauncherButton(450, AUDIO, audio_off, audio_on);
+		video = new LauncherButton(500, VIDEO, video_off, video_on);
+		controls = new LauncherButton(550, CONTROLS, controls_off, controls_on);
+		newStory = new LauncherButton(450, NEWSTORY, new_off, new_on);
+		continueStory = new LauncherButton(500, CONTINUESTORY, continue_off, continue_on);
+		mute = new LauncherButton(450, MUTE, mute_off, mute_on);
+		back = new LauncherButton(650, BACK, back_off, back_on);
+		quit = new LauncherButton(650, QUIT, quit_off, quit_on);
 
 	}
-
+	
 	/**
-	 * Called on a separate thread that processes logic
+	 * Additional modifications to the window
 	 */
-	public void run() {
-		long lastMinute = System.currentTimeMillis();
-		long lastTime = System.nanoTime();
-		double nsPerTick = 1000000000 / 60.0;
-		int frames = 0;
-		long lastTimer = System.currentTimeMillis();
-		double delta = 0;
-		long previousTime = System.currentTimeMillis();
-
-		while (running) {
-			if (System.currentTimeMillis() > lastMinute + 1000) {
-				lastMinute = System.currentTimeMillis();
-			}
-			long now = System.nanoTime();
-			delta += (now - lastTime) / nsPerTick;
-			lastTime = now;
-
-			while (delta >= 1) {
-				delta--;
-				// changes the direction of the level movement
-				int w = LEVEL_WIDTH * 8;
-				int h = LEVEL_HEIGHT * 8;
-				yOffset = (yOffset + 1) % h;
-				if (dir == Direction.SOUTH_EAST) {
-					xOffset++;
-				} else {
-					xOffset--;
-				}
-				if (xOffset <= 0) {
-					dir = Direction.SOUTH_EAST;
-				} else if (xOffset >= w) {
-					dir = Direction.SOUTH_WEST;
-				}
-			}
-			frames++;
-			render();
-
-			if (System.currentTimeMillis() > previousTime + DELAY) {
-				previousTime = System.currentTimeMillis();
-				
-				if (isClicked) {
-					swordOffset += 10;
-					if (swordOffset > 100) {
-						swordOffset = 0;
-						isClicked = false;
-						doAction();
-					}
-				}
-			}
-
-			if (System.currentTimeMillis() - lastTimer >= 1000) {
-				lastTimer += 1000;
-				System.out.println("Launcher FPS: " + frames);
-				frames = 0;
-			}
-
-		}
-	}
-
-	/**
-	 * Called before the Run() method
-	 */
-	public void start() {
-		running = true;
-		new Thread(this, "Menu").start();
-	}
-
-	/**
-	 * Stops the Run() method
-	 */
-	public void stop() {
-		running = false;
-		this.dispose();
+	public void modifyWindow(Window window) {
+		
+		window.getContentPane().add(this);
+		window.pack();
+		window.setLocationRelativeTo(null);
+		
+		// add listeners
+		window.addListeners(this, Input.MOUSE, Input.MOUSE_MOTION);
+		
 	}
 
 	/**
 	 * Displays the pixels onto the screen
 	 */
-	private void render() {
+	public void render(Window window) {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
@@ -376,7 +291,7 @@ public class Launcher extends JFrame implements Runnable {
 		g.setColor(color);
 		g.setFont(new Font(JavaJesus.FONT_NAME, 0, 20));
 		g.drawString(VERSION, 5, 20);
-		g.drawString(LAST_UPDATED, 5, height - 10);
+		g.drawString(LAST_UPDATED, 5, JavaJesus.WINDOW_HEIGHT - 30);
 		g.dispose();
 		bs.show();
 
@@ -409,18 +324,18 @@ public class Launcher extends JFrame implements Runnable {
 			return;
 		}
 		case QUIT: {
-			this.stop();
+			running = false;
 			return;
 		}
 		case SURVIVAL: {
 			try {
 
 				// initialize a new game
-				new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new JavaJesus(javajesus.JavaJesus.GameMode.FIXED, false))
+				new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new JavaJesus(GameMode.FIXED, false))
 				.start();
 				
 				SoundHandler.background1.stop();
-				this.stop();
+				running = false;
 
 				// report any errors
 			} catch (Exception e) {
@@ -433,11 +348,11 @@ public class Launcher extends JFrame implements Runnable {
 			try {
 
 				// initialize a new game
-				new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new JavaJesus(javajesus.JavaJesus.GameMode.RANDOM, false))
+				new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new JavaJesus(GameMode.RANDOM, false))
 				.start();
 				
 				SoundHandler.background1.stop();
-				this.stop();
+				running = false;
 
 				// report any errors
 			} catch (Exception e) {
@@ -475,11 +390,11 @@ public class Launcher extends JFrame implements Runnable {
 			try {
 
 				// initialize a new game
-				new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new JavaJesus(javajesus.JavaJesus.GameMode.ADVENTURE, false))
+				new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new JavaJesus(GameMode.ADVENTURE, false))
 				.start();
 				
 				SoundHandler.background1.stop();
-				this.stop();
+				running = false;
 
 				// report any errors
 			} catch (Exception e) {
@@ -492,11 +407,11 @@ public class Launcher extends JFrame implements Runnable {
 			try {
 
 				// initialize a new game
-				new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new JavaJesus(javajesus.JavaJesus.GameMode.ADVENTURE, true))
+				new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new JavaJesus(GameMode.ADVENTURE, true))
 				.start();
 				
 				SoundHandler.background1.stop();
-				this.stop();
+				running = false;
 
 				// report any errors
 			} catch (Exception e) {
@@ -532,7 +447,7 @@ public class Launcher extends JFrame implements Runnable {
 		private BufferedImage imageOff, imageOn;
 
 		public LauncherButton(int yPos, int actionId, BufferedImage imageOff, BufferedImage imageOn) {
-			x = Launcher.this.width / 2 - imageOff.getWidth() / 2;
+			x = JavaJesus.WINDOW_WIDTH / 2 - imageOff.getWidth() / 2;
 			y = yPos;
 			this.imageOff = imageOff;
 			this.imageOn = imageOn;
@@ -544,14 +459,14 @@ public class Launcher extends JFrame implements Runnable {
 		}
 
 		public void draw(Graphics g) {
-			if (InputHandler.MouseX > x && InputHandler.MouseX < x + imageOff.getWidth() && InputHandler.MouseY > y
-					&& InputHandler.MouseY < y + imageOff.getHeight()) {
+			if (mouseX > x && mouseX < x + imageOff.getWidth() && mouseY > y
+					&& mouseY < y + imageOff.getHeight()) {
 				g.drawImage(imageOn, x, y, null);
 				if (!isClicked || selectedButton == this) {
 					g.drawImage(sword_selector, x - swordStart + swordOffset, y, null);
 				}
-				if (InputHandler.MouseButton == 1) {
-					InputHandler.MouseButton = 0;
+				if (mouseButton == 1) {
+					mouseButton = 0;
 					SoundHandler.play(SoundHandler.sheathe);
 					isClicked = true;
 					selectedButton = this;
@@ -561,6 +476,52 @@ public class Launcher extends JFrame implements Runnable {
 				g.drawImage(imageOff, x, y, null);
 			}
 		}
+	}
+
+	/**
+	 * Input checking for the window
+	 */
+	public void input(Window window) {
+		mouseX = window.getMouseX();
+		mouseY = window.getMouseY();
+		mouseButton = window.getMouseButton();
+	}
+
+	@Override
+	public void update() {
+		int w = LEVEL_WIDTH * 8;
+		int h = LEVEL_HEIGHT * 8;
+		yOffset = (yOffset + 1) % h;
+		if (dir == Direction.SOUTH_EAST) {
+			xOffset++;
+		} else {
+			xOffset--;
+		}
+		if (xOffset <= 0) {
+			dir = Direction.SOUTH_EAST;
+		} else if (xOffset >= w) {
+			dir = Direction.SOUTH_WEST;
+		}
+		
+		if (isClicked) {
+			swordOffset += 10;
+			if (swordOffset > 100) {
+				swordOffset = 0;
+				isClicked = false;
+				doAction();
+			}
+		}
+		
+	}
+
+	@Override
+	public void onClose() {
+		
+	}
+
+	@Override
+	public boolean running() {
+		return running;
 	}
 
 }

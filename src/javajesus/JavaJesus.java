@@ -3,7 +3,6 @@ package javajesus;
 import java.awt.Canvas;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -14,7 +13,9 @@ import java.util.Random;
 import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
 
+import engine.GameEngine;
 import engine.IGameLogic;
+import engine.Input;
 import engine.Window;
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
@@ -26,6 +27,8 @@ import javajesus.level.Level;
 import javajesus.level.sandbox.SandboxSurvivalMap1;
 import javajesus.level.story.LordHillsboroughsDomain;
 import javajesus.save.GameData;
+import javajesus.utility.GameMode;
+import javajesus.utility.JJStrings;
 
 /**
  * @author Derek
@@ -56,9 +59,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 
 	// Maximum amount of mobs rendered at once
 	public final static int MOB_LIMIT = 300;
-
-	// Determines if the game is running or not
-	private static boolean running;
 
 	// Starts the game based on the game mode
 	public static GameMode mode;
@@ -126,13 +126,16 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// whether or not to load from a file
 	private boolean load;
 	
-	/**
-	 * @see Distinguishes the three different game modes available
-	 */
-	public enum GameMode {
-		ADVENTURE, FIXED, RANDOM
-	}
+	// whether or not the game loop should run
+	private static boolean running;
 	
+	/**
+	 * Ctor for JavaJesus
+	 * Initializes the gamemode and whether or not to load
+	 * 
+	 * @param m - the game mode
+	 * @param load - whether or not to load
+	 */
 	public JavaJesus(GameMode m, boolean load) {
 		
 		mode = m;
@@ -155,6 +158,8 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		introScreen = new IntroGUI(this);
 		display.add(introScreen, "Intro");
 		display.add(this, "Main");
+		
+		running = true;
 		
 		ChatHandler.initialize();
 
@@ -208,8 +213,8 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		window.setLocationRelativeTo(null);
 		window.requestFocus();
 		
-		addKeyListener(window.getInput());
-		addFocusListener(window.getInput());
+		// add input listeners
+		window.addListeners(this, Input.KEY, Input.FOCUS);
 	}
 
 	/**
@@ -236,7 +241,8 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	}
 	
 	public static void playerDied() {
-		
+		running = false;
+		inGameScreen = false;
 	}
 
 	/**
@@ -295,8 +301,15 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 * Called when the game loop stops
 	 */
 	public void onClose() {
+		
 		display = null;
-		new Launcher().start();
+		
+		// initialize a launcher
+		try {
+			new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new Launcher()).start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -412,6 +425,11 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			g.drawString(e.getStackTrace()[i].toString(), 0, 100 + 50 * i);
 		}
 
+	}
+
+	@Override
+	public boolean running() {
+		return running;
 	}
 
 }

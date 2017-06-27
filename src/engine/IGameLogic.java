@@ -40,5 +40,10 @@ public interface IGameLogic {
 	 * Called immediately after window initialization
 	 */
 	void modifyWindow(Window window);
+	
+	/**
+	 * @return whether the game loop should continue running
+	 */
+	boolean running();
 
 }

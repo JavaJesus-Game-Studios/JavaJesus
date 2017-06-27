@@ -1,5 +1,8 @@
 package javajesus;
 
+import engine.GameEngine;
+import javajesus.utility.JJStrings;
+
 /**
  * @author Derek
  * 
@@ -19,7 +22,10 @@ public class Main {
 
 			// start the launcher and sound
 			SoundHandler.initialize();
-			new Launcher().start();
+			
+			// initialize a launcher
+			new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new Launcher())
+			.start();
 
 			// report any errors
 		} catch (Exception e) {

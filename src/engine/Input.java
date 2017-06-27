@@ -18,11 +18,13 @@ public class Input implements KeyListener, FocusListener, MouseListener, MouseMo
 	
 	// different states of the mouse
 	// D = Drag, P = Pressed
-	@SuppressWarnings("unused")
-	private static int mouseX, mouseY, mouseDX, mouseDY, mousePX, mousePY, mouseButton;
+	public int mouseX, mouseY, mouseDX, mouseDY, mousePX, mousePY, mouseButton;
 	
 	// whether or not the mouse is being dragged
-	private static boolean dragged;
+	public boolean dragged;
+	
+	// list of listeners
+	public static final int KEY = 0, FOCUS = 1, MOUSE = 2, MOUSE_MOTION = 3;
 	
 	/**
 	 * isKeyPressed()
@@ -157,6 +159,62 @@ public class Input implements KeyListener, FocusListener, MouseListener, MouseMo
 	public void focusLost(FocusEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	/**
+	 * @return the mouseX
+	 */
+	public final int getMouseX() {
+		return mouseX;
+	}
+
+	/**
+	 * @return the mouseY
+	 */
+	public final int getMouseY() {
+		return mouseY;
+	}
+
+	/**
+	 * @return the mouseDX
+	 */
+	public final int getMouseDX() {
+		return mouseDX;
+	}
+
+	/**
+	 * @return the mouseDY
+	 */
+	public final int getMouseDY() {
+		return mouseDY;
+	}
+
+	/**
+	 * @return the mousePX
+	 */
+	public final int getMousePX() {
+		return mousePX;
+	}
+
+	/**
+	 * @return the mousePY
+	 */
+	public final int getMousePY() {
+		return mousePY;
+	}
+
+	/**
+	 * @return the mouseButton
+	 */
+	public final int getMouseButton() {
+		return mouseButton;
+	}
+
+	/**
+	 * @return the dragged
+	 */
+	public final boolean isDragged() {
+		return dragged;
 	}
 
 }

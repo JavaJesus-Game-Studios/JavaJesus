@@ -42,7 +42,7 @@ public interface Ridable {
 
 	/**
 	 * Input listener for the new ridable
-	 * @param window - window to check on
+	 * @param window - window to check for input
 	 */
 	public void input(Window window);
 
