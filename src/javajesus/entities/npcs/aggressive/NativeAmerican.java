@@ -2,7 +2,7 @@ package javajesus.entities.npcs.aggressive;
 
 import java.awt.Color;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.level.Level;
 
 /*
@@ -64,7 +64,7 @@ public class NativeAmerican extends Shooter {
 	 * Dialogue options for Native Americans
 	 */
 	public void doDialogue() {
-		ChatHandler.displayText(getName() + ": I belong to the wind.", Color.white);
+		MessageHandler.displayText(getName() + ": I belong to the wind.", Color.white);
 		return;
 	}
 

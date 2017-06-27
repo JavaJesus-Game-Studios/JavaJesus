@@ -1,6 +1,6 @@
 package javajesus.entities.npcs;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
@@ -38,7 +38,7 @@ public class Istrahiim extends NPC {
 	 * Istrahiim's dialogue options
 	 */
 	public void doDialogue() {
-		ChatHandler.displayText(getName() + ": Hello, I am not an owl. My Name is Istrahiim.", Color.white);
+		MessageHandler.displayText(getName() + ": Hello, I am not an owl. My Name is Istrahiim.", Color.white);
 		return;
 	}
 

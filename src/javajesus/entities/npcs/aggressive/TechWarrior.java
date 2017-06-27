@@ -1,6 +1,6 @@
 package javajesus.entities.npcs.aggressive;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.Mob;
 import javajesus.entities.projectiles.Bullet;
@@ -68,7 +68,7 @@ public class TechWarrior extends Shooter {
 	 * Dialogue options for Tech Warrior
 	 */
 	public void doDialogue() {
-		ChatHandler.displayText(getName() + ": Have you tried the latest IPear?", Color.white);
+		MessageHandler.displayText(getName() + ": Have you tried the latest IPear?", Color.white);
 		return;
 	}
 

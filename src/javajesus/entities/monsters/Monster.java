@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.JavaJesus;
 import javajesus.entities.LongRange;
 import javajesus.entities.Mob;
@@ -190,27 +190,27 @@ public class Monster extends Mob implements Skills {
 		isTalking = true;
 		switch (random.nextInt(6)) {
 		case 0: {
-			ChatHandler.displayText("Rawr!", Color.white);
+			MessageHandler.displayText("Rawr!", Color.white);
 			return;
 		}
 		case 1: {
-			ChatHandler.displayText("Arghhh", Color.white);
+			MessageHandler.displayText("Arghhh", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.displayText("OOOHH", Color.white);
+			MessageHandler.displayText("OOOHH", Color.white);
 			return;
 		}
 		case 3: {
-			ChatHandler.displayText("ROAAR", Color.white);
+			MessageHandler.displayText("ROAAR", Color.white);
 			return;
 		}
 		case 4: {
-			ChatHandler.displayText("HHRRRRSSHSHH", Color.white);
+			MessageHandler.displayText("HHRRRRSSHSHH", Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.displayText("RRRRRRRRRHHHH", Color.white);
+			MessageHandler.displayText("RRRRRRRRRHHHH", Color.white);
 			return;
 		}
 		}

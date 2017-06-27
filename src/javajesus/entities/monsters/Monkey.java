@@ -2,7 +2,7 @@ package javajesus.entities.monsters;
 
 import java.awt.Color;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
@@ -111,7 +111,7 @@ public class Monkey extends Monster {
 	 */
 	public void speak(Player player) {
 		isTalking = true;
-		ChatHandler.displayText("Chimp no speak with human.", Color.white);
+		MessageHandler.displayText("Chimp no speak with human.", Color.white);
 		return;
 	}
 	

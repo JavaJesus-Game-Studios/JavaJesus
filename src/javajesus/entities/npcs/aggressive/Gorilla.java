@@ -1,6 +1,6 @@
 package javajesus.entities.npcs.aggressive;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.entities.Mob;
 import javajesus.entities.Skills;
 import javajesus.entities.monsters.Monster;
@@ -228,7 +228,7 @@ public class Gorilla extends NPC implements Skills {
 	 * Speech options for gorilla
 	 */
 	public void doDialogue() {
-		ChatHandler.displayText(getName() + ": Gorilla like human.", Color.white);
+		MessageHandler.displayText(getName() + ": Gorilla like human.", Color.white);
 		return;
 	}
 

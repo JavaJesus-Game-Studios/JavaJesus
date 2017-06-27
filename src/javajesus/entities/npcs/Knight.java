@@ -3,7 +3,7 @@ package javajesus.entities.npcs;
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.JavaJesus;
 import javajesus.entities.Mob;
 import javajesus.entities.Skills;
@@ -220,7 +220,7 @@ public class Knight extends NPC implements Skills {
 	 * Dialogue options for the Knight
 	 */
 	public void doDialogue() {
-		ChatHandler.displayText(getName() + ": Hello " + getLevel().getPlayer(JavaJesus.PLAYER_NAME).getName(), Color.white);
+		MessageHandler.displayText(getName() + ": Hello " + getLevel().getPlayer(JavaJesus.PLAYER_NAME).getName(), Color.white);
 		return;
 	}
 

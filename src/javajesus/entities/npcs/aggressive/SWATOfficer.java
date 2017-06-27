@@ -1,6 +1,6 @@
 package javajesus.entities.npcs.aggressive;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.Mob;
 import javajesus.entities.projectiles.Bullet;
@@ -68,7 +68,7 @@ public class SWATOfficer extends Shooter {
 	 * Dialogue options for swat officers
 	 */
 	public void doDialogue() {
-		ChatHandler.displayText(getName() + ": Stop right there, Criminal Scum!", Color.red);
+		MessageHandler.displayText(getName() + ": Stop right there, Criminal Scum!", Color.red);
 		return;
 	}
 

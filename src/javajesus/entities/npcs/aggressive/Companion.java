@@ -2,7 +2,7 @@ package javajesus.entities.npcs.aggressive;
 
 import java.awt.Color;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.JavaJesus;
 import javajesus.entities.Player;
 import javajesus.level.Level;
@@ -86,10 +86,10 @@ public class Companion extends Shooter {
 	public void doDialogue() {
 		switch (random.nextInt(2)) {
 		case 0:
-			ChatHandler.displayText(getName() + ": What's up, bud?", Color.white);
+			MessageHandler.displayText(getName() + ": What's up, bud?", Color.white);
 			break;
 		case 1:
-			ChatHandler.displayText(getName() + ": I got your back!", Color.white);
+			MessageHandler.displayText(getName() + ": I got your back!", Color.white);
 			break;
 		}
 		return;

@@ -22,9 +22,15 @@ public class PlayerHUD {
 	// the different gun types
 	private BufferedImage assaultRifle, crossbow, laserRevolver, revolver, shotgun, bazooka, heart_full, 
 	heart_half, heart_empty, orb_full, orb_half, orb_empty, box;
+	
+	// modifier to inflate the hud
+	private final static int MODIFIER = 4;
 
-	private final static int XOFFSET = 20, YOFFSET = 650, MODIFIER = 4, AMMO_OFFSET = 710, BAR_OFFSET = 750,
-			BAR_VSPACE = 30, NUM_HEARTS = 6, BOX_YOFFSET = YOFFSET - 40, STRING_OFFSET = XOFFSET + 30;
+	// bar offsets
+	private final static int BAR_XOFFSET = 750, BAR_YOFFSET = 50, BAR_VSPACE = 30, NUM_HEARTS = 6;
+	
+	// offsets of various HUD elements
+	private static int box_yOffset, gun_xOffset, gun_yOffset, string_xOffset, string_yOffset;
 
 	/**
 	 * Loads all the images of the weapons
@@ -49,6 +55,10 @@ public class PlayerHUD {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		// initialize box offset
+		box_yOffset = JavaJesus.WINDOW_HEIGHT - (box.getHeight() * MODIFIER);
+		
 	}
 
 	/**
@@ -57,14 +67,22 @@ public class PlayerHUD {
 	public void draw(Graphics g) {
 		
 		// draws a box to display the gun in
-		g.drawImage(box, 0, BOX_YOFFSET, box.getWidth() * MODIFIER, box.getHeight() * MODIFIER, null);
+		g.drawImage(box, 0, box_yOffset, box.getWidth() * MODIFIER, box.getHeight() * MODIFIER, null);
 
 		// draws the gun and ammo
 		BufferedImage gun = getGunType();
+		
 		if (gun != null) {
-			g.drawImage(gun, XOFFSET, YOFFSET, gun.getWidth() * MODIFIER, gun.getHeight() * MODIFIER, null);
+			
+			// initialize offsets
+			gun_xOffset = (box.getWidth() * MODIFIER) / 2 - (gun.getWidth() * MODIFIER) / 2;
+			gun_yOffset = (box.getHeight() * MODIFIER) / 2 - (gun.getHeight() * MODIFIER) / 2 + box_yOffset;
+			string_xOffset = gun_xOffset + 15;
+			string_yOffset = gun_yOffset + 60;
+			
+			g.drawImage(gun, gun_xOffset, gun_yOffset, gun.getWidth() * MODIFIER, gun.getHeight() * MODIFIER, null);
 			g.drawString((int) player.getInventory().getGun().getCurrentAmmo() + " / " + player.getInventory().getGun().getClipSize(),
-					STRING_OFFSET, AMMO_OFFSET);
+					string_xOffset, string_yOffset);
 		}
 
 		// used for calculating which heart to draw
@@ -86,7 +104,7 @@ public class PlayerHUD {
 
 			}
 			
-			g.drawImage(image, BAR_OFFSET + i * image.getWidth(), YOFFSET, image.getWidth(), image.getHeight(), null);
+			g.drawImage(image, BAR_XOFFSET + i * image.getWidth(), box_yOffset +  BAR_YOFFSET, image.getWidth(), image.getHeight(), null);
 		}
 		
 		// used for calculating which orb to draw
@@ -108,7 +126,7 @@ public class PlayerHUD {
 
 			}
 			
-			g.drawImage(image, BAR_OFFSET + i * image.getWidth(), YOFFSET + BAR_VSPACE, image.getWidth(), image.getHeight(), null);
+			g.drawImage(image, BAR_XOFFSET + i * image.getWidth(), box_yOffset + BAR_VSPACE + BAR_YOFFSET, image.getWidth(), image.getHeight(), null);
 		}
 		
 		// for survival mode

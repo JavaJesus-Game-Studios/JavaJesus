@@ -3,7 +3,7 @@ package javajesus.entities.npcs;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
@@ -435,64 +435,64 @@ public class NPC extends Mob {
 	protected void doDialogue() {
 		switch (random.nextInt(13)) {
 		case 0: {
-			ChatHandler.displayText(getName() + ": I used to be an adventurer too!", Color.black);
+			MessageHandler.displayText(getName() + ": I used to be an adventurer too!", Color.black);
 			return;
 		}
 		case 1: {
-			ChatHandler.displayText(getName() + ": Nice shirt!", Color.white);
+			MessageHandler.displayText(getName() + ": Nice shirt!", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.displayText(getName() + ": Are you Jesus?", Color.white);
+			MessageHandler.displayText(getName() + ": Are you Jesus?", Color.white);
 			return;
 		}
 		case 3: {
-			ChatHandler.displayText(getName() + ": This is some nice weather we've been having.", Color.white);
+			MessageHandler.displayText(getName() + ": This is some nice weather we've been having.", Color.white);
 			return;
 		}
 		case 4: {
-			ChatHandler.displayText(getName() + ": You are not from around here are you!", Color.white);
+			MessageHandler.displayText(getName() + ": You are not from around here are you!", Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.displayText(getName() + ": Hello Officer!", Color.white);
+			MessageHandler.displayText(getName() + ": Hello Officer!", Color.white);
 			return;
 		}
 		case 6: {
-			ChatHandler.displayText(getName() + ": Who goes there!", Color.white);
+			MessageHandler.displayText(getName() + ": Who goes there!", Color.white);
 			return;
 		}
 		case 7: {
-			ChatHandler.displayText(getName() + ": Have you been to San Cisco? I hear they're having lovely weather.",
+			MessageHandler.displayText(getName() + ": Have you been to San Cisco? I hear they're having lovely weather.",
 					Color.white);
 			return;
 		}
 		case 8: {
-			ChatHandler.displayText(getName() + ": It's you! It really is! All Hail the Hero of the Bay!", Color.white);
+			MessageHandler.displayText(getName() + ": It's you! It really is! All Hail the Hero of the Bay!", Color.white);
 			return;
 		}
 		case 9: {
-			ChatHandler.displayText(getName() + ": I'm not racist but when you're driving in the East Bay,"
+			MessageHandler.displayText(getName() + ": I'm not racist but when you're driving in the East Bay,"
 					+ " roll up your windows and lock your doors.", Color.white);
 			return;
 		}
 		case 10: {
-			ChatHandler.displayText(getName() + ": Have you seen my friend Bob? He's a peasant and he seems to have"
+			MessageHandler.displayText(getName() + ": Have you seen my friend Bob? He's a peasant and he seems to have"
 					+ "literally dissapeared!", Color.white);
 			return;
 		}
 		case 11: {
-			ChatHandler.displayText(
+			MessageHandler.displayText(
 					getName() + ": Nasty business it is with those Apes in the North!" + " Nasty business indeed.",
 					Color.white);
 			return;
 		}
 		case 12: {
-			ChatHandler.displayText(getName() + ": Hola, mi nombre es Esteban Norteruta!", Color.white);
+			MessageHandler.displayText(getName() + ": Hola, mi nombre es Esteban Norteruta!", Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.displayText(getName() + ": Hello!", Color.white);
+			MessageHandler.displayText(getName() + ": Hello!", Color.white);
 			return;
 		}
 		}
@@ -533,17 +533,17 @@ public class NPC extends Mob {
 			currentQuest.update();
 			switch (currentQuest.getPhase()) {
 			case 0: {
-				ChatHandler.displayText(getName() + ": " + currentQuest.preDialogue(), Color.blue);
+				MessageHandler.displayText(getName() + ": " + currentQuest.preDialogue(), Color.blue);
 				SoundHandler.play(SoundHandler.levelup);
 				currentQuest.nextPhase();
 				return;
 			}
 			case 1: {
-				ChatHandler.displayText(getName() + ": " + currentQuest.dialogue(), Color.blue);
+				MessageHandler.displayText(getName() + ": " + currentQuest.dialogue(), Color.blue);
 				return;
 			}
 			case 2: {
-				ChatHandler.displayText(getName() + ": " + currentQuest.postDialogue(), Color.CYAN);
+				MessageHandler.displayText(getName() + ": " + currentQuest.postDialogue(), Color.CYAN);
 				SoundHandler.play(SoundHandler.chest);
 				if (!player.getCompletedQuests().contains(currentQuest)) {
 					player.getCompletedQuests().add(currentQuest);

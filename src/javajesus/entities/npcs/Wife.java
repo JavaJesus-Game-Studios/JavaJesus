@@ -1,6 +1,6 @@
 package javajesus.entities.npcs;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 
@@ -38,71 +38,71 @@ public class Wife extends NPC {
 
 		switch (random.nextInt(13)) {
 		case 0: {
-			ChatHandler.displayText(getName() + ": Hi sweety.", Color.black);
+			MessageHandler.displayText(getName() + ": Hi sweety.", Color.black);
 			return;
 		}
 		case 1: {
-			ChatHandler.displayText(getName() + ": Did you pick up the kids from Swim Practice?", Color.white);
+			MessageHandler.displayText(getName() + ": Did you pick up the kids from Swim Practice?", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.displayText(getName() + ": You never do anything right.", Color.white);
+			MessageHandler.displayText(getName() + ": You never do anything right.", Color.white);
 			return;
 		}
 		case 3: {
-			ChatHandler.displayText(getName() + ": Can you help me raise our kids for once?", Color.white);
+			MessageHandler.displayText(getName() + ": Can you help me raise our kids for once?", Color.white);
 			return;
 		}
 		case 4: {
-			ChatHandler.displayText(getName() + ": I swear, sometimes I think I should just "
+			MessageHandler.displayText(getName() + ": I swear, sometimes I think I should just "
 					+ "take the kids and move in with my parents.", Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.displayText(getName() + ": How was work? You didn't have to shoot anyone did you?",
+			MessageHandler.displayText(getName() + ": How was work? You didn't have to shoot anyone did you?",
 					Color.white);
 			return;
 		}
 		case 6: {
-			ChatHandler.displayText(getName() + ": I got pulled over today, can you get me out of the ticket?",
+			MessageHandler.displayText(getName() + ": I got pulled over today, can you get me out of the ticket?",
 					Color.white);
 			return;
 		}
 		case 7: {
-			ChatHandler.displayText(getName() + ": You may be a knob, but you're a loveable knob.", Color.white);
+			MessageHandler.displayText(getName() + ": You may be a knob, but you're a loveable knob.", Color.white);
 			return;
 		}
 		case 8: {
-			ChatHandler.displayText(
+			MessageHandler.displayText(
 					getName() + ": The gang problem get's worse here everyday, can you switch departments? I'm afraid"
 							+ "You'll be killed.",
 					Color.white);
 			return;
 		}
 		case 9: {
-			ChatHandler.displayText(getName() + ": I'm not racist but when you're driving in the East Bay,"
+			MessageHandler.displayText(getName() + ": I'm not racist but when you're driving in the East Bay,"
 					+ " roll up your windows and lock your doors.", Color.white);
 			return;
 		}
 		case 10: {
-			ChatHandler.displayText(
+			MessageHandler.displayText(
 					getName() + ": Have you seen our son? He was playing hide and seek with me and he seems to have"
 							+ "literally dissapeared!",
 					Color.white);
 			return;
 		}
 		case 11: {
-			ChatHandler.displayText(
+			MessageHandler.displayText(
 					getName() + ": Don't tell the children about the Apes in the North," + " you'll scare them.",
 					Color.white);
 			return;
 		}
 		case 12: {
-			ChatHandler.displayText(getName() + ": Can you pick up some food on your way home?", Color.white);
+			MessageHandler.displayText(getName() + ": Can you pick up some food on your way home?", Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.displayText(getName() + ": Hello!", Color.white);
+			MessageHandler.displayText(getName() + ": Hello!", Color.white);
 			return;
 		}
 		}

@@ -1,6 +1,6 @@
 package javajesus.entities.npcs;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 
@@ -33,52 +33,52 @@ public class Bautista extends NPC {
 	protected void doDialogue() {
 		switch (random.nextInt(13)) {
 		case 0: {
-			ChatHandler.displayText(getName() + ": I'm richer than you.", Color.black);
+			MessageHandler.displayText(getName() + ": I'm richer than you.", Color.black);
 			return;
 		}
 		case 1: {
-			ChatHandler.displayText(getName() + ": Is that any way to dress in my lands?", Color.white);
+			MessageHandler.displayText(getName() + ": Is that any way to dress in my lands?", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.displayText(getName() + ": I'm Ranchero Bautista, the true inheritor of the peninsula."
+			MessageHandler.displayText(getName() + ": I'm Ranchero Bautista, the true inheritor of the peninsula."
 					+ "Until that bendejo Hillsborough and his family stole my land! And now these "
 					+ "pasty 'techies' threaten my borders from the south, and these peasants threaten my"
 					+ " authority from within, these are dark times mi amigo.", Color.white);
 			return;
 		}
 		case 3: {
-			ChatHandler.displayText(getName() + ": Get out of my sight.", Color.white);
+			MessageHandler.displayText(getName() + ": Get out of my sight.", Color.white);
 			return;
 		}
 		case 4: {
-			ChatHandler.displayText(
+			MessageHandler.displayText(
 					getName() + ": They are my savages! I have the right to do with " + "them as I please!",
 					Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.displayText(getName() + ": Hola Officer!", Color.white);
+			MessageHandler.displayText(getName() + ": Hola Officer!", Color.white);
 			return;
 		}
 		case 6: {
-			ChatHandler.displayText(getName() + ": Mis cabelleros son bueno a guerro!", Color.white);
+			MessageHandler.displayText(getName() + ": Mis cabelleros son bueno a guerro!", Color.white);
 			return;
 		}
 		case 7: {
-			ChatHandler.displayText(getName() + ": Have you been to San Cisco? It has declined into squalor since "
+			MessageHandler.displayText(getName() + ": Have you been to San Cisco? It has declined into squalor since "
 					+ "the days of Bautista rule.", Color.white);
 			return;
 		}
 		case 8: {
-			ChatHandler.displayText(
+			MessageHandler.displayText(
 					getName() + ": My fellow ranchero's have even turned against me! I have enemies everywhere "
 							+ "my friend you must help me squash this rebellion and reclaim my own glory!",
 					Color.white);
 			return;
 		}
 		case 9: {
-			ChatHandler
+			MessageHandler
 					.displayText(
 							getName() + ": I am not torturing the capture rebels, they are my subjects and I am just"
 									+ "however as my subjects they must obey my command, and when they don't"
@@ -87,12 +87,12 @@ public class Bautista extends NPC {
 			return;
 		}
 		case 10: {
-			ChatHandler.displayText(getName() + ": Poor people disgust me, rich people disgust me, the only good thing "
+			MessageHandler.displayText(getName() + ": Poor people disgust me, rich people disgust me, the only good thing "
 					+ "in life is women. Haha!", Color.white);
 			return;
 		}
 		case 11: {
-			ChatHandler.displayText(
+			MessageHandler.displayText(
 					getName() + ": Those apes have spies everywhere, I know the savages are in league with them,"
 							+ "the apes will help them to steal my land! And don't try to convince me "
 							+ "that thes apes did not influence the rebellion!",
@@ -100,11 +100,11 @@ public class Bautista extends NPC {
 			return;
 		}
 		case 12: {
-			ChatHandler.displayText(getName() + ": Hola, Esteban Norteruta!", Color.white);
+			MessageHandler.displayText(getName() + ": Hola, Esteban Norteruta!", Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.displayText(getName() + ": I must become my own Napoleon!", Color.white);
+			MessageHandler.displayText(getName() + ": I must become my own Napoleon!", Color.white);
 			return;
 		}
 		}

@@ -1,6 +1,7 @@
 package javajesus;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -12,10 +13,10 @@ import javax.imageio.ImageIO;
  * ChatHandler creates a graphical overlay at the bottom of 
  * the screen that processes text
  */
-public class ChatHandler {
+public class MessageHandler {
 
-	// Max length of text on one line
-	private static final int LENGTH = 75;
+	// Max number of chars on one line
+	private static final int LENGTH = 50;
 
 	// Time in seconds that the message appears
 	private static final int TIME_DISPLAYED = 4;
@@ -47,13 +48,16 @@ public class ChatHandler {
 
 	// background image of the chat handler
 	public static BufferedImage image;
+	
+	// font for the message handler
+	private static final Font MESSAGE_FONT = new Font(JavaJesus.FONT_NAME, 0, 15);
 
 	/**
 	 * Initializes the image of the window
 	 */
 	public static void initialize() {
 		try {
-			image = ImageIO.read(ChatHandler.class
+			image = ImageIO.read(MessageHandler.class
 					.getResource("/GUI/GUI_Hud/GUI_Dialogue.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -93,8 +97,11 @@ public class ChatHandler {
 		// draw only when a new message appears or player opens it
 		if (isVisible) {
 			g.drawImage(image, XOFFSET,
-					JavaJesus.WINDOW_HEIGHT - image.getHeight() + 10,
-					JavaJesus.WINDOW_WIDTH - XOFFSET + 10, image.getHeight(), null);
+					JavaJesus.WINDOW_HEIGHT - image.getHeight(),
+					JavaJesus.WINDOW_WIDTH - XOFFSET, image.getHeight(), null);
+			
+			// set the font type
+			g.setFont(MESSAGE_FONT);
 			
 			// get font data
 			FontMetrics font = g.getFontMetrics();

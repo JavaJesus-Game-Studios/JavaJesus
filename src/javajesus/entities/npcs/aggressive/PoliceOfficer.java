@@ -2,7 +2,7 @@ package javajesus.entities.npcs.aggressive;
 
 import java.awt.Color;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.level.Level;
 
 /*
@@ -54,7 +54,7 @@ public class PoliceOfficer extends Shooter {
 	 * Dialogue option for police officers
 	 */
 	public void doDialogue() {
-		ChatHandler.displayText(getName() + ": Hello citizen!", Color.yellow);
+		MessageHandler.displayText(getName() + ": Hello citizen!", Color.yellow);
 		return;
 	}
 

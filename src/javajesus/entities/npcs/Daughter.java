@@ -1,6 +1,6 @@
 package javajesus.entities.npcs;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 
@@ -38,60 +38,60 @@ public class Daughter extends NPC {
 
 		switch (random.nextInt(13)) {
 		case 0: {
-			ChatHandler.displayText(getName() + ": Hi daddy!", Color.black);
+			MessageHandler.displayText(getName() + ": Hi daddy!", Color.black);
 			return;
 		}
 		case 1: {
-			ChatHandler.displayText(getName() + ": I love you daddy!", Color.white);
+			MessageHandler.displayText(getName() + ": I love you daddy!", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.displayText(getName() + ": Daddy can we watch Chilled?", Color.white);
+			MessageHandler.displayText(getName() + ": Daddy can we watch Chilled?", Color.white);
 			return;
 		}
 		case 3: {
-			ChatHandler.displayText(getName() + ": Daddy why is the sky blue?", Color.white);
+			MessageHandler.displayText(getName() + ": Daddy why is the sky blue?", Color.white);
 			return;
 		}
 		case 4: {
-			ChatHandler.displayText(getName() + ": Daddy how many stars are there!", Color.white);
+			MessageHandler.displayText(getName() + ": Daddy how many stars are there!", Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.displayText(getName() + ": Daddy, Mommy said you're immature, what does that mean?",
+			MessageHandler.displayText(getName() + ": Daddy, Mommy said you're immature, what does that mean?",
 					Color.white);
 			return;
 		}
 		case 6: {
-			ChatHandler.displayText(getName() + ": Daddy! He took my dolly!", Color.white);
+			MessageHandler.displayText(getName() + ": Daddy! He took my dolly!", Color.white);
 			return;
 		}
 		case 7: {
-			ChatHandler.displayText(getName() + ": I want to see the tall buildings!", Color.white);
+			MessageHandler.displayText(getName() + ": I want to see the tall buildings!", Color.white);
 			return;
 		}
 		case 8: {
-			ChatHandler.displayText(getName() + ": Daddy can we watch the Tiger King?", Color.white);
+			MessageHandler.displayText(getName() + ": Daddy can we watch the Tiger King?", Color.white);
 			return;
 		}
 		case 9: {
-			ChatHandler.displayText(getName() + ": Da da da dum da dum dah duh dum dee doo dum", Color.white);
+			MessageHandler.displayText(getName() + ": Da da da dum da dum dah duh dum dee doo dum", Color.white);
 			return;
 		}
 		case 10: {
-			ChatHandler.displayText(getName() + ": Daddy let's go to the park!", Color.white);
+			MessageHandler.displayText(getName() + ": Daddy let's go to the park!", Color.white);
 			return;
 		}
 		case 11: {
-			ChatHandler.displayText(getName() + ": Mommy said we're going on a picnic tomorrow!", Color.white);
+			MessageHandler.displayText(getName() + ": Mommy said we're going on a picnic tomorrow!", Color.white);
 			return;
 		}
 		case 12: {
-			ChatHandler.displayText(getName() + ": Daddy why is your face so scratchy?", Color.white);
+			MessageHandler.displayText(getName() + ": Daddy why is your face so scratchy?", Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.displayText(getName() + ": Bye!", Color.white);
+			MessageHandler.displayText(getName() + ": Bye!", Color.white);
 			return;
 		}
 		}

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.JavaJesus;
 import javajesus.SoundHandler;
 import javajesus.entities.LongRange;
@@ -180,7 +180,7 @@ public class GangMember extends Monster implements LongRange {
 	 */
 	public void speak(Player player) {
 		isTalking = true;
-		ChatHandler.displayText("I'm in charge here.", Color.white);
+		MessageHandler.displayText("I'm in charge here.", Color.white);
 		return;
 	}
 

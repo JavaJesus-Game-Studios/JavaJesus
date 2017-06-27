@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import engine.Window;
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.JavaJesus;
 import javajesus.SoundHandler;
 import javajesus.entities.monsters.Demon;
@@ -289,7 +289,7 @@ public class Player extends Mob implements Skills {
 			// get the contents
 			for (Item e : chest.getContents()) {
 				inventory.add(e);
-				ChatHandler.displayText("You have obtained " + e, Color.GREEN);
+				MessageHandler.displayText("You have obtained " + e, Color.GREEN);
 			}
 			InventoryGUI.update();
 		}
@@ -881,7 +881,7 @@ public class Player extends Mob implements Skills {
 
 		// toggles chat window
 		if (window.isKeyPressed(KeyEvent.VK_V)) {
-			ChatHandler.toggle();
+			MessageHandler.toggle();
 			window.toggle(KeyEvent.VK_V);
 		}
 		

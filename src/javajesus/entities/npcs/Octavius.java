@@ -1,6 +1,6 @@
 package javajesus.entities.npcs;
 
-import javajesus.ChatHandler;
+import javajesus.MessageHandler;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
@@ -80,64 +80,64 @@ public class Octavius extends NPC {
 
 		switch (random.nextInt(13)) {
 		case 0: {
-			ChatHandler.displayText(getName() + ": Human must go.", Color.black);
+			MessageHandler.displayText(getName() + ": Human must go.", Color.black);
 			return;
 		}
 		case 1: {
-			ChatHandler.displayText(getName() + ": Ape together strong, Ape fighting weak.", Color.white);
+			MessageHandler.displayText(getName() + ": Ape together strong, Ape fighting weak.", Color.white);
 			return;
 		}
 		case 2: {
-			ChatHandler.displayText(getName() + ": Kobe must be punished.", Color.white);
+			MessageHandler.displayText(getName() + ": Kobe must be punished.", Color.white);
 			return;
 		}
 		case 3: {
-			ChatHandler.displayText(getName() + ": Gorilla loyal, Gorilla not abandon Chimp.", Color.white);
+			MessageHandler.displayText(getName() + ": Gorilla loyal, Gorilla not abandon Chimp.", Color.white);
 			return;
 		}
 		case 4: {
-			ChatHandler.displayText(
+			MessageHandler.displayText(
 					getName() + ": Bonobo bad, Kobe Bonobo. Human worse, human violent" + "human kill ape.",
 					Color.white);
 			return;
 		}
 		case 5: {
-			ChatHandler.displayText(getName() + ": You should not, be here!", Color.white);
+			MessageHandler.displayText(getName() + ": You should not, be here!", Color.white);
 			return;
 		}
 		case 6: {
-			ChatHandler.displayText(getName() + ": My kingdom, is not, for Humans!", Color.white);
+			MessageHandler.displayText(getName() + ": My kingdom, is not, for Humans!", Color.white);
 			return;
 		}
 		case 7: {
-			ChatHandler.displayText(getName() + ": I love the lights in Human City.", Color.white);
+			MessageHandler.displayText(getName() + ": I love the lights in Human City.", Color.white);
 			return;
 		}
 		case 8: {
-			ChatHandler.displayText(getName() + ": Ape is family, You ape to, part of Ape family.", Color.white);
+			MessageHandler.displayText(getName() + ": Ape is family, You ape to, part of Ape family.", Color.white);
 			return;
 		}
 		case 9: {
-			ChatHandler.displayText(getName() + ": Demon help Kobe, Demon kill Ape! Ape hate Demon.", Color.white);
+			MessageHandler.displayText(getName() + ": Demon help Kobe, Demon kill Ape! Ape hate Demon.", Color.white);
 			return;
 		}
 		case 10: {
-			ChatHandler.displayText(getName() + ": My son, no listen to me.", Color.white);
+			MessageHandler.displayText(getName() + ": My son, no listen to me.", Color.white);
 			return;
 		}
 		case 11: {
-			ChatHandler.displayText(
+			MessageHandler.displayText(
 					getName() + ": Human raise me, human hurt me, ape attack human city, ape cross human bridge"
 							+ "ape live in forest.",
 					Color.white);
 			return;
 		}
 		case 12: {
-			ChatHandler.displayText(getName() + ": This is ape home, go back to human home!", Color.white);
+			MessageHandler.displayText(getName() + ": This is ape home, go back to human home!", Color.white);
 			return;
 		}
 		default: {
-			ChatHandler.displayText(getName() + ": Hello!", Color.white);
+			MessageHandler.displayText(getName() + ": Hello!", Color.white);
 			return;
 		}
 		}

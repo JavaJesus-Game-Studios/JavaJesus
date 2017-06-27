@@ -161,7 +161,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		
 		running = true;
 		
-		ChatHandler.initialize();
+		MessageHandler.initialize();
 
 		// do game initializtions from save files
 		if (load) {
@@ -288,7 +288,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		if (hud != null)
 			hud.draw(g);
 		g.setFont(DISPLAY_FONT);
-		ChatHandler.drawWindow(g);
+		MessageHandler.drawWindow(g);
 		g.dispose();
 		bs.show();
 	}
