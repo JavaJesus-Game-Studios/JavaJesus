@@ -88,7 +88,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			BACK = 7, AUDIO = 8, VIDEO = 9, CONTROLS = 10, NEWSTORY = 11, CONTINUESTORY = 12, MUTE = 13;
 
 	// Buttons on the launcher
-	private LauncherButton story, sandbox, options, help, fixed, random, audio, video, controls, newStory,
+	private LauncherButton story, sandbox, options, credits, fixed, random, audio, video, controls, newStory,
 			continueStory, mute, back, quit;
 
 	// buffered images that are displayed on the screen
@@ -117,7 +117,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	 */
 	public void init() throws Exception {
 		
-		BufferedImage story_on, story_off, sandbox_on, sandbox_off, options_on, options_off, help_on, help_off,
+		BufferedImage story_on, story_off, sandbox_on, sandbox_off, options_on, options_off, credits_on, credits_off,
 		        fixed_on, fixed_off, random_on, random_off, audio_on, audio_off, video_on, video_off,
 		        controls_on, controls_off, new_on, new_off, continue_on, continue_off, mute_on, mute_off, back_on,
 		        back_off, quit_on, quit_off;
@@ -138,9 +138,9 @@ public class Launcher extends Canvas implements IGameLogic {
 
 		options_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/options_off.png"));
 
-		help_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/help_on.png"));
+		credits_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/credits_on.png"));
 
-		help_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/help_off.png"));
+		credits_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/credits_off.png"));
 
 		fixed_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/fixed_on.png"));
 
@@ -185,7 +185,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		story = new LauncherButton(450, STORY, story_off, story_on);
 		sandbox = new LauncherButton(500, SANDBOX, sandbox_off, sandbox_on);
 		options = new LauncherButton(550, OPTIONS, options_off, options_on);
-		help = new LauncherButton(600, HELP, help_off, help_on);
+		credits = new LauncherButton(600, HELP, credits_off, credits_on);
 		fixed = new LauncherButton(450, FIXED, fixed_off, fixed_on);
 		random = new LauncherButton(500, RANDOM, random_off, random_on);
 		audio = new LauncherButton(450, AUDIO, audio_off, audio_on);
@@ -244,7 +244,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			story.draw(g);
 			sandbox.draw(g);
 			options.draw(g);
-			help.draw(g);
+			credits.draw(g);
 			quit.draw(g);
 			break;
 
