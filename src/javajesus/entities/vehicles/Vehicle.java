@@ -227,7 +227,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 		if (window.isKeyPressed(KeyEvent.VK_I)) {
 			window.toggle(KeyEvent.VK_I);
 			if (JavaJesus.inGameScreen) {
-				JavaJesus.displayInventory();
+				JavaJesus.displayOverview();
 			}
 		}
 		if (window.isKeyPressed(KeyEvent.VK_ESCAPE)) {

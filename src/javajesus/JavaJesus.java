@@ -13,7 +13,7 @@ import java.util.Random;
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.gui.PauseGUI;
-import javajesus.gui.intro.PlayerCreationGUI;
+import javajesus.gui.PlayerCreationGUI;
 import javajesus.gui.overview.OverviewGUI;
 import javajesus.level.Level;
 import javajesus.level.sandbox.SandboxSurvivalMap1;
@@ -37,6 +37,9 @@ import engine.Window;
  */
 public class JavaJesus extends Canvas implements IGameLogic {
 	
+	// serialization
+	private static final long serialVersionUID = 1L;
+
 	// Window width 12:9
 	public static final int WINDOW_WIDTH = 960;
 
@@ -89,8 +92,8 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// Instance of the Pause GUI
 	private static PauseGUI pause;
 
-	// Instance of the Inventory GUI
-	private static OverviewGUI inventory;
+	// Instance of the Overview GUI
+	private static OverviewGUI overview;
 
 	// Default JPanel container used to hold other GUI panels
 	private static JPanel display;
@@ -152,8 +155,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		screen = new Screen(IMAGE_WIDTH, IMAGE_HEIGHT);
 		pause = new PauseGUI();
 		
-		display = new JPanel(new CardLayout());
-		cardlayout = (CardLayout) display.getLayout();
+		display = new JPanel(cardlayout = new CardLayout(0, 0));
 		
 		introScreen = new PlayerCreationGUI(this);
 		display.add(introScreen, "Intro");
@@ -184,7 +186,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			GameData.setPlayer(player);
 			
 			// inputhandler is not saved in file
-			inventory = new OverviewGUI(player);
+			overview = new OverviewGUI();
 			
 			// sound is not saved in file
 			player.initSound(); 
@@ -193,7 +195,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			hud = new PlayerHUD(player);
 			
 			// skip the player selection intro gui screen
-			display.add(inventory, "Inventory");
+			display.add(overview, "Inventory");
 			display.add(pause, "Pause");
 			
 			displayGame();
@@ -367,11 +369,11 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		player.setShirtColor(shirtColor);
 		player.setSkinColor(skinColor);
 
-		inventory = new OverviewGUI(player);
+		overview = new OverviewGUI();
 
 		hud = new PlayerHUD(player);
 		
-		display.add(inventory, "Inventory");
+		display.add(overview, "Inventory");
 		display.add(pause, "Pause");
 		
 		displayGame();
@@ -379,14 +381,14 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	}
 	
 	/**
-	 * Displays the Inventory GUI on the screen
+	 * Displays the Overview GUI on the screen
 	 */
-	public static void displayInventory() {
+	public static void displayOverview() {
 		inGameScreen = false;
 		guiID = INVENTORY_DISPLAY;
 		cardlayout.show(display, "Inventory");
-		inventory.requestFocusInWindow();
-		inventory.getInventory().repaint();
+		overview.requestFocusInWindow();
+		//overview.getInventory().repaint();
 	}
 
 	/**

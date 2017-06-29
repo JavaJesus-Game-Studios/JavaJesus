@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 /**
  * Creates a model of a player 
  */
-public class PlayerSlotGUI extends JPanel {
+public class PlayerGUI extends JPanel {
 
 	// for serialization
 	private static final long serialVersionUID = 1L;
@@ -43,7 +43,7 @@ public class PlayerSlotGUI extends JPanel {
 	 * @param width - width of the panel
 	 * @param height - height of the panel
 	 */
-	public PlayerSlotGUI(int width, int height) {
+	public PlayerGUI(int width, int height) {
 
 		// set the size
 		setPreferredSize(new Dimension(width, height));

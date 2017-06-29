@@ -1,4 +1,4 @@
-package javajesus.gui.intro;
+package javajesus.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javajesus.JavaJesus;
-import javajesus.gui.PlayerSlotGUI;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -35,7 +34,7 @@ public class PlayerCreationGUI extends JPanel {
 	private static final int SKIN_SCREEN = 0, SHIRT_SCREEN = 1;
 	
 	// Slot Panel where the played is JavaJesused
-	private PlayerSlotGUI pScreen;
+	private PlayerGUI pScreen;
 	
 	// text input below player panel
 	private JTextField name;
@@ -59,15 +58,15 @@ public class PlayerCreationGUI extends JPanel {
 				JavaJesus.WINDOW_HEIGHT));
 		setLayout(new BorderLayout(0, 0));
 		
-		// create the middle side
-		JPanel middleSide = new JPanel();
-		middleSide.setLayout(new BoxLayout(middleSide, BoxLayout.Y_AXIS));
-		middleSide.setPreferredSize(new Dimension(JavaJesus.WINDOW_WIDTH / 2, JavaJesus.WINDOW_HEIGHT));
+		// create the left side
+		JPanel leftSide = new JPanel();
+		leftSide.setLayout(new BoxLayout(leftSide, BoxLayout.Y_AXIS));
+		leftSide.setPreferredSize(new Dimension(JavaJesus.WINDOW_WIDTH / 2, JavaJesus.WINDOW_HEIGHT));
 		
 		// create the components in the middle slot
-		middleSide.add(pScreen = new PlayerSlotGUI(JavaJesus.WINDOW_WIDTH / 2, JavaJesus.WINDOW_HEIGHT - 80));
-		middleSide.add(new JJLabel("Enter Name:"));
-		middleSide.add(name = new JTextField());
+		leftSide.add(pScreen = new PlayerGUI(JavaJesus.WINDOW_WIDTH / 2, JavaJesus.WINDOW_HEIGHT - 80));
+		leftSide.add(new JJLabel("Enter Name:"));
+		leftSide.add(name = new JTextField());
 		name.setMinimumSize(new Dimension(Integer.MAX_VALUE, name.getPreferredSize().height));
 		
 		// create the right side
@@ -88,11 +87,11 @@ public class PlayerCreationGUI extends JPanel {
 		// form the color panel
 		colorPanel.add(holder);
 		colorPanel.add(new JJLabel("Red"));
-		colorPanel.add(red = new RGBSlider(255));
+		colorPanel.add(red = new RGBSlider((pScreen.getSkinColor() & 0x00FF0000) >> 16));
 		colorPanel.add(new JJLabel("Green"));
-		colorPanel.add(green = new RGBSlider(0));
+		colorPanel.add(green = new RGBSlider((pScreen.getSkinColor() & 0x0000FF00) >> 8));
 		colorPanel.add(new JJLabel("Blue"));
-		colorPanel.add(blue = new RGBSlider(0));
+		colorPanel.add(blue = new RGBSlider(pScreen.getSkinColor() & 0x000000FF));
 		colorPanel.add(new JPanel());
 		
 		// create the container for the weapon options
@@ -107,7 +106,7 @@ public class PlayerCreationGUI extends JPanel {
 		rightSide.add(finish = new JJButton("Finish"));
 
 		// add all the components together
-		add(middleSide, BorderLayout.CENTER);
+		add(leftSide, BorderLayout.CENTER);
 		add(rightSide, BorderLayout.EAST);
 	}
 
@@ -191,10 +190,27 @@ public class PlayerCreationGUI extends JPanel {
 			
 			if (e.getSource() == skin) {
 				active = SKIN_SCREEN;
+				
+				// wrap the color
+				Color c = new Color(pScreen.getSkinColor());
+				
+				// move the sliders over to current value
+				red.setValue(c.getRed());
+				green.setValue(c.getGreen());
+				blue.setValue(c.getBlue());
+				
 			}
 			
 			if (e.getSource() == shirt) {
 				active = SHIRT_SCREEN;
+				
+				// wrap the color
+				Color c = new Color(pScreen.getShirtColor());
+				
+				// move the sliders over to current value
+				red.setValue(c.getRed());
+				green.setValue(c.getGreen());
+				blue.setValue(c.getBlue());
 			}
 			
 			// create the player

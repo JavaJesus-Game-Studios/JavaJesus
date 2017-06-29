@@ -112,7 +112,7 @@ public class Horse extends NPC implements Ridable {
 		if (window.isKeyPressed(KeyEvent.VK_I)) {
 			window.toggle(KeyEvent.VK_I);
 			if (JavaJesus.inGameScreen) {
-				JavaJesus.displayInventory();
+				JavaJesus.displayOverview();
 			}
 		}
 		if (window.isKeyPressed(KeyEvent.VK_ESCAPE)) {

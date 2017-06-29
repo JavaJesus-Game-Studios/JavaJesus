@@ -372,26 +372,25 @@ public class PauseGUI extends JPanel implements MouseListener, MouseMotionListen
 		mouseButton = 0;
 		
 	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+
 	/**
 	 * Closes the panel when escape is pressed
 	 */
 	@Override
-	public void keyTyped(KeyEvent e) {
-		
+	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			resume();
 			return;
 		}
-		
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
+	public void keyReleased(KeyEvent e) {
 		
 	}
 

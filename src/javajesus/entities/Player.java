@@ -6,8 +6,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import engine.Window;
-import javajesus.MessageHandler;
 import javajesus.JavaJesus;
+import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.structures.furniture.Chest;
@@ -16,7 +16,6 @@ import javajesus.entities.structures.transporters.Transporter;
 import javajesus.entities.vehicles.Ridable;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
-import javajesus.gui.overview.InventoryGUI;
 import javajesus.items.Armor;
 import javajesus.items.Bazooka;
 import javajesus.items.Gun;
@@ -291,7 +290,7 @@ public class Player extends Mob implements Skills {
 				inventory.add(e);
 				MessageHandler.displayText("You have obtained " + e, Color.GREEN);
 			}
-			InventoryGUI.update();
+			//InventoryGUI.update();
 		}
 	}
 
@@ -801,10 +800,10 @@ public class Player extends Mob implements Skills {
 		}
 		
 		// open inventory
-		/*if (window.isKeyPressed(KeyEvent.VK_I)) {
+		if (window.isKeyPressed(KeyEvent.VK_I)) {
 			window.toggle(KeyEvent.VK_I);
 			if (JavaJesus.inGameScreen) {
-				JavaJesus.displayInventory();
+				JavaJesus.displayOverview();
 				window.disable(KeyEvent.VK_W);
 				window.disable(KeyEvent.VK_A);
 				window.disable(KeyEvent.VK_S);
@@ -812,7 +811,7 @@ public class Player extends Mob implements Skills {
 				isSprinting = false;
 			}
 
-		}*/
+		}
 
 		// open pause menu
 		if (window.isKeyPressed(KeyEvent.VK_ESCAPE)) {
