@@ -10,18 +10,10 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.util.Random;
 
-import javax.sound.sampled.Clip;
-import javax.swing.JPanel;
-
-import engine.GameEngine;
-import engine.IGameLogic;
-import engine.Input;
-import engine.Window;
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.gui.PauseGUI;
-import javajesus.gui.ScreenGUI;
-import javajesus.gui.intro.IntroGUI;
+import javajesus.gui.intro.PlayerCreationGUI;
 import javajesus.gui.overview.OverviewGUI;
 import javajesus.level.Level;
 import javajesus.level.sandbox.SandboxSurvivalMap1;
@@ -29,6 +21,14 @@ import javajesus.level.story.LordHillsboroughsDomain;
 import javajesus.save.GameData;
 import javajesus.utility.GameMode;
 import javajesus.utility.JJStrings;
+
+import javax.sound.sampled.Clip;
+import javax.swing.JPanel;
+
+import engine.GameEngine;
+import engine.IGameLogic;
+import engine.Input;
+import engine.Window;
 
 /**
  * @author Derek
@@ -96,7 +96,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	private static JPanel display;
 
 	// Instance of the Set-Up introduction screen GUI
-	private static IntroGUI introScreen;
+	private static PlayerCreationGUI introScreen;
 
 	// Instance of the card layout that holds other guis, used to display other
 	// GUIs
@@ -118,7 +118,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	public static boolean inGameScreen;
 	
 	// font used
-	private static final Font DISPLAY_FONT = new Font("Verdana", 0, 20);
+	private static final Font DISPLAY_FONT = new Font(FONT_NAME, 0, 20);
 
 	// the in game player
 	private Player player;
@@ -155,7 +155,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		display = new JPanel(new CardLayout());
 		cardlayout = (CardLayout) display.getLayout();
 		
-		introScreen = new IntroGUI(this);
+		introScreen = new PlayerCreationGUI(this);
 		display.add(introScreen, "Intro");
 		display.add(this, "Main");
 		
@@ -235,12 +235,13 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		if (inGameScreen) {
 			player.getLevel().tick();
 		} else {
-			((ScreenGUI) display.getComponent(guiID)).tick();
+			display.getComponent(guiID).repaint();
 		}
 
 	}
 	
 	public static void playerDied() {
+		guiID = GAME_DISPLAY;
 		running = false;
 		inGameScreen = false;
 	}

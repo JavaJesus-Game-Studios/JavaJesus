@@ -5,17 +5,15 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JPanel;
-
-import javajesus.InputHandler;
 import javajesus.JavaJesus;
 import javajesus.entities.Player;
-import javajesus.gui.ScreenGUI;
+
+import javax.swing.JPanel;
 
 /*
  * The Overview Menu of the Inventory Screen
  */
-public class OverviewGUI extends ScreenGUI {
+public class OverviewGUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -29,7 +27,7 @@ public class OverviewGUI extends ScreenGUI {
 	private static JPanel mainScreen;
 
 	private InventoryGUI inventory;
-	private MainScreenGUI main;
+	//private MainScreenGUI main;
 
 	public OverviewGUI(Player player) {
 
@@ -38,13 +36,13 @@ public class OverviewGUI extends ScreenGUI {
 				JavaJesus.WINDOW_HEIGHT));
 		this.setBackground(Color.BLACK);
 
-		this.input = new InputHandler(this);
+		//this.input = new InputHandler(this);
 		inventory = new InventoryGUI(player);
-		main = new MainScreenGUI();
+		//main = new MainScreenGUI();
 
 		mainScreen = new JPanel(new CardLayout());
-		mainScreen.add(main, "Main");
-		mainScreen.add(new QuestScreenGUI(), "Quests");
+		//mainScreen.add(main, "Main");
+		//mainScreen.add(new QuestScreenGUI(), "Quests");
 		mainScreen.add(new FactionScreenGUI(), "Factions");
 		mainScreen.add(inventory, "Inventory");
 
@@ -55,7 +53,7 @@ public class OverviewGUI extends ScreenGUI {
 
 	public void tick() {
 
-		if (input.i.isPressed() || input.esc.isPressed()) {
+		/*if (input.i.isPressed() || input.esc.isPressed()) {
 			input.i.toggle(false);
 			input.esc.toggle(false);
 			JavaJesus.displayGame();
@@ -66,7 +64,7 @@ public class OverviewGUI extends ScreenGUI {
 		}
 		if (id == OVERVIEW) {
 			main.tick();
-		}
+		}*/
 
 	}
 

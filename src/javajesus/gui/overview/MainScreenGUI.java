@@ -5,18 +5,15 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JPanel;
-
-import javajesus.InputHandler;
 import javajesus.JavaJesus;
-import javajesus.gui.ScreenGUI;
-import javajesus.gui.slots.PlayerSlotGUI;
-import javajesus.gui.slots.Slot;
+import javajesus.gui.PlayerSlotGUI;
+
+import javax.swing.JPanel;
 
 /*
  * The Overview Panel that displays the character, map, quests, and factions
  */
-public class MainScreenGUI extends ScreenGUI implements MouseListener {
+public class MainScreenGUI extends JPanel implements MouseListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -37,27 +34,26 @@ public class MainScreenGUI extends ScreenGUI implements MouseListener {
 	 * Initializes the inputhandler and background panels
 	 */
 	public MainScreenGUI() {
-		this.input = new InputHandler(this);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setLayout(new BorderLayout());
 
 		JPanel bottomRow = new JPanel(new BorderLayout());
 		bottomRow.setPreferredSize(new Dimension(WIDTH,
 				(int) (HEIGHT * BOTTOM_ROW_RATIO)));
-		questPanel = new Slot(WIDE_FILE_NAME);
-		questPanel.setPreferredSize(new Dimension(WIDTH / 2, bottomRow.getHeight()));
-		factionPanel = new Slot(WIDE_FILE_NAME);
-		factionPanel.setPreferredSize(new Dimension(WIDTH / 2, bottomRow.getHeight()));
-		bottomRow.add(questPanel, BorderLayout.WEST);
-		bottomRow.add(factionPanel, BorderLayout.CENTER);
+		//questPanel = new Slot(WIDE_FILE_NAME);
+		//questPanel.setPreferredSize(new Dimension(WIDTH / 2, bottomRow.getHeight()));
+		//factionPanel = new Slot(WIDE_FILE_NAME);
+		//factionPanel.setPreferredSize(new Dimension(WIDTH / 2, bottomRow.getHeight()));
+		//bottomRow.add(questPanel, BorderLayout.WEST);
+		//bottomRow.add(factionPanel, BorderLayout.CENTER);
 		this.add(bottomRow, BorderLayout.SOUTH);
 
 		JPanel topRow = new JPanel(new BorderLayout());
 		topRow.setPreferredSize(new Dimension(WIDTH,
 				(int) (HEIGHT * (1 - BOTTOM_ROW_RATIO))));
-		pScreen = new PlayerSlotGUI((int) (WIDTH * TOP_ROW_RATIO), topRow.getHeight(), LARGE_FILE_NAME, .75);
+		//pScreen = new PlayerSlotGUI((int) (WIDTH * TOP_ROW_RATIO), topRow.getHeight(), LARGE_FILE_NAME, .75);
 		topRow.add(pScreen, BorderLayout.WEST);
-		topRow.add(new MapScreenGUI((int) (WIDTH * (1 - TOP_ROW_RATIO)), topRow.getHeight()), BorderLayout.CENTER);
+		//topRow.add(new MapScreenGUI((int) (WIDTH * (1 - TOP_ROW_RATIO)), topRow.getHeight()), BorderLayout.CENTER);
 		this.add(topRow, BorderLayout.CENTER);
 
 		this.validate();
@@ -66,10 +62,6 @@ public class MainScreenGUI extends ScreenGUI implements MouseListener {
 		questPanel.addMouseListener(this);
 		factionPanel.addMouseListener(this);
 
-	}
-
-	public void tick() {
-		pScreen.tick();
 	}
 
 	@Override

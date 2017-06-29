@@ -49,7 +49,7 @@ public class Window extends JFrame implements WindowListener {
 	 */
 	public void init() {
 		
-		setMinimumSize(new Dimension(width, height));
+		setPreferredSize(new Dimension(width, height));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);

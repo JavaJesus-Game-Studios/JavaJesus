@@ -7,15 +7,14 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
-
 import javajesus.JavaJesus;
 import javajesus.entities.Player;
-import javajesus.gui.ScreenGUI;
 import javajesus.items.Inventory;
 import javajesus.items.Item;
 
-public class InventoryGUI extends ScreenGUI {
+import javax.swing.JPanel;
+
+public class InventoryGUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -110,11 +109,6 @@ public class InventoryGUI extends ScreenGUI {
 		public void update() {
 			p.update();
 		}
-
-	}
-
-	@Override
-	public void tick() {
 
 	}
 

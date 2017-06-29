@@ -801,7 +801,7 @@ public class Player extends Mob implements Skills {
 		}
 		
 		// open inventory
-		if (window.isKeyPressed(KeyEvent.VK_I)) {
+		/*if (window.isKeyPressed(KeyEvent.VK_I)) {
 			window.toggle(KeyEvent.VK_I);
 			if (JavaJesus.inGameScreen) {
 				JavaJesus.displayInventory();
@@ -812,7 +812,7 @@ public class Player extends Mob implements Skills {
 				isSprinting = false;
 			}
 
-		}
+		}*/
 
 		// open pause menu
 		if (window.isKeyPressed(KeyEvent.VK_ESCAPE)) {
