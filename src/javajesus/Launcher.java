@@ -38,7 +38,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	private final String VERSION = "Alpha 0.8.0";
 
 	// Last known update
-	private final String LAST_UPDATED = "Last Updated 6/26/2017";
+	private final String LAST_UPDATED = "Last Updated 6/28/2017";
 	
 	// launcher font
 	private static final Font LAUNCHER_FONT = new Font(JavaJesus.FONT_NAME, 0, 15);
