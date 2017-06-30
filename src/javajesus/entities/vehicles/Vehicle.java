@@ -34,11 +34,12 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 	// the change in the car's velocity
 	private Point acceleration = new Point(0, 0);
 
-	// the delay between time increments
-	private int DELAY = 10;
-
 	// the fastest a vehicle can accelerate
 	private final int MAX_ACCELERATION = 5;
+	
+	// rate at which speed decays
+	// higher number = slower decay
+	private static final int DECAY = 10;
 
 	// whether or not acceleration is negative
 	private boolean isXSlowingDown = true, isYSlowingDown = true;
@@ -198,28 +199,28 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 		if (window.isKeyPressed(KeyEvent.VK_W)) {
 			
 			isYSlowingDown = false;
-			if (Math.abs(acceleration.y - 1) < MAX_ACCELERATION && tickCount % DELAY == 0) {
+			if (Math.abs(acceleration.y - 1) < MAX_ACCELERATION) {
 				acceleration.y--;
 			}
 		}
 
 		if (window.isKeyPressed(KeyEvent.VK_S)) {
 			isYSlowingDown = false;
-			if (Math.abs(acceleration.y + 1) < MAX_ACCELERATION && tickCount % DELAY == 0) {
+			if (Math.abs(acceleration.y + 1) < MAX_ACCELERATION) {
 				acceleration.y++;
 			}
 		}
 
 		if (window.isKeyPressed(KeyEvent.VK_A)) {
 			isXSlowingDown = false;
-			if (Math.abs(acceleration.x - 1) < MAX_ACCELERATION && tickCount % DELAY == 0) {
+			if (Math.abs(acceleration.x - 1) < MAX_ACCELERATION) {
 				acceleration.x--;
 			}
 		}
 
 		if (window.isKeyPressed(KeyEvent.VK_D)) {
 			isXSlowingDown = false;
-			if (Math.abs(acceleration.x + 1) < MAX_ACCELERATION && tickCount % DELAY == 0) {
+			if (Math.abs(acceleration.x + 1) < MAX_ACCELERATION) {
 				acceleration.x++;
 			}
 		}
@@ -268,7 +269,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 		if (dx != 0 || dy != 0)
 			move(dx, dy);
 
-		if (tickCount % DELAY == 0) {
+		if (tickCount % DECAY == 0) {
 			if (isXSlowingDown) {
 				if (acceleration.x > 0) {
 					acceleration.x--;

@@ -730,6 +730,11 @@ public class Player extends Mob implements Skills {
 		JavaJesus.playerDied();
 	}
 
+	/**
+	 * Handles input for the player
+	 * 
+	 * @param window - window to check for input
+	 */
 	public void input(Window window) {
 		
 		if (vehicle != null) {
