@@ -12,9 +12,9 @@ import java.util.Random;
 
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
+import javajesus.gui.OverviewGUI;
 import javajesus.gui.PauseGUI;
 import javajesus.gui.PlayerCreationGUI;
-import javajesus.gui.overview.OverviewGUI;
 import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.level.sandbox.SandboxSurvivalMap1;

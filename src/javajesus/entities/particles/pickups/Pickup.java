@@ -49,7 +49,7 @@ public class Pickup extends Particle {
 		super(level, x, y, 9, color);
 		this.item = item;
 		setBounds(getX(), getY(), 8, 8);
-		setSpriteSheet(SpriteSheet.items);
+		setSpriteSheet(SpriteSheet.pickups);
 		setTileNumber(xTile + yTile * getSpriteSheet().getNumBoxes());
 		this.quantity = amount;
 	}

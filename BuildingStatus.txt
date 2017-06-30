@@ -1,0 +1,48 @@
+PLACED  INTERIOR	Catholic Chapel	  ~~COMPLETED~~
+PLACED	INTERIOR	Factory			
+PLACED  INTERIOR	Generic Apartments 1
+PLACED  INTERIOR	Generic Castle 1	Castle Towers not implemented
+PLACED  INTERIOR	Generic Castle Tower	Stairs/Roof not implemented
+PLACED  INTERIOR	Generic Catholic Church	
+PLACED  INTERIOR	Generic Cave Entrance
+PLACED  INTERIOR	Generic Hospital
+PLACED  INTERIOR	Generic Hut Exterior~~COMPLETED~~
+PLACED  INTERIOR	Generic Nice House	MULTIPLE FLOORS
+PLACED  INTERIOR	Generic Nice House 	2MULTIPLE FLOORS
+PLACED  INTERIOR	Generic Poor House	~~COMPLETED~~
+PLACED  INTERIOR	Generic Skyscraper  ~~COMPLETED~~
+PLACED  INTERIOR	Gun Store			~~COMPLETED~~
+PLACED  INTERIOR	Hotel
+PLACED    N/A		Mine Shaft
+PLACED	INTERIOR	Modern Skyscraper
+PLACED  INTERIOR	Police Building
+PLACED  INTERIOR	Prison				
+PLACED 	INTERIOR	Projects			~~COMPLETED~~
+PLACED  INTERIOR	Ranchero House		~~COMPLETED~~
+PLACED  INTERIOR	Refugee Tent		~~COMPLETED~~
+PLACED  INTERIOR	Ru. Orthodox Church	~~COMPLETED~~
+PLACED  INTERIOR	Shanty House		~~COMPLETED~~
+PLACED  INTERIOR	Tippee				~~COMPLETED~~
+PLACED  INTERIOR	Warehouse			~~COMPLETED~~
+PLACED  INTERIOR 	The Great Tree		
+PLACED  INTERIOR 	Tree House			~~COMPLETED~~	
+PLACED  INTERIOR	UC Grizzly		
+PLACED  INTERIOR	Oakwood City Hall	
+PLACED  INTERIOR	Chinatown House		~~COMPLETED~~
+PLACED  INTERIOR	Russian Club
+PLACED  INTERIOR	San Cisco City Hall
+PLACED 	INTERIOR	San Cisco Skyscraper Triangle
+PLACED  INTERIOR	Radar Dish			~~COMPLETED~~
+PLACED  INTERIOR	Triad HQ	
+PLACED  INTERIOR	Jungle HQ			
+PLACED  INTERIOR	Quaker HQ			
+PLACED    N/A		San Juan City Hall	
+PLACED  INTERIOR	The Hub 			
+PLACED  INTERIOR	Sequoia City Cinema 
+PLACED  INTERIOR	Sequoia City School 
+PLACED  INTERIOR	Cafe				~~COMPLETED~~			
+PLACED  INTERIOR	Cardinal University		
+PLACED  INTERIOR	Pear HQ				
+PLACED  INTERIOR	Tech Topia City Hall	
+PLACED  INTERIOR	Weird Tech Building 1
+PLACED  INTERIOR	Weird Tech Building 2

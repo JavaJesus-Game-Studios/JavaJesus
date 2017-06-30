@@ -225,10 +225,10 @@ public class Gun extends Item {
 	 * Displays the gun in the inventory
 	 */
 	public void render(final Screen screen) {
-		screen.render(0, 0, xTile + yTile * SpriteSheet.items.getNumBoxes(), getColor(), SpriteSheet.items);
-		screen.render(0, 0, xTile + 1 + yTile * SpriteSheet.items.getNumBoxes(), getColor(), SpriteSheet.items);
-		screen.render(0, 0, xTile + (yTile + 1) * SpriteSheet.items.getNumBoxes(), getColor(), SpriteSheet.items);
-		screen.render(0, 0, xTile + 1 + (yTile + 1) * SpriteSheet.items.getNumBoxes(), getColor(), SpriteSheet.items);
+		screen.render(0, 0, xTile + yTile * SpriteSheet.guns.getNumBoxes(), getColor(), SpriteSheet.guns);
+		screen.render(0, 0, xTile + 1 + yTile * SpriteSheet.guns.getNumBoxes(), getColor(), SpriteSheet.guns);
+		screen.render(0, 0, xTile + (yTile + 1) * SpriteSheet.guns.getNumBoxes(), getColor(), SpriteSheet.guns);
+		screen.render(0, 0, xTile + 1 + (yTile + 1) * SpriteSheet.guns.getNumBoxes(), getColor(), SpriteSheet.guns);
 	}
 
 	/**
