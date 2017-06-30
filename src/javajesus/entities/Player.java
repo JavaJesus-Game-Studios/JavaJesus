@@ -107,15 +107,12 @@ public class Player extends Mob implements Skills {
 	/**
 	 * Creates a new player for the game
 	 * 
-	 * @param level
-	 *            the initial level
-	 * @param x
-	 *            the x coordinate
-	 * @param y
-	 *            the y coordinate
+	 * @param level the initial level
+	 * @param x the x coordinate
+	 * @param y the y coordinate
 	 */
-	public Player(Level level, int x, int y) {
-		super(level, "", x, y, 1, SIZE, SIZE, SpriteSheet.player, START_HEALTH);
+	public Player(String name, Level level, int x, int y) {
+		super(level, name, x, y, 1, SIZE, SIZE, SpriteSheet.player, START_HEALTH);
 
 		inventory = new Inventory();
 		maxStamina = START_STAMINA;

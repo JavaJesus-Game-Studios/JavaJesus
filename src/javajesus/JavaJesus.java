@@ -15,6 +15,7 @@ import javajesus.graphics.Screen;
 import javajesus.gui.PauseGUI;
 import javajesus.gui.PlayerCreationGUI;
 import javajesus.gui.overview.OverviewGUI;
+import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.level.sandbox.SandboxSurvivalMap1;
 import javajesus.level.story.LordHillsboroughsDomain;
@@ -53,6 +54,9 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// Game Screen height (Size of the In-Game Map displayed within the Actual
 	// Frame)
 	public static final int IMAGE_HEIGHT = 225;
+	
+	// a magic number that aligns the bottom components of the HUD
+	public static final int HUD_OFFSET = 29;
 	
 	// Font name used in the game
 	public final static String FONT_NAME = "Press Start 2P";
@@ -336,26 +340,26 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	}
 	
 	/**
-	 * Called when the IntroGUI finishes selecting player preferences
+	 * Called when the Player Creation GUI finishes selecting player preferences
 	 */
-	public synchronized void createPlayer(String name, int shirtColor, int skinColor) {
+	public synchronized void createPlayer(String name, int shirtColor, int skinColor, Item startWeapon) {
 
 		Level level;
 		
 		switch (mode) {
 		case RANDOM:
 			level = Launcher.level;
-			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
+			player = new Player(name, level, level.getSpawnPoint().x, level.getSpawnPoint().y);
 			break;
 		case FIXED:
 			level = new SandboxSurvivalMap1();
-			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
+			player = new Player(name, level, level.getSpawnPoint().x, level.getSpawnPoint().y);
 			break;
 		default:
 			Level.createStoryLevels();
 			level = LordHillsboroughsDomain.level;
 			//level = LevelTester.level;
-			player = new Player(level, level.getSpawnPoint().x, level.getSpawnPoint().y);
+			player = new Player(name, level, level.getSpawnPoint().x, level.getSpawnPoint().y);
 			
 		}
 
@@ -368,6 +372,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 
 		player.setShirtColor(shirtColor);
 		player.setSkinColor(skinColor);
+		player.getInventory().add(startWeapon);
 
 		overview = new OverviewGUI(player);
 

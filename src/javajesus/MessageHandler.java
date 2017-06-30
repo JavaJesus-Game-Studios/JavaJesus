@@ -97,7 +97,7 @@ public class MessageHandler {
 		// draw only when a new message appears or player opens it
 		if (isVisible) {
 			g.drawImage(image, XOFFSET,
-					JavaJesus.WINDOW_HEIGHT - image.getHeight(),
+					JavaJesus.WINDOW_HEIGHT - image.getHeight() - JavaJesus.HUD_OFFSET,
 					JavaJesus.WINDOW_WIDTH - XOFFSET, image.getHeight(), null);
 			
 			// set the font type
@@ -105,7 +105,7 @@ public class MessageHandler {
 			
 			// get font data
 			FontMetrics font = g.getFontMetrics();
-			int yOffset = JavaJesus.WINDOW_HEIGHT - 5;
+			int yOffset = JavaJesus.WINDOW_HEIGHT - JavaJesus.HUD_OFFSET;
 			
 			// process each message to ensure it fits in the window
 			for (int i = 0; i < chatwindow.size(); i++) {

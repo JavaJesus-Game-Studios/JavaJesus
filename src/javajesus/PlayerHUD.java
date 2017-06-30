@@ -57,7 +57,7 @@ public class PlayerHUD {
 		}
 		
 		// initialize box offset
-		box_yOffset = JavaJesus.WINDOW_HEIGHT - (box.getHeight() * MODIFIER) - 29;
+		box_yOffset = JavaJesus.WINDOW_HEIGHT - (box.getHeight() * MODIFIER) - JavaJesus.HUD_OFFSET;
 		
 	}
 

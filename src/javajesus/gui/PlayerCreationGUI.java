@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javajesus.JavaJesus;
+import javajesus.items.Item;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -25,7 +26,7 @@ public class PlayerCreationGUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	// Selectors on the left side
-	private JButton skin, shirt, finish;
+	private JButton skin, shirt, finish, pistol, sword;
 	
 	// default active tab
 	private int active;
@@ -41,6 +42,12 @@ public class PlayerCreationGUI extends JPanel {
 	
 	// sliders on right side
 	private RGBSlider red, green, blue;
+	
+	// display of starting weapon
+	private ItemGUI weaponDisplay;
+	
+	// starting weapon for player
+	private Item startWeapon = Item.revolver;
 	
 	// temp workaround
 	JavaJesus main;
@@ -95,9 +102,17 @@ public class PlayerCreationGUI extends JPanel {
 		colorPanel.add(new JPanel());
 		
 		// create the container for the weapon options
-		JPanel weaponPanel = new JPanel();
-		weaponPanel.add(new JJButton("Pistol"));
-		weaponPanel.add(new JJButton("Sword"));
+		JPanel weaponPanel = new JPanel(new BorderLayout(0, 0));
+		JPanel weaponTop = new JPanel();
+		weaponTop.add(pistol = new JJButton("Pistol"));
+		weaponTop.add(sword = new JJButton("Sword"));
+		
+		// add a picture of the starting weapon
+		weaponDisplay = new ItemGUI(Item.revolver, 0);
+		
+		// construct the weapon panel
+		weaponPanel.add(weaponTop, BorderLayout.NORTH);
+		weaponPanel.add(weaponDisplay, BorderLayout.CENTER);
 		
 		// add the components to the right side
 		rightSide.add(colorPanel);
@@ -216,11 +231,25 @@ public class PlayerCreationGUI extends JPanel {
 				blue.setValue(c.getBlue());
 			}
 			
+			// change display to pistol
+			if (e.getSource() == pistol) {
+				weaponDisplay.setItem(Item.revolver);
+				startWeapon = Item.revolver;
+				weaponDisplay.repaint();
+			}
+			
+			// change display to sword
+			if (e.getSource() == sword) {
+				weaponDisplay.setItem(Item.shortSword);
+				startWeapon = Item.shortSword;
+				weaponDisplay.repaint();
+			}
+			
 			// create the player
 			if (e.getSource() == finish) {
 				
 				// temp workaround
-				main.createPlayer(name.getText(), pScreen.getShirtColor(), pScreen.getSkinColor());
+				main.createPlayer(name.getText(), pScreen.getShirtColor(), pScreen.getSkinColor(), startWeapon);
 				
 			}
 		}

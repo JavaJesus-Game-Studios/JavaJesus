@@ -148,6 +148,13 @@ public class Item implements Serializable {
 
 		items[id] = this;
 	}
+	
+	/**
+	 * @return the item description
+	 */
+	public String getDescription() {
+		return description;
+	}
 
 	/**
 	 * @return general information about this item

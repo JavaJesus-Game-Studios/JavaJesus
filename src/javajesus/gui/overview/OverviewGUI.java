@@ -19,6 +19,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import javajesus.JavaJesus;
 import javajesus.entities.Player;
@@ -87,6 +88,9 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 		// add the components to the viewing panel
 		viewing.add(new MainGUI(), MAIN);
 		viewing.add(invenPanel = new InventoryGUI(), INVENTORY);
+		viewing.add(new FactionGUI(), FACTIONS);
+		viewing.add(new QuestGUI(), QUESTS);
+		viewing.add(new MapGUI(), MAP);
 
 		// add all components to the screen
 		add(top, BorderLayout.NORTH);
@@ -126,7 +130,7 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 		
 		// selected descriptions
 		private JJLabel name;
-		private JJLabel description;
+		private JTextArea description;
 
 		/**
 		 * InventoryGUI ctor()
@@ -145,8 +149,15 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 			// add left side components
 			leftSide.add(selected = new ItemGUI(Item.blank, 0));
 			selected.setMaximumSize(new Dimension(Integer.MAX_VALUE, JavaJesus.WINDOW_HEIGHT / 2)); 
-			leftSide.add(name = new JJLabel("Name: Empty"));
-			leftSide.add(description = new JJLabel("Description: None"));
+			leftSide.add(name = new JJLabel("Empty"));
+			leftSide.add(description = new JTextArea("None"));
+			
+			// set up the description text area
+			description.setEditable(false);
+			description.setMaximumSize(new Dimension(Integer.MAX_VALUE, JavaJesus.WINDOW_HEIGHT / 3));
+			description.setFont(new Font(JavaJesus.FONT_NAME, 0, 16));
+			description.setLineWrap(true);
+			description.setWrapStyleWord(true);
 			
 			// the main panel contains the grid layout
 			main = new JPanel(new GridLayout(NUM_ROWS, NUM_COLS));
@@ -232,24 +243,9 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 			
 		}
 
-		/**
-		 * Handles mouse clicking event
-		 * @param e - the event fired
-		 */
 		@Override
 		public void mouseClicked(MouseEvent e) {
 
-			// get the item gui that was clicked
-			ItemGUI clicked = (ItemGUI) main.getComponent(((ItemGUI) e.getSource()).getId());
-			
-			// set the descriptors on the left side
-			selected.setItem(clicked.getItem());
-			name.setText("Name: " + clicked.getItem().getName());
-			description.setText("Description: " + clicked.getItem().getName());
-
-			// repaint the inventory screen
-			repaint();
-			
 		}
 
 		@Override
@@ -264,9 +260,26 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 			
 		}
 
+		/**
+		 * Handles mouse clicking event
+		 * @param e - the event fired
+		 */
 		@Override
-		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
+		public void mousePressed(MouseEvent e) {
+			
+			// get the item gui that was clicked
+			ItemGUI clicked = (ItemGUI) main.getComponent(((ItemGUI) e.getSource()).getId());
+			
+			// set the descriptors on the left side
+			selected.setItem(clicked.getItem());
+			name.setText(clicked.getItem().getName());
+			description.setText(clicked.getItem().getDescription());
+
+			// repaint the inventory screen
+			repaint();
+			
+			// bring viewing pane back into focus
+			viewing.requestFocusInWindow();
 			
 		}
 
@@ -295,6 +308,9 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 			
 			// force a repaint
 			repaint();
+			
+			// bring viewing pane back into focus
+			viewing.requestFocusInWindow();
 			
 		}
 		
@@ -343,6 +359,75 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 	}
 	
 	/*
+	 * The faction display
+	 */
+	private class FactionGUI extends JPanel {
+		
+		// serialization
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * FactionGUI ctor()
+		 */
+		private FactionGUI() {
+			
+			// set up the panel
+			setPreferredSize(viewing.getPreferredSize());
+			setLayout(new BorderLayout(0, 0));
+			
+			// add in the rightside
+			add(new JJLabel("FACTION TODO"), BorderLayout.CENTER);
+		}
+		
+	}
+	
+	/*
+	 * The quests display
+	 */
+	private class QuestGUI extends JPanel {
+		
+		// serialization
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * QuestGUI ctor()
+		 */
+		private QuestGUI() {
+			
+			// set up the panel
+			setPreferredSize(viewing.getPreferredSize());
+			setLayout(new BorderLayout(0, 0));
+			
+			// add in the rightside
+			add(new JJLabel("QUEST TODO"), BorderLayout.CENTER);
+		}
+		
+	}
+	
+	/*
+	 * The map display
+	 */
+	private class MapGUI extends JPanel {
+		
+		// serialization
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * MapGUI ctor()
+		 */
+		private MapGUI() {
+			
+			// set up the panel
+			setPreferredSize(viewing.getPreferredSize());
+			setLayout(new BorderLayout(0, 0));
+			
+			// add in the rightside
+			add(new JJLabel("MAP TODO"), BorderLayout.CENTER);
+		}
+		
+	}
+	
+	/*
 	 * JButton with modified attributes
 	 */
 	private class JJButton extends JButton implements ActionListener {
@@ -358,7 +443,7 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 			super(s);
 			
 			// add font
-			setFont(new Font(JavaJesus.FONT_NAME, Font.PLAIN, 25));
+			setFont(new Font(JavaJesus.FONT_NAME, Font.PLAIN, 20));
 			
 			// add action listener
 			addActionListener(this);
