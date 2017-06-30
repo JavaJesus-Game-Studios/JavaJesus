@@ -21,6 +21,7 @@ import javajesus.items.Bazooka;
 import javajesus.items.Gun;
 import javajesus.items.Inventory;
 import javajesus.items.Item;
+import javajesus.items.Sword;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
 import javajesus.quests.Quest;
@@ -86,6 +87,15 @@ public class Player extends Mob implements Skills {
 
 	// determines if a player is moving in any direction
 	private boolean isMoving;
+	
+	// currently equipped Gun
+	private Gun equippedGun;
+	
+	// currently equipped Sword
+	private Sword equippedSword;
+	
+	// currently equipped Armor
+	private Armor equippedArmor;
 
 	// player stats
 	private int strength, defense;
@@ -114,17 +124,39 @@ public class Player extends Mob implements Skills {
 		System.err.println("Creating Player");
 
 	}
+	
+	/**
+	 * Equips Armor/Sword/Gun to the player
+	 * 
+	 * @param obj - item to equip
+	 */
+	public void equip(Object obj) {
 
-	public void equip(Armor armor) {
-		if (armor != null) {
-			this.yTile = armor.getRow();
-			this.maxShield = armor.getShield();
-			this.gunSheet = armor.getGunSpritesheet();
-		} else {
-			this.yTile = 0;
-			this.maxShield = 1;
-			this.gunSheet = SpriteSheet.playerGuns;
+		if (obj instanceof Gun) {
+			equippedGun = (Gun) obj;
+		} else if (obj instanceof Sword) {
+			equippedSword = (Sword) obj;
+		} else if (obj instanceof Armor) {
+			equippedArmor = (Armor) obj;
 		}
+		
+	}
+	
+	/**
+	 * UnEquips Armor/Sword/Gun to the player
+	 * 
+	 * @param obj - item to unequip
+	 */
+	public void unEquip(Object obj) {
+
+		if (obj instanceof Gun) {
+			equippedGun = null;
+		} else if (obj instanceof Sword) {
+			equippedSword = null;
+		} else if (obj instanceof Armor) {
+			equippedArmor = null;
+		}
+		
 	}
 
 	/**
@@ -168,7 +200,7 @@ public class Player extends Mob implements Skills {
 		moveTo(location.x, location.y);
 
 	}
-
+	
 	/**
 	 * Internal tick clock that updates the player
 	 */
@@ -184,14 +216,14 @@ public class Player extends Mob implements Skills {
 		super.tick();
 
 		// update the gun
-		if (inventory.getGun() != null) {
-			inventory.getGun().tick();
+		if (equippedGun != null) {
+			equippedGun.tick();
 		}
 
 		// update the sword
-		if (inventory.getSword() != null) {
-			inventory.getSword().tick(getLevel(), getX(), getY());
-			// sdsetDirection(inventory.getSword().getDirection());
+		if (equippedSword != null) {
+			equippedSword.tick(getLevel(), getX(), getY());
+			// sdsetDirection(equippedSword.getDirection());
 		}
 
 		// the change in x and y (movement)
@@ -217,12 +249,21 @@ public class Player extends Mob implements Skills {
 			dx++;
 		}
 
-		// update player armor TODO not efficient
-		equip(inventory.getArmor());
+		// change offsets if wearing armor
+		if (equippedArmor != null) {
+			this.yTile = equippedArmor.getRow();
+			this.maxShield = equippedArmor.getShield();
+			this.gunSheet = equippedArmor.getGunSpritesheet();
+		} else {
+			this.yTile = 0;
+			this.maxShield = 1;
+			this.gunSheet = SpriteSheet.playerGuns;
+		}
+
 
 		// sets the status of the sword
-		if (inventory.getSword() != null) {
-			isSwinging = inventory.getSword().isSwinging();
+		if (equippedSword != null) {
+			isSwinging = equippedSword.isSwinging();
 		}
 
 		// determines if the player is going to move
@@ -277,11 +318,10 @@ public class Player extends Mob implements Skills {
 	/**
 	 * Opens a chest
 	 * 
-	 * @param chest
-	 *            the chest to open
+	 * @param chest - the chest to open
 	 */
 	private void openChest(Chest chest) {
-
+		
 		// checks if chest can be opened
 		if (chest.open()) {
 
@@ -290,7 +330,6 @@ public class Player extends Mob implements Skills {
 				inventory.add(e);
 				MessageHandler.displayText("You have obtained " + e, Color.GREEN);
 			}
-			//InventoryGUI.update();
 		}
 	}
 
@@ -373,36 +412,36 @@ public class Player extends Mob implements Skills {
 		if (isShooting) {
 
 			// bazooka is special :)
-			if (inventory.getGun() instanceof Bazooka) {
-				((Bazooka) inventory.getGun()).renderPlayer(screen, this,
+			if (equippedGun instanceof Bazooka) {
+				((Bazooka) equippedGun).renderPlayer(screen, this,
 						gunSheet, shootingDir);
 				return;
 			}
 
 			// tile positions for player
 			xTile = 0;
-			yTile = inventory.getGun().getPlayerOffset();
+			yTile = equippedGun.getPlayerOffset();
 
 			if (shootingDir == Direction.NORTH) {
 				xTile = 8;
-				if (inventory.getGun() == Item.assaultRifle) {
+				if (equippedGun == Item.assaultRifle) {
 					xTile = 10;
 				}
 				if (!isMoving) {
 					xTile = 10;
-					if (inventory.getGun() == Item.assaultRifle) {
+					if (equippedGun == Item.assaultRifle) {
 						xTile = 12;
 					}
 				}
 			} else if (shootingDir == Direction.SOUTH) {
 				xTile = 4;
-				if (inventory.getGun() == Item.assaultRifle) {
+				if (equippedGun == Item.assaultRifle) {
 					xTile += flip ? 2 : 0;
 					flip = false;
 				}
 				if (!isMoving) {
 					xTile = 6;
-					if (inventory.getGun() == Item.assaultRifle) {
+					if (equippedGun == Item.assaultRifle) {
 						xTile = 8;
 					}
 				}
@@ -439,8 +478,8 @@ public class Player extends Mob implements Skills {
 		}
 		// Handles Swinging Animation
 		if (isSwinging) {
-			inventory.getSword().render(screen, xOffset, yOffset, getColor());
-			setDirection(inventory.getSword().getDirection());
+			equippedSword.render(screen, xOffset, yOffset, getColor());
+			setDirection(equippedSword.getDirection());
 		}
 
 	}
@@ -563,9 +602,7 @@ public class Player extends Mob implements Skills {
 	 * Must be called after loading a save file because sounds are not saved
 	 */
 	public void initSound() {
-		for (Item g : inventory.getGuns()) {
-			((Gun) g).initSound();
-		}
+		equippedGun.initSound();
 	}
 
 	/**
@@ -723,33 +760,33 @@ public class Player extends Mob implements Skills {
 				|| window.isKeyPressed(KeyEvent.VK_LEFT) || window.isKeyPressed(KeyEvent.VK_RIGHT))
 				&& !isSwinging
 				&& !isSwimming
-				&& inventory.getGun() != null
-				&& !inventory.getGun().isReloading();
+				&& equippedGun != null
+				&& !equippedGun.isReloading();
 
 		// update the shooting directions if applicable
 		if (window.isKeyPressed(KeyEvent.VK_UP)) {
 			shootingDir = Direction.NORTH;
 			if (isShooting) {
-				inventory.getGun().fire(getX() + 7, getY(), shootingDir, this);
+				equippedGun.fire(getX() + 7, getY(), shootingDir, this);
 			}
 		}
 		if (window.isKeyPressed(KeyEvent.VK_DOWN)) {
 			shootingDir = Direction.SOUTH;
 			if (isShooting) {
-				inventory.getGun().fire(getX() + 7, getY() + 8, shootingDir,
+				equippedGun.fire(getX() + 7, getY() + 8, shootingDir,
 						this);
 			}
 		}
 		if (window.isKeyPressed(KeyEvent.VK_LEFT)) {
 			shootingDir = Direction.WEST;
 			if (isShooting) {
-				inventory.getGun().fire(getX(), getY() + 6, shootingDir, this);
+				equippedGun.fire(getX(), getY() + 6, shootingDir, this);
 			}
 		}
 		if (window.isKeyPressed(KeyEvent.VK_RIGHT)) {
 			shootingDir = Direction.EAST;
 			if (isShooting) {
-				inventory.getGun().fire(getX() + 8, getY() + 6, shootingDir,
+				equippedGun.fire(getX() + 8, getY() + 6, shootingDir,
 						this);
 			}
 		}
@@ -757,14 +794,14 @@ public class Player extends Mob implements Skills {
 		// swing key
 		if (window.isKeyPressed(KeyEvent.VK_SPACE)) {
 			if (!isShooting && !isSwimming && !isSwinging
-					&& inventory.getSword() != null) {
+					&& equippedSword != null) {
 
 				if (isSprinting && stamina > 20) {
 					stamina -= 20;
-					inventory.getSword().swing(getLevel(), getX(), getY(),
+					equippedSword.swing(getLevel(), getX(), getY(),
 							getDirection(), true);
 				} else {
-					inventory.getSword().swing(getLevel(), getX(), getY(),
+					equippedSword.swing(getLevel(), getX(), getY(),
 							getDirection(), false);
 				}
 			}
@@ -787,8 +824,8 @@ public class Player extends Mob implements Skills {
 		
 		// reload
 		if (window.isKeyPressed(KeyEvent.VK_R)) {
-			if (inventory.getGun() != null) {
-				inventory.getGun().reload(inventory);
+			if (equippedGun != null) {
+				equippedGun.reload(100); // TODO
 			}
 			window.toggle(KeyEvent.VK_R);
 		}
@@ -884,6 +921,27 @@ public class Player extends Mob implements Skills {
 			window.toggle(KeyEvent.VK_V);
 		}
 		
+	}
+	
+	/**
+	 * @return the color of the shirt
+	 */
+	public int getShirtColor() {
+		return color[1];
+	}
+	
+	/**
+	 * @return the color of the skin
+	 */
+	public int getSkinColor() {
+		return color[2];
+	}
+
+	/**
+	 * @return the equipped gun
+	 */
+	public Gun getEquippedGun() {
+		return equippedGun;
 	}
 
 }

@@ -87,11 +87,11 @@ public class PlayerCreationGUI extends JPanel {
 		// form the color panel
 		colorPanel.add(holder);
 		colorPanel.add(new JJLabel("Red"));
-		colorPanel.add(red = new RGBSlider((pScreen.getSkinColor() & 0x00FF0000) >> 16));
+		colorPanel.add(red = new RGBSlider((pScreen.getSkinColor() & 0x00FF0000) >> 16, Color.RED));
 		colorPanel.add(new JJLabel("Green"));
-		colorPanel.add(green = new RGBSlider((pScreen.getSkinColor() & 0x0000FF00) >> 8));
+		colorPanel.add(green = new RGBSlider((pScreen.getSkinColor() & 0x0000FF00) >> 8, Color.GREEN));
 		colorPanel.add(new JJLabel("Blue"));
-		colorPanel.add(blue = new RGBSlider(pScreen.getSkinColor() & 0x000000FF));
+		colorPanel.add(blue = new RGBSlider(pScreen.getSkinColor() & 0x000000FF, Color.BLUE));
 		colorPanel.add(new JPanel());
 		
 		// create the container for the weapon options
@@ -124,11 +124,14 @@ public class PlayerCreationGUI extends JPanel {
 		 * 
 		 * @param init - initial value
 		 */
-		private RGBSlider(int init) {
+		private RGBSlider(int init, Color color) {
 			super(JSlider.HORIZONTAL, 0, 255, init);
 			
 			// add change listener
 			addChangeListener(this);
+			
+			// set the UI
+			setUI(new RGBSliderUI(this, Color.BLACK, color));
 		}
 
 		/**

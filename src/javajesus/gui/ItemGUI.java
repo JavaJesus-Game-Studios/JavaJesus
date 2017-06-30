@@ -21,6 +21,15 @@ public class ItemGUI extends JPanel {
 	// image of the item to display
 	private BufferedImage image;
 	
+	// item it contains
+	private Item item;
+	
+	// size of the item frame
+	private static final int WIDTH = 8, HEIGHT = 8;
+	
+	// id of the item gui used for the inventory screen
+	private int id;
+	
 	/**
 	 * ItemGUI ctor()
 	 * Displays a simple panel with a single item
@@ -29,18 +38,58 @@ public class ItemGUI extends JPanel {
 	 * @param height - preferred height
 	 * @param item - item to display
 	 */
-	public ItemGUI(int width, int height, Item item) {
+	public ItemGUI(Item item, int id) {
+		
+		// initialize the instance variables
+		this.item = item;
+		this.id = id;
+		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		
 		// set up the panel
-		setPreferredSize(new Dimension(width, height));
+		setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		
+	}
+	
+	/**
+	 * @return The Item In this Panel
+	 */
+	public Item getItem() {
+		return item;
+	}
+	
+	/**
+	 * @return the ID of this item gui
+	 */
+	public int getId() {
+		return id;
+	}
+	
+	/**
+	 * setItem()
+	 * 
+	 * @param item - new item to render
+	 */
+	public void setItem(Item item) {
+		this.item = item;
+		repaint();
+	}
+	
+	/**
+	 * Display the image of the item
+	 */
+	@Override
+	protected void paintComponent(Graphics g) {
 		
 		// set up the image
-		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		
 		// transfer item pixels through a screen class
-		Screen screen = new Screen(width, height);
-		item.render(screen, 0, 0);
+		Screen screen = new Screen(WIDTH, HEIGHT);
+		
+		// render only if there is an item
+		if (item != null) {
+			item.render(screen, 0, 0);
+		}
 		
 		// add screen pixels to image pixels
 		for (int y = 0; y < screen.getHeight(); y++) {
@@ -50,13 +99,7 @@ public class ItemGUI extends JPanel {
 
 		}
 		
-	}
-	
-	/**
-	 * Display the image of the item
-	 */
-	@Override
-	protected void paintComponent(Graphics g) {
+		// draw the image
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 	}
 

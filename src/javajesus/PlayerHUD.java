@@ -81,7 +81,7 @@ public class PlayerHUD {
 			string_yOffset = gun_yOffset + 60;
 			
 			g.drawImage(gun, gun_xOffset, gun_yOffset, gun.getWidth() * MODIFIER, gun.getHeight() * MODIFIER, null);
-			g.drawString((int) player.getInventory().getGun().getCurrentAmmo() + " / " + player.getInventory().getGun().getClipSize(),
+			g.drawString((int) player.getEquippedGun().getCurrentAmmo() + " / " + player.getEquippedGun().getClipSize(),
 					string_xOffset, string_yOffset);
 		}
 
@@ -144,10 +144,10 @@ public class PlayerHUD {
 	private BufferedImage getGunType() {
 
 		// Checks if there is a gun to display
-		if (player == null || player.getInventory().getGun() == null) {
+		if (player == null || player.getEquippedGun() == null) {
 			return null;
 		}
-		switch (player.getInventory().getGun().getName()) {
+		switch (player.getEquippedGun().getName()) {
 		case "Revolver":
 			return revolver;
 		case "Laser Revolver":

@@ -143,58 +143,11 @@ public class Gun extends Item {
 	/**
 	 * Reloads the gun
 	 */
-	public void reload(Inventory inven) {
+	public void reload(int bullets) {
 
 		isReloading = true;
+		availableAmmo = bullets;
 
-		Item bulletType = null;
-
-		switch (type) {
-		case BULLET:
-			bulletType = Item.revolverAmmo;
-			break;
-		case ARROW:
-			bulletType = Item.arrowAmmo;
-			break;
-		case FIREBALL:
-			// TODO for flamethrower
-			availableAmmo = 100;
-			break;
-		case LASER:
-			bulletType = Item.laserAmmo;
-			break;
-		case MISSILE:
-			// TODO implement missile ammo
-			bulletType = Item.revolverAmmo;
-			break;
-		case BLACKHOLE:
-			// TODO implement red matter ammo
-			availableAmmo = 100;
-			break;
-		case FLAMETHROWER:
-			// TODO implement lighter fluid ammo
-			availableAmmo = 200;
-			break;
-		case SHELL:
-			// TODO shells
-			bulletType = Item.revolverAmmo;
-			break;
-		}
-		
-		// get the right available ammo
-		if (bulletType != null && inven.getMisc().contains(bulletType)) {
-			for (Item e : inven.getMisc()) {
-				if (e.equals(bulletType)) {
-					// clipSize - ammo is the difference needed to reload
-					availableAmmo = clipSize - ammo;
-					if (e.getQuantity() < clipSize - ammo) {
-						availableAmmo = e.getQuantity();
-					}
-					e.use(availableAmmo);
-					break;
-				}
-			}
-		}
 	}
 
 	/**

@@ -113,6 +113,9 @@ public class Item implements Serializable {
 
 	public static final Item strongHealthPack = new Item("Health", 27, 1, 5,
 			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Health Pack");
+	
+	// inventory filler
+	public static final Item blank = new Item("Empty", 29, 0, 2, null, "None");
 
 	/**
 	 * Creates an item
@@ -164,7 +167,7 @@ public class Item implements Serializable {
 	 *            the y position
 	 */
 	public void render(final Screen screen, final int xOffset, final int yOffset) {
-		screen.render(xOffset, yOffset, xTile + yTile * SpriteSheet.items.getNumBoxes(), color, SpriteSheet.items);
+		screen.render(xOffset, yOffset, xTile + yTile * SpriteSheet.items_gui.getNumBoxes(), color, SpriteSheet.items_gui);
 	}
 
 	/**
@@ -219,6 +222,22 @@ public class Item implements Serializable {
 	 */
 	public int[] getColor() {
 		return color;
+	}
+	
+	/**
+	 * Checks if two items are the same
+	 */
+	@Override
+	public boolean equals(Object object) {
+		
+		// not equal if not the same type
+		if (!(object instanceof Item)) {
+			return false;
+		}
+		
+		// equal if names are the same
+		return name.equals(((Item) object).getName());
+		
 	}
 
 }

@@ -35,6 +35,7 @@ public class SpriteSheet implements java.io.Serializable{
     public static SpriteSheet playerIstrahiimGuns = new SpriteSheet("/Sprites/Player_Sprites/player_istrahiim_armor_gun_sheet.png", 50);
     public static SpriteSheet vehicles = new SpriteSheet("/Sprites/Vehicle_Sprites/vehicle_sheet.png", 36);
     public static SpriteSheet items = new SpriteSheet("/Tiles/Inventory&Weapon_Sprites/item_sheet.png", 32);
+    public static SpriteSheet items_gui = new SpriteSheet("/GUI/Inventory/item_gui_sheet.png", 32);
 	public static SpriteSheet horses = new SpriteSheet("/Sprites/Vehicle_Sprites/Horse_Sheet.png", 32);
         
 	/**

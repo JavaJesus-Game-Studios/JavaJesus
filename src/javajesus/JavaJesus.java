@@ -186,7 +186,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			GameData.setPlayer(player);
 			
 			// inputhandler is not saved in file
-			overview = new OverviewGUI();
+			overview = new OverviewGUI(player);
 			
 			// sound is not saved in file
 			player.initSound(); 
@@ -369,7 +369,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		player.setShirtColor(shirtColor);
 		player.setSkinColor(skinColor);
 
-		overview = new OverviewGUI();
+		overview = new OverviewGUI(player);
 
 		hud = new PlayerHUD(player);
 		
