@@ -10,8 +10,6 @@ import javajesus.entities.projectiles.Bullet;
 import javajesus.entities.projectiles.FireBall;
 import javajesus.entities.projectiles.Laser;
 import javajesus.entities.projectiles.Missile;
-import javajesus.graphics.Screen;
-import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
@@ -219,16 +217,6 @@ public class Gun extends Item {
 			canFire = false;
 			fireTicks = 0;
 		}
-	}
-
-	/**
-	 * Displays the gun in the inventory
-	 */
-	public void render(final Screen screen) {
-		screen.render(0, 0, xTile + yTile * SpriteSheet.guns.getNumBoxes(), getColor(), SpriteSheet.guns);
-		screen.render(0, 0, xTile + 1 + yTile * SpriteSheet.guns.getNumBoxes(), getColor(), SpriteSheet.guns);
-		screen.render(0, 0, xTile + (yTile + 1) * SpriteSheet.guns.getNumBoxes(), getColor(), SpriteSheet.guns);
-		screen.render(0, 0, xTile + 1 + (yTile + 1) * SpriteSheet.guns.getNumBoxes(), getColor(), SpriteSheet.guns);
 	}
 
 	/**
