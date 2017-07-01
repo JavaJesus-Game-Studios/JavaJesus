@@ -25,7 +25,7 @@ public class Item implements Serializable {
 	private int[] color;
 
 	// the horizontal/vertical position on the spritesheet
-	protected int xTile, yTile;
+	private int xTile, yTile;
 
 	// the description of the item
 	private String description;
@@ -118,29 +118,24 @@ public class Item implements Serializable {
 	public static final Item blank = new Item("Empty", 29, 0, 2, null, "None");
 
 	/**
-	 * Creates an item
+	 * Item ctor()
+	 * Creates an Item
 	 * 
-	 * @param name
-	 *            the name of the item
-	 * @param id
-	 *            the unique id of the item
-	 * @param xTile
-	 *            the horizontal position on the spritesheet
-	 * @param yTile
-	 *            the vertical position on the spritesheet
-	 * @param color
-	 *            the colorset
-	 * @param description
-	 *            the description of this item
+	 * @param name - the name of the item
+	 * @param id - the unique id of the item
+	 * @param xTile - the horizontal position on the spritesheet
+	 * @param yTile - the vertical position on the spritesheet
+	 * @param color - the colorset
+	 * @param description - the description of this item
 	 */
-	public Item(final String name, final int id, final int xTile, final int yTile, final int[] color,
+	public Item(final String name, int id, int xTile, int yTile, final int[] color,
 			final String description) {
 
 		this.name = name;
 		this.id = (byte) id;
 		this.color = color;
-		this.xTile = xTile * 2;
-		this.yTile = yTile * 2;
+		this.xTile = xTile;
+		this.yTile = yTile;
 		this.description = description;
 
 		if (items[id] != null)
@@ -164,7 +159,7 @@ public class Item implements Serializable {
 	}
 
 	/**
-	 * Displays the item GUI
+	 * Displays the item GUI in 16 bit
 	 * 
 	 * @param screen - the screen to display it on
 	 */
@@ -173,20 +168,54 @@ public class Item implements Serializable {
 		// size of each box
 		int modifier = 8;
 		
+		// 16 bit so multiply by 2
+		int xTile = this.xTile * 2;
+		int yTile = this.yTile * 2;
+		
 		// upper left
-		screen.render(0, 0, xTile + yTile * SpriteSheet.items_gui.getNumBoxes(), color, SpriteSheet.items_gui);
+		screen.render(0, 0, xTile + yTile * SpriteSheet.gui_items.getNumBoxes(), color, SpriteSheet.gui_items);
 		
 		// upper right
-		screen.render(modifier, 0, (xTile + 1) + yTile * SpriteSheet.items_gui.getNumBoxes(), color,
-		        SpriteSheet.items_gui);
+		screen.render(modifier, 0, (xTile + 1) + yTile * SpriteSheet.gui_items.getNumBoxes(), color,
+		        SpriteSheet.gui_items);
 
 		// lower left
-		screen.render(0, modifier, xTile + (yTile + 1) * SpriteSheet.items_gui.getNumBoxes(), color,
-		        SpriteSheet.items_gui);
+		screen.render(0, modifier, xTile + (yTile + 1) * SpriteSheet.gui_items.getNumBoxes(), color,
+		        SpriteSheet.gui_items);
 
 		// lower right
-		screen.render(modifier, modifier, (xTile + 1) + (yTile + 1) * SpriteSheet.items_gui.getNumBoxes(), color,
-		        SpriteSheet.items_gui);
+		screen.render(modifier, modifier, (xTile + 1) + (yTile + 1) * SpriteSheet.gui_items.getNumBoxes(), color,
+		        SpriteSheet.gui_items);
+	}
+	
+	/**
+	 * Displays the item HUD in 24 bit
+	 * 
+	 * @param screen - the screen to display it on
+	 */
+	public void renderHUD(final Screen screen) {
+		
+		// size of each box
+		int modifier = 8;
+		
+		// 24 bit so multiply by 3
+		int xTile = this.xTile * 3;
+		int yTile = this.yTile * 3;
+		
+		// top to bottom
+		for (int i = 0; i < 3; i++) {
+			
+			// left to right
+			for (int j = 0; j < 3; j++) {
+				
+				// render the box
+				screen.render(modifier * j, modifier * i,
+				        (xTile + j) + (yTile + i) * SpriteSheet.hud_weapons.getNumBoxes(), null,
+				        SpriteSheet.hud_weapons);
+				
+			}
+		}
+		
 	}
 
 	/**

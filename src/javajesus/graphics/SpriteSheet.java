@@ -14,7 +14,7 @@ public class SpriteSheet implements Serializable {
 	
 	// Spritesheets used in Java Jesus
     public static SpriteSheet tiles = new SpriteSheet("/tile_sheet.png", 32);
-    public static SpriteSheet guns = new SpriteSheet("/HUD/firearm_sheet.png", 32);
+    public static SpriteSheet hud_weapons = new SpriteSheet("/HUD/hud_sheet.png", 10 * 3);
     public static SpriteSheet letters = new SpriteSheet("/Effects/letter_sheet.png", 32);
     public static SpriteSheet particles = new SpriteSheet("/Effects/particle_sheet.png", 32);
     public static SpriteSheet explosions = new SpriteSheet("/Effects/explosion_sheet.png", 56);
@@ -29,7 +29,7 @@ public class SpriteSheet implements Serializable {
     public static SpriteSheet playerHornedGuns = new SpriteSheet("/Sprites/Player_Sprites/player_horned_armor_gun_sheet.png", 50);
     public static SpriteSheet playerIstrahiimGuns = new SpriteSheet("/Sprites/Player_Sprites/player_istrahiim_armor_gun_sheet.png", 50);
     public static SpriteSheet vehicles = new SpriteSheet("/Sprites/Vehicle_Sprites/vehicle_sheet.png", 36);
-    public static SpriteSheet items_gui = new SpriteSheet("/GUI/Inventory/item_gui_sheet.png", 16);
+    public static SpriteSheet gui_items = new SpriteSheet("/GUI/Inventory/item_gui_sheet.png", 10 * 2);
 	public static SpriteSheet pickups = new SpriteSheet("/pickup_sheet.png", 32);
     public static SpriteSheet horses = new SpriteSheet("/Sprites/Vehicle_Sprites/Horse_Sheet.png", 32);
 	

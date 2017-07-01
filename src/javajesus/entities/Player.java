@@ -129,10 +129,13 @@ public class Player extends Mob implements Skills {
 	 */
 	public void equip(Object obj) {
 
+		// equip the object
 		if (obj instanceof Gun) {
 			equippedGun = (Gun) obj;
+			equippedSword = null;
 		} else if (obj instanceof Sword) {
 			equippedSword = (Sword) obj;
+			equippedGun = null;
 		} else if (obj instanceof Armor) {
 			equippedArmor = (Armor) obj;
 		}
@@ -944,6 +947,13 @@ public class Player extends Mob implements Skills {
 	 */
 	public Gun getEquippedGun() {
 		return equippedGun;
+	}
+	
+	/**
+	 * @return the equipped sword
+	 */
+	public Sword getEquippedSword() {
+		return equippedSword;
 	}
 
 }

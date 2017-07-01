@@ -104,6 +104,14 @@ public class LordHillsboroughsDomain extends Level {
 		ArrayList<Item> contents = new ArrayList<Item>();
 		contents.add(Item.shotgun);
 		contents.add(Item.bazooka);
+		contents.add(Item.laserRevolver);
+		contents.add(Item.assaultRifle);
+		contents.add(Item.crossBow);
+		contents.add(Item.longSword);
+		contents.add(Item.claymore);
+		contents.add(Item.sabre);
+		contents.add(Item.heavenlySword);
+		contents.add(Item.heavenlyShortSword);
 		for (int i = 0; i < 50; i++) {
 			contents.add(Item.arrowAmmo);
 			contents.add(Item.assaultRifleAmmo);
