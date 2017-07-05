@@ -1,15 +1,14 @@
 package javajesus.gui;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javajesus.JavaJesus;
-import javajesus.items.Item;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -19,6 +18,10 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import javajesus.JavaJesus;
+import javajesus.items.Item;
+import javajesus.save.SaveFile;
 
 public class PlayerCreationGUI extends JPanel {
 
@@ -47,18 +50,18 @@ public class PlayerCreationGUI extends JPanel {
 	private ItemGUI weaponDisplay;
 	
 	// starting weapon for player
-	private Item startWeapon = Item.revolver;
+	private byte startWeapon = SaveFile.REVOLVER;
 	
-	// temp workaround
-	JavaJesus main;
+	// slot of player save data
+	private int numSlot;
 	
 	/**
 	 * Initializes instance variables and puts the panels together
 	 */
-	public PlayerCreationGUI(JavaJesus main) {
+	public PlayerCreationGUI() {
 		
-		// temp workaround
-		this.main = main;
+		// instance variable
+		this.numSlot = 1;
 		
 		// set up the player creation window
 		setPreferredSize(new Dimension(JavaJesus.WINDOW_WIDTH,
@@ -234,25 +237,40 @@ public class PlayerCreationGUI extends JPanel {
 			// change display to pistol
 			if (e.getSource() == pistol) {
 				weaponDisplay.setItem(Item.revolver);
-				startWeapon = Item.revolver;
+				startWeapon = SaveFile.REVOLVER;
 				weaponDisplay.repaint();
 			}
 			
 			// change display to sword
 			if (e.getSource() == sword) {
 				weaponDisplay.setItem(Item.shortSword);
-				startWeapon = Item.shortSword;
+				startWeapon = SaveFile.SHORT_SWORD;
 				weaponDisplay.repaint();
 			}
 			
 			// create the player
 			if (e.getSource() == finish) {
 				
-				// temp workaround
-				main.createPlayer(name.getText(), pScreen.getShirtColor(), pScreen.getSkinColor(), startWeapon);
+				// create a save file
+				new SaveFile(numSlot, name.getText(),  pScreen.getSkinColor(), pScreen.getShirtColor(), startWeapon);
+				
+				// JPanel of the cardlayout display
+				Container parent = getParent().getParent().getParent();
+				
+				// return to main display
+				((CardLayout) parent.getLayout()).show(parent, "Main");
 				
 			}
 		}
+	}
+	
+	/**
+	 * Sets the slot to save to
+	 * 
+	 * @param slot - 1, 2, or 3
+	 */
+	public void setSlot(int slot) {
+		numSlot = slot;
 	}
 	
 	/*

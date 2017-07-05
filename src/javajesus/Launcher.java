@@ -1,6 +1,7 @@
 package javajesus;
 
 import java.awt.Canvas;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -8,20 +9,26 @@ import java.awt.Point;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
+import javax.swing.JPanel;
 
-import engine.GameEngine;
 import engine.IGameLogic;
 import engine.Input;
 import engine.Window;
+import javajesus.entities.Player;
 import javajesus.graphics.Screen;
+import javajesus.gui.PlayerCreationGUI;
+import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.level.RandomLevel;
+import javajesus.level.sandbox.SandboxSurvivalMap1;
+import javajesus.level.story.LordHillsboroughsDomain;
+import javajesus.save.GameData;
+import javajesus.save.SaveFile;
 import javajesus.utility.Direction;
 import javajesus.utility.GameMode;
-import javajesus.utility.JJStrings;
 
 /**
  * This is the JavaJesus Launcher window
@@ -35,10 +42,10 @@ public class Launcher extends Canvas implements IGameLogic {
 	private static final long serialVersionUID = 1L;
 
 	// Version of the game
-	private final String VERSION = "Alpha 0.8.0";
+	private final String VERSION = "Alpha 0.8.1";
 
 	// Last known update
-	private final String LAST_UPDATED = "Last Updated 6/28/2017";
+	private final String LAST_UPDATED = "Last Updated 7/5/2017";
 	
 	// launcher font
 	private static final Font LAUNCHER_FONT = new Font(JavaJesus.FONT_NAME, 0, 15);
@@ -85,11 +92,12 @@ public class Launcher extends Canvas implements IGameLogic {
 
 	// Ids of the buttons
 	private static final int STORY = 0, SANDBOX = 1, OPTIONS = 2, HELP = 3, QUIT = 4, FIXED = 5, RANDOM = 6,
-			BACK = 7, AUDIO = 8, VIDEO = 9, CONTROLS = 10, NEWSTORY = 11, CONTINUESTORY = 12, MUTE = 13;
+			BACK = 7, AUDIO = 8, VIDEO = 9, CONTROLS = 10, MUTE = 13, 
+			SLOT_1 = 14, SLOT_2 = 15, SLOT_3 = 16;
 
 	// Buttons on the launcher
-	private LauncherButton story, sandbox, options, credits, fixed, random, audio, video, controls, newStory,
-			continueStory, mute, back, quit;
+	private LauncherButton story, sandbox, options, credits, fixed, random, audio, video, controls, mute,
+	back, quit, slot_1, slot_2, slot_3;
 
 	// buffered images that are displayed on the screen
 	private BufferedImage background, sword_selector;
@@ -99,6 +107,15 @@ public class Launcher extends Canvas implements IGameLogic {
 	
 	// whether or not the loop should continue running
 	private boolean running = true;
+	
+	// layout for the launcher
+	private CardLayout cardLayout;
+	
+	// JPanel of the player creation GUI
+	private PlayerCreationGUI playerCreationGUI;
+	
+	// the display of this launcher
+	private JPanel display;
 
 	/**
 	 * Constructor that creates the JFrame
@@ -107,8 +124,15 @@ public class Launcher extends Canvas implements IGameLogic {
 		
 		// map pixels
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-
 		SoundHandler.playLoop(SoundHandler.background1);
+		
+		// initialize JSwing stuff
+		display = new JPanel(cardLayout = new CardLayout(0, 0));
+		display.add(this, "Main");
+		display.add(playerCreationGUI = new PlayerCreationGUI(), "Creation");
+		
+		// show the main display
+		cardLayout.show(display, "Main");
 		
 	}
 
@@ -119,8 +143,8 @@ public class Launcher extends Canvas implements IGameLogic {
 		
 		BufferedImage story_on, story_off, sandbox_on, sandbox_off, options_on, options_off, credits_on, credits_off,
 		        fixed_on, fixed_off, random_on, random_off, audio_on, audio_off, video_on, video_off,
-		        controls_on, controls_off, new_on, new_off, continue_on, continue_off, mute_on, mute_off, back_on,
-		        back_off, quit_on, quit_off;
+		        controls_on, controls_off, mute_on, mute_off, back_on,
+		        back_off, quit_on, quit_off, slot_off;
 		
 		background = ImageIO.read(Launcher.class.getResource("/GUI/GUI_Menus/Main_Menu.png"));
 
@@ -162,14 +186,6 @@ public class Launcher extends Canvas implements IGameLogic {
 
 		controls_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/controls_off.png"));
 
-		new_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/new_on.png"));
-
-		new_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/new_off.png"));
-
-		continue_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/continue_on.png"));
-
-		continue_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/continue_off.png"));
-
 		mute_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/mute_on.png"));
 
 		mute_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/mute_off.png"));
@@ -181,6 +197,8 @@ public class Launcher extends Canvas implements IGameLogic {
 		quit_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/quit_on.png"));
 
 		quit_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/quit_off.png"));
+		
+		slot_off = ImageIO.read(Launcher.class.getResource("/GUI/slot.png"));
 
 		story = new LauncherButton(450, STORY, story_off, story_on);
 		sandbox = new LauncherButton(500, SANDBOX, sandbox_off, sandbox_on);
@@ -191,8 +209,9 @@ public class Launcher extends Canvas implements IGameLogic {
 		audio = new LauncherButton(450, AUDIO, audio_off, audio_on);
 		video = new LauncherButton(500, VIDEO, video_off, video_on);
 		controls = new LauncherButton(550, CONTROLS, controls_off, controls_on);
-		newStory = new LauncherButton(450, NEWSTORY, new_off, new_on);
-		continueStory = new LauncherButton(500, CONTINUESTORY, continue_off, continue_on);
+		slot_1 = new LauncherButton(450, SLOT_1, slot_off, slot_off);
+		slot_2 = new LauncherButton(500, SLOT_2, slot_off, slot_off);
+		slot_3 = new LauncherButton(550, SLOT_3, slot_off, slot_off);
 		mute = new LauncherButton(450, MUTE, mute_off, mute_on);
 		back = new LauncherButton(650, BACK, back_off, back_on);
 		quit = new LauncherButton(650, QUIT, quit_off, quit_on);
@@ -204,7 +223,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	 */
 	public void modifyWindow(Window window) {
 		
-		window.getContentPane().add(this);
+		window.getContentPane().add(display);
 		window.pack();
 		window.setLocationRelativeTo(null);
 		
@@ -265,8 +284,9 @@ public class Launcher extends Canvas implements IGameLogic {
 
 		}
 		case STORYMENU: {
-			newStory.draw(g);
-			continueStory.draw(g);
+			slot_1.draw(g);
+			slot_2.draw(g);
+			slot_3.draw(g);
 			break;
 
 		}
@@ -322,36 +342,50 @@ public class Launcher extends Canvas implements IGameLogic {
 			return;
 		}
 		case FIXED: {
-			try {
-
-				// initialize a new game
-				new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new JavaJesus(GameMode.FIXED, false))
-				.start();
+			
+			// load if it exists
+			if (SaveFile.exists(1)) {
 				
-				SoundHandler.background1.stop();
+				// stop the launcher
 				running = false;
-
-				// report any errors
-			} catch (Exception e) {
-				System.err.println("Game Failed to Initialize!");
-				e.printStackTrace();
+				
+				// create the player
+				Player player = createPlayer(1, GameMode.FIXED);
+				
+				// start the game
+				new JavaJesus(GameMode.FIXED, false, player);
+				
+				// create a player creation file
+			} else {
+				
+				// show the player creation display
+				playerCreationGUI.setSlot(1);
+				cardLayout.show(display, "Creation");
+				
 			}
 			return;
 		}
 		case RANDOM: {
-			try {
-
-				// initialize a new game
-				new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new JavaJesus(GameMode.RANDOM, false))
-				.start();
+			
+			// load if it exists
+			if (SaveFile.exists(1)) {
 				
-				SoundHandler.background1.stop();
+				// stop the launcher
 				running = false;
-
-				// report any errors
-			} catch (Exception e) {
-				System.err.println("Game Failed to Initialize!");
-				e.printStackTrace();
+				
+				// create the player
+				Player player = createPlayer(1, GameMode.RANDOM);
+				
+				// start the game
+				new JavaJesus(GameMode.RANDOM, false, player);
+				
+				// create a player creation file
+			} else {
+				
+				// show the player creation display
+				playerCreationGUI.setSlot(1);
+				cardLayout.show(display, "Creation");
+				
 			}
 			return;
 		}
@@ -380,38 +414,41 @@ public class Launcher extends Canvas implements IGameLogic {
 			System.out.println("Controls Coming Soon");
 			return;
 		}
-		case NEWSTORY: {
-			try {
-
-				// initialize a new game
-				new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new JavaJesus(GameMode.ADVENTURE, false))
-				.start();
-				
-				SoundHandler.background1.stop();
-				running = false;
-
-				// report any errors
-			} catch (Exception e) {
-				System.err.println("Game Failed to Initialize!");
-				e.printStackTrace();
+		case SLOT_1:
+		case SLOT_2:
+		case SLOT_3: {
+			
+			// slot file selected
+			int numSlot = 0;
+			if (id == SLOT_1) {
+				numSlot = 1;
+			} else if (id == SLOT_2) {
+				numSlot = 2;
+			} else {
+				numSlot = 3;
 			}
-			return;
-		}
-		case CONTINUESTORY: {
-			try {
-
-				// initialize a new game
-				new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new JavaJesus(GameMode.ADVENTURE, true))
-				.start();
+			
+			// load if it exists
+			if (SaveFile.exists(numSlot)) {
 				
-				SoundHandler.background1.stop();
+				// stop the launcher
 				running = false;
-
-				// report any errors
-			} catch (Exception e) {
-				System.err.println("Game Failed to Initialize!");
-				e.printStackTrace();
+				
+				// create the player
+				Player player = createPlayer(numSlot, GameMode.ADVENTURE);
+				
+				// start the game
+				new JavaJesus(GameMode.ADVENTURE, false, player);
+				
+				// create a player creation file
+			} else {
+				
+				// show the player creation display
+				playerCreationGUI.setSlot(numSlot);
+				cardLayout.show(display, "Creation");
+				
 			}
+			
 			return;
 		}
 		case MUTE: {
@@ -429,6 +466,63 @@ public class Launcher extends Canvas implements IGameLogic {
 		}
 		}
 
+	}
+
+	/**
+	 * Creates the player based on the gamemode
+	 * 
+	 * @return the player
+	 */
+	private Player createPlayer(int slot, GameMode mode) {
+		
+		// load player creation data
+		Object[] data = SaveFile.load(slot);
+		int skin = (int) data[0];
+		int shirt = (int) data[1];
+		Item weapon = (Item) data[2];
+		String name = (String) data[3];
+		
+		// level to set the player
+		Level level = getLevel(mode);
+		
+		// Player to create
+		Player player = new Player(name, level, level.getSpawnPoint().x, level.getSpawnPoint().y);
+
+		GameData.setPlayer(player);
+		
+		// TODO
+		JavaJesus.PLAYER_NAME = player.getName();
+		
+		level.reset();
+		level.add(player);
+		level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
+
+		player.setShirtColor(shirt);
+		player.setSkinColor(skin);
+		player.getInventory().add(weapon);
+		
+		return player;
+	}
+
+	/**
+	 * Gets the level to initialize
+	 * 
+	 * @param mode - gamemode
+	 * @return - the level
+	 */
+	private Level getLevel(GameMode mode) {
+		
+		switch (mode) {
+		case RANDOM:
+			return Launcher.level;
+		case FIXED:
+			return new SandboxSurvivalMap1();
+		default:
+			Level.createStoryLevels();
+			return LordHillsboroughsDomain.level;
+			//level = LevelTester.level;
+		}
+		
 	}
 
 	/**

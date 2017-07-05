@@ -10,26 +10,20 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.util.Random;
 
-import javajesus.entities.Player;
-import javajesus.graphics.Screen;
-import javajesus.gui.OverviewGUI;
-import javajesus.gui.PauseGUI;
-import javajesus.gui.PlayerCreationGUI;
-import javajesus.items.Item;
-import javajesus.level.Level;
-import javajesus.level.sandbox.SandboxSurvivalMap1;
-import javajesus.level.story.LordHillsboroughsDomain;
-import javajesus.save.GameData;
-import javajesus.utility.GameMode;
-import javajesus.utility.JJStrings;
-
-import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
 
 import engine.GameEngine;
 import engine.IGameLogic;
 import engine.Input;
 import engine.Window;
+import javajesus.entities.Player;
+import javajesus.graphics.Screen;
+import javajesus.gui.OverviewGUI;
+import javajesus.gui.PauseGUI;
+import javajesus.level.Level;
+import javajesus.save.GameData;
+import javajesus.utility.GameMode;
+import javajesus.utility.JJStrings;
 
 /**
  * @author Derek
@@ -102,9 +96,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// Default JPanel container used to hold other GUI panels
 	private static JPanel display;
 
-	// Instance of the Set-Up introduction screen GUI
-	private static PlayerCreationGUI introScreen;
-
 	// Instance of the card layout that holds other guis, used to display other
 	// GUIs
 	private static CardLayout cardlayout;
@@ -113,13 +104,13 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	private static int guiID;
 
 	// Constant that identifies the pause display
-	private static final int PAUSE_DISPLAY = 3;
+	private static final int PAUSE_DISPLAY = 2;
 
 	// Constant that identifies the game display
-	private static final int GAME_DISPLAY = 1;
+	private static final int GAME_DISPLAY = 0;
 
 	// Constant that identifies the inventory display
-	private static final int INVENTORY_DISPLAY = 2;
+	private static final int INVENTORY_DISPLAY = 1;
 
 	// inGameScreen reveals if the game gui is being displayed
 	public static boolean inGameScreen;
@@ -137,16 +128,25 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	private static boolean running;
 	
 	/**
-	 * Ctor for JavaJesus
+	 * JavaJesus ctor()
 	 * Initializes the gamemode and whether or not to load
 	 * 
 	 * @param m - the game mode
 	 * @param load - whether or not to load
 	 */
-	public JavaJesus(GameMode m, boolean load) {
+	public JavaJesus(GameMode m, boolean load, Player player) {
 		
+		// instance data
 		mode = m;
 		this.load = load;
+		this.player = player;
+		
+		// initialize a new game
+		try {
+			new GameEngine(JJStrings.NAME, WINDOW_WIDTH, WINDOW_HEIGHT, this).start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -158,18 +158,20 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		
 		screen = new Screen(IMAGE_WIDTH, IMAGE_HEIGHT);
 		pause = new PauseGUI();
+		overview = new OverviewGUI(player);
+		hud = new PlayerHUD(player);
 		
+		// initialize the display screens
 		display = new JPanel(cardlayout = new CardLayout(0, 0));
-		
-		introScreen = new PlayerCreationGUI(this);
-		display.add(introScreen, "Intro");
 		display.add(this, "Main");
+		display.add(overview, "Inventory");
+		display.add(pause, "Pause");
 		
 		running = true;
 		
 		MessageHandler.initialize();
 
-		// do game initializtions from save files
+		// do game initializations from save files
 		if (load) {
 			
 			System.err.println("Loading");
@@ -200,9 +202,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			
 			// skip the player selection intro gui screen
 			display.add(overview, "Inventory");
-			display.add(pause, "Pause");
-			
-			displayGame();
 			
 		} else {
 			System.err.println("Not loading game.");
@@ -217,10 +216,12 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		window.getContentPane().add(display);
 		window.pack();
 		window.setLocationRelativeTo(null);
-		window.requestFocus();
 		
 		// add input listeners
 		window.addListeners(this, Input.KEY, Input.FOCUS);
+		
+		// show the game
+		displayGame();
 	}
 
 	/**
@@ -228,16 +229,15 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 */
 	public void input(Window window) {
 		
-		if (player != null) {
-			player.input(window);
-		}
+		player.input(window);
+		
 	}
 
 	/**
 	 * Updates per second
 	 */
 	public void update() {
-
+		
 		if (inGameScreen) {
 			player.getLevel().tick();
 		} else {
@@ -340,52 +340,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	}
 	
 	/**
-	 * Called when the Player Creation GUI finishes selecting player preferences
-	 */
-	public synchronized void createPlayer(String name, int shirtColor, int skinColor, Item startWeapon) {
-
-		Level level;
-		
-		switch (mode) {
-		case RANDOM:
-			level = Launcher.level;
-			player = new Player(name, level, level.getSpawnPoint().x, level.getSpawnPoint().y);
-			break;
-		case FIXED:
-			level = new SandboxSurvivalMap1();
-			player = new Player(name, level, level.getSpawnPoint().x, level.getSpawnPoint().y);
-			break;
-		default:
-			Level.createStoryLevels();
-			level = LordHillsboroughsDomain.level;
-			//level = LevelTester.level;
-			player = new Player(name, level, level.getSpawnPoint().x, level.getSpawnPoint().y);
-			
-		}
-
-		GameData.setPlayer(player);
-		PLAYER_NAME = player.getName();
-		
-		level.reset();
-		level.add(player);
-		level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
-
-		player.setShirtColor(shirtColor);
-		player.setSkinColor(skinColor);
-		player.getInventory().add(startWeapon);
-
-		overview = new OverviewGUI(player);
-
-		hud = new PlayerHUD(player);
-		
-		display.add(overview, "Inventory");
-		display.add(pause, "Pause");
-		
-		displayGame();
-
-	}
-	
-	/**
 	 * Displays the Overview GUI on the screen
 	 */
 	public static void displayOverview() {
@@ -393,13 +347,13 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		guiID = INVENTORY_DISPLAY;
 		cardlayout.show(display, "Inventory");
 		overview.requestFocusInWindow();
-		//overview.getInventory().repaint();
 	}
 
 	/**
 	 * Displays the Pause GUI on the screen
 	 */
 	public static void displayPause() {
+		
 		inGameScreen = false;
 		guiID = PAUSE_DISPLAY;
 		cardlayout.show(display, "Pause");

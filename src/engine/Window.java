@@ -14,6 +14,9 @@ import javax.swing.JFrame;
  */
 public class Window extends JFrame implements WindowListener {
 
+	// serialization
+	private static final long serialVersionUID = 1L;
+
 	// dimensions of the window
 	private int width, height;
 	
