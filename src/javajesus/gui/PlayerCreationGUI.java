@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -20,6 +19,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import javajesus.JavaJesus;
+import javajesus.Launcher;
 import javajesus.items.Item;
 import javajesus.save.SaveFile;
 
@@ -55,10 +55,16 @@ public class PlayerCreationGUI extends JPanel {
 	// slot of player save data
 	private int numSlot;
 	
+	// instance of the parent
+	private Launcher launcher;
+	
 	/**
 	 * Initializes instance variables and puts the panels together
 	 */
-	public PlayerCreationGUI() {
+	public PlayerCreationGUI(Launcher launcher) {
+		
+		// parent
+		this.launcher = launcher;
 		
 		// instance variable
 		this.numSlot = 1;
@@ -254,11 +260,9 @@ public class PlayerCreationGUI extends JPanel {
 				// create a save file
 				new SaveFile(numSlot, name.getText(),  pScreen.getSkinColor(), pScreen.getShirtColor(), startWeapon);
 				
-				// JPanel of the cardlayout display
-				Container parent = getParent().getParent().getParent();
-				
 				// return to main display
-				((CardLayout) parent.getLayout()).show(parent, "Main");
+				((CardLayout) launcher.getParent().getLayout()).show(launcher.getParent(), "Main");
+				launcher.updateButtons();
 				
 			}
 		}

@@ -159,6 +159,28 @@ public class SaveFile {
 		File save = new File(DIR + NAME + slot);
 		return save.exists();
 	}
+	
+	/**
+	 * delete()
+	 * Deletes a save file
+	 * 
+	 * @param slot - slot to delete
+	 * @return - whether the delete was successful or not
+	 */
+	public static boolean delete(int slot) {
+		
+		// check if it exists
+		if (exists(slot)) {
+			
+			// now delete it
+			File save = new File(DIR + NAME + slot);
+			return save.delete();
+			
+		}
+		
+		return false;
+		
+	}
 
 
 }

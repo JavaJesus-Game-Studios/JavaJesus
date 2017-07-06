@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferStrategy;
@@ -42,10 +43,10 @@ public class Launcher extends Canvas implements IGameLogic {
 	private static final long serialVersionUID = 1L;
 
 	// Version of the game
-	private final String VERSION = "Alpha 0.8.1";
+	private final String VERSION = "Alpha 0.8.2";
 
 	// Last known update
-	private final String LAST_UPDATED = "Last Updated 7/5/2017";
+	private final String LAST_UPDATED = "Last Updated 7/6/2017";
 	
 	// launcher font
 	private static final Font LAUNCHER_FONT = new Font(JavaJesus.FONT_NAME, 0, 15);
@@ -60,7 +61,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	private boolean isClicked;
 
 	// The selected button that was clicked
-	private LauncherButton selectedButton;
+	private Drawable selectedButton;
 
 	// Id of the page
 	private int pageId;
@@ -88,16 +89,18 @@ public class Launcher extends Canvas implements IGameLogic {
 	private int mouseX, mouseY, mouseButton;
 	
 	// IDs of the page screens
-	private static final int MAINMENU = 0, SANDBOXMENU = 1, OPTIONSMENU = 2, STORYMENU = 3, AUDIOMENU = 4;
+	private static final int MAINMENU = 0, SANDBOXMENU = 1, OPTIONSMENU = 2, STORYMENU = 3, AUDIOMENU = 4, FIXEDMENU = 5, RANDOMMENU = 6;
 
 	// Ids of the buttons
 	private static final int STORY = 0, SANDBOX = 1, OPTIONS = 2, HELP = 3, QUIT = 4, FIXED = 5, RANDOM = 6,
-			BACK = 7, AUDIO = 8, VIDEO = 9, CONTROLS = 10, MUTE = 13, 
-			SLOT_1 = 14, SLOT_2 = 15, SLOT_3 = 16;
+			BACK = 7, AUDIO = 8, VIDEO = 9, CONTROLS = 10, MUTE = 13, SLOT = 14, DELETE_1 = 15, DELETE_2 = 16, DELETE_3 = 17;
 
 	// Buttons on the launcher
 	private LauncherButton story, sandbox, options, credits, fixed, random, audio, video, controls, mute,
-	back, quit, slot_1, slot_2, slot_3;
+	back, quit, delete_1, delete_2, delete_3;
+	
+	// Slot buttons on the launcher
+	private SlotButton slot_1, slot_2, slot_3;
 
 	// buffered images that are displayed on the screen
 	private BufferedImage background, sword_selector;
@@ -129,7 +132,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		// initialize JSwing stuff
 		display = new JPanel(cardLayout = new CardLayout(0, 0));
 		display.add(this, "Main");
-		display.add(playerCreationGUI = new PlayerCreationGUI(), "Creation");
+		display.add(playerCreationGUI = new PlayerCreationGUI(this), "Creation");
 		
 		// show the main display
 		cardLayout.show(display, "Main");
@@ -144,7 +147,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		BufferedImage story_on, story_off, sandbox_on, sandbox_off, options_on, options_off, credits_on, credits_off,
 		        fixed_on, fixed_off, random_on, random_off, audio_on, audio_off, video_on, video_off,
 		        controls_on, controls_off, mute_on, mute_off, back_on,
-		        back_off, quit_on, quit_off, slot_off;
+		        back_off, quit_on, quit_off, delete_off, delete_on;
 		
 		background = ImageIO.read(Launcher.class.getResource("/GUI/GUI_Menus/Main_Menu.png"));
 
@@ -198,8 +201,10 @@ public class Launcher extends Canvas implements IGameLogic {
 
 		quit_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/quit_off.png"));
 		
-		slot_off = ImageIO.read(Launcher.class.getResource("/GUI/slot.png"));
+		delete_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/delete_on.png"));
 
+		delete_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/delete_off.png"));
+		
 		story = new LauncherButton(450, STORY, story_off, story_on);
 		sandbox = new LauncherButton(500, SANDBOX, sandbox_off, sandbox_on);
 		options = new LauncherButton(550, OPTIONS, options_off, options_on);
@@ -209,9 +214,15 @@ public class Launcher extends Canvas implements IGameLogic {
 		audio = new LauncherButton(450, AUDIO, audio_off, audio_on);
 		video = new LauncherButton(500, VIDEO, video_off, video_on);
 		controls = new LauncherButton(550, CONTROLS, controls_off, controls_on);
-		slot_1 = new LauncherButton(450, SLOT_1, slot_off, slot_off);
-		slot_2 = new LauncherButton(500, SLOT_2, slot_off, slot_off);
-		slot_3 = new LauncherButton(550, SLOT_3, slot_off, slot_off);
+		slot_1 = new SlotButton(450, 1);
+		slot_2 = new SlotButton(500, 2);
+		slot_3 = new SlotButton(550, 3);
+		delete_1 = new LauncherButton(450, DELETE_1, delete_off, delete_on);
+		delete_2 = new LauncherButton(500, DELETE_2, delete_off, delete_on);
+		delete_3 = new LauncherButton(550, DELETE_3, delete_off, delete_on);
+		delete_1.setLeftJustified();
+		delete_2.setLeftJustified();
+		delete_3.setLeftJustified();
 		mute = new LauncherButton(450, MUTE, mute_off, mute_on);
 		back = new LauncherButton(650, BACK, back_off, back_on);
 		quit = new LauncherButton(650, QUIT, quit_off, quit_on);
@@ -236,14 +247,18 @@ public class Launcher extends Canvas implements IGameLogic {
 	 * Displays the pixels onto the screen
 	 */
 	public void render(Window window) {
+		
+		// get the buffer strategy
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
 			return;
 		}
 
+		// render the background tiles
 		level.renderTile(screen, xOffset, yOffset);
 
+		// set the pixels of the buffered image
 		for (int y = 0; y < screen.getHeight(); y++) {
 			for (int x = 0; x < screen.getWidth(); x++) {
 				pixels[x + y * JavaJesus.IMAGE_WIDTH] = screen.getPixels()[x + y * screen.getWidth()];
@@ -252,6 +267,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		}
 		screen.clear();
 
+		// draw the images
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
@@ -283,13 +299,18 @@ public class Launcher extends Canvas implements IGameLogic {
 			break;
 
 		}
-		case STORYMENU: {
+		case FIXEDMENU:
+		case RANDOMMENU:
+		case STORYMENU:
 			slot_1.draw(g);
 			slot_2.draw(g);
 			slot_3.draw(g);
-			break;
 
-		}
+			delete_1.draw(g);
+			delete_2.draw(g);
+			delete_3.draw(g);
+
+			break;
 
 		case AUDIOMENU: {
 			mute.draw(g);
@@ -317,7 +338,6 @@ public class Launcher extends Canvas implements IGameLogic {
 	private void doAction() {
 
 		int id = selectedButton.getActionId();
-		selectedButton = null;
 
 		switch (id) {
 
@@ -343,62 +363,21 @@ public class Launcher extends Canvas implements IGameLogic {
 		}
 		case FIXED: {
 			
-			// load if it exists
-			if (SaveFile.exists(1)) {
-				
-				// stop the launcher
-				running = false;
-				
-				// create the player
-				Player player = createPlayer(1, GameMode.FIXED);
-				
-				// start the game
-				new JavaJesus(GameMode.FIXED, false, player);
-				
-				// create a player creation file
-			} else {
-				
-				// show the player creation display
-				playerCreationGUI.setSlot(1);
-				cardLayout.show(display, "Creation");
-				
-			}
+			this.pageId = FIXEDMENU;
 			return;
 		}
 		case RANDOM: {
 			
-			// load if it exists
-			if (SaveFile.exists(1)) {
-				
-				// stop the launcher
-				running = false;
-				
-				// create the player
-				Player player = createPlayer(1, GameMode.RANDOM);
-				
-				// start the game
-				new JavaJesus(GameMode.RANDOM, false, player);
-				
-				// create a player creation file
-			} else {
-				
-				// show the player creation display
-				playerCreationGUI.setSlot(1);
-				cardLayout.show(display, "Creation");
-				
-			}
+			this.pageId = RANDOMMENU;
 			return;
 		}
 		case BACK: {
 			switch (pageId) {
-			case SANDBOXMENU:
-			case OPTIONSMENU:
-			case STORYMENU:
-				this.pageId = MAINMENU;
-				break;
 			case AUDIOMENU:
 				this.pageId = OPTIONSMENU;
 				break;
+			default:
+				this.pageId = MAINMENU;
 			}
 			return;
 		}
@@ -414,18 +393,17 @@ public class Launcher extends Canvas implements IGameLogic {
 			System.out.println("Controls Coming Soon");
 			return;
 		}
-		case SLOT_1:
-		case SLOT_2:
-		case SLOT_3: {
+		case SLOT: {
 			
 			// slot file selected
-			int numSlot = 0;
-			if (id == SLOT_1) {
-				numSlot = 1;
-			} else if (id == SLOT_2) {
-				numSlot = 2;
-			} else {
-				numSlot = 3;
+			int numSlot = ((SlotButton) selectedButton).getSlot();
+			
+			// Game Mode based on which screen
+			GameMode mode = GameMode.ADVENTURE;
+			if (pageId == FIXEDMENU) {
+				mode = GameMode.FIXED;
+			} else if (pageId == RANDOMMENU) {
+				mode = GameMode.RANDOM;
 			}
 			
 			// load if it exists
@@ -435,10 +413,10 @@ public class Launcher extends Canvas implements IGameLogic {
 				running = false;
 				
 				// create the player
-				Player player = createPlayer(numSlot, GameMode.ADVENTURE);
+				Player player = createPlayer(numSlot, mode);
 				
 				// start the game
-				new JavaJesus(GameMode.ADVENTURE, false, player);
+				new JavaJesus(mode, false, player);
 				
 				// create a player creation file
 			} else {
@@ -451,6 +429,18 @@ public class Launcher extends Canvas implements IGameLogic {
 			
 			return;
 		}
+		case DELETE_1:
+			SaveFile.delete(1);
+			updateButtons();
+			return;
+		case DELETE_2:
+			SaveFile.delete(2);
+			updateButtons();
+			return;
+		case DELETE_3:
+			SaveFile.delete(3);
+			updateButtons();
+			return;
 		case MUTE: {
 			SoundHandler.toggleMute();
 			if (!SoundHandler.isMuted()) {
@@ -526,47 +516,6 @@ public class Launcher extends Canvas implements IGameLogic {
 	}
 
 	/**
-	 * Launcher Button that is used on the launcher screen
-	 */
-	private class LauncherButton {
-
-		private int x, y;
-		private int actionId;
-		private BufferedImage imageOff, imageOn;
-
-		public LauncherButton(int yPos, int actionId, BufferedImage imageOff, BufferedImage imageOn) {
-			x = JavaJesus.WINDOW_WIDTH / 2 - imageOff.getWidth() / 2;
-			y = yPos;
-			this.imageOff = imageOff;
-			this.imageOn = imageOn;
-			this.actionId = actionId;
-		}
-
-		public int getActionId() {
-			return actionId;
-		}
-
-		public void draw(Graphics g) {
-			if (mouseX > x && mouseX < x + imageOff.getWidth() && mouseY > y
-					&& mouseY < y + imageOff.getHeight()) {
-				g.drawImage(imageOn, x, y, null);
-				if (!isClicked || selectedButton == this) {
-					g.drawImage(sword_selector, x - swordStart + swordOffset, y, null);
-				}
-				if (mouseButton == 1) {
-					mouseButton = 0;
-					SoundHandler.play(SoundHandler.sheathe);
-					isClicked = true;
-					selectedButton = this;
-				}
-
-			} else {
-				g.drawImage(imageOff, x, y, null);
-			}
-		}
-	}
-
-	/**
 	 * Input checking for the window
 	 */
 	public void input(Window window) {
@@ -575,6 +524,9 @@ public class Launcher extends Canvas implements IGameLogic {
 		mouseButton = window.getMouseButton();
 	}
 
+	/**
+	 * Updates the background level
+	 */
 	@Override
 	public void update() {
 		int w = LEVEL_WIDTH * 8;
@@ -602,14 +554,221 @@ public class Launcher extends Canvas implements IGameLogic {
 		
 	}
 
+	/**
+	 * Called after the internal loop terminates
+	 */
 	@Override
 	public void onClose() {
 		
 	}
 
+	/**
+	 * The internal loop condition statement
+	 */
 	@Override
 	public boolean running() {
 		return running;
+	}
+	
+	/**
+	 * Updates the slot buttons
+	 */
+	public void updateButtons() {
+		// update all the slot buttons
+		slot_1.update();
+		slot_2.update();
+		slot_3.update();
+	}
+	
+	/**
+	 * Launcher Button that is used on the launcher screen
+	 */
+	private class LauncherButton implements Drawable {
+
+		// upper left corner
+		private int x, y;
+		
+		// action ID
+		private int actionId;
+		
+		// images of button states
+		private BufferedImage imageOff, imageOn;
+
+		/**
+		 * LauncherButton ctor()
+		 * 
+		 * @param yPos - vertical postion on screen
+		 * @param actionId - id when button is clicked
+		 * @param imageOff - off state
+		 * @param imageOn - on state
+		 */
+		public LauncherButton(int yPos, int actionId, BufferedImage imageOff, BufferedImage imageOn) {
+			x = JavaJesus.WINDOW_WIDTH / 2 - imageOff.getWidth() / 2;
+			y = yPos;
+			this.imageOff = imageOff;
+			this.imageOn = imageOn;
+			this.actionId = actionId;
+		}
+		
+		/**
+		 * Sets a button left justified
+		 */
+		public void setLeftJustified() {
+			x = 20;
+		}
+
+		/**
+		 * @return the actionID
+		 */
+		public int getActionId() {
+			return actionId;
+		}
+
+		/**
+		 * Renders the button on the screen
+		 */
+		public void draw(Graphics g) {
+			
+			// mouse inside bounds
+			if (mouseX > x && mouseX < x + imageOff.getWidth() && mouseY > y
+					&& mouseY < y + imageOff.getHeight()) {
+				
+				// draw the on state
+				g.drawImage(imageOn, x, y, null);
+				
+				// draw the sword
+				if (!isClicked || selectedButton == this) {
+					g.drawImage(sword_selector, x - swordStart + swordOffset, y, null);
+				}
+				
+				// mouse is clicked
+				if (mouseButton == 1) {
+					mouseButton = 0;
+					SoundHandler.play(SoundHandler.sheathe);
+					selectedButton = this;
+					isClicked = true;
+				}
+
+			} else {
+				
+				// draw the off state
+				g.drawImage(imageOff, x, y, null);
+			}
+		}
+	}
+	
+	/**
+	 * Slot Button that is used for player save files
+	 */
+	private class SlotButton implements Drawable {
+
+		// upper left corner
+		private int x, y;
+
+		// slot used to check for save file
+		private int slot;
+		
+		// font used to render the text
+		private final Font font = new Font(JavaJesus.FONT_NAME, 0, 35);
+		
+		// Text to render
+		private String text;
+
+		/**
+		 * SlotButton ctor()
+		 * 
+		 * @param yPos - y position on screen
+		 * @param actionId - action ID
+		 */
+		private SlotButton(int yPos, int slot) {
+			y = yPos;
+			this.slot = slot;
+			
+			// get the text
+			update();
+			
+		}
+		
+		/**
+		 * Sets the text to render
+		 */
+		private void update() {
+			if (SaveFile.exists(slot)) {
+				text = (String) SaveFile.load(slot)[3];
+			} else {
+				text = "Empty";
+			}
+		}
+
+		/**
+		 * @return action ID
+		 */
+		public int getActionId() {
+			return SLOT;
+		}
+		
+		/**
+		 * @return the slot number
+		 */
+		public int getSlot() {
+			return slot;
+		}
+
+		/**
+		 * Renders the button on the screen
+		 * @param g - graphics
+		 */
+		public void draw(Graphics g) {
+			
+			// set the font
+			g.setFont(font);
+			
+			// center the text
+			FontMetrics fm = g.getFontMetrics();
+			x = JavaJesus.WINDOW_WIDTH / 2 - fm.stringWidth(text) / 2;
+			
+			// set the right color
+			if (mouseX > x && mouseX < x + fm.stringWidth(text) && mouseY > y
+					&& mouseY < y + fm.getHeight()) {
+				
+				// mouse is hovering
+				g.setColor(Color.WHITE);
+				
+				// draw sword selector
+				if (!isClicked || selectedButton == this) {
+					g.drawImage(sword_selector, x - swordStart + swordOffset, y, null);
+				}
+				
+				// mouse clicked
+				if (mouseButton == 1) {
+					mouseButton = 0;
+					SoundHandler.play(SoundHandler.sheathe);
+					selectedButton = this;
+					isClicked = true;
+				}
+
+			} else {
+				
+				// Not hovering
+				g.setColor(Color.BLACK);
+			}
+			
+			// draw the text
+			g.drawString(text, x, y + fm.getHeight());
+		}
+	}
+	
+	/**
+	 * Buttons in the launcher
+	 */
+	private interface Drawable {
+		
+		// how to render the button
+		public void draw(Graphics g);
+		
+		// the action ID when clicked
+		public int getActionId();
+		
 	}
 
 }
