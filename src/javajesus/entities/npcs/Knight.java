@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 import javajesus.MessageHandler;
-import javajesus.JavaJesus;
 import javajesus.entities.Mob;
+import javajesus.entities.Player;
 import javajesus.entities.Skills;
 import javajesus.entities.monsters.Monster;
 import javajesus.graphics.Screen;
@@ -218,9 +218,11 @@ public class Knight extends NPC implements Skills {
 
 	/**
 	 * Dialogue options for the Knight
+	 * 
+	 * @param player - the initiator of conversation
 	 */
-	public void doDialogue() {
-		MessageHandler.displayText(getName() + ": Hello " + getLevel().getPlayer(JavaJesus.PLAYER_NAME).getName(), Color.white);
+	public void doDialogue(Player player) {
+		MessageHandler.displayText(getName() + ": Hello " + player.getName(), Color.white);
 		return;
 	}
 

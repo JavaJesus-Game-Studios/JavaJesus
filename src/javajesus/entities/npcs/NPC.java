@@ -431,8 +431,10 @@ public class NPC extends Mob {
 
 	/**
 	 * Dialogue options that can easily be overridden
+	 * 
+	 * @param player - initiator of conversation
 	 */
-	protected void doDialogue() {
+	protected void doDialogue(Player player) {
 		switch (random.nextInt(13)) {
 		case 0: {
 			MessageHandler.displayText(getName() + ": I used to be an adventurer too!", Color.black);
@@ -555,7 +557,7 @@ public class NPC extends Mob {
 			}
 		}
 
-		doDialogue();
+		doDialogue(player);
 
 	}
 

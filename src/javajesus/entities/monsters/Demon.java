@@ -152,7 +152,7 @@ public class Demon extends Monster implements LongRange {
 		if (value < 40) {
 			getLevel().add(new RevolverAmmoPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16), 6));
 		} else if (value < 65) {
-			getLevel().add(new QuickHealthPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16)));
+			getLevel().add(new QuickHealthPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16), random.nextInt(10) + 20));
 		} else if (value < 68) {
 			getLevel().add(new HornedPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16)));
 		}

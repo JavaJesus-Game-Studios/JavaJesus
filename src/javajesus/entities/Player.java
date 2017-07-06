@@ -10,6 +10,8 @@ import javajesus.JavaJesus;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.monsters.Demon;
+import javajesus.entities.particles.pickups.Pickup;
+import javajesus.entities.particles.pickups.QuickHealthPickup;
 import javajesus.entities.structures.furniture.Chest;
 import javajesus.entities.structures.transporters.MapTransporter;
 import javajesus.entities.structures.transporters.Transporter;
@@ -224,6 +226,23 @@ public class Player extends Mob implements Skills {
 		if (equippedSword != null) {
 			equippedSword.tick(getLevel(), getX(), getY());
 			// sdsetDirection(equippedSword.getDirection());
+		}
+		
+		// check for pickups
+		for (int i = 0; i < getLevel().getEntities().size(); i++) {
+			if (getLevel().getEntities().get(i) instanceof Pickup
+			        && getBounds().intersects(getLevel().getEntities().get(i).getBounds())) {
+				
+				// quick health pack is special case
+				if (getLevel().getEntities().get(i) instanceof QuickHealthPickup ) {
+					changeHealth(((QuickHealthPickup) getLevel().getEntities().get(i)).use());
+				} else {
+					inventory.add((Pickup) getLevel().getEntities().get(i));
+				}
+				
+				// the pickup was removed from the list so adjust index
+				i--;
+			}
 		}
 
 		// the change in x and y (movement)
@@ -576,10 +595,6 @@ public class Player extends Mob implements Skills {
 
 		super.doDamageToHealth(damage);
 
-		// sets a shader when health is low
-		if ((double) getCurrentHealth() / getMaxHealth() <= 0.25) {
-			JavaJesus.getScreen().setShader(0xFF0000);
-		}
 	}
 
 	/**
@@ -704,9 +719,6 @@ public class Player extends Mob implements Skills {
 	 */
 	public void heal() {
 		super.heal();
-
-		// resets the shader to default
-		JavaJesus.getScreen().setShader(0);
 	}
 
 	/**
@@ -835,12 +847,6 @@ public class Player extends Mob implements Skills {
 			window.toggle(KeyEvent.VK_R);
 		}
 
-		// toggle developer mode
-		if (window.isKeyPressed(KeyEvent.VK_F3)) {
-			JavaJesus.setDisplayDevScreen(!JavaJesus.getDisplayDevScreen());
-			window.toggle(KeyEvent.VK_F3);
-		}
-		
 		// open inventory
 		if (window.isKeyPressed(KeyEvent.VK_I)) {
 			window.toggle(KeyEvent.VK_I);

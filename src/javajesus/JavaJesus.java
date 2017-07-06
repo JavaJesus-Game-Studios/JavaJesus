@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -20,7 +21,6 @@ import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.gui.OverviewGUI;
 import javajesus.gui.PauseGUI;
-import javajesus.level.Level;
 import javajesus.save.GameData;
 import javajesus.utility.GameMode;
 import javajesus.utility.JJStrings;
@@ -65,16 +65,11 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	public static GameMode mode;
 
 	// True if special developer numbers should be displayed
-	private static boolean displayDevOverlay;
+	private boolean doDevOverlay;
 
 	// the gamescore in survival mode
 	public static int score;
 
-	public static Integer fps;
-	
-	// name of the main player
-	public static String PLAYER_NAME;
-	
 	// Creates the buffered image to be rendered onto the game screen
 	private transient BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
 
@@ -127,6 +122,9 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// whether or not the game loop should run
 	private static boolean running;
 	
+	// center point, the player, on the screen in respect to level
+	private int xOffset, yOffset;
+	
 	/**
 	 * JavaJesus ctor()
 	 * Initializes the gamemode and whether or not to load
@@ -134,7 +132,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 * @param m - the game mode
 	 * @param load - whether or not to load
 	 */
-	public JavaJesus(GameMode m, boolean load, Player player) {
+	public JavaJesus(final GameMode m, boolean load, final Player player) {
 		
 		// instance data
 		mode = m;
@@ -180,13 +178,10 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			GameData.loadLevels();
 			
 			// contains the important player data
-			String[] data = (String[]) GameData.load("Player");
-			
-			// assign the player name
-			PLAYER_NAME = data[GameData.NAME];
+			//String[] data = (String[]) GameData.load("Player");
 			
 			// assign the player from the level mob list
-			player = Level.getLevel(data[GameData.LEVEL]).getPlayer(data[GameData.NAME]);
+			// get player level, assign player, etc.
 			
 			// set the player info for the game data 
 			GameData.setPlayer(player);
@@ -229,7 +224,14 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 */
 	public void input(Window window) {
 		
+		// most input is managed by the player
 		player.input(window);
+		
+		// toggle developer mode
+		if (window.isKeyPressed(KeyEvent.VK_F3)) {
+			doDevOverlay = !doDevOverlay;
+			window.toggle(KeyEvent.VK_F3);
+		}
 		
 	}
 
@@ -238,14 +240,31 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 */
 	public void update() {
 		
+		// only update in the level
 		if (inGameScreen) {
+			
+			// update the player
 			player.getLevel().tick();
+			
+			// update the global offsets
+			xOffset = player.getX() - (IMAGE_WIDTH / 2);
+			yOffset = player.getY() - (IMAGE_HEIGHT / 2);
+			if (player.isDriving()) {
+				xOffset = player.getVehicle().getX() - (IMAGE_WIDTH / 2);
+				yOffset = player.getVehicle().getY() - (IMAGE_HEIGHT / 2);
+			}
+			
 		} else {
+			
+			// repaint inventory menus
 			display.getComponent(guiID).repaint();
 		}
 
 	}
 	
+	/**
+	 * Signals the internal loop to stop
+	 */
 	public static void playerDied() {
 		guiID = GAME_DISPLAY;
 		running = false;
@@ -256,27 +275,24 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 * Displays graphics on the window
 	 */
 	public void render(Window window) {
-
-		if (player == null)
+		
+		// only render if this screen is being displayed
+		if (!inGameScreen) {
 			return;
+		}
+
+		// create the graphics buffer
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
 			return;
 		}
 
-		int xOffset = player.getX() - (screen.getWidth() / 2);
-		int yOffset = player.getY() - (screen.getHeight() / 2);
-		if (player.isDriving()) {
-			xOffset = player.getVehicle().getX() - (screen.getWidth() / 2);
-			yOffset = player.getVehicle().getY() - (screen.getHeight() / 2);
-		}
+		// render the level and everything on it
+		player.getLevel().renderTile(screen, xOffset, yOffset);
+		player.getLevel().renderEntities(screen, player);
 
-		if (inGameScreen) {
-			player.getLevel().renderTile(screen, xOffset, yOffset);
-			player.getLevel().renderEntities(screen, player);
-		}
-
+		// set the pixels of the image in memory from the screen class
 		for (int y = 0; y < screen.getHeight(); y++) {
 			for (int x = 0; x < screen.getWidth(); x++) {
 				pixels[x + y * IMAGE_WIDTH] = screen.getPixels()[x + y * screen.getWidth()];
@@ -285,23 +301,24 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		}
 		screen.clear();
 
+		// draw from the buffer strategy
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		g.setFont(DISPLAY_FONT);
-		g.setColor(Color.YELLOW);
-		if (getDisplayDevScreen()) {
+		
+		// draw the debug information
+		if (doDevOverlay) {
+			g.setFont(DISPLAY_FONT);
+			g.setColor(Color.YELLOW);
 			g.drawString(player + ": " + player.getX() + ", " + player.getY(), 5, 20);
 		}
-		if (hud != null)
-			hud.draw(g);
-		g.setFont(DISPLAY_FONT);
+		
+		// draw additional displays on the screen
+		hud.draw(g);
 		MessageHandler.drawWindow(g);
+		
+		// swap the buffer to the front
 		g.dispose();
 		bs.show();
-	}
-	
-	public static Screen getScreen() {
-		return screen;
 	}
 	
 	/**
@@ -317,17 +334,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * @return Returns true if the display should render the dev overlay
-	 */
-	public static boolean getDisplayDevScreen() {
-		return displayDevOverlay;
-	}
-
-	public static void setDisplayDevScreen(boolean doesDisplay) {
-		displayDevOverlay = doesDisplay;
 	}
 	
 	/**

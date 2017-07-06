@@ -74,6 +74,9 @@ public abstract class Level implements Serializable {
 	public static final String BAUTISTA = "Bautista's Domain", EDGE_MAIN = "Edge of the Woods",
 			EDGE_TOP = "Edge of the Woods Top", HILLSBOROUGH = "Lord Hillsborough's Domain", ORCHARD = "Orchard Valley",
 			CISCO = "San Cisco", JUAN = "San Juan", TECH = "Tech Topia";
+	
+	// instance of the player on the level
+	private Player player;
 
 	// list of all levels the player visited that need to be saved
 	// private static final transient List<Level> visitedLevels = new
@@ -506,6 +509,21 @@ public abstract class Level implements Serializable {
 			}
 
 	}
+	
+	/**
+	 * Sets the player to this level
+	 * @param player - player on this level
+	 */
+	public void setPlayer(final Player player) {
+		this.player = player;
+	}
+	
+	/**
+	 * @return the player on this level
+	 */
+	public Player getPlayer() {
+		return player;
+	}
 
 	/**
 	 * Returns a representation of this object as a string
@@ -557,19 +575,6 @@ public abstract class Level implements Serializable {
 	 */
 	public String getName() {
 		return name;
-	}
-
-	/**
-	 * @return the specified player from the name
-	 */
-	public final Player getPlayer(final String name) {
-		for (Mob m : mobs) {
-			if (m.getName().equals(name)) {
-				return (Player) m;
-			}
-		}
-
-		return null;
 	}
 
 	/**

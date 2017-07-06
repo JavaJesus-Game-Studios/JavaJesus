@@ -1,7 +1,5 @@
 package javajesus.graphics;
 
-import javajesus.JavaJesus;
-
 /*
  * Handles the pixel manipulation and data that is displayed on the screen elsewhere
  */
@@ -15,9 +13,6 @@ public class Screen {
 
 	// the dimensions of the screen
 	private int width, height;
-
-	// blends all the screen pixels by this decimal color
-	private int shader;
 
 	/**
 	 * Creates a new screen that can modify pixels used for display elsewhere
@@ -137,9 +132,6 @@ public class Screen {
 						break;
 					}
 					}
-				if (JavaJesus.getDisplayDevScreen() && col == 0xFF000000){ // shows blank space
-					col = 0xFFFF0000;
-				}
 				if (col != 0xFF000000)
 					for (int yScale = 0; yScale < scale; yScale++) {
 						if (yPixel + yScale < 0 || yPixel + yScale >= height)
@@ -148,8 +140,7 @@ public class Screen {
 							if (xPixel + xScale < 0 || xPixel + xScale >= width)
 								continue;
 							pixels[(xPixel + xScale) + (yPixel + yScale)
-									* width] = (shader > 0) ? Colors.blend(col,
-									shader, 0.5) : col;
+									* width] = col;
 
 						}
 					}
@@ -204,19 +195,11 @@ public class Screen {
 						}
 						}
 					if (col != 0xFF000000)
-						pixels[(xPixel) + (yPixel) * width] = (shader > 0) ? Colors.blend(
-								col, shader, 0.5) : col;
+						pixels[(xPixel) + (yPixel) * width] = col;
 				}
 
 			}
 		}
-	}
-
-	/**
-	 * @param color the color of the new shader in decimal
-	 */
-	public void setShader(int color) {
-		this.shader = color;
 	}
 
 	/** Blends the pixels of Tiles */
@@ -268,8 +251,7 @@ public class Screen {
 							if (xPixel + xScale < 0 || xPixel + xScale >= width)
 								continue;
 							pixels[(xPixel + xScale) + (yPixel + yScale)
-									* width] = (shader > 0) ? Colors.blend(col,
-									shader, 0.5) : col;
+									* width] = col;
 
 						}
 					}
@@ -278,14 +260,23 @@ public class Screen {
 		}
 	}
 
+	/**
+	 * @return Screen pixels
+	 */
 	public int[] getPixels() {
 		return pixels;
 	}
 
+	/**
+	 * @return Screen width
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * @return Screen height
+	 */
 	public int getHeight() {
 		return height;
 	}

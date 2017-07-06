@@ -302,7 +302,7 @@ public class Monster extends Mob implements Skills {
 			getLevel().add(new ShotgunAmmoPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8)));
 			break;
 		case 5:
-			getLevel().add(new QuickHealthPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8)));
+			getLevel().add(new QuickHealthPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), random.nextInt(10) + 20));
 			break;
 
 		// drop nothing

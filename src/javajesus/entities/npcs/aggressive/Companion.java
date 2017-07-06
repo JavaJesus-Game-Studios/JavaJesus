@@ -3,7 +3,6 @@ package javajesus.entities.npcs.aggressive;
 import java.awt.Color;
 
 import javajesus.MessageHandler;
-import javajesus.JavaJesus;
 import javajesus.entities.Player;
 import javajesus.level.Level;
 
@@ -13,9 +12,6 @@ import javajesus.level.Level;
 public class Companion extends Shooter {
 
 	private static final long serialVersionUID = 1114048658566656656L;
-
-	// the player to accompany
-	private Player player;
 
 	// dimensions the companion
 	private static final int WIDTH = 16, HEIGHT = 16;
@@ -34,6 +30,7 @@ public class Companion extends Shooter {
 	public Companion(Level level, int x, int y, int defaultHealth, int[] color, int xTile, int yTile) {
 		super(level, "Companion", x, y, 1, WIDTH, HEIGHT, defaultHealth, color, xTile, yTile, "", 0);
 	}
+		
 
 	/**
 	 * Updates the companion
@@ -48,28 +45,22 @@ public class Companion extends Shooter {
 		// change in x and y
 		int dx = 0, dy = 0;
 		
-		// find the closest player
-		if (player == null) {
-			player = getLevel().getPlayer(JavaJesus.PLAYER_NAME);
-			return;
-		}
-		
-		// Dont follow the player if shooting
-		if (target != null) {
+		// Dont follow the player if shooting or player is null
+		if (target != null || getLevel().getPlayer() == null) {
 			return;
 		}
 
 		// makes the companion follow the player
-		if (!this.getOuterBounds().intersects(player.getOuterBounds())) {
+		if (!this.getOuterBounds().intersects(getLevel().getPlayer().getOuterBounds())) {
 
-			if (player.getX() > getX()) {
+			if (getLevel().getPlayer().getX() > getX()) {
 				dx++;
-			} else if (player.getX() < getX()) {
+			} else if (getLevel().getPlayer().getX() < getX()) {
 				dx--;
 			}
-			if (player.getY() > getY()) {
+			if (getLevel().getPlayer().getY() > getY()) {
 				dy++;
-			} else if (player.getY() < getY()) {
+			} else if (getLevel().getPlayer().getY() < getY()) {
 				dy--;
 			}
 			if ((dx != 0 || dy != 0) && !isMobCollision(dx, dy)) {
@@ -83,7 +74,8 @@ public class Companion extends Shooter {
 	/**
 	 * Companion Dialogue options
 	 */
-	public void doDialogue() {
+	@Override
+	public void doDialogue(Player player) {
 		switch (random.nextInt(2)) {
 		case 0:
 			MessageHandler.displayText(getName() + ": What's up, bud?", Color.white);

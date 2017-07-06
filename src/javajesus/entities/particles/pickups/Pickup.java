@@ -1,7 +1,5 @@
 package javajesus.entities.particles.pickups;
 
-import javajesus.JavaJesus;
-import javajesus.SoundHandler;
 import javajesus.entities.particles.Particle;
 import javajesus.graphics.SpriteSheet;
 import javajesus.items.Item;
@@ -21,7 +19,9 @@ public class Pickup extends Particle {
 	private int quantity;
 
 	/**
+	 * Pickup ctor()
 	 * Creates a generic pickup
+	 * 
 	 * @param level the level it is on
 	 * @param x the x coord
 	 * @param y the y coord
@@ -35,7 +35,9 @@ public class Pickup extends Particle {
 	}
 
 	/**
-	 * Creates a Pickup object
+	 * Pickup ctor()
+	 * Creates a customized pickup
+	 * 
 	 * @param level the level it is on
 	 * @param x the x coord
 	 * @param y the y coord
@@ -53,17 +55,26 @@ public class Pickup extends Particle {
 		setTileNumber(xTile + yTile * getSpriteSheet().getNumBoxes());
 		this.quantity = amount;
 	}
-
+	
 	/**
-	 * Updates the item
+	 * @return the quantity of whatever is in this pickup
 	 */
-	public void tick() {
-		if (getBounds().intersects(getLevel().getPlayer(JavaJesus.PLAYER_NAME).getBounds())) {
-			for (int i = 0; i < quantity; i++)
-				getLevel().getPlayer(JavaJesus.PLAYER_NAME).getInventory().add(item);
-			SoundHandler.play(SoundHandler.click);
-			getLevel().remove(this);
-		}
+	public int getQuantity() {
+		return quantity;
+	}
+	
+	/**
+	 * @return the item in the pickup
+	 */
+	public Item getItem() {
+		return item;
+	}
+	
+	/**
+	 * Removes this item from the game
+	 */
+	public void remove() {
+		getLevel().remove(this);
 	}
 
 }

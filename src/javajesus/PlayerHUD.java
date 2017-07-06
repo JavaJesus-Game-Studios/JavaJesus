@@ -41,6 +41,9 @@ public class PlayerHUD {
 
 	// offsets of various HUD elements
 	private static int box_yOffset, gun_xOffset, gun_yOffset, string_xOffset, string_yOffset;
+	
+	// font of ammo string
+	private static final Font font = new Font(JavaJesus.FONT_NAME, 0, 20);
 
 	/**
 	 * Loads all the images of the weapons
@@ -95,6 +98,8 @@ public class PlayerHUD {
 		
 		// draw the ammo info if a gun
 		if (player.getEquippedGun() != null) {
+			g.setFont(font);
+			g.setColor(Color.YELLOW);
 			g.drawString((int) player.getEquippedGun().getCurrentAmmo() + " / " + player.getEquippedGun().getClipSize(),
 			        string_xOffset, string_yOffset);
 		}

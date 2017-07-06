@@ -480,11 +480,9 @@ public class Launcher extends Canvas implements IGameLogic {
 
 		GameData.setPlayer(player);
 		
-		// TODO
-		JavaJesus.PLAYER_NAME = player.getName();
-		
 		level.reset();
 		level.add(player);
+		level.setPlayer(player);
 		level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
 
 		player.setShirtColor(shirt);

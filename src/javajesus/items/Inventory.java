@@ -2,6 +2,9 @@ package javajesus.items;
 
 import java.io.Serializable;
 
+import javajesus.SoundHandler;
+import javajesus.entities.particles.pickups.Pickup;
+
 /*
  * A container that holds various items 
  */
@@ -62,6 +65,27 @@ public class Inventory implements Serializable {
 			}
 			
 		}
+	}
+	
+	/**
+	 * add()
+	 * adds the contents of a pickup
+	 * Plays a pickup Sound
+	 * Removes the pickup afterwards
+	 * 
+	 * @param pickup - the pickup item
+	 */
+	public void add(Pickup pickup) {
+		
+		SoundHandler.play(SoundHandler.click);
+		
+		// add the contents of the pickup
+		for (int i = 0; i < pickup.getQuantity(); i++) {
+			add(pickup.getItem());
+		}
+		
+		// now remove the pickup
+		pickup.remove();
 	}
 
 	/**
