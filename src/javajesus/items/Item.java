@@ -18,19 +18,19 @@ public class Item implements Serializable {
 	private static final long serialVersionUID = 6019227186916064573L;
 
 	// the name of the Item
-	private String name;
+	private final String name;
 
 	// the id of the item
 	private byte id;
 
 	// the colorset of the item
-	private int[] color;
+	private final int[] color;
 
 	// the horizontal/vertical position on the spritesheet
 	private int xTile, yTile;
 
 	// the description of the item
-	private String description;
+	private final String description;
 
 	// the amount of this item
 	private int amount = 1;
@@ -120,8 +120,11 @@ public class Item implements Serializable {
 			"Arrow Ammo", 0);
 
 	// restores health
-	public static final Item strongHealthPack = new Item("Health", 27, 1, 5,
+	public static final Item strongHealthPack = new Item("Health", 27, 1, 3,
 			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "This Health Pack will restore a large amount of health.", 50);
+	
+	public static final Item quickHealthPack = new Item("Quick Health", 30, 0, 3,
+			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "This Health Pack will restore a small amount of health.", 20);
 	
 	// inventory filler
 	public static final Item blank = new Item("Empty", 29, 0, 2, null, "None", 0);
@@ -267,10 +270,14 @@ public class Item implements Serializable {
 
 	/**
 	 * Uses this item
+	 * Plays a click sound
 	 * 
 	 * @param player - the player using the item
 	 */
 	public void use(Player player) {
+		
+		// play a sound when used
+		SoundHandler.play(SoundHandler.click);
 		
 		// heal if the item has health
 		if (health > 0) {
@@ -340,5 +347,19 @@ public class Item implements Serializable {
 		return equipable || health > 0;
 		
 	}
-
+	
+	/**
+	 * @return x tile on spritesheet
+	 */
+	public int getXTile() {
+		return xTile;
+	}
+	
+	/**
+	 * @return y tile on spritesheet
+	 */
+	public int getYTile() {
+		return yTile;
+	}
+	
 }

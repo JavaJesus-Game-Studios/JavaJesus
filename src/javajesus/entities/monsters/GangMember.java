@@ -4,15 +4,16 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
-import javajesus.MessageHandler;
 import javajesus.JavaJesus;
+import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.LongRange;
 import javajesus.entities.Mob;
+import javajesus.entities.Pickup;
 import javajesus.entities.Player;
-import javajesus.entities.particles.pickups.VestPickup;
 import javajesus.entities.projectiles.Bullet;
 import javajesus.graphics.Screen;
+import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
@@ -205,7 +206,7 @@ public class GangMember extends Monster implements LongRange {
 		
 		// 10% chance of vest, 10% health
 		if (value < 1) {
-			getLevel().add(new VestPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8)));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.vest));
 		} 
 	}
 

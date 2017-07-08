@@ -7,11 +7,10 @@ import java.util.Random;
 import javajesus.JavaJesus;
 import javajesus.entities.LongRange;
 import javajesus.entities.Mob;
-import javajesus.entities.particles.pickups.HornedPickup;
-import javajesus.entities.particles.pickups.QuickHealthPickup;
-import javajesus.entities.particles.pickups.RevolverAmmoPickup;
+import javajesus.entities.Pickup;
 import javajesus.entities.projectiles.FireBall;
 import javajesus.graphics.Screen;
+import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
@@ -150,11 +149,11 @@ public class Demon extends Monster implements LongRange {
 		
 		// 40% chance of revolver, 15% health, 3% horned armor
 		if (value < 40) {
-			getLevel().add(new RevolverAmmoPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16), 6));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16),Item.revolverAmmo, 6));
 		} else if (value < 65) {
-			getLevel().add(new QuickHealthPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16), random.nextInt(10) + 20));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16), Item.quickHealthPack, true));
 		} else if (value < 68) {
-			getLevel().add(new HornedPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16)));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16), Item.horned));
 		}
 	}
 	

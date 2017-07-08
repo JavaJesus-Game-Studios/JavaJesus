@@ -10,8 +10,6 @@ import javajesus.JavaJesus;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.monsters.Demon;
-import javajesus.entities.particles.pickups.Pickup;
-import javajesus.entities.particles.pickups.QuickHealthPickup;
 import javajesus.entities.structures.furniture.Chest;
 import javajesus.entities.structures.transporters.MapTransporter;
 import javajesus.entities.structures.transporters.Transporter;
@@ -233,11 +231,22 @@ public class Player extends Mob implements Skills {
 			if (getLevel().getEntities().get(i) instanceof Pickup
 			        && getBounds().intersects(getLevel().getEntities().get(i).getBounds())) {
 				
-				// quick health pack is special case
-				if (getLevel().getEntities().get(i) instanceof QuickHealthPickup ) {
-					changeHealth(((QuickHealthPickup) getLevel().getEntities().get(i)).use());
+				// instance of the pickup
+				Pickup p = (Pickup) getLevel().getEntities().get(i);
+				
+				// should we use it on collision?
+				if (p.isInstantaneous()) {
+					
+					// use the item
+					p.getItem().use(this);
+					
+					// now remove it
+					p.remove();
+					
 				} else {
-					inventory.add((Pickup) getLevel().getEntities().get(i));
+					
+					// add the pickup item to the inventory
+					inventory.add(p);
 				}
 				
 				// the pickup was removed from the list so adjust index

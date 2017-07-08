@@ -8,8 +8,8 @@ import javajesus.entities.monsters.Cyclops;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
-import javajesus.entities.particles.HealthPack;
 import javajesus.graphics.Screen;
+import javajesus.items.Item;
 import javajesus.level.Level;
 
 /*
@@ -17,6 +17,7 @@ import javajesus.level.Level;
  */
 public class Spawner extends Entity {
 
+	// serialization
 	private static final long serialVersionUID = -1243740183193796893L;
 
 	// types of entities to spawn
@@ -37,14 +38,10 @@ public class Spawner extends Entity {
 	/**
 	 * Creates an invisible entity to spawn an infinite amount of entities
 	 * 
-	 * @param level
-	 *            the level to place it on
-	 * @param x
-	 *            the x coord on the level
-	 * @param y
-	 *            the y coord on the level
-	 * @param type
-	 *            Types are found in the Spawner class
+	 * @param level - the level to place it on
+	 * @param x - the x coord on the level
+	 * @param y - the y coord on the level
+	 * @param type - Types are found in the Spawner class
 	 */
 	public Spawner(Level level, int x, int y, int type) {
 		super(level, x, y);
@@ -59,14 +56,10 @@ public class Spawner extends Entity {
 	/**
 	 * Creates an invisible entity to spawn an infinite amount of entities
 	 * 
-	 * @param level
-	 *            the level to place it on
-	 * @param x
-	 *            the x coord on the level
-	 * @param y
-	 *            the y coord on the level
-	 * @param name
-	 *            Types are found in the Spawner class
+	 * @param level - the level to place it on
+	 * @param x - the x coord on the level
+	 * @param y - the y coord on the level
+	 * @param name - Types are found in the Spawner class
 	 */
 	public Spawner(Level level, int x, int y, String name) {
 		super(level, x, y);
@@ -99,16 +92,11 @@ public class Spawner extends Entity {
 	/**
 	 * Creates an invisible entity to spawn a finite amount of entities
 	 * 
-	 * @param level
-	 *            the level to place it on
-	 * @param x
-	 *            the x coord on the level
-	 * @param y
-	 *            the y coord on the level
-	 * @param type
-	 *            Types are found in the Spawner class
-	 * @param amount
-	 *            the amount of entities to spawn
+	 * @param level - the level to place it on
+	 * @param x - the x coord on the level
+	 * @param y - the y coord on the level
+	 * @param type - Types are found in the Spawner class
+	 * @param amount - the amount of entities to spawn
 	 */
 	public Spawner(Level level, int x, int y, int type, int amount) {
 		super(level, x, y);
@@ -175,7 +163,7 @@ public class Spawner extends Entity {
 		case GANG_MEMBER:
 			return currentEntity = new GangMember(getLevel(), getX(), getY(), 1, 200 + JavaJesus.score * 3, random.nextInt(2));
 		case HEALTH_PACK:
-			return currentEntity = new HealthPack(getLevel(), getX(), getY(), true);
+			return currentEntity = new Pickup(getLevel(), getX(), getY(), Item.quickHealthPack, true);
 		case MONKEY:
 			return currentEntity = new Monkey(getLevel(), getX(), getY(), 200 + JavaJesus.score * 4);
 		case CYCLOPS:

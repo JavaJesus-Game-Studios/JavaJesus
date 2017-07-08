@@ -6,40 +6,41 @@ import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 
 /*
- * A Particle is an entity that cannot interact with others with the same detail as mobs
- * A particle is not weaponized, mostly aesthetic
+ * A Particle is an entity that cannot interact with mobs
+ * A particle is purely aesthetic
  */
 public class Particle extends Entity {
 
+	// serialization
 	private static final long serialVersionUID = -1910855426543317119L;
 
 	// spritesheet the particle is on
-	private SpriteSheet sheet = SpriteSheet.particles;
+	private final SpriteSheet sheet;
 
-	// spritesheet coordinate: xTile + yTile * getSpriteSheet().boxes
-	private int tileNumber;
+	// spritesheet coordinates
+	private int xTile, yTile;
 
 	// colorset for the particle
-	private int[] color;
+	private final int[] color;
 
 	/**
 	 * Creates a particle
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord it is on
-	 * @param y
-	 *            the y coord it is on
-	 * @param tileNumber
-	 *            the spritesheet coord: xTile + yTile * sheet.boxes
-	 * @param color
-	 *            the colorset
+	 * @param level -  the level it is on
+	 * @param x - the x coord it is on
+	 * @param y - the y coord it is on
+	 * @param xTile - the x tile on the spritesheet
+	 * @param yTile - the y tile on the spritesheet
+	 * @param color - the color set
 	 */
-	public Particle(Level level, int x, int y, int tileNumber, int[] color) {
+	public Particle(final Level level, int x, int y, int xTile, int yTile, final int[] color, SpriteSheet sheet) {
 		super(level, x, y);
-		this.tileNumber = tileNumber;
+		
+		// instance data
+		this.xTile = xTile;
+		this.yTile = yTile;
 		this.color = color;
+		this.sheet = sheet;
 	}
 
 	/**
@@ -52,7 +53,7 @@ public class Particle extends Entity {
 	 * Displays the particle to the screen
 	 */
 	public void render(Screen screen) {
-		screen.render(getX(), getY(), tileNumber, color, sheet);
+		screen.render(getX(), getY(), xTile + yTile * sheet.getNumBoxes(), color, sheet);
 	}
 
 	/**
@@ -60,41 +61,6 @@ public class Particle extends Entity {
 	 */
 	public String toString() {
 		return "Particle";
-	}
-
-	/**
-	 * @return the mob's spritesheet
-	 */
-	protected SpriteSheet getSpriteSheet() {
-		return sheet;
-	}
-
-	/**
-	 * Sets the mob's spritesheet to this sheet
-	 */
-	protected void setSpriteSheet(SpriteSheet sheet) {
-		this.sheet = sheet;
-	}
-
-	/**
-	 * @return the tile number
-	 */
-	protected int getTileNumber() {
-		return tileNumber;
-	}
-	
-	/**
-	 * @param num the new tile number
-	 */
-	protected void setTileNumber(int num) {
-		tileNumber = num;
-	}
-
-	/**
-	 * @return the colorset
-	 */
-	protected int[] getColor() {
-		return color;
 	}
 
 }

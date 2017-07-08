@@ -1,52 +1,61 @@
 package javajesus.entities.particles;
 
 import javajesus.entities.Damageable;
+import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 
 /*
- * A healthbar follows underneath any entity
+ * A health bar follows underneath any entity
  */
-public class HealthBar extends Particle {
+public class HealthBar extends Entity {
 
+	// serialization
 	private static final long serialVersionUID = -4825483165347265874L;
 
 	// change in y offset on spritesheet
-	private int yChange;
+	private int yOffset;
+
+	// starting y tile on the spritesheet
+	private int yTile;
 
 	// segment compared to total number of health bar sprites
 	private static final double SEGMENT = 1 / 13.0;
 
 	// the entity it follows
-	private Damageable entity;
+	private final Damageable entity;
+
+	// Spritesheet of the health bar
+	private final static SpriteSheet sheet = SpriteSheet.particles;
+
+	// color of the healthbar
+	private final static int[] color = { 0xFF111111, 0xFF000000, 0xFFDD0000 };
 
 	/**
 	 * Creates a health bar
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coordinate
-	 * @param y
-	 *            the y coordinate
-	 * @param entity
-	 *            the entity it tracks
+	 * @param level - the level it is on
+	 * @param x - the x coordinate
+	 * @param y - the y coordinate
+	 * @param entity - the entity it tracks
 	 */
 	public HealthBar(Level level, int x, int y, Damageable entity) {
-		super(level, x, y, 2 * SpriteSheet.particles.getNumBoxes(), new int[] { 0xFF111111, 0xFF000000, 0xFFDD0000 });
+		super(level, x, y);
+
+		// instance data
 		this.entity = entity;
+		this.yTile = 2;
 	}
 
 	/**
 	 * Displays the healthbar on the screen
 	 */
 	public void render(Screen screen) {
-		
-		screen.render(getX(), getY(), getTileNumber() + yChange * getSpriteSheet().getNumBoxes(), getColor(), false,
-				getSpriteSheet());
-		screen.render(getX() + 8, getY(), getTileNumber() + 1 + yChange * getSpriteSheet().getNumBoxes(), getColor(), false,
-				getSpriteSheet());
+
+		// health bar has a left and right component
+		screen.render(getX(), getY(), (yTile + yOffset) * sheet.getNumBoxes(), color, false, sheet);
+		screen.render(getX() + 8, getY(), 1 + (yTile + yOffset) * sheet.getNumBoxes(), color, false, sheet);
 	}
 
 	/**
@@ -54,45 +63,46 @@ public class HealthBar extends Particle {
 	 */
 	public void tick() {
 
+		// divide the healthbar into 13 chunks with a different color
 		if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1) {
-			yChange = 0;
-			getColor()[2] = 0xFF0079E0;
+			yOffset = 0;
+			color[2] = 0xFF0079E0;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - SEGMENT) {
-			yChange = 1;
-			getColor()[2] = 0xFF0079E0;
+			yOffset = 1;
+			color[2] = 0xFF0079E0;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 2 * SEGMENT) {
-			yChange = 2;
-			getColor()[2] = 0xFF0079E0;
+			yOffset = 2;
+			color[2] = 0xFF0079E0;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 3 * SEGMENT) {
-			yChange = 3;
-			getColor()[2] = 0xFF0079E0;
+			yOffset = 3;
+			color[2] = 0xFF0079E0;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 4 * SEGMENT) {
-			yChange = 4;
-			getColor()[2] = 0xFFFF6000;
+			yOffset = 4;
+			color[2] = 0xFFFF6000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 5 * SEGMENT) {
-			yChange = 5;
-			getColor()[2] = 0xFFFF6000;
+			yOffset = 5;
+			color[2] = 0xFFFF6000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 6 * SEGMENT) {
-			yChange = 6;
-			getColor()[2] = 0xFFFF6000;
+			yOffset = 6;
+			color[2] = 0xFFFF6000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 7 * SEGMENT) {
-			yChange = 7;
-			getColor()[2] = 0xFFFF6000;
+			yOffset = 7;
+			color[2] = 0xFFFF6000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 8 * SEGMENT) {
-			yChange = 8;
-			getColor()[2] = 0xFFFF6000;
+			yOffset = 8;
+			color[2] = 0xFFFF6000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 9 * SEGMENT) {
-			yChange = 9;
-			getColor()[2] = 0xFFE50000;
+			yOffset = 9;
+			color[2] = 0xFFE50000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 10 * SEGMENT) {
-			yChange = 10;
-			getColor()[2] = 0xFFE50000;
+			yOffset = 10;
+			color[2] = 0xFFE50000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 11 * SEGMENT) {
-			yChange = 11;
-			getColor()[2] = 0xFFE50000;
+			yOffset = 11;
+			color[2] = 0xFFE50000;
 		} else {
-			yChange = 12;
-			getColor()[2] = 0xFFE50000;
+			yOffset = 12;
+			color[2] = 0xFFE50000;
 		}
 	}
 

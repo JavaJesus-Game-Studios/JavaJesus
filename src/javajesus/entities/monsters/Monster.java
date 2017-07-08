@@ -4,21 +4,17 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
-import javajesus.MessageHandler;
 import javajesus.JavaJesus;
+import javajesus.MessageHandler;
 import javajesus.entities.LongRange;
 import javajesus.entities.Mob;
+import javajesus.entities.Pickup;
 import javajesus.entities.Player;
 import javajesus.entities.Skills;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
-import javajesus.entities.particles.pickups.ArrowPickup;
-import javajesus.entities.particles.pickups.AssaultRifleAmmo;
-import javajesus.entities.particles.pickups.LaserAmmoPickup;
-import javajesus.entities.particles.pickups.QuickHealthPickup;
-import javajesus.entities.particles.pickups.RevolverAmmoPickup;
-import javajesus.entities.particles.pickups.ShotgunAmmoPickup;
 import javajesus.graphics.SpriteSheet;
+import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 import javajesus.utility.GameMode;
@@ -287,22 +283,22 @@ public class Monster extends Mob implements Skills {
 		int value = (new Random()).nextInt(10);
 		switch (value) {
 		case 0:
-			getLevel().add(new ArrowPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8)));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.arrowAmmo, 3));
 			break;
 		case 1:
-			getLevel().add(new AssaultRifleAmmo(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8)));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.assaultRifleAmmo, 15));
 			break;
 		case 2:
-			getLevel().add(new LaserAmmoPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8)));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.laserAmmo, 6));
 			break;
 		case 3:
-			getLevel().add(new RevolverAmmoPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), 6));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.revolverAmmo, 6));
 			break;
 		case 4:
-			getLevel().add(new ShotgunAmmoPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8)));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.shotgunAmmo, 5));
 			break;
 		case 5:
-			getLevel().add(new QuickHealthPickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), random.nextInt(10) + 20));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.quickHealthPack, true));
 			break;
 
 		// drop nothing

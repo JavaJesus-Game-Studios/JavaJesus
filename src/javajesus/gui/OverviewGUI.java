@@ -202,16 +202,19 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-			// play a sound when any button is pressed
-			SoundHandler.play(SoundHandler.click);
-			
 			// alphabet sort
 			if (e.getSource() == sort1) {
+				
+				// play a sound when pressed
+				SoundHandler.play(SoundHandler.click);
 
 				player.getInventory().sortItemsAlphabetically();
 				
 				// id sort
 			} else if (e.getSource() == sort2) {
+				
+				// play a sound when pressed
+				SoundHandler.play(SoundHandler.click);
 				
 				player.getInventory().sortItemsByID();
 
@@ -233,6 +236,9 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 
 				// discard
 			} else if (e.getSource() == discard) {
+				
+				// play a sound when pressed
+				SoundHandler.play(SoundHandler.click);
 				
 				if (selected.getItem() != null) {
 					player.getInventory().discard(selected.getItem());

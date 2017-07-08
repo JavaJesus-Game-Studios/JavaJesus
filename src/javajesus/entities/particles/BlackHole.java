@@ -3,7 +3,7 @@ package javajesus.entities.particles;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
-import javajesus.SoundHandler;
+import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
@@ -11,20 +11,20 @@ import javajesus.level.Level;
 
 /*
  * A black hole sucks in mobs and deals extreme damage to all mobs in its vicinity
- * Dev weapon only
  */
-public class BlackHole extends Particle {
+public class BlackHole extends Entity {
 
+	// serialization
 	private static final long serialVersionUID = 2827325538515820858L;
 
-	// yTile offset
-	private int posNumber;
+	// xTile offset
+	private int xOffset;
 
 	// internal timer
-	private int tickCount = 1;
+	private int tickCount;
 
 	// radius of the black hole
-	private Ellipse2D.Double radius;
+	private final Ellipse2D.Double radius;
 
 	// size of the black hole
 	private static final int SIZE = 1024;
@@ -38,25 +38,28 @@ public class BlackHole extends Particle {
 	// damage per tick to mobs inside
 	private static final int DPT = 1;
 
+	// spritesheet of black hole
+	private static final SpriteSheet sheet = SpriteSheet.explosions;
+
+	// color of the black hole
+	private static final int[] color = { 0xFF000000, 0xFF000000, 0xFF000000 };
+
+	// box size on spritesheet
+	private static final int MODIFIER = 8;
+
 	/**
 	 * Creates a black hole
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord AT THE CENTER
-	 * @param y
-	 *            the y coord A THE CENTER
+	 * @param level - the level it is on
+	 * @param x - the x coord AT THE CENTER
+	 * @param y - the y coord A THE CENTER
 	 */
 	public BlackHole(Level level, int x, int y) {
-		super(level, x, y, 0, new int[] { 0xFF000000, 0xFF000000, 0xFF000000 });
-		
-		this.setBounds(x - SIZE / 2, y - SIZE / 2, SIZE, SIZE);
-		
-		setSpriteSheet(SpriteSheet.explosions);
-		posNumber = getTileNumber();
+		super(level, x, y);
+
+		// set collision bounds
+		setBounds(getX() - (MODIFIER * 2), getY() - (MODIFIER * 2), MODIFIER * 4, MODIFIER * 4);
 		radius = new Ellipse2D.Double(x - SIZE / 2, y - SIZE / 2, SIZE, SIZE);
-		SoundHandler.play(SoundHandler.explosion);
 
 	}
 
@@ -66,22 +69,22 @@ public class BlackHole extends Particle {
 	public void tick() {
 
 		// increment animation
-		if (tickCount % ANIMATION_LENGTH == 0) {
-			posNumber += 4;
+		if (++tickCount % ANIMATION_LENGTH == 0) {
+			xOffset += 4;
 		}
 
 		// animation is over
-		if (posNumber > getTileNumber() + (14 * 4)) {
+		if (xOffset > (14 * 4)) {
 
 			// remove the blackhole
 			getLevel().remove(this);
 
-		}	
+		}
 
 		// randomly create an explosion
 		if (random.nextInt(10) == 0) {
 			getLevel().add(
-					new Explosion(getLevel(), random.nextInt(300) - 150 + getX(), random.nextInt(300) - 150 + getY()));
+			        new Explosion(getLevel(), random.nextInt(300) - 150 + getX(), random.nextInt(300) - 150 + getY()));
 		}
 
 		// suck in all the mobs!
@@ -112,19 +115,20 @@ public class BlackHole extends Particle {
 			}
 
 		}
-
-		tickCount++;
 	}
 
 	/**
 	 * Display the black hole
 	 */
 	public void render(Screen screen) {
-		
+
+		// top to bottom
 		for (int i = 0; i < 4; i++) {
+
+			// left to right
 			for (int j = 0; j < 4; j++) {
-				screen.render(getX() + (j * 24) - 24, getY() + (i * 24) - 48,
-						posNumber + j + (i * getSpriteSheet().getNumBoxes()), getColor(), false, 3, getSpriteSheet());
+				screen.render(getX() - (MODIFIER * 2) + (j * MODIFIER), getY() - (MODIFIER * 2) + (i * MODIFIER),
+				        (xOffset + j) + (i * sheet.getNumBoxes()), color, false, sheet);
 			}
 		}
 

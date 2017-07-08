@@ -3,7 +3,7 @@ package javajesus.items;
 import java.io.Serializable;
 
 import javajesus.SoundHandler;
-import javajesus.entities.particles.pickups.Pickup;
+import javajesus.entities.Pickup;
 
 /*
  * A container that holds various items 

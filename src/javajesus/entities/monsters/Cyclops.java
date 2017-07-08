@@ -3,9 +3,9 @@ package javajesus.entities.monsters;
 import java.util.Random;
 
 import javajesus.JavaJesus;
-import javajesus.entities.particles.pickups.IstrahiimPickup;
-import javajesus.entities.particles.pickups.StrongHealthPack;
+import javajesus.entities.Pickup;
 import javajesus.graphics.Screen;
+import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
@@ -164,9 +164,9 @@ public class Cyclops extends Monster {
 		
 		// 5% chance of istrahiim armor, 20% large health
 		if (value < 5) {
-			getLevel().add(new IstrahiimPickup(getLevel(), getX() + JavaJesus.getRandomOffset(40), getY() + JavaJesus.getRandomOffset(40)));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(40), getY() + JavaJesus.getRandomOffset(40), Item.owl));
 		} else if (value < 25) {
-			getLevel().add(new StrongHealthPack(getLevel(), getX() + JavaJesus.getRandomOffset(40), getY() + JavaJesus.getRandomOffset(40)));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(40), getY() + JavaJesus.getRandomOffset(40), Item.strongHealthPack));
 		}
 	}
 
