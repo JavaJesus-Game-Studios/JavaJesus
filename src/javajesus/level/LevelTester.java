@@ -1,5 +1,7 @@
 package javajesus.level;
 
+import java.awt.Point;
+
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
@@ -73,8 +75,7 @@ public class LevelTester extends Level {
 	 */
 	public LevelTester() {
 		super("/Levels/Test_Levels/tile_tester_level.png", true,
-				NAME);
-		setSpawnPoint(150, 100);
+				NAME, new Point(150, 100));
 	}
 
 	/** 

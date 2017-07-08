@@ -142,10 +142,10 @@ public class PlayerGUI extends JPanel {
 		screen.render(modifier, 0, 1, color, false, scale, sheet);
 
 		// Lower left box
-		screen.render(0, modifier, 1 * sheet.getNumBoxes(), color, false, scale, sheet);
+		screen.render(0, modifier, 1 * sheet.getTilesPerRow(), color, false, scale, sheet);
 		
 		// Lower right box
-		screen.render(modifier, modifier, 1 + sheet.getNumBoxes(), color, false, scale, sheet);
+		screen.render(modifier, modifier, 1 + sheet.getTilesPerRow(), color, false, scale, sheet);
 
 	}
 	

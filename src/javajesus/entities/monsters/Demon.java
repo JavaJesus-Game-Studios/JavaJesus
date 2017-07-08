@@ -98,29 +98,29 @@ public class Demon extends Monster implements LongRange {
 		if (!isDead()) {
 
 			// Upper body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getNumBoxes(), color,
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getTilesPerRow(), color,
 					flip, getScale(), getSpriteSheet());
 
 			// Upper body 2
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-					(xTile + 1) + yTile * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+					(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 		}
 
 		// Middle Body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				xTile + (yTile + 1) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+				xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 
 		// Middle Body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				(xTile + 1) + (yTile + 1) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+				(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-				xTile + (yTile + 2) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+				xTile + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 
 		// Lower Body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-				(xTile + 1) + (yTile + 2) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+				(xTile + 1) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 
 		// dead bodies have an extended segment
 		if (isDead()) {
@@ -129,11 +129,11 @@ public class Demon extends Monster implements LongRange {
 
 			// Middle Body 3
 			screen.render(xOffset + offset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					(xTile + 2) + (yTile + 1) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+					(xTile + 2) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 
 			// Lower Body 3
 			screen.render(xOffset + offset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-					(xTile + 2) + (yTile + 2) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+					(xTile + 2) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 
 		}
 

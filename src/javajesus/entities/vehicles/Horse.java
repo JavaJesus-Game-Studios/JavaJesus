@@ -212,28 +212,28 @@ public class Horse extends NPC implements Ridable {
 		// standing vertical
 		if (isLongitudinal()) {
 			// Upper body
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getNumBoxes(),
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getTilesPerRow(),
 					getColor(), flip, getScale(), getSpriteSheet());
 
 			// Upper body
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-					(xTile + 1) + yTile * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
+					(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
 
 			// Middle Body
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					xTile + (yTile + 1) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
+					xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
 
 			// Middle Body
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					(xTile + 1) + (yTile + 1) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
+					(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
 
 			// Lower Body
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-					xTile + (yTile + 2) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
+					xTile + (yTile + 2) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
 
 			// Lower Body
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-					(xTile + 1) + (yTile + 2) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
+					(xTile + 1) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
 		}
 		// standing horizontal
 		else {
@@ -243,21 +243,21 @@ public class Horse extends NPC implements Ridable {
 
 				// left
 				screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
-						xTile + (yTile + i) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
+						xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
 
 				// middle left
 				screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
-						(xTile + 1) + (yTile + i) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(),
+						(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(),
 						getSpriteSheet());
 
 				// middle right
 				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
-						(xTile + 2) + (yTile + i) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(),
+						(xTile + 2) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(),
 						getSpriteSheet());
 
 				// right
 				screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
-						(xTile + 3) + (yTile + i) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(),
+						(xTile + 3) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(),
 						getSpriteSheet());
 			}
 		}

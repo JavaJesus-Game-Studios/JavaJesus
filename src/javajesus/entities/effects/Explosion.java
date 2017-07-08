@@ -1,4 +1,4 @@
-package javajesus.entities.particles;
+package javajesus.entities.effects;
 
 import javajesus.SoundHandler;
 import javajesus.entities.Entity;
@@ -95,7 +95,7 @@ public class Explosion extends Entity {
 			for (int j = 0; j < 2; j++) {
 
 				screen.render(getX() - MODIFIER + (MODIFIER * j), getY() - MODIFIER + (MODIFIER * i),
-				        (xOffset + j) + (yTile + i) * sheet.getNumBoxes(), color, sheet);
+				        (xOffset + j) + (yTile + i) * sheet.getTilesPerRow(), color, sheet);
 
 			}
 		}

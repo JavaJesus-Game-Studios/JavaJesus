@@ -39,8 +39,8 @@ public class SpriteSheet implements Serializable {
 	// width and height of the spritesheet
     private int width, height;
     
-    // number of boxes in a row in the spritesheet
-    private int numBoxes;
+    // number of tiles in a row in the spritesheet
+    private int numTiles;
 
     // pixel array of the spritesheet in memory
     private int[] pixels;
@@ -49,12 +49,12 @@ public class SpriteSheet implements Serializable {
 	 * Creates a Spritesheet object
 	 * 
 	 * @param path the file path to the spritesheet
-	 * @param boxes the number of boxes in a row
+	 * @param tiles the number of tiles in a row
 	 */
-    private SpriteSheet(String path, int boxes) {
+    private SpriteSheet(String path, int tiles) {
     	
-    	// set the num of boxes
-    	numBoxes = boxes;
+    	// set the num of tiles in a row
+    	numTiles = tiles;
     	
     	// spritesheet in memory
         BufferedImage image = null;
@@ -91,10 +91,10 @@ public class SpriteSheet implements Serializable {
 	}
 
 	/**
-	 * @return the numBoxes
+	 * @return the number of tiles in a row
 	 */
-	public int getNumBoxes() {
-		return numBoxes;
+	public int getTilesPerRow() {
+		return numTiles;
 	}
 
 	/**

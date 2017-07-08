@@ -123,26 +123,26 @@ public class Cyclops extends Monster {
 
 			// left
 			screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + i * modifier,
-					xTile + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+					xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 
 			// left center
 			screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + i * modifier,
-					(xTile + 1) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+					(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 
 			// right center
 			screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier,
-					(xTile + 2) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+					(xTile + 2) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 
 			// right
 			screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier,
-					(xTile + 3) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+					(xTile + 3) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 
 			if (isDead()) {
 				screen.render(xOffset + 4 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier,
-						(xTile + 4) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+						(xTile + 4) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 
 				screen.render(xOffset + 5 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier,
-						(xTile + 5) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flip, getScale(), getSpriteSheet());
+						(xTile + 5) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
 
 			}
 		}

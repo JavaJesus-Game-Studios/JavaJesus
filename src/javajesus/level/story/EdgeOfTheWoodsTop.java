@@ -1,5 +1,7 @@
 package javajesus.level.story;
 
+import java.awt.Point;
+
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
@@ -23,8 +25,7 @@ public class EdgeOfTheWoodsTop extends Level {
 	 * Creates Edge Of The Woods Top section
 	 */
 	public EdgeOfTheWoodsTop() {
-		super("/Levels/Wilderness_Areas/Edge_of_The_Woods_Top.png", true, Level.EDGE_TOP);
-		setSpawnPoint(1832, 1544);
+		super("/Levels/Wilderness_Areas/Edge_of_The_Woods_Top.png", true, Level.EDGE_TOP, new Point(1832, 1544));
 
 		System.err.println("Creating Edge Of The Woods Top");
 	}

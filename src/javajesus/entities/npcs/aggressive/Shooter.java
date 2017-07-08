@@ -189,20 +189,20 @@ public class Shooter extends NPC implements LongRange, Skills {
 				}
 
 				// Upper body 1
-				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getNumBoxes(),
+				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getTilesPerRow(),
 						getColor(), flip, getScale(), getSpriteSheet());
 
 				// Upper body 2
 				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-						(xTile + 1) + yTile * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
+						(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
 
 				// Lower Body 1
 				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-						xTile + (yTile + 1) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
+						xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
 
 				// Lower Body 2
 				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-						(xTile + 1) + (yTile + 1) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(),
+						(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(),
 						getSpriteSheet());
 			}
 		}

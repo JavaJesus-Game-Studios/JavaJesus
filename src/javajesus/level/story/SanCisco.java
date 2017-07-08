@@ -1,5 +1,7 @@
 package javajesus.level.story;
 
+import java.awt.Point;
+
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
@@ -44,8 +46,7 @@ public class SanCisco extends Level {
 	 * Creates San Cisco
 	 */
 	public SanCisco() {
-		super("/Levels/Cities/San_Cisco.png", true, Level.CISCO);
-		setSpawnPoint(3400, 2688);
+		super("/Levels/Cities/San_Cisco.png", true, Level.CISCO, new Point(3400, 2688));
 
 		System.err.println("Creating San Cisco");
 	}

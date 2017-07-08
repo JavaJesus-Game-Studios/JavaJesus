@@ -1,4 +1,6 @@
-package javajesus.level.sandbox;
+package javajesus.level;
+
+import java.awt.Point;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -17,15 +19,22 @@ import javajesus.entities.vehicles.CenturyLeSabre;
 import javajesus.entities.vehicles.SportsCar;
 import javajesus.entities.vehicles.Truck;
 import javajesus.items.Item;
-import javajesus.level.Level;
 
-public class SandboxSurvivalMap1 extends Level {
+/*
+ * Fixed level for sandbox mode
+ */
+public class SandboxFixedLevel extends Level {
 
+	// serialization
 	private static final long serialVersionUID = 259027073546330929L;
 	
-	public SandboxSurvivalMap1() {
-		super("/Levels/Test_Levels/zombies_test_map.png", true, "Zombie Map");
-		setSpawnPoint(1360, 70);
+	/**
+	 * SandboxFixedLevel ctor()
+	 * 
+	 * Creates a fixed sandbox map
+	 */
+	public SandboxFixedLevel() {
+		super("/Levels/Test_Levels/zombies_test_map.png", true, "Fixed Map", new Point(1360, 70));
 	}
 
 	protected NPC[] getNPCPlacement() {

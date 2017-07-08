@@ -1,5 +1,7 @@
 package javajesus.level.story;
 
+import java.awt.Point;
+
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
@@ -39,8 +41,7 @@ public class SanJuan extends Level {
 	 * Creates San Juan
 	 */
 	public SanJuan() {
-		super("/Levels/Cities/San_Juan.png", true, Level.JUAN);
-		setSpawnPoint(1680, 2648);
+		super("/Levels/Cities/San_Juan.png", true, Level.JUAN, new Point(1680, 2648));
 
 		System.err.println("Creating San Juan");
 

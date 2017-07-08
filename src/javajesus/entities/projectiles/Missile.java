@@ -4,7 +4,7 @@ import javax.sound.sampled.Clip;
 
 import javajesus.SoundHandler;
 import javajesus.entities.Mob;
-import javajesus.entities.particles.Explosion;
+import javajesus.entities.effects.Explosion;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
@@ -71,16 +71,16 @@ public class Missile extends Projectile {
 	private void adjustOffset(Direction direction) {
 		switch (direction) {
 		case NORTH:
-			this.tileNumber = 3 + 3 * getSpriteSheet().getNumBoxes();
+			this.tileNumber = 3 + 3 * getSpriteSheet().getTilesPerRow();
 			return;
 		case SOUTH:
-			this.tileNumber = 3 + 2 * getSpriteSheet().getNumBoxes();
+			this.tileNumber = 3 + 2 * getSpriteSheet().getTilesPerRow();
 			return;
 		case EAST:
-			this.tileNumber = 3 + 1 * getSpriteSheet().getNumBoxes();
+			this.tileNumber = 3 + 1 * getSpriteSheet().getTilesPerRow();
 			return;
 		default:
-			this.tileNumber = 4 + 1 * getSpriteSheet().getNumBoxes();
+			this.tileNumber = 4 + 1 * getSpriteSheet().getTilesPerRow();
 			return;
 		}
 	}

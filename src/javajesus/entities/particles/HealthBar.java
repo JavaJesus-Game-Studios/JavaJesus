@@ -54,8 +54,8 @@ public class HealthBar extends Entity {
 	public void render(Screen screen) {
 
 		// health bar has a left and right component
-		screen.render(getX(), getY(), (yTile + yOffset) * sheet.getNumBoxes(), color, false, sheet);
-		screen.render(getX() + 8, getY(), 1 + (yTile + yOffset) * sheet.getNumBoxes(), color, false, sheet);
+		screen.render(getX(), getY(), (yTile + yOffset) * sheet.getTilesPerRow(), color, false, sheet);
+		screen.render(getX() + 8, getY(), 1 + (yTile + yOffset) * sheet.getTilesPerRow(), color, false, sheet);
 	}
 
 	/**

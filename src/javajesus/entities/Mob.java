@@ -621,9 +621,9 @@ public class Mob extends Entity implements Damageable, Hideable {
 			// water rings
 			// add modifier to yoffset to add a depth effect
 			screen.render(xOffset, yOffset + modifier,
-					0 + 10 * sheet.getNumBoxes(), waterColor, false, 1, sheet);
+					0 + 10 * sheet.getTilesPerRow(), waterColor, false, 1, sheet);
 			screen.render(xOffset + 8, yOffset + modifier,
-					0 + 10 * sheet.getNumBoxes(), waterColor, true, 1, sheet);
+					0 + 10 * sheet.getTilesPerRow(), waterColor, true, 1, sheet);
 		}
 
 		// Handles fire animation
@@ -632,7 +632,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 			int[] firecolor = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
 
 			screen.render(xOffset, yOffset,
-					FireEntity.xTile + 15 * sheet.getNumBoxes(), firecolor,
+					FireEntity.xTile + 15 * sheet.getTilesPerRow(), firecolor,
 					false, 2, SpriteSheet.tiles);
 
 		}

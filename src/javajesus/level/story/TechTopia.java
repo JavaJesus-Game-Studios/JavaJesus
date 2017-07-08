@@ -1,5 +1,7 @@
 package javajesus.level.story;
 
+import java.awt.Point;
+
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
@@ -33,8 +35,7 @@ public class TechTopia extends Level {
 	 * Creates Tech Topia
 	 */
 	public TechTopia() {
-		super("/Levels/Cities/Tech_Topia.png", true, Level.TECH);
-		setSpawnPoint(1512, 584);
+		super("/Levels/Cities/Tech_Topia.png", true, Level.TECH, new Point(1512, 584));
 
 		System.err.println("Creating Tech Topia");
 	}

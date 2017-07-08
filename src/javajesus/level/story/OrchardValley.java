@@ -1,5 +1,7 @@
 package javajesus.level.story;
 
+import java.awt.Point;
+
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
@@ -23,8 +25,7 @@ public class OrchardValley extends Level {
 	 * Creates Orchard Valley
 	 */
 	public OrchardValley() {
-		super("/Levels/Cities/Dubland.png", true, Level.ORCHARD);
-		setSpawnPoint(136, 1816);
+		super("/Levels/Cities/Dubland.png", true, Level.ORCHARD, new Point(136, 1816));
 
 		System.err.println("Creating Orchard Valley");
 

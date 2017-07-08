@@ -59,10 +59,10 @@ public class Bullet extends Projectile {
 	private void adjustOffset(Direction direction) {
 		switch (direction) {
 		case NORTH:
-			this.tileNumber = 1 + getSpriteSheet().getNumBoxes();
+			this.tileNumber = 1 + getSpriteSheet().getTilesPerRow();
 			return;
 		case SOUTH:
-			this.tileNumber = 1 + getSpriteSheet().getNumBoxes();
+			this.tileNumber = 1 + getSpriteSheet().getTilesPerRow();
 			return;
 		case EAST:
 			this.tileNumber = 1;

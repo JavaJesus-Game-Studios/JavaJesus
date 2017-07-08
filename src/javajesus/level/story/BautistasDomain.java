@@ -1,5 +1,7 @@
 package javajesus.level.story;
 
+import java.awt.Point;
+
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
@@ -34,8 +36,7 @@ public class BautistasDomain extends Level {
 	 * Creates Bautistas Domain
 	 */
 	public BautistasDomain() {
-		super("/Levels/Cities/Domain_of_Ranchero_Bautista.png", true, Level.BAUTISTA);
-		setSpawnPoint(2896, 64);
+		super("/Levels/Cities/Domain_of_Ranchero_Bautista.png", true, Level.BAUTISTA, new Point(2896, 64));
 
 		System.err.println("Creating Bautistas Domain");
 	}

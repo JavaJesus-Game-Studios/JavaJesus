@@ -209,18 +209,18 @@ public class Item implements Serializable {
 		int yTile = this.yTile * 2;
 		
 		// upper left
-		screen.render(0, 0, xTile + yTile * SpriteSheet.gui_items.getNumBoxes(), color, SpriteSheet.gui_items);
+		screen.render(0, 0, xTile + yTile * SpriteSheet.gui_items.getTilesPerRow(), color, SpriteSheet.gui_items);
 		
 		// upper right
-		screen.render(modifier, 0, (xTile + 1) + yTile * SpriteSheet.gui_items.getNumBoxes(), color,
+		screen.render(modifier, 0, (xTile + 1) + yTile * SpriteSheet.gui_items.getTilesPerRow(), color,
 		        SpriteSheet.gui_items);
 
 		// lower left
-		screen.render(0, modifier, xTile + (yTile + 1) * SpriteSheet.gui_items.getNumBoxes(), color,
+		screen.render(0, modifier, xTile + (yTile + 1) * SpriteSheet.gui_items.getTilesPerRow(), color,
 		        SpriteSheet.gui_items);
 
 		// lower right
-		screen.render(modifier, modifier, (xTile + 1) + (yTile + 1) * SpriteSheet.gui_items.getNumBoxes(), color,
+		screen.render(modifier, modifier, (xTile + 1) + (yTile + 1) * SpriteSheet.gui_items.getTilesPerRow(), color,
 		        SpriteSheet.gui_items);
 	}
 	
@@ -246,7 +246,7 @@ public class Item implements Serializable {
 				
 				// render the box
 				screen.render(modifier * j, modifier * i,
-				        (xTile + j) + (yTile + i) * SpriteSheet.hud_weapons.getNumBoxes(), null,
+				        (xTile + j) + (yTile + i) * SpriteSheet.hud_weapons.getTilesPerRow(), null,
 				        SpriteSheet.hud_weapons);
 				
 			}

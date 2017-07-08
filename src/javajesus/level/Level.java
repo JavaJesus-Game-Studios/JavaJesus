@@ -58,7 +58,7 @@ public abstract class Level implements Serializable {
 	// image path to load a level
 	private String imagePath;
 
-	// where the player will go when changing levels here
+	// where the player will go when entering this level
 	private Point spawnPoint;
 
 	// whether or not the map is loaded
@@ -85,15 +85,17 @@ public abstract class Level implements Serializable {
 	/**
 	 * Creates a level from the specified image path
 	 * 
-	 * @param imagePath
-	 *            the image path
-	 * @param loadNow
-	 *            whether or not to load it now
-	 * @param name
-	 *            the name of thsi levvel
+	 * @param imagePath - the image path
+	 * @param loadNow - whether or not to load it now
+	 * @param name - the name of this level
 	 */
-	public Level(String imagePath, boolean loadNow, String name) {
+	public Level(final String imagePath, boolean loadNow, final String name, final Point spawn) {
+		
+		// instance data
 		this.name = name;
+		this.spawnPoint = spawn;
+		
+		// load from a file
 		if (imagePath != null) {
 			this.imagePath = imagePath;
 			if (loadNow) {
@@ -107,20 +109,20 @@ public abstract class Level implements Serializable {
 	/**
 	 * Creates a randomly generated level
 	 * 
-	 * @param width
-	 *            the tiles in the width
-	 * @param height
-	 *            the tiles in the height
-	 * @param loadNow
-	 *            whether or not to load it now
-	 * @param name
-	 *            the name of this level
+	 * @param width - the tiles in the width
+	 * @param height - the tiles in the height
+	 * @param loadNow - whether or not to load it now
+	 * @param name - the name of this level
 	 */
 	public Level(int width, int height, boolean loadNow, String name) {
+		
+		// instance data
 		this.width = width;
 		this.height = height;
 		this.name = name;
 		levelTiles = new int[width * height];
+		
+		// load into memory
 		if (loadNow) {
 			load();
 		}
@@ -236,12 +238,9 @@ public abstract class Level implements Serializable {
 	/**
 	 * Changes a tile on the map
 	 * 
-	 * @param x
-	 *            the x coord of the tile
-	 * @param y
-	 *            the y coord of the tile
-	 * @param newTile
-	 *            the tile to replace it with
+	 * @param x - the x coord of the tile
+	 * @param y - the y coord of the tile
+	 * @param newTile - the tile to replace it with
 	 */
 	public void alterTile(int x, int y, Tile newTile) {
 		this.levelTiles[x + y * width] = newTile.getId();
@@ -284,12 +283,9 @@ public abstract class Level implements Serializable {
 	/**
 	 * Renders a tile on the screen
 	 * 
-	 * @param screen
-	 *            the screen to display it on
-	 * @param xOffset
-	 *            the xoffset on the screen
-	 * @param yOffset
-	 *            the yoffset on the screen
+	 * @param screen - the screen to display it on
+	 * @param xOffset - the xoffset on the screen
+	 * @param yOffset - the yoffset on the screen
 	 */
 	public void renderTile(Screen screen, int xOffset, int yOffset) {
 
@@ -320,10 +316,8 @@ public abstract class Level implements Serializable {
 	/**
 	 * Displays the entities of the level on the screen
 	 * 
-	 * @param screen
-	 *            the screen to display it on
-	 * @param player
-	 *            the player to render entities around
+	 * @param screen - the screen to display it on
+	 * @param player - the player to render entities around
 	 */
 	public void renderEntities(Screen screen, Player player) {
 
@@ -362,18 +356,12 @@ public abstract class Level implements Serializable {
 	/**
 	 * Renders text on the screen
 	 * 
-	 * @param msg
-	 *            message to display
-	 * @param screen
-	 *            the screen to display it on
-	 * @param x
-	 *            the x offset
-	 * @param y
-	 *            the y offset
-	 * @param color
-	 *            the color of the message
-	 * @param scale
-	 *            how big to render it
+	 * @param msg - message to display
+	 * @param screen - the screen to display it on
+	 * @param x - the x offset
+	 * @param y - the y offset
+	 * @param color - the color of the message
+	 * @param scale - how big to render it
 	 */
 	public void renderFont(String msg, Screen screen, int x, int y, int[] color, int scale) {
 		JJFont.render(msg, screen, x, y, color, scale);
@@ -382,10 +370,8 @@ public abstract class Level implements Serializable {
 	/**
 	 * Gets the tile type at the specified x,y coords
 	 * 
-	 * @param x
-	 *            the x coord in tile coordinates
-	 * @param y
-	 *            the y coord in tile coordinates
+	 * @param x - the x coord in tile coordinates
+	 * @param y - the y coord in tile coordinates
 	 * @return the type of tile, VOID if nothing
 	 */
 	public Tile getTile(int x, int y) {
@@ -398,8 +384,7 @@ public abstract class Level implements Serializable {
 	/**
 	 * Adds an entity to this level
 	 * 
-	 * @param entity
-	 *            the entity to add
+	 * @param entity - the entity to add
 	 */
 	public synchronized void add(Entity entity) {
 
@@ -417,8 +402,7 @@ public abstract class Level implements Serializable {
 	/**
 	 * Adds entities to this level
 	 * 
-	 * @param entity
-	 *            the entity to add
+	 * @param entity - the entity to add
 	 */
 	public synchronized void add(Entity... entities) {
 
@@ -430,8 +414,7 @@ public abstract class Level implements Serializable {
 	/**
 	 * Removes an entity from the level
 	 * 
-	 * @param entity
-	 *            the entity to remove
+	 * @param entity - the entity to remove
 	 */
 	public synchronized void remove(Entity entity) {
 		entities.remove(entity);

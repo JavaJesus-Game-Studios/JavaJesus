@@ -187,23 +187,23 @@ public class Car extends Vehicle {
 
 				// Body 1
 				screen.render(xOffset + (modifier * (flipX ? 4 : 0)), (yOffset + modifier * i),
-						xTile + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flipX, getSpriteSheet());
+						xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flipX, getSpriteSheet());
 
 				// Body 2
 				screen.render(xOffset + modifier + (modifier * (flipX ? 2 : 0)), (yOffset + modifier * i),
-						(xTile + 1) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flipX, getSpriteSheet());
+						(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flipX, getSpriteSheet());
 
 				// Body 3
 				screen.render(xOffset + 2 * modifier, (yOffset + modifier * i),
-						(xTile + 2) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flipX, getSpriteSheet());
+						(xTile + 2) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flipX, getSpriteSheet());
 
 				// Body 4
 				screen.render(xOffset + 3 * modifier - (modifier * (flipX ? 2 : 0)), (yOffset + modifier * i),
-						(xTile + 3) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flipX, getSpriteSheet());
+						(xTile + 3) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flipX, getSpriteSheet());
 
 				// Body 5
 				screen.render(xOffset + 4 * modifier - (modifier * (flipX ? 4 : 0)), (yOffset + modifier * i),
-						(xTile + 4) + (yTile + i) * getSpriteSheet().getNumBoxes(), color, flipX, getSpriteSheet());
+						(xTile + 4) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flipX, getSpriteSheet());
 
 			}
 
@@ -214,23 +214,23 @@ public class Car extends Vehicle {
 
 				// Body 1
 				screen.render(xOffset + modifier * i, yOffset + (modifier * (flipY ? 4 : 0)),
-						(xTile + i) + yTile * getSpriteSheet().getNumBoxes(), color, false, flipY, 1, getSpriteSheet());
+						(xTile + i) + yTile * getSpriteSheet().getTilesPerRow(), color, false, flipY, 1, getSpriteSheet());
 
 				// Body 2
 				screen.render(xOffset + modifier * i, yOffset + modifier + (modifier * (flipY ? 2 : 0)),
-						(xTile + i) + (yTile + 1) * getSpriteSheet().getNumBoxes(), color, false, flipY, 1, getSpriteSheet());
+						(xTile + i) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, false, flipY, 1, getSpriteSheet());
 
 				// Body 3
 				screen.render(xOffset + modifier * i, yOffset + 2 * modifier,
-						(xTile + i) + (yTile + 2) * getSpriteSheet().getNumBoxes(), color, false, flipY, 1, getSpriteSheet());
+						(xTile + i) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, false, flipY, 1, getSpriteSheet());
 
 				// Body 4
 				screen.render(xOffset + modifier * i, yOffset + 3 * modifier - (modifier * (flipY ? 2 : 0)),
-						(xTile + i) + (yTile + 3) * getSpriteSheet().getNumBoxes(), color, false, flipY, 1, getSpriteSheet());
+						(xTile + i) + (yTile + 3) * getSpriteSheet().getTilesPerRow(), color, false, flipY, 1, getSpriteSheet());
 
 				// Body 5
 				screen.render(xOffset + modifier * i, yOffset + 4 * modifier - (modifier * (flipY ? 4 : 0)),
-						(xTile + i) + (yTile + 4) * getSpriteSheet().getNumBoxes(), color, false, flipY, 1, getSpriteSheet());
+						(xTile + i) + (yTile + 4) * getSpriteSheet().getTilesPerRow(), color, false, flipY, 1, getSpriteSheet());
 
 			}
 		}

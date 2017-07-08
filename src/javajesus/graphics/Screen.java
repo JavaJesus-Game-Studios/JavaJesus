@@ -95,8 +95,8 @@ public class Screen {
 		yOffset -= this.yOffset;
 
 		int scaleMap = scale - 1;
-		int xTile = tile % sheet.getNumBoxes();
-		int yTile = tile / sheet.getNumBoxes();
+		int xTile = tile % sheet.getTilesPerRow();
+		int yTile = tile / sheet.getTilesPerRow();
 		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.getWidth();
 		for (int y = 0; y < 8; y++) {
 			int ySheet = y;
@@ -210,8 +210,8 @@ public class Screen {
 		yOffset -= this.yOffset;
 
 		int scaleMap = scale - 1;
-		int xTile = tile % sheet.getNumBoxes();
-		int yTile = tile / sheet.getNumBoxes();
+		int xTile = tile % sheet.getTilesPerRow();
+		int yTile = tile / sheet.getTilesPerRow();
 		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.getWidth();
 		for (int y = 0; y < 8; y++) {
 			int ySheet = y;

@@ -1,5 +1,6 @@
 package javajesus.level.story;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import javajesus.entities.Entity;
@@ -39,8 +40,7 @@ public class LordHillsboroughsDomain extends Level {
 	 * Creates Lord Hillsborough's Domain
 	 */
 	public LordHillsboroughsDomain() {
-		super("/Levels/Cities/Domain of Lord Hillsborough.png", true, Level.HILLSBOROUGH);
-		setSpawnPoint(1366, 1450);
+		super("/Levels/Cities/Domain of Lord Hillsborough.png", true, Level.HILLSBOROUGH, new Point(1366, 1450));
 
 		System.err.println("Creating Lord Hillsborough's Domain");
 	}

@@ -53,7 +53,7 @@ public class Particle extends Entity {
 	 * Displays the particle to the screen
 	 */
 	public void render(Screen screen) {
-		screen.render(getX(), getY(), xTile + yTile * sheet.getNumBoxes(), color, sheet);
+		screen.render(getX(), getY(), xTile + yTile * sheet.getTilesPerRow(), color, sheet);
 	}
 
 	/**

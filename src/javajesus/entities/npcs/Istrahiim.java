@@ -88,14 +88,14 @@ public class Istrahiim extends NPC {
 			for (int i = 0; i < 2; i++) {
 
 				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-						xTile + (yTile + i) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(), getSpriteSheet());
+						xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
 
 				screen.render(xOffset + modifier, yOffset + (modifier * i),
-						(xTile + 1) + (yTile + i) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(),
+						(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(),
 						getSpriteSheet());
 
 				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-						(xTile + 2) + (yTile + i) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(),
+						(xTile + 2) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(),
 						getSpriteSheet());
 			}
 		} else {
@@ -104,7 +104,7 @@ public class Istrahiim extends NPC {
 				// render by column TODO check if this works
 				for (int j = 0; j < 2; j++) {
 					screen.render(xOffset + (modifier * j), yOffset + (modifier * i),
-							(xTile + j) + (yTile + i) * getSpriteSheet().getNumBoxes(), getColor(), flip, getScale(),
+							(xTile + j) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(),
 							getSpriteSheet());
 				}
 			}
