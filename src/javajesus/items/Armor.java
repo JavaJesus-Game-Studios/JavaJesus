@@ -15,7 +15,7 @@ public class Armor extends Item {
 
 	public Armor(String name, int id, int xTile, int yTile, int[] color,
 			String description, ArmorSet armor) {
-		super(name, id, xTile, yTile, color, description);
+		super(name, id, xTile, yTile, color, description, true);
 		this.armor = armor;
 		calcStats();
 	}

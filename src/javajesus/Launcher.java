@@ -23,9 +23,9 @@ import javajesus.graphics.Screen;
 import javajesus.gui.PlayerCreationGUI;
 import javajesus.items.Item;
 import javajesus.level.Level;
+import javajesus.level.LevelTester;
 import javajesus.level.RandomLevel;
 import javajesus.level.sandbox.SandboxSurvivalMap1;
-import javajesus.level.story.LordHillsboroughsDomain;
 import javajesus.save.GameData;
 import javajesus.save.SaveFile;
 import javajesus.utility.Direction;
@@ -506,9 +506,9 @@ public class Launcher extends Canvas implements IGameLogic {
 		case FIXED:
 			return new SandboxSurvivalMap1();
 		default:
-			Level.createStoryLevels();
-			return LordHillsboroughsDomain.level;
-			//level = LevelTester.level;
+			//Level.createStoryLevels();
+			//return LordHillsboroughsDomain.level;
+			return LevelTester.level;
 		}
 		
 	}

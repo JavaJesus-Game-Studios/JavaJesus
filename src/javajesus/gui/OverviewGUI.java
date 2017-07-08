@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import javajesus.JavaJesus;
+import javajesus.SoundHandler;
 import javajesus.entities.Player;
 import javajesus.items.Item;
 
@@ -118,7 +119,7 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 		private static final long serialVersionUID = 1L;
 		
 		// bottom panel buttons
-		private JJButton sort1, sort2, use, discard, equip;
+		private JJButton sort1, sort2, use, discard;
 		
 		// actual inventory panel with grid layout
 		private JPanel main;
@@ -181,14 +182,12 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 			bottom.add(sort1 = new JJButton("A-Z"));
 			bottom.add(sort2 = new JJButton("ID"));
 			bottom.add(use = new JJButton("Use"));
-			bottom.add(equip = new JJButton("Equip"));
 			bottom.add(discard = new JJButton("Discard"));
 			
 			// add action listeners
 			sort1.addActionListener(this);
 			sort2.addActionListener(this);
 			use.addActionListener(this);
-			equip.addActionListener(this);
 			discard.addActionListener(this);
 			
 			// add the components to the gui
@@ -203,6 +202,9 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
+			// play a sound when any button is pressed
+			SoundHandler.play(SoundHandler.click);
+			
 			// alphabet sort
 			if (e.getSource() == sort1) {
 
@@ -216,15 +218,17 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 				// use
 			} else if (e.getSource() == use) {
 				
-				if (selected.getItem() != null) {
-					player.getInventory().use(selected.getItem());
-				}
-
-				// equip
-			} else if (e.getSource() == equip) {
-				
-				if (selected.getItem() != null) {
-					player.equip(selected.getItem());
+				if (selected.getItem() != null && selected.getItem().isUsable()) {
+					
+					// use and remove
+					selected.getItem().use(player);
+					player.getInventory().remove(selected.getItem());
+					
+					// remove the selected item
+					// set the descriptors on the left side
+					selected.setItem(Item.blank);
+					name.setText(Item.blank.getName());
+					description.setText(Item.blank.getDescription());
 				}
 
 				// discard

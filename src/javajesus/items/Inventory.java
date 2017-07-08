@@ -54,7 +54,7 @@ public class Inventory implements Serializable {
 				
 				// check if it is already in the inventory
 				if (items[i].equals(item)) {
-					items[i].take();
+					items[i].add();
 					return;
 				}
 				
@@ -87,6 +87,22 @@ public class Inventory implements Serializable {
 		// now remove the pickup
 		pickup.remove();
 	}
+	
+	/**
+	 * Removes an item exactly once
+	 * 
+	 * @param item - item to remove
+	 */
+	public void remove(Item item) {
+		
+		// remove an item once else remove it altogether
+		if (item.getQuantity() > 1) {
+			item.remove();
+		} else {
+			discard(item);
+		}
+		
+	}
 
 	/**
 	 * Removes an item from the inventory
@@ -98,7 +114,7 @@ public class Inventory implements Serializable {
 		
 		// iterate through the item list
 		for (int i = 0; i < items.length; i++) {
-			if (items[i].equals(item)) {
+			if (items[i] != null && items[i].equals(item)) {
 				items[i] = null;
 				return true;
 			}
@@ -106,30 +122,6 @@ public class Inventory implements Serializable {
 		
 		return false;
 		
-	}
-	
-	/**
-	 * Uses an item from the inventory
-	 * 
-	 * @param item - item to use
-	 * @return successfully or not
-	 */
-	public boolean use(Item item) {
-		
-		// iterate through the item list
-		for (int i = 0; i < items.length; i++) {
-			if (items[i].equals(item)) {
-				
-				// use the item
-				if (item.getQuantity() > 1) {
-					item.use();
-					return true;
-				} 
-				
-			}
-		}
-
-		return false;
 	}
 
 	/**

@@ -3,6 +3,7 @@ package javajesus.items;
 import java.io.Serializable;
 
 import javajesus.SoundHandler;
+import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.items.Armor.ArmorSet;
@@ -13,6 +14,7 @@ import javajesus.items.Gun.Ammo;
  */
 public class Item implements Serializable {
 
+	// serialization
 	private static final long serialVersionUID = 6019227186916064573L;
 
 	// the name of the Item
@@ -32,19 +34,25 @@ public class Item implements Serializable {
 
 	// the amount of this item
 	private int amount = 1;
+	
+	// the amount of health the item heals on use
+	private int health;
 
 	// A set of all Items types in the game
 	public static final Item[] items = new Item[256];
+	
+	// whether or not the item can be equipped
+	private boolean equipable;
 
 	// consumables
 	public static final Item apple = new Item("Apple", 0, 2, 3, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
-			"This is a red fruit!");
+			"This red fruit will restore a little health.", 10);
 	public static final Item banana = new Item("Banana", 1, 3, 3, new int[] { 0xFF111111, 0xFFFFF600, 0xFF000000 },
-			"Monkey like.");
+			"The currency of the wild apes. Restores a little health.", 10);
 	public static final Item orange = new Item("Orange", 2, 2, 3, new int[] { 0xFF111111, 0xFFFFAE00, 0xFF0CA101 },
-			"Orange you glad I said banana.");
+			"The orange fruit will restore a little health.", 10);
 	public static final Item feather = new Item("Feather", 3, 4, 3, new int[] { 0xFF111111, 0xFF79B2FF, 0xFF000000 },
-			"So light.");
+			"So light. Does Nothing.", 0);
 
 	// guns
 	public static final Item revolver = new Gun("Revolver", 4, 0, 0, new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 },
@@ -101,21 +109,22 @@ public class Item implements Serializable {
 
 	// ammo
 	public static final Item assaultRifleAmmo = new Item("Ammo", 22, 0, 4,
-			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Assault Rifle Ammo");
+			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Assault Rifle Ammo", 0);
 	public static final Item revolverAmmo = new Item("Ammo", 23, 2, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
-			"Revolver Ammo");
+			"Revolver Ammo", 0);
 	public static final Item shotgunAmmo = new Item("Ammo", 24, 3, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
-			"Shotgun Ammo");
+			"Shotgun Ammo", 0);
 	public static final Item laserAmmo = new Item("Ammo", 25, 4, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
-			"Laser Ammo");
+			"Laser Ammo", 0);
 	public static final Item arrowAmmo = new Item("Ammo", 26, 1, 5, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
-			"Arrow Ammo");
+			"Arrow Ammo", 0);
 
+	// restores health
 	public static final Item strongHealthPack = new Item("Health", 27, 1, 5,
-			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Health Pack");
+			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "This Health Pack will restore a large amount of health.", 50);
 	
 	// inventory filler
-	public static final Item blank = new Item("Empty", 29, 0, 2, null, "None");
+	public static final Item blank = new Item("Empty", 29, 0, 2, null, "None", 0);
 
 	/**
 	 * Item ctor()
@@ -129,19 +138,43 @@ public class Item implements Serializable {
 	 * @param description - the description of this item
 	 */
 	public Item(final String name, int id, int xTile, int yTile, final int[] color,
-			final String description) {
+			final String description, boolean equipable) {
 
+		// initialize instance data
 		this.name = name;
 		this.id = (byte) id;
 		this.color = color;
 		this.xTile = xTile;
 		this.yTile = yTile;
 		this.description = description;
+		this.equipable = equipable;
 
+		// make sure each ID is unique
 		if (items[id] != null)
 			throw new RuntimeException("Duplicate item id on " + id);
 
 		items[id] = this;
+	}
+	
+	/**
+	 * Item ctor()
+	 * Creates an Item
+	 * 
+	 * @param name - the name of the item
+	 * @param id - the unique id of the item
+	 * @param xTile - the horizontal position on the spritesheet
+	 * @param yTile - the vertical position on the spritesheet
+	 * @param color - the colorset
+	 * @param description - the description of this item
+	 * @param health - the amount of health this item heals on use
+	 */
+	public Item(final String name, int id, int xTile, int yTile, final int[] color,
+			final String description, int health) {
+		this(name, id, xTile, yTile, color, description, false);
+		
+		// instance data
+		this.health = health;
+		
 	}
 	
 	/**
@@ -155,7 +188,7 @@ public class Item implements Serializable {
 	 * @return general information about this item
 	 */
 	public String toString() {
-		return "Name: " + name + " Description: " + description + " Quantity: " + amount;
+		return "Name: " + name + "\nDescription: " + description + "\nQuantity: " + amount;
 	}
 
 	/**
@@ -233,26 +266,37 @@ public class Item implements Serializable {
 	}
 
 	/**
-	 * Decrements the amount of this item
+	 * Uses this item
+	 * 
+	 * @param player - the player using the item
 	 */
-	public void use() {
+	public void use(Player player) {
+		
+		// heal if the item has health
+		if (health > 0) {
+			player.changeHealth(health);
+		}
+		
+		// equip if equipable
+		if (equipable) {
+			player.equip(this);
+			
+			// keeps the item in the inventory
+			amount++;
+		}
+	}
+	
+	/**
+	 * Removes one item in this stack
+	 */
+	public void remove() {
 		amount--;
 	}
 
 	/**
-	 * Decrements the amount of this item
-	 * 
-	 * @param num
-	 *            how many uses
+	 * Increments the item stack count
 	 */
-	public void use(int num) {
-		amount -= num;
-	}
-
-	/**
-	 * Increments the amount of this item
-	 */
-	public void take() {
+	public void add() {
 		amount++;
 	}
 
@@ -283,8 +327,17 @@ public class Item implements Serializable {
 			return false;
 		}
 		
-		// equal if names are the same
-		return name.equals(((Item) object).getName());
+		// equal if ids are the same
+		return this.getId() == ((Item) object).getId();
+		
+	}
+	
+	/**
+	 * @return whether or not the item can be used
+	 */
+	public boolean isUsable() {
+		
+		return equipable || health > 0;
 		
 	}
 

@@ -54,6 +54,7 @@ import javajesus.entities.structures.techtopia.TechTopiaCityHall;
 import javajesus.entities.structures.techtopia.WeirdTechBuilding1;
 import javajesus.entities.structures.techtopia.WeirdTechBuilding2;
 import javajesus.entities.structures.transporters.MapTransporter;
+import javajesus.items.Item;
 
 /* Tester level for testing all of our entities */
 public class LevelTester extends Level {
@@ -95,7 +96,7 @@ public class LevelTester extends Level {
 	 * Chest placement
 	 */
 	public Chest[] getChestPlacement() {
-		return null;
+		return new Chest[] {new Chest(this, 218, 105, Item.apple, Item.orange, Item.banana, Item.feather, Item.strongHealthPack)};
 	}
 
 	/**

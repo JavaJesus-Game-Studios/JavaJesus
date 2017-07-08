@@ -146,7 +146,7 @@ public class Sword extends Item {
 	 */
 	public Sword(String name, int id, int xTile, int yTile, int xSwingOffset, int ySwingOffset, int[] color,
 			String description, int cooldown, int damage, int[] powerSwingOffsets, int swingoffset, int length) {
-		super(name, id, xTile, yTile, color, description);
+		super(name, id, xTile, yTile, color, description, true);
 		this.cooldownTime = cooldown;
 		this.damage = damage;
 		this.xSwingOffset = xSwingOffset;
