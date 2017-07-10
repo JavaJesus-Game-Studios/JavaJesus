@@ -199,7 +199,7 @@ public class Gun extends Item {
 				level.add(new Laser(level, x, y, dir, player, damage));
 				break;
 			case MISSILE:
-				level.add(new Missile(level, x, y, dir, player, damage, clip));
+				level.add(new Missile(level, x, y, dir, player, damage));
 				break;
 			case BLACKHOLE:
 				level.add(new BlackHoleDetonator(level, x, y, dir, player, damage));

@@ -12,54 +12,40 @@ public class Laser extends Projectile {
 
 	private static final long serialVersionUID = -8622210634865875442L;
 
-	// the colorset for all lasers
+	// the color set for all lasers
 	private static final int[] color = { 0xFF000000, 0xFF000000, 0xFFD80202 };
 
 	/**
-	 * Creates a laser
+	 * Creates a laser with a single direction
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param xPos
-	 *            the x coord to move to
-	 * @param yPos
-	 *            the y coord to move to
-	 * @param mob
-	 *            the mob that is firing
-	 * @param damage
-	 *            the damage of this laser
+	 * @param level -  What level it renders on
+	 * @param x - The X position it will spawn at
+	 * @param y - The Y position it will spawn at
+	 * @param xTile - the x tile on the spritesheet
+	 * @param yTile - the FIRST y tile on the spritesheet
+	 * @param direction -  The direction it will move; NORTH, SOUTH, EAST, or WEST
+	 * @param mob - the mob that fired the projectile
+	 * @param damage - the damage this projectile should do on impact
 	 */
-	public Laser(Level level, int x, int y, int xPos, int yPos, Mob mob, int damage) {
-		super(level, x, y, 2, 1, 1, 6, xPos, yPos, mob, damage, SoundHandler.laser);
+	public Laser(Level level, int x, int y, Direction direction, Mob mob, int damage) {
+		super(level, x, y, 2, 1, 1, 2, 1, 0, 3, direction, mob, damage, color, SoundHandler.laser);
 	}
 
 	/**
-	 * Creates a laser with a simple direction
+	 * Creates a laser with complex direction
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param direction
-	 *            the direction the laser should move
-	 * @param mob
-	 *            the mob that is firing
-	 * @param damage
-	 *            the damage of this laser
+	 * @param level -  What level it renders on
+	 * @param x - The X position it will spawn at
+	 * @param y - The Y position it will spawn at
+	 * @param xTile - the x tile on the spritesheet
+	 * @param yTile - the FIRST y tile on the spritesheet
+	 * @param xPos - the x coordinate it will travel to
+	 * @param yPos -  the y coordinate it will travel to
+	 * @param mob - the mob that fired the projectile
+	 * @param damage - the damage this projectile should do on impact
 	 */
-	public Laser(Level level, int x, int y, Direction direction, Mob mob, int damage) {
-		super(level, x, y, 2, 1, 1, 6, direction, mob, damage, SoundHandler.laser);
-	}
-
-	@Override
-	protected int[] getColor() {
-		return color;
+	public Laser(Level level, int x, int y, int xPos, int yPos, Mob mob, int damage) {
+		super(level, x, y, 2, 1, 1, 2, 1, 0, 3, xPos, yPos, mob, damage, color, SoundHandler.laser);
 	}
 
 }

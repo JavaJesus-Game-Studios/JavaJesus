@@ -97,7 +97,8 @@ public class LevelTester extends Level {
 	 * Chest placement
 	 */
 	public Chest[] getChestPlacement() {
-		return new Chest[] {new Chest(this, 218, 105, Item.apple, Item.orange, Item.banana, Item.feather, Item.strongHealthPack)};
+		return new Chest[] { new Chest(this, 218, 105, Item.laserRevolver, Item.shotgun, Item.assaultRifle,
+		        Item.crossBow, Item.bazooka, Item.blackHoleGun, Item.flameThrower) };
 	}
 
 	/**

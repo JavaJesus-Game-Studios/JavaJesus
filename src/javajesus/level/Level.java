@@ -380,6 +380,17 @@ public abstract class Level implements Serializable {
 		return Tile.tileList[levelTiles[x + y * width]];
 
 	}
+	
+	/**
+	 * Gets the tile type from the entity coordinates
+	 * 
+	 * @param x - the x coord in entity coordinates
+	 * @param y - the y coord in entity coordinates
+	 * @return the type of tile, VOID if nothing
+	 */
+	public Tile getTileFromEntityCoords(int x, int y) {
+		return getTile(x >> 3, y >> 3);
+	}
 
 	/**
 	 * Adds an entity to this level

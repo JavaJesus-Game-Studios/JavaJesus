@@ -11,14 +11,14 @@ import javajesus.entities.vehicles.Vehicle;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
-import javajesus.level.tile.Tile;
 import javajesus.utility.Direction;
 
 /*
- * A projectile is a fleeting particle that moves very fast across the screen to deal damage
+ * A projectile is a fleeting entity that moves very fast across the screen to deal damage
  */
 public abstract class Projectile extends Entity implements Hideable {
 
+	// serialization
 	private static final long serialVersionUID = 3377536695812898799L;
 
 	// the stats of the projectile
@@ -28,115 +28,121 @@ public abstract class Projectile extends Entity implements Hideable {
 	private double dx, dy;
 
 	// the mob that fired the projectile
-	private Mob mob;
+	private final Mob mob;
 
 	// the spritesheet
-	private static final SpriteSheet sheet = SpriteSheet.particles;
+	private static final SpriteSheet sheet = SpriteSheet.projectiles;
 
 	// position on the spritesheet
-	protected int tileNumber;
+	private int xTile, yTile;
 
 	// do not render if the projectile is behind a building
 	private boolean isBehindBuilding;
 	
 	// x and y coordinates should be in double precision
 	private double x, y;
+	
+	// color of the projectile
+	private final int[] color;
 
 	/**
-	 * Creates a new Projectile will a single direction
+	 * Creates a new Projectile with a single direction
 	 * 
-	 * @param level
-	 *            : What level does it render on
-	 * @param x
-	 *            : The X position it will spawn at
-	 * @param y
-	 *            : The Y position it will spawn at
-	 * @param width
-	 *            the width of the sprite
-	 * @param height
-	 *            the height of the sprite
-	 * @param tileNumber
-	 *            : the tile id on the SpriteSheet (xTile) + (yTile) *
-	 *            getSpriteSheet().boxes
-	 * @param speed
-	 *            : The speed at which the projectile will move (player speed is
-	 *            1)
-	 * @param direction
-	 *            : The direction it will move; Currently only 0 1 2 or 3
-	 * @param mob
-	 *            the mob that fired the projectile
-	 * @param damage
-	 *            the damage this projectile should do
-	 * @param clip
-	 *            the sound this projectile makes
+	 * @param level -  What level it renders on
+	 * @param x - The X position it will spawn at
+	 * @param y - The Y position it will spawn at
+	 * @param lateralWidth - the pixel width of the EAST - WEST alignment
+	 * @param lateralHeight - the pixel height of the EAST - WEST alignment
+	 * @param longitudinalWidth - the pixel width of the NORTH - SOUTH alignment
+	 * @param longitudinalHeight - the pixel height of the NORTH - SOUTH alignment
+	 * @param xTile - the x tile on the spritesheet
+	 * @param yTile - the FIRST y tile on the spritesheet
+	 * @param speed - The speed at which the projectile will move
+	 * @param direction -  The direction it will move; NORTH, SOUTH, EAST, or WEST
+	 * @param mob - the mob that fired the projectile
+	 * @param damage - the damage this projectile should do on impact
+	 * @param color - color set of the projectile
+	 * @param clip - the sound this projectile makes on fire
 	 */
-	public Projectile(Level level, int x, int y, int width, int height, int tileNumber, int speed,
-			Direction direction, Mob mob, int damage, Clip clip) {
+	public Projectile(final Level level, int x, int y, int lateralWidth, int lateralHeight, int longitudinalWidth,
+	        int longitudinalHeight, int xTile, int yTile, int speed, Direction direction, final Mob mob, int damage,
+	        final int[] color, final Clip clip) {
 		super(level, x, y);
+		
+		// play a sound
+		SoundHandler.fire(clip);
+		
+		// instance data
 		this.x = x;
 		this.y = y;
-		this.tileNumber = tileNumber;
+		this.xTile = xTile;
+		this.yTile = yTile;
 		this.speed = speed;
-		calcSimpleDirection(direction);
-		setBounds(getX(), getY(), width, height);
 		this.mob = mob;
 		this.damage = damage;
-		SoundHandler.fire(clip);
+		this.color = color;
+		
+		// calculate the direction it will move to
+		calcDirection(direction);
+		adjustSpriteDirection();
+		
+		// set the bounds
+		setBounds(getX(), getY(), lateralWidth, lateralHeight, longitudinalWidth, longitudinalHeight);
 	}
 
 	/**
 	 * Creates a new Projectile with complex direction
 	 * 
-	 * @param level
-	 *            : What level does it render on
-	 * @param x
-	 *            : The X position it will spawn at
-	 * @param y
-	 *            : The Y position it will spawn at
-	 * @param width
-	 *            the width of the sprite
-	 * @param height
-	 *            the height of the sprite
-	 * @param tileNumber
-	 *            : the tile id on the SpriteSheet (xTile) + (yTile) *
-	 *            getSpriteSheet().boxes
-	 * @param speed
-	 *            : The speed at which the projectile will move (player speed is
-	 *            1)
-	 * @param direction1
-	 *            : The x velocity -- currently broken, only 3 or 4
-	 * @param direction2
-	 *            : The y velocity - currently broken, only 1 or 0
-	 * @param mob
-	 *            the mob that fired the projectile
-	 * @param damage
-	 *            the damage this projectile should do
-	 * @param clip
-	 *            the sound this projectile makes
-	 * 
+	 * @param level -  What level it renders on
+	 * @param x - The X position it will spawn at
+	 * @param y - The Y position it will spawn at
+	 * @param lateralWidth - the pixel width of the EAST - WEST alignment
+	 * @param lateralHeight - the pixel height of the EAST - WEST alignment
+	 * @param longitudinalWidth - the pixel width of the NORTH - SOUTH alignment
+	 * @param longitudinalHeight - the pixel height of the NORTH - SOUTH alignment
+	 * @param xTile - the x tile on the spritesheet
+	 * @param yTile - the FIRST y tile on the spritesheet
+	 * @param speed - The speed at which the projectile will move
+	 * @param direction -  The direction it will move; NORTH, SOUTH, EAST, or WEST
+	 * @param xPos - the x coordinate it will travel to
+	 * @param yPos -  the y coordinate it will travel to
+	 * @param mob - the mob that fired the projectile
+	 * @param damage - the damage this projectile should do on impact
+	 * @param color - color set of the projectile
+	 * @param clip - the sound this projectile makes on fire
 	 */
-	public Projectile(Level level, int x, int y, int width, int height, int tileNumber, int speed, int xPos,
-			int yPos, Mob mob, int damage, Clip clip) {
+	public Projectile(final Level level, int x, int y, int lateralWidth, int lateralHeight, int longitudinalWidth,
+	        int longitudinalHeight, int xTile, int yTile, int speed, int xPos, int yPos, final Mob mob, int damage,
+	        final int[] color, final Clip clip) {
 		super(level, x, y);
+		
+		// play a sound
+		SoundHandler.fire(clip);
+		
+		// instance data
 		this.x = x;
 		this.y = y;
-		this.tileNumber = tileNumber;
+		this.xTile = xTile;
+		this.yTile = yTile;
 		this.speed = speed;
-		setBounds(getX(), getY(), width, height);
-		calcChange(xPos, yPos);
 		this.mob = mob;
 		this.damage = damage;
-
-		SoundHandler.fire(clip);
+		this.color = color;
+		
+		// calculate the direction it will travel to
+		calcDirection(xPos, yPos);
+		adjustSpriteDirection();
+		
+		// set the bounds
+		setBounds(getX(), getY(), lateralWidth, lateralHeight, longitudinalWidth, longitudinalHeight);
 	}
 
 	/**
 	 * Calculates the x and y points it will move to
 	 * 
-	 * @param direction
-	 *            the direction it was fired
+	 * @param direction - the direction it was fired
 	 */
-	private void calcSimpleDirection(Direction direction) {
+	private void calcDirection(Direction direction) {
 		switch (direction) {
 		case SOUTH:
 			dy++;
@@ -157,24 +163,22 @@ public abstract class Projectile extends Entity implements Hideable {
 	}
 
 	/**
-	 * Calculates the change in x and y when at detailed angles Finds the unit
-	 * vectors between THIS coordinates and the specified coordinates Treats
-	 * THIS position as the origin
+	 * Calculates the change in x and y when at detailed angles 
+	 * Finds the unit vectors between this  projectile's coordinates and the specified coordinates 
+	 * Treats this projectile's position as the origin
 	 * 
-	 * @param x
-	 *            the x coordinate destination
-	 * @param y
-	 *            the y coordinate destination
+	 * @param x - the x coordinate destination
+	 * @param y - the y coordinate destination
 	 */
-	private void calcChange(int x, int y) {
+	private void calcDirection(int x, int y) {
 
-		// relative x coordinates
+		// distance along the x axis
 		double xa = x - getX();
 
-		// relative y coordinates
+		// distance along the y axis
 		double ya = y - getY();
 
-		// magnitude = squareroot of x^2 + y^2
+		// pythagorean theorem
 		double magnitude = Math.sqrt(xa * xa + ya * ya);
 
 		// j hat = Vx / magnitude
@@ -185,11 +189,53 @@ public abstract class Projectile extends Entity implements Hideable {
 		
 	}
 	
-	int test = 0;
-
 	/**
-	 * Updates the projectile TODO levels should remove projectiles when player
-	 * enters/exits buildings
+	 * Sets the correct bounds of the projectile
+	 * Must be called AFTER DIRECTION HAS BEEN CALCULATED
+	 * 
+	 * @param x - x location
+	 * @param y - y location
+	 * @param xWidth - the pixel width of the EAST - WEST alignment
+	 * @param xHeight - the pixel height of the EAST - WEST alignment
+	 * @param yWidth - the pixel width of the NORTH - SOUTH alignment
+	 * @param yHeight - the pixel width of the NORTH - SOUTH alignment
+	 */
+	private void setBounds(int x, int y, int xWidth, int xHeight, int yWidth, int yHeight) {
+		
+		// east - west has priority
+		if (dx != 0) {
+			setBounds(x, y, xWidth, xHeight);
+		} else {
+			setBounds(x, y, yWidth, yHeight);
+		}
+	}
+	
+	/**
+	 * Adjusts the offset of the projectile based on the direction
+	 * Must be called AFTER direction is set
+	 */
+	private void adjustSpriteDirection() {
+		
+		// east
+		if (dx > 0) {
+			yTile += 0;
+			
+			// west
+		} else if (dx < 0) {
+			yTile += 1;
+			
+			// north
+		} else if (dy < 0) {
+			yTile += 2;
+			
+			// south
+		} else {
+			yTile += 3;
+		}
+	}
+	
+	/**
+	 * Updates the projectile
 	 */
 	public void tick() {
 
@@ -198,7 +244,7 @@ public abstract class Projectile extends Entity implements Hideable {
 
 		// check for collision with solid tile
 		if (isOnSolidTile()) {
-			onDestroyed();
+			destroy();
 			return;
 		}
 
@@ -213,7 +259,7 @@ public abstract class Projectile extends Entity implements Hideable {
 			if (e instanceof Mob) {
 				if (this.getBounds().intersects(e.getBounds()) && e != mob && !((Mob) e).isDead()) {
 					((Mob) e).damage(damage);
-					onDestroyed();
+					destroy();
 					break;
 				}
 				// disappear if hitting a building
@@ -222,7 +268,7 @@ public abstract class Projectile extends Entity implements Hideable {
 					if (e instanceof Vehicle) {
 						((Vehicle) e).damage(damage);
 					}
-					onDestroyed();
+					destroy();
 					break;
 				} else if (this.getBounds().intersects(((SolidEntity) e).getShadow())) {
 					isBehindBuilding = true;
@@ -232,7 +278,8 @@ public abstract class Projectile extends Entity implements Hideable {
 	}
 
 	/**
-	 * Moves the entity in different directions Also updates the bounds
+	 * Moves the entity in different directions 
+	 * Also updates the bounds
 	 */
 	private void move() {
 		x += speed * dx;
@@ -245,24 +292,16 @@ public abstract class Projectile extends Entity implements Hideable {
 	 */
 	public void render(Screen screen) {
 
-		// don't render if it isn't visible
-		if (isBehindBuilding) {
-			return;
-		}
-
-		screen.render(getX(), getY(), tileNumber, getColor(), sheet);
+		screen.render(getX(), getY(), xTile + yTile * sheet.getTilesPerRow(), color, sheet);
 	}
 
 	/**
 	 * @return True if the projectile is on a solid tile
 	 */
 	private boolean isOnSolidTile() {
-		Tile lastTile = getLevel().getTile(getX() >> 3, getY() >> 3);
-		return lastTile.isSolid();
+		return getLevel().getTileFromEntityCoords(getX(), getY()).isSolid();
 	}
 
-	protected abstract int[] getColor();
-	
 	/**
 	 * @return the X coordinate of the entity
 	 */
@@ -278,16 +317,9 @@ public abstract class Projectile extends Entity implements Hideable {
 	}
 
 	/**
-	 * @return the spritesheet
-	 */
-	protected SpriteSheet getSpriteSheet() {
-		return sheet;
-	}
-
-	/**
 	 * Executes this code when the projectile will be removed
 	 */
-	protected void onDestroyed() {
+	protected void destroy() {
 		getLevel().remove(this);
 	}
 	

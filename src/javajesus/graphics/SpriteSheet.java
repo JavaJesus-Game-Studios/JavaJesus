@@ -17,6 +17,7 @@ public class SpriteSheet implements Serializable {
     public static SpriteSheet hud_weapons = new SpriteSheet("/HUD/hud_sheet.png", 10 * 3);
     public static SpriteSheet letters = new SpriteSheet("/Effects/letter_sheet.png", 32);
     public static SpriteSheet particles = new SpriteSheet("/Effects/particle_sheet.png", 32);
+    public static SpriteSheet projectiles = new SpriteSheet("/projectile_sheet.png", 8);
     public static SpriteSheet explosions = new SpriteSheet("/Effects/explosion_sheet.png", 56);
     public static SpriteSheet swords = new SpriteSheet("/Sprites/Player_Sprites/player_sword_sheet.png", 60);
     public static SpriteSheet enemies = new SpriteSheet("/Sprites/EnemyNPC_Sprites/mob_enemy_sheet.png", 40);

@@ -11,74 +11,46 @@ import javajesus.utility.Direction;
  */
 public class Bullet extends Projectile {
 
+	// serialization
 	private static final long serialVersionUID = 6386517640048489710L;
 
-	// the colorset for all fireballs
+	// the color set for all bullets
 	private static final int[] color = { 0xFF000000, 0xFF000000, 0xFFFFFF00 };
 
-	// pixel size of a fireball
-	private static final int SIZE = 2;
-
 	/**
-	 * Creates a bullet
-	 * @param level the level it is on
-	 * @param x the x coord
-	 * @param y the y coord
-	 * @param xPos the x coord to move  to
-	 * @param yPos the y coord to move to
-	 * @param mob the mob that is firing
-	 * @param damage the damage of this bullet
-	 * @param clip the Sound of this projectile
-	 */
-	public Bullet(Level level, int x, int y, int xPos, int yPos, Mob mob, int damage, Clip clip) {
-		super(level, x, y, SIZE, SIZE, 1, 6, xPos, yPos, mob, damage, clip);
-		
-		adjustOffset(mob.getDirection());
-	}
-
-	/**
-	 * Creates a bullet with a simple direction
-	 * @param level the level it is on
-	 * @param x the x coord
-	 * @param y the y coord
-	 * @param direction the directon the bullet should move
-	 * @param mob the mob that is firing
-	 * @param damage the damage of this bullet
-	 * @param clip the Sound of this projectile
-	 */
-	public Bullet(Level level, int x, int y, Direction direction, Mob mob, int damage, Clip clip) {
-		super(level, x, y, SIZE, SIZE, 1, 6, direction, mob, damage, clip);
-		
-		adjustOffset(direction);
-	}
-	
-	/**
-	 * Adjusts the offset of the arrow
+	 * Creates a bullet with a single direction
 	 * 
+	 * @param level -  What level it renders on
+	 * @param x - The X position it will spawn at
+	 * @param y - The Y position it will spawn at
+	 * @param xTile - the x tile on the spritesheet
+	 * @param yTile - the FIRST y tile on the spritesheet
+	 * @param direction -  The direction it will move; NORTH, SOUTH, EAST, or WEST
+	 * @param mob - the mob that fired the projectile
+	 * @param damage - the damage this projectile should do on impact
+	 * @param clip - the sound this projectile makes on fire
 	 */
-	private void adjustOffset(Direction direction) {
-		switch (direction) {
-		case NORTH:
-			this.tileNumber = 1 + getSpriteSheet().getTilesPerRow();
-			return;
-		case SOUTH:
-			this.tileNumber = 1 + getSpriteSheet().getTilesPerRow();
-			return;
-		case EAST:
-			this.tileNumber = 1;
-			return;
-		default:
-			this.tileNumber = 1;
-			return;
-		}
+	public Bullet(Level level, int x, int y, Direction direction, Mob mob, int damage, final Clip clip) {
+		super(level, x, y, 2, 1, 1, 2, 1, 0, 3, direction, mob, damage, color, clip);
 	}
 
 	/**
-	 * @return the colorset of the bullet
+	 * Creates a bullet with complex direction
+	 * 
+	 * @param level -  What level it renders on
+	 * @param x - The X position it will spawn at
+	 * @param y - The Y position it will spawn at
+	 * @param xTile - the x tile on the spritesheet
+	 * @param yTile - the FIRST y tile on the spritesheet
+	 * @param xPos - the x coordinate it will travel to
+	 * @param yPos -  the y coordinate it will travel to
+	 * @param mob - the mob that fired the projectile
+	 * @param damage - the damage this projectile should do on impact
+	 * @param clip - the sound this projectile makes on fire
 	 */
-	@Override
-	protected int[] getColor() {
-		return color;
+	public Bullet(Level level, int x, int y, int xPos, int yPos, Mob mob, int damage, final Clip clip) {
+		super(level, x, y, 2, 1, 1, 2, 1, 0, 3, xPos, yPos, mob, damage, color, clip);
+
 	}
 
 }
