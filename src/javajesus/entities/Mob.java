@@ -662,14 +662,22 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	 * Replenishes the mob health
 	 * 
 	 * @param num - the amount to heal
+	 * -1 to fully heal
 	 */
 	public void heal(int num) {
 		
-		health += num;
-		
-		// cant go over max
-		if (health > maxHealth) {
+		// heal to full
+		if (num == -1) {
 			health = maxHealth;
+			
+			// heal by a certain amount
+		} else {
+			health += num;
+			
+			// cant go over max
+			if (health > maxHealth) {
+				health = maxHealth;
+			}
 		}
 		
 	}

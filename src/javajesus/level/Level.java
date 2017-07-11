@@ -338,6 +338,7 @@ public abstract class Level implements Serializable {
 			if (!(e instanceof Hideable) && e.getBounds().intersects(renderRange)) {
 				e.render(screen);
 			}
+			
 		}
 
 		// now render everything else on top
@@ -346,6 +347,17 @@ public abstract class Level implements Serializable {
 				e.render(screen);
 			}
 
+		}
+	}
+	
+	/**
+	 * Renders collision boxes onto the screen
+	 * 
+	 * @param screen - screen to render pixels
+	 */
+	public void renderCollisionBoxes(Screen screen) {
+		for (Entity e: this.getEntities()) {
+			screen.renderCollisionBox(e.getBounds());
 		}
 	}
 

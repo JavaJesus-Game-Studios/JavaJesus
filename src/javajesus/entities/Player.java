@@ -117,8 +117,14 @@ public class Player extends Mob {
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
 		
-		System.err.println("Creating Player");
-
+		// gives certain names certain powers
+		if (name.equals("Derek Jow") || name.equals("Stephen Northway")) {
+			grantDevPowers();
+			System.err.println("Creating Developer");
+		}  else {
+			System.err.println("Creating " + name);
+		}
+		
 	}
 	
 	/**
@@ -575,9 +581,9 @@ public class Player extends Mob {
 		this.strength = 100;
 		this.maxStamina = Integer.MAX_VALUE;
 		this.stamina = maxStamina;
-		this.defense = 10;
+		this.defense = 100;
 		setMaxHealth(Integer.MAX_VALUE);
-		heal(Integer.MAX_VALUE);
+		heal(-1);
 		inventory.add(Item.blackHoleGun);
 		inventory.add(Item.bazooka);
 	}

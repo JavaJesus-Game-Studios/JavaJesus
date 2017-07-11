@@ -21,6 +21,7 @@ import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.gui.OverviewGUI;
 import javajesus.gui.PauseGUI;
+import javajesus.level.tile.Tile;
 import javajesus.save.GameData;
 import javajesus.utility.GameMode;
 import javajesus.utility.JJStrings;
@@ -291,6 +292,11 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		// render the level and everything on it
 		player.getLevel().renderTile(screen, xOffset, yOffset);
 		player.getLevel().renderEntities(screen, player);
+		
+		// render collision boxes
+		if (doDevOverlay) {
+			player.getLevel().renderCollisionBoxes(screen);
+		}
 
 		// set the pixels of the image in memory from the screen class
 		for (int y = 0; y < screen.getHeight(); y++) {
@@ -308,8 +314,11 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		// draw the debug information
 		if (doDevOverlay) {
 			g.setFont(DISPLAY_FONT);
-			g.setColor(Color.YELLOW);
-			g.drawString(player + ": " + player.getX() + ", " + player.getY(), 5, 20);
+			g.setColor(Color.WHITE);
+			g.drawString(player.toString(), 0, 20);
+			g.drawString(
+			        "Rounded: (" + Tile.snapToCorner(player.getX()) + ", " + Tile.snapToCorner(player.getY()) + ")", 0,
+			        40);
 		}
 		
 		// draw additional displays on the screen

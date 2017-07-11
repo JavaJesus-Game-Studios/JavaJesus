@@ -1,5 +1,7 @@
 package javajesus.graphics;
 
+import java.awt.Rectangle;
+
 /*
  * Handles the pixel manipulation and data that is displayed on the screen elsewhere
  */
@@ -255,6 +257,39 @@ public class Screen {
 
 						}
 					}
+
+			}
+		}
+	}
+	
+	/**
+	 * Renders a collision box to the screen
+	 * 
+	 * @param r - the rectangle to render
+	 */
+	public void renderCollisionBox(Rectangle r) {
+		
+		// shifts the position of the screen by the global offset
+		int xOffset = (int) r.getX() - this.xOffset;
+		int yOffset = (int) r.getY() - this.yOffset;
+
+		// left to right
+		for (int i = 0; i < r.getWidth(); i++) {
+			
+			// top to bottom
+			for (int j = 0; j < r.getHeight(); j++) {
+
+				// pixel in screen class
+				int pixel = (i + xOffset) + (j + yOffset) * width;
+				
+				// render a pixel only if in bounds
+				if (pixel >= 0 && pixel < pixels.length) {
+
+					// render only if an outline
+					if (i == 0 || j == 0 || i == r.getWidth() - 1 || j == r.getHeight() - 1) {
+						pixels[(i + xOffset) + (j + yOffset) * width] = 0xFF000000;
+					}
+				}
 
 			}
 		}
