@@ -329,8 +329,6 @@ public abstract class Level implements Serializable {
 
 			if (entity.getBounds().intersects(renderRange) && entity.isBehindBuilding()) {
 				entity.render(screen);
-				if (entity instanceof Mob && ((Mob) entity).getHealthBar() != null)
-					((Mob) entity).getHealthBar().render(screen);
 			}
 
 		}
@@ -346,8 +344,6 @@ public abstract class Level implements Serializable {
 		for (Hideable e : hideables) {
 			if (e.getBounds().intersects(renderRange) && !e.isBehindBuilding()) {
 				e.render(screen);
-				if (e instanceof Mob && ((Mob) e).getHealthBar() != null)
-					((Mob) e).getHealthBar().render(screen);
 			}
 
 		}

@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import javajesus.SoundHandler;
 import javajesus.entities.Mob;
+import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
@@ -160,14 +161,11 @@ public class Sword extends Item {
 	/**
 	 * Updates the sword
 	 * 
-	 * @param level
-	 *            the level the mob is on
-	 * @param x
-	 *            the mob's x coord
-	 * @param y
-	 *            the mob'x y coord
+	 * @param level - the level the mob is on
+	 * @param x - the mob's x coord
+	 * @param y - the mob'x y coord
 	 */
-	public void tick(Level level, int x, int y) {
+	public void tick(Level level, int x, int y, Player player) {
 
 		// timer for the cooldown
 		if (cooldown) {
@@ -186,8 +184,8 @@ public class Sword extends Item {
 			// update the area box
 			updateBounds(x, y);
 
-			// hit da mobs
-			attackMobs(level);
+			// hit the mobs
+			attackMobs(level, player);
 
 			if (++powerSwingTicks % (cooldownTime / 5) == 0) {
 
@@ -248,16 +246,12 @@ public class Sword extends Item {
 	/**
 	 * Swings the sword!
 	 * 
-	 * @param x
-	 *            the mob's x position
-	 * @param y
-	 *            the mob's y position
-	 * @param dir
-	 *            the direction the mob is facing
-	 * @param power
-	 *            whether or not it is a power swing
+	 * @param x - the mob's x position
+	 * @param y - the mob's y position
+	 * @param dir - the direction the mob is facing
+	 * @param power - whether or not it is a power swing
 	 */
-	public void swing(Level level, int x, int y, Direction dir, boolean power) {
+	public void swing(Level level, int x, int y, Direction dir, boolean power, Player player) {
 
 		if (!cooldown) {
 
@@ -286,7 +280,7 @@ public class Sword extends Item {
 			updateBounds(x, y);
 
 			// hits mobs
-			attackMobs(level);
+			attackMobs(level, player);
 
 			cooldown = isSwinging = true;
 
@@ -300,16 +294,23 @@ public class Sword extends Item {
 	/**
 	 * Damages mobs in the bounds
 	 * 
-	 * @param level
-	 *            the level to check
+	 * @param level - the level to check
+	 * @param player - player attacking the mob
 	 */
-	private void attackMobs(Level level) {
+	private void attackMobs(Level level, Player player) {
 		for (int i = 0; i < level.getMobs().size(); i++) {
 			Mob m = level.getMobs().get(i);
 			if (bounds.intersects(m.getBounds())) {
-				m.damage(damage);
+				player.attack(Player.DAMAGE_RANGE, m);
 			}
 		}
+	}
+	
+	/**
+	 * @return sword strength
+	 */
+	public int getStrength() {
+		return damage;
 	}
 
 	/**

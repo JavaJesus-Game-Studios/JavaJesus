@@ -1,18 +1,17 @@
 package javajesus.entities.npcs.aggressive;
 
+import java.awt.Color;
+import java.awt.geom.Ellipse2D;
+
 import javajesus.MessageHandler;
 import javajesus.entities.Mob;
-import javajesus.entities.Skills;
 import javajesus.entities.monsters.Monster;
 import javajesus.entities.npcs.NPC;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
-import java.awt.Color;
-import java.awt.geom.Ellipse2D;
-
-public class Gorilla extends NPC implements Skills {
+public class Gorilla extends NPC {
 
 	private static final long serialVersionUID = 5350816667470294053L;
 
@@ -120,7 +119,7 @@ public class Gorilla extends NPC implements Skills {
 		// attack the target if given a chance
 		if (!cooldown && target != null && getOuterBounds().intersects(target.getOuterBounds())) {
 			cooldown = true;
-			this.attack(getStrength(), getStrength() * 2, target);
+			this.attack(getStrength(), target);
 		}
 
 		// change in x and y
@@ -240,18 +239,6 @@ public class Gorilla extends NPC implements Skills {
 
 	@Override
 	public int getDefense() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getAccuracy() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getEvasion() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

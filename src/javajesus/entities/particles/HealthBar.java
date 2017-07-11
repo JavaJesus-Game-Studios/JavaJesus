@@ -30,7 +30,7 @@ public class HealthBar extends Entity {
 	private final static SpriteSheet sheet = SpriteSheet.particles;
 
 	// color of the healthbar
-	private final static int[] color = { 0xFF111111, 0xFF000000, 0xFFDD0000 };
+	private final int[] color = { 0xFF111111, 0xFF000000, 0xFFDD0000 };
 
 	/**
 	 * Creates a health bar
@@ -42,6 +42,9 @@ public class HealthBar extends Entity {
 	 */
 	public HealthBar(Level level, int x, int y, Damageable entity) {
 		super(level, x, y);
+		
+		// set bounds'
+		setBounds(x, y, 16, 8);
 
 		// instance data
 		this.entity = entity;

@@ -1,5 +1,7 @@
 package javajesus.items;
 
+import java.util.Random;
+
 import javax.sound.sampled.Clip;
 
 import javajesus.SoundHandler;
@@ -40,6 +42,12 @@ public class Gun extends Item {
 
 	// fire rate of the gun
 	private int FIRE_RATE;
+	
+	// damage range
+	private static final int DAMAGE_RANGE = 5;
+	
+	// for calculating random range of damage
+	private static final Random random = new Random();
 
 	// ticks between each shot fired
 	private int fireTicks = 1;
@@ -171,18 +179,18 @@ public class Gun extends Item {
 	/**
 	 * Fires the gun
 	 * 
-	 * @param x
-	 *            the x coordinate
-	 * @param y
-	 *            the y coord
-	 * @param dir
-	 *            the direction
-	 * @param player
-	 *            the player shooting the gun
+	 * @param x - the x coordinate
+	 * @param y - the y coord
+	 * @param dir - the direction
+	 * @param player - the player shooting the gun
 	 */
 	public void fire(int x, int y, Direction dir, Player player) {
 
+		// get the level
 		Level level = player.getLevel();
+		
+		// get random damage based on player strength
+		int damage = player.getStrength() + this.damage + random.nextInt(DAMAGE_RANGE);
 
 		if (ammo > 0 && !isReloading && canFire) {
 			switch (type) {

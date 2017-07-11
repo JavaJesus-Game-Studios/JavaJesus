@@ -6,13 +6,12 @@ import java.awt.geom.Ellipse2D;
 import javajesus.MessageHandler;
 import javajesus.entities.Mob;
 import javajesus.entities.Player;
-import javajesus.entities.Skills;
 import javajesus.entities.monsters.Monster;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
-public class Knight extends NPC implements Skills {
+public class Knight extends NPC {
 
 	private static final long serialVersionUID = -990363786904488287L;
 
@@ -27,6 +26,9 @@ public class Knight extends NPC implements Skills {
 
 	// the attack range radius, 32 (number of units) * 8 (units) = 256
 	private static final int RADIUS = 256;
+	
+	// range for damage
+	private static final int DAMAGE_RANGE = 5;
 
 	// cooldown from attacks
 	private boolean cooldown = true;
@@ -101,7 +103,7 @@ public class Knight extends NPC implements Skills {
 		// attack the target if given a chance
 		if (!cooldown && target != null && getOuterBounds().intersects(target.getOuterBounds())) {
 			cooldown = true;
-			this.attack(getStrength(), getStrength() * 2, target);
+			this.attack(DAMAGE_RANGE, target);
 		}
 
 		// change in x and y
@@ -234,18 +236,6 @@ public class Knight extends NPC implements Skills {
 
 	@Override
 	public int getDefense() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getAccuracy() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getEvasion() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

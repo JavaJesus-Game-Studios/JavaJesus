@@ -9,8 +9,4 @@ public interface Skills {
 	
 	public int getDefense();
 	
-	public int getAccuracy();
-	
-	public int getEvasion();
-
 }

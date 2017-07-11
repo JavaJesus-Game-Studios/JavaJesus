@@ -158,15 +158,19 @@ public class Demon extends Monster implements LongRange {
 	}
 	
 	/**
-	 * Throws a fireball at a target Uses dummy parameters to conform to Mob
-	 * class
+	 * Deals damage to another mob
+	 * Calculated by getStrength() +
+	 * a random number in the range
+	 * 
+	 * @param range - random offset to add to strength
+	 * @param other - the other mob to attack
 	 */
 	@Override
-	public void attack(int fake, int fake2, Mob other) {
+	public void attack(int range, Mob other) {
 		
 		getLevel().add(new FireBall(getLevel(), getX() + WIDTH / 2, getY() + HEIGHT / 2,
 				target.getX() + (int) target.getBounds().getWidth() / 2,
-				target.getY() + (int) target.getBounds().getHeight() / 2, this, getStrength()));
+				target.getY() + (int) target.getBounds().getHeight() / 2, this, getStrength() + random.nextInt(range)));
 	}
 
 	/**

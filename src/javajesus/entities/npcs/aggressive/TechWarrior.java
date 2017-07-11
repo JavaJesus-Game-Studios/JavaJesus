@@ -55,12 +55,17 @@ public class TechWarrior extends Shooter {
 	}
 
 	/**
-	 * Shoots a bullet at a target Uses dummy parameters to conform to Mob class
+	 * Deals damage to another mob
+	 * Calculated by getStrength() +
+	 * a random number in the range
+	 * 
+	 * @param range - random offset to add to strength
+	 * @param other - the other mob to attack
 	 */
 	@Override
-	public void attack(int fake, int fake2, Mob other) {
+	public void attack(int range, Mob other) {
 
-		getLevel().add(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength(),
+		getLevel().add(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength() + random.nextInt(range),
 				SoundHandler.shotgun));
 	}
 

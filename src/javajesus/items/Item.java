@@ -281,7 +281,7 @@ public class Item implements Serializable {
 		
 		// heal if the item has health
 		if (health > 0) {
-			player.changeHealth(health);
+			player.heal(health);
 		}
 		
 		// equip if equipable

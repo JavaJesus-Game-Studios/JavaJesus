@@ -15,7 +15,7 @@ import java.util.Random;
 /*
  * A mob is an entity that has complex interactions in a level with other entities
  */
-public class Mob extends Entity implements Damageable, Hideable {
+public abstract class Mob extends Entity implements Damageable, Hideable, Skills {
 
 	private static final long serialVersionUID = -1507733585991126012L;
 
@@ -77,7 +77,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	private static final int HIT_COOLDOWN = 20;
 
 	// the talking cooldown in ticks
-	private static final int TALKING_COOLDOWN = Entity.secondsToTicks(5);
+	private static final int TALKING_COOLDOWN = secondsToTicks(5);
 
 	// the base unit of each box on the spritesheet
 	protected static final int UNIT_SIZE = 8;
@@ -94,10 +94,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 
 	// damage cooldown
 	private int isHitTicks;
-	protected int isHitX = 0;
-	protected int isHitY = 0;
-	protected int[] isHitColor = { 0xFF000000, 0xFF000000, 0xFFFF0000 };
+	private int isHitX, isHitY;
+	private static final int[] isHitColor = { 0xFF000000, 0xFF000000, 0xFFFF0000 };
 
+	// internal timers
 	protected int tickCount = 0;
 	private int fireTickCount = 0;
 
@@ -109,6 +109,9 @@ public class Mob extends Entity implements Damageable, Hideable {
 
 	// whether or not the mob can clip through bounds
 	private boolean clip;
+	
+	// color of water
+	private static final int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
 
 	/**
 	 * Creates a mob that can interact with other entities on a level
@@ -127,6 +130,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 			SpriteSheet sheet, int defaultHealth) {
 		super(level, x, y);
 
+		// instance data
 		this.name = new String(name);
 		this.speed = speed;
 		this.health = defaultHealth;
@@ -135,28 +139,6 @@ public class Mob extends Entity implements Damageable, Hideable {
 		this.setOuterBounds(width, height);
 		this.sheet = sheet;
 
-	}
-
-	/**
-	 * Increases or decreases the mob's health
-	 * 
-	 * @param dh - the change in health
-	 */
-	public void changeHealth(int dh) {
-		this.health += dh;
-		if (health > maxHealth) {
-			this.health = maxHealth;
-		}
-		if (health <= 0) {
-			remove();
-		}
-	}
-
-	/**
-	 * Replenishes the health to full
-	 */
-	public void heal() {
-		this.health = maxHealth;
 	}
 
 	/**
@@ -309,18 +291,12 @@ public class Mob extends Entity implements Damageable, Hideable {
 		int yMin = getBounds().height / 2;
 
 		// the bottom bound of the mob
-		int yMax = getBounds().height - 2;
+		int yMax = getBounds().height - 1;
 
-		// check for solid tile collisions
-		for (int x = xMin; x < xMax; x++) {
-			if (isSolidTile(dx, dy, x, yMin) || isSolidTile(dx, dy, x, yMax)) {
-				return true;
-			}
-		}
-		for (int y = yMin; y < yMax; y++) {
-			if (isSolidTile(dx, dy, xMin, y) || isSolidTile(dx, dy, xMax, y)) {
-				return true;
-			}
+		// check for solid tile collisions at the 4 corners
+		if (isSolidTile(xMin, yMin, dx, dy) || isSolidTile(xMin, yMax, dx, dy)
+				|| isSolidTile(xMax, yMin, dx, dy) || isSolidTile(xMax, yMax, dx, dy)) {
+			return true;
 		}
 
 		// check for solid entity collisions
@@ -341,30 +317,27 @@ public class Mob extends Entity implements Damageable, Hideable {
 	}
 
 	/**
-	 * Checks if the position is a solid tile
+	 * Checks the type of tile in a new position
 	 * 
-	 * @param dx - the new x
-	 * @param dy - the new y
-	 * @param x - the x offset
-	 * @param y - the y offset
+	 * @param x - the x offset from current value
+	 * @param y - the y offset from current value
+	 * @param dx - the change in x
+	 * @param dy - the change in y
 	 * @return true if the new tile is solid
 	 */
-	protected boolean isSolidTile(int dx, int dy, int x, int y) {
-
-		// tile the mob is on (bottom half)
-		Tile lastTile = getLevel().getTile((getX() + x) / Tile.SIZE,
-				(getY() + y) / Tile.SIZE);
-
-		// tile the mob will move to
-		Tile newTile = getLevel().getTile((getX() + x + dx) / Tile.SIZE,
-				(getY() + y + dy) / Tile.SIZE);
-
-		// checking the last tile allows the player to move through solids if
-		// already on a solid
-		if (!lastTile.equals(newTile) && newTile.isSolid()) {
-			return true;
-		}
-		return false;
+	protected boolean isSolidTile(int x, int y, int dx, int dy) {
+		return getLevel().getTileFromEntityCoords(getX() + x + dx, getY() + y + dy).isSolid();
+	}
+	
+	/**
+	 * Checks the type of tile at a current offset
+	 * 
+	 * @param x - the x offset from current value
+	 * @param y - the y offset from current value
+	 * @return true if the new tile is solid
+	 */
+	protected boolean isSolidTile(int x, int y) {
+		return getLevel().getTileFromEntityCoords(getX() + x, getY() + y).isSolid();
 	}
 
 	/**
@@ -504,10 +477,6 @@ public class Mob extends Entity implements Damageable, Hideable {
 
 		tickCount++;
 
-		// updates the health bar
-		if (bar != null)
-			bar.tick();
-
 		// talking cooldown loop
 		if (isTalking) {
 			talkCount++;
@@ -530,14 +499,38 @@ public class Mob extends Entity implements Damageable, Hideable {
 		isSwimming = getLevel().getTile((getX() + UNIT_SIZE) >> 3,
 				(getY() + getBounds().height) >> 3).equals(Tile.WATER);
 		
+		// animate bobbing water color
+		if (isSwimming) {
+			if (tickCount % 60 < 15) {
+				waterColor[0] = 0xFF5266FF;
+				waterColor[1] = 0xFF000000;
+				waterColor[2] = 0xFF000000;
+			} else if (tickCount % 60 < 30) {
+				waterColor[0] = 0xFF3D54FF;
+				waterColor[1] = 0xFF5266FF;
+				waterColor[2] = 0xFF000000;
+			} else if (tickCount % 60 < 45) {
+				waterColor[0] = 0xFF3D54FF;
+				waterColor[1] = 0xFF000000;
+				waterColor[2] = 0xFF000000;
+			} else {
+				waterColor[0] = 0xFF5266FF;
+				waterColor[1] = 0xFF5266FF;
+				waterColor[2] = 0xFF000000;
+			}
+		}
+		
 		// take damage for being on fire
 		if (onFire) {
 			
-			this.damage(1);
-			
-			if(++fireTickCount > secondsToTicks(4) ) {
+			if(++fireTickCount > secondsToTicks(3) ) {
 				fireTickCount = 0;
 				onFire = false;
+			}
+			
+			// 10 dps
+			if (fireTickCount % 6 == 0) {
+				this.damage(1);
 			}
 			
 		}
@@ -590,30 +583,11 @@ public class Mob extends Entity implements Damageable, Hideable {
 
 		// render only the water animation down the bottom half
 		if (isSwimming) {
-			int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
-			// TODO look into this offset, might fix awkward water entrance?
-			yOffset += 4;
-			if (tickCount % 60 < 15) {
-				waterColor[0] = 0xFF5266FF;
-				waterColor[1] = 0xFF000000;
-				waterColor[2] = 0xFF000000;
-			} else if (15 <= tickCount % 60 && tickCount % 60 < 30) {
-				yOffset -= 1;
-				waterColor[0] = 0xFF3D54FF;
-				waterColor[1] = 0xFF5266FF;
-				waterColor[2] = 0xFF000000;
-			} else if (30 <= tickCount % 60 && tickCount % 60 < 45) {
-				waterColor[0] = 0xFF3D54FF;
-				waterColor[1] = 0xFF000000;
-				waterColor[2] = 0xFF000000;
-			} else {
-				yOffset -= 1;
-				waterColor[0] = 0xFF5266FF;
-				waterColor[1] = 0xFF5266FF;
-				waterColor[2] = 0xFF000000;
-			}
+			
+			// depth effect to water
+			yOffset += 4 + ((tickCount % 60 < 30) ? -1 : 0);
+			
 			// water rings
-			// add modifier to yoffset to add a depth effect
 			screen.render(xOffset, yOffset + modifier,
 					0 + 10 * sheet.getTilesPerRow(), waterColor, false, 1, sheet);
 			screen.render(xOffset + 8, yOffset + modifier,
@@ -650,7 +624,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Returns basic information about the mob
 	 */
 	public String toString() {
-		return "Type: " + name + "\n" + super.toString();
+		return super.toString() + "\nName: " + name;
 	}
 
 	/**
@@ -667,9 +641,11 @@ public class Mob extends Entity implements Damageable, Hideable {
 			bar = null;
 		}
 
+		// reset data
 		isHit = false;
 		isTalking = false;
 		setTargeted(false);
+		onFire = false;
 
 		// renders the mob in the background
 		isBehindBuilding = true;
@@ -681,20 +657,38 @@ public class Mob extends Entity implements Damageable, Hideable {
 	public void ignite() {
 		onFire = true;
 	}
-
+	
 	/**
-	 * Deals damage to another mob
+	 * Replenishes the mob health
 	 * 
-	 * @param min - the minimum damage dealt
-	 * @param max - the maximum damage dealt
-	 * @param other - the other mob to attack
+	 * @param num - the amount to heal
 	 */
-	public void attack(int min, int max, Mob other) {
-		other.damage(random.nextInt(max - min + 1) + min);
+	public void heal(int num) {
+		
+		health += num;
+		
+		// cant go over max
+		if (health > maxHealth) {
+			health = maxHealth;
+		}
+		
 	}
 
 	/**
-	 * Displays an indicator that shows damage done to THIS MOB when attacked
+	 * Deals damage to another mob
+	 * Calculated by getStrength() +
+	 * a random number in the range
+	 * 
+	 * @param range - random offset to add to strength
+	 * @param other - the other mob to attack
+	 */
+	public void attack(int range, Mob other) {
+		other.damage(random.nextInt(range) + getStrength());
+	}
+
+	/**
+	 * Inflicts damage to this mob
+	 * Displays an indicator
 	 * 
 	 * @param damage - the damage inflicted to THIS mob
 	 */
@@ -704,9 +698,17 @@ public class Mob extends Entity implements Damageable, Hideable {
 		if (isDead()) {
 			return;
 		}
+		
+		// subtract from defense
+		damage -= getDefense();
+		if (damage <= 0) {
+			damage = 0;
+		}
 
-		doDamageToHealth(damage);
+		// hurt this mob
+		hurt(damage);
 
+		// for displaying indicators
 		damageTaken = String.valueOf(damage);
 		isHit = true;
 
@@ -714,6 +716,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 		isHitX = random.nextInt(12) - 6 + 4;
 		isHitY = random.nextInt(6) - 3;
 
+		// remove a dead mob
 		if (health <= 0) {
 			remove();
 		}
@@ -721,16 +724,18 @@ public class Mob extends Entity implements Damageable, Hideable {
 
 	/**
 	 * Decreases a mob's health 
-	 * Can be overridden for other stats
 	 * 
-	 * @param damage
-	 * the value of damage
+	 * @param damage - the value of damage
 	 */
-	protected void doDamageToHealth(int damage) {
+	protected void hurt(int damage) {
 		this.health -= damage;
 	}
 
-	// TODO change to player.speak(Mob)
+	/**
+	 * Speaks to this mob
+	 * 
+	 * @param player - the player that started speaking
+	 */
 	public void speak(Player player) {
 	}
 

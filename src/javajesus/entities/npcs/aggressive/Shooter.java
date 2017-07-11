@@ -1,9 +1,10 @@
 package javajesus.entities.npcs.aggressive;
 
+import java.awt.geom.Ellipse2D;
+
 import javajesus.SoundHandler;
 import javajesus.entities.LongRange;
 import javajesus.entities.Mob;
-import javajesus.entities.Skills;
 import javajesus.entities.monsters.Monster;
 import javajesus.entities.npcs.NPC;
 import javajesus.entities.projectiles.Bullet;
@@ -11,12 +12,10 @@ import javajesus.graphics.Screen;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
-import java.awt.geom.Ellipse2D;
-
 /*
  * A friendly NPC that shoots at a long range
  */
-public class Shooter extends NPC implements LongRange, Skills {
+public class Shooter extends NPC implements LongRange {
 
 	private static final long serialVersionUID = -4738701705942228492L;
 
@@ -40,6 +39,9 @@ public class Shooter extends NPC implements LongRange, Skills {
 
 	// the amount of ticks between attacks
 	private static final int attackDelay = 100;
+	
+	// range of damage
+	private static final int DAMAGE_RANGE = 4;
 
 	// how long the attack position is rendered in ticks
 	private static final int attackAnimationLength = 20;
@@ -101,7 +103,7 @@ public class Shooter extends NPC implements LongRange, Skills {
 		if (!cooldown && target != null && aggroRadius.intersects(target.getOuterBounds())) {
 			cooldown = true;
 			checkDirection();
-			this.attack(getStrength(), getStrength() * 2, target);
+			this.attack(DAMAGE_RANGE, target);
 		}
 
 		// change in x and y
@@ -227,10 +229,15 @@ public class Shooter extends NPC implements LongRange, Skills {
 	}
 
 	/**
-	 * Shoots a bullet at a target Uses dummy parameters to conform to Mob class
+	 * Deals damage to another mob
+	 * Calculated by getStrength() +
+	 * a random number in the range
+	 * 
+	 * @param range - random offset to add to strength
+	 * @param other - the other mob to attack
 	 */
 	@Override
-	public void attack(int fake, int fake2, Mob other) {
+	public void attack(int range, Mob other) {
 		
 		// bullet offset
 		int xOffset = 0, yOffset = 0;
@@ -250,7 +257,7 @@ public class Shooter extends NPC implements LongRange, Skills {
 
 		getLevel().add(new Bullet(getLevel(), getX() + xOffset, getY() + yOffset, 
 				target.getX() + (int)target.getBounds().getWidth() / 2, target.getY() + (int) target.getBounds().getHeight() / 2, 
-				this, getStrength(), SoundHandler.revolver));
+				this, getStrength() + random.nextInt(range), SoundHandler.revolver));
 	}
 
 	@Override
@@ -266,18 +273,6 @@ public class Shooter extends NPC implements LongRange, Skills {
 
 	@Override
 	public int getDefense() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getAccuracy() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getEvasion() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

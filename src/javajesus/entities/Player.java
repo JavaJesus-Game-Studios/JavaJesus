@@ -31,7 +31,7 @@ import javajesus.utility.Direction;
  * The Player is a mob that is directly controlled by a user
  * It interacts with the world through keyboard input
  */
-public class Player extends Mob implements Skills {
+public class Player extends Mob {
 
 	private static final long serialVersionUID = -4170571410784465465L;
 
@@ -64,12 +64,6 @@ public class Player extends Mob implements Skills {
 	@SuppressWarnings("unused")
 	private ArrayList<Quest> completedQuests = new ArrayList<Quest>();
 
-	// takes hits before using health
-	private double shield;
-
-	// the max shield
-	private int maxShield = 1;
-
 	// the spritesheet to use when the player is shooting
 	private SpriteSheet gunSheet = SpriteSheet.playerGuns;
 
@@ -84,6 +78,9 @@ public class Player extends Mob implements Skills {
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
+	
+	// damage range for swords
+	public static final int DAMAGE_RANGE = 10;
 
 	// determines if a player is moving in any direction
 	private boolean isMoving;
@@ -100,8 +97,10 @@ public class Player extends Mob implements Skills {
 	// player stats
 	private int strength, defense;
 	
+	// whether or not the player is sprinting
 	private boolean isSprinting;
 	
+	// directions the player is moving
 	private boolean movingUp, movingDown, movingLeft, movingRight;
 	
 	/**
@@ -133,11 +132,14 @@ public class Player extends Mob implements Skills {
 		if (obj instanceof Gun) {
 			equippedGun = (Gun) obj;
 			equippedSword = null;
+			strength = 0;	// damage based on gun
 		} else if (obj instanceof Sword) {
 			equippedSword = (Sword) obj;
 			equippedGun = null;
+			strength = equippedSword.getStrength();
 		} else if (obj instanceof Armor) {
 			equippedArmor = (Armor) obj;
+			defense = equippedArmor.getDefense();
 		}
 		
 	}
@@ -217,7 +219,7 @@ public class Player extends Mob implements Skills {
 
 		// update the sword
 		if (equippedSword != null) {
-			equippedSword.tick(getLevel(), getX(), getY());
+			equippedSword.tick(getLevel(), getX(), getY(), this);
 			// sdsetDirection(equippedSword.getDirection());
 		}
 		
@@ -275,11 +277,9 @@ public class Player extends Mob implements Skills {
 		// change offsets if wearing armor
 		if (equippedArmor != null) {
 			this.yTile = equippedArmor.getRow();
-			this.maxShield = equippedArmor.getShield();
 			this.gunSheet = equippedArmor.getGunSpritesheet();
 		} else {
 			this.yTile = 0;
-			this.maxShield = 1;
 			this.gunSheet = SpriteSheet.playerGuns;
 		}
 
@@ -316,16 +316,11 @@ public class Player extends Mob implements Skills {
 		if (!isMoving && stamina < maxStamina && !isShooting && !isSwinging) {
 			stamina += 0.5;
 		}
-		// regenerate shield when not moving
-		if (!isMoving && shield < maxShield && !isShooting && !isSwinging) {
-			shield += (0.0005 * maxShield);
-		}
+
 		// regenerate stats very slowing if moving (but not sprinting)
 		if (isMoving && !isSprinting) {
 			if (stamina < maxStamina)
 				stamina += 0.1;
-			if (shield < maxShield)
-				shield += (0.00001 * maxShield);
 		}
 
 		// move the player
@@ -574,34 +569,6 @@ public class Player extends Mob implements Skills {
 	}
 
 	/**
-	 * Player uses shield and has defense unlike other mobs
-	 * 
-	 * @param damage
-	 *            the value of damage
-	 * 
-	 *            TODO set shader to 16711680 when health < 20
-	 */
-	@Override
-	protected void doDamageToHealth(int damage) {
-
-		// use shield to absorb damage
-		while (shield > 0 && damage > 0) {
-			shield--;
-			damage--;
-		}
-		if (shield < 0) {
-			shield = 0;
-		}
-		damage -= getDefense();
-		if (damage <= 0) {
-			damage = 0;
-		}
-
-		super.doDamageToHealth(damage);
-
-	}
-
-	/**
 	 * Give developers special perks that make them invincible
 	 */
 	public void grantDevPowers() {
@@ -610,9 +577,7 @@ public class Player extends Mob implements Skills {
 		this.stamina = maxStamina;
 		this.defense = 10;
 		setMaxHealth(Integer.MAX_VALUE);
-		heal();
-		this.maxShield = 1000;
-		this.shield = maxShield;
+		heal(Integer.MAX_VALUE);
 		inventory.add(Item.blackHoleGun);
 		inventory.add(Item.bazooka);
 	}
@@ -631,27 +596,20 @@ public class Player extends Mob implements Skills {
 		return color;
 	}
 
+	/**
+	 * @return strength of the player
+	 */
 	@Override
 	public int getStrength() {
 		return strength;
 	}
 
+	/**
+	 * @return defense of the player
+	 */
 	@Override
 	public int getDefense() {
-		// TODO armor defense (will be static)
 		return defense;
-	}
-
-	@Override
-	public int getAccuracy() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getEvasion() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	/**
@@ -691,20 +649,6 @@ public class Player extends Mob implements Skills {
 	}
 
 	/**
-	 * @return the current shield
-	 */
-	public double getCurrentShield() {
-		return shield;
-	}
-
-	/**
-	 * @return the max shield
-	 */
-	public double getMaxShield() {
-		return maxShield;
-	}
-
-	/**
 	 * @return The player's active quest
 	 */
 	public ArrayList<Quest> getActiveQuests() {
@@ -716,13 +660,6 @@ public class Player extends Mob implements Skills {
 	 */
 	public ArrayList<Quest> getCompletedQuests() {
 		return this.getCompletedQuests();
-	}
-
-	/**
-	 * Replenishes the health to full
-	 */
-	public void heal() {
-		super.heal();
 	}
 
 	/**
@@ -820,10 +757,10 @@ public class Player extends Mob implements Skills {
 				if (isSprinting && stamina > 20) {
 					stamina -= 20;
 					equippedSword.swing(getLevel(), getX(), getY(),
-							getDirection(), true);
+							getDirection(), true, this);
 				} else {
 					equippedSword.swing(getLevel(), getX(), getY(),
-							getDirection(), false);
+							getDirection(), false, this);
 				}
 			}
 		}
@@ -907,8 +844,7 @@ public class Player extends Mob implements Skills {
 					if (getOuterBounds().intersects(other.getOuterBounds())
 							&& !other.isDead()) {
 
-						// TODO change from mob.speak to this.speak(other
-						// mob)
+						// talk to that mob
 						other.speak(this);
 						break;
 					}

@@ -10,7 +10,6 @@ import javajesus.entities.LongRange;
 import javajesus.entities.Mob;
 import javajesus.entities.Pickup;
 import javajesus.entities.Player;
-import javajesus.entities.Skills;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
 import javajesus.graphics.SpriteSheet;
@@ -22,7 +21,7 @@ import javajesus.utility.GameMode;
 /*
  * A Monster is a mob that attacks NPCs and the player
  */
-public class Monster extends Mob implements Skills {
+public class Monster extends Mob {
 
 	private static final long serialVersionUID = 4156279188503056448L;
 
@@ -34,6 +33,9 @@ public class Monster extends Mob implements Skills {
 
 	// the global attack range radius, 32 (number of units) * 8 (units) = 256
 	protected static final int RADIUS = 256;
+	
+	// range of damage
+	private static final int DAMAGE_RANGE = 5;
 
 	// cooldown from attacks
 	protected boolean cooldown = true;
@@ -137,7 +139,7 @@ public class Monster extends Mob implements Skills {
 								(((LongRange) this).getRange().intersects(target.getOuterBounds()))))) {
 			cooldown = true;
 			checkDirection();
-			this.attack(getStrength(), getStrength() * 2, target);
+			this.attack(DAMAGE_RANGE, target);
 		}
 
 		// change in x and y
@@ -315,18 +317,6 @@ public class Monster extends Mob implements Skills {
 
 	@Override
 	public int getDefense() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getAccuracy() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getEvasion() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

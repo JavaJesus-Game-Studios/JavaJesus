@@ -133,8 +133,11 @@ public abstract class Entity implements Serializable {
 	 */
 	public abstract void render(final Screen screen);
 	
+	/**
+	 * @return Entity information as a string
+	 */
 	public String toString() {
-		return "Location: (" + getX() + ", " + getY() +")";
+		return "Point: (" + getX() + ", " + getY() +")";
 	}
 	
 	/**
