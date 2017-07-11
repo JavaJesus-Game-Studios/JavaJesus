@@ -174,11 +174,6 @@ public class Player extends Mob implements Skills {
 
 		getLevel().remove(this);
 
-		// TODO temporary fix
-		if (isOnFire()) {
-			setOnFire(false);
-		}
-
 		// clears all the dead mobs on the last level
 		getLevel().clear();
 

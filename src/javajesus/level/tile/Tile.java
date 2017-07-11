@@ -253,6 +253,18 @@ public abstract class Tile {
 		}
 	}
 
+	/**
+	 * Rounds a number to be divisible by
+	 * the tile size
+	 * 
+	 * @param num - the number to become evenly divisible
+	 * @return evenly divisible num by tile size
+	 */
+	public static final int snapToCorner(int num) {
+		return num - (num % Tile.SIZE);
+		
+	}
+
 	public abstract void tick();
 
 	public abstract void render(Screen screen, Level level, int x, int y);

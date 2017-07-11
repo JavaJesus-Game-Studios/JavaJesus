@@ -3,6 +3,7 @@ package javajesus.level;
 import java.awt.Point;
 
 import javajesus.entities.Entity;
+import javajesus.entities.FireEntity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
 import javajesus.entities.structures.ApartmentHighRise;
@@ -113,6 +114,9 @@ public class LevelTester extends Level {
 		int x = 50;
 		
 		Entity[] entities = {
+				
+				// fire
+		new FireEntity(this, 320, 100), 
 		
 		/* First Row of buildings */
 		b = new ApartmentHighRise(this, x, 0),

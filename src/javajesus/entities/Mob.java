@@ -25,9 +25,6 @@ public class Mob extends Entity implements Damageable, Hideable {
 	// the base speed of the mob
 	private double speed;
 
-	// extra movement remainder TODO
-	//private double speedRemainder;
-
 	// flip value
 	protected int numSteps;
 
@@ -102,6 +99,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	protected int[] isHitColor = { 0xFF000000, 0xFF000000, 0xFFFF0000 };
 
 	protected int tickCount = 0;
+	private int fireTickCount = 0;
 
 	// an action script a mob might follow
 	private Script script;
@@ -142,8 +140,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * Increases or decreases the mob's health
 	 * 
-	 * @param dh
-	 * the change in health
+	 * @param dh - the change in health
 	 */
 	public void changeHealth(int dh) {
 		this.health += dh;
@@ -165,16 +162,13 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * Moves a mob on the level
 	 * 
-	 * @param dx the total change in x
-	 * @param dy the total change in y
+	 * @param dx  - the total change in x
+	 * @param dy - the total change in y
 	 */
 	public void move(int dx, int dy) {
 
 		// move animation proportional to speed
 		numSteps++;
-
-		// TODO remaining movement after integer movement
-		// speedRemainder += speed - (int) speed;
 
 		// sign of movement along x axis
 		int sign = 0;
@@ -297,10 +291,8 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * Determines if the change in x or y results in a solid collision
 	 * 
-	 * @param dx
-	 * the change in x
-	 * @param dy
-	 * the change in y
+	 * @param dx - the change in x
+	 * @param dy - the change in y
 	 * @return true if the change in coordinates results in a solid tile
 	 * collision
 	 */
@@ -351,14 +343,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * Checks if the position is a solid tile
 	 * 
-	 * @param dx
-	 * the new x
-	 * @param dy
-	 * the new y
-	 * @param x
-	 * the x offset
-	 * @param y
-	 * the y offset
+	 * @param dx - the new x
+	 * @param dy - the new y
+	 * @param x - the x offset
+	 * @param y - the y offset
 	 * @return true if the new tile is solid
 	 */
 	protected boolean isSolidTile(int dx, int dy, int x, int y) {
@@ -382,14 +370,10 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * Checks if the position is a water tile
 	 * 
-	 * @param dx
-	 * the new x
-	 * @param dy
-	 * the new y
-	 * @param x
-	 * the x offset
-	 * @param y
-	 * the y offset
+	 * @param dx - the new x
+	 * @param dy - the new y
+	 * @param x - the x offset
+	 * @param y - the y offset
 	 * @return true if the new tile is water
 	 */
 	protected boolean isWaterTile(int dx, int dy, int x, int y) {
@@ -455,10 +439,8 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * Checks if a mob will collide with another mob at the new location
 	 * 
-	 * @param dx
-	 * the change in x
-	 * @param dy
-	 * the change in y
+	 * @param dx - the change in x
+	 * @param dy - the change in y
 	 * @return true if a mob is already occupying that space
 	 */
 	public boolean isMobCollision(int dx, int dy) {
@@ -547,9 +529,21 @@ public class Mob extends Entity implements Damageable, Hideable {
 		// checks if the mob is on water
 		isSwimming = getLevel().getTile((getX() + UNIT_SIZE) >> 3,
 				(getY() + getBounds().height) >> 3).equals(Tile.WATER);
+		
+		// take damage for being on fire
+		if (onFire) {
+			
+			this.damage(1);
+			
+			if(++fireTickCount > secondsToTicks(4) ) {
+				fireTickCount = 0;
+				onFire = false;
+			}
+			
+		}
 
-		if (isSwimming && isOnFire()) {
-			setOnFire(false);
+		if (onFire && isSwimming) {
+			onFire = false;
 		}
 
 		// automate movement with a script
@@ -627,14 +621,15 @@ public class Mob extends Entity implements Damageable, Hideable {
 		}
 
 		// Handles fire animation
-		if (isOnFire()) {
+		if (onFire) {
 
 			int[] firecolor = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
 
-			screen.render(xOffset, yOffset,
-					FireEntity.xTile + 15 * sheet.getTilesPerRow(), firecolor,
+			FireEntity.update();
+			screen.render(xOffset + 3, yOffset + 4,
+					FireEntity.xTile + FireEntity.yTile * sheet.getTilesPerRow(), firecolor,
 					false, 2, SpriteSheet.tiles);
-
+			
 		}
 
 		// displays text overhead
@@ -679,16 +674,20 @@ public class Mob extends Entity implements Damageable, Hideable {
 		// renders the mob in the background
 		isBehindBuilding = true;
 	}
+	
+	/**
+	 * Sets a mob on fire
+	 */
+	public void ignite() {
+		onFire = true;
+	}
 
 	/**
 	 * Deals damage to another mob
 	 * 
-	 * @param min
-	 * the minimum damage dealt
-	 * @param max
-	 * the maximum damage dealt
-	 * @param other
-	 * the other mob to attack
+	 * @param min - the minimum damage dealt
+	 * @param max - the maximum damage dealt
+	 * @param other - the other mob to attack
 	 */
 	public void attack(int min, int max, Mob other) {
 		other.damage(random.nextInt(max - min + 1) + min);
@@ -697,8 +696,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * Displays an indicator that shows damage done to THIS MOB when attacked
 	 * 
-	 * @param damage
-	 * the damage inflicted to THIS mob
+	 * @param damage - the damage inflicted to THIS mob
 	 */
 	public void damage(int damage) {
 
@@ -713,7 +711,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 		isHit = true;
 
 		// random offsets for damage indicators
-		isHitX = random.nextInt(10) - 5;
+		isHitX = random.nextInt(12) - 6 + 4;
 		isHitY = random.nextInt(6) - 3;
 
 		if (health <= 0) {
@@ -722,7 +720,8 @@ public class Mob extends Entity implements Damageable, Hideable {
 	}
 
 	/**
-	 * Decreases a mob's health Can be overridden for other stats
+	 * Decreases a mob's health 
+	 * Can be overridden for other stats
 	 * 
 	 * @param damage
 	 * the value of damage
@@ -761,8 +760,7 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * Changes the direction of the mob
 	 * 
-	 * @param dir
-	 * the direction the mob should face
+	 * @param dir - the direction the mob should face
 	 */
 	public void setDirection(Direction dir) {
 		this.movingDir = dir;
@@ -778,10 +776,8 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * Changes the outer bounds range
 	 * 
-	 * @param width
-	 * width of the mob
-	 * @param height
-	 * height of the mob
+	 * @param width - width of the mob
+	 * @param height - height of the mob
 	 */
 	protected void setOuterBounds(int width, int height) {
 		outerBounds = new Rectangle(getX() - OUTER_BOUNDS_RANGE, getY()
@@ -792,10 +788,8 @@ public class Mob extends Entity implements Damageable, Hideable {
 	/**
 	 * Updates the location of the outer range
 	 * 
-	 * @param dx
-	 * the change in x
-	 * @param dy
-	 * the change in y
+	 * @param dx - the change in x
+	 * @param dy - the change in y
 	 */
 	protected void moveOuterBounds(int dx, int dy) {
 		outerBounds.setLocation((int) outerBounds.getX() + dx,
@@ -806,10 +800,8 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 * Moves the mob to the specified x and y coord Also updates the bounds and
 	 * outer bounds
 	 * 
-	 * @param x
-	 * the x coord
-	 * @param y
-	 * the y coord
+	 * @param x - the x coord
+	 * @param y - the y coord
 	 */
 	protected void moveTo(int x, int y) {
 		super.moveTo(x, y);
@@ -834,23 +826,6 @@ public class Mob extends Entity implements Damageable, Hideable {
 	 */
 	public void setTargeted(boolean isTargeted) {
 		this.isTargeted = isTargeted;
-	}
-
-	/**
-	 * @return true if the mob is on fire
-	 */
-	public boolean isOnFire() {
-		return onFire;
-	}
-
-	/**
-	 * Toggles whether the mob is on fire
-	 * 
-	 * @param onFire
-	 * value of on fire or not
-	 */
-	public void setOnFire(boolean onFire) {
-		this.onFire = onFire;
 	}
 
 	/**
@@ -910,6 +885,13 @@ public class Mob extends Entity implements Damageable, Hideable {
 		bar = new HealthBar(getLevel(), getX(), getY()
 				+ (int) getBounds().getHeight() + 2, this);
 		getLevel().add(bar);
+	}
+	
+	/**
+	 * @return the tile the mob is on
+	 */
+	public Tile getTile() {
+		return getLevel().getTileFromEntityCoords(getX(), getY());
 	}
 
 	/**
