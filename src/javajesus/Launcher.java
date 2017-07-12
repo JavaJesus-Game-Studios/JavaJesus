@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
@@ -25,7 +26,10 @@ import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.level.LevelTester;
 import javajesus.level.RandomLevel;
+import javajesus.level.RoadLevel;
+import javajesus.level.SandboxIslandLevel;
 import javajesus.level.SandboxOriginalLevel;
+import javajesus.level.story.LordHillsboroughsDomain;
 import javajesus.save.GameData;
 import javajesus.save.SaveFile;
 import javajesus.utility.Direction;
@@ -43,10 +47,10 @@ public class Launcher extends Canvas implements IGameLogic {
 	private static final long serialVersionUID = 1L;
 
 	// Version of the game
-	private final String VERSION = "Alpha 0.8.2";
+	private final String VERSION = "Alpha 0.8.3";
 
 	// Last known update
-	private final String LAST_UPDATED = "Last Updated 7/6/2017";
+	private final String LAST_UPDATED = "Last Updated 7/12/2017";
 	
 	// launcher font
 	private static final Font LAUNCHER_FONT = new Font(JavaJesus.FONT_NAME, 0, 15);
@@ -89,11 +93,11 @@ public class Launcher extends Canvas implements IGameLogic {
 	private int mouseX, mouseY, mouseButton;
 	
 	// IDs of the page screens
-	private static final int MAINMENU = 0, SANDBOXMENU = 1, OPTIONSMENU = 2, STORYMENU = 3, AUDIOMENU = 4, FIXEDMENU = 5, RANDOMMENU = 6;
+	private static final int MAINMENU = 0, SANDBOXMENU = 1, OPTIONSMENU = 2, STORYMENU = 3, AUDIOMENU = 4, FIXEDMENU = 5, RANDOMMENU = 6, FIXEDPLAYERMENU = 7;
 
 	// Ids of the buttons
 	private static final int STORY = 0, SANDBOX = 1, OPTIONS = 2, HELP = 3, QUIT = 4, FIXED = 5, RANDOM = 6,
-			BACK = 7, AUDIO = 8, VIDEO = 9, CONTROLS = 10, MUTE = 13, SLOT = 14, DELETE_1 = 15, DELETE_2 = 16, DELETE_3 = 17;
+			BACK = 7, AUDIO = 8, VIDEO = 9, CONTROLS = 10, MUTE = 13, SLOT = 14, DELETE_1 = 15, DELETE_2 = 16, DELETE_3 = 17, FIXED_SELECTED = 18;
 
 	// Buttons on the launcher
 	private LauncherButton story, sandbox, options, credits, fixed, random, audio, video, controls, mute,
@@ -101,6 +105,9 @@ public class Launcher extends Canvas implements IGameLogic {
 	
 	// Slot buttons on the launcher
 	private SlotButton slot_1, slot_2, slot_3;
+	
+	// sandbox level selector
+	private SandboxPanel sandboxPanel;
 
 	// buffered images that are displayed on the screen
 	private BufferedImage background, sword_selector;
@@ -226,6 +233,8 @@ public class Launcher extends Canvas implements IGameLogic {
 		mute = new LauncherButton(450, MUTE, mute_off, mute_on);
 		back = new LauncherButton(650, BACK, back_off, back_on);
 		quit = new LauncherButton(650, QUIT, quit_off, quit_on);
+		
+		sandboxPanel = new SandboxPanel(400);
 
 	}
 	
@@ -300,6 +309,9 @@ public class Launcher extends Canvas implements IGameLogic {
 
 		}
 		case FIXEDMENU:
+			sandboxPanel.draw(g);
+			break;
+		case FIXEDPLAYERMENU:
 		case RANDOMMENU:
 		case STORYMENU:
 			slot_1.draw(g);
@@ -366,6 +378,10 @@ public class Launcher extends Canvas implements IGameLogic {
 			this.pageId = FIXEDMENU;
 			return;
 		}
+		case FIXED_SELECTED: {
+			this.pageId = FIXEDPLAYERMENU;
+			return;
+		}
 		case RANDOM: {
 			
 			this.pageId = RANDOMMENU;
@@ -400,7 +416,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			
 			// Game Mode based on which screen
 			GameMode mode = GameMode.ADVENTURE;
-			if (pageId == FIXEDMENU) {
+			if (pageId == FIXEDPLAYERMENU) {
 				mode = GameMode.FIXED;
 			} else if (pageId == RANDOMMENU) {
 				mode = GameMode.RANDOM;
@@ -499,17 +515,14 @@ public class Launcher extends Canvas implements IGameLogic {
 	 * @return - the level
 	 */
 	private Level getLevel(GameMode mode) {
-		
 		switch (mode) {
 		case RANDOM:
 			return Launcher.level;
 		case FIXED:
-			//return new SandboxIslandLevel();
-			return new SandboxOriginalLevel();
+			return sandboxPanel.getLevel();
 		default:
-			//Level.createStoryLevels();
-			//return LordHillsboroughsDomain.level;
-			return LevelTester.level;
+			Level.createStoryLevels();
+			return LordHillsboroughsDomain.level;
 		}
 		
 	}
@@ -755,6 +768,219 @@ public class Launcher extends Canvas implements IGameLogic {
 			// draw the text
 			g.drawString(text, x, y + fm.getHeight());
 		}
+	}
+	
+	/*
+	 * Draws the sandbox level selector
+	 */
+	private class SandboxPanel implements Drawable {
+		
+		// level paths
+		private static final String originalPath = "/Levels/Sandbox/original.png", 
+				islandPath = "/Levels/Sandbox/island.png",
+				tileTesterPath = "/Levels/Testers/tile_tester.png",
+				roadTesterPath = "/Levels/Testers/road_tester.png";
+		
+		// dimensions of the panel
+		private static final int width = 200, height = 200;
+		
+		// possible levels
+		private BufferedImage original, island, tileTester, roadTester;
+		
+		// current displayed level
+		private int selected;
+		
+		// list of level displays
+		private static final int ORIGINAL = 0, ISLAND = 1, TILE_TESTER = 2, ROAD_TESTER = 3;
+		
+		// coordinates
+		private int x, y;
+		
+		// click cooldown
+		private boolean cooldown;
+		
+		// font used to render the text
+		private final Font font = new Font(JavaJesus.FONT_NAME, 0, 30);
+
+		// Text to render
+		private String name;
+		
+		// back and next arrows
+		private final String back = "<", next = ">";
+		
+		/**
+		 * SandboxPanel ctor()
+		 * Loads level files and displays them in a window
+		 * 
+		 * @throws IOException
+		 */
+		private SandboxPanel(int yPos) throws IOException {
+			
+			// instance data
+			this.x = JavaJesus.WINDOW_WIDTH / 2 - width / 2;
+			this.y = yPos;
+			
+			// load the files
+			original = ImageIO.read(Level.class.getResource(originalPath));
+			island = ImageIO.read(Level.class.getResource(islandPath));
+			tileTester = ImageIO.read(Level.class.getResource(tileTesterPath));
+			roadTester = ImageIO.read(Level.class.getResource(roadTesterPath));
+			
+			// sets the name
+			update();
+			
+		}
+
+		/**
+		 * @return The level that was selected
+		 */
+		public Level getLevel() {
+
+			// get the right level
+			switch (selected) {
+			case ORIGINAL:
+				return new SandboxOriginalLevel();
+			case ISLAND:
+				return new SandboxIslandLevel();
+			case TILE_TESTER:
+				return LevelTester.level;
+			case ROAD_TESTER:
+				return new RoadLevel();
+			}
+
+			return null;
+		}
+		
+		/**
+		 * Loops the levels around
+		 */
+		private void update() {
+			
+			// loop around
+			if (selected < 0) {
+				selected = 3;
+			}
+			
+			// loop around
+			if (selected > 3) {
+				selected = 0;
+			}
+			
+			// get the right name
+			switch (selected) {
+			case ORIGINAL:
+				name = "Original";
+				break;
+			case ISLAND:
+				name = "Island";
+				break;
+			case TILE_TESTER:
+				name = "Tile Tester";
+				break;
+			case ROAD_TESTER:
+				name = "Road Tester";
+				break;
+			}
+			
+		}
+
+		/**
+		 * Draws the image to the screen
+		 */
+		@Override
+		public void draw(Graphics g) {
+			
+			// reset the cooldown
+			if (cooldown) {
+				cooldown = mouseButton == 1;
+			}
+			
+			// center the image
+			x = JavaJesus.WINDOW_WIDTH / 2 - width / 2;
+
+			// draw the selected level
+			switch (selected) {
+			case ORIGINAL:
+				g.drawImage(original, x, y, width, height, null);
+				break;
+			case ISLAND:
+				g.drawImage(island, x, y, width, height, null);
+				break;
+			case TILE_TESTER:
+				g.drawImage(tileTester, x, y, width, height, null);
+				break;
+			case ROAD_TESTER:
+				g.drawImage(roadTester, x, y, width, height, null);
+				break;
+			}
+			
+			// mouse inside bounds
+			if (mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height) {
+
+				// mouse clicked
+				if (!cooldown && mouseButton == 1) {
+					cooldown = true;
+					SoundHandler.play(SoundHandler.click);
+					selectedButton = this;
+					isClicked = true;
+					return;
+				}
+			}
+			
+			// set the font
+			g.setFont(font);
+			FontMetrics fm = g.getFontMetrics();
+			
+			// draw selector arrows
+			g.setColor(Color.WHITE);
+			g.drawString(back, x - fm.stringWidth(back) + 3, y + height / 2 + fm.getHeight());
+			g.drawString(next, x + width, y + height / 2 + fm.getHeight());
+			
+			// mouse inside back
+			if (mouseX > x - fm.stringWidth(back) + 3 && mouseX < x && mouseY > y + height / 2
+			        && mouseY < y + height / 2 + fm.getHeight()) {
+
+				// mouse clicked
+				if (!cooldown && mouseButton == 1) {
+					cooldown = true;
+					SoundHandler.play(SoundHandler.click);
+					selected--;
+					update();
+					return;
+				}
+			}
+			
+			// mouse inside next
+			if (mouseX > x + width && mouseX < x + width + fm.stringWidth(next) && mouseY > y + height / 2
+			        && mouseY < y + height / 2 + fm.getHeight()) {
+
+				// mouse clicked
+				if (!cooldown && mouseButton == 1) {
+					cooldown = true;
+					SoundHandler.play(SoundHandler.click);
+					selected++;
+					update();
+					return;
+				}
+			}
+
+			// center the text
+			x = JavaJesus.WINDOW_WIDTH / 2 - fm.stringWidth(name) / 2;
+			
+			// draw the text
+			g.setColor(Color.BLACK);
+			g.drawString(name, x, y + height + fm.getHeight() + 5);
+
+		}
+
+		/**
+		 * ID returned when clicked
+		 */
+		@Override
+		public int getActionId() {
+			return FIXED_SELECTED;
+		}
+		
 	}
 	
 	/**
