@@ -290,6 +290,15 @@ public class Sword extends Item {
 		}
 
 	}
+	
+	/**
+	 * Renders collision box to the screen
+	 * 
+	 * @param screen - screen to render to
+	 */
+	public void renderBounds(Screen screen) {
+		screen.renderCollisionBox(bounds);
+	}
 
 	/**
 	 * Damages mobs in the bounds

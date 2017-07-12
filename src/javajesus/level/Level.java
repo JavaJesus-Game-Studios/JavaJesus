@@ -68,7 +68,8 @@ public abstract class Level implements Serializable {
 	private String name;
 
 	// the range of how many entities to render/tick on the screen
-	public static final Rectangle renderRange = new Rectangle(500, 500);
+	// TODO IMAGE_WIDTH, IMAGE_HEIGHT in the future after changing buildings
+	public static final Rectangle renderRange = new Rectangle(JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT);
 
 	// names for each main city
 	public static final String BAUTISTA = "Bautista's Domain", EDGE_MAIN = "Edge of the Woods",
@@ -322,7 +323,7 @@ public abstract class Level implements Serializable {
 	public void renderEntities(Screen screen, Player player) {
 
 		// the range around the player to display the entities
-		renderRange.setLocation(player.getX() - 250, player.getY() - 250);
+		renderRange.setLocation(player.getX() - JavaJesus.WINDOW_WIDTH / 2, player.getY() - JavaJesus.WINDOW_HEIGHT / 2);
 
 		// render everything that is behind a building first
 		for (Hideable entity : hideables) {
@@ -356,6 +357,7 @@ public abstract class Level implements Serializable {
 	 * @param screen - screen to render pixels
 	 */
 	public void renderCollisionBoxes(Screen screen) {
+		
 		for (Entity e: this.getEntities()) {
 			screen.renderCollisionBox(e.getBounds());
 		}

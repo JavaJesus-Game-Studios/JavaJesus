@@ -32,7 +32,7 @@ public class Transporter extends Entity {
 		super(currentLevel, x, y);
 
 		this.nextLevel = nextLevel;
-		this.setBounds(getX(), getY(), 8, 16);
+		this.setBounds(getX(), getY(), 12, 16);
 	}
 
 	/**

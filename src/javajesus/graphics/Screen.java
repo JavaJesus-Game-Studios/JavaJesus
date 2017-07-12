@@ -272,27 +272,47 @@ public class Screen {
 		// shifts the position of the screen by the global offset
 		int xOffset = (int) r.getX() - this.xOffset;
 		int yOffset = (int) r.getY() - this.yOffset;
+		
+		// bounds of the rectangle
+		int width = (int) r.getWidth();
+		int height = (int) r.getHeight();
 
-		// left to right
-		for (int i = 0; i < r.getWidth(); i++) {
-			
-			// top to bottom
-			for (int j = 0; j < r.getHeight(); j++) {
-
-				// pixel in screen class
-				int pixel = (i + xOffset) + (j + yOffset) * width;
-				
-				// render a pixel only if in bounds
-				if (pixel >= 0 && pixel < pixels.length) {
-
-					// render only if an outline
-					if (i == 0 || j == 0 || i == r.getWidth() - 1 || j == r.getHeight() - 1) {
-						pixels[(i + xOffset) + (j + yOffset) * width] = 0xFF000000;
-					}
+		// left line
+		if (xOffset >= 0 && xOffset < this.width) {
+			for (int i = 0; i < height; i++) {
+				if (i + yOffset >= 0 && i + yOffset < this.height) {
+					pixels[xOffset + (i + yOffset) * this.width] = 0xFF000000;
 				}
-
 			}
 		}
+		
+		// right line
+		if (xOffset + width - 1 >= 0 && xOffset + width - 1 < this.width) {
+			for (int i = 0; i < height; i++) {
+				if (i + yOffset >= 0 && i + yOffset < this.height) {
+					pixels[(xOffset + width - 1) + (i + yOffset) * this.width] = 0xFF000000;
+				}
+			}
+		}
+		
+		// top line
+		if (yOffset >= 0 && yOffset < this.height) {
+			for (int i = 0; i < width; i++) {
+				if (i + xOffset >= 0 && i + xOffset < this.width) {
+					pixels[(i + xOffset) + yOffset * this.width] = 0xFF000000;
+				}
+			}
+		}
+		
+		// bottom line
+		if (yOffset + height - 1 >= 0 && yOffset + height - 1 < this.height) {
+			for (int i = 0; i < width; i++) {
+				if (i + xOffset >= 0 && i + xOffset < this.width) {
+					pixels[(i + xOffset) + (yOffset + height - 1) * this.width] = 0xFF000000;
+				}
+			}
+		}
+		
 	}
 
 	/**

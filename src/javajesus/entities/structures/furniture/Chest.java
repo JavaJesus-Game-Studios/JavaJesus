@@ -41,12 +41,9 @@ public class Chest extends Entity implements SolidEntity {
 	/**
 	 * Creates an empty chest
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
 	 */
 	public Chest(Level level, int x, int y) {
 		this(level, x, y, new Item[] {});
@@ -56,64 +53,50 @@ public class Chest extends Entity implements SolidEntity {
 	/**
 	 * Creates a chest filled with certain items
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param items
-	 *            the items it contains
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param items - the items it contains
 	 */
 	public Chest(Level level, int x, int y, Item... items) {
 		super(level, x, y);
 
 		this.contents = items;
-		setBounds(getX() + 4, getY(), SIZE - 6, SIZE - 5);
+		setBounds(getX(), getY(), SIZE + 2, SIZE);
 	}
 
 	/**
 	 * Creates a chest filled with certain items
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param items
-	 *            the items it contains
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param items - the items it contains
 	 */
 	public Chest(Level level, int x, int y, List<Item> items) {
 		super(level, x, y);
 
 		contents = new Item[items.size()];
-
 		for (int i = 0; i < items.size(); i++)
 			contents[i] = items.get(i);
 
-		setBounds(getX() + 4, getY(), SIZE - 6, SIZE - 5);
+		setBounds(getX(), getY(), SIZE + 2, SIZE);
 	}
 
 	/**
 	 * Creates a chest with random items
 	 * 
-	 * @param level
-	 *            level it is on
-	 * @param x
-	 *            x coord
-	 * @param y
-	 *            y cord
-	 * @param type
-	 *            the type of item it should have
-	 * @param amt
-	 *            the amount of items it should have
+	 * @param level - level it is on
+	 * @param x - x coord
+	 * @param y - y cord
+	 * @param type - the type of item it should have
+	 * @param amt - the amount of items it should have
 	 */
 	public Chest(Level level, int x, int y, String type, int amt) {
 		super(level, x, y);
 		contents = new Item[amt];
 		fillRandomItems(type, amt, 0);
-		setBounds(getX(), getY(), SIZE, SIZE);
+		setBounds(getX(), getY(), SIZE + 2, SIZE);
 	}
 
 	/**

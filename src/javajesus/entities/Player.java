@@ -507,6 +507,17 @@ public class Player extends Mob {
 		}
 
 	}
+	
+	/**
+	 * Renders sword collision bounds to screen
+	 * 
+	 * @param screen - screen to render to
+	 */
+	public void renderSwordCollision(Screen screen) {
+		if (isSwinging) {
+			equippedSword.renderBounds(screen);
+		}
+	}
 
 	/**
 	 * Makes a player exit vehicle

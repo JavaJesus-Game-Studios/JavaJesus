@@ -296,6 +296,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		// render collision boxes
 		if (doDevOverlay) {
 			player.getLevel().renderCollisionBoxes(screen);
+			player.renderSwordCollision(screen);
 		}
 
 		// set the pixels of the image in memory from the screen class
