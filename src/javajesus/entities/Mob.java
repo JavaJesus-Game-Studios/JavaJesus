@@ -285,7 +285,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 		int xMin = 4;
 
 		// the right bound of the mob
-		int xMax = getBounds().width - 6;
+		int xMax = getBounds().width - 5;
 
 		// the top bound of the mob
 		int yMin = getBounds().height / 2;
@@ -300,9 +300,8 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 		}
 
 		// check for solid entity collisions
-		Rectangle temp = new Rectangle((int) getBounds().getX() + dx,
-				(int) getBounds().getY() + dy, (int) getBounds().getWidth(),
-				(int) getBounds().getHeight());
+		Rectangle temp = new Rectangle((int) getBounds().getX() + xMin + dx, (int) getBounds().getY() + yMin + dy,
+		        xMax - xMin, yMax - yMin);
 
 		// loop through all entities
 		for (Entity entity : getLevel().getEntities()) {
@@ -674,8 +673,8 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 		} else {
 			health += num;
 			
-			// cant go over max
-			if (health > maxHealth) {
+			// cant go over max and check for overflow
+			if (health > maxHealth || health < -1000) {
 				health = maxHealth;
 			}
 		}

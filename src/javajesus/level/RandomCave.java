@@ -10,9 +10,9 @@ import javajesus.SoundHandler;
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
-import javajesus.entities.structures.furniture.Chest;
-import javajesus.entities.structures.transporters.MapTransporter;
-import javajesus.entities.structures.transporters.TransporterLadder;
+import javajesus.entities.solid.furniture.Chest;
+import javajesus.entities.transporters.MapTransporter;
+import javajesus.entities.transporters.TransporterLadder;
 import javajesus.items.Item;
 import javajesus.level.generation.CaveGeneration;
 

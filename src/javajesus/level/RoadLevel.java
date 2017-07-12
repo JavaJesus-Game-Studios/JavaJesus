@@ -5,8 +5,8 @@ import java.awt.Point;
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
-import javajesus.entities.structures.furniture.Chest;
-import javajesus.entities.structures.transporters.MapTransporter;
+import javajesus.entities.solid.furniture.Chest;
+import javajesus.entities.transporters.MapTransporter;
 
 public class RoadLevel extends Level {
 

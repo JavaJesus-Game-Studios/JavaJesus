@@ -2,7 +2,7 @@ package javajesus.level.interior;
 
 import java.awt.Point;
 
-import javajesus.entities.structures.transporters.MapTransporter;
+import javajesus.entities.transporters.MapTransporter;
 import javajesus.level.Level;
 
 public abstract class Interior extends Level {

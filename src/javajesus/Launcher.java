@@ -25,7 +25,7 @@ import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.level.LevelTester;
 import javajesus.level.RandomLevel;
-import javajesus.level.SandboxFixedLevel;
+import javajesus.level.SandboxOriginalLevel;
 import javajesus.save.GameData;
 import javajesus.save.SaveFile;
 import javajesus.utility.Direction;
@@ -504,7 +504,8 @@ public class Launcher extends Canvas implements IGameLogic {
 		case RANDOM:
 			return Launcher.level;
 		case FIXED:
-			return new SandboxFixedLevel();
+			//return new SandboxIslandLevel();
+			return new SandboxOriginalLevel();
 		default:
 			//Level.createStoryLevels();
 			//return LordHillsboroughsDomain.level;

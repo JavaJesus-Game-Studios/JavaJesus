@@ -5,17 +5,17 @@ import java.awt.Point;
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
-import javajesus.entities.structures.furniture.Bed;
-import javajesus.entities.structures.furniture.ChairFront;
-import javajesus.entities.structures.furniture.ChairSide;
-import javajesus.entities.structures.furniture.Chest;
-import javajesus.entities.structures.furniture.FilingCabinet;
-import javajesus.entities.structures.furniture.LongTable;
-import javajesus.entities.structures.furniture.Nightstand;
-import javajesus.entities.structures.furniture.Sofa;
-import javajesus.entities.structures.furniture.SquareTable;
-import javajesus.entities.structures.furniture.Television;
-import javajesus.entities.structures.transporters.TransporterInterior;
+import javajesus.entities.solid.furniture.Bed;
+import javajesus.entities.solid.furniture.ChairFront;
+import javajesus.entities.solid.furniture.ChairSide;
+import javajesus.entities.solid.furniture.Chest;
+import javajesus.entities.solid.furniture.FilingCabinet;
+import javajesus.entities.solid.furniture.LongTable;
+import javajesus.entities.solid.furniture.Nightstand;
+import javajesus.entities.solid.furniture.Sofa;
+import javajesus.entities.solid.furniture.SquareTable;
+import javajesus.entities.solid.furniture.Television;
+import javajesus.entities.transporters.TransporterInterior;
 import javajesus.level.Level;
 
 public class NiceHouse1Interior extends Interior {

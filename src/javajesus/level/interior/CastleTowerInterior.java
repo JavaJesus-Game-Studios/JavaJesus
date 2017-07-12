@@ -5,9 +5,9 @@ import java.awt.Point;
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
-import javajesus.entities.structures.furniture.Chest;
-import javajesus.entities.structures.furniture.DiningTable;
-import javajesus.entities.structures.transporters.TransporterInterior;
+import javajesus.entities.solid.furniture.Chest;
+import javajesus.entities.solid.furniture.DiningTable;
+import javajesus.entities.transporters.TransporterInterior;
 import javajesus.items.Item;
 import javajesus.level.Level;
 
