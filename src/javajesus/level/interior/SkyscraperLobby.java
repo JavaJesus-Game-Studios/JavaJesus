@@ -18,7 +18,7 @@ public class SkyscraperLobby extends Interior {
 	private Point exitPoint;
 
 	public SkyscraperLobby(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Skyscraper_Interiors/Skyscraper_Lobby.png", new Point(1944, 2048), level);
+		super("/Buildings/Generic Interiors/Skyscraper_Interiors/Skyscraper_Lobby.png", new Point(1936, 2040), level);
 		this.exitPoint = point;
 	}
 

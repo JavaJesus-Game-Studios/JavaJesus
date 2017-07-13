@@ -25,7 +25,7 @@ public class NiceHouse1Interior extends Interior {
 	private Point exitPoint;
 
 	public NiceHouse1Interior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Nice_House_1_Interiors/Nice_House1_Floor1.png", new Point(252, 272), level);
+		super("/Buildings/Generic Interiors/Nice_House_1_Interiors/Nice_House1_Floor1.png", new Point(244, 264), level);
 		this.exitPoint = point;
 	}
 

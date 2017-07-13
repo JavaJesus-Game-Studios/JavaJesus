@@ -16,7 +16,7 @@ public class RussianChurchInterior extends Interior {
 	private Point exitPoint;
 
 	public RussianChurchInterior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Russian_Church_Interior.png", new Point(256, 304), level);
+		super("/Buildings/Generic Interiors/Russian_Church_Interior.png", new Point(248, 296), level);
 		this.exitPoint = point;
 	}
 

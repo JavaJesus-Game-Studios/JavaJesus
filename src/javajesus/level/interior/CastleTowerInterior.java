@@ -19,7 +19,7 @@ public class CastleTowerInterior extends Interior {
 
 	public CastleTowerInterior(Point point, Level level) {
 		super("/Buildings/Generic Interiors/Castle_Tower_Interiors/Castle_Tower_Interior.png",
-				new Point(1935, 2088), level);
+				new Point(1927, 2080), level);
 		this.exitPoint = point;
 	}
 

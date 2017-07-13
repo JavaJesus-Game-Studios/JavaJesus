@@ -16,7 +16,7 @@ public class TreeHouseInterior extends Interior {
 	private Point exitPoint;
 
 	public TreeHouseInterior(Point point, Level level) {
-		super("/Buildings/Unique_HippyVille_Interiors/Tree_House_Interior.png", new Point(392, 464), level);
+		super("/Buildings/Unique_HippyVille_Interiors/Tree_House_Interior.png", new Point(384, 456), level);
 		this.exitPoint = point;
 	}
 

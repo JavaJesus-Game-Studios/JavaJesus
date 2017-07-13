@@ -16,7 +16,7 @@ public class RadarDishInterior extends Interior {
 	private Point exitPoint;
 
 	public RadarDishInterior(Point point, Level level) {
-		super("/Buildings/Unique_TechTopia_Interiors/Radar_Dish_Interior.png", new Point(801, 920), level);
+		super("/Buildings/Unique_TechTopia_Interiors/Radar_Dish_Interior.png", new Point(792, 912), level);
 		this.exitPoint = point;
 	}
 

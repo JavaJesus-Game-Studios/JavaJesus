@@ -16,7 +16,7 @@ public class RancheroHouseInterior extends Interior {
 	private Point exitPoint;
 
 	public RancheroHouseInterior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Ranchero_House_Interior.png", new Point(256, 304), level);
+		super("/Buildings/Generic Interiors/Ranchero_House_Interior.png", new Point(248, 296), level);
 		this.exitPoint = point;
 	}
 
