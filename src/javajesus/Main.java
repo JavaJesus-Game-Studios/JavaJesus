@@ -3,10 +3,9 @@ package javajesus;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.SplashScreen;
-import java.io.File;
 
-import engine.GameEngine;
 import javajesus.utility.JJStrings;
+import engine.GameEngine;
 
 /**
  * @author Derek
@@ -44,7 +43,7 @@ public class Main {
 			
 			// load the custom font
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("res/GUI/Font/PressStart2P.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, Main.class.getResourceAsStream("/GUI/Font/PressStart2P.ttf")));
 			
 			// initialize a launcher
 			new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new Launcher())
