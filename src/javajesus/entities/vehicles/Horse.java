@@ -2,8 +2,6 @@ package javajesus.entities.vehicles;
 
 import java.awt.event.KeyEvent;
 
-import engine.Window;
-import javajesus.JavaJesus;
 import javajesus.entities.Mob;
 import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
@@ -11,6 +9,7 @@ import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
+import engine.Window;
 
 /*
  * A horse is a npc that can be ridden by the player
@@ -107,19 +106,6 @@ public class Horse extends NPC implements Ridable {
 
 		if (window.isKeyPressed(KeyEvent.VK_D)) {
 			dx++;
-		}
-
-		if (window.isKeyPressed(KeyEvent.VK_I)) {
-			window.toggle(KeyEvent.VK_I);
-			if (JavaJesus.inGameScreen) {
-				JavaJesus.displayOverview();
-			}
-		}
-		if (window.isKeyPressed(KeyEvent.VK_ESCAPE)) {
-			window.toggle(KeyEvent.VK_ESCAPE);
-			if (JavaJesus.inGameScreen) {
-				JavaJesus.displayPause();
-			}
 		}
 
 		// TODO Change the way this works to exit vehicles

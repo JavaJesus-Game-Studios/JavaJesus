@@ -2,8 +2,6 @@ package javajesus.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -18,7 +16,7 @@ import javajesus.save.GameData;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class PauseGUI extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
+public class PauseGUI extends JPanel implements MouseListener, MouseMotionListener {
 
 	// / Used for serialization
 	private static final long serialVersionUID = 1L;
@@ -70,7 +68,6 @@ public class PauseGUI extends JPanel implements MouseListener, MouseMotionListen
 		// add input listener
 		addMouseListener(this);
 		addMouseMotionListener(this);
-		addKeyListener(this);
 		
 		// load instance variables and buttons
 		BufferedImage resume_on, resume_off, save_on, save_off, options_on, options_off, load_on, load_off, audio_on, audio_off, video_on, video_off, controls_on, controls_off, mute_on, mute_off, back_on, back_off, quit_on, quit_off;
@@ -220,10 +217,6 @@ public class PauseGUI extends JPanel implements MouseListener, MouseMotionListen
 		selectedButton = null;
 
 		switch (id) {
-		case RESUME: {
-			resume();
-			return;
-		}
 		case SAVE: {
 			GameData.savePlayerLevelData();
 			GameData.saveLevels();
@@ -321,14 +314,6 @@ public class PauseGUI extends JPanel implements MouseListener, MouseMotionListen
 			}
 		}
 	}
-	
-	/**
-	 * Returns to game play
-	 */
-	private void resume() {
-		JavaJesus.displayGame();
-		repaint();
-	}
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
@@ -373,25 +358,4 @@ public class PauseGUI extends JPanel implements MouseListener, MouseMotionListen
 		
 	}
 	
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
-
-	/**
-	 * Closes the panel when escape is pressed
-	 */
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-			resume();
-			return;
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		
-	}
-
 }

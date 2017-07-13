@@ -84,33 +84,24 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	private PlayerHUD hud;
 
 	// Instance of the Pause GUI
-	private static PauseGUI pause;
+	private PauseGUI pause;
 
 	// Instance of the Overview GUI
-	private static OverviewGUI overview;
+	private OverviewGUI overview;
 
 	// Default JPanel container used to hold other GUI panels
-	private static JPanel display;
+	private JPanel display;
 
 	// Instance of the card layout that holds other guis, used to display other
 	// GUIs
-	private static CardLayout cardlayout;
+	private CardLayout cardlayout;
 
 	// guiID holds the value of the current GUI that is displayed */
-	private static int guiID;
+	private int guiID;
 
-	// Constant that identifies the pause display
-	private static final int PAUSE_DISPLAY = 2;
+	// Constants that identify the which screen is displayed
+	private static final int GAME_DISPLAY = 0,  INVENTORY_DISPLAY = 1, PAUSE_DISPLAY = 2;
 
-	// Constant that identifies the game display
-	private static final int GAME_DISPLAY = 0;
-
-	// Constant that identifies the inventory display
-	private static final int INVENTORY_DISPLAY = 1;
-
-	// inGameScreen reveals if the game gui is being displayed
-	public static boolean inGameScreen;
-	
 	// font used
 	private static final Font DISPLAY_FONT = new Font(FONT_NAME, 0, 20);
 
@@ -215,6 +206,9 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		
 		// add input listeners
 		window.addListeners(this, Input.KEY, Input.FOCUS);
+		window.addListeners(overview, Input.KEY);
+		window.addListeners(overview.getView(), Input.KEY);
+		window.addListeners(pause, Input.KEY);
 		
 		// show the game
 		displayGame();
@@ -234,6 +228,31 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			window.toggle(KeyEvent.VK_F3);
 		}
 		
+		// switch to inventory screen
+		if (window.isKeyPressed(KeyEvent.VK_I)) {
+			window.toggle(KeyEvent.VK_I);
+			if (inGame()) {
+				displayOverview();
+				window.disable(KeyEvent.VK_W);
+				window.disable(KeyEvent.VK_A);
+				window.disable(KeyEvent.VK_S);
+				window.disable(KeyEvent.VK_D);
+			} else {
+				displayGame();
+			}
+
+		}
+
+		// switch to pause menu
+		if (window.isKeyPressed(KeyEvent.VK_ESCAPE)) {
+			window.toggle(KeyEvent.VK_ESCAPE);
+			if (inGame()) {
+				displayPause();
+			} else {
+				displayGame();
+			}
+		}
+		
 	}
 
 	/**
@@ -242,7 +261,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	public void update() {
 		
 		// only update in the level
-		if (inGameScreen) {
+		if (inGame()) {
 			
 			// update the player
 			player.getLevel().tick();
@@ -267,9 +286,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 * Signals the internal loop to stop
 	 */
 	public static void playerDied() {
-		guiID = GAME_DISPLAY;
 		running = false;
-		inGameScreen = false;
 	}
 
 	/**
@@ -278,7 +295,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	public void render(Window window) {
 		
 		// only render if this screen is being displayed
-		if (!inGameScreen) {
+		if (!inGame()) {
 			return;
 		}
 
@@ -337,6 +354,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	public void onClose() {
 		
 		display = null;
+		guiID = GAME_DISPLAY;
 		
 		// initialize a launcher
 		try {
@@ -358,8 +376,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	/**
 	 * Displays the Overview GUI on the screen
 	 */
-	public static void displayOverview() {
-		inGameScreen = false;
+	private void displayOverview() {
 		guiID = INVENTORY_DISPLAY;
 		cardlayout.show(display, "Inventory");
 		overview.requestFocusInWindow();
@@ -368,9 +385,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	/**
 	 * Displays the Pause GUI on the screen
 	 */
-	public static void displayPause() {
-		
-		inGameScreen = false;
+	private void displayPause() {
 		guiID = PAUSE_DISPLAY;
 		cardlayout.show(display, "Pause");
 		pause.requestFocusInWindow();
@@ -379,8 +394,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	/**
 	 * Displays the main game on the screen
 	 */
-	public static void displayGame() {
-		inGameScreen = true;
+	private void displayGame() {
 		guiID = GAME_DISPLAY;
 		cardlayout.show(display, "Main");
 		display.getComponent(GAME_DISPLAY).requestFocusInWindow();
@@ -389,11 +403,9 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	/**
 	 * Sends a crash report to the main screen
 	 * 
-	 * @param e
-	 *            : the exception that was created
+	 * @param e - the exception that was created
 	 */
 	public void sendCrashReportToScreen(Exception e) {
-
 		Graphics g = getGraphics();
 		g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		g.setFont(new Font(FONT_NAME, 0, 20));
@@ -402,12 +414,18 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		for (int i = 0; i < e.getStackTrace().length; i++) {
 			g.drawString(e.getStackTrace()[i].toString(), 0, 100 + 50 * i);
 		}
-
 	}
 
 	@Override
 	public boolean running() {
 		return running;
+	}
+	
+	/**
+	 * @return whether or not the game display is shown
+	 */
+	private boolean inGame() {
+		return guiID == GAME_DISPLAY;
 	}
 
 }

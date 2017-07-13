@@ -805,28 +805,6 @@ public class Player extends Mob {
 			window.toggle(KeyEvent.VK_R);
 		}
 
-		// open inventory
-		if (window.isKeyPressed(KeyEvent.VK_I)) {
-			window.toggle(KeyEvent.VK_I);
-			if (JavaJesus.inGameScreen) {
-				JavaJesus.displayOverview();
-				window.disable(KeyEvent.VK_W);
-				window.disable(KeyEvent.VK_A);
-				window.disable(KeyEvent.VK_S);
-				window.disable(KeyEvent.VK_D);
-				isSprinting = false;
-			}
-
-		}
-
-		// open pause menu
-		if (window.isKeyPressed(KeyEvent.VK_ESCAPE)) {
-			window.toggle(KeyEvent.VK_ESCAPE);
-			if (JavaJesus.inGameScreen) {
-				JavaJesus.displayPause();
-			}
-		}
-
 		// action button
 		if (window.isKeyPressed(KeyEvent.VK_E)) {
 			window.toggle(KeyEvent.VK_E);

@@ -10,10 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import javajesus.JavaJesus;
+import javajesus.SoundHandler;
+import javajesus.entities.Player;
+import javajesus.items.Item;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -21,15 +24,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import javajesus.JavaJesus;
-import javajesus.SoundHandler;
-import javajesus.entities.Player;
-import javajesus.items.Item;
-
 /*
  * The Overview Menu of the Inventory Screen
  */
-public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
+public class OverviewGUI extends JPanel implements FocusListener {
 
 	// serialization
 	private static final long serialVersionUID = 1L;
@@ -68,7 +66,6 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 		setLayout(new BorderLayout(0, 0));
 		setPreferredSize(new Dimension(JavaJesus.WINDOW_WIDTH,
 				JavaJesus.WINDOW_HEIGHT));
-		addKeyListener(this);
 		addFocusListener(this);
 		
 		// add the button panel to the top
@@ -82,7 +79,6 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 		// set up the viewing panel
 		viewing = new JPanel();
 		viewing.setLayout(cl = new CardLayout(0, 0));
-		viewing.addKeyListener(this);
 		
 		// add the components to the viewing panel
 		viewing.add(new MainGUI(), MAIN);
@@ -95,19 +91,6 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 		add(top, BorderLayout.NORTH);
 		add(viewing, BorderLayout.CENTER);
 
-	}
-	
-	/**
-	 * Leaves the screen when i or escape is pressed
-	 * @param e - key event
-	 */
-	@Override
-	public void keyPressed(KeyEvent e) {
-		
-		// toggles game display
-		if (e.getKeyCode() == KeyEvent.VK_I || e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-			JavaJesus.displayGame();
-		}
 	}
 	
 	/*
@@ -504,15 +487,12 @@ public class OverviewGUI extends JPanel implements KeyListener, FocusListener {
 			setFont(new Font(JavaJesus.FONT_NAME, Font.PLAIN, 25));
 		}
 	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
 	
-	@Override
-	public void keyReleased(KeyEvent e) {
-		
+	/**
+	 * @return viewing panel of the overview
+	 */
+	public JPanel getView() {
+		return viewing;
 	}
 
 	/**
