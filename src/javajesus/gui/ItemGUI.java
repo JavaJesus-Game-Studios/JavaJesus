@@ -25,7 +25,7 @@ public class ItemGUI extends JPanel {
 	private Item item;
 	
 	// size of the item frame
-	private static final int WIDTH = 16, HEIGHT = 16;
+	private static final int WIDTH = 24, HEIGHT = 24;
 	
 	// id of the item gui used for the inventory screen
 	private int id;
@@ -85,6 +85,9 @@ public class ItemGUI extends JPanel {
 		
 		// transfer item pixels through a screen class
 		Screen screen = new Screen(WIDTH, HEIGHT);
+		
+		// render the blank item background
+		Item.blank.render(screen);
 		
 		// render only if there is an item
 		if (item != null) {

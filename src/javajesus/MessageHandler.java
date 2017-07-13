@@ -16,16 +16,16 @@ import javax.imageio.ImageIO;
 public class MessageHandler {
 
 	// Max number of chars on one line
-	private static final int LENGTH = 50;
+	private static final int LENGTH = 63;
 
 	// Time in seconds that the message appears
 	private static final int TIME_DISPLAYED = 4;
 	
 	// Number of lines that can appear in chat
-	private static final int NUM_LINES = 5;
+	private static final int NUM_LINES = 8;
 	
 	// x offset from the width of the box on the left side
-	private static final int XOFFSET = 160, TEXT_OFFSET = 190;
+	private static final int TEXT_OFFSET = 20, HEIGHT_OFFSET = 20;
 
 	// Entire list of text recorded since the start of the game
 	public static ArrayList<String> chatlog = new ArrayList<String>();
@@ -67,10 +67,8 @@ public class MessageHandler {
 	/**
 	 * Displays text on the WINDOW
 	 * 
-	 * @param string
-	 *            The words to display
-	 * @param color
-	 *            The color of the text
+	 * @param string - The words to display
+	 * @param color - The color of the text
 	 */
 	public static void displayText(String string, Color color) {
 		tickTimer = true;
@@ -89,23 +87,22 @@ public class MessageHandler {
 	/**
 	 * Draws the window on the canvas
 	 * 
-	 * @param g
-	 *            The Graphics class that draws it on the screen
+	 * @param g - The Graphics class that draws it on the screen
 	 */
 	public static void drawWindow(Graphics g) {
 		
 		// draw only when a new message appears or player opens it
 		if (isVisible) {
-			g.drawImage(image, XOFFSET,
-					JavaJesus.WINDOW_HEIGHT - image.getHeight() - JavaJesus.HUD_OFFSET,
-					JavaJesus.WINDOW_WIDTH - XOFFSET, image.getHeight(), null);
+			g.drawImage(image, 0, JavaJesus.WINDOW_HEIGHT - image.getHeight()
+					- JavaJesus.HUD_OFFSET, JavaJesus.WINDOW_WIDTH,
+					image.getHeight(), null);
 			
 			// set the font type
 			g.setFont(MESSAGE_FONT);
 			
 			// get font data
 			FontMetrics font = g.getFontMetrics();
-			int yOffset = JavaJesus.WINDOW_HEIGHT - JavaJesus.HUD_OFFSET;
+			int yOffset = JavaJesus.WINDOW_HEIGHT - JavaJesus.HUD_OFFSET - HEIGHT_OFFSET;
 			
 			// process each message to ensure it fits in the window
 			for (int i = 0; i < chatwindow.size(); i++) {
@@ -139,10 +136,8 @@ public class MessageHandler {
 	/**
 	 * Processes the text in the proper order on the window
 	 * 
-	 * @param string
-	 *            Text to process
-	 * @param color
-	 *            Color of the text
+	 * @param string - Text to process
+	 * @param color -  Color of the text
 	 */
 	private static void updateWindow(String string, Color color) {
 		if (chatwindow.size() < NUM_LINES) {
@@ -167,8 +162,7 @@ public class MessageHandler {
 	}
 
 	/**
-	 * @param string
-	 *            The text to split
+	 * @param string - The text to split
 	 * @return The index of the first available space to split the word to the
 	 *         next line
 	 */

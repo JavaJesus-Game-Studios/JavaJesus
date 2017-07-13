@@ -2,6 +2,7 @@ package javajesus;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -37,13 +38,16 @@ public class PlayerHUD {
 	int[] pixels;
 
 	// bar offsets
-	private final static int BAR_XOFFSET = 750, BAR_YOFFSET = 50, BAR_VSPACE = 30, NUM_HEARTS = 6;
+	private final static int BAR_XOFFSET = 750, BAR_YOFFSET = 20, BAR_VSPACE = 30, NUM_HEARTS = 6;
 
 	// offsets of various HUD elements
 	private static int box_yOffset, gun_xOffset, gun_yOffset, string_xOffset, string_yOffset;
 	
 	// font of ammo string
 	private static final Font font = new Font(JavaJesus.FONT_NAME, 0, 20);
+	
+	// font of score board
+	private static final Font score_font = new Font(JavaJesus.FONT_NAME, Font.BOLD, 30);
 
 	/**
 	 * Loads all the images of the weapons
@@ -52,7 +56,7 @@ public class PlayerHUD {
 		
 		// initialize instance data
 		this.player = player;
-		item = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_RGB);
+		item = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
 		screen = new Screen(SIZE, SIZE);
 		pixels = ((DataBufferInt) item.getRaster().getDataBuffer()).getData();
 
@@ -87,8 +91,8 @@ public class PlayerHUD {
 		// initialize offsets
 		gun_xOffset = (box.getWidth() * MODIFIER) / 2 - (item.getWidth() * MODIFIER) / 2;
 		gun_yOffset = (box.getHeight() * MODIFIER) / 2 - (item.getHeight() * MODIFIER) / 2 + box_yOffset;
-		string_xOffset = gun_xOffset + 15;
-		string_yOffset = gun_yOffset + 60;
+		string_xOffset = gun_xOffset;
+		string_yOffset = gun_yOffset;
 		
 		// render the item
 		renderItem();
@@ -99,7 +103,7 @@ public class PlayerHUD {
 		// draw the ammo info if a gun
 		if (player.getEquippedGun() != null) {
 			g.setFont(font);
-			g.setColor(Color.YELLOW);
+			g.setColor(Color.BLACK);
 			g.drawString((int) player.getEquippedGun().getCurrentAmmo() + " / " + player.getEquippedGun().getClipSize(),
 			        string_xOffset, string_yOffset);
 		}
@@ -152,9 +156,15 @@ public class PlayerHUD {
 
 		// for survival mode
 		if (JavaJesus.mode == GameMode.FIXED) {
-			g.setColor(Color.white);
-			g.setFont(new Font(JavaJesus.FONT_NAME, Font.BOLD, 30));
-			g.drawString("Kills: " + JavaJesus.score, JavaJesus.WINDOW_WIDTH / 2 - 10, 30);
+			
+			// set display font
+			g.setColor(Color.BLACK);
+			g.setFont(score_font);
+			
+			// center based on text and font metrics
+			String score = "Kills: " + JavaJesus.score;
+			FontMetrics fm = g.getFontMetrics();
+			g.drawString(score, JavaJesus.WINDOW_WIDTH / 2 - fm.stringWidth(score) / 2, fm.getHeight());
 		}
 
 	}
@@ -183,7 +193,17 @@ public class PlayerHUD {
 		// add screen pixels to image pixels
 		for (int y = 0; y < screen.getHeight(); y++) {
 			for (int x = 0; x < screen.getWidth(); x++) {
-				pixels[x + y * screen.getWidth()] = screen.getPixels()[x + y * screen.getWidth()];
+				
+				// color of the pixel with alpha
+				int col = screen.getPixels()[x + y * screen.getWidth()];
+				
+				// if not black, make it opaque
+				if (col != 0) {
+					col = col | 0xFF000000;
+				}
+
+				// set the buffered image pixels
+				pixels[x + y * screen.getWidth()] = col;
 			}
 
 		}

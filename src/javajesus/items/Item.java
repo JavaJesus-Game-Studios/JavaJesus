@@ -204,24 +204,23 @@ public class Item implements Serializable {
 		// size of each box
 		int modifier = 8;
 		
-		// 16 bit so multiply by 2
-		int xTile = this.xTile * 2;
-		int yTile = this.yTile * 2;
+		// 24 bit so multiply by 3
+		int xTile = this.xTile * 3;
+		int yTile = this.yTile * 3;
 		
-		// upper left
-		screen.render(0, 0, xTile + yTile * SpriteSheet.gui_items.getTilesPerRow(), color, SpriteSheet.gui_items);
-		
-		// upper right
-		screen.render(modifier, 0, (xTile + 1) + yTile * SpriteSheet.gui_items.getTilesPerRow(), color,
-		        SpriteSheet.gui_items);
-
-		// lower left
-		screen.render(0, modifier, xTile + (yTile + 1) * SpriteSheet.gui_items.getTilesPerRow(), color,
-		        SpriteSheet.gui_items);
-
-		// lower right
-		screen.render(modifier, modifier, (xTile + 1) + (yTile + 1) * SpriteSheet.gui_items.getTilesPerRow(), color,
-		        SpriteSheet.gui_items);
+		// top to bottom
+		for (int i = 0; i < 3; i++) {
+			
+			// left to right
+			for (int j = 0; j < 3; j++) {
+				
+				// render the box
+				screen.render(modifier * j, modifier * i,
+				        (xTile + j) + (yTile + i) * SpriteSheet.gui_items.getTilesPerRow(), null,
+				        SpriteSheet.gui_items);
+				
+			}
+		}
 	}
 	
 	/**
