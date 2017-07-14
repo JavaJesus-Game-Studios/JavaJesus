@@ -49,7 +49,7 @@ public class Item implements Serializable {
 			"This red fruit will restore a little health.", 10);
 	public static final Item banana = new Item("Banana", 1, 3, 3, new int[] { 0xFF111111, 0xFFFFF600, 0xFF000000 },
 			"The currency of the wild apes. Restores a little health.", 10);
-	public static final Item orange = new Item("Orange", 2, 2, 3, new int[] { 0xFF111111, 0xFFFFAE00, 0xFF0CA101 },
+	public static final Item orange = new Item("Orange", 2, 5, 3, new int[] { 0xFF111111, 0xFFFFAE00, 0xFF0CA101 },
 			"The orange fruit will restore a little health.", 10);
 	public static final Item feather = new Item("Feather", 3, 4, 3, new int[] { 0xFF111111, 0xFF79B2FF, 0xFF000000 },
 			"So light. Does Nothing.", 0);
@@ -110,11 +110,11 @@ public class Item implements Serializable {
 	// ammo
 	public static final Item assaultRifleAmmo = new Item("Ammo", 22, 0, 4,
 			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "Assault Rifle Ammo", 0);
-	public static final Item revolverAmmo = new Item("Ammo", 23, 2, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
+	public static final Item revolverAmmo = new Item("Ammo", 23, 1, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"Revolver Ammo", 0);
-	public static final Item shotgunAmmo = new Item("Ammo", 24, 3, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
+	public static final Item shotgunAmmo = new Item("Ammo", 24, 2, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"Shotgun Ammo", 0);
-	public static final Item laserAmmo = new Item("Ammo", 25, 4, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
+	public static final Item laserAmmo = new Item("Ammo", 25, 3, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"Laser Ammo", 0);
 	public static final Item arrowAmmo = new Item("Ammo", 26, 1, 5, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"Arrow Ammo", 0);
