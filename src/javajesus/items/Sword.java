@@ -15,6 +15,7 @@ import javajesus.utility.Direction;
  */
 public class Sword extends Item {
 
+	// serialization
 	private static final long serialVersionUID = -3339710504468683415L;
 
 	// whether or not the sword is in cooldown
@@ -32,7 +33,7 @@ public class Sword extends Item {
 	// whether or not the player is swinging
 	private boolean isSwinging;
 
-	// cooridnates for the player swinging animatino
+	// coordinates for the player swinging animation
 	private int xSwingOffset, ySwingOffset;
 
 	// spritesheet for player
@@ -63,7 +64,7 @@ public class Sword extends Item {
 	private boolean diagonal;
 
 	// the hit area of the sword
-	private Rectangle bounds = new Rectangle();
+	private final Rectangle bounds = new Rectangle();
 
 	// length of the sword
 	private int length;
@@ -81,69 +82,21 @@ public class Sword extends Item {
 	private Direction direction;
 
 	/**
-	 * Creates a Sword defaults to short swords
-	 * 
-	 * @param name
-	 *            the name of the sword
-	 * @param id
-	 *            the unique ID
-	 * @param xTile
-	 *            the xTile on the item sheet
-	 * @param yTile
-	 *            the yTile on the item sheet
-	 * @param xSwingOffset
-	 *            the x offset on the player sheet
-	 * @param ySwingOffset
-	 *            the y offset on the player sheet
-	 * @param color
-	 *            color of the sword
-	 * @param description
-	 *            description of the sword
-	 * @param cooldown
-	 *            the cooldown between swings
-	 * @param damage
-	 *            the damage dealt
-	 * @param powerSwingOffsets
-	 *            the offset points on the player spritesheet for the extended
-	 *            swing
-	 */
-	public Sword(String name, int id, int xTile, int yTile, int xSwingOffset, int ySwingOffset, int[] color,
-			String description, int cooldown, int damage, int[] powerSwingOffsets) {
-		this(name, id, xTile, yTile, xSwingOffset, ySwingOffset, color, description, cooldown, damage,
-				powerSwingOffsets, 0, SHORT);
-
-	}
-
-	/**
 	 * Creates a Sword
 	 * 
-	 * @param name
-	 *            the name of the sword
-	 * @param id
-	 *            the unique ID
-	 * @param xTile
-	 *            the xTile on the item sheet
-	 * @param yTile
-	 *            the yTile on the item sheet
-	 * @param xSwingOffset
-	 *            the x offset on the player sheet
-	 * @param ySwingOffset
-	 *            the y offset on the player sheet
-	 * @param color
-	 *            color of the sword
-	 * @param description
-	 *            description of the sword
-	 * @param cooldown
-	 *            the cooldown between swings
-	 * @param damage
-	 *            the damage dealt
-	 * @param powerSwingOffsets
-	 *            the offset points on the player spritesheet for the extended
-	 *            swing
-	 * @param swingoffset
-	 *            the swing modifier offset inbetween swing animations
-	 * @param length
-	 *            either SHORT, MEDIUM, or LONG
+	 * @param name - the name of the sword
+	 * @param id - the unique ID
+	 * @param xTile - the xTile on the item sheet
+	 * @param yTile - the yTile on the item sheet
+	 * @param xSwingOffset - the x offset on the player sheet
+	 * @param ySwingOffset - the y offset on the player sheet
+	 * @param color - color of the sword
+	 * @param description - description of the sword
+	 * @param cooldown - the cooldown between swings
+	 * @param damage - the damage dealt
+	 * @param powerSwingOffsets - the offset points on the player spritesheet for the extended swing
+	 * @param swingoffset - the swing modifier offset inbetween swing animations
+	 * @param length - either SHORT, MEDIUM, or LONG
 	 */
 	public Sword(String name, int id, int xTile, int yTile, int xSwingOffset, int ySwingOffset, int[] color,
 			String description, int cooldown, int damage, int[] powerSwingOffsets, int swingoffset, int length) {
@@ -328,10 +281,8 @@ public class Sword extends Item {
 	 * 
 	 * Delegate the rendering calls of the player here
 	 * 
-	 * @param screen
-	 *            the screen to display it on
-	 * @param player
-	 *            the player to display TODO fix offsets with modifiers
+	 * @param screen - the screen to display it on
+	 * @param player - the player to display TODO fix offsets with modifiers
 	 */
 	public void render(Screen screen, int xOffset, int yOffset, int[] color) {
 
