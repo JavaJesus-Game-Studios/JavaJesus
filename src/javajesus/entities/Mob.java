@@ -112,6 +112,11 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	
 	// color of water
 	private static final int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
+	
+	// for knockback color flicker
+	protected boolean knockbackCooldown;
+	private int knockbackTicks;
+	private int knockbackLength = 10;
 
 	/**
 	 * Creates a mob that can interact with other entities on a level
@@ -148,7 +153,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	 * @param dy - the total change in y
 	 */
 	public void move(int dx, int dy) {
-
+		
 		// move animation proportional to speed
 		numSteps++;
 
@@ -475,6 +480,13 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	public void tick() {
 
 		tickCount++;
+		
+		if (knockbackCooldown) {
+			if (knockbackTicks++ > knockbackLength) {
+				knockbackCooldown = false;
+				knockbackTicks = 0;
+			}
+		}
 
 		// talking cooldown loop
 		if (isTalking) {
@@ -645,6 +657,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 		isTalking = false;
 		setTargeted(false);
 		onFire = false;
+		knockbackCooldown = false;
 
 		// renders the mob in the background
 		isBehindBuilding = true;
@@ -678,6 +691,57 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 				health = maxHealth;
 			}
 		}
+		
+	}
+	
+	/**
+	 * Knocks back a mob
+	 * 
+	 * @param strength - strength of the knockback
+	 * @param dir - direction from incoming damage
+	 * (Mob will move OPPOSITE to this value)
+	 */
+	public void knockback(int strength, Direction dir) {
+		
+		if (knockbackCooldown || isDead()) {
+			return;
+		}
+		
+		// opposite direction
+		Direction next = dir;
+		
+		// change in movement
+		int dx = 0, dy = 0;
+		
+		// calculate movement
+		switch(dir) {
+		case NORTH:
+			dy -= strength;
+			next = Direction.SOUTH;
+			break;
+		case SOUTH:
+			dy += strength;
+			next = Direction.NORTH;
+			break;
+		case EAST:
+			dx += strength;
+			next = Direction.WEST;
+			break;
+		case WEST:
+			dx -= strength;
+			next = Direction.EAST;
+			break;
+		default:
+			break;
+		}
+		
+		// move the mob (TODO moves every other)
+		move(dx, dy);
+		
+		// set the direction towards the player
+		setDirection(next);
+		
+		knockbackCooldown = true;
 		
 	}
 

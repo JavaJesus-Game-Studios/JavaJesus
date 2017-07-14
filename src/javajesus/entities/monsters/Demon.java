@@ -29,6 +29,9 @@ public class Demon extends Monster implements LongRange {
 
 	// color set of a demon
 	private static final int[] color = { 0xFF111111, 0xFF700000, 0xFFDBA800 };
+	
+	// knockback color
+	private static final int[] knockbackColor = { 0xFFDBA800, 0xFFDBA800, 0xFFDBA800 };
 
 	// the range the shooter will stand back when shooting
 	private Ellipse2D.Double standRange;
@@ -59,6 +62,14 @@ public class Demon extends Monster implements LongRange {
 	 */
 	public void render(Screen screen) {
 		super.render(screen);
+		
+		// default color
+		int[] color = Demon.color;
+		
+		// change color if knockback
+		if (knockbackCooldown) {
+			color = knockbackColor;
+		}
 
 		// modifier used for rendering in different scales/directions
 		int modifier = UNIT_SIZE * getScale();

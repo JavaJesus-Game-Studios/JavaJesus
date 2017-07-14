@@ -18,16 +18,28 @@ public class Script implements Serializable {
 
 	// the destination of where to send the mob
 	private Point destination;
+	
+	// whether or not to move there instantaneously
+	private boolean moveNow;
 
 	/**
-	 * @param mob
-	 *            The targeted mob
-	 * @param first
-	 *            The first location to which the mob will travel
+	 * @param mob - The targeted mob
+	 * @param first - The first location to which the mob will travel
 	 */
 	public Script(Mob mob, Point first) {
 		this.mob = mob;
 		destination = first;
+	}
+	
+	/**
+	 * @param mob - The targeted mob
+	 * @param dx - the change in x
+	 * @param dy - the change in y
+	 */
+	public Script(Mob mob, int dx, int dy, boolean instant) {
+		this.mob = mob;
+		destination = new Point(mob.getX() + dx, mob.getY() + dy);
+		moveNow = instant;
 	}
 
 	/**
@@ -35,6 +47,13 @@ public class Script implements Serializable {
 	 */
 	public Point getDestination() {
 		return destination;
+	}
+	
+	/**
+	 * @return whether or not to move there right away
+	 */
+	public boolean isInstantaneous() {
+		return moveNow;
 	}
 
 	/**

@@ -70,7 +70,7 @@ public class Sword extends Item {
 	private int length;
 
 	// sword bound offsets
-	public static final int SHORT = 4, MEDIUM = 8, LONG = 12;
+	public static final int SHORT = 5, MEDIUM = 10, LONG = 15;
 
 	// unit size of player
 	private static final int PLAYER_SIZE = 16;
@@ -88,14 +88,14 @@ public class Sword extends Item {
 	 * @param id - the unique ID
 	 * @param xTile - the xTile on the item sheet
 	 * @param yTile - the yTile on the item sheet
-	 * @param xSwingOffset - the x offset on the player sheet
-	 * @param ySwingOffset - the y offset on the player sheet
+	 * @param xSwingOffset - the x offset on the player sword sheet
+	 * @param ySwingOffset - the y offset on the player sword sheet
 	 * @param color - color of the sword
 	 * @param description - description of the sword
 	 * @param cooldown - the cooldown between swings
 	 * @param damage - the damage dealt
 	 * @param powerSwingOffsets - the offset points on the player spritesheet for the extended swing
-	 * @param swingoffset - the swing modifier offset inbetween swing animations
+	 * @param swingoffset - the swing modifier offset inbetween swing animations (Extra length of sword)
 	 * @param length - either SHORT, MEDIUM, or LONG
 	 */
 	public Sword(String name, int id, int xTile, int yTile, int xSwingOffset, int ySwingOffset, int[] color,
@@ -130,12 +130,12 @@ public class Sword extends Item {
 			cooldownTicks = 0;
 			cooldown = isSwinging = false;
 		}
+		
+		// update the area box
+		updateBounds(x, y);
 
 		// update the directions and sprites if power swinging
 		if (powerSwinging) {
-
-			// update the area box
-			updateBounds(x, y);
 
 			// hit the mobs
 			attackMobs(level, player);
@@ -171,28 +171,29 @@ public class Sword extends Item {
 	/**
 	 * Sets the bounds for attacking enemies
 	 * 
-	 * @param x
-	 *            the mob's x position
-	 * @param y
-	 *            the mob's y position
+	 * @param x - the mob's x position
+	 * @param y - the mob's y position
 	 */
 	private void updateBounds(int x, int y) {
-		switch (direction) {
-		case NORTH:
-			bounds.setBounds(x, y - length, PLAYER_SIZE, length);
-			break;
-		case SOUTH:
-			bounds.setBounds(x, y + PLAYER_SIZE, PLAYER_SIZE, length);
-			break;
-		case WEST:
-			bounds.setBounds(x - length, y, length, PLAYER_SIZE);
-			break;
-		case EAST:
-			bounds.setBounds(x + PLAYER_SIZE, y, length, PLAYER_SIZE);
-			break;
-		default:
-			bounds.setBounds(x, y, PLAYER_SIZE, PLAYER_SIZE);
-			break;
+		
+		if (direction != null) {
+			switch (direction) {
+			case NORTH:
+				bounds.setBounds(x, y - length, PLAYER_SIZE, length);
+				break;
+			case SOUTH:
+				bounds.setBounds(x, y + PLAYER_SIZE, PLAYER_SIZE, length);
+				break;
+			case WEST:
+				bounds.setBounds(x - length, y, length, PLAYER_SIZE);
+				break;
+			case EAST:
+				bounds.setBounds(x + PLAYER_SIZE, y, length, PLAYER_SIZE);
+				break;
+			default:
+				bounds.setBounds(x, y, PLAYER_SIZE, PLAYER_SIZE);
+				break;
+			}
 		}
 	}
 
@@ -263,6 +264,11 @@ public class Sword extends Item {
 		for (int i = 0; i < level.getMobs().size(); i++) {
 			Mob m = level.getMobs().get(i);
 			if (bounds.intersects(m.getBounds())) {
+				
+				// inflict knockback
+				m.knockback(10, direction);
+				
+				// damage the mob
 				player.attack(Player.DAMAGE_RANGE, m);
 			}
 		}
@@ -325,21 +331,41 @@ public class Sword extends Item {
 
 			// do not render backwards
 			flip = false;
-
+			
 			// update the direction
 			if (xTile == powerSwingOffsets[0]) {
 				direction = Direction.WEST;
+				
+				// center sprite
+				xOffset -= modifier * powerSwingModifier;
+				
 			} else if (xTile == powerSwingOffsets[2]) {
 				direction = Direction.EAST;
 			} else if (xTile < powerSwingOffsets[2]) {
 				direction = Direction.SOUTH;
+				
+				// centers sprite for long swords
+				if (powerSwingModifier == 2) {
+					xOffset -= modifier;
+				}
+				
 			} else {
 				direction = Direction.NORTH;
+				
+				// centers sprite for long swords
+				if (powerSwingModifier == 2) {
+					xOffset -= modifier;
+				}
 			}
 
 			// set diagonal
 			diagonal = direction == Direction.SOUTH && ((xTile < powerSwingOffsets[2] && xTile > powerSwingOffsets[1])
 					|| (xTile > powerSwingOffsets[0] && xTile < powerSwingOffsets[1]));
+			
+			// diagonal is off by one size
+			if (diagonal && powerSwingModifier == 1 && currentPowerOffset == 3) {
+				xOffset -= modifier;
+			}
 
 		}
 
@@ -358,27 +384,59 @@ public class Sword extends Item {
 
 				screen.render(xOffset + 3 * modifier, yOffset + i * modifier, (xTile + 3) + (yTile + i) * sheet.getTilesPerRow(),
 						color, sheet);
+				
 			}
 
 			// render normal east/west
 		} else if (direction == Direction.EAST || direction == Direction.WEST) {
-
-			// TODO look into this
-			if (direction == Direction.WEST && !powerSwinging) {
+			
+			// Moves player animation to the left by 8
+			if (direction == Direction.WEST && (!powerSwinging || powerSwingModifier == 0)) {
 				xOffset -= modifier;
 			}
 
-			// render east/west display
-			for (int i = 0; i < 2; i++) {
+			// render short or medium swords
+			if (powerSwingModifier < 2) {
+				
+				// top to bottom
+				for (int i = 0; i < 2; i++) {
 
-				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-						xTile + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+					screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
+					        xTile + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
 
-				screen.render(xOffset + modifier, yOffset + (modifier * i), (xTile + 1) + (yTile + i) * sheet.getTilesPerRow(),
-						color, flip, sheet);
+					screen.render(xOffset + modifier, yOffset + (modifier * i),
+					        (xTile + 1) + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
 
-				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-						(xTile + 2) + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+					screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
+					        (xTile + 2) + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+
+				}
+				
+				// long swords
+			} else {
+				
+				// Moves player animation to the left by 8 again
+				if (direction == Direction.WEST) {
+					xOffset -= modifier;
+				}
+				
+				// top to bottom
+				for (int i = 0; i < 2; i++) {
+
+					screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
+					        xTile + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+
+					screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
+					        (xTile + 1) + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+
+					screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
+					        (xTile + 2) + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+					
+					screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
+					        (xTile + 3) + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+
+				}
+				
 			}
 
 			// north south display
@@ -422,9 +480,18 @@ public class Sword extends Item {
 
 					screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
 							(xTile + 1) + (yTile + 2) * sheet.getTilesPerRow(), color, flip, sheet);
+					
+					// long swords have extra south tip
+					if (length == LONG) {
+						screen.render(xOffset, yOffset + 3 * modifier,
+								xTile + (yTile + 3) * sheet.getTilesPerRow(), color, flip, sheet);
+
+						screen.render(xOffset + modifier, yOffset + 3 * modifier,
+								(xTile + 1) + (yTile + 3) * sheet.getTilesPerRow(), color, flip, sheet);
+					}
 
 					// render the extra tip for north
-				} else if (length == MEDIUM && direction == Direction.NORTH) {
+				} else if (length > SHORT && direction == Direction.NORTH) {
 
 					screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset - modifier,
 							xTile + (yTile - 1) * sheet.getTilesPerRow(), color, flip, sheet);
