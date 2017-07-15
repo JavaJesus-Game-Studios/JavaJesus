@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
@@ -104,6 +105,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 
 	// font used
 	private static final Font DISPLAY_FONT = new Font(FONT_NAME, 0, 20);
+	private static final Font DEATH_FONT = new Font(FONT_NAME, 0, 50);
 
 	// the in game player
 	private Player player;
@@ -231,7 +233,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		// switch to inventory screen
 		if (window.isKeyPressed(KeyEvent.VK_I)) {
 			window.toggle(KeyEvent.VK_I);
-			if (inGame()) {
+			if (inGame() && !player.isDead()) {
 				displayOverview();
 				window.disable(KeyEvent.VK_W);
 				window.disable(KeyEvent.VK_A);
@@ -280,13 +282,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			display.getComponent(guiID).repaint();
 		}
 
-	}
-	
-	/**
-	 * Signals the internal loop to stop
-	 */
-	public static void playerDied() {
-		running = false;
 	}
 
 	/**
@@ -342,6 +337,17 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		// draw additional displays on the screen
 		hud.draw(g);
 		MessageHandler.drawWindow(g);
+		
+		// draw death screen if player died
+		if (player.isDead()) {
+			g.setFont(DEATH_FONT);
+			g.setColor(Color.RED);
+			FontMetrics fm = g.getFontMetrics();
+			String text = "You Died";
+			g.drawString(text, WINDOW_WIDTH / 2 - fm.stringWidth(text) / 2, WINDOW_HEIGHT / 2);
+			text = "Press ESC";
+			g.drawString(text, WINDOW_WIDTH / 2 - fm.stringWidth(text) / 2, WINDOW_HEIGHT - fm.getHeight());
+		}
 		
 		// swap the buffer to the front
 		g.dispose();
@@ -414,6 +420,13 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		for (int i = 0; i < e.getStackTrace().length; i++) {
 			g.drawString(e.getStackTrace()[i].toString(), 0, 100 + 50 * i);
 		}
+	}
+	
+	/**
+	 * Stops the game loop
+	 */
+	public static void stop() {
+		running = false;
 	}
 
 	@Override

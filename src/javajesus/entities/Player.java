@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import engine.Window;
-import javajesus.JavaJesus;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.monsters.Demon;
@@ -398,6 +397,11 @@ public class Player extends Mob {
 				xTile += (flip ? 2 : 0);
 			flip = getDirection() == Direction.WEST;
 		}
+		
+		// death texture
+		if (isDead()) {
+			xTile = 12;
+		}
 
 		// modifier used for rendering in different scales/directions
 		int modifier = UNIT_SIZE * getScale();
@@ -703,7 +707,8 @@ public class Player extends Mob {
 	public void remove() {
 		super.remove();
 		
-		JavaJesus.playerDied();
+		// reset data fields
+		isSwinging = isShooting = isMoving = false;
 	}
 
 	/**

@@ -257,7 +257,7 @@ public class PauseGUI extends JPanel implements MouseListener, MouseMotionListen
 			return;
 		}
 		case QUIT: {
-			JavaJesus.playerDied();
+			JavaJesus.stop();
 			return;
 		}
 		default: {
