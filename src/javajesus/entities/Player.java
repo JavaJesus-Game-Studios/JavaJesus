@@ -133,6 +133,9 @@ public class Player extends Mob {
 	 * @param obj - item to equip
 	 */
 	public void equip(Object obj) {
+		
+		// when switching items, player can't be swinging or shooting
+		isSwinging = isShooting = false;
 
 		// equip the object
 		if (obj instanceof Gun) {

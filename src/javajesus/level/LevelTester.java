@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
+import javajesus.entities.Pickup;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
 import javajesus.entities.solid.buildings.ApartmentHighRise;
@@ -115,8 +116,17 @@ public class LevelTester extends Level {
 		
 		Entity[] entities = {
 				
-				// fire
-		new FireEntity(this, 320, 100), 
+		// pickups
+		new Pickup(this, 230, 105, Item.apple),
+		new Pickup(this, 240, 105, Item.orange),
+		new Pickup(this, 250, 105, Item.banana),
+		new Pickup(this, 260, 105, Item.feather),
+		new Pickup(this, 270, 105, Item.revolver),
+		new Pickup(this, 280, 105, Item.strongHealthPack),
+		new Pickup(this, 290, 105, Item.quickHealthPack, true),
+
+		// fire
+		new FireEntity(this, 320, 100),
 		
 		/* First Row of buildings */
 		b = new ApartmentHighRise(this, x, 0),

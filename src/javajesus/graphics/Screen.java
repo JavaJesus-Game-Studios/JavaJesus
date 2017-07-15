@@ -314,6 +314,34 @@ public class Screen {
 		}
 		
 	}
+	
+	/**
+	 * Renders the sprite in 24 bit
+	 * 
+	 * @param screen - the screen to display it on
+	 */
+	public void render24bit(int xTile, int yTile, SpriteSheet sheet) {
+		
+		// size of each box
+		int modifier = 8;
+		
+		// 24 bit so multiply by 3
+		xTile *= 3;
+		yTile *= 3;
+		
+		// top to bottom
+		for (int i = 0; i < 3; i++) {
+
+			// left to right
+			for (int j = 0; j < 3; j++) {
+
+				// render the box
+				render(modifier * j, modifier * i, (xTile + j) + (yTile + i) * sheet.getTilesPerRow(), null, sheet);
+
+			}
+		}
+		
+	}
 
 	/**
 	 * @return Screen pixels

@@ -24,7 +24,7 @@ public class Pickup extends Entity {
 	
 	// the amount of item in this pickup
 	// used for ammo
-	private int amount;
+	private int amount = 1;
 	
 	// whether or not to use it on pickup
 	private boolean useOnPickup;
