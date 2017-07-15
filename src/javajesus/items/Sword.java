@@ -80,6 +80,9 @@ public class Sword extends Item {
 
 	// the direction of the sword
 	private Direction direction;
+	
+	// knockback strength
+	private int knockback;
 
 	/**
 	 * Creates a Sword
@@ -99,7 +102,7 @@ public class Sword extends Item {
 	 * @param length - either SHORT, MEDIUM, or LONG
 	 */
 	public Sword(String name, int id, int xTile, int yTile, int xSwingOffset, int ySwingOffset, int[] color,
-			String description, int cooldown, int damage, int[] powerSwingOffsets, int swingoffset, int length) {
+			String description, int cooldown, int damage, int[] powerSwingOffsets, int swingoffset, int length, int knockback) {
 		super(name, id, xTile, yTile, color, description, true);
 		this.cooldownTime = cooldown;
 		this.damage = damage;
@@ -108,7 +111,7 @@ public class Sword extends Item {
 		this.length = length;
 		this.powerSwingOffsets = powerSwingOffsets;
 		this.powerSwingModifier = swingoffset;
-
+		this.knockback = knockback;
 	}
 
 	/**
@@ -266,10 +269,11 @@ public class Sword extends Item {
 			if (bounds.intersects(m.getBounds())) {
 				
 				// inflict knockback
-				m.knockback(10, direction);
+				m.knockback(knockback, direction);
 				
 				// damage the mob
 				player.attack(Player.DAMAGE_RANGE, m);
+				
 			}
 		}
 	}

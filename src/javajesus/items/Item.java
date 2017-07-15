@@ -56,14 +56,14 @@ public class Item implements Serializable {
 
 	// guns
 	public static final Item revolver = new Gun("Revolver", 4, 0, 0, new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 },
-			"Standard Firearm", 0, 6, 10, 20, 50, Ammo.BULLET, SoundHandler.revolver);
+			"Standard Firearm", 0, 6, 10, 20, 50, Ammo.REVOLVER, SoundHandler.revolver);
 	public static final Item laserRevolver = new Gun("Laser Revolver", 5, 1, 0,
 			new int[] { 0xFF111111, 0xFF4D2607, 0xFFFFAE00 }, "Standard Firearm", 2, 5, 10, 20, 75, Ammo.LASER,
 			SoundHandler.laser);
 	public static final Item shotgun = new Gun("Shotgun", 6, 3, 0, new int[] { 0xFF111111, 0xFF4D2607, 0xFFCFCFCF },
 			"Standard Firearm", 6, 2, 10, 20, 85, Ammo.SHELL, SoundHandler.shotgun);
 	public static final Item assaultRifle = new Gun("Assault Rifle", 7, 2, 0,
-			new int[] { 0xFF111111, 0xFFCFCFCF, 0xFF000000 }, "Standard Firearm", 4, 30, 1, 10, 10, Ammo.BULLET,
+			new int[] { 0xFF111111, 0xFFCFCFCF, 0xFF000000 }, "Standard Firearm", 4, 30, 1, 10, 10, Ammo.RIFLE,
 			SoundHandler.assaultRifle);
 	public static final Item crossBow = new Gun("Crossbow", 8, 4, 0, new int[] { 0xFF111111, 0xFF4D2607, 0xFFCFCFCF },
 			"Standard Firearm", 8, 1, 10, 20, 75, Ammo.ARROW, SoundHandler.revolver);
@@ -71,24 +71,24 @@ public class Item implements Serializable {
 
 	// swords
 	public static final Item shortSword = new Sword("Short Sword", 9, 0, 1, 0, 0,
-			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, "This is a sword", 25, 30, new int[] { 7, 12, 16, 21 }, 0, Sword.SHORT);
+			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, "This is a sword", 25, 30, new int[] { 7, 12, 16, 21 }, 0, Sword.SHORT, 0);
 	public static final Item longSword = new Sword("Long Sword", 10, 1, 1, 0, 4,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, "This is a sword", 40, 40, new int[] { 7, 13, 18, 23 }, 1,
-			Sword.MEDIUM);
+			Sword.MEDIUM, 10);
 	public static final Item claymore = new Sword("Claymore", 11, 2, 1, 0, 10,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, "This is a sword", 60, 100, new int[] { 8, 16, 24, 32 }, 2,
-			Sword.LONG);
+			Sword.LONG, 20);
 	public static final Item sabre = new Sword("Sabre", 12, 3, 1, 0, 19,
 			new int[] { 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "This is a sword", 20, 45, new int[] { 7, 13, 18, 23 }, 1,
-			Sword.MEDIUM);
+			Sword.MEDIUM, 10);
 	public static final Item heavenlySword = new Sword("Heavenly Sword", 13, 4, 1, 0, 15,
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF }, "This is a sword", 30, 70, new int[] { 7, 13, 18, 23 }, 1,
-			Sword.MEDIUM);
+			Sword.MEDIUM, 10);
 	public static final Item heavenlyShortSword = new Sword("Heavenly Short Sword", 14, 0, 1, 0, 22,
-			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF }, "This is a sword", 30, 30, new int[] { 7, 12, 16, 21 }, 0, Sword.SHORT);
+			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF }, "This is a sword", 30, 30, new int[] { 7, 12, 16, 21 }, 0, Sword.SHORT, 0);
 	public static final Item kingSword = new Sword("King Short Sword", 18, 3, 1, 0, 25,
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF }, "This is a sword", 30, 50, new int[] { 7, 13, 18, 23 }, 1,
-			Sword.MEDIUM);
+			Sword.MEDIUM, 20);
 
 	// armor
 	public static final Item vest = new Armor("Simple Vest", 15, 0, 7, new int[] { 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC },

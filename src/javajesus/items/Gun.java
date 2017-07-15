@@ -25,10 +25,10 @@ public class Gun extends Item {
 	// max amount of ammo
 	private int clipSize;
 
-	// current amount of ammo
+	// current amount of ammo in clip
 	private int ammo;
 
-	// spare bullets that the player can reload with
+	// spare bullets in inventory
 	private int availableAmmo;
 
 	// whether or not the player is reloading
@@ -71,38 +71,25 @@ public class Gun extends Item {
 	 * The different types of ammo available
 	 */
 	public enum Ammo {
-		BULLET, ARROW, FIREBALL, LASER, MISSILE, BLACKHOLE, FLAMETHROWER, SHELL;
+		REVOLVER, RIFLE, ARROW, FIREBALL, LASER, MISSILE, BLACKHOLE, FLAMETHROWER, SHELL;
 	}
 
 	/**
 	 * Creates a gun
 	 * 
-	 * @param name
-	 *            the name of the gun
-	 * @param id
-	 *            the unique ID of the gun
-	 * @param xTile
-	 *            the xtile on the ITEM spritesheet
-	 * @param yTile
-	 *            the y tile on the ITEM spritesheet
-	 * @param color
-	 *            the color of the gun
-	 * @param description
-	 *            the description of the gun
-	 * @param yPlayerSheet
-	 *            the y tile on the PLAYER spritesheet
-	 * @param clipSize
-	 *            the maximum ammo clip size
-	 * @param rate
-	 *            the rate of fire
-	 * @param reload
-	 *            the rate of reload
-	 * @param damage
-	 *            the damage per shot
-	 * @param type
-	 *            the type of ammo used
-	 * @param clip
-	 *            the clip sound
+	 * @param name - the name of the gun
+	 * @param id - the unique ID of the gun
+	 * @param xTile - the xtile on the ITEM spritesheet
+	 * @param yTile - the y tile on the ITEM spritesheet
+	 * @param color - the color of the gun
+	 * @param description - the description of the gun
+	 * @param yPlayerSheet - the y tile on the PLAYER spritesheet
+	 * @param clipSize - the maximum ammo clip size
+	 * @param rate - the rate of fire
+	 * @param reload - the rate of reload
+	 * @param damage - the damage per shot
+	 * @param type - the type of ammo used
+	 * @param clip - the clip sound
 	 */
 	public Gun(String name, int id, int xTile, int yTile, int[] color, String description, int yPlayerSheet,
 			int clipSize, int rate, int reload, int damage, Ammo type, Clip clip) {
@@ -148,12 +135,15 @@ public class Gun extends Item {
 
 	/**
 	 * Reloads the gun
+	 * 
+	 * @param bullets - number of bullets in player inventory
+	 * @return number of bullets used
 	 */
-	public void reload(int bullets) {
+	public int reload(int bullets) {
 
 		isReloading = true;
 		availableAmmo = bullets;
-
+		return clipSize - ammo;
 	}
 
 	/**
@@ -194,7 +184,8 @@ public class Gun extends Item {
 
 		if (ammo > 0 && !isReloading && canFire) {
 			switch (type) {
-			case BULLET:
+			case REVOLVER:
+			case RIFLE:
 				level.add(new Bullet(level, x, y, dir, player, damage, clip));
 				break;
 			case ARROW:
@@ -260,6 +251,32 @@ public class Gun extends Item {
 	 */
 	public int getPlayerOffset() {
 		return playerOffset;
+	}
+	
+	/**
+	 * @return The Item form of the Ammo type with this gun
+	 */
+	public Item getAmmo() {
+		switch (type) {
+		case REVOLVER:
+			return Item.revolverAmmo;
+		case ARROW:
+			return Item.arrowAmmo;
+		case LASER:
+			return Item.laserAmmo;
+		case MISSILE:
+			return Item.revolverAmmo;
+		case BLACKHOLE:
+			return Item.revolverAmmo;
+		case FLAMETHROWER:
+			return Item.revolverAmmo;
+		case SHELL:
+			return Item.shotgunAmmo;
+		case RIFLE:
+			return Item.assaultRifleAmmo;
+		default:
+			return null;
+		}
 	}
 
 }

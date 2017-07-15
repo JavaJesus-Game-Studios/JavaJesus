@@ -103,6 +103,21 @@ public class Inventory implements Serializable {
 		}
 		
 	}
+	
+	/**
+	 * Removes an item num times
+	 * 
+	 * @param item - item to remove
+	 * @param num - quantity to remove
+	 */
+	public void remove(Item item, int num) {
+		
+		// remove the item num times
+		for (int i = 0; i < num; i++) {
+			remove(item);
+		}
+		
+	}
 
 	/**
 	 * Removes an item from the inventory
@@ -122,6 +137,46 @@ public class Inventory implements Serializable {
 		
 		return false;
 		
+	}
+	
+	/**
+	 * Finds an item in the inventory
+	 * 
+	 * @param item - item to find
+	 * @return the item, or null if not found
+	 */
+	private Item find(Item item) {
+
+		// iterate through the inventory list
+		for (int i = 0; i < items.length; i++) {
+
+			if (items[i] != null && items[i].equals(item)) {
+				return items[i];
+			}
+		}
+		
+		// no item found
+		return null;
+	}
+	
+	/**
+	 * @param ammo - the ammo type to find
+	 * @return the amount of that ammo in the inventory
+	 */
+	public int getAmmoAmount(Item ammo) {
+
+		// now search for that item
+		if (ammo != null && find(ammo) != null) {
+
+			// return number of bullets
+			return ammo.getQuantity();
+
+		} else {
+
+			// item does not exist
+			return 0;
+		}
+
 	}
 
 	/**

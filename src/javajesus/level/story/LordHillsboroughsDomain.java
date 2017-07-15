@@ -102,6 +102,7 @@ public class LordHillsboroughsDomain extends Level {
 	protected Chest[] getChestPlacement() {
 
 		ArrayList<Item> contents = new ArrayList<Item>();
+		contents.add(Item.revolver);
 		contents.add(Item.shotgun);
 		contents.add(Item.bazooka);
 		contents.add(Item.laserRevolver);
@@ -112,7 +113,7 @@ public class LordHillsboroughsDomain extends Level {
 		contents.add(Item.sabre);
 		contents.add(Item.heavenlySword);
 		contents.add(Item.heavenlyShortSword);
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 10; i++) {
 			contents.add(Item.arrowAmmo);
 			contents.add(Item.assaultRifleAmmo);
 			contents.add(Item.laserAmmo);

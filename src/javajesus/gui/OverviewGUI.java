@@ -264,7 +264,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			// set the descriptors on the left side
 			selected.setItem(clicked.getItem());
 			name.setText(clicked.getItem().getName());
-			description.setText(clicked.getItem().getDescription());
+			description.setText(clicked.getItem().getDescription() + "\nAmount: " + clicked.getItem().getQuantity());
 
 			// repaint the inventory screen
 			repaint();

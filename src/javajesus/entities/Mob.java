@@ -74,10 +74,13 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	protected boolean isTalking;
 
 	// the hit cooldown in ticks
-	private static final int HIT_COOLDOWN = 20;
+	private static final int HIT_COOLDOWN = 15;
 
 	// the talking cooldown in ticks
 	private static final int TALKING_COOLDOWN = secondsToTicks(5);
+	
+	// hit color of mob
+	protected static final int[] mobHitColor = { 0xFFDBA800, 0xFFDBA800, 0xFFDBA800 };
 
 	// the base unit of each box on the spritesheet
 	protected static final int UNIT_SIZE = 8;
@@ -90,7 +93,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 
 	// determines if the mob was recently damaged (for displaying damage
 	// indicators)
-	private boolean isHit;
+	protected boolean isHit;
 
 	// damage cooldown
 	private int isHitTicks;

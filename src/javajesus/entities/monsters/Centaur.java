@@ -87,6 +87,14 @@ public class Centaur extends Monster {
 	 */
 	public void render(Screen screen) {
 		super.render(screen);
+		
+		// default color
+		int[] color = Centaur.color;
+
+		// change color if knockback
+		if (isHit) {
+			color = mobHitColor;
+		}
 
 		// modifier used for rendering in different scales/directions
 		int modifier = UNIT_SIZE * getScale();

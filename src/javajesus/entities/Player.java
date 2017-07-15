@@ -802,8 +802,11 @@ public class Player extends Mob {
 		
 		// reload
 		if (window.isKeyPressed(KeyEvent.VK_R)) {
-			if (equippedGun != null) {
-				equippedGun.reload(100); // TODO
+			if (equippedGun != null && !equippedGun.isReloading() && equippedGun.getAmmo() != null) {
+
+				inventory.remove(equippedGun.getAmmo(),
+				        equippedGun.reload(inventory.getAmmoAmount(equippedGun.getAmmo())));
+
 			}
 			window.toggle(KeyEvent.VK_R);
 		}

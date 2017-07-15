@@ -55,6 +55,9 @@ public class NPC extends Mob {
 
 	// allows npcs to move every other tick
 	private int moveTick;
+	
+	// hit color of the npc
+	protected static final int[] mobHitColor = { 0xFF700000, 0xFF700000, 0xFF700000 };
 
 	/**
 	 * Creates a NPC that interacts with the environment
@@ -190,6 +193,14 @@ public class NPC extends Mob {
 	 */
 	public void render(Screen screen) {
 		super.render(screen);
+		
+		// default color
+		int[] color = this.color;
+
+		// change color if knockback
+		if (isHit) {
+			color = mobHitColor;
+		}
 
 		// modifier used for rendering in different scales/directions
 		int modifier = UNIT_SIZE * getScale();
