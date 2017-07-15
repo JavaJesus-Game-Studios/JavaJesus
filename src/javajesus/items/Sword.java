@@ -373,7 +373,7 @@ public class Sword extends Item {
 		if (powerSwingModifier == 2 && powerSwinging) {
 
 			// long sword
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < 4; i++) {
 				screen.render(xOffset, yOffset + i * modifier, xTile + (yTile + i) * sheet.getTilesPerRow(), color, sheet);
 
 				screen.render(xOffset + modifier, yOffset + i * modifier, (xTile + 1) + (yTile + i) * sheet.getTilesPerRow(),
