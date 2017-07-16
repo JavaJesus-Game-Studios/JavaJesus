@@ -11,6 +11,9 @@ import javajesus.level.Level;
  * Tiles are 8x8 and cannot interact with other entities
  */
 public class Tile {
+	
+	// A set of all the available tiles implemented in the game
+	public static final Tile[] tileList = new Tile[256];
 
 	public static final Tile VOID = new Tile(0, true, 0xFF000000, 0, 0, SpriteSheet.tiles, new int[] { 0xFF000000, 0xFF000000, 0xFF000000 });
 
@@ -61,88 +64,80 @@ public class Tile {
 	
 	public static final Tile CHECKERED_TILE = new Tile(49, false, 0xFFe3350c, 11, 1, SpriteSheet.tiles, new int[] { 0xFF111111, 0xFF111111, 0xFFFFFFFF });
 
-	public static final Tile WOOD_WALL_HORIZONTAL_UP = new Tile(10, 7, 0,
-			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF6D4300);
-	public static final Tile WOOD_WALL_HORIZONTAL_DOWN = new Tile(28, 8, 0,
-			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF835100);
-	public static final Tile WOOD_WALL_VERTICAL_LEFT = new Tile(29, 9, 0,
-			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF5A3801);
-	public static final Tile WOOD_WALL_VERTICAL_RIGHT = new Tile(30, 10, 0,
-			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF472C00);
-	public static final Tile WOOD_WALL_CORNER_RIGHT_UP = new Tile(31, 11, 0,
-			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF520101);
-	public static final Tile WOOD_WALL_CORNER_LEFT_UP = new Tile(32, 12, 0,
-			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF420101);
-	public static final Tile WOOD_WALL_CORNER_RIGHT_DOWN = new Tile(33, 14, 0,
-			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF7A0000);
-	public static final Tile WOOD_WALL_CORNER_LEFT_DOWN = new Tile(34, 13, 0,
-			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF310000);
-	public static final Tile WOOD_WALL_INSIDE_CORNER_LEFT_UP = new Tile(43, 15, 0,
-			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFFA3881A);
-	public static final Tile WOOD_WALL_INSIDE_CORNER_RIGHT_UP = new Tile(44, 16, 0,
-			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF7C6816);
-	public static final Tile WOOD_WALL_INSIDE_CORNER_LEFT_DOWN = new Tile(45, 17, 0,
-			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF717C16);
-	public static final Tile WOOD_WALL_INSIDE_CORNER_RIGHT_DOWN = new Tile(48, 18, 0,
-			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B }, 0xFF7d8c00);
+	public static final Tile WOOD_WALL_HORIZONTAL_UP = new Tile(10, true, 0xFF6D4300, 7, 0, SpriteSheet.tiles,
+			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+	public static final Tile WOOD_WALL_HORIZONTAL_DOWN = new Tile(28, true, 0xFF835100, 8, 0, SpriteSheet.tiles,
+			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+	public static final Tile WOOD_WALL_VERTICAL_LEFT = new Tile(29, true, 0xFF5A3801, 9, 0, SpriteSheet.tiles,
+			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+	public static final Tile WOOD_WALL_VERTICAL_RIGHT = new Tile(30, true, 0xFF472C00, 10, 0, SpriteSheet.tiles,
+			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+	public static final Tile WOOD_WALL_CORNER_RIGHT_UP = new Tile(31, true, 0xFF520101, 11, 0, SpriteSheet.tiles,
+			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+	public static final Tile WOOD_WALL_CORNER_LEFT_UP = new Tile(32, true, 0xFF420101, 12, 0, SpriteSheet.tiles,
+			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+	public static final Tile WOOD_WALL_CORNER_RIGHT_DOWN = new Tile(33, true, 0xFF7A0000, 14, 0, SpriteSheet.tiles,
+			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+	public static final Tile WOOD_WALL_CORNER_LEFT_DOWN = new Tile(34, true, 0xFF310000, 13, 0, SpriteSheet.tiles,
+			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+	public static final Tile WOOD_WALL_INSIDE_CORNER_LEFT_UP = new Tile(43, true, 0xFFA3881A, 15, 0, SpriteSheet.tiles,
+			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+	public static final Tile WOOD_WALL_INSIDE_CORNER_RIGHT_UP = new Tile(44, true, 0xFF7C6816, 16, 0, SpriteSheet.tiles,
+			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+	public static final Tile WOOD_WALL_INSIDE_CORNER_LEFT_DOWN = new Tile(45, true, 0xFF717C16, 17, 0, SpriteSheet.tiles, 
+			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+	public static final Tile WOOD_WALL_INSIDE_CORNER_RIGHT_DOWN = new Tile(48, true, 0xFF7d8c00, 18, 0, SpriteSheet.tiles,
+			new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
 
-	public static final Tile GLASS_WALL_HORIZONTAL_UP = new Tile(35, 7, 0,
-			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA }, 0xFF016ABA);
-	public static final Tile GLASS_WALL_HORIZONTAL_DOWN = new Tile(36, 8, 0,
-			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA }, 0xFF027FDF);
-	public static final Tile GLASS_WALL_VERTICAL_LEFT = new Tile(37, 9, 0,
-			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA }, 0xFF0166f4);
-	public static final Tile GLASS_WALL_VERTICAL_RIGHT = new Tile(38, 10, 0,
-			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA }, 0xFF0256CC);
-	public static final Tile GLASS_WALL_CORNER_RIGHT_UP = new Tile(39, 11, 0,
-			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA }, 0xFF0B9401);
-	public static final Tile GLASS_WALL_CORNER_LEFT_UP = new Tile(40, 12, 0,
-			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA }, 0xFF420101);
-	public static final Tile GLASS_WALL_CORNER_RIGHT_DOWN = new Tile(41, 14, 0,
-			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA }, 0xFF087101);
-	public static final Tile GLASS_WALL_CORNER_LEFT_DOWN = new Tile(42, 13, 0,
-			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA }, 0xFFFFB400);
+	public static final Tile GLASS_WALL_HORIZONTAL_UP = new Tile(35, true, 0xFF016ABA, 7, 0, SpriteSheet.tiles,
+			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
+	public static final Tile GLASS_WALL_HORIZONTAL_DOWN = new Tile(36, true, 0xFF027FDF, 8, 0, SpriteSheet.tiles,
+			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
+	public static final Tile GLASS_WALL_VERTICAL_LEFT = new Tile(37, true, 0xFF0166f4, 9, 0, SpriteSheet.tiles, 
+			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
+	public static final Tile GLASS_WALL_VERTICAL_RIGHT = new Tile(38, true, 0xFF0256CC, 10, 0, SpriteSheet.tiles,
+			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
+	public static final Tile GLASS_WALL_CORNER_RIGHT_UP = new Tile(39, true, 0xFF0B9401, 11, 0, SpriteSheet.tiles,
+			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
+	public static final Tile GLASS_WALL_CORNER_LEFT_UP = new Tile(40, true, 0xFF420101, 12, 0, SpriteSheet.tiles,
+			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
+	public static final Tile GLASS_WALL_CORNER_RIGHT_DOWN = new Tile(41, true, 0xFF087101, 14, 0, SpriteSheet.tiles,
+			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
+	public static final Tile GLASS_WALL_CORNER_LEFT_DOWN = new Tile(42, true, 0xFFFFB400, 13, 0, SpriteSheet.tiles,
+			new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
 
-	public static final Tile FLOOR_CARPET_1 = new Tile(46, 10, 1, new int[] { 0xFF1F7901, 0xFF1F4001, 0xFF000000 },
-			0xFF1f7a01);
+	public static final Tile FLOOR_CARPET_1 = new Tile(46, false,0xFF1f7a01,10, 1, SpriteSheet.tiles, new int[] { 0xFF1F7901, 0xFF1F4001, 0xFF000000 });
 
-	public static final Tile LINOLEUM = new Tile(47, 11, 2, new int[] { 0xFFf9ffd8, 0xFF000000, 0xFF000000 },
-			0xFFFFFFFF);
+	public static final Tile LINOLEUM = new Tile(47, false, 0xFFFFFFFF, 11, 2, SpriteSheet.tiles, new int[] { 0xFFf9ffd8, 0xFF000000, 0xFF000000 });
 
-	public static final Tile MOUNTAIN_UP = new Tile(50, 5, 2,
-			new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 }, 0xFF9e7013);
-	public static final Tile MOUNTAIN_DOWN = new Tile(51, 6, 2,
-			new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 }, 0xFF875a00);
-	public static final Tile MOUNTAIN_LEFT = new Tile(52, 8, 2,
-			new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 }, 0xFF564015);
-	public static final Tile MOUNTAIN_RIGHT = new Tile(53, 7, 2,
-			new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 }, 0xFF5e3f00);
+	public static final Tile MOUNTAIN_UP = new Tile(50, true, 0xFF9e7013, 5, 2, SpriteSheet.tiles,
+			new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
+	public static final Tile MOUNTAIN_DOWN = new Tile(51, true, 0xFF875a00, 6, 2, SpriteSheet.tiles,
+			new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
+	public static final Tile MOUNTAIN_LEFT = new Tile(52, true, 0xFF564015, 8, 2, SpriteSheet.tiles,
+			new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
+	public static final Tile MOUNTAIN_RIGHT = new Tile(53, true, 0xFF5e3f00, 7, 2, SpriteSheet.tiles, 
+			new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
 
-	public static final Tile GRASS_POPPY = new Tile(54, 16, 1, new int[] { 0xFF339933, 0xFF33BB33, 0xFF000000 },
-			0xFF00FF00);
-	public static final Tile GRASS4 = new Tile(62, 19, 1, new int[] { 0xFF339933, 0xFF33BB33, 0xFF000000 },
-			0xFF00FF00);
-	public static final Tile GRASS5 = new Tile(63, 20, 1, new int[] { 0xFF339933, 0xFF33BB33, 0xFF000000 },
-			0xFF00FF00);
+	public static final Tile GRASS_POPPY = new Tile(54, false, 0xFF00FF00, 16, 1, SpriteSheet.tiles, new int[] { 0xFF339933, 0xFF33BB33, 0xFF000000 });
+	public static final Tile GRASS4 = new Tile(62, false, 0xFF00FF00, 19, 1, SpriteSheet.tiles, new int[] { 0xFF339933, 0xFF33BB33, 0xFF000000 });
+	public static final Tile GRASS5 = new Tile(63, false, 0xFF00FF00, 20, 1, SpriteSheet.tiles, new int[] { 0xFF339933, 0xFF33BB33, 0xFF000000 });
 
-	public static final Tile WASTELAND_GROUND1 = new Tile(55, 12, 1,
-			new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
-	public static final Tile WASTELAND_GROUND2 = new Tile(56, 13, 1,
-			new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
-	public static final Tile WASTELAND_GROUND3 = new Tile(57, 14, 1,
-			new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
-	public static final Tile WASTELAND_GROUND4 = new Tile(58, 15, 1,
-			new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
-	public static final Tile WASTELAND_GROUND5 = new Tile(59, 0, 2,
-			new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
-	public static final Tile WASTELAND_GROUND6 = new Tile(60, 17, 1,
-			new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
-	public static final Tile WASTELAND_GROUND7 = new Tile(61, 18, 1,
-			new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 }, 0xFF8e8e8e);
+	public static final Tile WASTELAND_GROUND1 = new Tile(55, false, 0xFF8e8e8e, 12, 1, SpriteSheet.tiles,
+			new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+	public static final Tile WASTELAND_GROUND2 = new Tile(56, false, 0xFF8e8e8e, 13, 1, SpriteSheet.tiles, 
+			new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+	public static final Tile WASTELAND_GROUND3 = new Tile(57, false, 0xFF8e8e8e, 14, 1, SpriteSheet.tiles, 
+			new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+	public static final Tile WASTELAND_GROUND4 = new Tile(58, false, 0xFF8e8e8e, 15, 1, SpriteSheet.tiles,
+			new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+	public static final Tile WASTELAND_GROUND5 = new Tile(59, false, 0xFF8e8e8e, 0, 2, SpriteSheet.tiles,
+			new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
+	public static final Tile WASTELAND_GROUND6 = new Tile(60, false, 0xFF8e8e8e, 17, 1, SpriteSheet.tiles,
+			new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
+	public static final Tile WASTELAND_GROUND7 = new Tile(61, false, 0xFF8e8e8e, 18, 1, SpriteSheet.tiles,
+			new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
 	
-	// A set of all the available tiles implemented in the game
-	public static final Tile[] tileList = new Tile[256];
-
 	// base size of tiles
 	public static final int SIZE = 8;
 
