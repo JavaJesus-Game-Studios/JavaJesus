@@ -16,8 +16,12 @@ public class Screen {
 	// the dimensions of the screen
 	private int width, height;
 
+	// base size of a unit tile on the spritesheet
+	private static final int SIZE = 8;
+
 	/**
 	 * Creates a new screen that can modify pixels used for display elsewhere
+	 * 
 	 * @param width width of the screen
 	 * @param height height of the screen
 	 */
@@ -36,89 +40,85 @@ public class Screen {
 			pixels[i] = 0;
 		}
 	}
-	
+
 	/**
-	 * Displays a tile at a particular position
-	 * @param xOffset the x coordinate on the level
-	 * @param yOffset the y coordinate on the level
-	 * @param tile the sprite sheet offset to use
-	 * @param color the color set
-	 * @param mirror if the pixels should be rendered right to left
-	 * @param sheet the sprite sheet to use
+	 * Sets the pixels from the spritesheet to this screen's internal pixel
+	 * array
+	 * 
+	 * @param xOffset - x coordinate on the level
+	 * @param yOffset -y coordinate on the level
+	 * @param tile - the sprite sheet offset to use
+	 * @param color - the color set
+	 * @param mirror - whether or not to flip the x axis
+	 * @param sheet - the sprite sheet to use
 	 */
 	public void render(int xOffset, int yOffset, int tile, int[] color,
 			boolean mirror, SpriteSheet sheet) {
-		render(xOffset, yOffset, tile, color, mirror, 1, sheet);
-	}
-	
-	/**
-	 * Displays a tile at a particular position
-	 * @param xOffset the x coordinate on the level
-	 * @param yOffset the y coordinate on the level
-	 * @param tile the sprite sheet offset to use
-	 * @param color the color set
-	 * @param sheet the sprite sheet to use
-	 */
-	public void render(int xOffset, int yOffset, int tile, int[] color, SpriteSheet sheet) {
-		render(xOffset, yOffset, tile, color, false, 1, sheet);
-	}
-	
-	/**
-	 * Displays a tile at a particular position
-	 * @param xOffset the x coordinate on the level
-	 * @param yOffset the y coordinate on the level
-	 * @param tile the sprite sheet offset to use
-	 * @param color the color set
-	 * @param mirror if the pixels should be rendered right to left
-	 * @param scale modifier to how big the sprite should be displayed
-	 * @param sheet the sprite sheet to use
-	 */
-	public void render(int xOffset, int yOffset, int tile, int[] color,
-			boolean mirror, int scale, SpriteSheet sheet) {
-		this.render(xOffset, yOffset, tile, color, mirror, false, scale, sheet);
+		render(xOffset, yOffset, tile % sheet.getTilesPerRow(),
+				tile / sheet.getTilesPerRow(), sheet, mirror, color);
 	}
 
 	/**
-	 * Displays a tile at a particular position
-	 * @param xOffset the x coordinate on the level
-	 * @param yOffset the y coordinate on the level
-	 * @param tile the sprite sheet offset to use
-	 * @param color the color set
-	 * @param mirror if the pixels should be rendered right to left
-	 * @param mirrorY if the pixels should be rendered bottom to top
-	 * @param scale modifier to how big the sprite should be displayed
-	 * @param sheet the sprite sheet to use
+	 * Sets the pixels from the spritesheet to this screen's internal pixel
+	 * array
+	 * 
+	 * @param xOffset - x coordinate on the level
+	 * @param yOffset -y coordinate on the level
+	 * @param tile - the sprite sheet offset to use
+	 * @param color - the color set
+	 * @param sheet - the sprite sheet to use
 	 */
 	public void render(int xOffset, int yOffset, int tile, int[] color,
-			boolean mirror, boolean mirrorY, int scale, SpriteSheet sheet) {
+			SpriteSheet sheet) {
+		render(xOffset, yOffset, tile % sheet.getTilesPerRow(),
+				tile / sheet.getTilesPerRow(), sheet, false, color);
+	}
+
+	/**
+	 * Sets the pixels from the spritesheet to this screen's internal pixel
+	 * array
+	 * 
+	 * @param xOffset - x coordinate on the level
+	 * @param yOffset - y coordinate on the level
+	 * @param xTile - x tile on the spritesheet
+	 * @param yTile - y tile on the spritesheet
+	 * @param sheet - the Spritesheet to use
+	 * @param mirror - whether or not to flip the x axis
+	 * @param color - color set of the spritesheet
+	 */
+	public void render(int xOffset, int yOffset, int xTile, int yTile,
+			SpriteSheet sheet, boolean mirror, int[] color) {
 
 		// shifts the position of the screen by the global offset
 		xOffset -= this.xOffset;
 		yOffset -= this.yOffset;
 
-		int scaleMap = scale - 1;
-		int xTile = tile % sheet.getTilesPerRow();
-		int yTile = tile / sheet.getTilesPerRow();
-		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.getWidth();
-		for (int y = 0; y < 8; y++) {
-			int ySheet = y;
-			
-			//Mirrors bottom to top
-			if (mirrorY)
-				ySheet = 7 - y;
-			
-			int yPixel = y + yOffset + (y * scaleMap) - ((scaleMap << 3) / 2);
-			for (int x = 0; x < 8; x++) {
-				int xPixel = x + xOffset + (x * scaleMap)
-						- ((scaleMap << 3) / 2);
+		// loop top to bottom
+		for (int y = 0; y < SIZE; y++) {
+
+			// pixel location in pixel array
+			int yPixel = y + yOffset;
+
+			// loop left to right
+			for (int x = 0; x < SIZE; x++) {
+
+				// pixel location in pixel array
+				int xPixel = x + xOffset;
+
+				// pixel on spritesheet to use
 				int xSheet = x;
-				
-				// Mirrors right to left
-				if (mirror)
-					xSheet = 7 - x;
-				
-				int col = sheet.getPixels()[tileOffset + xSheet + ySheet
-						* sheet.getWidth()];
+
+				// flips x axis
+				if (mirror) {
+					// flip the pixel used on the spritesheet
+					xSheet = (SIZE - 1) - x;
+				}
+
+				// color of pixel at spritesheet coordinates
+				int col = sheet.getPixels()[(xTile + yTile * sheet.getWidth())
+						+ xSheet + yPixel * sheet.getWidth()];
+
+				// assign the color based on color set
 				if (color != null)
 					switch (col) {
 					case 0xFF555555: {
@@ -134,18 +134,15 @@ public class Screen {
 						break;
 					}
 					}
-				if (col != 0xFF000000)
-					for (int yScale = 0; yScale < scale; yScale++) {
-						if (yPixel + yScale < 0 || yPixel + yScale >= height)
-							continue;
-						for (int xScale = 0; xScale < scale; xScale++) {
-							if (xPixel + xScale < 0 || xPixel + xScale >= width)
-								continue;
-							pixels[(xPixel + xScale) + (yPixel + yScale)
-									* width] = col;
 
-						}
-					}
+				// only render if color is not pure black and in pixel bounds
+				if (col != 0xFF000000 && yPixel >= 0 && yPixel < height
+						&& xPixel >= 0 && xPixel < width) {
+
+					// assign the color to the pixel array
+					pixels[xPixel + yPixel * width] = col;
+
+				}
 
 			}
 		}
@@ -153,6 +150,7 @@ public class Screen {
 
 	/**
 	 * Changes the offset of the screen
+	 * 
 	 * @param xOffset the new horizontal offset
 	 * @param yOffset the new vertical offset
 	 */
@@ -163,6 +161,7 @@ public class Screen {
 
 	/**
 	 * Displays a large building or object on the screen
+	 * 
 	 * @param xOffset the x coordinate on the level
 	 * @param yOffset the y coordinate on the level
 	 * @param color the color set
@@ -174,13 +173,26 @@ public class Screen {
 		xOffset -= this.xOffset;
 		yOffset -= this.yOffset;
 
+		// loop top to bottom
 		for (int y = 0; y < sprite.ySize; y++) {
-			int yPixel = (int) (y + yOffset);
+
+			// y coord in the pixel array
+			int yPixel = y + yOffset;
+
+			// loop left to right
 			for (int x = 0; x < sprite.xSize; x++) {
-				int xPixel = (int) (x + xOffset);
+
+				// x coord in the pixel array
+				int xPixel = x + xOffset;
+
+				// make sure the pixel is in bounds
 				if (xPixel >= 0 && yPixel >= 0 && xPixel < width
 						&& yPixel < height) {
+
+					// get the color from the sprite
 					int col = sprite.pixels[x + y * sprite.xSize];
+
+					// assign the color value
 					if (color != null)
 						switch (col) {
 						case 0xFF555555: {
@@ -196,83 +208,28 @@ public class Screen {
 							break;
 						}
 						}
-					if (col != 0xFF000000)
-						pixels[(xPixel) + (yPixel) * width] = col;
+
+					// set the color value if not black
+					if (col != 0xFF000000) {
+						pixels[xPixel + yPixel * width] = col;
+					}
 				}
 
 			}
 		}
 	}
 
-	/** Blends the pixels of Tiles */
-	public void renderBlended(int xOffset, int yOffset, int tile, int[] color,
-			boolean mirror, int scale, SpriteSheet sheet) {
-
-		xOffset -= this.xOffset;
-		yOffset -= this.yOffset;
-
-		int scaleMap = scale - 1;
-		int xTile = tile % sheet.getTilesPerRow();
-		int yTile = tile / sheet.getTilesPerRow();
-		int tileOffset = (xTile << 3) + (yTile << 3) * sheet.getWidth();
-		for (int y = 0; y < 8; y++) {
-			int ySheet = y;
-			/*
-			if (mirrorY)
-				ySheet = 7 - y; */
-			int yPixel = y + yOffset + (y * scaleMap) - ((scaleMap << 3) / 2);
-			for (int x = 0; x < 8; x++) {
-				int xPixel = x + xOffset + (x * scaleMap)
-						- ((scaleMap << 3) / 2);
-				int xSheet = x;
-				if (mirror)
-					xSheet = 7 - x;
-				int col = sheet.getPixels()[tileOffset + xSheet + ySheet
-						* sheet.getWidth()];
-				if (color != null)
-					switch (col) {
-					case 0xFF555555: {
-						col = color[0];
-						break;
-					}
-					case 0xFFAAAAAA: {
-						col = color[1];
-						break;
-					}
-					case 0xFFFFFFFF: {
-						col = color[2];
-						break;
-					}
-					}
-				//col += new Random().nextInt(100) - 50;
-				if (col != 0xFF000000)
-					for (int yScale = 0; yScale < scale; yScale++) {
-						if (yPixel + yScale < 0 || yPixel + yScale >= height)
-							continue;
-						for (int xScale = 0; xScale < scale; xScale++) {
-							if (xPixel + xScale < 0 || xPixel + xScale >= width)
-								continue;
-							pixels[(xPixel + xScale) + (yPixel + yScale)
-									* width] = col;
-
-						}
-					}
-
-			}
-		}
-	}
-	
 	/**
 	 * Renders a collision box to the screen
 	 * 
 	 * @param r - the rectangle to render
 	 */
 	public void renderCollisionBox(Rectangle r) {
-		
+
 		// shifts the position of the screen by the global offset
 		int xOffset = (int) r.getX() - this.xOffset;
 		int yOffset = (int) r.getY() - this.yOffset;
-		
+
 		// bounds of the rectangle
 		int width = (int) r.getWidth();
 		int height = (int) r.getHeight();
@@ -285,7 +242,7 @@ public class Screen {
 				}
 			}
 		}
-		
+
 		// right line
 		if (xOffset + width - 1 >= 0 && xOffset + width - 1 < this.width) {
 			for (int i = 0; i < height; i++) {
@@ -294,7 +251,7 @@ public class Screen {
 				}
 			}
 		}
-		
+
 		// top line
 		if (yOffset >= 0 && yOffset < this.height) {
 			for (int i = 0; i < width; i++) {
@@ -303,7 +260,7 @@ public class Screen {
 				}
 			}
 		}
-		
+
 		// bottom line
 		if (yOffset + height - 1 >= 0 && yOffset + height - 1 < this.height) {
 			for (int i = 0; i < width; i++) {
@@ -312,23 +269,23 @@ public class Screen {
 				}
 			}
 		}
-		
+
 	}
-	
+
 	/**
 	 * Renders the sprite in 24 bit
 	 * 
 	 * @param screen - the screen to display it on
 	 */
 	public void render24bit(int xTile, int yTile, SpriteSheet sheet) {
-		
+
 		// size of each box
 		int modifier = 8;
-		
+
 		// 24 bit so multiply by 3
 		xTile *= 3;
 		yTile *= 3;
-		
+
 		// top to bottom
 		for (int i = 0; i < 3; i++) {
 
@@ -336,11 +293,12 @@ public class Screen {
 			for (int j = 0; j < 3; j++) {
 
 				// render the box
-				render(modifier * j, modifier * i, (xTile + j) + (yTile + i) * sheet.getTilesPerRow(), null, sheet);
+				render(modifier * j, modifier * i, (xTile + j) + (yTile + i)
+						* sheet.getTilesPerRow(), null, sheet);
 
 			}
 		}
-		
+
 	}
 
 	/**
