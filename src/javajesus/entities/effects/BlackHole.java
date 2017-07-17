@@ -128,7 +128,7 @@ public class BlackHole extends Entity {
 			// left to right
 			for (int j = 0; j < 4; j++) {
 				screen.render(getX() - (MODIFIER * 2) + (j * MODIFIER), getY() - (MODIFIER * 2) + (i * MODIFIER),
-				        (xOffset + j) + (i * sheet.getTilesPerRow()), color, false, sheet);
+				        xOffset + j, i, sheet, false, color);
 			}
 		}
 

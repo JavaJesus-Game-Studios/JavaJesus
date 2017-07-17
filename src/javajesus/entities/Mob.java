@@ -31,9 +31,6 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	// the direction the mob is moving/facing
 	private Direction movingDir = Direction.SOUTH;
 
-	// the scaled size of the mob
-	private int scale = 1;
-
 	// the current amount of health
 	private int health;
 
@@ -590,7 +587,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	public void render(Screen screen) {
 
 		// modifier used for rendering in different scales/directions
-		int modifier = UNIT_SIZE * scale;
+		int modifier = UNIT_SIZE;
 
 		// no x or y offset, use the upper left corner as absolute
 		int xOffset = getX(), yOffset = getY();
@@ -602,10 +599,8 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 			yOffset += 4 + ((tickCount % 60 < 30) ? -1 : 0);
 			
 			// water rings
-			screen.render(xOffset, yOffset + modifier,
-					0 + 10 * sheet.getTilesPerRow(), waterColor, false, 1, sheet);
-			screen.render(xOffset + 8, yOffset + modifier,
-					0 + 10 * sheet.getTilesPerRow(), waterColor, true, 1, sheet);
+			screen.render(xOffset, yOffset + modifier, 0, 10, sheet, false, waterColor);
+			screen.render(xOffset + modifier, yOffset + modifier, 0, 10, sheet, true, waterColor);
 		}
 
 		// Handles fire animation
@@ -614,9 +609,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 			int[] firecolor = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
 
 			FireEntity.update();
-			screen.render(xOffset + 3, yOffset + 4,
-					FireEntity.xTile + FireEntity.yTile * sheet.getTilesPerRow(), firecolor,
-					false, 2, SpriteSheet.tiles);
+			screen.render(xOffset, yOffset, FireEntity.xTile, FireEntity.yTile, SpriteSheet.tiles, firecolor, 2);
 			
 		}
 
@@ -999,13 +992,6 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	 */
 	public int getCurrentHealth() {
 		return health;
-	}
-
-	/**
-	 * @return the rendering scale of the mob
-	 */
-	public int getScale() {
-		return scale;
 	}
 
 	/**

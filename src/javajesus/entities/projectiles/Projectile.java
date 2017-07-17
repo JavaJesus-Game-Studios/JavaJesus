@@ -292,7 +292,7 @@ public abstract class Projectile extends Entity implements Hideable {
 	 */
 	public void render(Screen screen) {
 
-		screen.render(getX(), getY(), xTile + yTile * sheet.getTilesPerRow(), color, sheet);
+		screen.render(getX(), getY(), xTile, yTile, sheet, false, color);
 	}
 
 	/**

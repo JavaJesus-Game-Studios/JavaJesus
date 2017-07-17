@@ -222,11 +222,11 @@ public class Chest extends Entity implements SolidEntity {
 	public void render(Screen screen) {
 
 		if (!isOpen) {
-			screen.render(getX(), getY(), 0 + 20 * 32, color, SpriteSheet.tiles);
-			screen.render(getX() + 8, getY(), 1 + 20 * 32, color, SpriteSheet.tiles);
+			screen.render(getX(), getY(), 0, 20, SpriteSheet.tiles, false, color);
+			screen.render(getX() + 8, getY(), 1, 20, SpriteSheet.tiles,false, color);
 		} else {
-			screen.render(getX(), getY(), 2 + 20 * 32, color, SpriteSheet.tiles);
-			screen.render(getX() + 8, getY(), 3 + 20 * 32, color, SpriteSheet.tiles);
+			screen.render(getX(), getY(), 2, 20, SpriteSheet.tiles, false, color);
+			screen.render(getX() + 8, getY(), 3, 20, SpriteSheet.tiles, false, color);
 		}
 
 	}

@@ -106,20 +106,20 @@ public class TransporterStair extends Transporter {
 
 		switch (direction) {
 		case NORTH:
-			screen.render(getX(), getY(), xTile + 6 * SpriteSheet.tiles.getTilesPerRow(), color, SpriteSheet.tiles);
-			screen.render(getX() + SIZE, getY(), (xTile + 1) + 6 * SpriteSheet.tiles.getTilesPerRow(), color, SpriteSheet.tiles);
+			screen.render(getX(), getY(), xTile, 6, SpriteSheet.tiles, false, color);
+			screen.render(getX() + SIZE, getY(), xTile + 1, 6, SpriteSheet.tiles, false, color);
 			break;
 		case EAST:
-			screen.render(getX(), getY(), xTile + 7 * SpriteSheet.tiles.getTilesPerRow(), color, SpriteSheet.tiles);
-			screen.render(getX(), getY() + SIZE, xTile + 8 * SpriteSheet.tiles.getTilesPerRow(), color, SpriteSheet.tiles);
+			screen.render(getX(), getY(), xTile, 7, SpriteSheet.tiles, false, color);
+			screen.render(getX(), getY() + SIZE, xTile, 8, SpriteSheet.tiles, false, color);
 			break;
 		case WEST:
-			screen.render(getX(), getY(), xTile + 5 * SpriteSheet.tiles.getTilesPerRow(), color, SpriteSheet.tiles);
-			screen.render(getX() + SIZE, getY(), (xTile + 1) + 5 * SpriteSheet.tiles.getTilesPerRow(), color, SpriteSheet.tiles);
+			screen.render(getX(), getY(), xTile, 5, SpriteSheet.tiles, false, color);
+			screen.render(getX() + SIZE, getY(), xTile + 1, 5, SpriteSheet.tiles, false, color);
 			break;
 		default:
-			screen.render(getX(), getY(), xTile + 9 * SpriteSheet.tiles.getTilesPerRow(), color, SpriteSheet.tiles);
-			screen.render(getX(), getY() + SIZE, xTile + 10 * SpriteSheet.tiles.getTilesPerRow(), color, SpriteSheet.tiles);
+			screen.render(getX(), getY(), xTile, +9, SpriteSheet.tiles, false, color);
+			screen.render(getX(), getY() + SIZE, xTile, 10, SpriteSheet.tiles, false, color);
 			break;
 		}
 	}

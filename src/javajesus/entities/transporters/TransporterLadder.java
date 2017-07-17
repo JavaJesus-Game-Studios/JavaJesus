@@ -44,8 +44,7 @@ public class TransporterLadder extends Transporter {
 	 * Displays the ladder to the screen
 	 */
 	public void render(Screen screen) {
-
-		screen.render(getX() + 0, getY() - 8, 6 + 5 * 32, color, SpriteSheet.tiles);
-		screen.render(getX() + 0, getY() + 0, 6 + 6 * 32, color, SpriteSheet.tiles);
+		screen.render(getX(), getY() - 8, 6, 5, SpriteSheet.tiles, false, color);
+		screen.render(getX(), getY(), 6, 6, SpriteSheet.tiles, false, color);
 	}
 }

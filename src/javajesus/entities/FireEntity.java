@@ -84,7 +84,7 @@ public class FireEntity extends Entity  {
 	 */
 	public void render(Screen screen) {
 		
-		screen.render(getX(), getY(), xTile + yTile * SpriteSheet.tiles.getTilesPerRow(), color, SpriteSheet.tiles);
+		screen.render(getX(), getY(), xTile, yTile, SpriteSheet.tiles, false, color);
 	}
 
 }

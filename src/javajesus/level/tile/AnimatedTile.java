@@ -1,46 +1,53 @@
 package javajesus.level.tile;
 
+import javajesus.graphics.SpriteSheet;
+
 /*
  * A Tile that changes its appearance every tick
  */
-public class AnimatedTile extends BaseTile{
-	
-	// the range of animated sprites
-	private int[][] animationTileCoords;
-	
-	// index in the animated tile array
-	private int currentAnimationIndex;
-	
+public class AnimatedTile extends Tile {
+
 	// last time changed
 	private long lastIterationTime;
-	
+
 	// delay between switching animations
 	private int animationSwitchDelay;
 
+	// number of tiles in the sequence
+	private int length;
+
 	/**
 	 * Creates a Tile that changes its appearance every tick
-	 * @param id UNIQUE identifier
-	 * @param animationCoords set of the x and y position of each tile
-	 * @param tileColor the color set
-	 * @param levelColor the pixel color on the level file
-	 * @param animationSwitchDelay the delay between animations
+	 * 
+	 * @param id - unique id of this tile
+	 * @param solid - whether or not entities can clip
+	 * @param pixelColor - pixel color in png file
+	 * @param yTile - the y coordinate on the sheet
+	 * @param sheet - spritesheet to use
+	 * @param color - color set of the tile
+	 * @param numTiles - the number of subsequent tiles in the spritesheet
+	 * @param animationSwitchDelay - delay between texture updates
 	 */
-	public AnimatedTile(int id, int[][] animationCoords, int[] tileColor, int levelColor, int animationSwitchDelay) {
-		super(id, animationCoords[0][0], animationCoords[0][1], tileColor, levelColor);
-			this.animationTileCoords = animationCoords;
-			this.currentAnimationIndex = 0;
-			this.lastIterationTime = System.currentTimeMillis();
-			this.animationSwitchDelay = animationSwitchDelay;
+	public AnimatedTile(int id, boolean solid, int pixelColor, int yTile, SpriteSheet sheet, int[] color, int numTiles,
+	        int animationSwitchDelay) {
+		super(id, solid, pixelColor, 0, yTile, sheet, color);
+
+		// instance data
+		this.lastIterationTime = System.currentTimeMillis();
+		this.animationSwitchDelay = animationSwitchDelay;
+		this.length = numTiles;
 	}
-	
+
 	/**
 	 * Handles the animation
 	 */
+	@Override
 	public void tick() {
-			if ((System.currentTimeMillis() - lastIterationTime) >= (animationSwitchDelay)) {
-				lastIterationTime = System.currentTimeMillis();
-				currentAnimationIndex = (currentAnimationIndex + 1) % animationTileCoords.length;
-				setTileID(animationTileCoords[currentAnimationIndex][0], animationTileCoords[currentAnimationIndex][1]);
-			}
+
+		// update the xTile
+		if ((System.currentTimeMillis() - lastIterationTime) >= (animationSwitchDelay)) {
+			lastIterationTime = System.currentTimeMillis();
+			xTile = (xTile + 1) % length;
+		}
 	}
 }

@@ -95,7 +95,7 @@ public class Explosion extends Entity {
 			for (int j = 0; j < 2; j++) {
 
 				screen.render(getX() - MODIFIER + (MODIFIER * j), getY() - MODIFIER + (MODIFIER * i),
-				        (xOffset + j) + (yTile + i) * sheet.getTilesPerRow(), color, sheet);
+				        xOffset + j, yTile + i, sheet, false, color);
 
 			}
 		}

@@ -43,7 +43,7 @@ public class LordHillsborough extends NPC {
 		super.render(screen);
 
 		// modifier used for rendering in different scales/directions
-		int modifier = UNIT_SIZE * getScale();
+		int modifier = UNIT_SIZE;
 
 		// no x or y offset, use the upper left corner as absolute
 		int xOffset = getX(), yOffset = getY() - modifier;
@@ -65,12 +65,11 @@ public class LordHillsborough extends NPC {
 		}
 
 		// Upper crown 1
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getTilesPerRow(),
-				getColor(), flip, getScale(), getSpriteSheet());
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip);
 
 		// Upper crown 2
-		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-				(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, getSpriteSheet(),
+		        flip);
 	}
 
 	/**

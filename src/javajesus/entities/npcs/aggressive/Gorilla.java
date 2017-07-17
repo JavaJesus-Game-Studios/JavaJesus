@@ -157,7 +157,7 @@ public class Gorilla extends NPC {
 	public void render(Screen screen) {
 
 		// modifier used for rendering in different scales/directions
-		int modifier = UNIT_SIZE * getScale();
+		int modifier = UNIT_SIZE;
 
 		// no x or y offset, use the upper left corner as absolute
 		int xOffset = getX(), yOffset = getY();
@@ -198,13 +198,13 @@ public class Gorilla extends NPC {
 		for (int i = 0; i < 3; i++) {
 
 			screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-					xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
+					xTile, yTile + i, getSpriteSheet(), flip, getColor());
 
 			screen.render(xOffset + modifier, yOffset + (modifier * i),
-					(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
+					xTile + 1, yTile + i, getSpriteSheet(), flip, getColor());
 
 			screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-					(xTile + 2) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
+					xTile + 2, yTile + i, getSpriteSheet(), flip, getColor());
 		}
 	}
 

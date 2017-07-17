@@ -15,6 +15,7 @@ import javajesus.level.tile.Tile;
  */
 public class DestructibleTile extends Entity {
 
+	// serialization
 	private static final long serialVersionUID = 3662337682501677071L;
 	
 	// amount of times it must be hit before being destroyed
@@ -24,7 +25,7 @@ public class DestructibleTile extends Entity {
 	private int[] color;
 	
 	// which tile to display
-	private int tileNumber;
+	private int xTile, yTile;
 
 	// used for generating random damage
 	private static final Random random = new Random();
@@ -36,10 +37,12 @@ public class DestructibleTile extends Entity {
 	 * @param y
 	 * @param defaultHealth
 	 */
-	public DestructibleTile(Level level, int x, int y, int defaultHealth) {
+	public DestructibleTile(Level level, int x, int y, int defaultHealth, int xTile, int yTile) {
 		super(level, x, y);
 		this.setBounds(x, y, Tile.SIZE, Tile.SIZE);
 		this.health = defaultHealth;
+		this.xTile = xTile;
+		this.yTile = yTile;
 
 	}
 
@@ -54,7 +57,7 @@ public class DestructibleTile extends Entity {
 	 * Sends the pixels to the screen to be processed
 	 */
 	public void render(Screen screen) {
-		screen.render(getX(), getY(), tileNumber, color, SpriteSheet.tiles);
+		screen.render(getX(), getY(), xTile, yTile, SpriteSheet.tiles, false, color);
 	}
 
 	/**

@@ -65,10 +65,6 @@ public class TransporterCave extends Transporter {
 	 * Displays the cave transporter on the screen
 	 */
 	public void render(Screen screen) {
-
-		screen.render(getX() + 0, getY() + 0, 4 + 5 * 32, color, SpriteSheet.tiles);
-		screen.render(getX() + 0, getY() + 8, 4 + 6 * 32, color, SpriteSheet.tiles);
-		screen.render(getX() + 8, getY() + 0, 5 + 5 * 32, color, SpriteSheet.tiles);
-		screen.render(getX() + 8, getY() + 8, 5 + 6 * 32, color, SpriteSheet.tiles);
+		screen.render16bit(getX(), getY(), 4, 5, SpriteSheet.tiles, color);
 	}
 }

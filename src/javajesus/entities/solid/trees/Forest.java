@@ -7,7 +7,6 @@ import javajesus.entities.Entity;
 import javajesus.entities.SolidEntity;
 import javajesus.level.Level;
 import javajesus.level.tile.AnimatedTile;
-import javajesus.level.tile.BasicSolidTile;
 import javajesus.level.tile.Tile;
 
 /*
@@ -41,7 +40,7 @@ public class Forest {
 		Tile t = level.getTileFromEntityCoords(x, y);
 
 		// trees can't grow on solids or water
-		if (t instanceof BasicSolidTile || t instanceof AnimatedTile) {
+		if (t.isSolid() || t instanceof AnimatedTile) {
 			return false;
 		}
 

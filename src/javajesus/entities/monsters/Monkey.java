@@ -61,7 +61,7 @@ public class Monkey extends Monster {
 		}
 
 		// modifier used for rendering in different scales/directions
-		int modifier = UNIT_SIZE * getScale();
+		int modifier = UNIT_SIZE;
 
 		// no x or y offset, use the upper left corner as absolute
 		int xOffset = getX(), yOffset = getY();
@@ -98,20 +98,19 @@ public class Monkey extends Monster {
 			xTile = 12;
 
 		// Upper body
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getTilesPerRow(), color,
-				flip, getScale(), getSpriteSheet());
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
 
 		// Upper body
-		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-				(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, getSpriteSheet(),
+		        flip, color);
 
 		// Lower Body
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, getSpriteSheet(),
+		        flip, color);
 
 		// Lower Body
-		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
+		        getSpriteSheet(), flip, color);
 	}
 
 	/**

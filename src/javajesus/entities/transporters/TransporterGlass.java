@@ -55,11 +55,7 @@ public class TransporterGlass extends Transporter {
 	 * Updates the transporter on the screen
 	 */
 	public void render(Screen screen) {
-
-		screen.render(getX() + 0, getY() + 0, 0 + 5 * 32, color, SpriteSheet.tiles);
-		screen.render(getX() + 8, getY() + 0, 1 + 5 * 32, color, SpriteSheet.tiles);
-		screen.render(getX() + 0, getY() + 8, 0 + 6 * 32, color, SpriteSheet.tiles);
-		screen.render(getX() + 8, getY() + 8, 1 + 6 * 32, color, SpriteSheet.tiles);
+		screen.render16bit(getX(), getY(), 0, 5, SpriteSheet.tiles, color);
 	}
 
 }

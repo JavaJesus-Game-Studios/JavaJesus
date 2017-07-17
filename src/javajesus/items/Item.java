@@ -195,62 +195,21 @@ public class Item implements Serializable {
 	}
 
 	/**
-	 * Displays the item GUI in 16 bit
+	 * Displays the item GUI in 24 bit
 	 * 
 	 * @param screen - the screen to display it on
 	 */
 	public void render(final Screen screen) {
-		
-		// size of each box
-		int modifier = 8;
-		
-		// 24 bit so multiply by 3
-		int xTile = this.xTile * 3;
-		int yTile = this.yTile * 3;
-		
-		// top to bottom
-		for (int i = 0; i < 3; i++) {
-			
-			// left to right
-			for (int j = 0; j < 3; j++) {
-				
-				// render the box
-				screen.render(modifier * j, modifier * i,
-				        (xTile + j) + (yTile + i) * SpriteSheet.gui_items.getTilesPerRow(), null,
-				        SpriteSheet.gui_items);
-				
-			}
-		}
+		screen.render24bit(xTile, yTile, SpriteSheet.gui_items);
 	}
-	
+
 	/**
 	 * Displays the item HUD in 24 bit
 	 * 
 	 * @param screen - the screen to display it on
 	 */
 	public void renderHUD(final Screen screen) {
-		
-		// size of each box
-		int modifier = 8;
-		
-		// 24 bit so multiply by 3
-		int xTile = this.xTile * 3;
-		int yTile = this.yTile * 3;
-		
-		// top to bottom
-		for (int i = 0; i < 3; i++) {
-			
-			// left to right
-			for (int j = 0; j < 3; j++) {
-				
-				// render the box
-				screen.render(modifier * j, modifier * i,
-				        (xTile + j) + (yTile + i) * SpriteSheet.hud_weapons.getTilesPerRow(), null,
-				        SpriteSheet.hud_weapons);
-				
-			}
-		}
-		
+		screen.render24bit(xTile, yTile, SpriteSheet.hud_weapons);
 	}
 
 	/**

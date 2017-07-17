@@ -97,7 +97,7 @@ public class Centaur extends Monster {
 		}
 
 		// modifier used for rendering in different scales/directions
-		int modifier = UNIT_SIZE * getScale();
+		int modifier = UNIT_SIZE;
 
 		// no x or y offset, use the upper left corner as absolute
 		int xOffset = getX(), yOffset = getY();
@@ -129,28 +129,27 @@ public class Centaur extends Monster {
 		// standing vertical
 		if (isLongitudinal()) {
 			// Upper body
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getTilesPerRow(), color,
-					flip, getScale(), getSpriteSheet());
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
 
 			// Upper body
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-					(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, getSpriteSheet(),
+			        flip, color);
 
 			// Middle Body
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, getSpriteSheet(),
+			        flip, color);
 
 			// Middle Body
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
+			        getSpriteSheet(), flip, color);
 
 			// Lower Body
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-					xTile + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile, yTile + 2,
+			        getSpriteSheet(), flip, color);
 
 			// Lower Body
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-					(xTile + 1) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile + 1,
+			        yTile + 2, getSpriteSheet(), flip, color);
 		}
 		// standing horizontal
 		else {
@@ -160,15 +159,15 @@ public class Centaur extends Monster {
 
 				// left
 				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-						xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+						xTile, yTile + i, getSpriteSheet(), flip, color);
 
 				// middle
 				screen.render(xOffset + modifier, yOffset + (modifier * i),
-						(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+						xTile + 1, yTile + i, getSpriteSheet(), flip, color);
 
 				// right
 				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-						(xTile + 2) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+						xTile + 2, yTile + i, getSpriteSheet(), flip, color);
 			}
 		}
 

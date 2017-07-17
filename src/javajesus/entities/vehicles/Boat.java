@@ -135,12 +135,11 @@ public class Boat extends Vehicle {
 		// whether or not to render backwards horizontally
 		boolean flipX = getDirection() == Direction.WEST;
 
-		// whether or not to render backwards horizontally
-		boolean flipY = getDirection() == Direction.NORTH;
-
 		// gets the right offset
 		if (getDirection() == Direction.EAST || getDirection() == Direction.WEST) {
 			xTile = 4;
+		} else if (getDirection() == Direction.NORTH) {
+			xTile = 14;
 		}
 
 		// renders the horizontal car
@@ -151,50 +150,38 @@ public class Boat extends Vehicle {
 
 				// Body 1
 				screen.render(xOffset + (modifier * (flipX ? 4 : 0)), (yOffset + modifier * i),
-						xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, getSpriteSheet());
+						xTile, yTile + i, getSpriteSheet(), flipX, color);
 
 				// Body 2
 				screen.render(xOffset + modifier + (modifier * (flipX ? 2 : 0)), (yOffset + modifier * i),
-						(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, getSpriteSheet());
+						xTile + 1, yTile + i, getSpriteSheet(), flipX, color);
 
 				// Body 3
 				screen.render(xOffset + 2 * modifier, (yOffset + modifier * i),
-						(xTile + 2) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, getSpriteSheet());
+						xTile + 2, yTile + i, getSpriteSheet(), flipX, color);
 
 				// Body 4
 				screen.render(xOffset + 3 * modifier - (modifier * (flipX ? 2 : 0)), (yOffset + modifier * i),
-						(xTile + 3) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, getSpriteSheet());
+						xTile + 3, yTile + i, getSpriteSheet(), flipX, color);
 
 				// Body 5
 				screen.render(xOffset + 4 * modifier - (modifier * (flipX ? 4 : 0)), (yOffset + modifier * i),
-						(xTile + 4) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, getSpriteSheet());
+						xTile + 4, yTile + i, getSpriteSheet(), flipX, color);
 
 			}
 
 		} else {
 
-			// iterate sideways
+			// top to bottom
 			for (int i = 0; i < 5; i++) {
 
-				// Body 1
-				screen.render(xOffset + modifier * i, yOffset + (modifier * (flipY ? 4 : 0)),
-						(xTile + i) + yTile * getSpriteSheet().getTilesPerRow(), color, false, flipY, 1, getSpriteSheet());
+				// left to right
+				for (int j = 0; j < 4; j++) {
 
-				// Body 2
-				screen.render(xOffset + modifier * i, yOffset + modifier + (modifier * (flipY ? 2 : 0)),
-						(xTile + i) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, false, flipY, 1, getSpriteSheet());
-
-				// Body 3
-				screen.render(xOffset + modifier * i, yOffset + 2 * modifier,
-						(xTile + i) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, false, flipY, 1, getSpriteSheet());
-
-				// Body 4
-				screen.render(xOffset + modifier * i, yOffset + 3 * modifier - (modifier * (flipY ? 2 : 0)),
-						(xTile + i) + (yTile + 3) * getSpriteSheet().getTilesPerRow(), color, false, flipY, 1, getSpriteSheet());
-
-				// Body 5
-				screen.render(xOffset + modifier * i, yOffset + 4 * modifier - (modifier * (flipY ? 4 : 0)),
-						(xTile + i) + (yTile + 4) * getSpriteSheet().getTilesPerRow(), color, false, flipY, 1, getSpriteSheet());
+					// render the segment
+					screen.render(xOffset + modifier * j, yOffset + modifier * i, xTile + j, yTile + i,
+					        getSpriteSheet(), false, color);
+				}
 
 			}
 		}
