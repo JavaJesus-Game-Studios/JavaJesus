@@ -18,6 +18,9 @@ public class Screen {
 
 	// base size of a unit tile on the spritesheet
 	private static final int SIZE = 8;
+	
+	// bit shift constant = log2(SIZE)
+	private static final int SHIFT = 3;
 
 	/**
 	 * Creates a new screen that can modify pixels used for display elsewhere
@@ -39,39 +42,6 @@ public class Screen {
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = 0;
 		}
-	}
-
-	/**
-	 * Sets the pixels from the spritesheet to this screen's internal pixel
-	 * array
-	 * 
-	 * @param xOffset - x coordinate on the level
-	 * @param yOffset -y coordinate on the level
-	 * @param tile - the sprite sheet offset to use
-	 * @param color - the color set
-	 * @param mirror - whether or not to flip the x axis
-	 * @param sheet - the sprite sheet to use
-	 */
-	public void render(int xOffset, int yOffset, int tile, int[] color,
-			boolean mirror, SpriteSheet sheet) {
-		render(xOffset, yOffset, tile % sheet.getTilesPerRow(),
-				tile / sheet.getTilesPerRow(), sheet, mirror, color);
-	}
-
-	/**
-	 * Sets the pixels from the spritesheet to this screen's internal pixel
-	 * array
-	 * 
-	 * @param xOffset - x coordinate on the level
-	 * @param yOffset -y coordinate on the level
-	 * @param tile - the sprite sheet offset to use
-	 * @param color - the color set
-	 * @param sheet - the sprite sheet to use
-	 */
-	public void render(int xOffset, int yOffset, int tile, int[] color,
-			SpriteSheet sheet) {
-		render(xOffset, yOffset, tile % sheet.getTilesPerRow(),
-				tile / sheet.getTilesPerRow(), sheet, false, color);
 	}
 
 	/**
@@ -115,8 +85,124 @@ public class Screen {
 				}
 
 				// color of pixel at spritesheet coordinates
-				int col = sheet.getPixels()[(xTile + yTile * sheet.getWidth())
-						+ xSheet + yPixel * sheet.getWidth()];
+				int col = sheet.getPixels()[((xTile << SHIFT) + xSheet + ((yTile << SHIFT) + y) * sheet.getWidth())];
+
+				// assign the color based on color set
+				switch (col) {
+				case 0xFF555555: {
+					col = color[0];
+					break;
+				}
+				case 0xFFAAAAAA: {
+					col = color[1];
+					break;
+				}
+				case 0xFFFFFFFF: {
+					col = color[2];
+					break;
+				}
+				}
+
+				// only render if color is not pure black and in pixel bounds
+				if (col != 0xFF000000 && yPixel >= 0 && yPixel < height
+						&& xPixel >= 0 && xPixel < width) {
+
+					// assign the color to the pixel array
+					pixels[xPixel + yPixel * width] = col;
+
+				}
+
+			}
+		}
+	}
+	
+	/**
+	 * Sets the pixels from the spritesheet to this screen's internal pixel
+	 * array
+	 * 
+	 * @param xOffset - x coordinate on the level
+	 * @param yOffset - y coordinate on the level
+	 * @param xTile - x tile on the spritesheet
+	 * @param yTile - y tile on the spritesheet
+	 * @param sheet - the Spritesheet to use
+	 * @param mirror - whether or not to flip the x axis
+	 */
+	public void render(int xOffset, int yOffset, int xTile, int yTile, SpriteSheet sheet, boolean mirror) {
+
+		// shifts the position of the screen by the global offset
+		xOffset -= this.xOffset;
+		yOffset -= this.yOffset;
+
+		// loop top to bottom
+		for (int y = 0; y < SIZE; y++) {
+
+			// pixel location in pixel array
+			int yPixel = y + yOffset;
+
+			// loop left to right
+			for (int x = 0; x < SIZE; x++) {
+
+				// pixel location in pixel array
+				int xPixel = x + xOffset;
+
+				// pixel on spritesheet to use
+				int xSheet = x;
+
+				// flips x axis
+				if (mirror) {
+					// flip the pixel used on the spritesheet
+					xSheet = (SIZE - 1) - x;
+				}
+
+				// color of pixel at spritesheet coordinates
+				int col = sheet.getPixels()[((xTile << SHIFT) + xSheet + ((yTile << SHIFT) + y) * sheet.getWidth())];
+
+				// only render if color is not pure black and in pixel bounds
+				if (col != 0xFF000000 && yPixel >= 0 && yPixel < height
+						&& xPixel >= 0 && xPixel < width) {
+
+					// assign the color to the pixel array
+					pixels[xPixel + yPixel * width] = col;
+
+				}
+
+			}
+		}
+	}
+	
+	/**
+	 * Sets the pixels from the spritesheet to this screen's internal pixel
+	 * array
+	 * 
+	 * @param xOffset - x coordinate on the level
+	 * @param yOffset - y coordinate on the level
+	 * @param xTile - x tile on the spritesheet
+	 * @param yTile - y tile on the spritesheet
+	 * @param sheet - the Spritesheet to use
+	 * @param color - color set of the spritesheet
+	 * @param scale - the size modifier
+	 */
+	public void render(int xOffset, int yOffset, int xTile, int yTile,
+			SpriteSheet sheet, int[] color, int scale) {
+
+		// shifts the position of the screen by the global offset
+		xOffset -= this.xOffset;
+		yOffset -= this.yOffset;
+		
+		// loop top to bottom
+		for (int y = 0; y < SIZE; y++) {
+
+			// pixel location in pixel array
+			int yPixel = (y * scale) + yOffset;
+
+			// loop left to right
+			for (int x = 0; x < SIZE; x++) {
+
+				// pixel location in pixel array
+				int xPixel = (x * scale) + xOffset;
+
+				// color of pixel at spritesheet coordinates
+				int col = sheet.getPixels()[((xTile << SHIFT) + x + ((yTile << SHIFT) + y) * sheet.getWidth())];
 
 				// assign the color based on color set
 				if (color != null)
@@ -134,16 +220,20 @@ public class Screen {
 						break;
 					}
 					}
-
+				
 				// only render if color is not pure black and in pixel bounds
-				if (col != 0xFF000000 && yPixel >= 0 && yPixel < height
-						&& xPixel >= 0 && xPixel < width) {
+				if (col != 0xFF000000) {
 
-					// assign the color to the pixel array
-					pixels[xPixel + yPixel * width] = col;
-
+					// assign scale amount of pixels
+					for (int i = 0; i < scale ; i++) {
+						for (int j = 0; j < scale; j++) {
+							if (yPixel + i >= 0 && yPixel + i < height && xPixel + j >= 0 && xPixel + j < width) {
+								// assign the color to the pixel array
+								pixels[xPixel + j + (yPixel + i) * width] = col;
+							}
+						}
+					}
 				}
-
 			}
 		}
 	}
@@ -280,7 +370,7 @@ public class Screen {
 	public void render24bit(int xTile, int yTile, SpriteSheet sheet) {
 
 		// size of each box
-		int modifier = 8;
+		int modifier = SIZE;
 
 		// 24 bit so multiply by 3
 		xTile *= 3;
@@ -293,12 +383,25 @@ public class Screen {
 			for (int j = 0; j < 3; j++) {
 
 				// render the box
-				render(modifier * j, modifier * i, (xTile + j) + (yTile + i)
-						* sheet.getTilesPerRow(), null, sheet);
+				render(modifier * j, modifier * i, xTile + j, yTile + i, sheet, false);
 
 			}
 		}
 
+	}
+	
+	@Deprecated
+	public void render(int xOffset, int yOffset, int tileIndex, int[] color, boolean flip, SpriteSheet sheet) {
+		if (color != null) {
+			render(xOffset, yOffset, tileIndex % sheet.getTilesPerRow(), tileIndex / sheet.getTilesPerRow(), sheet, flip, color);
+		} else {
+			render(xOffset, yOffset, tileIndex % sheet.getTilesPerRow(), tileIndex / sheet.getTilesPerRow(), sheet, flip);
+		}
+	}
+	
+	@Deprecated
+	public void render(int xOffset, int yOffset, int tileIndex, int[] color, SpriteSheet sheet) {
+		render(xOffset, yOffset, tileIndex, color, false, sheet);
 	}
 
 	/**

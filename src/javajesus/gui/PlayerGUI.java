@@ -136,16 +136,16 @@ public class PlayerGUI extends JPanel {
 		int modifier = 8 * scale;
 
 		// Upper left box
-		screen.render(0, 0, 0, color, false, scale, sheet);
+		screen.render(0, 0, 0, 0, sheet, color, scale);
 		
 		// Upper right box
-		screen.render(modifier, 0, 1, color, false, scale, sheet);
+		screen.render(modifier, 0, 1, 0, sheet, color, scale);
 
 		// Lower left box
-		screen.render(0, modifier, 1 * sheet.getTilesPerRow(), color, false, scale, sheet);
+		screen.render(0, modifier, 0, 1, sheet, color, scale);
 		
 		// Lower right box
-		screen.render(modifier, modifier, 1 + sheet.getTilesPerRow(), color, false, scale, sheet);
+		screen.render(modifier, modifier, 1, 1, sheet, color, scale);
 
 	}
 	

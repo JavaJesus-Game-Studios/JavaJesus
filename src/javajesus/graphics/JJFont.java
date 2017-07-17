@@ -9,6 +9,9 @@ public class JJFont {
 	private static String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ      " + "abcdefghijklmnopqrstuvwxyz      "
 			+ "0123456789.,:;'\"!?$%()-=+/      ";
 	
+	// spritesheet used
+	private static final SpriteSheet sheet = SpriteSheet.letters;
+	
 	/**
 	 * Renders text to the screen
 	 * 
@@ -25,7 +28,7 @@ public class JJFont {
 		for (int i = 0; i < msg.length(); i++) {
 			int charIndex = chars.indexOf(msg.charAt(i));
 			if (charIndex >= 0)
-				screen.render(x + (i * 8), y, charIndex, color, false, scale, SpriteSheet.letters);
+				screen.render(x + (i * 8), y, charIndex % sheet.getTilesPerRow(), charIndex / sheet.getTilesPerRow(), sheet, false, color);
 
 		}
 

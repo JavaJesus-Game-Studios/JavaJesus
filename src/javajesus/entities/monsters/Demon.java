@@ -69,7 +69,7 @@ public class Demon extends Monster implements LongRange {
 		}
 
 		// modifier used for rendering in different scales/directions
-		int modifier = UNIT_SIZE * getScale();
+		int modifier = UNIT_SIZE;
 
 		// no x or y offset, use the upper left corner as absolute
 		int xOffset = getX(), yOffset = getY();
@@ -107,28 +107,28 @@ public class Demon extends Monster implements LongRange {
 
 			// Upper body 1
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getTilesPerRow(), color,
-					flip, getScale(), getSpriteSheet());
+					flip, getSpriteSheet());
 
 			// Upper body 2
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-					(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+					(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 		}
 
 		// Middle Body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+				xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 
 		// Middle Body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+				(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 
 		// Lower Body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-				xTile + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+				xTile + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 
 		// Lower Body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-				(xTile + 1) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+				(xTile + 1) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 
 		// dead bodies have an extended segment
 		if (isDead()) {
@@ -137,11 +137,11 @@ public class Demon extends Monster implements LongRange {
 
 			// Middle Body 3
 			screen.render(xOffset + offset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					(xTile + 2) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+					(xTile + 2) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 
 			// Lower Body 3
 			screen.render(xOffset + offset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-					(xTile + 2) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+					(xTile + 2) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 
 		}
 

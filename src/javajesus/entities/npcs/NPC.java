@@ -203,7 +203,7 @@ public class NPC extends Mob {
 		}
 
 		// modifier used for rendering in different scales/directions
-		int modifier = UNIT_SIZE * getScale();
+		int modifier = UNIT_SIZE;
 
 		// no x or y offset, use the upper left corner as absolute
 		int xOffset = getX(), yOffset = getY();
@@ -239,20 +239,20 @@ public class NPC extends Mob {
 
 		// Upper body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
-				xTile + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+				xTile + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 
 		// Upper Body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
-				(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+				(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 
 		if (!isSwimming) {
 
 			// Lower Body 1
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+					xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+					(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 
 		}
 

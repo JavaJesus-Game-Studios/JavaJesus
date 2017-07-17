@@ -147,7 +147,7 @@ public class Knight extends NPC {
 		}
 
 		// modifier used for rendering in different scales/directions
-		int modifier = UNIT_SIZE * getScale();
+		int modifier = UNIT_SIZE;
 
 		// no x or y offset, use the upper left corner as absolute
 		int xOffset = getX(), yOffset = getY();
@@ -172,14 +172,14 @@ public class Knight extends NPC {
 			for (int i = 0; i < 2; i++) {
 
 				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-						xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
+						xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getSpriteSheet());
 
 				screen.render(xOffset + modifier, yOffset + (modifier * i),
-						(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(),
+						(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip,
 						getSpriteSheet());
 
 				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-						(xTile + 2) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(),
+						(xTile + 2) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip,
 						getSpriteSheet());
 			}
 
@@ -191,11 +191,11 @@ public class Knight extends NPC {
 
 				// Left body 1
 				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier * i,
-						xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(), getSpriteSheet());
+						xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getSpriteSheet());
 
 				// Right body 2
 				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier * i,
-						(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getScale(),
+						(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip,
 						getSpriteSheet());
 			}
 

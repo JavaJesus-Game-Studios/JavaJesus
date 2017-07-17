@@ -179,7 +179,7 @@ public class Shooter extends NPC implements LongRange {
 			if (isShooting && !isSwimming) {
 
 				// modifier used for rendering in different scales/directions
-				int modifier = UNIT_SIZE * getScale();
+				int modifier = UNIT_SIZE;
 
 				// no x or y offset, use the upper left corner as absolute
 				int xOffset = getX(), yOffset = getY();
@@ -200,19 +200,19 @@ public class Shooter extends NPC implements LongRange {
 
 				// Upper body 1
 				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getTilesPerRow(),
-						color, flip, getScale(), getSpriteSheet());
+						color, flip, getSpriteSheet());
 
 				// Upper body 2
 				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-						(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+						(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 
 				// Lower Body 1
 				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-						xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(), getSpriteSheet());
+						xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 
 				// Lower Body 2
 				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-						(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getScale(),
+						(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip,
 						getSpriteSheet());
 			}
 		}
