@@ -198,13 +198,13 @@ public class Gorilla extends NPC {
 		for (int i = 0; i < 3; i++) {
 
 			screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-					xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getSpriteSheet());
+					xTile, yTile + i, getSpriteSheet(), flip, getColor());
 
 			screen.render(xOffset + modifier, yOffset + (modifier * i),
-					(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getSpriteSheet());
+					xTile + 1, yTile + i, getSpriteSheet(), flip, getColor());
 
 			screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-					(xTile + 2) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getSpriteSheet());
+					xTile + 2, yTile + i, getSpriteSheet(), flip, getColor());
 		}
 	}
 

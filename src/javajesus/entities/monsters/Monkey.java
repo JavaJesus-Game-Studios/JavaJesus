@@ -98,20 +98,19 @@ public class Monkey extends Monster {
 			xTile = 12;
 
 		// Upper body
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getTilesPerRow(), color,
-				flip, getSpriteSheet());
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
 
 		// Upper body
-		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-				(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, getSpriteSheet(),
+		        flip, color);
 
 		// Lower Body
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, getSpriteSheet(),
+		        flip, color);
 
 		// Lower Body
-		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
+		        getSpriteSheet(), flip, color);
 	}
 
 	/**

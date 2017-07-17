@@ -58,7 +58,7 @@ public class Horse extends NPC implements Ridable {
 	 *            the color of the horse
 	 */
 	public Horse(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance, int type) {
-		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, null, NOT_USED_XTILE, type, walkPath,
+		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, new int[] {0, 0, 0}, NOT_USED_XTILE, type, walkPath,
 				walkDistance);
 		setSpriteSheet(SpriteSheet.horses);
 
@@ -198,28 +198,28 @@ public class Horse extends NPC implements Ridable {
 		// standing vertical
 		if (isLongitudinal()) {
 			// Upper body
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getTilesPerRow(),
-					getColor(), flip, getSpriteSheet());
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip,
+					getColor());
 
 			// Upper body
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-					(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), getColor(), flip, getSpriteSheet());
+					xTile + 1, yTile, getSpriteSheet(), flip, getColor());
 
 			// Middle Body
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getSpriteSheet());
+					xTile, yTile + 1, getSpriteSheet(), flip, getColor());
 
 			// Middle Body
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getSpriteSheet());
+					xTile + 1, yTile + 1, getSpriteSheet(), flip, getColor());
 
 			// Lower Body
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-					xTile + (yTile + 2) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getSpriteSheet());
+					xTile, yTile + 2, getSpriteSheet(), flip, getColor());
 
 			// Lower Body
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-					(xTile + 1) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getSpriteSheet());
+					xTile + 1, yTile + 2, getSpriteSheet(), flip, getColor());
 		}
 		// standing horizontal
 		else {
@@ -228,23 +228,20 @@ public class Horse extends NPC implements Ridable {
 			for (int i = 0; i < 3; i++) {
 
 				// left
-				screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
-						xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip, getSpriteSheet());
+				screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + (modifier * i), xTile, yTile + i,
+				        getSpriteSheet(), flip, getColor());
 
 				// middle left
-				screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
-						(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip,
-						getSpriteSheet());
+				screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + (modifier * i), xTile + 1,
+				        yTile + i, getSpriteSheet(), flip, getColor());
 
 				// middle right
-				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
-						(xTile + 2) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip,
-						getSpriteSheet());
+				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + (modifier * i), xTile + 2,
+				        yTile + i, getSpriteSheet(), flip, getColor());
 
 				// right
-				screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
-						(xTile + 3) + (yTile + i) * getSpriteSheet().getTilesPerRow(), getColor(), flip,
-						getSpriteSheet());
+				screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + (modifier * i), xTile + 3,
+				        yTile + i, getSpriteSheet(), flip, getColor());
 			}
 		}
 

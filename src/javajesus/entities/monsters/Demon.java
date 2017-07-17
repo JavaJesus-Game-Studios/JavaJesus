@@ -106,29 +106,28 @@ public class Demon extends Monster implements LongRange {
 		if (!isDead()) {
 
 			// Upper body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * getSpriteSheet().getTilesPerRow(), color,
-					flip, getSpriteSheet());
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
 
 			// Upper body 2
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-					(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+					xTile + 1, yTile, getSpriteSheet(), flip, color);
 		}
 
 		// Middle Body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+				xTile, yTile + 1, getSpriteSheet(), flip, color);
 
 		// Middle Body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-				(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+				xTile + 1, yTile + 1, getSpriteSheet(), flip, color);
 
 		// Lower Body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-				xTile + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+				xTile, yTile + 2, getSpriteSheet(), flip, color);
 
 		// Lower Body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-				(xTile + 1) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+				xTile + 1, yTile + 2, getSpriteSheet(), flip, color);
 
 		// dead bodies have an extended segment
 		if (isDead()) {
@@ -137,11 +136,11 @@ public class Demon extends Monster implements LongRange {
 
 			// Middle Body 3
 			screen.render(xOffset + offset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					(xTile + 2) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+					xTile + 2, yTile + 1, getSpriteSheet(), flip, color);
 
 			// Lower Body 3
 			screen.render(xOffset + offset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-					(xTile + 2) + (yTile + 2) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+					xTile + 2, yTile + 2, getSpriteSheet(), flip, color);
 
 		}
 

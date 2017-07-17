@@ -378,16 +378,15 @@ public class Sword extends Item {
 
 			// long sword
 			for (int i = 0; i < 4; i++) {
-				screen.render(xOffset, yOffset + i * modifier, xTile + (yTile + i) * sheet.getTilesPerRow(), color, sheet);
+				screen.render(xOffset, yOffset + i * modifier, xTile, yTile + i, sheet, false, color);
 
-				screen.render(xOffset + modifier, yOffset + i * modifier, (xTile + 1) + (yTile + i) * sheet.getTilesPerRow(),
-						color, sheet);
+				screen.render(xOffset + modifier, yOffset + i * modifier, xTile + 1, yTile + i, sheet, false, color);
 
-				screen.render(xOffset + 2 * modifier, yOffset + i * modifier, (xTile + 2) + (yTile + i) * sheet.getTilesPerRow(),
-						color, sheet);
+				screen.render(xOffset + 2 * modifier, yOffset + i * modifier, xTile + 2, yTile + i, sheet, false,
+				        color);
 
-				screen.render(xOffset + 3 * modifier, yOffset + i * modifier, (xTile + 3) + (yTile + i) * sheet.getTilesPerRow(),
-						color, sheet);
+				screen.render(xOffset + 3 * modifier, yOffset + i * modifier, xTile + 3, yTile + i, sheet, false,
+				        color);
 				
 			}
 
@@ -405,14 +404,14 @@ public class Sword extends Item {
 				// top to bottom
 				for (int i = 0; i < 2; i++) {
 
-					screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-					        xTile + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+					screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i), xTile, yTile + i,
+					        sheet, flip, color);
 
-					screen.render(xOffset + modifier, yOffset + (modifier * i),
-					        (xTile + 1) + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+					screen.render(xOffset + modifier, yOffset + (modifier * i), xTile + 1, yTile + i, sheet, flip,
+					        color);
 
 					screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-					        (xTile + 2) + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+					        xTile + 2, yTile + i, sheet, flip, color);
 
 				}
 				
@@ -428,16 +427,16 @@ public class Sword extends Item {
 				for (int i = 0; i < 2; i++) {
 
 					screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
-					        xTile + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+					        xTile, yTile + i, sheet, false, color);
 
 					screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
-					        (xTile + 1) + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+					        xTile + 1, yTile + i, sheet, flip, color);
 
 					screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
-					        (xTile + 2) + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+					        xTile + 2, yTile + i, sheet, flip, color);
 					
 					screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
-					        (xTile + 3) + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+					        xTile + 3, yTile + i, sheet, flip, color);
 
 				}
 				
@@ -451,57 +450,54 @@ public class Sword extends Item {
 				for (int i = 0; i < 2; i++) {
 
 					screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-							xTile + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+							xTile, yTile + i, sheet, flip, color);
 
-					screen.render(xOffset + modifier, yOffset + (modifier * i), (xTile + 1) + (yTile + i) * sheet.getTilesPerRow(),
-							color, flip, sheet);
+					screen.render(xOffset + modifier, yOffset + (modifier * i), xTile + 1, yTile + i, sheet, flip, color);
 
 					screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-							(xTile + 2) + (yTile + i) * sheet.getTilesPerRow(), color, flip, sheet);
+							xTile + 2, yTile + i, sheet, flip, color);
 				}
 
 				// render the normal up down
 			} else {
 
 				// render the core body 2x2
-				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile + yTile * sheet.getTilesPerRow(), color, flip,
-						sheet);
+				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, sheet, flip, color);
 
 				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-						(xTile + 1) + yTile * sheet.getTilesPerRow(), color, flip, sheet);
+						xTile + 1, yTile, sheet, flip, color);
 
 				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-						xTile + (yTile + 1) * sheet.getTilesPerRow(), color, flip, sheet);
+						xTile, yTile + 1, sheet, flip, color);
 
 				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-						(xTile + 1) + (yTile + 1) * sheet.getTilesPerRow(), color, flip, sheet);
+						xTile + 1, yTile + 1, sheet, flip, color);
 
 				// render the extra tip for swords
 				if (direction == Direction.SOUTH) {
 
-					screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-							xTile + (yTile + 2) * sheet.getTilesPerRow(), color, flip, sheet);
+					screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile, yTile + 2,
+					        sheet, flip, color);
 
-					screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier,
-							(xTile + 1) + (yTile + 2) * sheet.getTilesPerRow(), color, flip, sheet);
+					screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile + 1,
+					        yTile + 2, sheet, flip, color);
 					
 					// long swords have extra south tip
 					if (length == LONG) {
-						screen.render(xOffset, yOffset + 3 * modifier,
-								xTile + (yTile + 3) * sheet.getTilesPerRow(), color, flip, sheet);
+						screen.render(xOffset, yOffset + 3 * modifier, xTile, yTile + 3, sheet, flip, color);
 
-						screen.render(xOffset + modifier, yOffset + 3 * modifier,
-								(xTile + 1) + (yTile + 3) * sheet.getTilesPerRow(), color, flip, sheet);
+						screen.render(xOffset + modifier, yOffset + 3 * modifier, xTile + 1, yTile + 3, sheet, flip,
+						        color);
 					}
 
 					// render the extra tip for north
 				} else if (length > SHORT && direction == Direction.NORTH) {
 
-					screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset - modifier,
-							xTile + (yTile - 1) * sheet.getTilesPerRow(), color, flip, sheet);
+					screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset - modifier, xTile, yTile - 1, sheet,
+					        flip, color);
 
-					screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset - modifier,
-							(xTile + 1) + (yTile - 1) * sheet.getTilesPerRow(), color, flip, sheet);
+					screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset - modifier, xTile + 1,
+					        yTile - 1, sheet, flip, color);
 
 				}
 

@@ -73,27 +73,24 @@ public class Bazooka extends Gun {
 		}
 
 		// Upper Body 1
-		screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset, xTile + yTile * sheet.getTilesPerRow(),
-		        player.getColor(), flip, sheet);
+		screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset, xTile, yTile, sheet, flip, player.getColor());
 		// Upper Body 2
-		screen.render(xOffset + modifier, yOffset, (xTile + 1) + yTile * sheet.getTilesPerRow(), player.getColor(),
-		        flip, sheet);
+		screen.render(xOffset + modifier, yOffset, xTile + 1, yTile, sheet, flip, player.getColor());
 
 		// Upper Body 3
-		screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset,
-		        (xTile + 2) + yTile * sheet.getTilesPerRow(), player.getColor(), flip, sheet);
+		screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset, xTile + 2, yTile, sheet, flip,
+		        player.getColor());
 
 		// Lower Body 1
-		screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + modifier,
-		        xTile + (yTile + 1) * sheet.getTilesPerRow(), player.getColor(), flip, sheet);
+		screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + modifier, xTile, yTile + 1, sheet, flip,
+		        player.getColor());
 
 		// Lower Body 2
-		screen.render(xOffset + modifier, yOffset + modifier, (xTile + 1) + (yTile + 1) * sheet.getTilesPerRow(),
-		        player.getColor(), flip, sheet);
+		screen.render(xOffset + modifier, yOffset + modifier, xTile + 1, yTile + 1, sheet, flip, player.getColor());
 
 		// Lower Body 3
-		screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + modifier,
-		        (xTile + 2) + (yTile + 1) * sheet.getTilesPerRow(), player.getColor(), flip, sheet);
+		screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + modifier, xTile + 2, yTile + 1,
+		        sheet, flip, player.getColor());
 
 	}
 

@@ -288,7 +288,7 @@ public class Tile {
 	 * @param y - the y offset
 	 */
 	public void render(Screen screen, Level level, int x, int y) {
-		screen.render(x, y, xTile + yTile * sheet.getTilesPerRow(), color, sheet);
+		screen.render(x, y, xTile, yTile, sheet, false, color);
 	}
 
 	/**

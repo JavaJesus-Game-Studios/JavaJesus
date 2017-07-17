@@ -390,6 +390,35 @@ public class Screen {
 
 	}
 	
+	/**
+	 * Renders the sprite in 16 bit
+	 * Does NOT flip
+	 * 
+	 * @param screen - the screen to display it on
+	 */
+	public void render16bit(int xOffset, int yOffset, int xTile, int yTile, SpriteSheet sheet, int[] color) {
+
+		// size of each box
+		int modifier = SIZE;
+
+		// 16 bit so multiply by 2
+		//xTile *= 2;
+		//yTile *= 2;
+
+		// top to bottom
+		for (int i = 0; i < 2; i++) {
+
+			// left to right
+			for (int j = 0; j < 2; j++) {
+
+				// render the box
+				render(xOffset + modifier * j, yOffset + modifier * i, xTile + j, yTile + i, sheet, false, color);
+
+			}
+		}
+
+	}
+	
 	@Deprecated
 	public void render(int xOffset, int yOffset, int tileIndex, int[] color, boolean flip, SpriteSheet sheet) {
 		if (color != null) {

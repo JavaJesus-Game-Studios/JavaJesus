@@ -130,27 +130,27 @@ public class Cyclops extends Monster {
 			}
 
 			// left
-			screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + i * modifier,
-					xTile + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+			screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + i * modifier, xTile, yTile + i,
+			        getSpriteSheet(), flip, color);
 
 			// left center
-			screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + i * modifier,
-					(xTile + 1) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+			screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + i * modifier, xTile + 1,
+			        yTile + i, getSpriteSheet(), flip, color);
 
 			// right center
-			screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier,
-					(xTile + 2) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+			screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier, xTile + 2,
+			        yTile + i, getSpriteSheet(), flip, color);
 
 			// right
-			screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier,
-					(xTile + 3) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+			screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier, xTile + 3,
+			        yTile + i, getSpriteSheet(), flip, color);
 
 			if (isDead()) {
-				screen.render(xOffset + 4 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier,
-						(xTile + 4) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+				screen.render(xOffset + 4 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier, xTile + 4,
+				        yTile + i, getSpriteSheet(), flip, color);
 
-				screen.render(xOffset + 5 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier,
-						(xTile + 5) + (yTile + i) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+				screen.render(xOffset + 5 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier, xTile + 5,
+				        yTile + i, getSpriteSheet(), flip, color);
 
 			}
 		}
