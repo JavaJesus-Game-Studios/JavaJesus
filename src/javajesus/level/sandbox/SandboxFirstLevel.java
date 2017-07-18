@@ -16,75 +16,68 @@ import javajesus.level.Level;
  * 2. add constructor w/ spawn
  * 3. add unimplemented methods
  */
-public class SandboxFirstLevel extends Level
-{
+public class SandboxFirstLevel extends Level {
 
-    /**
-     * Initializes the First Level
-     * 
-     * @param imagePath - the level file path
-     * @param loadNow - whether or not to load now // always false for sandbox
-     * @param name - Name of this level
-     * @param spawn - where the player first spawns
-     */
-    public SandboxFirstLevel()
-    {
-        super("/Levels/Sandbox/first level.png", false, "First map", new Point(100, 100));
-    }
+	// serialization
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Where NPCs are loaded
-     */
-    @Override
-    protected NPC[] getNPCPlacement()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/**
+	 * Initializes the First Level
+	 * 
+	 * @param imagePath - the level file path
+	 * @param loadNow - whether or not to load now // always true for now
+	 * @param name - Name of this level
+	 * @param spawn - where the player first spawns
+	 */
+	public SandboxFirstLevel() {
+		super("/Levels/Sandbox/test.png", true, "First map", new Point(100, 100));
+	}
 
-    /**
-     * Where spawners are placed
-     */
-    @Override
-    protected Spawner[] getSpawnerPlacement()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/**
+	 * Where NPCs are loaded
+	 */
+	@Override
+	protected NPC[] getNPCPlacement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    /**
-     * Where chests are placed
-     */
-    @Override
-    protected Chest[] getChestPlacement()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/**
+	 * Where spawners are placed
+	 */
+	@Override
+	protected Spawner[] getSpawnerPlacement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    /**
-     * Where Transporter Tiles are placed
-     * These transport you from one level to another
-     * probably wont use these unless you plan on going inside
-     * buildings
-     */
-    @Override
-    protected MapTransporter[] getMapTransporterPlacement()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/**
+	 * Where chests are placed
+	 */
+	@Override
+	protected Chest[] getChestPlacement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    /**
-     * Anything else
-     * This includes trees, forests, something that
-     * wasnt mentioned above
-     */
-    @Override
-    protected Entity[] getOtherPlacement()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/**
+	 * Where Transporter Tiles are placed These transport you from one level to
+	 * another probably wont use these unless you plan on going inside buildings
+	 */
+	@Override
+	protected MapTransporter[] getMapTransporterPlacement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * Anything else This includes trees, forests, something that wasnt
+	 * mentioned above
+	 */
+	@Override
+	protected Entity[] getOtherPlacement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
