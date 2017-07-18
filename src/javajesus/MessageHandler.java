@@ -58,7 +58,7 @@ public class MessageHandler {
 	public static void initialize() {
 		try {
 			image = ImageIO.read(MessageHandler.class
-					.getResource("/GUI/GUI_Hud/GUI_Dialogue.png"));
+					.getResource("/VISUAL_DATA/GUI/HUD/GUI_Dialogue.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

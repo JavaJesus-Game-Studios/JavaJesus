@@ -14,10 +14,10 @@ public class HealthBar extends Entity {
 	// serialization
 	private static final long serialVersionUID = -4825483165347265874L;
 
-	// change in y offset on spritesheet
+	// change in x offset on spritesheet
 	private int xOffset;
 
-	// starting y tile on the spritesheet
+	// starting x tile on the spritesheet
 	private int xTile;
 
 	// segment compared to total number of health bar sprites
@@ -57,8 +57,8 @@ public class HealthBar extends Entity {
 	public void render(Screen screen) {
 
 		// health bar has a left and right component
-		screen.render(getX(), getY(), 0, xTile + xOffset, sheet, false, color);
-		screen.render(getX() + 8, getY(), 1, xTile + xOffset, sheet, false, color);
+		screen.render(getX(), getY(), xTile +xOffset, 0, sheet, false, color);
+		screen.render(getX()+ 8, getY(),xTile + 1+ xOffset ,0, sheet, false, color);
 	}
 
 	/**

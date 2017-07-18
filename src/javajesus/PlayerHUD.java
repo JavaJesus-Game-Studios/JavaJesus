@@ -74,7 +74,7 @@ public class PlayerHUD {
 		// initialize all the images into memory that will be rendered on the
 		// screen
 		try {
-			box = ImageIO.read(PlayerHUD.class.getResource("/GUI/GUI_Hud/box.png"));
+			box = ImageIO.read(PlayerHUD.class.getResource("/VISUAL_DATA/GUI/HUD/box.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

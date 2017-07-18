@@ -74,70 +74,70 @@ public class PauseGUI extends JPanel implements MouseListener, MouseMotionListen
 		
 		try {
 			background = ImageIO.read(Launcher.class
-					.getResource("/GUI/GUI_Menus/Pause_Menu.png"));
+					.getResource("/VISUAL_DATA/GUI/MENUS/Pause_Menu.png"));
 
 			sword_selector = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/sword_selector.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/sword_selector.png"));
 
 			resume_on = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/resume_on.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/resume_on.png"));
 
 			resume_off = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/resume_off.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/resume_off.png"));
 
 			save_on = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/save_on.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/save_on.png"));
 
 			save_off = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/save_off.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/save_off.png"));
 
 			load_on = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/load_on.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/load_on.png"));
 
 			load_off = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/load_off.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/load_off.png"));
 
 			options_on = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/options_on.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/options_on.png"));
 
 			options_off = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/options_off.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/options_off.png"));
 
 			audio_on = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/audio_on.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/audio_on.png"));
 
 			audio_off = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/audio_off.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/audio_off.png"));
 
 			video_on = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/video_on.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/video_on.png"));
 
 			video_off = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/video_off.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/video_off.png"));
 
 			controls_on = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/controls_on.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/controls_on.png"));
 
 			controls_off = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/controls_off.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/controls_off.png"));
 
 			mute_on = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/mute_on.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/mute_on.png"));
 
 			mute_off = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/mute_off.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/mute_off.png"));
 
 			back_on = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/back_on.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/back_on.png"));
 
 			back_off = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/back_off.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/back_off.png"));
 
 			quit_on = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/quit_on.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/quit_on.png"));
 
 			quit_off = ImageIO.read(Launcher.class
-					.getResource("/GUI/Buttons/quit_off.png"));
+					.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/quit_off.png"));
 
 			resume = new LauncherButton(450, RESUME, resume_off, resume_on);
 			save = new LauncherButton(500, SAVE, save_off, save_on);
