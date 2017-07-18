@@ -90,14 +90,14 @@ public class Item implements Serializable {
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF }, "This is a sword", 30, 50, new int[] { 7, 13, 18, 23 }, 1,
 			Sword.MEDIUM, 20);
 
-	// armor
-	public static final Item vest = new Armor("Simple Vest", 15, 0, 7, new int[] { 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC },
+	 // armor
+	public static final Item vest = new Armor("Simple Vest", 15, 1, 2, new int[] { 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC },
 			"", ArmorSet.VEST);
-	public static final Item knight = new Armor("Knight Gear", 16, 1, 7,
+	public static final Item knight = new Armor("Knight Gear", 16, 2, 2,
 			new int[] { 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.KNIGHT);
-	public static final Item horned = new Armor("Horned Armor", 17, 2, 7,
+	public static final Item horned = new Armor("Horned Armor", 17, 3, 2,
 			new int[] { 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.HORNED);
-	public static final Item owl = new Armor("Fancy Suit", 19, 3, 7,
+	public static final Item owl = new Armor("Fancy Suit", 19, 4, 2,
 			new int[] { -1, 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.OWL);
 
 	public static final Item blackHoleGun = new Gun("Secret", 20, 0, 0,
@@ -106,6 +106,7 @@ public class Item implements Serializable {
 	public static final Item flameThrower = new Gun("Flamethrower", 21, 0, 0,
 			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Please apply cold water to burn", 0, 200, 1, 0, 3,
 			Ammo.FLAMETHROWER, SoundHandler.revolver);
+	
 
 	// ammo
 	public static final Item assaultRifleAmmo = new Item("Ammo", 22, 0, 4,
