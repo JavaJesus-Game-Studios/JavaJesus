@@ -3,6 +3,7 @@ package javajesus.items;
 import java.awt.Rectangle;
 
 import javajesus.SoundHandler;
+import javajesus.entities.Damageable;
 import javajesus.entities.Mob;
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
@@ -264,12 +265,14 @@ public class Sword extends Item {
 	 * @param player - player attacking the mob
 	 */
 	private void attackMobs(Level level, Player player) {
-		for (int i = 0; i < level.getMobs().size(); i++) {
-			Mob m = level.getMobs().get(i);
+		for (int i = 0; i < level.getDamageables().size(); i++) {
+			Damageable m = level.getDamageables().get(i);
 			if (bounds.intersects(m.getBounds())) {
 				
-				// inflict knockback
-				m.knockback(knockback, direction);
+				if (m instanceof Mob) {
+					// inflict knockback
+					((Mob) m).knockback(knockback, direction);
+				}
 				
 				// damage the mob
 				player.attack(Player.DAMAGE_RANGE, m);

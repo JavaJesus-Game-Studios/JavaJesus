@@ -5,8 +5,8 @@ import java.awt.geom.Ellipse2D.Double;
 import java.util.Random;
 
 import javajesus.JavaJesus;
+import javajesus.entities.Damageable;
 import javajesus.entities.LongRange;
-import javajesus.entities.Mob;
 import javajesus.entities.Pickup;
 import javajesus.entities.projectiles.FireBall;
 import javajesus.graphics.Screen;
@@ -173,7 +173,7 @@ public class Demon extends Monster implements LongRange {
 	 * @param other - the other mob to attack
 	 */
 	@Override
-	public void attack(int range, Mob other) {
+	public void attack(int range, Damageable other) {
 		
 		getLevel().add(new FireBall(getLevel(), getX() + WIDTH / 2, getY() + HEIGHT / 2,
 				target.getX() + (int) target.getBounds().getWidth() / 2,

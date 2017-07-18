@@ -2,6 +2,7 @@ package javajesus.level.sandbox;
 
 import java.awt.Point;
 
+import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
@@ -76,8 +77,10 @@ public class SandboxFirstLevel extends Level {
 	 */
 	@Override
 	protected Entity[] getOtherPlacement() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new Entity[] {
+			new DestructibleTile(this, 100, 150, 50, 0, 2), new DestructibleTile(this, 100, 160, 50, 0, 2), new DestructibleTile(this, 100, 170, 50, 0, 2)
+		};
 	}
 
 }

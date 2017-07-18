@@ -7,8 +7,8 @@ import java.util.Random;
 import javajesus.JavaJesus;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
+import javajesus.entities.Damageable;
 import javajesus.entities.LongRange;
-import javajesus.entities.Mob;
 import javajesus.entities.Pickup;
 import javajesus.entities.Player;
 import javajesus.entities.projectiles.Bullet;
@@ -174,7 +174,7 @@ public class GangMember extends Monster implements LongRange {
 	 * @param other - the other mob to attack
 	 */
 	@Override
-	public void attack(int range, Mob other) {
+	public void attack(int range, Damageable other) {
 
 		getLevel().add(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength() + random.nextInt(range),
 				SoundHandler.revolver));

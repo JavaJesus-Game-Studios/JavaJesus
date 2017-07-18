@@ -1,12 +1,12 @@
 package javajesus.entities.npcs.aggressive;
 
+import java.awt.Color;
+
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
-import javajesus.entities.Mob;
+import javajesus.entities.Damageable;
 import javajesus.entities.projectiles.Bullet;
 import javajesus.level.Level;
-
-import java.awt.Color;
 
 public class SWATOfficer extends Shooter {
 
@@ -63,7 +63,7 @@ public class SWATOfficer extends Shooter {
 	 * @param other - the other mob to attack
 	 */
 	@Override
-	public void attack(int range, Mob other) {
+	public void attack(int range, Damageable other) {
 
 		getLevel().add(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength() + random.nextInt(range),
 				SoundHandler.assaultRifle));
