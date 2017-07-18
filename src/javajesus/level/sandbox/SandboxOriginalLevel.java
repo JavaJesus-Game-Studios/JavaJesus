@@ -52,7 +52,7 @@ public class SandboxOriginalLevel extends Level {
 
 	protected Entity[] getOtherPlacement() {
 		
-		return new Entity[] {  new Boat(this, null, 270, 858, 2, 100),
+		return new Entity[] {  new Boat(this, 270, 870, 100),
 				new CastleTower(this, 175, 1180), new CatholicChurch(this, 1330, 1480),
 				new GunStore(this, 700, 810), 
 				

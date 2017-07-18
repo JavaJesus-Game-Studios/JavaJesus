@@ -67,7 +67,7 @@ public class SanCisco extends Level {
 
 		return new Entity[] {
 
-				new CenturyLeSabre(this, 3425, 2688), new Boat(this, "Boat", 488 * 8, 127 * 8, 2, 100),
+				new CenturyLeSabre(this, 3425, 2688), new Boat(this, 488 * 8, 127 * 8, 100),
 
 				// Residential (Nob Hill)
 				new NiceHouse2(this, 1712, 2100), new NiceHouse2(this, 1792, 2100), new NiceHouse2(this, 1872, 2100),

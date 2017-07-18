@@ -17,6 +17,7 @@ import java.util.Random;
  */
 public abstract class Mob extends Entity implements Damageable, Hideable, Skills {
 
+	// serialization
 	private static final long serialVersionUID = -1507733585991126012L;
 
 	// the name of the mob

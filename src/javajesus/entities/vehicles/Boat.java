@@ -30,42 +30,31 @@ public class Boat extends Vehicle {
 	/**
 	 * Creates a boat
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param name
-	 *            the name of the boat
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param speed
-	 *            the speed of the boat
-	 * @param defaultHealth
-	 *            the default health of the boat
+	 * @param level - the level it is on
+	 * @param name - the name of the boat
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param speed - the speed of the boat
+	 * @param defaultHealth - the default health of the boat
 	 */
-	public Boat(Level level, String name, int x, int y, int speed, int defaultHealth) {
-		super(level, name, x, y, speed, SHORT_SIDE, LONG_SIDE, SpriteSheet.vehicles, defaultHealth);
+	public Boat(Level level, int x, int y, int defaultHealth) {
+		super(level, "Boat", x, y, 2, LONG_SIDE, SHORT_SIDE, SHORT_SIDE, LONG_SIDE, SpriteSheet.vehicles, defaultHealth);
 		getColor();
 	}
-
+	
 	/**
-	 * Moves a car on the level
+	 * Checks the type of tile in a new position
+	 * Reverses the criteria for boats
 	 * 
-	 * @param dx
-	 *            the total change in x
-	 * @param dy
-	 *            the total change in y
+	 * @param x - the x offset from current value
+	 * @param y - the y offset from current value
+	 * @param dx - the change in x
+	 * @param dy - the change in y
+	 * @return true if the new tile is solid
 	 */
-	public void move(int dx, int dy) {
-
-		// adjust the bounds depending on direction
-		if (getDirection() == Direction.NORTH || getDirection() == Direction.SOUTH) {
-			setBounds(getX(), getY(), SHORT_SIDE, LONG_SIDE);
-		} else {
-			setBounds(getX(), getY(), LONG_SIDE, SHORT_SIDE);
-		}
-
-		super.move(dx, dy);
+	@Override
+	protected boolean isWaterTile(int x, int y, int dx, int dy) {
+		return getLevel().getTileFromEntityCoords(getX() + x + dx, getY() + y + dy).getId() != Tile.WATER.getId();
 	}
 
 	/**
@@ -149,24 +138,24 @@ public class Boat extends Vehicle {
 			for (int i = 0; i < 4; i++) {
 
 				// Body 1
-				screen.render(xOffset + (modifier * (flipX ? 4 : 0)), (yOffset + modifier * i),
-						xTile, yTile + i, getSpriteSheet(), flipX, color);
+				screen.render(xOffset + (modifier * (flipX ? 4 : 0)), (yOffset + modifier * i), xTile, yTile + i,
+				        getSpriteSheet(), flipX, color);
 
 				// Body 2
-				screen.render(xOffset + modifier + (modifier * (flipX ? 2 : 0)), (yOffset + modifier * i),
-						xTile + 1, yTile + i, getSpriteSheet(), flipX, color);
+				screen.render(xOffset + modifier + (modifier * (flipX ? 2 : 0)), (yOffset + modifier * i), xTile + 1,
+				        yTile + i, getSpriteSheet(), flipX, color);
 
 				// Body 3
-				screen.render(xOffset + 2 * modifier, (yOffset + modifier * i),
-						xTile + 2, yTile + i, getSpriteSheet(), flipX, color);
+				screen.render(xOffset + 2 * modifier, (yOffset + modifier * i), xTile + 2, yTile + i, getSpriteSheet(),
+				        flipX, color);
 
 				// Body 4
 				screen.render(xOffset + 3 * modifier - (modifier * (flipX ? 2 : 0)), (yOffset + modifier * i),
-						xTile + 3, yTile + i, getSpriteSheet(), flipX, color);
+				        xTile + 3, yTile + i, getSpriteSheet(), flipX, color);
 
 				// Body 5
 				screen.render(xOffset + 4 * modifier - (modifier * (flipX ? 4 : 0)), (yOffset + modifier * i),
-						xTile + 4, yTile + i, getSpriteSheet(), flipX, color);
+				        xTile + 4, yTile + i, getSpriteSheet(), flipX, color);
 
 			}
 
@@ -186,36 +175,6 @@ public class Boat extends Vehicle {
 			}
 		}
 
-	}
-
-	/**
-	 * Checks if the position is not a water tile Called isSolidTile to conform
-	 * to vehicle method
-	 * 
-	 * @param dx
-	 *            the new x
-	 * @param dy
-	 *            the new y
-	 * @param x
-	 *            the x offset
-	 * @param y
-	 *            the y offset
-	 * @return true if the new tile is not water
-	 */
-	protected boolean isSolidTile(int dx, int dy, int x, int y) {
-
-		// tile the mob is on (bottom half)
-		Tile lastTile = getLevel().getTile((getX() + x) >> 3, (getY() + y) >> 3);
-
-		// tile the mob will move to
-		Tile newTile = getLevel().getTile((getX() + x + dx) >> 3, (getY() + y + dy) >> 3);
-
-		// checking the last tile allows the player to move through solids if
-		// already on a solid
-		if (!lastTile.equals(newTile) && (newTile != Tile.WATER)) {
-			return true;
-		}
-		return false;
 	}
 
 }

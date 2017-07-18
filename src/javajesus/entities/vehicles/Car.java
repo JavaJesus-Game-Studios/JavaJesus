@@ -14,6 +14,7 @@ import javajesus.utility.Direction;
  */
 public class Car extends Vehicle {
 
+	// serialization
 	private static final long serialVersionUID = -1861142691248572564L;
 
 	// colorset for this car
@@ -28,25 +29,19 @@ public class Car extends Vehicle {
 	// size of each box
 	private static final int UNIT_SIZE = 8;
 
-	// used for offsetting the bounds based on direction
-	private static final int SHORT_SIDE = 32, LONG_SIDE = 40;
-
 	/**
 	 * Creates a car
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param name
-	 *            the name of the car
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param yTile
-	 *            the y tile on the spritesheet
+	 * @param level - the level it is on
+	 * @param name - the name of the car
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param shortSide - the length of the short side of the car
+	 * @param longSide - the length of the long side of the car
+	 * @param yTile - the y tile on the spritesheet
 	 */
-	public Car(Level level, String name, int x, int y, int yTile) {
-		super(level, name, x, y, 2, SHORT_SIDE, LONG_SIDE, SpriteSheet.vehicles, 200);
+	public Car(Level level, String name, int x, int y, int shortSide, int longSide, int yTile) {
+		super(level, name, x, y, 2, longSide, shortSide, shortSide, longSide, SpriteSheet.vehicles, 200);
 		getColor();
 		this.yTile = yTile;
 	}
@@ -69,30 +64,9 @@ public class Car extends Vehicle {
 	}
 
 	/**
-	 * Moves a car on the level
-	 * 
-	 * @param dx
-	 *            the total change in x
-	 * @param dy
-	 *            the total change in y
-	 */
-	public void move(int dx, int dy) {
-
-		// adjust the bounds depending on direction
-		if (getDirection() == Direction.NORTH || getDirection() == Direction.SOUTH) {
-			setBounds(getX(), getY(), SHORT_SIDE, LONG_SIDE);
-		} else {
-			setBounds(getX(), getY(), LONG_SIDE, SHORT_SIDE);
-		}
-
-		super.move(dx, dy);
-	}
-
-	/**
 	 * Adds the player into the vehicle
 	 * 
-	 * @param player
-	 *            the player to drive
+	 * @param player the player to drive
 	 */
 	public void drive(Player player) {
 		super.drive(player);
@@ -172,7 +146,7 @@ public class Car extends Vehicle {
 		} else if (getDirection() == Direction.NORTH) {
 			xTile = 14;
 		}
-		
+
 		// render a broken car
 		if (isBroken()) {
 			xTile += 18;
