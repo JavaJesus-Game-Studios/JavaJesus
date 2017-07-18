@@ -18,7 +18,7 @@ public class ApartmentLobby extends Interior {
 	private Point exitPoint;
 	
 	public ApartmentLobby(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Apartment_Interiors/Apartment_Lobby.png", new Point(
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/APARTMENT_INTERIORS/Apartment_Lobby.png", new Point(
 				1944, 2040), level);
 		this.exitPoint = point;
 	}

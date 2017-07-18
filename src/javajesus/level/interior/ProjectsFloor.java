@@ -18,7 +18,7 @@ public class ProjectsFloor extends Interior {
 	private int floor;
 
 	public ProjectsFloor(Point point, Level level, int floor) {
-		super("/Buildings/Generic Interiors/Projects_Interiors/Projects_Floors_1_and_2.png", new Point(580, 680),
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Projects_Interiors/Projects_Floors_1_and_2.png", new Point(580, 680),
 				level);
 		this.exitPoint = point;
 		this.floor = floor;

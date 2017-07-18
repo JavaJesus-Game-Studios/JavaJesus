@@ -1,3 +1,7 @@
+/**
+ * @author shtevay
+ * ONLY COVERS SMALL EXPLOSION CURRENTLY WILL ADD LARGE EXPLOSION LATER
+ */
 package javajesus.entities.effects;
 
 import javajesus.SoundHandler;
@@ -31,7 +35,7 @@ public class Explosion extends Entity {
 	private static final int DPT = 1;
 	
 	// spritesheet for explosions
-	private static final SpriteSheet sheet = SpriteSheet.explosions;
+	private static final SpriteSheet sheet = SpriteSheet.explosionSmall;
 	
 	// color set of the explosion
 	private static final int[] color = { 0xFFFF9900, 0xFFFF3C00, 0xFFFF0000 };

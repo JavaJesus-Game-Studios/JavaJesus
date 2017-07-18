@@ -35,7 +35,7 @@ public class SandboxOriginalLevel extends Level {
 	 * Creates a fixed sandbox map
 	 */
 	public SandboxOriginalLevel() {
-		super("/Levels/Sandbox/original.png", true, "Original Map", new Point(1360, 70));
+		super("/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/original.png", true, "Original Map", new Point(1360, 70));
 	}
 
 	protected NPC[] getNPCPlacement() {

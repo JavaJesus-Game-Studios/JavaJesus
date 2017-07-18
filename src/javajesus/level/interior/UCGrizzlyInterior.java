@@ -16,7 +16,7 @@ public class UCGrizzlyInterior extends Interior {
 	private Point exitPoint;
 	
 	public UCGrizzlyInterior(Point point, Level level) {
-		super("/Buildings/Unique_HippyVille_Interiors/UC_Grizzly_Interior.png", new Point(936, 912), level);	
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/HIPPY_VILLE/INTERIORS/UC_Grizzly_Interior.png", new Point(936, 912), level);	
 		this.exitPoint = point;
 	}
 	

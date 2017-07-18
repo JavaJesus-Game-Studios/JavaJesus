@@ -81,7 +81,7 @@ public class Monster extends Mob {
 	 */
 	public Monster(Level level, String name, int x, int y, int speed, int width, int height, int yTile, int health,
 			int attackDelay) {
-		super(level, name, x, y, speed, width, height, SpriteSheet.enemies, health);
+		super(level, name, x, y, speed, width, height, SpriteSheet.mobEnemies, health);
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
 		this.yTile = yTile;
 		this.attackDelay = attackDelay;

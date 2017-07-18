@@ -25,7 +25,7 @@ public class OrchardValley extends Level {
 	 * Creates Orchard Valley
 	 */
 	public OrchardValley() {
-		super("/Levels/Cities/Dubland.png", true, Level.ORCHARD, new Point(136, 1816));
+		super("/WORLD_DATA/STORY_DATA/(X)WILDERNESS_AREAS/Orchard_Valley.png", true, Level.ORCHARD, new Point(136, 1816));
 
 		System.err.println("Creating Orchard Valley");
 

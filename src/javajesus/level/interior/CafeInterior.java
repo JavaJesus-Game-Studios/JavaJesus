@@ -16,7 +16,7 @@ public class CafeInterior extends Interior {
 	private Point exitPoint;
 	
 	public CafeInterior(Point point, Level level) {
-		super("/Buildings/Unique_TechTopia_Interiors/Cafe_Interior.png", new Point(936, 912), level);	
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/TECH_TOPIA/INTERIORS/Cafe_Interior.png", new Point(936, 912), level);	
 		this.exitPoint = point;
 	}
 	

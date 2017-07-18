@@ -18,7 +18,7 @@ public class ProjectsLobby extends Interior {
 	private Point exitPoint;
 
 	public ProjectsLobby(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Projects_Interiors/Projects_Lobby.png", new Point(584, 680), level);
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Projects_Interiors/Projects_Lobby.png", new Point(584, 680), level);
 		this.exitPoint = point;
 	}
 

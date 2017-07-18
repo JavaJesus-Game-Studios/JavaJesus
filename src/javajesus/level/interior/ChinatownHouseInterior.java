@@ -16,7 +16,7 @@ public class ChinatownHouseInterior extends Interior {
 	private Point exitPoint;
 	
 	public ChinatownHouseInterior(Point point, Level level) {
-		super("/Buildings/Unique_San_Cisco_Interiors/Chinatown_House_Interior.png", new Point(864, 744), level);	
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/SAN_CISCO/INTERIORS/Chinatown_House_Interior.png", new Point(864, 744), level);	
 		this.exitPoint = point;
 	}
 	

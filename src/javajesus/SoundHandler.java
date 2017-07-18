@@ -47,98 +47,104 @@ public class SoundHandler {
 			// initialize all the audio streams
 			sheathe = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Sword_Sounds/Short_Sword_Sound_v2.wav"));
+							.getResource("/AUDIO_DATA/WEAPONS/SWORDS/Short_Sword_Sound_v2.wav"));
 
 			background2 = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Freaks.wav"));
+					.getResource("/AUDIO_DATA/MUSIC/Freaks.wav"));
 
 			background1 = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/8-bit_Sounds/Background1_v2.wav"));
-
+					.getResource("/AUDIO_DATA/MUSIC/Background1_v2.wav"));
+			/**
+			 * WAS SIDD'S SOUND HAD TO DELETE
+			 * 
 			chest = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/8-bit_Sounds/Chest_Opening_v2.wav"));
-
+			*/
+			
 			chimpanzee = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Enemy-Mob_Sounds/Chimpanzee_Voice_v2.wav"));
+							.getResource("/AUDIO_DATA/ACTOR/ENEMY/Chimpanzee_Voice_v2.wav"));
 
 			click = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/8-bit_Sounds/Click_v2.wav"));
+					.getResource("/AUDIO_DATA/GUI/Click_v2.wav"));
 
 			demon = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Enemy-Mob_Sounds/Demon_Updated_v2.wav"));
+							.getResource("/AUDIO_DATA/ACTOR/ENEMY/Demon_Updated_v2.wav"));
 
 			fireball = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Projectile_Sounds/Fireball_v2.wav"));
+					.getResource("/AUDIO_DATA/WEAPONS/FIREARMS/Fireball_v2.wav"));
 
 			footsteps1 = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Footstep_Sounds/Footsteps_Alternate_v2.wav"));
+							.getResource("/AUDIO_DATA/ACTOR/FOOTSTEPS/Footsteps_Alternate_v2.wav"));
 
 			footstepsDirt = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Footstep_Sounds/Footsteps_Dirt.wav"));
+					.getResource("/AUDIO_DATA/ACTOR/FOOTSTEPS/Footsteps_Dirt.wav"));
 
 			footstepsFarmland = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Footstep_Sounds/Footsteps_Farmland_v2.wav"));
+							.getResource("/AUDIO_DATA/ACTOR/FOOTSTEPS/Footsteps_Farmland_v2.wav"));
 
 			footstepsGrass = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Footstep_Sounds/Footsteps_Grass.wav"));
+					.getResource("/AUDIO_DATA/ACTOR/FOOTSTEPS/Footsteps_Grass.wav"));
 
 			footstepsRoad = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Footstep_Sounds/Footsteps_Road.wav"));
+					.getResource("/AUDIO_DATA/ACTOR/FOOTSTEPS/Footsteps_Road.wav"));
 
 			footstepsWood = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Footstep_Sounds/Footsteps_Wood.wav"));
+					.getResource("/AUDIO_DATA/ACTOR/FOOTSTEPS/Footsteps_Wood.wav"));
 
 			assaultRifle = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Projectile_Sounds/Assault_Rifle_Sound_1.wav"));
+							.getResource("/AUDIO_DATA/WEAPONS/FIREARMS/Assault_Rifle_Sound_1.wav"));
 
 			revolver = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Projectile_Sounds/Revolver_Sound.wav"));
+					.getResource("/AUDIO_DATA/WEAPONS/FIREARMS/Revolver_Sound.wav"));
 
 			shotgun = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Projectile_Sounds/Shotgun_Sound.wav"));
+							.getResource("/AUDIO_DATA/WEAPONS/FIREARMS/Shotgun_Sound.wav"));
 
 			explosion = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Projectile_Sounds/Explosion.wav"));
+							.getResource("/AUDIO_DATA/WEAPONS/FIREARMS/Explosion.wav"));
 			
 			laser = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Projectile_Sounds/Laser_Gun_Sound.wav"));
-
+							.getResource("/AUDIO_DATA/WEAPONS/FIREARMS/Laser_Gun_Sound.wav"));
+			/**
+			 * 
+			 * ANOTHER OF SID's SOUNDS
 			levelup = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/Sound/8-bit_Sounds/Level_Up_v2.wav"));
+			*/
 
 			shortSword1 = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Sword_Sounds/Short_Sword_Swoosh_1.wav"));
+							.getResource("/AUDIO_DATA/WEAPONS/SWORDS/Short_Sword_Swoosh_1.wav"));
 
 			shortSword2 = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Sword_Sounds/Short_Sword_Swoosh_2.wav"));
+							.getResource("/AUDIO_DATA/WEAPONS/SWORDS/Short_Sword_Swoosh_2.wav"));
 
 			swimming = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Footstep_Sounds/Swimming.wav"));
+					.getResource("/AUDIO_DATA/ACTOR/FOOTSTEPS/Swimming.wav"));
 
 			carAcceleration = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Car_Sounds/Car_Acceleration.wav"));
+							.getResource("/AUDIO_DATA/VEHICLES/CAR/Car_Acceleration.wav"));
 
 			carDriving = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Car_Sounds/Car_Driving.wav"));
+							.getResource("/AUDIO_DATA/VEHICLES/CAR/Car_Driving.wav"));
 
 			carIdle = AudioSystem
 					.getAudioInputStream(SoundHandler.class
-							.getResource("/Sound/Car_Sounds/Car_Idle.wav"));
+							.getResource("/AUDIO_DATA/VEHICLES/CAR/Car_Idle.wav"));
 
 			carStartUp = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/Car_Sounds/Car_Start_up.wav"));
+					.getResource("/AUDIO_DATA/VEHICLES/CAR/Car_Start_up.wav"));
 
 			SoundHandler.sheathe = AudioSystem.getClip();
 			SoundHandler.background1 = AudioSystem.getClip();
@@ -185,8 +191,8 @@ public class SoundHandler {
 			SoundHandler.explosion.open(explosion);
 			SoundHandler.laser.open(laser);
 
-			SoundHandler.chest.open(chest);
-			SoundHandler.levelup.open(levelup);
+			//SoundHandler.chest.open(chest);
+			//SoundHandler.levelup.open(levelup);
 
 			SoundHandler.footstepsDirt.open(footstepsDirt);
 			SoundHandler.footstepsGrass.open(footstepsGrass);

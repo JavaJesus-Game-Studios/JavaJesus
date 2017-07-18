@@ -18,7 +18,7 @@ public class CatholicChurchInterior extends Interior {
 	private Point exitPoint;
 
 	public CatholicChurchInterior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Catholic_Church_Interior.png", new Point(248,
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Catholic_Church_Interior.png", new Point(248,
 				264), level);
 		this.exitPoint = point;
 	}

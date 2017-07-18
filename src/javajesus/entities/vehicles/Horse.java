@@ -60,7 +60,7 @@ public class Horse extends NPC implements Ridable {
 	public Horse(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance, int type) {
 		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, new int[] {0, 0, 0}, NOT_USED_XTILE, type, walkPath,
 				walkDistance);
-		setSpriteSheet(SpriteSheet.horses);
+		setSpriteSheet(SpriteSheet.playerHorse);
 
 	}
 
@@ -80,7 +80,7 @@ public class Horse extends NPC implements Ridable {
 	 */
 	public Horse(Level level, int x, int y, int defaultHealth, int type) {
 		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, null, NOT_USED_XTILE, type, "stand", 0);
-		setSpriteSheet(SpriteSheet.horses);
+		setSpriteSheet(SpriteSheet.playerHorse);
 
 	}
 	

@@ -17,7 +17,7 @@ public class GunStoreInterior extends Interior {
 	private Point exitPoint;
 
 	public GunStoreInterior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Gun_Store_Interior.png", new Point(248, 264), level);
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Gun_Store_Interior.png", new Point(248, 264), level);
 		this.exitPoint = point;
 	}
 

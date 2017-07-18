@@ -16,7 +16,7 @@ public class CastleTowerLeftInterior extends Interior {
 	private Point exitPoint;
 
 	public CastleTowerLeftInterior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Castle_Interiors/Castle_Tower_Interior_Left.png", new Point(1927, 2080),
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_Tower_Interior_Left.png", new Point(1927, 2080),
 				level);
 		this.exitPoint = point;
 	}

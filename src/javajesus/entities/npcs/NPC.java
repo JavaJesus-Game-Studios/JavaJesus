@@ -91,7 +91,7 @@ public class NPC extends Mob {
 	 */
 	public NPC(Level level, String name, int x, int y, int speed, int width, int height, int health, int[] color,
 			int xTile, int yTile, String walkPath, int walkDistance) {
-		super(level, name, x, y, speed, width, height, SpriteSheet.npcs, health);
+		super(level, name, x, y, speed, width, height, SpriteSheet.mobFriends, health);
 
 		this.color = color;
 		this.xTile = xTile;

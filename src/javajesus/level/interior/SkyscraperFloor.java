@@ -18,7 +18,7 @@ public class SkyscraperFloor extends Interior {
 	private Level level;
 
 	public SkyscraperFloor(Point point, Level level, int floorNum) {
-		super("/Buildings/Generic Interiors/Skyscraper_Interiors/Skyscraper_Floors_1-10.png", new Point(500, 500),
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Skyscraper_Interiors/Skyscraper_Floors_1-10.png", new Point(500, 500),
 				level);
 		this.floorNum = floorNum;
 		this.level = level;

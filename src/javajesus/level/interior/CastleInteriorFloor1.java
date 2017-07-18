@@ -18,7 +18,7 @@ public class CastleInteriorFloor1 extends Interior {
 	private Point exitPoint;
 
 	public CastleInteriorFloor1(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Castle_Interiors/Castle_1_Living_Quarters.png", new Point(496, 456), level);
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_1_Living_Quarters.png", new Point(496, 456), level);
 		this.exitPoint = point;
 	}
 

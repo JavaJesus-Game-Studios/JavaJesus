@@ -25,22 +25,22 @@ public class Furniture extends Entity implements SolidEntity {
 	private static final Rectangle shadow = new Rectangle(0, 0, 0, 0);
 
 	protected final static Sprite diningTableSprite = new Sprite(
-			"/Buildings/Clutter/Furniture/Long_Castle_Dining_Table.png");
-	protected final static Sprite bed = new Sprite("/Buildings/Clutter/Furniture/Simple_Bed.png");
-	protected final static Sprite squareTable = new Sprite("/Buildings/Clutter/Furniture/Simple_Square_Table.png");
-	protected final static Sprite bench = new Sprite("/Buildings/Clutter/Furniture/Simple_Bench.png");
-	protected final static Sprite chairFront = new Sprite("/Buildings/Clutter/Furniture/Simple_Chair_Front_Facing.png");
-	protected final static Sprite chairSide = new Sprite("/Buildings/Clutter/Furniture/Simple_Chair.png");
+			"/VISUAL_DATA/STATICS/FURNITURE/Long_Castle_Dining_Table.png");
+	protected final static Sprite bed = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Bed.png");
+	protected final static Sprite squareTable = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Square_Table.png");
+	protected final static Sprite bench = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Bench.png");
+	protected final static Sprite chairFront = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Chair_Front_Facing.png");
+	protected final static Sprite chairSide = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Chair.png");
 	protected final static Sprite computerMonitor = new Sprite(
-			"/Buildings/Clutter/Furniture/Simple_Computer_monitor.png");
-	protected final static Sprite computerTower = new Sprite("/Buildings/Clutter/Furniture/Simple_Computer_Tower.png");
-	protected final static Sprite filingCabinet = new Sprite("/Buildings/Clutter/Furniture/Simple_Filing_Cabinet.png");
-	protected final static Sprite longTable = new Sprite("/Buildings/Clutter/Furniture/Simple_Long_Table.png");
-	protected final static Sprite nightstand = new Sprite("/Buildings/Clutter/Furniture/Simple_Nightstand.png");
-	protected final static Sprite sofa = new Sprite("/Buildings/Clutter/Furniture/Simple_Sofa.png");
-	protected final static Sprite stool = new Sprite("/Buildings/Clutter/Furniture/Simple_Stool.png");
-	protected final static Sprite throne = new Sprite("/Buildings/Clutter/Furniture/Simple_Throne.png");
-	protected final static Sprite television = new Sprite("/Buildings/Clutter/Furniture/Simple_TV.png");
+			"/VISUAL_DATA/STATICS/FURNITURE/Simple_Computer_monitor.png");
+	protected final static Sprite computerTower = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Computer_Tower.png");
+	protected final static Sprite filingCabinet = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Filing_Cabinet.png");
+	protected final static Sprite longTable = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Long_Table.png");
+	protected final static Sprite nightstand = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Nightstand.png");
+	protected final static Sprite sofa = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Sofa.png");
+	protected final static Sprite stool = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Stool.png");
+	protected final static Sprite throne = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Throne.png");
+	protected final static Sprite television = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_TV.png");
 
 	/**
 	 * Creates clutter

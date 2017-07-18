@@ -95,8 +95,8 @@ public class PlayerHUD {
 			int[] sp = ((DataBufferInt) stamina[i].getRaster().getDataBuffer()).getData();
 
 			// render the different states to screen first
-			tempH.render24bit(i, 2, SpriteSheet.hud_weapons);
-			tempS.render24bit(i, 3, SpriteSheet.hud_weapons);
+			tempH.render24bit(i, 2, SpriteSheet.hudWeapons);
+			tempS.render24bit(i, 3, SpriteSheet.hudWeapons);
 
 			// set the pixel data
 			// add screen pixels to image pixels

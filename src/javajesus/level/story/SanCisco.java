@@ -46,7 +46,7 @@ public class SanCisco extends Level {
 	 * Creates San Cisco
 	 */
 	public SanCisco() {
-		super("/Levels/Cities/San_Cisco.png", true, Level.CISCO, new Point(3400, 2688));
+		super("/WORLD_DATA/STORY_DATA/(X)CITY_LEVELS/San_Cisco.png", true, Level.CISCO, new Point(3400, 2688));
 
 		System.err.println("Creating San Cisco");
 	}

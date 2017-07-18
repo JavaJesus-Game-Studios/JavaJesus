@@ -200,7 +200,7 @@ public class Item implements Serializable {
 	 * @param screen - the screen to display it on
 	 */
 	public void render(final Screen screen) {
-		screen.render24bit(xTile, yTile, SpriteSheet.gui_items);
+		screen.render24bit(xTile, yTile, SpriteSheet.inventoryItems);
 	}
 
 	/**
@@ -209,7 +209,7 @@ public class Item implements Serializable {
 	 * @param screen - the screen to display it on
 	 */
 	public void renderHUD(final Screen screen) {
-		screen.render24bit(xTile, yTile, SpriteSheet.hud_weapons);
+		screen.render24bit(xTile, yTile, SpriteSheet.hudWeapons);
 	}
 
 	/**

@@ -16,7 +16,7 @@ public class RefugeeTentInterior extends Interior {
 	private Point exitPoint;
 
 	public RefugeeTentInterior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Refugee_Tent_Interior.png", new Point(280, 256), level);
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Refugee_Tent_Interior.png", new Point(280, 256), level);
 		this.exitPoint = point;
 	}
 

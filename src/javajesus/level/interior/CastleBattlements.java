@@ -18,7 +18,7 @@ public class CastleBattlements extends Interior {
 	private Point exitPoint;
 
 	public CastleBattlements(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Castle_Interiors/Castle_1_Battlements.png", point, level);
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_1_Battlements.png", point, level);
 		this.exitPoint = point;
 	}
 

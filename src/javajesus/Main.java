@@ -30,7 +30,7 @@ public class Main {
 			// error checking
 			if (splash == null) {
 				System.err.println("Splash is null");
-				System.err.println("Add VM Arg in Run Configurations: -splash:res/GUI/logo.png");
+				System.err.println("Add VM Arg in Run Configurations: -splash:res/VISUAL_DATA/GUI/CREDITS/logo.png");
 				return;
 			}
 			
@@ -43,7 +43,7 @@ public class Main {
 			
 			// load the custom font
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, Main.class.getResourceAsStream("/GUI/Font/PressStart2P.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, Main.class.getResourceAsStream("/VISUAL_DATA/GUI/FONT/PressStart2P.ttf")));
 			
 			// initialize a launcher
 			new GameEngine(JJStrings.NAME, JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT, new Launcher())

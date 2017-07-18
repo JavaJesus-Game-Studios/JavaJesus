@@ -35,7 +35,7 @@ public class TechTopia extends Level {
 	 * Creates Tech Topia
 	 */
 	public TechTopia() {
-		super("/Levels/Cities/Tech_Topia.png", true, Level.TECH, new Point(1512, 584));
+		super("/WORLD_DATA/STORY_DATA/(X)CITY_LEVELS/Tech_Topia.png", true, Level.TECH, new Point(1512, 584));
 
 		System.err.println("Creating Tech Topia");
 	}

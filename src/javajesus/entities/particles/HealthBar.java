@@ -15,10 +15,10 @@ public class HealthBar extends Entity {
 	private static final long serialVersionUID = -4825483165347265874L;
 
 	// change in y offset on spritesheet
-	private int yOffset;
+	private int xOffset;
 
 	// starting y tile on the spritesheet
-	private int yTile;
+	private int xTile;
 
 	// segment compared to total number of health bar sprites
 	private static final double SEGMENT = 1 / 13.0;
@@ -27,7 +27,7 @@ public class HealthBar extends Entity {
 	private final Damageable entity;
 
 	// Spritesheet of the health bar
-	private final static SpriteSheet sheet = SpriteSheet.particles;
+	private final static SpriteSheet sheet = SpriteSheet.statusBars;
 
 	// color of the healthbar
 	private final int[] color = { 0xFF111111, 0xFF000000, 0xFFDD0000 };
@@ -48,7 +48,7 @@ public class HealthBar extends Entity {
 
 		// instance data
 		this.entity = entity;
-		this.yTile = 2;
+		this.xTile = 0;
 	}
 
 	/**
@@ -57,8 +57,8 @@ public class HealthBar extends Entity {
 	public void render(Screen screen) {
 
 		// health bar has a left and right component
-		screen.render(getX(), getY(), 0, yTile + yOffset, sheet, false, color);
-		screen.render(getX() + 8, getY(), 1, yTile + yOffset, sheet, false, color);
+		screen.render(getX(), getY(), 0, xTile + xOffset, sheet, false, color);
+		screen.render(getX() + 8, getY(), 1, xTile + xOffset, sheet, false, color);
 	}
 
 	/**
@@ -68,43 +68,43 @@ public class HealthBar extends Entity {
 
 		// divide the healthbar into 13 chunks with a different color
 		if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1) {
-			yOffset = 0;
+			xOffset = 0;
 			color[2] = 0xFF0079E0;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - SEGMENT) {
-			yOffset = 1;
+			xOffset = 2;
 			color[2] = 0xFF0079E0;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 2 * SEGMENT) {
-			yOffset = 2;
+			xOffset = 4;
 			color[2] = 0xFF0079E0;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 3 * SEGMENT) {
-			yOffset = 3;
+			xOffset = 6;
 			color[2] = 0xFF0079E0;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 4 * SEGMENT) {
-			yOffset = 4;
+			xOffset = 8;
 			color[2] = 0xFFFF6000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 5 * SEGMENT) {
-			yOffset = 5;
+			xOffset = 10;
 			color[2] = 0xFFFF6000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 6 * SEGMENT) {
-			yOffset = 6;
+			xOffset = 12;
 			color[2] = 0xFFFF6000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 7 * SEGMENT) {
-			yOffset = 7;
+			xOffset = 14;
 			color[2] = 0xFFFF6000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 8 * SEGMENT) {
-			yOffset = 8;
+			xOffset = 16;
 			color[2] = 0xFFFF6000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 9 * SEGMENT) {
-			yOffset = 9;
+			xOffset = 18;
 			color[2] = 0xFFE50000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 10 * SEGMENT) {
-			yOffset = 10;
+			xOffset = 20;
 			color[2] = 0xFFE50000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - 11 * SEGMENT) {
-			yOffset = 11;
+			xOffset = 22;
 			color[2] = 0xFFE50000;
 		} else {
-			yOffset = 12;
+			xOffset = 24;
 			color[2] = 0xFFE50000;
 		}
 	}

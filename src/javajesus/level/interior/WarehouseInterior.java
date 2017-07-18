@@ -16,7 +16,7 @@ public class WarehouseInterior extends Interior {
 	private Point exitPoint;
 
 	public WarehouseInterior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Warehouse_Interior.png", new Point(256, 264), level);
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Warehouse_Interior.png", new Point(256, 264), level);
 		this.exitPoint = point;
 	}
 

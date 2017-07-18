@@ -16,7 +16,7 @@ public class PoorHouseInterior extends Interior {
 	private Point exitPoint;
 
 	public PoorHouseInterior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Generic_Poor_House_Interior.png", new Point(248, 264), level);
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Generic_Poor_House_Interior.png", new Point(248, 264), level);
 		this.exitPoint = point;
 	}
 

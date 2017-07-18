@@ -50,10 +50,10 @@ public class Launcher extends Canvas implements IGameLogic {
 	private static final long serialVersionUID = 1L;
 
 	// Version of the game
-	private final String VERSION = "Alpha 0.8.3";
+	private final String VERSION = "Alpha 0.8.4";
 
 	// Last known update
-	private final String LAST_UPDATED = "Last Updated 7/12/2017";
+	private final String LAST_UPDATED = "Last Updated 7/18/2017";
 	
 	// launcher font
 	private static final Font LAUNCHER_FONT = new Font(JavaJesus.FONT_NAME, 0, 15);
@@ -159,61 +159,61 @@ public class Launcher extends Canvas implements IGameLogic {
 		        controls_on, controls_off, mute_on, mute_off, back_on,
 		        back_off, quit_on, quit_off, delete_off, delete_on;
 		
-		background = ImageIO.read(Launcher.class.getResource("/GUI/GUI_Menus/Main_Menu.png"));
+		background = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/MENUS/Main_Menu.png"));
 
-		sword_selector = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/sword_selector.png"));
+		sword_selector = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/sword_selector.png"));
 
-		story_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/story_on.png"));
+		story_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/story_on.png"));
 
-		story_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/story_off.png"));
+		story_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/story_off.png"));
 
-		sandbox_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/sandbox_on.png"));
+		sandbox_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/sandbox_on.png"));
 
-		sandbox_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/sandbox_off.png"));
+		sandbox_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/sandbox_off.png"));
 
-		options_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/options_on.png"));
+		options_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/options_on.png"));
 
-		options_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/options_off.png"));
+		options_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/options_off.png"));
 
-		credits_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/credits_on.png"));
+		credits_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/credits_on.png"));
 
-		credits_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/credits_off.png"));
+		credits_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/credits_off.png"));
 
-		fixed_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/fixed_on.png"));
+		fixed_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/fixed_on.png"));
 
-		fixed_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/fixed_off.png"));
+		fixed_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/fixed_off.png"));
 
-		random_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/random_on.png"));
+		random_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/random_on.png"));
 
-		random_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/random_off.png"));
+		random_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/random_off.png"));
 
-		audio_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/audio_on.png"));
+		audio_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/audio_on.png"));
 
-		audio_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/audio_off.png"));
+		audio_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/audio_off.png"));
 
-		video_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/video_on.png"));
+		video_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/video_on.png"));
 
-		video_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/video_off.png"));
+		video_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/video_off.png"));
 
-		controls_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/controls_on.png"));
+		controls_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/controls_on.png"));
 
-		controls_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/controls_off.png"));
+		controls_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/controls_off.png"));
 
-		mute_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/mute_on.png"));
+		mute_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/mute_on.png"));
 
-		mute_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/mute_off.png"));
+		mute_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/mute_off.png"));
 
-		back_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/back_on.png"));
+		back_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/back_on.png"));
 
-		back_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/back_off.png"));
+		back_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/back_off.png"));
 
-		quit_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/quit_on.png"));
+		quit_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/quit_on.png"));
 
-		quit_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/quit_off.png"));
+		quit_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/quit_off.png"));
 		
-		delete_on = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/delete_on.png"));
+		delete_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/delete_on.png"));
 
-		delete_off = ImageIO.read(Launcher.class.getResource("/GUI/Buttons/delete_off.png"));
+		delete_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/delete_off.png"));
 		
 		story = new LauncherButton(450, STORY, story_off, story_on);
 		sandbox = new LauncherButton(500, SANDBOX, sandbox_off, sandbox_on);
@@ -780,10 +780,10 @@ public class Launcher extends Canvas implements IGameLogic {
 	private class SandboxPanel implements Drawable {
 		
 		// level paths
-		private static final String originalPath = "/Levels/Sandbox/original.png", 
-				islandPath = "/Levels/Sandbox/island.png",
-				tileTesterPath = "/Levels/Testers/tile_tester.png",
-				roadTesterPath = "/Levels/Testers/road_tester.png";
+		private static final String originalPath = "/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/original.png", 
+				islandPath = "/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/island.png",
+				tileTesterPath = "/WORLD_DATA/TESTER_LEVELS/tile_tester.png",
+				roadTesterPath = "/WORLD_DATA/TESTER_LEVELS/road_tester.png";
 		
 		// dimensions of the panel
 		private static final int width = 200, height = 200;

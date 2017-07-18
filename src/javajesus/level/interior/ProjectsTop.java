@@ -15,7 +15,7 @@ public class ProjectsTop extends Interior {
 	private static final long serialVersionUID = -1544110638470769135L;
 
 	public ProjectsTop(Point point, Level level, int floor) {
-		super("/Buildings/Generic Interiors/Projects_Interiors/Projects_Top_Floor.png", new Point(580, 680), level);
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Projects_Interiors/Projects_Top_Floor.png", new Point(580, 680), level);
 	}
 
 	protected NPC[] getNPCPlacement() {

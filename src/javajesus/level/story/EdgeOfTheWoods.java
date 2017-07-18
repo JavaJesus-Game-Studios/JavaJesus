@@ -28,7 +28,7 @@ public class EdgeOfTheWoods extends Level {
 	 * Creates Edge Of The Woods level
 	 */
 	public EdgeOfTheWoods() {
-		super("/Levels/Wilderness_Areas/Edge_of_the_Woods_Main.png", true, Level.EDGE_MAIN, new Point(2704, 552));
+		super("/WORLD_DATA/STORY_DATA/(X)WILDERNESS_AREAS/Edge_of_the_Woods_Main.png", true, Level.EDGE_MAIN, new Point(2704, 552));
 
 		System.err.println("Creating Edge Of The Woods");
 	}

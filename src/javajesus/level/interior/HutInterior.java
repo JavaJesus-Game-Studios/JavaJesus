@@ -17,7 +17,7 @@ public class HutInterior extends Interior {
 	private Point exitPoint;
 
 	public HutInterior(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Hut_Interior.png", new Point(248, 264), level);
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Generic Interiors/Hut_Interior.png", new Point(248, 264), level);
 		this.exitPoint = point;
 	}
 

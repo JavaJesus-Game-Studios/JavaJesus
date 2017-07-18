@@ -38,7 +38,7 @@ public class Sword extends Item {
 	private int xSwingOffset, ySwingOffset;
 
 	// spritesheet for player
-	private static final SpriteSheet sheet = SpriteSheet.swords;
+	private static final SpriteSheet sheet = SpriteSheet.playerSwords;
 
 	// the offsets for the power swing positions
 	private int[] powerSwingOffsets;

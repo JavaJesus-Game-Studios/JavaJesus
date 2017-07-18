@@ -17,7 +17,7 @@ public class SkyscraperPent extends Interior {
 	private Level level;
 
 	public SkyscraperPent(Point point, Level level) {
-		super("/Buildings/Generic Interiors/Skyscraper_Interiors/Skyscraper_Floor_11.png", new Point(500, 500), level);
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Skyscraper_Interiors/Skyscraper_Floor_11.png", new Point(500, 500), level);
 		this.level = level;
 	}
 
