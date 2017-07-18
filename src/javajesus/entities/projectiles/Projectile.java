@@ -4,10 +4,10 @@ import javax.sound.sampled.Clip;
 
 import javajesus.Hideable;
 import javajesus.SoundHandler;
+import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.entities.SolidEntity;
-import javajesus.entities.vehicles.Vehicle;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
@@ -251,28 +251,20 @@ public abstract class Projectile extends Entity implements Hideable {
 		isBehindBuilding = false;
 
 		// check for collisions
-		for (int i = 0; i < getLevel().getEntities().size(); i++) {
+		for (int i = 0; i < getLevel().getDamageables().size(); i++) {
 			
-			Entity e = getLevel().getEntities().get(i);
-
-			// damage a mob
-			if (e instanceof Mob) {
-				if (this.getBounds().intersects(e.getBounds()) && e != mob && !((Mob) e).isDead()) {
-					((Mob) e).damage(damage);
-					destroy();
-					break;
-				}
-				// disappear if hitting a building
-			} else if (e instanceof SolidEntity) {
-				if (this.getBounds().intersects(e.getBounds())) {
-					if (e instanceof Vehicle) {
-						((Vehicle) e).damage(damage);
+			Damageable e = getLevel().getDamageables().get(i);
+			
+			if (this.getBounds().intersects(e.getBounds()) && e != mob) {
+				e.damage(damage);
+				
+				// for rendering behind buildings
+				if (e instanceof SolidEntity) {
+					if (this.getBounds().intersects(((SolidEntity) e).getShadow())) {
+						isBehindBuilding = true;
 					}
-					destroy();
-					break;
-				} else if (this.getBounds().intersects(((SolidEntity) e).getShadow())) {
-					isBehindBuilding = true;
 				}
+				destroy();
 			}
 		}
 	}

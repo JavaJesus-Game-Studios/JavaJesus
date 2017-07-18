@@ -1,4 +1,4 @@
-package javajesus.level;
+package javajesus.level.sandbox;
 
 import java.awt.Point;
 
@@ -8,6 +8,7 @@ import javajesus.entities.npcs.NPC;
 import javajesus.entities.solid.furniture.Chest;
 import javajesus.entities.solid.trees.Forest;
 import javajesus.entities.transporters.MapTransporter;
+import javajesus.level.Level;
 
 /*
  * Fixed level for sandbox mode

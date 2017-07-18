@@ -1,4 +1,4 @@
-package javajesus.level;
+package javajesus.level.sandbox;
 
 import java.awt.Point;
 
@@ -19,6 +19,7 @@ import javajesus.entities.vehicles.CenturyLeSabre;
 import javajesus.entities.vehicles.SportsCar;
 import javajesus.entities.vehicles.Truck;
 import javajesus.items.Item;
+import javajesus.level.Level;
 
 /*
  * Fixed level for sandbox mode

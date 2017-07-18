@@ -747,9 +747,9 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	 * a random number in the range
 	 * 
 	 * @param range - random offset to add to strength
-	 * @param other - the other mob to attack
+	 * @param other - the other thing to attack
 	 */
-	public void attack(int range, Mob other) {
+	public void attack(int range, Damageable other) {
 		other.damage(random.nextInt(range) + getStrength());
 	}
 

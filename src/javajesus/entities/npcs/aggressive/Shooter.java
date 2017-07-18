@@ -3,6 +3,7 @@ package javajesus.entities.npcs.aggressive;
 import java.awt.geom.Ellipse2D;
 
 import javajesus.SoundHandler;
+import javajesus.entities.Damageable;
 import javajesus.entities.LongRange;
 import javajesus.entities.Mob;
 import javajesus.entities.monsters.Monster;
@@ -244,7 +245,7 @@ public class Shooter extends NPC implements LongRange {
 	 * @param other - the other mob to attack
 	 */
 	@Override
-	public void attack(int range, Mob other) {
+	public void attack(int range, Damageable other) {
 		
 		// bullet offset
 		int xOffset = 0, yOffset = 0;

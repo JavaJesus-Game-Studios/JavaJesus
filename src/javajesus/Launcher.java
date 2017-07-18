@@ -27,9 +27,9 @@ import javajesus.level.Level;
 import javajesus.level.LevelTester;
 import javajesus.level.RandomLevel;
 import javajesus.level.RoadLevel;
-import javajesus.level.SandboxIslandLevel;
-import javajesus.level.SandboxOriginalLevel;
-import javajesus.level.story.LordHillsboroughsDomain;
+import javajesus.level.sandbox.SandboxFirstLevel;
+import javajesus.level.sandbox.SandboxIslandLevel;
+import javajesus.level.sandbox.SandboxOriginalLevel;
 import javajesus.save.GameData;
 import javajesus.save.SaveFile;
 import javajesus.utility.Direction;
@@ -42,6 +42,9 @@ import javajesus.utility.GameMode;
  * instantiate a game of a specified type
  */
 public class Launcher extends Canvas implements IGameLogic {
+	
+	// Launch this level by clicking STORY!
+	private static final Level temp = new SandboxFirstLevel();
 
 	// Used for serialization
 	private static final long serialVersionUID = 1L;
@@ -521,8 +524,9 @@ public class Launcher extends Canvas implements IGameLogic {
 		case FIXED:
 			return sandboxPanel.getLevel();
 		default:
-			Level.createStoryLevels();
-			return LordHillsboroughsDomain.level;
+			/*Level.createStoryLevels();
+			return LordHillsboroughsDomain.level;*/
+			return temp;
 		}
 		
 	}

@@ -14,6 +14,7 @@ import javax.sound.sampled.Clip;
 import javajesus.Hideable;
 import javajesus.JavaJesus;
 import javajesus.SoundHandler;
+import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.entities.Player;
@@ -52,6 +53,9 @@ public abstract class Level implements Serializable {
 
 	// list of all mobs on the map
 	private final List<Mob> mobs = new ArrayList<Mob>(JavaJesus.ENTITY_LIMIT);
+	
+	// list of all things that can be damaged
+	private final List<Damageable> damageables = new ArrayList<Damageable>(JavaJesus.ENTITY_LIMIT);
 
 	private final List<Hideable> hideables = new ArrayList<Hideable>(JavaJesus.ENTITY_LIMIT);
 
@@ -416,6 +420,9 @@ public abstract class Level implements Serializable {
 		if (entity instanceof Hideable) {
 			hideables.add((Hideable) entity);
 		}
+		if (entity instanceof Damageable) {
+			damageables.add((Damageable) entity);
+		}
 
 		entities.add(entity);
 	}
@@ -445,6 +452,9 @@ public abstract class Level implements Serializable {
 		if (entity instanceof Hideable) {
 			hideables.remove(entity);
 		}
+		if (entity instanceof Damageable) {
+			damageables.remove(entity);
+		}
 
 	}
 
@@ -455,6 +465,7 @@ public abstract class Level implements Serializable {
 		entities.clear();
 		mobs.clear();
 		hideables.clear();
+		damageables.clear();
 		loadEntities();
 	}
 
@@ -470,6 +481,13 @@ public abstract class Level implements Serializable {
 	 */
 	public List<Mob> getMobs() {
 		return mobs;
+	}
+	
+	/**
+	 * @return a list of all damageables on this map
+	 */
+	public List<Damageable> getDamageables() {
+		return damageables;
 	}
 
 	/**
