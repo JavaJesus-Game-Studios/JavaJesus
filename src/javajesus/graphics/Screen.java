@@ -391,6 +391,34 @@ public class Screen {
 	}
 	
 	/**
+	 * Renders the sprite in 48 bit
+	 * 
+	 * @param screen - the screen to display it on
+	 */
+	public void render48bit(int xTile, int yTile, SpriteSheet sheet) {
+
+		// size of each box
+		int modifier = SIZE;
+
+		// 24 bit so multiply by 3
+		xTile *= 6;
+		yTile *= 6;
+
+		// top to bottom
+		for (int i = 0; i < 6; i++) {
+
+			// left to right
+			for (int j = 0; j < 6; j++) {
+
+				// render the box
+				render(modifier * j, modifier * i, xTile + j, yTile + i, sheet, false);
+
+			}
+		}
+
+	}
+	
+	/**
 	 * Renders the sprite in 16 bit
 	 * Does NOT flip
 	 * 
