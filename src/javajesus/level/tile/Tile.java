@@ -353,4 +353,14 @@ public class Tile {
 				|| num == Tile.GRASS4.getId() || num == Tile.GRASS5.getId() || num == Tile.GRASS_POPPY.getId()
 				|| num == Tile.GRASS_FLOWER.getId();
 	}
+	
+	/**
+	 * Renders the tile to the screen
+	 * in the upper left corner
+	 * 
+	 * @param screen- screen to render on
+	 */
+	public void render(Screen screen) {
+		screen.render(0, 0, xTile, yTile, sheet, false);
+	}
 }
