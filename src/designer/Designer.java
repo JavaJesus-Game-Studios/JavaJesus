@@ -1,6 +1,7 @@
 package designer;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -9,12 +10,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,13 +44,20 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	private static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
 	
 	// buttons at the top
-	private final JButton save, load;
+	private final JButton save, load, setAll, plusSize, minusSize, plusZoom, minusZoom, undo;
 	private final JTextField name;
 	private TileGUI selected;
+	private JLabel sizeLabel;
+	
+	// zoom scale of the tiles
+	private int zoomScale = 8;
+	
+	// size
+	private int size = 1;
 	
 	// holds all the tile guis
 	private JPanel content;
-	
+
 	// ids for tile guis
 	private static final int SELECTOR = 0, DISPLAY = 1;
 	
@@ -119,16 +127,57 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		GridLayout layout = new GridLayout(LEVEL_WIDTH, LEVEL_HEIGHT);
 		content.setLayout(layout);
 		for (int i = 0; i < layout.getRows() * layout.getColumns(); i++) {
-			TileGUI tile = new TileGUI(Tile.GRASS(), DISPLAY);
+			TileGUI tile = new TileGUI(Tile.GRASS(), DISPLAY, zoomScale, zoomScale);
 			tile.addMouseListener(this);
 			content.add(tile);
 		}
+		
+		// assemble the tools on the right side
+		JPanel rightContent = new JPanel();
+		rightContent.setMinimumSize(new Dimension(20, Integer.MAX_VALUE));
+		rightContent.setLayout(new BoxLayout(rightContent, BoxLayout.Y_AXIS));
+		JLabel text = new JLabel("Tools");
+		text.setAlignmentX(Component.CENTER_ALIGNMENT);
+		rightContent.add(text);
+		rightContent.add(setAll = new  JButton("Fill"));
+		setAll.addActionListener(this);
+		setAll.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		// brush size has a flow layout
+		text = new JLabel("Brush Size");
+		text.setAlignmentX(Component.CENTER_ALIGNMENT);
+		rightContent.add(text);
+		JPanel brush = new JPanel();
+		brush.add(minusSize = new JButton("-"));
+		minusSize.addActionListener(this);
+		brush.add(sizeLabel = new JLabel(String.valueOf(size)));
+		brush.add(plusSize = new JButton("+"));
+		plusSize.addActionListener(this);
+		brush.setMaximumSize(new Dimension(Integer.MAX_VALUE, brush.getPreferredSize().height));
+		rightContent.add(brush);
+		
+		// zooming
+		text = new JLabel("Zoom");
+		text.setAlignmentX(Component.CENTER_ALIGNMENT);
+		rightContent.add(text);
+		JPanel zoom = new JPanel();
+		zoom.add(minusZoom = new JButton("-"));
+		minusZoom.addActionListener(this);
+		zoom.add(plusZoom = new JButton("+"));
+		plusZoom.addActionListener(this);
+		zoom.setMaximumSize(new Dimension(Integer.MAX_VALUE, brush.getPreferredSize().height));
+		rightContent.add(zoom);
+		
+		// undo
+		rightContent.add(undo = new JButton("Undo"));
+		undo.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		// assemble the viewing panel
 		JScrollPane pane = new JScrollPane(leftContent);
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		viewing.add(pane, BorderLayout.WEST);
 		viewing.add(new JScrollPane(content), BorderLayout.CENTER);
+		viewing.add(rightContent, BorderLayout.EAST);
 		
 		// assemble the panel
 		add(top, BorderLayout.NORTH);
@@ -157,13 +206,26 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 			// now update the tile
 			TileGUI tile = (TileGUI) e.getSource();
 			
-			// do the correct action
-			if (tile.getId() == SELECTOR) {
-				selected.setTile(tile.getTile());
-			}
-			
 			if (tile.getId() == DISPLAY) {
-				tile.setTile(selected.getTile());
+				
+				// point of origin
+				int xPos = tile.getX();
+				int yPos = tile.getY();
+
+				// set over an area
+				for (int x = 0; x < size; x++) {
+					for (int y = 0; y < size; y++) {
+
+						// get next the component
+						TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale), yPos + (y * zoomScale));
+						if (next != null) {
+
+							// set the tile
+							next.setTile(selected.getTile());
+						}
+
+					}
+				}
 			}
 			
 		}
@@ -194,7 +256,26 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		}
 		
 		if (tile.getId() == DISPLAY) {
-			tile.setTile(selected.getTile());
+			
+			// point of origin
+			int xPos = tile.getX();
+			int yPos = tile.getY();
+			
+			// set over an area
+			for (int x = 0; x < size; x++) {
+				for (int y = 0; y < size; y++) {
+					
+					// get next the component
+					TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale), yPos + (y * zoomScale));
+					if (next != null) {
+						
+						// set the tile
+						next.setTile(selected.getTile());
+					}
+					
+				}
+			}
+			
 		}
 		
 		// mouse is held down
@@ -226,6 +307,60 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 			// load
 		} else if (e.getSource() == load) {
 			load();
+			
+			// fill all
+		} else if (e.getSource() == setAll) {
+			
+			// loop through all the children
+			for (int i = 0; i < content.getComponentCount(); i++) {
+				
+				// each component is a tile GUI
+				((TileGUI) content.getComponent(i)).setTile(selected.getTile());;
+			}
+			
+			// decrease brush size
+		} else if (e.getSource() == minusSize) {
+			
+			// don't decrease to zero
+			if (size > 1) {
+				size--;
+				sizeLabel.setText(String.valueOf(size));
+			}
+			
+			// increase brush size
+		} else if (e.getSource() == plusSize) {
+			
+			size++;
+			sizeLabel.setText(String.valueOf(size));
+			
+			// decrease zoom
+		} else if (e.getSource() == minusZoom) {
+
+			// don't decrease to zero
+			if (zoomScale > 8) {
+				zoomScale -= 8;
+			}
+
+			// change all tile sizes
+			for (int i = 0; i < content.getComponentCount(); i++) {
+				((TileGUI) content.getComponent(i)).setSize(zoomScale, zoomScale);
+			}
+			
+			// repaint the content pane
+			content.revalidate();
+
+			// increase zoom size
+		} else if (e.getSource() == plusZoom) {
+
+			zoomScale += 8;
+			// change all tile sizes
+			for (int i = 0; i < content.getComponentCount(); i++) {
+				((TileGUI) content.getComponent(i)).setSize(zoomScale, zoomScale);
+			}
+			
+			// repaint the content pane
+			content.revalidate();
+
 		}
 		
 	}
