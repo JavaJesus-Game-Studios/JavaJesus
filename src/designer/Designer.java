@@ -343,7 +343,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 
 			// change all tile sizes
 			for (int i = 0; i < content.getComponentCount(); i++) {
-				((TileGUI) content.getComponent(i)).setSize(zoomScale, zoomScale);
+				((TileGUI) content.getComponent(i)).changeSize(zoomScale, zoomScale);
 			}
 			
 			// repaint the content pane
@@ -355,7 +355,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 			zoomScale += 8;
 			// change all tile sizes
 			for (int i = 0; i < content.getComponentCount(); i++) {
-				((TileGUI) content.getComponent(i)).setSize(zoomScale, zoomScale);
+				((TileGUI) content.getComponent(i)).changeSize(zoomScale, zoomScale);
 			}
 			
 			// repaint the content pane

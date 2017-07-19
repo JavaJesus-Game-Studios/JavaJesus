@@ -78,7 +78,7 @@ public class TileGUI extends JPanel {
 	/**
 	 * Changes the size of the component
 	 */
-	public void setSize(int width, int height) {
+	public void changeSize(int width, int height) {
 		
 		// set up the panel
 		setPreferredSize(new Dimension(width, height));
