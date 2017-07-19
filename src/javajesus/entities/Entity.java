@@ -95,7 +95,7 @@ public abstract class Entity implements Serializable {
 	protected void move(int dx, int dy) {
 		setX(getX() + dx);
 		setY(getY() + dy);
-		bounds.setLocation(getX(), getY());
+		bounds.translate(dx, dy);
 	}
 	
 	/**
@@ -119,7 +119,6 @@ public abstract class Entity implements Serializable {
 	 */
 	public void setBounds(int xPos, int yPos, int width, int height) {
 		bounds = new Rectangle(xPos, yPos, width, height);
-		bounds.setLocation(xPos, yPos);
 	}
 
 	/**

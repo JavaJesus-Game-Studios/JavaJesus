@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
-import engine.Window;
 import javajesus.Hideable;
 import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
@@ -16,12 +15,14 @@ import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
 import javajesus.utility.Direction;
+import engine.Window;
 
 /*
  * A vehicle can be ridden by the player
  * Vehicles must continue the render() method
  */
-public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable, Hideable {
+public class Vehicle extends Entity implements SolidEntity, Ridable,
+		Damageable, Hideable {
 
 	// serialization
 	private static final long serialVersionUID = -190937210314016793L;
@@ -37,10 +38,11 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 
 	// the fastest a vehicle can accelerate
 	private final int MAX_ACCELERATION = 5;
-	
+
 	// rate at which speed decays
 	// higher number = slower decay
-	private static final int DECAY = 10;
+	private static final int DECAY = 15;
+	private static final int DELAY = 5;
 
 	// whether or not acceleration is negative
 	private boolean isXSlowingDown = true, isYSlowingDown = true;
@@ -68,16 +70,16 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 
 	// the direction the vehicle is facing
 	private Direction direction;
-	
+
 	// fake shadow, but used to conform to solid entity
 	private static final Rectangle shadow = new Rectangle();
-	
+
 	// width and height based on direction
-	private int xWidth, xHeight, yWidth, yHeight;
-	
+	protected int xWidth, xHeight, yWidth, yHeight;
+
 	// whether or not the vehicle is behind a building
 	private boolean isBehindBuilding;
-	
+
 	/**
 	 * Creates a Vehicle
 	 * 
@@ -91,8 +93,9 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 	 * @param sheet - the spritesheet of the vehicle
 	 * @param maxHealth - the max health
 	 */
-	public Vehicle(Level level, String name, int x, int y, int speed, int xWidth, int xHeight, int yWidth, int yHeight, SpriteSheet sheet,
-			int maxHealth) {
+	public Vehicle(Level level, String name, int x, int y, int speed,
+			int xWidth, int xHeight, int yWidth, int yHeight,
+			SpriteSheet sheet, int maxHealth) {
 		super(level, x, y);
 
 		// instance data
@@ -114,7 +117,7 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 	 * Adds the player into the vehicle
 	 * 
 	 * @param player
-	 *            the player to drive
+	 * the player to drive
 	 */
 	public void drive(Player player) {
 		this.player = player;
@@ -134,7 +137,7 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 	 * @param dx - the change in x
 	 * @param dy - the change in y
 	 * @return true if the change in coordinates results in a solid tile
-	 *         collision
+	 * collision
 	 */
 	private boolean hasCollided(int dx, int dy) {
 
@@ -150,34 +153,86 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 		// the bottom bound of the mob
 		int yMax = getBounds().height;
 
-		// check for solid tile collisions at the 4 corners
-		if (isSolidTile(xMin, yMin, dx, dy) || isSolidTile(xMin, yMax, dx, dy)
-				|| isSolidTile(xMax, yMin, dx, dy) || isSolidTile(xMax, yMax, dx, dy)) {
-			return true;
-		}
-		
-		// check for water tile collisions at the 4 corners
-		if (isWaterTile(xMin, yMin, dx, dy) || isWaterTile(xMin, yMax, dx, dy) || isWaterTile(xMax, yMin, dx, dy)
-		        || isWaterTile(xMax, yMax, dx, dy)) {
-			return true;
+		// check every tile in between
+		for (int i = xMin; i < xMax; i += 4) {
+			for (int j = yMin; j < yMax; j += 4) {
+				
+				// check for solid or water
+				if (isSolidTile(i, j, dx, dy) || isWaterTile(i, j, dx, dy)) {
+					return true;
+				}
+				
+			}
 		}
 		
 		// check for solid entity collisions
-		Rectangle temp = new Rectangle((int) getBounds().getX() + xMin + dx, (int) getBounds().getY() + yMin + dy,
-		        xMax - xMin, yMax - yMin);
+		Rectangle temp = new Rectangle((int) getBounds().getX() + xMin + dx,
+				(int) getBounds().getY() + yMin + dy, xMax - xMin, yMax - yMin);
 
 		// loop through all entities
 		for (Entity entity : getLevel().getEntities()) {
 
 			// check for collision with another entity
-			if (entity instanceof SolidEntity && temp.intersects(entity.getBounds()) && entity != this) {
+			if (entity instanceof SolidEntity
+					&& temp.intersects(entity.getBounds()) && entity != this) {
 				return true;
 			}
 
 		}
 		return false;
 	}
+	
+	/**
+	 * Determines if the change in bounds collides
+	 * 
+	 * @param width - the new width
+	 * @param height - the new height
+	 * @return true if the change in bounds results in a solid tile
+	 * collision
+	 */
+	private boolean hasBoundsCollided(int width, int height) {
 
+		// the left bound of the mob
+		int xMin = 0;
+
+		// the right bound of the mob
+		int xMax = width;
+
+		// the top bound of the mob
+		int yMin = 0;
+
+		// the bottom bound of the mob
+		int yMax = height;
+		
+		// check every tile in between
+		for (int i = xMin; i < xMax; i += 4) {
+			for (int j = yMin; j < yMax; j += 4) {
+				
+				// check for solid or water
+				if (isSolidTile(i, j, 0, 0) || isWaterTile(i, j, 0, 0)) {
+					return true;
+				}
+				
+			}
+		}
+
+		// check for solid entity collisions
+		Rectangle temp = new Rectangle((int) getBounds().getX(),
+				(int) getBounds().getY(), width, height);
+
+		// loop through all entities
+		for (Entity entity : getLevel().getEntities()) {
+
+			// check for collision with another entity
+			if (entity instanceof SolidEntity
+					&& temp.intersects(entity.getBounds()) && entity != this) {
+				return true;
+			}
+
+		}
+		return false;
+	}
+	
 	/**
 	 * Checks the type of tile in a new position
 	 * 
@@ -188,9 +243,10 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 	 * @return true if the new tile is solid
 	 */
 	protected boolean isSolidTile(int x, int y, int dx, int dy) {
-		return getLevel().getTileFromEntityCoords(getX() + x + dx, getY() + y + dy).isSolid();
+		return getLevel().getTileFromEntityCoords(getX() + x + dx,
+				getY() + y + dy).isSolid();
 	}
-	
+
 	/**
 	 * Checks the type of tile in a new position
 	 * 
@@ -201,38 +257,46 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 	 * @return true if the new tile is solid
 	 */
 	protected boolean isWaterTile(int x, int y, int dx, int dy) {
-		return getLevel().getTileFromEntityCoords(getX() + x + dx, getY() + y + dy).getId() == Tile.WATER.getId();
+		return getLevel().getTileFromEntityCoords(getX() + x + dx,
+				getY() + y + dy).getId() == Tile.WATER.getId();
 	}
-	
+
 	/**
 	 * Vehicle input listener
+	 * 
 	 * @param window - window to check for input
 	 */
 	public void input(Window window) {
-		
+
+		// vehicle will always try to slow down
+		isXSlowingDown = isYSlowingDown = true;
+
 		if (window.isKeyPressed(KeyEvent.VK_W)) {
-			
+
 			isYSlowingDown = false;
-			if (Math.abs(acceleration.y - 1) < MAX_ACCELERATION) {
+			if (Math.abs(acceleration.y - 1) < MAX_ACCELERATION
+					&& tickCount % DELAY == 0) {
 				acceleration.y--;
 			}
 		}
 
 		if (window.isKeyPressed(KeyEvent.VK_S)) {
 			isYSlowingDown = false;
-			if (Math.abs(acceleration.y + 1) < MAX_ACCELERATION) {
+			if (Math.abs(acceleration.y + 1) < MAX_ACCELERATION
+					&& tickCount % DELAY == 0) {
 				acceleration.y++;
 			}
 		}
 
 		if (window.isKeyPressed(KeyEvent.VK_A)) {
 			isXSlowingDown = false;
-			if (Math.abs(acceleration.x - 1) < MAX_ACCELERATION) {
+			if (Math.abs(acceleration.x - 1) < MAX_ACCELERATION
+					&& tickCount % DELAY == 0) {
 				acceleration.x--;
 			}
 		}
 
-		if (window.isKeyPressed(KeyEvent.VK_D)) {
+		if (window.isKeyPressed(KeyEvent.VK_D) && tickCount % DELAY == 0) {
 			isXSlowingDown = false;
 			if (Math.abs(acceleration.x + 1) < MAX_ACCELERATION) {
 				acceleration.x++;
@@ -244,7 +308,7 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 			window.toggle(KeyEvent.VK_E);
 			exit();
 		}
-		
+
 	}
 
 	/**
@@ -252,9 +316,6 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 	 */
 	public void tick() {
 		
-		// vehicle will always try to slow down
-		isXSlowingDown = isYSlowingDown = true;
-
 		// broken cars can't move
 		if (isBroken()) {
 			return;
@@ -307,40 +368,57 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 	 * @param dy - the total change in y
 	 */
 	public void move(int dx, int dy) {
-		
+
 		// default it is on foreground
 		isBehindBuilding = false;
 		
+		// set the direction based on dominant movement
+		if (acceleration.y >= Math.abs(acceleration.x)) {
+
+			if (!hasBoundsCollided(yWidth, yHeight)) {
+				setDirection(Direction.SOUTH);
+				setBounds(getX(), getY(), yWidth, yHeight);
+			}
+
+		} else if (Math.abs(acceleration.y) >= Math.abs(acceleration.x)) {
+			if (!hasBoundsCollided(yWidth, yHeight)) {
+				setDirection(Direction.NORTH);
+				setBounds(getX(), getY(), yWidth, yHeight);
+			}
+		} else if (acceleration.x > 0) {
+			if (!hasBoundsCollided(xWidth, xHeight)) {
+				setDirection(Direction.EAST);
+				setBounds(getX(), getY(), xWidth, xHeight);
+			}
+
+		} else {
+			if (!hasBoundsCollided(xWidth, xHeight)) {
+				setDirection(Direction.WEST);
+				setBounds(getX(), getY(), xWidth, xHeight);
+			}
+		}
+
 		// update layer
 		for (int i = 0; i < getLevel().getEntities().size(); i++) {
 			Entity e = getLevel().getEntities().get(i);
-			
+
 			// check for shadows
-			if (e instanceof SolidEntity && ((SolidEntity) e).getShadow().intersects(getBounds()) && e != this) {
+			if (e instanceof SolidEntity
+					&& ((SolidEntity) e).getShadow().intersects(getBounds())
+					&& e != this) {
 				isBehindBuilding = true;
 				break;
 			}
 		}
-		
+
 		// movement
 		int sign = 0;
 
 		// assigns direction and bounds
 		if (dx < 0) {
-			setDirection(Direction.WEST);
 			sign = -1;
-			setBounds(getX(), getY(), xWidth, xHeight);
 		} else if (dx > 0) {
-			setDirection(Direction.EAST);
 			sign = 1;
-			setBounds(getX(), getY(), xWidth, xHeight);
-		}
-		if (dy < 0) {
-			setDirection(Direction.NORTH);
-			setBounds(getX(), getY(), yWidth, yHeight);
-		} else if (dy > 0) {
-			setDirection(Direction.SOUTH);
-			setBounds(getX(), getY(), yWidth, yHeight);
 		}
 
 		// move pixel by pixel for maximum accuracy
@@ -370,7 +448,7 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 			// check for collision before moving
 			if (!hasCollided(0, 1 * sign)) {
 				super.move(0, 1 * sign);
-				
+
 				// has collided in y direction
 			} else {
 				acceleration.y = 0;
@@ -471,16 +549,16 @@ public class Vehicle extends Entity implements SolidEntity, Ridable, Damageable,
 	public int getCurrentHealth() {
 		return health;
 	}
-	
+
 	/**
 	 * @return the direction the vehicle is facing
 	 */
 	public Direction getDirection() {
 		return direction;
 	}
-	
+
 	/**
-	 * @return the player driving the  vehicle
+	 * @return the player driving the vehicle
 	 */
 	public Player getPlayer() {
 		return player;

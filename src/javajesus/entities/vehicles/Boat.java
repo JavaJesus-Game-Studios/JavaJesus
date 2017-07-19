@@ -119,7 +119,7 @@ public class Boat extends Vehicle {
 		int xOffset = getX(), yOffset = getY();
 
 		// horizontal/vertical offset on spritesheet
-		int xTile = 0, yTile = 16;
+		int xTile = 0, yTile = 15;
 
 		// whether or not to render backwards horizontally
 		boolean flipX = getDirection() == Direction.WEST;

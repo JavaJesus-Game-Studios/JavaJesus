@@ -40,8 +40,10 @@ public class Car extends Vehicle {
 	 * @param longSide - the length of the long side of the car
 	 * @param yTile - the y tile on the spritesheet
 	 */
-	public Car(Level level, String name, int x, int y, int shortSide, int longSide, int yTile) {
-		super(level, name, x, y, 2, longSide, shortSide, shortSide, longSide, SpriteSheet.vehicles, 200);
+	public Car(Level level, String name, int x, int y, int shortSide,
+			int longSide, int yTile) {
+		super(level, name, x, y, 2, longSide, shortSide, shortSide, longSide,
+				SpriteSheet.vehicles, 200);
 		getColor();
 		this.yTile = yTile;
 	}
@@ -137,12 +139,11 @@ public class Car extends Vehicle {
 		// horizontal offset on spritesheet
 		int xTile = 0;
 
-		// whether or not to render backwards horizontally
-		boolean flipX = getDirection() == Direction.WEST;
-
 		// gets the right offset
-		if (getDirection() == Direction.EAST || getDirection() == Direction.WEST) {
+		if (getDirection() == Direction.EAST) {
 			xTile = 4;
+		} else if (getDirection() == Direction.WEST) {
+			xTile = 9;
 		} else if (getDirection() == Direction.NORTH) {
 			xTile = 14;
 		}
@@ -153,30 +154,19 @@ public class Car extends Vehicle {
 		}
 
 		// renders the horizontal car
-		if (getDirection() == Direction.EAST || getDirection() == Direction.WEST) {
+		if (getDirection() == Direction.EAST
+				|| getDirection() == Direction.WEST) {
 
-			// iterate downwards
+			// top to bottom
 			for (int i = 0; i < 4; i++) {
 
-				// Body 1
-				screen.render(xOffset + (modifier * (flipX ? 4 : 0)), (yOffset + modifier * i), xTile, yTile + i,
-				        getSpriteSheet(), flipX, color);
+				for (int j = 0; j < 5; j++) {
 
-				// Body 2
-				screen.render(xOffset + modifier + (modifier * (flipX ? 2 : 0)), (yOffset + modifier * i), xTile + 1,
-				        yTile + i, getSpriteSheet(), flipX, color);
-
-				// Body 3
-				screen.render(xOffset + 2 * modifier, (yOffset + modifier * i), xTile + 2, yTile + i, getSpriteSheet(),
-				        flipX, color);
-
-				// Body 4
-				screen.render(xOffset + 3 * modifier - (modifier * (flipX ? 2 : 0)), (yOffset + modifier * i),
-				        xTile + 3, yTile + i, getSpriteSheet(), flipX, color);
-
-				// Body 5
-				screen.render(xOffset + 4 * modifier - (modifier * (flipX ? 4 : 0)), (yOffset + modifier * i),
-				        xTile + 4, yTile + i, getSpriteSheet(), flipX, color);
+					// render the segment
+					screen.render(xOffset + modifier * j, yOffset + modifier
+							* i, xTile + j, yTile + i, getSpriteSheet(), false,
+							color);
+				}
 
 			}
 
@@ -189,8 +179,9 @@ public class Car extends Vehicle {
 				for (int j = 0; j < 4; j++) {
 
 					// render the segment
-					screen.render(xOffset + modifier * j, yOffset + modifier * i, xTile + j, yTile + i,
-					        getSpriteSheet(), false, color);
+					screen.render(xOffset + modifier * j, yOffset + modifier
+							* i, xTile + j, yTile + i, getSpriteSheet(), false,
+							color);
 				}
 
 			}

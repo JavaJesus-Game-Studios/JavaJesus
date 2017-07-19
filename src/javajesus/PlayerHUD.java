@@ -8,12 +8,12 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.utility.GameMode;
+
+import javax.imageio.ImageIO;
 
 /*
  * Manages the display of the current equipped item status and health bars stats
@@ -64,6 +64,9 @@ public class PlayerHUD {
 	// font of score board
 	private static final Font score_font = new Font(JavaJesus.FONT_NAME,
 			Font.BOLD, 30);
+	
+	// the buffered image elements
+	private BufferedImage bar, heart;
 
 	/**
 	 * Loads all the images of the weapons
@@ -180,6 +183,10 @@ public class PlayerHUD {
 		// initialize box offset
 		box_yOffset = JavaJesus.WINDOW_HEIGHT - (box.getHeight() * MODIFIER)
 				- JavaJesus.HUD_OFFSET;
+		
+		// give default buffered images
+		heart = hearts[0];
+		bar = stamina[0];
 
 	}
 
@@ -215,65 +222,9 @@ public class PlayerHUD {
 					+ player.getEquippedGun().getClipSize(), string_xOffset,
 					string_yOffset);
 		}
-
-		// used for calculating which stamina bar to draw
-		double remainingStamina = player.getCurrentStamina();
-
-		// stamina per bar
-		double sPerBar = player.getMaxStamina();
-
-		// bar drawn
-		BufferedImage bar = null;
-
-		// render fractions
-		if (remainingStamina > (7.0 / NUM_STATES) * sPerBar) {
-			bar = stamina[0];
-		} else if (remainingStamina > (6.0 / NUM_STATES) * sPerBar) {
-			bar = stamina[1];
-		} else if (remainingStamina > (5.0 / NUM_STATES) * sPerBar) {
-			bar = stamina[2];
-		} else if (remainingStamina > (4.0 / NUM_STATES) * sPerBar) {
-			bar = stamina[3];
-		} else if (remainingStamina > (3.0 / NUM_STATES) * sPerBar) {
-			bar = stamina[4];
-		} else if (remainingStamina > (2.0 / NUM_STATES) * sPerBar) {
-			bar = stamina[5];
-		} else if (remainingStamina > (1.0 / NUM_STATES) * sPerBar) {
-			bar = stamina[6];
-		} else {
-			bar = stamina[7];
-		}
-
+		
 		g.drawImage(bar, BAR_XOFFSET, box_yOffset
 				+ BAR_YOFFSET, STAMINA_SIZE, STAMINA_SIZE, null);
-		
-		// used for calculating which heart to draw
-		double remainingHealth = player.getCurrentHealth();
-
-		// health per heart
-		double hPerHeart = player.getMaxHealth();
-
-		// draw the heart
-		BufferedImage heart = null;
-
-		// render fractions
-		if (remainingHealth > (7.0 / NUM_STATES) * hPerHeart) {
-			heart = hearts[0];
-		} else if (remainingHealth > (6.0 / NUM_STATES) * hPerHeart) {
-			heart = hearts[1];
-		} else if (remainingHealth > (5.0 / NUM_STATES) * hPerHeart) {
-			heart = hearts[2];
-		} else if (remainingHealth > (4.0 / NUM_STATES) * hPerHeart) {
-			heart = hearts[3];
-		} else if (remainingHealth > (3.0 / NUM_STATES) * hPerHeart) {
-			heart = hearts[4];
-		} else if (remainingHealth > (2.0 / NUM_STATES) * hPerHeart) {
-			heart = hearts[5];
-		} else if (remainingHealth > (1.0 / NUM_STATES) * hPerHeart) {
-			heart = hearts[6];
-		} else {
-			heart = hearts[7];
-		}
 
 		g.drawImage(heart, BAR_XOFFSET + BAR_XSPACE, box_yOffset + BAR_YOFFSET + BAR_VSPACE,
 				HEART_SIZE, HEART_SIZE, null);
@@ -337,6 +288,63 @@ public class PlayerHUD {
 		// clear the screen
 		screen.clear();
 
+	}
+	
+	/**
+	 * Logic of the hud display
+	 */
+	protected void update() {
+		
+		// used for calculating which stamina bar to draw
+		double remainingStamina = player.getCurrentStamina();
+
+		// stamina per bar
+		double sPerBar = player.getMaxStamina();
+
+		// render fractions
+		if (remainingStamina > (7.0 / NUM_STATES) * sPerBar) {
+			bar = stamina[0];
+		} else if (remainingStamina > (6.0 / NUM_STATES) * sPerBar) {
+			bar = stamina[1];
+		} else if (remainingStamina > (5.0 / NUM_STATES) * sPerBar) {
+			bar = stamina[2];
+		} else if (remainingStamina > (4.0 / NUM_STATES) * sPerBar) {
+			bar = stamina[3];
+		} else if (remainingStamina > (3.0 / NUM_STATES) * sPerBar) {
+			bar = stamina[4];
+		} else if (remainingStamina > (2.0 / NUM_STATES) * sPerBar) {
+			bar = stamina[5];
+		} else if (remainingStamina > (1.0 / NUM_STATES) * sPerBar) {
+			bar = stamina[6];
+		} else {
+			bar = stamina[7];
+		}
+
+		// used for calculating which heart to draw
+		double remainingHealth = player.getCurrentHealth();
+
+		// health per heart
+		double hPerHeart = player.getMaxHealth();
+
+		// render fractions
+		if (remainingHealth > (7.0 / NUM_STATES) * hPerHeart) {
+			heart = hearts[0];
+		} else if (remainingHealth > (6.0 / NUM_STATES) * hPerHeart) {
+			heart = hearts[1];
+		} else if (remainingHealth > (5.0 / NUM_STATES) * hPerHeart) {
+			heart = hearts[2];
+		} else if (remainingHealth > (4.0 / NUM_STATES) * hPerHeart) {
+			heart = hearts[3];
+		} else if (remainingHealth > (3.0 / NUM_STATES) * hPerHeart) {
+			heart = hearts[4];
+		} else if (remainingHealth > (2.0 / NUM_STATES) * hPerHeart) {
+			heart = hearts[5];
+		} else if (remainingHealth > (1.0 / NUM_STATES) * hPerHeart) {
+			heart = hearts[6];
+		} else {
+			heart = hearts[7];
+		}
+		
 	}
 
 }

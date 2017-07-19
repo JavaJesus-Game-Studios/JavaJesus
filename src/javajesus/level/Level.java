@@ -327,7 +327,11 @@ public abstract class Level implements Serializable {
 	public void renderEntities(Screen screen, Player player) {
 
 		// the range around the player to display the entities
-		renderRange.setLocation(player.getX() - JavaJesus.WINDOW_WIDTH / 2, player.getY() - JavaJesus.WINDOW_HEIGHT / 2);
+		if (player.isDriving()) {
+			renderRange.setLocation(player.getVehicle().getX() - JavaJesus.WINDOW_WIDTH / 2, player.getVehicle().getY() - JavaJesus.WINDOW_HEIGHT / 2);
+		} else {
+			renderRange.setLocation(player.getX() - JavaJesus.WINDOW_WIDTH / 2, player.getY() - JavaJesus.WINDOW_HEIGHT / 2);
+		}
 
 		// render everything that is behind a building first
 		for (Hideable entity : hideables) {

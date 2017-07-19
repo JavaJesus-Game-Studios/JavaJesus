@@ -447,6 +447,37 @@ public class Screen {
 
 	}
 	
+	/**
+	 * Renders another screen onto this screen
+	 * 
+	 * @param screen - screen whos pixels will be transfered here
+	 * @param xOffset - x offset of the level
+	 * @param yOffset - y offset of the level
+	 */
+	public void render(Screen screen, int xOffset, int yOffset) {
+		
+		// shifts the position of the screen by the global offset
+		xOffset -= this.xOffset;
+		yOffset -= this.yOffset;
+		
+		// transfer the pixels
+		for (int i = 0; i < screen.getPixels().length; i++) {
+			
+			// get the coordinate
+			int x = i % screen.getWidth();
+			int y = i / screen.getHeight();
+			
+			int col = screen.getPixels()[i];
+			int pixel = (xOffset + x) + (y + yOffset) * this.width;
+			
+			if (col != 0 && pixel >= 0 && pixel < pixels.length) {
+				// assign the pixel
+				pixels[pixel] = col;
+			}
+			
+		}
+	}
+	
 	@Deprecated
 	public void render(int xOffset, int yOffset, int tileIndex, int[] color, boolean flip, SpriteSheet sheet) {
 		if (color != null) {

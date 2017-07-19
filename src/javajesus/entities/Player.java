@@ -519,7 +519,8 @@ public class Player extends Mob {
 	 * Makes a player exit vehicle
 	 */
 	public void exitVehicle() {
-		moveTo(vehicle.getX() - 16, vehicle.getY());
+		getBounds().setSize(SIZE, SIZE);
+		moveTo(vehicle.getX() - SIZE, vehicle.getY());
 		vehicle = null;
 	}
 
@@ -820,6 +821,8 @@ public class Player extends Mob {
 						this.vehicle = vehicle;
 						moveTo(vehicle.getX(), vehicle.getY());
 						vehicle.drive(this);
+						// hide player bounds
+						getBounds().setSize(0, 0);
 						return;
 					}
 				}

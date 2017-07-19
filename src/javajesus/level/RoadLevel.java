@@ -7,13 +7,14 @@ import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
 import javajesus.entities.solid.furniture.Chest;
 import javajesus.entities.transporters.MapTransporter;
+import javajesus.entities.vehicles.SportsCar;
 
 public class RoadLevel extends Level {
 
 	private static final long serialVersionUID = 4367488134635605719L;
 
 	public RoadLevel() {
-		super("/WORLD_DATA/TESTER_LEVELS/road_tester.png", false, "Road Level", new Point(50, 50));
+		super("/WORLD_DATA/TESTER_LEVELS/road_tester.png", true, "Road Level", new Point(50, 50));
 	}
 
 	@Override
@@ -38,7 +39,9 @@ public class RoadLevel extends Level {
 
 	@Override
 	protected Entity[] getOtherPlacement() {
-		return null;
+		return new Entity[] {
+				new SportsCar(this, 100, 100)
+		};
 	}
 
 }

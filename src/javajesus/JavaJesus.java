@@ -268,6 +268,9 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			// update the player
 			player.getLevel().tick();
 			
+			// update the hud
+			hud.update();
+			
 			// update the global offsets
 			xOffset = player.getX() - (IMAGE_WIDTH / 2);
 			yOffset = player.getY() - (IMAGE_HEIGHT / 2);
