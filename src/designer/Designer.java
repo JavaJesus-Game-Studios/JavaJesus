@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
@@ -51,6 +52,9 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	
 	// ids for tile guis
 	private static final int SELECTOR = 0, DISPLAY = 1;
+	
+	// whether or not the mouse is pressed down
+	private boolean pressed;
 	
 	/**
 	 * First method called in the program
@@ -139,9 +143,30 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	}
 
 
+	/**
+	 * Updates the logic of a tile if
+	 * the mouse was hovered over it while 
+	 * pressing
+	 */
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseEntered(MouseEvent e) {
+		
+		//make sure the mouse is pressed
+		if (pressed) {
+			
+			// now update the tile
+			TileGUI tile = (TileGUI) e.getSource();
+			
+			// do the correct action
+			if (tile.getId() == SELECTOR) {
+				selected.setTile(tile.getTile());
+			}
+			
+			if (tile.getId() == DISPLAY) {
+				tile.setTile(selected.getTile());
+			}
+			
+		}
 		
 	}
 
@@ -160,8 +185,10 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
+		// get the source
 		TileGUI tile = (TileGUI) e.getSource();
 		
+		// do the correct action
 		if (tile.getId() == SELECTOR) {
 			selected.setTile(tile.getTile());
 		}
@@ -169,12 +196,17 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		if (tile.getId() == DISPLAY) {
 			tile.setTile(selected.getTile());
 		}
+		
+		// mouse is held down
+		pressed = true;
 	}
 
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		
+		// mouse is no longer down
+		pressed = false;
 		
 	}
 
@@ -193,7 +225,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 			
 			// load
 		} else if (e.getSource() == load) {
-			
+			load();
 		}
 		
 	}
@@ -268,6 +300,46 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		    e.printStackTrace();
 		}
 		
+	}
+	
+	/**
+	 * Tries to load a png file
+	 */
+	private void load() {
+
+		// check if the file exists
+		try {
+			
+			// create the buffered image
+			BufferedImage level = ImageIO.read(Designer.class.getResource("/WORLD_DATA/" + name.getText()));
+			
+			// stores level colors
+			int[] pixels = new int[level.getWidth() * level.getHeight()];
+			
+			// fill the pixel array
+			for (int i = 0; i < pixels.length; i++) {
+				pixels[i] = level.getRGB(i % level.getWidth(), i / level.getWidth());
+			}
+
+			// loop through all the children
+			for (int i = 0; i < content.getComponentCount(); i++) {
+
+				// find the corresponding tile with the pixel color from the file
+				for (Tile tile: Tile.tileList) {
+					
+					if (tile != null) {
+						// found a match
+						if (pixels[i] == tile.getPixelColor()) {
+							((TileGUI) content.getComponent(i)).setTile(tile);
+							break;
+						}
+					}
+				}
+				
+			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 }
