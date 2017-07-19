@@ -361,6 +361,16 @@ public class Tile {
 	 * @param screen- screen to render on
 	 */
 	public void render(Screen screen) {
-		screen.render(0, 0, xTile, yTile, sheet, false);
+		screen.render(0, 0, xTile, yTile, sheet, false, color);
+	}
+	
+	/**
+	 * Renders the tile to the screen
+	 * in the upper left corner
+	 * 
+	 * @param screen- screen to render on
+	 */
+	public void render(Screen screen, int xOffset, int yOffset) {
+		screen.render(xOffset, yOffset, xTile, yTile, sheet, false, color);
 	}
 }

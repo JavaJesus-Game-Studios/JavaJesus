@@ -27,20 +27,38 @@ public class TileGUI extends JPanel {
 	// size of the item frame
 	private static final int SIZE = 8;
 	
+	// used to identify groups of tile guis
+	private int id;
+	
+	/**
+	 * TileGUI ctor()
+	 * Displays a simple panel with a single Tile
+	 * 
+	 * @param tile - tile to display
+	 * @param id - id of this tile
+	 */
+	public TileGUI(Tile tile, int id) {
+		this(tile, id, SIZE, SIZE);
+	}
+	
 	/**
 	 * TileGUI ctor()
 	 * Displays a simple panel with a single Tile
 	 * 
 	 * @param item - tile to display
+	 * @param id - id of this tile
+	 * @param width - width of the tile gui
+	 * @param height - height of the tile gui
 	 */
-	public TileGUI(Tile tile) {
+	public TileGUI(Tile tile, int id, int width, int height) {
 		
 		// initialize the instance variables
 		this.tile = tile;
+		this.id = id;
 		image = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_RGB);
 		
 		// set up the panel
-		setPreferredSize(new Dimension(SIZE, SIZE));
+		setPreferredSize(new Dimension(width, height));
 	}
 	
 	/**
@@ -51,11 +69,18 @@ public class TileGUI extends JPanel {
 	}
 	
 	/**
+	 * @return ID of this tile
+	 */
+	public int getId() {
+		return id;
+	}
+	
+	/**
 	 * setTile()
 	 * 
 	 * @param tile - new tile to render
 	 */
-	public void setItem(Tile tile) {
+	public void setTile(Tile tile) {
 		this.tile = tile;
 		repaint();
 	}

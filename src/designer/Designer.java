@@ -4,12 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
+import java.io.File;
+import java.io.IOException;
 
-import javajesus.level.tile.Tile;
-
-import javax.swing.BoxLayout;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,20 +21,36 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import javajesus.graphics.Screen;
+import javajesus.level.tile.Tile;
+
 /*
  * Driver class of the level designer
  */
-public class Designer extends JPanel implements MouseListener{
+public class Designer extends JPanel implements MouseListener, ActionListener{
 	
 	// serialization
 	private static final long serialVersionUID = 1L;
 	
+	// gets the base directory
+    private static final String DIR = "res/WORLD_DATA/";
+	
 	// height of the window
-	private static final int WIDTH = 700, HEIGHT = 700;
+	private static final int WIDTH = 1000, HEIGHT = 800;
+	
+	// number of tiles on level
+	private static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
 	
 	// buttons at the top
 	private final JButton save, load;
 	private final JTextField name;
+	private TileGUI selected;
+	
+	// holds all the tile guis
+	private JPanel content;
+	
+	// ids for tile guis
+	private static final int SELECTOR = 0, DISPLAY = 1;
 	
 	/**
 	 * First method called in the program
@@ -45,8 +65,9 @@ public class Designer extends JPanel implements MouseListener{
 		frame.getContentPane().add(new Designer(WIDTH, HEIGHT));
 		frame.pack();
 		frame.setLocationRelativeTo(null);
+		frame.setTitle("Level Designer for Java Jesus by Derek Jow");
 		frame.setVisible(true);
-		
+		frame.toFront();
 	}
 	
 	
@@ -59,48 +80,51 @@ public class Designer extends JPanel implements MouseListener{
 		
 		// set up the panel
 		setPreferredSize(new Dimension(width, height));
-		addMouseListener(this);
 		setLayout(new BorderLayout(0, 0));
 		
 		// top panel
 		JPanel top = new JPanel(new FlowLayout());
 		top.add(new JLabel("Name:"));
 		top.add(name = new JTextField());
+		name.setText("This is a new level.png");
 		top.add(save = new JButton("Save"));
+		save.addActionListener(this);
 		top.add(load = new JButton("Load"));
+		load.addActionListener(this);
+		top.add(new JLabel("Selected: "));
+		top.add(selected = new TileGUI(Tile.VOID, SELECTOR, 25, 25));
 		
 		// viewing panel
 		JPanel viewing = new JPanel(new BorderLayout(0, 0));
 		
 		// tile selector on the left side
-		JScrollPane leftSide = new JScrollPane();
 		JPanel leftContent = new JPanel();
-		leftContent.setLayout(new BoxLayout(leftContent, BoxLayout.Y_AXIS));
-		leftContent.add(new JLabel("Tile List"));
+		GridLayout l = new GridLayout(128, 2);
+		leftContent.setLayout(l);
+		leftContent.setMinimumSize(new Dimension(60, Integer.MAX_VALUE));
 		
 		// add all the tiles
 		for (Tile t: Tile.tileList) {
-			leftContent.add(new TileGUI(t));
+			TileGUI tile = new TileGUI(t, SELECTOR, 30, 30);
+			tile.addMouseListener(this);
+			leftContent.add(tile);
 		}
-		
-		// add to scroll pane
-		leftSide.add(leftContent);
 		
 		// displays all the tiles in the center
-		JScrollPane center = new JScrollPane();
-		JPanel content = new JPanel();
-		GridLayout layout = new GridLayout(200, 200);
+		content = new JPanel();
+		GridLayout layout = new GridLayout(LEVEL_WIDTH, LEVEL_HEIGHT);
 		content.setLayout(layout);
 		for (int i = 0; i < layout.getRows() * layout.getColumns(); i++) {
-			content.add(new TileGUI(Tile.VOID));
+			TileGUI tile = new TileGUI(Tile.GRASS(), DISPLAY);
+			tile.addMouseListener(this);
+			content.add(tile);
 		}
 		
-		// add to scroll
-		center.add(content);
-		
 		// assemble the viewing panel
-		viewing.add(leftSide, BorderLayout.LINE_START);
-		viewing.add(center, BorderLayout.CENTER);
+		JScrollPane pane = new JScrollPane(leftContent);
+		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		viewing.add(pane, BorderLayout.WEST);
+		viewing.add(new JScrollPane(content), BorderLayout.CENTER);
 		
 		// assemble the panel
 		add(top, BorderLayout.NORTH);
@@ -129,16 +153,120 @@ public class Designer extends JPanel implements MouseListener{
 	}
 
 
+	/**
+	 * Updates with the logic of whatever tile was pressed
+	 * @param e - the mouse event fired
+	 */
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mousePressed(MouseEvent e) {
 		
+		TileGUI tile = (TileGUI) e.getSource();
+		
+		if (tile.getId() == SELECTOR) {
+			selected.setTile(tile.getTile());
+		}
+		
+		if (tile.getId() == DISPLAY) {
+			tile.setTile(selected.getTile());
+		}
 	}
 
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	/**
+	 * Fired when buttons are pressed
+	 * @param e - the event fired
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		// save
+		if (e.getSource() == save) {
+			save();
+			saveRenderedLevel();
+			
+			// load
+		} else if (e.getSource() == load) {
+			
+		}
+		
+	}
+	
+	/**
+	 * Saves the fully rendered image to the level directory
+	 */
+	private void save() {
+		
+		// create the buffered image
+		BufferedImage level = new BufferedImage(LEVEL_WIDTH, LEVEL_HEIGHT, BufferedImage.TYPE_INT_RGB);
+		int[] pixels = ((DataBufferInt) level.getRaster().getDataBuffer()).getData();
+		
+		// loop through all the children
+		for (int i = 0; i < content.getComponentCount(); i++) {
+			
+			// each component is a tile GUI
+			Tile t = ((TileGUI) content.getComponent(i)).getTile();
+			pixels[i] = t.getPixelColor();
+		}
+		
+		// now the buffered image is filled
+		try {
+		    File output = new File(DIR + name.getText());
+		    ImageIO.write(level, "png", output);
+		    System.out.println("Saved");
+		    System.out.println(output.getAbsolutePath());
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * Saves the fully rendered image to the level directory
+	 */
+	private void saveRenderedLevel() {
+		
+		// base modifier of tiles
+		int modifier = 8;
+		
+		// create the buffered image
+		BufferedImage level = new BufferedImage(LEVEL_WIDTH * modifier, LEVEL_HEIGHT * modifier, BufferedImage.TYPE_INT_RGB);
+		int[] pixels = ((DataBufferInt) level.getRaster().getDataBuffer()).getData();
+		
+		// create the screen for processing
+		Screen screen = new Screen(LEVEL_WIDTH * modifier, LEVEL_HEIGHT * modifier);
+		
+		// loop through all the children
+		for (int i = 0; i < content.getComponentCount(); i++) {
+			
+			int xPos = i % LEVEL_WIDTH;
+			int yPos = i / LEVEL_WIDTH;
+			
+			// each component is a tile GUI
+			Tile t = ((TileGUI) content.getComponent(i)).getTile();
+			
+			// render the tile
+			t.render(screen, xPos * modifier, yPos * modifier);
+		}
+		
+		// now extract the pixel data
+		for (int i = 0; i < pixels.length; i++) {
+			pixels[i] = screen.getPixels()[i];
+		}
+		
+		// now the buffered image is filled
+		try {
+		    File output = new File(DIR + "Rendered" + name.getText());
+		    ImageIO.write(level, "png", output);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
 		
 	}
 
