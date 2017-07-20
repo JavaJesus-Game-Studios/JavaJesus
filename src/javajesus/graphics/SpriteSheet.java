@@ -22,23 +22,29 @@ public class SpriteSheet implements Serializable {
 	////// TILES ///////
     public static SpriteSheet tiles = new SpriteSheet("/VISUAL_DATA/TILES/tile_sheet.png", 32);
     	//NATURAL
-    public static SpriteSheet dirt = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/NATURAL/dirt.png", 8);
+    public static SpriteSheet dirt = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/NATURAL/dirt.png", 10);
     public static SpriteSheet grass = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/NATURAL/grass.png", 8);
-    public static SpriteSheet mountain = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/NATURAL/mountain.png", 7);
+    public static SpriteSheet mountain = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/NATURAL/mountain.png", 8);
     
     	//URBAN
-    public static SpriteSheet urbanRoads = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/URBAN/urban_roads.png", 4);
-    public static SpriteSheet wasteland = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/URBAN/wasteland.png", 7);
+    public static SpriteSheet urbanRoads = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/URBAN/urban_roads.png", 8);
+    public static SpriteSheet wasteland = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/URBAN/wasteland.png", 8);
+    
+    	//Interior
+    public static SpriteSheet floors = new SpriteSheet("/VISUAL_DATA/TILES/INTERIORS/floors.png", 6);
+    public static SpriteSheet walls = new SpriteSheet("/VISUAL_DATA/TILES/INTERIORS/walls.png", 12);
+    
     
     ///// ANIMATED /////
     public static SpriteSheet fireSmall = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/fire_8Bit.png", 5);
     public static SpriteSheet fireLarge = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/fire_16Bit.png", 10);
-    public static SpriteSheet waves = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/waves.png", 5);
+    public static SpriteSheet waves = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/waves.png", 8);
+    public static SpriteSheet waveTransitions = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/wave_transition.png", 5);
     
     ///// EFFECTS /////
     public static SpriteSheet projectiles = new SpriteSheet("/VISUAL_DATA/EFFECTS/projectile_sheet.png", 8);
-    public static SpriteSheet explosionSmall = new SpriteSheet("/VISUAL_DATA/Effects/ANIMATIONS/explosion_16Bit.png", 28);
-    public static SpriteSheet explosionLarge = new SpriteSheet("/VISUAL_DATA/Effects/ANIMATIONS/explosion_32Bit.png", 50);
+    public static SpriteSheet explosionSmall = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/explosion_16Bit.png", 28);
+    public static SpriteSheet explosionLarge = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/explosion_32Bit.png", 50);
       
     ///// PLAYER //////
     public static SpriteSheet player = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sheet.png", 32);
@@ -72,6 +78,9 @@ public class SpriteSheet implements Serializable {
     	//INTERACTIVE
 	public static SpriteSheet pickups = new SpriteSheet("/VISUAL_DATA/STATICS/INTERACTIVE/pickup_sheet.png", 10);
 	public static SpriteSheet chests = new SpriteSheet("/VISUAL_DATA/STATICS/INTERACTIVE/chests.png", 8);
+	public static SpriteSheet doors = new SpriteSheet("/VISUAL_DATA/TILES/TRANSPORTERS/doors.png", 8);
+	public static SpriteSheet stairs = new SpriteSheet("/VISUAL_DATA/TILES/TRANSPORTERS/stairs.png", 7);
+
 	
 	// serialization
 	private static final long serialVersionUID = 8851049246466607160L;

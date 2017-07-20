@@ -362,7 +362,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 				(getY() + y + dy) / Tile.SIZE);
 
 		// water entry looks a bit jumpy TODO
-		if (!lastTile.equals(newTile) && newTile.equals(Tile.WATER)) {
+		if (!lastTile.equals(newTile) && newTile.equals(Tile.SEA1)) {
 			return true;
 		}
 		return false;
@@ -506,7 +506,13 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 
 		// checks if the mob is on water
 		isSwimming = getLevel().getTile((getX() + UNIT_SIZE) >> 3,
-				(getY() + getBounds().height) >> 3).equals(Tile.WATER);
+				(getY() + getBounds().height) >> 3).equals(Tile.SEA1)
+				||getLevel().getTile((getX() + UNIT_SIZE) >> 3,
+						(getY() + getBounds().height) >> 3).equals(Tile.SEA2)
+				||getLevel().getTile((getX() + UNIT_SIZE) >> 3,
+						(getY() + getBounds().height) >> 3).equals(Tile.SEA3)
+				||getLevel().getTile((getX() + UNIT_SIZE) >> 3,
+						(getY() + getBounds().height) >> 3).equals(Tile.SEA4);
 		
 		// animate bobbing water color
 		if (isSwimming) {

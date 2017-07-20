@@ -1,12 +1,8 @@
-/**
- * @author shtevay
- * TEMPORARILY SOME LINES DISABLED
- */
 package javajesus.entities.projectiles;
 
 import javajesus.SoundHandler;
 import javajesus.entities.Mob;
-//import javajesus.entities.effects.BlackHole;
+import javajesus.entities.effects.BlackHole;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
@@ -60,7 +56,7 @@ public class BlackHoleDetonator extends Projectile {
 	@Override
 	protected void destroy() {
 		
-		//getLevel().add(new BlackHole(getLevel(), getX(), getY()));
+		getLevel().add(new BlackHole(getLevel(), getX(), getY()));
 		super.destroy();
 
 	}

@@ -33,7 +33,7 @@ import javajesus.utility.Direction;
 public class Player extends Mob {
 
 	// player color set: hair, shirt, skin
-	private final int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };
+	private final int[] color = { 0xFF010101, 0xFFFF0000, 0xFFFFCC99 };
 
 	// the vehicle the player is in, null if not driving
 	private Ridable vehicle;
@@ -531,7 +531,7 @@ public class Player extends Mob {
 		Tile currentTile = getLevel().getTile(getX() >> 3, getY() >> 3);
 
 		// Grass sound
-		if (currentTile == Tile.GRASS) {
+		if (currentTile == Tile.GRASS0) {
 			SoundHandler.playSmoothly(SoundHandler.footstepsGrass);
 
 			// Mud sound
@@ -539,8 +539,7 @@ public class Player extends Mob {
 			SoundHandler.playSmoothly(SoundHandler.footstepsWood);
 
 			// Road sounds
-		} else if (currentTile == Tile.ROAD1 || currentTile == Tile.ROAD2
-				|| currentTile == Tile.ROAD3) {
+		} else if (currentTile == Tile.CAR_ROAD || currentTile == Tile.SIDEWALK_MID) {
 			SoundHandler.playSmoothly(SoundHandler.footstepsRoad);
 
 			// Dirt road sound
