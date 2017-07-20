@@ -13,8 +13,6 @@ import javajesus.level.Level;
  */
 public class Furniture extends Entity implements SolidEntity {
 
-	private static final long serialVersionUID = 8572895932183273902L;
-
 	// the sprite used for rendering
 	private Sprite sprite;
 
@@ -88,6 +86,12 @@ public class Furniture extends Entity implements SolidEntity {
 	@Override
 	public void tick() {
 
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

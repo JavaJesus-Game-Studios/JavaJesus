@@ -1,6 +1,7 @@
 package javajesus.entities.npcs;
 
 import javajesus.MessageHandler;
+import javajesus.entities.Entity;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 
@@ -10,8 +11,6 @@ import java.awt.Color;
  * Zorra
  */
 public class Zorra extends NPC {
-
-	private static final long serialVersionUID = -4981994300664864597L;
 
 	// dimensions Zorra
 	private static final int WIDTH = 16, HEIGHT = 16;
@@ -100,6 +99,24 @@ public class Zorra extends NPC {
 		}
 		}
 
+	}
+
+	@Override
+	public int getStrength() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDefense() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return Entity.ZORRA;
 	}
 
 }

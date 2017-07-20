@@ -3,6 +3,7 @@ package javajesus.entities.monsters;
 import java.util.Random;
 
 import javajesus.JavaJesus;
+import javajesus.entities.Entity;
 import javajesus.entities.Pickup;
 import javajesus.graphics.Screen;
 import javajesus.items.Item;
@@ -13,8 +14,6 @@ import javajesus.utility.Direction;
  * A Cyclops is a powerful monster that strikes fear into any foe
  */
 public class Cyclops extends Monster {
-
-	private static final long serialVersionUID = -6014297804180801819L;
 
 	// dimensions of the cyclops
 	private static final int WIDTH = 32, HEIGHT = 48;
@@ -183,6 +182,11 @@ public class Cyclops extends Monster {
 	 */
 	public int getStrength() {
 		return 20;
+	}
+
+	@Override
+	public byte getId() {
+		return Entity.CYCLOPS;
 	}
 
 }

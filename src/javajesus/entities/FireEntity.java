@@ -10,9 +10,6 @@ import javajesus.level.tile.Tile;
  */
 public class FireEntity extends Entity  {
 
-	// serialization
-	private static final long serialVersionUID = 4640952686511603038L;
-	
 	// last iteration time in milliseconds
 	private static long lastIterationTime;
 	
@@ -85,6 +82,11 @@ public class FireEntity extends Entity  {
 	public void render(Screen screen) {
 		
 		screen.render(getX(), getY(), xTile, yTile, SpriteSheet.tiles, false, color);
+	}
+
+	@Override
+	public byte getId() {
+		return Entity.FIRE_ENTITY;
 	}
 
 }

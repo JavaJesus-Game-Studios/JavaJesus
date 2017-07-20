@@ -3,14 +3,13 @@ package javajesus.entities.npcs.aggressive;
 import java.awt.Color;
 
 import javajesus.MessageHandler;
+import javajesus.entities.Entity;
 import javajesus.level.Level;
 
 /*
  * A Native American NPC
  */
 public class NativeAmerican extends Shooter {
-
-	private static final long serialVersionUID = 4219698068135987513L;
 
 	// dimensions the companion
 	private static final int WIDTH = 16, HEIGHT = 16;
@@ -66,6 +65,12 @@ public class NativeAmerican extends Shooter {
 	public void doDialogue() {
 		MessageHandler.displayText(getName() + ": I belong to the wind.", Color.white);
 		return;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return Entity.NATIVE_AMERICAN;
 	}
 
 }

@@ -16,9 +16,7 @@ import javajesus.utility.Direction;
 /*
  * A friendly NPC that shoots at a long range
  */
-public class Shooter extends NPC implements LongRange {
-
-	private static final long serialVersionUID = -4738701705942228492L;
+public abstract class Shooter extends NPC implements LongRange {
 
 	// the range the shooter will stand back when shooting
 	private Ellipse2D.Double standRange;

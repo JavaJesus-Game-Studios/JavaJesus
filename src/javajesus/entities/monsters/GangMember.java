@@ -8,6 +8,7 @@ import javajesus.JavaJesus;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.Damageable;
+import javajesus.entities.Entity;
 import javajesus.entities.LongRange;
 import javajesus.entities.Pickup;
 import javajesus.entities.Player;
@@ -21,8 +22,6 @@ import javajesus.utility.Direction;
  * A generic gang member to attack others
  */
 public class GangMember extends Monster implements LongRange {
-
-	private static final long serialVersionUID = 3322532159669147419L;
 
 	// the range the gang member will stand when shooting
 	private Ellipse2D.Double standRange;
@@ -220,6 +219,11 @@ public class GangMember extends Monster implements LongRange {
 		if (value < 1) {
 			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.vest));
 		} 
+	}
+
+	@Override
+	public byte getId() {
+		return Entity.GANG_MEMBER;
 	}
 
 }

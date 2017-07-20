@@ -24,9 +24,6 @@ import engine.Window;
 public class Vehicle extends Entity implements SolidEntity, Ridable,
 		Damageable, Hideable {
 
-	// serialization
-	private static final long serialVersionUID = -190937210314016793L;
-
 	// the player that is in the vehicle
 	private Player player;
 
@@ -570,6 +567,12 @@ public class Vehicle extends Entity implements SolidEntity, Ridable,
 	@Override
 	public boolean isBehindBuilding() {
 		return isBehindBuilding;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

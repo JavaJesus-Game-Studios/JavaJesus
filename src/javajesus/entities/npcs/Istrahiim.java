@@ -1,6 +1,7 @@
 package javajesus.entities.npcs;
 
 import javajesus.MessageHandler;
+import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
@@ -11,8 +12,6 @@ import java.awt.Color;
  * Istrahiim, the tall dude
  */
 public class Istrahiim extends NPC {
-
-	private static final long serialVersionUID = -344533173854730970L;
 
 	// how fast the npcs toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
@@ -106,6 +105,24 @@ public class Istrahiim extends NPC {
 				}
 			}
 		}
+	}
+
+	@Override
+	public int getStrength() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDefense() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return Entity.ISTRAHIIM;
 	}
 
 }

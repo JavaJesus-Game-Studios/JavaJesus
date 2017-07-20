@@ -3,6 +3,7 @@ package javajesus.entities.monsters;
 import java.awt.Color;
 
 import javajesus.MessageHandler;
+import javajesus.entities.Entity;
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
@@ -12,8 +13,6 @@ import javajesus.utility.Direction;
  * A monkey is a powerful monster that strikes fear into any foe
  */
 public class Monkey extends Monster {
-
-	private static final long serialVersionUID = -2503364257598403097L;
 
 	// dimensions of the monkey
 	private static final int WIDTH = 16, HEIGHT = 16;
@@ -138,5 +137,10 @@ public class Monkey extends Monster {
 	 */
 	public int getStrength() {
 		return 10;
+	}
+
+	@Override
+	public byte getId() {
+		return Entity.MONKEY;
 	}
 }

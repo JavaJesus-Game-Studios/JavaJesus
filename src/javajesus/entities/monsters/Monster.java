@@ -21,9 +21,7 @@ import javajesus.utility.GameMode;
 /*
  * A Monster is a mob that attacks NPCs and the player
  */
-public class Monster extends Mob {
-
-	private static final long serialVersionUID = 4156279188503056448L;
+public abstract class Monster extends Mob {
 
 	// the target of this mob
 	protected Mob target;

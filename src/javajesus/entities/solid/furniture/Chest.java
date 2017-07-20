@@ -18,8 +18,6 @@ import javajesus.level.Level;
  */
 public class Chest extends Entity implements SolidEntity {
 
-	private static final long serialVersionUID = 1L;
-
 	// color set of the chest
 	private static final int[] color = new int[] { 0xFF111111, 0xFF452909, 0xFFFFE011 };
 
@@ -239,6 +237,12 @@ public class Chest extends Entity implements SolidEntity {
 	@Override
 	public void tick() {
 
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

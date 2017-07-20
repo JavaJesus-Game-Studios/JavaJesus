@@ -5,12 +5,11 @@ import java.awt.Color;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.Damageable;
+import javajesus.entities.Entity;
 import javajesus.entities.projectiles.Bullet;
 import javajesus.level.Level;
 
 public class SWATOfficer extends Shooter {
-
-	private static final long serialVersionUID = -2320584920776635420L;
 
 	// dimensions the SWAT officer
 	private static final int WIDTH = 16, HEIGHT = 16;
@@ -80,5 +79,10 @@ public class SWATOfficer extends Shooter {
 	@Override
 	public int getStrength() {
 		return 7;
+	}
+
+	@Override
+	public byte getId() {
+		return Entity.SWAT_OFFICER;
 	}
 }

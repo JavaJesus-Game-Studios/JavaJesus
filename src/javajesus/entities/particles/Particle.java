@@ -11,9 +11,6 @@ import javajesus.level.Level;
  */
 public class Particle extends Entity {
 
-	// serialization
-	private static final long serialVersionUID = -1910855426543317119L;
-
 	// spritesheet the particle is on
 	private final SpriteSheet sheet;
 
@@ -61,6 +58,14 @@ public class Particle extends Entity {
 	 */
 	public String toString() {
 		return "Particle";
+	}
+
+	/**
+	 * Particles won't be saved
+	 */
+	@Override
+	public byte getId() {
+		return -1;
 	}
 
 }

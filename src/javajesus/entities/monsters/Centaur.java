@@ -1,5 +1,6 @@
 package javajesus.entities.monsters;
 
+import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
@@ -9,8 +10,6 @@ import javajesus.utility.Direction;
  * TODO attacking animation
  */
 public class Centaur extends Monster {
-
-	private static final long serialVersionUID = -6742106160330069216L;
 
 	// dimensions of the centaur
 	private static final int WIDTH = 16, HEIGHT = 24;
@@ -189,6 +188,11 @@ public class Centaur extends Monster {
 	@Override
 	public int getStrength() {
 		return 8;
+	}
+
+	@Override
+	public byte getId() {
+		return Entity.CENTAUR;
 	}
 
 }

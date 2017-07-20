@@ -13,9 +13,6 @@ import javajesus.level.tile.Tile;
  */
 public class DestructibleTile extends Entity implements Damageable, SolidEntity {
 
-	// serialization
-	private static final long serialVersionUID = 3662337682501677071L;
-	
 	// amount of times it must be hit before being destroyed
 	private int health, maxHealth;
 	
@@ -98,6 +95,11 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity 
 	@Override
 	public Rectangle getShadow() {
 		return shadow;
+	}
+
+	@Override
+	public byte getId() {
+		return Entity.DESTRUCTIBLE_TILE;
 	}
 
 }

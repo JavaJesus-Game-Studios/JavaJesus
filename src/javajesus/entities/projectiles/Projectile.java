@@ -18,9 +18,6 @@ import javajesus.utility.Direction;
  */
 public abstract class Projectile extends Entity implements Hideable {
 
-	// serialization
-	private static final long serialVersionUID = 3377536695812898799L;
-
 	// the stats of the projectile
 	private int speed, damage;
 
@@ -320,6 +317,14 @@ public abstract class Projectile extends Entity implements Hideable {
 	 */
 	public boolean isBehindBuilding() {
 		return isBehindBuilding;
+	}
+	
+	/**
+	 * Projectiles won't be saved
+	 */
+	@Override
+	public byte getId() {
+		return -1;
 	}
 
 }

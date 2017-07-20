@@ -17,9 +17,6 @@ import javajesus.level.Level;
  */
 public class Spawner extends Entity {
 
-	// serialization
-	private static final long serialVersionUID = -1243740183193796893L;
-
 	// types of entities to spawn
 	public static final int DEMON = 0, GANG_MEMBER = 1, HEALTH_PACK = 2, CAR = 3, CYCLOPS = 4, MONKEY = 5, CENTAUR = 6;
 
@@ -176,6 +173,11 @@ public class Spawner extends Entity {
 	}
 
 	public void render(Screen screen) {
+	}
+
+	@Override
+	public byte getId() {
+		return Entity.SPAWNER;
 	}
 
 }

@@ -10,9 +10,6 @@ import javajesus.level.Level;
  */
 public class Pickup extends Entity {
 
-	// serialization
-	private static final long serialVersionUID = 8454550791664174098L;
-
 	// the item it stores
 	private Item item;
 	
@@ -128,6 +125,14 @@ public class Pickup extends Entity {
 	 */
 	public boolean isInstantaneous() {
 		return useOnPickup;
+	}
+
+	/**
+	 * Pickups won't be saved 
+	 */
+	@Override
+	public byte getId() {
+		return -1;
 	}
 
 }
