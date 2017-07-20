@@ -202,7 +202,7 @@ public abstract class Level implements Serializable {
 				for (int x = 0; x < width; x++) {
 					tileCheck: for (Tile t : Tile.tileList) {
 						if (t != null && t.getPixelColor() == tileColors[x + y * width]) {
-							if (t == Tile.GRASS) {
+							if (t == Tile.GRASS0) {
 								t = Tile.GRASS();
 							} else if (t == Tile.WASTELAND_GROUND1) {
 								t = Tile.CONCRETE();
@@ -229,7 +229,7 @@ public abstract class Level implements Serializable {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				if (x * y % 10 < 10) {
-					levelTiles[x + y * width] = Tile.GRASS.getId();
+					levelTiles[x + y * width] = Tile.GRASS0.getId();
 				} else {
 					levelTiles[x + y * width] = Tile.STONE.getId();
 

@@ -54,7 +54,14 @@ public class Boat extends Vehicle {
 	 */
 	@Override
 	protected boolean isWaterTile(int x, int y, int dx, int dy) {
-		return getLevel().getTileFromEntityCoords(getX() + x + dx, getY() + y + dy).getId() != Tile.WATER.getId();
+		return getLevel().getTileFromEntityCoords(getX() + x + dx,
+				getY() + y + dy).getId() != Tile.SEA1.getId() 
+				||getLevel().getTileFromEntityCoords(getX() + x + dx,
+					getY() + y + dy).getId() != Tile.SEA2.getId()
+				||getLevel().getTileFromEntityCoords(getX() + x + dx,
+					getY() + y + dy).getId() != Tile.SEA3.getId()
+				||getLevel().getTileFromEntityCoords(getX() + x + dx,
+					getY() + y + dy).getId() != Tile.SEA4.getId();
 	}
 
 	/**

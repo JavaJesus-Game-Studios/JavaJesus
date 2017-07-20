@@ -52,7 +52,8 @@ public class GameEngine implements Runnable {
 		if (name.contains("Mac")) {
 
 			// run on main thread
-			gameLoop.run();
+			//gameLoop.run();
+			gameLoop.start();
 
 		} else {
 			

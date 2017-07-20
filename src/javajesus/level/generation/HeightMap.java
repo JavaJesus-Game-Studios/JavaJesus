@@ -155,7 +155,7 @@ public class HeightMap implements Serializable {
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
 				if (heightmap[row][col].tile() <= cutoff) {
-					heightmap[row][col].setTile(Tile.WATER.getId());
+					heightmap[row][col].setTile(Tile.SEA1.getId());
 				} else if (heightmap[row][col].tile() > cutoff
 						&& heightmap[row][col].tile() <= dirtCutoff) {
 					heightmap[row][col].setTile(Tile.GRASS().getId());
@@ -179,10 +179,10 @@ public class HeightMap implements Serializable {
 									&& !(col2 < 0)
 									&& !(col2 > heightmap[0].length - 1)
 									&& (row2 != 0) && (col2 != 0)) {
-								if (heightmap[row2][col2].tile() == Tile.WATER.getId()
-										|| heightmap[row2][col2].tile() == Tile.WATERSAND.getId()) {
+								if (heightmap[row2][col2].tile() == Tile.SEA1.getId()
+										|| heightmap[row2][col2].tile() == Tile.SHORE1.getId()) {
 									waterCounter++;
-									heightmap[row2][col2].setTile(Tile.WATERSAND.getId());
+									heightmap[row2][col2].setTile(Tile.SHORE1.getId());
 								}
 							}
 						}
@@ -260,8 +260,8 @@ public class HeightMap implements Serializable {
 					for (int row2 = -9; row2 < 7; row2++) {
 						for (int col2 = -8; col2 < 7; col2++) {
 							if (row2 > -2 && col2 > -2) {
-								if (heightmap[row + row2][col + col2].tile() == Tile.WATER.getId()
-										|| heightmap[row + row2][col + col2].tile() == Tile.WATERSAND.getId()
+								if (heightmap[row + row2][col + col2].tile() == Tile.SEA1.getId()
+										|| heightmap[row + row2][col + col2].tile() == Tile.SHORE1.getId()
 										|| heightmap[row + row2][col + col2].tile() == Tile.STONE.getId()) {
 									grassChecker = false;
 								}
