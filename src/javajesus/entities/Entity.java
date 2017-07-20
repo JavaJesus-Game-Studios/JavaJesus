@@ -15,7 +15,8 @@ public abstract class Entity {
 	        DEMON = 6, GANG_MEMBER = 7, MONKEY = 8, BAUTISTA = 9, DAUGHTER = 10, ISTRAHIIM = 11, JESUS = 12, JOBS = 13,
 	        KNIGHT = 14, KOBE = 15, LORD_HILLSBOROUGH = 16, OCTAVIUS = 17, PEASANT = 18, RANCHERO = 19, SON = 20,
 	        WIFE = 21, ZORRA = 22, COMPANION = 23, GORILLA = 24, NATIVE_AMERICAN = 25, POLICE_OFFICER = 26,
-	        SWAT_OFFICER = 27, TECH_WARRIOR = 28, APARTMENT_HIGH_RISE = 29, CASTLE = 30, CASTLE_TOWER = 31;
+	        SWAT_OFFICER = 27, TECH_WARRIOR = 28, APARTMENT_HIGH_RISE = 29, CASTLE = 30, CASTLE_TOWER = 31,
+	        CATHOLIC_CHAPEL = 32;
 	// ..etc. Continue for all unique buildings and furniture
 
 	// position on the screen

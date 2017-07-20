@@ -87,5 +87,10 @@ public abstract class Furniture extends Entity implements SolidEntity {
 	public void tick() {
 
 	}
+	
+	// temp
+	public byte getId() {
+		return 0;
+	}
 
 }

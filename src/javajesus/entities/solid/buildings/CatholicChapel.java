@@ -27,11 +27,9 @@ public class CatholicChapel extends Building {
 		        new CatholicChapelInterior(new Point(x + 27, y + 57), getLevel())));
 	}
 
-    @Override
-    public byte getId()
-    {
-        // TODO Auto-generated method stub
-        return Entity.CATHOLIC_CHAPEL;
-    }
+	@Override
+	public byte getId() {
+		return Entity.CATHOLIC_CHAPEL;
+	}
 
 }
