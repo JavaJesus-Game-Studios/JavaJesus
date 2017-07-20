@@ -11,7 +11,7 @@ import javajesus.level.Level;
 /*
  * Furniture is used as cluster inside of buildings
  */
-public class Furniture extends Entity implements SolidEntity {
+public abstract class Furniture extends Entity implements SolidEntity {
 
 	// the sprite used for rendering
 	private Sprite sprite;
@@ -86,12 +86,6 @@ public class Furniture extends Entity implements SolidEntity {
 	@Override
 	public void tick() {
 
-	}
-
-	@Override
-	public byte getId() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

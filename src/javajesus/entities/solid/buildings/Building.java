@@ -12,7 +12,7 @@ import javajesus.level.Level;
  * base class for all buildings
  * TODO make Building abstract and make each building override getId()
  */
-public class Building extends Entity implements SolidEntity {
+public abstract class Building extends Entity implements SolidEntity {
 
 	// The area where the player can walk behind the building
 	private final Rectangle shadow;
@@ -79,15 +79,6 @@ public class Building extends Entity implements SolidEntity {
 	public void render(Screen screen) {
 		screen.render(getX(), getY(), color, sprite);
 
-	}
-
-	/**
-	 * TODO
-	 * Override in each individual building class
-	 */
-	@Override
-	public byte getId() {
-		return 0;
 	}
 
 }
