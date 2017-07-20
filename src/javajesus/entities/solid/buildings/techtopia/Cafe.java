@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.techtopia;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.CafeInterior;
  * A Cafe in tech topia
  */
 public class Cafe extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 1292938033962226188L;
 
 	/**
 	 * Creates a cafe
@@ -29,4 +27,8 @@ public class Cafe extends Building {
 		level.add(new Transporter(level, x + 77, y + 43, new CafeInterior(new Point(x + 83, y + 55), getLevel())));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.CAFE;
+    }
 }

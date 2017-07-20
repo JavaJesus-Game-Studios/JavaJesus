@@ -1,5 +1,6 @@
 package javajesus.entities.solid.buildings;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -8,9 +9,6 @@ import javajesus.level.Level;
  * A typical hospital
  */
 public class GenericHospital extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 1190467540624136913L;
 
 	/**
 	 * Creates a hospital
@@ -25,4 +23,8 @@ public class GenericHospital extends Building {
 		level.add(new Transporter(level, x + 45, y + 64, getLevel()));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.GENERIC_HOSPITAL;
+    }
 }

@@ -1,5 +1,6 @@
 package javajesus.entities.solid.trees;
 
+import javajesus.entities.Entity;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 
@@ -7,9 +8,6 @@ import javajesus.level.Level;
  * Small Sequoia Tree
  */
 public class SmallSequoia extends Tree {
-
-	// serialization
-	private static final long serialVersionUID = 2784752755620913724L;
 
 	/**
 	 * Small Sequoia ctor()
@@ -23,4 +21,8 @@ public class SmallSequoia extends Tree {
 
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.SMALL_SEQUOIA;
+    }
 }

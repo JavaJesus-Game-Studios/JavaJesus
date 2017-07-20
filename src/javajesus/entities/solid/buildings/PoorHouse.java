@@ -3,6 +3,7 @@ package javajesus.entities.solid.buildings;
 import java.awt.Point;
 import java.util.Random;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * A typical poor house
  */
 public class PoorHouse extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 6601315410399638769L;
 
 	// randomly assigns a color
 	private static final Random random = new Random();
@@ -85,4 +83,8 @@ public class PoorHouse extends Building {
 		return color;
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.POOR_HOUSE;
+    }
 }

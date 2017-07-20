@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.TippeeInterior;
  * It looks like tippee is spelled wrong
  */
 public class Tippee extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 5182709078376633434L;
 
 	/**
 	 * Creates a prison
@@ -28,4 +26,8 @@ public class Tippee extends Building {
 		level.add(new Transporter(level, x + 10, y + 34, new TippeeInterior(new Point(x + 16, y + 45), level)));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.TIPPEE;
+    }
 }

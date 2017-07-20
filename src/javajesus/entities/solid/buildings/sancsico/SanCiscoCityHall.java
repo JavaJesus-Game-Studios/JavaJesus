@@ -1,5 +1,6 @@
 package javajesus.entities.solid.buildings.sancsico;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -9,9 +10,6 @@ import javajesus.level.Level;
  * City hall of San Cisco!
  */
 public class SanCiscoCityHall extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -3512083834295154394L;
 
 	/**
 	 * Creates san cisco city hall
@@ -26,4 +24,8 @@ public class SanCiscoCityHall extends Building {
 		level.add(new Transporter(level, x + 90, y + 104, level));
 	}
 
+	@Override
+	public byte getId(){
+        return Entity.SAN_CISCO_CITY_HALL;
+    }
 }

@@ -28,8 +28,8 @@ public class CatholicChapel extends Building {
 	}
 
 	@Override
-	public byte getId() {
-		return Entity.CATHOLIC_CHAPEL;
-	}
+    public byte getId(){
+        return Entity.CATHOLIC_CHAPEL ;
+    }
 
 }

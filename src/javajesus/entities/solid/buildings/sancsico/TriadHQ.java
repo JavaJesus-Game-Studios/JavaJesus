@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.sancsico;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * Triad HQ
  */
 public class TriadHQ extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 7977338171228988031L;
 
 	/**
 	 * Creates a triad hq
@@ -32,4 +30,8 @@ public class TriadHQ extends Building {
 		level.add(new Transporter(level, x + 90, y + 155, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.TRIAD_HQ;
+    }
 }

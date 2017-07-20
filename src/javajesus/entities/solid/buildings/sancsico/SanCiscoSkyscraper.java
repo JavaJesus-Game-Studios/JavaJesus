@@ -1,5 +1,6 @@
 package javajesus.entities.solid.buildings.sancsico;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -9,9 +10,6 @@ import javajesus.level.Level;
  * TODO transporters
  */
 public class SanCiscoSkyscraper extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -7590762071562833524L;
 
 	public SanCiscoSkyscraper(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFFEDECE0, 0xFFFFFFFF, 0xFF030074 }, Sprite.sanCisco_skyscraper);
@@ -25,5 +23,9 @@ public class SanCiscoSkyscraper extends Building {
 		 * OldRandomGeneration(Game.WIDTH, Game.HEIGHT)));
 		 */
 	}
-
+	
+	@Override
+    public byte getId(){
+        return Entity.SAN_CISCO_SKYSCRAPER;
+    }
 }

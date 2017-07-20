@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.oakwood;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * City hall of Oakwood
  */
 public class OakwoodCityHall extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 1092805299412039212L;
 
 	/**
 	 * Creates oakwood city hall
@@ -29,5 +27,10 @@ public class OakwoodCityHall extends Building {
 		level.add(
 		        new Transporter(level, x + 48, y + 104, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.OAKWOOD_CITY_HALL;
+    }
 
 }

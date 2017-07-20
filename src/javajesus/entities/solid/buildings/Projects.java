@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.ProjectsLobby;
  * Some building that northway made
  */
 public class Projects extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -7645682813842777028L;
 
 	/**
 	 * Creates a projects building??
@@ -28,4 +26,8 @@ public class Projects extends Building {
 		level.add(new Transporter(level, x + 44, y + 64, new ProjectsLobby(new Point(x + 45, y + 73), level)));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.PROJECTS;
+    }
 }

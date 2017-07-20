@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.sancsico;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * A Russian Club
  */
 public class RussianClub extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 6477494248033598079L;
 
 	/**
 	 * Creates a Russian club
@@ -29,5 +27,9 @@ public class RussianClub extends Building {
 		level.add(new Transporter(level, x + 38, y + 45, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 		level.add(new Transporter(level, x + 51, y + 45, level));
 	}
-
+	
+	@Override
+	public byte getId(){
+        return Entity.RUSSIAN_CLUB;
+    }
 }

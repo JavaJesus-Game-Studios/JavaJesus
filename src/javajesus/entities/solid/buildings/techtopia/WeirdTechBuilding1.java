@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.techtopia;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * Exactly what its name is
  */
 public class WeirdTechBuilding1 extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -1361548866715246558L;
 
 	/**
 	 * Creates some weird building
@@ -29,4 +27,8 @@ public class WeirdTechBuilding1 extends Building {
 		level.add(new Transporter(level, x + 8, y + 120, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.WEIRD_TECH_BUILDING1;
+    }
 }

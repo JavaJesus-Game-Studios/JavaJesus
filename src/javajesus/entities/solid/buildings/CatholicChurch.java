@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,8 +12,6 @@ import javajesus.level.interior.CatholicChurchInterior;
  * A bigger place to pray!
  */
 public class CatholicChurch extends Building {
-
-	private static final long serialVersionUID = -3808305570492236904L;
 
 	/**
 	 * Creates a catholic church
@@ -27,5 +26,10 @@ public class CatholicChurch extends Building {
 		level.add(new Transporter(level, x + 38, y + 59,
 				new CatholicChurchInterior(new Point(x + 44, y + 70), getLevel())));
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.CATHOLIC_CHURCH ;
+    }
 
 }

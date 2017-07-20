@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.sancsico;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.ChinatownHouseInterior;
  * A typical house in Chinatown
  */
 public class ChinatownHouse extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 2403522342845736281L;
 
 	/**
 	 * Creates a chinatown house
@@ -33,4 +31,8 @@ public class ChinatownHouse extends Building {
 		        new ChinatownHouseInterior(new Point(x + 32, y + 53), getLevel())));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.CHINATOWN_HOUSE;
+    }
 }

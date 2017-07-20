@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.WarehouseInterior;
  * A place for storage
  */
 public class Warehouse extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 741321813070993409L;
 
 	/**
 	 * Creates a warehouse
@@ -28,4 +26,8 @@ public class Warehouse extends Building {
 		level.add(new Transporter(level, x + 77, y + 43, new WarehouseInterior(new Point(x + 83, y + 54), level)));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.WAREHOUSE;
+    }
 }

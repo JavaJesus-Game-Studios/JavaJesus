@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.sanjuan;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * The head quarters for the jungle place
  */
 public class JugleHQ extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -3217186313954641819L;
 
 	/**
 	 * Creates a jungle hq
@@ -30,4 +28,8 @@ public class JugleHQ extends Building {
 		level.add(new Transporter(level, x + 75, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.JUNGLE_HQ;
+    }
 }

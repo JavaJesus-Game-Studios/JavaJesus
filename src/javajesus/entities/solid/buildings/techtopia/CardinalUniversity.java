@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.techtopia;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * Parody of Stanford
  */
 public class CardinalUniversity extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 8968241141418375189L;
 
 	/**
 	 * Creates cardinal unviersity
@@ -29,4 +27,9 @@ public class CardinalUniversity extends Building {
 		level.add(new Transporter(level, x + 82, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 		level.add(new Transporter(level, x + 106, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.CARDINAL_UNIVERSITY;
+    }
 }

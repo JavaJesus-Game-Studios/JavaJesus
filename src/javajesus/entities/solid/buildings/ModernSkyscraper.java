@@ -1,5 +1,6 @@
 package javajesus.entities.solid.buildings;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -8,9 +9,6 @@ import javajesus.level.Level;
  * A large skyscraper
  */
 public class ModernSkyscraper extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -9106308683773089538L;
 
 	/**
 	 * Creates a skyscraper
@@ -25,4 +23,8 @@ public class ModernSkyscraper extends Building {
 		level.add(new Transporter(level, x + 43, y + 235, getLevel()));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.MODERN_SKYSCRAPER;
+    }
 }
