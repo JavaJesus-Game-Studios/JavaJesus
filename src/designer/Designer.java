@@ -12,7 +12,12 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -35,10 +40,16 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	private static final long serialVersionUID = 1L;
 	
 	// gets the base directory
-    private static final String DIR = "res/WORLD_DATA/";
+    private static final String BASE = "/WORLD_DATA/";
+	
+	// gets the top level directory
+    private static final String DIR = "res" + BASE;
     
     // gets the directory for quick saving
-    private static final String TEMP = "res/WORLD_DATA/DESIGNER/temp.png";
+    private static final String TEMP = "DESIGNER/Temp";
+    
+	// gets the extension for PNGS
+    private static final String PNG = ".png";
 	
 	// height of the window
 	private static final int WIDTH = 1000, HEIGHT = 800;
@@ -47,7 +58,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	private static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
 	
 	// buttons at the top
-	private final JButton save, load, setAll, plusSize, minusSize, plusZoom, minusZoom, undo;
+	private final JButton save, load, saveRendered, loadPNG, setAll, plusSize, minusSize, plusZoom, minusZoom, undo;
 	private final JTextField name;
 	private TileGUI selected;
 	private JLabel sizeLabel;
@@ -101,11 +112,16 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		JPanel top = new JPanel(new FlowLayout());
 		top.add(new JLabel("Name:"));
 		top.add(name = new JTextField());
-		name.setText("This is a new level.png");
+		name.setText("New");
+		name.setColumns(10);
 		top.add(save = new JButton("Save"));
 		save.addActionListener(this);
+		top.add(saveRendered = new JButton("Save Display"));
+		saveRendered.addActionListener(this);
 		top.add(load = new JButton("Load"));
 		load.addActionListener(this);
+		top.add(loadPNG = new JButton("Load PNG"));
+		loadPNG.addActionListener(this);
 		top.add(new JLabel("Selected: "));
 		top.add(selected = new TileGUI(Tile.VOID, SELECTOR, 25, 25));
 		
@@ -309,11 +325,19 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		// save
 		if (e.getSource() == save) {
 			save();
+			
+			// load
+		} // save
+		if (e.getSource() == saveRendered) {
 			saveRenderedLevel();
 			
 			// load
 		} else if (e.getSource() == load) {
 			load();
+			
+			// fill all
+		} else if (e.getSource() == loadPNG) {
+			loadPNG();
 			
 			// fill all
 		} else if (e.getSource() == setAll) {
@@ -380,60 +404,75 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	 * Saves the file temporarily
 	 */
 	private void quickSave() {
-		// create the buffered image
-		BufferedImage level = new BufferedImage(LEVEL_WIDTH, LEVEL_HEIGHT, BufferedImage.TYPE_INT_RGB);
-		int[] pixels = ((DataBufferInt) level.getRaster().getDataBuffer()).getData();
+		
+		// tile data
+		byte[] data = new byte[LEVEL_WIDTH * LEVEL_HEIGHT];
 		
 		// loop through all the children
 		for (int i = 0; i < content.getComponentCount(); i++) {
 			
 			// each component is a tile GUI
-			Tile t = ((TileGUI) content.getComponent(i)).getTile();
-			pixels[i] = t.getPixelColor();
+			data[i] = ((TileGUI) content.getComponent(i)).getTile().getId();
 		}
 		
-		// now the buffered image is filled
-		try {
+		 File output = new File(DIR + TEMP);
+		
+		 // open the output stream
+		try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(output, false))) {
 			
-			// create the temp folder if it doesnt exist
-			File temp = new File("res/WORLD_DATA/DESIGNER");
-			if (!temp.exists()) {
-				temp.mkdir();
+			// save the tile data
+			os.write(data);
+			
+		} catch (FileNotFoundException e) {
+			
+			System.err.println("Making Directory: " + DIR);
+			
+			// make the directory and try again
+			if(output.mkdirs()) {
+				quickSave();
 			}
 			
-			// now write to output
-		    File output = new File(TEMP);
-		    ImageIO.write(level, "png", output);
+			// output stream could not open
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 	
 	/**
-	 * Saves the fully rendered image to the level directory
+	 * Saves the level data to a file
 	 */
 	private void save() {
 		
-		// create the buffered image
-		BufferedImage level = new BufferedImage(LEVEL_WIDTH, LEVEL_HEIGHT, BufferedImage.TYPE_INT_RGB);
-		int[] pixels = ((DataBufferInt) level.getRaster().getDataBuffer()).getData();
+		// tile data
+		byte[] data = new byte[LEVEL_WIDTH * LEVEL_HEIGHT];
 		
 		// loop through all the children
 		for (int i = 0; i < content.getComponentCount(); i++) {
 			
 			// each component is a tile GUI
-			Tile t = ((TileGUI) content.getComponent(i)).getTile();
-			pixels[i] = t.getPixelColor();
+			data[i] = ((TileGUI) content.getComponent(i)).getTile().getId();
 		}
 		
-		// now the buffered image is filled
-		try {
-		    File output = new File(DIR + name.getText());
-		    ImageIO.write(level, "png", output);
-		    System.out.println("Saved");
-		    System.out.println(output.getAbsolutePath());
+		 File output = new File(DIR + name.getText());
+		
+		 // open the output stream
+		try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(output, false))) {
+			
+			// save the tile data
+			os.write(data);
+			
+		} catch (FileNotFoundException e) {
+			
+			System.err.println("Making Directory: " + DIR);
+			
+			// make the directory and try again
+			if(output.mkdirs()) {
+				save();
+			}
+			
+			// output stream could not open
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
 		
 	}
@@ -473,7 +512,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		
 		// now the buffered image is filled
 		try {
-		    File output = new File(DIR + "Rendered" + name.getText());
+		    File output = new File(DIR + name.getText() + PNG);
 		    ImageIO.write(level, "png", output);
 		} catch (IOException e) {
 		    e.printStackTrace();
@@ -484,13 +523,13 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	/**
 	 * Tries to load a png file
 	 */
-	private void load() {
+	private void loadPNG() {
 
 		// check if the file exists
 		try {
 			
 			// create the buffered image
-			BufferedImage level = ImageIO.read(Designer.class.getResource("/WORLD_DATA/" + name.getText()));
+			BufferedImage level = ImageIO.read(Designer.class.getResource(BASE + name.getText() + PNG));
 			
 			// stores level colors
 			int[] pixels = new int[level.getWidth() * level.getHeight()];
@@ -522,24 +561,25 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	}
 	
 	/**
-	 * Tries to load the temporary file
+	 * Loads level data into the editor
 	 */
-	private void quickLoad() {
-
-		// check if the file exists
-		try {
+	private void load() {
+		
+		// open the file
+		 File input = new File(DIR + name.getText());
 			
-			// create the buffered image
-			BufferedImage level = ImageIO.read(Designer.class.getResource("/WORLD_DATA/DESIGNER/temp.png"));
+		 // open the output stream
+		try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(input))) {
 			
-			// stores level colors
-			int[] pixels = new int[level.getWidth() * level.getHeight()];
+			// tile data
+			byte[] data = new byte[LEVEL_WIDTH * LEVEL_HEIGHT];
+			int counter = 0;
 			
-			// fill the pixel array
-			for (int i = 0; i < pixels.length; i++) {
-				pixels[i] = level.getRGB(i % level.getWidth(), i / level.getWidth());
+			// read all the bytes in the save file
+			while (is.available() > 0) {
+				data[counter++] = is.readByte();
 			}
-
+			
 			// loop through all the children
 			for (int i = 0; i < content.getComponentCount(); i++) {
 
@@ -547,8 +587,9 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 				for (Tile tile: Tile.tileList) {
 					
 					if (tile != null) {
+						
 						// found a match
-						if (pixels[i] == tile.getPixelColor()) {
+						if (data[i] == tile.getId()) {
 							((TileGUI) content.getComponent(i)).setTile(tile);
 							break;
 						}
@@ -556,9 +597,54 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 				}
 				
 			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+			
+		} catch (Exception e) {
+			System.err.println("Could not load file: " + DIR + name.getText());
+		} 
+		
+	}
+	
+	/**
+	 * Tries to load the temporary file
+	 */
+	private void quickLoad() {
+
+		// open the file
+		 File input = new File(DIR + TEMP);
+			
+		 // open the output stream
+		try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(input))) {
+			
+			// tile data
+			byte[] data = new byte[LEVEL_WIDTH * LEVEL_HEIGHT];
+			int counter = 0;
+
+			// read all the bytes in the save file
+			while (is.available() > 0) {
+				data[counter++] = is.readByte();
+			}
+			
+			// loop through all the children
+			for (int i = 0; i < content.getComponentCount(); i++) {
+
+				// find the corresponding tile with the pixel color from the file
+				for (Tile tile: Tile.tileList) {
+					
+					if (tile != null) {
+						
+						// found a match
+						if (data[i] == tile.getId()) {
+							((TileGUI) content.getComponent(i)).setTile(tile);
+							break;
+						}
+					}
+				}
+				
+			}
+			
+		} catch (Exception e) {
+			System.err.println("Could not load file: " + DIR + TEMP);
+		} 
 	}
 
 }
