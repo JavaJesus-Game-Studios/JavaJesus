@@ -571,10 +571,14 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		 // open the output stream
 		try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(input))) {
 			
-			System.out.println("HERE");
-			
 			// tile data
-			byte[] data = (byte[]) is.readObject();
+			byte[] data = new byte[LEVEL_WIDTH * LEVEL_HEIGHT];
+			int counter = 0;
+			
+			// read all the bytes in the save file
+			while (is.available() > 0) {
+				data[counter++] = is.readByte();
+			}
 			
 			// loop through all the children
 			for (int i = 0; i < content.getComponentCount(); i++) {
@@ -612,7 +616,13 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(input))) {
 			
 			// tile data
-			byte[] data = (byte[]) is.readObject();
+			byte[] data = new byte[LEVEL_WIDTH * LEVEL_HEIGHT];
+			int counter = 0;
+
+			// read all the bytes in the save file
+			while (is.available() > 0) {
+				data[counter++] = is.readByte();
+			}
 			
 			// loop through all the children
 			for (int i = 0; i < content.getComponentCount(); i++) {
