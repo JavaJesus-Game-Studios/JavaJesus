@@ -13,9 +13,6 @@ import javajesus.level.interior.CastleInterior;
  */
 public class Castle extends Building {
 
-	// serialization
-	private static final long serialVersionUID = -5648283117813621970L;
-
 	/**
 	 * Creates a castle
 	 * 
