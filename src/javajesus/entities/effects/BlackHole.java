@@ -20,11 +20,18 @@ import javajesus.level.Level;
 public class BlackHole extends Entity {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// serialization
 	private static final long serialVersionUID = 2827325538515820858L;
 
 =======
 >>>>>>> origin/master
+=======
+	// serialization
+	private static final long serialVersionUID = 2827325538515820858L;
+
+
+>>>>>>> c189370753afe89e176e2b9840abf29c5409c19d
 	// xTile offset
 	private int xOffset;
 
@@ -70,10 +77,13 @@ public class BlackHole extends Entity {
 	 */
 	public BlackHole(Level level, int x, int y) {
 		super(level, x, y);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		 //set collision bounds
 =======
+=======
+>>>>>>> c189370753afe89e176e2b9840abf29c5409c19d
 		// set collision bounds
 >>>>>>> origin/master
 		setBounds(getX() - (MODIFIER * 2), getY() - (MODIFIER * 2), MODIFIER * 4, MODIFIER * 4);
@@ -85,22 +95,29 @@ public class BlackHole extends Entity {
 	 * Updates the black hole
 	 */
 	public void tick() {
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		 //increment animation
 =======
 		// increment animation
 >>>>>>> origin/master
+=======
+		 //increment animation
+>>>>>>> c189370753afe89e176e2b9840abf29c5409c19d
 		if (++tickCount % ANIMATION_LENGTH == 0) {
 			xOffset += 4;
 		}
 
 		// animation is over
 		if (xOffset > (14 * 4)) {
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 			 //remove the blackhole
 =======
+=======
+>>>>>>> c189370753afe89e176e2b9840abf29c5409c19d
 			// remove the blackhole
 >>>>>>> origin/master
 			getLevel().remove(this);
@@ -138,10 +155,13 @@ public class BlackHole extends Entity {
 					dy++;
 				}
 			}
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 			 //move the mob
 =======
+=======
+>>>>>>> c189370753afe89e176e2b9840abf29c5409c19d
 			// move the mob
 >>>>>>> origin/master
 			if (dx != 0 || dy != 0) {

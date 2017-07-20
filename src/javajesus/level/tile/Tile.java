@@ -77,6 +77,7 @@ public class Tile {
 					3, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
 			
 			public static final Tile GRASS_MUD_BOTTOM_RIGHT = new Tile(25, false,0xFF03FF08,
+<<<<<<< HEAD
 					4, 1, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
 			public static final Tile GRASS_MUD_TOP_LEFT = new Tile(26, false,0xFF03FF09,
 					5, 1, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
@@ -84,6 +85,15 @@ public class Tile {
 					6, 1, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
 			public static final Tile GRASS_MUD_BOTTOM_LEFT = new Tile(28, false,0xFF04FF01,
 					7, 1, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
+=======
+					4, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
+			public static final Tile GRASS_MUD_TOP_LEFT = new Tile(26, false,0xFF03FF09,
+					5, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
+			public static final Tile GRASS_MUD_TOP_RIGHT = new Tile(27, false,0xFF04FF00,
+					6, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
+			public static final Tile GRASS_MUD_BOTTOM_LEFT = new Tile(28, false,0xFF04FF01,
+					7, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
+>>>>>>> c189370753afe89e176e2b9840abf29c5409c19d
 			
 			public static final Tile GRASS_ROAD_BOTTOM_RIGHT = new Tile(29, false,0xFF04FF02,
 					0, 6, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
