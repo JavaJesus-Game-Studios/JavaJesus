@@ -36,6 +36,9 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	
 	// gets the base directory
     private static final String DIR = "res/WORLD_DATA/";
+    
+    // gets the directory for quick saving
+    private static final String TEMP = "res/WORLD_DATA/DESIGNER/temp.png";
 	
 	// height of the window
 	private static final int WIDTH = 1000, HEIGHT = 800;
@@ -171,6 +174,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		// undo
 		rightContent.add(undo = new JButton("Undo"));
 		undo.setAlignmentX(Component.CENTER_ALIGNMENT);
+		undo.addActionListener(this);
 		
 		// assemble the viewing panel
 		JScrollPane pane = new JScrollPane(leftContent);
@@ -246,6 +250,9 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
+		
+		// save to temporary file
+		quickSave();
 		
 		// get the source
 		TileGUI tile = (TileGUI) e.getSource();
@@ -361,8 +368,45 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 			// repaint the content pane
 			content.revalidate();
 
+			// load from temporary file
+		} else if (e.getSource() == undo) {
+			quickLoad();
 		}
 		
+	}
+	
+	
+	/**
+	 * Saves the file temporarily
+	 */
+	private void quickSave() {
+		// create the buffered image
+		BufferedImage level = new BufferedImage(LEVEL_WIDTH, LEVEL_HEIGHT, BufferedImage.TYPE_INT_RGB);
+		int[] pixels = ((DataBufferInt) level.getRaster().getDataBuffer()).getData();
+		
+		// loop through all the children
+		for (int i = 0; i < content.getComponentCount(); i++) {
+			
+			// each component is a tile GUI
+			Tile t = ((TileGUI) content.getComponent(i)).getTile();
+			pixels[i] = t.getPixelColor();
+		}
+		
+		// now the buffered image is filled
+		try {
+			
+			// create the temp folder if it doesnt exist
+			File temp = new File("res/WORLD_DATA/DESIGNER");
+			if (!temp.exists()) {
+				temp.mkdir();
+			}
+			
+			// now write to output
+		    File output = new File(TEMP);
+		    ImageIO.write(level, "png", output);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -447,6 +491,46 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 			
 			// create the buffered image
 			BufferedImage level = ImageIO.read(Designer.class.getResource("/WORLD_DATA/" + name.getText()));
+			
+			// stores level colors
+			int[] pixels = new int[level.getWidth() * level.getHeight()];
+			
+			// fill the pixel array
+			for (int i = 0; i < pixels.length; i++) {
+				pixels[i] = level.getRGB(i % level.getWidth(), i / level.getWidth());
+			}
+
+			// loop through all the children
+			for (int i = 0; i < content.getComponentCount(); i++) {
+
+				// find the corresponding tile with the pixel color from the file
+				for (Tile tile: Tile.tileList) {
+					
+					if (tile != null) {
+						// found a match
+						if (pixels[i] == tile.getPixelColor()) {
+							((TileGUI) content.getComponent(i)).setTile(tile);
+							break;
+						}
+					}
+				}
+				
+			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Tries to load the temporary file
+	 */
+	private void quickLoad() {
+
+		// check if the file exists
+		try {
+			
+			// create the buffered image
+			BufferedImage level = ImageIO.read(Designer.class.getResource("/WORLD_DATA/DESIGNER/temp.png"));
 			
 			// stores level colors
 			int[] pixels = new int[level.getWidth() * level.getHeight()];
