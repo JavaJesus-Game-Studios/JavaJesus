@@ -80,5 +80,10 @@ public abstract class Building extends Entity implements SolidEntity {
 		screen.render(getX(), getY(), color, sprite);
 
 	}
+	
+	// temp
+	public byte getId() {
+		return 0;
+	}
 
 }
