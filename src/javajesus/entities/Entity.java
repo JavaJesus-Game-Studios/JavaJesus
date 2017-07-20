@@ -28,7 +28,8 @@ public abstract class Entity {
             WEIRD_TECH_BUILDING2 = 76, BED = 77, BENCH = 78, CHAIR_FRONT = 79, CHAIR_SIDE = 80, CHEST = 81,
             COMPUTER_MONITOR = 82, COMPUTER_TOWER = 83, DINING_TABLE = 84, FILING_CABINET = 85, 
             LONGTABLE = 86, NIGHTSTAND = 87, SOFA = 88, SQUARE_TABLE = 89, STOOL = 90, TELEVISION = 91,
-            THRONE = 92;
+            THRONE = 92, DEAD_SEQUOIA = 93, GENERIC_TREE = 94, LARGE_SEQUOIA = 95, MEDIUM_SEQUOIA = 96,
+            SMALL_SEQUOIA = 97;
 	// ..etc. Continue for all unique buildings and furniture
 
 	// position on the screen

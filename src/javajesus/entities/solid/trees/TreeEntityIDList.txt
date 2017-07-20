@@ -1,17 +1,5 @@
- Volume in drive C is Windows8_OS
- Volume Serial Number is AA31-4A34
-
- Directory of C:\Users\drewn_000\workspace\JavaJesus\src\javajesus\entities\solid\trees
-
-07/20/2017  02:51 PM    <DIR>          .
-07/20/2017  02:51 PM    <DIR>          ..
-07/15/2017  12:17 PM               527 DeadSequoia.java
-07/17/2017  05:02 PM             2,995 Forest.java
-07/15/2017  12:17 PM               531 GenericTree.java
-07/15/2017  12:17 PM               531 LargeSequoia.java
-07/15/2017  12:17 PM               541 MediumSequoia.java
-07/15/2017  12:17 PM               530 SmallSequoia.java
-07/20/2017  01:31 PM             1,658 Tree.java
-07/20/2017  02:51 PM                 0 TreeEntityIDList.txt
-               8 File(s)          7,313 bytes
-               2 Dir(s)  45,875,281,920 bytes free
+DEAD_SEQUOIA = 93, 
+GENERIC_TREE = 94, 
+LARGE_SEQUOIA = 95, 
+MEDIUM_SEQUOIA = 96,
+SMALL_SEQUOIA = 97;
