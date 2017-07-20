@@ -16,8 +16,6 @@ import engine.Window;
  */
 public class Horse extends NPC implements Ridable {
 
-	private static final long serialVersionUID = -3649878712351708546L;
-
 	// the player that is on the horse
 	private Player player;
 
@@ -286,6 +284,24 @@ public class Horse extends NPC implements Ridable {
 	@Override
 	public boolean isUsed() {
 		return player != null;
+	}
+
+	@Override
+	public int getStrength() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDefense() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

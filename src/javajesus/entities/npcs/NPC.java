@@ -18,9 +18,7 @@ import javajesus.utility.Direction;
 /*
  * Non player characters are friendly mobs that the player can interact with
  */
-public class NPC extends Mob {
-
-	private static final long serialVersionUID = 7279751732700782799L;
+public abstract class NPC extends Mob {
 
 	// the coordinates on the spritesheet
 	protected int xTile, yTile;
@@ -584,56 +582,6 @@ public class NPC extends Mob {
 	}
 
 	/**
-	 * Returns a random NPC at the specified location
-	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the desired x coord
-	 * @param y
-	 *            the desired y coord
-	 * @return the random NPC
-	 */
-	public static NPC getRandomNPC(Level level, int x, int y) {
-		switch (random.nextInt(11)) {
-
-		case 0:
-			return new Knight(level, x, y, 100, "linear", 20);
-		case 1:
-			return new NPC(level, "Policeman", x, y, 1, 16, 16, 100, new int[] { 0xFF2A2A2A, 0xFF000046, 0xFFEDC5AB },
-					0, 4, "triangle", 20);
-		case 2:
-			return new NPC(level, "Citizen-Female", x, y, 1, 16, 16, 100,
-					new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 8, "cross", 30);
-		case 3:
-			return new NPC(level, "Citizen-Male", x, y, 1, 16, 16, 100,
-					new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 0, "circle", 2);
-		case 4:
-			return new NPC(level, "Fox", x, y, 1, 16, 16, 100, new int[] { 0xFF111111, 0xFFFFA800, 0xFFFFFFFF }, 0, 14,
-					"cross", 50);
-		case 5:
-			return new NPC(level, "Tech Warrior", x, y, 1, 16, 16, 100,
-					new int[] { 0xFF000000, 0xFF42FF00, 0xFFEDC5AB }, 0, 12, "triangle", 20);
-		case 6:
-			return new NPC(level, "Peasant-Male", x, y, 1, 16, 16, 100,
-					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 0, 16, "square", 100);
-		case 7:
-			return new NPC(level, "Peasant-Female", x, y, 1, 16, 16, 100,
-					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 0, 18, "cross", 0);
-		case 8:
-			return new NPC(level, "Peasant-Boychild", x, y, 1, 16, 16, 9001,
-					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 14, 16, "square", 0);
-		case 9:
-			return new NPC(level, "Peasant-Girlchild", x, y, 1, 16, 16, 9000,
-					new int[] { 0xFF111111, 0xFF715B17, 0xFFEDC5AB }, 14, 18, "cross", 0);
-
-		default:
-			return new Jesus(level, x, y, "stand", 30);
-
-		}
-	}
-
-	/**
 	 * Moves a npc on the level every other tick
 	 * 
 	 * @param dx
@@ -676,16 +624,9 @@ public class NPC extends Mob {
 		this.color = color;
 	}
 
-	@Override
-	public int getStrength() {
+	public static Entity getRandomNPC(Level level, int x, int y) {
 		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getDefense() {
-		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 }

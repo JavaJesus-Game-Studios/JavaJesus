@@ -1,7 +1,6 @@
 package javajesus.entities;
 
 import java.awt.Rectangle;
-import java.io.Serializable;
 
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
@@ -9,12 +8,22 @@ import javajesus.level.Level;
 /*
  * Something that is rendered on the screen on a level with an x and y coordinate
  */
-public abstract class Entity implements Serializable {
-
-	private static final long serialVersionUID = 7152333070540764158L;
+public abstract class Entity {
 	
+	// IDs used in saving and loading
+	public static final byte DESTRUCTIBLE_TILE = 0, FIRE_ENTITY = 1, PLAYER = 2, SPAWNER = 3, CENTAUR = 4, CYCLOPS = 5,
+            DEMON = 6, GANG_MEMBER = 7, MONKEY = 8, BAUTISTA = 9, DAUGHTER = 10, ISTRAHIIM = 11, JESUS = 12, JOBS = 13,
+            KNIGHT = 14, KOBE = 15, LORD_HILLSBOROUGH = 16, OCTAVIUS = 17, PEASANT = 18, RANCHERO = 19, SON = 20,
+            WIFE = 21, ZORRA = 22, COMPANION = 23, GORILLA = 24, NATIVE_AMERICAN = 25, POLICE_OFFICER = 26,
+            SWAT_OFFICER = 27, TECH_WARRIOR = 28, APARTMENT_HIGH_RISE = 29, CASTLE = 30, CASTLE_TOWER = 31,
+            CATHOLIC_CHAPEL = 32, CATHOLIC_CHURCH = 33, CAVE_ENTRANCE = 34, FACTORY = 35, GENERIC_HOSPITAL = 36,
+            GUNSTORE = 37, HOTEL = 38, HUT = 39, MINESHAFT = 40, MODERN_SKYSCRAPER = 41, NICE_HOUSE = 41,
+            NICE_HOUSE2 = 43, POLICE = 44, POOR_HOUSE = 45, PRISON = 46, PROJECTS = 47, RANCHERO_HOUSE = 48, 
+            REFUGEE_TENT = 49, RUSSIAN_ORTHODOX_CHURCH = 50;
+	// ..etc. Continue for all unique buildings and furniture
+
 	// position on the screen
-	private int x, y;
+	private short x, y;
 	
 	// current level
 	private Level level;
@@ -54,7 +63,7 @@ public abstract class Entity implements Serializable {
 	 * @param x the location to move the entity
 	 */
 	public void setX(int x) {
-		this.x = x;
+		this.x = (short) x;
 	}
 
 	/**
@@ -62,7 +71,7 @@ public abstract class Entity implements Serializable {
 	 * @param y the location to move the entity
 	 */
 	public void setY(int y) {
-		this.y = y;
+		this.y = (short) y;
 	}
 
 	/**
@@ -147,5 +156,18 @@ public abstract class Entity implements Serializable {
 	public static final int secondsToTicks(int seconds) {
 		return seconds * 60;
 	}
-
+	
+	/**
+	 * @return X and Y data of the entity
+	 * First 16 bits is X, second 16 bits is Y
+	 */
+	public final int getData() {
+		return (x << 16) | y;
+	}
+	
+	/**
+	 * @return the ID of this entity
+	 */
+	public abstract byte getId();
+	
 }

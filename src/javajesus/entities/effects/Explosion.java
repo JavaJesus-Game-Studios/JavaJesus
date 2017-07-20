@@ -16,9 +16,6 @@ import javajesus.level.Level;
  */
 public class Explosion extends Entity {
 
-	// serialization
-	private static final long serialVersionUID = 3716434059942612881L;
-
 	// y tile on spritesheet
 	private int yTile;
 	
@@ -104,6 +101,14 @@ public class Explosion extends Entity {
 			}
 		}
 		
+	}
+
+	/**
+	 * Explosions won't be saved
+	 */
+	@Override
+	public byte getId() {
+		return -1;
 	}
 
 }

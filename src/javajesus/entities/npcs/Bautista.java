@@ -1,6 +1,7 @@
 package javajesus.entities.npcs;
 
 import javajesus.MessageHandler;
+import javajesus.entities.Entity;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 
@@ -10,8 +11,6 @@ import java.awt.Color;
  * Rancher Bautista
  */
 public class Bautista extends NPC {
-
-	private static final long serialVersionUID = -4685371991295485791L;
 
 	// dimensions Bautista
 	private static final int WIDTH = 16, HEIGHT = 16;
@@ -108,5 +107,23 @@ public class Bautista extends NPC {
 			return;
 		}
 		}
+	}
+
+	@Override
+	public int getStrength() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDefense() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return Entity.BAUTISTA;
 	}
 }

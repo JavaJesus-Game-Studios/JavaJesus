@@ -1,5 +1,6 @@
 package javajesus.entities.npcs;
 
+import javajesus.entities.Entity;
 import javajesus.level.Level;
 import javajesus.quests.SampleQuest;
 
@@ -7,8 +8,6 @@ import javajesus.quests.SampleQuest;
  * Jesus
  */
 public class Jesus extends NPC {
-
-	private static final long serialVersionUID = 4573976610972157907L;
 
 	// dimensions Jesus
 	private static final int WIDTH = 16, HEIGHT = 16;
@@ -27,5 +26,23 @@ public class Jesus extends NPC {
 
 		this.addQuest(new SampleQuest(this));
 
+	}
+
+	@Override
+	public int getStrength() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDefense() {
+		// TODO Auto-generated method stub
+		return 100;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return Entity.JESUS;
 	}
 }

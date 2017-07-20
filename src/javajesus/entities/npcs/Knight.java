@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 import javajesus.MessageHandler;
+import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.entities.Player;
 import javajesus.entities.monsters.Monster;
@@ -12,8 +13,6 @@ import javajesus.level.Level;
 import javajesus.utility.Direction;
 
 public class Knight extends NPC {
-
-	private static final long serialVersionUID = -990363786904488287L;
 
 	// dimensions of the knight
 	private static final int WIDTH = 16, HEIGHT = 16;
@@ -235,6 +234,12 @@ public class Knight extends NPC {
 	public int getDefense() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return Entity.KNIGHT;
 	}
 
 }

@@ -11,9 +11,6 @@ import javajesus.level.Level;
  */
 public class HealthBar extends Entity {
 
-	// serialization
-	private static final long serialVersionUID = -4825483165347265874L;
-
 	// change in x offset on spritesheet
 	private int xOffset;
 
@@ -107,6 +104,14 @@ public class HealthBar extends Entity {
 			xOffset = 24;
 			color[2] = 0xFFE50000;
 		}
+	}
+
+	/**
+	 * Health Bars won't be saved
+	 */
+	@Override
+	public byte getId() {
+		return -1;
 	}
 
 }

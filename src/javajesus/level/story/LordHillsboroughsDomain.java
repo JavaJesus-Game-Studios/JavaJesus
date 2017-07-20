@@ -78,16 +78,6 @@ public class LordHillsboroughsDomain extends Level {
 
 				new Peasant(this, 138 * 8, 196 * 8, Peasant.FEMALE, "linear", 10),
 
-				// Citizens
-				new NPC(this, "Citizen-Female", 232 * 8, 199 * 8, 1, 16, 16, 100,
-						new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 8, "linear", 30),
-				new NPC(this, "Citizen-Male", 281 * 8, 197 * 8, 1, 16, 16, 100,
-						new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 0, "linear", 80),
-				new NPC(this, "Citizen-Female", 232 * 8, 219 * 8, 1, 16, 16, 100,
-						new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 8, "linear", 30),
-				new NPC(this, "Citizen-Male", 281 * 8, 217 * 8, 1, 16, 16, 100,
-						new int[] { 0xFF111111, 0xFFA51818, 0xFFEDC5AB }, 0, 0, "linear", 80),
-
 				// Knights
 				new Knight(this, 153 * 8, 183 * 8, 200, "linear", 40),
 				new Knight(this, 221 * 8, 152 * 8, 200, "cross", 20),

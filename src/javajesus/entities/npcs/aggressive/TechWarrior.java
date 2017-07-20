@@ -5,12 +5,11 @@ import java.awt.Color;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.Damageable;
+import javajesus.entities.Entity;
 import javajesus.entities.projectiles.Bullet;
 import javajesus.level.Level;
 
 public class TechWarrior extends Shooter {
-
-	private static final long serialVersionUID = 2154670871278842088L;
 
 	// dimensions the tech warrior
 	private static final int WIDTH = 16, HEIGHT = 16;
@@ -80,6 +79,12 @@ public class TechWarrior extends Shooter {
 	@Override
 	public int getStrength() {
 		return 6;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return Entity.TECH_WARRIOR;
 	}
 
 }

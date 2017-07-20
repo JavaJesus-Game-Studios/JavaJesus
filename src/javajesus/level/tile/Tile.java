@@ -604,7 +604,7 @@ public class Tile {
 	private static final Random random = new Random();
 
 	// unique identifier for each tile
-	private final int id;
+	private final byte id;
 
 	// whether or not an entity can walk through it
 	private final boolean solid;
@@ -632,7 +632,7 @@ public class Tile {
 	protected Tile(int id, boolean isSolid, int pixelColor, int xTile, int yTile, SpriteSheet sheet, int[] color) {
 		
 		// instance data
-		this.id = id;
+		this.id = (byte) id;
 		this.solid = isSolid;
 		this.pixelColor = pixelColor;
 		this.xTile = xTile;
@@ -651,7 +651,7 @@ public class Tile {
 	/**
 	 * @return the unique id of a tile
 	 */
-	public int getId() {
+	public byte getId() {
 		return id;
 	}
 

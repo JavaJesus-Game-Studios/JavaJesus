@@ -13,8 +13,6 @@ import javajesus.level.Level;
  */
 public class Transporter extends Entity {
 
-	private static final long serialVersionUID = -7494182586888198075L;
-	
 	// colorset of this door
 	private static final int[] color = { 0xFF111111, 0xFF704200, 0xFFFFDE00 };
 
@@ -78,6 +76,12 @@ public class Transporter extends Entity {
 	 */
 	public Level getNextLevel() {
 		return nextLevel;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

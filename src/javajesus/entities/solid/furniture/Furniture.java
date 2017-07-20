@@ -11,9 +11,7 @@ import javajesus.level.Level;
 /*
  * Furniture is used as cluster inside of buildings
  */
-public class Furniture extends Entity implements SolidEntity {
-
-	private static final long serialVersionUID = 8572895932183273902L;
+public abstract class Furniture extends Entity implements SolidEntity {
 
 	// the sprite used for rendering
 	private Sprite sprite;
@@ -88,6 +86,11 @@ public class Furniture extends Entity implements SolidEntity {
 	@Override
 	public void tick() {
 
+	}
+	
+	// temp
+	public byte getId() {
+		return 0;
 	}
 
 }

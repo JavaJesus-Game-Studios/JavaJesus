@@ -32,8 +32,6 @@ import javajesus.utility.Direction;
  */
 public class Player extends Mob {
 
-	private static final long serialVersionUID = -4170571410784465465L;
-
 	// player color set: hair, shirt, skin
 	private final int[] color = { 0xFF010101, 0xFFFF0000, 0xFFFFCC99 };
 
@@ -897,6 +895,11 @@ public class Player extends Mob {
 	 */
 	public Sword getEquippedSword() {
 		return equippedSword;
+	}
+
+	@Override
+	public byte getId() {
+		return Entity.PLAYER;
 	}
 
 }

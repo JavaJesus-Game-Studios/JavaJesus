@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javajesus.JavaJesus;
 import javajesus.entities.Damageable;
+import javajesus.entities.Entity;
 import javajesus.entities.LongRange;
 import javajesus.entities.Pickup;
 import javajesus.entities.projectiles.FireBall;
@@ -18,8 +19,6 @@ import javajesus.utility.Direction;
  * A generic demon that populates most of the JavaJesus
  */
 public class Demon extends Monster implements LongRange {
-
-	private static final long serialVersionUID = 1670392462486505990L;
 
 	// dimensions of the demon
 	private static final int WIDTH = 16, HEIGHT = 24;
@@ -206,6 +205,11 @@ public class Demon extends Monster implements LongRange {
 	@Override
 	public Double getRange() {
 		return standRange;
+	}
+
+	@Override
+	public byte getId() {
+		return Entity.DEMON;
 	}
 
 }

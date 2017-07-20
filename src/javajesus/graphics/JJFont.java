@@ -6,8 +6,8 @@ package javajesus.graphics;
 public class JJFont {
 	
 	// list of chars on the spritesheet
-	private static String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ      " + "abcdefghijklmnopqrstuvwxyz      "
-			+ "0123456789.,:;'\"!?$%()-=+/      ";
+	private static String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz"
+			+ "0123456789.,:;'\"!?$%()-=+/";
 	
 	// spritesheet used
 	private static final SpriteSheet sheet = SpriteSheet.letters;

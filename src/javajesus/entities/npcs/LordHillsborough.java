@@ -1,6 +1,7 @@
 package javajesus.entities.npcs;
 
 import javajesus.MessageHandler;
+import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
@@ -12,8 +13,6 @@ import java.awt.Color;
  * Lord Hillsborough
  */
 public class LordHillsborough extends NPC {
-
-	private static final long serialVersionUID = -4740270757337394209L;
 
 	// dimensions Lord Hillsborough
 	private static final int WIDTH = 16, HEIGHT = 18;
@@ -160,5 +159,23 @@ public class LordHillsborough extends NPC {
 		}
 		}
 
+	}
+
+	@Override
+	public int getStrength() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDefense() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return Entity.LORD_HILLSBOROUGH;
 	}
 }

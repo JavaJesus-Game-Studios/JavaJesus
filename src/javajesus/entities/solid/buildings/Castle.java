@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.CastleInterior;
  *  Hillsborough's castle
  */
 public class Castle extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -5648283117813621970L;
 
 	/**
 	 * Creates a castle
@@ -31,5 +29,12 @@ public class Castle extends Building {
 		level.add(new Transporter(level, x + 154, y + 160, new CastleInterior(new Point(x + 43, y + 167), getLevel())));
 
 	}
+
+    @Override
+    public byte getId()
+    {
+        // TODO Auto-generated method stub
+        return Entity.CASTLE;
+    }
 
 }

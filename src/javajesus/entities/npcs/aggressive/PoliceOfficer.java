@@ -3,14 +3,13 @@ package javajesus.entities.npcs.aggressive;
 import java.awt.Color;
 
 import javajesus.MessageHandler;
+import javajesus.entities.Entity;
 import javajesus.level.Level;
 
 /*
  * A police officer is a good fighter against hostile mobs
  */
 public class PoliceOfficer extends Shooter {
-
-	private static final long serialVersionUID = -7410940331032155987L;
 
 	// dimensions the police officer
 	private static final int WIDTH = 16, HEIGHT = 16;
@@ -56,6 +55,12 @@ public class PoliceOfficer extends Shooter {
 	public void doDialogue() {
 		MessageHandler.displayText(getName() + ": Hello citizen!", Color.yellow);
 		return;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return Entity.POLICE_OFFICER;
 	}
 
 }

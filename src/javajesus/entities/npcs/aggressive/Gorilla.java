@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 import javajesus.MessageHandler;
+import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.entities.monsters.Monster;
 import javajesus.entities.npcs.NPC;
@@ -12,8 +13,6 @@ import javajesus.level.Level;
 import javajesus.utility.Direction;
 
 public class Gorilla extends NPC {
-
-	private static final long serialVersionUID = 5350816667470294053L;
 
 	// dimensions of the Gorilla
 	private static final int WIDTH = 24, HEIGHT = 24;
@@ -241,6 +240,12 @@ public class Gorilla extends NPC {
 	public int getDefense() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return Entity.GORILLA;
 	}
 
 }

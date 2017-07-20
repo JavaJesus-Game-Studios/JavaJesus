@@ -3,6 +3,7 @@ package javajesus.entities.npcs.aggressive;
 import java.awt.Color;
 
 import javajesus.MessageHandler;
+import javajesus.entities.Entity;
 import javajesus.entities.Player;
 import javajesus.level.Level;
 
@@ -10,8 +11,6 @@ import javajesus.level.Level;
  * Friendly shooter that follows the player
  */
 public class Companion extends Shooter {
-
-	private static final long serialVersionUID = 1114048658566656656L;
 
 	// dimensions the companion
 	private static final int WIDTH = 16, HEIGHT = 16;
@@ -85,5 +84,12 @@ public class Companion extends Shooter {
 			break;
 		}
 		return;
+	}
+
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return Entity.COMPANION;
 	}
 }

@@ -13,8 +13,6 @@ import javajesus.level.Level;
  */
 public class Tree extends Entity implements SolidEntity {
 
-	private static final long serialVersionUID = 5310167130019869321L;
-
 	// The area where the player can walk behind the tree
 	private Rectangle shadow;
 
@@ -64,6 +62,12 @@ public class Tree extends Entity implements SolidEntity {
 	 */
 	public void tick() {
 
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

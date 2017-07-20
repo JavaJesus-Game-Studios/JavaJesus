@@ -1,6 +1,7 @@
 package javajesus.entities.npcs;
 
 import javajesus.MessageHandler;
+import javajesus.entities.Entity;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 
@@ -10,8 +11,6 @@ import java.awt.Color;
  * The player's son
  */
 public class Son extends NPC {
-
-	private static final long serialVersionUID = -3810366725712991982L;
 
 	// dimensions Bautista
 	private static final int WIDTH = 16, HEIGHT = 16;
@@ -102,6 +101,24 @@ public class Son extends NPC {
 		}
 		}
 
+	}
+
+	@Override
+	public int getStrength() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDefense() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public byte getId() {
+		// TODO Auto-generated method stub
+		return Entity.SON;
 	}
 
 }

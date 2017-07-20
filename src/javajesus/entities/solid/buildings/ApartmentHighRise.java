@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -27,5 +28,11 @@ public class ApartmentHighRise extends Building {
 
 		getLevel().add(new Transporter(level, x + 30, y + 206, new ApartmentLobby(new Point(x + 36, y + 216), level)));
 	}
+
+    @Override
+    public byte getId()
+    {
+        return Entity.APARTMENT_HIGH_RISE;
+    }
 
 }
