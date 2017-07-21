@@ -232,10 +232,7 @@ public abstract class Level implements Serializable {
 			for (int x = 0; x < width; x++) {
 				if (x * y % 10 < 10) {
 					levelTiles[x + y * width] = Tile.GRASS0.getId();
-				} else {
-					levelTiles[x + y * width] = Tile.STONE.getId();
-
-				}
+				} 
 
 			}
 		}
