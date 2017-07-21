@@ -527,72 +527,72 @@ public class Tile {
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
 		public static final Tile SHACK_WALLCORN_RGHT_DWN = new Tile(220, true, 0xFF7A0000, 6, 2, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALLCORN_LFT_DWN = new Tile(222, true, 0xFF310000, 7, 2, SpriteSheet.walls,
+		public static final Tile SHACK_WALLCORN_LFT_DWN = new Tile(221, true, 0xFF310000, 7, 2, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALL_INCORN_LFTUP = new Tile(223, true, 0xFFA3881A, 8, 2, SpriteSheet.walls,
+		public static final Tile SHACK_WALL_INCORN_LFTUP = new Tile(222, true, 0xFFA3881A, 8, 2, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALL_INCORN_RGHTUP = new Tile(224, true, 0xFF7C6816, 9, 2, SpriteSheet.walls,
+		public static final Tile SHACK_WALL_INCORN_RGHTUP = new Tile(223, true, 0xFF7C6816, 9, 2, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALL_INCORN_LFTDWN = new Tile(225, true, 0xFF717C16, 10, 2, SpriteSheet.walls, 
+		public static final Tile SHACK_WALL_INCORN_LFTDWN = new Tile(224, true, 0xFF717C16, 10, 2, SpriteSheet.walls, 
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALL_INCORN_RGHTDWN = new Tile(226, true, 0xFF7d8c00, 11, 2, SpriteSheet.walls,
+		public static final Tile SHACK_WALL_INCORN_RGHTDWN = new Tile(225, true, 0xFF7d8c00, 11, 2, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
 	
-		public static final Tile GLASS_WALL_HORIZONTAL_UP = new Tile(227, true, 0xFF016ABA, 0, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_HORIZONTAL_UP = new Tile(226, true, 0xFF016ABA, 0, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_HORIZONTAL_DOWN = new Tile(228, true, 0xFF027FDF, 1, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_HORIZONTAL_DOWN = new Tile(227, true, 0xFF027FDF, 1, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_VERTICAL_LEFT = new Tile(229, true, 0xFF0166f4, 2, 3, SpriteSheet.walls, 
+		public static final Tile GLASS_WALL_VERTICAL_LEFT = new Tile(228, true, 0xFF0166f4, 2, 3, SpriteSheet.walls, 
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_VERTICAL_RIGHT = new Tile(230, true, 0xFF0256CC, 3, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_VERTICAL_RIGHT = new Tile(229, true, 0xFF0256CC, 3, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_CORNER_RIGHT_UP = new Tile(231, true, 0xFF0B9401, 4, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_CORNER_RIGHT_UP = new Tile(230, true, 0xFF0B9401, 4, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_CORNER_LEFT_UP = new Tile(232, true, 0xFF420101, 5, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_CORNER_LEFT_UP = new Tile(231, true, 0xFF420101, 5, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_CORNER_RIGHT_DOWN = new Tile(233, true, 0xFF087101, 6, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_CORNER_RIGHT_DOWN = new Tile(232, true, 0xFF087101, 6, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_CORNER_LEFT_DOWN = new Tile(234, true, 0xFFFFB400, 7, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_CORNER_LEFT_DOWN = new Tile(233, true, 0xFFFFB400, 7, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
 	
 	
 	/////// ANIMATED /////////
 	
 		//Water
-		public static final Tile SEA1 = new AnimatedTile(235, false, 0xFF0000FF, 0, SpriteSheet.waves,
+		public static final Tile SEA1 = new AnimatedTile(234, false, 0xFF0000FF, 0, SpriteSheet.waves,
 				new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
-		public static final Tile SEA2 = new AnimatedTile(236, false, 0xFF0000FF, 1, SpriteSheet.waves,
+		public static final Tile SEA2 = new AnimatedTile(235, false, 0xFF0000FF, 1, SpriteSheet.waves,
 				new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
-		public static final Tile SEA3 = new AnimatedTile(237, false, 0xFF0000FF, 2, SpriteSheet.waves,
+		public static final Tile SEA3 = new AnimatedTile(236, false, 0xFF0000FF, 2, SpriteSheet.waves,
 				new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
-		public static final Tile SEA4 = new AnimatedTile(238, false, 0xFF0000FF, 3, SpriteSheet.waves,
+		public static final Tile SEA4 = new AnimatedTile(237, false, 0xFF0000FF, 3, SpriteSheet.waves,
 				new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
 		
-		public static final Tile SHORE1 = new AnimatedTile(239, false, 0xFF64FFFF, 4, SpriteSheet.waves,
+		public static final Tile SHORE1 = new AnimatedTile(238, false, 0xFF64FFFF, 4, SpriteSheet.waves,
 			new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
-		public static final Tile SHORE2 = new AnimatedTile(240, false, 0xFF64FFFF, 5, SpriteSheet.waves,
+		public static final Tile SHORE2 = new AnimatedTile(239, false, 0xFF64FFFF, 5, SpriteSheet.waves,
 				new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
-		public static final Tile SHORE3 = new AnimatedTile(241, false, 0xFF64FFFF, 6, SpriteSheet.waves,
+		public static final Tile SHORE3 = new AnimatedTile(240, false, 0xFF64FFFF, 6, SpriteSheet.waves,
 				new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
-		public static final Tile SHORE4 = new AnimatedTile(242, false, 0xFF64FFFF, 7, SpriteSheet.waves,
+		public static final Tile SHORE4 = new AnimatedTile(241, false, 0xFF64FFFF, 7, SpriteSheet.waves,
 				new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
 		
-		public static final Tile SAND_WATER_BOTTOM_RIGHT = new AnimatedTile(243, false, 0xFFFFFF20, 0, 
+		public static final Tile SAND_WATER_BOTTOM_RIGHT = new AnimatedTile(242, false, 0xFFFFFF20, 0, 
 				SpriteSheet.waveTransitions, new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
-		public static final Tile SAND_WATER_TOP_LEFT = new AnimatedTile(244, false, 0xFFFFFF20, 1, 
+		public static final Tile SAND_WATER_TOP_LEFT = new AnimatedTile(243, false, 0xFFFFFF20, 1, 
 				SpriteSheet.waveTransitions, new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
-		public static final Tile SAND_WATER_TOP_RIGHT = new AnimatedTile(245, false, 0xFFFFFF20, 2, 
+		public static final Tile SAND_WATER_TOP_RIGHT = new AnimatedTile(244, false, 0xFFFFFF20, 2, 
 				SpriteSheet.waveTransitions, new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
-		public static final Tile SAND_WATER_BOTTOM_LEFT = new AnimatedTile(246, false, 0xFFFFFF20, 3, 
+		public static final Tile SAND_WATER_BOTTOM_LEFT = new AnimatedTile(245, false, 0xFFFFFF20, 3, 
 				SpriteSheet.waveTransitions, new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
 	
-		public static final Tile MUD_WATER_BOTTOM_RIGHT = new AnimatedTile(247, false, 0xFFFFFF20, 4, 
+		public static final Tile MUD_WATER_BOTTOM_RIGHT = new AnimatedTile(246, false, 0xFFFFFF20, 4, 
 				SpriteSheet.waveTransitions, new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
-		public static final Tile MUD_WATER_TOP_LEFT = new AnimatedTile(248, false, 0xFFFFFF20, 5, 
+		public static final Tile MUD_WATER_TOP_LEFT = new AnimatedTile(247, false, 0xFFFFFF20, 5, 
 				SpriteSheet.waveTransitions, new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
-		public static final Tile MUD_WATER_TOP_RIGHT = new AnimatedTile(249, false, 0xFFFFFF20, 6, 
+		public static final Tile MUD_WATER_TOP_RIGHT = new AnimatedTile(248, false, 0xFFFFFF20, 6, 
 				SpriteSheet.waveTransitions, new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
-		public static final Tile MUD_WATER_BOTTOM_LEFT = new AnimatedTile(250, false, 0xFFFFFF20, 7, 
+		public static final Tile MUD_WATER_BOTTOM_LEFT = new AnimatedTile(249, false, 0xFFFFFF20, 7, 
 				SpriteSheet.waveTransitions, new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
 	
 	////////// BASE TILE DATA //////////
