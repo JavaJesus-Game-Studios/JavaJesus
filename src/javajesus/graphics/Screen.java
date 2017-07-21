@@ -478,6 +478,34 @@ public class Screen {
 		}
 	}
 	
+	/**
+	 * renderChunk()
+	 * Renders one 8x8 tile of specified position 
+	 * on the new screen to THIS screen
+	 * 
+	 * @param screen - the screen that will be used
+	 * to render the new tile pixels HERE
+	 * @param xTile - the xTile
+	 * @param yTile - the yTile
+	 */
+	public void renderChunk(Screen screen, int xTile, int yTile) {
+		
+		for (int x = 0; x < SIZE; x++) {
+			for (int y = 0; y < SIZE; y++) {
+				
+				// new pixel to render
+				int col = screen.getPixels()[(x + xTile * SIZE) + (y + yTile * SIZE) * screen.getWidth()];
+				
+				// don't render black
+				if (col != 0) {
+					pixels[x + y * width] = col;
+				}
+				
+			}
+		}
+		
+	}
+	
 	@Deprecated
 	public void render(int xOffset, int yOffset, int tileIndex, int[] color, boolean flip, SpriteSheet sheet) {
 		if (color != null) {

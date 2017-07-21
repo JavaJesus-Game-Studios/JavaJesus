@@ -21,6 +21,9 @@ public class TileGUI extends JPanel {
 	// image of the item to display
 	private BufferedImage image;
 	
+	// image data
+	int[] pixels;
+	
 	// item it contains
 	private Tile tile;
 	
@@ -29,6 +32,9 @@ public class TileGUI extends JPanel {
 	
 	// used to identify groups of tile guis
 	private int id;
+	
+	// transfer item pixels through a screen class
+	private final Screen screen = new Screen(SIZE, SIZE);
 	
 	/**
 	 * TileGUI ctor()
@@ -56,6 +62,12 @@ public class TileGUI extends JPanel {
 		this.tile = tile;
 		this.id = id;
 		image = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_RGB);
+		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+		
+		// get default screen pixels
+		if (tile != null) {
+			tile.render(screen);
+		}
 		
 		// set up the panel
 		setPreferredSize(new Dimension(width, height));
@@ -93,6 +105,23 @@ public class TileGUI extends JPanel {
 	 */
 	public void setTile(Tile tile) {
 		this.tile = tile;
+		
+		// render only if there is an item
+		if (tile != null) {
+			tile.render(screen);
+		}
+				
+		repaint();
+	}
+	
+	/**
+	 * Renders an EntityGUI onto the tile
+	 * @param e - the entityGUI to render
+	 * @param xTile - the xtile of the entity
+	 * @param yTile - the ytile of the entity
+	 */
+	public void render(EntityGUI e, int xTile, int yTile) {
+		e.render(screen, xTile, yTile);
 		repaint();
 	}
 	
@@ -101,17 +130,6 @@ public class TileGUI extends JPanel {
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
-		
-		// set up the image
-		int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-		
-		// transfer item pixels through a screen class
-		Screen screen = new Screen(SIZE, SIZE);
-		
-		// render only if there is an item
-		if (tile != null) {
-			tile.render(screen);
-		}
 		
 		// add screen pixels to image pixels
 		for (int y = 0; y < screen.getHeight(); y++) {

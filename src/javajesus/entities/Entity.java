@@ -30,7 +30,9 @@ public abstract class Entity {
             LONG_TABLE = 86, NIGHTSTAND = 87, SOFA = 88, SQUARE_TABLE = 89, STOOL = 90, TELEVISION = 91,
             THRONE = 92, DEAD_SEQUOIA = 93, GENERIC_TREE = 94, LARGE_SEQUOIA = 95, MEDIUM_SEQUOIA = 96,
             SMALL_SEQUOIA = 97;
-	// ..etc. Continue for all unique buildings and furniture
+	
+	// number of unique entities worth saving
+	public static final int NUM_ENTITIES = 97;
 
 	// position on the screen
 	private short x, y;

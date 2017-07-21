@@ -1,6 +1,7 @@
 package designer;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -28,6 +29,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import javajesus.entities.solid.furniture.Bed;
+import javajesus.entities.solid.furniture.Stool;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
 
@@ -57,11 +60,26 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	// number of tiles on level
 	private static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
 	
+	// constants for cardlayout
+	private static final String TILE_DISPLAY = "Tiles", ENTITY_DISPLAY = "Entities";
+	
+	
+	// max number of tiles/entities in the list selector
+	private static final int MAX_ENTITIES = 256;
+	
+	// size of each tile/entity selector
+	private static final int PANEL_SIZE = 50;
+	
 	// buttons at the top
-	private final JButton save, load, saveRendered, loadPNG, setAll, plusSize, minusSize, plusZoom, minusZoom, undo;
+	private final JButton save, load, saveRendered, loadPNG, setAll, plusSize, minusSize, plusZoom, minusZoom, undo, tiles, entities;
 	private final JTextField name;
 	private TileGUI selected;
+	private EntityGUI selectedEntity;
 	private JLabel sizeLabel;
+	
+	// the layout used to switch between tiles and entities
+	private final CardLayout cl;
+	private final JPanel leftMain;
 	
 	// zoom scale of the tiles
 	private int zoomScale = 8;
@@ -130,16 +148,48 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		
 		// tile selector on the left side
 		JPanel leftContent = new JPanel();
-		GridLayout l = new GridLayout(128, 2);
-		leftContent.setLayout(l);
+		leftContent.setLayout(new BoxLayout(leftContent, BoxLayout.Y_AXIS));
 		leftContent.setMinimumSize(new Dimension(60, Integer.MAX_VALUE));
+		
+		// set the tiles and entity buttons
+		JPanel leftTop = new JPanel();
+		leftTop.add(tiles = new JButton("T"));
+		tiles.addActionListener(this);
+		leftTop.add(entities = new JButton("E"));
+		entities.addActionListener(this);
+		leftContent.add(leftTop);
+		
+		// create the overview for tiles and entities
+		leftMain = new JPanel(cl = new CardLayout());
+		
+		// create the tile list
+		JPanel leftTiles = new JPanel(new GridLayout(128, 2));
 		
 		// add all the tiles
 		for (Tile t: Tile.tileList) {
-			TileGUI tile = new TileGUI(t, SELECTOR, 30, 30);
+			TileGUI tile = new TileGUI(t, SELECTOR, PANEL_SIZE, PANEL_SIZE);
 			tile.addMouseListener(this);
-			leftContent.add(tile);
+			leftTiles.add(tile);
 		}
+		
+		// create the entity list
+		JPanel leftEntities = new JPanel(new GridLayout(128, 2));
+		for (int i = 0; i < MAX_ENTITIES; i++) {
+			
+			EntityGUI entity = null;
+			if (i % 2 == 0) {
+				entity = new EntityGUI(new Stool(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
+			} else {
+				entity = new EntityGUI(new Bed(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 3);
+			}
+			leftEntities.add(entity);
+			entity.addMouseListener(this);
+		}
+		
+		// compose the left side
+		leftMain.add(leftTiles, TILE_DISPLAY);
+		leftMain.add(leftEntities, ENTITY_DISPLAY);
+		leftContent.add(leftMain);
 		
 		// displays all the tiles in the center
 		content = new JPanel();
@@ -222,32 +272,58 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		
 		//make sure the mouse is pressed
 		if (pressed) {
-			
-			// now update the tile
-			TileGUI tile = (TileGUI) e.getSource();
-			
-			if (tile.getId() == DISPLAY) {
+
+			// try to paint if on the canvas
+			if (e.getSource() instanceof TileGUI) {
 				
-				// point of origin
-				int xPos = tile.getX();
-				int yPos = tile.getY();
+				// now update the tile
+				TileGUI tile = (TileGUI) e.getSource();
 
-				// set over an area
-				for (int x = 0; x < size; x++) {
-					for (int y = 0; y < size; y++) {
+				// draw tile only if no entity is selected
+				if (selectedEntity == null) {
 
-						// get next the component
-						TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale), yPos + (y * zoomScale));
-						if (next != null) {
+					if (tile.getId() == DISPLAY) {
 
-							// set the tile
-							next.setTile(selected.getTile());
+						// point of origin
+						int xPos = tile.getX();
+						int yPos = tile.getY();
+
+						// set over an area
+						for (int x = 0; x < size; x++) {
+							for (int y = 0; y < size; y++) {
+
+								// get next the component
+								TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale),
+								        yPos + (y * zoomScale));
+								if (next != null) {
+
+									// set the tile
+									next.setTile(selected.getTile());
+								}
+
+							}
 						}
+					}
+					
+					// entity is selected
+				} else {
+					// draw the entity
+					for (int x = 0; x < selectedEntity.getXTiles(); x++) {
+						for (int y = 0; y < selectedEntity.getYTiles(); y++) {
 
+							// next tile over
+							TileGUI next = (TileGUI) content.getComponentAt(tile.getX() + (x * zoomScale),
+							        tile.getY() + (y * zoomScale));
+
+							// render if the tile exists
+							if (next != null) {
+								next.render(selectedEntity, x, y);
+							}
+						}
 					}
 				}
 			}
-			
+
 		}
 		
 	}
@@ -267,38 +343,71 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
-		// save to temporary file
-		quickSave();
-		
 		// get the source
-		TileGUI tile = (TileGUI) e.getSource();
-		
-		// do the correct action
-		if (tile.getId() == SELECTOR) {
-			selected.setTile(tile.getTile());
-		}
-		
-		if (tile.getId() == DISPLAY) {
+		if (e.getSource() instanceof TileGUI) {
 			
-			// point of origin
-			int xPos = tile.getX();
-			int yPos = tile.getY();
-			
-			// set over an area
-			for (int x = 0; x < size; x++) {
-				for (int y = 0; y < size; y++) {
+			// source is a tile
+			TileGUI tile = (TileGUI) e.getSource();
+
+			// do the correct action
+			if (tile.getId() == SELECTOR) {
+				selected.setTile(tile.getTile());
+				selectedEntity = null;
+			}
+
+			if (tile.getId() == DISPLAY) {
+				
+				// draw tile only if no entity is selected
+				if (selectedEntity == null) {
+
+					// save to temporary file
+					quickSave();
+
+					// point of origin
+					int xPos = tile.getX();
+					int yPos = tile.getY();
+
+					// set over an area
+					for (int x = 0; x < size; x++) {
+						for (int y = 0; y < size; y++) {
+
+							// get next the component
+							TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale),
+							        yPos + (y * zoomScale));
+							if (next != null) {
+
+								// set the tile
+								next.setTile(selected.getTile());
+							}
+
+						}
+					}
 					
-					// get next the component
-					TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale), yPos + (y * zoomScale));
-					if (next != null) {
-						
-						// set the tile
-						next.setTile(selected.getTile());
+					// selected entity is not null
+				} else {
+					
+					// draw the entity
+					for (int x = 0; x < selectedEntity.getXTiles(); x++) {
+						for (int y = 0; y < selectedEntity.getYTiles(); y++) {
+
+							// next tile over
+							TileGUI next = (TileGUI) content.getComponentAt(tile.getX() + (x * zoomScale),
+							        tile.getY() + (y * zoomScale));
+
+							// render if the tile exists
+							if (next != null) {
+								next.render(selectedEntity, x, y);
+							}
+						}
 					}
 					
 				}
+
 			}
 			
+			// entity gui was clicked
+		} else if (e.getSource() instanceof EntityGUI) {
+			selectedEntity = (EntityGUI) e.getSource();
 		}
 		
 		// mouse is held down
@@ -395,7 +504,15 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 			// load from temporary file
 		} else if (e.getSource() == undo) {
 			quickLoad();
-		}
+			
+			// display tiles
+		} else if (e.getSource() == tiles) {
+			cl.show(leftMain, TILE_DISPLAY);
+			
+			// display entities
+		} else if (e.getSource() == entities) {
+			cl.show(leftMain, ENTITY_DISPLAY);
+		} 
 		
 	}
 	
