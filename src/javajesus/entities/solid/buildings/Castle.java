@@ -31,9 +31,7 @@ public class Castle extends Building {
 	}
 
     @Override
-    public byte getId()
-    {
-        // TODO Auto-generated method stub
+    public byte getId(){
         return Entity.CASTLE;
     }
 

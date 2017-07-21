@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.RussianChurchInterior;
  * A Russian church
  */
 public class RussianOrthodoxChurch extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 4401142269501974132L;
 
 	/**
 	 * Creates a Russian church
@@ -32,4 +30,8 @@ public class RussianOrthodoxChurch extends Building {
 
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.RUSSIAN_ORTHODOX_CHURCH;
+    }
 }

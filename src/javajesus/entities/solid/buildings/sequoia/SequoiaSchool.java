@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.sequoia;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * The school in sequoia
  */
 public class SequoiaSchool extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 4874810669481482545L;
 
 	/**
 	 * Creates a sequoia school
@@ -29,4 +27,8 @@ public class SequoiaSchool extends Building {
 		level.add(new Transporter(level, x + 60, y + 99, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.SEQUOIA_SCHOOL;
+    }
 }

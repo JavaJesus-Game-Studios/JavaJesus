@@ -240,9 +240,8 @@ public class Chest extends Entity implements SolidEntity {
 	}
 
 	@Override
-	public byte getId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    public byte getId(){
+        return Entity.CHEST;
+    }
 
 }

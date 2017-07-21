@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.RefugeeTentInterior;
  * A small tent
  */
 public class RefugeeTent extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 2510389595988201303L;
 
 	/**
 	 * Creates a refugee tent
@@ -28,4 +26,8 @@ public class RefugeeTent extends Building {
 		level.add(new Transporter(level, x + 34, y + 7, new RefugeeTentInterior(new Point(x + 40, y + 18), level)));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.REFUGEE_TENT;
+    }
 }

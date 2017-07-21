@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.techtopia;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.RadarDishInterior;
  * A large round dish
  */
 public class RadarDish extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 2945216436648329178L;
 
 	/**
 	 * Creates a radar dish
@@ -32,4 +30,8 @@ public class RadarDish extends Building {
 		level.add(new Transporter(level, x + 37, y + 117, new RadarDishInterior(new Point(x + 43, y + 125), level)));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.RADAR_DISH;
+    }
 }

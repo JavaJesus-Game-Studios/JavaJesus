@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.RancheroHouseInterior;
  * Typical ranchero house
  */
 public class RancheroHouse extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -5896010603184934105L;
 
 	/**
 	 * Creates a ranchero house
@@ -28,4 +26,8 @@ public class RancheroHouse extends Building {
 		level.add(new Transporter(level, x + 44, y + 45, new RancheroHouseInterior(new Point(x + 50, y + 56), level)));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.RANCHERO_HOUSE;
+    }
 }

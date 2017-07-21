@@ -13,9 +13,6 @@ import javajesus.level.interior.ApartmentLobby;
  */
 public class ApartmentHighRise extends Building {
 
-	// serialization
-	private static final long serialVersionUID = 3895374472641199582L;
-
 	/**
 	 * Creates an apartment
 	 * 
@@ -30,8 +27,7 @@ public class ApartmentHighRise extends Building {
 	}
 
     @Override
-    public byte getId()
-    {
+    public byte getId(){
         return Entity.APARTMENT_HIGH_RISE;
     }
 

@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.sanjuan;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * Quack Quack
  */
 public class QuackerHQ extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 435091821654383254L;
 
 	/**
 	 * Creates a quacker hq
@@ -31,4 +29,9 @@ public class QuackerHQ extends Building {
 
 		level.add(new Transporter(level, x + 53, y + 83, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.QUACKER_HQ;
+    }
 }

@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * Entrance to the mineshaft
  */
 public class MineShaft extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -1803480550218050753L;
 
 	/**
 	 * Creates a mineshaft
@@ -27,5 +25,10 @@ public class MineShaft extends Building {
 
 		level.add(new Transporter(level, x + 79, y + 48, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.MINESHAFT;
+    }
 
 }

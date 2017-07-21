@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.CastleTowerInterior;
  * The castle arch tower
  */
 public class CastleTower extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 5113885652722266985L;
 
 	/**
 	 * Creates a castle tower
@@ -32,5 +30,10 @@ public class CastleTower extends Building {
 		        new CastleTowerInterior(new Point(x + 43, y + 167), getLevel())));
 
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.CASTLE_TOWER;
+    }
 
 }

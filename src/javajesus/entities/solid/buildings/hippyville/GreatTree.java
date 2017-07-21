@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.hippyville;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * A large tree house
  */
 public class GreatTree extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -2057500563473932212L;
 
 	/**
 	 * Creates a great tree
@@ -31,5 +29,10 @@ public class GreatTree extends Building {
 
 		level.add(new Transporter(level, x + 22, y + 30, new PoorHouseInterior(new Point(x + 28, y + 42), getLevel())));
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.GREAT_TREE;
+    }
 
 }

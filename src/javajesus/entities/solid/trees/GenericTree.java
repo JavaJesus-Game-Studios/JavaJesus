@@ -1,5 +1,6 @@
 package javajesus.entities.solid.trees;
 
+import javajesus.entities.Entity;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 
@@ -7,9 +8,6 @@ import javajesus.level.Level;
  * Generic Deciduous Tree
  */
 public class GenericTree extends Tree {
-
-	// serialization
-	private static final long serialVersionUID = -824593418941127086L;
 
 	/**
 	 * GenericTree ctor()
@@ -22,4 +20,8 @@ public class GenericTree extends Tree {
 		super(level, x, y, Sprite.SMALL_DECIDUOUS, 5, 15, 6);
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.GENERIC_TREE;
+    }
 }

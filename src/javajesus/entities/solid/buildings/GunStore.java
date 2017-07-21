@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.GunStoreInterior;
  * A gunstore front
  */
 public class GunStore extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 7439780840552868539L;
 
 	/**
 	 * Creates a gunstore
@@ -28,4 +26,8 @@ public class GunStore extends Building {
 		level.add(new Transporter(level, x + 29, y + 26, new GunStoreInterior(new Point(x + 35, y + 37), getLevel())));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.GUNSTORE ;
+    }
 }

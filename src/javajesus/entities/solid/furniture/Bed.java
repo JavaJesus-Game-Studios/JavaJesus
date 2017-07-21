@@ -1,5 +1,6 @@
 package javajesus.entities.solid.furniture;
 
+import javajesus.entities.Entity;
 import javajesus.level.Level;
 
 /*
@@ -7,10 +8,12 @@ import javajesus.level.Level;
  */
 public class Bed extends Furniture {
 
-	private static final long serialVersionUID = -846007811659906473L;
-
 	public Bed(Level level, int x, int y) {
 		super(level, x, y, Furniture.bed, new int[] { 444, 123, 323 });
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.BED;
+    }
 }

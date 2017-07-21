@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.techtopia;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * Tech headquarters
  */
 public class PearHQ extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -6572045770846891724L;
 
 	/**
 	 * Creates a pear hq
@@ -29,4 +27,9 @@ public class PearHQ extends Building {
 		level.add(
 		        new Transporter(level, x + 46, y + 176, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.PEAR_HQ;
+    }
 }

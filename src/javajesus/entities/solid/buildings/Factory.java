@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * A large factory
  */
 public class Factory extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -3123875678253174894L;
 
 	/**
 	 * Creates a factory
@@ -27,5 +25,10 @@ public class Factory extends Building {
 
 		level.add(new Transporter(level, x + 45, y + 69, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.FACTORY ;
+    }
 
 }

@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.sequoia;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * A snazzy cinema
  */
 public class SequoiaCinema extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -7034832823882430032L;
 
 	/**
 	 * Creates a sequoiac cinema
@@ -31,4 +29,9 @@ public class SequoiaCinema extends Building {
 
 		level.add(new Transporter(level, x + 59, y + 99, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.SEQUOIA_CINEMA;
+    }
 }

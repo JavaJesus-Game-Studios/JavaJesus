@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.HutInterior;
  * A small hut
  */
 public class Hut extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -2327932586773802554L;
 
 	/**
 	 * Creates a hut
@@ -27,5 +25,10 @@ public class Hut extends Building {
 
 		level.add(new Transporter(level, x + 18, y + 32, new HutInterior(new Point(x + 24, y + 43), getLevel())));
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.HUT;
+    }
 
 }

@@ -3,6 +3,7 @@ package javajesus.entities.solid.buildings;
 import java.awt.Point;
 import java.util.Random;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * A typical hotel
  */
 public class Hotel extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -5284679863668170333L;
 
 	// randomizes color
 	private static final Random random = new Random();
@@ -84,4 +82,9 @@ public class Hotel extends Building {
 		}
 		return color;
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.HOTEL;
+    }
 }

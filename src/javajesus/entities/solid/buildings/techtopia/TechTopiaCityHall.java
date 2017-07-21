@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.techtopia;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * Tech topia city hall!
  */
 public class TechTopiaCityHall extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -6355244198834564219L;
 
 	/**
 	 * Creates tech topia city hall
@@ -31,4 +29,9 @@ public class TechTopiaCityHall extends Building {
 
 		level.add(new Transporter(level, x + 42, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.TECHTOPIA_CITY_HALL;
+    }
 }

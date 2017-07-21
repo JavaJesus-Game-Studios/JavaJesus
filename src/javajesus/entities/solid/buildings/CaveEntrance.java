@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.TransporterCave;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -10,9 +11,6 @@ import javajesus.level.Level;
  * The cave structure front
  */
 public class CaveEntrance extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -6709208432522451198L;
 
 	// color set
 	private static final int[] color = { 0xFF301E01, 0xFF474645, 0xFF000000 };
@@ -57,5 +55,10 @@ public class CaveEntrance extends Building {
 
 		level.add(new TransporterCave(level, x + 18, y + 20, nextLevel));
 	}
+	
+	@Override
+    public byte getId(){
+        return Entity.CAVE_ENTRANCE ;
+    }
 
 }

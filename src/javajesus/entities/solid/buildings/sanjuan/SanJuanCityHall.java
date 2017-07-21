@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.sanjuan;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * San Juan City Hall!
  */
 public class SanJuanCityHall extends Building {
-
-	// serialization
-	private static final long serialVersionUID = 6074562352706611380L;
 
 	/**
 	 * Creates San Juan city hall
@@ -32,4 +30,8 @@ public class SanJuanCityHall extends Building {
 		level.add(new Transporter(level, x + 67, y + 104, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.SAN_JUAN_CITY_HALL;
+    }
 }

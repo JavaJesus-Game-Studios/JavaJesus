@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings.sanjuan;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
@@ -12,9 +13,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * Who does not know what TheHub is?
  */
 public class TheHub extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -1995931044777514462L;
 
 	/**
 	 * Creates a hub
@@ -29,4 +27,8 @@ public class TheHub extends Building {
 		level.add(new Transporter(level, x + 46, y + 148, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.THE_HUB;
+    }
 }

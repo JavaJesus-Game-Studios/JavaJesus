@@ -2,6 +2,7 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
 
+import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -11,9 +12,6 @@ import javajesus.level.interior.PoorHouseInterior;
  * A typical police station
  */
 public class Police extends Building {
-
-	// serialization
-	private static final long serialVersionUID = -8366530842339041365L;
 
 	/**
 	 * Creates a police station
@@ -28,4 +26,8 @@ public class Police extends Building {
 		level.add(new Transporter(level, x + 45, y + 69, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
 
+	@Override
+    public byte getId(){
+        return Entity.POLICE;
+    }
 }
