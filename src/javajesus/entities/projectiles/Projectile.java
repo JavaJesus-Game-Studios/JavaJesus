@@ -22,7 +22,7 @@ public abstract class Projectile extends Entity implements Hideable {
 	private int speed, damage;
 
 	// the change in x and y that the projectile will travel towards
-	private double dx, dy;
+	private float dx, dy;
 
 	// the mob that fired the projectile
 	private final Mob mob;
@@ -37,7 +37,7 @@ public abstract class Projectile extends Entity implements Hideable {
 	private boolean isBehindBuilding;
 	
 	// x and y coordinates should be in double precision
-	private double x, y;
+	private float x, y;
 	
 	// color of the projectile
 	private final int[] color;
@@ -170,13 +170,13 @@ public abstract class Projectile extends Entity implements Hideable {
 	private void calcDirection(int x, int y) {
 
 		// distance along the x axis
-		double xa = x - getX();
+		float xa = x - getX();
 
 		// distance along the y axis
-		double ya = y - getY();
+		float ya = y - getY();
 
 		// pythagorean theorem
-		double magnitude = Math.sqrt(xa * xa + ya * ya);
+		float magnitude = (float) Math.sqrt(xa * xa + ya * ya);
 
 		// j hat = Vx / magnitude
 		dx = xa / magnitude;
@@ -294,15 +294,15 @@ public abstract class Projectile extends Entity implements Hideable {
 	/**
 	 * @return the X coordinate of the entity
 	 */
-	public int getX() {
-		return (int) x;
+	public short getX() {
+		return (short) x;
 	}
 
 	/**
 	 * @return the Y coordinate of the entity
 	 */
-	public int getY() {
-		return (int) y;
+	public short getY() {
+		return (short) y;
 	}
 
 	/**
@@ -325,6 +325,11 @@ public abstract class Projectile extends Entity implements Hideable {
 	@Override
 	public byte getId() {
 		return -1;
+	}
+	
+	@Override
+	public long getData() {
+		return 0;
 	}
 
 }

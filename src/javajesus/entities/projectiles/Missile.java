@@ -11,8 +11,6 @@ import javajesus.utility.Direction;
  */
 public class Missile extends Projectile {
 
-	private static final long serialVersionUID = 4423384187877615283L;
-
 	// the color set for all missiles
 	private static final int[] color = { 0xFF000000, 0xFF5B5B5B, 0xFFFFEA02 };
 

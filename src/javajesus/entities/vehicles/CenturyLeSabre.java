@@ -1,5 +1,6 @@
 package javajesus.entities.vehicles;
 
+import javajesus.entities.Entity;
 import javajesus.level.Level;
 
 /*
@@ -7,9 +8,6 @@ import javajesus.level.Level;
  */
 public class CenturyLeSabre extends Car {
 
-	// serialization
-	private static final long serialVersionUID = -6160110452474389163L;
-	
 	// used for offsetting the bounds based on direction
 	private static final int SHORT_SIDE = 32, LONG_SIDE = 40;
 
@@ -22,5 +20,10 @@ public class CenturyLeSabre extends Car {
 	 */
 	public CenturyLeSabre(Level level, int x, int y) {
 		super(level, "Century LeSabre", x, y, SHORT_SIDE, LONG_SIDE, 0);
+	}
+	
+	@Override
+	public byte getId() {
+		return Entity.CENTURY_LESABRE;
 	}
 }

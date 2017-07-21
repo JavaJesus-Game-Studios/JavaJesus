@@ -14,6 +14,7 @@ import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
+import javajesus.save.SaveData;
 import javajesus.utility.Direction;
 import engine.Window;
 
@@ -21,7 +22,7 @@ import engine.Window;
  * A vehicle can be ridden by the player
  * Vehicles must continue the render() method
  */
-public class Vehicle extends Entity implements SolidEntity, Ridable,
+public abstract class Vehicle extends Entity implements SolidEntity, Ridable,
 		Damageable, Hideable {
 
 	// the player that is in the vehicle
@@ -59,11 +60,8 @@ public class Vehicle extends Entity implements SolidEntity, Ridable,
 	// the speed of the vehicle
 	private int speed;
 
-	// the current amount of health
-	private int health;
-
-	// the max health (upper bound)
-	private int maxHealth;
+	// the current/max amount of health
+	private short health, maxHealth;
 
 	// the direction the vehicle is facing
 	private Direction direction;
@@ -99,8 +97,7 @@ public class Vehicle extends Entity implements SolidEntity, Ridable,
 		this.name = name;
 		this.speed = speed;
 		this.sheet = sheet;
-		this.maxHealth = maxHealth;
-		health = maxHealth;
+		this.maxHealth = this.health = (short) maxHealth;
 		this.xWidth = xWidth;
 		this.xHeight = xHeight;
 		this.yWidth = yWidth;
@@ -542,14 +539,14 @@ public class Vehicle extends Entity implements SolidEntity, Ridable,
 	/**
 	 * @return the vehicle's max health
 	 */
-	public int getMaxHealth() {
+	public short getMaxHealth() {
 		return maxHealth;
 	}
 
 	/**
 	 * @return the vehicle's current health
 	 */
-	public int getCurrentHealth() {
+	public short getCurrentHealth() {
 		return health;
 	}
 
@@ -576,9 +573,8 @@ public class Vehicle extends Entity implements SolidEntity, Ridable,
 	}
 
 	@Override
-	public byte getId() {
-		// TODO Auto-generated method stub
-		return 0;
+	public long getData() {
+		return SaveData.type1(getX(), getY());
 	}
 
 }

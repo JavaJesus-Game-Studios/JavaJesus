@@ -11,9 +11,6 @@ import javajesus.utility.Direction;
  */
 public class Bullet extends Projectile {
 
-	// serialization
-	private static final long serialVersionUID = 6386517640048489710L;
-
 	// the color set for all bullets
 	private static final int[] color = { 0xFF000000, 0xFF000000, 0xFFFFFF00 };
 

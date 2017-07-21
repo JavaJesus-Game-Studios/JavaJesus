@@ -11,6 +11,7 @@ import javajesus.entities.monsters.Monkey;
 import javajesus.graphics.Screen;
 import javajesus.items.Item;
 import javajesus.level.Level;
+import javajesus.save.SaveData;
 
 /*
  * An entity that creates other entities
@@ -18,10 +19,10 @@ import javajesus.level.Level;
 public class Spawner extends Entity {
 
 	// types of entities to spawn
-	public static final int DEMON = 0, GANG_MEMBER = 1, HEALTH_PACK = 2, CAR = 3, CYCLOPS = 4, MONKEY = 5, CENTAUR = 6;
+	public static final byte DEMON = 0, GANG_MEMBER = 1, HEALTH_PACK = 2, CAR = 3, CYCLOPS = 4, MONKEY = 5, CENTAUR = 6;
 
 	// the type of mob to spawn
-	private int type;
+	private byte type;
 
 	// used to spawn mobs at random times
 	private static final Random random = new Random();
@@ -42,7 +43,7 @@ public class Spawner extends Entity {
 	 */
 	public Spawner(Level level, int x, int y, int type) {
 		super(level, x, y);
-		this.type = type;
+		this.type = (byte) type;
 
 		// infinite
 		amount = -1;
@@ -97,7 +98,7 @@ public class Spawner extends Entity {
 	 */
 	public Spawner(Level level, int x, int y, int type, int amount) {
 		super(level, x, y);
-		this.type = type;
+		this.type = (byte) type;
 		this.amount = amount;
 		
 		this.setBounds(x, y, 1, 1);
@@ -158,7 +159,7 @@ public class Spawner extends Entity {
 		case DEMON:
 			return currentEntity = new Demon(getLevel(), getX(), getY(), 1, 100 + JavaJesus.score * 2);
 		case GANG_MEMBER:
-			return currentEntity = new GangMember(getLevel(), getX(), getY(), 1, 200 + JavaJesus.score * 3, random.nextInt(2));
+			return currentEntity = new GangMember(getLevel(), getX(), getY(), 1, 200 + JavaJesus.score * 3, (byte) random.nextInt(2));
 		case HEALTH_PACK:
 			return currentEntity = new Pickup(getLevel(), getX(), getY(), Item.quickHealthPack, true);
 		case MONKEY:
@@ -178,6 +179,11 @@ public class Spawner extends Entity {
 	@Override
 	public byte getId() {
 		return Entity.SPAWNER;
+	}
+
+	@Override
+	public long getData() {
+		return SaveData.type3(getX(), getY(), type);
 	}
 
 }

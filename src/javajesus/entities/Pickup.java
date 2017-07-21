@@ -135,4 +135,12 @@ public class Pickup extends Entity {
 		return -1;
 	}
 
+	/**
+	 * Won't be saved
+	 */
+	@Override
+	public long getData() {
+		return 0;
+	}
+
 }

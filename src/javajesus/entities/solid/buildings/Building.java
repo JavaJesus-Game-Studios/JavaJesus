@@ -7,6 +7,7 @@ import javajesus.entities.SolidEntity;
 import javajesus.graphics.Screen;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
+import javajesus.save.SaveData;
 
 /*
  * base class for all buildings
@@ -81,9 +82,9 @@ public abstract class Building extends Entity implements SolidEntity {
 
 	}
 	
-	// temp
-	public byte getId() {
-		return 0;
+	@Override
+	public long getData() {
+		return SaveData.type1(getX(), getY());
 	}
-
+	
 }

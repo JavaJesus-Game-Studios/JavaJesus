@@ -11,9 +11,6 @@ import javajesus.utility.Direction;
  */
 public class BlackHoleDetonator extends Projectile {
 
-	// serialization
-	private static final long serialVersionUID = 2546446873996072596L;
-
 	// the colorset for all detonators
 	private static final int[] color = { 0xFF000001, 0xFF000000, 0xFF000000 };
 

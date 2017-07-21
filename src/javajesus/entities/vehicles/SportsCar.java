@@ -1,5 +1,6 @@
 package javajesus.entities.vehicles;
 
+import javajesus.entities.Entity;
 import javajesus.level.Level;
 
 /*
@@ -7,9 +8,6 @@ import javajesus.level.Level;
  */
 public class SportsCar extends Car {
 
-	// serialization
-	private static final long serialVersionUID = -3313236618756200877L;
-	
 	// used for offsetting the bounds based on direction
 	private static final int SHORT_SIDE = 25, LONG_SIDE = 40;
 
@@ -24,6 +22,9 @@ public class SportsCar extends Car {
 		super(level, "Sports Car", x, y, SHORT_SIDE, LONG_SIDE, 10);
 	} 
 	
-	
+	@Override
+	public byte getId() {
+		return Entity.SPORTS_CAR;
+	}
 
 }

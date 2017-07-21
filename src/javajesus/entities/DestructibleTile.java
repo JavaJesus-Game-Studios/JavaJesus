@@ -6,6 +6,7 @@ import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
+import javajesus.save.SaveData;
 
 /*
  * A facade that acts like a tile but is actually an entity
@@ -14,7 +15,7 @@ import javajesus.level.tile.Tile;
 public class DestructibleTile extends Entity implements Damageable, SolidEntity {
 
 	// amount of times it must be hit before being destroyed
-	private int health, maxHealth;
+	private short health, maxHealth;
 	
 	// color set
 	private int[] color;
@@ -24,6 +25,9 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity 
 	
 	// dummy shadow bounds
 	private static final Rectangle shadow = new Rectangle();
+	
+	// Tile it imitates
+	private final Tile tile;
 	
 	/**
 	 * Creates an entity that mimics a Tile
@@ -38,10 +42,11 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity 
 		
 		// instance data
 		this.setBounds(Tile.snapToCorner(x), Tile.snapToCorner(y), Tile.SIZE, Tile.SIZE);
-		this.health = maxHealth = defaultHealth;
+		this.health = maxHealth = (short) defaultHealth;
 		this.xTile = tile.getXTile();
 		this.yTile = tile.getYTile();
 		this.color = tile.getColor();
+		this.tile = tile;
 
 	}
 	
@@ -73,7 +78,7 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity 
 	 * Gets the current health
 	 */
 	@Override
-	public int getCurrentHealth() {
+	public short getCurrentHealth() {
 		return health;
 	}
 
@@ -81,7 +86,7 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity 
 	 * Gets the max health
 	 */
 	@Override
-	public int getMaxHealth() {
+	public short getMaxHealth() {
 		return maxHealth;
 	}
 
@@ -112,6 +117,11 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity 
 	@Override
 	public byte getId() {
 		return Entity.DESTRUCTIBLE_TILE;
+	}
+
+	@Override
+	public long getData() {
+		return SaveData.type4(getX(), getY(), maxHealth, tile.getId());
 	}
 
 }

@@ -7,6 +7,7 @@ import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
 import javajesus.quests.Script;
+import javajesus.save.SaveData;
 import javajesus.utility.Direction;
 
 import java.awt.Rectangle;
@@ -30,10 +31,10 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	private Direction movingDir = Direction.SOUTH;
 
 	// the current amount of health
-	private int health;
+	private short health;
 
 	// the max health (upper bound)
-	private int maxHealth;
+	private short maxHealth;
 
 	// the health bar that is displayed beneath each mob
 	private HealthBar bar;
@@ -136,8 +137,8 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 		// instance data
 		this.name = new String(name);
 		this.speed = speed;
-		this.health = defaultHealth;
-		this.maxHealth = defaultHealth;
+		this.health = (short) defaultHealth;
+		this.maxHealth = (short) defaultHealth;
 		this.setBounds(x, y, width, height);
 		this.setOuterBounds(width, height);
 		this.sheet = sheet;
@@ -980,7 +981,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	/**
 	 * @return the mob's max health
 	 */
-	public int getMaxHealth() {
+	public short getMaxHealth() {
 		return maxHealth;
 	}
 
@@ -988,13 +989,13 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	 * Changes the mob's max health
 	 */
 	public void setMaxHealth(int health) {
-		maxHealth = health;
+		maxHealth = (short) health;
 	}
 
 	/**
 	 * @return the mob's current health
 	 */
-	public int getCurrentHealth() {
+	public short getCurrentHealth() {
 		return health;
 	}
 
@@ -1039,6 +1040,11 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	 */
 	protected void toggleClip() {
 		clip = !clip;
+	}
+	
+	@Override
+	public long getData() {
+		return SaveData.type2(getX(), getY(), getMaxHealth());
 	}
 
 }

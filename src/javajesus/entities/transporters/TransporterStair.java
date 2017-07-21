@@ -12,8 +12,6 @@ import javajesus.utility.Direction;
  */
 public class TransporterStair extends Transporter {
 
-	private static final long serialVersionUID = -2539827489488693710L;
-
 	// the different textures for stairs
 	public static final int WOOD = 11, STONE = 7, CARPET = 9;
 

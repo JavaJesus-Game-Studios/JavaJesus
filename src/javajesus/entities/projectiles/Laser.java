@@ -10,8 +10,6 @@ import javajesus.utility.Direction;
  */
 public class Laser extends Projectile {
 
-	private static final long serialVersionUID = -8622210634865875442L;
-
 	// the color set for all lasers
 	private static final int[] color = { 0xFF000000, 0xFF000000, 0xFFD80202 };
 

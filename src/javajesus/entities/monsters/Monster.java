@@ -15,6 +15,7 @@ import javajesus.entities.npcs.NPC;
 import javajesus.graphics.SpriteSheet;
 import javajesus.items.Item;
 import javajesus.level.Level;
+import javajesus.save.SaveData;
 import javajesus.utility.Direction;
 import javajesus.utility.GameMode;
 
@@ -317,6 +318,11 @@ public abstract class Monster extends Mob {
 	public int getDefense() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	@Override
+	public long getData() {
+		return SaveData.type2(getX(), getY(), getMaxHealth());
 	}
 
 }

@@ -141,4 +141,9 @@ public class BlackHole extends Entity {
 		return -1;
 	}
 
+	@Override
+	public long getData() {
+		return 0;
+	}
+
 }

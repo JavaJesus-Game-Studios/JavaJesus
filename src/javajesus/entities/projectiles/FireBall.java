@@ -10,9 +10,6 @@ import javajesus.utility.Direction;
  */
 public class FireBall extends Projectile {
 
-	// serialization
-	private static final long serialVersionUID = -4145206809321456052L;
-
 	// the color set for all fireballs
 	private static final int[] color = { 0xFFFFFF00, 0xFFF7790A, 0xFF880000 };
 

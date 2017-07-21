@@ -2,6 +2,7 @@ package javajesus.entities.vehicles;
 
 import java.awt.event.KeyEvent;
 
+import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
@@ -300,8 +301,7 @@ public class Horse extends NPC implements Ridable {
 
 	@Override
 	public byte getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Entity.HORSE;
 	}
 
 }

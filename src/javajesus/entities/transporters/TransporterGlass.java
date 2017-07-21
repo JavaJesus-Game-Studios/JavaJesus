@@ -11,8 +11,6 @@ import javajesus.level.Level;
  */
 public class TransporterGlass extends Transporter {
 
-	private static final long serialVersionUID = -3300095979447928983L;
-
 	// colorset
 	private static final int[] color = { 0xFF111111, 0xFF00BAFF, 0xFFFFDE00 };
 

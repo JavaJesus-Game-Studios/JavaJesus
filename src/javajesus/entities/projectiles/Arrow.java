@@ -10,9 +10,6 @@ import javajesus.utility.Direction;
  */
 public class Arrow extends Projectile {
 
-	// serialization
-	private static final long serialVersionUID = 4965425722844381258L;
-
 	// the colorset for all arrows
 	private static final int[] color = { 0xFF000001, 0xFF000001, 0xFFFFFF00 };
 	

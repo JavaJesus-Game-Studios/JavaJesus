@@ -12,8 +12,6 @@ import javajesus.level.RandomCave;
  */
 public class TransporterCave extends Transporter {
 
-	private static final long serialVersionUID = 3445699890339737978L;
-
 	// colorset for the cave
 	private static final int[] color = { 0xFF663300, 0xFF472400, 0xFFFFDE00 };
 

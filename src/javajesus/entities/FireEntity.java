@@ -4,6 +4,7 @@ import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
+import javajesus.save.SaveData;
 
 /*
  * A pseudo animated tile that damages the player over time
@@ -87,6 +88,11 @@ public class FireEntity extends Entity  {
 	@Override
 	public byte getId() {
 		return Entity.FIRE_ENTITY;
+	}
+
+	@Override
+	public long getData() {
+		return SaveData.type1(getX(), getY());
 	}
 
 }

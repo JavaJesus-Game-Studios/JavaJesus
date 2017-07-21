@@ -12,10 +12,7 @@ import javajesus.utility.Direction;
 /*
  * A car is a set of vehicles with similar shapes
  */
-public class Car extends Vehicle {
-
-	// serialization
-	private static final long serialVersionUID = -1861142691248572564L;
+public abstract class Car extends Vehicle {
 
 	// colorset for this car
 	private int[] color;

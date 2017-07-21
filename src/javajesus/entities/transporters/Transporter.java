@@ -6,6 +6,7 @@ import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
+import javajesus.save.SaveData;
 
 /*
  * A transporter is a clippable entity that sends a player to another level
@@ -82,6 +83,12 @@ public class Transporter extends Entity {
 	public byte getId() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	@Override
+	public long getData() {
+		// TODO extra is ID to another level
+		return SaveData.type3(getX(), getY(), (byte) 0);
 	}
 
 }

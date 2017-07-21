@@ -2,6 +2,7 @@ package javajesus.entities.vehicles;
 
 import java.util.Random;
 
+import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
@@ -12,8 +13,6 @@ import javajesus.utility.Direction;
  * A boat can move on the water
  */
 public class Boat extends Vehicle {
-
-	private static final long serialVersionUID = -762864479769291428L;
 
 	// colorset for this boat
 	private int[] color;
@@ -182,6 +181,11 @@ public class Boat extends Vehicle {
 			}
 		}
 
+	}
+	
+	@Override
+	public byte getId() {
+		return Entity.BOAT;
 	}
 
 }

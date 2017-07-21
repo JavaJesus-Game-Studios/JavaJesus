@@ -18,8 +18,6 @@ import javajesus.utility.Direction;
  */
 public class MapTransporter extends Transporter {
 
-	private static final long serialVersionUID = -788215519977991994L;
-
 	// which side the map transporter is placed on a map
 	private Direction dir;
 

@@ -7,9 +7,9 @@ import java.awt.Rectangle;
  */
 public interface Damageable {
 	
-	public int getCurrentHealth();
+	public short getCurrentHealth();
 	
-	public int getMaxHealth();
+	public short getMaxHealth();
 	
 	public void damage(int damage);
 	

@@ -30,10 +30,10 @@ public abstract class Entity implements Serializable {
             COMPUTER_MONITOR = 82, COMPUTER_TOWER = 83, DINING_TABLE = 84, FILING_CABINET = 85, 
             LONG_TABLE = 86, NIGHTSTAND = 87, SOFA = 88, SQUARE_TABLE = 89, STOOL = 90, TELEVISION = 91,
             THRONE = 92, DEAD_SEQUOIA = 93, GENERIC_TREE = 94, LARGE_SEQUOIA = 95, MEDIUM_SEQUOIA = 96,
-            SMALL_SEQUOIA = 97;
+            SMALL_SEQUOIA = 97, BOAT = 98, CENTURY_LESABRE = 99, HORSE = 100, SPORTS_CAR = 101, TRUCK = 102;
 	
 	// number of unique entities worth saving
-	public static final int NUM_ENTITIES = 97;
+	public static final int NUM_ENTITIES = 102;
 
 	// position on the screen
 	private short x, y;
@@ -60,14 +60,14 @@ public abstract class Entity implements Serializable {
 	/**
 	 * @return the X coordinate of the entity
 	 */
-	public int getX() {
+	public short getX() {
 		return x;
 	}
 
 	/**
 	 * @return the Y coordinate of the entity
 	 */
-	public int getY() {
+	public short getY() {
 		return y;
 	}
 
@@ -168,22 +168,6 @@ public abstract class Entity implements Serializable {
 	 */
 	public static final int secondsToTicks(int seconds) {
 		return seconds * 60;
-	}
-	
-	/** First Byte: TYPE
-	 *  Then Short: getX
-	 *  Then Short: getY
-	 *  Then Short: getMaxHealth
-	 *  Then Byte: Extra
-	 * @return the compressed data in a long
-	 * TODO make this abstract and implement in each class
-	 */
-	public long getData() {
-		
-		// Entity will implement by using
-		// return SaveData.type1/type2/type3/type4
-		
-		return 0;
 	}
 	
 	/**

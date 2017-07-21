@@ -21,13 +21,13 @@ public interface Ridable {
 	 * Enforces the ridable object is an entity
 	 * @return the x coord
 	 */
-	public int getX();
+	public short getX();
 	
 	/**
 	 * Enforces the ridable object is an entity
 	 * @return the y coord
 	 */
-	public int getY();
+	public short getY();
 	
 	/**
 	 * Enforces the ridable object is an entity

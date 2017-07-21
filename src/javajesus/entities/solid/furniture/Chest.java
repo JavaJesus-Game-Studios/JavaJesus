@@ -12,6 +12,7 @@ import javajesus.items.Gun;
 import javajesus.items.Item;
 import javajesus.items.Sword;
 import javajesus.level.Level;
+import javajesus.save.SaveData;
 
 /*
  * Creates a chest that stores items for the player to use
@@ -243,5 +244,11 @@ public class Chest extends Entity implements SolidEntity {
     public byte getId(){
         return Entity.CHEST;
     }
+
+	@Override
+	public long getData() {
+		// TODO link extra to an inventory ID
+		return SaveData.type3(getX(), getY(), (byte) 0);
+	}
 
 }

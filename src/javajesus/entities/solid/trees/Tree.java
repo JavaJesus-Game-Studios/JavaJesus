@@ -7,11 +7,12 @@ import javajesus.entities.SolidEntity;
 import javajesus.graphics.Screen;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
+import javajesus.save.SaveData;
 
 /*
  * A tree cannot be clipped
  */
-public class Tree extends Entity implements SolidEntity {
+public abstract class Tree extends Entity implements SolidEntity {
 
 	// The area where the player can walk behind the tree
 	private Rectangle shadow;
@@ -60,14 +61,11 @@ public class Tree extends Entity implements SolidEntity {
 	/**
 	 * Trees don't really update
 	 */
-	public void tick() {
-
-	}
-
+	public void tick() {}
+	
 	@Override
-	public byte getId() {
-		// TODO Auto-generated method stub
-		return 0;
+	public long getData() {
+		return SaveData.type1(getX(), getY());
 	}
 
 }

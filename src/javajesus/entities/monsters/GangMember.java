@@ -16,6 +16,7 @@ import javajesus.entities.projectiles.Bullet;
 import javajesus.graphics.Screen;
 import javajesus.items.Item;
 import javajesus.level.Level;
+import javajesus.save.SaveData;
 import javajesus.utility.Direction;
 
 /*
@@ -36,7 +37,10 @@ public class GangMember extends Monster implements LongRange {
 	private static final int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB };
 
 	// types of gang members
-	public static final int TRIAD = 0, RUSSIAN = 1;
+	public static final byte TRIAD = 0, RUSSIAN = 1;
+	
+	// which type it is
+	private byte type;
 
 	/**
 	 * Creates a gang member
@@ -48,10 +52,11 @@ public class GangMember extends Monster implements LongRange {
 	 * @param health - the base health
 	 * @param type - the appearance, either GangMember.TRIAD or GangMember.RUSSIAN
 	 */
-	public GangMember(Level level, int x, int y, int speed, int health, int type) {
+	public GangMember(Level level, int x, int y, int speed, int health, byte type) {
 		super(level, "Gangster", x, y, speed, WIDTH, HEIGHT, 1, health, 100);
 
 		// sets the appropriate y tile on the pixel sheet
+		this.type = type;
 		getType(type);
 
 		// creates the standing range
@@ -67,7 +72,7 @@ public class GangMember extends Monster implements LongRange {
 	 * @param y - the y coord
 	 * @param type - the appearance, either GangMember.TRIAD or GangMember.RUSSIAN
 	 */
-	public GangMember(Level level, int x, int y, int type) {
+	public GangMember(Level level, int x, int y, byte type) {
 		this(level, x, y, 1, 100, type);
 	}
 
@@ -227,6 +232,11 @@ public class GangMember extends Monster implements LongRange {
 	@Override
 	public byte getId() {
 		return Entity.GANG_MEMBER;
+	}
+	
+	@Override
+	public long getData() {
+		return SaveData.type4(getX(), getY(), getMaxHealth(), type);
 	}
 
 }

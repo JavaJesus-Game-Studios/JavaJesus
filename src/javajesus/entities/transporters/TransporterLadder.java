@@ -11,8 +11,6 @@ import javajesus.level.Level;
  */
 public class TransporterLadder extends Transporter {
 
-	private static final long serialVersionUID = 2030814150855374528L;
-
 	// colorset
 	private static final int[] color = { 0xFF663300, 0xFF663300, 0xFFFFDE00 };
 

@@ -584,10 +584,10 @@ public class Player extends Mob {
 	 */
 	public void grantDevPowers() {
 		this.strength = 100;
-		this.maxStamina = Integer.MAX_VALUE;
+		this.maxStamina = Short.MAX_VALUE;
 		this.stamina = maxStamina;
 		this.defense = 100;
-		setMaxHealth(Integer.MAX_VALUE);
+		setMaxHealth(Short.MAX_VALUE);
 		heal(-1);
 		inventory.add(Item.blackHoleGun);
 		inventory.add(Item.bazooka);
