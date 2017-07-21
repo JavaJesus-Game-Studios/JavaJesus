@@ -17,22 +17,14 @@ public class SWATOfficer extends Shooter {
 	/**
 	 * Creates a Swat Officer
 	 * 
-	 * @param level
-	 *            the level to place it on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param defaultHealth
-	 *            the default health
-	 * @param color
-	 *            the colorset
-	 * @param xTile
-	 *            the xtile on the spritesheet
-	 * @param yTile
-	 *            the y tile on the spritesheet
-	 * @param player
-	 *            the player to follow
+	 * @param level - the level to place it on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param defaultHealth - the default health
+	 * @param color - the colorset
+	 * @param xTile - the xtile on the spritesheet
+	 * @param yTile - the y tile on the spritesheet
+	 * @param player - the player to follow
 	 */
 	public SWATOfficer(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance) {
 		super(level, "Swat Officer", x, y, 1, WIDTH, HEIGHT, defaultHealth,
@@ -42,12 +34,9 @@ public class SWATOfficer extends Shooter {
 	/**
 	 * Creates a default SWAT officer
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
 	 */
 	public SWATOfficer(Level level, int x, int y) {
 		this(level, x, y, 250, "", 0);

@@ -41,18 +41,12 @@ public class GangMember extends Monster implements LongRange {
 	/**
 	 * Creates a gang member
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param speed
-	 *            the base speed
-	 * @param health
-	 *            the base health
-	 * @param type
-	 *            the appearance, either GangMember.TRIAD or GangMember.RUSSIAN
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param speed - the base speed
+	 * @param health - the base health
+	 * @param type - the appearance, either GangMember.TRIAD or GangMember.RUSSIAN
 	 */
 	public GangMember(Level level, int x, int y, int speed, int health, int type) {
 		super(level, "Gangster", x, y, speed, WIDTH, HEIGHT, 1, health, 100);
@@ -64,14 +58,24 @@ public class GangMember extends Monster implements LongRange {
 		standRange = new Ellipse2D.Double(getX() - RADIUS / 4, getY() - RADIUS / 4, RADIUS / 2, RADIUS / 2);
 
 	}
+	
+	/**
+	 * Creates a gang member
+	 * 
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param type - the appearance, either GangMember.TRIAD or GangMember.RUSSIAN
+	 */
+	public GangMember(Level level, int x, int y, int type) {
+		this(level, x, y, 1, 100, type);
+	}
 
 	/**
 	 * Moves a monster on the level
 	 * 
-	 * @param dx
-	 *            the total change in x
-	 * @param dy
-	 *            the total change in y
+	 * @param dx - the total change in x
+	 * @param dy - the total change in y
 	 */
 	public void move(int dx, int dy) {
 
@@ -81,8 +85,7 @@ public class GangMember extends Monster implements LongRange {
 	}
 
 	/**
-	 * @param type
-	 *            The type of gang member to render
+	 * @param type - The type of gang member to render
 	 */
 	private void getType(int type) {
 		switch (type) {

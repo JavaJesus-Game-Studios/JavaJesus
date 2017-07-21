@@ -38,12 +38,9 @@ public class PoliceOfficer extends Shooter {
 	/**
 	 * Creates a default police officer
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
 	 */
 	public PoliceOfficer(Level level, int x, int y) {
 		this(level, x, y, 200, "", 0);

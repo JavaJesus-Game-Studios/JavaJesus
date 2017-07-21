@@ -44,6 +44,16 @@ public class Knight extends NPC {
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
 
+	/**
+	 * Knight ctor()
+	 * 
+	 * @param level - level it is on
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 * @param health - health of the knight
+	 * @param walkPath - the walking pattern
+	 * @param walkDistance - the length of the walking pattern
+	 */
 	public Knight(Level level, int x, int y, int health, String walkPath, int walkDistance) {
 		super(level, "Knight", x, y, 1, WIDTH, HEIGHT, health, new int[] { 0xFF111111, 0xFF7E7E7E, 0xFFFFFFFF }, 0, 2,
 				walkPath, walkDistance);
@@ -51,6 +61,17 @@ public class Knight extends NPC {
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
 
 		checkRadius();
+	}
+	
+	/**
+	 * Knight ctor()
+	 * 
+	 * @param level - level it is on
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 */
+	public Knight(Level level, int x, int y) {
+		this(level, x, y, 100, "stand", 0);
 	}
 
 	/**

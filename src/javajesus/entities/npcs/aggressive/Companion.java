@@ -5,6 +5,7 @@ import java.awt.Color;
 import javajesus.MessageHandler;
 import javajesus.entities.Entity;
 import javajesus.entities.Player;
+import javajesus.entities.npcs.NPC;
 import javajesus.level.Level;
 
 /*
@@ -21,15 +22,21 @@ public class Companion extends Shooter {
 	 * @param x the x coord
 	 * @param y the y coord
 	 * @param defaultHealth the default health
-	 * @param color the colorset
-	 * @param xTile the xtile on the spritesheet
-	 * @param yTile the y tile on the spritesheet
-	 * @param player the player to follow
+	 * @param npc - npc type to set as a companion
 	 */
-	public Companion(Level level, int x, int y, int defaultHealth, int[] color, int xTile, int yTile) {
-		super(level, "Companion", x, y, 1, WIDTH, HEIGHT, defaultHealth, color, xTile, yTile, "", 0);
+	public Companion(Level level, int x, int y, NPC type) {
+		super(level, "Companion", x, y, 1, WIDTH, HEIGHT, type.getMaxHealth(), type.getColor(), type.getXTile(), type.getYTile(), "", 0);
 	}
-		
+	
+	/**
+	 * Creates a default companion that follows the player
+	 * @param level the level to place it on
+	 * @param x the x coord
+	 * @param y the y coord
+	 */
+	public Companion(Level level, int x, int y) {
+		super(level, "Companion", x, y, 1, WIDTH, HEIGHT, 250, new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0, 4, "", 0);
+	}
 
 	/**
 	 * Updates the companion

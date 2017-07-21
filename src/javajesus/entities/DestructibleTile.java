@@ -24,23 +24,35 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity 
 	
 	// dummy shadow bounds
 	private static final Rectangle shadow = new Rectangle();
-
+	
 	/**
 	 * Creates an entity that mimics a Tile
 	 * @param level the current level
-	 * @param x 
-	 * @param y
-	 * @param defaultHealth
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 * @param tile - the tile to imitate
+	 * @param defaultHealth - the health of the tile
 	 */
-	public DestructibleTile(Level level, int x, int y, int defaultHealth, int xTile, int yTile) {
+	public DestructibleTile(Level level, int x, int y, Tile tile, int defaultHealth) {
 		super(level, Tile.snapToCorner(x), Tile.snapToCorner(y));
 		
 		// instance data
 		this.setBounds(Tile.snapToCorner(x), Tile.snapToCorner(y), Tile.SIZE, Tile.SIZE);
 		this.health = maxHealth = defaultHealth;
-		this.xTile = xTile;
-		this.yTile = yTile;
+		this.xTile = tile.getXTile();
+		this.yTile = tile.getYTile();
+		this.color = tile.getColor();
 
+	}
+	
+	/**
+	 * Creates an entity that mimics a Tile
+	 * @param level the current level
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 */
+	public DestructibleTile(Level level, int x, int y) {
+		this(level, x, y, Tile.NICE_WALL_DWN, 30);
 	}
 
 	/**
@@ -54,7 +66,7 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity 
 	 * Sends the pixels to the screen to be processed
 	 */
 	public void render(Screen screen) {
-		screen.render(getX(), getY(), xTile, yTile, SpriteSheet.tiles, false);
+		screen.render(getX(), getY(), xTile, yTile, SpriteSheet.tiles, false, color);
 	}
 
 	/**

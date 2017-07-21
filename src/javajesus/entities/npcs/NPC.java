@@ -612,7 +612,7 @@ public abstract class NPC extends Mob {
 	/**
 	 * @return the colorset
 	 */
-	protected int[] getColor() {
+	public int[] getColor() {
 		return color;
 	}
 
@@ -627,6 +627,20 @@ public abstract class NPC extends Mob {
 	public static Entity getRandomNPC(Level level, int x, int y) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * @return the xTile
+	 */
+	public final int getXTile() {
+		return xTile;
+	}
+
+	/**
+	 * @return the yTile
+	 */
+	public final int getYTile() {
+		return yTile;
 	}
 
 }

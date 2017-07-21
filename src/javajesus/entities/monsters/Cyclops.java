@@ -27,16 +27,11 @@ public class Cyclops extends Monster {
 	/**
 	 * Creates a cyclops
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param speed
-	 *            how fast the cyclops moves
-	 * @param health
-	 *            the base health
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param speed - how fast the cyclops moves
+	 * @param health - the base health
 	 */
 	public Cyclops(Level level, int x, int y, int speed, int health) {
 		super(level, "Cyclops", x, y, speed, WIDTH, HEIGHT, 14, health, 40);
@@ -46,18 +41,24 @@ public class Cyclops extends Monster {
 	/**
 	 * Creates a cyclops
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param health
-	 *            the base health
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param health - the base health
 	 */
 	public Cyclops(Level level, int x, int y, int health) {
-		super(level, "Cyclops", x, y, 1, WIDTH, HEIGHT, 14, health, 40);
-
+		this(level, x, y, 1, health);
+	}
+	
+	/**
+	 * Creates a cyclops
+	 * 
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 */
+	public Cyclops(Level level, int x, int y) {
+		this(level, x, y, 1, 250);
 	}
 
 	/**

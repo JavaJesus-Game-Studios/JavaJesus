@@ -26,23 +26,37 @@ public class Monkey extends Monster {
 	/**
 	 * Creates a monkey
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param speed
-	 *            how fast the monkey moves
-	 * @param health
-	 *            the base health
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param speed - how fast the monkey moves
+	 * @param health - the base health
 	 */
 	public Monkey(Level level, int x, int y, int speed, int health) {
 		super(level, "Monkey", x, y, speed, WIDTH, HEIGHT, 8, health, 40);
 	}
 	
+	/**
+	 * Creates a monkey
+	 * 
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param health - the base health
+	 */
 	public Monkey(Level level, int x, int y, int health) {
-		super(level, "Monkey", x, y, 1, WIDTH, HEIGHT, 8, health, 40);
+		this(level, x, y, 1, health);
+	}
+	
+	/**
+	 * Creates a monkey
+	 * 
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 */
+	public Monkey(Level level, int x, int y) {
+		this(level, x, y, 1, 100);
 	}
 
 	/**

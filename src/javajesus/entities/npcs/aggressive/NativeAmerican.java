@@ -21,20 +21,13 @@ public class NativeAmerican extends Shooter {
 	/**
 	 * Creates a Native American with different abilities
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param defaultHealth
-	 *            the base health
-	 * @param walkPath
-	 *            the walk pattern
-	 * @param walkDistance
-	 *            the walk distance
-	 * @param type
-	 *            NativeAmerican.MALE or NativeAmerican.FEMALE
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param defaultHealth - the base health
+	 * @param walkPath - the walk pattern
+	 * @param walkDistance - the walk distance
+	 * @param type - NativeAmerican.MALE or NativeAmerican.FEMALE
 	 */
 	public NativeAmerican(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance, int type) {
 		super(level, "Native American", x, y, 1, WIDTH, HEIGHT, defaultHealth,
@@ -46,14 +39,10 @@ public class NativeAmerican extends Shooter {
 	/**
 	 * Creates a default Native American
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param type
-	 *            NativeAmerican.MALE or NativeAmerican.FEMALE
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param type - NativeAmerican.MALE or NativeAmerican.FEMALE
 	 */
 	public NativeAmerican(Level level, int x, int y, int type) {
 		this(level, x, y, 200, "", 0, type);

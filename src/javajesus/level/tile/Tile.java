@@ -788,4 +788,25 @@ public class Tile {
 	public void render(Screen screen, int xOffset, int yOffset) {
 		screen.render(xOffset, yOffset, xTile, yTile, sheet, false, color);
 	}
+	
+	/**
+	 * @return x tile on spritesheet
+	 */
+	public int getXTile() {
+		return xTile;
+	}
+	
+	/**
+	 * @return y tile on spritesheet
+	 */
+	public int getYTile() {
+		return yTile;
+	}
+	
+	/**
+	 * @return the color set for this tile
+	 */
+	public int[] getColor() {
+		return color;
+	}
 }

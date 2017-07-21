@@ -23,16 +23,11 @@ public class Centaur extends Monster {
 	/**
 	 * Creates a centaur
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param speed
-	 *            how fast the centaur moves
-	 * @param health
-	 *            the base health
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param speed - how fast the centaur moves
+	 * @param health - the base health
 	 */
 	public Centaur(Level level, int x, int y, int speed, int health) {
 		super(level, "Centaur", x, y, speed, WIDTH, HEIGHT, 5, health, 20);
@@ -42,27 +37,31 @@ public class Centaur extends Monster {
 	/**
 	 * Creates a centaur
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param health
-	 *            the base health
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param health - the base health
 	 */
 	public Centaur(Level level, int x, int y, int health) {
-		super(level, "Centaur", x, y, 1, WIDTH, HEIGHT, 5, health, 20);
-
+		this(level, x, y, 1, health);
+	}
+	
+	/**
+	 * Creates a centaur
+	 * 
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 */
+	public Centaur(Level level, int x, int y) {
+		this(level, x, y, 1, 100);
 	}
 
 	/**
 	 * Moves a centaur on the level
 	 * 
-	 * @param dx
-	 *            the total change in x
-	 * @param dy
-	 *            the total change in y
+	 * @param dx - the total change in x
+	 * @param dy - the total change in y
 	 */
 	public void move(int dx, int dy) {
 

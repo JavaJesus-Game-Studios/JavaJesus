@@ -62,7 +62,7 @@ public class SandboxOriginalLevel extends Level {
 				new Truck(this, 0, 455), new Truck(this, 0, 411), new SportsCar(this, 565, 518),
 				
 				//companion
-				new Companion(this, 1274, 76, 500, new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0, 4),
+				new Companion(this, 1274, 76),
 				
 				// Upper right of map
 				new Spawner(this, 1369, 202, Spawner.DEMON), new Peasant(this, 1379, 264, Peasant.FEMALE),

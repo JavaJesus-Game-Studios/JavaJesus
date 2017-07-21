@@ -35,22 +35,41 @@ public class Demon extends Monster implements LongRange {
 	/**
 	 * Creates a Demon
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param speed
-	 *            how fast the demon moves
-	 * @param health
-	 *            the base health
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param speed - how fast the demon moves
+	 * @param health - the base health
 	 */
 	public Demon(Level level, int x, int y, int speed, int health) {
 		super(level, "Demon", x, y, speed, WIDTH, HEIGHT, 0, health, 100);
 
+		// set the standing box
 		this.standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2, RADIUS / 2);
-
+	}
+	
+	/**
+	 * Creates a Demon
+	 * 
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param health - the base health
+	 */
+	public Demon(Level level, int x, int y, int health) {
+		this(level, x, y, 1, health);
+	}
+	
+	/**
+	 * Creates a Demon
+	 * 
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param health - the base health
+	 */
+	public Demon(Level level, int x, int y) {
+		this(level, x, y, 1, 100);
 	}
 
 	/**
