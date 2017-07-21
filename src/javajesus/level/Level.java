@@ -30,6 +30,7 @@ import javajesus.level.story.OrchardValley;
 import javajesus.level.story.SanCisco;
 import javajesus.level.story.SanJuan;
 import javajesus.level.story.TechTopia;
+import javajesus.level.tile.AnimatedTile;
 import javajesus.level.tile.Tile;
 
 /*
@@ -276,10 +277,7 @@ public abstract class Level implements Serializable {
 		}
 
 		// update all tiles
-		for (Tile t : Tile.tileList) {
-			if (t == null) {
-				break;
-			}
+		for (AnimatedTile t : AnimatedTile.tileList) {
 			t.tick();
 		}
 	}

@@ -733,11 +733,6 @@ public class Tile {
 	}
 
 	/**
-	 * Most tiles don't have any logic
-	 */
-	public void tick() {}
-
-	/**
 	 * render()
 	 * Renders the tile on the screen
 	 * 

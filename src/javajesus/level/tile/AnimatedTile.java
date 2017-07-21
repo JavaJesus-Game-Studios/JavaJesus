@@ -1,12 +1,17 @@
 package javajesus.level.tile;
 
+import java.util.ArrayList;
+
 import javajesus.graphics.SpriteSheet;
 
 /*
  * A Tile that changes its appearance every tick
  */
 public class AnimatedTile extends Tile {
-
+	
+	// list of all animated tiles
+	public static final ArrayList<AnimatedTile> tileList = new ArrayList<AnimatedTile>();
+	
 	// last time changed
 	private long lastIterationTime;
 
@@ -36,14 +41,16 @@ public class AnimatedTile extends Tile {
 		this.lastIterationTime = System.currentTimeMillis();
 		this.animationSwitchDelay = animationSwitchDelay;
 		this.length = numTiles;
+		
+		// set to tile list
+		tileList.add(this);
 	}
 
 	/**
 	 * Handles the animation
 	 */
-	@Override
 	public void tick() {
-
+		
 		// update the xTile
 		if ((System.currentTimeMillis() - lastIterationTime) >= (animationSwitchDelay)) {
 			lastIterationTime = System.currentTimeMillis();

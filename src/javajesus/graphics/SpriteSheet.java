@@ -38,7 +38,7 @@ public class SpriteSheet implements Serializable {
     ///// ANIMATED /////
     public static SpriteSheet fireSmall = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/fire_8Bit.png", 5);
     public static SpriteSheet fireLarge = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/fire_16Bit.png", 10);
-    public static SpriteSheet waves = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/waves.png", 8);
+    public static SpriteSheet waves = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/waves.png", 5);
     public static SpriteSheet waveTransitions = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/wave_transition.png", 5);
     
     ///// EFFECTS /////
