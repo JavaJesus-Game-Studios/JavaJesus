@@ -7,3 +7,4 @@ res/Saves/JavaTest.txt
 res/Saves/JavaTest.txt
 *.ser
 res/WORLD_DATA/DESIGNER/Temp
+.DS_Store
