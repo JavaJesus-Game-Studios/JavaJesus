@@ -440,7 +440,7 @@ public class Tile {
 				new int[] { 0xFF753003, 0xFF291900, 0xFF000000 });
 		public static final Tile SHACKFLOOR = new Tile(180, false, 0xFF944500, 2, 0, SpriteSheet.floors, 
 				new int[] { 0xFF753003, 0xFF291900, 0xFF000000 });
-		public static final Tile STONE = new Tile(181, true, 0xFF555555, 3, 0, SpriteSheet.floors,
+		public static final Tile STONEFLOOR = new Tile(181, false, 0xFF555555, 3, 0, SpriteSheet.floors,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
 		public static final Tile CHECKERED_TILE = new Tile(182, false, 0xFFe3350c, 4, 0, SpriteSheet.floors,
 				new int[] { 0xFF111111, 0xFF111111, 0xFFFFFFFF });
