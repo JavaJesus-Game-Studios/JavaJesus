@@ -24,7 +24,7 @@ public class SandboxIslandLevel extends Level {
 	 * Creates a fixed island map
 	 */
 	public SandboxIslandLevel() {
-		super("/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/island.png", true, "Island Map", new Point(788, 792));
+		super("/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/island", true, "Island Map", new Point(788, 792));
 	}
 
 	protected NPC[] getNPCPlacement() {

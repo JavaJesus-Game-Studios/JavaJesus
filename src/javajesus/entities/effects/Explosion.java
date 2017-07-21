@@ -16,27 +16,27 @@ import javajesus.level.Level;
  */
 public class Explosion extends Entity {
 
-	// y tile on spritesheet
-	private int yTile;
-	
 	// x offset that increases over time
 	private int xOffset;
-	
+
 	// internal timer
 	private int tickCount;
 
 	// the number of ticks per animation segment
 	private static final int ANIMATION_LENGTH = 5;
-	
+
+	// the number of animation segments
+	private static final int EXPLOSION_LENGTH = 14;
+
 	// damage per tick to mobs inside
 	private static final int DPT = 1;
-	
+
 	// spritesheet for explosions
 	private static final SpriteSheet sheet = SpriteSheet.explosionSmall;
-	
+
 	// color set of the explosion
 	private static final int[] color = { 0xFFFF9900, 0xFFFF3C00, 0xFFFF0000 };
-	
+
 	// size of a box in the spritesheet
 	private static final int MODIFIER = 8;
 
@@ -49,13 +49,10 @@ public class Explosion extends Entity {
 	 */
 	public Explosion(Level level, int x, int y) {
 		super(level, x, y);
-		
+
 		// play an explosion sound
 		SoundHandler.play(SoundHandler.explosion);
-		
-		// instance data
-		this.yTile = 4;
-		
+
 		// set collision bounds
 		setBounds(getX() - MODIFIER, getY() - MODIFIER, MODIFIER * 2, MODIFIER * 2);
 	}
@@ -71,7 +68,7 @@ public class Explosion extends Entity {
 		}
 
 		// if no more animations, remove it
-		if (xOffset > 26) {
+		if (xOffset >= (EXPLOSION_LENGTH * 2)) {
 			getLevel().remove(this);
 		}
 
@@ -88,19 +85,19 @@ public class Explosion extends Entity {
 	 * Displays the explosion on the screen
 	 */
 	public void render(Screen screen) {
-		
+
 		// render top to bottom
 		for (int i = 0; i < 2; i++) {
 
 			// render left to right
 			for (int j = 0; j < 2; j++) {
 
-				screen.render(getX() - MODIFIER + (MODIFIER * j), getY() - MODIFIER + (MODIFIER * i),
-				        xOffset + j, yTile + i, sheet, false, color);
+				screen.render(getX() - MODIFIER + (MODIFIER * j), getY() - MODIFIER + (MODIFIER * i), xOffset + j, i,
+				        sheet, false, color);
 
 			}
 		}
-		
+
 	}
 
 	/**

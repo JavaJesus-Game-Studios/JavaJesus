@@ -14,7 +14,7 @@ public class RoadLevel extends Level {
 	private static final long serialVersionUID = 4367488134635605719L;
 
 	public RoadLevel() {
-		super("/WORLD_DATA/TESTER_LEVELS/road_tester.png", true, "Road Level", new Point(50, 50));
+		super("/WORLD_DATA/TESTER_LEVELS/road_tester", true, "Road Level", new Point(50, 50));
 	}
 
 	@Override

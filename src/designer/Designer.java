@@ -205,11 +205,11 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 		
 	}
 	
+	/**
+	 * Not used
+	 */
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseClicked(MouseEvent arg0) {}
 
 
 	/**
@@ -253,11 +253,11 @@ public class Designer extends JPanel implements MouseListener, ActionListener{
 	}
 
 
+	/**
+	 * Not used
+	 */
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent arg0) {}
 
 
 	/**

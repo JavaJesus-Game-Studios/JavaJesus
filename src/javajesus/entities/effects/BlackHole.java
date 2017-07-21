@@ -31,6 +31,9 @@ public class BlackHole extends Entity {
 
 	// the number of ticks per animation segment
 	private static final int ANIMATION_LENGTH = 20;
+	
+	// the number of animation segments
+	private static final int EXPLOSION_LENGTH = 14;
 
 	// damage per tick to mobs inside
 	private static final int DPT = 1;
@@ -39,7 +42,7 @@ public class BlackHole extends Entity {
 	private static final SpriteSheet sheet = SpriteSheet.explosionLarge;
 
 	// color of the black hole
-	private static final int[] color = { 0xFF000000, 0xFF000000, 0xFF000000 };
+	private static final int[] color = { 0xFFFF9900, 0xFFFF3C00, 0xFFFF0000 };
 
 	// box size on spritesheet
 	private static final int MODIFIER = 8;
@@ -71,7 +74,7 @@ public class BlackHole extends Entity {
 		}
 
 		// animation is over
-		if (xOffset > (14 * 4)) {
+		if (xOffset >= (EXPLOSION_LENGTH * 4)) {
 			// remove the blackhole
 			getLevel().remove(this);
 
@@ -117,7 +120,7 @@ public class BlackHole extends Entity {
 	 * Display the black hole
 	 */
 	public void render(Screen screen) {
-
+		
 		// top to bottom
 		for (int i = 0; i < 4; i++) {
 

@@ -23,7 +23,7 @@ public class HeightMapTile implements Serializable {
 	}
 	
 	public int tile() {
-		return tile;
+		return tile & 0x000000FF;
 	}
 	
 	public boolean groundCheck() {

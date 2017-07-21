@@ -74,7 +74,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	private int pageId;
 
 	// the randomly generated background level
-	public static final Level level = new RandomLevel(500, 500, new Point(10, 10), true);
+	public static final Level level = new RandomLevel(200, 200, new Point(10, 10), true);
 
 	// the image of the level
 	private static final BufferedImage image =
@@ -357,7 +357,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		switch (id) {
 
 		case STORY: {
-			this.pageId = STORYMENU;
+			//this.pageId = STORYMENU;
 			return;
 		}
 		case SANDBOX: {

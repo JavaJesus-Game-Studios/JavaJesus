@@ -64,7 +64,7 @@ public class RandomLevel extends Level {
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[row].length; col++) {
 				int tile = col + row * getWidth();
-				if (heightmap[row][col].tile() < 500) {
+				if (heightmap[row][col].tile() < getWidth()) {
 					levelTiles[tile] = heightmap[row][col].tile();
 				}
 				if (heightmap[row][col].getHouse()) {

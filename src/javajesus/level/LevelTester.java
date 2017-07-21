@@ -76,7 +76,7 @@ public class LevelTester extends Level {
 	 * Creates  Tester Level
 	 */
 	public LevelTester() {
-		super("/WORLD_DATA/TESTER_LEVELS/tile_tester.png", true,
+		super("/WORLD_DATA/TESTER_LEVELS/tile_tester", true,
 				NAME, new Point(150, 100));
 	}
 
