@@ -4,11 +4,12 @@ import java.awt.Rectangle;
 
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
+import javajesus.save.Serializable;
 
 /*
  * Something that is rendered on the screen on a level with an x and y coordinate
  */
-public abstract class Entity {
+public abstract class Entity implements Serializable {
 	
 	// IDs used in saving and loading
 	public static final byte DESTRUCTIBLE_TILE = 0, FIRE_ENTITY = 1, PLAYER = 2, SPAWNER = 3, CENTAUR = 4, CYCLOPS = 5,
@@ -169,12 +170,20 @@ public abstract class Entity {
 		return seconds * 60;
 	}
 	
-	/**
-	 * @return X and Y data of the entity
-	 * First 16 bits is X, second 16 bits is Y
+	/** First Byte: TYPE
+	 *  Then Short: getX
+	 *  Then Short: getY
+	 *  Then Short: getMaxHealth
+	 *  Then Byte: Extra
+	 * @return the compressed data in a long
+	 * TODO make this abstract and implement in each class
 	 */
-	public final int getData() {
-		return (x << 16) | y;
+	public long getData() {
+		
+		// Entity will implement by using
+		// return SaveData.type1/type2/type3/type4
+		
+		return 0;
 	}
 	
 	/**
