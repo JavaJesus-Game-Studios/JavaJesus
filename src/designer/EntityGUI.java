@@ -52,6 +52,9 @@ public class EntityGUI extends JPanel {
 		image = new BufferedImage(SIZE * xTiles, SIZE * yTiles, BufferedImage.TYPE_INT_RGB);
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		
+		// render the entity
+		entity.render(screen);
+		
 		// set the size
 		setPreferredSize(new Dimension(panelWidth, panelHeight));
 		
@@ -74,9 +77,6 @@ public class EntityGUI extends JPanel {
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
-		
-		// render the entity
-		entity.render(screen);
 		
 		// add screen pixels to image pixels
 		for (int y = 0; y < yTiles * SIZE; y++) {
@@ -102,6 +102,13 @@ public class EntityGUI extends JPanel {
 	 */
 	public int getYTiles() {
 		return yTiles;
+	}
+	
+	/**
+	 * @return the entity it contains
+	 */
+	public Entity getEntity() {
+		return entity;
 	}
 
 }

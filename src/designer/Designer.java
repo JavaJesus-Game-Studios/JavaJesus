@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -56,6 +57,9 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 	// gets the extension for PNGS
 	private static final String PNG = ".png";
+	
+	// gets the name addon for entitiy files
+	private static final String ENTITY = "_entities";
 
 	// height of the window
 	private static final int WIDTH = 1000, HEIGHT = 800;
@@ -68,6 +72,9 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 	// max number of tiles/entities in the list selector
 	private static final int MAX_ENTITIES = 256;
+	
+	// max number of tiles/entities in the list selector
+	private static final int MAX_ENTITIES_LEVEL = LEVEL_WIDTH * LEVEL_HEIGHT;
 
 	// list of all entities that can be placed
 	private static final EntityGUI[] entityList = new EntityGUI[MAX_ENTITIES];
@@ -88,7 +95,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	private final JPanel leftMain;
 
 	// zoom scale of the tiles
-	private int zoomScale = 8;
+	public static int zoomScale = 8;
 
 	// size
 	private int size = 1;
@@ -310,6 +317,10 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 					// entity is selected
 				} else {
+					
+					// the source tile contains the entity
+					tile.addEntity(selectedEntity.getEntity());
+					
 					// draw the entity
 					for (int x = 0; x < selectedEntity.getXTiles(); x++) {
 						for (int y = 0; y < selectedEntity.getYTiles(); y++) {
@@ -388,7 +399,10 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 					// selected entity is not null
 				} else {
-
+					
+					// the source tile contains the entity
+					tile.addEntity(selectedEntity.getEntity());
+					
 					// draw the entity
 					for (int x = 0; x < selectedEntity.getXTiles(); x++) {
 						for (int y = 0; y < selectedEntity.getYTiles(); y++) {
@@ -564,35 +578,71 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 		// tile data
 		byte[] data = new byte[LEVEL_WIDTH * LEVEL_HEIGHT];
+		
+		// entity data and index
+		byte[][] entities = new byte[MAX_ENTITIES_LEVEL][];
+		int index = 0;
 
 		// loop through all the children
 		for (int i = 0; i < content.getComponentCount(); i++) {
+			
+			// get the tile
+			TileGUI tile = (TileGUI) content.getComponent(i);
 
 			// each component is a tile GUI
-			data[i] = ((TileGUI) content.getComponent(i)).getTile().getId();
+			data[i] = tile.getTile().getId();
+			
+			// check if there is an entity
+			if (tile.entityExists()) {
+				entities[index++] = ByteBuffer.allocate(9).put(tile.getEntityId()).putLong(tile.getEntityData()).array();
+			}
 		}
 
-		File output = new File(DIR + name.getText());
+		File outputLevel = new File(DIR + name.getText());
+		File outputEntities = new File(DIR + name.getText() + ENTITY);
 
 		// open the output stream
-		try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(output, false))) {
+		try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(outputLevel, false))) {
+			
+			// entity output stream
+			ObjectOutputStream eos = new ObjectOutputStream(new FileOutputStream(outputEntities, false));
 
 			// save the tile data
 			os.write(data);
+			
+			int expected = 0;
+			
+			// save the entity data
+			for (int i = 0; i < entities.length; i++) {
+				
+				// write to file
+				if (entities[i] != null) {
+					eos.write(entities[i]);
+					expected += 9;
+					
+					// no more entities in list
+				} else {
+					break;
+				}
+			}
+			System.out.println("Expected: " + expected);
+			
+			// free resources
+			eos.close();
 
 		} catch (FileNotFoundException e) {
 
 			System.err.println("Making Directory: " + DIR);
 
 			// make the directory and try again
-			if (output.mkdirs()) {
+			if (outputLevel.mkdirs()) {
 				save();
 			}
 
 			// output stream could not open
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} 
 
 	}
 
@@ -687,10 +737,13 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	private void load() {
 
 		// open the file
-		File input = new File(DIR + name.getText());
+		File inputLevel = new File(DIR + name.getText());
+		File inputEntities = new File(DIR + name.getText() + ENTITY);
 
-		// open the output stream
-		try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(input))) {
+		try {
+			
+			// open the output stream
+			ObjectInputStream is = new ObjectInputStream(new FileInputStream(inputLevel));
 
 			// tile data
 			byte[] data = new byte[LEVEL_WIDTH * LEVEL_HEIGHT];
@@ -700,7 +753,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			while (is.available() > 0) {
 				data[counter++] = is.readByte();
 			}
-
+			
 			// loop through all the children
 			for (int i = 0; i < content.getComponentCount(); i++) {
 
@@ -719,9 +772,58 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 				}
 
 			}
+			
+			// free resources
+			is.close();
+			
+			// create an input stream for entities
+			ObjectInputStream eis = new ObjectInputStream(new FileInputStream(inputEntities));
+			System.out.println("Received: " + eis.available());
+			while (eis.available() >= 9) {
+				
+				// ID of entity
+				byte id = eis.readByte();
+				
+				// type not needed
+				eis.readByte();
+				
+				// coordinates
+				int xPos = (eis.readShort() & 0x0000FFFF)  * zoomScale / 8;
+				int yPos = (eis.readShort() & 0x0000FFFF) * zoomScale / 8;
+				
+				// health and extra not needed
+				eis.readShort();
+				eis.readByte();
+				
+				// get the entity
+				EntityGUI e = getEntity(id);
+				
+				// add the entity to the tile
+				((TileGUI) content.getComponentAt(xPos, yPos)).addEntity(e.getEntity());
+
+				// draw the entity
+				for (int x = 0; x < e.getXTiles(); x++) {
+					for (int y = 0; y < e.getYTiles(); y++) {
+
+						// next tile over
+						TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale),
+						        yPos + (y * zoomScale));
+
+						// render if the tile exists
+						if (next != null) {
+							next.render(e, x, y);
+						}
+					}
+				}
+				
+			}
+			
+			// free resources
+			eis.close();
 
 		} catch (Exception e) {
 			System.err.println("Could not load file: " + DIR + name.getText());
+			e.printStackTrace();
 		}
 
 	}
@@ -800,17 +902,17 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	 * @param id - the ID in the save file
 	 * @return the entity based on the ID
 	 */
-	private Entity getEntity(int id) {
+	private EntityGUI getEntity(int id) {
 
 		switch (id) {
 		case Entity.DESTRUCTIBLE_TILE:
-			return new DestructibleTile(null, 0, 0);
+			return new EntityGUI(new DestructibleTile(null, 0, 0), 0, 0, 1, 1);
 		case Entity.FIRE_ENTITY:
-			return new FireEntity(null, 0, 0);
+			return new EntityGUI(new FireEntity(null, 0, 0), 0, 0, 1, 1);
 		case Entity.STOOL:
-			return new Stool(null, 0, 0);
+			return new EntityGUI(new Stool(null, 0, 0), 0, 0, 1, 1);
 		case Entity.BED:
-			return new Bed(null, 0, 0);
+			return new EntityGUI(new Bed(null, 0, 0), 0, 0, 3, 3);
 		default:
 			return null;
 		}

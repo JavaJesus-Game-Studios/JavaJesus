@@ -126,7 +126,7 @@ public abstract class Entity implements Serializable {
 	 * @param x the x coord
 	 * @param y the y coord
 	 */
-	protected void moveTo(int x, int y) {
+	public void moveTo(int x, int y) {
 		setX(x);
 		setY(y);
 		bounds.setLocation(getX(), getY());

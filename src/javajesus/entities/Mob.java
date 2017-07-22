@@ -880,7 +880,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	 * @param x - the x coord
 	 * @param y - the y coord
 	 */
-	protected void moveTo(int x, int y) {
+	public void moveTo(int x, int y) {
 		super.moveTo(x, y);
 		outerBounds.setLocation(x - OUTER_BOUNDS_RANGE, y - OUTER_BOUNDS_RANGE);
 

@@ -11,6 +11,7 @@ public class SaveData {
 	
 	// position of type data
 	private static final long TYPE_MASK = Long.decode("0x00FFFFFFFFFFFFFF");
+	private static final long EXTRA_MASK = Long.decode("0x00000000000000FF");
 	
 	/**
 	 * Type 1 does not have any additional data
@@ -21,13 +22,13 @@ public class SaveData {
 	public static final long type1(short x, short y) {
 		
 		// construct the data
-		long data = (TYPE1 << 56);
+		long data = (((long) TYPE1) << 56);
 		
 		// add the x
-		data |= (x << 40);
+		data |= (((long) x) << 40);
 		
 		// add the y
-		data |= (y << 24);
+		data |= (((long) y) << 24);
 		
 		return data;
 	}
@@ -46,10 +47,10 @@ public class SaveData {
 		
 		// set the type
 		data &= TYPE_MASK;
-		data |= (TYPE2 << 56);
+		data |= (((long) TYPE2) << 56);
 		
 		// add the health
-		data |= (maxHealth << 8);
+		data |= (((long) maxHealth) << 8);
 		
 		return data;
 	}
@@ -68,10 +69,10 @@ public class SaveData {
 
 		// set the type
 		data &= TYPE_MASK;
-		data |= (TYPE3 << 56);
+		data |= (((long) TYPE3) << 56);
 
 		// add the extra data
-		data |= extra;
+		data |= (extra & EXTRA_MASK);
 
 		return data;
 	}
@@ -88,17 +89,17 @@ public class SaveData {
 		
 		// construct the data
 		long data = type1(x, y);
-
+		
 		// set the type
 		data &= TYPE_MASK;
-		data |= (TYPE4 << 56);
-
+		data |= (((long) TYPE4) << 56);
+		
 		// add the health
-		data |= (maxHealth << 8);
+		data |= (((long) maxHealth) << 8);
 		
 		// add the extra data
-		data |= extra;
-
+		data |= (extra & EXTRA_MASK);
+		
 		return data;
 	}
 

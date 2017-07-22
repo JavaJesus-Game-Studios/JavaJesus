@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
 
@@ -35,6 +36,9 @@ public class TileGUI extends JPanel {
 	
 	// transfer item pixels through a screen class
 	private final Screen screen = new Screen(SIZE, SIZE);
+	
+	// Entity that is on this tile
+	private Entity entity;
 	
 	/**
 	 * TileGUI ctor()
@@ -99,12 +103,53 @@ public class TileGUI extends JPanel {
 	}
 	
 	/**
+	 * @return whether or not an entity is on this tile
+	 */
+	public boolean entityExists() {
+		return entity != null;
+	}
+	
+	/**
+	 * Adds an entity to this tile
+	 * @param e - the entity to add
+	 */
+	public void addEntity(Entity e) {
+		this.entity = e;
+	}
+	
+	/**
+	 * @return the entity ID
+	 */
+	public byte getEntityId() {
+		return entity.getId();
+	}
+	
+	/**
+	 * @return the Entity Data
+	 */
+	public long getEntityData() {
+		
+		// set the entity to the right x and y coords
+		entity.moveTo(getX() * 8 / Designer.zoomScale, getY() * 8 / Designer.zoomScale);
+		
+		// get the data
+		long data = entity.getData();
+		
+		// move the entity back to zero
+		entity.moveTo(0, 0);
+		
+		// return the data
+		return data;
+	}
+	
+	/**
 	 * setTile()
 	 * 
 	 * @param tile - new tile to render
 	 */
 	public void setTile(Tile tile) {
 		this.tile = tile;
+		this.entity = null;
 		
 		// render only if there is an item
 		if (tile != null) {
@@ -142,5 +187,5 @@ public class TileGUI extends JPanel {
 		// draw the image
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 	}
-
+	
 }
