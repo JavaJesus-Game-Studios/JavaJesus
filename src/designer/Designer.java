@@ -12,6 +12,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -598,19 +600,23 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			}
 		}
 
+		// output sources
 		File outputLevel = new File(DIR + name.getText());
 		File outputEntities = new File(DIR + name.getText() + ENTITY);
-
-		// open the output stream
-		try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(outputLevel, false))) {
+		
+		try {
 			
-			// entity output stream
-			ObjectOutputStream eos = new ObjectOutputStream(new FileOutputStream(outputEntities, false));
+			// open the tile output stream
+			BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(outputLevel, false));
 
 			// save the tile data
 			os.write(data);
 			
-			int expected = 0;
+			// close the tile output stream
+			os.close();
+			
+			// entity output stream
+			BufferedOutputStream eos = new BufferedOutputStream(new FileOutputStream(outputEntities, false));
 			
 			// save the entity data
 			for (int i = 0; i < entities.length; i++) {
@@ -618,14 +624,12 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 				// write to file
 				if (entities[i] != null) {
 					eos.write(entities[i]);
-					expected += 9;
 					
 					// no more entities in list
 				} else {
 					break;
 				}
 			}
-			System.out.println("Expected: " + expected);
 			
 			// free resources
 			eos.close();
@@ -736,23 +740,21 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	 */
 	private void load() {
 
-		// open the file
+		// open the input files
 		File inputLevel = new File(DIR + name.getText());
 		File inputEntities = new File(DIR + name.getText() + ENTITY);
 
 		try {
 			
-			// open the output stream
-			ObjectInputStream is = new ObjectInputStream(new FileInputStream(inputLevel));
+			// open the tile input stream
+			BufferedInputStream is = new BufferedInputStream(new FileInputStream(inputLevel));
 
-			// tile data
+			// read into the data tile array
 			byte[] data = new byte[LEVEL_WIDTH * LEVEL_HEIGHT];
-			int counter = 0;
-
-			// read all the bytes in the save file
-			while (is.available() > 0) {
-				data[counter++] = is.readByte();
-			}
+			is.read(data);
+			
+			// free resources
+			is.close();
 			
 			// loop through all the children
 			for (int i = 0; i < content.getComponentCount(); i++) {
@@ -773,27 +775,20 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 			}
 			
-			// free resources
-			is.close();
-			
 			// create an input stream for entities
-			ObjectInputStream eis = new ObjectInputStream(new FileInputStream(inputEntities));
-			System.out.println("Received: " + eis.available());
+			BufferedInputStream eis = new BufferedInputStream(new FileInputStream(inputEntities));
 			while (eis.available() >= 9) {
 				
-				// ID of entity
-				byte id = eis.readByte();
+				// create new data for the entity
+				data = new byte[9];
+				eis.read(data);
 				
-				// type not needed
-				eis.readByte();
+				// ID of entity
+				byte id = data[0];
 				
 				// coordinates
-				int xPos = (eis.readShort() & 0x0000FFFF)  * zoomScale / 8;
-				int yPos = (eis.readShort() & 0x0000FFFF) * zoomScale / 8;
-				
-				// health and extra not needed
-				eis.readShort();
-				eis.readByte();
+				int xPos = (ByteBuffer.wrap(data).getShort(2) & 0x0000FFFF)  * zoomScale / 8;
+				int yPos = (ByteBuffer.wrap(data).getShort(4) & 0x0000FFFF) * zoomScale / 8;
 				
 				// get the entity
 				EntityGUI e = getEntity(id);

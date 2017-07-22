@@ -2,7 +2,7 @@ package javajesus.level;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.io.ObjectInputStream;
+import java.io.BufferedInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -193,26 +193,15 @@ public abstract class Level implements Serializable {
 	private void loadLevelFromFile() {
 		
 		 // open the output stream
-		try (ObjectInputStream is = new ObjectInputStream(Level.class.getResourceAsStream(imagePath))) {
+		try (BufferedInputStream is = new BufferedInputStream(Level.class.getResourceAsStream(imagePath))) {
 			
-			// to track which byte has been read
-			int counter = 0;
+			// loads all the data into a byte stream
+			byte data[] = new byte[levelTiles.length];
+			is.read(data);
 			
-			// read all the bytes in the save file
-			while (is.available() > 0) {
-				
-				// extract the byte
-				int id = 0x000000FF & is.readByte();
-				
-				// TODO random seed for grass and concrete
-				if (id == Tile.GRASS0.getId()) {
-					id = Tile.GRASS().getId();
-				} else if (id == Tile.WASTELAND_GROUND1.getId()) {
-					id = Tile.CONCRETE().getId();
-				}
-				
-				// assign the id
-				levelTiles[counter++] = id;
+			// put the data into level Tiles
+			for (int i = 0; i < levelTiles.length; i++) {
+				levelTiles[i] = data[i] & 0x000000FF;
 			}
 			
 		} catch (Exception e) {
