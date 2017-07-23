@@ -36,6 +36,8 @@ import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
 import javajesus.entities.solid.furniture.*;
+import javajesus.entities.solid.trees.*;
+import javajesus.entities.solid.buildings.*;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
 
@@ -935,6 +937,46 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
             return new EntityGUI(new Television(null, 0, 0), 0, 0, 2, 2);
 		case Entity.THRONE:
             return new EntityGUI(new Throne(null, 0, 0), 0, 0, 2, 3);
+		case Entity.DEAD_SEQUOIA:
+            return new EntityGUI(new DeadSequoia(null, 0, 0), 0, 0, 3, 8);
+		case Entity.SMALL_SEQUOIA:
+            return new EntityGUI(new SmallSequoia(null, 0, 0), 0, 0, 2, 4);
+		case Entity.MEDIUM_SEQUOIA:
+            return new EntityGUI(new MediumSequoia(null, 0, 0), 0, 0, 3, 6);
+		case Entity.LARGE_SEQUOIA:
+            return new EntityGUI(new LargeSequoia(null, 0, 0), 0, 0, 3, 8);
+		case Entity.GENERIC_TREE:
+            return new EntityGUI(new GenericTree(null, 0, 0), 0, 0, 3, 4);
+		case Entity.APARTMENT_HIGH_RISE:
+            return new EntityGUI(new ApartmentHighRise(null, 0, 0), 0, 0, 9, 28);
+		case Entity.CASTLE:
+            return new EntityGUI(new Castle(null, 0, 0), 0, 0, 41, 22);
+		case Entity.CASTLE_TOWER:
+            return new EntityGUI(new CastleTower(null, 0, 0), 0, 0, 12, 22);
+		case Entity.CATHOLIC_CHAPEL:
+            return new EntityGUI(new CatholicChapel(null, 0, 0), 0, 0, 8, 8);
+		case Entity.CATHOLIC_CHURCH:
+            return new EntityGUI(new CatholicChurch(null, 0, 0), 0, 0, 11, 10);
+		case Entity.CAVE_ENTRANCE:
+            return new EntityGUI(new CaveEntrance(null, 0, 0), 0, 0, 6, 5);
+		case Entity.FACTORY:
+            return new EntityGUI(new Factory(null, 0, 0), 0, 0, 13, 11);
+		case Entity.GENERIC_HOSPITAL:
+            return new EntityGUI(new GenericHospital(null, 0, 0), 0, 0, 13, 10);
+		case Entity.GUNSTORE:
+            return new EntityGUI(new GunStore(null, 0, 0), 0, 0, 9, 6);
+		case Entity.HOTEL:
+            return new EntityGUI(new Hotel(null, 0, 0), 0, 0, 13, 10);
+		case Entity.HUT:
+            return new EntityGUI(new Hut(null, 0, 0), 0, 0, 6, 6);
+		case Entity.MINESHAFT:
+            return new EntityGUI(new MineShaft(null, 0, 0), 0, 0, 15, 8);
+		case Entity.MODERN_SKYSCRAPER:
+            return new EntityGUI(new ModernSkyscraper(null, 0, 0), 0, 0, 13, 32);
+		case Entity.NICE_HOUSE:
+            return new EntityGUI(new NiceHouse(null, 0, 0), 0, 0, 7, 8);
+		case Entity.NICE_HOUSE2:
+            return new EntityGUI(new NiceHouse2(null, 0, 0), 0, 0, 7, 8);
 		default:
 			return null;
 		}
