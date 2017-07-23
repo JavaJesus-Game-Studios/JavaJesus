@@ -268,7 +268,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		}
 
 		// render the background tiles
-		level.renderTile(screen, xOffset, yOffset);
+		level.renderTile(screen);
 
 		// set the pixels of the buffered image
 		for (int y = 0; y < screen.getHeight(); y++) {
@@ -555,9 +555,14 @@ public class Launcher extends Canvas implements IGameLogic {
 		}
 		if (xOffset <= 0) {
 			dir = Direction.SOUTH_EAST;
+			xOffset = 0;
 		} else if (xOffset >= w) {
 			dir = Direction.SOUTH_WEST;
+			xOffset = w - 1;
 		}
+		
+		// now set the offset
+		level.setOffset(xOffset, yOffset);
 		
 		if (isClicked) {
 			swordOffset += 10;

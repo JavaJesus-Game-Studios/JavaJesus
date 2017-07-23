@@ -75,7 +75,7 @@ public abstract class Level implements Serializable {
 
 	// the range of how many entities to render/tick on the screen
 	// TODO IMAGE_WIDTH, IMAGE_HEIGHT in the future after changing buildings
-	public static final Rectangle renderRange = new Rectangle(JavaJesus.WINDOW_WIDTH, JavaJesus.WINDOW_HEIGHT);
+	public static final Rectangle renderRange = new Rectangle(JavaJesus.IMAGE_WIDTH, JavaJesus.IMAGE_HEIGHT);
 
 	// names for each main city
 	public static final String BAUTISTA = "Bautista's Domain", EDGE_MAIN = "Edge of the Woods",
@@ -84,10 +84,10 @@ public abstract class Level implements Serializable {
 
 	// instance of the player on the level
 	private Player player;
+	
+	// global offsets for determing the range to display things
+	private int xOffset, yOffset;
 
-	// list of all levels the player visited that need to be saved
-	// private static final transient List<Level> visitedLevels = new
-	// ArrayList<Level>();
 
 	/**
 	 * Creates a level from the specified image path
@@ -278,23 +278,11 @@ public abstract class Level implements Serializable {
 	 * @param xOffset - the xoffset on the screen
 	 * @param yOffset - the yoffset on the screen
 	 */
-	public void renderTile(Screen screen, int xOffset, int yOffset) {
+	public void renderTile(Screen screen) {
 		
-		// if the player moves off-screen, fix the tiles in place
-		if (xOffset < 0)
-			xOffset = 0;
-
-		if (xOffset > ((width << 3) - screen.getWidth()))
-			xOffset = ((width << 3) - screen.getWidth());
-
-		if (yOffset < 0)
-			yOffset = 0;
-
-		if (yOffset > ((height << 3) - screen.getHeight()))
-			yOffset = ((height << 3) - screen.getHeight());
-
+		// set the screen offsets
 		screen.setOffset(xOffset, yOffset);
-
+		
 		// render the tiles visible on the screen
 		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
 			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
@@ -302,6 +290,32 @@ public abstract class Level implements Serializable {
 			}
 
 		}
+	}
+	
+	/**
+	 * Sets offsets for tile and entity rendering
+	 * @param xOffset - x offset
+	 * @param yOffset - y offset
+	 */
+	public void setOffset(int xOffset, int yOffset) {
+		
+		// base offsets
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
+		
+		// if the player moves off-screen, fix the tiles in place
+		if (xOffset < 0)
+			this.xOffset = 0;
+
+		if (xOffset > ((width << 3) - JavaJesus.IMAGE_WIDTH))
+			this.xOffset = ((width << 3) - JavaJesus.IMAGE_WIDTH);
+
+		if (yOffset < 0)
+			this.yOffset = 0;
+
+		if (yOffset > ((height << 3) - JavaJesus.IMAGE_HEIGHT))
+			this.yOffset = ((height << 3) - JavaJesus.IMAGE_HEIGHT);
+		
 	}
 
 	/**
@@ -313,12 +327,8 @@ public abstract class Level implements Serializable {
 	public void renderEntities(Screen screen, Player player) {
 
 		// the range around the player to display the entities
-		if (player.isDriving()) {
-			renderRange.setLocation(player.getVehicle().getX() - JavaJesus.WINDOW_WIDTH / 2, player.getVehicle().getY() - JavaJesus.WINDOW_HEIGHT / 2);
-		} else {
-			renderRange.setLocation(player.getX() - JavaJesus.WINDOW_WIDTH / 2, player.getY() - JavaJesus.WINDOW_HEIGHT / 2);
-		}
-
+		renderRange.setLocation(xOffset, yOffset);
+		
 		// render everything that is behind a building first
 		for (Hideable entity : hideables) {
 

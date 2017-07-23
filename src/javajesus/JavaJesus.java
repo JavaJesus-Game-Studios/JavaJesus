@@ -262,6 +262,9 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 */
 	public void update() {
 		
+		// set level offsets
+		player.getLevel().setOffset(xOffset, yOffset);
+		
 		// only update in the level
 		if (inGame()) {
 			
@@ -305,7 +308,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		}
 
 		// render the level and everything on it
-		player.getLevel().renderTile(screen, xOffset, yOffset);
+		player.getLevel().renderTile(screen);
 		player.getLevel().renderEntities(screen, player);
 		
 		// render collision boxes
