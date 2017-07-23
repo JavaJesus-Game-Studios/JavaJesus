@@ -39,7 +39,7 @@ public class Item implements Serializable {
 	private int health;
 
 	// A set of all Items types in the game
-	public static final Item[] items = new Item[256];
+	private static final Item[] items = new Item[256];
 	
 	// whether or not the item can be equipped
 	private boolean equipable;
@@ -274,6 +274,14 @@ public class Item implements Serializable {
 	public int getQuantity() {
 		return amount;
 	}
+	
+	/**
+	 * Sets the amount of this item
+	 * @param num - the amount of this item
+	 */
+	public void setQuanity(int num) {
+		amount = num;
+	}
 
 	/**
 	 * @return the colorset for this item
@@ -319,6 +327,23 @@ public class Item implements Serializable {
 	 */
 	public int getYTile() {
 		return yTile;
+	}
+	
+	/**
+	 * Gets the Item from the ID
+	 * 
+	 * @param id - the ID of the item
+	 * @return - the item associated with that ID
+	 */
+	public static final Item getItem(int id) {
+		return items[id];
+	}
+	
+	/**
+	 * @return the number of items
+	 */
+	public static final int getNumItems() {
+		return items.length;
 	}
 	
 }
