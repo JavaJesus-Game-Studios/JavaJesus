@@ -35,8 +35,7 @@ import javax.swing.JTextField;
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
-import javajesus.entities.solid.furniture.Bed;
-import javajesus.entities.solid.furniture.Stool;
+import javajesus.entities.solid.furniture.*;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
 
@@ -908,6 +907,34 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			return new EntityGUI(new Stool(null, 0, 0), 0, 0, 1, 1);
 		case Entity.BED:
 			return new EntityGUI(new Bed(null, 0, 0), 0, 0, 3, 3);
+		case Entity.BENCH:
+            return new EntityGUI(new Bench(null, 0, 0), 0, 0, 2, 1);
+		case Entity.CHAIR_FRONT:
+            return new EntityGUI(new ChairFront(null, 0, 0), 0, 0, 1, 1);
+		case Entity.CHAIR_SIDE:
+            return new EntityGUI(new ChairSide(null, 0, 0), 0, 0, 1, 1);
+		case Entity.CHEST:
+            return new EntityGUI(new Chest(null, 0, 0), 0, 0, 1, 1);
+		case Entity.COMPUTER_MONITOR:
+            return new EntityGUI(new ComputerMonitor(null, 0, 0), 0, 0, 1, 1);
+		case Entity.COMPUTER_TOWER:
+            return new EntityGUI(new ComputerTower(null, 0, 0), 0, 0, 1, 2);
+		case Entity.DINING_TABLE:
+            return new EntityGUI(new DiningTable(null, 0, 0), 0, 0, 3, 16);
+		case Entity.FILING_CABINET:
+            return new EntityGUI(new FilingCabinet(null, 0, 0), 0, 0, 1, 3);
+		case Entity.LONG_TABLE:
+            return new EntityGUI(new LongTable(null, 0, 0), 0, 0, 3, 2);
+		case Entity.NIGHTSTAND:
+            return new EntityGUI(new Nightstand(null, 0, 0), 0, 0, 1, 2);
+		case Entity.SOFA:
+            return new EntityGUI(new Sofa(null, 0, 0), 0, 0, 3, 2);
+		case Entity.SQUARE_TABLE:
+            return new EntityGUI(new SquareTable(null, 0, 0), 0, 0, 2, 2);
+		case Entity.TELEVISION:
+            return new EntityGUI(new Television(null, 0, 0), 0, 0, 2, 2);
+		case Entity.THRONE:
+            return new EntityGUI(new Throne(null, 0, 0), 0, 0, 2, 3);
 		default:
 			return null;
 		}
