@@ -12,7 +12,7 @@ import javajesus.save.SaveData;
  * A facade that acts like a tile but is actually an entity
  * Basically a tile but can be destroyed
  */
-public class DestructibleTile extends Entity implements Damageable, SolidEntity {
+public class DestructibleTile extends Entity implements Damageable, SolidEntity, Type {
 
 	// amount of times it must be hit before being destroyed
 	private short health, maxHealth;
@@ -26,8 +26,8 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity 
 	// dummy shadow bounds
 	private static final Rectangle shadow = new Rectangle();
 	
-	// Tile it imitates
-	private final Tile tile;
+	// ID of the tile
+	private byte type;
 	
 	/**
 	 * Creates an entity that mimics a Tile
@@ -46,7 +46,7 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity 
 		this.xTile = tile.getXTile();
 		this.yTile = tile.getYTile();
 		this.color = tile.getColor();
-		this.tile = tile;
+		this.type = tile.getId();
 
 	}
 	
@@ -121,7 +121,23 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity 
 
 	@Override
 	public long getData() {
-		return SaveData.type4(getX(), getY(), maxHealth, tile.getId());
+		return SaveData.type4(getX(), getY(), maxHealth, type);
+	}
+
+	@Override
+	public void setMaxHealth(short max) {
+		maxHealth = max;
+		
+	}
+
+	@Override
+	public byte getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(byte type) {
+		this.type = type;
 	}
 
 }

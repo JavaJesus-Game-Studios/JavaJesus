@@ -1,12 +1,16 @@
 package javajesus.entities.npcs;
 
 import javajesus.entities.Entity;
+import javajesus.entities.Type;
 import javajesus.level.Level;
 
-public class Peasant extends NPC {
+public class Peasant extends NPC implements Type {
 
 	// types of peasants
 	public static final int MALE = 0, FEMALE = 1, BOY = 2, GIRL = 3;
+	
+	// the type of peasant
+	private byte type;
 
 	/**
 	 * Peasant ctor()
@@ -17,19 +21,22 @@ public class Peasant extends NPC {
 	 * @param g - type; ex Peasant.MALE
 	 */
 	public Peasant(Level level, int x, int y, int g) {
-		super(level, "Peasant", x, y, 1, 16, 16, 100, new int[] { 0xFF111111,
-				0xFF715B17, 0xFFEDC5AB }, 0, 16, "", 0);
-		calc(g);
+		this(level, x, y, g, "", 0);
 	}
 	
 	public Peasant(Level level, int x, int y, int g, String walkPath, int walkDistance) {
 		super(level, "Peasant", x, y, 1, 16, 16, 100, new int[] { 0xFF111111,
 				0xFF715B17, 0xFFEDC5AB }, 0, 16, walkPath, walkDistance);
-		calc(g);
+		
+		// instance data
+		this.type = (byte) g;
+		
+		// calculate the tile offsets
+		update();
 	}
 	
-	private void calc(int g) {
-		switch (g) {
+	private void update() {
+		switch (type) {
 		case FEMALE: {
 			yTile += 2;
 			break;
@@ -64,6 +71,17 @@ public class Peasant extends NPC {
 	public byte getId() {
 		// TODO Auto-generated method stub
 		return Entity.PEASANT;
+	}
+
+	@Override
+	public byte getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(byte type) {
+		this.type = type;
+		update();
 	}
 
 }

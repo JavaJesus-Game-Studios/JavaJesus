@@ -7,7 +7,9 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JPanel;
 
+import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
+import javajesus.entities.Type;
 import javajesus.graphics.Screen;
 
 public class EntityGUI extends JPanel {
@@ -58,6 +60,24 @@ public class EntityGUI extends JPanel {
 		// set the size
 		setPreferredSize(new Dimension(panelWidth, panelHeight));
 		
+	}
+	
+	/**
+	 * @param health - the max health of this entity
+	 */
+	public void setExtra1(short health) {
+		if (entity instanceof Damageable) {
+			((Damageable) entity).setMaxHealth(health);
+		}
+	}
+
+	/**
+	 * @param type - the type information of this entity
+	 */
+	public void setExtra2(byte type) {
+		if (entity instanceof Type) {
+			((Type) entity).setType(type);
+		}
 	}
 	
 	/**

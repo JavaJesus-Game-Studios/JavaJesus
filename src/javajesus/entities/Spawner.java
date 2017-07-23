@@ -16,7 +16,7 @@ import javajesus.save.SaveData;
 /*
  * An entity that creates other entities
  */
-public class Spawner extends Entity {
+public class Spawner extends Entity implements Type {
 
 	// types of entities to spawn
 	public static final byte DEMON = 0, GANG_MEMBER = 1, HEALTH_PACK = 2, CAR = 3, CYCLOPS = 4, MONKEY = 5, CENTAUR = 6;
@@ -184,6 +184,16 @@ public class Spawner extends Entity {
 	@Override
 	public long getData() {
 		return SaveData.type3(getX(), getY(), type);
+	}
+
+	@Override
+	public byte getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(byte type) {
+		this.type = type;
 	}
 
 }

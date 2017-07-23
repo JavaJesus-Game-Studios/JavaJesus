@@ -576,5 +576,9 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable,
 	public long getData() {
 		return SaveData.type1(getX(), getY());
 	}
+	
+	public void setMaxHealth(short health) {
+		maxHealth = health;
+	}
 
 }

@@ -428,6 +428,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			// entity gui was clicked
 		} else if (e.getSource() instanceof EntityGUI) {
 			selectedEntity = (EntityGUI) e.getSource();
+			new EntityExtrasFrame(selectedEntity);
 		}
 
 		// mouse is held down

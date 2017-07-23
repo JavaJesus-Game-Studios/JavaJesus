@@ -988,8 +988,8 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	/**
 	 * Changes the mob's max health
 	 */
-	public void setMaxHealth(int health) {
-		maxHealth = (short) health;
+	public void setMaxHealth(short health) {
+		maxHealth = health;
 	}
 
 	/**

@@ -12,6 +12,7 @@ import javajesus.entities.Entity;
 import javajesus.entities.LongRange;
 import javajesus.entities.Pickup;
 import javajesus.entities.Player;
+import javajesus.entities.Type;
 import javajesus.entities.projectiles.Bullet;
 import javajesus.graphics.Screen;
 import javajesus.items.Item;
@@ -22,7 +23,7 @@ import javajesus.utility.Direction;
 /*
  * A generic gang member to attack others
  */
-public class GangMember extends Monster implements LongRange {
+public class GangMember extends Monster implements LongRange, Type {
 
 	// the range the gang member will stand when shooting
 	private Ellipse2D.Double standRange;
@@ -237,6 +238,16 @@ public class GangMember extends Monster implements LongRange {
 	@Override
 	public long getData() {
 		return SaveData.type4(getX(), getY(), getMaxHealth(), type);
+	}
+
+	@Override
+	public byte getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(byte type) {
+		this.type = type;
 	}
 
 }

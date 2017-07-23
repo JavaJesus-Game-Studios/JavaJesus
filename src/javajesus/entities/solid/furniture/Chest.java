@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javajesus.entities.Entity;
 import javajesus.entities.SolidEntity;
+import javajesus.entities.Type;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.items.Gun;
@@ -17,7 +18,7 @@ import javajesus.save.SaveData;
 /*
  * Creates a chest that stores items for the player to use
  */
-public class Chest extends Entity implements SolidEntity {
+public class Chest extends Entity implements SolidEntity, Type {
 
 	// color set of the chest
 	private static final int[] color = new int[] { 0xFF111111, 0xFF452909, 0xFFFFE011 };
@@ -36,6 +37,9 @@ public class Chest extends Entity implements SolidEntity {
 
 	// fake shadow, but used to conform to solid entity
 	private static final Rectangle shadow = new Rectangle(0, 0, 0, 0);
+	
+	// loot data
+	private byte lootId;
 
 	/**
 	 * Creates an empty chest
@@ -248,7 +252,17 @@ public class Chest extends Entity implements SolidEntity {
 	@Override
 	public long getData() {
 		// TODO link extra to an inventory ID
-		return SaveData.type3(getX(), getY(), (byte) 0);
+		return SaveData.type3(getX(), getY(), lootId);
+	}
+
+	@Override
+	public byte getType() {
+		return lootId;
+	}
+
+	@Override
+	public void setType(byte type) {
+		this.lootId = type;
 	}
 
 }

@@ -11,6 +11,8 @@ public interface Damageable {
 	
 	public short getMaxHealth();
 	
+	public void setMaxHealth(short max);
+	
 	public void damage(int damage);
 	
 	public Rectangle getBounds();
