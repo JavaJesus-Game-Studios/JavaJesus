@@ -628,7 +628,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 					
 					// no more entities in list
 				} else {
-					
+					break;
 				}
 			}
 			
@@ -725,7 +725,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 						// found a match
 						if (pixels[i] == tile.getPixelColor()) {
 							((TileGUI) content.getComponent(i)).setTile(tile);
-							
+							break;
 						}
 					}
 				}
@@ -769,7 +769,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 						// found a match
 						if (data[i] == tile.getId()) {
 							((TileGUI) content.getComponent(i)).setTile(tile);
-							
+							break;
 						}
 					}
 				}
@@ -856,7 +856,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 						// found a match
 						if (data[i] == tile.getId()) {
 							((TileGUI) content.getComponent(i)).setTile(tile);
-							
+							break;
 						}
 					}
 				}
