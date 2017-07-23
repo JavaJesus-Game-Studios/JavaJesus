@@ -628,7 +628,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 					
 					// no more entities in list
 				} else {
-					break;
+					
 				}
 			}
 			
@@ -725,7 +725,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 						// found a match
 						if (pixels[i] == tile.getPixelColor()) {
 							((TileGUI) content.getComponent(i)).setTile(tile);
-							break;
+							
 						}
 					}
 				}
@@ -769,7 +769,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 						// found a match
 						if (data[i] == tile.getId()) {
 							((TileGUI) content.getComponent(i)).setTile(tile);
-							break;
+							
 						}
 					}
 				}
@@ -856,7 +856,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 						// found a match
 						if (data[i] == tile.getId()) {
 							((TileGUI) content.getComponent(i)).setTile(tile);
-							break;
+							
 						}
 					}
 				}
@@ -903,152 +903,102 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		switch (id) {
 		case Entity.DESTRUCTIBLE_TILE:
 			return new EntityGUI(new DestructibleTile(null, 0, 0), 0, 0, 1, 1);
-			break;
 		case Entity.FIRE_ENTITY:
 			return new EntityGUI(new FireEntity(null, 0, 0), 0, 0, 1, 1);
-			break;
 		case Entity.STOOL:
 			return new EntityGUI(new Stool(null, 0, 0), 0, 0, 1, 1);
-			break;
 		case Entity.BED:
 			return new EntityGUI(new Bed(null, 0, 0), 0, 0, 3, 3);
-			break;
 		case Entity.BENCH:
-            return new EntityGUI(new Bench(null, 0, 0), 0, 0, 2, 1);
-            break;
+			return new EntityGUI(new Bench(null, 0, 0), 0, 0, 2, 1);
 		case Entity.CHAIR_FRONT:
-            return new EntityGUI(new ChairFront(null, 0, 0), 0, 0, 1, 1);
-            break;
+			return new EntityGUI(new ChairFront(null, 0, 0), 0, 0, 1, 1);
 		case Entity.CHAIR_SIDE:
-            return new EntityGUI(new ChairSide(null, 0, 0), 0, 0, 1, 1);
-            break;
+			return new EntityGUI(new ChairSide(null, 0, 0), 0, 0, 1, 1);
 		case Entity.CHEST:
-            return new EntityGUI(new Chest(null, 0, 0), 0, 0, 1, 1);
-            break;
+			return new EntityGUI(new Chest(null, 0, 0), 0, 0, 1, 1);
 		case Entity.COMPUTER_MONITOR:
-            return new EntityGUI(new ComputerMonitor(null, 0, 0), 0, 0, 1, 1);
-            break;
+			return new EntityGUI(new ComputerMonitor(null, 0, 0), 0, 0, 1, 1);
 		case Entity.COMPUTER_TOWER:
-            return new EntityGUI(new ComputerTower(null, 0, 0), 0, 0, 1, 2);
-            break;
+			return new EntityGUI(new ComputerTower(null, 0, 0), 0, 0, 1, 2);
 		case Entity.DINING_TABLE:
-            return new EntityGUI(new DiningTable(null, 0, 0), 0, 0, 3, 16);
-            break;
+			return new EntityGUI(new DiningTable(null, 0, 0), 0, 0, 3, 16);
 		case Entity.FILING_CABINET:
-            return new EntityGUI(new FilingCabinet(null, 0, 0), 0, 0, 1, 3);
-            break;
+			return new EntityGUI(new FilingCabinet(null, 0, 0), 0, 0, 1, 3);
 		case Entity.LONG_TABLE:
-            return new EntityGUI(new LongTable(null, 0, 0), 0, 0, 3, 2);
-            break;
+			return new EntityGUI(new LongTable(null, 0, 0), 0, 0, 3, 2);
 		case Entity.NIGHTSTAND:
-            return new EntityGUI(new Nightstand(null, 0, 0), 0, 0, 1, 2);
-            break;
+			return new EntityGUI(new Nightstand(null, 0, 0), 0, 0, 1, 2);
 		case Entity.SOFA:
-            return new EntityGUI(new Sofa(null, 0, 0), 0, 0, 3, 2);
-            break;
+			return new EntityGUI(new Sofa(null, 0, 0), 0, 0, 3, 2);
 		case Entity.SQUARE_TABLE:
-            return new EntityGUI(new SquareTable(null, 0, 0), 0, 0, 2, 2);
-            break;
+			return new EntityGUI(new SquareTable(null, 0, 0), 0, 0, 2, 2);
 		case Entity.TELEVISION:
-            return new EntityGUI(new Television(null, 0, 0), 0, 0, 2, 2);
-            break;
+			return new EntityGUI(new Television(null, 0, 0), 0, 0, 2, 2);
 		case Entity.THRONE:
-            return new EntityGUI(new Throne(null, 0, 0), 0, 0, 2, 3);
-            break;
+			return new EntityGUI(new Throne(null, 0, 0), 0, 0, 2, 3);
 		case Entity.DEAD_SEQUOIA:
-            return new EntityGUI(new DeadSequoia(null, 0, 0), 0, 0, 3, 8);
-            break;
+			return new EntityGUI(new DeadSequoia(null, 0, 0), 0, 0, 3, 8);
 		case Entity.SMALL_SEQUOIA:
-            return new EntityGUI(new SmallSequoia(null, 0, 0), 0, 0, 2, 4);
-            break;
+			return new EntityGUI(new SmallSequoia(null, 0, 0), 0, 0, 2, 4);
 		case Entity.MEDIUM_SEQUOIA:
-            return new EntityGUI(new MediumSequoia(null, 0, 0), 0, 0, 3, 6);
-            break;
+			return new EntityGUI(new MediumSequoia(null, 0, 0), 0, 0, 3, 6);
 		case Entity.LARGE_SEQUOIA:
-            return new EntityGUI(new LargeSequoia(null, 0, 0), 0, 0, 3, 8);
-            break;
+			return new EntityGUI(new LargeSequoia(null, 0, 0), 0, 0, 3, 8);
 		case Entity.GENERIC_TREE:
-            return new EntityGUI(new GenericTree(null, 0, 0), 0, 0, 3, 4);
-            break;
+			return new EntityGUI(new GenericTree(null, 0, 0), 0, 0, 3, 4);
 		case Entity.APARTMENT_HIGH_RISE:
-            return new EntityGUI(new ApartmentHighRise(null, 0, 0), 0, 0, 9, 28);
-            break;
+			return new EntityGUI(new ApartmentHighRise(null, 0, 0), 0, 0, 9, 28);
 		case Entity.CASTLE:
-            return new EntityGUI(new Castle(null, 0, 0), 0, 0, 41, 22);
-            break;
+			return new EntityGUI(new Castle(null, 0, 0), 0, 0, 41, 22);
 		case Entity.CASTLE_TOWER:
-            return new EntityGUI(new CastleTower(null, 0, 0), 0, 0, 12, 22);
-            break;
+			return new EntityGUI(new CastleTower(null, 0, 0), 0, 0, 12, 22);
 		case Entity.CATHOLIC_CHAPEL:
-            return new EntityGUI(new CatholicChapel(null, 0, 0), 0, 0, 8, 8);
-            break;
+			return new EntityGUI(new CatholicChapel(null, 0, 0), 0, 0, 8, 8);
 		case Entity.CATHOLIC_CHURCH:
-            return new EntityGUI(new CatholicChurch(null, 0, 0), 0, 0, 11, 10);
-            break;
+			return new EntityGUI(new CatholicChurch(null, 0, 0), 0, 0, 11, 10);
 		case Entity.CAVE_ENTRANCE:
-            return new EntityGUI(new CaveEntrance(null, 0, 0), 0, 0, 6, 5);
-            break;
+			return new EntityGUI(new CaveEntrance(null, 0, 0), 0, 0, 6, 5);
 		case Entity.FACTORY:
-            return new EntityGUI(new Factory(null, 0, 0), 0, 0, 13, 11);
-            break;
+			return new EntityGUI(new Factory(null, 0, 0), 0, 0, 13, 11);
 		case Entity.GENERIC_HOSPITAL:
-            return new EntityGUI(new GenericHospital(null, 0, 0), 0, 0, 13, 10);
-            break;
+			return new EntityGUI(new GenericHospital(null, 0, 0), 0, 0, 13, 10);
 		case Entity.GUNSTORE:
-            return new EntityGUI(new GunStore(null, 0, 0), 0, 0, 9, 6);
-            break;
+			return new EntityGUI(new GunStore(null, 0, 0), 0, 0, 9, 6);
 		case Entity.HOTEL:
-            return new EntityGUI(new Hotel(null, 0, 0), 0, 0, 13, 10);
-            break;
+			return new EntityGUI(new Hotel(null, 0, 0), 0, 0, 13, 10);
 		case Entity.HUT:
-            return new EntityGUI(new Hut(null, 0, 0), 0, 0, 6, 6);
-            break;
+			return new EntityGUI(new Hut(null, 0, 0), 0, 0, 6, 6);
 		case Entity.MINESHAFT:
-            return new EntityGUI(new MineShaft(null, 0, 0), 0, 0, 15, 8);
-            break;
-        //Anyone else seeing a weird duplicate case bug for the 2 below? -Andrew
+			return new EntityGUI(new MineShaft(null, 0, 0), 0, 0, 15, 8);
 		case Entity.MODERN_SKYSCRAPER:
-            return new EntityGUI(new ModernSkyscraper(null, 0, 0), 0, 0, 13, 32);
-            break;
+			return new EntityGUI(new ModernSkyscraper(null, 0, 0), 0, 0, 13, 32);
 		case Entity.NICE_HOUSE:
-            return new EntityGUI(new NiceHouse(null, 0, 0), 0, 0, 7, 8);
-            break;
+			return new EntityGUI(new NiceHouse(null, 0, 0), 0, 0, 7, 8);
 		case Entity.NICE_HOUSE2:
-            return new EntityGUI(new NiceHouse2(null, 0, 0), 0, 0, 7, 8);
-            break;
+			return new EntityGUI(new NiceHouse2(null, 0, 0), 0, 0, 7, 8);
 		case Entity.POLICE:
-            return new EntityGUI(new Police(null, 0, 0), 0, 0, 13, 11);
-            break;
+			return new EntityGUI(new Police(null, 0, 0), 0, 0, 13, 11);
 		case Entity.POOR_HOUSE:
-            return new EntityGUI(new PoorHouse(null, 0, 0), 0, 0, 5, 7);
-            break;
+			return new EntityGUI(new PoorHouse(null, 0, 0), 0, 0, 5, 7);
 		case Entity.PRISON:
-            return new EntityGUI(new Prison(null, 0, 0), 0, 0, 13, 10);
-            break;
+			return new EntityGUI(new Prison(null, 0, 0), 0, 0, 13, 10);
 		case Entity.PROJECTS:
-            return new EntityGUI(new Projects(null, 0, 0), 0, 0, 13, 10);
-            break;
+			return new EntityGUI(new Projects(null, 0, 0), 0, 0, 13, 10);
 		case Entity.RANCHERO_HOUSE:
-            return new EntityGUI(new RancheroHouse(null, 0, 0), 0, 0, 13, 8);
-            break;
+			return new EntityGUI(new RancheroHouse(null, 0, 0), 0, 0, 13, 8);
 		case Entity.REFUGEE_TENT:
-            return new EntityGUI(new RefugeeTent(null, 0, 0), 0, 0, 6, 3);
-            break;
+			return new EntityGUI(new RefugeeTent(null, 0, 0), 0, 0, 6, 3);
 		case Entity.RUSSIAN_ORTHODOX_CHURCH:
-            return new EntityGUI(new RussianOrthodoxChurch(null, 0, 0), 0, 0, 12, 10);
-            break;
+			return new EntityGUI(new RussianOrthodoxChurch(null, 0, 0), 0, 0, 12, 10);
 		case Entity.SHANTY_HOUSE:
-            return new EntityGUI(new ShantyHouse(null, 0, 0), 0, 0, 5, 6);
-            break;
+			return new EntityGUI(new ShantyHouse(null, 0, 0), 0, 0, 5, 6);
 		case Entity.SKYSCRAPER:
-            return new EntityGUI(new Skyscraper(null, 0, 0), 0, 0, 11, 32);
-            break;
+			return new EntityGUI(new Skyscraper(null, 0, 0), 0, 0, 11, 32);
 		case Entity.TIPPEE:
-            return new EntityGUI(new Tippee(null, 0, 0), 0, 0, 32, 50);
-            break;
+			return new EntityGUI(new Tippee(null, 0, 0), 0, 0, 32, 50);
 		case Entity.WAREHOUSE:
-            return new EntityGUI(new Warehouse(null, 0, 0), 0, 0, 13, 8);
-            break;
+			return new EntityGUI(new Warehouse(null, 0, 0), 0, 0, 13, 8);
 		default:
 			return null;
 		}
