@@ -20,7 +20,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import javajesus.items.Item;
 
@@ -48,15 +51,13 @@ public class LootEditor extends JPanel implements ActionListener {
 	// list of items displayed in the current loot table
 	private static ArrayList<Item> items;
 	private static ArrayList<Integer> amounts;
+	private static ArrayList<JJTextField> chances;
 
 	// list of currently selected button
 	private LootButton selected;
 
 	// the panel in the middle
 	private final JPanel middle, header;
-
-	// the chance modifier of each item
-	private int chance = 100;
 
 	/**
 	 * Main method
@@ -130,14 +131,14 @@ public class LootEditor extends JPanel implements ActionListener {
 
 		// add the labels
 		middle.add(header);
-
+		
 		// now iterate through all iems
 		for (int i = 0; i < items.size(); i++) {
 			Item e = items.get(i);
 			JPanel temp = new JPanel(new GridLayout(1, 3));
 			temp.add(new JJLabel(e.getName()));
 			temp.add(new JJLabel(String.valueOf(amounts.get(i))));
-			temp.add(new JJLabel(String.valueOf(selected.getChance())));
+			temp.add(chances.get(i));
 			temp.setMaximumSize(new Dimension(Integer.MAX_VALUE, CELL_HEIGHT));
 			middle.add(temp);
 		}
@@ -203,8 +204,8 @@ public class LootEditor extends JPanel implements ActionListener {
 			// set the items
 			items = b.getItems();
 			amounts = b.getAmounts();
+			chances = b.getChances();
 			this.selected = b;
-			this.chance = b.getChance();
 
 			// loot weight item adjuster clicked
 		} else if (e.getSource() instanceof LootWeightButton && selected != null) {
@@ -238,6 +239,7 @@ public class LootEditor extends JPanel implements ActionListener {
 			} else if (b.getId() == LootWeightButton.ADD) {
 				items.add(item);
 				amounts.add(1);
+				chances.add(new JJTextField(100));
 			}
 
 			// now update the save file
@@ -245,7 +247,9 @@ public class LootEditor extends JPanel implements ActionListener {
 		}
 
 		// now update the display
-		update();
+		if (items != null) {
+			update();
+		}
 	}
 
 	/**
@@ -264,15 +268,13 @@ public class LootEditor extends JPanel implements ActionListener {
 		// open the output stream
 		try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(output))) {
 
-			// first write the chance byte
-			out.write(chance);
-
 			// now iterate through the item array
 			for (int i = 0; i < items.size(); i++) {
 
 				// write out the item data
 				out.write(items.get(i).getId());
 				out.write(amounts.get(i));
+				out.write(Byte.parseByte(chances.get(i).getText()));
 
 			}
 
@@ -293,12 +295,10 @@ public class LootEditor extends JPanel implements ActionListener {
 		// unique ID of the button
 		private int id;
 
-		// the chance of each item appearing
-		private int chance;
-
 		// list of items from this loot table
 		private final ArrayList<Item> items = new ArrayList<Item>();
 		private final ArrayList<Integer> amounts = new ArrayList<Integer>();
+		private final ArrayList<JJTextField> chances = new ArrayList<JJTextField>();
 
 		/**
 		 * Creates a button with an associated ID
@@ -332,11 +332,8 @@ public class LootEditor extends JPanel implements ActionListener {
 				// create the input stream
 				try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(input))) {
 
-					// read the chance byte
-					chance = in.read();
-
 					// now load in the Items
-					while (in.available() >= 2) {
+					while (in.available() >= 3) {
 
 						// load the item
 						Item e = Item.getItem(in.read());
@@ -344,6 +341,7 @@ public class LootEditor extends JPanel implements ActionListener {
 						// add it to the list
 						items.add(e);
 						amounts.add(in.read());
+						chances.add(new JJTextField(in.read()));
 					}
 
 				} catch (IOException e) {
@@ -369,8 +367,8 @@ public class LootEditor extends JPanel implements ActionListener {
 		/**
 		 * @return the chance for each item
 		 */
-		public int getChance() {
-			return chance;
+		public ArrayList<JJTextField> getChances() {
+			return chances;
 		}
 
 		/**
@@ -455,6 +453,56 @@ public class LootEditor extends JPanel implements ActionListener {
 			setAlignmentX(Component.CENTER_ALIGNMENT);
 		}
 
+	}
+	
+	/*
+	 * JText Field with added functionality
+	 */
+	private class JJTextField extends JTextField implements DocumentListener {
+		
+		// serialization
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * @param chance - chance displayed
+		 */
+		private JJTextField(int chance) {
+			super(String.valueOf(chance));
+			
+			getDocument().addDocumentListener(this);
+		}
+		
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			
+			try {
+				Integer.parseInt(getText());
+				save();
+			} catch (NumberFormatException exc) {	
+				System.err.println("Value not byte!");
+			}
+			
+		}
+
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			try {
+				Integer.parseInt(getText());
+				save();
+			} catch (NumberFormatException exc) {	
+				System.err.println("Value not byte!");
+			}
+		}
+
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			try {
+				Integer.parseInt(getText());
+				save();
+			} catch (NumberFormatException exc) {	
+				System.err.println("Value not byte!");
+			}
+		}
 	}
 
 }
