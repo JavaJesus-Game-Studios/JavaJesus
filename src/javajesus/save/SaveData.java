@@ -278,152 +278,157 @@ public class SaveData {
 	 */
 	private static final Entity getEntity(int id, Level level, short x, short y) {
 
-		switch (id) {
-		case Entity.DESTRUCTIBLE_TILE:
-		    return new DestructibleTile(level, x, y);
-		case Entity.FIRE_ENTITY:
-		    return new FireEntity(level, x, y);
-		case Entity.STOOL:
-		    return new Stool(level, x, y);
-		case Entity.BED:
-		    return new Bed(level, x, y);
-		case Entity.BENCH:
-		    return new Bench(level, x, y);
-		case Entity.CHAIR_FRONT:
-		    return new ChairFront(level, x, y);
-		case Entity.CHAIR_SIDE:
-		    return new ChairSide(level, x, y);
-		case Entity.CHEST:
-		    return new Chest(level, x, y);
-		case Entity.COMPUTER_MONITOR:
-		    return new ComputerMonitor(level, x, y);
-		case Entity.COMPUTER_TOWER:
-		    return new ComputerTower(level, x, y);
-		case Entity.DINING_TABLE:
-		    return new DiningTable(level, x, y);
-		case Entity.FILING_CABINET:
-		    return new FilingCabinet(level, x, y);
-		case Entity.LONG_TABLE:
-		    return new LongTable(level, x, y);
-		case Entity.NIGHTSTAND:
-		    return new Nightstand(level, x, y);
-		case Entity.SOFA:
-		    return new Sofa(level, x, y);
-		case Entity.SQUARE_TABLE:
-		    return new SquareTable(level, x, y);
-		case Entity.TELEVISION:
-		    return new Television(level, x, y);
-		case Entity.THRONE:
-		    return new Throne(level, x, y);
-		case Entity.DEAD_SEQUOIA:
-		    return new DeadSequoia(level, x, y);
-		case Entity.SMALL_SEQUOIA:
-		    return new SmallSequoia(level, x, y);
-		case Entity.MEDIUM_SEQUOIA:
-		    return new MediumSequoia(level, x, y);
-		case Entity.LARGE_SEQUOIA:
-		    return new LargeSequoia(level, x, y);
-		case Entity.GENERIC_TREE:
-		    return new GenericTree(level, x, y);
-		case Entity.APARTMENT_HIGH_RISE:
-		    return new ApartmentHighRise(level, x, y);
-		case Entity.CASTLE:
-		    return new Castle(level, x, y);
-		case Entity.CASTLE_TOWER:
-		    return new CastleTower(level, x, y);
-		case Entity.CATHOLIC_CHAPEL:
-		    return new CatholicChapel(level, x, y);
-		case Entity.CATHOLIC_CHURCH:
-		    return new CatholicChurch(level, x, y);
-		case Entity.CAVE_ENTRANCE:
-		    return new CaveEntrance(level, x, y);
-		case Entity.FACTORY:
-		    return new Factory(level, x, y);
-		case Entity.GENERIC_HOSPITAL:
-		    return new GenericHospital(level, x, y);
-		case Entity.GUNSTORE:
-		    return new GunStore(level, x, y);
-		case Entity.HOTEL:
-		    return new Hotel(level, x, y);
-		case Entity.HUT:
-		    return new Hut(level, x, y);
-		case Entity.MINESHAFT:
-		    return new MineShaft(level, x, y);
-		case Entity.MODERN_SKYSCRAPER:
-		    return new ModernSkyscraper(level, x, y);
-		case Entity.NICE_HOUSE:
-		    return new NiceHouse(level, x, y);
-		case Entity.NICE_HOUSE2:
-		    return new NiceHouse2(level, x, y);
-		case Entity.POLICE:
-		    return new Police(level, x, y);
-		case Entity.POOR_HOUSE:
-		    return new PoorHouse(level, x, y);
-		case Entity.PRISON:
-		    return new Prison(level, x, y);
-		case Entity.PROJECTS:
-		    return new Projects(level, x, y);
-		case Entity.RANCHERO_HOUSE:
-		    return new RancheroHouse(level, x, y);
-		case Entity.REFUGEE_TENT:
-		    return new RefugeeTent(level, x, y);
-		case Entity.RUSSIAN_ORTHODOX_CHURCH:
-		    return new RussianOrthodoxChurch(level, x, y);
-		case Entity.SHANTY_HOUSE:
-		    return new ShantyHouse(level, x, y);
-		case Entity.SKYSCRAPER:
-		    return new Skyscraper(level, x, y);
-		case Entity.TIPPEE:
-		    return new Tippee(level, x, y);
-		case Entity.WAREHOUSE:
-		    return new Warehouse(level, x, y);
-		case Entity.GREAT_TREE:
-		    return new GreatTree(level, x, y);
-		case Entity.TREE_HOUSE:
-		    return new TreeHouse(level, x, y);
-		case Entity.UC_GRIZZLY:
-		    return new UCGrizzly(level, x, y);
-		case Entity.OAKWOOD_CITY_HALL:
-		    return new OakwoodCityHall(level, x, y);
-		case Entity.CHINATOWN_HOUSE:
-		    return new ChinatownHouse(level, x, y);
-		case Entity.RUSSIAN_CLUB:
-		    return new RussianClub(level, x, y);
-		case Entity.SAN_CISCO_CITY_HALL:
-		    return new SanCiscoCityHall(level, x, y);
-		case Entity.SAN_CISCO_SKYSCRAPER:
-		    return new SanCiscoSkyscraper(level, x, y);
-		case Entity.TRIAD_HQ:
-		    return new TriadHQ(level, x, y);
-		case Entity.JUNGLE_HQ:
-		    return new JungleHQ(level, x, y);
-		case Entity.QUACKER_HQ:
-		    return new QuackerHQ(level, x, y);
-		case Entity.SAN_JUAN_CITY_HALL:
-		    return new SanJuanCityHall(level, x, y);
-		case Entity.THE_HUB:
-		    return new TheHub(level, x, y);
-		case Entity.SEQUOIA_CINEMA:
-		    return new SequoiaCinema(level, x, y);
-		case Entity.SEQUOIA_SCHOOL:
-		    return new SequoiaSchool(level, x, y);
-		case Entity.CAFE:
-		    return new Cafe(level, x, y);
-		case Entity.CARDINAL_UNIVERSITY:
-		    return new CardinalUniversity(level, x, y);
-		case Entity.PEAR_HQ:
-		    return new PearHQ(level, x, y);
-		case Entity.RADAR_DISH:
-		    return new RadarDish(level, x, y);
-		case Entity.TECHTOPIA_CITY_HALL:
-		    return new TechTopiaCityHall(level, x, y);
-		case Entity.WEIRD_TECH_BUILDING1:
-		    return new WeirdTechBuilding1(level, x, y);
-		case Entity.WEIRD_TECH_BUILDING2:
-		    return new WeirdTechBuilding2(level, x, y);
-
-		default:
-			return null;
+		try {
+		    switch (id) {
+	        case Entity.DESTRUCTIBLE_TILE:
+	            return new DestructibleTile(level, x, y);
+	        case Entity.FIRE_ENTITY:
+	            return new FireEntity(level, x, y);
+	        case Entity.STOOL:
+	            return new Stool(level, x, y);
+	        case Entity.BED:
+	            return new Bed(level, x, y);
+	        case Entity.BENCH:
+	            return new Bench(level, x, y);
+	        case Entity.CHAIR_FRONT:
+	            return new ChairFront(level, x, y);
+	        case Entity.CHAIR_SIDE:
+	            return new ChairSide(level, x, y);
+	        case Entity.CHEST:
+	            return new Chest(level, x, y);
+	        case Entity.COMPUTER_MONITOR:
+	            return new ComputerMonitor(level, x, y);
+	        case Entity.COMPUTER_TOWER:
+	            return new ComputerTower(level, x, y);
+	        case Entity.DINING_TABLE:
+	            return new DiningTable(level, x, y);
+	        case Entity.FILING_CABINET:
+	            return new FilingCabinet(level, x, y);
+	        case Entity.LONG_TABLE:
+	            return new LongTable(level, x, y);
+	        case Entity.NIGHTSTAND:
+	            return new Nightstand(level, x, y);
+	        case Entity.SOFA:
+	            return new Sofa(level, x, y);
+	        case Entity.SQUARE_TABLE:
+	            return new SquareTable(level, x, y);
+	        case Entity.TELEVISION:
+	            return new Television(level, x, y);
+	        case Entity.THRONE:
+	            return new Throne(level, x, y);
+	        case Entity.DEAD_SEQUOIA:
+	            return new DeadSequoia(level, x, y);
+	        case Entity.SMALL_SEQUOIA:
+	            return new SmallSequoia(level, x, y);
+	        case Entity.MEDIUM_SEQUOIA:
+	            return new MediumSequoia(level, x, y);
+	        case Entity.LARGE_SEQUOIA:
+	            return new LargeSequoia(level, x, y);
+	        case Entity.GENERIC_TREE:
+	            return new GenericTree(level, x, y);
+	        case Entity.APARTMENT_HIGH_RISE:
+	            return new ApartmentHighRise(level, x, y);
+	        case Entity.CASTLE:
+	            return new Castle(level, x, y);
+	        case Entity.CASTLE_TOWER:
+	            return new CastleTower(level, x, y);
+	        case Entity.CATHOLIC_CHAPEL:
+	            return new CatholicChapel(level, x, y);
+	        case Entity.CATHOLIC_CHURCH:
+	            return new CatholicChurch(level, x, y);
+	        case Entity.CAVE_ENTRANCE:
+	            return new CaveEntrance(level, x, y);
+	        case Entity.FACTORY:
+	            return new Factory(level, x, y);
+	        case Entity.GENERIC_HOSPITAL:
+	            return new GenericHospital(level, x, y);
+	        case Entity.GUNSTORE:
+	            return new GunStore(level, x, y);
+	        case Entity.HOTEL:
+	            return new Hotel(level, x, y);
+	        case Entity.HUT:
+	            return new Hut(level, x, y);
+	        case Entity.MINESHAFT:
+	            return new MineShaft(level, x, y);
+	        case Entity.MODERN_SKYSCRAPER:
+	            return new ModernSkyscraper(level, x, y);
+	        case Entity.NICE_HOUSE:
+	            return new NiceHouse(level, x, y);
+	        case Entity.NICE_HOUSE2:
+	            return new NiceHouse2(level, x, y);
+	        case Entity.POLICE:
+	            return new Police(level, x, y);
+	        case Entity.POOR_HOUSE:
+	            return new PoorHouse(level, x, y);
+	        case Entity.PRISON:
+	            return new Prison(level, x, y);
+	        case Entity.PROJECTS:
+	            return new Projects(level, x, y);
+	        case Entity.RANCHERO_HOUSE:
+	            return new RancheroHouse(level, x, y);
+	        case Entity.REFUGEE_TENT:
+	            return new RefugeeTent(level, x, y);
+	        case Entity.RUSSIAN_ORTHODOX_CHURCH:
+	            return new RussianOrthodoxChurch(level, x, y);
+	        case Entity.SHANTY_HOUSE:
+	            return new ShantyHouse(level, x, y);
+	        case Entity.SKYSCRAPER:
+	            return new Skyscraper(level, x, y);
+	        case Entity.TIPPEE:
+	            return new Tippee(level, x, y);
+	        case Entity.WAREHOUSE:
+	            return new Warehouse(level, x, y);
+	        case Entity.GREAT_TREE:
+	            return new GreatTree(level, x, y);
+	        case Entity.TREE_HOUSE:
+	            return new TreeHouse(level, x, y);
+	        case Entity.UC_GRIZZLY:
+	            return new UCGrizzly(level, x, y);
+	        case Entity.OAKWOOD_CITY_HALL:
+	            return new OakwoodCityHall(level, x, y);
+	        case Entity.CHINATOWN_HOUSE:
+	            return new ChinatownHouse(level, x, y);
+	        case Entity.RUSSIAN_CLUB:
+	            return new RussianClub(level, x, y);
+	        case Entity.SAN_CISCO_CITY_HALL:
+	            return new SanCiscoCityHall(level, x, y);
+	        case Entity.SAN_CISCO_SKYSCRAPER:
+	            return new SanCiscoSkyscraper(level, x, y);
+	        case Entity.TRIAD_HQ:
+	            return new TriadHQ(level, x, y);
+	        case Entity.JUNGLE_HQ:
+	            return new JungleHQ(level, x, y);
+	        case Entity.QUACKER_HQ:
+	            return new QuackerHQ(level, x, y);
+	        case Entity.SAN_JUAN_CITY_HALL:
+	            return new SanJuanCityHall(level, x, y);
+	        case Entity.THE_HUB:
+	            return new TheHub(level, x, y);
+	        case Entity.SEQUOIA_CINEMA:
+	            return new SequoiaCinema(level, x, y);
+	        case Entity.SEQUOIA_SCHOOL:
+	            return new SequoiaSchool(level, x, y);
+	        case Entity.CAFE:
+	            return new Cafe(level, x, y);
+	        case Entity.CARDINAL_UNIVERSITY:
+	            return new CardinalUniversity(level, x, y);
+	        case Entity.PEAR_HQ:
+	            return new PearHQ(level, x, y);
+	        case Entity.RADAR_DISH:
+	            return new RadarDish(level, x, y);
+	        case Entity.TECHTOPIA_CITY_HALL:
+	            return new TechTopiaCityHall(level, x, y);
+	        case Entity.WEIRD_TECH_BUILDING1:
+	            return new WeirdTechBuilding1(level, x, y);
+	        case Entity.WEIRD_TECH_BUILDING2:
+	            return new WeirdTechBuilding2(level, x, y);
+	        default:
+	            return null;
+	        }
+		    
+		} catch(IOException e) {
+		    e.printStackTrace();
+		    return null;
 		}
 
 	}
