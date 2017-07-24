@@ -130,7 +130,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	// gets the extension for PNGS
 	private static final String PNG = ".png";
 
-	// gets the name addon for entitiy files
+	// gets the name add-on for entity files
 	private static final String ENTITY = "_entities";
 
 	// height of the window
@@ -139,7 +139,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	// number of tiles on level
 	private static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
 
-	// constants for cardlayout
+	// constants for card layout
 	private static final String TILE_DISPLAY = "Tiles", ENTITY_DISPLAY = "Entities";
 
 	// max number of tiles/entities in the list selector
@@ -1039,103 +1039,117 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			entityList[i] = new EntityGUI(new Stool(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 		}
 
-		// add all the unique items
-		entityList[Entity.DESTRUCTIBLE_TILE] = new EntityGUI(new DestructibleTile(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
-		        1, 1);
-		entityList[Entity.FIRE_ENTITY] = new EntityGUI(new FireEntity(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
-		entityList[Entity.BED] = new EntityGUI(new Bed(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 3);
-		entityList[Entity.BENCH] = new EntityGUI(new Bench(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 1);
-		entityList[Entity.CHAIR_FRONT] = new EntityGUI(new ChairFront(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
-		entityList[Entity.CHAIR_SIDE] = new EntityGUI(new ChairSide(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
-		entityList[Entity.CHEST] = new EntityGUI(new Chest(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 1);
-		entityList[Entity.COMPUTER_MONITOR] = new EntityGUI(new ComputerMonitor(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1,
-		        1);
-		entityList[Entity.COMPUTER_TOWER] = new EntityGUI(new ComputerTower(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 2);
-		entityList[Entity.DINING_TABLE] = new EntityGUI(new DiningTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 16);
-		entityList[Entity.FILING_CABINET] = new EntityGUI(new FilingCabinet(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 3);
-		entityList[Entity.LONG_TABLE] = new EntityGUI(new LongTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 2);
-		entityList[Entity.NIGHTSTAND] = new EntityGUI(new Nightstand(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 2);
-		entityList[Entity.SOFA] = new EntityGUI(new Sofa(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 2);
-		entityList[Entity.SQUARE_TABLE] = new EntityGUI(new SquareTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
-		entityList[Entity.STOOL] = new EntityGUI(new Stool(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
-		entityList[Entity.TELEVISION] = new EntityGUI(new Television(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
-		entityList[Entity.THRONE] = new EntityGUI(new Throne(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 3);
-		entityList[Entity.APARTMENT_HIGH_RISE] = new EntityGUI(new ApartmentHighRise(null, 0, 0), PANEL_SIZE,
-		        PANEL_SIZE, 9, 28);
-		entityList[Entity.CASTLE] = new EntityGUI(new Castle(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 41, 22);
-		entityList[Entity.CASTLE_TOWER] = new EntityGUI(new CastleTower(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 12, 22);
-		entityList[Entity.CATHOLIC_CHAPEL] = new EntityGUI(new CatholicChapel(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 8,
-		        8);
-		entityList[Entity.CATHOLIC_CHURCH] = new EntityGUI(new CatholicChurch(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 11,
-		        10);
-		entityList[Entity.CAVE_ENTRANCE] = new EntityGUI(new CaveEntrance(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 5);
-		entityList[Entity.FACTORY] = new EntityGUI(new Factory(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 11);
-		entityList[Entity.GENERIC_HOSPITAL] = new EntityGUI(new GenericHospital(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13,
-		        10);
-		entityList[Entity.GUNSTORE] = new EntityGUI(new GunStore(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 9, 6);
-		entityList[Entity.HOTEL] = new EntityGUI(new Hotel(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 10);
-		entityList[Entity.HUT] = new EntityGUI(new Hut(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 6);
-		entityList[Entity.MINESHAFT] = new EntityGUI(new MineShaft(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 15, 8);
-		entityList[Entity.MODERN_SKYSCRAPER] = new EntityGUI(new ModernSkyscraper(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
-		        13, 32);
-		entityList[Entity.NICE_HOUSE] = new EntityGUI(new NiceHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 7, 8);
-		entityList[Entity.NICE_HOUSE2] = new EntityGUI(new NiceHouse2(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 7, 8);
-		entityList[Entity.POLICE] = new EntityGUI(new Police(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 11);
-		entityList[Entity.POOR_HOUSE] = new EntityGUI(new PoorHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 7);
-		entityList[Entity.PRISON] = new EntityGUI(new Prison(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 10);
-		entityList[Entity.PROJECTS] = new EntityGUI(new Projects(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 10);
-		entityList[Entity.RANCHERO_HOUSE] = new EntityGUI(new RancheroHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 8);
-		entityList[Entity.REFUGEE_TENT] = new EntityGUI(new RefugeeTent(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 3);
-		entityList[Entity.RUSSIAN_ORTHODOX_CHURCH] = new EntityGUI(new RussianOrthodoxChurch(null, 0, 0), PANEL_SIZE,
-		        PANEL_SIZE, 12, 10);
-		entityList[Entity.SHANTY_HOUSE] = new EntityGUI(new ShantyHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 6);
-		entityList[Entity.SKYSCRAPER] = new EntityGUI(new Skyscraper(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 11, 32);
-		entityList[Entity.TIPPEE] = new EntityGUI(new Tippee(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 7);
-		entityList[Entity.WAREHOUSE] = new EntityGUI(new Warehouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 8);
-		entityList[Entity.GREAT_TREE] = new EntityGUI(new GreatTree(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 7, 15);
-		entityList[Entity.TREE_HOUSE] = new EntityGUI(new TreeHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 15);
-		entityList[Entity.UC_GRIZZLY] = new EntityGUI(new UCGrizzly(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 25, 8);
-		entityList[Entity.OAKWOOD_CITY_HALL] = new EntityGUI(new OakwoodCityHall(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
-		        14, 15);
-		entityList[Entity.CHINATOWN_HOUSE] = new EntityGUI(new ChinatownHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 8,
-		        8);
-		entityList[Entity.RUSSIAN_CLUB] = new EntityGUI(new RussianClub(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 19, 8);
-		entityList[Entity.SAN_CISCO_CITY_HALL] = new EntityGUI(new SanCiscoCityHall(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
-		        24, 15);
-		entityList[Entity.SAN_CISCO_SKYSCRAPER] = new EntityGUI(new SanCiscoSkyscraper(null, 0, 0), PANEL_SIZE,
-		        PANEL_SIZE, 27, 85);
-		entityList[Entity.TRIAD_HQ] = new EntityGUI(new TriadHQ(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 24, 22);
-		entityList[Entity.JUNGLE_HQ] = new EntityGUI(new JungleHQ(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 19, 12);
-		entityList[Entity.QUACKER_HQ] = new EntityGUI(new QuackerHQ(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 17, 13);
-		entityList[Entity.SAN_JUAN_CITY_HALL] = new EntityGUI(new SanJuanCityHall(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
-		        15, 15);
-		entityList[Entity.THE_HUB] = new EntityGUI(new TheHub(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 21);
-		entityList[Entity.SEQUOIA_CINEMA] = new EntityGUI(new SequoiaCinema(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 15,
-		        15);
-		entityList[Entity.SEQUOIA_SCHOOL] = new EntityGUI(new SequoiaSchool(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 21,
-		        15);
-		entityList[Entity.CAFE] = new EntityGUI(new Cafe(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 8);
-		entityList[Entity.CARDINAL_UNIVERSITY] = new EntityGUI(new CardinalUniversity(null, 0, 0), PANEL_SIZE,
-		        PANEL_SIZE, 25, 7);
-		entityList[Entity.PEAR_HQ] = new EntityGUI(new PearHQ(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 24);
-		entityList[Entity.RADAR_DISH] = new EntityGUI(new RadarDish(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 11, 17);
-		entityList[Entity.TECHTOPIA_CITY_HALL] = new EntityGUI(new TechTopiaCityHall(null, 0, 0), PANEL_SIZE,
-		        PANEL_SIZE, 12, 12);
-		entityList[Entity.WEIRD_TECH_BUILDING1] = new EntityGUI(new WeirdTechBuilding1(null, 0, 0), PANEL_SIZE,
-		        PANEL_SIZE, 6, 17);
-		entityList[Entity.WEIRD_TECH_BUILDING2] = new EntityGUI(new WeirdTechBuilding2(null, 0, 0), PANEL_SIZE,
-		        PANEL_SIZE, 6, 12);
-		entityList[Entity.DEAD_SEQUOIA] = new EntityGUI(new DeadSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 8);
-		entityList[Entity.GENERIC_TREE] = new EntityGUI(new GenericTree(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 4);
-		entityList[Entity.LARGE_SEQUOIA] = new EntityGUI(new LargeSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 8);
-		entityList[Entity.MEDIUM_SEQUOIA] = new EntityGUI(new MediumSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 6);
-		entityList[Entity.SMALL_SEQUOIA] = new EntityGUI(new SmallSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 4);
-		// add all buildings, furniture, etc.
-		// additional notes: create one of each type for PEASANTS (MALE, FEMALE,
-		// BOY, GIRL)
-		// create one of each type for GANG MEMBER
-		// create one of each type for Native Americans
-		// for spawners just put type as 0 for now
+		try {
+
+			// add all the unique items
+			entityList[Entity.DESTRUCTIBLE_TILE] = new EntityGUI(new DestructibleTile(null, 0, 0), PANEL_SIZE,
+			        PANEL_SIZE, 1, 1);
+			entityList[Entity.FIRE_ENTITY] = new EntityGUI(new FireEntity(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
+			entityList[Entity.BED] = new EntityGUI(new Bed(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 3);
+			entityList[Entity.BENCH] = new EntityGUI(new Bench(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 1);
+			entityList[Entity.CHAIR_FRONT] = new EntityGUI(new ChairFront(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
+			entityList[Entity.CHAIR_SIDE] = new EntityGUI(new ChairSide(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
+			entityList[Entity.CHEST] = new EntityGUI(new Chest(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 1);
+			entityList[Entity.COMPUTER_MONITOR] = new EntityGUI(new ComputerMonitor(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
+			        1, 1);
+			entityList[Entity.COMPUTER_TOWER] = new EntityGUI(new ComputerTower(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1,
+			        2);
+			entityList[Entity.DINING_TABLE] = new EntityGUI(new DiningTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 16);
+			entityList[Entity.FILING_CABINET] = new EntityGUI(new FilingCabinet(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1,
+			        3);
+			entityList[Entity.LONG_TABLE] = new EntityGUI(new LongTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 2);
+			entityList[Entity.NIGHTSTAND] = new EntityGUI(new Nightstand(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 2);
+			entityList[Entity.SOFA] = new EntityGUI(new Sofa(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 2);
+			entityList[Entity.SQUARE_TABLE] = new EntityGUI(new SquareTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.STOOL] = new EntityGUI(new Stool(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
+			entityList[Entity.TELEVISION] = new EntityGUI(new Television(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.THRONE] = new EntityGUI(new Throne(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 3);
+			entityList[Entity.APARTMENT_HIGH_RISE] = new EntityGUI(new ApartmentHighRise(null, 0, 0), PANEL_SIZE,
+			        PANEL_SIZE, 9, 28);
+			entityList[Entity.CASTLE] = new EntityGUI(new Castle(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 41, 22);
+			entityList[Entity.CASTLE_TOWER] = new EntityGUI(new CastleTower(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 12,
+			        22);
+			entityList[Entity.CATHOLIC_CHAPEL] = new EntityGUI(new CatholicChapel(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
+			        8, 8);
+			entityList[Entity.CATHOLIC_CHURCH] = new EntityGUI(new CatholicChurch(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
+			        11, 10);
+			entityList[Entity.CAVE_ENTRANCE] = new EntityGUI(new CaveEntrance(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6,
+			        5);
+			entityList[Entity.FACTORY] = new EntityGUI(new Factory(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 11);
+			entityList[Entity.GENERIC_HOSPITAL] = new EntityGUI(new GenericHospital(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
+			        13, 10);
+			entityList[Entity.GUNSTORE] = new EntityGUI(new GunStore(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 9, 6);
+			entityList[Entity.HOTEL] = new EntityGUI(new Hotel(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 10);
+			entityList[Entity.HUT] = new EntityGUI(new Hut(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 6);
+			entityList[Entity.MINESHAFT] = new EntityGUI(new MineShaft(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 15, 8);
+			entityList[Entity.MODERN_SKYSCRAPER] = new EntityGUI(new ModernSkyscraper(null, 0, 0), PANEL_SIZE,
+			        PANEL_SIZE, 13, 32);
+			entityList[Entity.NICE_HOUSE] = new EntityGUI(new NiceHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 7, 8);
+			entityList[Entity.NICE_HOUSE2] = new EntityGUI(new NiceHouse2(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 7, 8);
+			entityList[Entity.POLICE] = new EntityGUI(new Police(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 11);
+			entityList[Entity.POOR_HOUSE] = new EntityGUI(new PoorHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 7);
+			entityList[Entity.PRISON] = new EntityGUI(new Prison(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 10);
+			entityList[Entity.PROJECTS] = new EntityGUI(new Projects(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 10);
+			entityList[Entity.RANCHERO_HOUSE] = new EntityGUI(new RancheroHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13,
+			        8);
+			entityList[Entity.REFUGEE_TENT] = new EntityGUI(new RefugeeTent(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 3);
+			entityList[Entity.RUSSIAN_ORTHODOX_CHURCH] = new EntityGUI(new RussianOrthodoxChurch(null, 0, 0),
+			        PANEL_SIZE, PANEL_SIZE, 12, 10);
+			entityList[Entity.SHANTY_HOUSE] = new EntityGUI(new ShantyHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 6);
+			entityList[Entity.SKYSCRAPER] = new EntityGUI(new Skyscraper(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 11, 32);
+			entityList[Entity.TIPPEE] = new EntityGUI(new Tippee(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 7);
+			entityList[Entity.WAREHOUSE] = new EntityGUI(new Warehouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 8);
+			entityList[Entity.GREAT_TREE] = new EntityGUI(new GreatTree(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 7, 15);
+			entityList[Entity.TREE_HOUSE] = new EntityGUI(new TreeHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 15);
+			entityList[Entity.UC_GRIZZLY] = new EntityGUI(new UCGrizzly(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 25, 8);
+			entityList[Entity.OAKWOOD_CITY_HALL] = new EntityGUI(new OakwoodCityHall(null, 0, 0), PANEL_SIZE,
+			        PANEL_SIZE, 14, 15);
+			entityList[Entity.CHINATOWN_HOUSE] = new EntityGUI(new ChinatownHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
+			        8, 8);
+			entityList[Entity.RUSSIAN_CLUB] = new EntityGUI(new RussianClub(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 19, 8);
+			entityList[Entity.SAN_CISCO_CITY_HALL] = new EntityGUI(new SanCiscoCityHall(null, 0, 0), PANEL_SIZE,
+			        PANEL_SIZE, 24, 15);
+			entityList[Entity.SAN_CISCO_SKYSCRAPER] = new EntityGUI(new SanCiscoSkyscraper(null, 0, 0), PANEL_SIZE,
+			        PANEL_SIZE, 27, 85);
+			entityList[Entity.TRIAD_HQ] = new EntityGUI(new TriadHQ(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 24, 22);
+			entityList[Entity.JUNGLE_HQ] = new EntityGUI(new JungleHQ(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 19, 12);
+			entityList[Entity.QUACKER_HQ] = new EntityGUI(new QuackerHQ(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 17, 13);
+			entityList[Entity.SAN_JUAN_CITY_HALL] = new EntityGUI(new SanJuanCityHall(null, 0, 0), PANEL_SIZE,
+			        PANEL_SIZE, 15, 15);
+			entityList[Entity.THE_HUB] = new EntityGUI(new TheHub(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 21);
+			entityList[Entity.SEQUOIA_CINEMA] = new EntityGUI(new SequoiaCinema(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 15,
+			        15);
+			entityList[Entity.SEQUOIA_SCHOOL] = new EntityGUI(new SequoiaSchool(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 21,
+			        15);
+			entityList[Entity.CAFE] = new EntityGUI(new Cafe(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 8);
+			entityList[Entity.CARDINAL_UNIVERSITY] = new EntityGUI(new CardinalUniversity(null, 0, 0), PANEL_SIZE,
+			        PANEL_SIZE, 25, 7);
+			entityList[Entity.PEAR_HQ] = new EntityGUI(new PearHQ(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 24);
+			entityList[Entity.RADAR_DISH] = new EntityGUI(new RadarDish(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 11, 17);
+			entityList[Entity.TECHTOPIA_CITY_HALL] = new EntityGUI(new TechTopiaCityHall(null, 0, 0), PANEL_SIZE,
+			        PANEL_SIZE, 12, 12);
+			entityList[Entity.WEIRD_TECH_BUILDING1] = new EntityGUI(new WeirdTechBuilding1(null, 0, 0), PANEL_SIZE,
+			        PANEL_SIZE, 6, 17);
+			entityList[Entity.WEIRD_TECH_BUILDING2] = new EntityGUI(new WeirdTechBuilding2(null, 0, 0), PANEL_SIZE,
+			        PANEL_SIZE, 6, 12);
+			entityList[Entity.DEAD_SEQUOIA] = new EntityGUI(new DeadSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 8);
+			entityList[Entity.GENERIC_TREE] = new EntityGUI(new GenericTree(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 4);
+			entityList[Entity.LARGE_SEQUOIA] = new EntityGUI(new LargeSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3,
+			        8);
+			entityList[Entity.MEDIUM_SEQUOIA] = new EntityGUI(new MediumSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3,
+			        6);
+			entityList[Entity.SMALL_SEQUOIA] = new EntityGUI(new SmallSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2,
+			        4);
+			// add all buildings, furniture, etc.
+			// additional notes: create one of each type for PEASANTS (MALE,
+			// FEMALE,
+			// BOY, GIRL)
+			// create one of each type for GANG MEMBER
+			// create one of each type for Native Americans
+			// for spawners just put type as 0 for now
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -1147,150 +1161,156 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	 */
 	private EntityGUI getEntity(int id) {
 
-		switch (id) {
-		case Entity.DESTRUCTIBLE_TILE:
-			return new EntityGUI(new DestructibleTile(null, 0, 0), 0, 0, 1, 1);
-		case Entity.FIRE_ENTITY:
-			return new EntityGUI(new FireEntity(null, 0, 0), 0, 0, 1, 1);
-		case Entity.STOOL:
-			return new EntityGUI(new Stool(null, 0, 0), 0, 0, 1, 1);
-		case Entity.BED:
-			return new EntityGUI(new Bed(null, 0, 0), 0, 0, 3, 3);
-		case Entity.BENCH:
-			return new EntityGUI(new Bench(null, 0, 0), 0, 0, 2, 1);
-		case Entity.CHAIR_FRONT:
-			return new EntityGUI(new ChairFront(null, 0, 0), 0, 0, 1, 1);
-		case Entity.CHAIR_SIDE:
-			return new EntityGUI(new ChairSide(null, 0, 0), 0, 0, 1, 1);
-		case Entity.CHEST:
-			return new EntityGUI(new Chest(null, 0, 0), 0, 0, 2, 1);
-		case Entity.COMPUTER_MONITOR:
-			return new EntityGUI(new ComputerMonitor(null, 0, 0), 0, 0, 1, 1);
-		case Entity.COMPUTER_TOWER:
-			return new EntityGUI(new ComputerTower(null, 0, 0), 0, 0, 1, 2);
-		case Entity.DINING_TABLE:
-			return new EntityGUI(new DiningTable(null, 0, 0), 0, 0, 3, 16);
-		case Entity.FILING_CABINET:
-			return new EntityGUI(new FilingCabinet(null, 0, 0), 0, 0, 1, 3);
-		case Entity.LONG_TABLE:
-			return new EntityGUI(new LongTable(null, 0, 0), 0, 0, 3, 2);
-		case Entity.NIGHTSTAND:
-			return new EntityGUI(new Nightstand(null, 0, 0), 0, 0, 1, 2);
-		case Entity.SOFA:
-			return new EntityGUI(new Sofa(null, 0, 0), 0, 0, 3, 2);
-		case Entity.SQUARE_TABLE:
-			return new EntityGUI(new SquareTable(null, 0, 0), 0, 0, 2, 2);
-		case Entity.TELEVISION:
-			return new EntityGUI(new Television(null, 0, 0), 0, 0, 2, 2);
-		case Entity.THRONE:
-			return new EntityGUI(new Throne(null, 0, 0), 0, 0, 2, 3);
-		case Entity.DEAD_SEQUOIA:
-			return new EntityGUI(new DeadSequoia(null, 0, 0), 0, 0, 3, 8);
-		case Entity.SMALL_SEQUOIA:
-			return new EntityGUI(new SmallSequoia(null, 0, 0), 0, 0, 2, 4);
-		case Entity.MEDIUM_SEQUOIA:
-			return new EntityGUI(new MediumSequoia(null, 0, 0), 0, 0, 3, 6);
-		case Entity.LARGE_SEQUOIA:
-			return new EntityGUI(new LargeSequoia(null, 0, 0), 0, 0, 3, 8);
-		case Entity.GENERIC_TREE:
-			return new EntityGUI(new GenericTree(null, 0, 0), 0, 0, 3, 4);
-		case Entity.APARTMENT_HIGH_RISE:
-			return new EntityGUI(new ApartmentHighRise(null, 0, 0), 0, 0, 9, 28);
-		case Entity.CASTLE:
-			return new EntityGUI(new Castle(null, 0, 0), 0, 0, 41, 22);
-		case Entity.CASTLE_TOWER:
-			return new EntityGUI(new CastleTower(null, 0, 0), 0, 0, 12, 22);
-		case Entity.CATHOLIC_CHAPEL:
-			return new EntityGUI(new CatholicChapel(null, 0, 0), 0, 0, 8, 8);
-		case Entity.CATHOLIC_CHURCH:
-			return new EntityGUI(new CatholicChurch(null, 0, 0), 0, 0, 11, 10);
-		case Entity.CAVE_ENTRANCE:
-			return new EntityGUI(new CaveEntrance(null, 0, 0), 0, 0, 6, 5);
-		case Entity.FACTORY:
-			return new EntityGUI(new Factory(null, 0, 0), 0, 0, 13, 11);
-		case Entity.GENERIC_HOSPITAL:
-			return new EntityGUI(new GenericHospital(null, 0, 0), 0, 0, 13, 10);
-		case Entity.GUNSTORE:
-			return new EntityGUI(new GunStore(null, 0, 0), 0, 0, 9, 6);
-		case Entity.HOTEL:
-			return new EntityGUI(new Hotel(null, 0, 0), 0, 0, 13, 10);
-		case Entity.HUT:
-			return new EntityGUI(new Hut(null, 0, 0), 0, 0, 6, 6);
-		case Entity.MINESHAFT:
-			return new EntityGUI(new MineShaft(null, 0, 0), 0, 0, 15, 8);
-		case Entity.MODERN_SKYSCRAPER:
-			return new EntityGUI(new ModernSkyscraper(null, 0, 0), 0, 0, 13, 32);
-		case Entity.NICE_HOUSE:
-			return new EntityGUI(new NiceHouse(null, 0, 0), 0, 0, 7, 8);
-		case Entity.NICE_HOUSE2:
-			return new EntityGUI(new NiceHouse2(null, 0, 0), 0, 0, 7, 8);
-		case Entity.POLICE:
-			return new EntityGUI(new Police(null, 0, 0), 0, 0, 13, 11);
-		case Entity.POOR_HOUSE:
-			return new EntityGUI(new PoorHouse(null, 0, 0), 0, 0, 5, 7);
-		case Entity.PRISON:
-			return new EntityGUI(new Prison(null, 0, 0), 0, 0, 13, 10);
-		case Entity.PROJECTS:
-			return new EntityGUI(new Projects(null, 0, 0), 0, 0, 13, 10);
-		case Entity.RANCHERO_HOUSE:
-			return new EntityGUI(new RancheroHouse(null, 0, 0), 0, 0, 13, 8);
-		case Entity.REFUGEE_TENT:
-			return new EntityGUI(new RefugeeTent(null, 0, 0), 0, 0, 6, 3);
-		case Entity.RUSSIAN_ORTHODOX_CHURCH:
-			return new EntityGUI(new RussianOrthodoxChurch(null, 0, 0), 0, 0, 12, 10);
-		case Entity.SHANTY_HOUSE:
-			return new EntityGUI(new ShantyHouse(null, 0, 0), 0, 0, 5, 6);
-		case Entity.SKYSCRAPER:
-			return new EntityGUI(new Skyscraper(null, 0, 0), 0, 0, 11, 32);
-		case Entity.TIPPEE:
-			return new EntityGUI(new Tippee(null, 0, 0), 0, 0, 4, 7);
-		case Entity.WAREHOUSE:
-			return new EntityGUI(new Warehouse(null, 0, 0), 0, 0, 13, 8);
-		case Entity.GREAT_TREE:
-			return new EntityGUI(new GreatTree(null, 0, 0), 0, 0, 7, 15);
-		case Entity.TREE_HOUSE:
-			return new EntityGUI(new TreeHouse(null, 0, 0), 0, 0, 6, 15);
-		case Entity.UC_GRIZZLY:
-			return new EntityGUI(new UCGrizzly(null, 0, 0), 0, 0, 25, 8);
-		case Entity.OAKWOOD_CITY_HALL:
-			return new EntityGUI(new OakwoodCityHall(null, 0, 0), 0, 0, 14, 15);
-		case Entity.CHINATOWN_HOUSE:
-			return new EntityGUI(new ChinatownHouse(null, 0, 0), 0, 0, 8, 8);
-		case Entity.RUSSIAN_CLUB:
-			return new EntityGUI(new RussianClub(null, 0, 0), 0, 0, 19, 8);
-		case Entity.SAN_CISCO_CITY_HALL:
-			return new EntityGUI(new SanCiscoCityHall(null, 0, 0), 0, 0, 24, 15);
-		case Entity.SAN_CISCO_SKYSCRAPER:
-			return new EntityGUI(new SanCiscoSkyscraper(null, 0, 0), 0, 0, 27, 85);
-		case Entity.TRIAD_HQ:
-			return new EntityGUI(new TriadHQ(null, 0, 0), 0, 0, 24, 22);
-		case Entity.JUNGLE_HQ:
-			return new EntityGUI(new JungleHQ(null, 0, 0), 0, 0, 19, 12);
-		case Entity.QUACKER_HQ:
-			return new EntityGUI(new QuackerHQ(null, 0, 0), 0, 0, 17, 13);
-		case Entity.SAN_JUAN_CITY_HALL:
-			return new EntityGUI(new SanJuanCityHall(null, 0, 0), 0, 0, 15, 15);
-		case Entity.THE_HUB:
-			return new EntityGUI(new TheHub(null, 0, 0), 0, 0, 13, 21);
-		case Entity.SEQUOIA_CINEMA:
-			return new EntityGUI(new SequoiaCinema(null, 0, 0), 0, 0, 15, 15);
-		case Entity.SEQUOIA_SCHOOL:
-			return new EntityGUI(new SequoiaSchool(null, 0, 0), 0, 0, 21, 15);
-		case Entity.CAFE:
-			return new EntityGUI(new Cafe(null, 0, 0), 0, 0, 13, 8);
-		case Entity.CARDINAL_UNIVERSITY:
-			return new EntityGUI(new CardinalUniversity(null, 0, 0), 0, 0, 25, 7);
-		case Entity.PEAR_HQ:
-			return new EntityGUI(new PearHQ(null, 0, 0), 0, 0, 13, 24);
-		case Entity.RADAR_DISH:
-			return new EntityGUI(new RadarDish(null, 0, 0), 0, 0, 11, 17);
-		case Entity.TECHTOPIA_CITY_HALL:
-			return new EntityGUI(new TechTopiaCityHall(null, 0, 0), 0, 0, 12, 12);
-		case Entity.WEIRD_TECH_BUILDING1:
-			return new EntityGUI(new WeirdTechBuilding1(null, 0, 0), 0, 0, 6, 17);
-		case Entity.WEIRD_TECH_BUILDING2:
-			return new EntityGUI(new WeirdTechBuilding2(null, 0, 0), 0, 0, 6, 12);
-		default:
+		try {
+
+			switch (id) {
+			case Entity.DESTRUCTIBLE_TILE:
+				return new EntityGUI(new DestructibleTile(null, 0, 0), 0, 0, 1, 1);
+			case Entity.FIRE_ENTITY:
+				return new EntityGUI(new FireEntity(null, 0, 0), 0, 0, 1, 1);
+			case Entity.STOOL:
+				return new EntityGUI(new Stool(null, 0, 0), 0, 0, 1, 1);
+			case Entity.BED:
+				return new EntityGUI(new Bed(null, 0, 0), 0, 0, 3, 3);
+			case Entity.BENCH:
+				return new EntityGUI(new Bench(null, 0, 0), 0, 0, 2, 1);
+			case Entity.CHAIR_FRONT:
+				return new EntityGUI(new ChairFront(null, 0, 0), 0, 0, 1, 1);
+			case Entity.CHAIR_SIDE:
+				return new EntityGUI(new ChairSide(null, 0, 0), 0, 0, 1, 1);
+			case Entity.CHEST:
+				return new EntityGUI(new Chest(null, 0, 0), 0, 0, 2, 1);
+			case Entity.COMPUTER_MONITOR:
+				return new EntityGUI(new ComputerMonitor(null, 0, 0), 0, 0, 1, 1);
+			case Entity.COMPUTER_TOWER:
+				return new EntityGUI(new ComputerTower(null, 0, 0), 0, 0, 1, 2);
+			case Entity.DINING_TABLE:
+				return new EntityGUI(new DiningTable(null, 0, 0), 0, 0, 3, 16);
+			case Entity.FILING_CABINET:
+				return new EntityGUI(new FilingCabinet(null, 0, 0), 0, 0, 1, 3);
+			case Entity.LONG_TABLE:
+				return new EntityGUI(new LongTable(null, 0, 0), 0, 0, 3, 2);
+			case Entity.NIGHTSTAND:
+				return new EntityGUI(new Nightstand(null, 0, 0), 0, 0, 1, 2);
+			case Entity.SOFA:
+				return new EntityGUI(new Sofa(null, 0, 0), 0, 0, 3, 2);
+			case Entity.SQUARE_TABLE:
+				return new EntityGUI(new SquareTable(null, 0, 0), 0, 0, 2, 2);
+			case Entity.TELEVISION:
+				return new EntityGUI(new Television(null, 0, 0), 0, 0, 2, 2);
+			case Entity.THRONE:
+				return new EntityGUI(new Throne(null, 0, 0), 0, 0, 2, 3);
+			case Entity.DEAD_SEQUOIA:
+				return new EntityGUI(new DeadSequoia(null, 0, 0), 0, 0, 3, 8);
+			case Entity.SMALL_SEQUOIA:
+				return new EntityGUI(new SmallSequoia(null, 0, 0), 0, 0, 2, 4);
+			case Entity.MEDIUM_SEQUOIA:
+				return new EntityGUI(new MediumSequoia(null, 0, 0), 0, 0, 3, 6);
+			case Entity.LARGE_SEQUOIA:
+				return new EntityGUI(new LargeSequoia(null, 0, 0), 0, 0, 3, 8);
+			case Entity.GENERIC_TREE:
+				return new EntityGUI(new GenericTree(null, 0, 0), 0, 0, 3, 4);
+			case Entity.APARTMENT_HIGH_RISE:
+				return new EntityGUI(new ApartmentHighRise(null, 0, 0), 0, 0, 9, 28);
+			case Entity.CASTLE:
+				return new EntityGUI(new Castle(null, 0, 0), 0, 0, 41, 22);
+			case Entity.CASTLE_TOWER:
+				return new EntityGUI(new CastleTower(null, 0, 0), 0, 0, 12, 22);
+			case Entity.CATHOLIC_CHAPEL:
+				return new EntityGUI(new CatholicChapel(null, 0, 0), 0, 0, 8, 8);
+			case Entity.CATHOLIC_CHURCH:
+				return new EntityGUI(new CatholicChurch(null, 0, 0), 0, 0, 11, 10);
+			case Entity.CAVE_ENTRANCE:
+				return new EntityGUI(new CaveEntrance(null, 0, 0), 0, 0, 6, 5);
+			case Entity.FACTORY:
+				return new EntityGUI(new Factory(null, 0, 0), 0, 0, 13, 11);
+			case Entity.GENERIC_HOSPITAL:
+				return new EntityGUI(new GenericHospital(null, 0, 0), 0, 0, 13, 10);
+			case Entity.GUNSTORE:
+				return new EntityGUI(new GunStore(null, 0, 0), 0, 0, 9, 6);
+			case Entity.HOTEL:
+				return new EntityGUI(new Hotel(null, 0, 0), 0, 0, 13, 10);
+			case Entity.HUT:
+				return new EntityGUI(new Hut(null, 0, 0), 0, 0, 6, 6);
+			case Entity.MINESHAFT:
+				return new EntityGUI(new MineShaft(null, 0, 0), 0, 0, 15, 8);
+			case Entity.MODERN_SKYSCRAPER:
+				return new EntityGUI(new ModernSkyscraper(null, 0, 0), 0, 0, 13, 32);
+			case Entity.NICE_HOUSE:
+				return new EntityGUI(new NiceHouse(null, 0, 0), 0, 0, 7, 8);
+			case Entity.NICE_HOUSE2:
+				return new EntityGUI(new NiceHouse2(null, 0, 0), 0, 0, 7, 8);
+			case Entity.POLICE:
+				return new EntityGUI(new Police(null, 0, 0), 0, 0, 13, 11);
+			case Entity.POOR_HOUSE:
+				return new EntityGUI(new PoorHouse(null, 0, 0), 0, 0, 5, 7);
+			case Entity.PRISON:
+				return new EntityGUI(new Prison(null, 0, 0), 0, 0, 13, 10);
+			case Entity.PROJECTS:
+				return new EntityGUI(new Projects(null, 0, 0), 0, 0, 13, 10);
+			case Entity.RANCHERO_HOUSE:
+				return new EntityGUI(new RancheroHouse(null, 0, 0), 0, 0, 13, 8);
+			case Entity.REFUGEE_TENT:
+				return new EntityGUI(new RefugeeTent(null, 0, 0), 0, 0, 6, 3);
+			case Entity.RUSSIAN_ORTHODOX_CHURCH:
+				return new EntityGUI(new RussianOrthodoxChurch(null, 0, 0), 0, 0, 12, 10);
+			case Entity.SHANTY_HOUSE:
+				return new EntityGUI(new ShantyHouse(null, 0, 0), 0, 0, 5, 6);
+			case Entity.SKYSCRAPER:
+				return new EntityGUI(new Skyscraper(null, 0, 0), 0, 0, 11, 32);
+			case Entity.TIPPEE:
+				return new EntityGUI(new Tippee(null, 0, 0), 0, 0, 4, 7);
+			case Entity.WAREHOUSE:
+				return new EntityGUI(new Warehouse(null, 0, 0), 0, 0, 13, 8);
+			case Entity.GREAT_TREE:
+				return new EntityGUI(new GreatTree(null, 0, 0), 0, 0, 7, 15);
+			case Entity.TREE_HOUSE:
+				return new EntityGUI(new TreeHouse(null, 0, 0), 0, 0, 6, 15);
+			case Entity.UC_GRIZZLY:
+				return new EntityGUI(new UCGrizzly(null, 0, 0), 0, 0, 25, 8);
+			case Entity.OAKWOOD_CITY_HALL:
+				return new EntityGUI(new OakwoodCityHall(null, 0, 0), 0, 0, 14, 15);
+			case Entity.CHINATOWN_HOUSE:
+				return new EntityGUI(new ChinatownHouse(null, 0, 0), 0, 0, 8, 8);
+			case Entity.RUSSIAN_CLUB:
+				return new EntityGUI(new RussianClub(null, 0, 0), 0, 0, 19, 8);
+			case Entity.SAN_CISCO_CITY_HALL:
+				return new EntityGUI(new SanCiscoCityHall(null, 0, 0), 0, 0, 24, 15);
+			case Entity.SAN_CISCO_SKYSCRAPER:
+				return new EntityGUI(new SanCiscoSkyscraper(null, 0, 0), 0, 0, 27, 85);
+			case Entity.TRIAD_HQ:
+				return new EntityGUI(new TriadHQ(null, 0, 0), 0, 0, 24, 22);
+			case Entity.JUNGLE_HQ:
+				return new EntityGUI(new JungleHQ(null, 0, 0), 0, 0, 19, 12);
+			case Entity.QUACKER_HQ:
+				return new EntityGUI(new QuackerHQ(null, 0, 0), 0, 0, 17, 13);
+			case Entity.SAN_JUAN_CITY_HALL:
+				return new EntityGUI(new SanJuanCityHall(null, 0, 0), 0, 0, 15, 15);
+			case Entity.THE_HUB:
+				return new EntityGUI(new TheHub(null, 0, 0), 0, 0, 13, 21);
+			case Entity.SEQUOIA_CINEMA:
+				return new EntityGUI(new SequoiaCinema(null, 0, 0), 0, 0, 15, 15);
+			case Entity.SEQUOIA_SCHOOL:
+				return new EntityGUI(new SequoiaSchool(null, 0, 0), 0, 0, 21, 15);
+			case Entity.CAFE:
+				return new EntityGUI(new Cafe(null, 0, 0), 0, 0, 13, 8);
+			case Entity.CARDINAL_UNIVERSITY:
+				return new EntityGUI(new CardinalUniversity(null, 0, 0), 0, 0, 25, 7);
+			case Entity.PEAR_HQ:
+				return new EntityGUI(new PearHQ(null, 0, 0), 0, 0, 13, 24);
+			case Entity.RADAR_DISH:
+				return new EntityGUI(new RadarDish(null, 0, 0), 0, 0, 11, 17);
+			case Entity.TECHTOPIA_CITY_HALL:
+				return new EntityGUI(new TechTopiaCityHall(null, 0, 0), 0, 0, 12, 12);
+			case Entity.WEIRD_TECH_BUILDING1:
+				return new EntityGUI(new WeirdTechBuilding1(null, 0, 0), 0, 0, 6, 17);
+			case Entity.WEIRD_TECH_BUILDING2:
+				return new EntityGUI(new WeirdTechBuilding2(null, 0, 0), 0, 0, 6, 12);
+			default:
+				return null;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 			return null;
 		}
 

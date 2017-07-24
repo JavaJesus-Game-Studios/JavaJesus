@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -11,11 +12,9 @@ import javajesus.level.Level;
 
 public class RancheroHouseInterior extends Interior {
 
-	private static final long serialVersionUID = 7955092802065217014L;
-
 	private Point exitPoint;
 
-	public RancheroHouseInterior(Point point, Level level) {
+	public RancheroHouseInterior(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Ranchero_House_Interior.png", new Point(248, 296), level);
 		this.exitPoint = point;
 	}

@@ -1,6 +1,7 @@
 package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
@@ -13,7 +14,7 @@ import javajesus.level.interior.ShantyHouseInterior;
  */
 public class ShantyHouse extends Building {
 
-	public ShantyHouse(Level level, int x, int y) {
+	public ShantyHouse(Level level, int x, int y) throws IOException {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFADADAD, 0xFF000000 }, Sprite.shantyhouse);
 
 		if (level != null)

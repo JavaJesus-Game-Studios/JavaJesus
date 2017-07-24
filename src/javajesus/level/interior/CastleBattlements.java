@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -13,11 +14,9 @@ import javajesus.utility.Direction;
 
 public class CastleBattlements extends Interior {
 
-	private static final long serialVersionUID = 3729379964203665940L;
-
 	private Point exitPoint;
 
-	public CastleBattlements(Point point, Level level) {
+	public CastleBattlements(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_1_Battlements.png", point, level);
 		this.exitPoint = point;
 	}
@@ -34,7 +33,7 @@ public class CastleBattlements extends Interior {
 		return null;
 	}
 
-	protected Entity[] getOtherPlacement() {
+	/*protected Entity[] getOtherPlacement() {
 		
 		return new Entity[] {
 				
@@ -49,6 +48,6 @@ public class CastleBattlements extends Interior {
 				
 		};
 
-	}
+	}*/
 
 }

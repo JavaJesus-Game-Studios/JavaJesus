@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -11,11 +12,9 @@ import javajesus.level.Level;
 
 public class ShantyHouseInterior extends Interior {
 
-	private static final long serialVersionUID = -6309788913336065310L;
-
 	private Point exitPoint;
 
-	public ShantyHouseInterior(Point point, Level level) {
+	public ShantyHouseInterior(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Shanty_House_Interior.png", new Point(248, 264), level);
 		this.exitPoint = point;
 	}

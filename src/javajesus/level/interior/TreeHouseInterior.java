@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -11,11 +12,9 @@ import javajesus.level.Level;
 
 public class TreeHouseInterior extends Interior {
 
-	private static final long serialVersionUID = -5998920750795035872L;
-
 	private Point exitPoint;
 
-	public TreeHouseInterior(Point point, Level level) {
+	public TreeHouseInterior(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/HIPPY_VILLE/INTERIORS/Tree_House_Interior.png", new Point(384, 456), level);
 		this.exitPoint = point;
 	}

@@ -13,7 +13,6 @@ import java.awt.image.DataBufferInt;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
 
 import engine.IGameLogic;
@@ -29,8 +28,6 @@ import javajesus.level.RandomLevel;
 import javajesus.level.RoadLevel;
 import javajesus.level.sandbox.SandboxIslandLevel;
 import javajesus.level.sandbox.SandboxOriginalLevel;
-import javajesus.level.story.LordHillsboroughsDomain;
-import javajesus.save.GameData;
 import javajesus.save.SaveFile;
 import javajesus.utility.Direction;
 import javajesus.utility.GameMode;
@@ -74,7 +71,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	private int pageId;
 
 	// the randomly generated background level
-	public static final Level level = new RandomLevel(200, 200, new Point(10, 10), true);
+	public static final Level level = new RandomLevel(new Point(10, 10));
 
 	// the image of the level
 	private static final BufferedImage image =
@@ -492,21 +489,16 @@ public class Launcher extends Canvas implements IGameLogic {
 		String name = (String) data[3];
 		
 		// level to set the player
-		Level level = getLevel(mode);
+		Level level = getLevel(mode, slot);
 		
 		// Player to create
 		Player player = new Player(name, level, level.getSpawnPoint().x, level.getSpawnPoint().y);
-
-		GameData.setPlayer(player);
-		
-		level.reset();
-		level.add(player);
-		level.setPlayer(player);
-		level.getBackgroundMusic().loop(Clip.LOOP_CONTINUOUSLY);
-
 		player.setShirtColor(shirt);
 		player.setSkinColor(skin);
 		player.getInventory().add(weapon);
+		
+		// add the player to the level
+		level.add(player);
 		
 		return player;
 	}
@@ -517,16 +509,16 @@ public class Launcher extends Canvas implements IGameLogic {
 	 * @param mode - gamemode
 	 * @return - the level
 	 */
-	private Level getLevel(GameMode mode) {
+	private Level getLevel(GameMode mode, int slot) {
 		switch (mode) {
 		case RANDOM:
 			return Launcher.level;
 		case FIXED:
-			return sandboxPanel.getLevel();
+			return sandboxPanel.getLevel(slot);
 		default:
-			Level.createStoryLevels();
-			return LordHillsboroughsDomain.level;
-			//return temp;
+			//Level.createStoryLevels();
+			//return LordHillsboroughsDomain.level;
+			return Launcher.level;
 		}
 		
 	}
@@ -843,18 +835,22 @@ public class Launcher extends Canvas implements IGameLogic {
 		/**
 		 * @return The level that was selected
 		 */
-		public Level getLevel() {
+		public Level getLevel(int slot) {
 
 			// get the right level
-			switch (selected) {
-			case ORIGINAL:
-				return new SandboxOriginalLevel();
-			case ISLAND:
-				return new SandboxIslandLevel();
-			case TILE_TESTER:
-				return LevelTester.level;
-			case ROAD_TESTER:
-				return new RoadLevel();
+			try {
+				switch (selected) {
+				case ORIGINAL:
+					return new SandboxOriginalLevel(slot);
+				case ISLAND:
+					return new SandboxIslandLevel(slot);
+				case TILE_TESTER:
+					return new LevelTester(slot);
+				case ROAD_TESTER:
+					return new RoadLevel(slot);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 
 			return null;

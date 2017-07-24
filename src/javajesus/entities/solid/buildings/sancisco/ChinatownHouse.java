@@ -1,6 +1,7 @@
 package javajesus.entities.solid.buildings.sancisco;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
@@ -20,8 +21,9 @@ public class ChinatownHouse extends Building {
 	 * @param level - the level it is on
 	 * @param x - the x coord on the level
 	 * @param y - the y coord on the level
+	 * @throws IOException 
 	 */
-	public ChinatownHouse(Level level, int x, int y) {
+	public ChinatownHouse(Level level, int x, int y) throws IOException {
 		super(level, x, y, new int[] { 0xFF618249, 0xFF992B2B, 0xFFFFFFFF }, Sprite.chinatown_house);
 
 		// change the bounds

@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -12,12 +13,10 @@ import javajesus.utility.Direction;
 
 public class SkyscraperFloor extends Interior {
 
-	private static final long serialVersionUID = -1944615270414711599L;
-
 	private int floorNum;
 	private Level level;
 
-	public SkyscraperFloor(Point point, Level level, int floorNum) {
+	public SkyscraperFloor(Point point, Level level, int floorNum) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Skyscraper_Interiors/Skyscraper_Floors_1-10.png", new Point(500, 500),
 				level);
 		this.floorNum = floorNum;
@@ -36,7 +35,7 @@ public class SkyscraperFloor extends Interior {
 		return null;
 	}
 
-	protected Entity[] getOtherPlacement() {
+	/*protected Entity[] getOtherPlacement() {
 		
 		Entity[] entities = new Entity[2];
 
@@ -52,6 +51,6 @@ public class SkyscraperFloor extends Interior {
 				TransporterStair.WOOD);
 
 		return entities;
-	}
+	}*/
 
 }

@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -12,12 +13,10 @@ import javajesus.utility.Direction;
 
 public class ProjectsFloor extends Interior {
 
-	private static final long serialVersionUID = 38509975480014538L;
-
 	private Point exitPoint;
 	private int floor;
 
-	public ProjectsFloor(Point point, Level level, int floor) {
+	public ProjectsFloor(Point point, Level level, int floor) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Projects_Interiors/Projects_Floors_1_and_2.png", new Point(580, 680),
 				level);
 		this.exitPoint = point;
@@ -36,7 +35,7 @@ public class ProjectsFloor extends Interior {
 		return null;
 	}
 
-	protected Entity[] getOtherPlacement() {
+	/*protected Entity[] getOtherPlacement() {
 		
 		Entity[] entities = new Entity[2];
 		
@@ -53,5 +52,5 @@ public class ProjectsFloor extends Interior {
 		
 		return entities;
 		
-	}
+	}*/
 }

@@ -1,6 +1,7 @@
 package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
+import java.io.IOException;
 import java.util.Random;
 
 import javajesus.entities.Entity;
@@ -23,8 +24,9 @@ public class Hotel extends Building {
 	 * @param level - the level it is on
 	 * @param x - the x coord on the level
 	 * @param y - the y coord on the level
+	 * @throws IOException 
 	 */
-	public Hotel(Level level, int x, int y) {
+	public Hotel(Level level, int x, int y) throws IOException {
 		super(level, x, y, getColor(), Sprite.hotel);
 
 		if (level != null)

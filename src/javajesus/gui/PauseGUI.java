@@ -8,13 +8,12 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
 import javajesus.JavaJesus;
 import javajesus.Launcher;
 import javajesus.SoundHandler;
-import javajesus.save.GameData;
-
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
 public class PauseGUI extends JPanel implements MouseListener, MouseMotionListener {
 
@@ -218,8 +217,8 @@ public class PauseGUI extends JPanel implements MouseListener, MouseMotionListen
 
 		switch (id) {
 		case SAVE: {
-			GameData.savePlayerLevelData();
-			GameData.saveLevels();
+			/*GameData.savePlayerLevelData();
+			GameData.saveLevels();*/
 			return;
 		}
 		case LOAD: {

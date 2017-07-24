@@ -2,50 +2,36 @@ package javajesus.level;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.io.BufferedInputStream;
-import java.io.Serializable;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.sampled.Clip;
+import javax.swing.filechooser.FileSystemView;
 
 import javajesus.Hideable;
 import javajesus.JavaJesus;
-import javajesus.SoundHandler;
 import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.entities.Player;
-import javajesus.entities.Spawner;
-import javajesus.entities.npcs.NPC;
-import javajesus.entities.solid.furniture.Chest;
-import javajesus.entities.transporters.MapTransporter;
+import javajesus.entities.SolidEntity;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
-import javajesus.level.story.BautistasDomain;
-import javajesus.level.story.EdgeOfTheWoods;
-import javajesus.level.story.EdgeOfTheWoodsTop;
-import javajesus.level.story.LordHillsboroughsDomain;
-import javajesus.level.story.OrchardValley;
-import javajesus.level.story.SanCisco;
-import javajesus.level.story.SanJuan;
-import javajesus.level.story.TechTopia;
 import javajesus.level.tile.AnimatedTile;
 import javajesus.level.tile.Tile;
+import javajesus.save.LevelData;
+import javajesus.save.SaveData;
 
 /*
- * A Level contains a set of tiles that can be displayed on the screen
- * It also holds a set of all entities that interact with each other
+ * A level contains a set of tiles and set of entities that
+ * are displayed to the screen and handles their
+ * logic and rendering
  */
-public abstract class Level implements Serializable {
-
-	private static final long serialVersionUID = -5963535226522522466L;
+public abstract class Level {
 
 	// all tiles on each level
-	protected int[] levelTiles;
-
-	// width and height in terms of tiles
-	private int width, height;
+	protected final int[] levelTiles;
 
 	// list of all entities on the map
 	private final List<Entity> entities = new ArrayList<Entity>(JavaJesus.ENTITY_LIMIT);
@@ -58,175 +44,133 @@ public abstract class Level implements Serializable {
 
 	private final List<Hideable> hideables = new ArrayList<Hideable>(JavaJesus.ENTITY_LIMIT);
 
-	// image path to load a level
-	private String imagePath;
-
 	// where the player will go when entering this level
-	private Point spawnPoint;
-
-	// whether or not the map is loaded
-	private boolean isLoaded;
+	private final Point spawnPoint;
 
 	// name of the level
-	private String name;
+	private final String name;
+	
+	// gets the name add-on for entity files
+	private static final String ENTITY = "_entities";
+	
+	// gets the home directory
+	private static final String DIR = FileSystemView.getFileSystemView().getDefaultDirectory().getPath()
+	        + "/My Games/JavaJesus/File";
+	
+	// story level names
+	public static final String BAUTISTA = "Bautista's Domain", EDGE_MAIN = "Edge of the Woods",
+	        EDGE_TOP = "Edge of the Woods Top", HILLSBOROUGH = "Lord Hillsborough's Domain", ORCHARD = "Orchard Valley",
+	        CISCO = "San Cisco", JUAN = "San Juan", TECH = "Tech Topia";
 	
 	// size of each level
 	public static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
 
 	// the range of how many entities to render/tick on the screen
-	// TODO IMAGE_WIDTH, IMAGE_HEIGHT in the future after changing buildings
 	public static final Rectangle renderRange = new Rectangle(JavaJesus.IMAGE_WIDTH, JavaJesus.IMAGE_HEIGHT);
 
-	// names for each main city
-	public static final String BAUTISTA = "Bautista's Domain", EDGE_MAIN = "Edge of the Woods",
-			EDGE_TOP = "Edge of the Woods Top", HILLSBOROUGH = "Lord Hillsborough's Domain", ORCHARD = "Orchard Valley",
-			CISCO = "San Cisco", JUAN = "San Juan", TECH = "Tech Topia";
-
-	// instance of the player on the level
-	private Player player;
-	
-	// global offsets for determing the range to display things
+	// global offsets for determining the range to display things
 	private int xOffset, yOffset;
 
 
 	/**
-	 * Creates a level from the specified image path
+	 * Creates a level from the specified image path for the first time
 	 * 
-	 * @param imagePath - the image path
+	 * @param imagePath - the image path of the original file
 	 * @param loadNow - whether or not to load it now
 	 * @param name - the name of this level
+	 * @param saveFile - the destination of the save file in My Games
 	 */
-	public Level(final String imagePath, boolean loadNow, final String name, final Point spawn) {
+	public Level(final String path, final String name, final Point spawn, int saveFile) throws IOException {
 		
 		// instance data
 		this.name = name;
 		this.spawnPoint = spawn;
 		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
-		width = LEVEL_WIDTH;
-		height = LEVEL_HEIGHT;
 		
-		// load from a file
-		if (imagePath != null) {
-			this.imagePath = imagePath;
-			if (loadNow) {
-				load();
-			}
+		// check if save file exists
+		File f = new File(DIR + saveFile);
+		
+		// file does not exist
+		if (!f.exists()) {
+			
+			// make the directory
+			f.mkdirs();
+			
+			// load the original files into memory
+			load(path, true);
+			
+			// now save in the new folder
+			save(DIR + saveFile + "/" + name);
+			
+			// directory does exist
 		} else {
-			throw new RuntimeException("Level path is null");
+			
+			// select the file
+			f = new File(DIR + saveFile + "/" + name);
+			
+			// if it exists, load it
+			if (f.exists()) {
+				load(DIR + saveFile + "/" + name, false);
+				
+				// load from original, then save
+			} else {
+				
+				// load the original files into memory
+				load(path, true);
+				
+				// now save in the new folder
+				save(DIR + saveFile + "/" + name);
+			}
 		}
 	}
-
+	
 	/**
-	 * Creates a randomly generated level
-	 * 
-	 * @param width - the tiles in the width
-	 * @param height - the tiles in the height
-	 * @param loadNow - whether or not to load it now
-	 * @param name - the name of this level
+	 * A default level for random generation
+	 * @param name
 	 */
-	public Level(int width, int height, boolean loadNow, String name) {
+	public Level(String name, Point spawn) {
 		
 		// instance data
-		this.width = width;
-		this.height = height;
 		this.name = name;
-		levelTiles = new int[width * height];
-		
-		// load into memory
-		if (loadNow) {
-			load();
-		}
-	}
-
-	/**
-	 * @return list of all NPCs on the level
-	 */
-	protected abstract NPC[] getNPCPlacement();
-
-	/**
-	 * @return list of all mob spawners on the level
-	 */
-	protected abstract Spawner[] getSpawnerPlacement();
-
-	/**
-	 * @return list of all chests on the level
-	 */
-	protected abstract Chest[] getChestPlacement();
-
-	/**
-	 * @return list of all map transporters on the level
-	 */
-	protected abstract MapTransporter[] getMapTransporterPlacement();
-
-	/**
-	 * @return list of everything else on the level
-	 */
-	protected abstract Entity[] getOtherPlacement();
-
-	/**
-	 * Loads a level
-	 */
-	public void load() {
-		if (!isLoaded) {
-			if (imagePath != null) {
-				loadLevelFromFile();
-			} else {
-				generateLevel();
-			}
-			loadEntities();
-			isLoaded = true;
-		}
-	}
-
-	/**
-	 * TODO create an instance variable
-	 * 
-	 * @return the background music for this level
-	 */
-	public Clip getBackgroundMusic() {
-		return SoundHandler.background1;
+		this.spawnPoint = spawn;
+		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
 	}
 
 	/**
 	 * Loads an image from the file
 	 */
-	private void loadLevelFromFile() {
+	private void load(String path, boolean classpath) throws IOException {
 		
-		 // open the output stream
-		try (BufferedInputStream is = new BufferedInputStream(Level.class.getResourceAsStream(imagePath))) {
-			
-			// loads all the data into a byte stream
-			byte data[] = new byte[levelTiles.length];
-			is.read(data);
-			
-			// put the data into level Tiles
-			for (int i = 0; i < levelTiles.length; i++) {
-				levelTiles[i] = data[i] & 0x000000FF;
-			}
-			
-		} catch (Exception e) {
-			System.err.println("Could not load file: " + imagePath);
-			e.printStackTrace();
-		} 
+		// files to load
+		File level, entities;
 		
-	}
-
-	/**
-	 * Generates a random level
-	 */
-	protected void generateLevel() {
-
-		// fill it with grass and stone
-		// usually overridden in another class
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				if (x * y % 10 < 10) {
-					levelTiles[x + y * width] = Tile.GRASS0.getId();
-				} 
-
-			}
+		// load with or without classpath
+		if (classpath) {
+			level = new File(Level.class.getResource(path).getFile());
+			entities = new File(Level.class.getResource(path + ENTITY).getFile());
+		} else {
+			level = new File(path);
+			entities = new File(path + ENTITY);
 		}
+		
+		// load  the tiles
+		LevelData.load(level, levelTiles);
 
+		// load the entity data
+		SaveData.load(this, entities);
+	}
+	
+	/**
+	 * Saves the level data to the specified path
+	 */
+	private void save(String path) throws IOException {
+		
+		// save the tile data
+		LevelData.save(path, levelTiles);
+		
+		// save the entity data
+		SaveData.save(path + ENTITY, entities);
+		
 	}
 
 	/**
@@ -237,7 +181,7 @@ public abstract class Level implements Serializable {
 	 * @param newTile - the tile to replace it with
 	 */
 	public void alterTile(int x, int y, Tile newTile) {
-		this.levelTiles[x + y * width] = newTile.getId();
+		this.levelTiles[x + y * LEVEL_WIDTH] = newTile.getId();
 	}
 
 	/**
@@ -307,14 +251,14 @@ public abstract class Level implements Serializable {
 		if (xOffset < 0)
 			this.xOffset = 0;
 
-		if (xOffset > ((width << 3) - JavaJesus.IMAGE_WIDTH))
-			this.xOffset = ((width << 3) - JavaJesus.IMAGE_WIDTH);
+		if (xOffset > ((LEVEL_WIDTH << 3) - JavaJesus.IMAGE_WIDTH))
+			this.xOffset = ((LEVEL_WIDTH << 3) - JavaJesus.IMAGE_WIDTH);
 
 		if (yOffset < 0)
 			this.yOffset = 0;
 
-		if (yOffset > ((height << 3) - JavaJesus.IMAGE_HEIGHT))
-			this.yOffset = ((height << 3) - JavaJesus.IMAGE_HEIGHT);
+		if (yOffset > ((LEVEL_HEIGHT << 3) - JavaJesus.IMAGE_HEIGHT))
+			this.yOffset = ((LEVEL_HEIGHT << 3) - JavaJesus.IMAGE_HEIGHT);
 		
 	}
 
@@ -340,7 +284,8 @@ public abstract class Level implements Serializable {
 
 		// render all buildings
 		for (Entity e : this.getEntities()) {
-			if (!(e instanceof Hideable) && e.getBounds().intersects(renderRange)) {
+			if ((e.getBounds().intersects(renderRange) && !(e instanceof Hideable))
+			        || (e instanceof SolidEntity && ((SolidEntity) e).getShadow().intersects(renderRange))) {
 				e.render(screen);
 			}
 			
@@ -389,10 +334,10 @@ public abstract class Level implements Serializable {
 	 * @return the type of tile, VOID if nothing
 	 */
 	public Tile getTile(int x, int y) {
-		if (x < 0 || x >= width || y < 0 || y >= height)
+		if (x < 0 || x >= LEVEL_WIDTH || y < 0 || y >= LEVEL_HEIGHT)
 			return Tile.VOID;
 		
-		return Tile.tileList[levelTiles[x + y * width]];
+		return Tile.tileList[levelTiles[x + y * LEVEL_WIDTH]];
 
 	}
 	
@@ -460,17 +405,6 @@ public abstract class Level implements Serializable {
 	}
 
 	/**
-	 * Resets a level to its simplest state
-	 */
-	public void reset() {
-		entities.clear();
-		mobs.clear();
-		hideables.clear();
-		damageables.clear();
-		loadEntities();
-	}
-
-	/**
 	 * @return a list of all entities on the map
 	 */
 	public List<Entity> getEntities() {
@@ -492,105 +426,10 @@ public abstract class Level implements Serializable {
 	}
 
 	/**
-	 * Loads the entites on the level
-	 */
-	private void loadEntities() {
-
-		// First load map transporters
-		Entity[] entities = (Entity[]) getMapTransporterPlacement();
-		if (entities != null)
-			for (int i = 0; i < entities.length; i++) {
-				add(entities[i]);
-			}
-
-		// load NPCS
-		entities = (Entity[]) getNPCPlacement();
-		if (entities != null)
-			for (int i = 0; i < entities.length; i++) {
-				add(entities[i]);
-			}
-
-		// load spawners
-		entities = (Entity[]) getSpawnerPlacement();
-		if (entities != null)
-			for (int i = 0; i < entities.length; i++) {
-				add(entities[i]);
-			}
-
-		// load chests
-		entities = (Entity[]) getChestPlacement();
-		if (entities != null)
-			for (int i = 0; i < entities.length; i++) {
-				add(entities[i]);
-			}
-
-		// load everything else
-		entities = (Entity[]) getOtherPlacement();
-		if (entities != null)
-			for (int i = 0; i < entities.length; i++) {
-				add(entities[i]);
-			}
-
-	}
-	
-	/**
-	 * Sets the player to this level
-	 * @param player - player on this level
-	 */
-	public void setPlayer(final Player player) {
-		this.player = player;
-	}
-	
-	/**
-	 * @return the player on this level
-	 */
-	public Player getPlayer() {
-		return player;
-	}
-
-	/**
 	 * Returns a representation of this object as a string
 	 */
 	public String toString() {
 		return name + "\n Mobs: " + this.getMobs();
-	}
-
-	/**
-	 * @param x
-	 *            the new x point
-	 * @param y
-	 *            the new y point
-	 */
-	public void setSpawnPoint(int x, int y) {
-		spawnPoint = new Point(x, y);
-	}
-
-	/**
-	 * @return the width of this level
-	 */
-	public int getWidth() {
-		return width;
-	}
-
-	/**
-	 * @return the height of this level
-	 */
-	public int getHeight() {
-		return height;
-	}
-
-	/**
-	 * @return the spawnpoint of this level
-	 */
-	public Point getSpawnPoint() {
-		return spawnPoint;
-	}
-
-	/**
-	 * @return true if this level is loaded
-	 */
-	public boolean isLoaded() {
-		return isLoaded;
 	}
 
 	/**
@@ -599,49 +438,23 @@ public abstract class Level implements Serializable {
 	public String getName() {
 		return name;
 	}
-
+	
 	/**
-	 * Creates story levels
+	 * @return the spawnpoint on this level
 	 */
-	public static void createStoryLevels() {
-		BautistasDomain.level = new BautistasDomain();
-		EdgeOfTheWoods.level = new EdgeOfTheWoods();
-		EdgeOfTheWoodsTop.level = new EdgeOfTheWoodsTop();
-		LordHillsboroughsDomain.level = new LordHillsboroughsDomain();
-		OrchardValley.level = new OrchardValley();
-		SanCisco.level = new SanCisco();
-		SanJuan.level = new SanJuan();
-		TechTopia.level = new TechTopia();
+	public Point getSpawnPoint() {
+		return spawnPoint;
 	}
-
+	
 	/**
-	 * Returns the level based on the name for loading
+	 * Sets the spawn point on this level
+	 * in entity coordinates
+	 * 
+	 * @param x - the x coordinate
+	 * @param y - the y coordinate
 	 */
-	public final static Level getLevel(final String name) {
-
-		switch (name) {
-
-		case Level.BAUTISTA:
-			return BautistasDomain.level;
-		case Level.EDGE_MAIN:
-			return EdgeOfTheWoods.level;
-		case Level.EDGE_TOP:
-			return EdgeOfTheWoodsTop.level;
-		case Level.HILLSBOROUGH:
-			return LordHillsboroughsDomain.level;
-		case Level.ORCHARD:
-			return OrchardValley.level;
-		case Level.CISCO:
-			return SanCisco.level;
-		case Level.JUAN:
-			return SanJuan.level;
-		case Level.TECH:
-			return TechTopia.level;
-		default:
-			System.err.println("Could not find level from name");
-			return null;
-		}
-
+	public void setSpawnPoint(int x, int y) {
+		spawnPoint.setLocation(x, y);
 	}
 
 }

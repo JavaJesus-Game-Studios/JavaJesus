@@ -3,14 +3,6 @@ package javajesus.entities.transporters;
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
-import javajesus.level.story.BautistasDomain;
-import javajesus.level.story.EdgeOfTheWoods;
-import javajesus.level.story.EdgeOfTheWoodsTop;
-import javajesus.level.story.LordHillsboroughsDomain;
-import javajesus.level.story.OrchardValley;
-import javajesus.level.story.SanCisco;
-import javajesus.level.story.SanJuan;
-import javajesus.level.story.TechTopia;
 import javajesus.utility.Direction;
 
 /*
@@ -61,7 +53,7 @@ public class MapTransporter extends Transporter {
 	 * Overwrites the returning nextLevel
 	 * Instead it returns the static instance of the city it leads to based on the name
 	 */
-	public Level getNextLevel() {
+	/*public Level getNextLevel() {
 		
 		switch (savedLevel) {
 		
@@ -86,7 +78,7 @@ public class MapTransporter extends Transporter {
 			return null;
 		}
 		
-	}
+	}*/
 
 	/**
 	 * Calculates the new spawnpoint for the next level
@@ -102,10 +94,10 @@ public class MapTransporter extends Transporter {
 		case NORTH: {
 
 			// X is proportional to width
-			x = getNextLevel().getWidth() * player.getX()
-					/ getLevel().getWidth();
+			x = Level.LEVEL_WIDTH * player.getX()
+					/ Level.LEVEL_WIDTH;
 
-			y = (getNextLevel().getHeight() * 8) - 16;
+			y = (Level.LEVEL_HEIGHT * 8) - 16;
 			break;
 		}
 
@@ -113,8 +105,8 @@ public class MapTransporter extends Transporter {
 		case SOUTH: {
 
 			// X is proportional to width
-			x = getNextLevel().getWidth() * player.getX()
-					/ getLevel().getWidth();
+			x = Level.LEVEL_WIDTH * player.getX()
+					/ Level.LEVEL_WIDTH;
 
 			y = 16;
 			break;
@@ -126,19 +118,19 @@ public class MapTransporter extends Transporter {
 			x = 16;
 
 			// Y is proportional to height
-			y = getNextLevel().getHeight() * player.getY()
-					/ getLevel().getHeight();
+			y = Level.LEVEL_HEIGHT * player.getY()
+					/ Level.LEVEL_HEIGHT;
 			break;
 		}
 
 		// WEST EDGE OF MAP
 		default: {
 
-			x = (getNextLevel().getWidth() * 8) - 16;
+			x = (Level.LEVEL_WIDTH * 8) - 16;
 
 			// Y is proportional to height
-			y = getNextLevel().getHeight() * player.getY()
-					/ getLevel().getHeight();
+			y = Level.LEVEL_HEIGHT * player.getY()
+					/ Level.LEVEL_HEIGHT;
 			break;
 		}
 		}

@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -13,11 +14,9 @@ import javajesus.level.Level;
 
 public class CatholicChurchInterior extends Interior {
 
-	private static final long serialVersionUID = 1502730285198440557L;
-	
 	private Point exitPoint;
 
-	public CatholicChurchInterior(Point point, Level level) {
+	public CatholicChurchInterior(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Catholic_Church_Interior.png", new Point(248,
 				264), level);
 		this.exitPoint = point;

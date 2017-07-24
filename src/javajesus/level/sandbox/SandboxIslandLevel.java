@@ -1,6 +1,7 @@
 package javajesus.level.sandbox;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -15,16 +16,14 @@ import javajesus.level.Level;
  */
 public class SandboxIslandLevel extends Level {
 
-	// serialization
-	private static final long serialVersionUID = 259027073546330929L;
-	
 	/**
 	 * SandboxOriginalLevel ctor()
 	 * 
 	 * Creates a fixed island map
+	 * @throws IOException 
 	 */
-	public SandboxIslandLevel() {
-		super("/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/island", true, "Island Map", new Point(788, 792));
+	public SandboxIslandLevel(int slot) throws IOException {
+		super("/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/island", "Island Map", new Point(788, 792), slot);
 	}
 
 	protected NPC[] getNPCPlacement() {

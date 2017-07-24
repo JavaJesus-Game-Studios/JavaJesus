@@ -7,18 +7,16 @@ import java.util.Random;
 import javax.sound.sampled.Clip;
 
 import javajesus.SoundHandler;
-import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
-import javajesus.entities.npcs.NPC;
 import javajesus.entities.solid.furniture.Chest;
-import javajesus.entities.transporters.MapTransporter;
 import javajesus.entities.transporters.TransporterLadder;
 import javajesus.items.Item;
 import javajesus.level.generation.CaveGeneration;
 
+/*
+ * A randomly generated cave
+ */
 public class RandomCave extends Level {
-
-	private static final long serialVersionUID = 5464371630174344690L;
 
 	private int[][] caveMap;
 	private Level prevLevel;
@@ -33,11 +31,12 @@ public class RandomCave extends Level {
 	// the number of caves there currently are
 	private static int numCaves;
 
-	public RandomCave(int height, int width, int cycles, Level prevLevel, Point prevSpawn) {
-		super(width, height, false, "Random Cave " + numCaves++);
+	public RandomCave(int cycles, Level prevLevel, Point prevSpawn) {
+		super("Random Cave " + numCaves++, prevSpawn);
 		this.prevLevel = prevLevel;
 		this.prevSpawn = prevSpawn;
 		this.cycles = 3;
+		generateLevel();
 	}
 
 	public Clip getBackgroundMusic() {
@@ -46,7 +45,7 @@ public class RandomCave extends Level {
 
 	protected void generateLevel() {
 
-		caveMap = new CaveGeneration(getHeight(), getWidth(), cycles).generateCave();
+		caveMap = new CaveGeneration(Level.LEVEL_HEIGHT, Level.LEVEL_WIDTH, cycles).generateCave();
 
 		ArrayList<Item> chest1 = new ArrayList<Item>();
 		chest1.add(Item.banana);
@@ -54,9 +53,9 @@ public class RandomCave extends Level {
 		chest1.add(Item.shortSword);
 
 		boolean spawnFound = false;
-		for (int row = 0; row < getHeight(); row++) {
-			for (int col = 0; col < getWidth(); col++) {
-				int tile = col + row * getWidth();
+		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
+			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
+				int tile = col + row * Level.LEVEL_WIDTH;
 				if (caveMap[row][col] == 1) {
 					levelTiles[tile] = 20;
 					if (row > 5 * 8 && col > 5 * 8) {
@@ -79,36 +78,11 @@ public class RandomCave extends Level {
 				} else if (caveMap[row][col] == 6) {
 					levelTiles[tile] = 20;
 					add(new TransporterLadder(this, col * 8, row * 8,
-							new RandomLevel(200, 200, new Point(col * 8, row * 8), this), new Point(col * 8, row * 8)));
+							new RandomLevel(new Point(col * 8, row * 8), this), new Point(col * 8, row * 8)));
 
 				}
 			}
 		}
-	}
-
-	@Override
-	protected NPC[] getNPCPlacement() {
-		return null;
-	}
-
-	@Override
-	protected Spawner[] getSpawnerPlacement() {
-		return null;
-	}
-
-	@Override
-	protected Chest[] getChestPlacement() {
-		return null;
-	}
-
-	@Override
-	protected MapTransporter[] getMapTransporterPlacement() {
-		return null;
-	}
-
-	@Override
-	protected Entity[] getOtherPlacement() {
-		return null;
 	}
 
 }

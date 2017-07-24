@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -11,11 +12,9 @@ import javajesus.level.Level;
 
 public class RussianChurchInterior extends Interior {
 
-	private static final long serialVersionUID = -5856755717263616939L;
-
 	private Point exitPoint;
 
-	public RussianChurchInterior(Point point, Level level) {
+	public RussianChurchInterior(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Russian_Church_Interior.png", new Point(248, 296), level);
 		this.exitPoint = point;
 	}

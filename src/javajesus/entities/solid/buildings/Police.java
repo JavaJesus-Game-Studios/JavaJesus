@@ -1,6 +1,7 @@
 package javajesus.entities.solid.buildings;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.transporters.Transporter;
@@ -19,8 +20,9 @@ public class Police extends Building {
 	 * @param level - the level it is on
 	 * @param x - the x coord on the level
 	 * @param y - the y coord on the level
+	 * @throws IOException 
 	 */
-	public Police(Level level, int x, int y) {
+	public Police(Level level, int x, int y) throws IOException {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFC9C9C9, 0xFF496787 }, Sprite.police_building);
 
 		if (level != null)

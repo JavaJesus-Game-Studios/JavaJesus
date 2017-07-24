@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -13,11 +14,9 @@ import javajesus.utility.Direction;
 
 public class ApartmentLobby extends Interior {
 
-	private static final long serialVersionUID = 6462312596277450469L;
-	
 	private Point exitPoint;
 	
-	public ApartmentLobby(Point point, Level level) {
+	public ApartmentLobby(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/APARTMENT_INTERIORS/Apartment_Lobby.png", new Point(
 				1944, 2040), level);
 		this.exitPoint = point;
@@ -35,7 +34,7 @@ public class ApartmentLobby extends Interior {
 		return null;
 	}
 
-	protected Entity[] getOtherPlacement() {
+	/*protected Entity[] getOtherPlacement() {
 		
 		return new Entity[] {
 				
@@ -46,5 +45,5 @@ public class ApartmentLobby extends Interior {
 				new SkyscraperFloor(new Point(2113, 1710), this, 1), new Point(2105, 2016), Direction.NORTH, TransporterStair.CARPET)
 		};
 		
-	}
+	}*/
 }

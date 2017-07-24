@@ -23,7 +23,6 @@ import javajesus.graphics.Screen;
 import javajesus.gui.OverviewGUI;
 import javajesus.gui.PauseGUI;
 import javajesus.level.tile.Tile;
-import javajesus.save.GameData;
 import javajesus.utility.GameMode;
 import javajesus.utility.JJStrings;
 
@@ -168,9 +167,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			
 			System.err.println("Loading");
 			
-			// load all story levels
-			GameData.loadLevels();
-			
 			// contains the important player data
 			//String[] data = (String[]) GameData.load("Player");
 			
@@ -178,7 +174,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			// get player level, assign player, etc.
 			
 			// set the player info for the game data 
-			GameData.setPlayer(player);
 			
 			// inputhandler is not saved in file
 			overview = new OverviewGUI(player);

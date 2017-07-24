@@ -1,6 +1,7 @@
 package javajesus.entities.solid.buildings.sancisco;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
@@ -20,8 +21,9 @@ public class RussianClub extends Building {
 	 * @param level - the level it is on
 	 * @param x - the x coord on the level
 	 * @param y - the y coord on the level
+	 * @throws IOException 
 	 */
-	public RussianClub(Level level, int x, int y) {
+	public RussianClub(Level level, int x, int y) throws IOException {
 		super(level, x, y, new int[] { 0xFFFFEB0A, 0xFF80004B, 0xFFE934F9 }, Sprite.russian_club);
 
 		if (level != null) {

@@ -3,22 +3,14 @@ package javajesus.level;
 import java.awt.Point;
 import java.util.Random;
 
-import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.solid.buildings.CaveEntrance;
-import javajesus.entities.solid.buildings.Hut;
-import javajesus.entities.solid.buildings.NiceHouse;
-import javajesus.entities.solid.buildings.PoorHouse;
-import javajesus.entities.solid.furniture.Chest;
-import javajesus.entities.transporters.MapTransporter;
 import javajesus.level.generation.HeightMap;
 import javajesus.level.generation.HeightMapTile;
 
 public class RandomLevel extends Level {
-
-	private static final long serialVersionUID = 9158523502013380330L;
 
 	private HeightMapTile[][] heightmap;
 
@@ -35,22 +27,17 @@ public class RandomLevel extends Level {
 	 *            : The height of the level
 	 */
 
-	public RandomLevel(int width, int height, Point spawn) {
-		super(width, height, false, "Random Level " + numLevels++);
-		setSpawnPoint(spawn.x, spawn.y);
+	public RandomLevel(Point spawn) {
+		super("Random Level " + numLevels++, spawn);
+		
+		generateLevel();
 	}
 
 	private RandomCave lastCave;
 
-	public RandomLevel(int width, int height, Point spawn, RandomCave lastCave) {
-		super(width, height, false, "Random Level " + numLevels++);
-		setSpawnPoint(spawn.x, spawn.y);
+	public RandomLevel(Point spawn, RandomCave lastCave) {
+		super("Random Level " + numLevels++, spawn);
 		this.lastCave = lastCave;
-	}
-
-	public RandomLevel(int width, int height, Point spawn, boolean load) {
-		super(width, height, load, "Random Level " + numLevels++);
-		setSpawnPoint(spawn.x, spawn.y);
 	}
 
 	protected void generateLevel() {
@@ -60,11 +47,11 @@ public class RandomLevel extends Level {
 			add(new CaveEntrance(this, getSpawnPoint().x - 18, getSpawnPoint().y - 28, lastCave));
 
 		Random rand = new Random();
-		heightmap = new HeightMap(getWidth(), getHeight(), true, false).generateHeightMap(20);
+		heightmap = new HeightMap(Level.LEVEL_WIDTH, Level.LEVEL_HEIGHT, true, false).generateHeightMap(20);
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[row].length; col++) {
-				int tile = col + row * getWidth();
-				if (heightmap[row][col].tile() < getWidth()) {
+				int tile = col + row * Level.LEVEL_WIDTH;
+				if (heightmap[row][col].tile() < Level.LEVEL_WIDTH) {
 					levelTiles[tile] = heightmap[row][col].tile();
 				}
 				if (heightmap[row][col].getHouse()) {
@@ -77,7 +64,7 @@ public class RandomLevel extends Level {
 				if (heightmap[row][col].getCave()) {
 					levelTiles[tile] = heightmap[row][col].tile();
 					add(new CaveEntrance(this, col * 8 - 18, row * 8 - 28,
-							new RandomCave(200, 200, 5, this, new Point(col * 8, row * 8))));
+							new RandomCave(5, this, new Point(col * 8, row * 8))));
 				}
 				if (heightmap[row][col].getSpawner()) {
 					levelTiles[tile] = heightmap[row][col].tile();
@@ -95,40 +82,16 @@ public class RandomLevel extends Level {
 	}
 
 	private Building getBuilding(int x, int y) {
-		Random random = new Random();
-		switch (random.nextInt(10)) {
-		case 1:
-			return new NiceHouse(this, x, y);
-		case 2:
-			return new Hut(this, x, y);
-		default:
-			return new PoorHouse(this, x, y);
-		}
-	}
-
-	@Override
-	protected NPC[] getNPCPlacement() {
-		return null;
-	}
-
-	@Override
-	protected Spawner[] getSpawnerPlacement() {
-		return null;
-	}
-
-	@Override
-	protected Chest[] getChestPlacement() {
-		return null;
-	}
-
-	@Override
-	protected MapTransporter[] getMapTransporterPlacement() {
-		return null;
-	}
-
-	@Override
-	protected Entity[] getOtherPlacement() {
-		return null;
+		//	Random random = new Random();
+			/*switch (random.nextInt(10)) {
+			case 1:
+				return new NiceHouse(this, x, y);
+			case 2:
+				return new Hut(this, x, y);
+			default:
+				return new PoorHouse(this, x, y);
+			}*/
+			return null;
 	}
 
 }

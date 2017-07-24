@@ -175,20 +175,13 @@ public class Player extends Mob {
 		// play the click sound
 		SoundHandler.play(SoundHandler.click);
 
-		// loop the new background music if applicable
-		if (!getLevel().getBackgroundMusic().equals(level.getBackgroundMusic())) {
-			SoundHandler.playLoop(level.getBackgroundMusic());
-		}
+		// TODO loop the new background music if applicable
+		SoundHandler.playLoop(SoundHandler.background1);
 
 		getLevel().remove(this);
 
 		// clears all the dead mobs on the last level
 		getLevel().clear();
-
-		// load the new level if it has not been loaded yet
-		if (!level.isLoaded()) {
-			level.load();
-		}
 
 		// change the global level variable
 		super.updateLevel(level);

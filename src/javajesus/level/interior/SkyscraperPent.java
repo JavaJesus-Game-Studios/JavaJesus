@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -12,11 +13,9 @@ import javajesus.utility.Direction;
 
 public class SkyscraperPent extends Interior {
 
-	private static final long serialVersionUID = -5198926893074056374L;
-
 	private Level level;
 
-	public SkyscraperPent(Point point, Level level) {
+	public SkyscraperPent(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Skyscraper_Interiors/Skyscraper_Floor_11.png", new Point(500, 500), level);
 		this.level = level;
 	}

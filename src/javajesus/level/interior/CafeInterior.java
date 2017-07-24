@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -11,11 +12,9 @@ import javajesus.level.Level;
 
 public class CafeInterior extends Interior {
 
-	private static final long serialVersionUID = -7327198235470021081L;
-	
 	private Point exitPoint;
 	
-	public CafeInterior(Point point, Level level) {
+	public CafeInterior(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/TECH_TOPIA/INTERIORS/Cafe_Interior.png", new Point(936, 912), level);	
 		this.exitPoint = point;
 	}

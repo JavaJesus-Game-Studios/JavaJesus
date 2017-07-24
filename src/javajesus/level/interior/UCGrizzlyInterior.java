@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -11,11 +12,9 @@ import javajesus.level.Level;
 
 public class UCGrizzlyInterior extends Interior {
 
-	private static final long serialVersionUID = -1432476228711565355L;
-	
 	private Point exitPoint;
 	
-	public UCGrizzlyInterior(Point point, Level level) {
+	public UCGrizzlyInterior(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/HIPPY_VILLE/INTERIORS/UC_Grizzly_Interior.png", new Point(936, 912), level);	
 		this.exitPoint = point;
 	}

@@ -26,7 +26,7 @@ public class TransporterCave extends Transporter {
 	 *            the y coord
 	 */
 	public TransporterCave(Level currentLevel, int x, int y) {
-		super(currentLevel, x, y, new RandomCave(3000, 3000, 5, currentLevel, new Point(x + 1, y + 10)));
+		super(currentLevel, x, y, new RandomCave(5, currentLevel, new Point(x + 1, y + 10)));
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class TransporterCave extends Transporter {
 	 *            the spawnpoint of the RandomCave
 	 */
 	public TransporterCave(Level currentLevel, int x, int y, Point point) {
-		super(currentLevel, x, y, new RandomCave(3000, 3000, 5, currentLevel, new Point(x + 1, y + 10)), point);
+		super(currentLevel, x, y, new RandomCave(5, currentLevel, new Point(x + 1, y + 10)), point);
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -13,11 +14,9 @@ import javajesus.level.Level;
 
 public class CastleTowerInterior extends Interior {
 
-	private static final long serialVersionUID = -4157297082918985024L;
-	
 	private Point exitPoint;
 
-	public CastleTowerInterior(Point point, Level level) {
+	public CastleTowerInterior(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Tower_Interiors/Castle_Tower_Interior.png",
 				new Point(1927, 2080), level);
 		this.exitPoint = point;

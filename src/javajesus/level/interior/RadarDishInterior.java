@@ -1,6 +1,7 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
@@ -11,11 +12,9 @@ import javajesus.level.Level;
 
 public class RadarDishInterior extends Interior {
 
-	private static final long serialVersionUID = 277175021065186443L;
-
 	private Point exitPoint;
 
-	public RadarDishInterior(Point point, Level level) {
+	public RadarDishInterior(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/TECH_TOPIA/INTERIORS/Radar_Dish_Interior.png", new Point(792, 912), level);
 		this.exitPoint = point;
 	}
