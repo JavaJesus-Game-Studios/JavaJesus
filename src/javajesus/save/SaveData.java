@@ -235,7 +235,7 @@ public class SaveData {
 			}
 			
 			// add this entity to the level
-			level.add();
+			level.add(e);
 
 		}
 
@@ -258,7 +258,7 @@ public class SaveData {
 
 		// save the entity data
 		for (Entity e : entities) {
-
+			
 			// don't save the player here
 			if (!(e instanceof Player)) {
 				os.write(ByteBuffer.allocate(9).put(e.getId()).putLong(e.getData()).array());
