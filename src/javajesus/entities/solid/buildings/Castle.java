@@ -26,6 +26,7 @@ public class Castle extends Building {
 		// change bounds
 		setBounds(getBounds().x + 12, getBounds().y, getBounds().width - 24, getBounds().height);
 
+		if (level != null)
 		level.add(new Transporter(level, x + 154, y + 160, new CastleInterior(new Point(x + 43, y + 167), getLevel())));
 
 	}

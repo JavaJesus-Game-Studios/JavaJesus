@@ -24,8 +24,10 @@ public class CardinalUniversity extends Building {
 	public CardinalUniversity(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFFFF1111, 0xFFFFFFB2, 0xFFFFFFFF }, Sprite.cardinalUniversity);
 
+		if (level != null) {
 		level.add(new Transporter(level, x + 82, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 		level.add(new Transporter(level, x + 106, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		}
 	}
 	
 	@Override

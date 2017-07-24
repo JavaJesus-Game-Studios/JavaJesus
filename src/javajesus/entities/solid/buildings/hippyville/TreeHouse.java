@@ -27,6 +27,7 @@ public class TreeHouse extends Building {
 		// change bounds
 		setBounds(getBounds().x + 18, getBounds().y, getBounds().width - 36, getBounds().height);
 
+		if (level != null)
 		level.add(new Transporter(level, x + 18, y + 30, new TreeHouseInterior(new Point(x + 24, y + 42), level)));
 	}
 

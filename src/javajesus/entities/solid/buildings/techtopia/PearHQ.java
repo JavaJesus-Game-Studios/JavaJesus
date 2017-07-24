@@ -24,6 +24,7 @@ public class PearHQ extends Building {
 	public PearHQ(Level level, int x, int y) {
 		super(level, x, y, new int[] { -1, 111, 0xFF648ca4, 0xFFf87a36 }, Sprite.pear_hq);
 
+		if (level != null)
 		level.add(
 		        new Transporter(level, x + 46, y + 176, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}

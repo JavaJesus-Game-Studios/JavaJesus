@@ -24,6 +24,7 @@ public class WeirdTechBuilding1 extends Building {
 	public WeirdTechBuilding1(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF919192, 0xFF4D4DFF }, Sprite.weirdTechBuilding1);
 
+		if (level != null)
 		level.add(new Transporter(level, x + 8, y + 120, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 

@@ -26,6 +26,7 @@ public class RussianOrthodoxChurch extends Building {
 		// change the bounds
 		setBounds(getBounds().x + 4, getBounds().y, getBounds().width - 8, getBounds().height);
 
+		if (level != null)
 		level.add(new Transporter(level, x + 43, y + 64, new RussianChurchInterior(new Point(x + 49, y + 75), level)));
 
 	}

@@ -27,6 +27,7 @@ public class TechTopiaCityHall extends Building {
 		// change the bounds
 		setBounds(getBounds().x + 15, getBounds().y, getBounds().width - 28, getBounds().height);
 
+		if (level != null)
 		level.add(new Transporter(level, x + 42, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 	

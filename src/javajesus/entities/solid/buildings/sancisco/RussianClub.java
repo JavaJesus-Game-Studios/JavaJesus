@@ -24,8 +24,10 @@ public class RussianClub extends Building {
 	public RussianClub(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFFFFEB0A, 0xFF80004B, 0xFFE934F9 }, Sprite.russian_club);
 
+		if (level != null) {
 		level.add(new Transporter(level, x + 38, y + 45, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 		level.add(new Transporter(level, x + 51, y + 45, level));
+		}
 	}
 	
 	@Override

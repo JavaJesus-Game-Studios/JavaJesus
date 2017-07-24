@@ -907,7 +907,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		entityList[Entity.BENCH] = new EntityGUI(new Bench(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 1);
 		entityList[Entity.CHAIR_FRONT] = new EntityGUI(new ChairFront(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 		entityList[Entity.CHAIR_SIDE] = new EntityGUI(new ChairSide(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
-		entityList[Entity.CHEST] = new EntityGUI(new Chest(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
+		entityList[Entity.CHEST] = new EntityGUI(new Chest(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 1);
 		entityList[Entity.COMPUTER_MONITOR] = new EntityGUI(new ComputerMonitor(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 		entityList[Entity.COMPUTER_TOWER] = new EntityGUI(new ComputerTower(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 2);
 		entityList[Entity.DINING_TABLE] = new EntityGUI(new DiningTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 16);
@@ -943,7 +943,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		entityList[Entity.RUSSIAN_ORTHODOX_CHURCH] = new EntityGUI(new RussianOrthodoxChurch(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 12, 10);
 		entityList[Entity.SHANTY_HOUSE] = new EntityGUI(new ShantyHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 6);
 		entityList[Entity.SKYSCRAPER] = new EntityGUI(new Skyscraper(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 11, 32);
-		entityList[Entity.TIPPEE] = new EntityGUI(new Tippee(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 32, 50);
+		entityList[Entity.TIPPEE] = new EntityGUI(new Tippee(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 7);
 		entityList[Entity.WAREHOUSE] = new EntityGUI(new Warehouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 8);
 		entityList[Entity.GREAT_TREE] = new EntityGUI(new GreatTree(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 7, 15);
 		entityList[Entity.TREE_HOUSE] = new EntityGUI(new TreeHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 15);
@@ -1004,7 +1004,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		case Entity.CHAIR_SIDE:
 			return new EntityGUI(new ChairSide(null, 0, 0), 0, 0, 1, 1);
 		case Entity.CHEST:
-			return new EntityGUI(new Chest(null, 0, 0), 0, 0, 1, 1);
+			return new EntityGUI(new Chest(null, 0, 0), 0, 0, 2, 1);
 		case Entity.COMPUTER_MONITOR:
 			return new EntityGUI(new ComputerMonitor(null, 0, 0), 0, 0, 1, 1);
 		case Entity.COMPUTER_TOWER:
@@ -1084,7 +1084,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		case Entity.SKYSCRAPER:
 			return new EntityGUI(new Skyscraper(null, 0, 0), 0, 0, 11, 32);
 		case Entity.TIPPEE:
-			return new EntityGUI(new Tippee(null, 0, 0), 0, 0, 32, 50);
+			return new EntityGUI(new Tippee(null, 0, 0), 0, 0, 4, 7);
 		case Entity.WAREHOUSE:
 			return new EntityGUI(new Warehouse(null, 0, 0), 0, 0, 13, 8);
 		case Entity.GREAT_TREE:

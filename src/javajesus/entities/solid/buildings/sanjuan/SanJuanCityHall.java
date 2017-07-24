@@ -27,6 +27,7 @@ public class SanJuanCityHall extends Building {
 		// change the bounds
 		setBounds(getBounds().x, getBounds().y, getBounds().width - 33, getBounds().height);
 
+		if (level != null)
 		level.add(new Transporter(level, x + 67, y + 104, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 

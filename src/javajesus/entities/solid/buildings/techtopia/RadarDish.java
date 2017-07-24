@@ -27,6 +27,7 @@ public class RadarDish extends Building {
 		// change the  bounds
 		setBounds(getBounds().x + 6, getBounds().y, getBounds().width - 12, getBounds().height);
 
+		if (level != null)
 		level.add(new Transporter(level, x + 37, y + 117, new RadarDishInterior(new Point(x + 43, y + 125), level)));
 	}
 

@@ -23,6 +23,7 @@ public class RancheroHouse extends Building {
 	public RancheroHouse(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFAB0, 0xFFD30000 }, Sprite.ranchero_house);
 
+		if (level != null)
 		level.add(new Transporter(level, x + 44, y + 45, new RancheroHouseInterior(new Point(x + 50, y + 56), level)));
 	}
 

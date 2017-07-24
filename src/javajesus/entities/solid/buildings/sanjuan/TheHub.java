@@ -24,6 +24,7 @@ public class TheHub extends Building {
 	public TheHub(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF86868D, 0xFF4D4DFF }, Sprite.theHub);
 
+		if (level != null)
 		level.add(new Transporter(level, x + 46, y + 148, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 

@@ -27,6 +27,7 @@ public class NiceHouse2 extends Building {
 	public NiceHouse2(Level level, int x, int y) {
 		super(level, x, y, getColor(), Sprite.nice_house_2);
 
+		if (level != null)
 		level.add(
 		        new Transporter(level, x + 19, y + 39, new NiceHouse1Interior(new Point(x + 23, y + 49), getLevel())));
 	}

@@ -30,7 +30,7 @@ public class EntityGUI extends JPanel {
 	private final Entity entity;
 	
 	// holds the pixel data, large number to ensure building is contained
-	private final Screen screen = new Screen(260, 260);
+	private final Screen screen;
 	
 	// the number of tiles in each direction
 	private int xTiles, yTiles;
@@ -49,6 +49,7 @@ public class EntityGUI extends JPanel {
 		this.entity = entity;
 		this.xTiles = xTiles;
 		this.yTiles = yTiles;
+		screen = new Screen(xTiles * 8, yTiles * 8);
 		
 		// create the image
 		image = new BufferedImage(SIZE * xTiles, SIZE * yTiles, BufferedImage.TYPE_INT_RGB);

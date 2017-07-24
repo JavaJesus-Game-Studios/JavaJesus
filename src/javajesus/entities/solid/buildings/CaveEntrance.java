@@ -25,6 +25,7 @@ public class CaveEntrance extends Building {
 	public CaveEntrance(Level level, int x, int y) {
 		super(level, x, y, color, Sprite.cave_entrance);
 
+		if (level != null)
 		level.add(new TransporterCave(level, x + 18, y + 20));
 	}
 

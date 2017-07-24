@@ -24,6 +24,7 @@ public class OakwoodCityHall extends Building {
 	public OakwoodCityHall(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFFFF, 0xFFFFFF99 }, Sprite.oakwoodcityhall);
 
+		if (level != null)
 		level.add(
 		        new Transporter(level, x + 48, y + 104, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}

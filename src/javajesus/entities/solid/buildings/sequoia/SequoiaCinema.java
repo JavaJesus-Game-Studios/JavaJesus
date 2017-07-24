@@ -27,6 +27,7 @@ public class SequoiaCinema extends Building {
 		// change the bounds
 		setBounds(getBounds().x + 14, getBounds().y, getBounds().width - 14, getBounds().height);
 
+		if (level != null)
 		level.add(new Transporter(level, x + 59, y + 99, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 	

@@ -24,8 +24,10 @@ public class UCGrizzly extends Building {
 	public UCGrizzly(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFFB2, 0xFF6D6D61 }, Sprite.grizzly);
 
+		if (level != null) {
 		level.add(new Transporter(level, x + 82, y + 45, new UCGrizzlyInterior(new Point(x + 88, y + 57), level)));
 		level.add(new Transporter(level, x + 106, y + 45, new UCGrizzlyInterior(new Point(x + 112, y + 57), level)));
+		}
 	}
 	
 	@Override

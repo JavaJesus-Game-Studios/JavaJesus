@@ -27,6 +27,7 @@ public class QuackerHQ extends Building {
 		// change the bounds
 		setBounds(getBounds().x + 21, getBounds().y, getBounds().width - 58, getBounds().height);
 
+		if (level != null)
 		level.add(new Transporter(level, x + 53, y + 83, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 	

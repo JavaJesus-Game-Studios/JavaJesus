@@ -27,6 +27,7 @@ public class ChinatownHouse extends Building {
 		// change the bounds
 		setBounds(getBounds().x + 5, getBounds().y, getBounds().width - 10, getBounds().height);
 
+		if (level != null)
 		level.add(new Transporter(level, x + 26, y + 41,
 		        new ChinatownHouseInterior(new Point(x + 32, y + 53), getLevel())));
 	}
