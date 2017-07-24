@@ -38,12 +38,12 @@ import javajesus.entities.solid.buildings.hippyville.GreatTree;
 import javajesus.entities.solid.buildings.hippyville.TreeHouse;
 import javajesus.entities.solid.buildings.hippyville.UCGrizzly;
 import javajesus.entities.solid.buildings.oakwood.OakwoodCityHall;
-import javajesus.entities.solid.buildings.sancsico.ChinatownHouse;
-import javajesus.entities.solid.buildings.sancsico.RussianClub;
-import javajesus.entities.solid.buildings.sancsico.SanCiscoCityHall;
-import javajesus.entities.solid.buildings.sancsico.SanCiscoSkyscraper;
-import javajesus.entities.solid.buildings.sancsico.TriadHQ;
-import javajesus.entities.solid.buildings.sanjuan.JugleHQ;
+import javajesus.entities.solid.buildings.sancisco.ChinatownHouse;
+import javajesus.entities.solid.buildings.sancisco.RussianClub;
+import javajesus.entities.solid.buildings.sancisco.SanCiscoCityHall;
+import javajesus.entities.solid.buildings.sancisco.SanCiscoSkyscraper;
+import javajesus.entities.solid.buildings.sancisco.TriadHQ;
+import javajesus.entities.solid.buildings.sanjuan.JungleHQ;
 import javajesus.entities.solid.buildings.sanjuan.QuackerHQ;
 import javajesus.entities.solid.buildings.sanjuan.SanJuanCityHall;
 import javajesus.entities.solid.buildings.sanjuan.TheHub;
@@ -144,7 +144,7 @@ public class LevelTester extends Level {
 		b = new GunStore(this, x +=(int) b.getBounds().getWidth() + 50, 0),
 		b = new Hotel(this, x +=(int) b.getBounds().getWidth() + 50, 0),
 		b = new Hut(this, x +=(int) b.getBounds().getWidth() + 50, 0),
-		b = new JugleHQ(this, x +=(int) b.getBounds().getWidth() + 50, 0),
+		b = new JungleHQ(this, x +=(int) b.getBounds().getWidth() + 50, 0),
 		b = new MineShaft(this, x +=(int) b.getBounds().getWidth() + 50, 0),
 		b = new ModernSkyscraper(this, x +=(int) b.getBounds().getWidth() + 50, 0),
 		b = new NiceHouse(this, x +=(int) b.getBounds().getWidth() + 50, 0),

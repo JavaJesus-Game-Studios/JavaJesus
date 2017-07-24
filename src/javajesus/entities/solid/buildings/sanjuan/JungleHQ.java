@@ -12,7 +12,7 @@ import javajesus.level.interior.PoorHouseInterior;
 /*
  * The head quarters for the jungle place
  */
-public class JugleHQ extends Building {
+public class JungleHQ extends Building {
 
 	/**
 	 * Creates a jungle hq
@@ -21,7 +21,7 @@ public class JugleHQ extends Building {
 	 * @param x - the x coord on the level
 	 * @param y - the y coord on the level
 	 */
-	public JugleHQ(Level level, int x, int y) {
+	public JungleHQ(Level level, int x, int y) {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF248F24, 0xFF4D4DFF }, Sprite.jugle_hq);
 
 		level.add(new Transporter(level, x + 61, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));

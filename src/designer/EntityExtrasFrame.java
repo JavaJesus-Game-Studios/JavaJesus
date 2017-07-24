@@ -47,6 +47,7 @@ public class EntityExtrasFrame extends JFrame implements ActionListener {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		toFront();
+		setAlwaysOnTop(true);
 	}
 
 	@Override

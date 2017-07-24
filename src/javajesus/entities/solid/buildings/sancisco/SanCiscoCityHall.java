@@ -1,4 +1,4 @@
-package javajesus.entities.solid.buildings.sancsico;
+package javajesus.entities.solid.buildings.sancisco;
 
 import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;

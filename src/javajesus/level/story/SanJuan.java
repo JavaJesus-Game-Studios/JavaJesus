@@ -18,7 +18,7 @@ import javajesus.entities.solid.buildings.Projects;
 import javajesus.entities.solid.buildings.RancheroHouse;
 import javajesus.entities.solid.buildings.RussianOrthodoxChurch;
 import javajesus.entities.solid.buildings.Warehouse;
-import javajesus.entities.solid.buildings.sanjuan.JugleHQ;
+import javajesus.entities.solid.buildings.sanjuan.JungleHQ;
 import javajesus.entities.solid.buildings.sanjuan.QuackerHQ;
 import javajesus.entities.solid.buildings.sanjuan.SanJuanCityHall;
 import javajesus.entities.solid.buildings.sanjuan.TheHub;
@@ -103,7 +103,7 @@ public class SanJuan extends Level {
 
 				// special buildings
 				new QuackerHQ(this, 928, 2208), new SanJuanCityHall(this, 1344, 2184), new TheHub(this, 1144, 2136),
-				new TheHub(this, 1800, 2136), new JugleHQ(this, 1544, 2208),
+				new TheHub(this, 1800, 2136), new JungleHQ(this, 1544, 2208),
 
 				// warehouses
 				new Warehouse(this, 832, 1240), new Warehouse(this, 1016, 1296), new Warehouse(this, 1256, 1360),
