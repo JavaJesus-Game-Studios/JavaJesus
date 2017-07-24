@@ -58,77 +58,77 @@ public class Tile {
 				new int[] { 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
 		
 			//TRANSITION TILES
-			public static final Tile GRASS_DIRT_BOTTOM_RIGHT = new Tile(17, false,0xFF01FF06,
+			public static final Tile GRASS_DIRT_BTM_RGHT = new Tile(17, false,0xFF01FF06,
 					0, 1, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile GRASS_DIRT_TOP_LEFT = new Tile(18, false,0xFF01FF07,
+			public static final Tile GRASS_DIRT_TOP_LFT = new Tile(18, false,0xFF01FF07,
 					1, 1, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile GRASS_DIRT_TOP_RIGHT = new Tile(19, false,0xFF01FF08,
+			public static final Tile GRASS_DIRT_TOP_RGHT = new Tile(19, false,0xFF01FF08,
 					2, 1, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile GRASS_DIRT_BOTTOM_LEFT = new Tile(20, false,0xFF01FF09,
+			public static final Tile GRASS_DIRT_BTM_LFT = new Tile(20, false,0xFF01FF09,
 					3, 1, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
 			
-			public static final Tile GRASS_SAND_BOTTOM_RIGHT = new Tile(21, false,0xFF03FF04,
+			public static final Tile GRASS_DGRASS_BTM_RGHT = new Tile(21, false,0xFF03FF04,
 					0, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile GRASS_SAND_TOP_LEFT = new Tile(22, false,0xFF03FF05,
+			public static final Tile GRASS_DGRASS_TOP_LFT = new Tile(22, false,0xFF03FF05,
 					1, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile GRASS_SAND_TOP_RIGHT = new Tile(23, false,0xFF03FF06,
+			public static final Tile GRASS_DGRASS_TOP_RGHT = new Tile(23, false,0xFF03FF06,
 					2, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile GRASS_SAND_BOTTOM_LEFT = new Tile(24, false,0xFF03FF07,
+			public static final Tile GRASS_DGRASS_BTM_LFT = new Tile(24, false,0xFF03FF07,
 					3, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
 			
-			public static final Tile GRASS_MUD_BOTTOM_RIGHT = new Tile(25, false,0xFF03FF08,
+			public static final Tile GRASS_MUD_BTM_RGHT = new Tile(25, false,0xFF03FF08,
 					4, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile GRASS_MUD_TOP_LEFT = new Tile(26, false,0xFF03FF09,
+			public static final Tile GRASS_MUD_TOP_LFT = new Tile(26, false,0xFF03FF09,
 					5, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile GRASS_MUD_TOP_RIGHT = new Tile(27, false,0xFF04FF00,
+			public static final Tile GRASS_MUD_TOP_RGHT = new Tile(27, false,0xFF04FF00,
 					6, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile GRASS_MUD_BOTTOM_LEFT = new Tile(28, false,0xFF04FF01,
+			public static final Tile GRASS_MUD_BTM_LFT = new Tile(28, false,0xFF04FF01,
 					7, 2, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
 			
-			public static final Tile GRASS_ROAD_BOTTOM_RIGHT = new Tile(29, false,0xFF04FF02,
+			public static final Tile GRASS_ROAD_BTM_RGHT = new Tile(29, false,0xFF04FF02,
 					0, 6, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile GRASS_ROAD_TOP_LEFT = new Tile(30, false,0xFF04FF03,
+			public static final Tile GRASS_ROAD_TOP_LFT = new Tile(30, false,0xFF04FF03,
 					1, 6, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile GRASS_ROAD_TOP_RIGHT = new Tile(31, false,0xFF04FF03,
+			public static final Tile GRASS_ROAD_TOP_RGHT = new Tile(31, false,0xFF04FF03,
 					2, 6, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile GRASS_ROAD_BOTTOM_LEFT = new Tile(32, false,0xFF04FF04,
+			public static final Tile GRASS_ROAD_BTM_LFT = new Tile(32, false,0xFF04FF04,
 					3, 6, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
 			
 			//DEAD GRASS
-			public static final Tile DGRASS_DIRT_BOTTOM_RIGHT = new Tile(33, false,0xFF04FF05,
+			public static final Tile DGRASS_DIRT_BTM_RGHT = new Tile(33, false,0xFF04FF05,
 					0, 4, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile DGRASS_DIRT_TOP_LEFT = new Tile(34, false,0xFF04FF06,
+			public static final Tile DGRASS_DIRT_TOP_LFT = new Tile(34, false,0xFF04FF06,
 					1, 4, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile DGRASS_DIRT_TOP_RIGHT = new Tile(35, false,0xFF04FF07,
+			public static final Tile DGRASS_DIRT_TOP_RGHT = new Tile(35, false,0xFF04FF07,
 					2, 4, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile DGRASS_DIRT_BOTTOM_LEFT = new Tile(36, false,0xFF04FF08,
+			public static final Tile DGRASS_DIRT_BTM_LFT = new Tile(36, false,0xFF04FF08,
 					3, 4, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
 			
-			public static final Tile DGRASS_SAND_BOTTOM_RIGHT = new Tile(37, false,0xFF05FF03,
+			public static final Tile DGRASS_SAND_BTM_RGHT = new Tile(37, false,0xFF05FF03,
 					0, 5, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile DGRASS_SAND_TOP_LEFT = new Tile(38, false,0xFF05FF04,
+			public static final Tile DGRASS_SAND_TOP_LFT = new Tile(38, false,0xFF05FF04,
 					1, 5, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile DGRASS_SAND_TOP_RIGHT = new Tile(39, false,0xFF05FF05,
+			public static final Tile DGRASS_SAND_TOP_RGHT = new Tile(39, false,0xFF05FF05,
 					2, 5, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile DGRASS_SAND_BOTTOM_LEFT = new Tile(40, false,0xFF05FF06,
+			public static final Tile DGRASS_SAND_BTM_LFT = new Tile(40, false,0xFF05FF06,
 					3, 5, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
 			
-			public static final Tile DGRASS_MUD_BOTTOM_RIGHT = new Tile(41, false,0xFF05FF07,
+			public static final Tile DGRASS_MUD_BTM_RGHT = new Tile(41, false,0xFF05FF07,
 					4, 5, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile DGRASS_MUD_TOP_LEFT = new Tile(42, false,0xFF05FF08,
+			public static final Tile DGRASS_MUD_TOP_LFT = new Tile(42, false,0xFF05FF08,
 					5, 5, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile DGRASS_MUD_TOP_RIGHT = new Tile(43, false,0xFF05FF09,
+			public static final Tile DGRASS_MUD_TOP_RGHT = new Tile(43, false,0xFF05FF09,
 					6, 5, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile DGRASS_MUD_BOTTOM_LEFT = new Tile(44, false,0xFF06FF00,
+			public static final Tile DGRASS_MUD_BTM_LFT = new Tile(44, false,0xFF06FF00,
 					7, 5, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
 			
-			public static final Tile DGRASS_ROAD_BOTTOM_RIGHT = new Tile(45, false,0xFF06FF01,
+			public static final Tile DGRASS_ROAD_BTM_RGHT = new Tile(45, false,0xFF06FF01,
 					4, 6, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile DGRASS_ROAD_TOP_LEFT = new Tile(46, false,0xFF06FF02,
+			public static final Tile DGRASS_ROAD_TOP_LFT = new Tile(46, false,0xFF06FF02,
 					5, 6, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile DGRASS_ROAD_TOP_RIGHT = new Tile(47, false,0xFF06FF03,
+			public static final Tile DGRASS_ROAD_TOP_RGHT = new Tile(47, false,0xFF06FF03,
 					6, 6, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
-			public static final Tile DGRASS_ROAD_BOTTOM_LEFT = new Tile(48, false,0xFF06FF04,
+			public static final Tile DGRASS_ROAD_BTM_LFT = new Tile(48, false,0xFF06FF04,
 					7, 6, SpriteSheet.grass, new int[]{ 0xFF0C6600, 0xFF5D3102, 0xFF000000 });
 	
 
@@ -143,456 +143,469 @@ public class Tile {
 		public static final Tile MUD2 = new Tile(52, false, 0xFF372202, 1, 2, SpriteSheet.dirt,
 				new int[] { 0xFF2c1802, 0xFF000000, 0xFF000000 });
 		
-		public static final Tile DIRTROAD = new Tile(53, false, 0xFFA06201, 0, 4, SpriteSheet.dirt,
+		public static final Tile DIRTROAD = new Tile(53, false, 0xFFA06201, 0, 3, SpriteSheet.dirt,
 				new int[] { 0xFF935409, 0xFF000000, 0xFF000000 });
-		public static final Tile DIRTROAD2 = new Tile(54, false, 0xFFA06202, 1, 4, SpriteSheet.dirt,
+		public static final Tile DIRTROAD2 = new Tile(54, false, 0xFFA06202, 1, 3, SpriteSheet.dirt,
 				new int[] { 0xFF935409, 0xFF000000, 0xFF000000 });
 	
-		public static final Tile CAVEFLOOR = new Tile(55, false, 0xFFC3BEB7, 7, 4, SpriteSheet.dirt,
+		public static final Tile CAVEFLOOR = new Tile(55, false, 0xFFC3BEB7, 7, 3, SpriteSheet.dirt,
 				new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile CAVEFLOOR1 = new Tile(56, false, 0xFFC3BEB8, 8, 4, SpriteSheet.dirt,
+		public static final Tile CAVEFLOOR1 = new Tile(56, false, 0xFFC3BEB8, 8, 3, SpriteSheet.dirt,
 				new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile CAVEFLOOR_ROCK = new Tile(57, false, 0xFFC3BEB9, 6, 4, SpriteSheet.dirt,
+		public static final Tile CAVEFLOOR_ROCK = new Tile(57, false, 0xFFC3BEB9, 6, 3, SpriteSheet.dirt,
 				new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
 		
-		public static final Tile MOUNTAIN_ENTRANCE_TOP = new Tile(58, false, 0xFFC8BEC1, 2, 4,
+		public static final Tile MOUNTAIN_ENTRANCE_TOP = new Tile(58, false, 0xFFC8BEC1, 2, 3,
 				SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile MOUNTAIN_ENTRANCE_BOTTOM = new Tile(59, false, 0xFFC8BEC2, 3, 4, 
+		public static final Tile MOUNTAIN_ENTRANCE_BTM = new Tile(59, false, 0xFFC8BEC2, 3, 3, 
 				SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile MOUNTAIN_ENTRANCE_RIGHT = new Tile(60, false, 0xFFC8BEC3, 4, 4,
+		public static final Tile MOUNTAIN_ENTRANCE_RGHT = new Tile(60, false, 0xFFC8BEC3, 4, 3,
 				SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile MOUNTAIN_ENTRANCE_LEFT = new Tile(61, false, 0xFFC8BEC4, 5, 4, 
+		public static final Tile MOUNTAIN_ENTRANCE_LFT = new Tile(61, false, 0xFFC8BEC4, 5, 3, 
 				SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
 		
 			//TRANSITION TILES
-			public static final Tile SAND_DIRT_BOTTOM_RIGHT = new Tile(62, false, 0xFFFFFF10, 2, 0, 
+			public static final Tile SAND_DIRT_BTM_RGHT = new Tile(62, false, 0xFFFFFF10, 2, 0, 
 					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile SAND_DIRT_TOP_LEFT = new Tile(63, false, 0xFFFFFF11, 3, 0, 
+			public static final Tile SAND_DIRT_TOP_LFT = new Tile(63, false, 0xFFFFFF11, 3, 0, 
 					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile SAND_DIRT_TOP_RIGHT = new Tile(64, false, 0xFFFFFF12, 4, 0, 
+			public static final Tile SAND_DIRT_TOP_RGHT = new Tile(64, false, 0xFFFFFF12, 4, 0, 
 					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile SAND_DIRT_BOTTOM_LEFT = new Tile(65, false, 0xFFFFFF13, 5, 0, 
-					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			
-			public static final Tile SAND_ROAD_BOTTOM_RIGHT = new Tile(66, false, 0xFFFFFF20, 6, 0, 
-					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile SAND_ROAD_TOP_LEFT = new Tile(67, false, 0xFFFFFF21, 7, 0, 
-					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile SAND_ROAD_TOP_RIGHT = new Tile(68, false, 0xFFFFFF22, 8, 0, 
-					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile SAND_ROAD_BOTTOM_LEFT = new Tile(69, false, 0xFFFFFF23, 9, 0, 
+			public static final Tile SAND_DIRT_BTM_LFT = new Tile(65, false, 0xFFFFFF13, 5, 0, 
 					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
 			
-			public static final Tile SAND_GRASS_BOTTOM_RIGHT = new Tile(70, false, 0xFFFFFF20, 2, 1, 
+			public static final Tile SAND_ROAD_BTM_RGHT = new Tile(66, false, 0xFFFFFF20, 6, 0, 
 					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile SAND_GRASS_TOP_LEFT = new Tile(71, false, 0xFFFFFF21, 3, 1, 
+			public static final Tile SAND_ROAD_TOP_LFT = new Tile(67, false, 0xFFFFFF21, 7, 0, 
 					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile SAND_GRASS_TOP_RIGHT = new Tile(72, false, 0xFFFFFF22, 4, 1, 
+			public static final Tile SAND_ROAD_TOP_RGHT = new Tile(68, false, 0xFFFFFF22, 8, 0, 
 					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile SAND_GRASS_BOTTOM_LEFT = new Tile(73, false, 0xFFFFFF23, 5, 1, 
-					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			
-			public static final Tile MUD_DIRT_BOTTOM_RIGHT = new Tile(74, false, 0xFFFFFF10, 2, 2, 
-					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile MUD_DIRT_TOP_LEFT = new Tile(75, false, 0xFFFFFF11, 3, 2, 
-					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile MUD_DIRT_TOP_RIGHT = new Tile(76, false, 0xFFFFFF12, 4, 2, 
-					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile MUD_DIRT_BOTTOM_LEFT = new Tile(77, false, 0xFFFFFF13, 5, 2, 
+			public static final Tile SAND_ROAD_BTM_LFT = new Tile(69, false, 0xFFFFFF23, 9, 0, 
 					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
 			
-			public static final Tile MUD_ROAD_BOTTOM_RIGHT = new Tile(78, false, 0xFFFFFF20, 6, 2, 
+			public static final Tile SAND_GRASS_BTM_RGHT = new Tile(70, false, 0xFFFFFF20, 2, 1, 
 					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile MUD_ROAD_TOP_LEFT = new Tile(79, false, 0xFFFFFF21, 7, 2, 
+			public static final Tile SAND_GRASS_TOP_LFT = new Tile(71, false, 0xFFFFFF21, 3, 1, 
 					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile MUD_ROAD_TOP_RIGHT = new Tile(80, false, 0xFFFFFF22, 8, 2, 
+			public static final Tile SAND_GRASS_TOP_RGHT = new Tile(72, false, 0xFFFFFF22, 4, 1, 
 					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile MUD_ROAD_BOTTOM_LEFT = new Tile(81, false, 0xFFFFFF23, 9, 2, 
-					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			
-			public static final Tile MUD_GRASS_BOTTOM_RIGHT = new Tile(82, false, 0xFFFFFF20, 2, 3, 
-					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile MUD_GRASS_TOP_LEFT = new Tile(83, false, 0xFFFFFF21, 3, 3, 
-					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile MUD_GRASS_TOP_RIGHT = new Tile(84, false, 0xFFFFFF22, 4, 3, 
-					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-			public static final Tile MUD_GRASS_BOTTOM_LEFT = new Tile(85, false, 0xFFFFFF23, 5, 3, 
+			public static final Tile SAND_GRASS_BTM_LFT = new Tile(73, false, 0xFFFFFF23, 5, 1, 
 					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
 			
+			public static final Tile MUD_DIRT_BTM_RGHT = new Tile(74, false, 0xFFFFFF10, 2, 2, 
+					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+			public static final Tile MUD_DIRT_TOP_LFT = new Tile(75, false, 0xFFFFFF11, 3, 2, 
+					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+			public static final Tile MUD_DIRT_TOP_RGHT = new Tile(76, false, 0xFFFFFF12, 4, 2, 
+					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+			public static final Tile MUD_DIRT_BTM_LFT = new Tile(77, false, 0xFFFFFF13, 5, 2, 
+					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+			
+			public static final Tile MUD_ROAD_BTM_RGHT = new Tile(78, false, 0xFFFFFF20, 6, 2, 
+					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+			public static final Tile MUD_ROAD_TOP_LFT = new Tile(79, false, 0xFFFFFF21, 7, 2, 
+					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+			public static final Tile MUD_ROAD_TOP_RGHT = new Tile(80, false, 0xFFFFFF22, 8, 2, 
+					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+			public static final Tile MUD_ROAD_BTM_LFT = new Tile(81, false, 0xFFFFFF23, 9, 2, 
+					SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });			
 			
 
 		//MOUNTAIN
-		public static final Tile MOUNTAIN_UP = new Tile(86, true, 0xFF9e7013, 0, 0, SpriteSheet.mountain,
+		public static final Tile MOUNTAIN_UP = new Tile(82, true, 0xFF9e7013, 0, 0, SpriteSheet.mountain,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile MOUNTAIN_DOWN = new Tile(87, true, 0xFF875a00, 1, 0, SpriteSheet.mountain,
+		public static final Tile MOUNTAIN_DOWN = new Tile(83, true, 0xFF875a00, 1, 0, SpriteSheet.mountain,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile MOUNTAIN_LEFT = new Tile(88, true, 0xFF564015, 2, 0, SpriteSheet.mountain,
+		public static final Tile MOUNTAIN_LFT = new Tile(84, true, 0xFF564015, 2, 0, SpriteSheet.mountain,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile MOUNTAIN_RIGHT = new Tile(89, true, 0xFF5e3f00, 3, 0, SpriteSheet.mountain, 
+		public static final Tile MOUNTAIN_RGHT = new Tile(85, true, 0xFF5e3f00, 3, 0, SpriteSheet.mountain, 
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
 		
-		public static final Tile MOUNTAIN_CORN_UP_RGHT = new Tile(90, true, 0xFF9e7013, 0, 1, SpriteSheet.mountain,
+		public static final Tile MOUNTAIN_CORN_UP_RGHT = new Tile(86, true, 0xFF9e7013, 0, 1, SpriteSheet.mountain,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile MOUNTAIN_CORN_UP_LFT = new Tile(91, true, 0xFF875a00, 1, 1, SpriteSheet.mountain,
+		public static final Tile MOUNTAIN_CORN_UP_LFT = new Tile(87, true, 0xFF875a00, 1, 1, SpriteSheet.mountain,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile MOUNTAIN_CORN_DWN_RGHT = new Tile(92, true, 0xFF564015, 2, 1, SpriteSheet.mountain,
+		public static final Tile MOUNTAIN_CORN_DWN_RGHT = new Tile(88, true, 0xFF564015, 2, 1, SpriteSheet.mountain,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile MOUNTAIN_CORN_DWN_LFT = new Tile(93, true, 0xFF5e3f00, 3, 1, SpriteSheet.mountain, 
+		public static final Tile MOUNTAIN_CORN_DWN_LFT = new Tile(89, true, 0xFF5e3f00, 3, 1, SpriteSheet.mountain, 
+				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
+		
+		public static final Tile MOUNTAIN_INCORN_LFT_UP = new Tile(90, true, 0xFF9e7013, 4, 0, SpriteSheet.mountain,
+				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
+		public static final Tile MOUNTAIN_INCORN_RGHT_UP = new Tile(91, true, 0xFF875a00, 5, 0, SpriteSheet.mountain,
+				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
+		public static final Tile MOUNTAIN_INCORN_LFT_DWN = new Tile(92, true, 0xFF564015, 6, 0, SpriteSheet.mountain,
+				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
+		public static final Tile MOUNTAIN_INCORN_RGHT_DWN = new Tile(93, true, 0xFF5e3f00, 7, 0, SpriteSheet.mountain, 
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
 
-		public static final Tile DMOUNTAIN_UP = new Tile(94, true, 0xFF9e7013, 4, 0, SpriteSheet.mountain,
+		public static final Tile DMOUNTAIN_UP = new Tile(94, true, 0xFF9e7013, 4, 1, SpriteSheet.mountain,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile DMOUNTAIN_DOWN = new Tile(95, true, 0xFF875a00, 5, 0, SpriteSheet.mountain,
+		public static final Tile DMOUNTAIN_DOWN = new Tile(95, true, 0xFF875a00, 5, 1, SpriteSheet.mountain,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile DMOUNTAIN_LEFT = new Tile(96, true, 0xFF564015, 6, 0, SpriteSheet.mountain,
+		public static final Tile DMOUNTAIN_LFT = new Tile(96, true, 0xFF564015, 6, 1, SpriteSheet.mountain,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile DMOUNTAIN_RIGHT = new Tile(97, true, 0xFF5e3f00, 7, 0, SpriteSheet.mountain, 
+		public static final Tile DMOUNTAIN_RGHT = new Tile(97, true, 0xFF5e3f00, 7, 1, SpriteSheet.mountain, 
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
 
-		public static final Tile DMOUNTAIN_CORN_UP_RGHT = new Tile(98, true, 0xFF9e7013, 5, 1, SpriteSheet.mountain,
+		public static final Tile DMOUNTAIN_CORN_UP_RGHT = new Tile(98, true, 0xFF9e7013, 4, 2, SpriteSheet.mountain,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile DMOUNTAIN_CORN_UP_LFT = new Tile(99, true, 0xFF875a00, 6, 1, SpriteSheet.mountain,
+		public static final Tile DMOUNTAIN_CORN_UP_LFT = new Tile(99, true, 0xFF875a00, 5, 2, SpriteSheet.mountain,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile DMOUNTAIN_CORN_DWN_RGHT = new Tile(100, true, 0xFF564015, 7, 1, SpriteSheet.mountain,
+		public static final Tile DMOUNTAIN_CORN_DWN_RGHT = new Tile(100, true, 0xFF564015, 6, 2, SpriteSheet.mountain,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile DMOUNTAIN_CORN_DWN_LFT = new Tile(101, true, 0xFF5e3f00, 8, 1, SpriteSheet.mountain, 
+		public static final Tile DMOUNTAIN_CORN_DWN_LFT = new Tile(101, true, 0xFF5e3f00, 7, 2, SpriteSheet.mountain, 
+				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
+		
+		public static final Tile DMOUNTAIN_INCORN_LFT_UP = new Tile(102, true, 0xFF9e7013, 4, 3, SpriteSheet.mountain,
+				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
+		public static final Tile DMOUNTAIN_INCORN_RGHT_UP = new Tile(103, true, 0xFF875a00, 5, 3, SpriteSheet.mountain,
+				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
+		public static final Tile DMOUNTAIN_INCORN_LFT_DWN = new Tile(104, true, 0xFF564015, 6, 3, SpriteSheet.mountain,
+				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
+		public static final Tile DMOUNTAIN_INCORN_RGHT_DWN = new Tile(105, true, 0xFF5e3f00, 7, 3, SpriteSheet.mountain, 
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
 
 		
-		public static final Tile CAVEWALL = new Tile(102, true, 0xFF291900, 0, 2, SpriteSheet.mountain, 
+		public static final Tile CAVEWALL = new Tile(106, true, 0xFF291900, 0, 2, SpriteSheet.mountain, 
 				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
-		public static final Tile CAVEWALL1 = new Tile(103, true, 0xFF291900, 1, 2, SpriteSheet.mountain, 
+		public static final Tile CAVEWALL1 = new Tile(107, true, 0xFF291900, 1, 2, SpriteSheet.mountain, 
 				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
-		public static final Tile CAVEWALL2 = new Tile(104, true, 0xFF291900, 2, 2, SpriteSheet.mountain, 
+		public static final Tile CAVEWALL2 = new Tile(108, true, 0xFF291900, 2, 2, SpriteSheet.mountain, 
 				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
-		public static final Tile CAVEWALL3 = new Tile(105, true, 0xFF291900, 3, 2, SpriteSheet.mountain, 
+		public static final Tile CAVEWALL3 = new Tile(109, true, 0xFF291900, 3, 2, SpriteSheet.mountain, 
 				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
 
-		public static final Tile CAVEWALL_ROCK = new Tile(106, true, 0xFF291900, 0, 3, SpriteSheet.mountain, 
+		public static final Tile CAVEWALL_ROCK = new Tile(110, true, 0xFF291900, 0, 3, SpriteSheet.mountain, 
 				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
-		public static final Tile CAVEWALL_ROCK1 = new Tile(107, true, 0xFF291900, 1, 3, SpriteSheet.mountain, 
+		public static final Tile CAVEWALL_ROCK1 = new Tile(111, true, 0xFF291900, 1, 3, SpriteSheet.mountain, 
 				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
 
 	/////// URBAN ////////
 	
 		//ROADS
-		public static final Tile CAR_ROAD = new Tile(108 ,false, 0xFF565656, 0, 0, 
+		public static final Tile CAR_ROAD = new Tile(112,false, 0xFF565656, 0, 0, 
 				SpriteSheet.urbanRoads, new int[] { 0xFF222222, 0xFF353535, 0xFF000000 });
-		public static final Tile CAR_ROAD_DIV_HORZ = new Tile(109 ,false, 0xFF565656, 1, 0,
+		public static final Tile CAR_ROAD_DIV_HORZ = new Tile(113,false, 0xFF565656, 1, 0,
 				SpriteSheet.urbanRoads, new int[] { 0xFF222222, 0xFF353535, 0xFF000000 });
-		public static final Tile CAR_ROAD_DIV_VERT = new Tile(110 ,false, 0xFF565656, 2, 0,
+		public static final Tile CAR_ROAD_DIV_VERT = new Tile(114,false, 0xFF565656, 2, 0,
 				SpriteSheet.urbanRoads,new int[] { 0xFF222222, 0xFF353535, 0xFF000000 });
-		public static final Tile BRICKROAD = new Tile(111, false, 0xFFA50000, 0, 1, 
+		public static final Tile BRICKROAD = new Tile(115, false, 0xFFA50000, 0, 1, 
 				SpriteSheet.urbanRoads, new int[] { 0xFFD40000, 0xFFB40000, 0xFF000000 });
 		
 		//SIDEWALK
-		public static final Tile SIDEWALK_MID = new Tile(112, false, 0xFF3f3f3f, 1, 1,
+		public static final Tile SIDEWALK_MID = new Tile(116, false, 0xFF3f3f3f, 1, 1,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
 		
 			//ROAD
-		public static final Tile SIDEWALK_BTTMEDGE_RD = new Tile(113, false, 0xFF3f3f3f, 0, 2,
+		public static final Tile SIDEWALK_BTTMEDGE_RD = new Tile(117, false, 0xFF3f3f3f, 0, 2,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPEDGE_RD = new Tile(114, false, 0xFF3f3f3f, 1, 2,
+		public static final Tile SIDEWALK_TOPEDGE_RD = new Tile(118, false, 0xFF3f3f3f, 1, 2,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_RGHTEDGE_RD = new Tile(115, false, 0xFF3f3f3f, 2, 2,
+		public static final Tile SIDEWALK_RGHTEDGE_RD = new Tile(119, false, 0xFF3f3f3f, 2, 2,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_LFTEDGE_RD = new Tile(116, false, 0xFF3f3f3f, 3, 2,
+		public static final Tile SIDEWALK_LFTEDGE_RD = new Tile(120, false, 0xFF3f3f3f, 3, 2,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_BTTMCORN_RGHT_RD = new Tile(117, false, 0xFF3f3f3f, 4, 2,
+		public static final Tile SIDEWALK_BTTMCORN_RGHT_RD = new Tile(121, false, 0xFF3f3f3f, 4, 2,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_BTTMCORN_LFT_RD = new Tile(118, false, 0xFF3f3f3f, 5, 2,
+		public static final Tile SIDEWALK_BTTMCORN_LFT_RD = new Tile(122, false, 0xFF3f3f3f, 5, 2,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPCORN_RGHT_RD = new Tile(119, false, 0xFF3f3f3f, 6, 2,
+		public static final Tile SIDEWALK_TOPCORN_RGHT_RD = new Tile(123, false, 0xFF3f3f3f, 6, 2,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPCORN_LFT_RD = new Tile(120, false, 0xFF3f3f3f, 7, 2,
+		public static final Tile SIDEWALK_TOPCORN_LFT_RD = new Tile(124, false, 0xFF3f3f3f, 7, 2,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPCORN_IN_RGHT_RD = new Tile(121, false, 0xFF3f3f3f, 0, 3,
+		public static final Tile SIDEWALK_TOPCORN_IN_RGHT_RD = new Tile(125, false, 0xFF3f3f3f, 0, 3,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPCORN_IN_LFT_RD = new Tile(123, false, 0xFF3f3f3f, 1, 3,
+		public static final Tile SIDEWALK_TOPCORN_IN_LFT_RD = new Tile(126, false, 0xFF3f3f3f, 1, 3,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_BTTMCORN_IN_RGHT_RD = new Tile(124, false, 0xFF3f3f3f, 2,3,
+		public static final Tile SIDEWALK_BTTMCORN_IN_RGHT_RD = new Tile(127, false, 0xFF3f3f3f, 2,3,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_BTTMCORN_IN_LFT_RD = new Tile(125, false, 0xFF3f3f3f, 3, 3,
+		public static final Tile SIDEWALK_BTTMCORN_IN_LFT_RD = new Tile(128, false, 0xFF3f3f3f, 3, 3,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
 		
 			//BRICKROAD
-		public static final Tile SIDEWALK_BTTMEDGE_BRD = new Tile(126, false, 0xFF3f3f3f, 4, 3,
+		public static final Tile SIDEWALK_BTTMEDGE_BRD = new Tile(129, false, 0xFF3f3f3f, 4, 3,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPEDGE_BRD = new Tile(127, false, 0xFF3f3f3f, 5, 3,
+		public static final Tile SIDEWALK_TOPEDGE_BRD = new Tile(130, false, 0xFF3f3f3f, 5, 3,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_RGHTEDGE_BRD = new Tile(128, false, 0xFF3f3f3f, 6, 3,
+		public static final Tile SIDEWALK_RGHTEDGE_BRD = new Tile(131, false, 0xFF3f3f3f, 6, 3,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_LFTEDGE_BRD = new Tile(129, false, 0xFF3f3f3f, 7, 3,
+		public static final Tile SIDEWALK_LFTEDGE_BRD = new Tile(132, false, 0xFF3f3f3f, 7, 3,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_BTTMCORN_RGHT_BRD = new Tile(130, false, 0xFF3f3f3f, 0, 4,
+		public static final Tile SIDEWALK_BTTMCORN_RGHT_BRD = new Tile(133, false, 0xFF3f3f3f, 0, 4,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_BTTMCORN_LFT_BRD = new Tile(131, false, 0xFF3f3f3f, 1, 4,
+		public static final Tile SIDEWALK_BTTMCORN_LFT_BRD = new Tile(134, false, 0xFF3f3f3f, 1, 4,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPCORN_RGHT_BRD = new Tile(132, false, 0xFF3f3f3f, 2, 4,
+		public static final Tile SIDEWALK_TOPCORN_RGHT_BRD = new Tile(135, false, 0xFF3f3f3f, 2, 4,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPCORN_LFT_BRD = new Tile(133, false, 0xFF3f3f3f, 3, 4,
+		public static final Tile SIDEWALK_TOPCORN_LFT_BRD = new Tile(136, false, 0xFF3f3f3f, 3, 4,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPCORN_IN_RGHT_BRD = new Tile(134, false, 0xFF3f3f3f, 4, 4,
+		public static final Tile SIDEWALK_TOPCORN_IN_RGHT_BRD = new Tile(137, false, 0xFF3f3f3f, 4, 4,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPCORN_IN_LFT_BRD = new Tile(135, false, 0xFF3f3f3f, 5, 4,
+		public static final Tile SIDEWALK_TOPCORN_IN_LFT_BRD = new Tile(138, false, 0xFF3f3f3f, 5, 4,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_BTTMCORN_IN_RGHT_BRD = new Tile(136, false, 0xFF3f3f3f, 6, 4,
+		public static final Tile SIDEWALK_BTTMCORN_IN_RGHT_BRD = new Tile(139, false, 0xFF3f3f3f, 6, 4,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_BTTMCORN_IN_LFT_BRD = new Tile(137, false, 0xFF3f3f3f, 7, 4,
+		public static final Tile SIDEWALK_BTTMCORN_IN_LFT_BRD = new Tile(140, false, 0xFF3f3f3f, 7, 4,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
 			//GRASS
-		public static final Tile SIDEWALK_BTTMEDGE_GRSS = new Tile(138, false, 0xFF3f3f3f, 0, 5,
+		public static final Tile SIDEWALK_BTTMEDGE_GRSS = new Tile(141, false, 0xFF3f3f3f, 0, 5,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPEDGE_GRSS = new Tile(139, false, 0xFF3f3f3f, 1, 5,
+		public static final Tile SIDEWALK_TOPEDGE_GRSS = new Tile(142, false, 0xFF3f3f3f, 1, 5,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_RGHTEDGE_GRSS = new Tile(140, false, 0xFF3f3f3f, 2, 5,
+		public static final Tile SIDEWALK_RGHTEDGE_GRSS = new Tile(143, false, 0xFF3f3f3f, 2, 5,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_LFTEDGE_GRSS = new Tile(141, false, 0xFF3f3f3f, 3, 5,
+		public static final Tile SIDEWALK_LFTEDGE_GRSS = new Tile(144, false, 0xFF3f3f3f, 3, 5,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_BTTMCORN_RGHT_GRSS = new Tile(142, false, 0xFF3f3f3f, 4, 5,
+		public static final Tile SIDEWALK_BTTMCORN_RGHT_GRSS = new Tile(145, false, 0xFF3f3f3f, 4, 5,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_BTTMCORN_LFT_GRSS = new Tile(143, false, 0xFF3f3f3f, 5, 5,
+		public static final Tile SIDEWALK_BTTMCORN_LFT_GRSS = new Tile(146, false, 0xFF3f3f3f, 5, 5,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPCORN_RGHT_GRSS = new Tile(144, false, 0xFF3f3f3f, 6, 5,
+		public static final Tile SIDEWALK_TOPCORN_RGHT_GRSS = new Tile(147, false, 0xFF3f3f3f, 6, 5,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPCORN_LFT_GRSS = new Tile(145, false, 0xFF3f3f3f, 7, 5,
+		public static final Tile SIDEWALK_TOPCORN_LFT_GRSS = new Tile(148, false, 0xFF3f3f3f, 7, 5,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPCORN_IN_RGHT_GRSS = new Tile(146, false, 0xFF3f3f3f, 0, 6,
+		public static final Tile SIDEWALK_TOPCORN_IN_RGHT_GRSS = new Tile(149, false, 0xFF3f3f3f, 0, 6,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_TOPCORN_IN_LFT_GRSS = new Tile(147, false, 0xFF3f3f3f, 1, 6,
+		public static final Tile SIDEWALK_TOPCORN_IN_LFT_GRSS = new Tile(150, false, 0xFF3f3f3f, 1, 6,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_BTTMCORN_IN_RGHT_GRSS = new Tile(148, false, 0xFF3f3f3f, 2, 6,
+		public static final Tile SIDEWALK_BTTMCORN_IN_RGHT_GRSS = new Tile(151, false, 0xFF3f3f3f, 2, 6,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
-		public static final Tile SIDEWALK_BTTMCORN_IN_LFT_GRSS = new Tile(149, false, 0xFF3f3f3f, 3, 6,
+		public static final Tile SIDEWALK_BTTMCORN_IN_LFT_GRSS = new Tile(152, false, 0xFF3f3f3f, 3, 6,
 				SpriteSheet.urbanRoads,new int[] { 0xFFa7a7a7, 0xFF3c3c3c, 0xFF000000 });
 	
 	
 		//Wasteland
-		public static final Tile WASTELAND_GROUND1 = new Tile(150, false, 0xFF8e8e8e, 0, 0,
+		public static final Tile WASTELAND_GROUND1 = new Tile(153, false, 0xFF8e8e8e, 0, 0,
 				SpriteSheet.wasteland, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile WASTELAND_GROUND2 = new Tile(151, false, 0xFF8e8e8e, 1, 0,
+		public static final Tile WASTELAND_GROUND2 = new Tile(154, false, 0xFF8e8e8e, 1, 0,
 				SpriteSheet.wasteland, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile WASTELAND_GROUND3 = new Tile(152, false, 0xFF8e8e8e, 2, 0,
+		public static final Tile WASTELAND_GROUND3 = new Tile(155, false, 0xFF8e8e8e, 2, 0,
 				SpriteSheet.wasteland, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile WASTELAND_GROUND4 = new Tile(153, false, 0xFF8e8e8e, 3, 0,
+		public static final Tile WASTELAND_GROUND4 = new Tile(156, false, 0xFF8e8e8e, 3, 0,
 				SpriteSheet.wasteland, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile WASTELAND_GROUND5 = new Tile(154, false, 0xFF8e8e8e, 4, 0,
+		public static final Tile WASTELAND_GROUND5 = new Tile(157, false, 0xFF8e8e8e, 4, 0,
 				SpriteSheet.wasteland, new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-		public static final Tile WASTELAND_GROUND6 = new Tile(155, false, 0xFF8e8e8e, 5, 0,
+		public static final Tile WASTELAND_GROUND6 = new Tile(158, false, 0xFF8e8e8e, 5, 0,
 				SpriteSheet.wasteland, new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-		public static final Tile WASTELAND_GROUND7 = new Tile(156, false, 0xFF8e8e8e, 6, 0, 
+		public static final Tile WASTELAND_GROUND7 = new Tile(159, false, 0xFF8e8e8e, 6, 0, 
 				SpriteSheet.wasteland, new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-		public static final Tile WASTELAND_GROUND8 = new Tile(157, false, 0xFF8e8e8e, 7, 0,
+		public static final Tile WASTELAND_GROUND8 = new Tile(160, false, 0xFF8e8e8e, 7, 0,
 				SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
 		
-		public static final Tile DWASTELAND_GROUND1 = new Tile(158, false, 0xFF8e8e8e, 0, 1,
+		public static final Tile DWASTELAND_GROUND1 = new Tile(161, false, 0xFF8e8e8e, 0, 1,
 				SpriteSheet.wasteland, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile DWASTELAND_GROUND2 = new Tile(159, false, 0xFF8e8e8e, 1, 1,
+		public static final Tile DWASTELAND_GROUND2 = new Tile(162, false, 0xFF8e8e8e, 1, 1,
 				SpriteSheet.wasteland, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile DWASTELAND_GROUND3 = new Tile(160, false, 0xFF8e8e8e, 2, 1,
+		public static final Tile DWASTELAND_GROUND3 = new Tile(163, false, 0xFF8e8e8e, 2, 1,
 				SpriteSheet.wasteland, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile DWASTELAND_GROUND4 = new Tile(161, false, 0xFF8e8e8e, 3, 1,
+		public static final Tile DWASTELAND_GROUND4 = new Tile(164, false, 0xFF8e8e8e, 3, 1,
 				SpriteSheet.wasteland, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile DWASTELAND_GROUND5 = new Tile(162, false, 0xFF8e8e8e, 4, 1,
+		public static final Tile DWASTELAND_GROUND5 = new Tile(165, false, 0xFF8e8e8e, 4, 1,
 				SpriteSheet.wasteland, new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-		public static final Tile DWASTELAND_GROUND6 = new Tile(163, false, 0xFF8e8e8e, 5, 1,
+		public static final Tile DWASTELAND_GROUND6 = new Tile(166, false, 0xFF8e8e8e, 5, 1,
 				SpriteSheet.wasteland, new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-		public static final Tile DWASTELAND_GROUND7 = new Tile(164, false, 0xFF8e8e8e, 6, 1, 
+		public static final Tile DWASTELAND_GROUND7 = new Tile(167, false, 0xFF8e8e8e, 6, 1, 
 				SpriteSheet.wasteland, new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-		public static final Tile DWASTELAND_GROUND8 = new Tile(165, false, 0xFF8e8e8e, 7, 1,
+		public static final Tile DWASTELAND_GROUND8 = new Tile(168, false, 0xFF8e8e8e, 7, 1,
 				SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
 		
 			//TRANSITIONS
-			public static final Tile WASTELAND_DIRT_BTTM_RGHT = new Tile(166, false, 0xFF8e8e8e, 0, 2,
+			public static final Tile WASTELAND_DIRT_BTTM_RGHT = new Tile(169, false, 0xFF8e8e8e, 0, 2,
 					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-			public static final Tile WASTELAND_DIRT_TOP_LFT = new Tile(167, false, 0xFF8e8e8e, 1, 2,
+			public static final Tile WASTELAND_DIRT_TOP_LFT = new Tile(170, false, 0xFF8e8e8e, 1, 2,
 					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-			public static final Tile WASTELAND_DIRT_TOP_RGHT = new Tile(168, false, 0xFF8e8e8e, 2, 2,
+			public static final Tile WASTELAND_DIRT_TOP_RGHT = new Tile(171, false, 0xFF8e8e8e, 2, 2,
 					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-			public static final Tile WASTELAND_DIRT_BTTM_LFT = new Tile(169, false, 0xFF8e8e8e, 3, 2,
-					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-			
-			public static final Tile WASTELAND_SAND_BTTM_RGHT = new Tile(170, false, 0xFF8e8e8e, 0, 3,
-					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-			public static final Tile WASTELAND_SAND_TOP_LFT = new Tile(171, false, 0xFF8e8e8e, 1, 3,
-					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-			public static final Tile WASTELAND_SAND_TOP_RGHT = new Tile(172, false, 0xFF8e8e8e, 2, 3,
-					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-			public static final Tile WASTELAND_SAND_BTTM_LFT = new Tile(173, false, 0xFF8e8e8e, 3, 3,
+			public static final Tile WASTELAND_DIRT_BTTM_LFT = new Tile(172, false, 0xFF8e8e8e, 3, 2,
 					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
 			
-			public static final Tile WASTELAND_DGRASS_BTTM_RGHT = new Tile(174, false, 0xFF8e8e8e, 4, 3,
+			public static final Tile WASTELAND_SAND_BTTM_RGHT = new Tile(173, false, 0xFF8e8e8e, 0, 3,
 					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-			public static final Tile WASTELAND_DGRASS_TOP_LFT = new Tile(175, false, 0xFF8e8e8e, 5, 3,
+			public static final Tile WASTELAND_SAND_TOP_LFT = new Tile(174, false, 0xFF8e8e8e, 1, 3,
 					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-			public static final Tile WASTELAND_DGRASS_TOP_RGHT = new Tile(176, false, 0xFF8e8e8e, 6, 3,
+			public static final Tile WASTELAND_SAND_TOP_RGHT = new Tile(175, false, 0xFF8e8e8e, 2, 3,
 					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-			public static final Tile WASTELAND_DGRASS_BTTM_LFT = new Tile(177, false, 0xFF8e8e8e, 7, 3,
+			public static final Tile WASTELAND_SAND_BTTM_LFT = new Tile(176, false, 0xFF8e8e8e, 3, 3,
+					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
+			
+			public static final Tile WASTELAND_DGRASS_BTTM_RGHT = new Tile(177, false, 0xFF8e8e8e, 4, 3,
+					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
+			public static final Tile WASTELAND_DGRASS_TOP_LFT = new Tile(178, false, 0xFF8e8e8e, 5, 3,
+					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
+			public static final Tile WASTELAND_DGRASS_TOP_RGHT = new Tile(179, false, 0xFF8e8e8e, 6, 3,
+					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
+			public static final Tile WASTELAND_DGRASS_BTTM_LFT = new Tile(180, false, 0xFF8e8e8e, 7, 3,
 					SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
 		
 
 	/////// INTERIOR //////
 	
 		//Floors
-		public static final Tile WOODFLOOR1 = new Tile(178, false, 0xFF944500, 0, 0, SpriteSheet.floors, 
+		public static final Tile WOODFLOOR1 = new Tile(181, false, 0xFF944500, 0, 0, SpriteSheet.floors, 
 				new int[] { 0xFF753003, 0xFF291900, 0xFF000000 });
-		public static final Tile WOODFLOOR2 = new Tile(179, false, 0xFF944500, 1, 0, SpriteSheet.floors, 
+		public static final Tile WOODFLOOR2 = new Tile(182, false, 0xFF944500, 1, 0, SpriteSheet.floors, 
 				new int[] { 0xFF753003, 0xFF291900, 0xFF000000 });
-		public static final Tile SHACKFLOOR = new Tile(180, false, 0xFF944500, 2, 0, SpriteSheet.floors, 
+		public static final Tile SHACKFLOOR_VERT = new Tile(183, false, 0xFF944500, 2, 0, SpriteSheet.floors, 
 				new int[] { 0xFF753003, 0xFF291900, 0xFF000000 });
-		public static final Tile STONEFLOOR = new Tile(181, false, 0xFF555555, 3, 0, SpriteSheet.floors,
+		public static final Tile SHACKFLOOR_HORZ = new Tile(184, false, 0xFF944500, 0, 2, SpriteSheet.floors, 
+				new int[] { 0xFF753003, 0xFF291900, 0xFF000000 });
+		public static final Tile STONEFLOOR_SMLL = new Tile(185, false, 0xFF555555, 3, 0, SpriteSheet.floors,
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
-		public static final Tile CHECKERED_TILE = new Tile(182, false, 0xFFe3350c, 4, 0, SpriteSheet.floors,
+		public static final Tile STONEFLOOR_LRGE = new Tile(186, false, 0xFF555555, 1, 2, SpriteSheet.floors,
+				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
+		public static final Tile CHECKERED_TILE = new Tile(187, false, 0xFFe3350c, 4, 0, SpriteSheet.floors,
 				new int[] { 0xFF111111, 0xFF111111, 0xFFFFFFFF });
-		public static final Tile LINOLEUM = new Tile(183, false, 0xFFFFFFFF, 5, 0, SpriteSheet.floors,
+		public static final Tile LINOLEUM = new Tile(188, false, 0xFFFFFFFF, 5, 0, SpriteSheet.floors,
+				new int[] { 0xFFf9ffd8, 0xFF000000, 0xFF000000 });
+		public static final Tile WAREHOUSE = new Tile(189, false, 0xFFFFFFFF, 2, 2, SpriteSheet.floors,
 				new int[] { 0xFFf9ffd8, 0xFF000000, 0xFF000000 });
 
-		public static final Tile RIGHTCARPET = new Tile(184, false, 0xFFBE03DB, 0, 1, SpriteSheet.floors,
+		public static final Tile RGHTCARPET = new Tile(190, false, 0xFFBE03DB, 0, 1, SpriteSheet.floors,
 				new int[] { 0xFFA40101, 0xFFEBCB00, 0xFF000000 });
-		public static final Tile LEFTCARPET = new Tile(185, false, 0xFFEC00EC, 1, 1, SpriteSheet.floors, 
+		public static final Tile LFTCARPET = new Tile(191, false, 0xFFEC00EC, 1, 1, SpriteSheet.floors, 
 				new int[] { 0xFFA40101, 0xFFEBCB00, 0xFF000000 });
-		public static final Tile TOPCARPET = new Tile(186, false, 0xFFFF00FF, 2, 1, SpriteSheet.floors,
+		public static final Tile TOPCARPET = new Tile(192, false, 0xFFFF00FF, 2, 1, SpriteSheet.floors,
 				new int[] { 0xFFA40101, 0xFFEBCB00, 0xFF000000 });
-		public static final Tile BOTTOMCARPET = new Tile(187, false, 0xFF6600A7, 3, 1, SpriteSheet.floors, 
+		public static final Tile BTMCARPET = new Tile(193, false, 0xFF6600A7, 3, 1, SpriteSheet.floors, 
 				new int[] { 0xFFA40101, 0xFFEBCB00, 0xFF000000 });
 		
-		public static final Tile FLOOR_CARPET_1 = new Tile(188, false,0xFF1f7a01, 4, 1, SpriteSheet.floors,
+		public static final Tile FLOOR_CARPET_1 = new Tile(194, false,0xFF1f7a01, 4, 1, SpriteSheet.floors,
 				new int[] { 0xFF1F7901, 0xFF1F4001, 0xFF000000 });
-		public static final Tile FLOOR_CARPET_SHAG = new Tile(189, false,0xFF1f7a01, 5, 1, SpriteSheet.floors,
+		public static final Tile FLOOR_CARPET_SHAG = new Tile(195, false,0xFF1f7a01, 5, 1, SpriteSheet.floors,
 				new int[] { 0xFF1F7901, 0xFF1F4001, 0xFF000000 });
-		
 	
 		//Walls
-		public static final Tile NICE_WALL_UP = new Tile(190, true, 0xFF6D4300, 0, 0, SpriteSheet.walls,
+		public static final Tile NICE_WALL_UP = new Tile(196, true, 0xFF6D4300, 0, 0, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile NICE_WALL_DWN = new Tile(191, true, 0xFF835100, 1, 0, SpriteSheet.walls,
+		public static final Tile NICE_WALL_DWN = new Tile(197, true, 0xFF835100, 1, 0, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile NICE_WALL_LFT = new Tile(192, true, 0xFF5A3801, 2, 0, SpriteSheet.walls,
+		public static final Tile NICE_WALL_LFT = new Tile(198, true, 0xFF5A3801, 2, 0, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile NICE_WALL_RGHT = new Tile(193, true, 0xFF472C00, 3, 0, SpriteSheet.walls,
+		public static final Tile NICE_WALL_RGHT = new Tile(199, true, 0xFF472C00, 3, 0, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile NICE_WALLCORN_RGHT_UP = new Tile(194, true, 0xFF520101, 4, 0, SpriteSheet.walls,
+		public static final Tile NICE_WALLCORN_RGHT_UP = new Tile(200, true, 0xFF520101, 4, 0, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile NICE_WALLCORN_LFT_UP = new Tile(195, true, 0xFF420101, 5, 0, SpriteSheet.walls,
+		public static final Tile NICE_WALLCORN_LFT_UP = new Tile(201, true, 0xFF420101, 5, 0, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile NICE_WALLCORN_RGHT_DWN = new Tile(196, true, 0xFF7A0000, 6, 0, SpriteSheet.walls,
+		public static final Tile NICE_WALLCORN_RGHT_DWN = new Tile(202, true, 0xFF7A0000, 6, 0, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile NICE_WALLCORN_LFT_DWN = new Tile(197, true, 0xFF310000, 7, 0, SpriteSheet.walls,
+		public static final Tile NICE_WALLCORN_LFT_DWN = new Tile(203, true, 0xFF310000, 7, 0, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile NICE_WALL_INCORN_LFTUP = new Tile(198, true, 0xFFA3881A, 8, 0, SpriteSheet.walls,
+		public static final Tile NICE_WALL_INCORN_LFTUP = new Tile(204, true, 0xFFA3881A, 8, 0, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile NICE_WALL_INCORN_RGHTUP = new Tile(199, true, 0xFF7C6816, 9, 0, SpriteSheet.walls,
+		public static final Tile NICE_WALL_INCORN_RGHTUP = new Tile(205, true, 0xFF7C6816, 9, 0, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile NICE_WALL_INCORN_LFTDWN = new Tile(200, true, 0xFF717C16, 10, 0, SpriteSheet.walls, 
+		public static final Tile NICE_WALL_INCORN_LFTDWN = new Tile(206, true, 0xFF717C16, 10, 0, SpriteSheet.walls, 
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile NICE_WALL_INCORN_RGHTDWN = new Tile(201, true, 0xFF7d8c00, 11, 0, SpriteSheet.walls,
-				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		
-		public static final Tile STONE_WALL_UP = new Tile(202, true, 0xFF6D4300, 0, 1, SpriteSheet.walls,
-				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile STONE_WALL_DWN = new Tile(203, true, 0xFF835100, 1, 1, SpriteSheet.walls,
-				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile STONE_WALL_LFT = new Tile(204, true, 0xFF5A3801, 2, 1, SpriteSheet.walls,
-				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile STONE_WALL_RGHT = new Tile(205, true, 0xFF472C00, 3, 1, SpriteSheet.walls,
-				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile STONE_WALLCORN_RGHT_UP = new Tile(206, true, 0xFF520101, 4, 1, SpriteSheet.walls,
-				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile STONE_WALLCORN_LFT_UP = new Tile(207, true, 0xFF420101, 5, 1, SpriteSheet.walls,
-				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile STONE_WALLCORN_RGHT_DWN = new Tile(208, true, 0xFF7A0000, 6, 1, SpriteSheet.walls,
-				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile STONE_WALLCORN_LFT_DWN = new Tile(209, true, 0xFF310000, 7, 1, SpriteSheet.walls,
-				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile STONE_WALL_INCORN_LFTUP = new Tile(210, true, 0xFFA3881A, 8, 1, SpriteSheet.walls,
-				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile STONE_WALL_INCORN_RGHTUP = new Tile(211, true, 0xFF7C6816, 9, 1, SpriteSheet.walls,
-				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile STONE_WALL_INCORN_LFTDWN = new Tile(212, true, 0xFF717C16, 10, 1, SpriteSheet.walls, 
-				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile STONE_WALL_INCORN_RGHTDWN = new Tile(213, true, 0xFF7d8c00, 11, 1, SpriteSheet.walls,
+		public static final Tile NICE_WALL_INCORN_RGHTDWN = new Tile(207, true, 0xFF7d8c00, 11, 0, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
 		
-		public static final Tile SHACK_WALL_UP = new Tile(214, true, 0xFF6D4300, 0, 2, SpriteSheet.walls,
+		public static final Tile STONE_WALL_UP = new Tile(208, true, 0xFF6D4300, 0, 1, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALL_DWN = new Tile(215, true, 0xFF835100, 1, 2, SpriteSheet.walls,
+		public static final Tile STONE_WALL_DWN = new Tile(209, true, 0xFF835100, 1, 1, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALL_LFT = new Tile(216, true, 0xFF5A3801, 2, 2, SpriteSheet.walls,
+		public static final Tile STONE_WALL_LFT = new Tile(210, true, 0xFF5A3801, 2, 1, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALL_RGHT = new Tile(217, true, 0xFF472C00, 3, 2, SpriteSheet.walls,
+		public static final Tile STONE_WALL_RGHT = new Tile(211, true, 0xFF472C00, 3, 1, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALLCORN_RGHT_UP = new Tile(218, true, 0xFF520101, 4, 2, SpriteSheet.walls,
+		public static final Tile STONE_WALLCORN_RGHT_UP = new Tile(212, true, 0xFF520101, 4, 1, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALLCORN_LFT_UP = new Tile(219, true, 0xFF420101, 5, 2, SpriteSheet.walls,
+		public static final Tile STONE_WALLCORN_LFT_UP = new Tile(213, true, 0xFF420101, 5, 1, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALLCORN_RGHT_DWN = new Tile(220, true, 0xFF7A0000, 6, 2, SpriteSheet.walls,
+		public static final Tile STONE_WALLCORN_RGHT_DWN = new Tile(214, true, 0xFF7A0000, 6, 1, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALLCORN_LFT_DWN = new Tile(221, true, 0xFF310000, 7, 2, SpriteSheet.walls,
+		public static final Tile STONE_WALLCORN_LFT_DWN = new Tile(215, true, 0xFF310000, 7, 1, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALL_INCORN_LFTUP = new Tile(222, true, 0xFFA3881A, 8, 2, SpriteSheet.walls,
+		public static final Tile STONE_WALL_INCORN_LFTUP = new Tile(216, true, 0xFFA3881A, 8, 1, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALL_INCORN_RGHTUP = new Tile(223, true, 0xFF7C6816, 9, 2, SpriteSheet.walls,
+		public static final Tile STONE_WALL_INCORN_RGHTUP = new Tile(217, true, 0xFF7C6816, 9, 1, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALL_INCORN_LFTDWN = new Tile(224, true, 0xFF717C16, 10, 2, SpriteSheet.walls, 
+		public static final Tile STONE_WALL_INCORN_LFTDWN = new Tile(218, true, 0xFF717C16, 10, 1, SpriteSheet.walls, 
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
-		public static final Tile SHACK_WALL_INCORN_RGHTDWN = new Tile(225, true, 0xFF7d8c00, 11, 2, SpriteSheet.walls,
+		public static final Tile STONE_WALL_INCORN_RGHTDWN = new Tile(219, true, 0xFF7d8c00, 11, 1, SpriteSheet.walls,
+				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+		
+		public static final Tile SHACK_WALL_UP = new Tile(220, true, 0xFF6D4300, 0, 2, SpriteSheet.walls,
+				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+		public static final Tile SHACK_WALL_DWN = new Tile(221, true, 0xFF835100, 1, 2, SpriteSheet.walls,
+				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+		public static final Tile SHACK_WALL_LFT = new Tile(222, true, 0xFF5A3801, 2, 2, SpriteSheet.walls,
+				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+		public static final Tile SHACK_WALL_RGHT = new Tile(223, true, 0xFF472C00, 3, 2, SpriteSheet.walls,
+				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+		public static final Tile SHACK_WALLCORN_RGHT_UP = new Tile(224, true, 0xFF520101, 4, 2, SpriteSheet.walls,
+				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+		public static final Tile SHACK_WALLCORN_LFT_UP = new Tile(225, true, 0xFF420101, 5, 2, SpriteSheet.walls,
+				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+		public static final Tile SHACK_WALLCORN_RGHT_DWN = new Tile(226, true, 0xFF7A0000, 6, 2, SpriteSheet.walls,
+				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+		public static final Tile SHACK_WALLCORN_LFT_DWN = new Tile(227, true, 0xFF310000, 7, 2, SpriteSheet.walls,
+				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+		public static final Tile SHACK_WALL_INCORN_LFTUP = new Tile(228, true, 0xFFA3881A, 8, 2, SpriteSheet.walls,
+				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+		public static final Tile SHACK_WALL_INCORN_RGHTUP = new Tile(229, true, 0xFF7C6816, 9, 2, SpriteSheet.walls,
+				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+		public static final Tile SHACK_WALL_INCORN_LFTDWN = new Tile(230, true, 0xFF717C16, 10, 2, SpriteSheet.walls, 
+				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
+		public static final Tile SHACK_WALL_INCORN_RGHTDWN = new Tile(231, true, 0xFF7d8c00, 11, 2, SpriteSheet.walls,
 				new int[] { 0xFFffe45d, 0xFF7C3F0F, 0xFF48260B });
 	
-		public static final Tile GLASS_WALL_HORIZONTAL_UP = new Tile(226, true, 0xFF016ABA, 0, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_HORIZONTAL_UP = new Tile(232, true, 0xFF016ABA, 0, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_HORIZONTAL_DOWN = new Tile(227, true, 0xFF027FDF, 1, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_HORIZONTAL_DOWN = new Tile(233, true, 0xFF027FDF, 1, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_VERTICAL_LEFT = new Tile(228, true, 0xFF0166f4, 2, 3, SpriteSheet.walls, 
+		public static final Tile GLASS_WALL_VERTICAL_LFT = new Tile(234, true, 0xFF0166f4, 2, 3, SpriteSheet.walls, 
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_VERTICAL_RIGHT = new Tile(229, true, 0xFF0256CC, 3, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_VERTICAL_RGHT = new Tile(235, true, 0xFF0256CC, 3, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_CORNER_RIGHT_UP = new Tile(230, true, 0xFF0B9401, 4, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_CORNER_RGHT_UP = new Tile(236, true, 0xFF0B9401, 4, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_CORNER_LEFT_UP = new Tile(231, true, 0xFF420101, 5, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_CORNER_LFT_UP = new Tile(237, true, 0xFF420101, 5, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_CORNER_RIGHT_DOWN = new Tile(232, true, 0xFF087101, 6, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_CORNER_RGHT_DOWN = new Tile(238, true, 0xFF087101, 6, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
-		public static final Tile GLASS_WALL_CORNER_LEFT_DOWN = new Tile(233, true, 0xFFFFB400, 7, 3, SpriteSheet.walls,
+		public static final Tile GLASS_WALL_CORNER_LFT_DOWN = new Tile(239, true, 0xFFFFB400, 7, 3, SpriteSheet.walls,
 				new int[] { 0xFF76C0F8, 0xFF76C0F8, 0xFF016ABA });
 	
 	
 	/////// ANIMATED /////////
 	
 		//Water
-		public static final Tile SEA1 = new AnimatedTile(234, false, 0xFF0000FF, 0, SpriteSheet.waves,
+		public static final Tile SEA1 = new AnimatedTile(240, false, 0xFF0000FF, 0, SpriteSheet.waves,
 				new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
-		public static final Tile SEA2 = new AnimatedTile(235, false, 0xFF0000FF, 1, SpriteSheet.waves,
+		public static final Tile SEA2 = new AnimatedTile(241, false, 0xFF0000FF, 1, SpriteSheet.waves,
 				new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
-		public static final Tile SEA3 = new AnimatedTile(236, false, 0xFF0000FF, 2, SpriteSheet.waves,
+		public static final Tile SEA3 = new AnimatedTile(242, false, 0xFF0000FF, 2, SpriteSheet.waves,
 				new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
-		public static final Tile SEA4 = new AnimatedTile(237, false, 0xFF0000FF, 3, SpriteSheet.waves,
+		public static final Tile SEA4 = new AnimatedTile(243, false, 0xFF0000FF, 3, SpriteSheet.waves,
 				new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
 		
-		public static final Tile SHORE1 = new AnimatedTile(238, false, 0xFF64FFFF, 4, SpriteSheet.waves,
+		public static final Tile SHORE1 = new AnimatedTile(244, false, 0xFF64FFFF, 4, SpriteSheet.waves,
 			new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
-		public static final Tile SHORE2 = new AnimatedTile(239, false, 0xFF64FFFF, 5, SpriteSheet.waves,
+		public static final Tile SHORE2 = new AnimatedTile(245, false, 0xFF64FFFF, 5, SpriteSheet.waves,
 				new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
-		public static final Tile SHORE3 = new AnimatedTile(240, false, 0xFF64FFFF, 6, SpriteSheet.waves,
+		public static final Tile SHORE3 = new AnimatedTile(246, false, 0xFF64FFFF, 6, SpriteSheet.waves,
 				new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
-		public static final Tile SHORE4 = new AnimatedTile(241, false, 0xFF64FFFF, 7, SpriteSheet.waves,
+		public static final Tile SHORE4 = new AnimatedTile(247, false, 0xFF64FFFF, 7, SpriteSheet.waves,
 				new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
 		
-		public static final Tile SAND_WATER_BOTTOM_RIGHT = new AnimatedTile(242, false, 0xFFFFFF20, 0, 
+		public static final Tile SAND_WATER_BTM_RGHT = new AnimatedTile(248, false, 0xFFFFFF20, 0, 
 				SpriteSheet.waveTransitions, new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
-		public static final Tile SAND_WATER_TOP_LEFT = new AnimatedTile(243, false, 0xFFFFFF20, 1, 
+		public static final Tile SAND_WATER_TOP_LFT = new AnimatedTile(249, false, 0xFFFFFF20, 1, 
 				SpriteSheet.waveTransitions, new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
-		public static final Tile SAND_WATER_TOP_RIGHT = new AnimatedTile(244, false, 0xFFFFFF20, 2, 
+		public static final Tile SAND_WATER_TOP_RGHT = new AnimatedTile(250, false, 0xFFFFFF20, 2, 
 				SpriteSheet.waveTransitions, new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
-		public static final Tile SAND_WATER_BOTTOM_LEFT = new AnimatedTile(245, false, 0xFFFFFF20, 3, 
+		public static final Tile SAND_WATER_BTM_LFT = new AnimatedTile(251, false, 0xFFFFFF20, 3, 
 				SpriteSheet.waveTransitions, new int[] { 0xFFDBEDD2, 0xFF2222FF, 0xFF000000 }, 5, 800);
 	
-		public static final Tile MUD_WATER_BOTTOM_RIGHT = new AnimatedTile(246, false, 0xFFFFFF20, 4, 
+		public static final Tile MUD_WATER_BTM_RGHT = new AnimatedTile(252, false, 0xFFFFFF20, 4, 
 				SpriteSheet.waveTransitions, new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
-		public static final Tile MUD_WATER_TOP_LEFT = new AnimatedTile(247, false, 0xFFFFFF20, 5, 
+		public static final Tile MUD_WATER_TOP_LFT = new AnimatedTile(253, false, 0xFFFFFF20, 5, 
 				SpriteSheet.waveTransitions, new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
-		public static final Tile MUD_WATER_TOP_RIGHT = new AnimatedTile(248, false, 0xFFFFFF20, 6, 
+		public static final Tile MUD_WATER_TOP_RGHT = new AnimatedTile(254, false, 0xFFFFFF20, 6, 
 				SpriteSheet.waveTransitions, new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
-		public static final Tile MUD_WATER_BOTTOM_LEFT = new AnimatedTile(249, false, 0xFFFFFF20, 7, 
+		public static final Tile MUD_WATER_BTM_LFT = new AnimatedTile(255, false, 0xFFFFFF20, 7, 
 				SpriteSheet.waveTransitions, new int[] { 0xFF0000BB, 0xFF2222EE, 0xFF000000 }, 5, 800);
 	
 	////////// BASE TILE DATA //////////
@@ -731,6 +744,11 @@ public class Tile {
 		return num - (num % Tile.SIZE);
 		
 	}
+
+	/**
+	 * Most tiles don't have any logic
+	 */
+	public void tick() {}
 
 	/**
 	 * render()

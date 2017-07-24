@@ -163,7 +163,7 @@ public class HeightMap implements Serializable {
 						&& heightmap[row][col].tile() <= mountainCutoff) {
 					heightmap[row][col].setTile(Tile.DIRTROAD.getId());
 				} else {
-					heightmap[row][col].setTile(Tile.STONEFLOOR.getId());
+					heightmap[row][col].setTile(Tile.STONEFLOOR_SMLL.getId());
 				}
 			}
 		}
@@ -262,7 +262,7 @@ public class HeightMap implements Serializable {
 							if (row2 > -2 && col2 > -2) {
 								if (heightmap[row + row2][col + col2].tile() == Tile.SEA1.getId()
 										|| heightmap[row + row2][col + col2].tile() == Tile.SHORE1.getId()
-										|| heightmap[row + row2][col + col2].tile() == Tile.STONEFLOOR.getId()) {
+										|| heightmap[row + row2][col + col2].tile() == Tile.STONEFLOOR_SMLL.getId()) {
 									grassChecker = false;
 								}
 							}
