@@ -12,8 +12,78 @@ import java.util.List;
 import javajesus.entities.Damageable;
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
+import javajesus.entities.FireEntity;
 import javajesus.entities.Player;
 import javajesus.entities.Type;
+import javajesus.entities.solid.buildings.ApartmentHighRise;
+import javajesus.entities.solid.buildings.Castle;
+import javajesus.entities.solid.buildings.CastleTower;
+import javajesus.entities.solid.buildings.CatholicChapel;
+import javajesus.entities.solid.buildings.CatholicChurch;
+import javajesus.entities.solid.buildings.CaveEntrance;
+import javajesus.entities.solid.buildings.Factory;
+import javajesus.entities.solid.buildings.GenericHospital;
+import javajesus.entities.solid.buildings.GunStore;
+import javajesus.entities.solid.buildings.Hotel;
+import javajesus.entities.solid.buildings.Hut;
+import javajesus.entities.solid.buildings.MineShaft;
+import javajesus.entities.solid.buildings.ModernSkyscraper;
+import javajesus.entities.solid.buildings.NiceHouse;
+import javajesus.entities.solid.buildings.NiceHouse2;
+import javajesus.entities.solid.buildings.Police;
+import javajesus.entities.solid.buildings.PoorHouse;
+import javajesus.entities.solid.buildings.Prison;
+import javajesus.entities.solid.buildings.Projects;
+import javajesus.entities.solid.buildings.RancheroHouse;
+import javajesus.entities.solid.buildings.RefugeeTent;
+import javajesus.entities.solid.buildings.RussianOrthodoxChurch;
+import javajesus.entities.solid.buildings.ShantyHouse;
+import javajesus.entities.solid.buildings.Skyscraper;
+import javajesus.entities.solid.buildings.Tippee;
+import javajesus.entities.solid.buildings.Warehouse;
+import javajesus.entities.solid.buildings.hippyville.GreatTree;
+import javajesus.entities.solid.buildings.hippyville.TreeHouse;
+import javajesus.entities.solid.buildings.hippyville.UCGrizzly;
+import javajesus.entities.solid.buildings.oakwood.OakwoodCityHall;
+import javajesus.entities.solid.buildings.sancisco.ChinatownHouse;
+import javajesus.entities.solid.buildings.sancisco.RussianClub;
+import javajesus.entities.solid.buildings.sancisco.SanCiscoCityHall;
+import javajesus.entities.solid.buildings.sancisco.SanCiscoSkyscraper;
+import javajesus.entities.solid.buildings.sancisco.TriadHQ;
+import javajesus.entities.solid.buildings.sanjuan.JungleHQ;
+import javajesus.entities.solid.buildings.sanjuan.QuackerHQ;
+import javajesus.entities.solid.buildings.sanjuan.SanJuanCityHall;
+import javajesus.entities.solid.buildings.sanjuan.TheHub;
+import javajesus.entities.solid.buildings.sequoia.SequoiaCinema;
+import javajesus.entities.solid.buildings.sequoia.SequoiaSchool;
+import javajesus.entities.solid.buildings.techtopia.Cafe;
+import javajesus.entities.solid.buildings.techtopia.CardinalUniversity;
+import javajesus.entities.solid.buildings.techtopia.PearHQ;
+import javajesus.entities.solid.buildings.techtopia.RadarDish;
+import javajesus.entities.solid.buildings.techtopia.TechTopiaCityHall;
+import javajesus.entities.solid.buildings.techtopia.WeirdTechBuilding1;
+import javajesus.entities.solid.buildings.techtopia.WeirdTechBuilding2;
+import javajesus.entities.solid.furniture.Bed;
+import javajesus.entities.solid.furniture.Bench;
+import javajesus.entities.solid.furniture.ChairFront;
+import javajesus.entities.solid.furniture.ChairSide;
+import javajesus.entities.solid.furniture.Chest;
+import javajesus.entities.solid.furniture.ComputerMonitor;
+import javajesus.entities.solid.furniture.ComputerTower;
+import javajesus.entities.solid.furniture.DiningTable;
+import javajesus.entities.solid.furniture.FilingCabinet;
+import javajesus.entities.solid.furniture.LongTable;
+import javajesus.entities.solid.furniture.Nightstand;
+import javajesus.entities.solid.furniture.Sofa;
+import javajesus.entities.solid.furniture.SquareTable;
+import javajesus.entities.solid.furniture.Stool;
+import javajesus.entities.solid.furniture.Television;
+import javajesus.entities.solid.furniture.Throne;
+import javajesus.entities.solid.trees.DeadSequoia;
+import javajesus.entities.solid.trees.GenericTree;
+import javajesus.entities.solid.trees.LargeSequoia;
+import javajesus.entities.solid.trees.MediumSequoia;
+import javajesus.entities.solid.trees.SmallSequoia;
 import javajesus.level.Level;
 
 /*
@@ -210,147 +280,148 @@ public class SaveData {
 
 		switch (id) {
 		case Entity.DESTRUCTIBLE_TILE:
-			return new DestructibleTile(level, x, y);
+		    return new DestructibleTile(level, x, y);
 		case Entity.FIRE_ENTITY:
-			return new DestructibleTile(level, x, y);
+		    return new FireEntity(level, x, y);
 		case Entity.STOOL:
-			return new DestructibleTile(level, x, y);
+		    return new Stool(level, x, y);
 		case Entity.BED:
-			return new DestructibleTile(level, x, y);
+		    return new Bed(level, x, y);
 		case Entity.BENCH:
-			return new DestructibleTile(level, x, y);
+		    return new Bench(level, x, y);
 		case Entity.CHAIR_FRONT:
-			return new DestructibleTile(level, x, y);
+		    return new ChairFront(level, x, y);
 		case Entity.CHAIR_SIDE:
-			return new DestructibleTile(level, x, y);
+		    return new ChairSide(level, x, y);
 		case Entity.CHEST:
-			return new DestructibleTile(level, x, y);
+		    return new Chest(level, x, y);
 		case Entity.COMPUTER_MONITOR:
-			return new DestructibleTile(level, x, y);
+		    return new ComputerMonitor(level, x, y);
 		case Entity.COMPUTER_TOWER:
-			return new DestructibleTile(level, x, y);
+		    return new ComputerTower(level, x, y);
 		case Entity.DINING_TABLE:
-			return new DestructibleTile(level, x, y);
+		    return new DiningTable(level, x, y);
 		case Entity.FILING_CABINET:
-			return new DestructibleTile(level, x, y);
+		    return new FilingCabinet(level, x, y);
 		case Entity.LONG_TABLE:
-			return new DestructibleTile(level, x, y);
+		    return new LongTable(level, x, y);
 		case Entity.NIGHTSTAND:
-			return new DestructibleTile(level, x, y);
+		    return new Nightstand(level, x, y);
 		case Entity.SOFA:
-			return new DestructibleTile(level, x, y);
+		    return new Sofa(level, x, y);
 		case Entity.SQUARE_TABLE:
-			return new DestructibleTile(level, x, y);
+		    return new SquareTable(level, x, y);
 		case Entity.TELEVISION:
-			return new DestructibleTile(level, x, y);
+		    return new Television(level, x, y);
 		case Entity.THRONE:
-			return new DestructibleTile(level, x, y);
+		    return new Throne(level, x, y);
 		case Entity.DEAD_SEQUOIA:
-			return new DestructibleTile(level, x, y);
+		    return new DeadSequoia(level, x, y);
 		case Entity.SMALL_SEQUOIA:
-			return new DestructibleTile(level, x, y);
+		    return new SmallSequoia(level, x, y);
 		case Entity.MEDIUM_SEQUOIA:
-			return new DestructibleTile(level, x, y);
+		    return new MediumSequoia(level, x, y);
 		case Entity.LARGE_SEQUOIA:
-			return new DestructibleTile(level, x, y);
+		    return new LargeSequoia(level, x, y);
 		case Entity.GENERIC_TREE:
-			return new DestructibleTile(level, x, y);
+		    return new GenericTree(level, x, y);
 		case Entity.APARTMENT_HIGH_RISE:
-			return new DestructibleTile(level, x, y);
+		    return new ApartmentHighRise(level, x, y);
 		case Entity.CASTLE:
-			return new DestructibleTile(level, x, y);
+		    return new Castle(level, x, y);
 		case Entity.CASTLE_TOWER:
-			return new DestructibleTile(level, x, y);
+		    return new CastleTower(level, x, y);
 		case Entity.CATHOLIC_CHAPEL:
-			return new DestructibleTile(level, x, y);
+		    return new CatholicChapel(level, x, y);
 		case Entity.CATHOLIC_CHURCH:
-			return new DestructibleTile(level, x, y);
+		    return new CatholicChurch(level, x, y);
 		case Entity.CAVE_ENTRANCE:
-			return new DestructibleTile(level, x, y);
+		    return new CaveEntrance(level, x, y);
 		case Entity.FACTORY:
-			return new DestructibleTile(level, x, y);
+		    return new Factory(level, x, y);
 		case Entity.GENERIC_HOSPITAL:
-			return new DestructibleTile(level, x, y);
+		    return new GenericHospital(level, x, y);
 		case Entity.GUNSTORE:
-			return new DestructibleTile(level, x, y);
+		    return new GunStore(level, x, y);
 		case Entity.HOTEL:
-			return new DestructibleTile(level, x, y);
+		    return new Hotel(level, x, y);
 		case Entity.HUT:
-			return new DestructibleTile(level, x, y);
+		    return new Hut(level, x, y);
 		case Entity.MINESHAFT:
-			return new DestructibleTile(level, x, y);
+		    return new MineShaft(level, x, y);
 		case Entity.MODERN_SKYSCRAPER:
-			return new DestructibleTile(level, x, y);
+		    return new ModernSkyscraper(level, x, y);
 		case Entity.NICE_HOUSE:
-			return new DestructibleTile(level, x, y);
+		    return new NiceHouse(level, x, y);
 		case Entity.NICE_HOUSE2:
-			return new DestructibleTile(level, x, y);
+		    return new NiceHouse2(level, x, y);
 		case Entity.POLICE:
-			return new DestructibleTile(level, x, y);
+		    return new Police(level, x, y);
 		case Entity.POOR_HOUSE:
-			return new DestructibleTile(level, x, y);
+		    return new PoorHouse(level, x, y);
 		case Entity.PRISON:
-			return new DestructibleTile(level, x, y);
+		    return new Prison(level, x, y);
 		case Entity.PROJECTS:
-			return new DestructibleTile(level, x, y);
+		    return new Projects(level, x, y);
 		case Entity.RANCHERO_HOUSE:
-			return new DestructibleTile(level, x, y);
+		    return new RancheroHouse(level, x, y);
 		case Entity.REFUGEE_TENT:
-			return new DestructibleTile(level, x, y);
+		    return new RefugeeTent(level, x, y);
 		case Entity.RUSSIAN_ORTHODOX_CHURCH:
-			return new DestructibleTile(level, x, y);
+		    return new RussianOrthodoxChurch(level, x, y);
 		case Entity.SHANTY_HOUSE:
-			return new DestructibleTile(level, x, y);
+		    return new ShantyHouse(level, x, y);
 		case Entity.SKYSCRAPER:
-			return new DestructibleTile(level, x, y);
+		    return new Skyscraper(level, x, y);
 		case Entity.TIPPEE:
-			return new DestructibleTile(level, x, y);
+		    return new Tippee(level, x, y);
 		case Entity.WAREHOUSE:
-			return new DestructibleTile(level, x, y);
+		    return new Warehouse(level, x, y);
 		case Entity.GREAT_TREE:
-			return new DestructibleTile(level, x, y);
+		    return new GreatTree(level, x, y);
 		case Entity.TREE_HOUSE:
-			return new DestructibleTile(level, x, y);
+		    return new TreeHouse(level, x, y);
 		case Entity.UC_GRIZZLY:
-			return new DestructibleTile(level, x, y);
+		    return new UCGrizzly(level, x, y);
 		case Entity.OAKWOOD_CITY_HALL:
-			return new DestructibleTile(level, x, y);
+		    return new OakwoodCityHall(level, x, y);
 		case Entity.CHINATOWN_HOUSE:
-			return new DestructibleTile(level, x, y);
+		    return new ChinatownHouse(level, x, y);
 		case Entity.RUSSIAN_CLUB:
-			return new DestructibleTile(level, x, y);
+		    return new RussianClub(level, x, y);
 		case Entity.SAN_CISCO_CITY_HALL:
-			return new DestructibleTile(level, x, y);
+		    return new SanCiscoCityHall(level, x, y);
 		case Entity.SAN_CISCO_SKYSCRAPER:
-			return new DestructibleTile(level, x, y);
+		    return new SanCiscoSkyscraper(level, x, y);
 		case Entity.TRIAD_HQ:
-			return new DestructibleTile(level, x, y);
+		    return new TriadHQ(level, x, y);
 		case Entity.JUNGLE_HQ:
-			return new DestructibleTile(level, x, y);
+		    return new JungleHQ(level, x, y);
 		case Entity.QUACKER_HQ:
-			return new DestructibleTile(level, x, y);
+		    return new QuackerHQ(level, x, y);
 		case Entity.SAN_JUAN_CITY_HALL:
-			return new DestructibleTile(level, x, y);
+		    return new SanJuanCityHall(level, x, y);
 		case Entity.THE_HUB:
-			return new DestructibleTile(level, x, y);
+		    return new TheHub(level, x, y);
 		case Entity.SEQUOIA_CINEMA:
-			return new DestructibleTile(level, x, y);
+		    return new SequoiaCinema(level, x, y);
 		case Entity.SEQUOIA_SCHOOL:
-			return new DestructibleTile(level, x, y);
+		    return new SequoiaSchool(level, x, y);
 		case Entity.CAFE:
-			return new DestructibleTile(level, x, y);
+		    return new Cafe(level, x, y);
 		case Entity.CARDINAL_UNIVERSITY:
-			return new DestructibleTile(level, x, y);
+		    return new CardinalUniversity(level, x, y);
 		case Entity.PEAR_HQ:
-			return new DestructibleTile(level, x, y);
+		    return new PearHQ(level, x, y);
 		case Entity.RADAR_DISH:
-			return new DestructibleTile(level, x, y);
+		    return new RadarDish(level, x, y);
 		case Entity.TECHTOPIA_CITY_HALL:
-			return new DestructibleTile(level, x, y);
+		    return new TechTopiaCityHall(level, x, y);
 		case Entity.WEIRD_TECH_BUILDING1:
-			return new DestructibleTile(level, x, y);
+		    return new WeirdTechBuilding1(level, x, y);
 		case Entity.WEIRD_TECH_BUILDING2:
-			return new DestructibleTile(level, x, y);
+		    return new WeirdTechBuilding2(level, x, y);
+
 		default:
 			return null;
 		}
