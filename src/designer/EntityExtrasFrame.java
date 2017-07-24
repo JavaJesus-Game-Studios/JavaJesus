@@ -105,7 +105,7 @@ public class EntityExtrasFrame extends JFrame implements ActionListener {
 		}
 
 		public byte getExtra2() {
-			return Byte.parseByte(extra2.getText());
+			return (byte) Integer.parseInt(extra2.getText());
 		}
 
 	}

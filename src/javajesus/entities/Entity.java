@@ -33,7 +33,7 @@ public abstract class Entity implements Serializable {
             SMALL_SEQUOIA = 97, BOAT = 98, CENTURY_LESABRE = 99, HORSE = 100, SPORTS_CAR = 101, TRUCK = 102, MODERN_SKYSCRAPER = 103;
 	
 	// number of unique entities worth saving
-	public static final int NUM_ENTITIES = 102;
+	public static final int NUM_ENTITIES = 103;
 
 	// position on the screen
 	private short x, y;

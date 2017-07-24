@@ -28,9 +28,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
@@ -365,6 +367,9 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
+		
+		// mouse is held down
+		pressed = true;
 
 		// get the source
 		if (e.getSource() instanceof TileGUI) {
@@ -376,6 +381,12 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			if (tile.getId() == SELECTOR) {
 				selected.setTile(tile.getTile());
 				selectedEntity = null;
+				
+				// tell me the ID!
+				if (SwingUtilities.isRightMouseButton(e)) {
+					JOptionPane.showMessageDialog(this, String.valueOf(tile.getTile().getId() & 0x000000FF));
+					pressed = false;
+				}
 			}
 
 			if (tile.getId() == DISPLAY) {
@@ -438,13 +449,11 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			selectedEntity = getEntity(((EntityGUI) e.getSource()).getEntity().getId());
 			new EntityExtrasFrame(selectedEntity);
 		}
-
-		// mouse is held down
-		pressed = true;
+		
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
+	public void mouseReleased(MouseEvent e) {
 
 		// mouse is no longer down
 		pressed = false;

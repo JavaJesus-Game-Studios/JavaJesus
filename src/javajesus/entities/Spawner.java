@@ -9,6 +9,7 @@ import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
 import javajesus.graphics.Screen;
+import javajesus.graphics.Sprite;
 import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.save.SaveData;
@@ -32,6 +33,9 @@ public class Spawner extends Entity implements Type {
 
 	// the last entity spawned
 	private Entity currentEntity;
+	
+	// sprite of the spawner
+	private static final Sprite sprite = new Sprite("/VISUAL_DATA/TILES/entity_spawn.png");
 
 	/**
 	 * Creates an invisible entity to spawn an infinite amount of entities
@@ -173,7 +177,15 @@ public class Spawner extends Entity implements Type {
 		}
 	}
 
+	/**
+	 * Renders the sprite to the screen
+	 */
 	public void render(Screen screen) {
+		
+		// render only in the designer
+		if (!JavaJesus.isRunning()) {
+			screen.render(getX(), getY(), null, sprite);
+		}
 	}
 
 	@Override

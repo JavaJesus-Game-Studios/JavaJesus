@@ -441,6 +441,13 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	}
 	
 	/**
+	 * @return whether or not javajesus is running
+	 */
+	public static boolean isRunning() {
+		return running;
+	}
+	
+	/**
 	 * @return whether or not the game display is shown
 	 */
 	private boolean inGame() {
