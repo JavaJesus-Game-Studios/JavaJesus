@@ -78,6 +78,9 @@ public class EntityGUI extends JPanel {
 	public void setExtra2(byte type) {
 		if (entity instanceof Type) {
 			((Type) entity).setType(type);
+			
+			// render the entity
+			entity.render(screen);
 		}
 	}
 	

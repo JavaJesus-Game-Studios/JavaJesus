@@ -37,15 +37,75 @@ import javax.swing.SwingUtilities;
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
-import javajesus.entities.solid.furniture.*;
-import javajesus.entities.solid.trees.*;
-import javajesus.entities.solid.buildings.*;
-import javajesus.entities.solid.buildings.hippyville.*;
-import javajesus.entities.solid.buildings.sancisco.*;
-import javajesus.entities.solid.buildings.sanjuan.*;
-import javajesus.entities.solid.buildings.oakwood.*;
-import javajesus.entities.solid.buildings.sequoia.*;
-import javajesus.entities.solid.buildings.techtopia.*;
+import javajesus.entities.solid.buildings.ApartmentHighRise;
+import javajesus.entities.solid.buildings.Castle;
+import javajesus.entities.solid.buildings.CastleTower;
+import javajesus.entities.solid.buildings.CatholicChapel;
+import javajesus.entities.solid.buildings.CatholicChurch;
+import javajesus.entities.solid.buildings.CaveEntrance;
+import javajesus.entities.solid.buildings.Factory;
+import javajesus.entities.solid.buildings.GenericHospital;
+import javajesus.entities.solid.buildings.GunStore;
+import javajesus.entities.solid.buildings.Hotel;
+import javajesus.entities.solid.buildings.Hut;
+import javajesus.entities.solid.buildings.MineShaft;
+import javajesus.entities.solid.buildings.ModernSkyscraper;
+import javajesus.entities.solid.buildings.NiceHouse;
+import javajesus.entities.solid.buildings.NiceHouse2;
+import javajesus.entities.solid.buildings.Police;
+import javajesus.entities.solid.buildings.PoorHouse;
+import javajesus.entities.solid.buildings.Prison;
+import javajesus.entities.solid.buildings.Projects;
+import javajesus.entities.solid.buildings.RancheroHouse;
+import javajesus.entities.solid.buildings.RefugeeTent;
+import javajesus.entities.solid.buildings.RussianOrthodoxChurch;
+import javajesus.entities.solid.buildings.ShantyHouse;
+import javajesus.entities.solid.buildings.Skyscraper;
+import javajesus.entities.solid.buildings.Tippee;
+import javajesus.entities.solid.buildings.Warehouse;
+import javajesus.entities.solid.buildings.hippyville.GreatTree;
+import javajesus.entities.solid.buildings.hippyville.TreeHouse;
+import javajesus.entities.solid.buildings.hippyville.UCGrizzly;
+import javajesus.entities.solid.buildings.oakwood.OakwoodCityHall;
+import javajesus.entities.solid.buildings.sancisco.ChinatownHouse;
+import javajesus.entities.solid.buildings.sancisco.RussianClub;
+import javajesus.entities.solid.buildings.sancisco.SanCiscoCityHall;
+import javajesus.entities.solid.buildings.sancisco.SanCiscoSkyscraper;
+import javajesus.entities.solid.buildings.sancisco.TriadHQ;
+import javajesus.entities.solid.buildings.sanjuan.JungleHQ;
+import javajesus.entities.solid.buildings.sanjuan.QuackerHQ;
+import javajesus.entities.solid.buildings.sanjuan.SanJuanCityHall;
+import javajesus.entities.solid.buildings.sanjuan.TheHub;
+import javajesus.entities.solid.buildings.sequoia.SequoiaCinema;
+import javajesus.entities.solid.buildings.sequoia.SequoiaSchool;
+import javajesus.entities.solid.buildings.techtopia.Cafe;
+import javajesus.entities.solid.buildings.techtopia.CardinalUniversity;
+import javajesus.entities.solid.buildings.techtopia.PearHQ;
+import javajesus.entities.solid.buildings.techtopia.RadarDish;
+import javajesus.entities.solid.buildings.techtopia.TechTopiaCityHall;
+import javajesus.entities.solid.buildings.techtopia.WeirdTechBuilding1;
+import javajesus.entities.solid.buildings.techtopia.WeirdTechBuilding2;
+import javajesus.entities.solid.furniture.Bed;
+import javajesus.entities.solid.furniture.Bench;
+import javajesus.entities.solid.furniture.ChairFront;
+import javajesus.entities.solid.furniture.ChairSide;
+import javajesus.entities.solid.furniture.Chest;
+import javajesus.entities.solid.furniture.ComputerMonitor;
+import javajesus.entities.solid.furniture.ComputerTower;
+import javajesus.entities.solid.furniture.DiningTable;
+import javajesus.entities.solid.furniture.FilingCabinet;
+import javajesus.entities.solid.furniture.LongTable;
+import javajesus.entities.solid.furniture.Nightstand;
+import javajesus.entities.solid.furniture.Sofa;
+import javajesus.entities.solid.furniture.SquareTable;
+import javajesus.entities.solid.furniture.Stool;
+import javajesus.entities.solid.furniture.Television;
+import javajesus.entities.solid.furniture.Throne;
+import javajesus.entities.solid.trees.DeadSequoia;
+import javajesus.entities.solid.trees.GenericTree;
+import javajesus.entities.solid.trees.LargeSequoia;
+import javajesus.entities.solid.trees.MediumSequoia;
+import javajesus.entities.solid.trees.SmallSequoia;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
 
@@ -445,9 +505,15 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			// entity gui was clicked
 		} else if (e.getSource() instanceof EntityGUI) {
 			
+			// unclick the mouse
+			pressed = false;
+			
 			// make a copy of the selected entity gui
 			selectedEntity = getEntity(((EntityGUI) e.getSource()).getEntity().getId());
-			new EntityExtrasFrame(selectedEntity);
+			
+			// force the user to enter entity data
+			JOptionPane.showMessageDialog(this, new EntityExtrasPanel(selectedEntity));
+			
 		}
 		
 	}

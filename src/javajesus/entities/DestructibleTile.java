@@ -23,6 +23,9 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity,
 	// which tile to display
 	private int xTile, yTile;
 	
+	// spritesheet to render on
+	private SpriteSheet sheet;
+	
 	// dummy shadow bounds
 	private static final Rectangle shadow = new Rectangle();
 	
@@ -47,6 +50,7 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity,
 		this.yTile = tile.getYTile();
 		this.color = tile.getColor();
 		this.type = tile.getId();
+		this.sheet = tile.getSpriteSheet();
 
 	}
 	
@@ -71,7 +75,7 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity,
 	 * Sends the pixels to the screen to be processed
 	 */
 	public void render(Screen screen) {
-		screen.render(getX(), getY(), xTile, yTile, SpriteSheet.tiles, false, color);
+		screen.render(getX(), getY(), xTile, yTile, sheet, false, color);
 	}
 
 	/**
@@ -138,6 +142,12 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity,
 	@Override
 	public void setType(byte type) {
 		this.type = type;
+		
+		// update the xtile and ytile info
+		this.xTile = Tile.tileList[type & 0x000000FF].getXTile();
+		this.yTile = Tile.tileList[type & 0x000000FF].getYTile();
+		this.color = Tile.tileList[type & 0x000000FF].getColor();
+		this.sheet = Tile.tileList[type & 0x000000FF].getSpriteSheet();
 	}
 
 }
