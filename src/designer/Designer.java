@@ -427,7 +427,9 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 			// entity gui was clicked
 		} else if (e.getSource() instanceof EntityGUI) {
-			selectedEntity = (EntityGUI) e.getSource();
+			
+			// make a copy of the selected entity gui
+			selectedEntity = getEntity(((EntityGUI) e.getSource()).getEntity().getId());
 			new EntityExtrasFrame(selectedEntity);
 		}
 
@@ -455,7 +457,6 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		if (e.getSource() == save) {
 			save();
 
-			// load
 		} // save
 		if (e.getSource() == saveRendered) {
 			saveRenderedLevel();
@@ -794,6 +795,10 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 				
 				// get the entity
 				EntityGUI e = getEntity(id);
+				
+				// save the extra data
+				e.setExtra1(ByteBuffer.wrap(data).getShort(6));
+				e.setExtra2(data[8]);
 				
 				// add the entity to the tile
 				((TileGUI) content.getComponentAt(xPos, yPos)).addEntity(e.getEntity());
