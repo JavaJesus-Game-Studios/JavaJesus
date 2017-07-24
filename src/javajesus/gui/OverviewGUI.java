@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,17 +13,19 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 
-import javajesus.JavaJesus;
-import javajesus.SoundHandler;
-import javajesus.entities.Player;
-import javajesus.items.Item;
-
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
+import javajesus.JavaJesus;
+import javajesus.SoundHandler;
+import javajesus.entities.Player;
+import javajesus.items.Item;
 
 /*
  * The Overview Menu of the Inventory Screen
@@ -36,8 +39,8 @@ public class OverviewGUI extends JPanel implements FocusListener {
 	private CardLayout cl;
 
 	// IDs of each inventory screen
-	private static final String MAIN = "Main", INVENTORY = "Inventory", QUESTS = "Quests",
-			FACTIONS = "Factions", MAP = "Map";
+	private static final String MAIN = "overview", INVENTORY = "inventory", QUESTS = "missions",
+			FACTIONS = "factions", MAP = "worldmap";
 	
 	// viewing panel that changes
 	private JPanel viewing;
@@ -47,6 +50,9 @@ public class OverviewGUI extends JPanel implements FocusListener {
 	
 	// Inventory modifiers
 	private static final int NUM_ROWS = 5, NUM_COLS = 5, INVENTORY_SPACE = NUM_ROWS * NUM_COLS;
+	
+	// dimensions of the buttons
+	private static final int BUTTON_WIDTH = JavaJesus.WINDOW_WIDTH / 5, BUTTON_HEIGHT = 80;
 	
 	// The player in the Overview GUI
 	private Player player;
@@ -69,12 +75,13 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		addFocusListener(this);
 		
 		// add the button panel to the top
-		JPanel top = new JPanel();
-		top.add(overview = new JJButton("Overview"));
-		top.add(inventory = new JJButton("Inventory"));
-		top.add(factions = new JJButton("Factions"));
-		top.add(quests = new JJButton("Quests"));
-		top.add(map = new JJButton("Map"));
+		JPanel top = new JPanel(new GridLayout(1, 5));
+		top.add(overview = new JJButton(MAIN));
+		overview.active = true;
+		top.add(inventory = new JJButton(INVENTORY));
+		top.add(factions = new JJButton(FACTIONS));
+		top.add(quests = new JJButton(QUESTS));
+		top.add(map = new JJButton(MAP));
 		
 		// set up the viewing panel
 		viewing = new JPanel();
@@ -425,19 +432,42 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		
 		// serialization
 		private static final long serialVersionUID = 1L;
+		
+		// the backgrounds for the buttons
+		private BufferedImage button_on, button_off;
+		
+		// base directory of each button
+		private static final String DIR = "/VISUAL_DATA/GUI/BUTTONS/HUD_BUTTONS/";
+		
+		// extensions for each file type
+		private static final String ON = "_on.png", OFF = "_off.png";
+		
+		// whether or not it is active
+		private boolean active;
 
 		/**
 		 * JJButton ctor()
 		 * @param s - text in the button
 		 */
-		private JJButton(String s) {
-			super(s);
+		private JJButton(String id) {
 			
-			// add font
-			setFont(new Font(JavaJesus.FONT_NAME, Font.PLAIN, 20));
+			// load the backgrounds
+			try {
+				button_on = ImageIO.read(OverviewGUI.class.getResource(DIR + id + ON));
+				button_off = ImageIO.read(OverviewGUI.class.getResource(DIR + id + OFF));
+				
+				// file doesnt exist
+			} catch (Exception e) {
+				// add font
+				setFont(new Font(JavaJesus.FONT_NAME, Font.PLAIN, 20));
+				setText(id);
+			}
 			
 			// add action listener
 			addActionListener(this);
+			
+			// maximize the size
+			setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
 		}
 
 		/**
@@ -446,21 +476,56 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-			// change the viewed tab
-			if (e.getSource() == overview) {
-				cl.show(viewing, MAIN);
-			} else if (e.getSource() == inventory) {
-				cl.show(viewing, INVENTORY);
-			} else if (e.getSource() == factions) {
-				cl.show(viewing, FACTIONS);
-			} else if (e.getSource() == quests) {
-				cl.show(viewing, QUESTS);
-			} else if (e.getSource() == map) {
-				cl.show(viewing, MAP);
+			// action performed on a main tab button
+			if (button_on != null) {
+
+				// turn off all buttons
+				overview.active = false;
+				inventory.active = false;
+				factions.active = false;
+				quests.active = false;
+				map.active = false;
+
+				// change the viewed tab
+				if (e.getSource() == overview) {
+					cl.show(viewing, MAIN);
+				} else if (e.getSource() == inventory) {
+					cl.show(viewing, INVENTORY);
+				} else if (e.getSource() == factions) {
+					cl.show(viewing, FACTIONS);
+				} else if (e.getSource() == quests) {
+					cl.show(viewing, QUESTS);
+				} else if (e.getSource() == map) {
+					cl.show(viewing, MAP);
+				}
+
+				// turn on THIS button
+				active = true;
+
+				// grab focus
+				viewing.requestFocusInWindow();
 			}
 			
-			// grab focus
-			viewing.requestFocusInWindow();
+		}
+		
+		/**
+		 * Paints the background of the button
+		 */
+		@Override
+		public void paintComponent(Graphics g) {
+			
+			// draw right state
+			if (active) {
+				g.drawImage(button_on, 0, 0, getWidth(), getHeight(), null);
+			} else {
+
+				// draw the off state or render text
+				if (button_off != null) {
+					g.drawImage(button_off, 0, 0, getWidth(), getHeight(), null);
+				} else {
+					super.paintComponent(g);
+				}
+			}
 			
 		}
 		
