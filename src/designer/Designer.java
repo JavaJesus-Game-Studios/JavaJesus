@@ -23,21 +23,36 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
 
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
+import javajesus.entities.Player;
+import javajesus.entities.Spawner;
+import javajesus.entities.monsters.Centaur;
+import javajesus.entities.monsters.Cyclops;
+import javajesus.entities.monsters.Demon;
+import javajesus.entities.monsters.GangMember;
+import javajesus.entities.monsters.Monkey;
+import javajesus.entities.npcs.Bautista;
+import javajesus.entities.npcs.Daughter;
+import javajesus.entities.npcs.Istrahiim;
+import javajesus.entities.npcs.Jesus;
+import javajesus.entities.npcs.Jobs;
+import javajesus.entities.npcs.Knight;
+import javajesus.entities.npcs.Kobe;
+import javajesus.entities.npcs.LordHillsborough;
+import javajesus.entities.npcs.Octavius;
+import javajesus.entities.npcs.Peasant;
+import javajesus.entities.npcs.Ranchero;
+import javajesus.entities.npcs.Son;
+import javajesus.entities.npcs.Wife;
+import javajesus.entities.npcs.Zorra;
+import javajesus.entities.npcs.aggressive.Companion;
+import javajesus.entities.npcs.aggressive.Gorilla;
+import javajesus.entities.npcs.aggressive.NativeAmerican;
+import javajesus.entities.npcs.aggressive.PoliceOfficer;
+import javajesus.entities.npcs.aggressive.SWATOfficer;
+import javajesus.entities.npcs.aggressive.TechWarrior;
 import javajesus.entities.solid.buildings.ApartmentHighRise;
 import javajesus.entities.solid.buildings.Castle;
 import javajesus.entities.solid.buildings.CastleTower;
@@ -109,6 +124,18 @@ import javajesus.entities.solid.trees.MediumSequoia;
 import javajesus.entities.solid.trees.SmallSequoia;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
+
+import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /*
  * Driver class of the level designer
@@ -1306,6 +1333,60 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 				return new EntityGUI(new WeirdTechBuilding1(null, 0, 0), 0, 0, 6, 17);
 			case Entity.WEIRD_TECH_BUILDING2:
 				return new EntityGUI(new WeirdTechBuilding2(null, 0, 0), 0, 0, 6, 12);
+			case Entity.PLAYER:
+                return new EntityGUI(new Player(null, 0, 0), 0, 0, 2, 2);
+			case Entity.SPAWNER:
+                return new EntityGUI(new Spawner(null, 0, 0), 0, 0, 2, 2);
+			case Entity.CENTAUR:
+                return new EntityGUI(new Centaur(null, 0, 0), 0, 0, 2, 3);
+			case Entity.CYCLOPS:
+                return new EntityGUI(new Cyclops(null, 0, 0), 0, 0, 5, 5);
+			case Entity.DEMON:
+                return new EntityGUI(new Demon(null, 0, 0), 0, 0, 2, 2);
+			case Entity.GANG_MEMBER:
+                return new EntityGUI(new GangMember(null, 0, 0), 0, 0, 2, 2);
+			case Entity.MONKEY:
+                return new EntityGUI(new Monkey(null, 0, 0), 0, 0, 2, 2);
+			case Entity.BAUTISTA:
+                return new EntityGUI(new Bautista(null, 0, 0), 0, 0, 2, 2);
+			case Entity.DAUGHTER:
+                return new EntityGUI(new Daughter(null, 0, 0), 0, 0, 2, 2);
+			case Entity.ISTRAHIIM:
+                return new EntityGUI(new Istrahiim(null, 0, 0), 0, 0, 2, 2);
+			case Entity.JESUS:
+                return new EntityGUI(new Jesus(null, 0, 0), 0, 0, 2, 2);
+			case Entity.JOBS:
+                return new EntityGUI(new Jobs(null, 0, 0), 0, 0, 2, 2);
+			case Entity.KNIGHT:
+                return new EntityGUI(new Knight(null, 0, 0), 0, 0, 2, 2);
+			case Entity.KOBE:
+                return new EntityGUI(new Kobe(null, 0, 0), 0, 0, 2, 2);
+			case Entity.LORD_HILLSBOROUGH:
+                return new EntityGUI(new LordHillsborough(null, 0, 0), 0, 0, 2, 2);
+			case Entity.OCTAVIUS:
+                return new EntityGUI(new Octavius(null, 0, 0), 0, 0, 2, 2);
+			case Entity.PEASANT:
+                return new EntityGUI(new Peasant(null, 0, 0), 0, 0, 2, 2);
+			case Entity.RANCHERO:
+                return new EntityGUI(new Ranchero(null, 0, 0), 0, 0, 2, 2);
+			case Entity.SON:
+                return new EntityGUI(new Son(null, 0, 0), 0, 0, 2, 2);
+			case Entity.WIFE:
+                return new EntityGUI(new Wife(null, 0, 0), 0, 0, 2, 2);
+			case Entity.ZORRA:
+                return new EntityGUI(new Zorra(null, 0, 0), 0, 0, 2, 2);
+			case Entity.COMPANION:
+                return new EntityGUI(new Companion(null, 0, 0), 0, 0, 2, 2);
+			case Entity.GORILLA:
+                return new EntityGUI(new Gorilla(null, 0, 0), 0, 0, 2, 2);
+			case Entity.NATIVE_AMERICAN:
+                return new EntityGUI(new NativeAmerican(null, 0, 0), 0, 0, 2, 2);
+			case Entity.POLICE_OFFICER:
+                return new EntityGUI(new PoliceOfficer(null, 0, 0), 0, 0, 2, 2);
+			case Entity.SWAT_OFFICER:
+                return new EntityGUI(new SWATOfficer(null, 0, 0), 0, 0, 2, 2);
+			case Entity.TECH_WARRIOR:
+                return new EntityGUI(new TechWarrior(null, 0, 0), 0, 0, 2, 2);
 			default:
 				return null;
 			}
