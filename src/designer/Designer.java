@@ -38,6 +38,12 @@ import javajesus.entities.FireEntity;
 import javajesus.entities.solid.furniture.*;
 import javajesus.entities.solid.trees.*;
 import javajesus.entities.solid.buildings.*;
+import javajesus.entities.solid.buildings.hippyville.*;
+import javajesus.entities.solid.buildings.sancisco.*;
+import javajesus.entities.solid.buildings.sanjuan.*;
+import javajesus.entities.solid.buildings.oakwood.*;
+import javajesus.entities.solid.buildings.sequoia.*;
+import javajesus.entities.solid.buildings.techtopia.*;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
 
@@ -1005,6 +1011,50 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			return new EntityGUI(new Tippee(null, 0, 0), 0, 0, 32, 50);
 		case Entity.WAREHOUSE:
 			return new EntityGUI(new Warehouse(null, 0, 0), 0, 0, 13, 8);
+		case Entity.GREAT_TREE:
+            return new EntityGUI(new GreatTree(null, 0, 0), 0, 0, 7, 15);
+		case Entity.TREE_HOUSE:
+            return new EntityGUI(new TreeHouse(null, 0, 0), 0, 0, 6, 15);
+		case Entity.UC_GRIZZLY:
+            return new EntityGUI(new UCGrizzly(null, 0, 0), 0, 0, 25, 8);
+		case Entity.OAKWOOD_CITY_HALL:
+            return new EntityGUI(new OakwoodCityHall(null, 0, 0), 0, 0, 14, 15);
+		case Entity.CHINATOWN_HOUSE:
+            return new EntityGUI(new ChinatownHouse(null, 0, 0), 0, 0, 8, 8);
+		case Entity.RUSSIAN_CLUB:
+            return new EntityGUI(new RussianClub(null, 0, 0), 0, 0, 19, 8);
+		case Entity.SAN_CISCO_CITY_HALL:
+            return new EntityGUI(new SanCiscoCityHall(null, 0, 0), 0, 0, 24, 15);
+		case Entity.SAN_CISCO_SKYSCRAPER:
+            return new EntityGUI(new SanCiscoSkyscraper(null, 0, 0), 0, 0, 27, 85);
+		case Entity.TRIAD_HQ:
+            return new EntityGUI(new TriadHQ(null, 0, 0), 0, 0, 24, 22);
+		case Entity.JUNGLE_HQ:
+            return new EntityGUI(new JungleHQ(null, 0, 0), 0, 0, 19, 12);
+		case Entity.QUACKER_HQ:
+            return new EntityGUI(new QuackerHQ(null, 0, 0), 0, 0, 17, 13);
+		case Entity.SAN_JUAN_CITY_HALL:
+            return new EntityGUI(new SanJuanCityHall(null, 0, 0), 0, 0, 15, 15);
+		case Entity.THE_HUB:
+            return new EntityGUI(new TheHub(null, 0, 0), 0, 0, 13, 21);
+		case Entity.SEQUOIA_CINEMA:
+            return new EntityGUI(new SequoiaCinema(null, 0, 0), 0, 0, 15, 15);
+		case Entity.SEQUOIA_SCHOOL:
+            return new EntityGUI(new SequoiaSchool(null, 0, 0), 0, 0, 21, 15);
+		case Entity.CAFE:
+            return new EntityGUI(new Cafe(null, 0, 0), 0, 0, 13, 8);
+		case Entity.CARDINAL_UNIVERSITY:
+            return new EntityGUI(new CardinalUniversity(null, 0, 0), 0, 0, 25, 7);
+		case Entity.PEAR_HQ:
+            return new EntityGUI(new PearHQ(null, 0, 0), 0, 0, 13, 24);
+		case Entity.RADAR_DISH:
+            return new EntityGUI(new RadarDish(null, 0, 0), 0, 0, 11, 17);
+		case Entity.TECHTOPIA_CITY_HALL:
+            return new EntityGUI(new TechTopiaCityHall(null, 0, 0), 0, 0, 12, 12);
+		case Entity.WEIRD_TECH_BUILDING1:
+            return new EntityGUI(new WeirdTechBuilding1(null, 0, 0), 0, 0, 6, 17);
+		case Entity.WEIRD_TECH_BUILDING2:
+            return new EntityGUI(new WeirdTechBuilding2(null, 0, 0), 0, 0, 6, 12);
 		default:
 			return null;
 		}
