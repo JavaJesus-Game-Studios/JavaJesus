@@ -374,18 +374,6 @@ public abstract class Level {
 	}
 
 	/**
-	 * Adds entities to this level
-	 * 
-	 * @param entity - the entity to add
-	 */
-	public synchronized void add(Entity... entities) {
-
-		for (Entity e : entities) {
-			add(e);
-		}
-	}
-
-	/**
 	 * Removes an entity from the level
 	 * 
 	 * @param entity - the entity to remove
