@@ -129,7 +129,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 	// gets the extension for PNGS
 	private static final String PNG = ".png";
-	
+
 	// gets the name addon for entitiy files
 	private static final String ENTITY = "_entities";
 
@@ -144,7 +144,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 	// max number of tiles/entities in the list selector
 	private static final int MAX_ENTITIES = 256;
-	
+
 	// max number of tiles/entities in the list selector
 	private static final int MAX_ENTITIES_LEVEL = LEVEL_WIDTH * LEVEL_HEIGHT;
 
@@ -153,13 +153,13 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 	// size of each tile/entity selector
 	private static final int PANEL_SIZE = 50;
-	
+
 	// path of the loaded file
 	private static String filePath = new File(DIR + "New").getPath();
 
 	// buttons at the top
-	private final JButton save, saveRendered, setAll, plusSize, minusSize, plusZoom, minusZoom,
-	        tiles, entities, open, randomGrass;
+	private final JButton save, saveRendered, setAll, plusSize, minusSize, plusZoom, minusZoom, tiles, entities, open,
+	        randomGrass;
 	private final JTextField name;
 	private TileGUI selected;
 	private EntityGUI selectedEntity;
@@ -322,10 +322,12 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		rightContent.add(zoom);
 
 		// undo
-		/*rightContent.add(undo = new JButton("Undo"));
-		undo.setAlignmentX(Component.CENTER_ALIGNMENT);
-		undo.addActionListener(this);*/
-		
+		/*
+		 * rightContent.add(undo = new JButton("Undo"));
+		 * undo.setAlignmentX(Component.CENTER_ALIGNMENT);
+		 * undo.addActionListener(this);
+		 */
+
 		// generate grass
 		rightContent.add(randomGrass = new JButton("Gen Grass"));
 		randomGrass.addActionListener(this);
@@ -404,10 +406,10 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 					// entity is selected
 				} else {
-					
+
 					// the source tile contains the entity
 					tile.addEntity(selectedEntity.getEntity());
-					
+
 					// draw the entity
 					for (int x = 0; x < selectedEntity.getXTiles(); x++) {
 						for (int y = 0; y < selectedEntity.getYTiles(); y++) {
@@ -424,7 +426,6 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 					}
 				}
 			}
-
 		}
 
 	}
@@ -443,7 +444,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
+
 		// mouse is held down
 		pressed = true;
 
@@ -457,7 +458,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			if (tile.getId() == SELECTOR) {
 				selected.setTile(tile.getTile());
 				selectedEntity = null;
-				
+
 				// tell me the ID!
 				if (SwingUtilities.isRightMouseButton(e)) {
 					JOptionPane.showMessageDialog(this, String.valueOf(tile.getTile().getId() & 0x000000FF));
@@ -469,7 +470,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 				// draw tile only if no entity is selected
 				if (selectedEntity == null) {
-					
+
 					// Change to this tile type
 					if (SwingUtilities.isRightMouseButton(e)) {
 						selected.setTile(tile.getTile());
@@ -479,7 +480,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 					}
 
 					// save to temporary file
-					//quickSave();
+					// quickSave();
 
 					// point of origin
 					int xPos = tile.getX();
@@ -503,10 +504,10 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 					// selected entity is not null
 				} else {
-					
+
 					// the source tile contains the entity
 					tile.addEntity(selectedEntity.getEntity());
-					
+
 					// draw the entity
 					for (int x = 0; x < selectedEntity.getXTiles(); x++) {
 						for (int y = 0; y < selectedEntity.getYTiles(); y++) {
@@ -528,18 +529,18 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 			// entity gui was clicked
 		} else if (e.getSource() instanceof EntityGUI) {
-			
+
 			// unclick the mouse
 			pressed = false;
-			
+
 			// make a copy of the selected entity gui
 			selectedEntity = getEntity(((EntityGUI) e.getSource()).getEntity().getId());
-			
+
 			// force the user to enter entity data
 			JOptionPane.showMessageDialog(this, new EntityExtrasPanel(selectedEntity));
-			
+
 		}
-		
+
 	}
 
 	@Override
@@ -560,37 +561,37 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 		// open a file
 		if (e.getSource() == open) {
-			
+
 			// create the file chooser
 			JFileChooser fc = new JFileChooser();
 			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			fc.setCurrentDirectory(new File(DIR));
-			
+
 			// open the chooser
 			if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				
+
 				// load the file!
 				File file = fc.getSelectedFile();
-				
+
 				// file path
 				filePath = file.getPath();
-				
+
 				// load from a png file
 				if (filePath.contains(PNG)) {
 					loadPNG(file);
-					
+
 					// take off the png extension
 					filePath = filePath.substring(0, filePath.length() - 4);
-					
+
 					// take off png extension
 					name.setText(file.getName().substring(0, file.getName().length() - 4));
-					
+
 					// load normally
 				} else {
 					load(file);
 					name.setText(file.getName());
 				}
-				
+
 			}
 
 			// save
@@ -602,7 +603,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			saveRenderedLevel();
 
 			// fill all tiles on screen
-		}  else if (e.getSource() == setAll) {
+		} else if (e.getSource() == setAll) {
 
 			// loop through all the children
 			for (int i = 0; i < content.getComponentCount(); i++) {
@@ -656,15 +657,15 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			content.revalidate();
 
 			// load from temporary file
-		} /*else if (e.getSource() == undo) {
-			quickLoad();
-			
-			// randomize grass tiles
-		}*/ else if (e.getSource() == randomGrass) {
-			
+		} /*
+		   * else if (e.getSource() == undo) { quickLoad();
+		   * 
+		   * // randomize grass tiles }
+		   */ else if (e.getSource() == randomGrass) {
+
 			// randomize each grass tile
 			for (int i = 0; i < content.getComponentCount(); i++) {
-				
+
 				TileGUI tile = (TileGUI) content.getComponent(i);
 				if (tile.getTile().equals(Tile.GRASS0) && !tile.entityExists()) {
 					tile.setTile(Tile.GRASS());
@@ -728,20 +729,20 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 		// tile data
 		byte[] data = new byte[LEVEL_WIDTH * LEVEL_HEIGHT];
-		
+
 		// entity data and index
 		byte[][] entities = new byte[MAX_ENTITIES_LEVEL][];
 		int index = 0;
 
 		// loop through all the children
 		for (int i = 0; i < content.getComponentCount(); i++) {
-			
+
 			// get the tile
 			TileGUI tile = (TileGUI) content.getComponent(i);
 
 			// each component is a tile GUI
 			data[i] = tile.getTile().getId();
-			
+
 			// check if there is an entity
 			if (tile.entityExists()) {
 				entities[index++] = ByteBuffer.allocate(9).put(tile.getEntityId())
@@ -752,34 +753,34 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 		// output sources
 		File outputEntities = new File(filePath + ENTITY);
-		
+
 		try {
-			
+
 			// open the tile output stream
 			BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(outputLevel, false));
 
 			// save the tile data
 			os.write(data);
-			
+
 			// close the tile output stream
 			os.close();
-			
+
 			// entity output stream
 			BufferedOutputStream eos = new BufferedOutputStream(new FileOutputStream(outputEntities, false));
-			
+
 			// save the entity data
 			for (int i = 0; i < entities.length; i++) {
-				
+
 				// write to file
 				if (entities[i] != null) {
 					eos.write(entities[i]);
-					
+
 					// no more entities in list
 				} else {
 					break;
 				}
 			}
-			
+
 			// free resources
 			eos.close();
 
@@ -795,7 +796,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			// output stream could not open
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		}
 
 	}
 
@@ -850,7 +851,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 		// check if the file exists
 		try {
-			
+
 			// create the buffered image
 			BufferedImage level = ImageIO.read(inputLevel);
 
@@ -893,17 +894,17 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		File inputEntities = new File(inputLevel.getPath() + ENTITY);
 
 		try {
-			
+
 			// open the tile input stream
 			BufferedInputStream is = new BufferedInputStream(new FileInputStream(inputLevel));
 
 			// read into the data tile array
 			byte[] data = new byte[LEVEL_WIDTH * LEVEL_HEIGHT];
 			is.read(data);
-			
+
 			// free resources
 			is.close();
-			
+
 			// loop through all the children
 			for (int i = 0; i < content.getComponentCount(); i++) {
 
@@ -922,29 +923,31 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 				}
 
 			}
-			
+
 			// create an input stream for entities
 			BufferedInputStream eis = new BufferedInputStream(new FileInputStream(inputEntities));
 			while (eis.available() >= 9) {
-				
+
 				// create new data for the entity
 				data = new byte[9];
 				eis.read(data);
-				
+
 				// ID of entity
 				byte id = data[0];
-				
+
 				// coordinates
-				int xPos = (ByteBuffer.wrap(data).getShort(2) & 0x0000FFFF)  * zoomScale / 8 + content.getComponent(0).getX();
-				int yPos = (ByteBuffer.wrap(data).getShort(4) & 0x0000FFFF) * zoomScale / 8 + content.getComponent(0).getY();
-				
+				int xPos = (ByteBuffer.wrap(data).getShort(2) & 0x0000FFFF) * zoomScale / 8
+				        + content.getComponent(0).getX();
+				int yPos = (ByteBuffer.wrap(data).getShort(4) & 0x0000FFFF) * zoomScale / 8
+				        + content.getComponent(0).getY();
+
 				// get the entity
 				EntityGUI e = getEntity(id);
-				
+
 				// save the extra data
 				e.setExtra1(ByteBuffer.wrap(data).getShort(6));
 				e.setExtra2(data[8]);
-				
+
 				// add the entity to the tile
 				((TileGUI) content.getComponentAt(xPos, yPos)).addEntity(e.getEntity());
 
@@ -953,8 +956,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 					for (int y = 0; y < e.getYTiles(); y++) {
 
 						// next tile over
-						TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale),
-						        yPos + (y * zoomScale));
+						TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale), yPos + (y * zoomScale));
 
 						// render if the tile exists
 						if (next != null) {
@@ -962,23 +964,22 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 						}
 					}
 				}
-				
+
 			}
-			
+
 			// free resources
 			eis.close();
 
 		} catch (FileNotFoundException e) {
-			
+
 			// create the file
 			save(inputLevel);
-			
+
 		} catch (IOException e) {
 			System.err.println("Could not load file: " + DIR + name.getText());
 			e.printStackTrace();
-			
-			
-		} 
+
+		}
 
 	}
 
@@ -1039,14 +1040,16 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		}
 
 		// add all the unique items
-		entityList[Entity.DESTRUCTIBLE_TILE] = new EntityGUI(new DestructibleTile(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
+		entityList[Entity.DESTRUCTIBLE_TILE] = new EntityGUI(new DestructibleTile(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
+		        1, 1);
 		entityList[Entity.FIRE_ENTITY] = new EntityGUI(new FireEntity(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 		entityList[Entity.BED] = new EntityGUI(new Bed(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 3);
 		entityList[Entity.BENCH] = new EntityGUI(new Bench(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 1);
 		entityList[Entity.CHAIR_FRONT] = new EntityGUI(new ChairFront(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 		entityList[Entity.CHAIR_SIDE] = new EntityGUI(new ChairSide(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 		entityList[Entity.CHEST] = new EntityGUI(new Chest(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 1);
-		entityList[Entity.COMPUTER_MONITOR] = new EntityGUI(new ComputerMonitor(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
+		entityList[Entity.COMPUTER_MONITOR] = new EntityGUI(new ComputerMonitor(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1,
+		        1);
 		entityList[Entity.COMPUTER_TOWER] = new EntityGUI(new ComputerTower(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 2);
 		entityList[Entity.DINING_TABLE] = new EntityGUI(new DiningTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 16);
 		entityList[Entity.FILING_CABINET] = new EntityGUI(new FilingCabinet(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 3);
@@ -1057,19 +1060,24 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		entityList[Entity.STOOL] = new EntityGUI(new Stool(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 		entityList[Entity.TELEVISION] = new EntityGUI(new Television(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 		entityList[Entity.THRONE] = new EntityGUI(new Throne(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 3);
-		entityList[Entity.APARTMENT_HIGH_RISE] = new EntityGUI(new ApartmentHighRise(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 9, 28);
+		entityList[Entity.APARTMENT_HIGH_RISE] = new EntityGUI(new ApartmentHighRise(null, 0, 0), PANEL_SIZE,
+		        PANEL_SIZE, 9, 28);
 		entityList[Entity.CASTLE] = new EntityGUI(new Castle(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 41, 22);
 		entityList[Entity.CASTLE_TOWER] = new EntityGUI(new CastleTower(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 12, 22);
-		entityList[Entity.CATHOLIC_CHAPEL] = new EntityGUI(new CatholicChapel(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 8, 8);
-		entityList[Entity.CATHOLIC_CHURCH] = new EntityGUI(new CatholicChurch(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 11, 10);
+		entityList[Entity.CATHOLIC_CHAPEL] = new EntityGUI(new CatholicChapel(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 8,
+		        8);
+		entityList[Entity.CATHOLIC_CHURCH] = new EntityGUI(new CatholicChurch(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 11,
+		        10);
 		entityList[Entity.CAVE_ENTRANCE] = new EntityGUI(new CaveEntrance(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 5);
 		entityList[Entity.FACTORY] = new EntityGUI(new Factory(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 11);
-		entityList[Entity.GENERIC_HOSPITAL] = new EntityGUI(new GenericHospital(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 10);
+		entityList[Entity.GENERIC_HOSPITAL] = new EntityGUI(new GenericHospital(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13,
+		        10);
 		entityList[Entity.GUNSTORE] = new EntityGUI(new GunStore(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 9, 6);
 		entityList[Entity.HOTEL] = new EntityGUI(new Hotel(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 10);
 		entityList[Entity.HUT] = new EntityGUI(new Hut(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 6);
 		entityList[Entity.MINESHAFT] = new EntityGUI(new MineShaft(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 15, 8);
-		entityList[Entity.MODERN_SKYSCRAPER] = new EntityGUI(new ModernSkyscraper(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 32);
+		entityList[Entity.MODERN_SKYSCRAPER] = new EntityGUI(new ModernSkyscraper(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
+		        13, 32);
 		entityList[Entity.NICE_HOUSE] = new EntityGUI(new NiceHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 7, 8);
 		entityList[Entity.NICE_HOUSE2] = new EntityGUI(new NiceHouse2(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 7, 8);
 		entityList[Entity.POLICE] = new EntityGUI(new Police(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 11);
@@ -1078,7 +1086,8 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		entityList[Entity.PROJECTS] = new EntityGUI(new Projects(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 10);
 		entityList[Entity.RANCHERO_HOUSE] = new EntityGUI(new RancheroHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 8);
 		entityList[Entity.REFUGEE_TENT] = new EntityGUI(new RefugeeTent(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 3);
-		entityList[Entity.RUSSIAN_ORTHODOX_CHURCH] = new EntityGUI(new RussianOrthodoxChurch(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 12, 10);
+		entityList[Entity.RUSSIAN_ORTHODOX_CHURCH] = new EntityGUI(new RussianOrthodoxChurch(null, 0, 0), PANEL_SIZE,
+		        PANEL_SIZE, 12, 10);
 		entityList[Entity.SHANTY_HOUSE] = new EntityGUI(new ShantyHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 6);
 		entityList[Entity.SKYSCRAPER] = new EntityGUI(new Skyscraper(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 11, 32);
 		entityList[Entity.TIPPEE] = new EntityGUI(new Tippee(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 7);
@@ -1086,35 +1095,47 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		entityList[Entity.GREAT_TREE] = new EntityGUI(new GreatTree(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 7, 15);
 		entityList[Entity.TREE_HOUSE] = new EntityGUI(new TreeHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 15);
 		entityList[Entity.UC_GRIZZLY] = new EntityGUI(new UCGrizzly(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 25, 8);
-		entityList[Entity.OAKWOOD_CITY_HALL] = new EntityGUI(new OakwoodCityHall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 14, 15);
-		entityList[Entity.CHINATOWN_HOUSE] = new EntityGUI(new ChinatownHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 8, 8);
+		entityList[Entity.OAKWOOD_CITY_HALL] = new EntityGUI(new OakwoodCityHall(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
+		        14, 15);
+		entityList[Entity.CHINATOWN_HOUSE] = new EntityGUI(new ChinatownHouse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 8,
+		        8);
 		entityList[Entity.RUSSIAN_CLUB] = new EntityGUI(new RussianClub(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 19, 8);
-		entityList[Entity.SAN_CISCO_CITY_HALL] = new EntityGUI(new SanCiscoCityHall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 24, 15);
-		entityList[Entity.SAN_CISCO_SKYSCRAPER] = new EntityGUI(new SanCiscoSkyscraper(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 27, 85);
+		entityList[Entity.SAN_CISCO_CITY_HALL] = new EntityGUI(new SanCiscoCityHall(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
+		        24, 15);
+		entityList[Entity.SAN_CISCO_SKYSCRAPER] = new EntityGUI(new SanCiscoSkyscraper(null, 0, 0), PANEL_SIZE,
+		        PANEL_SIZE, 27, 85);
 		entityList[Entity.TRIAD_HQ] = new EntityGUI(new TriadHQ(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 24, 22);
 		entityList[Entity.JUNGLE_HQ] = new EntityGUI(new JungleHQ(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 19, 12);
 		entityList[Entity.QUACKER_HQ] = new EntityGUI(new QuackerHQ(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 17, 13);
-		entityList[Entity.SAN_JUAN_CITY_HALL] = new EntityGUI(new SanJuanCityHall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 15, 15);
+		entityList[Entity.SAN_JUAN_CITY_HALL] = new EntityGUI(new SanJuanCityHall(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
+		        15, 15);
 		entityList[Entity.THE_HUB] = new EntityGUI(new TheHub(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 21);
-		entityList[Entity.SEQUOIA_CINEMA] = new EntityGUI(new SequoiaCinema(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 15, 15);
-		entityList[Entity.SEQUOIA_SCHOOL] = new EntityGUI(new SequoiaSchool(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 21, 15);
+		entityList[Entity.SEQUOIA_CINEMA] = new EntityGUI(new SequoiaCinema(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 15,
+		        15);
+		entityList[Entity.SEQUOIA_SCHOOL] = new EntityGUI(new SequoiaSchool(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 21,
+		        15);
 		entityList[Entity.CAFE] = new EntityGUI(new Cafe(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 8);
-		entityList[Entity.CARDINAL_UNIVERSITY] = new EntityGUI(new CardinalUniversity(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 25, 7);
+		entityList[Entity.CARDINAL_UNIVERSITY] = new EntityGUI(new CardinalUniversity(null, 0, 0), PANEL_SIZE,
+		        PANEL_SIZE, 25, 7);
 		entityList[Entity.PEAR_HQ] = new EntityGUI(new PearHQ(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 13, 24);
 		entityList[Entity.RADAR_DISH] = new EntityGUI(new RadarDish(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 11, 17);
-		entityList[Entity.TECHTOPIA_CITY_HALL] = new EntityGUI(new TechTopiaCityHall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 12, 12);
-		entityList[Entity.WEIRD_TECH_BUILDING1] = new EntityGUI(new WeirdTechBuilding1(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 17);
-		entityList[Entity.WEIRD_TECH_BUILDING2] = new EntityGUI(new WeirdTechBuilding2(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 12);
+		entityList[Entity.TECHTOPIA_CITY_HALL] = new EntityGUI(new TechTopiaCityHall(null, 0, 0), PANEL_SIZE,
+		        PANEL_SIZE, 12, 12);
+		entityList[Entity.WEIRD_TECH_BUILDING1] = new EntityGUI(new WeirdTechBuilding1(null, 0, 0), PANEL_SIZE,
+		        PANEL_SIZE, 6, 17);
+		entityList[Entity.WEIRD_TECH_BUILDING2] = new EntityGUI(new WeirdTechBuilding2(null, 0, 0), PANEL_SIZE,
+		        PANEL_SIZE, 6, 12);
 		entityList[Entity.DEAD_SEQUOIA] = new EntityGUI(new DeadSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 8);
 		entityList[Entity.GENERIC_TREE] = new EntityGUI(new GenericTree(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 4);
 		entityList[Entity.LARGE_SEQUOIA] = new EntityGUI(new LargeSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 8);
 		entityList[Entity.MEDIUM_SEQUOIA] = new EntityGUI(new MediumSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 6);
 		entityList[Entity.SMALL_SEQUOIA] = new EntityGUI(new SmallSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 4);
 		// add all buildings, furniture, etc.
-		// additional notes: create one of each type for PEASANTS (MALE, FEMALE, BOY, GIRL)
+		// additional notes: create one of each type for PEASANTS (MALE, FEMALE,
+		// BOY, GIRL)
 		// create one of each type for GANG MEMBER
 		// create one of each type for Native Americans
-		// for spawners just put  type as 0 for now
+		// for spawners just put type as 0 for now
 
 	}
 
@@ -1226,49 +1247,49 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		case Entity.WAREHOUSE:
 			return new EntityGUI(new Warehouse(null, 0, 0), 0, 0, 13, 8);
 		case Entity.GREAT_TREE:
-            return new EntityGUI(new GreatTree(null, 0, 0), 0, 0, 7, 15);
+			return new EntityGUI(new GreatTree(null, 0, 0), 0, 0, 7, 15);
 		case Entity.TREE_HOUSE:
-            return new EntityGUI(new TreeHouse(null, 0, 0), 0, 0, 6, 15);
+			return new EntityGUI(new TreeHouse(null, 0, 0), 0, 0, 6, 15);
 		case Entity.UC_GRIZZLY:
-            return new EntityGUI(new UCGrizzly(null, 0, 0), 0, 0, 25, 8);
+			return new EntityGUI(new UCGrizzly(null, 0, 0), 0, 0, 25, 8);
 		case Entity.OAKWOOD_CITY_HALL:
-            return new EntityGUI(new OakwoodCityHall(null, 0, 0), 0, 0, 14, 15);
+			return new EntityGUI(new OakwoodCityHall(null, 0, 0), 0, 0, 14, 15);
 		case Entity.CHINATOWN_HOUSE:
-            return new EntityGUI(new ChinatownHouse(null, 0, 0), 0, 0, 8, 8);
+			return new EntityGUI(new ChinatownHouse(null, 0, 0), 0, 0, 8, 8);
 		case Entity.RUSSIAN_CLUB:
-            return new EntityGUI(new RussianClub(null, 0, 0), 0, 0, 19, 8);
+			return new EntityGUI(new RussianClub(null, 0, 0), 0, 0, 19, 8);
 		case Entity.SAN_CISCO_CITY_HALL:
-            return new EntityGUI(new SanCiscoCityHall(null, 0, 0), 0, 0, 24, 15);
+			return new EntityGUI(new SanCiscoCityHall(null, 0, 0), 0, 0, 24, 15);
 		case Entity.SAN_CISCO_SKYSCRAPER:
-            return new EntityGUI(new SanCiscoSkyscraper(null, 0, 0), 0, 0, 27, 85);
+			return new EntityGUI(new SanCiscoSkyscraper(null, 0, 0), 0, 0, 27, 85);
 		case Entity.TRIAD_HQ:
-            return new EntityGUI(new TriadHQ(null, 0, 0), 0, 0, 24, 22);
+			return new EntityGUI(new TriadHQ(null, 0, 0), 0, 0, 24, 22);
 		case Entity.JUNGLE_HQ:
-            return new EntityGUI(new JungleHQ(null, 0, 0), 0, 0, 19, 12);
+			return new EntityGUI(new JungleHQ(null, 0, 0), 0, 0, 19, 12);
 		case Entity.QUACKER_HQ:
-            return new EntityGUI(new QuackerHQ(null, 0, 0), 0, 0, 17, 13);
+			return new EntityGUI(new QuackerHQ(null, 0, 0), 0, 0, 17, 13);
 		case Entity.SAN_JUAN_CITY_HALL:
-            return new EntityGUI(new SanJuanCityHall(null, 0, 0), 0, 0, 15, 15);
+			return new EntityGUI(new SanJuanCityHall(null, 0, 0), 0, 0, 15, 15);
 		case Entity.THE_HUB:
-            return new EntityGUI(new TheHub(null, 0, 0), 0, 0, 13, 21);
+			return new EntityGUI(new TheHub(null, 0, 0), 0, 0, 13, 21);
 		case Entity.SEQUOIA_CINEMA:
-            return new EntityGUI(new SequoiaCinema(null, 0, 0), 0, 0, 15, 15);
+			return new EntityGUI(new SequoiaCinema(null, 0, 0), 0, 0, 15, 15);
 		case Entity.SEQUOIA_SCHOOL:
-            return new EntityGUI(new SequoiaSchool(null, 0, 0), 0, 0, 21, 15);
+			return new EntityGUI(new SequoiaSchool(null, 0, 0), 0, 0, 21, 15);
 		case Entity.CAFE:
-            return new EntityGUI(new Cafe(null, 0, 0), 0, 0, 13, 8);
+			return new EntityGUI(new Cafe(null, 0, 0), 0, 0, 13, 8);
 		case Entity.CARDINAL_UNIVERSITY:
-            return new EntityGUI(new CardinalUniversity(null, 0, 0), 0, 0, 25, 7);
+			return new EntityGUI(new CardinalUniversity(null, 0, 0), 0, 0, 25, 7);
 		case Entity.PEAR_HQ:
-            return new EntityGUI(new PearHQ(null, 0, 0), 0, 0, 13, 24);
+			return new EntityGUI(new PearHQ(null, 0, 0), 0, 0, 13, 24);
 		case Entity.RADAR_DISH:
-            return new EntityGUI(new RadarDish(null, 0, 0), 0, 0, 11, 17);
+			return new EntityGUI(new RadarDish(null, 0, 0), 0, 0, 11, 17);
 		case Entity.TECHTOPIA_CITY_HALL:
-            return new EntityGUI(new TechTopiaCityHall(null, 0, 0), 0, 0, 12, 12);
+			return new EntityGUI(new TechTopiaCityHall(null, 0, 0), 0, 0, 12, 12);
 		case Entity.WEIRD_TECH_BUILDING1:
-            return new EntityGUI(new WeirdTechBuilding1(null, 0, 0), 0, 0, 6, 17);
+			return new EntityGUI(new WeirdTechBuilding1(null, 0, 0), 0, 0, 6, 17);
 		case Entity.WEIRD_TECH_BUILDING2:
-            return new EntityGUI(new WeirdTechBuilding2(null, 0, 0), 0, 0, 6, 12);
+			return new EntityGUI(new WeirdTechBuilding2(null, 0, 0), 0, 0, 6, 12);
 		default:
 			return null;
 		}
