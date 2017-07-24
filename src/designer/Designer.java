@@ -39,7 +39,7 @@ import javajesus.entities.solid.furniture.*;
 import javajesus.entities.solid.trees.*;
 import javajesus.entities.solid.buildings.*;
 import javajesus.entities.solid.buildings.hippyville.*;
-import javajesus.entities.solid.buildings.sancsico.*;
+import javajesus.entities.solid.buildings.sancisco.*;
 import javajesus.entities.solid.buildings.sanjuan.*;
 import javajesus.entities.solid.buildings.oakwood.*;
 import javajesus.entities.solid.buildings.sequoia.*;
@@ -1025,7 +1025,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		case Entity.TRIAD_HQ:
             return new EntityGUI(new TriadHQ(null, 0, 0), 0, 0, 24, 22);
 		case Entity.JUNGLE_HQ:
-            return new EntityGUI(new JugleHQ(null, 0, 0), 0, 0, 19, 12);
+            return new EntityGUI(new JungleHQ(null, 0, 0), 0, 0, 19, 12);
 		case Entity.QUACKER_HQ:
             return new EntityGUI(new QuackerHQ(null, 0, 0), 0, 0, 17, 13);
 		case Entity.SAN_JUAN_CITY_HALL:
