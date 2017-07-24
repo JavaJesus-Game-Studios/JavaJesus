@@ -368,7 +368,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable,
 	 * @param dy - the total change in y
 	 */
 	public void move(int dx, int dy) {
-
+		
 		// default it is on foreground
 		isBehindBuilding = false;
 		

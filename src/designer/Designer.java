@@ -158,8 +158,8 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	private static String filePath = new File(DIR + "New").getPath();
 
 	// buttons at the top
-	private final JButton save, saveRendered, setAll, plusSize, minusSize, plusZoom, minusZoom, undo,
-	        tiles, entities, open;
+	private final JButton save, saveRendered, setAll, plusSize, minusSize, plusZoom, minusZoom,
+	        tiles, entities, open, randomGrass;
 	private final JTextField name;
 	private TileGUI selected;
 	private EntityGUI selectedEntity;
@@ -322,15 +322,24 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		rightContent.add(zoom);
 
 		// undo
-		rightContent.add(undo = new JButton("Undo"));
+		/*rightContent.add(undo = new JButton("Undo"));
 		undo.setAlignmentX(Component.CENTER_ALIGNMENT);
-		undo.addActionListener(this);
+		undo.addActionListener(this);*/
+		
+		// generate grass
+		rightContent.add(randomGrass = new JButton("Gen Grass"));
+		randomGrass.addActionListener(this);
+		randomGrass.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		// assemble the viewing panel
 		JScrollPane pane = new JScrollPane(leftContent);
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		pane.getVerticalScrollBar().setUnitIncrement(16);
 		viewing.add(pane, BorderLayout.WEST);
-		viewing.add(new JScrollPane(content), BorderLayout.CENTER);
+		pane = new JScrollPane(content);
+		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		pane.getVerticalScrollBar().setUnitIncrement(16);
+		viewing.add(pane, BorderLayout.CENTER);
 		viewing.add(rightContent, BorderLayout.EAST);
 
 		// assemble the panel
@@ -375,13 +384,18 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 						for (int x = 0; x < size; x++) {
 							for (int y = 0; y < size; y++) {
 
-								// get next the component
-								TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale),
-								        yPos + (y * zoomScale));
-								if (next != null) {
+								// make sure the next component is a tile GUI
+								if (content.getComponentAt(xPos + (x * zoomScale),
+								        yPos + (y * zoomScale)) instanceof TileGUI) {
 
-									// set the tile
-									next.setTile(selected.getTile());
+									// get next the component
+									TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale),
+									        yPos + (y * zoomScale));
+									if (next != null) {
+
+										// set the tile
+										next.setTile(selected.getTile());
+									}
 								}
 
 							}
@@ -455,9 +469,17 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 				// draw tile only if no entity is selected
 				if (selectedEntity == null) {
+					
+					// Change to this tile type
+					if (SwingUtilities.isRightMouseButton(e)) {
+						selected.setTile(tile.getTile());
+						selectedEntity = null;
+						pressed = false;
+						return;
+					}
 
 					// save to temporary file
-					quickSave();
+					//quickSave();
 
 					// point of origin
 					int xPos = tile.getX();
@@ -557,12 +579,17 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 				if (filePath.contains(PNG)) {
 					loadPNG(file);
 					
+					// take off the png extension
+					filePath = filePath.substring(0, filePath.length() - 4);
+					
+					// take off png extension
+					name.setText(file.getName().substring(0, file.getName().length() - 4));
+					
 					// load normally
 				} else {
 					load(file);
+					name.setText(file.getName());
 				}
-				
-				name.setText(file.getName());
 				
 			}
 
@@ -629,8 +656,20 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			content.revalidate();
 
 			// load from temporary file
-		} else if (e.getSource() == undo) {
+		} /*else if (e.getSource() == undo) {
 			quickLoad();
+			
+			// randomize grass tiles
+		}*/ else if (e.getSource() == randomGrass) {
+			
+			// randomize each grass tile
+			for (int i = 0; i < content.getComponentCount(); i++) {
+				
+				TileGUI tile = (TileGUI) content.getComponent(i);
+				if (tile.getTile().equals(Tile.GRASS0) && !tile.entityExists()) {
+					tile.setTile(Tile.GRASS());
+				}
+			}
 
 			// display tiles
 		} else if (e.getSource() == tiles) {
@@ -646,6 +685,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	/**
 	 * Saves the file temporarily
 	 */
+	@SuppressWarnings("unused")
 	private void quickSave() {
 
 		// tile data
@@ -704,7 +744,9 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			
 			// check if there is an entity
 			if (tile.entityExists()) {
-				entities[index++] = ByteBuffer.allocate(9).put(tile.getEntityId()).putLong(tile.getEntityData()).array();
+				entities[index++] = ByteBuffer.allocate(9).put(tile.getEntityId())
+				        .putLong(tile.getEntityData(content.getComponent(0).getX(), content.getComponent(0).getY()))
+				        .array();
 			}
 		}
 
@@ -893,8 +935,8 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 				byte id = data[0];
 				
 				// coordinates
-				int xPos = (ByteBuffer.wrap(data).getShort(2) & 0x0000FFFF)  * zoomScale / 8;
-				int yPos = (ByteBuffer.wrap(data).getShort(4) & 0x0000FFFF) * zoomScale / 8;
+				int xPos = (ByteBuffer.wrap(data).getShort(2) & 0x0000FFFF)  * zoomScale / 8 + content.getComponent(0).getX();
+				int yPos = (ByteBuffer.wrap(data).getShort(4) & 0x0000FFFF) * zoomScale / 8 + content.getComponent(0).getY();
 				
 				// get the entity
 				EntityGUI e = getEntity(id);
@@ -943,6 +985,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	/**
 	 * Tries to load the temporary file
 	 */
+	@SuppressWarnings("unused")
 	private void quickLoad() {
 
 		// open the file

@@ -127,10 +127,10 @@ public class TileGUI extends JPanel {
 	/**
 	 * @return the Entity Data
 	 */
-	public long getEntityData() {
+	public long getEntityData(int xOffset, int yOffset) {
 		
 		// set the entity to the right x and y coords
-		entity.moveTo(getX() * 8 / Designer.zoomScale, getY() * 8 / Designer.zoomScale);
+		entity.moveTo((getX() - xOffset) * 8 / Designer.zoomScale, (getY() - yOffset) * 8 / Designer.zoomScale);
 		
 		// get the data
 		long data = entity.getData();
