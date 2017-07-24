@@ -26,6 +26,7 @@ import java.nio.ByteBuffer;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -152,10 +153,13 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 	// size of each tile/entity selector
 	private static final int PANEL_SIZE = 50;
+	
+	// path of the loaded file
+	private static String filePath = new File(DIR + "New").getPath();
 
 	// buttons at the top
-	private final JButton save, load, saveRendered, loadPNG, setAll, plusSize, minusSize, plusZoom, minusZoom, undo,
-	        tiles, entities;
+	private final JButton save, saveRendered, setAll, plusSize, minusSize, plusZoom, minusZoom, undo,
+	        tiles, entities, open;
 	private final JTextField name;
 	private TileGUI selected;
 	private EntityGUI selectedEntity;
@@ -220,14 +224,12 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		top.add(name = new JTextField());
 		name.setText("New");
 		name.setColumns(10);
+		top.add(open = new JButton("Open"));
+		open.addActionListener(this);
 		top.add(save = new JButton("Save"));
 		save.addActionListener(this);
 		top.add(saveRendered = new JButton("Save Display"));
 		saveRendered.addActionListener(this);
-		top.add(load = new JButton("Load"));
-		load.addActionListener(this);
-		top.add(loadPNG = new JButton("Load PNG"));
-		loadPNG.addActionListener(this);
 		top.add(new JLabel("Selected: "));
 		top.add(selected = new TileGUI(Tile.VOID, SELECTOR, 25, 25));
 
@@ -534,24 +536,46 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		// save
-		if (e.getSource() == save) {
-			save();
+		// open a file
+		if (e.getSource() == open) {
+			
+			// create the file chooser
+			JFileChooser fc = new JFileChooser();
+			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			fc.setCurrentDirectory(new File(DIR));
+			
+			// open the chooser
+			if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+				
+				// load the file!
+				File file = fc.getSelectedFile();
+				
+				// file path
+				filePath = file.getPath();
+				
+				// load from a png file
+				if (filePath.contains(PNG)) {
+					loadPNG(file);
+					
+					// load normally
+				} else {
+					load(file);
+				}
+				
+				name.setText(file.getName());
+				
+			}
+
+			// save
+		} else if (e.getSource() == save) {
+			save(new File(filePath));
 
 		} // save
 		if (e.getSource() == saveRendered) {
 			saveRenderedLevel();
 
-			// load
-		} else if (e.getSource() == load) {
-			load();
-
-			// fill all
-		} else if (e.getSource() == loadPNG) {
-			loadPNG();
-
-			// fill all
-		} else if (e.getSource() == setAll) {
+			// fill all tiles on screen
+		}  else if (e.getSource() == setAll) {
 
 			// loop through all the children
 			for (int i = 0; i < content.getComponentCount(); i++) {
@@ -660,7 +684,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	/**
 	 * Saves the level data to a file
 	 */
-	private void save() {
+	private void save(File outputLevel) {
 
 		// tile data
 		byte[] data = new byte[LEVEL_WIDTH * LEVEL_HEIGHT];
@@ -685,8 +709,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		}
 
 		// output sources
-		File outputLevel = new File(DIR + name.getText());
-		File outputEntities = new File(DIR + name.getText() + ENTITY);
+		File outputEntities = new File(filePath + ENTITY);
 		
 		try {
 			
@@ -724,7 +747,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 
 			// make the directory and try again
 			if (outputLevel.mkdirs()) {
-				save();
+				save(outputLevel);
 			}
 
 			// output stream could not open
@@ -781,13 +804,13 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	/**
 	 * Tries to load a png file
 	 */
-	private void loadPNG() {
+	private void loadPNG(File inputLevel) {
 
 		// check if the file exists
 		try {
-
+			
 			// create the buffered image
-			BufferedImage level = ImageIO.read(Designer.class.getResource(BASE + name.getText() + PNG));
+			BufferedImage level = ImageIO.read(inputLevel);
 
 			// stores level colors
 			int[] pixels = new int[level.getWidth() * level.getHeight()];
@@ -822,11 +845,10 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 	/**
 	 * Loads level data into the editor
 	 */
-	private void load() {
+	private void load(File inputLevel) {
 
 		// open the input files
-		File inputLevel = new File(DIR + name.getText());
-		File inputEntities = new File(DIR + name.getText() + ENTITY);
+		File inputEntities = new File(inputLevel.getPath() + ENTITY);
 
 		try {
 			
@@ -904,10 +926,17 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			// free resources
 			eis.close();
 
-		} catch (Exception e) {
+		} catch (FileNotFoundException e) {
+			
+			// create the file
+			save(inputLevel);
+			
+		} catch (IOException e) {
 			System.err.println("Could not load file: " + DIR + name.getText());
 			e.printStackTrace();
-		}
+			
+			
+		} 
 
 	}
 
