@@ -14,7 +14,32 @@ import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
 import javajesus.entities.Player;
+import javajesus.entities.Spawner;
 import javajesus.entities.Type;
+import javajesus.entities.monsters.Centaur;
+import javajesus.entities.monsters.Cyclops;
+import javajesus.entities.monsters.Demon;
+import javajesus.entities.monsters.GangMember;
+import javajesus.entities.monsters.Monkey;
+import javajesus.entities.npcs.Bautista;
+import javajesus.entities.npcs.Daughter;
+import javajesus.entities.npcs.Istrahiim;
+import javajesus.entities.npcs.Jesus;
+import javajesus.entities.npcs.Jobs;
+import javajesus.entities.npcs.Knight;
+import javajesus.entities.npcs.Kobe;
+import javajesus.entities.npcs.LordHillsborough;
+import javajesus.entities.npcs.Octavius;
+import javajesus.entities.npcs.Peasant;
+import javajesus.entities.npcs.Ranchero;
+import javajesus.entities.npcs.Son;
+import javajesus.entities.npcs.Wife;
+import javajesus.entities.npcs.Zorra;
+import javajesus.entities.npcs.aggressive.Companion;
+import javajesus.entities.npcs.aggressive.Gorilla;
+import javajesus.entities.npcs.aggressive.NativeAmerican;
+import javajesus.entities.npcs.aggressive.PoliceOfficer;
+import javajesus.entities.npcs.aggressive.TechWarrior;
 import javajesus.entities.solid.buildings.ApartmentHighRise;
 import javajesus.entities.solid.buildings.Castle;
 import javajesus.entities.solid.buildings.CastleTower;
@@ -422,6 +447,61 @@ public class SaveData {
 	            return new WeirdTechBuilding1(level, x, y);
 	        case Entity.WEIRD_TECH_BUILDING2:
 	            return new WeirdTechBuilding2(level, x, y);
+	        case Entity.PLAYER:
+	            return new Player(level, x, y);
+	        case Entity.SPAWNER:
+	            return new Spawner(level, x, y);
+	        case Entity.CENTAUR:
+	            return new Centaur(level, x, y);
+	        case Entity.CYCLOPS:
+	            return new Cyclops(level, x, y);
+	        case Entity.DEMON:
+	            return new Demon(level, x, y);
+	        case Entity.GANG_MEMBER:
+	            return new GangMember(level, x, y);
+	        case Entity.MONKEY:
+	            return new Monkey(level, x, y);
+	        case Entity.BAUTISTA:
+	            return new Bautista(level, x, y);
+	        case Entity.DAUGHTER:
+	            return new Daughter(level, x, y);
+	        case Entity.ISTRAHIIM:
+	            return new Istrahiim(level, x, y);
+	        case Entity.JESUS:
+	            return new Jesus(level, x, y);
+	        case Entity.JOBS:
+	            return new Jobs(level, x, y);
+	        case Entity.KNIGHT:
+	            return new Knight(level, x, y);
+	        case Entity.KOBE:
+	            return new Kobe(level, x, y);
+	        case Entity.LORD_HILLSBOROUGH:
+	            return new LordHillsborough(level, x, y);
+	        case Entity.OCTAVIUS:
+	            return new Octavius(level, x, y);
+	        case Entity.PEASANT:
+	            return new Peasant(level, x, y);
+	        case Entity.RANCHERO:
+	            return new Ranchero(level, x, y);
+	        case Entity.SON:
+	            return new Son(level, x, y);
+	        case Entity.WIFE:
+	            return new Wife(level, x, y);
+	        case Entity.ZORRA:
+	            return new Zorra(level, x, y);
+	        case Entity.COMPANION:
+	            return new Companion(level, x, y);
+	        case Entity.GORILLA:
+	            return new Gorilla(level, x, y);
+	        case Entity.NATIVE_AMERICAN:
+	            return new NativeAmerican(level, x, y);
+	        case Entity.POLICE_OFFICER:
+	            return new PoliceOfficer(level, x, y);
+	        case Entity.SWAT_OFFICER:
+	            return new SwatOfficer(level, x, y);
+	        case Entity.TECH_WARRIOR:
+	            return new TechWarrior(level, x, y);
+
 	        default:
 	            return null;
 	        }
