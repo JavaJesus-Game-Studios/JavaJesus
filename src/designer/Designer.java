@@ -452,6 +452,33 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 					}
 				}
 			}
+			
+			// mouse not pressed
+		} else {
+			
+			// draw an outline of the entity
+			if (selectedEntity != null && e.getSource() instanceof TileGUI) {
+				
+				// tile mouse is hovering over
+				TileGUI tile = (TileGUI) e.getSource();
+				
+				// draw the entity
+				for (int x = 0; x < selectedEntity.getXTiles(); x++) {
+					for (int y = 0; y < selectedEntity.getYTiles(); y++) {
+
+						// next tile over
+						TileGUI next = (TileGUI) content.getComponentAt(tile.getX() + (x * zoomScale),
+						        tile.getY() + (y * zoomScale));
+
+						// flicker if the tile exists
+						if (next != null) {
+							next.render(selectedEntity, x, y);
+							next.flicker();
+						}
+					}
+				}
+				
+			}
 		}
 
 	}

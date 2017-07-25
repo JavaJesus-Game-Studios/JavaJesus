@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
@@ -186,6 +188,43 @@ public class TileGUI extends JPanel {
 		
 		// draw the image
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+	}
+	
+	/**
+	 * Flickers the screen of the tile after 1 second
+	 */
+	public void flicker() {
+		
+		// turn the visibility back in in 1 second
+		Timer timer = new Timer(true);
+		timer.schedule(new Task(this), 1000);
+	}
+	
+	/*
+	 * TimerTask to rerender tile
+	 */
+	private class Task extends TimerTask {
+		
+		// tile to flicker
+		private TileGUI tile;
+		
+		/**
+		 * @param tile - tile to turn on
+		 */
+		private Task(TileGUI tile) {
+			this.tile = tile;
+		}
+
+		/**
+		 * Renders the tile again
+		 */
+		public void run() {
+			if (tile != null) {
+				tile.getTile().render(screen);
+				tile.repaint();
+			}
+		}
+		
 	}
 	
 }
