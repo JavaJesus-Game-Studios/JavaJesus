@@ -2,12 +2,12 @@ package javajesus.entities.solid.trees;
 
 import java.awt.Rectangle;
 
+import javajesus.dataIO.EntityData;
 import javajesus.entities.Entity;
 import javajesus.entities.SolidEntity;
 import javajesus.graphics.Screen;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
-import javajesus.save.SaveData;
 
 /*
  * A tree cannot be clipped
@@ -65,7 +65,7 @@ public abstract class Tree extends Entity implements SolidEntity {
 	
 	@Override
 	public long getData() {
-		return SaveData.type1(getX(), getY());
+		return EntityData.type1(getX(), getY());
 	}
 
 }

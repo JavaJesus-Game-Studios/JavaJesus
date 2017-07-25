@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 import javajesus.Hideable;
+import javajesus.dataIO.EntityData;
 import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.Player;
@@ -14,7 +15,6 @@ import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
-import javajesus.save.SaveData;
 import javajesus.utility.Direction;
 import engine.Window;
 
@@ -574,7 +574,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable,
 
 	@Override
 	public long getData() {
-		return SaveData.type1(getX(), getY());
+		return EntityData.type1(getX(), getY());
 	}
 	
 	public void setMaxHealth(short health) {

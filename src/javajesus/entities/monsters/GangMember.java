@@ -7,6 +7,7 @@ import java.util.Random;
 import javajesus.JavaJesus;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
+import javajesus.dataIO.EntityData;
 import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.LongRange;
@@ -17,7 +18,6 @@ import javajesus.entities.projectiles.Bullet;
 import javajesus.graphics.Screen;
 import javajesus.items.Item;
 import javajesus.level.Level;
-import javajesus.save.SaveData;
 import javajesus.utility.Direction;
 
 /*
@@ -237,7 +237,7 @@ public class GangMember extends Monster implements LongRange, Type {
 	
 	@Override
 	public long getData() {
-		return SaveData.type4(getX(), getY(), getMaxHealth(), type);
+		return EntityData.type4(getX(), getY(), getMaxHealth(), type);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.List;
 import java.util.Random;
 
+import javajesus.dataIO.EntityData;
 import javajesus.entities.Entity;
 import javajesus.entities.SolidEntity;
 import javajesus.entities.Type;
@@ -13,7 +14,6 @@ import javajesus.items.Gun;
 import javajesus.items.Item;
 import javajesus.items.Sword;
 import javajesus.level.Level;
-import javajesus.save.SaveData;
 
 /*
  * Creates a chest that stores items for the player to use
@@ -252,7 +252,7 @@ public class Chest extends Entity implements SolidEntity, Type {
 	@Override
 	public long getData() {
 		// TODO link extra to an inventory ID
-		return SaveData.type3(getX(), getY(), lootId);
+		return EntityData.type3(getX(), getY(), lootId);
 	}
 
 	@Override

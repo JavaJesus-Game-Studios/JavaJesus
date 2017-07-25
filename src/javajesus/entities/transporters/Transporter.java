@@ -1,9 +1,9 @@
 package javajesus.entities.transporters;
 
+import javajesus.dataIO.EntityData;
 import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
-import javajesus.save.SaveData;
 
 /*
  * A transporter is an entity that sends a player to another level
@@ -60,7 +60,7 @@ public abstract class Transporter extends Entity {
 	
 	@Override
 	public long getData() {
-		return SaveData.type3(getX(), getY(), (byte) 0);
+		return EntityData.type3(getX(), getY(), (byte) 0);
 	}
 
 }

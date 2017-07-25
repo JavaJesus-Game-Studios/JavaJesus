@@ -30,7 +30,7 @@ public class CastleTower extends Building {
 
 		if (level != null)
 		level.add(new Door(level, x + 41, y + 159,
-		        new CastleTowerInterior(new Point(x + 43, y + 167), getLevel())));
+		        new CastleTowerInterior(new Point(x + 43, y + 167), level)));
 
 	}
 	

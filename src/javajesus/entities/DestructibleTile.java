@@ -2,11 +2,11 @@ package javajesus.entities;
 
 import java.awt.Rectangle;
 
+import javajesus.dataIO.EntityData;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
-import javajesus.save.SaveData;
 
 /*
  * A facade that acts like a tile but is actually an entity
@@ -125,7 +125,7 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity,
 
 	@Override
 	public long getData() {
-		return SaveData.type4(getX(), getY(), maxHealth, type);
+		return EntityData.type4(getX(), getY(), maxHealth, type);
 	}
 
 	@Override

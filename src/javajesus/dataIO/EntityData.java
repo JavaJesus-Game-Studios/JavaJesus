@@ -1,4 +1,4 @@
-package javajesus.save;
+package javajesus.dataIO;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -117,7 +117,7 @@ import javajesus.level.Level;
  * and contains helper methods
  * to achieve those ends
  */
-public class SaveData {
+public class EntityData {
 	
 	// different types of data saving and loading
 	private static final byte TYPE1 = 0x00, TYPE2 = 0x01, TYPE3 = 0x02, TYPE4 = 0x03;

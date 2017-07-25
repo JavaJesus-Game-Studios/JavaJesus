@@ -1,13 +1,13 @@
 package javajesus.entities;
 
 import javajesus.Hideable;
+import javajesus.dataIO.EntityData;
 import javajesus.entities.particles.HealthBar;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
 import javajesus.quests.Script;
-import javajesus.save.SaveData;
 import javajesus.utility.Direction;
 
 import java.awt.Rectangle;
@@ -1044,7 +1044,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	
 	@Override
 	public long getData() {
-		return SaveData.type2(getX(), getY(), getMaxHealth());
+		return EntityData.type2(getX(), getY(), getMaxHealth());
 	}
 
 }

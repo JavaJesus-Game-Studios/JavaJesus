@@ -1,8 +1,11 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
+import java.io.File;
 import java.io.IOException;
 
+import javajesus.dataIO.EntityData;
+import javajesus.dataIO.LevelData;
 import javajesus.entities.transporters.Transporter;
 import javajesus.level.Level;
 
@@ -23,10 +26,16 @@ public abstract class Interior extends Level {
 	 * @throws IOException 
 	 */
 	public Interior(final String path, final Point spawn, final Level outside) throws IOException {
-		super(path, "Interior", spawn, 0);
+		super("Interior", spawn);
 		
 		// instance data
 		this.outside = outside;
+		
+		// load the tiles from the path
+		LevelData.load(new File(Interior.class.getResource(path).getFile()), levelTiles);
+		
+		// load the entity data
+		EntityData.load(this, new File(Interior.class.getResource(path + ENTITY).getFile()));
 		
 		// add all the transporters
 		for (Transporter t: getTransporters()) {

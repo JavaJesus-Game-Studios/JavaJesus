@@ -2,12 +2,12 @@ package javajesus.entities.solid.buildings;
 
 import java.awt.Rectangle;
 
+import javajesus.dataIO.EntityData;
 import javajesus.entities.Entity;
 import javajesus.entities.SolidEntity;
 import javajesus.graphics.Screen;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
-import javajesus.save.SaveData;
 
 /*
  * base class for all buildings
@@ -84,7 +84,7 @@ public abstract class Building extends Entity implements SolidEntity {
 	
 	@Override
 	public long getData() {
-		return SaveData.type1(getX(), getY());
+		return EntityData.type1(getX(), getY());
 	}
 	
 }

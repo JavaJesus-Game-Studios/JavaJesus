@@ -3,6 +3,7 @@ package javajesus.entities;
 import java.util.Random;
 
 import javajesus.JavaJesus;
+import javajesus.dataIO.EntityData;
 import javajesus.entities.monsters.Centaur;
 import javajesus.entities.monsters.Cyclops;
 import javajesus.entities.monsters.Demon;
@@ -12,7 +13,6 @@ import javajesus.graphics.Screen;
 import javajesus.graphics.Sprite;
 import javajesus.items.Item;
 import javajesus.level.Level;
-import javajesus.save.SaveData;
 
 /*
  * An entity that creates other entities
@@ -195,7 +195,7 @@ public class Spawner extends Entity implements Type {
 
 	@Override
 	public long getData() {
-		return SaveData.type3(getX(), getY(), type);
+		return EntityData.type3(getX(), getY(), type);
 	}
 
 	@Override

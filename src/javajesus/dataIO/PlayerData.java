@@ -1,4 +1,4 @@
-package javajesus.save;
+package javajesus.dataIO;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,7 +16,7 @@ import javajesus.items.Item;
 /*
  * This class manages the saving of player creation data
  */
-public class SaveFile {
+public class PlayerData {
 	
 	// IDS for starting weapons
 	public static final byte REVOLVER = 0, SHORT_SWORD = 1;
@@ -30,7 +30,7 @@ public class SaveFile {
 	private static final String NAME = "/Player";
 	
 	/**
-	 * SaveFile ctor()
+	 * PlayerData ctor()
 	 * Saves player creation data to a file to be loaded
 	 * 
 	 * @param numSlot - which save file clicked (1, 2, or 3)
@@ -39,7 +39,7 @@ public class SaveFile {
 	 * @param shirtColor - shirt color of the player
 	 * @param startingWeap - starting weapon of the player
 	 */
-	public SaveFile(int numSlot, String playerName, int skinColor, int shirtColor, byte startingWeap) {
+	public PlayerData(int numSlot, String playerName, int skinColor, int shirtColor, byte startingWeap) {
 		
 		save(numSlot, playerName, skinColor, shirtColor, startingWeap);
 		

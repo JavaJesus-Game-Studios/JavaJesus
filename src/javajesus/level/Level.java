@@ -11,6 +11,8 @@ import javax.swing.filechooser.FileSystemView;
 
 import javajesus.Hideable;
 import javajesus.JavaJesus;
+import javajesus.dataIO.EntityData;
+import javajesus.dataIO.LevelData;
 import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
@@ -20,8 +22,6 @@ import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.AnimatedTile;
 import javajesus.level.tile.Tile;
-import javajesus.save.LevelData;
-import javajesus.save.SaveData;
 
 /*
  * A level contains a set of tiles and set of entities that
@@ -51,7 +51,7 @@ public abstract class Level {
 	private final String name;
 	
 	// gets the name add-on for entity files
-	private static final String ENTITY = "_entities";
+	public static final String ENTITY = "_entities";
 	
 	// gets the home directory
 	private static final String DIR = FileSystemView.getFileSystemView().getDefaultDirectory().getPath()
@@ -157,7 +157,7 @@ public abstract class Level {
 		LevelData.load(level, levelTiles);
 
 		// load the entity data
-		SaveData.load(this, entities);
+		EntityData.load(this, entities);
 	}
 	
 	/**
@@ -169,7 +169,7 @@ public abstract class Level {
 		LevelData.save(path, levelTiles);
 		
 		// save the entity data
-		SaveData.save(path + ENTITY, entities);
+		EntityData.save(path + ENTITY, entities);
 		
 	}
 

@@ -1,4 +1,4 @@
-package javajesus.save;
+package javajesus.dataIO;
 
 /*
  * Java Jesus specific serializable interface

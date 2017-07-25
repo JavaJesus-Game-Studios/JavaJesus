@@ -2,9 +2,9 @@ package javajesus.entities;
 
 import java.awt.Rectangle;
 
+import javajesus.dataIO.Serializable;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
-import javajesus.save.Serializable;
 
 /*
  * Something that is rendered on the screen on a level with an x and y coordinate

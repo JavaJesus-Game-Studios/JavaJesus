@@ -20,8 +20,8 @@ import javax.swing.event.ChangeListener;
 
 import javajesus.JavaJesus;
 import javajesus.Launcher;
+import javajesus.dataIO.PlayerData;
 import javajesus.items.Item;
-import javajesus.save.SaveFile;
 
 public class PlayerCreationGUI extends JPanel {
 
@@ -50,7 +50,7 @@ public class PlayerCreationGUI extends JPanel {
 	private ItemGUI weaponDisplay;
 	
 	// starting weapon for player
-	private byte startWeapon = SaveFile.REVOLVER;
+	private byte startWeapon = PlayerData.REVOLVER;
 	
 	// slot of player save data
 	private int numSlot;
@@ -243,14 +243,14 @@ public class PlayerCreationGUI extends JPanel {
 			// change display to pistol
 			if (e.getSource() == pistol) {
 				weaponDisplay.setItem(Item.revolver);
-				startWeapon = SaveFile.REVOLVER;
+				startWeapon = PlayerData.REVOLVER;
 				weaponDisplay.repaint();
 			}
 			
 			// change display to sword
 			if (e.getSource() == sword) {
 				weaponDisplay.setItem(Item.shortSword);
-				startWeapon = SaveFile.SHORT_SWORD;
+				startWeapon = PlayerData.SHORT_SWORD;
 				weaponDisplay.repaint();
 			}
 			
@@ -258,7 +258,7 @@ public class PlayerCreationGUI extends JPanel {
 			if (e.getSource() == finish) {
 				
 				// create a save file
-				new SaveFile(numSlot, name.getText(),  pScreen.getSkinColor(), pScreen.getShirtColor(), startWeapon);
+				new PlayerData(numSlot, name.getText(),  pScreen.getSkinColor(), pScreen.getShirtColor(), startWeapon);
 				
 				// return to main display
 				((CardLayout) launcher.getParent().getLayout()).show(launcher.getParent(), "Main");

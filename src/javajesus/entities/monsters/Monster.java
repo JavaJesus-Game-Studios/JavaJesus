@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javajesus.JavaJesus;
 import javajesus.MessageHandler;
+import javajesus.dataIO.EntityData;
 import javajesus.entities.LongRange;
 import javajesus.entities.Mob;
 import javajesus.entities.Pickup;
@@ -15,7 +16,6 @@ import javajesus.entities.npcs.NPC;
 import javajesus.graphics.SpriteSheet;
 import javajesus.items.Item;
 import javajesus.level.Level;
-import javajesus.save.SaveData;
 import javajesus.utility.Direction;
 import javajesus.utility.GameMode;
 
@@ -322,7 +322,7 @@ public abstract class Monster extends Mob {
 	
 	@Override
 	public long getData() {
-		return SaveData.type2(getX(), getY(), getMaxHealth());
+		return EntityData.type2(getX(), getY(), getMaxHealth());
 	}
 
 }

@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import engine.IGameLogic;
 import engine.Input;
 import engine.Window;
+import javajesus.dataIO.PlayerData;
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.gui.PlayerCreationGUI;
@@ -28,7 +29,6 @@ import javajesus.level.RandomLevel;
 import javajesus.level.RoadLevel;
 import javajesus.level.sandbox.SandboxIslandLevel;
 import javajesus.level.sandbox.SandboxOriginalLevel;
-import javajesus.save.SaveFile;
 import javajesus.utility.Direction;
 import javajesus.utility.GameMode;
 
@@ -423,7 +423,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			}
 			
 			// load if it exists
-			if (SaveFile.exists(numSlot)) {
+			if (PlayerData.exists(numSlot)) {
 				
 				// stop the launcher
 				running = false;
@@ -446,15 +446,15 @@ public class Launcher extends Canvas implements IGameLogic {
 			return;
 		}
 		case DELETE_1:
-			SaveFile.delete(1);
+			PlayerData.delete(1);
 			updateButtons();
 			return;
 		case DELETE_2:
-			SaveFile.delete(2);
+			PlayerData.delete(2);
 			updateButtons();
 			return;
 		case DELETE_3:
-			SaveFile.delete(3);
+			PlayerData.delete(3);
 			updateButtons();
 			return;
 		case MUTE: {
@@ -482,7 +482,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	private Player createPlayer(int slot, GameMode mode) {
 		
 		// load player creation data
-		Object[] data = SaveFile.load(slot);
+		Object[] data = PlayerData.load(slot);
 		int skin = (int) data[0];
 		int shirt = (int) data[1];
 		Item weapon = (Item) data[2];
@@ -706,8 +706,8 @@ public class Launcher extends Canvas implements IGameLogic {
 		 * Sets the text to render
 		 */
 		private void update() {
-			if (SaveFile.exists(slot)) {
-				text = (String) SaveFile.load(slot)[3];
+			if (PlayerData.exists(slot)) {
+				text = (String) PlayerData.load(slot)[3];
 			} else {
 				text = "Empty";
 			}
