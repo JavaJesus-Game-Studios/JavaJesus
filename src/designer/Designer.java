@@ -23,10 +23,21 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
 
+import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
-import javajesus.entities.Player;
 import javajesus.entities.Spawner;
 import javajesus.entities.monsters.Centaur;
 import javajesus.entities.monsters.Cyclops;
@@ -124,18 +135,6 @@ import javajesus.entities.solid.trees.MediumSequoia;
 import javajesus.entities.solid.trees.SmallSequoia;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
-
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 /*
  * Driver class of the level designer
@@ -1333,10 +1332,8 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 				return new EntityGUI(new WeirdTechBuilding1(null, 0, 0), 0, 0, 6, 17);
 			case Entity.WEIRD_TECH_BUILDING2:
 				return new EntityGUI(new WeirdTechBuilding2(null, 0, 0), 0, 0, 6, 12);
-			case Entity.PLAYER:
-                return new EntityGUI(new Player(null, 0, 0), 0, 0, 2, 2);
 			case Entity.SPAWNER:
-                return new EntityGUI(new Spawner(null, 0, 0), 0, 0, 2, 2);
+                return new EntityGUI(new Spawner(null, 0, 0, 0), 0, 0, 2, 2);
 			case Entity.CENTAUR:
                 return new EntityGUI(new Centaur(null, 0, 0), 0, 0, 2, 3);
 			case Entity.CYCLOPS:
@@ -1344,7 +1341,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			case Entity.DEMON:
                 return new EntityGUI(new Demon(null, 0, 0), 0, 0, 2, 2);
 			case Entity.GANG_MEMBER:
-                return new EntityGUI(new GangMember(null, 0, 0), 0, 0, 2, 2);
+                return new EntityGUI(new GangMember(null, 0, 0, GangMember.RUSSIAN), 0, 0, 2, 2);
 			case Entity.MONKEY:
                 return new EntityGUI(new Monkey(null, 0, 0), 0, 0, 2, 2);
 			case Entity.BAUTISTA:
@@ -1366,7 +1363,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			case Entity.OCTAVIUS:
                 return new EntityGUI(new Octavius(null, 0, 0), 0, 0, 2, 2);
 			case Entity.PEASANT:
-                return new EntityGUI(new Peasant(null, 0, 0), 0, 0, 2, 2);
+                return new EntityGUI(new Peasant(null, 0, 0, Peasant.MALE), 0, 0, 2, 2);
 			case Entity.RANCHERO:
                 return new EntityGUI(new Ranchero(null, 0, 0), 0, 0, 2, 2);
 			case Entity.SON:
@@ -1376,11 +1373,11 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			case Entity.ZORRA:
                 return new EntityGUI(new Zorra(null, 0, 0), 0, 0, 2, 2);
 			case Entity.COMPANION:
-                return new EntityGUI(new Companion(null, 0, 0), 0, 0, 2, 2);
+                return new EntityGUI(new Companion(null, 0, 0, null), 0, 0, 2, 2);
 			case Entity.GORILLA:
                 return new EntityGUI(new Gorilla(null, 0, 0), 0, 0, 2, 2);
 			case Entity.NATIVE_AMERICAN:
-                return new EntityGUI(new NativeAmerican(null, 0, 0), 0, 0, 2, 2);
+                return new EntityGUI(new NativeAmerican(null, 0, 0, NativeAmerican.MALE), 0, 0, 2, 2);
 			case Entity.POLICE_OFFICER:
                 return new EntityGUI(new PoliceOfficer(null, 0, 0), 0, 0, 2, 2);
 			case Entity.SWAT_OFFICER:

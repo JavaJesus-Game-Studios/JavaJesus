@@ -39,6 +39,7 @@ import javajesus.entities.npcs.aggressive.Companion;
 import javajesus.entities.npcs.aggressive.Gorilla;
 import javajesus.entities.npcs.aggressive.NativeAmerican;
 import javajesus.entities.npcs.aggressive.PoliceOfficer;
+import javajesus.entities.npcs.aggressive.SWATOfficer;
 import javajesus.entities.npcs.aggressive.TechWarrior;
 import javajesus.entities.solid.buildings.ApartmentHighRise;
 import javajesus.entities.solid.buildings.Castle;
@@ -447,10 +448,8 @@ public class SaveData {
 	            return new WeirdTechBuilding1(level, x, y);
 	        case Entity.WEIRD_TECH_BUILDING2:
 	            return new WeirdTechBuilding2(level, x, y);
-	        case Entity.PLAYER:
-	            return new Player(level, x, y);
 	        case Entity.SPAWNER:
-	            return new Spawner(level, x, y);
+	            return new Spawner(level, x, y, 0);
 	        case Entity.CENTAUR:
 	            return new Centaur(level, x, y);
 	        case Entity.CYCLOPS:
@@ -458,7 +457,7 @@ public class SaveData {
 	        case Entity.DEMON:
 	            return new Demon(level, x, y);
 	        case Entity.GANG_MEMBER:
-	            return new GangMember(level, x, y);
+	            return new GangMember(level, x, y, GangMember.RUSSIAN);
 	        case Entity.MONKEY:
 	            return new Monkey(level, x, y);
 	        case Entity.BAUTISTA:
@@ -480,7 +479,7 @@ public class SaveData {
 	        case Entity.OCTAVIUS:
 	            return new Octavius(level, x, y);
 	        case Entity.PEASANT:
-	            return new Peasant(level, x, y);
+	            return new Peasant(level, x, y, Peasant.MALE);
 	        case Entity.RANCHERO:
 	            return new Ranchero(level, x, y);
 	        case Entity.SON:
@@ -490,15 +489,15 @@ public class SaveData {
 	        case Entity.ZORRA:
 	            return new Zorra(level, x, y);
 	        case Entity.COMPANION:
-	            return new Companion(level, x, y);
+	            return new Companion(level, x, y, null);
 	        case Entity.GORILLA:
 	            return new Gorilla(level, x, y);
 	        case Entity.NATIVE_AMERICAN:
-	            return new NativeAmerican(level, x, y);
+	            return new NativeAmerican(level, x, y, NativeAmerican.MALE);
 	        case Entity.POLICE_OFFICER:
 	            return new PoliceOfficer(level, x, y);
 	        case Entity.SWAT_OFFICER:
-	            return new SwatOfficer(level, x, y);
+	            return new SWATOfficer(level, x, y);
 	        case Entity.TECH_WARRIOR:
 	            return new TechWarrior(level, x, y);
 
