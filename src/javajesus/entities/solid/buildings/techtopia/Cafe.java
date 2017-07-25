@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.CafeInterior;
@@ -27,7 +27,7 @@ public class Cafe extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFF99, 0xFFFFFFCC }, Sprite.cafe);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 77, y + 43, new CafeInterior(new Point(x + 83, y + 55), getLevel())));
+		level.add(new Door(level, x + 77, y + 43, new CafeInterior(new Point(x + 83, y + 55), getLevel())));
 	}
 
 	@Override

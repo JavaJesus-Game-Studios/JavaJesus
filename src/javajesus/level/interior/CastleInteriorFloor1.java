@@ -3,49 +3,35 @@ package javajesus.level.interior;
 import java.awt.Point;
 import java.io.IOException;
 
-import javajesus.entities.Spawner;
-import javajesus.entities.npcs.NPC;
-import javajesus.entities.solid.furniture.Chest;
+import javajesus.entities.transporters.Stairs;
+import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.TransporterInterior;
 import javajesus.level.Level;
+import javajesus.utility.Direction;
 
 public class CastleInteriorFloor1 extends Interior {
 
-	private Point exitPoint;
-
 	public CastleInteriorFloor1(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_1_Living_Quarters.png", new Point(496, 456), level);
-		this.exitPoint = point;
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_1_Living_Quarters.png",
+		        new Point(496, 456), level);
 	}
 
-	protected NPC[] getNPCPlacement() {
-		return null;
+	@Override
+	public Transporter[] getTransporters() throws IOException {
+		return new Transporter[] { new TransporterInterior(this, 504, 472, outside),
+
+		        // Up
+		        new Stairs(this, 376, 224, new CastleBattlements(new Point(384, 320), this), Direction.SOUTH,
+		                Stairs.STONE),
+
+		        new Stairs(this, 632, 224, new CastleBattlements(new Point(656, 320), this), Direction.SOUTH,
+		                Stairs.STONE),
+		        // Down
+		        new Stairs(this, 336, 280, new CastleInterior(new Point(360, 248), this), Direction.SOUTH,
+		                Stairs.STONE),
+
+		        new Stairs(this, 672, 280, new CastleInterior(new Point(672, 248), this), Direction.SOUTH,
+		                Stairs.STONE) };
 	}
-
-	protected Spawner[] getSpawnerPlacement() {
-		return null;
-	}
-
-	protected Chest[] getChestPlacement() {
-		return null;
-	}
-
-	/*protected Entity[] getOtherPlacement() {
-		
-		return new Entity[] { new TransporterInterior(this, 504, 472, nextLevel, exitPoint),
-
-				// Up
-				new TransporterStair(this, 376, 224, new CastleBattlements(new Point(384, 320), this),
-						new Point(384, 320), Direction.SOUTH, TransporterStair.STONE),
-				
-				new TransporterStair(this, 632, 224, new CastleBattlements(new Point(656, 320), this),
-						new Point(656, 320), Direction.SOUTH, TransporterStair.STONE),
-				// Down
-				new TransporterStair(this, 336, 280, new CastleInterior(new Point(360, 248), this), new Point(360, 248),
-						Direction.SOUTH, TransporterStair.STONE),
-				
-				new TransporterStair(this, 672, 280, new CastleInterior(new Point(672, 248), this), new Point(672, 248),
-						Direction.SOUTH, TransporterStair.STONE) };
-
-	}*/
 
 }

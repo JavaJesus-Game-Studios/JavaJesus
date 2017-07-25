@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.RefugeeTentInterior;
@@ -26,7 +26,7 @@ public class RefugeeTent extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFF8FA8F, 0xFF000000 }, Sprite.refugee_tent);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 34, y + 7, new RefugeeTentInterior(new Point(x + 40, y + 18), level)));
+		level.add(new Door(level, x + 34, y + 7, new RefugeeTentInterior(new Point(x + 40, y + 18), level)));
 	}
 
 	@Override

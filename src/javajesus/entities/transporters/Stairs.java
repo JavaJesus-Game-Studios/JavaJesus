@@ -1,7 +1,5 @@
 package javajesus.entities.transporters;
 
-import java.awt.Point;
-
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
@@ -10,7 +8,7 @@ import javajesus.utility.Direction;
 /*
  * Stairs
  */
-public class TransporterStair extends Transporter {
+public class Stairs extends Transporter {
 
 	// the different textures for stairs
 	public static final int WOOD = 11, STONE = 7, CARPET = 9;
@@ -34,50 +32,34 @@ public class TransporterStair extends Transporter {
 	/**
 	 * Creates stairs
 	 * 
-	 * @param currentLevel
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param nextLevel
-	 *            the level it goes to
-	 * @param direction
-	 *            the direction the stairs are facing
-	 * @param type
-	 *            the material of the stairs, Ex: TransporterStair.WOOD
+	 * @param currentLevel - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param outside - the level it goes to
+	 * @param direction - the direction the stairs are facing
+	 * @param type - the material of the stairs Ex: Stairs.WOOD
 	 */
-	public TransporterStair(Level currentLevel, int x, int y, Level nextLevel, Direction direction, int type) {
-		super(currentLevel, x, y, nextLevel);
+	public Stairs(Level currentLevel, int x, int y, Level nextLevel, Direction direction, int type) {
+		super(currentLevel, x, y, 0 , 0, nextLevel);
 
+		// instance data
 		this.direction = direction;
 		xTile = type;
 		assignColor();
-	}
-
-	/**
-	 * Creates stairs and sets a spawnpoint for the next level
-	 * 
-	 * @param currentLevel
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param nextLevel
-	 *            the level it goes to
-	 * @param direction
-	 *            the direction the stairs are facing
-	 * @param type
-	 *            the material of the stairs, Ex: TransporterStair.WOOD
-	 */
-	public TransporterStair(Level currentLevel, int x, int y, Level nextLevel, Point point, Direction direction,
-			int type) {
-		super(currentLevel, x, y, nextLevel, point);
-
-		this.direction = direction;
-		xTile = type;
-		assignColor();
+		
+		// set the bounds
+		switch (direction) {
+		case NORTH:
+		case SOUTH:
+			getBounds().setSize(SIZE * 2, SIZE);
+			break;
+		case EAST:
+		case WEST:
+			getBounds().setSize(SIZE, SIZE * 2);
+			break;
+		default:
+			break;
+		}
 	}
 
 	/**

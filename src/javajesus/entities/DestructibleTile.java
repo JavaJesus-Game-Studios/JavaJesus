@@ -44,7 +44,7 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity,
 		super(level, Tile.snapToCorner(x), Tile.snapToCorner(y));
 		
 		// instance data
-		this.setBounds(Tile.snapToCorner(x), Tile.snapToCorner(y), Tile.SIZE, Tile.SIZE);
+		this.setBounds(Tile.snapToCorner(x) - 1, Tile.snapToCorner(y) - 1, Tile.SIZE + 1, Tile.SIZE + 1);
 		this.health = maxHealth = (short) defaultHealth;
 		this.xTile = tile.getXTile();
 		this.yTile = tile.getYTile();

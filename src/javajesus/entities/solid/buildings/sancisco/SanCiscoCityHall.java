@@ -2,7 +2,7 @@ package javajesus.entities.solid.buildings.sancisco;
 
 import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 
@@ -22,7 +22,7 @@ public class SanCiscoCityHall extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFFFF, 0xFFFFBC02 }, Sprite.san_cisco_city_hall);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 90, y + 104, level));
+		level.add(new Door(level, x + 90, y + 104, level));
 	}
 
 	@Override

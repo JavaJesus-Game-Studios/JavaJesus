@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.GunStoreInterior;
@@ -26,7 +26,7 @@ public class GunStore extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFAB0, 0xFFABD3FF }, Sprite.gunstore);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 29, y + 26, new GunStoreInterior(new Point(x + 35, y + 37), getLevel())));
+		level.add(new Door(level, x + 29, y + 26, new GunStoreInterior(new Point(x + 35, y + 37), getLevel())));
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.PoorHouseInterior;
@@ -30,7 +30,7 @@ public class TechTopiaCityHall extends Building {
 		setBounds(getBounds().x + 15, getBounds().y, getBounds().width - 28, getBounds().height);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 42, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		level.add(new Door(level, x + 42, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 	
 	@Override

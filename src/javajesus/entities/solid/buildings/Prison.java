@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.PoorHouseInterior;
@@ -26,7 +26,7 @@ public class Prison extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFAB0, 0xFFABD3FF }, Sprite.prison);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 77, y + 64, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
+		level.add(new Door(level, x + 77, y + 64, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
 
 	@Override

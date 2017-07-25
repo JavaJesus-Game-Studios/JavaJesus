@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.ChinatownHouseInterior;
@@ -30,7 +30,7 @@ public class ChinatownHouse extends Building {
 		setBounds(getBounds().x + 5, getBounds().y, getBounds().width - 10, getBounds().height);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 26, y + 41,
+		level.add(new Door(level, x + 26, y + 41,
 		        new ChinatownHouseInterior(new Point(x + 32, y + 53), getLevel())));
 	}
 

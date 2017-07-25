@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.ApartmentLobby;
@@ -26,7 +26,7 @@ public class ApartmentHighRise extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF673101, 0xFFABD3FF }, Sprite.apartment);
 
 		if (level != null)
-		getLevel().add(new Transporter(level, x + 30, y + 206, new ApartmentLobby(new Point(x + 36, y + 216), level)));
+		getLevel().add(new Door(level, x + 30, y + 206, new ApartmentLobby(new Point(x + 36, y + 216), level)));
 	}
 
     @Override

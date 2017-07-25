@@ -3,48 +3,28 @@ package javajesus.level.interior;
 import java.awt.Point;
 import java.io.IOException;
 
-import javajesus.entities.Spawner;
-import javajesus.entities.npcs.LordHillsborough;
-import javajesus.entities.npcs.NPC;
-import javajesus.entities.solid.furniture.Chest;
+import javajesus.entities.transporters.Stairs;
+import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.TransporterInterior;
 import javajesus.level.Level;
+import javajesus.utility.Direction;
 
 public class CastleInterior extends Interior {
 
-	private Point exitPoint;
-
 	public CastleInterior(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_1_Main_Hall.png", new Point(496, 456), level);
-		this.exitPoint = point;
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_1_Main_Hall.png",
+		        new Point(496, 456), level);
 	}
 
-	protected NPC[] getNPCPlacement() {
-		
-		return new NPC[] {new LordHillsborough(this, 504, 160)};
+	@Override
+	public Transporter[] getTransporters() throws IOException {
+		return new Transporter[] {
+
+		        new TransporterInterior(this, 504, 472, outside),
+		        new Stairs(this, 352, 240, new CastleInteriorFloor1(new Point(344, 288), this), Direction.NORTH,
+		                Stairs.STONE),
+		        new Stairs(this, 664, 240, new CastleInteriorFloor1(new Point(680, 288), this), Direction.NORTH,
+		                Stairs.STONE) };
 	}
-
-	protected Spawner[] getSpawnerPlacement() {
-		return null;
-	}
-
-	protected Chest[] getChestPlacement() {
-		return null;
-	}
-
-	/*protected Entity[] getOtherPlacement() {
-
-		return new Entity[] {
-
-				new Throne(this, 504, 128), 
-				
-				//new TransporterInterior(this, 504, 472, LordHillsboroughsDomain.level, exitPoint),
-				
-				new TransporterStair(this, 352, 240, new CastleInteriorFloor1(new Point(344, 288), this),
-						new Point(344, 288), Direction.NORTH, TransporterStair.STONE),
-				
-				new TransporterStair(this, 664, 240, new CastleInteriorFloor1(new Point(680, 288), this),
-						new Point(680, 288), Direction.NORTH, TransporterStair.STONE) };
-
-	}*/
 
 }

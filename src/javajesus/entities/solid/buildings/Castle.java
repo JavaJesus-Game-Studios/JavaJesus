@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.CastleInterior;
@@ -29,7 +29,7 @@ public class Castle extends Building {
 		setBounds(getBounds().x + 12, getBounds().y, getBounds().width - 24, getBounds().height);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 154, y + 160, new CastleInterior(new Point(x + 43, y + 167), getLevel())));
+		level.add(new Door(level, x + 154, y + 160, new CastleInterior(new Point(x + 43, y + 167), getLevel())));
 
 	}
 

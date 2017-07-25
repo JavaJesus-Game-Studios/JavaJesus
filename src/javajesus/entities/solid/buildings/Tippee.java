@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.TippeeInterior;
@@ -26,7 +26,7 @@ public class Tippee extends Building {
 		super(level, x, y, new int[] { 0xFF522900, 0xFF977F66, 0xFF335C33 }, Sprite.tippee);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 10, y + 34, new TippeeInterior(new Point(x + 16, y + 45), level)));
+		level.add(new Door(level, x + 10, y + 34, new TippeeInterior(new Point(x + 16, y + 45), level)));
 	}
 
 	@Override

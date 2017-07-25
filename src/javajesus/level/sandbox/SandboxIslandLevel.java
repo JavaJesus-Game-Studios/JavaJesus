@@ -8,7 +8,7 @@ import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
 import javajesus.entities.solid.furniture.Chest;
 import javajesus.entities.solid.trees.Forest;
-import javajesus.entities.transporters.MapTransporter;
+import javajesus.entities.transporters.MapEdge;
 import javajesus.level.Level;
 
 /*
@@ -46,7 +46,7 @@ public class SandboxIslandLevel extends Level {
 		
 	}
 
-	protected MapTransporter[] getMapTransporterPlacement() {
+	protected MapEdge[] getMapTransporterPlacement() {
 		return null;
 	}
 

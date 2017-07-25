@@ -1,21 +1,14 @@
 package javajesus.entities.transporters;
 
-import java.awt.Point;
-
 import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
-import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.save.SaveData;
 
 /*
- * A transporter is a clippable entity that sends a player to another level
- * This class is a generic door
+ * A transporter is an entity that sends a player to another level
  */
-public class Transporter extends Entity {
-
-	// colorset of this door
-	private static final int[] color = { 0xFF111111, 0xFF704200, 0xFFFFDE00 };
+public abstract class Transporter extends Entity {
 
 	// the level the transporter leads to
 	private Level nextLevel;
@@ -25,47 +18,28 @@ public class Transporter extends Entity {
 	 * @param currentLevel the level it is on
 	 * @param x the x coordinate
 	 * @param y the y coordinate
-	 * @param nextLevel the new level
+	 * @param outside the new level
 	 */
-	public Transporter(Level currentLevel, int x, int y, Level nextLevel) {
+	public Transporter(Level currentLevel, int x, int y, int width, int height, Level nextLevel) {
 		super(currentLevel, x, y);
 
+		// set up the transporter
 		this.nextLevel = nextLevel;
-		this.setBounds(getX(), getY(), 12, 16);
+		this.setBounds(getX(), getY(), width, height);
 	}
 
 	/**
-	 * Creates a Transporter to change the level but also
-	 * updates that new level's spawnpoint
-	 * @param currentLevel the level it is on
-	 * @param x the x coordinate
-	 * @param y the y coordinate
-	 * @param nextLevel the new level
-	 * @param point the spawnpoint for the new level
+	 * Transporters don't update
 	 */
-	public Transporter(Level currentLevel, int x, int y, Level nextLevel, Point point) {
-		this(currentLevel, x, y, nextLevel);
-		
-		if(nextLevel.getSpawnPoint() == null)
-			nextLevel.setSpawnPoint(point.x, point.y);
-	}
-
-	/**
-	 * Updates the transporter TODO Handle this in the player class
-	 */
-	public void tick() {
-
-	}
+	public void tick() {}
 
 	/**
 	 * Displays the transporter on the screen
 	 */
-	public void render(Screen screen) {
-		screen.render16bit(getX(), getY(), 0, 5, SpriteSheet.tiles, color);
-	}
+	public abstract void render(Screen screen);
 	
 	/**
-	 * Sets the nextLevel
+	 * Sets the outside
 	 * @param next
 	 */
 	public final void setNextLevel(Level next) {
@@ -81,13 +55,11 @@ public class Transporter extends Entity {
 
 	@Override
 	public byte getId() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	
 	@Override
 	public long getData() {
-		// TODO extra is ID to another level
 		return SaveData.type3(getX(), getY(), (byte) 0);
 	}
 

@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.CatholicChapelInterior;
@@ -26,7 +26,7 @@ public class CatholicChapel extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFAB0, 0xFFABD3FF }, Sprite.catholic_chapel);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 21, y + 47,
+		level.add(new Door(level, x + 21, y + 47,
 		        new CatholicChapelInterior(new Point(x + 27, y + 57), getLevel())));
 	}
 

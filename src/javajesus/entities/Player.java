@@ -10,7 +10,6 @@ import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.solid.furniture.Chest;
-import javajesus.entities.transporters.MapTransporter;
 import javajesus.entities.transporters.Transporter;
 import javajesus.entities.vehicles.Ridable;
 import javajesus.graphics.Screen;
@@ -844,9 +843,9 @@ public class Player extends Mob {
 
 					getLevel().setSpawnPoint(getX(), getY());
 
-					if (entity instanceof MapTransporter) {
-						((MapTransporter) entity).calcNewSpawn(this);
-					}
+					/*if (entity instanceof MapEdge) {
+						((MapEdge) entity).calcNewSpawn(this);
+					}TODO */
 
 					updateLevel(((Transporter) entity).getNextLevel());
 					break;

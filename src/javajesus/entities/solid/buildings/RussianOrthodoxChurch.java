@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.RussianChurchInterior;
@@ -29,7 +29,7 @@ public class RussianOrthodoxChurch extends Building {
 		setBounds(getBounds().x + 4, getBounds().y, getBounds().width - 8, getBounds().height);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 43, y + 64, new RussianChurchInterior(new Point(x + 49, y + 75), level)));
+		level.add(new Door(level, x + 43, y + 64, new RussianChurchInterior(new Point(x + 49, y + 75), level)));
 
 	}
 

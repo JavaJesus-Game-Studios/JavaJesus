@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.PoorHouseInterior;
@@ -27,8 +27,8 @@ public class CardinalUniversity extends Building {
 		super(level, x, y, new int[] { 0xFFFF1111, 0xFFFFFFB2, 0xFFFFFFFF }, Sprite.cardinalUniversity);
 
 		if (level != null) {
-		level.add(new Transporter(level, x + 82, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
-		level.add(new Transporter(level, x + 106, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		level.add(new Door(level, x + 82, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		level.add(new Door(level, x + 106, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 		}
 	}
 	

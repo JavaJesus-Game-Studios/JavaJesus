@@ -3,54 +3,35 @@ package javajesus.level.interior;
 import java.awt.Point;
 import java.io.IOException;
 
-import javajesus.entities.Entity;
-import javajesus.entities.Spawner;
-import javajesus.entities.npcs.NPC;
-import javajesus.entities.solid.furniture.Chest;
-import javajesus.entities.transporters.TransporterStair;
+import javajesus.entities.transporters.Stairs;
+import javajesus.entities.transporters.Transporter;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
 public class SkyscraperFloor extends Interior {
 
 	private int floorNum;
-	private Level level;
 
 	public SkyscraperFloor(Point point, Level level, int floorNum) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Skyscraper_Interiors/Skyscraper_Floors_1-10.png", new Point(500, 500),
-				level);
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Skyscraper_Interiors/Skyscraper_Floors_1-10.png",
+		        new Point(500, 500), level);
 		this.floorNum = floorNum;
-		this.level = level;
 	}
 
-	protected NPC[] getNPCPlacement() {
-		return null;
-	}
-
-	protected Spawner[] getSpawnerPlacement() {
-		return null;
-	}
-
-	protected Chest[] getChestPlacement() {
-		return null;
-	}
-
-	/*protected Entity[] getOtherPlacement() {
-		
-		Entity[] entities = new Entity[2];
+	@Override
+	public Transporter[] getTransporters() throws IOException {
+		Transporter[] entities = new Transporter[2];
 
 		if (floorNum < 10) {
-			entities[0] = new TransporterStair(this, 2112, 1968,
-					new SkyscraperFloor(new Point(2116, 1971), this, floorNum + 1), new Point(2105, 2016),
-					Direction.EAST, TransporterStair.WOOD);
+			entities[0] = new Stairs(this, 2112, 1968, new SkyscraperFloor(new Point(2116, 1971), this, floorNum + 1),
+			        Direction.EAST, Stairs.WOOD);
 		} else {
-			entities[0] = new TransporterStair(this, 2112, 1968, new SkyscraperPent(new Point(2116, 1971), this),
-					new Point(2105, 2016), Direction.EAST, TransporterStair.WOOD);
+			entities[0] = new Stairs(this, 2112, 1968, new SkyscraperPent(new Point(2116, 1971), this), Direction.EAST,
+			        Stairs.WOOD);
 		}
-		entities[1] = new TransporterStair(this, 2112, 2008, level, new Point(2105, 1975), Direction.SOUTH,
-				TransporterStair.WOOD);
+		entities[1] = new Stairs(this, 2112, 2008, this, Direction.SOUTH, Stairs.WOOD);
 
 		return entities;
-	}*/
+	}
 
 }

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.PoorHouseInterior;
@@ -27,8 +27,8 @@ public class RussianClub extends Building {
 		super(level, x, y, new int[] { 0xFFFFEB0A, 0xFF80004B, 0xFFE934F9 }, Sprite.russian_club);
 
 		if (level != null) {
-		level.add(new Transporter(level, x + 38, y + 45, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
-		level.add(new Transporter(level, x + 51, y + 45, level));
+		level.add(new Door(level, x + 38, y + 45, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		level.add(new Door(level, x + 51, y + 45, level));
 		}
 	}
 	

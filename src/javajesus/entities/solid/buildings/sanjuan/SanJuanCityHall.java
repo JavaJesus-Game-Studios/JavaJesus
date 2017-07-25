@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.PoorHouseInterior;
@@ -30,7 +30,7 @@ public class SanJuanCityHall extends Building {
 		setBounds(getBounds().x, getBounds().y, getBounds().width - 33, getBounds().height);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 67, y + 104, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		level.add(new Door(level, x + 67, y + 104, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
 	}
 
 	@Override

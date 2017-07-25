@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.NiceHouse1Interior;
@@ -31,7 +31,7 @@ public class NiceHouse extends Building {
 
 		if (level != null)
 		level.add(
-		        new Transporter(level, x + 21, y + 41, new NiceHouse1Interior(new Point(x + 23, y + 49), getLevel())));
+		        new Door(level, x + 21, y + 41, new NiceHouse1Interior(new Point(x + 23, y + 49), getLevel())));
 	}
 
 	/**

@@ -3,51 +3,30 @@ package javajesus.level.interior;
 import java.awt.Point;
 import java.io.IOException;
 
-import javajesus.entities.Entity;
-import javajesus.entities.Spawner;
-import javajesus.entities.npcs.NPC;
-import javajesus.entities.solid.furniture.Chest;
+import javajesus.entities.transporters.Stairs;
+import javajesus.entities.transporters.Transporter;
 import javajesus.entities.transporters.TransporterInterior;
-import javajesus.entities.transporters.TransporterStair;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
 public class CastleBattlements extends Interior {
 
-	private Point exitPoint;
-
 	public CastleBattlements(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_1_Battlements.png", point, level);
-		this.exitPoint = point;
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_1_Battlements.png", point,
+		        level);
 	}
 
-	protected NPC[] getNPCPlacement() {
-		return null;
-	}
+	@Override
+	public Transporter[] getTransporters() throws IOException {
+		return new Transporter[] {
 
-	protected Spawner[] getSpawnerPlacement() {
-		return null;
-	}
+		        new TransporterInterior(this, 504, 472, outside),
+		        new Stairs(this, 376, 304, new CastleInteriorFloor1(new Point(384, 224), this), Direction.SOUTH,
+		                Stairs.STONE),
+		        new Stairs(this, 648, 304, new CastleInteriorFloor1(new Point(640, 224), this), Direction.SOUTH,
+		                Stairs.STONE)
 
-	protected Chest[] getChestPlacement() {
-		return null;
-	}
-
-	/*protected Entity[] getOtherPlacement() {
-		
-		return new Entity[] {
-				
-		new TransporterInterior(this, 504, 472, nextLevel, exitPoint),
-
-		// Down
-		new TransporterStair(this, 376, 304, new CastleInteriorFloor1(new Point(384, 224), this),
-				new Point(384, 224), Direction.SOUTH, TransporterStair.STONE),
-				
-		new TransporterStair(this, 648, 304, new CastleInteriorFloor1(new Point(640, 224), this),
-				new Point(640, 224), Direction.SOUTH, TransporterStair.STONE)
-				
 		};
-
-	}*/
+	}
 
 }

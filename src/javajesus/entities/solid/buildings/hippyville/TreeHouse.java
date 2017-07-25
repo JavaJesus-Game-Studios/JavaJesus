@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.TreeHouseInterior;
@@ -30,7 +30,7 @@ public class TreeHouse extends Building {
 		setBounds(getBounds().x + 18, getBounds().y, getBounds().width - 36, getBounds().height);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 18, y + 30, new TreeHouseInterior(new Point(x + 24, y + 42), level)));
+		level.add(new Door(level, x + 18, y + 30, new TreeHouseInterior(new Point(x + 24, y + 42), level)));
 	}
 
 	@Override

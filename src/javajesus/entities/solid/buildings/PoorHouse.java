@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.PoorHouseInterior;
@@ -30,7 +30,7 @@ public class PoorHouse extends Building {
 		super(level, x, y, getColor(), Sprite.poor_house);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 14, y + 39, new PoorHouseInterior(new Point(x + 20, y + 50), getLevel())));
+		level.add(new Door(level, x + 14, y + 39, new PoorHouseInterior(new Point(x + 20, y + 50), getLevel())));
 	}
 
 	/**

@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.WarehouseInterior;
@@ -26,7 +26,7 @@ public class Warehouse extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF8D1919, 0xFF545454 }, Sprite.warehouse);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 77, y + 43, new WarehouseInterior(new Point(x + 83, y + 54), level)));
+		level.add(new Door(level, x + 77, y + 43, new WarehouseInterior(new Point(x + 83, y + 54), level)));
 	}
 
 	@Override

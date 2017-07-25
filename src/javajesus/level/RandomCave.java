@@ -9,7 +9,7 @@ import javax.sound.sampled.Clip;
 import javajesus.SoundHandler;
 import javajesus.entities.Spawner;
 import javajesus.entities.solid.furniture.Chest;
-import javajesus.entities.transporters.TransporterLadder;
+import javajesus.entities.transporters.Ladder;
 import javajesus.items.Item;
 import javajesus.level.generation.CaveGeneration;
 
@@ -61,7 +61,8 @@ public class RandomCave extends Level {
 					if (row > 5 * 8 && col > 5 * 8) {
 						if (!spawnFound) {
 							setSpawnPoint(col * 8, row * 8);
-							add(new TransporterLadder(this, col * 8, row * 8, prevLevel, prevSpawn));
+							//add(new Ladder(this, col * 8, row * 8, prevLevel, prevSpawn));
+							add(new Ladder(this, col * 8, row * 8, prevLevel));
 							spawnFound = true;
 						}
 					}
@@ -77,8 +78,8 @@ public class RandomCave extends Level {
 					add(new Spawner(this, col * 8, row * 8, Spawner.DEMON, 5));
 				} else if (caveMap[row][col] == 6) {
 					levelTiles[tile] = 20;
-					add(new TransporterLadder(this, col * 8, row * 8,
-							new RandomLevel(new Point(col * 8, row * 8), this), new Point(col * 8, row * 8)));
+					add(new Ladder(this, col * 8, row * 8,
+							new RandomLevel(new Point(col * 8, row * 8), this)/*, new Point(col * 8, row * 8)*/));
 
 				}
 			}

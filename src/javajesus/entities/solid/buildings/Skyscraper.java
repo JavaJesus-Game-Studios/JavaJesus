@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.SkyscraperLobby;
@@ -26,7 +26,7 @@ public class Skyscraper extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF673101, 0xFFABD3FF }, Sprite.skyscraper);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 38, y + 234, new SkyscraperLobby(new Point(x + 44, y + 243), level)));
+		level.add(new Door(level, x + 38, y + 234, new SkyscraperLobby(new Point(x + 44, y + 243), level)));
 	}
 
 	@Override

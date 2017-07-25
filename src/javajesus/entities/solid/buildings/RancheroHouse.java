@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.RancheroHouseInterior;
@@ -26,7 +26,7 @@ public class RancheroHouse extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFAB0, 0xFFD30000 }, Sprite.ranchero_house);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 44, y + 45, new RancheroHouseInterior(new Point(x + 50, y + 56), level)));
+		level.add(new Door(level, x + 44, y + 45, new RancheroHouseInterior(new Point(x + 50, y + 56), level)));
 	}
 
 	@Override

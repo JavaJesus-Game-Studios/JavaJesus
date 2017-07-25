@@ -3,7 +3,7 @@ package javajesus.entities.solid.buildings;
 import java.awt.Point;
 
 import javajesus.entities.Entity;
-import javajesus.entities.transporters.TransporterCave;
+import javajesus.entities.transporters.CaveDoor;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 
@@ -26,7 +26,7 @@ public class CaveEntrance extends Building {
 		super(level, x, y, color, Sprite.cave_entrance);
 
 		if (level != null)
-		level.add(new TransporterCave(level, x + 18, y + 20));
+		level.add(new CaveDoor(level, x + 18, y + 20));
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class CaveEntrance extends Building {
 	public CaveEntrance(Level level, int x, int y, Point spawn) {
 		super(level, x, y, color, Sprite.cave_entrance);
 
-		level.add(new TransporterCave(level, x + 18, y + 20, spawn));
+		level.add(new CaveDoor(level, x + 18, y + 20, spawn));
 	}
 
 	/**
@@ -49,12 +49,12 @@ public class CaveEntrance extends Building {
 	 * @param level - the level it is on
 	 * @param x - the x coord on the level
 	 * @param y - the y coord on the level
-	 * @param nextLevel - the level it leads to
+	 * @param outside - the level it leads to
 	 */
 	public CaveEntrance(Level level, int x, int y, Level nextLevel) {
 		super(level, x, y, color, Sprite.cave_entrance);
 
-		level.add(new TransporterCave(level, x + 18, y + 20, nextLevel));
+		level.add(new CaveDoor(level, x + 18, y + 20, nextLevel));
 	}
 	
 	@Override

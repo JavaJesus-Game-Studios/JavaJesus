@@ -15,11 +15,11 @@ public class SanCiscoSkyscraper extends Building {
 		super(level, x, y, new int[] { 0xFFEDECE0, 0xFFFFFFFF, 0xFF030074 }, Sprite.sanCisco_skyscraper);
 
 		/*
-		 * level.addEntity(new TransporterGlass(level, x + 44, y + 660, new
+		 * level.addEntity(new GlassDoor(level, x + 44, y + 660, new
 		 * OldRandomGeneration(Game.WIDTH, Game.HEIGHT))); level.addEntity(new
-		 * TransporterGlass(level, x + 100, y + 660, new
+		 * GlassDoor(level, x + 100, y + 660, new
 		 * OldRandomGeneration(Game.WIDTH, Game.HEIGHT))); level.addEntity(new
-		 * TransporterGlass(level, x + 156, y + 660, new
+		 * GlassDoor(level, x + 156, y + 660, new
 		 * OldRandomGeneration(Game.WIDTH, Game.HEIGHT)));
 		 */
 	}

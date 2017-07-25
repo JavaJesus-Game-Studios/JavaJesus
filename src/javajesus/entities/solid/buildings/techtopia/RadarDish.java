@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javajesus.entities.Entity;
 import javajesus.entities.solid.buildings.Building;
-import javajesus.entities.transporters.Transporter;
+import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 import javajesus.level.interior.RadarDishInterior;
@@ -30,7 +30,7 @@ public class RadarDish extends Building {
 		setBounds(getBounds().x + 6, getBounds().y, getBounds().width - 12, getBounds().height);
 
 		if (level != null)
-		level.add(new Transporter(level, x + 37, y + 117, new RadarDishInterior(new Point(x + 43, y + 125), level)));
+		level.add(new Door(level, x + 37, y + 117, new RadarDishInterior(new Point(x + 43, y + 125), level)));
 	}
 
 	@Override
