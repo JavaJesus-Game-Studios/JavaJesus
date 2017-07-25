@@ -624,9 +624,19 @@ public abstract class NPC extends Mob {
 		this.color = color;
 	}
 
+	/**
+	 * Gets a random NPC
+	 * 
+	 * @param level - level to place it on
+	 * @param x - its x coord
+	 * @param y - its y coord
+	 * @return the NPC
+	 */
 	public static Entity getRandomNPC(Level level, int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// randomly generated a type of peasant
+		int type = random.nextInt(4);
+		return new Peasant(level, x, y, type);
 	}
 
 	/**

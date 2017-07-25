@@ -1,12 +1,16 @@
 package javajesus.level;
 
 import java.awt.Point;
+import java.io.IOException;
 import java.util.Random;
 
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.solid.buildings.CaveEntrance;
+import javajesus.entities.solid.buildings.Hut;
+import javajesus.entities.solid.buildings.NiceHouse;
+import javajesus.entities.solid.buildings.PoorHouse;
 import javajesus.level.generation.HeightMap;
 import javajesus.level.generation.HeightMapTile;
 
@@ -16,21 +20,26 @@ public class RandomLevel extends Level {
 
 	// number of random levels
 	private static int numLevels;
+	
+	// random generator
+	private static final Random random = new Random();
 
 	/**
 	 * Generates a random level with smooth terrain based on a simple array
 	 * noise map
 	 * 
-	 * @param width
-	 *            : The width of the level
-	 * @param height
-	 *            : The height of the level
+	 * @param spawn - the entrance point
 	 */
 
 	public RandomLevel(Point spawn) {
 		super("Random Level " + numLevels++, spawn);
 		
-		generateLevel();
+		try {
+			generateLevel();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	private RandomCave lastCave;
@@ -40,7 +49,7 @@ public class RandomLevel extends Level {
 		this.lastCave = lastCave;
 	}
 
-	protected void generateLevel() {
+	protected void generateLevel() throws IOException {
 
 		// generates last cave if there is one
 		if (lastCave != null)
@@ -76,22 +85,19 @@ public class RandomLevel extends Level {
 
 					}
 				}
-				// addEntity(new PoorHouse(this, spawnPoint.x, spawnPoint.y));
 			}
 		}
 	}
 
-	private Building getBuilding(int x, int y) {
-		//	Random random = new Random();
-			/*switch (random.nextInt(10)) {
+	private Building getBuilding(int x, int y) throws IOException {
+			switch (random.nextInt(10)) {
 			case 1:
 				return new NiceHouse(this, x, y);
 			case 2:
 				return new Hut(this, x, y);
 			default:
 				return new PoorHouse(this, x, y);
-			}*/
-			return null;
+			}
 	}
 
 }

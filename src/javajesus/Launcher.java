@@ -47,10 +47,10 @@ public class Launcher extends Canvas implements IGameLogic {
 	private static final long serialVersionUID = 1L;
 
 	// Version of the game
-	private final String VERSION = "Alpha 0.8.4";
+	private final String VERSION = "Alpha 0.8.5";
 
 	// Last known update
-	private final String LAST_UPDATED = "Last Updated 7/18/2017";
+	private final String LAST_UPDATED = "Last Updated 7/25/2017";
 	
 	// launcher font
 	private static final Font LAUNCHER_FONT = new Font(JavaJesus.FONT_NAME, 0, 15);
@@ -85,6 +85,9 @@ public class Launcher extends Canvas implements IGameLogic {
 	
 	// level width and height
 	public static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
+	
+	// offsets for the scrolling effect
+	private static final int SCROLL_OFFSET = LEVEL_WIDTH * 8 - 336;
 	
 	// offset of the level
 	private int xOffset, yOffset;
@@ -265,7 +268,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		}
 
 		// render the background tiles
-		level.renderTile(screen);
+		level.render(screen);
 
 		// set the pixels of the buffered image
 		for (int y = 0; y < screen.getHeight(); y++) {
@@ -537,9 +540,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	 */
 	@Override
 	public void update() {
-		int w = LEVEL_WIDTH * 8;
-		int h = LEVEL_HEIGHT * 8;
-		yOffset = (yOffset + 1) % h;
+		yOffset = (yOffset + 1) % SCROLL_OFFSET;
 		if (dir == Direction.SOUTH_EAST) {
 			xOffset++;
 		} else {
@@ -548,9 +549,9 @@ public class Launcher extends Canvas implements IGameLogic {
 		if (xOffset <= 0) {
 			dir = Direction.SOUTH_EAST;
 			xOffset = 0;
-		} else if (xOffset >= w) {
+		} else if (xOffset >= SCROLL_OFFSET) {
 			dir = Direction.SOUTH_WEST;
-			xOffset = w - 1;
+			xOffset = SCROLL_OFFSET - 1;
 		}
 		
 		// now set the offset

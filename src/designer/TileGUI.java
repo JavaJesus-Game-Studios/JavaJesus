@@ -194,6 +194,7 @@ public class TileGUI extends JPanel {
 	 * Flickers the screen of the tile after 1 second
 	 */
 	public void flicker() {
+		setVisible(false);
 		
 		// turn the visibility back in in 1 second
 		Timer timer = new Timer(true);
@@ -201,7 +202,7 @@ public class TileGUI extends JPanel {
 	}
 	
 	/*
-	 * TimerTask to rerender tile
+	 * TimerTask to turn on visibility
 	 */
 	private class Task extends TimerTask {
 		
@@ -219,10 +220,7 @@ public class TileGUI extends JPanel {
 		 * Renders the tile again
 		 */
 		public void run() {
-			if (tile != null) {
-				tile.getTile().render(screen);
-				tile.repaint();
-			}
+			tile.setVisible(true);
 		}
 		
 	}

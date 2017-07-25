@@ -72,7 +72,7 @@ public class RandomCave extends Level {
 					levelTiles[tile] = 0;
 				} else if (caveMap[row][col] == 4) {
 					levelTiles[tile] = 20;
-					add(new Chest(this, col * 8, row * 8, "", rand.nextInt(2) + 1));
+					add(new Chest(this, col * 8, row * 8, (byte) 1));
 				} else if (caveMap[row][col] == 5) {
 					levelTiles[tile] = 20;
 					add(new Spawner(this, col * 8, row * 8, Spawner.DEMON, 5));

@@ -9,6 +9,12 @@ import javajesus.level.Level;
  * Fixed level for sandbox mode
  */
 public class SandboxOriginalLevel extends Level {
+	
+	// lines of text
+	private static final String INS_1 = "WASD To Move", INS_2 = "Arrow Keys to Shoot", INS_3 = "Space to Swing", INS_4 = "E to open inventory";
+	
+	// color set of text
+	private static final int[] color = { 0xFF000000, 0xFF000000, 0xFFFFCC00 };
 
 	/**
 	 * SandboxOriginalLevel ctor()
@@ -18,6 +24,12 @@ public class SandboxOriginalLevel extends Level {
 	 */
 	public SandboxOriginalLevel(int slot) throws IOException {
 		super("/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/original", "Original Map", new Point(1360, 70), slot);
+		
+		// render some text
+		addText(INS_1, 1390, 40, color, 1);
+		addText(INS_2, 1390, 48, color, 1);
+		addText(INS_3, 1390, 56, color, 1);
+		addText(INS_4, 1390, 64, color, 1);
 	}
 
 }

@@ -440,13 +440,17 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 					for (int x = 0; x < selectedEntity.getXTiles(); x++) {
 						for (int y = 0; y < selectedEntity.getYTiles(); y++) {
 
-							// next tile over
-							TileGUI next = (TileGUI) content.getComponentAt(tile.getX() + (x * zoomScale),
-							        tile.getY() + (y * zoomScale));
+							// get the tile gui
+							if (content.getComponentAt(tile.getX() + (x * zoomScale),
+							        tile.getY() + (y * zoomScale)) instanceof TileGUI) {
+								// next tile over
+								TileGUI next = (TileGUI) content.getComponentAt(tile.getX() + (x * zoomScale),
+								        tile.getY() + (y * zoomScale));
 
-							// render if the tile exists
-							if (next != null) {
-								next.render(selectedEntity, x, y);
+								// render if the tile exists
+								if (next != null) {
+									next.render(selectedEntity, x, y);
+								}
 							}
 						}
 					}
@@ -466,14 +470,18 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 				for (int x = 0; x < selectedEntity.getXTiles(); x++) {
 					for (int y = 0; y < selectedEntity.getYTiles(); y++) {
 
-						// next tile over
-						TileGUI next = (TileGUI) content.getComponentAt(tile.getX() + (x * zoomScale),
-						        tile.getY() + (y * zoomScale));
+						// get the tile gui
+						if (content.getComponentAt(tile.getX() + (x * zoomScale),
+						        tile.getY() + (y * zoomScale)) instanceof TileGUI) {
+							
+							// next tile over
+							TileGUI next = (TileGUI) content.getComponentAt(tile.getX() + (x * zoomScale),
+							        tile.getY() + (y * zoomScale));
 
-						// flicker if the tile exists
-						if (next != null) {
-							next.render(selectedEntity, x, y);
-							next.flicker();
+							// flicker if the tile exists
+							if (next != null && next != tile) {
+								next.flicker();
+							}
 						}
 					}
 				}
@@ -543,13 +551,18 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 					for (int x = 0; x < size; x++) {
 						for (int y = 0; y < size; y++) {
 
-							// get next the component
-							TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale),
-							        yPos + (y * zoomScale));
-							if (next != null) {
+							// get the tile gui
+							if (content.getComponentAt(xPos + (x * zoomScale),
+							        yPos + (y * zoomScale)) instanceof TileGUI) {
+								
+								// get next the component
+								TileGUI next = (TileGUI) content.getComponentAt(xPos + (x * zoomScale),
+								        yPos + (y * zoomScale));
+								if (next != null) {
 
-								// set the tile
-								next.setTile(selected.getTile());
+									// set the tile
+									next.setTile(selected.getTile());
+								}
 							}
 
 						}
@@ -565,13 +578,18 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 					for (int x = 0; x < selectedEntity.getXTiles(); x++) {
 						for (int y = 0; y < selectedEntity.getYTiles(); y++) {
 
-							// next tile over
-							TileGUI next = (TileGUI) content.getComponentAt(tile.getX() + (x * zoomScale),
-							        tile.getY() + (y * zoomScale));
+							// get the tile gui
+							if (content.getComponentAt(tile.getX() + (x * zoomScale),
+							        tile.getY() + (y * zoomScale)) instanceof TileGUI) {
+								
+								// next tile over
+								TileGUI next = (TileGUI) content.getComponentAt(tile.getX() + (x * zoomScale),
+								        tile.getY() + (y * zoomScale));
 
-							// render if the tile exists
-							if (next != null) {
-								next.render(selectedEntity, x, y);
+								// render if the tile exists
+								if (next != null) {
+									next.render(selectedEntity, x, y);
+								}
 							}
 						}
 					}
@@ -935,6 +953,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			}
 		} catch (IOException e1) {
 			e1.printStackTrace();
+			System.out.println("PNG cannot be loaded, please create a new file");
 		}
 	}
 

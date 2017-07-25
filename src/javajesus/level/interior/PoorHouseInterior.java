@@ -10,7 +10,7 @@ import javajesus.level.Level;
 public class PoorHouseInterior extends Interior {
 
 	public PoorHouseInterior(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Generic_Poor_House_Interior.png",
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Generic_Poor_House_Interior",
 		        new Point(248, 264), level);
 	}
 

@@ -3,6 +3,7 @@ package javajesus.entities;
 import javajesus.Hideable;
 import javajesus.dataIO.EntityData;
 import javajesus.entities.particles.HealthBar;
+import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
@@ -620,14 +621,14 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 
 		// displays text overhead
 		if (isTalking) {
-			getLevel().renderFont(name, screen,
+			JJFont.render(name, screen,
 					xOffset - (name.length() * 4 - 8), yOffset - modifier,
 					new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
 		}
 
 		// displays damage indicators overhead
 		if (isHit) {
-			getLevel().renderFont(damageTaken, screen, xOffset + isHitX,
+			JJFont.render(damageTaken, screen, xOffset + isHitX,
 					yOffset - modifier + isHitY, isHitColor, 1);
 		}
 	}

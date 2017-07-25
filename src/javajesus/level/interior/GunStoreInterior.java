@@ -10,7 +10,7 @@ import javajesus.level.Level;
 public class GunStoreInterior extends Interior {
 
 	public GunStoreInterior(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Gun_Store_Interior.png", new Point(248, 264), level);
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Gun_Store_Interior", new Point(248, 264), level);
 	}
 
 	@Override

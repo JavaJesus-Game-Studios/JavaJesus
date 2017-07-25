@@ -30,7 +30,7 @@ public class PoorHouse extends Building {
 		super(level, x, y, getColor(), Sprite.poor_house);
 
 		if (level != null)
-		level.add(new Door(level, x + 14, y + 39, new PoorHouseInterior(new Point(x + 20, y + 50), getLevel())));
+		level.add(new Door(level, x + 14, y + 39, new PoorHouseInterior(new Point(x + 20, y + 50), level)));
 	}
 
 	/**

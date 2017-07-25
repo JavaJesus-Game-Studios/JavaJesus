@@ -16,12 +16,12 @@ import javajesus.dataIO.LevelData;
 import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
-import javajesus.entities.Player;
 import javajesus.entities.SolidEntity;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.AnimatedTile;
 import javajesus.level.tile.Tile;
+import javajesus.utility.LevelText;
 
 /*
  * A level contains a set of tiles and set of entities that
@@ -42,7 +42,11 @@ public abstract class Level {
 	// list of all things that can be damaged
 	private final List<Damageable> damageables = new ArrayList<Damageable>(JavaJesus.ENTITY_LIMIT);
 
+	// list of all mobs that are layered
 	private final List<Hideable> hideables = new ArrayList<Hideable>(JavaJesus.ENTITY_LIMIT);
+	
+	// list of text that will be rendered
+	private final List<LevelText> text = new ArrayList<LevelText>(JavaJesus.ENTITY_LIMIT);
 
 	// where the player will go when entering this level
 	private final Point spawnPoint;
@@ -174,28 +178,6 @@ public abstract class Level {
 	}
 
 	/**
-	 * Changes a tile on the map
-	 * 
-	 * @param x - the x coord of the tile
-	 * @param y - the y coord of the tile
-	 * @param newTile - the tile to replace it with
-	 */
-	public void alterTile(int x, int y, Tile newTile) {
-		this.levelTiles[x + y * LEVEL_WIDTH] = newTile.getId();
-	}
-
-	/**
-	 * Removes dead mobs from the level
-	 */
-	public void clear() {
-		for (int i = 0; i < mobs.size(); i++) {
-			Mob m = mobs.get(i);
-			if (m.isDead())
-				remove(m);
-		}
-	}
-
-	/**
 	 * Updates all entities and tiles on the map
 	 */
 	public void tick() {
@@ -214,6 +196,19 @@ public abstract class Level {
 			t.tick();
 		}
 	}
+	
+	/**
+	 * Renders tiles, entities, and text
+	 * to the screen
+	 * @param screen - screen to render on
+	 */
+	public void render(Screen screen) {
+		
+		// render tiles and entities and text
+		renderTile(screen);
+		renderEntities(screen);
+		renderText(screen);
+	}
 
 	/**
 	 * Renders a tile on the screen
@@ -222,7 +217,7 @@ public abstract class Level {
 	 * @param xOffset - the xoffset on the screen
 	 * @param yOffset - the yoffset on the screen
 	 */
-	public void renderTile(Screen screen) {
+	private void renderTile(Screen screen) {
 		
 		// set the screen offsets
 		screen.setOffset(xOffset, yOffset);
@@ -237,38 +232,11 @@ public abstract class Level {
 	}
 	
 	/**
-	 * Sets offsets for tile and entity rendering
-	 * @param xOffset - x offset
-	 * @param yOffset - y offset
-	 */
-	public void setOffset(int xOffset, int yOffset) {
-		
-		// base offsets
-		this.xOffset = xOffset;
-		this.yOffset = yOffset;
-		
-		// if the player moves off-screen, fix the tiles in place
-		if (xOffset < 0)
-			this.xOffset = 0;
-
-		if (xOffset > ((LEVEL_WIDTH << 3) - JavaJesus.IMAGE_WIDTH))
-			this.xOffset = ((LEVEL_WIDTH << 3) - JavaJesus.IMAGE_WIDTH);
-
-		if (yOffset < 0)
-			this.yOffset = 0;
-
-		if (yOffset > ((LEVEL_HEIGHT << 3) - JavaJesus.IMAGE_HEIGHT))
-			this.yOffset = ((LEVEL_HEIGHT << 3) - JavaJesus.IMAGE_HEIGHT);
-		
-	}
-
-	/**
 	 * Displays the entities of the level on the screen
 	 * 
 	 * @param screen - the screen to display it on
-	 * @param player - the player to render entities around
 	 */
-	public void renderEntities(Screen screen, Player player) {
+	private void renderEntities(Screen screen) {
 
 		// the range around the player to display the entities
 		renderRange.setLocation(xOffset, yOffset);
@@ -301,6 +269,24 @@ public abstract class Level {
 	}
 	
 	/**
+	 * Renders text on the screen
+	 * 
+	 * @param msg - message to display
+	 * @param screen - the screen to display it on
+	 * @param x - the x offset
+	 * @param y - the y offset
+	 * @param color - the color of the message
+	 * @param scale - how big to render it
+	 */
+	public void renderText(Screen screen) {
+		
+		// render all the text
+		for (LevelText t: text) {
+			JJFont.render(t.getMessage(), screen, t.getX(), t.getY(), t.getColor(), t.getScale());
+		}
+	}
+	
+	/**
 	 * Renders collision boxes onto the screen
 	 * 
 	 * @param screen - screen to render pixels
@@ -311,19 +297,53 @@ public abstract class Level {
 			screen.renderCollisionBox(e.getBounds());
 		}
 	}
+	
+	/**
+	 * Sets offsets for tile and entity rendering
+	 * @param xOffset - x offset
+	 * @param yOffset - y offset
+	 */
+	public void setOffset(int xOffset, int yOffset) {
+		
+		// base offsets
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
+		
+		// if the player moves off-screen, fix the tiles in place
+		if (xOffset < 0)
+			this.xOffset = 0;
+
+		if (xOffset > ((LEVEL_WIDTH << 3) - JavaJesus.IMAGE_WIDTH))
+			this.xOffset = ((LEVEL_WIDTH << 3) - JavaJesus.IMAGE_WIDTH);
+
+		if (yOffset < 0)
+			this.yOffset = 0;
+
+		if (yOffset > ((LEVEL_HEIGHT << 3) - JavaJesus.IMAGE_HEIGHT))
+			this.yOffset = ((LEVEL_HEIGHT << 3) - JavaJesus.IMAGE_HEIGHT);
+		
+	}
+	
+	/**
+	 * Changes a tile on the map
+	 * 
+	 * @param x - the x coord of the tile
+	 * @param y - the y coord of the tile
+	 * @param newTile - the tile to replace it with
+	 */
+	public void alterTile(int x, int y, Tile newTile) {
+		this.levelTiles[x + y * LEVEL_WIDTH] = newTile.getId();
+	}
 
 	/**
-	 * Renders text on the screen
-	 * 
-	 * @param msg - message to display
-	 * @param screen - the screen to display it on
-	 * @param x - the x offset
-	 * @param y - the y offset
-	 * @param color - the color of the message
-	 * @param scale - how big to render it
+	 * Removes dead mobs from the level
 	 */
-	public void renderFont(String msg, Screen screen, int x, int y, int[] color, int scale) {
-		JJFont.render(msg, screen, x, y, color, scale);
+	public void clear() {
+		for (int i = 0; i < mobs.size(); i++) {
+			Mob m = mobs.get(i);
+			if (m.isDead())
+				remove(m);
+		}
 	}
 
 	/**
@@ -350,6 +370,19 @@ public abstract class Level {
 	 */
 	public Tile getTileFromEntityCoords(int x, int y) {
 		return getTile(x >> 3, y >> 3);
+	}
+	
+	/**
+	 * Adds text to be rendered
+	 * 
+	 * @param message - message to display
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 * @param color - color set
+	 * @param scale - scale of the text
+	 */
+	public void addText(String message, int x, int y, int[] color, int scale) {
+		text.add(new LevelText(message, x, y, color, scale));
 	}
 
 	/**

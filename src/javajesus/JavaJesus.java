@@ -303,8 +303,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		}
 
 		// render the level and everything on it
-		player.getLevel().renderTile(screen);
-		player.getLevel().renderEntities(screen, player);
+		player.getLevel().render(screen);
 		
 		// render collision boxes
 		if (doDevOverlay) {
