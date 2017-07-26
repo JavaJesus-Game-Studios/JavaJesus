@@ -2,9 +2,11 @@ package javajesus.gui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,6 +16,13 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javajesus.JavaJesus;
+import javajesus.SoundHandler;
+import javajesus.entities.Player;
+import javajesus.items.Item;
+import javajesus.utility.JJStrings;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -21,11 +30,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
-import javajesus.JavaJesus;
-import javajesus.SoundHandler;
-import javajesus.entities.Player;
-import javajesus.items.Item;
 
 /*
  * The Overview Menu of the Inventory Screen
@@ -53,6 +57,10 @@ public class OverviewGUI extends JPanel implements FocusListener {
 	
 	// dimensions of the buttons
 	private static final int BUTTON_WIDTH = JavaJesus.WINDOW_WIDTH / 5, BUTTON_HEIGHT = 80;
+
+	// constants for the main view
+	private static final int PLAYER_PANEL_WIDTH = 374, NAME_BOX_HEIGHT = 79, STATUS_BAR_HEIGHT = 65,
+			OBJ_HEIGHT = 145;
 	
 	// The player in the Overview GUI
 	private Player player;
@@ -97,6 +105,9 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		// add all components to the screen
 		add(top, BorderLayout.NORTH);
 		add(viewing, BorderLayout.CENTER);
+		
+		// add the border
+		setBorder(new JJBorder());
 
 	}
 	
@@ -331,27 +342,40 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			setPreferredSize(viewing.getPreferredSize());
 			setLayout(new BorderLayout(0, 0));
 			
-			// set up the player panel
-			PlayerGUI pPanel = new PlayerGUI(JavaJesus.WINDOW_WIDTH / 2, JavaJesus.HEIGHT);
+			// set up the left side
+			JPanel leftSide = new JPanel();
+			leftSide.setLayout(new BoxLayout(leftSide, BoxLayout.Y_AXIS));
+			PlayerGUI pPanel = new PlayerGUI(PLAYER_PANEL_WIDTH, JavaJesus.WINDOW_HEIGHT - NAME_BOX_HEIGHT - BUTTON_HEIGHT);
 			pPanel.setSkinColor(player.getSkinColor());
 			pPanel.setShirtColor(player.getShirtColor());
+			leftSide.add(pPanel);
+			leftSide.add(new JJPanel(JJStrings.PLAYER_NAME, PLAYER_PANEL_WIDTH, NAME_BOX_HEIGHT, player.getName()));
 			
-			// add player panel to screen
-			add(pPanel, BorderLayout.CENTER);
+			// add the left side
+			add(leftSide, BorderLayout.WEST);
 			
 			// create the right side
 			JPanel rightSide = new JPanel();
 			rightSide.setLayout(new BoxLayout(rightSide, BoxLayout.Y_AXIS));
 			
-			// add components to the right side
-			rightSide.add(new JJLabel("Name: " + player.getName()));
-			rightSide.add(new JJLabel("Health: " + player.getCurrentHealth()));
-			rightSide.add(new JJLabel("Stamina: " + player.getCurrentStamina()));
-			rightSide.add(new JJLabel("Location: TODO"));
-			rightSide.add(new JJLabel("Alignment: Neutral"));
+			// status bar
+			JPanel status = new JPanel(new GridLayout(3, 1));
+			status.add(new JJPanel(JJStrings.STATUS_TOP, JavaJesus.WINDOW_WIDTH - PLAYER_PANEL_WIDTH, STATUS_BAR_HEIGHT));
+			status.add(new JJPanel(JJStrings.STATUS_MIDDLE, JavaJesus.WINDOW_WIDTH - PLAYER_PANEL_WIDTH, STATUS_BAR_HEIGHT));
+			status.add(new JJPanel(JJStrings.STATUS_BOTTOM, JavaJesus.WINDOW_WIDTH - PLAYER_PANEL_WIDTH, STATUS_BAR_HEIGHT));
+			rightSide.add(status);
 			
+			// objective panel
+			rightSide.add(new JJPanel(JJStrings.OVERVIEW_OBJ, JavaJesus.WINDOW_WIDTH - PLAYER_PANEL_WIDTH, OBJ_HEIGHT));
+			
+			// location panel
+			rightSide.add(new JJPanel(JJStrings.OVERVIEW_LOC,
+					JavaJesus.WINDOW_WIDTH - PLAYER_PANEL_WIDTH,
+					JavaJesus.WINDOW_HEIGHT - BUTTON_HEIGHT - STATUS_BAR_HEIGHT
+							- OBJ_HEIGHT));
+
 			// add in the rightside
-			add(rightSide, BorderLayout.EAST);
+			add(rightSide, BorderLayout.CENTER);
 		}
 		
 	}
@@ -421,6 +445,107 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			
 			// add in the rightside
 			add(new JJLabel("MAP TODO"), BorderLayout.CENTER);
+		}
+		
+	}
+	
+	/*
+	 * JPanel with an image background
+	 */
+	private class JJPanel extends JPanel {
+		
+		// serialization
+		private static final long serialVersionUID = 1L;
+		
+		// image to render
+		private BufferedImage background;
+		
+		// for text placement
+		private int xOffset, yOffset;
+		private String message;
+		private final Font font = new Font(JavaJesus.FONT_NAME, 0, 30);
+		
+		/**
+		 * Creates a customizable JPanel
+		 * 
+		 * @param path - the path to the image to render
+		 * @param width - width of the panel
+		 * @param height - height of the panel
+		 */
+		private JJPanel(String path, int width, int height) {
+			
+			// set the size
+			setPreferredSize(new Dimension(width, height));
+			
+			// load the buffered image
+			try {
+				background = ImageIO.read(OverviewGUI.class.getResourceAsStream(path));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		/**
+		 * Creates a customizable JPanel with text
+		 * 
+		 * @param path - the path to the image to render
+		 * @param width - width of the panel
+		 * @param height - height of the panel
+		 * @param text - text to display
+		 * @param xOffset - x offset from left
+		 * @param yOffset - y offset from top
+		 */
+		private JJPanel(String path, int width, int height, String text, int xOffset, int yOffset) {
+			this(path, width, height);
+			
+			// instance data
+			this.message = text;
+			this.xOffset = xOffset;
+			this.yOffset = yOffset;
+		}
+		
+		/**
+		 * Creates a customizable JPanel with text
+		 * 
+		 * @param path - the path to the image to render
+		 * @param width - width of the panel
+		 * @param height - height of the panel
+		 * @param text - text to display
+		 * @param xOffset - x offset from left
+		 * @param yOffset - y offset from top
+		 */
+		private JJPanel(String path, int width, int height, String text) {
+			this(path, width, height);
+			
+			// instance data
+			this.message = text;
+		}
+		
+		/**
+		 * @param g - graphics used to draw the image
+		 */
+		@Override
+		public void paintComponent(Graphics g) {
+			g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
+			
+			// render text
+			if (message != null) {
+				g.setFont(font);
+				g.setColor(Color.WHITE);
+				
+				// use specified offsets
+				if (xOffset != 0 || yOffset != 0) {
+					g.drawString(message, xOffset, yOffset);
+					
+					// else center it
+				} else {
+					FontMetrics fm = g.getFontMetrics();
+					xOffset = getWidth() / 2 - fm.stringWidth(message) / 2;
+					yOffset = getHeight() / 2 - fm.getHeight() / 2 + fm.getHeight();
+					g.drawString(message, xOffset, yOffset);
+				}
+			}
 		}
 		
 	}

@@ -4,10 +4,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
 
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
+import javajesus.utility.JJStrings;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -24,9 +27,12 @@ public class PlayerGUI extends JPanel {
 	// virtual canvas of the panel
 	private final BufferedImage image;
 	
+	// background of the player GUI
+	private BufferedImage background;
+	
 	// pixels of image
 	private final int[] pixels;
-	
+
 	// dimensions of the player
 	private static final int PLAYER_WIDTH = 16, PLAYER_HEIGHT = 16;
 	
@@ -48,9 +54,16 @@ public class PlayerGUI extends JPanel {
 		// set the size
 		setPreferredSize(new Dimension(width, height));
 		
+		// load the background image pixels
+		try {
+			background = ImageIO.read(PlayerGUI.class.getResourceAsStream(JJStrings.PLAYER_PEDESTAL));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		// create the image and initialize the data
 		image = new BufferedImage(PLAYER_WIDTH, PLAYER_HEIGHT,
-				BufferedImage.TYPE_INT_RGB);
+				BufferedImage.TYPE_INT_ARGB);
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
 				.getData();
 		screen = new Screen(PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -62,13 +75,24 @@ public class PlayerGUI extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		
+		// draw the background image
+		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
+		
 		// send pixel data to screen
 		renderPlayer(screen, 1);
 
 		// Get the screen pixels
 		for (int y = 0; y < screen.getHeight(); y++) {
 			for (int x = 0; x < screen.getWidth(); x++) {
-				pixels[x + y * screen.getWidth()] = screen.getPixels()[x + y * screen.getWidth()];
+				
+				// pixel at the screen coordinate
+				int col = screen.getPixels()[x + y * screen.getWidth()];
+				
+				// don't render black
+				if (col != 0) {
+					pixels[x + y * screen.getWidth()] = col | 0xFF000000;
+				}
+				
 			}
 
 		}
