@@ -1212,6 +1212,32 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			        6);
 			entityList[Entity.SMALL_SEQUOIA] = new EntityGUI(new SmallSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2,
 			        4);
+			entityList[Entity.SPAWNER] = new EntityGUI(new Spawner(null, 0, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.CENTAUR] = new EntityGUI(new Centaur(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 3);
+			entityList[Entity.CYCLOPS] = new EntityGUI(new Cyclops(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 5);
+			entityList[Entity.DEMON] = new EntityGUI(new Demon(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.GANG_MEMBER] = new EntityGUI(new GangMember(null, 0, 0, GangMember.RUSSIAN), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.MONKEY] = new EntityGUI(new Monkey(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.BAUTISTA] = new EntityGUI(new Bautista(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.DAUGHTER] = new EntityGUI(new Daughter(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.ISTRAHIIM] = new EntityGUI(new Istrahiim(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.JESUS] = new EntityGUI(new Jesus(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.JOBS] = new EntityGUI(new Jobs(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.KNIGHT] = new EntityGUI(new Knight(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.KOBE] = new EntityGUI(new Kobe(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.LORD_HILLSBOROUGH] = new EntityGUI(new LordHillsborough(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.OCTAVIUS] = new EntityGUI(new Octavius(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.PEASANT] = new EntityGUI(new Peasant(null, 0, 0, Peasant.MALE), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.RANCHERO] = new EntityGUI(new Ranchero(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.SON] = new EntityGUI(new Son(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.WIFE] = new EntityGUI(new Wife(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.ZORRA] = new EntityGUI(new Zorra(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.COMPANION] = new EntityGUI(new Companion(null, 0, 0, null), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.GORILLA] = new EntityGUI(new Gorilla(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.NATIVE_AMERICAN] = new EntityGUI(new NativeAmerican(null, 0, 0, NativeAmerican.MALE), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.POLICE_OFFICER] = new EntityGUI(new PoliceOfficer(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.SWAT_OFFICER] = new EntityGUI(new SWATOfficer(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.TECH_WARRIOR] = new EntityGUI(new TechWarrior(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			// add all buildings, furniture, etc.
 			// additional notes: create one of each type for PEASANTS (MALE,
 			// FEMALE,
