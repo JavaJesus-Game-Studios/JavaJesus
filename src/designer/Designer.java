@@ -462,30 +462,26 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			
 			// draw an outline of the entity
 			if (selectedEntity != null && e.getSource() instanceof TileGUI) {
-				
+
 				// tile mouse is hovering over
 				TileGUI tile = (TileGUI) e.getSource();
-				
-				// draw the entity
-				for (int x = 0; x < selectedEntity.getXTiles(); x++) {
-					for (int y = 0; y < selectedEntity.getYTiles(); y++) {
 
-						// get the tile gui
-						if (content.getComponentAt(tile.getX() + (x * zoomScale),
-						        tile.getY() + (y * zoomScale)) instanceof TileGUI) {
-							
-							// next tile over
-							TileGUI next = (TileGUI) content.getComponentAt(tile.getX() + (x * zoomScale),
-							        tile.getY() + (y * zoomScale));
+				// get the tile gui
+				if (content.getComponentAt(
+						tile.getX() + ((selectedEntity.getXTiles() - 1) * zoomScale),
+						tile.getY() + ((selectedEntity.getYTiles() - 1) * zoomScale)) instanceof TileGUI) {
 
-							// flicker if the tile exists
-							if (next != null && next != tile) {
-								next.flicker();
-							}
-						}
+					// next tile over
+					TileGUI next = (TileGUI) content.getComponentAt(tile.getX()
+							+ ((selectedEntity.getXTiles() - 1) * zoomScale),
+							tile.getY() + ((selectedEntity.getYTiles() - 1) * zoomScale));
+
+					// flicker if the tile exists
+					if (next != null && next != tile) {
+						next.flicker();
 					}
 				}
-				
+
 			}
 		}
 
@@ -1212,10 +1208,10 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			        6);
 			entityList[Entity.SMALL_SEQUOIA] = new EntityGUI(new SmallSequoia(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2,
 			        4);
-			entityList[Entity.SPAWNER] = new EntityGUI(new Spawner(null, 0, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.SPAWNER] = new EntityGUI(new Spawner(null, 0, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 			entityList[Entity.CENTAUR] = new EntityGUI(new Centaur(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 3);
-			entityList[Entity.CYCLOPS] = new EntityGUI(new Cyclops(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 5);
-			entityList[Entity.DEMON] = new EntityGUI(new Demon(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.CYCLOPS] = new EntityGUI(new Cyclops(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 6);
+			entityList[Entity.DEMON] = new EntityGUI(new Demon(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 3);
 			entityList[Entity.GANG_MEMBER] = new EntityGUI(new GangMember(null, 0, 0, GangMember.RUSSIAN), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.MONKEY] = new EntityGUI(new Monkey(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.BAUTISTA] = new EntityGUI(new Bautista(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
@@ -1238,13 +1234,6 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			entityList[Entity.POLICE_OFFICER] = new EntityGUI(new PoliceOfficer(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.SWAT_OFFICER] = new EntityGUI(new SWATOfficer(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.TECH_WARRIOR] = new EntityGUI(new TechWarrior(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
-			// add all buildings, furniture, etc.
-			// additional notes: create one of each type for PEASANTS (MALE,
-			// FEMALE,
-			// BOY, GIRL)
-			// create one of each type for GANG MEMBER
-			// create one of each type for Native Americans
-			// for spawners just put type as 0 for now
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1405,13 +1394,13 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			case Entity.WEIRD_TECH_BUILDING2:
 				return new EntityGUI(new WeirdTechBuilding2(null, 0, 0), 0, 0, 6, 12);
 			case Entity.SPAWNER:
-                return new EntityGUI(new Spawner(null, 0, 0, 0), 0, 0, 2, 2);
+                return new EntityGUI(new Spawner(null, 0, 0, 0), 0, 0, 1, 1);
 			case Entity.CENTAUR:
                 return new EntityGUI(new Centaur(null, 0, 0), 0, 0, 2, 3);
 			case Entity.CYCLOPS:
-                return new EntityGUI(new Cyclops(null, 0, 0), 0, 0, 5, 5);
+                return new EntityGUI(new Cyclops(null, 0, 0), 0, 0, 5, 6);
 			case Entity.DEMON:
-                return new EntityGUI(new Demon(null, 0, 0), 0, 0, 2, 2);
+                return new EntityGUI(new Demon(null, 0, 0), 0, 0, 2, 3);
 			case Entity.GANG_MEMBER:
                 return new EntityGUI(new GangMember(null, 0, 0, GangMember.RUSSIAN), 0, 0, 2, 2);
 			case Entity.MONKEY:
@@ -1456,13 +1445,12 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
                 return new EntityGUI(new SWATOfficer(null, 0, 0), 0, 0, 2, 2);
 			case Entity.TECH_WARRIOR:
                 return new EntityGUI(new TechWarrior(null, 0, 0), 0, 0, 2, 2);
-			default:
-				return null;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
 		}
+		
+		return null;
 
 	}
 
