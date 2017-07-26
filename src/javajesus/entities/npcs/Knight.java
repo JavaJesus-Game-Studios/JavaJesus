@@ -58,9 +58,11 @@ public class Knight extends NPC {
 		super(level, "Knight", x, y, 1, WIDTH, HEIGHT, health, new int[] { 0xFF111111, 0xFF7E7E7E, 0xFFFFFFFF }, 0, 2,
 				walkPath, walkDistance);
 
-		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
-
-		checkRadius();
+		// initialize the radius
+		if (level != null) {
+			this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
+			checkRadius();
+		}
 	}
 	
 	/**

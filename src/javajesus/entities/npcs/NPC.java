@@ -100,7 +100,10 @@ public abstract class NPC extends Mob {
 		this.yPos = y;
 		this.setBounds(getX(), getY(), width, height);
 
-		createHealthBar();
+		// create the health bar
+		if (level != null) {
+			createHealthBar();
+		}
 
 	}
 

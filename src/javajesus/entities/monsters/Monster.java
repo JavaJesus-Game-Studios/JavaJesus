@@ -57,26 +57,16 @@ public abstract class Monster extends Mob {
 	/**
 	 * Creates a Monster that attacks other mobs
 	 * 
-	 * @param level
-	 *            the level the monster is on
-	 * @param name
-	 *            the name of the monster
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param speed
-	 *            the base speed of the monster
-	 * @param width
-	 *            the width of the monster
-	 * @param height
-	 *            the height of the monster
-	 * @param yTile
-	 *            the row on the spritesheet
-	 * @param health
-	 *            the base health of the monster
-	 * @param attackDelay
-	 *            the amount of ticks between attacks
+	 * @param level - the level the monster is on
+	 * @param name - the name of the monster
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param speed - the base speed of the monster
+	 * @param width - the width of the monster
+	 * @param height - the height of the monster
+	 * @param yTile - the row on the spritesheet
+	 * @param health - the base health of the monster
+	 * @param attackDelay - the amount of ticks between attacks
 	 */
 	public Monster(Level level, String name, int x, int y, int speed, int width, int height, int yTile, int health,
 			int attackDelay) {
@@ -85,10 +75,14 @@ public abstract class Monster extends Mob {
 		this.yTile = yTile;
 		this.attackDelay = attackDelay;
 
-		createHealthBar();
+		// initialize a few things
+		if (level != null) {
+			createHealthBar();
 
-		// find a target to attack
-		checkRadius();
+			// find a target to attack
+			checkRadius();
+		}
+		
 	}
 
 	/**

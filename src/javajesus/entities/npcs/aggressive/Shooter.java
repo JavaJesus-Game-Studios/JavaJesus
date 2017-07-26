@@ -52,10 +52,12 @@ public abstract class Shooter extends NPC implements LongRange {
 			int[] color, int xTile, int yTile, String walkPath, int walkDistance) {
 		super(level, name, x, y, speed, width, height, defaultHealth, color, xTile, yTile, walkPath, walkDistance);
 
-		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
-		this.standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2, RADIUS / 2);
-
-		checkRadius();
+		// initialize the radius
+		if (level != null) {
+			this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
+			this.standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2, RADIUS / 2);
+			checkRadius();
+		}
 	}
 
 	/**

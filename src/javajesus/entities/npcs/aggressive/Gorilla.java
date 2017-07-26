@@ -54,10 +54,13 @@ public class Gorilla extends NPC {
 		super(level, "Gorilla", x, y, 1, WIDTH, HEIGHT, defaultHealth, new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB },
 				0, 22, walkPath, walkDistance);
 
-		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
-
-		// find a target
-		checkRadius();
+		// initialize the aggro radius
+		if (level != null) {
+			this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
+			
+			// find a target
+			checkRadius();
+		}
 	}
 
 	/**
