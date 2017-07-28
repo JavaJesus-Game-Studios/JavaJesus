@@ -18,7 +18,7 @@ public class ShantyHouse extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFADADAD, 0xFF000000 }, Sprite.shantyhouse);
 
 		if (level != null)
-		level.add(new Door(level, x + 12, y + 31, new ShantyHouseInterior(new Point(x + 18, y + 42), level)));
+		level.add(new Door(level, x + 10, y + 31, new ShantyHouseInterior(new Point(x + 18, y + 42), level)));
 	}
 	
 	@Override

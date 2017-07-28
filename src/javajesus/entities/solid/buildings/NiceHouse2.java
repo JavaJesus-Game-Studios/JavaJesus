@@ -31,7 +31,7 @@ public class NiceHouse2 extends Building {
 
 		if (level != null)
 		level.add(
-		        new Door(level, x + 19, y + 39, new NiceHouse1Interior(new Point(x + 23, y + 49), getLevel())));
+		        new Door(level, x + 18, y + 42, new NiceHouse1Interior(new Point(x + 23, y + 49), getLevel())));
 	}
 
 	/**

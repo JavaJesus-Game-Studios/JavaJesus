@@ -16,7 +16,7 @@ public class CaveDoor extends Transporter {
 	private static final int[] color = { 0xFF663300, 0xFF472400, 0xFFFFDE00 };
 	
 	// dimensions of the door
-	private static final int WIDTH = 16, HEIGHT = 16;
+	private static final int WIDTH = 12, HEIGHT = 16;
 
 	/**
 	 * Creates a transporter that leads to a Random Cave

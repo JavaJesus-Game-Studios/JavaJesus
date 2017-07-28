@@ -26,7 +26,7 @@ public class CaveEntrance extends Building {
 		super(level, x, y, color, Sprite.cave_entrance);
 
 		if (level != null)
-		level.add(new CaveDoor(level, x + 18, y + 20));
+		level.add(new CaveDoor(level, x + 18, y + 16));
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class CaveEntrance extends Building {
 	public CaveEntrance(Level level, int x, int y, Point spawn) {
 		super(level, x, y, color, Sprite.cave_entrance);
 
-		level.add(new CaveDoor(level, x + 18, y + 20, spawn));
+		level.add(new CaveDoor(level, x + 18, y + 16, spawn));
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class CaveEntrance extends Building {
 	public CaveEntrance(Level level, int x, int y, Level nextLevel) {
 		super(level, x, y, color, Sprite.cave_entrance);
 
-		level.add(new CaveDoor(level, x + 18, y + 20, nextLevel));
+		level.add(new CaveDoor(level, x + 18, y + 16, nextLevel));
 	}
 	
 	@Override

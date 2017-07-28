@@ -55,7 +55,7 @@ public abstract class Transporter extends Entity {
 
 	@Override
 	public byte getId() {
-		return 0;
+		return -1;
 	}
 	
 	@Override

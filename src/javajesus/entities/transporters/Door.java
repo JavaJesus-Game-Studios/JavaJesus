@@ -7,7 +7,7 @@ import javajesus.level.Level;
 public class Door extends Transporter {
 	
 	// dimensions of the door
-	private static final int WIDTH = 16, HEIGHT = 16;
+	private static final int WIDTH = 12, HEIGHT = 16;
 	
 	// color set of this door
 	private static final int[] color = { 0xFF111111, 0xFF704200, 0xFFFFDE00 };

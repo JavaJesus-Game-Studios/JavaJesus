@@ -26,7 +26,7 @@ public class Factory extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF3B312A, 0xFF002244 }, Sprite.factory);
 
 		if (level != null)
-		level.add(new Door(level, x + 45, y + 69, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
+		level.add(new Door(level, x + 43, y + 69, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
 	}
 	
 	@Override

@@ -26,7 +26,7 @@ public class RefugeeTent extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFF8FA8F, 0xFF000000 }, Sprite.refugee_tent);
 
 		if (level != null)
-		level.add(new Door(level, x + 34, y + 7, new RefugeeTentInterior(new Point(x + 40, y + 18), level)));
+		level.add(new Door(level, x + 34, y + 8, new RefugeeTentInterior(new Point(x + 40, y + 18), level)));
 	}
 
 	@Override

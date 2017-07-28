@@ -26,7 +26,7 @@ public class Skyscraper extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF673101, 0xFFABD3FF }, Sprite.skyscraper);
 
 		if (level != null)
-		level.add(new Door(level, x + 38, y + 234, new SkyscraperLobby(new Point(x + 44, y + 243), level)));
+		level.add(new Door(level, x + 38, y + 232, new SkyscraperLobby(new Point(x + 44, y + 243), level)));
 	}
 
 	@Override
