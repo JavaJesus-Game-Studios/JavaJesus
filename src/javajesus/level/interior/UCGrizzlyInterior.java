@@ -10,7 +10,7 @@ import javajesus.level.Level;
 public class UCGrizzlyInterior extends Interior {
 
 	public UCGrizzlyInterior(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/HIPPY_VILLE/INTERIORS/UC_Grizzly_Interior.png", new Point(936, 912),
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/HIPPY_VILLE/INTERIORS/UC_Grizzly_Interior", new Point(936, 912),
 		        level);
 	}
 

@@ -21,7 +21,7 @@ public class ApartmentLobby extends Interior {
 	 * @throws IOException
 	 */
 	public ApartmentLobby(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/APARTMENT_INTERIORS/Apartment_Lobby.png", new Point(
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/APARTMENT_INTERIORS/Apartment_Lobby", new Point(
 				1944, 2040), level);
 	}
 

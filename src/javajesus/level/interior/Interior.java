@@ -28,6 +28,11 @@ public abstract class Interior extends Level {
 	public Interior(final String path, final Point spawn, final Level outside) throws IOException {
 		super("Interior", spawn);
 		
+		// make sure its not a png file
+		if (path.contains(".png")) {
+			throw new IOException("Cannot load png files");
+		}
+		
 		// instance data
 		this.outside = outside;
 		

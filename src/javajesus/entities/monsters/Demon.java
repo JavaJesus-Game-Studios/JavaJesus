@@ -46,6 +46,9 @@ public class Demon extends Monster implements LongRange {
 
 		// set the standing box
 		this.standRange = new Ellipse2D.Double(x - RADIUS / 4, y - RADIUS / 4, RADIUS / 2, RADIUS / 2);
+		
+		// set fire immunity
+		setFireImmune(true);
 	}
 	
 	/**

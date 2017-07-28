@@ -15,7 +15,7 @@ import javajesus.utility.Direction;
 public class SkyscraperLobby extends Interior {
 
 	public SkyscraperLobby(Point point, Level level) throws IOException {
-		super("/Buildings/Generic Interiors/Skyscraper_Interiors/Skyscraper_Lobby.png", new Point(1936, 2040), level);
+		super("/Buildings/Generic Interiors/Skyscraper_Interiors/Skyscraper_Lobby", new Point(1936, 2040), level);
 	}
 
 	protected NPC[] getNPCPlacement() {

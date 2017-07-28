@@ -10,7 +10,7 @@ import javajesus.level.Level;
 public class RadarDishInterior extends Interior {
 
 	public RadarDishInterior(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/TECH_TOPIA/INTERIORS/Radar_Dish_Interior.png", new Point(792, 912),
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/TECH_TOPIA/INTERIORS/Radar_Dish_Interior", new Point(792, 912),
 		        level);
 	}
 

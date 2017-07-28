@@ -12,7 +12,7 @@ import javajesus.utility.Direction;
 public class CastleBattlements extends Interior {
 
 	public CastleBattlements(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_1_Battlements.png", point,
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_1_Battlements", point,
 		        level);
 	}
 

@@ -46,6 +46,7 @@ public class HealthBar extends Entity {
 		// instance data
 		this.entity = entity;
 		this.xTile = 0;
+		
 	}
 
 	/**

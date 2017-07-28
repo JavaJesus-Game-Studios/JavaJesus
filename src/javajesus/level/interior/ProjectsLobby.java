@@ -12,7 +12,7 @@ import javajesus.utility.Direction;
 public class ProjectsLobby extends Interior {
 
 	public ProjectsLobby(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Projects_Interiors/Projects_Lobby.png",
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Projects_Interiors/Projects_Lobby",
 		        new Point(584, 680), level);
 	}
 

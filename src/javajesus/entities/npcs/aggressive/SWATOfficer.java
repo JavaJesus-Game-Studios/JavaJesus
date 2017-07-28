@@ -69,7 +69,7 @@ public class SWATOfficer extends Shooter {
 	public int getStrength() {
 		return 7;
 	}
-
+	
 	@Override
 	public byte getId() {
 		return Entity.SWAT_OFFICER;

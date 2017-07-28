@@ -13,7 +13,7 @@ public class SkyscraperFloor extends Interior {
 	private int floorNum;
 
 	public SkyscraperFloor(Point point, Level level, int floorNum) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Skyscraper_Interiors/Skyscraper_Floors_1-10.png",
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Skyscraper_Interiors/Skyscraper_Floors_1-10",
 		        new Point(500, 500), level);
 		this.floorNum = floorNum;
 	}

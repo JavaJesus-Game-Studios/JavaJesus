@@ -11,7 +11,7 @@ import javajesus.utility.Direction;
 public class SkyscraperPent extends Interior {
 
 	public SkyscraperPent(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Skyscraper_Interiors/Skyscraper_Floor_11.png",
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Skyscraper_Interiors/Skyscraper_Floor_11",
 		        new Point(500, 500), level);
 	}
 

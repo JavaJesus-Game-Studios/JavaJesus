@@ -117,6 +117,9 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	protected boolean knockbackCooldown;
 	private int knockbackTicks;
 	private int knockbackLength = 10;
+	
+	// whether or not this mob is immune to fire
+	private boolean fireImmune;
 
 	/**
 	 * Creates a mob that can interact with other entities on a level
@@ -669,7 +672,16 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	 * Sets a mob on fire
 	 */
 	public void ignite() {
-		onFire = true;
+		if (!fireImmune) {
+			onFire = true;
+		}
+	}
+	
+	/**
+	 * @param val - whether or not the mob can be ignited
+	 */
+	public void setFireImmune(boolean val) {
+		fireImmune = val;
 	}
 	
 	/**

@@ -889,9 +889,12 @@ public class Player extends Mob {
 		return equippedSword;
 	}
 
+	/**
+	 * Player will not be saved with the rest
+	 */
 	@Override
 	public byte getId() {
-		return Entity.PLAYER;
+		return -1;
 	}
 
 }

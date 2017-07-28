@@ -10,7 +10,7 @@ import javajesus.level.Level;
 public class TreeHouseInterior extends Interior {
 
 	public TreeHouseInterior(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/HIPPY_VILLE/INTERIORS/Tree_House_Interior.png", new Point(384, 456),
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/HIPPY_VILLE/INTERIORS/Tree_House_Interior", new Point(384, 456),
 		        level);
 	}
 

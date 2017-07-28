@@ -13,7 +13,7 @@ public class ProjectsFloor extends Interior {
 	private int floor;
 
 	public ProjectsFloor(Point point, Level level, int floor) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Projects_Interiors/Projects_Floors_1_and_2.png",
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Projects_Interiors/Projects_Floors_1_and_2",
 		        new Point(580, 680), level);
 		this.floor = floor;
 	}

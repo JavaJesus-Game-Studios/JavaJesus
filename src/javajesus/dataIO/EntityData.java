@@ -13,7 +13,6 @@ import javajesus.entities.Damageable;
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
-import javajesus.entities.Player;
 import javajesus.entities.Spawner;
 import javajesus.entities.Type;
 import javajesus.entities.monsters.Centaur;
@@ -285,8 +284,8 @@ public class EntityData {
 		// save the entity data
 		for (Entity e : entities) {
 			
-			// don't save the player here
-			if (!(e instanceof Player)) {
+			// don't save any entity with an ID of -1
+			if (e.getId() != -1) {
 				os.write(ByteBuffer.allocate(9).put(e.getId()).putLong(e.getData()).array());
 			}
 

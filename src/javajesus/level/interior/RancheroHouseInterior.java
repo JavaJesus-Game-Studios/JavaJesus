@@ -10,7 +10,7 @@ import javajesus.level.Level;
 public class RancheroHouseInterior extends Interior {
 
 	public RancheroHouseInterior(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Ranchero_House_Interior.png", new Point(248, 296),
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Ranchero_House_Interior", new Point(248, 296),
 		        level);
 	}
 

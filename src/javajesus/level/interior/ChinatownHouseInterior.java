@@ -10,7 +10,7 @@ import javajesus.level.Level;
 public class ChinatownHouseInterior extends Interior {
 
 	public ChinatownHouseInterior(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/SAN_CISCO/INTERIORS/Chinatown_House_Interior.png", new Point(864, 744),
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/SAN_CISCO/INTERIORS/Chinatown_House_Interior", new Point(864, 744),
 		        level);
 	}
 

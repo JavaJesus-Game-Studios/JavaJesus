@@ -10,7 +10,7 @@ import javajesus.level.Level;
 public class CastleTowerLeftInterior extends Interior {
 
 	public CastleTowerLeftInterior(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_Tower_Interior_Left.png",
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Interiors/Castle_Tower_Interior_Left",
 		        new Point(1927, 2080), level);
 	}
 

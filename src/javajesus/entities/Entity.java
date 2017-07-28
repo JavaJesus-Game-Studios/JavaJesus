@@ -12,7 +12,7 @@ import javajesus.level.Level;
 public abstract class Entity implements Serializable {
 	
 	// IDs used in saving and loading
-	public static final byte DESTRUCTIBLE_TILE = 0, FIRE_ENTITY = 1, PLAYER = 2, SPAWNER = 3, CENTAUR = 4, CYCLOPS = 5,
+	public static final byte DESTRUCTIBLE_TILE = 0, FIRE_ENTITY = 1, SPAWNER = 3, CENTAUR = 4, CYCLOPS = 5,
             DEMON = 6, GANG_MEMBER = 7, MONKEY = 8, BAUTISTA = 9, DAUGHTER = 10, ISTRAHIIM = 11, JESUS = 12, JOBS = 13,
             KNIGHT = 14, KOBE = 15, LORD_HILLSBOROUGH = 16, OCTAVIUS = 17, PEASANT = 18, RANCHERO = 19, SON = 20,
             WIFE = 21, ZORRA = 22, COMPANION = 23, GORILLA = 24, NATIVE_AMERICAN = 25, POLICE_OFFICER = 26,

@@ -10,7 +10,7 @@ import javajesus.level.Level;
 public class RefugeeTentInterior extends Interior {
 
 	public RefugeeTentInterior(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Refugee_Tent_Interior.png", new Point(280, 256),
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Refugee_Tent_Interior", new Point(280, 256),
 		        level);
 	}
 

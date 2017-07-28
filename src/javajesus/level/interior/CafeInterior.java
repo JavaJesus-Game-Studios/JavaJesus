@@ -19,7 +19,7 @@ public class CafeInterior extends Interior {
 	 * @throws IOException
 	 */
 	public CafeInterior(Point point, Level level) throws IOException {
-		super("/VISUAL_DATA/STATICS/ARCHITECTURE/TECH_TOPIA/INTERIORS/Cafe_Interior.png", new Point(936, 912), level);	
+		super("/VISUAL_DATA/STATICS/ARCHITECTURE/TECH_TOPIA/INTERIORS/Cafe_Interior", new Point(936, 912), level);	
 	}
 
 	@Override
