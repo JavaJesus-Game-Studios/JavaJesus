@@ -43,9 +43,9 @@ public abstract class Interior extends Level {
 		EntityData.load(this, new File(Interior.class.getResource(path + ENTITY).getFile()));
 		
 		// add all the transporters
-		/*for (Transporter t: getTransporters()) {
+		for (Transporter t: getTransporters()) {
 			add(t);
-		}*/
+		}
 	}
 	
 	/**

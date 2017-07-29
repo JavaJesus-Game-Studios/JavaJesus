@@ -17,7 +17,7 @@ public class LargeSequoia extends Tree {
 	 * @param y - y coordinate
 	 */
 	public LargeSequoia(Level level, int x, int y) {
-		super(level, x, y, Sprite.LARGE_SEQUOIA, 7, 11, 5);
+		super(level, x, y, Sprite.LARGE_SEQUOIA, 7, 11, 8);
 
 	}
 

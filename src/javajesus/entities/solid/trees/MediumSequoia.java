@@ -17,7 +17,7 @@ public class MediumSequoia extends Tree {
 	 * @param y - y coordinate
 	 */
 	public MediumSequoia(Level level, int x, int y) {
-		super(level, x, y, Sprite.MEDIUM_SEQUOIA, 5, 8, 6);
+		super(level, x, y, Sprite.MEDIUM_SEQUOIA, 5, 8, 9);
 
 	}
 	

@@ -10,8 +10,7 @@ import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 
 /*
- * base class for all buildings
- * TODO make Building abstract and make each building override getId()
+ * Base class for all buildings
  */
 public abstract class Building extends Entity implements SolidEntity {
 
