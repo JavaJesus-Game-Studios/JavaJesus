@@ -1,5 +1,8 @@
 package javajesus.entities;
 
+import java.awt.Rectangle;
+import java.util.Random;
+
 import javajesus.Hideable;
 import javajesus.dataIO.EntityData;
 import javajesus.entities.particles.HealthBar;
@@ -10,9 +13,6 @@ import javajesus.level.Level;
 import javajesus.level.tile.Tile;
 import javajesus.quests.Script;
 import javajesus.utility.Direction;
-
-import java.awt.Rectangle;
-import java.util.Random;
 
 /*
  * A mob is an entity that has complex interactions in a level with other entities
@@ -1002,7 +1002,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	 * Changes the mob's max health
 	 */
 	public void setMaxHealth(short health) {
-		maxHealth = health;
+		this.health = maxHealth = health;
 	}
 
 	/**

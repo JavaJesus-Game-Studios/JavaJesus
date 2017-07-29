@@ -63,7 +63,7 @@ public class HealthBar extends Entity {
 	 * Updates the healthbar 60 times per second
 	 */
 	public void tick() {
-
+		
 		// divide the healthbar into 13 chunks with a different color
 		if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1) {
 			xOffset = 0;
