@@ -261,7 +261,7 @@ public class PlayerCreationGUI extends JPanel {
 				new PlayerData(numSlot, name.getText(),  pScreen.getSkinColor(), pScreen.getShirtColor(), startWeapon);
 				
 				// return to main display
-				((CardLayout) launcher.getParent().getLayout()).show(launcher.getParent(), "Main");
+				((CardLayout) launcher.getParent().getLayout()).show(launcher.getParent(), Launcher.MAIN);
 				launcher.updateButtons();
 				
 			}

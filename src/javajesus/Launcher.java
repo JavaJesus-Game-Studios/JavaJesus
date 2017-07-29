@@ -21,6 +21,7 @@ import engine.Window;
 import javajesus.dataIO.PlayerData;
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
+import javajesus.gui.CreditsGUI;
 import javajesus.gui.PlayerCreationGUI;
 import javajesus.items.Item;
 import javajesus.level.Level;
@@ -99,7 +100,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	private static final int MAINMENU = 0, SANDBOXMENU = 1, OPTIONSMENU = 2, STORYMENU = 3, AUDIOMENU = 4, FIXEDMENU = 5, RANDOMMENU = 6, FIXEDPLAYERMENU = 7;
 
 	// Ids of the buttons
-	private static final int STORY = 0, SANDBOX = 1, OPTIONS = 2, HELP = 3, QUIT = 4, FIXED = 5, RANDOM = 6,
+	private static final int STORY = 0, SANDBOX = 1, OPTIONS = 2, CREDIT = 3, QUIT = 4, FIXED = 5, RANDOM = 6,
 			BACK = 7, AUDIO = 8, VIDEO = 9, CONTROLS = 10, MUTE = 13, SLOT = 14, DELETE_1 = 15, DELETE_2 = 16, DELETE_3 = 17, FIXED_SELECTED = 18;
 
 	// Buttons on the launcher
@@ -124,6 +125,9 @@ public class Launcher extends Canvas implements IGameLogic {
 	// layout for the launcher
 	private CardLayout cardLayout;
 	
+	// IDs for the cardlayout
+	public static final String MAIN = "Main", CREATION = "Creation", CREDITS = "Credits";
+	
 	// JPanel of the player creation GUI
 	private PlayerCreationGUI playerCreationGUI;
 	
@@ -141,11 +145,12 @@ public class Launcher extends Canvas implements IGameLogic {
 		
 		// initialize JSwing stuff
 		display = new JPanel(cardLayout = new CardLayout(0, 0));
-		display.add(this, "Main");
-		display.add(playerCreationGUI = new PlayerCreationGUI(this), "Creation");
+		display.add(this, MAIN);
+		display.add(playerCreationGUI = new PlayerCreationGUI(this), CREATION);
+		display.add(new CreditsGUI(this), CREDITS);
 		
 		// show the main display
-		cardLayout.show(display, "Main");
+		cardLayout.show(display, MAIN);
 		
 	}
 
@@ -218,7 +223,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		story = new LauncherButton(450, STORY, story_off, story_on);
 		sandbox = new LauncherButton(500, SANDBOX, sandbox_off, sandbox_on);
 		options = new LauncherButton(550, OPTIONS, options_off, options_on);
-		credits = new LauncherButton(600, HELP, credits_off, credits_on);
+		credits = new LauncherButton(600, CREDIT, credits_off, credits_on);
 		fixed = new LauncherButton(450, FIXED, fixed_off, fixed_on);
 		random = new LauncherButton(500, RANDOM, random_off, random_on);
 		audio = new LauncherButton(450, AUDIO, audio_off, audio_on);
@@ -368,8 +373,8 @@ public class Launcher extends Canvas implements IGameLogic {
 			this.pageId = OPTIONSMENU;
 			return;
 		}
-		case HELP: {
-			System.out.println("Help Coming Soon");
+		case CREDIT: {
+			cardLayout.show(display, CREDITS);
 			return;
 		}
 		case QUIT: {
@@ -442,7 +447,7 @@ public class Launcher extends Canvas implements IGameLogic {
 				
 				// show the player creation display
 				playerCreationGUI.setSlot(numSlot);
-				cardLayout.show(display, "Creation");
+				cardLayout.show(display, CREATION);
 				
 			}
 			
