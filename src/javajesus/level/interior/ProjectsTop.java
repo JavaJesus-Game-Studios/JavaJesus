@@ -10,7 +10,7 @@ import javajesus.utility.Direction;
 
 public class ProjectsTop extends Interior {
 
-	public ProjectsTop(Point point, Level level, int floor) throws IOException {
+	public ProjectsTop(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Projects_Interiors/Projects_Top_Floor",
 		        new Point(580, 680), level);
 	}

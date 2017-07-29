@@ -19,6 +19,6 @@ public class ProjectsLobby extends Interior {
 	@Override
 	public Transporter[] getTransporters() throws IOException {
 		return new Transporter[] { new TransporterInterior(this, 585, 700, outside), new Stairs(this, 344, 472,
-		        new ProjectsFloor(new Point(353, 536), this, 1), Direction.WEST, Stairs.CARPET) };
+		        new ProjectsFloor(new Point(353, 536), this), Direction.WEST, Stairs.CARPET) };
 	}
 }

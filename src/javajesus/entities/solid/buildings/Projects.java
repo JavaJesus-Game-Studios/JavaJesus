@@ -26,7 +26,7 @@ public class Projects extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF93DA85, 0xFF6CB1FE }, Sprite.projects);
 
 		if (level != null)
-		level.add(new Door(level, x + 44, y + 64, new ProjectsLobby(new Point(x + 45, y + 73), level)));
+		level.add(new Door(level, x + 42, y + 64, new ProjectsLobby(new Point(x + 45, y + 73), level)));
 	}
 
 	@Override

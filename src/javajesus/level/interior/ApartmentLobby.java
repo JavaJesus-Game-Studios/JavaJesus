@@ -29,7 +29,7 @@ public class ApartmentLobby extends Interior {
 	public Transporter[] getTransporters() throws IOException {
 		return new Transporter[] { 
 				new TransporterInterior(this, 1944, 2048, outside),
-		        new Stairs(this, 2113, 1710, new SkyscraperFloor(new Point(2113, 1710), this, 1),
+		        new Stairs(this, 2113, 1710, new SkyscraperFloor(new Point(2113, 1710), this),
 		                Direction.NORTH, Stairs.CARPET) };
 	}
 

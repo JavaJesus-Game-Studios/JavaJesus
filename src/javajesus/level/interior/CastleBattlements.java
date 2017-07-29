@@ -21,9 +21,9 @@ public class CastleBattlements extends Interior {
 		return new Transporter[] {
 
 		        new TransporterInterior(this, 504, 472, outside),
-		        new Stairs(this, 376, 304, new CastleInteriorFloor1(new Point(384, 224), this), Direction.SOUTH,
+		        new Stairs(this, 376, 304, outside, Direction.SOUTH,
 		                Stairs.STONE),
-		        new Stairs(this, 648, 304, new CastleInteriorFloor1(new Point(640, 224), this), Direction.SOUTH,
+		        new Stairs(this, 648, 304, outside, Direction.SOUTH,
 		                Stairs.STONE)
 
 		};
