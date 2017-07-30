@@ -109,11 +109,11 @@ public class Chest extends Entity implements SolidEntity, Type {
 	public void render(Screen screen) {
 
 		if (!isOpen) {
-			screen.render(getX(), getY(), 0, 20, SpriteSheet.tiles, false, color);
-			screen.render(getX() + 8, getY(), 1, 20, SpriteSheet.tiles,false, color);
+			screen.render(getX(), getY(), 0, 0, SpriteSheet.chests, false, color);
+			screen.render(getX() + 8, getY(), 1, 0, SpriteSheet.chests,false, color);
 		} else {
-			screen.render(getX(), getY(), 2, 20, SpriteSheet.tiles, false, color);
-			screen.render(getX() + 8, getY(), 3, 20, SpriteSheet.tiles, false, color);
+			screen.render(getX(), getY(), 2, 0, SpriteSheet.chests, false, color);
+			screen.render(getX() + 8, getY(), 3, 0, SpriteSheet.chests, false, color);
 		}
 
 	}

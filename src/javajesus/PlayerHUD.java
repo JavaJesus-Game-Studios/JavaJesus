@@ -86,7 +86,7 @@ public class PlayerHUD {
 		// screen
 		try {
 			box = ImageIO.read(PlayerHUD.class
-					.getResource("/VISUAL_DATA/GUI/HUD/box.png"));
+					.getResource("/VISUAL_DATA/GUI/HUD/IN_GAME/box.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

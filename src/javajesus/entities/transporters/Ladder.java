@@ -30,7 +30,7 @@ public class Ladder extends Transporter {
 	 * Displays the ladder to the screen
 	 */
 	public void render(Screen screen) {
-		screen.render(getX(), getY(), 6, 6, SpriteSheet.tiles, false, color);
-		screen.render(getX(), getY() - 8, 6, 5, SpriteSheet.tiles, false, color);
+		screen.render(getX(), getY(), 6, 1, SpriteSheet.stairs, false, color);
+		screen.render(getX(), getY() - 8, 6, 0, SpriteSheet.stairs, false, color);
 	}
 }

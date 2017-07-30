@@ -21,13 +21,13 @@ public class FireEntity extends Entity  {
 	public static int xTile;
 	
 	// vertical y position on sprite sheet
-	public static final int yTile = 15;
+	public static final int yTile = 0;
 	
 	// colors of the flames
 	private static final int[] color = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
 	
 	// the number of animated tiles on spritesheet
-	private static final int NUM_TILES = 4;
+	private static final int NUM_TILES = 5;
 	
 	/**
 	 * Creates a fire entity that damages the player
@@ -82,7 +82,7 @@ public class FireEntity extends Entity  {
 	 */
 	public void render(Screen screen) {
 		
-		screen.render(getX(), getY(), xTile, yTile, SpriteSheet.tiles, false, color);
+		screen.render(getX(), getY(), xTile, yTile, SpriteSheet.fireSmall, false, color);
 	}
 
 	@Override

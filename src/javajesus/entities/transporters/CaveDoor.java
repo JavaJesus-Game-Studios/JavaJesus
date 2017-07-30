@@ -68,6 +68,6 @@ public class CaveDoor extends Transporter {
 	 * Displays the cave transporter on the screen
 	 */
 	public void render(Screen screen) {
-		screen.render16bit(getX(), getY(), 4, 5, SpriteSheet.tiles, color);
+		screen.render16bit(getX(), getY(), 4, 0, SpriteSheet.doors, color);
 	}
 }

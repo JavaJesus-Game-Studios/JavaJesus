@@ -31,7 +31,7 @@ public class GlassDoor extends Transporter {
 	 * Updates the transporter on the screen
 	 */
 	public void render(Screen screen) {
-		screen.render16bit(getX(), getY(), 0, 5, SpriteSheet.tiles, color);
+		screen.render16bit(getX(), getY(), 2, 0, SpriteSheet.doors, color);
 	}
 
 }

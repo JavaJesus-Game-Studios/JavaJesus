@@ -14,13 +14,12 @@ public class SpriteSheet implements Serializable {
 	
 	// Spritesheets used in Java Jesus
 	 ////// GUI ///////
-    public static SpriteSheet hudWeapons = new SpriteSheet("/VISUAL_DATA/GUI/HUD/hud_sheet.png", 8 * 3);
+    public static SpriteSheet hudWeapons = new SpriteSheet("/VISUAL_DATA/GUI/HUD/IN_GAME/hud_sheet.png", 8 * 3);
     public static SpriteSheet inventoryItems = new SpriteSheet("/VISUAL_DATA/GUI/INVENTORY/inventory_sheet.png", 6 * 3);
     public static SpriteSheet letters = new SpriteSheet("/VISUAL_DATA/GUI/FONT/letter_sheet.png", 26);
     public static SpriteSheet statusBars = new SpriteSheet("/VISUAL_DATA/GUI/HUD/STATUS_BARS/actor_bars.png", 28);
 	
 	////// TILES ///////
-    public static SpriteSheet tiles = new SpriteSheet("/VISUAL_DATA/TILES/tile_sheet.png", 32);
     	//NATURAL
     public static SpriteSheet dirt = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/NATURAL/dirt.png", 10);
     public static SpriteSheet grass = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/NATURAL/grass.png", 8);

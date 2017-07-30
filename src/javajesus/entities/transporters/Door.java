@@ -29,7 +29,7 @@ public class Door extends Transporter {
 	 */
 	@Override
 	public void render(Screen screen) {
-		screen.render16bit(getX(), getY(), 0, 5, SpriteSheet.tiles, color);
+		screen.render16bit(getX(), getY(), 0, 0, SpriteSheet.doors, color);
 	}
 
 }

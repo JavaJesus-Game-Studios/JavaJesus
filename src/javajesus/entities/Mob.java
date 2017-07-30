@@ -618,7 +618,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 			int[] firecolor = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
 
 			FireEntity.update();
-			screen.render(xOffset, yOffset, FireEntity.xTile, FireEntity.yTile, SpriteSheet.tiles, firecolor, 2);
+			screen.render(xOffset, yOffset, FireEntity.xTile, FireEntity.yTile, SpriteSheet.fireSmall, firecolor, 2);
 			
 		}
 
