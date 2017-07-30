@@ -11,7 +11,6 @@ import javajesus.entities.LongRange;
 import javajesus.entities.Mob;
 import javajesus.entities.Pickup;
 import javajesus.entities.Player;
-import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
 import javajesus.graphics.SpriteSheet;
 import javajesus.items.Item;
@@ -250,23 +249,14 @@ public abstract class Monster extends Mob {
 	public void remove() {
 		super.remove();
 		
+		// drop loot on death
+		dropLoot();
+		
+		// logic specific to fixed mode
 		if (JavaJesus.mode == GameMode.FIXED) {
-			survivalDrops();
+			JavaJesus.score++;
 		}
 		
-	}
-	
-	/**
-	 * Unique drops to survival mode
-	 */
-	private void survivalDrops() {
-		
-		// every kill makes the JavaJesus harder
-		getLevel().add(new Spawner(getLevel(), getX(), getY(), this.getName()));
-		JavaJesus.score++;
-		
-		// drop monster specific loot
-		dropLoot();
 	}
 	
 	/**

@@ -1,11 +1,14 @@
 package javajesus;
 
+import java.awt.AlphaComposite;
 import java.awt.Canvas;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RadialGradientPaint;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -72,7 +75,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	public static int score;
 
 	// Creates the buffered image to be rendered onto the game screen
-	private transient BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
+	private BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
 
 	// Pixel data to be used in the buffered image
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
@@ -114,6 +117,10 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	
 	// whether or not the game loop should run
 	private static boolean running;
+	
+	// used for setting the overlay
+	private int overlayRed = 255;
+	private float overlayOpacity;
 	
 	// center point, the player, on the screen in respect to level
 	private int xOffset, yOffset;
@@ -270,8 +277,8 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			hud.update();
 			
 			// update the global offsets
-			xOffset = player.getX() - (IMAGE_WIDTH / 2);
-			yOffset = player.getY() - (IMAGE_HEIGHT / 2);
+			xOffset = player.getX() - (IMAGE_WIDTH / 2) + 8;
+			yOffset = player.getY() - (IMAGE_HEIGHT / 2) + 8;
 			if (player.isDriving()) {
 				xOffset = player.getVehicle().getX() - (IMAGE_WIDTH / 2);
 				yOffset = player.getVehicle().getY() - (IMAGE_HEIGHT / 2);
@@ -282,9 +289,61 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			// repaint inventory menus
 			display.getComponent(guiID).repaint();
 		}
+		
+		// update the time screen
+		updateTime();
 
 	}
+	
+	// TODO modify and move them up
+	int time = 0;
+	float increment = (1f / 300) * 0.5f;
+	
+	/**
+	 * Updates the time and shading factors of the screen
+	 */
+	public void updateTime() {
+		
+		time = (time + 1) % 1200;
+		
+		// normal
+		if (time < 300) {
+			
+			// and get more opaque
+			if (overlayOpacity < 0.5f) {
+				overlayOpacity += increment;
+			}
 
+			// dusk
+		} else if (time < 600) {
+			
+			// screen will get more black
+			if (overlayRed > 0) {
+				overlayRed--;
+			}
+
+			// night
+		} else if (time < 900) {
+			
+			// screen will get more red
+			if (overlayRed < 255) {
+				overlayRed++;
+			}
+			
+			// dawn
+		} else if (time < 1200) {
+			
+			// screen will get lighter
+			if (overlayOpacity >= increment) {
+				overlayOpacity -= increment;
+			}
+			
+		}
+	}
+	
+	// TODO move
+	boolean raining = true;
+	
 	/**
 	 * Displays graphics on the window
 	 */
@@ -323,6 +382,29 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		// draw from the buffer strategy
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		
+		// now draw an overlay
+		if (!raining) {
+		((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, overlayOpacity));
+		((Graphics2D) g).setPaint(new RadialGradientPaint(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 
+				WINDOW_WIDTH / 2, new float[] {0f, 0.2f}, new Color[] {Color.WHITE, new Color(overlayRed, 0, 0)}));
+		g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+		
+		// back to full opacity
+		((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+		}
+		
+		// experiment with rain
+		if (raining) {
+			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+			g.setColor(Color.BLUE);
+			for (int i = 0; i < 50; i++) {
+				g.drawRect((int) (Math.random() * WINDOW_WIDTH), (int) (Math.random() * WINDOW_HEIGHT), 2, 2);
+			}
+		}
 		
 		// draw the debug information
 		if (doDevOverlay) {
