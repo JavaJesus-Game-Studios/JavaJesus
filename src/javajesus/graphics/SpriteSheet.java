@@ -51,7 +51,6 @@ public class SpriteSheet implements Serializable {
     public static SpriteSheet playerVestGuns = new SpriteSheet("/VISUAL_DATA/PLAYER/player_vested_gun_sheet.png", 50);
     public static SpriteSheet playerKnightGuns = new SpriteSheet("/VISUAL_DATA/PLAYER/player_knight_armor_gun_sheet.png", 50);
     public static SpriteSheet playerHornedGuns = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horned_armor_gun_sheet.png", 50);
-    public static SpriteSheet playerIstrahiimGuns = new SpriteSheet("/VISUAL_DATA/PLAYER/player_istrahiim_armor_gun_sheet.png", 50);
     public static SpriteSheet playerSwords = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sword_sheet.png", 60);
     public static SpriteSheet playerHorse = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horse_sheet.png", 32);
 

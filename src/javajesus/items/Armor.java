@@ -85,11 +85,6 @@ public class Armor extends Item {
 			yRow = 25;
 			sheet = SpriteSheet.playerHornedGuns;
 			return;
-		case OWL:
-			defense = 9;
-			yRow = 27;
-			sheet = SpriteSheet.playerIstrahiimGuns;
-			return;
 		}
 	}
 	
