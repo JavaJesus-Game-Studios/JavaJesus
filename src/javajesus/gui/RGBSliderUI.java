@@ -6,7 +6,10 @@ import java.awt.Graphics2D;
 import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JSlider;
 import javax.swing.plaf.basic.BasicSliderUI;
 
@@ -18,8 +21,8 @@ public class RGBSliderUI extends BasicSliderUI {
 	// start and ending colors
 	private Color start, end;
 
-	// the slider to modify
-	private JSlider slider;
+	// the thumb to draw
+	private BufferedImage thumb;
 
 	/**
 	 * RGBSliderUI ctor()
@@ -34,7 +37,15 @@ public class RGBSliderUI extends BasicSliderUI {
 		// instantiate instance variables
 		this.start = start;
 		this.end = end;
-		this.slider = slider;
+		
+		// load the thumb
+		try {
+			thumb = ImageIO
+			        .read(VerticalSliderUI.class.getResource("/VISUAL_DATA/GUI/BUTTONS/SLIDERS/slider_horz.png"));
+			
+		} catch (IOException e) {
+			System.err.println("Couldn't load RGB Slider UI");
+		}
 	}
 
 	/**
@@ -47,8 +58,7 @@ public class RGBSliderUI extends BasicSliderUI {
 		Graphics2D g2d = (Graphics2D) g;
 
 		// size of track is based on slider
-		Rectangle track = new Rectangle(0, 0, (int) slider.getSize().getWidth(),
-		        (int) slider.getSize().getHeight());
+		Rectangle track = new Rectangle(trackRect.x - 4, trackRect.y - 1, trackRect.width + 9, trackRect.height + 2);
 
 		// set the paint for the gradient
 		g2d.setPaint(new LinearGradientPaint(new Point2D.Float(track.x, track.y),
@@ -60,9 +70,12 @@ public class RGBSliderUI extends BasicSliderUI {
 
 	}
 
+	/**
+	 * Paints the slider thumb
+	 */
 	@Override
 	public void paintThumb(Graphics g) {
-		super.paintThumb(g);
+		g.drawImage(thumb,  thumbRect.x, 15, thumbRect.width, thumbRect.height, null);
 	}
 
 }
