@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -18,18 +19,20 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import javajesus.JavaJesus;
-import javajesus.SoundHandler;
-import javajesus.entities.Player;
-import javajesus.items.Item;
-import javajesus.utility.JJStrings;
-
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
+
+import javajesus.JavaJesus;
+import javajesus.SoundHandler;
+import javajesus.entities.Player;
+import javajesus.items.Item;
+import javajesus.utility.JJStrings;
 
 /*
  * The Overview Menu of the Inventory Screen
@@ -53,7 +56,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 	private JJButton overview, inventory, factions, quests, map;
 	
 	// Inventory modifiers
-	private static final int NUM_ROWS = 5, NUM_COLS = 5, INVENTORY_SPACE = NUM_ROWS * NUM_COLS;
+	private static final int NUM_ROWS = 6, NUM_COLS = 6, INVENTORY_SPACE = NUM_ROWS * NUM_COLS;
 	
 	// dimensions of the buttons
 	private static final int BUTTON_WIDTH = JavaJesus.WINDOW_WIDTH / 5, BUTTON_HEIGHT = 80;
@@ -62,8 +65,14 @@ public class OverviewGUI extends JPanel implements FocusListener {
 	private static final int PLAYER_PANEL_WIDTH = 374, NAME_BOX_HEIGHT = 79, STATUS_BAR_HEIGHT = 65,
 			OBJ_HEIGHT = 145;
 	
+	// constants for the inventory screen
+	private static final int LEFT_SIDE_WIDTH = 290, ITEM_DISPLAY_HEIGHT = 290, TOP_HEIGHT = 33, MID_HEIGHT = 31, BOTTOM_HEIGHT = 150, CURRENCY_HEIGHT = 58;
+	
 	// The player in the Overview GUI
 	private Player player;
+	
+	// extension of image files
+	private static final String PNG = ".png";
 	
 	// inventory panel
 	private InventoryGUI invenPanel;
@@ -84,12 +93,12 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		
 		// add the button panel to the top
 		JPanel top = new JPanel(new GridLayout(1, 5));
-		top.add(overview = new JJButton(MAIN));
+		top.add(overview = new JJButton(MAIN, true, false));
 		overview.active = true;
-		top.add(inventory = new JJButton(INVENTORY));
-		top.add(factions = new JJButton(FACTIONS));
-		top.add(quests = new JJButton(QUESTS));
-		top.add(map = new JJButton(MAP));
+		top.add(inventory = new JJButton(INVENTORY, true, false));
+		top.add(factions = new JJButton(FACTIONS, true, false));
+		top.add(quests = new JJButton(QUESTS, true, false));
+		top.add(map = new JJButton(MAP, true, false));
 		
 		// set up the viewing panel
 		viewing = new JPanel();
@@ -120,7 +129,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		private static final long serialVersionUID = 1L;
 		
 		// bottom panel buttons
-		private JJButton sort1, sort2, use, discard;
+		private JJButton use, equip, drop;
 		
 		// actual inventory panel with grid layout
 		private JPanel main;
@@ -129,8 +138,8 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		private ItemGUI selected;
 		
 		// selected descriptions
-		private JJLabel name;
-		private JTextArea description;
+		private JJPanel name, info, money;
+		private JJTextArea description;
 
 		/**
 		 * InventoryGUI ctor()
@@ -144,20 +153,30 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			// left side that contains item and description
 			JPanel leftSide = new JPanel();
 			leftSide.setLayout(new BoxLayout(leftSide, BoxLayout.Y_AXIS));
-			leftSide.setPreferredSize(new Dimension(JavaJesus.WINDOW_WIDTH / 3, leftSide.getPreferredSize().height));
+			leftSide.setPreferredSize(new Dimension(LEFT_SIDE_WIDTH, leftSide.getPreferredSize().height));
 			
 			// add left side components
 			leftSide.add(selected = new ItemGUI(Item.blank, 0));
-			selected.setMaximumSize(new Dimension(Integer.MAX_VALUE, JavaJesus.WINDOW_HEIGHT / 2)); 
-			leftSide.add(name = new JJLabel("Empty"));
-			leftSide.add(description = new JTextArea("None"));
+			selected.setPreferredSize(new Dimension(LEFT_SIDE_WIDTH, ITEM_DISPLAY_HEIGHT)); 
+			leftSide.add(name = new JJPanel(JJStrings.INFO_TOP, LEFT_SIDE_WIDTH, TOP_HEIGHT, "Empty", 0, 5, 15));
+			leftSide.add(info = new JJPanel(JJStrings.INFO_MIDDLE, LEFT_SIDE_WIDTH, MID_HEIGHT, "Amount: 0", 0, 0, 15));
+			JScrollPane pane = new JScrollPane(description = new JJTextArea("None"));
+			pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			pane.getVerticalScrollBar().setUI(new VerticalSliderUI());
+			pane.setBorder(null);
+			leftSide.add(pane);
+			leftSide.add(money = new JJPanel(JJStrings.INFO_CURRENCY, LEFT_SIDE_WIDTH, CURRENCY_HEIGHT, "$0"));
 			
-			// set up the description text area
-			description.setEditable(false);
-			description.setMaximumSize(new Dimension(Integer.MAX_VALUE, JavaJesus.WINDOW_HEIGHT / 3));
-			description.setFont(new Font(JavaJesus.FONT_NAME, 0, 16));
-			description.setLineWrap(true);
-			description.setWrapStyleWord(true);
+			// construct the buttons at the bottom
+			JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+			row.add(use = new JJButton("use", false, true));
+			row.add(equip = new JJButton("equip", false, true));
+			equip.setVisible(false);
+			row.add(drop = new JJButton("drop", false, true));
+			use.addActionListener(this);
+			equip.addActionListener(this);
+			drop.addActionListener(this);
+			leftSide.add(row);
 			
 			// the main panel contains the grid layout
 			main = new JPanel(new GridLayout(NUM_ROWS, NUM_COLS));
@@ -171,29 +190,9 @@ public class OverviewGUI extends JPanel implements FocusListener {
 				main.add(slot);
 			}
 			
-			// center pane that contains description and inventory
-			JPanel center = new JPanel(new BorderLayout(0, 0));
-			
-			// add the components of the center panel
-			center.add(leftSide, BorderLayout.WEST);
-			center.add(main, BorderLayout.CENTER);
-			
-			// the bottom panel contains actions
-			JPanel bottom = new JPanel();
-			bottom.add(sort1 = new JJButton("A-Z"));
-			bottom.add(sort2 = new JJButton("ID"));
-			bottom.add(use = new JJButton("Use"));
-			bottom.add(discard = new JJButton("Discard"));
-			
-			// add action listeners
-			sort1.addActionListener(this);
-			sort2.addActionListener(this);
-			use.addActionListener(this);
-			discard.addActionListener(this);
-			
-			// add the components to the gui
-			add(center, BorderLayout.CENTER);
-			add(bottom, BorderLayout.SOUTH);
+			// add the components to this panel
+			add(leftSide, BorderLayout.WEST);
+			add(main, BorderLayout.CENTER);
 			
 		}
 
@@ -203,24 +202,10 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-			// alphabet sort
-			if (e.getSource() == sort1) {
-				
-				// play a sound when pressed
-				SoundHandler.play(SoundHandler.click);
-
-				player.getInventory().sortItemsAlphabetically();
-				
-				// id sort
-			} else if (e.getSource() == sort2) {
-				
-				// play a sound when pressed
-				SoundHandler.play(SoundHandler.click);
-				
-				player.getInventory().sortItemsByID();
-
-				// use
-			} else if (e.getSource() == use) {
+			// button clicked
+			SoundHandler.play(SoundHandler.click);
+			
+			if (e.getSource() == use || e.getSource() == equip) {
 				
 				if (selected.getItem() != null && selected.getItem().isUsable()) {
 					
@@ -236,10 +221,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 				}
 
 				// discard
-			} else if (e.getSource() == discard) {
-				
-				// play a sound when pressed
-				SoundHandler.play(SoundHandler.click);
+			} else if (e.getSource() == drop) {
 				
 				if (selected.getItem() != null) {
 					player.getInventory().discard(selected.getItem());
@@ -249,7 +231,6 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			
 			// repaint the inventory screen
 			update();
-			
 		}
 
 		@Override
@@ -277,12 +258,26 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		public void mousePressed(MouseEvent e) {
 			
 			// get the item gui that was clicked
-			ItemGUI clicked = (ItemGUI) main.getComponent(((ItemGUI) e.getSource()).getId());
+			Item clicked = ((ItemGUI) main.getComponent(((ItemGUI) e.getSource()).getId())).getItem();
 			
 			// set the descriptors on the left side
-			selected.setItem(clicked.getItem());
-			name.setText(clicked.getItem().getName());
-			description.setText(clicked.getItem().getDescription() + "\nAmount: " + clicked.getItem().getQuantity());
+			selected.setItem(clicked);
+			name.setText(clicked.getName());
+			
+			// display different information depending on the object
+			if (clicked.contains("Ammo")) {
+				info.setText("Ammo: " + clicked.getQuantity());
+			} else if (clicked.contains("Sword") || clicked.contains("Gun")) {
+				info.setText("Durability: N/A");
+				use.setVisible(false);
+				equip.setVisible(true);
+			} else {
+				info.setText("Amount: " + clicked.getQuantity());
+				use.setVisible(true);
+				equip.setVisible(false);
+			}
+			
+			description.setText(clicked.getDescription());
 
 			// repaint the inventory screen
 			repaint();
@@ -463,7 +458,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		// for text placement
 		private int xOffset, yOffset;
 		private String message;
-		private final Font font = new Font(JavaJesus.FONT_NAME, 0, 30);
+		private Font font = new Font(JavaJesus.FONT_NAME, 0, 30);
 		
 		/**
 		 * Creates a customizable JPanel
@@ -496,13 +491,11 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		 * @param xOffset - x offset from left
 		 * @param yOffset - y offset from top
 		 */
-		private JJPanel(String path, int width, int height, String text, int xOffset, int yOffset) {
+		private JJPanel(String path, int width, int height, String text) {
 			this(path, width, height);
 			
 			// instance data
 			this.message = text;
-			this.xOffset = xOffset;
-			this.yOffset = yOffset;
 		}
 		
 		/**
@@ -514,12 +507,23 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		 * @param text - text to display
 		 * @param xOffset - x offset from left
 		 * @param yOffset - y offset from top
+		 * @param fontSize - the size of font to use
 		 */
-		private JJPanel(String path, int width, int height, String text) {
+		private JJPanel(String path, int width, int height, String text, int xOffset, int yOffset, int fontSize) {
 			this(path, width, height);
 			
 			// instance data
 			this.message = text;
+			this.font = new Font(JavaJesus.FONT_NAME, 0, fontSize);
+			this.xOffset = xOffset;
+			this.yOffset = yOffset;
+		}
+		
+		/**
+		 * @param message - new text to display
+		 */
+		public void setText(String message) {
+			this.message = message;
 		}
 		
 		/**
@@ -534,17 +538,11 @@ public class OverviewGUI extends JPanel implements FocusListener {
 				g.setFont(font);
 				g.setColor(Color.WHITE);
 				
-				// use specified offsets
-				if (xOffset != 0 || yOffset != 0) {
-					g.drawString(message, xOffset, yOffset);
-					
-					// else center it
-				} else {
-					FontMetrics fm = g.getFontMetrics();
-					xOffset = getWidth() / 2 - fm.stringWidth(message) / 2;
-					yOffset = getHeight() / 2 - fm.getHeight() / 2 + fm.getHeight();
-					g.drawString(message, xOffset, yOffset);
-				}
+				// center it
+				FontMetrics fm = g.getFontMetrics();
+				int xPos = getWidth() / 2 - fm.stringWidth(message) / 2;
+				int yPos = getHeight() / 2 - fm.getHeight() / 2 + fm.getHeight();
+				g.drawString(message, xPos + xOffset, yPos + yOffset);
 			}
 		}
 		
@@ -574,25 +572,36 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		 * JJButton ctor()
 		 * @param s - text in the button
 		 */
-		private JJButton(String id) {
+		private JJButton(String id, boolean useThisActionListener, boolean useBorders) {
 			
 			// load the backgrounds
 			try {
 				button_on = ImageIO.read(OverviewGUI.class.getResource(DIR + id + ON));
 				button_off = ImageIO.read(OverviewGUI.class.getResource(DIR + id + OFF));
 				
+				// set the dimensions
+				setPreferredSize(new Dimension(button_on.getWidth(), button_on.getHeight()));
+				
 				// file doesnt exist
 			} catch (Exception e) {
 				// add font
 				setFont(new Font(JavaJesus.FONT_NAME, Font.PLAIN, 20));
 				setText(id);
+				
+				// maximize the size
+				setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
 			}
 			
-			// add action listener
-			addActionListener(this);
+			// remove the borders
+			if (!useBorders) {
+				setBorder(null);
+			}
 			
-			// maximize the size
-			setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+			// add action listener'
+			if (useThisActionListener) {
+				addActionListener(this);
+			}
+			
 		}
 
 		/**
@@ -664,18 +673,76 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		
 		// serialization
 		private static final long serialVersionUID = 1L;
-
+		
 		/**
 		 * JJLabel ctor()
 		 * @param s - Label text
 		 */
-		private JJLabel(String s) {
-			super(s);
+		private JJLabel(String text) {
+			super(text);
 			
-			// align and set font
+			// align to middle and set font
 			setAlignmentX(Component.CENTER_ALIGNMENT);
 			setFont(new Font(JavaJesus.FONT_NAME, Font.PLAIN, 25));
+			
 		}
+		
+	}
+	
+	/*
+	 * JText Area with modified attributes
+	 */
+	private class JJTextArea extends JTextArea {
+		
+		// serialization
+		private static final long serialVersionUID = 1L;
+		
+		// background of the text area
+		private BufferedImage bg;
+		
+		// directory of the background panel
+		private static final String DIR = "/VISUAL_DATA/GUI/PANELS/INVENTORY/item_description_bottom" + PNG;
+		
+		/**
+		 * @param text - text to display
+		 */
+		private JJTextArea(String text) {
+			super(text);
+			
+			// set up the description text area
+			setEditable(false);
+			setFont(new Font(JavaJesus.FONT_NAME, 0, 16));
+			setLineWrap(true);
+			setWrapStyleWord(true);
+			setForeground(Color.WHITE);
+			setBorder(new EmptyBorder(0, 12, 12, 4));
+			
+			// make an invisible background from the text
+			setBackground(new Color(0, 0, 0, 0));
+			
+			// set the size
+			setPreferredSize(new Dimension(LEFT_SIDE_WIDTH, BOTTOM_HEIGHT));
+			
+			// load the background
+			try {
+				bg = ImageIO.read(OverviewGUI.class.getResource(DIR));
+				
+			} catch(IOException e) {
+				System.err.println("Couldn't load " + DIR);
+			}
+		}
+		
+		/**
+		 * Draw the background
+		 */
+		@Override
+		public void paintComponent(Graphics g) {
+			g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
+			
+			// draw the text
+			super.paintComponent(g);
+		}
+		
 	}
 	
 	/**

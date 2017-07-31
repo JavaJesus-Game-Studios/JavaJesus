@@ -17,7 +17,7 @@ public class Inventory implements Serializable {
 	private Item[] items;
 	
 	// inventory space
-	private static final int INVENTORY_SIZE = 25;
+	private static final int INVENTORY_SIZE = 36;
 	
 	/**
 	 * Inventory ctor()
@@ -131,6 +131,10 @@ public class Inventory implements Serializable {
 		for (int i = 0; i < items.length; i++) {
 			if (items[i] != null && items[i].equals(item)) {
 				items[i] = null;
+				
+				// now sort the items
+				sortItemsByID();
+				
 				return true;
 			}
 		}

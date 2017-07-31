@@ -20,5 +20,10 @@ public class JJStrings {
 	public static final String STATUS_TOP = "/VISUAL_DATA/GUI/PANELS/OVERVIEW/status_top.png";
 	public static final String STATUS_MIDDLE = "/VISUAL_DATA/GUI/PANELS/OVERVIEW/status_middle.png";
 	public static final String STATUS_BOTTOM = "/VISUAL_DATA/GUI/PANELS/OVERVIEW/status_bottom.png";
+	
+	// image paths for inventory panels
+	public static final String INFO_TOP = "/VISUAL_DATA/GUI/PANELS/INVENTORY/item_description_top.png";
+	public static final String INFO_MIDDLE = "/VISUAL_DATA/GUI/PANELS/INVENTORY/item_description_mid.png";
+	public static final String INFO_CURRENCY = "/VISUAL_DATA/GUI/PANELS/INVENTORY/currency_count.png";
 
 }

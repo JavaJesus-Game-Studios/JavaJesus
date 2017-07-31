@@ -466,6 +466,11 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 */
 	private void displayOverview() {
 		guiID = INVENTORY_DISPLAY;
+		
+		// sort the player inventory first
+		player.getInventory().sortItemsByID();
+		
+		// display the inventory
 		cardlayout.show(display, "Inventory");
 		overview.requestFocusInWindow();
 	}

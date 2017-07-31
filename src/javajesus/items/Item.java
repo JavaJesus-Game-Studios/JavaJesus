@@ -235,9 +235,6 @@ public class Item implements Serializable {
 	 */
 	public void use(Player player) {
 		
-		// play a sound when used
-		SoundHandler.play(SoundHandler.click);
-		
 		// heal if the item has health
 		if (health > 0) {
 			player.heal(health);
@@ -304,6 +301,14 @@ public class Item implements Serializable {
 		// equal if ids are the same
 		return this.getId() == ((Item) object).getId();
 		
+	}
+	
+	/**
+	 * @param text - pattern to search for
+	 * @return whether or not the text is in the name
+	 */
+	public boolean contains(String text) {
+		return name.contains(text);
 	}
 	
 	/**

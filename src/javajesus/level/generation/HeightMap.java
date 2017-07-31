@@ -89,7 +89,7 @@ public class HeightMap implements Serializable {
 	 * @return Boolean true if there is grass
 	 */
 	private boolean checkGrass(int row, int col, HeightMapTile[][] heightmap) {
-		if (Tile.isGrass(heightmap[row][col].tile()))
+		if (Tile.isGrass(heightmap[row][col].getTile()))
 			return true;
 		else
 			return false;
@@ -125,7 +125,7 @@ public class HeightMap implements Serializable {
 							if (!(row2 < 0) && !(row2 > heightmap.length - 1)
 									&& !(col2 < 0)
 									&& !(col2 > heightmap[0].length - 1)) {
-								average += heightmap[row2][col2].tile();
+								average += heightmap[row2][col2].getTile();
 								avgNum++;
 							}
 						}
@@ -154,13 +154,13 @@ public class HeightMap implements Serializable {
 		int mountainCutoff = cutoff + 60;
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
-				if (heightmap[row][col].tile() <= cutoff) {
+				if (heightmap[row][col].getTile() <= cutoff) {
 					heightmap[row][col].setTile(Tile.SEA1.getId());
-				} else if (heightmap[row][col].tile() > cutoff
-						&& heightmap[row][col].tile() <= dirtCutoff) {
+				} else if (heightmap[row][col].getTile() > cutoff
+						&& heightmap[row][col].getTile() <= dirtCutoff) {
 					heightmap[row][col].setTile(Tile.GRASS().getId());
-				} else if (heightmap[row][col].tile() > dirtCutoff
-						&& heightmap[row][col].tile() <= mountainCutoff) {
+				} else if (heightmap[row][col].getTile() > dirtCutoff
+						&& heightmap[row][col].getTile() <= mountainCutoff) {
 					heightmap[row][col].setTile(Tile.DIRTROAD.getId());
 				} else {
 					heightmap[row][col].setTile(Tile.STONEFLOOR_SMLL.getId());
@@ -171,7 +171,7 @@ public class HeightMap implements Serializable {
 			for (int col = 0; col < heightmap[0].length; col++) {
 				int waterCounter = 0;
 				if (this.checkGrass(row, col, heightmap)
-						|| heightmap[row][col].tile() == Tile.DIRTROAD.getId()) {
+						|| heightmap[row][col].getTile() == Tile.DIRTROAD.getId()) {
 					for (int rowSum = -1; rowSum <= 1; rowSum++) {
 						for (int colSum = -1; colSum <= 1; colSum++) {
 							int row2 = row + rowSum, col2 = col + colSum;
@@ -179,8 +179,8 @@ public class HeightMap implements Serializable {
 									&& !(col2 < 0)
 									&& !(col2 > heightmap[0].length - 1)
 									&& (row2 != 0) && (col2 != 0)) {
-								if (heightmap[row2][col2].tile() == Tile.SEA1.getId()
-										|| heightmap[row2][col2].tile() == Tile.SHORE1.getId()) {
+								if (heightmap[row2][col2].getTile() == Tile.SEA1.getId()
+										|| heightmap[row2][col2].getTile() == Tile.SHORE1.getId()) {
 									waterCounter++;
 									heightmap[row2][col2].setTile(Tile.SHORE1.getId());
 								}
@@ -199,8 +199,8 @@ public class HeightMap implements Serializable {
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[0].length; col++) {
 				boolean groundCheck = false;
-				if (heightmap[row][col].tile() == Tile.SAND.getId()
-						|| Tile.isGrass(heightmap[row][col].tile()))
+				if (heightmap[row][col].getTile() == Tile.SAND.getId()
+						|| Tile.isGrass(heightmap[row][col].getTile()))
 					groundCheck = true;
 				heightmap[row][col].setGroundCheck(groundCheck);
 			}
@@ -260,9 +260,9 @@ public class HeightMap implements Serializable {
 					for (int row2 = -9; row2 < 7; row2++) {
 						for (int col2 = -8; col2 < 7; col2++) {
 							if (row2 > -2 && col2 > -2) {
-								if (heightmap[row + row2][col + col2].tile() == Tile.SEA1.getId()
-										|| heightmap[row + row2][col + col2].tile() == Tile.SHORE1.getId()
-										|| heightmap[row + row2][col + col2].tile() == Tile.STONEFLOOR_SMLL.getId()) {
+								if (heightmap[row + row2][col + col2].getTile() == Tile.SEA1.getId()
+										|| heightmap[row + row2][col + col2].getTile() == Tile.SHORE1.getId()
+										|| heightmap[row + row2][col + col2].getTile() == Tile.STONEFLOOR_SMLL.getId()) {
 									grassChecker = false;
 								}
 							}
@@ -315,7 +315,7 @@ public class HeightMap implements Serializable {
 		int sumTotal = 0;
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[row].length; col++) {
-				sumTotal += heightmap[row][col].tile();
+				sumTotal += heightmap[row][col].getTile();
 			}
 		}
 		int average = (int) ((double) sumTotal)

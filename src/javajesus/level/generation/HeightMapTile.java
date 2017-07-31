@@ -22,8 +22,8 @@ public class HeightMapTile implements Serializable {
 		this.spawner = false;
 	}
 	
-	public int tile() {
-		return tile & 0x000000FF;
+	public int getTile() {
+		return tile;
 	}
 	
 	public boolean groundCheck() {

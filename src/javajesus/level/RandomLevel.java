@@ -60,26 +60,26 @@ public class RandomLevel extends Level {
 		for (int row = 0; row < heightmap.length; row++) {
 			for (int col = 0; col < heightmap[row].length; col++) {
 				int tile = col + row * Level.LEVEL_WIDTH;
-				if (heightmap[row][col].tile() < Level.LEVEL_WIDTH) {
-					levelTiles[tile] = heightmap[row][col].tile();
+				if (heightmap[row][col].getTile() < Level.LEVEL_WIDTH) {
+					levelTiles[tile] = ((byte) heightmap[row][col].getTile()) & 0x000000FF;
 				}
 				if (heightmap[row][col].getHouse()) {
-					levelTiles[tile] = heightmap[row][col].tile();
+					levelTiles[tile] = ((byte) heightmap[row][col].getTile()) & 0x000000FF;
 					add(getBuilding(col * 8, row * 8));
 					if (rand.nextInt(4) == 0) {
 						add(NPC.getRandomNPC(this, (col - 1) * 8, (row + 6) * 8));
 					}
 				}
 				if (heightmap[row][col].getCave()) {
-					levelTiles[tile] = heightmap[row][col].tile();
+					levelTiles[tile] = ((byte) heightmap[row][col].getTile()) & 0x000000FF;
 					add(new CaveEntrance(this, col * 8 - 18, row * 8 - 28,
 							new RandomCave(5, this, new Point(col * 8, row * 8))));
 				}
 				if (heightmap[row][col].getSpawner()) {
-					levelTiles[tile] = heightmap[row][col].tile();
+					levelTiles[tile] = ((byte) heightmap[row][col].getTile()) & 0x000000FF;
 					add(new Spawner(this, col * 8, row * 8, Spawner.DEMON));
 				}
-				if (heightmap[row][col].tile() == 0) {
+				if (heightmap[row][col].getTile() == 0) {
 					if (row > heightmap.length / 2.0 && col > heightmap[0].length / 2.0) {
 						add(new CaveEntrance(this, col * 8 - 18, row * 8 - 28, getSpawnPoint()));
 
