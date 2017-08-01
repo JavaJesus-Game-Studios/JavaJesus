@@ -342,7 +342,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	}
 	
 	// TODO move
-	boolean raining = true;
+	boolean raining = false;
 	
 	/**
 	 * Displays graphics on the window
