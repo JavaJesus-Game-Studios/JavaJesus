@@ -392,7 +392,10 @@ public class Tile {
 				SpriteSheet.wasteland, new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
 		public static final Tile WASTELAND_GROUND8 = new Tile(160, false, 0xFF8e8e8e, 7, 0,
 				SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
-		
+		/**
+		 * Shit's getting deleted, this frees up 8 tiles 
+		 * 
+		 *
 		public static final Tile DWASTELAND_GROUND1 = new Tile(161, false, 0xFF8e8e8e, 0, 1,
 				SpriteSheet.wasteland, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
 		public static final Tile DWASTELAND_GROUND2 = new Tile(162, false, 0xFF8e8e8e, 1, 1,
@@ -409,6 +412,7 @@ public class Tile {
 				SpriteSheet.wasteland, new int[] { 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
 		public static final Tile DWASTELAND_GROUND8 = new Tile(168, false, 0xFF8e8e8e, 7, 1,
 				SpriteSheet.wasteland, new int[]{ 0xFF8e8e8e, 0xFF000000, 0xFF000000 });
+		*/
 		
 			//TRANSITIONS
 			public static final Tile WASTELAND_DIRT_BTTM_RGHT = new Tile(169, false, 0xFF8e8e8e, 0, 2,
