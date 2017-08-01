@@ -1,6 +1,7 @@
-package javajesus.entities.npcs;
+package javajesus.entities.npcs.characters;
 
 import javajesus.entities.Entity;
+import javajesus.entities.npcs.NPC;
 import javajesus.level.Level;
 import javajesus.quests.SampleQuest;
 

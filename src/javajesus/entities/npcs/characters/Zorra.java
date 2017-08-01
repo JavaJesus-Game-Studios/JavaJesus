@@ -1,7 +1,8 @@
-package javajesus.entities.npcs;
+package javajesus.entities.npcs.characters;
 
 import javajesus.MessageHandler;
 import javajesus.entities.Entity;
+import javajesus.entities.npcs.NPC;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 

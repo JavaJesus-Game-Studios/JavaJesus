@@ -5,30 +5,30 @@ import javajesus.entities.Type;
 import javajesus.level.Level;
 
 /*
- * Generic Peasant npc
+ * Generic Citizen NPC
  */
-public class Peasant extends NPC implements Type {
+public class Citizen extends NPC implements Type {
 
-	// types of peasants
+	// types of citizens
 	public static final int MALE = 0, FEMALE = 1, BOY = 2, GIRL = 3;
-	
-	// the type of peasant
+
+	// the type of citizen
 	private byte type;
 
 	/**
-	 * Peasant ctor()
+	 * Citizen ctor()
 	 * 
 	 * @param level - level it is on
 	 * @param x - x coordinate
 	 * @param y - y coordinate
 	 * @param type - Peasant.MALE/FEMALE/BOY/GIRL
 	 */
-	public Peasant(Level level, int x, int y, int type) {
+	public Citizen(Level level, int x, int y, int type) {
 		this(level, x, y, type, "", 0);
 	}
-	
+
 	/**
-	 * Peasant ctor()
+	 * Citizen ctor()
 	 * 
 	 * @param level - level it is on
 	 * @param x - x coordinate
@@ -37,9 +37,9 @@ public class Peasant extends NPC implements Type {
 	 * @param walkPath - walk path
 	 * @param walkDistance - walk distance
 	 */
-	public Peasant(Level level, int x, int y, int type, String walkPath, int walkDistance) {
-		super(level, "Peasant", x, y, 1, 16, 16, 100, new int[] { 0xFF111111,
-				0xFF715B17, 0xFFEDC5AB }, 0, 16, walkPath, walkDistance);
+	public Citizen(Level level, int x, int y, int type, String walkPath, int walkDistance) {
+		super(level, "Citizen", x, y, 1, 16, 16, 100, new int[] { 0xFF111111,
+				0xFF715B17, 0xFFEDC5AB }, 0, 0, walkPath, walkDistance);
 		
 		// instance data
 		this.type = (byte) type;
@@ -47,7 +47,7 @@ public class Peasant extends NPC implements Type {
 		// calculate the tile offsets
 		update();
 	}
-	
+
 	/**
 	 * Sets the correct x and y tiles on the spritesheet
 	 */
@@ -55,22 +55,22 @@ public class Peasant extends NPC implements Type {
 		switch (type) {
 		case FEMALE: {
 			xTile = 0;
-			yTile = 18;
+			yTile = 8;
 			break;
 		}
 		case BOY: {
 			xTile = 14;
-			yTile = 16;
+			yTile = 0;
 			break;
 		}
 		case GIRL: {
 			xTile = 14;
-			yTile = 18;
+			yTile = 8;
 			break;
 		}
 		default: // MALE
 			xTile = 0;
-			yTile = 16;
+			yTile = 0;
 			break;
 		}
 	}
@@ -82,7 +82,7 @@ public class Peasant extends NPC implements Type {
 
 	@Override
 	public int getDefense() {
-		return 0;
+		return 2;
 	}
 
 	@Override

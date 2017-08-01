@@ -48,26 +48,26 @@ import javajesus.entities.monsters.Cyclops;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
-import javajesus.entities.npcs.Bautista;
-import javajesus.entities.npcs.Daughter;
-import javajesus.entities.npcs.Istrahiim;
-import javajesus.entities.npcs.Jesus;
-import javajesus.entities.npcs.Jobs;
+import javajesus.entities.npcs.Citizen;
 import javajesus.entities.npcs.Knight;
-import javajesus.entities.npcs.Kobe;
-import javajesus.entities.npcs.LordHillsborough;
-import javajesus.entities.npcs.Octavius;
 import javajesus.entities.npcs.Peasant;
-import javajesus.entities.npcs.Ranchero;
-import javajesus.entities.npcs.Son;
-import javajesus.entities.npcs.Wife;
-import javajesus.entities.npcs.Zorra;
 import javajesus.entities.npcs.aggressive.Companion;
 import javajesus.entities.npcs.aggressive.Gorilla;
 import javajesus.entities.npcs.aggressive.NativeAmerican;
 import javajesus.entities.npcs.aggressive.PoliceOfficer;
 import javajesus.entities.npcs.aggressive.SWATOfficer;
 import javajesus.entities.npcs.aggressive.TechWarrior;
+import javajesus.entities.npcs.characters.Bautista;
+import javajesus.entities.npcs.characters.Daughter;
+import javajesus.entities.npcs.characters.Jesus;
+import javajesus.entities.npcs.characters.Jobs;
+import javajesus.entities.npcs.characters.Kobe;
+import javajesus.entities.npcs.characters.LordHillsborough;
+import javajesus.entities.npcs.characters.Octavius;
+import javajesus.entities.npcs.characters.Ranchero;
+import javajesus.entities.npcs.characters.Son;
+import javajesus.entities.npcs.characters.Wife;
+import javajesus.entities.npcs.characters.Zorra;
 import javajesus.entities.solid.buildings.ApartmentHighRise;
 import javajesus.entities.solid.buildings.Castle;
 import javajesus.entities.solid.buildings.CastleTower;
@@ -1225,7 +1225,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			entityList[Entity.MONKEY] = new EntityGUI(new Monkey(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.BAUTISTA] = new EntityGUI(new Bautista(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.DAUGHTER] = new EntityGUI(new Daughter(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
-			entityList[Entity.ISTRAHIIM] = new EntityGUI(new Istrahiim(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.CITIZEN] = new EntityGUI(new Citizen(null, 0, 0, Citizen.MALE), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.JESUS] = new EntityGUI(new Jesus(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.JOBS] = new EntityGUI(new Jobs(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.KNIGHT] = new EntityGUI(new Knight(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
@@ -1427,8 +1427,8 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
                 return new EntityGUI(new Bautista(null, 0, 0), 0, 0, 2, 2);
 			case Entity.DAUGHTER:
                 return new EntityGUI(new Daughter(null, 0, 0), 0, 0, 2, 2);
-			case Entity.ISTRAHIIM:
-                return new EntityGUI(new Istrahiim(null, 0, 0), 0, 0, 2, 2);
+			case Entity.CITIZEN:
+                return new EntityGUI(new Citizen(null, 0, 0, Citizen.MALE), 0, 0, 2, 2);
 			case Entity.JESUS:
                 return new EntityGUI(new Jesus(null, 0, 0), 0, 0, 2, 2);
 			case Entity.JOBS:
