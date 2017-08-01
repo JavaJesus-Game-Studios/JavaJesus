@@ -715,7 +715,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			setLineWrap(true);
 			setWrapStyleWord(true);
 			setForeground(Color.WHITE);
-			setBorder(new EmptyBorder(0, 12, 12, 4));
+			setBorder(new EmptyBorder(15, 15, 12, 4));
 			
 			// make an invisible background from the text
 			setBackground(new Color(0, 0, 0, 0));
