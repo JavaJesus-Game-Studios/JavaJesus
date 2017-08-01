@@ -30,7 +30,8 @@ public abstract class Entity implements Serializable {
             COMPUTER_MONITOR = 82, COMPUTER_TOWER = 83, DINING_TABLE = 84, FILING_CABINET = 85, 
             LONG_TABLE = 86, NIGHTSTAND = 87, SOFA = 88, SQUARE_TABLE = 89, STOOL = 90, TELEVISION = 91,
             THRONE = 92, DEAD_SEQUOIA = 93, GENERIC_TREE = 94, LARGE_SEQUOIA = 95, MEDIUM_SEQUOIA = 96,
-            SMALL_SEQUOIA = 97, BOAT = 98, CENTURY_LESABRE = 99, HORSE = 100, SPORTS_CAR = 101, TRUCK = 102, MODERN_SKYSCRAPER = 103;
+            SMALL_SEQUOIA = 97, BOAT = 98, CENTURY_LESABRE = 99, HORSE = 100, SPORTS_CAR = 101, TRUCK = 102, MODERN_SKYSCRAPER = 103,
+            COW = 104, FOX = 105, DOG = 106, CAT = 107;
 	
 	// number of unique entities worth saving
 	public static final int NUM_ENTITIES = 103;

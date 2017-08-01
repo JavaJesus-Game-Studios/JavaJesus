@@ -25,6 +25,7 @@ import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.gui.OverviewGUI;
 import javajesus.gui.PauseGUI;
+import javajesus.level.RandomCave;
 import javajesus.level.tile.Tile;
 import javajesus.utility.GameMode;
 import javajesus.utility.JJStrings;
@@ -121,6 +122,23 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// used for setting the overlay
 	private int overlayRed = 255;
 	private float overlayOpacity;
+	
+	// Displays the raining shader
+	private boolean raining = false;
+	
+	// chance of rain each new time of day
+	private static final double CHANCE_OF_RAIN = 0.30;
+	
+	// the time in ticks
+	private static int time;
+	
+	// the number of ticks in a day
+	private static final int LENGTH_OF_FULL_CYCLE = 24000;
+	
+	// constants for calculating time
+	private static final int TIME_LENGTH = LENGTH_OF_FULL_CYCLE / 4;
+	private static final float SHADER_TIME_STRENGTH = 0.5f;
+	private static final float increment = (1f / TIME_LENGTH) * SHADER_TIME_STRENGTH;
 	
 	// center point, the player, on the screen in respect to level
 	private int xOffset, yOffset;
@@ -295,27 +313,31 @@ public class JavaJesus extends Canvas implements IGameLogic {
 
 	}
 	
-	// TODO modify and move them up
-	int time = 0;
-	float increment = (1f / 300) * 0.5f;
-	
 	/**
 	 * Updates the time and shading factors of the screen
 	 */
 	public void updateTime() {
 		
-		time = (time + 1) % 1200;
+		// check for rain every segment
+		if (time % TIME_LENGTH == 0) {
+			if (Math.random() < CHANCE_OF_RAIN) {
+				raining = !raining;
+			}
+		}
+		
+		// update time
+		time = (time + 1) % LENGTH_OF_FULL_CYCLE;
 		
 		// normal
-		if (time < 300) {
+		if (time < TIME_LENGTH) {
 			
 			// and get more opaque
-			if (overlayOpacity < 0.5f) {
+			if (overlayOpacity < SHADER_TIME_STRENGTH) {
 				overlayOpacity += increment;
 			}
 
 			// dusk
-		} else if (time < 600) {
+		} else if (time < TIME_LENGTH * 2) {
 			
 			// screen will get more black
 			if (overlayRed > 0) {
@@ -323,7 +345,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			}
 
 			// night
-		} else if (time < 900) {
+		} else if (time < TIME_LENGTH * 3) {
 			
 			// screen will get more red
 			if (overlayRed < 255) {
@@ -331,7 +353,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			}
 			
 			// dawn
-		} else if (time < 1200) {
+		} else if (time < TIME_LENGTH * 4) {
 			
 			// screen will get lighter
 			if (overlayOpacity >= increment) {
@@ -340,9 +362,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			
 		}
 	}
-	
-	// TODO move
-	boolean raining = true;
 	
 	/**
 	 * Displays graphics on the window
@@ -383,25 +402,33 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		
-		// now draw an overlay
-		if (!raining) {
-		((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, overlayOpacity));
-		((Graphics2D) g).setPaint(new RadialGradientPaint(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 
-				WINDOW_WIDTH / 2, new float[] {0f, 0.2f}, new Color[] {Color.WHITE, new Color(overlayRed, 0, 0)}));
-		g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-		
-		// back to full opacity
-		((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-		}
-		
-		// experiment with rain
-		if (raining) {
+		// if player is in cave, draw cave shader
+		if (player.getLevel() instanceof RandomCave) {
+			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.95f));
+			((Graphics2D) g).setPaint(new RadialGradientPaint(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 
+					WINDOW_WIDTH / 2, new float[] {0f, 0.85f}, new Color[] {new Color(255, 255, 255, 0), Color.BLACK}));
+			g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+			
+			// back to full opacity
+			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+			
+			// draw the time of day shader
+		} else if (!raining) {
+			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, overlayOpacity));
+			g.setColor(new Color(overlayRed, 0, 0));
+			g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+			
+			// back to full opacity
+			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+			
+			// draw the raining animation
+		} else {
 			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 			g.setColor(Color.BLUE);
-			for (int i = 0; i < 50; i++) {
+			for (int i = 0; i < 40; i++) {
 				g.drawRect((int) (Math.random() * WINDOW_WIDTH), (int) (Math.random() * WINDOW_HEIGHT), 2, 2);
 			}
 		}
