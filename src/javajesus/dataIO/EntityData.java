@@ -15,6 +15,10 @@ import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
 import javajesus.entities.Spawner;
 import javajesus.entities.Type;
+import javajesus.entities.animals.Cat;
+import javajesus.entities.animals.Cow;
+import javajesus.entities.animals.Dog;
+import javajesus.entities.animals.Fox;
 import javajesus.entities.monsters.Centaur;
 import javajesus.entities.monsters.Cyclops;
 import javajesus.entities.monsters.Demon;
@@ -499,6 +503,14 @@ public class EntityData {
 	            return new SWATOfficer(level, x, y);
 	        case Entity.TECH_WARRIOR:
 	            return new TechWarrior(level, x, y);
+	        case Entity.COW:
+	            return new Cow(level, x, y);
+	        case Entity.CAT:
+	            return new Cat(level, x, y);
+	        case Entity.DOG:
+	            return new Dog(level, x, y);
+	        case Entity.FOX:
+	            return new Fox(level, x, y);
 
 	        default:
 	            return null;

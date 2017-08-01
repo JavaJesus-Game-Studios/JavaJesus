@@ -39,6 +39,10 @@ import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
 import javajesus.entities.Spawner;
+import javajesus.entities.animals.Cat;
+import javajesus.entities.animals.Cow;
+import javajesus.entities.animals.Dog;
+import javajesus.entities.animals.Fox;
 import javajesus.entities.monsters.Centaur;
 import javajesus.entities.monsters.Cyclops;
 import javajesus.entities.monsters.Demon;
@@ -1234,6 +1238,10 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			entityList[Entity.POLICE_OFFICER] = new EntityGUI(new PoliceOfficer(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.SWAT_OFFICER] = new EntityGUI(new SWATOfficer(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.TECH_WARRIOR] = new EntityGUI(new TechWarrior(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.CAT] = new EntityGUI(new Cat(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.COW] = new EntityGUI(new Cow(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 3);
+			entityList[Entity.DOG] = new EntityGUI(new Dog(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.FOX] = new EntityGUI(new Fox(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1445,6 +1453,14 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
                 return new EntityGUI(new SWATOfficer(null, 0, 0), 0, 0, 2, 2);
 			case Entity.TECH_WARRIOR:
                 return new EntityGUI(new TechWarrior(null, 0, 0), 0, 0, 2, 2);
+			case Entity.COW:
+                return new EntityGUI(new Cow(null, 0, 0), 0, 0, 2, 3);
+			case Entity.CAT:
+                return new EntityGUI(new Cat(null, 0, 0), 0, 0, 2, 2);
+			case Entity.DOG:
+                return new EntityGUI(new Dog(null, 0, 0), 0, 0, 2, 2);
+			case Entity.FOX:
+                return new EntityGUI(new Fox(null, 0, 0), 0, 0, 2, 2);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

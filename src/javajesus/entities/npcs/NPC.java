@@ -50,6 +50,9 @@ public abstract class NPC extends Mob {
 
 	// determines if the npc is moving in any direction
 	protected boolean isMoving;
+	
+	// whether or not to render the npc
+	private boolean customRender;
 
 	// allows npcs to move every other tick
 	private int moveTick;
@@ -60,37 +63,26 @@ public abstract class NPC extends Mob {
 	/**
 	 * Creates a NPC that interacts with the environment
 	 * 
-	 * @param level
-	 *            the level to place it on
-	 * @param name
-	 *            the name of the NPC
-	 * @param x
-	 *            the X coord
-	 * @param y
-	 *            the Y coord
-	 * @param speed
-	 *            the base speed
-	 * @param width
-	 *            the width in pixels
-	 * @param height
-	 *            the height in pixels
-	 * @param health
-	 *            the base health
-	 * @param color
-	 *            the color set
-	 * @param xTile
-	 *            the column on the spritesheet
-	 * @param yTile
-	 *            the row on the spritesheet
-	 * @param walkPath
-	 *            the type of idle formation
-	 * @param walkDistance
-	 *            the distance of each idle formation
+	 * @param level - the level to place it on
+	 * @param name - the name of the NPC
+	 * @param x - the X coord
+	 * @param y - the Y coord
+	 * @param speed - the base speed
+	 * @param width - the width in pixels
+	 * @param height - the height in pixels
+	 * @param health - the base health
+	 * @param color - the color set
+	 * @param xTile - the column on the spritesheet
+	 * @param yTile - the row on the spritesheet
+	 * @param walkPath - the type of idle formation
+	 * @param walkDistance - the distance of each idle formation
+	 * @param customRender - whether or not to render the npc
 	 */
 	public NPC(Level level, String name, int x, int y, int speed, int width, int height, int health, int[] color,
-			int xTile, int yTile, String walkPath, int walkDistance) {
+			int xTile, int yTile, String walkPath, int walkDistance, boolean customRender) {
 		super(level, name, x, y, speed, width, height, SpriteSheet.mobFriends, health);
 
+		// instance data
 		this.color = color;
 		this.xTile = xTile;
 		this.yTile = yTile;
@@ -98,6 +90,7 @@ public abstract class NPC extends Mob {
 		this.walkDistance = walkDistance;
 		this.xPos = x;
 		this.yPos = y;
+		this.customRender = customRender;
 		this.setBounds(getX(), getY(), width, height);
 
 		// create the health bar
@@ -105,6 +98,28 @@ public abstract class NPC extends Mob {
 			createHealthBar();
 		}
 
+	}
+	
+	/**
+	 * Creates a NPC that interacts with the environment
+	 * 
+	 * @param level - the level to place it on
+	 * @param name - the name of the NPC
+	 * @param x - the X coord
+	 * @param y - the Y coord
+	 * @param speed - the base speed
+	 * @param width - the width in pixels
+	 * @param height - the height in pixels
+	 * @param health - the base health
+	 * @param color - the color set
+	 * @param xTile - the column on the spritesheet
+	 * @param yTile - the row on the spritesheet
+	 * @param walkPath - the type of idle formation
+	 * @param walkDistance - the distance of each idle formation
+	 */
+	public NPC(Level level, String name, int x, int y, int speed, int width, int height, int health, int[] color,
+			int xTile, int yTile, String walkPath, int walkDistance) {
+		this(level, name, x, y, speed, width, height, health, color, xTile, yTile, walkPath, walkDistance, false);
 	}
 
 	/**
@@ -194,6 +209,16 @@ public abstract class NPC extends Mob {
 	 */
 	public void render(Screen screen) {
 		super.render(screen);
+
+		// notifies the player this NPC has a quest
+		if (currentQuest != null && !isTalking) {
+			JJFont.render("?", screen, getX() + 4, getY() - 10, mobHitColor, 1);
+		}
+		
+		// don't  render if class is overriding render
+		if (customRender) {
+			return;
+		}
 		
 		// default color
 		int[] color = this.color;
@@ -255,11 +280,6 @@ public abstract class NPC extends Mob {
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
 					(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
 
-		}
-
-		// notifies the player this NPC has a quest
-		if (currentQuest != null && !isTalking) {
-			JJFont.render("?", screen, xOffset + 4, yOffset - 10, new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
 		}
 
 	}

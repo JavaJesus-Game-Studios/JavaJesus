@@ -1,16 +1,53 @@
 package javajesus.entities.animals;
 
-import javajesus.entities.Mob;
+import javajesus.entities.npcs.NPC;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 
 /*
  * An animal is just a little creature that has a unique movement pattern
  */
-public abstract class Animal extends Mob {
+public abstract class Animal extends NPC {
 
-	public Animal(Level level,int x, int y, String name) {
-		super(level, name, x, y, 1, 16, 16, SpriteSheet.quadrapeds, 100);
+	/**
+	 * Creates an animal
+	 * 
+	 * @param level - level it is on
+	 * @param name - name of the animal
+	 * @param x - x coord
+	 * @param y - y coord
+	 * @param width - width in pixels
+	 * @param height - height in pixels
+	 * @param sheet - spritesheet to use
+	 * @param yTile - y position on spritesheet
+	 * @param color - the color set of the animal
+	 * @param customRender - whether or not to use custom rendering
+	 */
+	public Animal(Level level, String name, int x, int y, int width, int height, SpriteSheet sheet, int yTile,
+	        int[] color, boolean customRender) {
+		super(level, name, x, y, 1, width, height, 100, color, 0, yTile, "cross", 10, customRender);
+
+		// change the spritesheet
+		this.setSpriteSheet(sheet);
+
+	}
+
+	/**
+	 * Creates an animal
+	 * 
+	 * @param level - level it is on
+	 * @param name - name of the animal
+	 * @param x - x coord
+	 * @param y - y coord
+	 * @param width - width in pixels
+	 * @param height - height in pixels
+	 * @param sheet - spritesheet to use
+	 * @param yTile - y position on spritesheet
+	 * @param color - the color set of the animal
+	 */
+	public Animal(Level level, String name, int x, int y, int width, int height, SpriteSheet sheet, int yTile,
+	        int[] color) {
+		this(level, name, x, y, width, height, sheet, yTile, color, false);
 	}
 
 	@Override
