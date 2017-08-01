@@ -20,6 +20,9 @@ public class Cyclops extends Monster {
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
+	
+	// base stats
+	private static final int BASE_STRENGTH = 20, BASE_DEFENSE = 10;
 
 	// color set of a cyclops
 	private static final int[] color = { 0xFF111111, 0xFFFFD99C, 0xFFFFFFFF };
@@ -178,16 +181,19 @@ public class Cyclops extends Monster {
 		}
 	}
 
-	/**
-	 * @return the Cyclop's strength
-	 */
-	public int getStrength() {
-		return 20;
-	}
-
 	@Override
 	public byte getId() {
 		return Entity.CYCLOPS;
+	}
+	
+	@Override
+	public int getStrength() {
+		return BASE_STRENGTH;
+	}
+
+	@Override
+	public int getDefense() {
+		return BASE_DEFENSE;
 	}
 
 }

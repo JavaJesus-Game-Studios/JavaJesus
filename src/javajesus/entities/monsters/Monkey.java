@@ -19,6 +19,9 @@ public class Monkey extends Monster {
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
+	
+	// base stats
+	private static final int BASE_STRENGTH = 7, BASE_DEFENSE = 5;
 
 	// color set of a monkey
 	private static final int[] color = { 0xFF2A1609, 0xFF391E0C, 0xFFB08162 };
@@ -146,11 +149,14 @@ public class Monkey extends Monster {
 		
 	}
 
-	/**
-	 * @return the Cyclop's strength
-	 */
+	@Override
 	public int getStrength() {
-		return 10;
+		return BASE_STRENGTH;
+	}
+
+	@Override
+	public int getDefense() {
+		return BASE_DEFENSE;
 	}
 
 	@Override

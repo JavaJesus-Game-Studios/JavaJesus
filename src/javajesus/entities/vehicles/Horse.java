@@ -2,6 +2,7 @@ package javajesus.entities.vehicles;
 
 import java.awt.event.KeyEvent;
 
+import javajesus.dataIO.EntityData;
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.entities.Player;
@@ -33,7 +34,7 @@ public class Horse extends NPC implements Ridable {
 	private static final int WALKING_ANIMATION_SPEED = 3;
 
 	// the type/color of horse
-	public static final int BROWN = 0, WHITE = 3, BLACK = 6;
+	public static final byte BROWN = 0, WHITE = 3, BLACK = 6;
 	
 	// horse speed
 	private static final int HORSE_SPEED = 3;
@@ -41,20 +42,13 @@ public class Horse extends NPC implements Ridable {
 	/**
 	 * Creates a horse
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param defaultHealth
-	 *            the default health
-	 * @param walkPath
-	 *            the walk path
-	 * @param walkDistance
-	 *            the walk distance
-	 * @param type
-	 *            the color of the horse
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param defaultHealth - the default health
+	 * @param walkPath - the walk path
+	 * @param walkDistance - the walk distance
+	 * @param type - the color of the horse
 	 */
 	public Horse(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance, int type) {
 		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, new int[] {0, 0, 0}, NOT_USED_XTILE, type, walkPath,
@@ -66,19 +60,14 @@ public class Horse extends NPC implements Ridable {
 	/**
 	 * Creates a horse
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param defaultHealth
-	 *            the default health
-	 * @param type
-	 *            the color of the horse
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param defaultHealth - the default health
+	 * @param type - the color of the horse
 	 */
-	public Horse(Level level, int x, int y, int defaultHealth, int type) {
-		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, null, NOT_USED_XTILE, type, "stand", 0);
+	public Horse(Level level, int x, int y) {
+		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, 100, null, NOT_USED_XTILE, BROWN, "stand", 0);
 		setSpriteSheet(SpriteSheet.playerHorse);
 
 	}
@@ -289,14 +278,17 @@ public class Horse extends NPC implements Ridable {
 
 	@Override
 	public int getStrength() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getDefense() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 3;
+	}
+	
+	@Override
+	public long getData() {
+		return EntityData.type4(getX(), getY(), getMaxHealth(), (byte) yTile);
 	}
 
 	@Override

@@ -113,6 +113,11 @@ import javajesus.entities.solid.trees.GenericTree;
 import javajesus.entities.solid.trees.LargeSequoia;
 import javajesus.entities.solid.trees.MediumSequoia;
 import javajesus.entities.solid.trees.SmallSequoia;
+import javajesus.entities.vehicles.Boat;
+import javajesus.entities.vehicles.CenturyLeSabre;
+import javajesus.entities.vehicles.Horse;
+import javajesus.entities.vehicles.SportsCar;
+import javajesus.entities.vehicles.Truck;
 import javajesus.level.Level;
 
 /*
@@ -511,6 +516,16 @@ public class EntityData {
 	            return new Dog(level, x, y);
 	        case Entity.FOX:
 	            return new Fox(level, x, y);
+	        case Entity.HORSE:
+	            return new Horse(level, x, y);
+	        case Entity.CENTURY_LESABRE:
+	            return new CenturyLeSabre(level, x, y);
+	        case Entity.TRUCK:
+	            return new Truck(level, x, y);
+	        case Entity.SPORTS_CAR:
+	            return new SportsCar(level, x, y);
+	        case Entity.BOAT:
+	            return new Boat(level, x, y);
 
 	        default:
 	            return null;

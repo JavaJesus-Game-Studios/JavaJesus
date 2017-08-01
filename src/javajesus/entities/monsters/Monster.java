@@ -291,18 +291,6 @@ public abstract class Monster extends Mob {
 			break;
 		}
 	}
-
-	@Override
-	public int getStrength() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getDefense() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
 	@Override
 	public long getData() {

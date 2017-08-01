@@ -25,6 +25,9 @@ public class Demon extends Monster implements LongRange {
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 3;
+	
+	// base stats
+	private static final int BASE_STRENGTH = 4, BASE_DEFENSE = 0;
 
 	// color set of a demon
 	private static final int[] color = { 0xFF111111, 0xFF700000, 0xFFDBA800 };
@@ -216,17 +219,19 @@ public class Demon extends Monster implements LongRange {
 		super.move(dx, dy);
 	}
 
-	/**
-	 * Sets the demon's strength
-	 */
-	@Override
-	public int getStrength() {
-		return 4;
-	}
-
 	@Override
 	public Double getRange() {
 		return standRange;
+	}
+	
+	@Override
+	public int getStrength() {
+		return BASE_STRENGTH;
+	}
+
+	@Override
+	public int getDefense() {
+		return BASE_DEFENSE;
 	}
 
 	@Override

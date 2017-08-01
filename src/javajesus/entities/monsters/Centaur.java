@@ -16,6 +16,9 @@ public class Centaur extends Monster {
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
+	
+	// base stats
+	private static final int BASE_STRENGTH = 8, BASE_DEFENSE = 2;
 
 	// color set of a centaur
 	private static final int[] color = { 0xFF111111, 0xFF8F4C1F, 0xFFEDC5AB };
@@ -181,17 +184,22 @@ public class Centaur extends Monster {
 		super.dropLoot();
 	}
 	
+	@Override
+	public byte getId() {
+		return Entity.CENTAUR;
+	}
+	
 	/**
 	 * Sets the centaur's strength
 	 */
 	@Override
 	public int getStrength() {
-		return 8;
+		return BASE_STRENGTH;
 	}
 
 	@Override
-	public byte getId() {
-		return Entity.CENTAUR;
+	public int getDefense() {
+		return BASE_DEFENSE;
 	}
 
 }

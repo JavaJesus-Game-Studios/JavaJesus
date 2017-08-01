@@ -137,6 +137,11 @@ import javajesus.entities.solid.trees.GenericTree;
 import javajesus.entities.solid.trees.LargeSequoia;
 import javajesus.entities.solid.trees.MediumSequoia;
 import javajesus.entities.solid.trees.SmallSequoia;
+import javajesus.entities.vehicles.Boat;
+import javajesus.entities.vehicles.CenturyLeSabre;
+import javajesus.entities.vehicles.Horse;
+import javajesus.entities.vehicles.SportsCar;
+import javajesus.entities.vehicles.Truck;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
 
@@ -1242,6 +1247,11 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			entityList[Entity.COW] = new EntityGUI(new Cow(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 3);
 			entityList[Entity.DOG] = new EntityGUI(new Dog(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.FOX] = new EntityGUI(new Fox(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.HORSE] = new EntityGUI(new Horse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 3);
+			entityList[Entity.CENTURY_LESABRE] = new EntityGUI(new CenturyLeSabre(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 5);
+			entityList[Entity.SPORTS_CAR] = new EntityGUI(new SportsCar(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 5);
+			entityList[Entity.BOAT] = new EntityGUI(new Boat(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 5);
+			entityList[Entity.TRUCK] = new EntityGUI(new Truck(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 5);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1461,6 +1471,16 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
                 return new EntityGUI(new Dog(null, 0, 0), 0, 0, 2, 2);
 			case Entity.FOX:
                 return new EntityGUI(new Fox(null, 0, 0), 0, 0, 2, 2);
+			case Entity.BOAT:
+                return new EntityGUI(new Boat(null, 0, 0), 0, 0, 4, 5);
+			case Entity.CENTURY_LESABRE:
+                return new EntityGUI(new CenturyLeSabre(null, 0, 0), 0, 0, 4, 5);
+			case Entity.HORSE:
+                return new EntityGUI(new Horse(null, 0, 0), 0, 0, 2, 3);
+			case Entity.SPORTS_CAR:
+                return new EntityGUI(new SportsCar(null, 0, 0), 0, 0, 4, 5);
+			case Entity.TRUCK:
+                return new EntityGUI(new Truck(null, 0, 0), 0, 0, 4, 5);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

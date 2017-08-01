@@ -34,10 +34,9 @@ public class Boat extends Vehicle {
 	 * @param x - the x coord
 	 * @param y - the y coord
 	 * @param speed - the speed of the boat
-	 * @param defaultHealth - the default health of the boat
 	 */
-	public Boat(Level level, int x, int y, int defaultHealth) {
-		super(level, "Boat", x, y, 2, LONG_SIDE, SHORT_SIDE, SHORT_SIDE, LONG_SIDE, SpriteSheet.vehicles, defaultHealth);
+	public Boat(Level level, int x, int y) {
+		super(level, "Boat", x, y, 2, LONG_SIDE, SHORT_SIDE, SHORT_SIDE, LONG_SIDE, SpriteSheet.vehicles, 100);
 		getColor();
 	}
 	

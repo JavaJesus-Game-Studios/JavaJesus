@@ -33,6 +33,9 @@ public class GangMember extends Monster implements LongRange, Type {
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
+	
+	// base stats
+	private static final int BASE_STRENGTH = 6, BASE_DEFENSE = 2;
 
 	// color set of a gang member
 	private static final int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB };
@@ -188,12 +191,14 @@ public class GangMember extends Monster implements LongRange, Type {
 				SoundHandler.revolver));
 	}
 
-	/**
-	 * Sets the Gangster's strength
-	 */
 	@Override
 	public int getStrength() {
-		return 5;
+		return BASE_STRENGTH;
+	}
+
+	@Override
+	public int getDefense() {
+		return BASE_DEFENSE;
 	}
 
 	/**
