@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.List;
 
+import javajesus.entities.Chest;
 import javajesus.entities.Damageable;
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
@@ -96,17 +97,18 @@ import javajesus.entities.solid.buildings.techtopia.RadarDish;
 import javajesus.entities.solid.buildings.techtopia.TechTopiaCityHall;
 import javajesus.entities.solid.buildings.techtopia.WeirdTechBuilding1;
 import javajesus.entities.solid.buildings.techtopia.WeirdTechBuilding2;
+import javajesus.entities.solid.furniture.Bar;
 import javajesus.entities.solid.furniture.Bed;
 import javajesus.entities.solid.furniture.Bench;
-import javajesus.entities.solid.furniture.ChairFront;
+import javajesus.entities.solid.furniture.CardTable;
 import javajesus.entities.solid.furniture.ChairSide;
-import javajesus.entities.solid.furniture.Chest;
 import javajesus.entities.solid.furniture.ComputerMonitor;
 import javajesus.entities.solid.furniture.ComputerTower;
-import javajesus.entities.solid.furniture.DiningTable;
 import javajesus.entities.solid.furniture.FilingCabinet;
 import javajesus.entities.solid.furniture.LongTable;
 import javajesus.entities.solid.furniture.Nightstand;
+import javajesus.entities.solid.furniture.PoolTable;
+import javajesus.entities.solid.furniture.ShortTable;
 import javajesus.entities.solid.furniture.Sofa;
 import javajesus.entities.solid.furniture.SquareTable;
 import javajesus.entities.solid.furniture.Stool;
@@ -328,8 +330,8 @@ public class EntityData {
 	            return new Bed(level, x, y);
 	        case Entity.BENCH:
 	            return new Bench(level, x, y);
-	        case Entity.CHAIR_FRONT:
-	            return new ChairFront(level, x, y);
+	        case Entity.POOL_TABLE:
+	            return new PoolTable(level, x, y);
 	        case Entity.CHAIR_SIDE:
 	            return new ChairSide(level, x, y);
 	        case Entity.CHEST:
@@ -339,7 +341,7 @@ public class EntityData {
 	        case Entity.COMPUTER_TOWER:
 	            return new ComputerTower(level, x, y);
 	        case Entity.DINING_TABLE:
-	            return new DiningTable(level, x, y);
+	            return new ShortTable(level, x, y);
 	        case Entity.FILING_CABINET:
 	            return new FilingCabinet(level, x, y);
 	        case Entity.LONG_TABLE:
@@ -538,6 +540,10 @@ public class EntityData {
 	            return new Panchombre(level, x, y);
 	        case Entity.SKELETON:
 	            return new Skeleton(level, x, y);
+	        case Entity.CARD_TABLE:
+	            return new CardTable(level, x, y);
+	        case Entity.BAR:
+	            return new Bar(level, x, y);
 
 	        default:
 	            return null;

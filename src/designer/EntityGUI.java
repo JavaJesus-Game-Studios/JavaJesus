@@ -79,6 +79,9 @@ public class EntityGUI extends JPanel {
 		if (entity instanceof Type) {
 			((Type) entity).setType(type);
 			
+			// clear the screen first
+			screen.clear();
+			
 			// render the entity
 			entity.render(screen);
 		}

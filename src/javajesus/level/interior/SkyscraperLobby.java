@@ -3,9 +3,9 @@ package javajesus.level.interior;
 import java.awt.Point;
 import java.io.IOException;
 
+import javajesus.entities.Chest;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
-import javajesus.entities.solid.furniture.Chest;
 import javajesus.entities.transporters.Stairs;
 import javajesus.entities.transporters.Transporter;
 import javajesus.entities.transporters.TransporterInterior;

@@ -1,13 +1,10 @@
-package javajesus.entities.solid.furniture;
+package javajesus.entities;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import javajesus.dataIO.EntityData;
 import javajesus.dataIO.LootData;
-import javajesus.entities.Entity;
-import javajesus.entities.SolidEntity;
-import javajesus.entities.Type;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.items.Item;

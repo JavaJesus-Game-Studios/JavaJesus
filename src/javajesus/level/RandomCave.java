@@ -7,8 +7,8 @@ import java.util.Random;
 import javax.sound.sampled.Clip;
 
 import javajesus.SoundHandler;
+import javajesus.entities.Chest;
 import javajesus.entities.Spawner;
-import javajesus.entities.solid.furniture.Chest;
 import javajesus.entities.transporters.Ladder;
 import javajesus.items.Item;
 import javajesus.level.generation.CaveGeneration;

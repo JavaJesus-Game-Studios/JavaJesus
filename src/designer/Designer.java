@@ -35,6 +35,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import javajesus.entities.Chest;
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
@@ -120,17 +121,18 @@ import javajesus.entities.solid.buildings.techtopia.RadarDish;
 import javajesus.entities.solid.buildings.techtopia.TechTopiaCityHall;
 import javajesus.entities.solid.buildings.techtopia.WeirdTechBuilding1;
 import javajesus.entities.solid.buildings.techtopia.WeirdTechBuilding2;
+import javajesus.entities.solid.furniture.Bar;
 import javajesus.entities.solid.furniture.Bed;
 import javajesus.entities.solid.furniture.Bench;
-import javajesus.entities.solid.furniture.ChairFront;
+import javajesus.entities.solid.furniture.CardTable;
 import javajesus.entities.solid.furniture.ChairSide;
-import javajesus.entities.solid.furniture.Chest;
 import javajesus.entities.solid.furniture.ComputerMonitor;
 import javajesus.entities.solid.furniture.ComputerTower;
-import javajesus.entities.solid.furniture.DiningTable;
 import javajesus.entities.solid.furniture.FilingCabinet;
 import javajesus.entities.solid.furniture.LongTable;
 import javajesus.entities.solid.furniture.Nightstand;
+import javajesus.entities.solid.furniture.PoolTable;
+import javajesus.entities.solid.furniture.ShortTable;
 import javajesus.entities.solid.furniture.Sofa;
 import javajesus.entities.solid.furniture.SquareTable;
 import javajesus.entities.solid.furniture.Stool;
@@ -1128,17 +1130,17 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			entityList[Entity.FIRE_ENTITY] = new EntityGUI(new FireEntity(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 			entityList[Entity.BED] = new EntityGUI(new Bed(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 3);
 			entityList[Entity.BENCH] = new EntityGUI(new Bench(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 1);
-			entityList[Entity.CHAIR_FRONT] = new EntityGUI(new ChairFront(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
+			entityList[Entity.POOL_TABLE] = new EntityGUI(new PoolTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 4);
 			entityList[Entity.CHAIR_SIDE] = new EntityGUI(new ChairSide(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 			entityList[Entity.CHEST] = new EntityGUI(new Chest(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 1);
 			entityList[Entity.COMPUTER_MONITOR] = new EntityGUI(new ComputerMonitor(null, 0, 0), PANEL_SIZE, PANEL_SIZE,
 			        1, 1);
 			entityList[Entity.COMPUTER_TOWER] = new EntityGUI(new ComputerTower(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1,
 			        2);
-			entityList[Entity.DINING_TABLE] = new EntityGUI(new DiningTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 16);
+			entityList[Entity.DINING_TABLE] = new EntityGUI(new ShortTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 3);
 			entityList[Entity.FILING_CABINET] = new EntityGUI(new FilingCabinet(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1,
 			        3);
-			entityList[Entity.LONG_TABLE] = new EntityGUI(new LongTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 2);
+			entityList[Entity.LONG_TABLE] = new EntityGUI(new LongTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 16, 16);
 			entityList[Entity.NIGHTSTAND] = new EntityGUI(new Nightstand(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 2);
 			entityList[Entity.SOFA] = new EntityGUI(new Sofa(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 2);
 			entityList[Entity.SQUARE_TABLE] = new EntityGUI(new SquareTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
@@ -1260,6 +1262,8 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			entityList[Entity.PANCHOMBRE] = new EntityGUI(new Panchombre(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.SKELETON] = new EntityGUI(new Skeleton(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.BANDITO] = new EntityGUI(new Bandito(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.CARD_TABLE] = new EntityGUI(new CardTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 4);
+			entityList[Entity.BAR] = new EntityGUI(new Bar(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 6);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1287,8 +1291,8 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 				return new EntityGUI(new Bed(null, 0, 0), 0, 0, 3, 3);
 			case Entity.BENCH:
 				return new EntityGUI(new Bench(null, 0, 0), 0, 0, 2, 1);
-			case Entity.CHAIR_FRONT:
-				return new EntityGUI(new ChairFront(null, 0, 0), 0, 0, 1, 1);
+			case Entity.POOL_TABLE:
+				return new EntityGUI(new PoolTable(null, 0, 0), 0, 0, 4, 4);
 			case Entity.CHAIR_SIDE:
 				return new EntityGUI(new ChairSide(null, 0, 0), 0, 0, 1, 1);
 			case Entity.CHEST:
@@ -1298,11 +1302,11 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			case Entity.COMPUTER_TOWER:
 				return new EntityGUI(new ComputerTower(null, 0, 0), 0, 0, 1, 2);
 			case Entity.DINING_TABLE:
-				return new EntityGUI(new DiningTable(null, 0, 0), 0, 0, 3, 16);
+				return new EntityGUI(new ShortTable(null, 0, 0), 0, 0, 3, 3);
 			case Entity.FILING_CABINET:
 				return new EntityGUI(new FilingCabinet(null, 0, 0), 0, 0, 1, 3);
 			case Entity.LONG_TABLE:
-				return new EntityGUI(new LongTable(null, 0, 0), 0, 0, 3, 2);
+				return new EntityGUI(new LongTable(null, 0, 0), 0, 0, 16, 16);
 			case Entity.NIGHTSTAND:
 				return new EntityGUI(new Nightstand(null, 0, 0), 0, 0, 1, 2);
 			case Entity.SOFA:
@@ -1497,7 +1501,12 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
                 return new EntityGUI(new Bandito(null, 0, 0), 0, 0, 2, 2);
 			case Entity.SKELETON:
                 return new EntityGUI(new Skeleton(null, 0, 0), 0, 0, 2, 2);
+			case Entity.BAR:
+                return new EntityGUI(new Bar(null, 0, 0), 0, 0, 6, 6);
+			case Entity.CARD_TABLE:
+                return new EntityGUI(new CardTable(null, 0, 0), 0, 0, 4, 4);
 			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

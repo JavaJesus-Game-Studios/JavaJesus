@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import javajesus.dataIO.EntityData;
 import javajesus.entities.Entity;
 import javajesus.entities.SolidEntity;
+import javajesus.entities.Type;
 import javajesus.graphics.Screen;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -12,86 +13,81 @@ import javajesus.level.Level;
 /*
  * Furniture is used as cluster inside of buildings
  */
-public abstract class Furniture extends Entity implements SolidEntity {
+public abstract class Furniture extends Entity implements SolidEntity, Type{
 
 	// the sprite used for rendering
 	private Sprite sprite;
 
-	// the colorset
-	private int[] color;
+	// the orientation
+	private byte type;
 
 	// fake shadow, but used to conform to solid entity
 	private static final Rectangle shadow = new Rectangle(0, 0, 0, 0);
-
-	protected final static Sprite diningTableSprite = new Sprite(
-			"/VISUAL_DATA/STATICS/FURNITURE/Long_Castle_Dining_Table.png");
-	protected final static Sprite bed = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Bed.png");
-	protected final static Sprite squareTable = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Square_Table.png");
-	protected final static Sprite bench = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Bench.png");
-	protected final static Sprite chairFront = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Chair_Front_Facing.png");
-	protected final static Sprite chairSide = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Chair.png");
-	protected final static Sprite computerMonitor = new Sprite(
-			"/VISUAL_DATA/STATICS/FURNITURE/Simple_Computer_monitor.png");
-	protected final static Sprite computerTower = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Computer_Tower.png");
-	protected final static Sprite filingCabinet = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Filing_Cabinet.png");
-	protected final static Sprite longTable = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Long_Table.png");
-	protected final static Sprite nightstand = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Nightstand.png");
-	protected final static Sprite sofa = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Sofa.png");
-	protected final static Sprite stool = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Stool.png");
-	protected final static Sprite throne = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_Throne.png");
-	protected final static Sprite television = new Sprite("/VISUAL_DATA/STATICS/FURNITURE/Simple_TV.png");
-
+	
+	// constants for orientation
+	public final static byte NORTH = 0, WEST = 1, SOUTH = 2, EAST = 3, HORIZONTAL = 0, VERTICAL = 1;
+	
 	/**
 	 * Creates clutter
 	 * 
-	 * @param level
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param sprite
-	 *            the sprite to use
-	 * @param color
-	 *            the color
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param sprite - the sprite to use
+	 * @param color - the color
 	 */
-	public Furniture(Level level, int x, int y, Sprite sprite, int[] color) {
+	public Furniture(Level level, int x, int y, byte orientation) {
 		super(level, x, y);
-		this.sprite = sprite;
-		this.color = color;
-
+		
+		// instance data
+		this.type = orientation;
+		sprite = getSprite(orientation);
 		setBounds(getX(), getY(), sprite.getWidth(), sprite.getHeight());
 	}
 
 	/**
 	 * @return the sprite the furniture uses
 	 */
-	protected Sprite getSprite() {
-		return sprite;
+	protected abstract Sprite getSprite(byte orientation);
+	
+	/**
+	 * Changes the sprite and updates the bounds
+	 * @param sprite - the new sprite to use
+	 */
+	protected void setSprite(Sprite sprite) {
+		this.sprite = sprite;
+		setBounds(getX(), getY(), sprite.getWidth(), sprite.getHeight());
 	}
 
 	/**
 	 * Displays the furniture on the screen
 	 */
 	public void render(Screen screen) {
-
-		screen.render(getX(), getY(), color, sprite);
-
+		screen.render(getX(), getY(), null, sprite);
 	}
-
+	
 	@Override
 	public Rectangle getShadow() {
 		return shadow;
 	}
 
 	@Override
-	public void tick() {
-
+	public void tick() {}
+	
+	@Override
+	public void setType(byte type) {
+		this.type = type;
+		setSprite(getSprite(type));
+	}
+	
+	@Override
+	public byte getType() {
+		return type;
 	}
 	
 	@Override
 	public long getData() {
-		return EntityData.type1(getX(), getY());
+		return EntityData.type3(getX(), getY(), type);
 	}
 
 }

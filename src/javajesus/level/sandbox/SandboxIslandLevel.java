@@ -3,10 +3,10 @@ package javajesus.level.sandbox;
 import java.awt.Point;
 import java.io.IOException;
 
+import javajesus.entities.Chest;
 import javajesus.entities.Entity;
 import javajesus.entities.Spawner;
 import javajesus.entities.npcs.NPC;
-import javajesus.entities.solid.furniture.Chest;
 import javajesus.entities.solid.trees.Forest;
 import javajesus.entities.transporters.MapEdge;
 import javajesus.level.Level;

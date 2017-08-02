@@ -10,7 +10,6 @@ import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.dataIO.PlayerData;
 import javajesus.entities.monsters.Demon;
-import javajesus.entities.solid.furniture.Chest;
 import javajesus.entities.transporters.Transporter;
 import javajesus.entities.vehicles.Ridable;
 import javajesus.graphics.Screen;
