@@ -118,6 +118,7 @@ public class Player extends Mob implements Type {
 		inventory = new Inventory();
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
+		this.gender = gender;
 		
 		// use the female spritesheet if female
 		if (gender == PlayerData.FEMALE) {
@@ -153,6 +154,14 @@ public class Player extends Mob implements Type {
 			equippedSword = (Sword) obj;
 			equippedGun = null;
 			strength = equippedSword.getStrength();
+			
+			// now assign the right spritesheet
+			if (gender == PlayerData.FEMALE) {
+				equippedSword.setSpriteSheet(PlayerData.FEMALE);
+			} else {
+				equippedSword.setSpriteSheet(PlayerData.MALE);
+			}
+			
 		} else if (obj instanceof Armor) {
 			equippedArmor = (Armor) obj;
 			defense = equippedArmor.getDefense();

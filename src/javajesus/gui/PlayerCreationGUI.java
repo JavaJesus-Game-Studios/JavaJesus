@@ -225,6 +225,20 @@ public class PlayerCreationGUI extends JPanel implements ActionListener {
 			blue.setValue(c.getBlue());
 		}
 		
+		// male selected
+		if (e.getSource() == male) {
+			male.isOn = true;
+			female.isOn = false;
+			pScreen.setGender(PlayerData.MALE);
+		}
+		
+		// female selected
+		if (e.getSource() == female) {
+			male.isOn = false;
+			female.isOn = true;
+			pScreen.setGender(PlayerData.FEMALE);
+		}
+		
 		// change display to pistol
 		if (e.getSource() == pistol) {
 			pistol.isOn = true;

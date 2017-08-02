@@ -345,6 +345,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			pPanel.setShirtColor(player.getShirtColor());
 			pPanel.setHairColor(player.getHairColor());
 			pPanel.setPantsColor(player.getPantsColor());
+			pPanel.setGender(player.getType());
 			leftSide.add(pPanel);
 			leftSide.add(new JJPanel(JJStrings.PLAYER_NAME, PLAYER_PANEL_WIDTH, NAME_BOX_HEIGHT, player.getName()));
 			

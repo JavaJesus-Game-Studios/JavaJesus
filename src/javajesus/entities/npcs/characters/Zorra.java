@@ -27,7 +27,7 @@ public class Zorra extends NPC {
 	 *            the y coord
 	 */
 	public Zorra(Level level, int x, int y) {
-		super(level, "Zorra", x, y, 1, WIDTH, HEIGHT, 500, null, 10, 5, "", 0);
+		super(level, "Zorra", x, y, 1, WIDTH, HEIGHT, 500, null, 12, 5, "", 0);
 		setSpriteSheet(SpriteSheet.characters);
 	}
 

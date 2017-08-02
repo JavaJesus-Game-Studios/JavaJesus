@@ -60,7 +60,7 @@ public class SpriteSheet implements Serializable {
     public static SpriteSheet playerVestGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_vested_gun_sheet.png", 50);
     public static SpriteSheet playerKnightGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_knight_armor_gun_sheet.png", 50);
     public static SpriteSheet playerHornedGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horned_armor_gun_sheet.png", 50);
-    public static SpriteSheet playerSwords_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sword_sheet.png", 60);
+    public static SpriteSheet playerSwords_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_female_sword_sheet.png", 60);
     public static SpriteSheet playerHorse_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horse_sheet.png", 32);
     
     ///// ACTORS /////
