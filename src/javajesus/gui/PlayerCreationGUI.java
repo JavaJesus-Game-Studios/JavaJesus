@@ -3,7 +3,6 @@ package javajesus.gui;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -16,7 +15,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -185,6 +183,42 @@ public class PlayerCreationGUI extends JPanel implements ActionListener {
 			blue.setValue(c.getBlue());
 		}
 		
+		if (e.getSource() == hair) {
+			active = HAIR_SCREEN;
+			hair.isOn = true;
+			
+			// turn off all other buttons
+			skin.isOn = false;
+			shirt.isOn = false;
+			pants.isOn = false;
+			
+			// wrap the color
+			Color c = new Color(pScreen.getHairColor());
+			
+			// move the sliders over to current value
+			red.setValue(c.getRed());
+			green.setValue(c.getGreen());
+			blue.setValue(c.getBlue());
+		}
+		
+		if (e.getSource() == pants) {
+			active = PANTS_SCREEN;
+			pants.isOn = true;
+			
+			// turn off all other buttons
+			skin.isOn = false;
+			shirt.isOn = false;
+			hair.isOn = false;
+			
+			// wrap the color
+			Color c = new Color(pScreen.getPantsColor());
+			
+			// move the sliders over to current value
+			red.setValue(c.getRed());
+			green.setValue(c.getGreen());
+			blue.setValue(c.getBlue());
+		}
+		
 		// change display to pistol
 		if (e.getSource() == pistol) {
 			pistol.isOn = true;
@@ -212,7 +246,8 @@ public class PlayerCreationGUI extends JPanel implements ActionListener {
 		if (e.getSource() == finish) {
 			
 			// create a save file
-			new PlayerData(numSlot, name.getText(),  pScreen.getSkinColor(), pScreen.getShirtColor(), startWeapon);
+			PlayerData.save(numSlot, name.getText(),  pScreen.getSkinColor(), pScreen.getHairColor(), 
+					pScreen.getShirtColor(), pScreen.getPantsColor(), pScreen.getGender(), startWeapon);
 			
 			// return to main display
 			((CardLayout) launcher.getParent().getLayout()).show(launcher.getParent(), Launcher.MAIN);
@@ -275,6 +310,10 @@ public class PlayerCreationGUI extends JPanel implements ActionListener {
 				pScreen.setSkinColor(new Color(r, g, b).getRGB());
 			} else if (active == SHIRT_SCREEN) {
 				pScreen.setShirtColor(new Color(r, g, b).getRGB());
+			} else if (active == HAIR_SCREEN) {
+				pScreen.setHairColor(new Color(r, g, b).getRGB());
+			} else if (active == PANTS_SCREEN) {
+				pScreen.setPantsColor(new Color(r, g, b).getRGB());
 			}
 			
 			// repaint the player
@@ -352,28 +391,6 @@ public class PlayerCreationGUI extends JPanel implements ActionListener {
 	 */
 	public void setSlot(int slot) {
 		numSlot = slot;
-	}
-	
-	/*
-	 * Automatically aligns the JLabel
-	 * and sets the Font
-	 */
-	private class JJLabel extends JLabel {
-		
-		// serialization
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * JJLabel ctor()
-		 * @param s - Label text
-		 */
-		private JJLabel(String s) {
-			super(s);
-			
-			// align and set font
-			setAlignmentX(Component.CENTER_ALIGNMENT);
-			setFont(new Font(JavaJesus.FONT_NAME, Font.PLAIN, 25));
-		}
 	}
 	
 	/*

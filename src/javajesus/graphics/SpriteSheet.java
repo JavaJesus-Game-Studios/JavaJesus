@@ -45,15 +45,23 @@ public class SpriteSheet implements Serializable {
     public static SpriteSheet explosionSmall = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/explosion_16Bit.png", 28);
     public static SpriteSheet explosionLarge = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/explosion_32Bit.png", 50);
       
-    ///// PLAYER //////
-    public static SpriteSheet player = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sheet.png", 32);
-    public static SpriteSheet playerGuns = new SpriteSheet("/VISUAL_DATA/PLAYER/player_gun_sheet.png", 50);
-    public static SpriteSheet playerVestGuns = new SpriteSheet("/VISUAL_DATA/PLAYER/player_vested_gun_sheet.png", 50);
-    public static SpriteSheet playerKnightGuns = new SpriteSheet("/VISUAL_DATA/PLAYER/player_knight_armor_gun_sheet.png", 50);
-    public static SpriteSheet playerHornedGuns = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horned_armor_gun_sheet.png", 50);
-    public static SpriteSheet playerSwords = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sword_sheet.png", 60);
-    public static SpriteSheet playerHorse = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horse_sheet.png", 32);
+    ///// PLAYER MALE //////
+    public static SpriteSheet player_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sheet.png", 32);
+    public static SpriteSheet playerGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_gun_sheet.png", 50);
+    public static SpriteSheet playerVestGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_vested_gun_sheet.png", 50);
+    public static SpriteSheet playerKnightGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_knight_armor_gun_sheet.png", 50);
+    public static SpriteSheet playerHornedGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horned_armor_gun_sheet.png", 50);
+    public static SpriteSheet playerSwords_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sword_sheet.png", 60);
+    public static SpriteSheet playerHorse_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horse_sheet.png", 32);
 
+    ///// PLAYER FEMALE//////
+    public static SpriteSheet player_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_female_sheet.png", 32);
+    public static SpriteSheet playerGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_gun_sheet.png", 50);
+    public static SpriteSheet playerVestGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_vested_gun_sheet.png", 50);
+    public static SpriteSheet playerKnightGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_knight_armor_gun_sheet.png", 50);
+    public static SpriteSheet playerHornedGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horned_armor_gun_sheet.png", 50);
+    public static SpriteSheet playerSwords_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sword_sheet.png", 60);
+    public static SpriteSheet playerHorse_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horse_sheet.png", 32);
     
     ///// ACTORS /////
     	//FRIENDLY

@@ -3,6 +3,7 @@ package javajesus.items;
 import java.awt.Rectangle;
 
 import javajesus.SoundHandler;
+import javajesus.dataIO.PlayerData;
 import javajesus.entities.Damageable;
 import javajesus.entities.Mob;
 import javajesus.entities.Player;
@@ -38,7 +39,7 @@ public class Sword extends Item {
 	private int xSwingOffset, ySwingOffset;
 
 	// spritesheet for player
-	private static final SpriteSheet sheet = SpriteSheet.playerSwords;
+	private static SpriteSheet sheet = SpriteSheet.playerSwords_male;
 
 	// the offsets for the power swing positions
 	private int[] powerSwingOffsets;
@@ -113,6 +114,18 @@ public class Sword extends Item {
 		this.powerSwingOffsets = powerSwingOffsets;
 		this.powerSwingModifier = swingoffset;
 		this.knockback = knockback;
+	}
+	
+	/**
+	 * Sets the spritesheet based on the gender
+	 * @param type - PlayerData.Male/Female
+	 */
+	public void setSpriteSheet(byte type) {
+		if (type == PlayerData.FEMALE) {
+			sheet = SpriteSheet.playerSwords_female;
+		} else {
+			sheet = SpriteSheet.playerSwords_male;
+		}
 	}
 
 	/**

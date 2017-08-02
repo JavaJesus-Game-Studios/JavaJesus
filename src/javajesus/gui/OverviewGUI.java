@@ -343,6 +343,8 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			PlayerGUI pPanel = new PlayerGUI(PLAYER_PANEL_WIDTH, JavaJesus.WINDOW_HEIGHT - NAME_BOX_HEIGHT - BUTTON_HEIGHT);
 			pPanel.setSkinColor(player.getSkinColor());
 			pPanel.setShirtColor(player.getShirtColor());
+			pPanel.setHairColor(player.getHairColor());
+			pPanel.setPantsColor(player.getPantsColor());
 			leftSide.add(pPanel);
 			leftSide.add(new JJPanel(JJStrings.PLAYER_NAME, PLAYER_PANEL_WIDTH, NAME_BOX_HEIGHT, player.getName()));
 			

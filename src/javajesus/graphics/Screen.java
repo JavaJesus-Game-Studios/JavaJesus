@@ -101,6 +101,14 @@ public class Screen {
 					col = color[2];
 					break;
 				}
+				case 0xFFE0E0E0: {
+					col = color[3];
+					break;
+				}
+				case 0xFF7A7A7A: {
+					col = color[4];
+					break;
+				}
 				}
 
 				// only render if color is not pure black and in pixel bounds
@@ -219,6 +227,14 @@ public class Screen {
 						col = color[2];
 						break;
 					}
+					case 0xFFE0E0E0: {
+						col = color[3];
+						break;
+					}
+					case 0xFF7A7A7A: {
+						col = color[4];
+						break;
+					}
 					}
 				
 				// only render if color is not pure black and in pixel bounds
@@ -295,6 +311,14 @@ public class Screen {
 						}
 						case 0xFFFFFFFF: {
 							col = color[2];
+							break;
+						}
+						case 0xFFE0E0E0: {
+							col = color[3];
+							break;
+						}
+						case 0xFF7A7A7A: {
+							col = color[4];
 							break;
 						}
 						}

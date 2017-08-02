@@ -73,17 +73,17 @@ public class Armor extends Item {
 		case VEST:
 			defense = 3;
 			yRow = 12;
-			sheet = SpriteSheet.playerVestGuns;
+			sheet = SpriteSheet.playerVestGuns_male;
 			return;
 		case KNIGHT:
 			defense = 5;
 			yRow = 18;
-			sheet = SpriteSheet.playerKnightGuns;
+			sheet = SpriteSheet.playerKnightGuns_male;
 			return;
 		case HORNED:
 			defense = 7;
 			yRow = 25;
-			sheet = SpriteSheet.playerHornedGuns;
+			sheet = SpriteSheet.playerHornedGuns_male;
 			return;
 		}
 	}

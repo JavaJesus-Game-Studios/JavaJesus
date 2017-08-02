@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import engine.Window;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
+import javajesus.dataIO.PlayerData;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.solid.furniture.Chest;
 import javajesus.entities.transporters.Transporter;
@@ -29,10 +30,10 @@ import javajesus.utility.Direction;
  * The Player is a mob that is directly controlled by a user
  * It interacts with the world through keyboard input
  */
-public class Player extends Mob {
+public class Player extends Mob implements Type {
 
-	// player color set: hair, shirt, skin
-	private final int[] color = { 0xFF010101, 0xFFFF0000, 0xFFFFCC99 };
+	// player color set: outline, shirt, skin, hair, pants
+	private final int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99, 0xFF000001, 0xFF000001};
 
 	// the vehicle the player is in, null if not driving
 	private Ridable vehicle;
@@ -61,7 +62,7 @@ public class Player extends Mob {
 	private ArrayList<Quest> completedQuests = new ArrayList<Quest>();
 
 	// the spritesheet to use when the player is shooting
-	private SpriteSheet gunSheet = SpriteSheet.playerGuns;
+	private SpriteSheet gunSheet = SpriteSheet.playerGuns_male;
 
 	// the size of the sprite
 	private static final int SIZE = 16;
@@ -99,19 +100,29 @@ public class Player extends Mob {
 	// directions the player is moving
 	private boolean movingUp, movingDown, movingLeft, movingRight;
 	
+	// the gender of the player
+	private byte gender;
+	
 	/**
 	 * Creates a new player for the game
 	 * 
 	 * @param level the initial level
 	 * @param x the x coordinate
 	 * @param y the y coordinate
+	 * @param gender - PlayerData.MALE/FEMALE
 	 */
-	public Player(String name, Level level, int x, int y) {
-		super(level, name, x, y, 1, SIZE, SIZE, SpriteSheet.player, START_HEALTH);
+	public Player(String name, Level level, int x, int y, byte gender) {
+		super(level, name, x, y, 1, SIZE, SIZE, SpriteSheet.player_male, START_HEALTH);
 
+		// load basic data
 		inventory = new Inventory();
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
+		
+		// use the female spritesheet if female
+		if (gender == PlayerData.FEMALE) {
+			setSpriteSheet(SpriteSheet.player_female);
+		}
 		
 		// gives certain names certain powers
 		if (name.equals("Derek Jow") || name.equals("Stephen Northway")) {
@@ -278,7 +289,7 @@ public class Player extends Mob {
 			this.gunSheet = equippedArmor.getGunSpritesheet();
 		} else {
 			this.yTile = 0;
-			this.gunSheet = SpriteSheet.playerGuns;
+			this.gunSheet = SpriteSheet.playerGuns_male;
 		}
 
 
@@ -542,20 +553,9 @@ public class Player extends Mob {
 	}
 
 	/**
-	 * Sets the hair color
-	 * 
-	 * @param num
-	 *            the hair color in hexadecimal
-	 */
-	public void setHairColor(int num) {
-		color[0] = num;
-	}
-
-	/**
 	 * Sets the shirt color
 	 * 
-	 * @param num
-	 *            the shirt color in hexadecimal
+	 * @param num - the shirt color in hexadecimal
 	 */
 	public void setShirtColor(int num) {
 		color[1] = num;
@@ -564,11 +564,28 @@ public class Player extends Mob {
 	/**
 	 * Sets the skin color
 	 * 
-	 * @param num
-	 *            the skin color in hexadecimal
+	 * @param num - the skin color in hexadecimal
 	 */
 	public void setSkinColor(int num) {
 		color[2] = num;
+	}
+	
+	/**
+	 * Sets the hair color
+	 * 
+	 * @param num - the pants color in hexadecimal
+	 */
+	public void setHairColor(int num) {
+		color[3] = num;
+	}
+	
+	/**
+	 * Sets the pants color
+	 * 
+	 * @param num - the pants color in hexadecimal
+	 */
+	public void setPantsColor(int num) {
+		color[4] = num;
 	}
 
 	/**
@@ -874,6 +891,20 @@ public class Player extends Mob {
 	public int getSkinColor() {
 		return color[2];
 	}
+	
+	/**
+	 * @return the color of the hair
+	 */
+	public int getHairColor() {
+		return color[3];
+	}
+	
+	/**
+	 * @return the color of the pants
+	 */
+	public int getPantsColor() {
+		return color[4];
+	}
 
 	/**
 	 * @return the equipped gun
@@ -895,6 +926,23 @@ public class Player extends Mob {
 	@Override
 	public byte getId() {
 		return -1;
+	}
+
+	@Override
+	public byte getType() {
+		return gender;
+	}
+
+	@Override
+	public void setType(byte type) {
+		gender = type;
+		
+		// use the female spritesheet if female
+		if (gender == PlayerData.FEMALE) {
+			setSpriteSheet(SpriteSheet.player_female);
+		} else {
+			setSpriteSheet(SpriteSheet.player_male);
+		}
 	}
 
 }

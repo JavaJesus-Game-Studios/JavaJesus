@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
 
+import javajesus.dataIO.PlayerData;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.utility.JJStrings;
@@ -37,10 +38,10 @@ public class PlayerGUI extends JPanel {
 	private static final int PLAYER_WIDTH = 16, PLAYER_HEIGHT = 16;
 	
 	// spritesheet of the player
-	private static final SpriteSheet sheet = SpriteSheet.player;
+	private static SpriteSheet sheet = SpriteSheet.player_male;
 	
 	// default color set of the player
-	private final int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99 };
+	private final int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99, 0xFF000001, 0xFF000001 };
 	
 	/**
 	 * PlayerGUI ctor()
@@ -116,14 +117,19 @@ public class PlayerGUI extends JPanel {
 	}
 	
 	/**
-	 * Sets the hair color
-	 * 
-	 * @param num - the hair color in hexadecimal
+	 * @return the color of the hair
 	 */
-	public void setHairColor(int num) {
-		color[0] = num;
+	public int getHairColor() {
+		return color[3];
 	}
-
+	
+	/**
+	 * @return the color of the pants
+	 */
+	public int getPantsColor() {
+		return color[4];
+	}
+	
 	/**
 	 * Sets the shirt color
 	 * 
@@ -143,10 +149,50 @@ public class PlayerGUI extends JPanel {
 	}
 	
 	/**
+	 * Sets the hair color
+	 * 
+	 * @param num - the hair color in hexadecimal
+	 */
+	public void setHairColor(int num) {
+		color[3] = num;
+	}
+	
+	/**
+	 * Sets the pants color
+	 * 
+	 * @param num - the pants color in hexadecimal
+	 */
+	public void setPantsColor(int num) {
+		color[4] = num;
+	}
+	
+	/**
 	 * @return the color set of the player in the container
 	 */
 	public int[] getColors() {
 		return color;
+	}
+	
+	/**
+	 * @param gender - gender type to render
+	 */
+	public void setGender(byte gender) {
+		if (gender == PlayerData.FEMALE) {
+			sheet = SpriteSheet.player_female;
+		} else {
+			sheet = SpriteSheet.player_male;
+		}
+	}
+	
+	/**
+	 * Gets the gender of the player
+	 */
+	public byte getGender() {
+		if (sheet == SpriteSheet.player_female) {
+			return PlayerData.FEMALE;
+		} else {
+			return PlayerData.MALE;
+		}
 	}
 
 	/**

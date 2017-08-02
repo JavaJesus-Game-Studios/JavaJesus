@@ -492,17 +492,22 @@ public class Launcher extends Canvas implements IGameLogic {
 		// load player creation data
 		Object[] data = PlayerData.load(slot);
 		int skin = (int) data[0];
-		int shirt = (int) data[1];
-		Item weapon = (Item) data[2];
-		String name = (String) data[3];
+		int hair = (int) data[1];
+		int shirt = (int) data[2];
+		int pants = (int) data[3];
+		byte gender = (byte) data[4];
+		Item weapon = (Item) data[5];
+		String name = (String) data[6];
 		
 		// level to set the player
 		Level level = getLevel(mode, slot);
 		
 		// Player to create
-		Player player = new Player(name, level, level.getSpawnPoint().x, level.getSpawnPoint().y);
+		Player player = new Player(name, level, level.getSpawnPoint().x, level.getSpawnPoint().y, gender);
 		player.setShirtColor(shirt);
 		player.setSkinColor(skin);
+		player.setHairColor(hair);
+		player.setPantsColor(pants);
 		player.getInventory().add(weapon);
 		
 		// add the player to the level
@@ -713,7 +718,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		 */
 		private void update() {
 			if (PlayerData.exists(slot)) {
-				text = (String) PlayerData.load(slot)[3];
+				text = (String) PlayerData.load(slot)[6];
 			} else {
 				text = "Empty";
 			}

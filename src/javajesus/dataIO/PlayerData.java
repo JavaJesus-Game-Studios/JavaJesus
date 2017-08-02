@@ -18,36 +18,20 @@ import javajesus.items.Item;
  */
 public class PlayerData {
 	
-	// IDS for starting weapons
+	// IDS for starting weapons and gender
 	public static final byte REVOLVER = 0, SHORT_SWORD = 1;
+	public static final byte MALE = 0, FEMALE = 1;
 	
 	// gets the home directory
 	private static final String DIR = FileSystemView.getFileSystemView()
 			.getDefaultDirectory().getPath()
-			+ "/My Games/JavaJesus/PlayerData";
+			+ "/My Games/JavaJesus/File";
 	
 	// name of individual files
 	private static final String NAME = "/Player";
 	
 	/**
-	 * PlayerData ctor()
-	 * Saves player creation data to a file to be loaded
-	 * 
-	 * @param numSlot - which save file clicked (1, 2, or 3)
-	 * @param playerName - name of the player
-	 * @param skinColor - skin color of the player
-	 * @param shirtColor - shirt color of the player
-	 * @param startingWeap - starting weapon of the player
-	 */
-	public PlayerData(int numSlot, String playerName, int skinColor, int shirtColor, byte startingWeap) {
-		
-		save(numSlot, playerName, skinColor, shirtColor, startingWeap);
-		
-	}
-	
-	/**
-	 * save()
-	 * Saves player creation data to a file
+	 * Saves player data to a specified file
 	 * 
 	 * @param numSlot - which save file clicked (1, 2, or 3)
 	 * @param playerName - name of the player
@@ -56,15 +40,18 @@ public class PlayerData {
 	 * @param startingWeap - starting weapon of the player
 	 * @return whether or not it was successfully saved
 	 */
-	private boolean save(int numSlot, String playerName, int skinColor, int shirtColor, byte startingWeap) {
+	public static boolean save(int numSlot, String playerName, int skinColor, int hairColor, int shirtColor, int pantsColor, byte gender, byte startingWeap) {
 		
 		// save the data to the file
-		try (ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream(DIR + NAME + numSlot, false))) {
+		try (ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream(DIR + numSlot + NAME, false))) {
 			
-			// 2 ints @ 4 bytes each = 8 + 1 (weapon) + playerName bytes
-			byte[] data = ByteBuffer.allocate(9 + playerName.getBytes().length)
+			// 4 ints @ 4 bytes each = 16 + 2 (gender/weapon) + playerName bytes
+			byte[] data = ByteBuffer.allocate(18 + playerName.getBytes().length)
 					.putInt(skinColor)
+					.putInt(hairColor)
 					.putInt(shirtColor)
+					.putInt(pantsColor)
+					.put(gender)
 					.put(startingWeap)
 					.put(playerName.getBytes())
 					.array();
@@ -77,13 +64,13 @@ public class PlayerData {
 		} catch (FileNotFoundException e) {
 			
 			// create the file
-			File dir = new File(DIR);
+			File dir = new File(DIR + numSlot);
 
 			System.err.println("Creating directory " + dir);
 
 			// if successful then resave
 			if (dir.mkdirs()) {
-				return save(numSlot, playerName, skinColor, shirtColor, startingWeap);
+				return save(numSlot, playerName, skinColor, hairColor, shirtColor, pantsColor, gender, startingWeap);
 			} else {
 				System.err.println("Could not  create file");
 				e.printStackTrace();
@@ -92,31 +79,39 @@ public class PlayerData {
 			
 			// file could not be saved
 		} catch (IOException e) {
-			System.err.println("There was a problem saving save file" + numSlot);
+			System.err.println("There was a problem saving player save file " + numSlot);
 			e.printStackTrace();
 			return false;
 		}
 	}
 
 	/**
-	 * load()
 	 * Loads player creation data from a file
 	 * 
 	 * @param numSlot - save file # (1, 2, or 3)
 	 * @return - object data in form:
-	 * {skinColor, shirtColor, weapon, playerName}
+	 * {skinColor, hairColor, shirtColor, pantsColor, gender, weapon, playerName}
 	 * 
 	 */
 	public static Object[] load(int numSlot) {
 
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(
-				DIR + NAME + numSlot))) {
+				DIR + numSlot + NAME))) {
 			
 			// skin color is first 4 bytes
 			int skinColor = in.readInt();
 			
+			// hair color is first 4 bytes
+			int hairColor = in.readInt();
+			
 			// shirt color is second 4 bytes
 			int shirtColor = in.readInt();
+			
+			// pants color is second 4 bytes
+			int pantsColor = in.readInt();
+			
+			// next byte is male or female
+			byte gender = in.readByte();
 			
 			// next byte is starting weapon
 			byte start = in.readByte();
@@ -138,7 +133,7 @@ public class PlayerData {
 			}
 			
 			// return the objects
-			return new Object[] {new Integer(skinColor), new Integer(shirtColor), weapon, playerName};
+			return new Object[] {new Integer(skinColor), new Integer(hairColor), new Integer(shirtColor), new Integer(pantsColor), gender, weapon, playerName};
 			
 
 		} catch (IOException e) {
@@ -156,7 +151,7 @@ public class PlayerData {
 	 * @return - whether or not it exists
 	 */
 	public static boolean exists(int slot) {
-		File save = new File(DIR + NAME + slot);
+		File save = new File(DIR + slot + NAME);
 		return save.exists();
 	}
 	
@@ -172,8 +167,14 @@ public class PlayerData {
 		// check if it exists
 		if (exists(slot)) {
 			
-			// now delete it
-			File save = new File(DIR + NAME + slot);
+			// get instance of the folder
+			File save = new File(DIR + slot);
+			
+			// now delete every file inside
+			for (String file: save.list()) {
+				new File(save.getPath(), file).delete();
+			}
+			
 			return save.delete();
 			
 		}
