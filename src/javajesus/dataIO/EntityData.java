@@ -19,13 +19,17 @@ import javajesus.entities.animals.Cat;
 import javajesus.entities.animals.Cow;
 import javajesus.entities.animals.Dog;
 import javajesus.entities.animals.Fox;
+import javajesus.entities.monsters.Bandito;
 import javajesus.entities.monsters.Centaur;
 import javajesus.entities.monsters.Cyclops;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
+import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.npcs.Citizen;
+import javajesus.entities.npcs.Gaucho;
 import javajesus.entities.npcs.Knight;
+import javajesus.entities.npcs.Panchombre;
 import javajesus.entities.npcs.Peasant;
 import javajesus.entities.npcs.aggressive.Companion;
 import javajesus.entities.npcs.aggressive.Gorilla;
@@ -526,6 +530,14 @@ public class EntityData {
 	            return new SportsCar(level, x, y);
 	        case Entity.BOAT:
 	            return new Boat(level, x, y);
+	        case Entity.GAUCHO:
+	            return new Gaucho(level, x, y);
+	        case Entity.BANDITO:
+	            return new Bandito(level, x, y);
+	        case Entity.PANCHOMBRE:
+	            return new Panchombre(level, x, y);
+	        case Entity.SKELETON:
+	            return new Skeleton(level, x, y);
 
 	        default:
 	            return null;

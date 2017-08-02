@@ -43,13 +43,17 @@ import javajesus.entities.animals.Cat;
 import javajesus.entities.animals.Cow;
 import javajesus.entities.animals.Dog;
 import javajesus.entities.animals.Fox;
+import javajesus.entities.monsters.Bandito;
 import javajesus.entities.monsters.Centaur;
 import javajesus.entities.monsters.Cyclops;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
+import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.npcs.Citizen;
+import javajesus.entities.npcs.Gaucho;
 import javajesus.entities.npcs.Knight;
+import javajesus.entities.npcs.Panchombre;
 import javajesus.entities.npcs.Peasant;
 import javajesus.entities.npcs.aggressive.Companion;
 import javajesus.entities.npcs.aggressive.Gorilla;
@@ -1238,7 +1242,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			entityList[Entity.WIFE] = new EntityGUI(new Wife(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.ZORRA] = new EntityGUI(new Zorra(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.COMPANION] = new EntityGUI(new Companion(null, 0, 0, null), PANEL_SIZE, PANEL_SIZE, 2, 2);
-			entityList[Entity.GORILLA] = new EntityGUI(new Gorilla(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.GORILLA] = new EntityGUI(new Gorilla(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 3);
 			entityList[Entity.NATIVE_AMERICAN] = new EntityGUI(new NativeAmerican(null, 0, 0, NativeAmerican.MALE), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.POLICE_OFFICER] = new EntityGUI(new PoliceOfficer(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.SWAT_OFFICER] = new EntityGUI(new SWATOfficer(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
@@ -1252,6 +1256,10 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			entityList[Entity.SPORTS_CAR] = new EntityGUI(new SportsCar(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 5);
 			entityList[Entity.BOAT] = new EntityGUI(new Boat(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 5);
 			entityList[Entity.TRUCK] = new EntityGUI(new Truck(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 5);
+			entityList[Entity.GAUCHO] = new EntityGUI(new Gaucho(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.PANCHOMBRE] = new EntityGUI(new Panchombre(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.SKELETON] = new EntityGUI(new Skeleton(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.BANDITO] = new EntityGUI(new Bandito(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1454,7 +1462,7 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 			case Entity.COMPANION:
                 return new EntityGUI(new Companion(null, 0, 0, null), 0, 0, 2, 2);
 			case Entity.GORILLA:
-                return new EntityGUI(new Gorilla(null, 0, 0), 0, 0, 2, 2);
+                return new EntityGUI(new Gorilla(null, 0, 0), 0, 0, 3, 3);
 			case Entity.NATIVE_AMERICAN:
                 return new EntityGUI(new NativeAmerican(null, 0, 0, NativeAmerican.MALE), 0, 0, 2, 2);
 			case Entity.POLICE_OFFICER:
@@ -1481,6 +1489,14 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
                 return new EntityGUI(new SportsCar(null, 0, 0), 0, 0, 4, 5);
 			case Entity.TRUCK:
                 return new EntityGUI(new Truck(null, 0, 0), 0, 0, 4, 5);
+			case Entity.GAUCHO:
+                return new EntityGUI(new Gaucho(null, 0, 0), 0, 0, 2, 2);
+			case Entity.PANCHOMBRE:
+                return new EntityGUI(new Panchombre(null, 0, 0), 0, 0, 2, 2);
+			case Entity.BANDITO:
+                return new EntityGUI(new Bandito(null, 0, 0), 0, 0, 2, 2);
+			case Entity.SKELETON:
+                return new EntityGUI(new Skeleton(null, 0, 0), 0, 0, 2, 2);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

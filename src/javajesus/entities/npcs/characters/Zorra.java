@@ -19,12 +19,9 @@ public class Zorra extends NPC {
 	/**
 	 * Creates Zorra
 	 * 
-	 * @param level
-	 *            the level she is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
+	 * @param level - the level she is on
+	 * @param x - the x coord
+	 * @param y - the y coord
 	 */
 	public Zorra(Level level, int x, int y) {
 		super(level, "Zorra", x, y, 1, WIDTH, HEIGHT, 500, null, 12, 5, "", 0);
@@ -104,19 +101,16 @@ public class Zorra extends NPC {
 
 	@Override
 	public int getStrength() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getDefense() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public byte getId() {
-		// TODO Auto-generated method stub
 		return Entity.ZORRA;
 	}
 

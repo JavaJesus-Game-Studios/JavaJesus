@@ -61,7 +61,7 @@ public class GangMember extends Monster implements LongRange, Type {
 
 		// sets the appropriate y tile on the pixel sheet
 		this.type = type;
-		getType(type);
+		update(type);
 
 		// creates the standing range
 		standRange = new Ellipse2D.Double(getX() - RADIUS / 4, getY() - RADIUS / 4, RADIUS / 2, RADIUS / 2);
@@ -96,7 +96,7 @@ public class GangMember extends Monster implements LongRange, Type {
 	/**
 	 * @param type - The type of gang member to render
 	 */
-	private void getType(int type) {
+	private void update(int type) {
 		switch (type) {
 		case TRIAD:
 			yTile = 3;
@@ -253,6 +253,7 @@ public class GangMember extends Monster implements LongRange, Type {
 	@Override
 	public void setType(byte type) {
 		this.type = type;
+		update(type);
 	}
 
 }

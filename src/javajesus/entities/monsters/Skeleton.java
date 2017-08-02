@@ -1,75 +1,41 @@
 package javajesus.entities.monsters;
 
-import java.awt.Color;
-
-import javajesus.MessageHandler;
 import javajesus.entities.Entity;
-import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
-/*
- * A monkey is a powerful monster that strikes fear into any foe
- */
-public class Monkey extends Monster {
-
-	// dimensions of the monkey
+public class Skeleton extends Monster {
+	
+	// dimensions of the bandito
 	private static final int WIDTH = 16, HEIGHT = 16;
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
-	
+		
 	// base stats
 	private static final int BASE_STRENGTH = 7, BASE_DEFENSE = 5;
-
-	// color set of a monkey
-	private static final int[] color = { 0xFF2A1609, 0xFF391E0C, 0xFFB08162 };
+	
+	// color set of bandito
+	private static final int[] color =  { 0xFF111111, 0xFF700000, 0xFFDBA800 };
 
 	/**
-	 * Creates a monkey
-	 * 
-	 * @param level - the level it is on
-	 * @param x - the x coord
-	 * @param y - the y coord
-	 * @param speed - how fast the monkey moves
-	 * @param health - the base health
+	 * @param level - level it is on
+	 * @param x - x coordinate
+	 * @param y - y coordinate
 	 */
-	public Monkey(Level level, int x, int y, int speed, int health) {
-		super(level, "Monkey", x, y, speed, WIDTH, HEIGHT, 8, health, 40);
+	public Skeleton(Level level, int x, int y) {
+		super(level, "Skeleton", x, y, 1, WIDTH, HEIGHT, 26, 100, 100);
 	}
 	
 	/**
-	 * Creates a monkey
-	 * 
-	 * @param level - the level it is on
-	 * @param x - the x coord
-	 * @param y - the y coord
-	 * @param health - the base health
-	 */
-	public Monkey(Level level, int x, int y, int health) {
-		this(level, x, y, 1, health);
-	}
-	
-	/**
-	 * Creates a monkey
-	 * 
-	 * @param level - the level it is on
-	 * @param x - the x coord
-	 * @param y - the y coord
-	 */
-	public Monkey(Level level, int x, int y) {
-		this(level, x, y, 1, 100);
-	}
-
-	/**
-	 * Displays the monkey to the screen
+	 * Displays the Bandito to the screen
 	 */
 	public void render(Screen screen) {
 		super.render(screen);
 		
 		// default color
-		int[] color = Monkey.color;
+		int[] color = Skeleton.color;
 
 		// change color if knockback
 		if (isHit) {
@@ -98,17 +64,6 @@ public class Monkey extends Monster {
 			flip = getDirection() == Direction.WEST;
 		}
 
-		// attacking animation
-		if (isShooting) {
-			if (getDirection() == Direction.NORTH) {
-				xTile = 18;
-			} else if (getDirection() == Direction.SOUTH) {
-				xTile = 14;
-			} else {
-				xTile = 16 + (flip ? 2 : 0);
-			}
-		}
-
 		// death image
 		if (isDead())
 			xTile = 12;
@@ -129,26 +84,6 @@ public class Monkey extends Monster {
 		        getSpriteSheet(), flip, color);
 	}
 
-	/**
-	 * Text to player
-	 */
-	public void speak(Player player) {
-		isTalking = true;
-		MessageHandler.displayText("Chimp no speak with human.", Color.white);
-		return;
-	}
-	
-	/**
-	 * Gang member specific loot
-	 */
-	protected void dropLoot() {
-		
-		// drop 2x basic loot first
-		super.dropLoot();
-		super.dropLoot();
-		
-	}
-
 	@Override
 	public int getStrength() {
 		return BASE_STRENGTH;
@@ -161,6 +96,7 @@ public class Monkey extends Monster {
 
 	@Override
 	public byte getId() {
-		return Entity.MONKEY;
+		return Entity.SKELETON;
 	}
+
 }

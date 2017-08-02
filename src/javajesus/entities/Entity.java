@@ -12,7 +12,7 @@ import javajesus.level.Level;
 public abstract class Entity implements Serializable {
 	
 	// IDs used in saving and loading
-	public static final byte DESTRUCTIBLE_TILE = 0, FIRE_ENTITY = 1, SPAWNER = 3, CENTAUR = 4, CYCLOPS = 5,
+	public static final byte DESTRUCTIBLE_TILE = 0, FIRE_ENTITY = 1, GAUCHO = 2, SPAWNER = 3, CENTAUR = 4, CYCLOPS = 5,
             DEMON = 6, GANG_MEMBER = 7, MONKEY = 8, BAUTISTA = 9, DAUGHTER = 10, CITIZEN = 11, JESUS = 12, JOBS = 13,
             KNIGHT = 14, KOBE = 15, LORD_HILLSBOROUGH = 16, OCTAVIUS = 17, PEASANT = 18, RANCHERO = 19, SON = 20,
             WIFE = 21, ZORRA = 22, COMPANION = 23, GORILLA = 24, NATIVE_AMERICAN = 25, POLICE_OFFICER = 26,
@@ -31,7 +31,7 @@ public abstract class Entity implements Serializable {
             LONG_TABLE = 86, NIGHTSTAND = 87, SOFA = 88, SQUARE_TABLE = 89, STOOL = 90, TELEVISION = 91,
             THRONE = 92, DEAD_SEQUOIA = 93, GENERIC_TREE = 94, LARGE_SEQUOIA = 95, MEDIUM_SEQUOIA = 96,
             SMALL_SEQUOIA = 97, BOAT = 98, CENTURY_LESABRE = 99, HORSE = 100, SPORTS_CAR = 101, TRUCK = 102, MODERN_SKYSCRAPER = 103,
-            COW = 104, FOX = 105, DOG = 106, CAT = 107;
+            COW = 104, FOX = 105, DOG = 106, CAT = 107, PANCHOMBRE = 108, BANDITO = 109, SKELETON = 110;
 	
 	// number of unique entities worth saving
 	public static final int NUM_ENTITIES = 103;
