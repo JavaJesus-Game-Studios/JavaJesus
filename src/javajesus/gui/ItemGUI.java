@@ -4,11 +4,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import javajesus.graphics.Screen;
 import javajesus.items.Item;
+import javajesus.utility.JJStrings;
 
 /*
  * Displays an item in a JPanel
@@ -19,7 +22,7 @@ public class ItemGUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	// image of the item to display
-	private BufferedImage image;
+	private BufferedImage image, background_off, background_on;
 	
 	// item it contains
 	private Item item;
@@ -29,6 +32,9 @@ public class ItemGUI extends JPanel {
 	
 	// id of the item gui used for the inventory screen
 	private int id;
+	
+	// whether or not it is selected
+	private boolean selected;
 	
 	/**
 	 * ItemGUI ctor()
@@ -43,10 +49,18 @@ public class ItemGUI extends JPanel {
 		// initialize the instance variables
 		this.item = item;
 		this.id = id;
-		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		
 		// set up the panel
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		
+		// load the backgrounds
+		try {
+			background_off = ImageIO.read(ItemGUI.class.getResource(JJStrings.ITEM_OFF));
+			background_on = ImageIO.read(ItemGUI.class.getResource(JJStrings.ITEM_ON));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -75,6 +89,22 @@ public class ItemGUI extends JPanel {
 	}
 	
 	/**
+	 * Turns the button on
+	 */
+	public void turnOn() {
+		selected = true;
+		repaint();
+	}
+	
+	/**
+	 * Turns the button off
+	 */
+	public void turnOff() {
+		selected = false;
+		repaint();
+	}
+	
+	/**
 	 * Display the image of the item
 	 */
 	@Override
@@ -85,9 +115,6 @@ public class ItemGUI extends JPanel {
 		
 		// transfer item pixels through a screen class
 		Screen screen = new Screen(WIDTH, HEIGHT);
-		
-		// render the blank item background
-		Item.blank.render(screen);
 		
 		// render only if there is an item
 		if (item != null) {
@@ -100,6 +127,13 @@ public class ItemGUI extends JPanel {
 				pixels[x + y * screen.getWidth()] = screen.getPixels()[x + y * screen.getWidth()];
 			}
 
+		}
+		
+		// draw the background
+		if (selected) {
+			g.drawImage(background_on, 0, 0, getWidth(), getHeight(), null);
+		} else {
+			g.drawImage(background_off, 0, 0, getWidth(), getHeight(), null);
 		}
 		
 		// draw the image

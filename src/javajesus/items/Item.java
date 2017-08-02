@@ -127,9 +127,6 @@ public class Item implements Serializable {
 	public static final Item quickHealthPack = new Item("Quick Health", 30, 0, 3,
 			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "This Health Pack will restore a small amount of health.", 20);
 	
-	// inventory filler
-	public static final Item blank = new Item("Empty", 29, 0, 2, null, "None", 0);
-
 	/**
 	 * Item ctor()
 	 * Creates an Item

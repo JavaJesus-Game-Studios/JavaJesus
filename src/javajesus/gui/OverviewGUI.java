@@ -137,6 +137,9 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		// selected item
 		private ItemGUI selected;
 		
+		// the last item clicked (for turning it off)
+		private ItemGUI last;
+		
 		// selected descriptions
 		private JJPanel name, info, money;
 		private JJTextArea description;
@@ -156,7 +159,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			leftSide.setPreferredSize(new Dimension(LEFT_SIDE_WIDTH, leftSide.getPreferredSize().height));
 			
 			// add left side components
-			leftSide.add(selected = new ItemGUI(Item.blank, 0));
+			leftSide.add(selected = new ItemGUI(null, 0));
 			selected.setPreferredSize(new Dimension(LEFT_SIDE_WIDTH, ITEM_DISPLAY_HEIGHT)); 
 			leftSide.add(name = new JJPanel(JJStrings.INFO_TOP, LEFT_SIDE_WIDTH, TOP_HEIGHT, "Empty", 0, 5, 15));
 			leftSide.add(info = new JJPanel(JJStrings.INFO_MIDDLE, LEFT_SIDE_WIDTH, MID_HEIGHT, "Amount: 0", 0, 0, 15));
@@ -183,7 +186,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			for (int i = 0; i < INVENTORY_SPACE; i++) {
 				
 				// add the mouse listener to this inventory panel
-				ItemGUI slot = new ItemGUI(Item.blank, i);
+				ItemGUI slot = new ItemGUI(null, i);
 				slot.addMouseListener(this);
 				
 				// add the slot to the grid layout
@@ -215,9 +218,9 @@ public class OverviewGUI extends JPanel implements FocusListener {
 					
 					// remove the selected item
 					// set the descriptors on the left side
-					selected.setItem(Item.blank);
-					name.setText(Item.blank.getName());
-					description.setText(Item.blank.getDescription());
+					selected.setItem(null);
+					name.setText("Empty");
+					description.setText("Nothing Selected");
 				}
 
 				// discard
@@ -260,24 +263,43 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			// get the item gui that was clicked
 			Item clicked = ((ItemGUI) main.getComponent(((ItemGUI) e.getSource()).getId())).getItem();
 			
-			// set the descriptors on the left side
-			selected.setItem(clicked);
-			name.setText(clicked.getName());
-			
-			// display different information depending on the object
-			if (clicked.contains("Ammo")) {
-				info.setText("Ammo: " + clicked.getQuantity());
-			} else if (clicked.contains("Sword") || clicked.contains("Gun")) {
-				info.setText("Durability: N/A");
-				use.setVisible(false);
-				equip.setVisible(true);
-			} else {
-				info.setText("Amount: " + clicked.getQuantity());
-				use.setVisible(true);
-				equip.setVisible(false);
+			// turn the last item off
+			if (last != null) {
+				last.turnOff();
 			}
 			
-			description.setText(clicked.getDescription());
+			// set the items information to display
+			if (clicked != null) {
+				
+				// turn it on
+				last = (ItemGUI) e.getSource();
+				last.turnOn();
+
+				// set the descriptors on the left side
+				selected.setItem(clicked);
+				name.setText(clicked.getName());
+
+				// display different information depending on the object
+				if (clicked.contains("Ammo")) {
+					info.setText("Ammo: " + clicked.getQuantity());
+				} else if (clicked.contains("Sword") || clicked.contains("Gun")) {
+					info.setText("Durability: N/A");
+					use.setVisible(false);
+					equip.setVisible(true);
+				} else {
+					info.setText("Amount: " + clicked.getQuantity());
+					use.setVisible(true);
+					equip.setVisible(false);
+				}
+
+				description.setText(clicked.getDescription());
+				
+				// item is null
+			} else {
+				selected.setItem(null);
+				name.setText("Empty");
+				description.setText("Nothing Selected");
+			}
 
 			// repaint the inventory screen
 			repaint();
@@ -303,7 +325,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 				
 				// set the item to the appropriate item
 				if (player.getInventory().get(i) == null) {
-					((ItemGUI) main.getComponent(i)).setItem(Item.blank);
+					((ItemGUI) main.getComponent(i)).setItem(null);
 				} else {
 					((ItemGUI) main.getComponent(i)).setItem(player.getInventory().get(i));
 				}
@@ -626,18 +648,17 @@ public class OverviewGUI extends JPanel implements FocusListener {
 				// change the viewed tab
 				if (e.getSource() == overview) {
 					cl.show(viewing, MAIN);
+					active = true;
 				} else if (e.getSource() == inventory) {
 					cl.show(viewing, INVENTORY);
-				} else if (e.getSource() == factions) {
+					active = true;
+				} /*else if (e.getSource() == factions) {
 					cl.show(viewing, FACTIONS);
 				} else if (e.getSource() == quests) {
 					cl.show(viewing, QUESTS);
 				} else if (e.getSource() == map) {
 					cl.show(viewing, MAP);
-				}
-
-				// turn on THIS button
-				active = true;
+				}*/
 
 				// grab focus
 				viewing.requestFocusInWindow();

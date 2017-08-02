@@ -61,7 +61,7 @@ public class VerticalSliderUI extends BasicScrollBarUI {
 	 */
 	@Override
 	protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
-		g.drawImage(thumb, thumbBounds.x + xOffset, thumbBounds.y, thumb.getWidth() + 1, thumb.getHeight(), null);
+		g.drawImage(thumb, thumbBounds.x + xOffset, thumbBounds.y + 10, thumb.getWidth() + 1, thumb.getHeight(), null);
 	}
 	
 	@Override

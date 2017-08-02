@@ -6,13 +6,11 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
 
-import javajesus.dataIO.PlayerData;
-import javajesus.graphics.Screen;
-import javajesus.graphics.SpriteSheet;
-import javajesus.utility.JJStrings;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import javajesus.dataIO.PlayerData;
+import javajesus.utility.JJStrings;
 
 /**
  * Creates a model of a player 
@@ -22,26 +20,17 @@ public class PlayerGUI extends JPanel {
 	// for serialization
 	private static final long serialVersionUID = 1L;
 
-	// modifies pixels
-	private final Screen screen;
-	
-	// virtual canvas of the panel
-	private final BufferedImage image;
-	
 	// background of the player GUI
-	private BufferedImage background;
+	private BufferedImage background, player;
 	
 	// pixels of image
-	private final int[] pixels;
+	private int[] pixelsMale, pixelsFemale, pixelsPlayer;
 
-	// dimensions of the player
-	private static final int PLAYER_WIDTH = 16, PLAYER_HEIGHT = 16;
-	
-	// spritesheet of the player
-	private static SpriteSheet sheet = SpriteSheet.player_male;
-	
 	// default color set of the player
 	private final int[] color = { 0xFF000001, 0xFFFF0000, 0xFFFFCC99, 0xFF343434, 0xFF343434 };
+	
+	// determines which pixel set to use
+	private byte gender = PlayerData.MALE;
 	
 	/**
 	 * PlayerGUI ctor()
@@ -55,19 +44,38 @@ public class PlayerGUI extends JPanel {
 		// set the size
 		setPreferredSize(new Dimension(width, height));
 		
-		// load the background image pixels
+		// load the image pixels
 		try {
-			background = ImageIO.read(PlayerGUI.class.getResourceAsStream(JJStrings.PLAYER_PEDESTAL));
+			
+			// load the background
+			background = ImageIO.read(PlayerGUI.class.getResource(JJStrings.PLAYER_PEDESTAL));
+			
+			// load the male
+			BufferedImage male = ImageIO.read(PlayerGUI.class.getResourceAsStream(JJStrings.PLAYER_MALE));
+			
+			// load the female
+			BufferedImage female = ImageIO.read(PlayerGUI.class.getResourceAsStream(JJStrings.PLAYER_FEMALE));
+			
+			// total size of pixel data
+			int size = male.getWidth() * male.getHeight();
+			
+			// set up the size of each of the containers
+			pixelsMale = new int[size];
+			pixelsFemale = new int[size];
+			
+			// contains the pixel data to be shown
+			player = new BufferedImage(male.getWidth(), male.getHeight(), BufferedImage.TYPE_INT_ARGB);
+			pixelsPlayer = ((DataBufferInt) player.getRaster().getDataBuffer()).getData();
+			
+			// now load the pixels
+			for (int i = 0; i < size; i++) {
+				pixelsMale[i] = male.getRGB(i % male.getWidth(), i / male.getWidth());
+				pixelsFemale[i] = female.getRGB(i % female.getWidth(), i / female.getWidth());
+			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		// create the image and initialize the data
-		image = new BufferedImage(PLAYER_WIDTH, PLAYER_HEIGHT,
-				BufferedImage.TYPE_INT_ARGB);
-		pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
-				.getData();
-		screen = new Screen(PLAYER_WIDTH, PLAYER_HEIGHT);
 	}
 
 	/**
@@ -79,27 +87,53 @@ public class PlayerGUI extends JPanel {
 		// draw the background image
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
 		
-		// send pixel data to screen
-		renderPlayer(screen, 1);
-
 		// Get the screen pixels
-		for (int y = 0; y < screen.getHeight(); y++) {
-			for (int x = 0; x < screen.getWidth(); x++) {
+		for (int y = 0; y < player.getHeight(); y++) {
+			for (int x = 0; x < player.getWidth(); x++) {
 				
 				// pixel at the screen coordinate
-				int col = screen.getPixels()[x + y * screen.getWidth()];
+				int col = 0;
+				
+				// get the pixel from the right array
+				if (gender == PlayerData.FEMALE) {
+					col = pixelsFemale[x + y * player.getWidth()];
+				} else {
+					col = pixelsMale[x + y * player.getWidth()];
+				}
+				
+				// assign the color based on color set
+				switch (col) {
+				case 0xFF555555: {
+					col = color[0];
+					break;
+				}
+				case 0xFFAAAAAA: {
+					col = color[1];
+					break;
+				}
+				case 0xFFFFFFFF: {
+					col = color[2];
+					break;
+				}
+				case 0xFFE0E0E0: {
+					col = color[3];
+					break;
+				}
+				case 0xFF7A7A7A: {
+					col = color[4];
+					break;
+				}
+				}
 				
 				// don't render black
-				if (col != 0) {
-					pixels[x + y * screen.getWidth()] = col | 0xFF000000;
-				}
+				pixelsPlayer[x + y * player.getWidth()] = col;
 				
 			}
 
 		}
 
 		// display the image
-		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		g.drawImage(player, 0, 0, getWidth(), getHeight(), null);
 	}
 	
 	/**
@@ -177,46 +211,14 @@ public class PlayerGUI extends JPanel {
 	 * @param gender - gender type to render
 	 */
 	public void setGender(byte gender) {
-		if (gender == PlayerData.FEMALE) {
-			sheet = SpriteSheet.player_female;
-		} else {
-			sheet = SpriteSheet.player_male;
-		}
+		this.gender = gender;
 	}
 	
 	/**
 	 * Gets the gender of the player
 	 */
 	public byte getGender() {
-		if (sheet == SpriteSheet.player_female) {
-			return PlayerData.FEMALE;
-		} else {
-			return PlayerData.MALE;
-		}
-	}
-
-	/**
-	 * Renders the image of a player onto a screen
-	 * @param screen - the screen to render
-	 * @param scale - the scale of the player
-	 */
-	public void renderPlayer(Screen screen, int scale) {
-
-		// offsets for player rendering
-		int modifier = 8 * scale;
-
-		// Upper left box
-		screen.render(0, 0, 0, 0, sheet, color, scale);
-		
-		// Upper right box
-		screen.render(modifier, 0, 1, 0, sheet, color, scale);
-
-		// Lower left box
-		screen.render(0, modifier, 0, 1, sheet, color, scale);
-		
-		// Lower right box
-		screen.render(modifier, modifier, 1, 1, sheet, color, scale);
-
+		return gender;
 	}
 	
 }
