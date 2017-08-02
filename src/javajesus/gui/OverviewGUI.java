@@ -49,11 +49,14 @@ public class OverviewGUI extends JPanel implements FocusListener {
 	private static final String MAIN = "overview", INVENTORY = "inventory", QUESTS = "missions",
 			FACTIONS = "factions", MAP = "worldmap";
 	
+	// status bars that update with player information
+	private StatusBar health, energy, armor;
+	
 	// viewing panel that changes
 	private JPanel viewing;
 
 	// buttons at the top
-	private JJButton overview, inventory, factions, quests, map;
+	private JJButton overview, inventory, factions, quests, map, recover, restore, repair;
 	
 	// Inventory modifiers
 	private static final int NUM_ROWS = 6, NUM_COLS = 6, INVENTORY_SPACE = NUM_ROWS * NUM_COLS;
@@ -380,9 +383,9 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			
 			// status bar
 			JPanel status = new JPanel(new GridLayout(3, 1));
-			status.add(new JJPanel(JJStrings.STATUS_TOP, JavaJesus.WINDOW_WIDTH - PLAYER_PANEL_WIDTH, STATUS_BAR_HEIGHT));
-			status.add(new JJPanel(JJStrings.STATUS_MIDDLE, JavaJesus.WINDOW_WIDTH - PLAYER_PANEL_WIDTH, STATUS_BAR_HEIGHT));
-			status.add(new JJPanel(JJStrings.STATUS_BOTTOM, JavaJesus.WINDOW_WIDTH - PLAYER_PANEL_WIDTH, STATUS_BAR_HEIGHT));
+			status.add(health = new StatusBar(StatusBar.HEALTH, JavaJesus.WINDOW_WIDTH - PLAYER_PANEL_WIDTH, STATUS_BAR_HEIGHT));
+			status.add(energy = new StatusBar(StatusBar.ENERGY, JavaJesus.WINDOW_WIDTH - PLAYER_PANEL_WIDTH, STATUS_BAR_HEIGHT));
+			status.add(armor = new StatusBar(StatusBar.ARMOR, JavaJesus.WINDOW_WIDTH - PLAYER_PANEL_WIDTH, STATUS_BAR_HEIGHT));
 			rightSide.add(status);
 			
 			// objective panel
@@ -398,6 +401,72 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			add(rightSide, BorderLayout.CENTER);
 		}
 		
+	}
+	
+	/*
+	 * The panel that holds health, energy, armor
+	 */
+	private class StatusBar extends JPanel {
+		
+		// serialization
+		private static final long serialVersionUID = 1L;
+		
+		// which panel it is
+		private static final int HEALTH = 0, ENERGY = 1, ARMOR = 2;
+		
+		// the JJLabel that changes with player information
+		private JJLabel label;
+		
+		// the type of status bar
+		private int type;
+		
+		/**
+		 * @param type - which type to render
+		 */
+		private StatusBar(int type, int width, int height) {
+			
+			// instance data
+			this.type = type;
+			
+			// set dimensions
+			setPreferredSize(new Dimension(width, height));
+			
+			// set the custom border
+			setBorder(new StatsBorder(type));
+			
+			// set layout
+			setLayout(new GridLayout(1, 2));
+			
+			// do different stats depending on the type
+			switch (type) {
+			case HEALTH:
+				add(label = new JJLabel(player.getCurrentHealth() + "/" + player.getMaxHealth()));
+				add(recover = new JJButton("recover", true, true));
+				break;
+			case ENERGY:
+				add(label = new JJLabel(player.getCurrentStamina() + "/" + player.getMaxStamina()));
+				add(restore = new JJButton("restore", true, true));
+				break;
+			case ARMOR:
+				add(label = new JJLabel("0"));
+				add(repair = new JJButton("repair", true, true));
+				break;
+			}
+		}
+		
+		/**
+		 * Updates the text on the JJLabel
+		 */
+		public void update() {
+			switch (type) {
+			case HEALTH:
+				label.setText(player.getCurrentHealth() + "/" + player.getMaxHealth());
+				break;
+			case ENERGY:
+				label.setText(player.getCurrentStamina() + "/" + player.getMaxStamina());
+				break;
+			}
+		}
 	}
 	
 	/*
@@ -634,9 +703,9 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			// action performed on a main tab button
-			if (button_on != null) {
+
+			// change the viewed tab
+			if (e.getSource() == overview) {
 
 				// turn off all buttons
 				overview.active = false;
@@ -645,25 +714,48 @@ public class OverviewGUI extends JPanel implements FocusListener {
 				quests.active = false;
 				map.active = false;
 
-				// change the viewed tab
-				if (e.getSource() == overview) {
-					cl.show(viewing, MAIN);
-					active = true;
-				} else if (e.getSource() == inventory) {
-					cl.show(viewing, INVENTORY);
-					active = true;
-				} /*else if (e.getSource() == factions) {
-					cl.show(viewing, FACTIONS);
-				} else if (e.getSource() == quests) {
-					cl.show(viewing, QUESTS);
-				} else if (e.getSource() == map) {
-					cl.show(viewing, MAP);
-				}*/
+				cl.show(viewing, MAIN);
+				active = true;
+			} else if (e.getSource() == inventory) {
 
-				// grab focus
-				viewing.requestFocusInWindow();
+				// turn off all buttons
+				overview.active = false;
+				inventory.active = false;
+				factions.active = false;
+				quests.active = false;
+				map.active = false;
+
+				cl.show(viewing, INVENTORY);
+				active = true;
+			} /*
+			   * else if (e.getSource() == factions) { cl.show(viewing,
+			   * FACTIONS); } else if (e.getSource() == quests) {
+			   * cl.show(viewing, QUESTS); } else if (e.getSource() == map) {
+			   * cl.show(viewing, MAP); }
+			   */
+
+			// grab focus
+			viewing.requestFocusInWindow();
+
+			// quick heal
+			if (e.getSource() == recover) {
+				
+				// search inventory for healing items
+				Item next = player.getInventory().findHealthItem();
+				
+				// use and remove
+				if (next != null) {
+					next.use(player);
+					player.getInventory().remove(next);
+					
+					// update the inventory
+					invenPanel.update();
+					health.update();
+				}
+				
+			} else if (e.getSource() == restore) {
 			}
-			
+
 		}
 		
 		/**
@@ -707,7 +799,13 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			
 			// align to middle and set font
 			setAlignmentX(Component.CENTER_ALIGNMENT);
-			setFont(new Font(JavaJesus.FONT_NAME, Font.PLAIN, 25));
+			setFont(new Font(JavaJesus.FONT_NAME, Font.PLAIN, 15));
+			
+			// make background transparent
+			setBackground(new Color(0, 0, 0, 0));
+			
+			// make font white
+			setForeground(Color.WHITE);
 			
 		}
 		
@@ -782,7 +880,14 @@ public class OverviewGUI extends JPanel implements FocusListener {
 	 */
 	@Override
 	public void focusGained(FocusEvent e) {
+		
+		// update the inventory
 		invenPanel.update();
+		
+		// update the status bars
+		health.update();
+		energy.update();
+		armor.update();
 	}
 
 	@Override

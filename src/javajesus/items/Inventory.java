@@ -182,6 +182,33 @@ public class Inventory implements Serializable {
 		}
 
 	}
+	
+	/**
+	 * @return First item in inventory that restores health
+	 * Returns NULL if none found
+	 */
+	public Item findHealthItem() {
+		
+		// iterate through inventory
+		for (int i = 0; i < items.length; i++) {
+			
+			// grab the item at i
+			if (items[i] != null) {
+				
+				// check if it contains health
+				if (items[i].containsHealth()) {
+					return items[i];
+				}
+				
+				// rest of inventory is null
+			} else {
+				break;
+			}
+		}
+		
+		// none found
+		return null;
+	}
 
 	/**
 	 * Sorts items alphabetically

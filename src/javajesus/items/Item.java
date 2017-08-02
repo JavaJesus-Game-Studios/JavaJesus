@@ -318,6 +318,15 @@ public class Item implements Serializable {
 	}
 	
 	/**
+	 * @return whether or not the item contains health
+	 */
+	public boolean containsHealth() {
+		
+		return health > 0;
+		
+	}
+	
+	/**
 	 * @return x tile on spritesheet
 	 */
 	public int getXTile() {

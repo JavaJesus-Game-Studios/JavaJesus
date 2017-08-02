@@ -47,10 +47,10 @@ public class Player extends Mob implements Type {
 	private Inventory inventory;
 
 	// the current stamina, influences special swings and running
-	private double stamina;
+	private float stamina;
 
 	// the max stamina
-	private double maxStamina;
+	private float maxStamina;
 
 	// List of the active quests
 	@SuppressWarnings("unused")
@@ -665,15 +665,15 @@ public class Player extends Mob implements Type {
 	/**
 	 * @return the current stamina
 	 */
-	public double getCurrentStamina() {
-		return stamina;
+	public int getCurrentStamina() {
+		return (int) stamina;
 	}
 
 	/**
 	 * @return the max stamina
 	 */
-	public double getMaxStamina() {
-		return maxStamina;
+	public int getMaxStamina() {
+		return (int) maxStamina;
 	}
 
 	/**
