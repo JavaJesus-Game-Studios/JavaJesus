@@ -33,7 +33,7 @@ public class PlayerCreationGUI extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	// Selectors on the left side
-	private JJButton skin, shirt, hair, pants, finish, pistol, sword, back;
+	private final JJButton skin, shirt, hair, pants, finish, pistol, sword, back, male, female;
 	
 	// default active tab
 	private int active;
@@ -95,17 +95,23 @@ public class PlayerCreationGUI extends JPanel implements ActionListener {
 		
 		// add the player information panel at the top
 		JJPanel appearance = new JJPanel(JJStrings.PLAYER_INFO_TOP);
-		appearance.setBorder(new EmptyBorder(200, 8, 0, 12));
+		appearance.setBorder(new EmptyBorder(70, 230, 70, 30));
+		appearance.add(male = new JJButton("male"));
+		male.isOn = true;
+		appearance.add(female = new JJButton("male"));
+		rightSide.add(appearance);
 		
 		// now add the row of buttons
+		JPanel buttonContainer = new JPanel();
+		buttonContainer.setBorder(new ButtonBorder());
 		JPanel buttons = new JPanel(new FlowLayout(0, 0, FlowLayout.LEFT));
 		buttons.add(skin = new JJButton("skin"));
 		skin.isOn = true;
 		buttons.add(hair = new JJButton("hair"));
 		buttons.add(shirt = new JJButton("shirt"));
 		buttons.add(pants = new JJButton("pants"));
-		appearance.add(buttons);
-		rightSide.add(appearance);
+		buttonContainer.add(buttons);
+		rightSide.add(buttonContainer);
 		
 		// form the color panel
 		rightSide.add(red = new RGBSlider((pScreen.getSkinColor() & 0x00FF0000) >> 16, Color.RED));

@@ -41,7 +41,7 @@ public class PlayerGUI extends JPanel {
 	private static SpriteSheet sheet = SpriteSheet.player_male;
 	
 	// default color set of the player
-	private final int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99, 0xFF000001, 0xFF000001 };
+	private final int[] color = { 0xFF000001, 0xFFFF0000, 0xFFFFCC99, 0xFF343434, 0xFF343434 };
 	
 	/**
 	 * PlayerGUI ctor()

@@ -30,6 +30,7 @@ public class JJStrings {
 	public static final String ENTER_NAME = "/VISUAL_DATA/GUI/PANELS/PLAYER_CREATION/player_name.png";
 	public static final String PLAYER_INFO_TOP = "/VISUAL_DATA/GUI/PANELS/PLAYER_CREATION/player_info_top.png";
 	public static final String PLAYER_STARTING_WEAP = "/VISUAL_DATA/GUI/PANELS/PLAYER_CREATION/starting_weapon.png";
+	public static final String PLAYER_INFO_BORDER = "/VISUAL_DATA/GUI/PANELS/PLAYER_CREATION/player_info_button_border.png";
 	public static final String RED_SLIDER = "/VISUAL_DATA/GUI/PANELS/PLAYER_CREATION/player_info_mid_higher.png";
 	public static final String GREEN_SLIDER = "/VISUAL_DATA/GUI/PANELS/PLAYER_CREATION/player_info_mid_lower.png";
 	public static final String BLUE_SLIDER = "/VISUAL_DATA/GUI/PANELS/PLAYER_CREATION/player_info_bottom.png";
