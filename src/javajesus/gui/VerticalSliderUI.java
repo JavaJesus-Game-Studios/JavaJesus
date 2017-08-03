@@ -28,7 +28,7 @@ public class VerticalSliderUI extends BasicScrollBarUI {
 	/**
 	 * Initializes the track and thumb
 	 */
-	public VerticalSliderUI() {
+	public VerticalSliderUI(String trackPath) {
 		
 		// dummy should not be visible
 		Dimension zero = new Dimension(0, 0);
@@ -38,7 +38,7 @@ public class VerticalSliderUI extends BasicScrollBarUI {
 		try {
 
 			track = ImageIO.read(
-			        VerticalSliderUI.class.getResource("/VISUAL_DATA/GUI/PANELS/INVENTORY/description_slider.png"));
+			        VerticalSliderUI.class.getResource(trackPath));
 			thumb = ImageIO
 			        .read(VerticalSliderUI.class.getResource("/VISUAL_DATA/GUI/BUTTONS/SLIDERS/slider_vert.png"));
 

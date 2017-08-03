@@ -12,7 +12,7 @@ import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
-import javajesus.quests.Quest;
+import javajesus.quest.Quest;
 import javajesus.utility.Direction;
 
 /*
@@ -59,6 +59,7 @@ public abstract class NPC extends Mob {
 	
 	// hit color of the npc
 	protected static final int[] mobHitColor = { 0xFF700000, 0xFF700000, 0xFF700000 };
+	protected static final int[] questColor = {0xFFFFFF00, 0xFFFFFF00, 0xFFFFFF00};
 
 	/**
 	 * Creates a NPC that interacts with the environment
@@ -212,7 +213,7 @@ public abstract class NPC extends Mob {
 
 		// notifies the player this NPC has a quest
 		if (currentQuest != null && !isTalking) {
-			JJFont.render("?", screen, getX() + 4, getY() - 10, mobHitColor, 1);
+			JJFont.render("?", screen, getX() + 4, getY() - 10, questColor, 1);
 		}
 		
 		// don't  render if class is overriding render
@@ -446,16 +447,19 @@ public abstract class NPC extends Mob {
 	}
 
 	/**
-	 * @param quest
-	 *            the quest to add
+	 * @param quest - the quest to add
 	 */
 	public void addQuest(Quest quest) {
 		quests.add(quest);
+		
+		// now make it active
+		if (currentQuest == null) {
+			currentQuest = quest;
+		}
 	}
 
 	/**
-	 * @param num
-	 *            the index of the quest to set
+	 * @param num - the index of the quest to set
 	 */
 	public void setQuest(int num) {
 		this.currentQuest = quests.get(num);
@@ -466,69 +470,24 @@ public abstract class NPC extends Mob {
 	 * 
 	 * @param player - initiator of conversation
 	 */
-	protected void doDialogue(Player player) {
+	protected String getDialogue(Player player) {
+
+		// choose one at random
 		switch (random.nextInt(13)) {
-		case 0: {
-			MessageHandler.displayText(getName() + ": I used to be an adventurer too!", Color.black);
-			return;
-		}
-		case 1: {
-			MessageHandler.displayText(getName() + ": Nice shirt!", Color.white);
-			return;
-		}
-		case 2: {
-			MessageHandler.displayText(getName() + ": Are you Jesus?", Color.white);
-			return;
-		}
-		case 3: {
-			MessageHandler.displayText(getName() + ": This is some nice weather we've been having.", Color.white);
-			return;
-		}
-		case 4: {
-			MessageHandler.displayText(getName() + ": You are not from around here are you!", Color.white);
-			return;
-		}
-		case 5: {
-			MessageHandler.displayText(getName() + ": Hello Officer!", Color.white);
-			return;
-		}
-		case 6: {
-			MessageHandler.displayText(getName() + ": Who goes there!", Color.white);
-			return;
-		}
-		case 7: {
-			MessageHandler.displayText(getName() + ": Have you been to San Cisco? I hear they're having lovely weather.",
-					Color.white);
-			return;
-		}
-		case 8: {
-			MessageHandler.displayText(getName() + ": It's you! It really is! All Hail the Hero of the Bay!", Color.white);
-			return;
-		}
-		case 9: {
-			MessageHandler.displayText(getName() + ": I'm not racist but when you're driving in the East Bay,"
-					+ " roll up your windows and lock your doors.", Color.white);
-			return;
-		}
-		case 10: {
-			MessageHandler.displayText(getName() + ": Have you seen my friend Bob? He's a peasant and he seems to have"
-					+ "literally dissapeared!", Color.white);
-			return;
-		}
-		case 11: {
-			MessageHandler.displayText(
-					getName() + ": Nasty business it is with those Apes in the North!" + " Nasty business indeed.",
-					Color.white);
-			return;
-		}
-		case 12: {
-			MessageHandler.displayText(getName() + ": Hola, mi nombre es Esteban Norteruta!", Color.white);
-			return;
-		}
-		default: {
-			MessageHandler.displayText(getName() + ": Hello!", Color.white);
-			return;
-		}
+		case 0:	return "I used to be an adventurer too!";
+		case 1:	return ": Nice shirt!";
+		case 2:	return "Are you Jesus?";
+		case 3:	return "This is some nice weather we've been having.";
+		case 4:	return "You are not from around here are you!";
+		case 5: return "Hello Officer!";
+		case 6: return "Who goes there!";
+		case 7: return "Have you been to San Cisco? I hear they're having lovely weather.";
+		case 8:	return "It's you! It really is! All Hail the Hero of the Bay!";
+		case 9:	return "I'm not racist but when you're driving in the East Bay, roll up your windows and lock your doors.";
+		case 10: return "Have you seen my friend Bob? He's a peasant and he seems to have" + "literally dissapeared!";
+		case 11: return "Nasty business it is with those Apes in the North!" + " Nasty business indeed.";
+		case 12: return "Hola, mi nombre es Esteban Norteruta!";
+		default:return "Hello!";
 		}
 	}
 
@@ -537,10 +496,10 @@ public abstract class NPC extends Mob {
 	 */
 	public void speak(Player player) {
 
+		// set the talking effect
 		isTalking = true;
 
-		// generally the NPC will face the opposite direction of the player when
-		// talking
+		// generally the NPC will face the opposite direction of the player when talking 
 		switch (player.getDirection()) {
 		case NORTH: {
 			setDirection(Direction.SOUTH);
@@ -560,46 +519,46 @@ public abstract class NPC extends Mob {
 		}
 		}
 
+		// do quest dialogue
 		if (currentQuest != null) {
-			if (!player.getActiveQuests().contains(currentQuest)) {
-				player.getActiveQuests().add(currentQuest);
-			}
-			currentQuest.update();
-			switch (currentQuest.getPhase()) {
-			case 0: {
-				MessageHandler.displayText(getName() + ": " + currentQuest.preDialogue(), Color.blue);
-				SoundHandler.play(SoundHandler.levelup);
-				currentQuest.nextPhase();
-				return;
-			}
-			case 1: {
-				MessageHandler.displayText(getName() + ": " + currentQuest.dialogue(), Color.blue);
-				return;
-			}
-			case 2: {
-				MessageHandler.displayText(getName() + ": " + currentQuest.postDialogue(), Color.CYAN);
-				SoundHandler.play(SoundHandler.chest);
-				if (!player.getCompletedQuests().contains(currentQuest)) {
-					player.getCompletedQuests().add(currentQuest);
-					player.getActiveQuests().remove(currentQuest);
-				}
-				nextQuest();
-				return;
-			}
-			}
-		}
 
-		doDialogue(player);
+			// give the quest to the player
+			if (!currentQuest.hasAccepted()) {
+				player.addQuest(currentQuest);
+			}
+			
+			// update the conditions
+			currentQuest.update();
+
+			// do quest dialogue
+			MessageHandler.displayText(getName() + ": " + currentQuest.getDialogue(), Color.BLUE);
+
+			// move on to next quest if completed
+			if (currentQuest.isCompleted()) {
+
+				// quest completed sound
+				SoundHandler.play(SoundHandler.chest);
+				
+				// update the player
+				player.finishQuest(currentQuest);
+
+				// update quest
+				nextQuest();
+			}
+		} else {
+			// do normal dialogue
+			MessageHandler.displayText(getName() + ": " + getDialogue(player), Color.WHITE);
+		}
 
 	}
 
 	/**
 	 * Sets the npc to the next quest
 	 */
-	protected void nextQuest() {
+	private void nextQuest() {
 		quests.remove(currentQuest);
 		currentQuest = null;
-		if (quests.contains(0)) {
+		if (quests.size() > 0) {
 			currentQuest = quests.get(0);
 		}
 	}
@@ -607,10 +566,8 @@ public abstract class NPC extends Mob {
 	/**
 	 * Moves a npc on the level every other tick
 	 * 
-	 * @param dx
-	 *            the total change in x
-	 * @param dy
-	 *            the total change in y
+	 * @param dx - the total change in x
+	 * @param dy - the total change in y
 	 */
 	public void move(int dx, int dy) {
 
@@ -622,13 +579,10 @@ public abstract class NPC extends Mob {
 	/**
 	 * Moves a npc every tick (will cause faster movement)
 	 * 
-	 * @param dx
-	 *            the total change in x
-	 * @param dy
-	 *            the total change in y
+	 * @param dx - the total change in x
+	 * @param dy - the total change in y
 	 */
 	public void moveSmoothly(int dx, int dy) {
-
 		super.move(dx * (int) getSpeed(), dy * (int) getSpeed());
 	}
 

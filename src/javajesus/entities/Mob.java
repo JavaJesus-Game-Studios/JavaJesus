@@ -11,7 +11,7 @@ import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
-import javajesus.quests.Script;
+import javajesus.quest.Script;
 import javajesus.utility.Direction;
 
 /*
@@ -111,7 +111,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	private boolean clip;
 	
 	// color of water
-	private static final int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
+	protected int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
 	
 	// for knockback color flicker
 	protected boolean knockbackCooldown;

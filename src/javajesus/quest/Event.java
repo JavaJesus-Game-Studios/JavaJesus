@@ -1,4 +1,4 @@
-package javajesus.quests;
+package javajesus.quest;
 
 import java.io.Serializable;
 import java.util.ArrayList;

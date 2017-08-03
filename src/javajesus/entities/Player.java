@@ -22,7 +22,7 @@ import javajesus.items.Item;
 import javajesus.items.Sword;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
-import javajesus.quests.Quest;
+import javajesus.quest.Quest;
 import javajesus.utility.Direction;
 
 /*
@@ -53,11 +53,9 @@ public class Player extends Mob implements Type {
 	private float maxStamina;
 
 	// List of the active quests
-	@SuppressWarnings("unused")
 	private ArrayList<Quest> activeQuests = new ArrayList<Quest>();
 
 	// List of completed quests
-	@SuppressWarnings("unused")
 	private ArrayList<Quest> completedQuests = new ArrayList<Quest>();
 
 	// the spritesheet to use when the player is shooting
@@ -112,6 +110,9 @@ public class Player extends Mob implements Type {
 	 */
 	public Player(String name, Level level, int x, int y, byte gender) {
 		super(level, name, x, y, 1, SIZE, SIZE, SpriteSheet.player_male, START_HEALTH);
+		
+		// change the water colors to match the head later on
+		waterColor = new int[] {0xFF5A52FF, 0xFF000000, 0xFF000000, 0, 0};
 
 		// load basic data
 		inventory = new Inventory();
@@ -585,6 +586,7 @@ public class Player extends Mob implements Type {
 	 */
 	public void setHairColor(int num) {
 		color[3] = num;
+		waterColor[3] = num;
 	}
 	
 	/**
@@ -594,6 +596,7 @@ public class Player extends Mob implements Type {
 	 */
 	public void setPantsColor(int num) {
 		color[4] = num;
+		waterColor[4] = num;
 	}
 
 	/**
@@ -677,17 +680,30 @@ public class Player extends Mob implements Type {
 	}
 
 	/**
-	 * @return The player's active quest
+	 * Adds a quest
 	 */
-	public ArrayList<Quest> getActiveQuests() {
-		return this.getActiveQuests();
+	public void addQuest(Quest quest) {
+		activeQuests.add(quest);
+		quest.accept();
+	}
+	
+	/**
+	 * Finishes a quest
+	 */
+	public void finishQuest(Quest quest) {
+		activeQuests.remove(quest);
+		completedQuests.add(quest);
 	}
 
 	/**
-	 * @return The player's completed quests
+	 * @return the summary of the first quest
 	 */
-	public ArrayList<Quest> getCompletedQuests() {
-		return this.getCompletedQuests();
+	public String getQuestSummary() {
+		if (activeQuests.size() > 0) {
+			return activeQuests.get(0).getSummary();
+		} else {
+			return "No Active Quests";
+		}
 	}
 
 	/**

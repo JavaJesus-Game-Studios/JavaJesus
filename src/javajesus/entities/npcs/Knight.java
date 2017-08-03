@@ -1,12 +1,9 @@
 package javajesus.entities.npcs;
 
-import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
-import javajesus.MessageHandler;
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
-import javajesus.entities.Player;
 import javajesus.entities.monsters.Monster;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
@@ -223,28 +220,16 @@ public class Knight extends NPC {
 	}
 
 	/**
-	 * Moves a monster on the level
+	 * Moves the knight on the level
 	 * 
-	 * @param dx
-	 *            the total change in x
-	 * @param dy
-	 *            the total change in y
+	 * @param dx - the total change in x
+	 * @param dy - the total change in y
 	 */
 	@Override
 	public void move(int dx, int dy) {
 		super.move(dx, dy);
 
 		aggroRadius.setFrame(getX() - RADIUS / 2, getY() - RADIUS / 2, RADIUS, RADIUS);
-	}
-
-	/**
-	 * Dialogue options for the Knight
-	 * 
-	 * @param player - the initiator of conversation
-	 */
-	public void doDialogue(Player player) {
-		MessageHandler.displayText(getName() + ": Hello " + player.getName(), Color.white);
-		return;
 	}
 
 	@Override

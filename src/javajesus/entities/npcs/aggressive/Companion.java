@@ -1,8 +1,5 @@
 package javajesus.entities.npcs.aggressive;
 
-import java.awt.Color;
-
-import javajesus.MessageHandler;
 import javajesus.entities.Entity;
 import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
@@ -90,17 +87,11 @@ public class Companion extends Shooter {
 	/**
 	 * Companion Dialogue options
 	 */
-	@Override
-	public void doDialogue(Player player) {
+	public String getDialogue(Player player) {
 		switch (random.nextInt(2)) {
-		case 0:
-			MessageHandler.displayText(getName() + ": What's up, bud?", Color.white);
-			break;
-		case 1:
-			MessageHandler.displayText(getName() + ": I got your back!", Color.white);
-			break;
+		case 0: return " What's up, bud?";
+		default: return "I got your back!";
 		}
-		return;
 	}
 
 

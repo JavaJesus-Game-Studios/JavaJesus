@@ -9,6 +9,12 @@ public class JJStrings {
 	// Name of the game window
 	public static final String NAME = "JavaJesus";
 	
+	// vertical slider UI
+	public static final String DESCRIPTION_TRACK = "/VISUAL_DATA/GUI/PANELS/INVENTORY/description_slider.png";
+	public static final String OBJECTIVE_TRACK = "/VISUAL_DATA/GUI/PANELS/OVERVIEW/objective_slider.png";
+	public static final String DESCRIPTION_PANEL = "/VISUAL_DATA/GUI/PANELS/INVENTORY/item_description_bottom.png";
+	public static final String OBJECTIVE_PANEL = "/VISUAL_DATA/GUI/PANELS/OVERVIEW/objective_panel.png";
+	
 	// player panels
 	public static final String PLAYER_MALE = "/VISUAL_DATA/GUI/PANELS/gui_player-m.png";
 	public static final String PLAYER_FEMALE = "/VISUAL_DATA/GUI/PANELS/gui_player-f.png";

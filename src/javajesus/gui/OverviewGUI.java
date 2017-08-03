@@ -52,6 +52,9 @@ public class OverviewGUI extends JPanel implements FocusListener {
 	// status bars that update with player information
 	private StatusBar health, energy, armor;
 	
+	// for objective quest information
+	private JJTextArea objective;
+	
 	// viewing panel that changes
 	private JPanel viewing;
 
@@ -66,7 +69,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 
 	// constants for the main view
 	private static final int PLAYER_PANEL_WIDTH = 374, NAME_BOX_HEIGHT = 79, STATUS_BAR_HEIGHT = 65,
-			OBJ_HEIGHT = 145;
+			OBJ_HEIGHT = 43;
 	
 	// constants for the inventory screen
 	private static final int LEFT_SIDE_WIDTH = 290, ITEM_DISPLAY_HEIGHT = 290, TOP_HEIGHT = 33, MID_HEIGHT = 31, BOTTOM_HEIGHT = 150, CURRENCY_HEIGHT = 58;
@@ -166,9 +169,9 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			selected.setPreferredSize(new Dimension(LEFT_SIDE_WIDTH, ITEM_DISPLAY_HEIGHT)); 
 			leftSide.add(name = new JJPanel(JJStrings.INFO_TOP, LEFT_SIDE_WIDTH, TOP_HEIGHT, "Empty", 0, 5, 15));
 			leftSide.add(info = new JJPanel(JJStrings.INFO_MIDDLE, LEFT_SIDE_WIDTH, MID_HEIGHT, "Amount: 0", 0, 0, 15));
-			JScrollPane pane = new JScrollPane(description = new JJTextArea("None"));
+			JScrollPane pane = new JScrollPane(description = new JJTextArea(JJStrings.DESCRIPTION_PANEL, "None"));
 			pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			pane.getVerticalScrollBar().setUI(new VerticalSliderUI());
+			pane.getVerticalScrollBar().setUI(new VerticalSliderUI(JJStrings.DESCRIPTION_TRACK));
 			pane.setBorder(null);
 			leftSide.add(pane);
 			leftSide.add(money = new JJPanel(JJStrings.INFO_CURRENCY, LEFT_SIDE_WIDTH, CURRENCY_HEIGHT, "$0"));
@@ -390,6 +393,14 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			
 			// objective panel
 			rightSide.add(new JJPanel(JJStrings.OVERVIEW_OBJ, JavaJesus.WINDOW_WIDTH - PLAYER_PANEL_WIDTH, OBJ_HEIGHT));
+			
+			// add the objective slider
+			JScrollPane pane = new JScrollPane(objective = new JJTextArea(JJStrings.OBJECTIVE_PANEL, "None"));
+			objective.setBorder(new EmptyBorder(20, 15, 12, 4));
+			pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			pane.getVerticalScrollBar().setUI(new VerticalSliderUI(JJStrings.OBJECTIVE_TRACK));
+			pane.setBorder(null);
+			rightSide.add(pane);
 			
 			// location panel
 			rightSide.add(new JJPanel(JJStrings.OVERVIEW_LOC,
@@ -822,13 +833,10 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		// background of the text area
 		private BufferedImage bg;
 		
-		// directory of the background panel
-		private static final String DIR = "/VISUAL_DATA/GUI/PANELS/INVENTORY/item_description_bottom" + PNG;
-		
 		/**
 		 * @param text - text to display
 		 */
-		private JJTextArea(String text) {
+		private JJTextArea(String panelPath, String text) {
 			super(text);
 			
 			// set up the description text area
@@ -847,10 +855,10 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			
 			// load the background
 			try {
-				bg = ImageIO.read(OverviewGUI.class.getResource(DIR));
+				bg = ImageIO.read(OverviewGUI.class.getResource(panelPath));
 				
 			} catch(IOException e) {
-				System.err.println("Couldn't load " + DIR);
+				System.err.println("Couldn't load " + panelPath);
 			}
 		}
 		
@@ -883,6 +891,9 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		
 		// update the inventory
 		invenPanel.update();
+		
+		// update the quest panel
+		objective.setText(player.getQuestSummary());
 		
 		// update the status bars
 		health.update();
