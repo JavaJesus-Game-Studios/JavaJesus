@@ -705,6 +705,26 @@ public class Player extends Mob implements Type {
 			return "No Active Quests";
 		}
 	}
+	
+	/**
+	 * Makes sure that all active quests can be completed
+	 */
+	public void checkQuests() {
+		
+		// iterat through all quests
+		for (int i = 0; i < activeQuests.size(); i++) {
+			
+			// get the current quest
+			Quest q = activeQuests.get(i);
+			
+			// if the giver is dead, complete it
+			if (!q.isCompletable()) {
+				finishQuest(q);
+				i--;
+			}
+		}
+		
+	}
 
 	/**
 	 * @return the number of steps the player has taken

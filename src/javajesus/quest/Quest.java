@@ -48,7 +48,13 @@ public abstract class Quest {
 	 * @return - the dialogue for the quest
 	 */
 	public final String getDialogue() {
-
+		
+		// start checking for completion after the initial round of text
+		if (phase != PRE) {
+			// update the quest
+			update();
+		}
+		
 		// quest just started
 		if (phase == PRE) {
 
@@ -73,6 +79,13 @@ public abstract class Quest {
 	}
 	
 	/**
+	 * @return whether or not the quest can be completed
+	 */
+	public boolean isCompletable() {
+		return !giver.isDead();
+	}
+	
+	/**
 	 * @return whether or not the player accepted the quest
 	 */
 	public boolean hasAccepted() {
@@ -89,7 +102,7 @@ public abstract class Quest {
 	/**
 	 * Updates the conditions for the quest
 	 */
-	public abstract void update();
+	protected abstract void update();
 
 	/**
 	 * @return The initial pre dialogue of the quest

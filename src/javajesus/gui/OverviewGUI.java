@@ -892,6 +892,9 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		// update the inventory
 		invenPanel.update();
 		
+		// check if quest failed
+		player.checkQuests();
+		
 		// update the quest panel
 		objective.setText(player.getQuestSummary());
 		

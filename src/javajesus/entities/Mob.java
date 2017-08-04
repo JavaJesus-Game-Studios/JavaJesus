@@ -644,9 +644,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	}
 
 	/**
-	 * Triggers the death animation and closure TODO replace the mob with a
-	 * dummy dead mob to fix bound glitch TODO special case for player, do that
-	 * in Player class
+	 * Triggers the death animation and closure
 	 */
 	public void remove() {
 

@@ -495,7 +495,7 @@ public abstract class NPC extends Mob {
 	 * Text to player
 	 */
 	public void speak(Player player) {
-
+		
 		// set the talking effect
 		isTalking = true;
 
@@ -527,9 +527,6 @@ public abstract class NPC extends Mob {
 				player.addQuest(currentQuest);
 			}
 			
-			// update the conditions
-			currentQuest.update();
-
 			// do quest dialogue
 			MessageHandler.displayText(getName() + ": " + currentQuest.getDialogue(), Color.BLUE);
 
@@ -560,6 +557,20 @@ public abstract class NPC extends Mob {
 		currentQuest = null;
 		if (quests.size() > 0) {
 			currentQuest = quests.get(0);
+		}
+	}
+	
+	/**
+	 * Logic on mob death
+	 */
+	@Override
+	public void remove() {
+		super.remove();
+		
+		// now remove the quest
+		if (currentQuest != null) {
+			quests.remove(currentQuest);
+			currentQuest = null;
 		}
 	}
 
