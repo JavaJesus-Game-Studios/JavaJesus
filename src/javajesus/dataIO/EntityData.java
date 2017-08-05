@@ -115,6 +115,7 @@ import javajesus.entities.solid.furniture.Stool;
 import javajesus.entities.solid.furniture.Television;
 import javajesus.entities.solid.furniture.Throne;
 import javajesus.entities.solid.trees.DeadSequoia;
+import javajesus.entities.solid.trees.DeadSequoiaSmall;
 import javajesus.entities.solid.trees.GenericTree;
 import javajesus.entities.solid.trees.LargeSequoia;
 import javajesus.entities.solid.trees.MediumSequoia;
@@ -544,6 +545,8 @@ public class EntityData {
 	            return new CardTable(level, x, y);
 	        case Entity.BAR:
 	            return new Bar(level, x, y);
+	        case Entity.DEAD_SEQUOIA_SMALL:
+                return new DeadSequoiaSmall(level, x, y);
 
 	        default:
 	            return null;
