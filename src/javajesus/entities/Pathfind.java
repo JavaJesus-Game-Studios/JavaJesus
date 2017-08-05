@@ -37,6 +37,7 @@ class Pathfind
     /**
      * Tries to create a shortest path from [sX, sY] to [dX, dY] on matrix. 
      * 
+     * @param matrix - A 1D array of a 2D level. '0' Represents a solid tile, '1' is walkable.
      * @param sX - The x coordinate of the source location.
      * @param sY - The y coordinate of the source location.
      * @param dX - The x coordinate of the destination location.
