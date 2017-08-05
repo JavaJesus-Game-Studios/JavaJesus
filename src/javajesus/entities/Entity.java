@@ -51,8 +51,8 @@ public abstract class Entity implements Serializable
             SMALL_TREE_AUTUMN = 120, SMALL_TREE_WINTER = 121,
             MEDIUM_TREE = 122, MEDIUM_TREE_AUTUMN = 123,
             MEDIUM_TREE_WINTER = 124, LARGE_TREE = 125,
-            LARGE_TREE_AUTUMN = 126, LARGE_TREE_WINTER = 127, WHITE_OAK = 128,
-            WHITE_OAK_SMALL = 129;
+            LARGE_TREE_AUTUMN = 126, LARGE_TREE_WINTER = 127, WHITE_OAK = -128,
+            WHITE_OAK_SMALL = -127;
 
     // number of unique entities worth saving
     public static final int NUM_ENTITIES = 103;
