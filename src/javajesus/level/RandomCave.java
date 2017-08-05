@@ -1,8 +1,6 @@
 package javajesus.level;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Random;
 
 import javax.sound.sampled.Clip;
 
@@ -10,7 +8,6 @@ import javajesus.SoundHandler;
 import javajesus.entities.Chest;
 import javajesus.entities.Spawner;
 import javajesus.entities.transporters.Ladder;
-import javajesus.items.Item;
 import javajesus.level.generation.CaveGeneration;
 import javajesus.level.tile.Tile;
 
@@ -19,44 +16,63 @@ import javajesus.level.tile.Tile;
  */
 public class RandomCave extends Level {
 
+	// unfiltered tile list of the cave
 	private int[][] caveMap;
+	
+	// the level before entering this cave
 	private Level prevLevel;
-
-	// the entering point of the level before entering the cave
-	private Point prevSpawn;
-
-	Random rand = new Random();
-
-	private int cycles;
 
 	// the number of caves there currently are
 	private static int numCaves;
 
-	public RandomCave(int cycles, Level prevLevel, Point prevSpawn) {
-		super("Random Cave " + numCaves++, prevSpawn);
+	/**
+	 * Generates a random cave level
+	 * 
+	 * @param cycles - the cycles
+	 * @param prevLevel - the previous level
+	 * @param spawn - the spawn point in this random cave
+	 */
+	public RandomCave(int cycles, Level prevLevel, Point spawn) {
+		super("Random Cave " + numCaves++, spawn);
+		
+		// instance data
 		this.prevLevel = prevLevel;
-		this.prevSpawn = prevSpawn;
-		this.cycles = 3;
-		generateLevel();
+		
+		// fill the tile map
+		generateLevel(cycles);
 	}
-
-	public Clip getBackgroundMusic() {
-		return SoundHandler.background2;
+	
+	/**
+	 * Generates a random cave level
+	 * 
+	 * @param prevLevel - the previous level
+	 * @param spawn - the spawn point in this random cave
+	 */
+	public RandomCave(Level prevLevel, Point spawn) {
+		this(3, prevLevel, spawn);
 	}
+	
+	/**
+	 * Fills the cave map tiles with real tiles
+	 * 
+	 * @param cycles - the smoothness of the generation
+	 */
+	protected void generateLevel(int cycles) {
 
-	protected void generateLevel() {
+		// fill the cave map tiles
+		caveMap = CaveGeneration.generateCave(cycles);
 
-		caveMap = new CaveGeneration(Level.LEVEL_HEIGHT, Level.LEVEL_WIDTH, cycles).generateCave();
-
-		ArrayList<Item> chest1 = new ArrayList<Item>();
-		chest1.add(Item.banana);
-		chest1.add(Item.revolver);
-		chest1.add(Item.shortSword);
-
+		// whether or not a proper spawn point is found
 		boolean spawnFound = false;
+		
+		// iterate through the tiles
 		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
 			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
+				
+				// get the current tile
 				int tile = col + row * Level.LEVEL_WIDTH;
+				
+				// 1 = SPAWNPOINT
 				if (caveMap[row][col] == 1) {
 					levelTiles[tile] = Tile.CAVEFLOOR.getId();
 					if (row > 5 * 8 && col > 5 * 8) {
@@ -67,16 +83,26 @@ public class RandomCave extends Level {
 							spawnFound = true;
 						}
 					}
+					
+					// 2 = OUTER WALL
 				} else if (caveMap[row][col] == 2) {
 					levelTiles[tile] = Tile.CAVEWALL.getId();
+					
+					// 0 = INNER WALL
 				} else if (caveMap[row][col] == 0) {
 					levelTiles[tile] = Tile.CAVEWALL_ROCK.getId();
+					
+					// 4 = CHEST
 				} else if (caveMap[row][col] == 4) {
 					levelTiles[tile] = Tile.CAVEFLOOR.getId();
 					add(new Chest(this, col * 8, row * 8, (byte) 1));
+					
+					// 5 = SPAWNER
 				} else if (caveMap[row][col] == 5) {
 					levelTiles[tile] = Tile.CAVEFLOOR1.getId();
 					add(new Spawner(this, col * 8, row * 8, Spawner.DEMON, 5));
+					
+					// 6 = LADDER
 				} else if (caveMap[row][col] == 6) {
 					levelTiles[tile] = Tile.CAVEFLOOR_ROCK.getId();
 					add(new Ladder(this, col * 8, row * 8,
@@ -85,6 +111,10 @@ public class RandomCave extends Level {
 				}
 			}
 		}
+	}
+	
+	public Clip getBackgroundMusic() {
+		return SoundHandler.background2;
 	}
 
 }

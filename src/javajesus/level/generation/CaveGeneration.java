@@ -1,43 +1,52 @@
 package javajesus.level.generation;
 
 import java.awt.Point;
-import java.io.Serializable;
 import java.util.Random;
 
-public class CaveGeneration implements Serializable {
+import javajesus.level.Level;
+
+/**
+ *	Utility class for generating tile maps using cell automata 
+ */
+public class CaveGeneration {
 	
-	private static final long serialVersionUID = -7313326091785979411L;
-	
-	private boolean[][] caveMap;
-	private int[][] caveReturn;
-	private int width;
-	private int height;
-	private int cycles;
+	// random number generator
+	private static final Random rand = new Random();
 
-	private Random rand = new Random();
-
-	public CaveGeneration(int height, int width, int cycles) {
-		this.height = height;
-		this.width = width;
-		this.cycles = cycles;
-		caveMap = new boolean[height][width];
-		caveReturn = new int[height][width];
-	}
-
-	public int[][] generateCave() {
-		fillArray();
-		cellAutomata(4, 8, 3, 8);
-		for (int row = 0; row < height; row++) {
-			for (int col = 0; col < width; col++) {
-				if (row == 0 || row == height - 1) {
+	/**
+	 * Generates a 2D array of a tile map as follows:
+	 * 
+	 * 0 - 1 initial mapping:
+	 * 0 -> Emtpy space -> 
+	 * 	4,5,6 entity data
+	 * 
+	 * 1 -> wall - > 2 if bordering empty
+	 * 
+	 * @return the 2D array of the tile map
+	 */
+	public static final int[][] generateCave(int cycles) {
+		
+		// alive or dead map
+		boolean[][] caveMap = new boolean[Level.LEVEL_HEIGHT][Level.LEVEL_WIDTH];
+		int[][] caveReturn = new int[Level.LEVEL_HEIGHT][Level.LEVEL_WIDTH];
+		
+		// does something
+		fillArray(caveMap);
+		cellAutomata(4, 8, 3, 8, cycles, caveMap);
+		
+		// iterate through all tiles and do something
+		// please comment this section of code all the way down
+		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
+			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
+				if (row == 0 || row == Level.LEVEL_HEIGHT - 1) {
 					caveMap[row][col] = false;
-				} else if (col == 0 || col == width - 1) {
+				} else if (col == 0 || col == Level.LEVEL_WIDTH - 1) {
 					caveMap[row][col] = false;
 				}
 			}
 		}
-		for (int row = 1; row < height - 1; row++) {
-			for (int col = 1; col < width - 1; col++) {
+		for (int row = 1; row < Level.LEVEL_HEIGHT - 1; row++) {
+			for (int col = 1; col < Level.LEVEL_WIDTH - 1; col++) {
 				if (caveMap[row][col]) {
 					caveReturn[row][col] = 1;
 				} else if (!caveMap[row][col]) {
@@ -88,9 +97,13 @@ public class CaveGeneration implements Serializable {
 		return caveReturn;
 	}
 
-	private void fillArray() {
-		for (int row = 0; row < height; row++) {
-			for (int col = 0; col < width; col++) {
+	/**
+	 * Does something
+	 * @param caveMap
+	 */
+	private static final void fillArray(boolean[][] caveMap) {
+		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
+			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
 				if (rand.nextInt(5) == 0) {
 					caveMap[row][col] = true;
 				} else {
@@ -100,12 +113,21 @@ public class CaveGeneration implements Serializable {
 		}
 	}
 
-	private void cellAutomata(int bBegin, int bEnd, int sBegin, int sEnd) {
+	/**
+	 * Does something
+	 * @param bBegin
+	 * @param bEnd
+	 * @param sBegin
+	 * @param sEnd
+	 * @param cycles
+	 * @param caveMap
+	 */
+	private static final void cellAutomata(int bBegin, int bEnd, int sBegin, int sEnd, int cycles, boolean[][] caveMap) {
 		for (int cycle = 0; cycle < cycles; cycle++) {
 			// The Birth Cycle
-			boolean[][] caveMapBirth = new boolean[height][width];
-			for (int row = 1; row < height - 1; row++) {
-				for (int col = 1; col < width - 1; col++) {
+			boolean[][] caveMapBirth = new boolean[Level.LEVEL_HEIGHT][Level.LEVEL_WIDTH];
+			for (int row = 1; row < Level.LEVEL_HEIGHT - 1; row++) {
+				for (int col = 1; col < Level.LEVEL_WIDTH - 1; col++) {
 					int bCounter = 0;
 					for (int row2 = -1; row2 <= 1; row2++) {
 						for (int col2 = -1; col2 <= 1; col2++) {
@@ -123,11 +145,11 @@ public class CaveGeneration implements Serializable {
 				}
 			}
 			// Merging
-			merger(caveMapBirth);
+			merger(caveMapBirth, caveMap);
 			// The Survival Cycle
-			boolean[][] caveMapSurvival = new boolean[height][width];
-			for (int row = 1; row < height - 1; row++) {
-				for (int col = 1; col < width - 1; col++) {
+			boolean[][] caveMapSurvival = new boolean[Level.LEVEL_HEIGHT][Level.LEVEL_WIDTH];
+			for (int row = 1; row < Level.LEVEL_HEIGHT - 1; row++) {
+				for (int col = 1; col < Level.LEVEL_WIDTH - 1; col++) {
 					int sCounter = 0;
 					for (int row2 = -1; row2 <= 1; row2++) {
 						for (int col2 = -1; col2 <= 1; col2++) {
@@ -146,13 +168,18 @@ public class CaveGeneration implements Serializable {
 				}
 			}
 			// Merging
-			mergerSurvival(caveMapSurvival);
+			mergerSurvival(caveMapSurvival, caveMap);
 		}
 	}
 
-	private void merger(boolean[][] mergeArray) {
-		for (int row = 0; row < height; row++) {
-			for (int col = 0; col < width; col++) {
+	/**
+	 * Does something
+	 * @param mergeArray
+	 * @param caveMap
+	 */
+	private static final void merger(boolean[][] mergeArray, boolean[][] caveMap) {
+		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
+			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
 				if (mergeArray[row][col] == true) {
 					caveMap[row][col] = true;
 				}
@@ -160,9 +187,14 @@ public class CaveGeneration implements Serializable {
 		}
 	}
 
-	private void mergerSurvival(boolean[][] mergeArray) {
-		for (int row = 0; row < height; row++) {
-			for (int col = 0; col < width; col++) {
+	/**
+	 * Does something
+	 * @param mergeArray
+	 * @param caveMap
+	 */
+	private static final void mergerSurvival(boolean[][] mergeArray, boolean[][] caveMap) {
+		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
+			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
 				if (mergeArray[row][col] == true) {
 					caveMap[row][col] = true;
 				} else {
@@ -172,9 +204,14 @@ public class CaveGeneration implements Serializable {
 		}
 	}
 
-	public Point getSpawnPoint() {
-		for (int row = 0; row < height; row++) {
-			for (int col = 0; col < width; col++) {
+	/**
+	 * This is never used!??
+	 * @param caveMap
+	 * @return
+	 */
+	public Point getSpawnPoint(boolean[][] caveMap) {
+		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
+			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
 				if (caveMap[row][col] == true && rand.nextInt(50) == 0) {
 					return new Point(col, row);
 				}
