@@ -56,8 +56,8 @@ public class ItemGUI extends JPanel {
 		
 		// load the backgrounds
 		try {
-			background_off = ImageIO.read(ItemGUI.class.getResource(JJStrings.ITEM_OFF));
-			background_on = ImageIO.read(ItemGUI.class.getResource(JJStrings.ITEM_ON));
+			background_off = ImageIO.read(ItemGUI.class.getResource(JJStrings.INVENTORY_OFF));
+			background_on = ImageIO.read(ItemGUI.class.getResource(JJStrings.INVENTORY_ON));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
