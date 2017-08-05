@@ -1,4 +1,4 @@
-package designer;
+package editors;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

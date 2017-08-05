@@ -1,4 +1,4 @@
-package designer;
+package editors;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -132,7 +132,7 @@ public class TileGUI extends JPanel {
 	public long getEntityData(int xOffset, int yOffset) {
 		
 		// set the entity to the right x and y coords
-		entity.moveTo((getX() - xOffset) * 8 / Designer.zoomScale, (getY() - yOffset) * 8 / Designer.zoomScale);
+		entity.moveTo((getX() - xOffset) * 8 / LevelEditor.zoomScale, (getY() - yOffset) * 8 / LevelEditor.zoomScale);
 		
 		// get the data
 		long data = entity.getData();

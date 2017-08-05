@@ -1,4 +1,4 @@
-package designer;
+package editors;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -152,9 +152,9 @@ import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
 
 /*
- * Driver class of the level designer
+ * Driver class of the level editors
  */
-public class Designer extends JPanel implements MouseListener, ActionListener {
+public class LevelEditor extends JPanel implements MouseListener, ActionListener {
 
 	// serialization
 	private static final long serialVersionUID = 1L;
@@ -236,21 +236,21 @@ public class Designer extends JPanel implements MouseListener, ActionListener {
 		JFrame frame = new JFrame();
 		frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(new Designer(WIDTH, HEIGHT));
+		frame.getContentPane().add(new LevelEditor(WIDTH, HEIGHT));
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		frame.setTitle("Level Designer for Java Jesus by Derek Jow");
+		frame.setTitle("Level LevelEditor for Java Jesus by Derek Jow");
 		frame.setVisible(true);
 		frame.toFront();
 	}
 
 	/**
-	 * Creates the display of the designer
+	 * Creates the display of the editors
 	 * 
 	 * @param width - width of the window
 	 * @param height - height of the window
 	 */
-	public Designer(int width, int height) {
+	public LevelEditor(int width, int height) {
 
 		// init the entity list
 		initEntities();

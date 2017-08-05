@@ -182,7 +182,7 @@ public class Spawner extends Entity implements Type {
 	 */
 	public void render(Screen screen) {
 		
-		// render only in the designer
+		// render only in the editors
 		if (!JavaJesus.isRunning()) {
 			screen.render(getX(), getY(), null, sprite);
 		}

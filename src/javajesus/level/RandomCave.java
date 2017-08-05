@@ -39,7 +39,7 @@ public class RandomCave extends Level {
 		this.prevLevel = prevLevel;
 		
 		// fill the tile map
-		generateLevel(cycles);
+		generateLevel(3);
 	}
 	
 	/**
