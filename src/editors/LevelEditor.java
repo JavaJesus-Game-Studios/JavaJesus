@@ -139,6 +139,7 @@ import javajesus.entities.solid.furniture.Stool;
 import javajesus.entities.solid.furniture.Television;
 import javajesus.entities.solid.furniture.Throne;
 import javajesus.entities.solid.trees.DeadSequoia;
+import javajesus.entities.solid.trees.DeadSequoiaMedium;
 import javajesus.entities.solid.trees.DeadSequoiaSmall;
 import javajesus.entities.solid.trees.GenericTree;
 import javajesus.entities.solid.trees.LargeSequoia;
@@ -1266,6 +1267,9 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.CARD_TABLE] = new EntityGUI(new CardTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 4);
 			entityList[Entity.BAR] = new EntityGUI(new Bar(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 6);
 			entityList[Entity.DEAD_SEQUOIA_SMALL] = new EntityGUI(new DeadSequoiaSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 4);
+			entityList[Entity.DEAD_SEQUOIA_MEDIUM] = new EntityGUI(new DeadSequoiaMedium(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 6);
+			entityList[Entity.REDWOOD_LARGE] = new EntityGUI(new RedwoodLarge(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 12);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1509,6 +1513,10 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
                 return new EntityGUI(new CardTable(null, 0, 0), 0, 0, 4, 4);
 			case Entity.DEAD_SEQUOIA_SMALL:
 			    return new EntityGUI(new DeadSequoiaSmall(null, 0, 0), 0, 0, 1, 4);
+			case Entity.DEAD_SEQUOIA_MEDIUM:
+                return new EntityGUI(new DeadSequoiaMedium(null, 0, 0), 0, 0, 2, 6);
+			case Entity.REDWOOD_LARGE:
+                return new EntityGUI(new RedwoodLarge(null, 0, 0), 0, 0, 5, 12);
 			}
 			
 		} catch (IOException e) {

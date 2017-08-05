@@ -4,23 +4,23 @@ import javajesus.entities.Entity;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 
-public class DeadSequoiaSmall extends Tree
+public class RedwoodLarge extends Tree
 {
-    
     /**
-     * Dead Small Sequoia ctor()
+     * Large Redwood ctor()
      * 
      * @param level - level it is on
      * @param x - x coordinate
      * @param y - y coordinate
      */
-    public DeadSequoiaSmall(Level level, int x, int y) {
-        super(level, x, y, Sprite.DEAD_SEQUOIA_SMALL, 3, 8, 3);
+    public RedwoodLarge(Level level, int x, int y) {
+        super(level, x, y, Sprite.REDWOOD_LARGE, 15, 8, 14);
     }
 
+    // need to add in the entity ID
     @Override
     public byte getId(){
-        return Entity.DEAD_SEQUOIA_SMALL;
+        return Entity.REDWOOD_LARGE;
     }
 
 }
