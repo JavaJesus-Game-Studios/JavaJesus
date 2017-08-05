@@ -1,30 +1,27 @@
 JavaJesus
 =========
 This is a Coders of Anarchy creation.
-Official team development stopped in 2015, but the game is periodically updated
-by the main developer.
+Official team development took a hiatus in 2015-2016, but resumed development in Summer 2017
 
-There are three different game modes:
+There are two different game modes:
 Adventure Mode (The Main Game)
 Sandbox Mode
-Survival Mode
 
 Adventure Mode:
 - Still in development, not ready for play
 - Basic maps are layed out, but no proper NPC placement, buildings, or scripts have been placed
 - Saving is compatible with this mode
+- Cannot be accessed unless developer
 
-Sandbox Mode:
+Sandbox Random Mode:
 - Randomly generated map
-- Companion helps you fight
 - Can explore caves and find chests
 - No incentive to play (Will be updated sometime)
 
-Survival Mode:
+Sandbox Fixed Mode:
 - Fixed map with monster spawns
-- Companion NPC will help you defend (Removed atm)
-- Get as many kills as you can!
-- Every kill makes it harder to stay alive
+- Companion NPCs will help you defend
+- Basic storyline meant for game testing
 
 Basic Controls and How to Play:
 - WASD to move
@@ -32,7 +29,6 @@ Basic Controls and How to Play:
 - Open menu with I, click on the player to get to inventory
 - Click on guns in inventory screen to change weapons
 -- Must have weapons (Find them in chests)
--- Back arrow is invisible, click around in the top left if you wish to go back
 - R to reload
 - Hold shift to sprint
 - Press T to spawn a Demon (Temporary)
