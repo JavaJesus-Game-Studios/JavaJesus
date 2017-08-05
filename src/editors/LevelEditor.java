@@ -144,6 +144,7 @@ import javajesus.entities.solid.trees.DeadSequoiaSmall;
 import javajesus.entities.solid.trees.GenericTree;
 import javajesus.entities.solid.trees.LargeSequoia;
 import javajesus.entities.solid.trees.MediumSequoia;
+import javajesus.entities.solid.trees.RedwoodLarge;
 import javajesus.entities.solid.trees.SmallSequoia;
 import javajesus.entities.vehicles.Boat;
 import javajesus.entities.vehicles.CenturyLeSabre;
