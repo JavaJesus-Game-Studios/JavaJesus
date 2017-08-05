@@ -175,7 +175,7 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 	// gets the name add-on for entity files
 	private static final String ENTITY = "_entities";
 
-	// height of the window
+	// dimensions of the window
 	private static final int WIDTH = 1000, HEIGHT = 800;
 
 	// number of tiles on level
@@ -240,7 +240,7 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 		frame.getContentPane().add(new LevelEditor(WIDTH, HEIGHT));
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		frame.setTitle("Level LevelEditor for Java Jesus by Derek Jow");
+		frame.setTitle("Level Editor for Java Jesus by Derek Jow");
 		frame.setVisible(true);
 		frame.toFront();
 	}
