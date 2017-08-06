@@ -14,51 +14,41 @@ public class CaveDoor extends Transporter {
 
 	// colorset for the cave door
 	private static final int[] color = { 0xFF663300, 0xFF472400, 0xFFFFDE00 };
-	
+
 	// dimensions of the door
 	private static final int WIDTH = 12, HEIGHT = 16;
 
 	/**
 	 * Creates a transporter that leads to a Random Cave
 	 * 
-	 * @param currentLevel
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
+	 * @param currentLevel the level it is on
+	 * @param x the x coord
+	 * @param y the y coord
 	 */
 	public CaveDoor(Level currentLevel, int x, int y) {
-		super(currentLevel, x, y, WIDTH, HEIGHT, new RandomCave(5, currentLevel, new Point(x + 1, y + 10)));
+		super(currentLevel, x, y, WIDTH, HEIGHT, new RandomCave(currentLevel, new Point(x + 1, y + 10)));
 	}
 
 	/**
 	 * Creates a transporter that leads to a a Random Cave at a specified point
 	 * 
-	 * @param currentLevel
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
-	 * @param point
-	 *            the spawnpoint of the RandomCave
+	 * @param currentLevel the level it is on
+	 * @param x the x coord
+	 * @param y the y coord
+	 * @param point the spawnpoint of the RandomCave
 	 */
 	public CaveDoor(Level currentLevel, int x, int y, Point point) {
-		super(currentLevel, x, y, WIDTH, HEIGHT, new RandomCave(5, currentLevel, new Point(x + 1, y + 10)));
-		
-		//TODO something with point
+		super(currentLevel, x, y, WIDTH, HEIGHT, new RandomCave(currentLevel, new Point(x + 1, y + 10)));
+
+		// TODO something with point
 	}
 
 	/**
 	 * Creates a transporter that leads to specified level
 	 * 
-	 * @param currentLevel
-	 *            the level it is on
-	 * @param x
-	 *            the x coord
-	 * @param y
-	 *            the y coord
+	 * @param currentLevel the level it is on
+	 * @param x the x coord
+	 * @param y the y coord
 	 */
 	public CaveDoor(Level currentLevel, int x, int y, Level nextLevel) {
 		super(currentLevel, x, y, WIDTH, HEIGHT, nextLevel);

@@ -26,7 +26,7 @@ public abstract class Interior extends Level {
 	 * @throws IOException 
 	 */
 	public Interior(final String path, final Point spawn, final Level outside) throws IOException {
-		super("Interior", spawn);
+		super(path, "Interior", spawn, 0);
 		
 		// make sure its not a png file
 		if (path.contains(".png")) {
@@ -36,14 +36,22 @@ public abstract class Interior extends Level {
 		// instance data
 		this.outside = outside;
 		
+	}
+	
+	@Override
+	public void generateLevel() throws IOException {
+		
+		// initialize tile array
+		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
+		
 		// load the tiles from the path
 		LevelData.load(new File(Interior.class.getResource(path).getFile()), levelTiles);
-		
+
 		// load the entity data
 		EntityData.load(this, new File(Interior.class.getResource(path + ENTITY).getFile()));
-		
+
 		// add all the transporters
-		for (Transporter t: getTransporters()) {
+		for (Transporter t : getTransporters()) {
 			add(t);
 		}
 	}

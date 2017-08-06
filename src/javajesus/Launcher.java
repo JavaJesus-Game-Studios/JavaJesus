@@ -159,6 +159,9 @@ public class Launcher extends Canvas implements IGameLogic {
 	 */
 	public void init() throws Exception {
 		
+		// load the random level
+		level.generateLevel();
+		
 		BufferedImage story_on, story_off, sandbox_on, sandbox_off, options_on, options_off, credits_on, credits_off,
 		        fixed_on, fixed_off, random_on, random_off, audio_on, audio_off, video_on, video_off,
 		        controls_on, controls_off, mute_on, mute_off, back_on,
@@ -432,16 +435,21 @@ public class Launcher extends Canvas implements IGameLogic {
 			
 			// load if it exists
 			if (PlayerData.exists(numSlot)) {
-				
-				// stop the launcher
-				running = false;
-				
-				// create the player
-				Player player = createPlayer(numSlot, mode);
-				
-				// start the game
-				new JavaJesus(mode, false, player);
-				
+
+				try {
+					// create the player
+					Player player = createPlayer(numSlot, mode);
+					
+					// stop the launcher
+					running = false;
+
+					// start the game
+					new JavaJesus(mode, false, player);
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
 				// create a player creation file
 			} else {
 				
@@ -487,7 +495,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	 * 
 	 * @return the player
 	 */
-	private Player createPlayer(int slot, GameMode mode) {
+	private Player createPlayer(int slot, GameMode mode) throws IOException {
 		
 		// load player creation data
 		Object[] data = PlayerData.load(slot);
@@ -501,6 +509,11 @@ public class Launcher extends Canvas implements IGameLogic {
 		
 		// level to set the player
 		Level level = getLevel(mode, slot);
+		
+		// load the level
+		if (!level.isLoaded()) {
+			level.generateLevel();
+		}
 		
 		// Player to create
 		Player player = new Player(name, level, level.getSpawnPoint().x, level.getSpawnPoint().y, gender);

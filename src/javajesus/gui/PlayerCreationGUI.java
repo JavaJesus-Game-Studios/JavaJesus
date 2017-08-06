@@ -98,7 +98,7 @@ public class PlayerCreationGUI extends JPanel implements ActionListener {
 		appearance.setBorder(new EmptyBorder(70, 230, 70, 30));
 		appearance.add(male = new JJButton("male"));
 		male.isOn = true;
-		appearance.add(female = new JJButton("male"));
+		appearance.add(female = new JJButton("female"));
 		rightSide.add(appearance);
 		
 		// now add the row of buttons

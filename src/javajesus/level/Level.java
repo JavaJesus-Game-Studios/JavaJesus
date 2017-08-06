@@ -7,10 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.Clip;
 import javax.swing.filechooser.FileSystemView;
 
 import javajesus.Hideable;
 import javajesus.JavaJesus;
+import javajesus.SoundHandler;
 import javajesus.dataIO.EntityData;
 import javajesus.dataIO.LevelData;
 import javajesus.entities.Damageable;
@@ -31,7 +33,7 @@ import javajesus.utility.LevelText;
 public abstract class Level {
 
 	// all tiles on each level
-	protected final int[] levelTiles;
+	protected int[] levelTiles;
 
 	// list of all entities on the map
 	private final List<Entity> entities = new ArrayList<Entity>(JavaJesus.ENTITY_LIMIT);
@@ -74,8 +76,11 @@ public abstract class Level {
 
 	// global offsets for determining the range to display things
 	private int xOffset, yOffset;
-
-
+	
+	// data used for loading and saving levels
+	protected String path;
+	private int saveFile;
+	
 	/**
 	 * Creates a level from the specified image path for the first time
 	 * 
@@ -84,48 +89,14 @@ public abstract class Level {
 	 * @param name - the name of this level
 	 * @param saveFile - the destination of the save file in My Games
 	 */
-	public Level(final String path, final String name, final Point spawn, int saveFile) throws IOException {
+	public Level(final String path, final String name, final Point spawn, int saveFile) {
 		
 		// instance data
 		this.name = name;
 		this.spawnPoint = spawn;
-		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
-		
-		// check if save file exists
-		File f = new File(DIR + saveFile);
-		
-		// file does not exist
-		if (!f.exists()) {
-			
-			// make the directory
-			f.mkdirs();
-			
-			// load the original files into memory
-			load(path, true);
-			
-			// now save in the new folder
-			save(DIR + saveFile + "/" + name);
-			
-			// directory does exist
-		} else {
-			
-			// select the file
-			f = new File(DIR + saveFile + "/" + name);
-			
-			// if it exists, load it
-			if (f.exists()) {
-				load(DIR + saveFile + "/" + name, false);
-				
-				// load from original, then save
-			} else {
-				
-				// load the original files into memory
-				load(path, true);
-				
-				// now save in the new folder
-				save(DIR + saveFile + "/" + name);
-			}
-		}
+		this.path = path;
+		this.saveFile = saveFile;
+
 	}
 	
 	/**
@@ -137,7 +108,58 @@ public abstract class Level {
 		// instance data
 		this.name = name;
 		this.spawnPoint = spawn;
+	}
+	
+	/**
+	 * @return whether or not the level tiles have been loaded into memory
+	 */
+	public boolean isLoaded() {
+		return levelTiles != null;
+	}
+	
+	/**
+	 * Fill in the level Tiles
+	 */
+	public void generateLevel() throws IOException {
+
+		// initialize tile array
 		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
+
+		// check if save file exists
+		File f = new File(DIR + saveFile);
+
+		// file does not exist
+		if (!f.exists()) {
+
+			// make the directory
+			f.mkdirs();
+
+			// load the original files into memory
+			load(path, true);
+
+			// now save in the new folder
+			save(DIR + saveFile + "/" + name);
+
+			// directory does exist
+		} else {
+
+			// select the file
+			f = new File(DIR + saveFile + "/" + name);
+
+			// if it exists, load it
+			if (f.exists()) {
+				load(DIR + saveFile + "/" + name, false);
+
+				// load from original, then save
+			} else {
+
+				// load the original files into memory
+				load(path, true);
+
+				// now save in the new folder
+				save(DIR + saveFile + "/" + name);
+			}
+		}
 	}
 
 	/**
@@ -423,6 +445,13 @@ public abstract class Level {
 			damageables.remove(entity);
 		}
 
+	}
+	
+	/**
+	 * @return a clip of the  background music
+	 */
+	public Clip getBackgroundMusic() {
+		return SoundHandler.background1;
 	}
 
 	/**

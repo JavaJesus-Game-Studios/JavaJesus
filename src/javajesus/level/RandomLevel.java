@@ -33,13 +33,6 @@ public class RandomLevel extends Level {
 
 	public RandomLevel(Point spawn) {
 		super("Random Level " + numLevels++, spawn);
-		
-		try {
-			generateLevel();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 	}
 
 	private RandomCave lastCave;
@@ -49,7 +42,11 @@ public class RandomLevel extends Level {
 		this.lastCave = lastCave;
 	}
 
-	protected void generateLevel() throws IOException {
+	@Override
+	public void generateLevel() throws IOException {
+		
+		// initialize tile array
+		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
 
 		// generates last cave if there is one
 		if (lastCave != null)
@@ -73,7 +70,7 @@ public class RandomLevel extends Level {
 				if (heightmap[row][col].getCave()) {
 					levelTiles[tile] = ((byte) heightmap[row][col].getTile()) & 0x000000FF;
 					add(new CaveEntrance(this, col * 8 - 18, row * 8 - 28,
-							new RandomCave(5, this, new Point(col * 8, row * 8))));
+							new RandomCave(this, new Point(col * 8, row * 8))));
 				}
 				if (heightmap[row][col].getSpawner()) {
 					levelTiles[tile] = ((byte) heightmap[row][col].getTile()) & 0x000000FF;

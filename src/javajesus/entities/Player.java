@@ -3,6 +3,7 @@ package javajesus.entities;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import engine.Window;
@@ -189,21 +190,33 @@ public class Player extends Mob implements Type {
 	/**
 	 * Transitions the player from one level to another
 	 */
-	public synchronized void updateLevel(Level level) {
+	public void goTo(Level level) {
 
 		// play the click sound
 		SoundHandler.play(SoundHandler.click);
 
-		// TODO loop the new background music if applicable
-		SoundHandler.playLoop(SoundHandler.background1);
+		// play the background music
+		SoundHandler.playLoop(level.getBackgroundMusic());
 
+		// remove the player from this level
 		getLevel().remove(this);
 
 		// clears all the dead mobs on the last level
 		getLevel().clear();
+		
+		// load the level if needed
+		if (!level.isLoaded()) {
+			try {
+				level.generateLevel();
+			} catch (IOException e) {
+				System.err.println("Level cannot be loaded!");
+				e.printStackTrace();
+				return;
+			}
+		}
 
 		// change the global level variable
-		super.updateLevel(level);
+		setLevel(level);
 
 		// adds the player to the new level
 		level.add(this);
@@ -904,11 +917,7 @@ public class Player extends Mob implements Type {
 
 					getLevel().setSpawnPoint(getX(), getY());
 
-					/*if (entity instanceof MapEdge) {
-						((MapEdge) entity).calcNewSpawn(this);
-					}TODO */
-
-					updateLevel(((Transporter) entity).getNextLevel());
+					goTo(((Transporter) entity).getNextLevel());
 					break;
 				}
 			}

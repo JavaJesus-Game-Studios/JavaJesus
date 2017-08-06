@@ -270,13 +270,24 @@ public class SoundHandler {
 	 * @param clip to play
 	 */
 	public static void playLoop(Clip clip) {
-		current = clip;
-		if (!muted) {
-			if (clip.isRunning()) {
-				clip.stop();
+		
+		// don't change the music if its the same
+		if (current != clip) {
+			
+			// stop the current clip from playing
+			if (current != null && current.isRunning()) {
+				current.stop();
 			}
-			clip.setFramePosition(0);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			
+			// now start the next clip
+			current = clip;
+			if (!muted) {
+				if (clip.isRunning()) {
+					clip.stop();
+				}
+				clip.setFramePosition(0);
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
+			}
 		}
 	}
 

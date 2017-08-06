@@ -1,6 +1,7 @@
 package javajesus.level;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javax.sound.sampled.Clip;
 
@@ -24,6 +25,9 @@ public class RandomCave extends Level {
 
 	// the number of caves there currently are
 	private static int numCaves;
+	
+	// the optimal number of cycles for random cave gen
+	private static final int CYCLES = 3;
 
 	/**
 	 * Generates a random cave level
@@ -32,24 +36,12 @@ public class RandomCave extends Level {
 	 * @param prevLevel - the previous level
 	 * @param spawn - the spawn point in this random cave
 	 */
-	public RandomCave(int cycles, Level prevLevel, Point spawn) {
+	public RandomCave(Level prevLevel, Point spawn) {
 		super("Random Cave " + numCaves++, spawn);
 		
 		// instance data
 		this.prevLevel = prevLevel;
 		
-		// fill the tile map
-		generateLevel(3);
-	}
-	
-	/**
-	 * Generates a random cave level
-	 * 
-	 * @param prevLevel - the previous level
-	 * @param spawn - the spawn point in this random cave
-	 */
-	public RandomCave(Level prevLevel, Point spawn) {
-		this(3, prevLevel, spawn);
 	}
 	
 	/**
@@ -57,10 +49,14 @@ public class RandomCave extends Level {
 	 * 
 	 * @param cycles - the smoothness of the generation
 	 */
-	protected void generateLevel(int cycles) {
+	@Override
+	public void generateLevel() throws IOException {
+		
+		// initialize tile array
+		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
 
 		// fill the cave map tiles
-		caveMap = CaveGeneration.generateCave(cycles);
+		caveMap = CaveGeneration.generateCave(CYCLES);
 
 		// whether or not a proper spawn point is found
 		boolean spawnFound = false;
@@ -115,6 +111,7 @@ public class RandomCave extends Level {
 		}
 	}
 	
+	@Override
 	public Clip getBackgroundMusic() {
 		return SoundHandler.background2;
 	}

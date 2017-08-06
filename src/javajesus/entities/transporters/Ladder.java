@@ -23,14 +23,14 @@ public class Ladder extends Transporter {
 	 * @param outside the new level
 	 */
 	public Ladder(Level currentLevel, int x, int y, Level nextLevel) {
-		super(currentLevel, x, y, WIDTH, HEIGHT, nextLevel);
+		super(currentLevel, x - 8, y, WIDTH, HEIGHT, nextLevel);
 	}
 
 	/**
 	 * Displays the ladder to the screen
 	 */
 	public void render(Screen screen) {
-		screen.render(getX(), getY(), 6, 1, SpriteSheet.stairs, false, color);
-		screen.render(getX(), getY() - 8, 6, 0, SpriteSheet.stairs, false, color);
+		screen.render(getX(), getY(), 6, 0, SpriteSheet.stairs, false, color);
+		screen.render(getX(), getY() + 8, 6, 1, SpriteSheet.stairs, false, color);
 	}
 }
