@@ -1,6 +1,5 @@
 package javajesus.level.generation;
 
-import java.awt.Point;
 import java.util.Random;
 
 import javajesus.level.Level;
@@ -9,15 +8,22 @@ import javajesus.level.Level;
  *	Utility class for generating tile maps using cell automata 
  */
 public class CaveGeneration {
+	// Constants for readability
+	public static final int CAVE_WALL = 0;
+	public static final int CAVE_BORDER_WALL = 1;
+	public static final int FLOOR = 2;
+	public static final int FLOOR_CHEST = 3;
+	public static final int FLOOR_SPAWNER = 4;
 	
-	// random number generator
+	
+	// Random number generator
 	private static final Random rand = new Random();
 
 	/**
 	 * Generates a 2D array of a tile map as follows:
 	 * 
 	 * 0 - 1 initial mapping:
-	 * 0 -> Emtpy space -> 
+	 * 0 -> Empty space -> 
 	 * 	4,5,6 entity data
 	 * 
 	 * 1 -> wall - > 2 if bordering empty
@@ -26,67 +32,67 @@ public class CaveGeneration {
 	 */
 	public static final int[][] generateCave(int cycles) {
 		
-		// alive or dead map
-		boolean[][] caveMap = new boolean[Level.LEVEL_HEIGHT][Level.LEVEL_WIDTH];
+		// Create arrays for generation and return
+		int[][] caveMap = new int[Level.LEVEL_HEIGHT][Level.LEVEL_WIDTH];
 		int[][] caveReturn = new int[Level.LEVEL_HEIGHT][Level.LEVEL_WIDTH];
 		
-		// does something
+		// Seed the map for the birth cycle
 		fillArray(caveMap);
-		cellAutomata(4, 8, 3, 8, cycles, caveMap);
+		// Run cellular automata on seeded map
+		cellAutomata(caveMap, cycles, 4, 8, 3, 8);
 		
-		// iterate through all tiles and do something
-		// please comment this section of code all the way down
-		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
-			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
-				if (row == 0 || row == Level.LEVEL_HEIGHT - 1) {
-					caveMap[row][col] = false;
-				} else if (col == 0 || col == Level.LEVEL_WIDTH - 1) {
-					caveMap[row][col] = false;
-				}
-			}
-		}
 		for (int row = 1; row < Level.LEVEL_HEIGHT - 1; row++) {
 			for (int col = 1; col < Level.LEVEL_WIDTH - 1; col++) {
-				if (caveMap[row][col]) {
-					caveReturn[row][col] = 1;
-				} else if (!caveMap[row][col]) {
-					if (caveMap[row - 1][col - 1] || caveMap[row - 1][col]
-							|| caveMap[row - 1][col + 1]
-							|| caveMap[row][col - 1] || caveMap[row][col + 1]
-							|| caveMap[row + 1][col - 1]
-							|| caveMap[row + 1][col]
-							|| caveMap[row + 1][col + 1]) {
-						caveReturn[row][col] = 2;
+				
+				// Fill the return array with more specific numbers
+				// Keep caveMap for future path finding
+				if (caveMap[row][col] == 1) {
+					caveReturn[row][col] = FLOOR;
+				} else {
+					if (caveMap[row - 1][col - 1]  == 1
+							|| caveMap[row - 1][col] == 1
+							|| caveMap[row - 1][col + 1] == 1
+							|| caveMap[row][col - 1] == 1
+							|| caveMap[row][col + 1] == 1
+							|| caveMap[row + 1][col - 1] == 1
+							|| caveMap[row + 1][col] == 1
+							|| caveMap[row + 1][col + 1] == 1) {
+						// If wall borders the ground change to cave border wall
+						caveReturn[row][col] = CAVE_BORDER_WALL;
 					} else {
-						caveReturn[row][col] = 0;
+						// If wall does not border the floor change to cave wall
+						caveReturn[row][col] = CAVE_WALL;
 					}
 				}
+				
+				// Check for areas of the floor that are surrounded by other floor tiles
 				int check = 0;
-				for (int row2 = -1; row2 <= 1; row2++) {
-					for (int col2 = -1; col2 <= 1; col2++) {
+				for (int rDelta = -1; rDelta <= 1; rDelta++) {
+					for (int cDelta = -1; cDelta <= 1; cDelta++) {
 						if (caveReturn[row][col] == 1) {
-							if (caveReturn[row + row2][col + col2] == 2) {
+							if (caveReturn[row + rDelta][col + cDelta] == 2) {
 								check++;
 							}
 						}
 					}
 				}
+				
+				// If surrounded by three tiles or more add entities with these probabilities:
+				// 0.10 - Chest
+				// 0.10 - Spawner
 				if (check > 3) {
 					switch (rand.nextInt(20)) {
 					case 1:
-						caveReturn[row][col] = 4;
+						caveReturn[row][col] = FLOOR_CHEST;
 						break;
 					case 2:
-						caveReturn[row][col] = 5;
+						caveReturn[row][col] = FLOOR_CHEST;
 						break;
 					case 3:
-						caveReturn[row][col] = 5;
+						caveReturn[row][col] = FLOOR_SPAWNER;
 						break;
 					case 4:
-						caveReturn[row][col] = 4;
-						break;
-					case 5:
-						caveReturn[row][col] = 6;
+						caveReturn[row][col] = FLOOR_SPAWNER;
 						break;
 					default:
 						break;
@@ -94,129 +100,137 @@ public class CaveGeneration {
 				}
 			}
 		}
+		
 		return caveReturn;
 	}
 
 	/**
-	 * Does something
-	 * @param caveMap
+	 * Seeds the array for the birth cycle in order to determine where births occur.
+	 * 
+	 * @param caveMap - the array to seed.
 	 */
-	private static final void fillArray(boolean[][] caveMap) {
-		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
-			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
+	private static final void fillArray(int[][] caveMap) {
+		for (int row = 1; row < Level.LEVEL_HEIGHT - 1; row++) {
+			for (int col = 1; col < Level.LEVEL_WIDTH - 1; col++) {
 				if (rand.nextInt(5) == 0) {
-					caveMap[row][col] = true;
+					caveMap[row][col] = 1;
 				} else {
-					caveMap[row][col] = false;
+					caveMap[row][col] = 0;
 				}
 			}
 		}
 	}
 
 	/**
-	 * Does something
-	 * @param bBegin
-	 * @param bEnd
-	 * @param sBegin
-	 * @param sEnd
-	 * @param cycles
-	 * @param caveMap
+	 * Executes cellular automata on the provided caveMap in order to create cave-like levels.
+	 * 
+	 * @param caveMap - the caveMap that has been seeded
+	 * @param cycles - the number of cycles
+	 * @param bBegin - the lower bound for births
+	 * @param bEnd - the upper bound for births
+	 * @param sBegin - the lower bound for survival
+	 * @param sEnd - the upper bound for survival
 	 */
-	private static final void cellAutomata(int bBegin, int bEnd, int sBegin, int sEnd, int cycles, boolean[][] caveMap) {
+	private static final void cellAutomata(int[][] caveMap, int cycles, int bBegin, int bEnd, int sBegin, int sEnd) {
+		// Execute automata for specified amount of cycles
 		for (int cycle = 0; cycle < cycles; cycle++) {
+			
 			// The Birth Cycle
-			boolean[][] caveMapBirth = new boolean[Level.LEVEL_HEIGHT][Level.LEVEL_WIDTH];
+			// Create separate array to prevent births from changing 
+			// the probability of future births
+			int[][] caveMapBirth = new int[Level.LEVEL_HEIGHT][Level.LEVEL_WIDTH];
+			
+			// Check surroundings of each tile
 			for (int row = 1; row < Level.LEVEL_HEIGHT - 1; row++) {
 				for (int col = 1; col < Level.LEVEL_WIDTH - 1; col++) {
 					int bCounter = 0;
-					for (int row2 = -1; row2 <= 1; row2++) {
-						for (int col2 = -1; col2 <= 1; col2++) {
-							if (row2 == 0 && col2 == 0) {
+					for (int rDelta = -1; rDelta <= 1; rDelta++) {
+						for (int cDelta = -1; cDelta <= 1; cDelta++) {
+							if (rDelta == 0 && cDelta == 0) {
 								continue;
 							} else {
-								if (caveMap[row + row2][col + col2] == true)
+								if (caveMap[row + rDelta][col + cDelta] == 1)
+									// If surrounding tile is 'alive' add bCounter
 									bCounter++;
 							}
 						}
 					}
 					if (bCounter >= bBegin && bCounter <= bEnd) {
-						caveMapBirth[row][col] = true;
+						// If bCounter is within range, allow a 'birth'
+						caveMapBirth[row][col] = 1;
 					}
 				}
 			}
-			// Merging
+			
+			// Merge the map
+			// This keeps original map data and only replaces if caveMapBirth has a one
 			merger(caveMapBirth, caveMap);
+			
 			// The Survival Cycle
-			boolean[][] caveMapSurvival = new boolean[Level.LEVEL_HEIGHT][Level.LEVEL_WIDTH];
+			// Create separate array to prevent survivals from changing 
+			// the probability of future survivals
+			int[][] caveMapSurvival = new int[Level.LEVEL_HEIGHT][Level.LEVEL_WIDTH];
+			
+			// Check surroundings of each tile
 			for (int row = 1; row < Level.LEVEL_HEIGHT - 1; row++) {
 				for (int col = 1; col < Level.LEVEL_WIDTH - 1; col++) {
 					int sCounter = 0;
-					for (int row2 = -1; row2 <= 1; row2++) {
-						for (int col2 = -1; col2 <= 1; col2++) {
-							if (row2 == 0 && col2 == 0) {
+					for (int rDelta = -1; rDelta <= 1; rDelta++) {
+						for (int cDelta = -1; cDelta <= 1; cDelta++) {
+							if (rDelta == 0 && cDelta == 0) {
 								continue;
 							} else {
-								if (caveMap[row + row2][col + col2]) {
+								if (caveMap[row + rDelta][col + cDelta] == 1) {
+									// If surrounding tile is 'alive' add sCounter
 									sCounter++;
 								}
 							}
 						}
 					}
 					if (sCounter >= sBegin && sCounter <= sEnd) {
-						caveMapSurvival[row][col] = true;
+						// If bCounter is within range, allow a 'survivor'
+						caveMapSurvival[row][col] = 1;
 					}
 				}
 			}
-			// Merging
+			
+			// Merge the map
+			// This replaces caveMap entirely with caveMapSurvival
 			mergerSurvival(caveMapSurvival, caveMap);
 		}
 	}
 
 	/**
-	 * Does something
-	 * @param mergeArray
-	 * @param caveMap
+	 * This will transfer only new births from mergeArray into caveMap
+	 * 
+	 * @param mergeArray - the birth array
+	 * @param caveMap - the main map array
 	 */
-	private static final void merger(boolean[][] mergeArray, boolean[][] caveMap) {
+	private static final void merger(int[][] mergeArray, int[][] caveMap) {
 		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
 			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
-				if (mergeArray[row][col] == true) {
-					caveMap[row][col] = true;
+				if (mergeArray[row][col] == 1) {
+					caveMap[row][col] = 1;
 				}
 			}
 		}
 	}
 
 	/**
-	 * Does something
-	 * @param mergeArray
-	 * @param caveMap
+	 * This will transfer all survivals and deaths from mergeArray into caveMap
+	 * 
+	 * @param mergeArray - the survivor array
+	 * @param caveMap - the main map array
 	 */
-	private static final void mergerSurvival(boolean[][] mergeArray, boolean[][] caveMap) {
+	private static final void mergerSurvival(int[][] mergeArray, int[][] caveMap) {
 		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
 			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
-				if (mergeArray[row][col] == true) {
-					caveMap[row][col] = true;
+				if (mergeArray[row][col] == 1) {
+					caveMap[row][col] = 1;
 				} else {
-					caveMap[row][col] = false;
+					caveMap[row][col] = 0;
 				}
 			}
 		}
-	}
-
-	/**
-	 * This is never used!??
-	 * @param caveMap
-	 * @return
-	 */
-	public Point getSpawnPoint(boolean[][] caveMap) {
-		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
-			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
-				if (caveMap[row][col] == true && rand.nextInt(50) == 0) {
-					return new Point(col, row);
-				}
-			}
-		}
-		return new Point(10, 10);
 	}
 }

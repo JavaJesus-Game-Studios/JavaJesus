@@ -72,43 +72,45 @@ public class RandomCave extends Level {
 				// get the current tile
 				int tile = col + row * Level.LEVEL_WIDTH;
 				
-				// 1 = SPAWNPOINT
-				if (caveMap[row][col] == 1) {
+				// Set the spawn point to a location where the player can move
+				if (caveMap[row][col] == CaveGeneration.FLOOR) {
 					levelTiles[tile] = Tile.CAVEFLOOR.getId();
 					if (row > 5 * 8 && col > 5 * 8) {
 						if (!spawnFound) {
 							setSpawnPoint(col * 8, row * 8);
-							//add(new Ladder(this, col * 8, row * 8, prevLevel, prevSpawn));
 							add(new Ladder(this, col * 8, row * 8, prevLevel));
 							spawnFound = true;
 						}
 					}
+				}
 					
-					// 2 = OUTER WALL
-				} else if (caveMap[row][col] == 2) {
-					levelTiles[tile] = Tile.CAVEWALL.getId();
-					
-					// 0 = INNER WALL
-				} else if (caveMap[row][col] == 0) {
+				// Add in the wall tiles and entities
+				switch (caveMap[row][col]) {
+				case CaveGeneration.CAVE_WALL:
 					levelTiles[tile] = Tile.CAVEWALL_ROCK.getId();
-					
-					// 4 = CHEST
-				} else if (caveMap[row][col] == 4) {
+					break;
+				case CaveGeneration.CAVE_BORDER_WALL:
+					levelTiles[tile] = Tile.CAVEWALL.getId();
+					break;
+				case CaveGeneration.FLOOR_CHEST: 
 					levelTiles[tile] = Tile.CAVEFLOOR.getId();
 					add(new Chest(this, col * 8, row * 8, (byte) 1));
-					
-					// 5 = SPAWNER
-				} else if (caveMap[row][col] == 5) {
+					break;
+				case CaveGeneration.FLOOR_SPAWNER:
 					levelTiles[tile] = Tile.CAVEFLOOR1.getId();
 					add(new Spawner(this, col * 8, row * 8, Spawner.DEMON, 5));
-					
-					// 6 = LADDER
-				} else if (caveMap[row][col] == 6) {
-					levelTiles[tile] = Tile.CAVEFLOOR_ROCK.getId();
-					add(new Ladder(this, col * 8, row * 8,
-							new RandomLevel(new Point(col * 8, row * 8), this)/*, new Point(col * 8, row * 8)*/));
-
+					break;
+				default:
+					break;
 				}
+					
+				
+//				else if (caveMap[row][col] == 6) {
+//					levelTiles[tile] = Tile.CAVEFLOOR_ROCK.getId();
+//					add(new Ladder(this, col * 8, row * 8,
+//							new RandomLevel(new Point(col * 8, row * 8), this)/*, new Point(col * 8, row * 8)*/));
+//
+//				}
 			}
 		}
 	}
