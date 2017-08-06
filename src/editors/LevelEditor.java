@@ -1269,6 +1269,10 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.DEAD_SEQUOIA_SMALL] = new EntityGUI(new DeadSequoiaSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 4);
 			entityList[Entity.DEAD_SEQUOIA_MEDIUM] = new EntityGUI(new DeadSequoiaMedium(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 6);
 			entityList[Entity.REDWOOD_LARGE] = new EntityGUI(new RedwoodLarge(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 12);
+			entityList[Entity.REDWOOD_MEDIUM] = new EntityGUI(new RedwoodMedium(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 10);
+			entityList[Entity.REDWOOD_SMALL] = new EntityGUI(new RedwoodSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 9);
+			entityList[Entity.SEQUOIA_EXTRA_LARGE] = new EntityGUI(new SequoiaExtraLarge(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 8);
+			entityList[Entity.SEQUOIA_EXTRA_SMALL] = new EntityGUI(new SequoiaExtraSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 3);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -1517,6 +1521,14 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
                 return new EntityGUI(new DeadSequoiaMedium(null, 0, 0), 0, 0, 2, 6);
 			case Entity.REDWOOD_LARGE:
                 return new EntityGUI(new RedwoodLarge(null, 0, 0), 0, 0, 5, 12);
+			case Entity.REDWOOD_MEDIUM:
+                return new EntityGUI(new RedwoodMedium(null, 0, 0), 0, 0, 4, 10);
+			case Entity.REDWOOD_SMALL:
+                return new EntityGUI(new RedwoodSmall(null, 0, 0), 0, 0, 4, 9);
+			case Entity.SEQUOIA_EXTRA_LARGE:
+                return new EntityGUI(new SequoiaExtraLarge(null, 0, 0), 0, 0, 3, 8);
+			case Entity.SEQUOIA_EXTRA_SMALL:
+                return new EntityGUI(new SequoiaExtraSmall(null, 0, 0), 0, 0, 1, 3);
 			}
 			
 		} catch (IOException e) {

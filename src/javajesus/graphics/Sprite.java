@@ -29,6 +29,10 @@ public class Sprite {
 	public static Sprite DEAD_SEQUOIA_SMALL = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Dead_Sequoia_Small.png");
 	public static Sprite DEAD_SEQUOIA_MEDIUM = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Dead_Sequoia_Medium.png");
 	public static Sprite REDWOOD_LARGE = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Redwood_Large.png");
+	public static Sprite REDWOOD_MEDIUM = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Redwood_Medium.png");
+	public static Sprite REDWOOD_SMALL = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Redwood_Small.png");
+	public static Sprite SEQUOIA_EXTRA_LARGE = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Sequoia_Extra_Large.png");
+	public static Sprite SEQUOIA_EXTRA_SMALL = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Sequoia_Extra_Small.png");
 	
 	//Generic STATICS
 	public static Sprite castle_tower = new Sprite("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/EXTERIORS/Generic_Castle_Tower.png");
