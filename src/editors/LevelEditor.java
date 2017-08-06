@@ -23,18 +23,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
 
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-
 import javajesus.entities.Chest;
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
@@ -144,12 +132,17 @@ import javajesus.entities.solid.trees.DeadSequoiaSmall;
 import javajesus.entities.solid.trees.GenericTree;
 import javajesus.entities.solid.trees.LargeSequoia;
 import javajesus.entities.solid.trees.MediumSequoia;
+import javajesus.entities.solid.trees.MediumTree;
+import javajesus.entities.solid.trees.MediumTreeAutumn;
+import javajesus.entities.solid.trees.MediumTreeWinter;
 import javajesus.entities.solid.trees.RedwoodLarge;
 import javajesus.entities.solid.trees.RedwoodMedium;
 import javajesus.entities.solid.trees.RedwoodSmall;
 import javajesus.entities.solid.trees.SequoiaExtraLarge;
 import javajesus.entities.solid.trees.SequoiaExtraSmall;
 import javajesus.entities.solid.trees.SmallSequoia;
+import javajesus.entities.solid.trees.SmallTreeAutumn;
+import javajesus.entities.solid.trees.SmallTreeWinter;
 import javajesus.entities.vehicles.Boat;
 import javajesus.entities.vehicles.CenturyLeSabre;
 import javajesus.entities.vehicles.Horse;
@@ -157,6 +150,18 @@ import javajesus.entities.vehicles.SportsCar;
 import javajesus.entities.vehicles.Truck;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
+
+import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /*
  * Driver class of the level editors
@@ -1278,6 +1283,11 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.REDWOOD_SMALL] = new EntityGUI(new RedwoodSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 9);
 			entityList[Entity.SEQUOIA_EXTRA_LARGE] = new EntityGUI(new SequoiaExtraLarge(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 8);
 			entityList[Entity.SEQUOIA_EXTRA_SMALL] = new EntityGUI(new SequoiaExtraSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 3);
+			entityList[Entity.SMALL_TREE_AUTUMN] = new EntityGUI(new SmallTreeAutumn(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 4);
+			entityList[Entity.SMALL_TREE_WINTER] = new EntityGUI(new SmallTreeWinter(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 4);
+			entityList[Entity.MEDIUM_TREE] = new EntityGUI(new MediumTree(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 6);
+			entityList[Entity.MEDIUM_TREE_AUTUMN] = new EntityGUI(new MediumTreeAutumn(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 6);
+			entityList[Entity.MEDIUM_TREE_WINTER] = new EntityGUI(new MediumTreeWinter(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 6);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -1534,6 +1544,17 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
                 return new EntityGUI(new SequoiaExtraLarge(null, 0, 0), 0, 0, 3, 8);
 			case Entity.SEQUOIA_EXTRA_SMALL:
                 return new EntityGUI(new SequoiaExtraSmall(null, 0, 0), 0, 0, 1, 3);
+			case Entity.SMALL_TREE_AUTUMN:
+                return new EntityGUI(new SmallTreeAutumn(null, 0, 0), 0, 0, 2, 4);
+			case Entity.SMALL_TREE_WINTER:
+                return new EntityGUI(new SmallTreeWinter(null, 0, 0), 0, 0, 2, 4);
+			case Entity.MEDIUM_TREE:
+                return new EntityGUI(new MediumTree(null, 0, 0), 0, 0, 3, 6);
+			case Entity.MEDIUM_TREE_AUTUMN:
+                return new EntityGUI(new MediumTreeAutumn(null, 0, 0), 0, 0, 3, 6);
+			case Entity.MEDIUM_TREE_WINTER:
+                return new EntityGUI(new MediumTreeWinter(null, 0, 0), 0, 0, 3, 6);
+                
 			}
 			
 		} catch (IOException e) {

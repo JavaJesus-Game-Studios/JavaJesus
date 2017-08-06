@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.List;
 
+import editors.EntityGUI;
 import javajesus.entities.Chest;
 import javajesus.entities.Damageable;
 import javajesus.entities.DestructibleTile;
@@ -115,10 +116,16 @@ import javajesus.entities.solid.furniture.Stool;
 import javajesus.entities.solid.furniture.Television;
 import javajesus.entities.solid.furniture.Throne;
 import javajesus.entities.solid.trees.DeadSequoia;
+import javajesus.entities.solid.trees.DeadSequoiaMedium;
 import javajesus.entities.solid.trees.DeadSequoiaSmall;
 import javajesus.entities.solid.trees.GenericTree;
 import javajesus.entities.solid.trees.LargeSequoia;
 import javajesus.entities.solid.trees.MediumSequoia;
+import javajesus.entities.solid.trees.RedwoodLarge;
+import javajesus.entities.solid.trees.RedwoodMedium;
+import javajesus.entities.solid.trees.RedwoodSmall;
+import javajesus.entities.solid.trees.SequoiaExtraLarge;
+import javajesus.entities.solid.trees.SequoiaExtraSmall;
 import javajesus.entities.solid.trees.SmallSequoia;
 import javajesus.entities.vehicles.Boat;
 import javajesus.entities.vehicles.CenturyLeSabre;
@@ -545,8 +552,30 @@ public class EntityData {
 	            return new CardTable(level, x, y);
 	        case Entity.BAR:
 	            return new Bar(level, x, y);
-	        case Entity.DEAD_SEQUOIA_SMALL:
+            case Entity.DEAD_SEQUOIA_SMALL:
                 return new DeadSequoiaSmall(level, x, y);
+            case Entity.DEAD_SEQUOIA_MEDIUM:
+                return new DeadSequoiaMedium(level, x, y);
+            case Entity.REDWOOD_LARGE:
+                return new RedwoodLarge(level, x, y);
+            case Entity.REDWOOD_MEDIUM:
+                return new RedwoodMedium(level, x, y);
+            case Entity.REDWOOD_SMALL:
+                return new RedwoodSmall(level, x, y);
+            case Entity.SEQUOIA_EXTRA_LARGE:
+                return new SequoiaExtraLarge(level, x, y);
+            case Entity.SEQUOIA_EXTRA_SMALL:
+                return new SequoiaExtraSmall(level, x, y);
+            case Entity.SMALL_TREE_AUTUMN:
+                return new SmallTreeAutumn(level, x, y);
+            case Entity.SMALL_TREE_WINTER:
+                return new SmallTreeWinter(level, x, y);
+            case Entity.MEDIUM_TREE:
+                return new MediumTree(level, x, y);
+            case Entity.MEDIUM_TREE_AUTUMN:
+                return new MediumTreeAutumn(level, x, y);
+            case Entity.MEDIUM_TREE_WINTER:
+                return new MediumTreeWinter(level, x, y);
 
 	        default:
 	            return null;
