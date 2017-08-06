@@ -33,11 +33,11 @@ public class Sprite {
 	public static Sprite REDWOOD_SMALL = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Redwood_Small.png");
 	public static Sprite SEQUOIA_EXTRA_LARGE = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Sequoia_Extra_Large.png");
 	public static Sprite SEQUOIA_EXTRA_SMALL = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Sequoia_Extra_Small.png");
-	public static Sprite SMALL_TREE_AUTUMN = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Small_Tree_Autumn.png");
-	public static Sprite SMALL_TREE_WINTER = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Small_Tree_Winter.png");
-	public static Sprite MEDIUM_TREE = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Medium_Tree.png");
-	public static Sprite MEDIUM_TREE_AUTUMN = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Medium_Tree_Autumn.png");
-	public static Sprite MEDIUM_TREE_WINTER = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Medium_Tree_Winter.png");
+	public static Sprite SMALL_TREE_AUTUMN = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Small_Tree_Autumn.png");
+	public static Sprite SMALL_TREE_WINTER = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Small_Tree_Winter.png");
+	public static Sprite MEDIUM_TREE = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Medium_Tree.png");
+	public static Sprite MEDIUM_TREE_AUTUMN = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Medium_Tree_Autumn.png");
+	public static Sprite MEDIUM_TREE_WINTER = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Medium_Tree_Winter.png");
 	
 	//Generic STATICS
 	public static Sprite castle_tower = new Sprite("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/EXTERIORS/Generic_Castle_Tower.png");
