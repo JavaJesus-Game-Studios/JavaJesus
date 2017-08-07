@@ -38,7 +38,8 @@ public class QuestEditor extends JPanel implements ActionListener {
 	
 	// elements on the right side of the panel
 	private final JLabel stateLabel;
-	private final JJTextArea giverDialogue, objectiveSummary, response1, response2, response3;
+	private final JJTextArea giverDialogue, objectiveSummary, response1, response2, response3, response1Triggers,
+	        response2Triggers, response3Triggers;
 	
 	// ids of the buttons added to the quest tree
 	private static int id;
@@ -129,10 +130,16 @@ public class QuestEditor extends JPanel implements ActionListener {
 		rightSide.add(new JScrollPane(objectiveSummary = new JJTextArea("N/A")));
 		rightSide.add(new JLabel("Response 1:"));
 		rightSide.add(new JScrollPane(response1 = new JJTextArea("N/A")));
+		rightSide.add(new JLabel("Response 1 Triggers:"));
+		rightSide.add(new JScrollPane(response1Triggers = new JJTextArea("1")));
 		rightSide.add(new JLabel("Response 2:"));
 		rightSide.add(new JScrollPane(response2 = new JJTextArea("N/A")));
+		rightSide.add(new JLabel("Response 2 Triggers:"));
+		rightSide.add(new JScrollPane(response2Triggers = new JJTextArea("2")));
 		rightSide.add(new JLabel("Response 3:"));
 		rightSide.add(new JScrollPane(response3 = new JJTextArea("N/A")));
+		rightSide.add(new JLabel("Response 3 Triggers:"));
+		rightSide.add(new JScrollPane(response3Triggers = new JJTextArea("3")));
 		
 		// encapsulate in a scroll pane
 		JScrollPane pane = new JScrollPane(rightSide);
@@ -322,7 +329,7 @@ public class QuestEditor extends JPanel implements ActionListener {
 
 						// wrap it and add it to the array
 						array.add(QuestData.wrap(child.giverText, child.objText, child.res1Text, child.res2Text,
-						        child.res3Text));
+						        child.res3Text, child.trig1, child.trig2, child.trig3));
 					}
 				}
 				
@@ -354,7 +361,7 @@ public class QuestEditor extends JPanel implements ActionListener {
 		private int id;
 		
 		// text fields of the state
-		private String giverText, objText, res1Text, res2Text, res3Text;
+		private String giverText, objText, res1Text, res2Text, res3Text, trig1, trig2, trig3;
 
 		/**
 		 * JJButton ctor()
@@ -380,6 +387,9 @@ public class QuestEditor extends JPanel implements ActionListener {
 			res1Text = response1.getText();
 			res2Text = response2.getText();
 			res3Text = response3.getText();
+			trig1 = response1Triggers.getText();
+			trig2 = response2Triggers.getText();
+			trig3 = response3Triggers.getText();
 			
 		}
 		
@@ -392,6 +402,9 @@ public class QuestEditor extends JPanel implements ActionListener {
 			res1Text = (String) obj.get(QuestData.KEY_RESPONSE1);
 			res2Text = (String) obj.get(QuestData.KEY_RESPONSE2);
 			res3Text = (String) obj.get(QuestData.KEY_RESPONSE3);
+			trig1 = (String) obj.get(QuestData.KEY_TRIGGERS1);
+			trig2 = (String) obj.get(QuestData.KEY_TRIGGERS2);
+			trig3 = (String) obj.get(QuestData.KEY_TRIGGERS3);
 		}
 		
 		/**
@@ -405,6 +418,9 @@ public class QuestEditor extends JPanel implements ActionListener {
 			response1.setText(res1Text);
 			response2.setText(res2Text);
 			response3.setText(res3Text);
+			response1Triggers.setText(trig1);
+			response2Triggers.setText(trig2);
+			response3Triggers.setText(trig3);
 		}
 		
 	}
