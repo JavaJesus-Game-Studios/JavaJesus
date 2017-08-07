@@ -131,6 +131,9 @@ import javajesus.entities.solid.trees.DeadSequoiaMedium;
 import javajesus.entities.solid.trees.DeadSequoiaSmall;
 import javajesus.entities.solid.trees.GenericTree;
 import javajesus.entities.solid.trees.LargeSequoia;
+import javajesus.entities.solid.trees.LargeTree;
+import javajesus.entities.solid.trees.LargeTreeAutumn;
+import javajesus.entities.solid.trees.LargeTreeWinter;
 import javajesus.entities.solid.trees.MediumSequoia;
 import javajesus.entities.solid.trees.MediumTree;
 import javajesus.entities.solid.trees.MediumTreeAutumn;
@@ -143,6 +146,8 @@ import javajesus.entities.solid.trees.SequoiaExtraSmall;
 import javajesus.entities.solid.trees.SmallSequoia;
 import javajesus.entities.solid.trees.SmallTreeAutumn;
 import javajesus.entities.solid.trees.SmallTreeWinter;
+import javajesus.entities.solid.trees.WhiteOak;
+import javajesus.entities.solid.trees.WhiteOakSmall;
 import javajesus.entities.vehicles.Boat;
 import javajesus.entities.vehicles.CenturyLeSabre;
 import javajesus.entities.vehicles.Horse;
@@ -1288,6 +1293,11 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.MEDIUM_TREE] = new EntityGUI(new MediumTree(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 6);
 			entityList[Entity.MEDIUM_TREE_AUTUMN] = new EntityGUI(new MediumTreeAutumn(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 6);
 			entityList[Entity.MEDIUM_TREE_WINTER] = new EntityGUI(new MediumTreeWinter(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 6);
+			entityList[Entity.LARGE_TREE] = new EntityGUI(new LargeTree(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 7);
+			entityList[Entity.LARGE_TREE_AUTUMN] = new EntityGUI(new LargeTreeAutumn(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 7);
+			entityList[Entity.LARGE_TREE_WINTER] = new EntityGUI(new LargeTreeWinter(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 7);
+			entityList[Entity.WHITE_OAK] = new EntityGUI(new WhiteOak(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 7);
+			entityList[Entity.WHITE_OAK_SMALL] = new EntityGUI(new WhiteOakSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 6);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -1554,6 +1564,16 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
                 return new EntityGUI(new MediumTreeAutumn(null, 0, 0), 0, 0, 3, 6);
 			case Entity.MEDIUM_TREE_WINTER:
                 return new EntityGUI(new MediumTreeWinter(null, 0, 0), 0, 0, 3, 6);
+			case Entity.LARGE_TREE:
+                return new EntityGUI(new LargeTree(null, 0, 0), 0, 0, 4, 7);
+			case Entity.LARGE_TREE_AUTUMN:
+                return new EntityGUI(new LargeTreeAutumn(null, 0, 0), 0, 0, 4, 7);
+			case Entity.LARGE_TREE_WINTER:
+                return new EntityGUI(new LargeTreeWinter(null, 0, 0), 0, 0, 4, 7);
+			case Entity.WHITE_OAK:
+                return new EntityGUI(new WhiteOak(null, 0, 0), 0, 0, 5, 7);
+			case Entity.WHITE_OAK_SMALL:
+                return new EntityGUI(new WhiteOakSmall(null, 0, 0), 0, 0, 4, 6);
                 
 			}
 			

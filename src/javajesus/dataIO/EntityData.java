@@ -119,6 +119,9 @@ import javajesus.entities.solid.trees.DeadSequoiaMedium;
 import javajesus.entities.solid.trees.DeadSequoiaSmall;
 import javajesus.entities.solid.trees.GenericTree;
 import javajesus.entities.solid.trees.LargeSequoia;
+import javajesus.entities.solid.trees.LargeTree;
+import javajesus.entities.solid.trees.LargeTreeAutumn;
+import javajesus.entities.solid.trees.LargeTreeWinter;
 import javajesus.entities.solid.trees.MediumSequoia;
 import javajesus.entities.solid.trees.MediumTree;
 import javajesus.entities.solid.trees.MediumTreeAutumn;
@@ -131,6 +134,8 @@ import javajesus.entities.solid.trees.SequoiaExtraSmall;
 import javajesus.entities.solid.trees.SmallSequoia;
 import javajesus.entities.solid.trees.SmallTreeAutumn;
 import javajesus.entities.solid.trees.SmallTreeWinter;
+import javajesus.entities.solid.trees.WhiteOak;
+import javajesus.entities.solid.trees.WhiteOakSmall;
 import javajesus.entities.vehicles.Boat;
 import javajesus.entities.vehicles.CenturyLeSabre;
 import javajesus.entities.vehicles.Horse;
@@ -580,6 +585,16 @@ public class EntityData {
                 return new MediumTreeAutumn(level, x, y);
             case Entity.MEDIUM_TREE_WINTER:
                 return new MediumTreeWinter(level, x, y);
+            case Entity.LARGE_TREE:
+                return new LargeTree(level, x, y);
+            case Entity.LARGE_TREE_AUTUMN:
+                return new LargeTreeAutumn(level, x, y);
+            case Entity.LARGE_TREE_WINTER:
+                return new LargeTreeWinter(level, x, y);
+            case Entity.WHITE_OAK:
+                return new WhiteOak(level, x, y);
+            case Entity.WHITE_OAK_SMALL:
+                return new WhiteOakSmall(level, x, y);
 
 	        default:
 	            return null;

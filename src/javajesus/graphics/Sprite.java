@@ -38,6 +38,11 @@ public class Sprite {
 	public static Sprite MEDIUM_TREE = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Medium_Tree.png");
 	public static Sprite MEDIUM_TREE_AUTUMN = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Medium_Tree_Autumn.png");
 	public static Sprite MEDIUM_TREE_WINTER = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Medium_Tree_Winter.png");
+	public static Sprite LARGE_TREE = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Large_Tree.png");
+	public static Sprite LARGE_TREE_AUTUMN = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Large_Tree_Autumn.png");
+	public static Sprite LARGE_TREE_WINTER = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Large_Tree_Winter.png");
+	public static Sprite WHITE_OAK = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/White_Oak.png");
+	public static Sprite WHITE_OAK_SMALL = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/White_Oak_Small.png");
 	
 	//Generic STATICS
 	public static Sprite castle_tower = new Sprite("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/EXTERIORS/Generic_Castle_Tower.png");
