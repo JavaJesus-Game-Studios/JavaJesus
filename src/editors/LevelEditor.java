@@ -1296,8 +1296,8 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.LARGE_TREE] = new EntityGUI(new LargeTree(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 7);
 			entityList[Entity.LARGE_TREE_AUTUMN] = new EntityGUI(new LargeTreeAutumn(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 7);
 			entityList[Entity.LARGE_TREE_WINTER] = new EntityGUI(new LargeTreeWinter(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 7);
-			entityList[Entity.WHITE_OAK] = new EntityGUI(new WhiteOak(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 7);
-			entityList[Entity.WHITE_OAK_SMALL] = new EntityGUI(new WhiteOakSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 6);
+			entityList[Entity.WHITE_OAK & 0x00FF] = new EntityGUI(new WhiteOak(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 7);
+			entityList[Entity.WHITE_OAK_SMALL & 0x00FF] = new EntityGUI(new WhiteOakSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 6);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
