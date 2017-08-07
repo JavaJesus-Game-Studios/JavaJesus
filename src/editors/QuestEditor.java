@@ -6,14 +6,21 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import javajesus.dataIO.QuestData;
 
 public class QuestEditor extends JPanel implements ActionListener {
 
@@ -38,6 +45,18 @@ public class QuestEditor extends JPanel implements ActionListener {
 	
 	// the last button clicked
 	private JJButton last;
+	
+	// gets the top level directory
+	private static final String DIR = "res/WORLD_DATA/QUEST_DATA/";
+	
+	// name of the quest
+	private String name = "New";
+	
+	// extension
+	private static final String JSON = ".json";
+	
+	// filepath
+	private String filePath = new File(DIR + name + JSON).getPath();
 
 	/**
 	 * First method called in the editor
@@ -175,12 +194,18 @@ public class QuestEditor extends JPanel implements ActionListener {
 	/**
 	 * Logic on button pressed
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		// save the data of the last button
 		if (last != null) {
 			last.save();
+			
+			// last is null
+		} else {
+			// set it to the first button
+			last = (JJButton) ((Container) questTree.getComponent(0)).getComponent(0);
 		}
 		
 		// quest tree button logic first
@@ -198,10 +223,111 @@ public class QuestEditor extends JPanel implements ActionListener {
 			// open a new quest page
 			if (e.getSource() == open) {
 				
+				//  remove existing layers
+				for (int i = 0; i < questTree.getComponentCount(); i++) {
+					removeLayer();
+				}
+				
+				// create the file chooser
+				JFileChooser fc = new JFileChooser();
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				fc.setCurrentDirectory(new File(DIR));
+
+				// open the chooser
+				if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+
+					// load the file!
+					File file = fc.getSelectedFile();
+					
+					// add the extension if it isn't there
+					if (!file.getPath().contains(JSON)) {
+						
+						// set file path
+						filePath = file.getPath() + JSON;
+
+						// set file name
+						name = file.getName();
+
+						// contains JSON extension
+					} else {
+
+						// file path
+						filePath = file.getPath();
+
+						// set the name
+						name = file.getName().substring(0, file.getName().length() - 5);
+					}
+
+					// load if the file exists
+					if (file.exists()) {
+
+						// load the JSON
+						JSONArray data = QuestData.load(file);
+
+						// make sure it parsed
+						if (data != null) {
+
+							// get the number layers to add
+							int numLayers = (int) (Math.log(data.size()) / Math.log(3));
+
+							// add the layers
+							for (int i = 0; i < numLayers; i++) {
+								addLayer();
+							}
+
+							// iterate through all rows
+							for (int i = 0; i < questTree.getComponentCount(); i++) {
+
+								// the quest row
+								Container row = (Container) questTree.getComponent(i);
+
+								// iterate through columns
+								for (int j = 0; j < row.getComponentCount(); j++) {
+
+									// the JJButton child
+									JJButton child = (JJButton) row.getComponent(j);
+
+									// load the JSON
+									child.loadJSON((JSONObject) data.remove(0));
+								}
+							}
+
+							// now set the display to the first element
+							((JJButton) ((Container) questTree.getComponent(0)).getComponent(0)).load();
+
+						}
+					}
+				}
 				
 				// save the quest tree
 			} else if (e.getSource() == save) {
 				
+				// save the current button
+				last.save();
+				
+				// construct the JSON Array
+				JSONArray array = new JSONArray();
+				
+				// iterate through all rows
+				for (int i = 0; i < questTree.getComponentCount(); i++) {
+					
+					// the quest row
+					Container row = (Container) questTree.getComponent(i);
+
+					// iterate through columns
+					for (int j = 0; j < row.getComponentCount(); j++) {
+
+						// the JJButton child
+						JJButton child = (JJButton) row.getComponent(j);
+
+						// wrap it and add it to the array
+						array.add(QuestData.wrap(child.giverText, child.objText, child.res1Text, child.res2Text,
+						        child.res3Text));
+					}
+				}
+				
+				// now write it to the file
+				QuestData.save(filePath, array);
 				
 				// add a new layer to the quest tree
 			} else if (e.getSource() == addLayer) {
@@ -258,11 +384,21 @@ public class QuestEditor extends JPanel implements ActionListener {
 		}
 		
 		/**
+		 * @param obj - the json object that contains the data
+		 */
+		private void loadJSON(JSONObject obj) {
+			giverText = (String) obj.get(QuestData.KEY_GIVER);
+			objText = (String) obj.get(QuestData.KEY_OBJECTIVE);
+			res1Text = (String) obj.get(QuestData.KEY_RESPONSE1);
+			res2Text = (String) obj.get(QuestData.KEY_RESPONSE2);
+			res3Text = (String) obj.get(QuestData.KEY_RESPONSE3);
+		}
+		
+		/**
 		 * Loads the information from the button's data fields
 		 * into the the information panel
 		 */
 		private void load() {
-			
 			stateLabel.setText("State: " + id);
 			giverDialogue.setText(giverText);
 			objectiveSummary.setText(objText);
