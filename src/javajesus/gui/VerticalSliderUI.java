@@ -34,7 +34,7 @@ public class VerticalSliderUI extends BasicScrollBarUI {
 		Dimension zero = new Dimension(0, 0);
 		dummy.setPreferredSize(zero);
 		dummy.setMaximumSize(zero);
-
+		
 		try {
 
 			track = ImageIO.read(

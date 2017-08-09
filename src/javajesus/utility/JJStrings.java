@@ -47,4 +47,8 @@ public class JJStrings {
 	public static final String RED_SLIDER = "/VISUAL_DATA/GUI/PANELS/PLAYER_CREATION/player_info_mid_higher.png";
 	public static final String GREEN_SLIDER = "/VISUAL_DATA/GUI/PANELS/PLAYER_CREATION/player_info_mid_lower.png";
 	public static final String BLUE_SLIDER = "/VISUAL_DATA/GUI/PANELS/PLAYER_CREATION/player_info_bottom.png";
+	
+	// dialogue screen
+	public static final String DIALOGUE_BOX = "/VISUAL_DATA/GUI/HUD/DIALOGUE/actor_dialogue_box.png";
+	public static final String DIALOGUE_TRACK = "/VISUAL_DATA/GUI/HUD/DIALOGUE/actor_dialogue_box_slider.png";
 }

@@ -22,7 +22,9 @@ import engine.IGameLogic;
 import engine.Input;
 import engine.Window;
 import javajesus.entities.Player;
+import javajesus.entities.npcs.NPC;
 import javajesus.graphics.Screen;
+import javajesus.gui.DialogueGUI;
 import javajesus.gui.OverviewGUI;
 import javajesus.gui.PauseGUI;
 import javajesus.level.RandomCave;
@@ -92,6 +94,9 @@ public class JavaJesus extends Canvas implements IGameLogic {
 
 	// Instance of the Overview GUI
 	private OverviewGUI overview;
+	
+	// instance of the Dialogue GUI
+	private DialogueGUI dialogue;
 
 	// Default JPanel container used to hold other GUI panels
 	private JPanel display;
@@ -104,7 +109,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	private int guiID;
 
 	// Constants that identify the which screen is displayed
-	private static final int GAME_DISPLAY = 0,  INVENTORY_DISPLAY = 1, PAUSE_DISPLAY = 2;
+	private static final int GAME_DISPLAY = 0,  INVENTORY_DISPLAY = 1, PAUSE_DISPLAY = 2, DIALOGUE_DISPLAY = 3;
 
 	// font used
 	private static final Font DISPLAY_FONT = new Font(FONT_NAME, 0, 20);
@@ -182,6 +187,10 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		display.add(this, "Main");
 		display.add(overview, "Inventory");
 		display.add(pause, "Pause");
+		display.add(dialogue = new DialogueGUI(), "Dialogue");
+		
+		// manage the dialogue gui with the dialogue handler
+		new DialogueHandler(this);
 		
 		running = true;
 		
@@ -231,6 +240,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		window.addListeners(overview, Input.KEY);
 		window.addListeners(overview.getView(), Input.KEY);
 		window.addListeners(pause, Input.KEY);
+		window.addListeners(dialogue, Input.KEY);
 		
 		// show the game
 		displayGame();
@@ -273,6 +283,26 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			} else {
 				displayGame();
 			}
+		}
+		
+		// input specific to dialogue screen
+		if (guiID == DIALOGUE_DISPLAY) {
+			
+			if (window.isKeyPressed(KeyEvent.VK_UP)) {
+				dialogue.up();
+				window.toggle(KeyEvent.VK_UP);
+			}
+			
+			if (window.isKeyPressed(KeyEvent.VK_DOWN)) {
+				dialogue.down();
+				window.toggle(KeyEvent.VK_DOWN);
+			}
+			
+			if (window.isKeyPressed(KeyEvent.VK_ENTER)) {
+				dialogue.doAction();
+				window.toggle(KeyEvent.VK_ENTER);
+			}
+			
 		}
 		
 	}
@@ -514,10 +544,24 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	/**
 	 * Displays the main game on the screen
 	 */
-	private void displayGame() {
+	public void displayGame() {
 		guiID = GAME_DISPLAY;
 		cardlayout.show(display, "Main");
 		display.getComponent(GAME_DISPLAY).requestFocusInWindow();
+	}
+	
+	/**
+	 * Displays the dialogue screen
+	 */
+	public void displayDialogue(NPC character) {
+		
+		// update the dialogue gui first
+		dialogue.update(character, player);
+		
+		// now display it
+		guiID = DIALOGUE_DISPLAY;
+		cardlayout.show(display, "Dialogue");
+		display.getComponent(DIALOGUE_DISPLAY).requestFocusInWindow();
 	}
 
 	/**

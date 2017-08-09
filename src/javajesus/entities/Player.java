@@ -697,7 +697,6 @@ public class Player extends Mob implements Type {
 	 */
 	public void addQuest(Quest quest) {
 		activeQuests.add(quest);
-		quest.accept();
 	}
 	
 	/**

@@ -17,7 +17,7 @@ public class TheEvilFox extends Quest {
 	 * @param giver - the NPC who is giving the quest
 	 */
 	public TheEvilFox(NPC giver) {
-		super(giver, "The Evil Fox", 1);
+		super(giver, "/WORLD_DATA/QUEST_DATA/TheEvilFox.json", 1);
 	}
 	
 	@Override
@@ -38,24 +38,9 @@ public class TheEvilFox extends Quest {
 		
 	}
 
-	protected String preDialogue() {
-		return "I can see the fox is spreading blasphemy";
-	}
-
-	protected String dialogue() {
-		return "I need you to silence the Fox from spreading such vile heresy";
-	}
-
-	protected String postDialogue() {
-		return "I can feel God's divine salvation blessing you. Go in Peace.";
-	}
-	
-	/**
-	 * Add a list of objectives to the summary
-	 */
 	@Override
-	public String getSummary() {
-		return super.getSummary() + "\nObjective: Kill the Fox";
+	public String getEndDialogue() {
+		return "I can feel God's divine salvation blessing you. Go in Peace.";
 	}
 
 }

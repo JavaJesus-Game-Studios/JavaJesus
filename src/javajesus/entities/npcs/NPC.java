@@ -3,6 +3,7 @@ package javajesus.entities.npcs;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import javajesus.DialogueHandler;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.Entity;
@@ -457,6 +458,13 @@ public abstract class NPC extends Mob {
 			currentQuest = quest;
 		}
 	}
+	
+	/**
+	 * @return the current quest
+	 */
+	public Quest getCurrentQuest() {
+		return currentQuest;
+	}
 
 	/**
 	 * @param num - the index of the quest to set
@@ -521,14 +529,19 @@ public abstract class NPC extends Mob {
 
 		// do quest dialogue
 		if (currentQuest != null) {
-
-			// give the quest to the player
-			if (!currentQuest.hasAccepted()) {
-				player.addQuest(currentQuest);
-			}
 			
-			// do quest dialogue
-			MessageHandler.displayText(getName() + ": " + currentQuest.getDialogue(), Color.BLUE);
+			// continue action dialogue
+			if (!currentQuest.isDialogueFinished()) {
+				
+				// delegate to dialogue gui
+				DialogueHandler.startDialogue(this);
+				
+				// do the simple chat
+			} else {
+				
+				// do normal dialogue
+				MessageHandler.displayText(getName() + ": " + currentQuest.getDialogue(), Color.WHITE);
+			}
 
 			// move on to next quest if completed
 			if (currentQuest.isCompleted()) {
@@ -639,6 +652,13 @@ public abstract class NPC extends Mob {
 	 */
 	public final int getYTile() {
 		return yTile;
+	}
+	
+	/**
+	 * @return the path to the NPC dialogue head
+	 */
+	public String getHeadPath() {
+		return "/VISUAL_DATA/GUI/HUD/DIALOGUE/actor_dialogue-m.png";
 	}
 
 }

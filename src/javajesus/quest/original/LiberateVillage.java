@@ -19,7 +19,7 @@ public class LiberateVillage extends Quest {
 	 * @param giver - the NPC who is giving the quest
 	 */
 	public LiberateVillage(NPC giver) {
-		super(giver, "The Resistance", 1);
+		super(giver, "/WORLD_DATA/QUEST_DATA/Original.json", 1);
 	}
 	
 	@Override
@@ -41,24 +41,9 @@ public class LiberateVillage extends Quest {
 		
 	}
 
-	protected String preDialogue() {
-		return "The Demons are destroying our village!";
-	}
-
-	protected String dialogue() {
-		return "I need you to clear the village so we can protect the citizens of the bay";
-	}
-
-	protected String postDialogue() {
-		return "This a a good first step in fighting back against the Demon invasion. You have my thanks.";
-	}
-	
-	/**
-	 * Add a list of objectives to the summary
-	 */
 	@Override
-	public String getSummary() {
-		return super.getSummary() + "\nObjective: Clear the village south of the police barricade.";
+	public String getEndDialogue() {
+		return "This a a good first step in fighting back against the Demon invasion. You have my thanks.";
 	}
 
 }
