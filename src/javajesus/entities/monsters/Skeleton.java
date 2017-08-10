@@ -1,5 +1,6 @@
 package javajesus.entities.monsters;
 
+import javajesus.JavaJesus;
 import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
@@ -11,12 +12,12 @@ public class Skeleton extends Monster {
 	private static final int WIDTH = 16, HEIGHT = 16;
 
 	// how fast the player toggles steps
-	private static final int WALKING_ANIMATION_SPEED = 4;
+	private static final int WALKING_ANIMATION_SPEED = 3;
 		
 	// base stats
 	private static final int BASE_STRENGTH = 7, BASE_DEFENSE = 5;
 	
-	// color set of bandito
+	// color set of skeleton
 	private static final int[] color =  { 0xFF111111, 0xFF700000, 0xFFDBA800 };
 
 	/**
@@ -56,42 +57,108 @@ public class Skeleton extends Monster {
 
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile = 10;
+			if (isShooting) {
+				xTile = 22;
+				if (flipAttack) {
+					xTile = 31;
+				} else if (isMoving){
+					xTile = 24;
+				}
+			} else {
+				xTile = 8 + (isMoving ? 2 : 0);
+			}
+			
 		} else if (getDirection() == Direction.SOUTH) {
-			xTile = 2;
+			
+			if (isShooting) {
+				xTile = 12;
+				if (flipAttack) {
+					xTile = 26;
+				} else if (isMoving){
+					xTile = 14;
+				}
+			} else {
+				xTile = isMoving ? 2 : 0;
+			}
+			
 		} else {
 			xTile = 4 + (flip ? 2 : 0);
+			
+			if (isShooting) {
+				xTile = 16 + (isMoving ? 3 : 0);
+				if (flipAttack) {
+					xTile = 28;
+				}
+			}
+			
 			flip = getDirection() == Direction.WEST;
 		}
-
+		
 		// death image
 		if (isDead())
-			xTile = 12;
+			xTile = 33;
+		
+		// base 2x2 quadrant y-axis symmetry 
+		if (!isShooting || isLongitudinal()) {
 
-		// Upper body
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
+			// Upper body
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
 
-		// Upper body
-		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, getSpriteSheet(),
-		        flip, color);
+			// Upper body
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, getSpriteSheet(),
+			        flip, color);
 
-		// Lower Body
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, getSpriteSheet(),
-		        flip, color);
+			// Lower Body
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, getSpriteSheet(),
+			        flip, color);
 
-		// Lower Body
-		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
-		        getSpriteSheet(), flip, color);
+			// Lower Body
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
+			        getSpriteSheet(), flip, color);
+		}
+		
+		// render the extra sword chunks
+		if (isShooting && isLongitudinal()) {
+			
+			// Lower sword
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile, yTile + 2, getSpriteSheet(),
+			        flip, color);
+
+			// Lower sword
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile + 1, yTile + 2,
+			        getSpriteSheet(), flip, color);
+		} else if (isShooting && isLatitudinal()) {
+			
+			// move x offset over if west
+			if (getDirection() == Direction.WEST) {
+				xOffset -= 8;
+			}
+			
+			// iterate top to bottom
+			for (int i = 0; i < 2; i++) {
+				
+				// Left body
+				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + i * modifier, xTile, yTile + i, getSpriteSheet(), flip, color);
+				
+				// Middle body
+				screen.render(xOffset + modifier, yOffset + i * modifier, xTile + 1, yTile + i, getSpriteSheet(), flip, color);
+				
+				// Right body
+				screen.render(xOffset + (modifier * 2) - (modifier * (flip ? 2 : 0)), yOffset + i * modifier, xTile + 2, yTile + i, getSpriteSheet(), flip, color);
+				
+			}
+			
+		}
 	}
 
 	@Override
 	public int getStrength() {
-		return BASE_STRENGTH;
+		return Math.round(BASE_STRENGTH * JavaJesus.difficulty);
 	}
 
 	@Override
 	public int getDefense() {
-		return BASE_DEFENSE;
+		return Math.round(BASE_DEFENSE * JavaJesus.difficulty);
 	}
 
 	@Override

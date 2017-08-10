@@ -2,6 +2,7 @@ package javajesus.entities.monsters;
 
 import java.awt.Color;
 
+import javajesus.JavaJesus;
 import javajesus.MessageHandler;
 import javajesus.entities.Entity;
 import javajesus.entities.Player;
@@ -105,7 +106,7 @@ public class Monkey extends Monster {
 			} else if (getDirection() == Direction.SOUTH) {
 				xTile = 14;
 			} else {
-				xTile = 16 + (flip ? 2 : 0);
+				xTile = 16;
 			}
 		}
 
@@ -151,12 +152,12 @@ public class Monkey extends Monster {
 
 	@Override
 	public int getStrength() {
-		return BASE_STRENGTH;
+		return Math.round(BASE_STRENGTH * JavaJesus.difficulty);
 	}
 
 	@Override
 	public int getDefense() {
-		return BASE_DEFENSE;
+		return Math.round(BASE_DEFENSE * JavaJesus.difficulty);
 	}
 
 	@Override

@@ -363,8 +363,10 @@ public abstract class Level {
 	public void clear() {
 		for (int i = 0; i < mobs.size(); i++) {
 			Mob m = mobs.get(i);
-			if (m.isDead())
+			if (m.isDead()) {
 				remove(m);
+				i--;
+			}
 		}
 	}
 

@@ -2,18 +2,16 @@ package javajesus;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
-import javajesus.utility.GameMode;
-
-import javax.imageio.ImageIO;
 
 /*
  * Manages the display of the current equipped item status and health bars stats
@@ -64,10 +62,6 @@ public class PlayerHUD {
 	// font of ammo string
 	private static final Font font = new Font(JavaJesus.FONT_NAME, 0, 20);
 
-	// font of score board
-	private static final Font score_font = new Font(JavaJesus.FONT_NAME,
-			Font.BOLD, 30);
-	
 	// the buffered image elements
 	private BufferedImage bar, heart;
 
@@ -231,21 +225,6 @@ public class PlayerHUD {
 
 		g.drawImage(heart, BAR_XOFFSET + BAR_XSPACE, box_yOffset + BAR_YOFFSET + BAR_VSPACE,
 				HEART_SIZE, HEART_SIZE, null);
-
-		// for survival mode
-		if (JavaJesus.mode == GameMode.FIXED) {
-
-			// set display font
-			g.setColor(Color.BLACK);
-			g.setFont(score_font);
-
-			// center based on text and font metrics
-			String score = "Kills: " + JavaJesus.score;
-			FontMetrics fm = g.getFontMetrics();
-			g.drawString(score,
-					JavaJesus.WINDOW_WIDTH / 2 - fm.stringWidth(score) / 2,
-					fm.getHeight());
-		}
 
 	}
 

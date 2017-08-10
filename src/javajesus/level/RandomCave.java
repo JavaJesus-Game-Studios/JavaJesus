@@ -5,9 +5,12 @@ import java.io.IOException;
 
 import javax.sound.sampled.Clip;
 
+import javajesus.JavaJesus;
 import javajesus.SoundHandler;
 import javajesus.entities.Chest;
 import javajesus.entities.Spawner;
+import javajesus.entities.monsters.Demon;
+import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.transporters.Ladder;
 import javajesus.level.generation.CaveGeneration;
 import javajesus.level.tile.Tile;
@@ -78,12 +81,18 @@ public class RandomCave extends Level {
 //							spawnFound = true;
 //						}
 //					}
+					
+					// chance of spawning enemies in cave to fight
+					if (Math.random() < (JavaJesus.difficulty / 1000)) {
+						add(new Skeleton(this, col * 8, row * 8));
+					}
 				}
 					
 				// Add in the wall tiles and entities
 				switch (caveMap[row][col]) {
 				case CaveGeneration.CAVE_WALL:
 					levelTiles[tile] = Tile.CAVEWALL_ROCK.getId();
+					
 					break;
 				case CaveGeneration.CAVE_BORDER_WALL:
 					levelTiles[tile] = Tile.CAVEWALL.getId();
@@ -98,15 +107,18 @@ public class RandomCave extends Level {
 					break;
 				case CaveGeneration.SPAWN_POINT:
 					levelTiles[tile] = Tile.CAVEFLOOR.getId();
-					setSpawnPoint(col * 8, row * 8);
+					setSpawnPoint(col * 8 - 12, row * 8);
 					add(new Ladder(this, col * 8, row * 8, prevLevel));
-					System.out.println("Spawn at " + col + " " + row);
+					System.out.println("Spawn at " + (col * 8) + " " + (row * 8));
 					break;
 				case CaveGeneration.EXIT_POINT:
 					levelTiles[tile] = Tile.CAVEFLOOR.getId();
 					add(new Ladder(this, col * 8, row * 8,
 							new RandomCave(this, new Point(0, 0))));
-					System.out.println("Exit at " + col + " " + row);
+					System.out.println("Exit at " + (col * 8) + " " + (row * 8));
+					
+					// every new exit point increases difficulty
+					JavaJesus.difficulty += 0.001f;
 					break;
 				default:
 					break;

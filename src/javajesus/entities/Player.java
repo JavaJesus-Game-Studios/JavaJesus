@@ -112,9 +112,6 @@ public class Player extends Mob implements Type {
 	public Player(String name, Level level, int x, int y, byte gender) {
 		super(level, name, x, y, 1, SIZE, SIZE, SpriteSheet.player_male, START_HEALTH);
 		
-		// change the water colors to match the head later on
-		waterColor = new int[] {0xFF5A52FF, 0xFF000000, 0xFF000000, 0, 0};
-
 		// load basic data
 		inventory = new Inventory();
 		maxStamina = START_STAMINA;
@@ -599,7 +596,6 @@ public class Player extends Mob implements Type {
 	 */
 	public void setHairColor(int num) {
 		color[3] = num;
-		waterColor[3] = num;
 	}
 	
 	/**
@@ -609,7 +605,6 @@ public class Player extends Mob implements Type {
 	 */
 	public void setPantsColor(int num) {
 		color[4] = num;
-		waterColor[4] = num;
 	}
 
 	/**

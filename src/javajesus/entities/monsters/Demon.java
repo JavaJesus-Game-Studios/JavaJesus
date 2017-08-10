@@ -207,10 +207,8 @@ public class Demon extends Monster implements LongRange {
 	/**
 	 * Moves a monster on the level
 	 * 
-	 * @param dx
-	 *            the total change in x
-	 * @param dy
-	 *            the total change in y
+	 * @param dx - the total change in x
+	 * @param dy - the total change in y
 	 */
 	public void move(int dx, int dy) {
 
@@ -226,12 +224,12 @@ public class Demon extends Monster implements LongRange {
 	
 	@Override
 	public int getStrength() {
-		return BASE_STRENGTH;
+		return Math.round(BASE_STRENGTH * JavaJesus.difficulty);
 	}
 
 	@Override
 	public int getDefense() {
-		return BASE_DEFENSE;
+		return Math.round(BASE_DEFENSE * JavaJesus.difficulty);
 	}
 
 	@Override

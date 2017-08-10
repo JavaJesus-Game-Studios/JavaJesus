@@ -161,17 +161,17 @@ public class Spawner extends Entity implements Type {
 	private Entity getEntity() {
 		switch (type) {
 		case DEMON:
-			return currentEntity = new Demon(getLevel(), getX(), getY(), 1, 100 + JavaJesus.score * 2);
+			return currentEntity = new Demon(getLevel(), getX(), getY(), 1, 100);
 		case GANG_MEMBER:
-			return currentEntity = new GangMember(getLevel(), getX(), getY(), 1, 200 + JavaJesus.score * 3, (byte) random.nextInt(2));
+			return currentEntity = new GangMember(getLevel(), getX(), getY(), 1, 200, (byte) random.nextInt(2));
 		case HEALTH_PACK:
 			return currentEntity = new Pickup(getLevel(), getX(), getY(), Item.quickHealthPack, true);
 		case MONKEY:
-			return currentEntity = new Monkey(getLevel(), getX(), getY(), 200 + JavaJesus.score * 4);
+			return currentEntity = new Monkey(getLevel(), getX(), getY(), 200);
 		case CYCLOPS:
-			return currentEntity = new Cyclops(getLevel(), getX(), getY(), 300 + JavaJesus.score * 5);
+			return currentEntity = new Cyclops(getLevel(), getX(), getY(), 300);
 		case CENTAUR:
-			return currentEntity = new Centaur(getLevel(), getX(), getY(), 250 + JavaJesus.score * 4);
+			return currentEntity = new Centaur(getLevel(), getX(), getY(), 250);
 		default:
 			return null;
 		}

@@ -16,7 +16,6 @@ import javajesus.graphics.SpriteSheet;
 import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
-import javajesus.utility.GameMode;
 
 /*
  * A Monster is a mob that attacks NPCs and the player
@@ -49,9 +48,15 @@ public abstract class Monster extends Mob {
 
 	// how long the attack position is rendered in ticks
 	private static final int attackAnimationLength = 20;
+	
+	// whether or not the attack animation should update
+	protected boolean flipAttack;
 
 	// makes npcs move every other tick
 	private int moveTick;
+	
+	// whether or not the monster is moving
+	protected boolean isMoving;
 
 	/**
 	 * Creates a Monster that attacks other mobs
@@ -69,7 +74,7 @@ public abstract class Monster extends Mob {
 	 */
 	public Monster(Level level, String name, int x, int y, int speed, int width, int height, int yTile, int health,
 			int attackDelay) {
-		super(level, name, x, y, speed, width, height, SpriteSheet.mobEnemies, health);
+		super(level, name, x, y, speed, width, height, SpriteSheet.mobEnemies, Math.round(health * JavaJesus.difficulty));
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
 		this.yTile = yTile;
 		this.attackDelay = attackDelay;
@@ -118,6 +123,7 @@ public abstract class Monster extends Mob {
 		if (cooldown) {
 			attackTickCount++;
 			isShooting = attackTickCount < attackAnimationLength;
+			flipAttack = attackTickCount > 10 && isShooting;
 			if (attackTickCount > attackDelay) {
 				attackTickCount = 0;
 				cooldown = false;
@@ -125,10 +131,8 @@ public abstract class Monster extends Mob {
 		}
 
 		// attack the target if given a chance
-		if (!cooldown && target != null && 
-				(getOuterBounds().intersects(target.getOuterBounds()) || 
-						(this instanceof LongRange && 
-								(((LongRange) this).getRange().intersects(target.getOuterBounds()))))) {
+		if (!cooldown && target != null && (getOuterBounds().intersects(target.getBounds()) || (this instanceof LongRange
+		        && (((LongRange) this).getRange().intersects(target.getBounds()))))) {
 			cooldown = true;
 			checkDirection();
 			this.attack(DAMAGE_RANGE, target);
@@ -143,9 +147,9 @@ public abstract class Monster extends Mob {
 		// check the bounds if the monster prefers long range or not
 		if (target != null) {
 			if (this instanceof LongRange) {
-				shouldMove = !((LongRange) this).getRange().intersects(target.getOuterBounds());
+				shouldMove = !((LongRange) this).getRange().intersects(target.getBounds());
 			} else {
-				shouldMove = !getOuterBounds().intersects(target.getOuterBounds());
+				shouldMove = !getOuterBounds().intersects(target.getBounds());
 			}
 		}
 
@@ -169,7 +173,10 @@ public abstract class Monster extends Mob {
 
 		// move the monster towards the target
 		if ((dx != 0 || dy != 0) && !isMobCollision(dx, dy)) {
+			isMoving = true;
 			move(dx, dy);
+		} else {
+			isMoving = false;
 		}
 	}
 
@@ -251,11 +258,6 @@ public abstract class Monster extends Mob {
 		
 		// drop loot on death
 		dropLoot();
-		
-		// logic specific to fixed mode
-		if (JavaJesus.mode == GameMode.FIXED) {
-			JavaJesus.score++;
-		}
 		
 	}
 	

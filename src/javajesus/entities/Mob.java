@@ -105,13 +105,13 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	private Script script;
 
 	// the extra space, or padding, around each mob
-	public static final int OUTER_BOUNDS_RANGE = 4;
+	public static final int OUTER_BOUNDS_RANGE = 2;
 
 	// whether or not the mob can clip through bounds
 	private boolean clip;
 	
 	// color of water
-	protected int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
+	private static final int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
 	
 	// for knockback color flicker
 	protected boolean knockbackCooldown;
@@ -608,8 +608,8 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 			yOffset += 4 + ((tickCount % 60 < 30) ? -1 : 0);
 			
 			// water rings
-			screen.render(xOffset, yOffset + modifier, 0, 10, sheet, false, waterColor);
-			screen.render(xOffset + modifier, yOffset + modifier, 0, 10, sheet, true, waterColor);
+			screen.render(xOffset, yOffset + modifier, 0, 14, sheet, false, waterColor);
+			screen.render(xOffset + modifier, yOffset + modifier, 0, 14, sheet, true, waterColor);
 		}
 
 		// Handles fire animation
@@ -658,9 +658,13 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 		// reset data
 		isHit = false;
 		isTalking = false;
+		isShooting = false;
 		setTargeted(false);
 		onFire = false;
 		knockbackCooldown = false;
+		
+		// decrease the bounds
+		setBounds(getX() + getBounds().width / 2, getY() + getBounds().height / 2, 1, 1);
 
 		// renders the mob in the background
 		isBehindBuilding = true;
@@ -880,8 +884,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	 * @param dy - the change in y
 	 */
 	protected void moveOuterBounds(int dx, int dy) {
-		outerBounds.setLocation((int) outerBounds.getX() + dx,
-				(int) outerBounds.getY() + dy);
+		outerBounds.translate(dx, dy);
 	}
 
 	/**

@@ -193,12 +193,12 @@ public class GangMember extends Monster implements LongRange, Type {
 
 	@Override
 	public int getStrength() {
-		return BASE_STRENGTH;
+		return Math.round(BASE_STRENGTH * JavaJesus.difficulty);
 	}
 
 	@Override
 	public int getDefense() {
-		return BASE_DEFENSE;
+		return Math.round(BASE_DEFENSE * JavaJesus.difficulty);
 	}
 
 	/**

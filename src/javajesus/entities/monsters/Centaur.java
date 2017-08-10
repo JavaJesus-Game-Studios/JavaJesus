@@ -1,5 +1,6 @@
 package javajesus.entities.monsters;
 
+import javajesus.JavaJesus;
 import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
@@ -189,17 +190,14 @@ public class Centaur extends Monster {
 		return Entity.CENTAUR;
 	}
 	
-	/**
-	 * Sets the centaur's strength
-	 */
 	@Override
 	public int getStrength() {
-		return BASE_STRENGTH;
+		return Math.round(BASE_STRENGTH * JavaJesus.difficulty);
 	}
 
 	@Override
 	public int getDefense() {
-		return BASE_DEFENSE;
+		return Math.round(BASE_DEFENSE * JavaJesus.difficulty);
 	}
 
 }

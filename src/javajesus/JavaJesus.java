@@ -74,8 +74,8 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// True if special developer numbers should be displayed
 	private boolean doDevOverlay;
 
-	// the gamescore in survival mode
-	public static int score;
+	// the scaling difficulty over time
+	public static float difficulty = 1;
 
 	// Creates the buffered image to be rendered onto the game screen
 	private BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
