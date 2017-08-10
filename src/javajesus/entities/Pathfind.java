@@ -98,6 +98,53 @@ public class Pathfind {
 		// Return path
 		return path;
 	}
+	
+	/**
+	 * Tries to create a shortest path from [sX, sY] to [dX, dY] on matrix.
+	 * 
+	 * @param matrix - A 2D array of a level. 0 Represents a solid tile,
+	 * 1 is walkable.
+	 * @param sX - The x coordinate of the source location.
+	 * @param sY - The y coordinate of the source location.
+	 * @param dX - The x coordinate of the destination location.
+	 * @param dY - The y coordinate of the destination location.
+	 * @return a boolean. True if path found, false otherwise.
+	 */
+	public static boolean pathExist(int[][] matrix, int sX, int sY, int dX, int dY) {
+		// Queue is used to work through the matrix
+		List<Node> queue = new ArrayList<Node>();
+		
+		// First node is the start location
+		Node start = new Node(sX, sY);
+
+		// Add start node to queue
+		queue.add(start);
+
+		// pathExists will be used to determine if path is present
+		// Initialize a new node.
+		boolean pathExists = false;
+		Node current = new Node(0, 0);
+
+		while(!queue.isEmpty()) {
+			// Set node in queue to current
+			current = queue.remove(0);
+			// Check if destination has been reached
+			if (current.x == dX && current.y == dY) {
+				pathExists = true;
+				break;
+			}
+
+			// Use 0 to mark that the destination has been visited
+			matrix[current.x][current.y] = 0;
+
+			// Find all correct neighbors (!= '0'), then queue them for the next
+			// cycle
+			List<Node> neighbors = getNeighbors(matrix, current);
+			queue.addAll(neighbors);
+		} 
+		
+		return pathExists;
+	}
 
 	/**
 	 * Creates an ArrayList of neighbors of the current tile if valid.
@@ -128,6 +175,40 @@ public class Pathfind {
 
 		return neighbors;
 	}
+	
+	/**
+	 * Creates an ArrayList of neighbors of the current tile if valid.
+	 * 
+	 * @param matrix - A 2D array of a level.
+	 * @param node - The current location.
+	 * @return an ArrayList of all valid surrounding tiles.
+	 */
+	public static List<Node> getNeighbors(int[][] matrix, Node node) {
+		List<Node> neighbors = new ArrayList<Node>();
+
+		// This should be self explanatory
+		if (isValidPoint(matrix, node.x - 1, node.y)) {
+			neighbors.add(new Node(node.x - 1, node.y));
+			matrix[node.x - 1][node.y] = 0;
+		}
+
+		if (isValidPoint(matrix, node.x + 1, node.y)) {
+			neighbors.add(new Node(node.x + 1, node.y));
+			matrix[node.x + 1][node.y] = 0;
+		}
+
+		if (isValidPoint(matrix, node.x, node.y - 1)) {
+			neighbors.add(new Node(node.x, node.y - 1));
+			matrix[node.x][node.y - 1] = 0;
+		}
+
+		if (isValidPoint(matrix, node.x, node.y + 1)) {
+			neighbors.add(new Node(node.x, node.y + 1));
+			matrix[node.x][node.y + 1] = 0;
+		}
+
+		return neighbors;
+	}
 
 	/**
 	 * Checks if tile is valid. i.e. not a '0'
@@ -140,6 +221,19 @@ public class Pathfind {
 	public static boolean isValidPoint(char[] matrix, int x, int y) {
 		return !(x < 0 || x >= Level.LEVEL_WIDTH || y < 0 || y >= Level.LEVEL_HEIGHT)
 		        && (matrix[x + (y * Level.LEVEL_WIDTH)] != '0');
+	}
+	
+	/**
+	 * Checks if tile is valid. i.e. not a '0'
+	 * 
+	 * @param matrix - A 2D array of a level.
+	 * @param x - The x location in 2D array
+	 * @param y - The y location in 2D array
+	 * @return true is tile is valid, false otherwise
+	 */
+	public static boolean isValidPoint(int[][] matrix, int x, int y) {
+		return !(x < 0 || x >= Level.LEVEL_WIDTH || y < 0 || y >= Level.LEVEL_HEIGHT)
+		        && (matrix[x][y] != 0);
 	}
 
 }

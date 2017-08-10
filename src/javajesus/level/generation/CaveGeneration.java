@@ -3,17 +3,23 @@ package javajesus.level.generation;
 import java.util.Random;
 
 import javajesus.level.Level;
+import javajesus.entities.Pathfind;
 
 /**
  *	Utility class for generating tile maps using cell automata 
  */
 public class CaveGeneration {
 	// Constants for readability
+	// Walls
 	public static final int CAVE_WALL = 0;
 	public static final int CAVE_BORDER_WALL = 1;
+	//Floor
 	public static final int FLOOR = 2;
+	//Entities
 	public static final int FLOOR_CHEST = 3;
 	public static final int FLOOR_SPAWNER = 4;
+	public static final int SPAWN_POINT = 5;
+	public static final int EXIT_POINT = 6;
 	
 	
 	// Random number generator
@@ -48,7 +54,7 @@ public class CaveGeneration {
 				// Keep caveMap for future path finding
 				if (caveMap[row][col] == 1) {
 					caveReturn[row][col] = FLOOR;
-				} else {
+				} else if(caveMap[row][col] == 0) {
 					if (caveMap[row - 1][col - 1]  == 1
 							|| caveMap[row - 1][col] == 1
 							|| caveMap[row - 1][col + 1] == 1
@@ -100,6 +106,10 @@ public class CaveGeneration {
 				}
 			}
 		}
+		
+		// Find the location for the spawn and exit 
+		// so that a path exists between the two
+		setLadders(caveMap, caveReturn);
 		
 		return caveReturn;
 	}
@@ -232,5 +242,47 @@ public class CaveGeneration {
 				}
 			}
 		}
+	}
+	
+	private static final void setLadders(int[][] caveMap, int[][] caveReturn) {
+		int spawnX = 0, spawnY = 0, exitX = 0, exitY = 0;
+		boolean locCheck = false;
+		
+		// Find two locations that spawn on ground and have a path between them.
+		while (!locCheck) {
+			// Generate new locations
+			spawnX = rand.nextInt(Level.LEVEL_WIDTH);
+			spawnY = rand.nextInt(Level.LEVEL_HEIGHT);
+			exitX = rand.nextInt(Level.LEVEL_WIDTH);
+			exitY = rand.nextInt(Level.LEVEL_HEIGHT);
+			//exitX = spawnX + rand.nextInt(5);
+			//exitY = spawnY + rand.nextInt(5);
+			
+			// Check if they are on floors and a path exists
+			// Use logical short circuit to only run pathfind when both are in 
+			// floor tiles
+			if((caveMap[spawnY][spawnX] == 1) && (caveMap[exitY][exitX] == 1) && (Pathfind.pathExist(caveMap, spawnX, spawnY, exitX, exitY))) {
+				
+				locCheck = true;
+				break;
+			}
+		} 
+		
+		caveReturn[spawnY][spawnX] = 5;
+		caveReturn[exitY][exitX] = EXIT_POINT;
+		if (caveReturn[spawnY][spawnX] == EXIT_POINT) {
+			caveReturn[spawnY - 1][spawnX] = 5;
+		}
+		System.out.println((caveMap[spawnY][spawnX] == 1) + " " + (caveMap[exitY][exitX] == 1) + " " + Pathfind.pathExist(caveMap, spawnX, spawnY, exitX, exitY));
+		System.out.println(caveReturn[spawnY][spawnX] + " " + caveReturn[exitY][exitX]);
+
+//		for (int i = -1; i < 2; i++) {
+//			for(int j = -1; j < 2; j++) {
+//				if(i != 0 && j != 0) {
+//					caveReturn[spawnY + i][spawnX + j] = 1;
+//					caveReturn[exitY + i][exitX + j] = 1;
+//				}
+//			}
+//		}
 	}
 }

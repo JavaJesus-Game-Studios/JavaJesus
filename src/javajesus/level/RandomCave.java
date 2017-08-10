@@ -59,7 +59,7 @@ public class RandomCave extends Level {
 		caveMap = CaveGeneration.generateCave(CYCLES);
 
 		// whether or not a proper spawn point is found
-		boolean spawnFound = false;
+		//boolean spawnFound = false;
 		
 		// iterate through the tiles
 		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
@@ -71,13 +71,13 @@ public class RandomCave extends Level {
 				// Set the spawn point to a location where the player can move
 				if (caveMap[row][col] == CaveGeneration.FLOOR) {
 					levelTiles[tile] = Tile.CAVEFLOOR.getId();
-					if (row > 5 * 8 && col > 5 * 8) {
-						if (!spawnFound) {
-							setSpawnPoint(col * 8, row * 8);
-							add(new Ladder(this, col * 8, row * 8, prevLevel));
-							spawnFound = true;
-						}
-					}
+//					if (row > 5 * 8 && col > 5 * 8) {
+//						if (!spawnFound) {
+//							setSpawnPoint(col * 8, row * 8);
+//							add(new Ladder(this, col * 8, row * 8, prevLevel));
+//							spawnFound = true;
+//						}
+//					}
 				}
 					
 				// Add in the wall tiles and entities
@@ -95,6 +95,18 @@ public class RandomCave extends Level {
 				case CaveGeneration.FLOOR_SPAWNER:
 					levelTiles[tile] = Tile.CAVEFLOOR1.getId();
 					add(new Spawner(this, col * 8, row * 8, Spawner.DEMON, 5));
+					break;
+				case CaveGeneration.SPAWN_POINT:
+					levelTiles[tile] = Tile.CAVEFLOOR.getId();
+					setSpawnPoint(col * 8, row * 8);
+					add(new Ladder(this, col * 8, row * 8, prevLevel));
+					System.out.println("Spawn at " + col + " " + row);
+					break;
+				case CaveGeneration.EXIT_POINT:
+					levelTiles[tile] = Tile.CAVEFLOOR.getId();
+					add(new Ladder(this, col * 8, row * 8,
+							new RandomCave(this, new Point(0, 0))));
+					System.out.println("Exit at " + col + " " + row);
 					break;
 				default:
 					break;

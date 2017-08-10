@@ -10,7 +10,7 @@ import javajesus.level.Level;
 public class Ladder extends Transporter {
 
 	// color set of the ladder
-	private static final int[] color = { 0xFF663300, 0xFF663300, 0xFFFFDE00 };
+	private static final int[] color = { 0xD5D9DA00, 0xD5D9DA00, 0xFFFFDE00 };
 	
 	// dimensions of the transporter
 	private static final int WIDTH = 8, HEIGHT = 16;
