@@ -225,6 +225,7 @@ public class DialogueGUI extends JPanel {
 			setEditable(false);
 			setLineWrap(true);
 			setWrapStyleWord(true);
+			setFocusable(false);
 
 			// set up the text
 			setFont(font);
@@ -288,6 +289,7 @@ public class DialogueGUI extends JPanel {
 			setEditable(false);
 			setLineWrap(true);
 			setWrapStyleWord(true);
+			setFocusable(false);
 			
 			// add a border for the text to fit in
 			setBorder(new EmptyBorder(20, 10, 10, 5));

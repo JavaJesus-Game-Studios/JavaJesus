@@ -439,11 +439,13 @@ public class Sword extends Item {
 					xOffset -= modifier;
 				}
 				
+				System.out.println("HERE");
+				
 				// top to bottom
 				for (int i = 0; i < 2; i++) {
 
 					screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
-					        xTile, yTile + i, sheet, false, color);
+					        xTile, yTile + i, sheet, flip, color);
 
 					screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
 					        xTile + 1, yTile + i, sheet, flip, color);

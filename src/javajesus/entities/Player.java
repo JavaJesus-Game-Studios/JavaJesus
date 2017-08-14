@@ -496,6 +496,11 @@ public class Player extends Mob implements Type {
 				xTile = flip ? 2 : 0;
 				if (!isMoving)
 					xTile = 2;
+				if (shootingDir == Direction.EAST) {
+					xOffset += 3;
+				} else {
+					xOffset -=3;
+				}
 				flip = shootingDir == Direction.WEST;
 			}
 
