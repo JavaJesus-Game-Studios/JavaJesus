@@ -31,7 +31,7 @@ public class Demon extends Monster implements LongRange, Type {
 	private static final int BASE_STRENGTH = 4, BASE_DEFENSE = 0;
 
 	// color set of a demon
-	private static final int[] color = { 0xFF111111, 0xFF700000, 0xFFDBA800 };
+	private static final int[] color = { 0xFF111111, 0xFF700000, 0xFFDBA800, 0 , 0 };
 	
 	//types of Demon
 	public static final byte IMP = 0, WARRIOR = 1;
@@ -97,7 +97,7 @@ public class Demon extends Monster implements LongRange, Type {
 			yTile = 0;
 			break;
 		default:
-			yTile = 3;
+			//yTile = 3;
 		}
 	}
 

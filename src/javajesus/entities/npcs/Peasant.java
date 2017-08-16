@@ -39,7 +39,7 @@ public class Peasant extends NPC implements Type {
 	 */
 	public Peasant(Level level, int x, int y, int type, String walkPath, int walkDistance) {
 		super(level, "Peasant", x, y, 1, 16, 16, 100, new int[] { 0xFF111111,
-				0xFF715B17, 0xFFEDC5AB }, 0, 16, walkPath, walkDistance);
+				0xFF715B17, 0xFFEDC5AB , 0, 0}, 0, 16, walkPath, walkDistance);
 		
 		// instance data
 		this.type = (byte) type;

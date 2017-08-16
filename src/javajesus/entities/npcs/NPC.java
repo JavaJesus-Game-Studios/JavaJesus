@@ -59,7 +59,7 @@ public abstract class NPC extends Mob {
 	private int moveTick;
 	
 	// hit color of the npc
-	protected static final int[] mobHitColor = { 0xFF700000, 0xFF700000, 0xFF700000 };
+	protected static final int[] mobHitColor = { 0xFF700000, 0xFF700000, 0xFF700000, 0, 0 };
 	protected static final int[] questColor = {0xFFFFFF00, 0xFFFFFF00, 0xFFFFFF00};
 
 	/**
@@ -264,7 +264,7 @@ public abstract class NPC extends Mob {
 
 		// depth effect when swimming
 		int swimOffset = modifier * (isSwimming ? 1 : 0);
-
+		
 		// Upper body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
 				xTile + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());

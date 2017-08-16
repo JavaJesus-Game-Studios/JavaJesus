@@ -42,6 +42,7 @@ public class SpriteSheet implements Serializable {
     
     ///// EFFECTS /////
     public static SpriteSheet projectiles = new SpriteSheet("/VISUAL_DATA/EFFECTS/projectile_sheet.png", 8);
+    public static SpriteSheet dynamic = new SpriteSheet("/VISUAL_DATA/EFFECTS/dynamic_effects.png", 4);
     public static SpriteSheet explosionSmall = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/explosion_16Bit.png", 28);
     public static SpriteSheet explosionLarge = new SpriteSheet("/VISUAL_DATA/EFFECTS/ANIMATIONS/explosion_32Bit.png", 50);
       
