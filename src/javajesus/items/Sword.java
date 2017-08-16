@@ -39,7 +39,7 @@ public class Sword extends Item {
 	private int xSwingOffset, ySwingOffset;
 
 	// spritesheet for player
-	private SpriteSheet sheet = SpriteSheet.playerSwords_male;
+	private SpriteSheet sheet = SpriteSheet.playerSwords_male_noarmor;
 
 	// the offsets for the power swing positions
 	private int[] powerSwingOffsets;
@@ -122,9 +122,9 @@ public class Sword extends Item {
 	 */
 	public void setSpriteSheet(byte type) {
 		if (type == PlayerData.FEMALE) {
-			sheet = SpriteSheet.playerSwords_female;
+			sheet = SpriteSheet.playerSwords_female_noarmor;
 		} else {
-			sheet = SpriteSheet.playerSwords_male;
+			sheet = SpriteSheet.playerSwords_male_noarmor;
 		}
 	}
 

@@ -151,7 +151,7 @@ public class Item implements Serializable {
 			+ "okay to use against the Native Population.", 0);
 	public static final Item arrowAmmo = new Item("Arrow Quiver", 26, 4, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"A quiver full of Arrows, useful for having arrows to shoot at people.", 0);
-	public static final Item rocketAmmo = new Item("Ammo", 26, 5, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
+	public static final Item rocketAmmo = new Item("Ammo", 29, 5, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"This is a rocket, you put it in a Rocket Launcher, then you shoot it. Once the rocket"
 			+ "hits what you were aiming at it explodes. That's how it works.", 0);
 

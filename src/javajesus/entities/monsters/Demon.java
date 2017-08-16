@@ -34,11 +34,10 @@ public class Demon extends Monster implements LongRange, Type {
 	private static final int[] color = { 0xFF111111, 0xFF700000, 0xFFDBA800 };
 	
 	//types of Demon
-	public static final byte Imp = 0, DemonWarrior = 1;
+	public static final byte IMP = 0, WARRIOR = 1;
 	
 	//which type the Demon is
 	private byte type;
-
 	
 	// the range the shooter will stand back when shooting
 	private Ellipse2D.Double standRange;
@@ -60,18 +59,7 @@ public class Demon extends Monster implements LongRange, Type {
 		
 		// set fire immunity
 		setFireImmune(true);
-	}
-	
-	/**
-	 * Creates a Demon
-	 * 
-	 * @param level - the level it is on
-	 * @param x - the x coord
-	 * @param y - the y coord
-	 * @param health - the base health
-	 */
-	public Demon(Level level, int x, int y, int health, byte type) {
-		this(level, x, y, 1, health, type);
+		
 		// sets the appropriate y tile on the pixel sheet
 		this.type = type;
 		update(type);
@@ -85,17 +73,27 @@ public class Demon extends Monster implements LongRange, Type {
 	 * @param y - the y coord
 	 * @param health - the base health
 	 */
-	public Demon(Level level, int x, int y, byte type) {
-		this(level, x, y, 1, 100, type);
-		this.type = type;
-		update(type);
+	public Demon(Level level, int x, int y, int health, byte type) {
+		this(level, x, y, 1, health, type);
+	}
+	
+	/**
+	 * Creates a Demon Warrior
+	 * 
+	 * @param level - the level it is on
+	 * @param x - the x coord
+	 * @param y - the y coord
+	 * @param health - the base health
+	 */
+	public Demon(Level level, int x, int y) {
+		this(level, x, y, 1, 100, WARRIOR);
 	}
 	/**
 	 * @param type - The type of Demon to render
 	 */
 	private void update(int type) {
 		switch (type) {
-		case DemonWarrior:
+		case WARRIOR:
 			yTile = 0;
 			break;
 		default:
@@ -266,14 +264,13 @@ public class Demon extends Monster implements LongRange, Type {
 
 	@Override
 	public byte getType() {
-		// TODO Auto-generated method stub
-		return 0;
+		return type;
 	}
 
 	@Override
 	public void setType(byte type) {
-		// TODO Auto-generated method stub
-		
+		this.type = type;
+		update(type);
 	}
 
 }

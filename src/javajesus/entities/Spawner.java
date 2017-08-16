@@ -4,8 +4,8 @@ import java.util.Random;
 
 import javajesus.JavaJesus;
 import javajesus.dataIO.EntityData;
+import javajesus.entities.bosses.Cyclops;
 import javajesus.entities.monsters.Centaur;
-import javajesus.entities.monsters.Cyclops;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
@@ -161,7 +161,7 @@ public class Spawner extends Entity implements Type {
 	private Entity getEntity() {
 		switch (type) {
 		case DEMON:
-			return currentEntity = new Demon(getLevel(), getX(), getY(), 1, 100);
+			return currentEntity = new Demon(getLevel(), getX(), getY());
 		case GANG_MEMBER:
 			return currentEntity = new GangMember(getLevel(), getX(), getY(), 1, 200, (byte) random.nextInt(2));
 		case HEALTH_PACK:

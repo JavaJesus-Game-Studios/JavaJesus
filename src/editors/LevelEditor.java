@@ -23,6 +23,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
 
+import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
 import javajesus.entities.Chest;
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
@@ -32,9 +44,9 @@ import javajesus.entities.animals.Cat;
 import javajesus.entities.animals.Cow;
 import javajesus.entities.animals.Dog;
 import javajesus.entities.animals.Fox;
+import javajesus.entities.bosses.Cyclops;
 import javajesus.entities.monsters.Bandito;
 import javajesus.entities.monsters.Centaur;
-import javajesus.entities.monsters.Cyclops;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
@@ -155,18 +167,6 @@ import javajesus.entities.vehicles.SportsCar;
 import javajesus.entities.vehicles.Truck;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
-
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 /*
  * Driver class of the level editors
