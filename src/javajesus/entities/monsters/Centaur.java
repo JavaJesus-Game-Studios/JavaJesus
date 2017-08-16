@@ -22,7 +22,7 @@ public class Centaur extends Monster {
 	private static final int BASE_STRENGTH = 8, BASE_DEFENSE = 2;
 
 	// color set of a centaur
-	private static final int[] color = { 0xFF111111, 0xFF8F4C1F, 0xFFEDC5AB, 0, 0 };
+	private static final int[] color = { 0xFF111111, 0xFF623618, 0xFFEDC5AB, 0xFF6d3615,0xFF422410 };
 
 	/**
 	 * Creates a centaur

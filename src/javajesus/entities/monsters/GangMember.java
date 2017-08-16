@@ -38,7 +38,7 @@ public class GangMember extends Monster implements LongRange, Type {
 	private static final int BASE_STRENGTH = 6, BASE_DEFENSE = 2;
 
 	// color set of a gang member
-	private static final int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB };
+	private static final int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB, 0xFF1c1510, 0xFF262878 };
 
 	// types of gang members
 	public static final byte TRIAD = 0, RUSSIAN = 1, MEANSTREETS = 2;
@@ -103,6 +103,7 @@ public class GangMember extends Monster implements LongRange, Type {
 			break;
 		case RUSSIAN:
 			yTile = 14;
+			break;
 		default:
 			yTile = 18;
 			break;

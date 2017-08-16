@@ -38,8 +38,8 @@ public class Citizen extends NPC implements Type {
 	 * @param walkDistance - walk distance
 	 */
 	public Citizen(Level level, int x, int y, int type, String walkPath, int walkDistance) {
-		super(level, "Citizen", x, y, 1, 16, 16, 100, new int[] { 0xFF111111,
-				0xFF715B17, 0xFFEDC5AB }, 0, 0, walkPath, walkDistance);
+		super(level, "Citizen", x, y, 1, 16, 16, 100, new int[] { 0xFF715B17, 0xFFEDC5AB, 0xFF3e230c, 0xFF4052b0 }
+		, 0, 0, walkPath, walkDistance);
 		
 		// instance data
 		this.type = (byte) type;

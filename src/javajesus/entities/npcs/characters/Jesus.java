@@ -32,7 +32,7 @@ public class Jesus extends NPC {
 	 * @param walkDistance the distance of the idle walking
 	 */
 	public Jesus(Level level, int x, int y, String walkPath, int walkDistance) {
-		super(level, "Jesus", x, y, 1, WIDTH, HEIGHT, 9000, new int[] { 0xFF111111, 0xFFFFFFFF, 0xFFFFD89B }, 0, 6,
+		super(level, "Jesus", x, y, 1, WIDTH, HEIGHT, 9000, new int[] { 0xFF111111, 0xFFFFFFFF, 0xFFFFD89B, 0xFF4b2700 }, 0, 6,
 				walkPath, walkDistance);
 		
 		// add the evil fox quest
