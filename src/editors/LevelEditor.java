@@ -34,7 +34,7 @@ import javajesus.entities.animals.Dog;
 import javajesus.entities.animals.Fox;
 import javajesus.entities.monsters.Bandito;
 import javajesus.entities.monsters.Centaur;
-import javajesus.entities.monsters.Cyclops;
+import javajesus.entities.bosses.Cyclops;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;

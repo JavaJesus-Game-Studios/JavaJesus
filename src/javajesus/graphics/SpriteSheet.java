@@ -47,11 +47,11 @@ public class SpriteSheet implements Serializable {
       
     ///// PLAYER MALE //////
     public static SpriteSheet player_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sheet.png", 32);
-    public static SpriteSheet playerGuns_male_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_gun_sheet.png", 24);
-    public static SpriteSheet playerSwords_male_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_male_noarmor_swordsheet.png", 40);
+    public static SpriteSheet playerGuns_male_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_gun_sheet_noarmor.png", 24);
+    public static SpriteSheet playerSwords_male_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_male_swordsheet_noarmor.png", 40);
     public static SpriteSheet playerHorse_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horse_sheet.png", 32);
 	    ////NOT IMPLEMENTED///////
-	    public static SpriteSheet playerVestGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_vested_gun_sheet.png", 50);
+	    public static SpriteSheet playerVestGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_male_gunsheet_vest.png", 50);
 	    public static SpriteSheet playerKnightGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_knight_armor_gun_sheet.png", 50);
 	    public static SpriteSheet playerHornedGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horned_armor_gun_sheet.png", 50);
 
