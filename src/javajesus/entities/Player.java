@@ -33,7 +33,7 @@ import javajesus.utility.Direction;
 public class Player extends Mob implements Type {
 
 	// player color set: outline, shirt, skin, hair, pants
-	private final int[] color = { 0xFF343434, 0xFFFF0000, 0xFFFFCC99, 0xFF000001, 0xFF000001};
+	private final int[] color = { 0xFF000001, 0xFFFF0000, 0xFFFFCC99, 0xFF343434, 0xFF343434};
 
 	// the vehicle the player is in, null if not driving
 	private Ridable vehicle;
