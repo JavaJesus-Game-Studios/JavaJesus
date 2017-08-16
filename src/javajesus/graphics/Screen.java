@@ -532,7 +532,13 @@ public class Screen {
 	
 	@Deprecated
 	public void render(int xOffset, int yOffset, int tileIndex, int[] color, boolean flip, SpriteSheet sheet) {
+		
 		if (color != null) {
+			
+			// TEMP FIX
+			if (color.length < 5) {
+				color = new int[] {color[0], color[1], color[2], 0, 0};
+			}
 			render(xOffset, yOffset, tileIndex % sheet.getTilesPerRow(), tileIndex / sheet.getTilesPerRow(), sheet, flip, color);
 		} else {
 			render(xOffset, yOffset, tileIndex % sheet.getTilesPerRow(), tileIndex / sheet.getTilesPerRow(), sheet, flip);

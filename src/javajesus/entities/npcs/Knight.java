@@ -52,7 +52,7 @@ public class Knight extends NPC {
 	 * @param walkDistance - the length of the walking pattern
 	 */
 	public Knight(Level level, int x, int y, int health, String walkPath, int walkDistance) {
-		super(level, "Knight", x, y, 1, WIDTH, HEIGHT, health, new int[] { 0xFF111111, 0xFF7E7E7E, 0xFFFFFFFF, 0xFF111111 }, 0, 2,
+		super(level, "Knight", x, y, 1, WIDTH, HEIGHT, health, new int[] { 0xFF111111, 0xFF7E7E7E, 0xFFFFFFFF, 0xFF111111, 0 }, 0, 2,
 				walkPath, walkDistance);
 
 		// initialize the radius
