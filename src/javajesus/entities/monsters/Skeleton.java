@@ -18,7 +18,7 @@ public class Skeleton extends Monster {
 	private static final int BASE_STRENGTH = 7, BASE_DEFENSE = 5;
 	
 	// color set of skeleton
-	private static final int[] color =  { 0xFF111111, 0xFF700000, 0xFFDBA800 };
+	private static final int[] color =  { 0xFF111111, 0xFF700000, 0xFFDBA800, 0, 0 };
 
 	/**
 	 * @param level - level it is on
