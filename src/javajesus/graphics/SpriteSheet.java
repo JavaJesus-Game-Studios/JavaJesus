@@ -47,7 +47,7 @@ public class SpriteSheet implements Serializable {
       
     ///// PLAYER MALE //////
     public static SpriteSheet player_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sheet.png", 32);
-    public static SpriteSheet playerGuns_male_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_gun_sheet_noarmor.png", 24);
+    public static SpriteSheet playerGuns_male_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_gun_sheet.png", 24);
     public static SpriteSheet playerSwords_male_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_male_swordsheet_noarmor.png", 40);
     public static SpriteSheet playerHorse_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horse_sheet.png", 32);
 	    ////NOT IMPLEMENTED///////
@@ -60,10 +60,10 @@ public class SpriteSheet implements Serializable {
     public static SpriteSheet playerGuns_female_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_female_noarmor_gun_sheet.png", 24);
     public static SpriteSheet playerSwords_female_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_female_noarmor_sword_sheet.png", 40);
 	    //////NOT IMPLEMENTED///////
-	    public static SpriteSheet playerVestGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_vested_gun_sheet.png", 24);
-	    public static SpriteSheet playerKnightGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_knight_armor_gun_sheet.png", 24);
-	    public static SpriteSheet playerHornedGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horned_armor_gun_sheet.png", 24);
-	    public static SpriteSheet playerHorse_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horse_sheet.png", 32);
+	    public static SpriteSheet playerVestGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_female_sheet.png", 24);
+	    public static SpriteSheet playerKnightGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_female_sheet.png", 24);
+	    public static SpriteSheet playerHornedGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_female_sheet.png", 24);
+	    public static SpriteSheet playerHorse_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_female_sheet.png", 32);
 	    
     ///// ACTORS /////
     	//FRIENDLY

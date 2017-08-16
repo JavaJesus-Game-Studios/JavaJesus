@@ -47,10 +47,6 @@ import javajesus.entities.animals.Fox;
 import javajesus.entities.bosses.Cyclops;
 import javajesus.entities.monsters.Bandito;
 import javajesus.entities.monsters.Centaur;
-<<<<<<< HEAD
-=======
-import javajesus.entities.bosses.Cyclops;
->>>>>>> b0573e372b33228ec44bd74eff9a4b4dabc617d0
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
