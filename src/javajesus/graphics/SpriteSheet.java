@@ -47,30 +47,32 @@ public class SpriteSheet implements Serializable {
       
     ///// PLAYER MALE //////
     public static SpriteSheet player_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sheet.png", 32);
-    public static SpriteSheet playerGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_gun_sheet.png", 50);
-    public static SpriteSheet playerVestGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_vested_gun_sheet.png", 50);
-    public static SpriteSheet playerKnightGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_knight_armor_gun_sheet.png", 50);
-    public static SpriteSheet playerHornedGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horned_armor_gun_sheet.png", 50);
-    public static SpriteSheet playerSwords_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sword_sheet.png", 60);
+    public static SpriteSheet playerGuns_male_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_gun_sheet.png", 24);
+    public static SpriteSheet playerSwords_male_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_male_noarmor_swordsheet.png", 40);
     public static SpriteSheet playerHorse_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horse_sheet.png", 32);
+	    ////NOT IMPLEMENTED///////
+	    public static SpriteSheet playerVestGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_vested_gun_sheet.png", 50);
+	    public static SpriteSheet playerKnightGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_knight_armor_gun_sheet.png", 50);
+	    public static SpriteSheet playerHornedGuns_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horned_armor_gun_sheet.png", 50);
 
     ///// PLAYER FEMALE//////
     public static SpriteSheet player_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_female_sheet.png", 32);
-    public static SpriteSheet playerGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_gun_sheet.png", 50);
-    public static SpriteSheet playerVestGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_vested_gun_sheet.png", 50);
-    public static SpriteSheet playerKnightGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_knight_armor_gun_sheet.png", 50);
-    public static SpriteSheet playerHornedGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horned_armor_gun_sheet.png", 50);
-    public static SpriteSheet playerSwords_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_female_sword_sheet.png", 60);
-    public static SpriteSheet playerHorse_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horse_sheet.png", 32);
-    
+    public static SpriteSheet playerGuns_female_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_female_noarmor_gun_sheet.png", 24);
+    public static SpriteSheet playerSwords_female_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_female_noarmor_sword_sheet.png", 40);
+	    //////NOT IMPLEMENTED///////
+	    public static SpriteSheet playerVestGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_vested_gun_sheet.png", 24);
+	    public static SpriteSheet playerKnightGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_knight_armor_gun_sheet.png", 24);
+	    public static SpriteSheet playerHornedGuns_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horned_armor_gun_sheet.png", 24);
+	    public static SpriteSheet playerHorse_female = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horse_sheet.png", 32);
+	    
     ///// ACTORS /////
     	//FRIENDLY
     public static SpriteSheet characters = new SpriteSheet("/VISUAL_DATA/ACTORS/FRIENDLY/character_sheet.png", 32);
     public static SpriteSheet mobFriends = new SpriteSheet("/VISUAL_DATA/ACTORS/FRIENDLY/mob_friendly_sheet.png", 40);
     
     	//ENEMY
-    public static SpriteSheet mobEnemies = new SpriteSheet("/VISUAL_DATA/ACTORS/ENEMY/mob_enemy_sheet.png", 40);
-    public static SpriteSheet bosses = new SpriteSheet("/VISUAL_DATA/ACTORS/ENEMY/boss_sheet.png", 40);
+    public static SpriteSheet mobEnemies = new SpriteSheet("/VISUAL_DATA/ACTORS/ENEMY/mob_enemy_sheet.png", 32);
+    public static SpriteSheet bosses = new SpriteSheet("/VISUAL_DATA/ACTORS/ENEMY/boss_sheet.png", 41);
     
     	//ANIMAL
     public static SpriteSheet quadrapeds = new SpriteSheet("/VISUAL_DATA/ACTORS/ANIMAL/four_legged.png", 20);

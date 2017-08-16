@@ -41,7 +41,7 @@ public class GangMember extends Monster implements LongRange, Type {
 	private static final int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB };
 
 	// types of gang members
-	public static final byte TRIAD = 0, RUSSIAN = 1;
+	public static final byte TRIAD = 0, RUSSIAN = 1, MEANSTREETS = 2;
 	
 	// which type it is
 	private byte type;
@@ -74,7 +74,7 @@ public class GangMember extends Monster implements LongRange, Type {
 	 * @param level - the level it is on
 	 * @param x - the x coord
 	 * @param y - the y coord
-	 * @param type - the appearance, either GangMember.TRIAD or GangMember.RUSSIAN
+	 * @param type - the appearance, either GangMember.TRIAD or GangMember.RUSSIAN or GangMember. MEANSTREETS
 	 */
 	public GangMember(Level level, int x, int y, byte type) {
 		this(level, x, y, 1, 100, type);
@@ -99,16 +99,18 @@ public class GangMember extends Monster implements LongRange, Type {
 	private void update(int type) {
 		switch (type) {
 		case TRIAD:
-			yTile = 3;
+			yTile = 12;
 			break;
+		case RUSSIAN:
+			yTile = 14;
 		default:
-			yTile = 10;
+			yTile = 18;
 			break;
 		}
 	}
 
 	/**
-	 * Displays the Demon to the screen
+	 * Displays the Gang Member to the screen
 	 */
 	public void render(Screen screen) {
 		super.render(screen);

@@ -25,7 +25,7 @@ public class Monkey extends Monster {
 	private static final int BASE_STRENGTH = 7, BASE_DEFENSE = 5;
 
 	// color set of a monkey
-	private static final int[] color = { 0xFF2A1609, 0xFF391E0C, 0xFFB08162 };
+	private static final int[] color = { 0xFF111111, 0xFF2c2417, 0xFF4c412e, 0xFF3f3626, 0xFF1e1911 };
 
 	/**
 	 * Creates a monkey

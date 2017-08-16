@@ -9,6 +9,7 @@ import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.LongRange;
 import javajesus.entities.Pickup;
+import javajesus.entities.Type;
 import javajesus.entities.projectiles.FireBall;
 import javajesus.graphics.Screen;
 import javajesus.items.Item;
@@ -18,7 +19,7 @@ import javajesus.utility.Direction;
 /*
  * A generic demon that populates most of the JavaJesus
  */
-public class Demon extends Monster implements LongRange {
+public class Demon extends Monster implements LongRange, Type {
 
 	// dimensions of the demon
 	private static final int WIDTH = 16, HEIGHT = 24;
@@ -32,6 +33,13 @@ public class Demon extends Monster implements LongRange {
 	// color set of a demon
 	private static final int[] color = { 0xFF111111, 0xFF700000, 0xFFDBA800 };
 	
+	//types of Demon
+	public static final byte Imp = 0, DemonWarrior = 1;
+	
+	//which type the Demon is
+	private byte type;
+
+	
 	// the range the shooter will stand back when shooting
 	private Ellipse2D.Double standRange;
 
@@ -44,7 +52,7 @@ public class Demon extends Monster implements LongRange {
 	 * @param speed - how fast the demon moves
 	 * @param health - the base health
 	 */
-	public Demon(Level level, int x, int y, int speed, int health) {
+	public Demon(Level level, int x, int y, int speed, int health, byte type) {
 		super(level, "Demon", x, y, speed, WIDTH, HEIGHT, 0, health, 100);
 
 		// set the standing box
@@ -62,8 +70,11 @@ public class Demon extends Monster implements LongRange {
 	 * @param y - the y coord
 	 * @param health - the base health
 	 */
-	public Demon(Level level, int x, int y, int health) {
-		this(level, x, y, 1, health);
+	public Demon(Level level, int x, int y, int health, byte type) {
+		this(level, x, y, 1, health, type);
+		// sets the appropriate y tile on the pixel sheet
+		this.type = type;
+		update(type);
 	}
 	
 	/**
@@ -74,8 +85,22 @@ public class Demon extends Monster implements LongRange {
 	 * @param y - the y coord
 	 * @param health - the base health
 	 */
-	public Demon(Level level, int x, int y) {
-		this(level, x, y, 1, 100);
+	public Demon(Level level, int x, int y, byte type) {
+		this(level, x, y, 1, 100, type);
+		this.type = type;
+		update(type);
+	}
+	/**
+	 * @param type - The type of Demon to render
+	 */
+	private void update(int type) {
+		switch (type) {
+		case DemonWarrior:
+			yTile = 0;
+			break;
+		default:
+			yTile = 3;
+		}
 	}
 
 	/**
@@ -216,6 +241,8 @@ public class Demon extends Monster implements LongRange {
 
 		super.move(dx, dy);
 	}
+	
+	
 
 	@Override
 	public Double getRange() {
@@ -235,6 +262,18 @@ public class Demon extends Monster implements LongRange {
 	@Override
 	public byte getId() {
 		return Entity.DEMON;
+	}
+
+	@Override
+	public byte getType() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setType(byte type) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -21,7 +21,7 @@ public class Bandito extends Monster {
 	private static final int BASE_STRENGTH = 7, BASE_DEFENSE = 5;
 	
 	// color set of bandito
-	private static final int[] color =  { 0xFF111111, 0xFF700000, 0xFFDBA800 };
+	private static final int[] color =  { 0xFF111111, 0xFF700000, 0xFFd19866, 0xFF412006, 0xFF6275b6  };
 
 	/**
 	 * @param level - level it is on
@@ -29,7 +29,7 @@ public class Bandito extends Monster {
 	 * @param y - y coordinate
 	 */
 	public Bandito(Level level, int x, int y) {
-		super(level, "Bandito", x, y, 1, WIDTH, HEIGHT, 12, 100, 100);
+		super(level, "Bandito", x, y, 1, WIDTH, HEIGHT, 16, 100, 100);
 	}
 	
 	/**

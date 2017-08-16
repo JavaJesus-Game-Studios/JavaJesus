@@ -1,4 +1,4 @@
-package javajesus.entities.monsters;
+package javajesus.entities.bosses;
 
 import java.util.Random;
 
@@ -11,21 +11,21 @@ import javajesus.level.Level;
 import javajesus.utility.Direction;
 
 /*
- * A Cyclops is a powerful monster that strikes fear into any foe
+ * A Cyclops is a powerful Boss that strikes fear into any foe
  */
-public class Cyclops extends Monster {
+public class Cyclops extends Boss {
 
 	// dimensions of the cyclops
 	private static final int WIDTH = 32, HEIGHT = 48;
 
 	// how fast the player toggles steps
-	private static final int WALKING_ANIMATION_SPEED = 4;
+	private static final int WALKING_ANIMATION_SPEED = 5;
 	
 	// base stats
 	private static final int BASE_STRENGTH = 20, BASE_DEFENSE = 10;
 
 	// color set of a cyclops
-	private static final int[] color = { 0xFF111111, 0xFFFFD99C, 0xFFFFFFFF };
+	private static final int[] color = { 0xFF111111, 0xFFe8c094, 0xFFFFFFFF, 0xFF3c2b1b, 0xFF663501 };
 
 	/**
 	 * Creates a cyclops
@@ -37,7 +37,7 @@ public class Cyclops extends Monster {
 	 * @param health - the base health
 	 */
 	public Cyclops(Level level, int x, int y, int speed, int health) {
-		super(level, "Cyclops", x, y, speed, WIDTH, HEIGHT, 14, health, 40);
+		super(level, "Cyclops", x, y, speed, WIDTH, HEIGHT, 4, health, 40);
 
 	}
 	
@@ -115,13 +115,24 @@ public class Cyclops extends Monster {
 		// dead has an absolute position
 		if (isDead()) {
 			flip = false;
-			xTile = 32;
-			yTile = 18;
+			xTile = 45;
+			yTile = 7;
 		}
 
 		// attacking animation
 		if (isShooting) {
-			yTile += 6;
+			//NORTH Attack Sprite
+			if(getDirection()== Direction.NORTH){
+				xTile += 21;
+			}
+			//SOUTH Attack Sprite
+			if(getDirection()== Direction.SOUTH){
+				xTile += 32;
+			}
+			//EAST/WEST ATTACK SPRITE
+			else{
+				xTile += 24;
+			}
 		}
 
 		// draw all 6 rows

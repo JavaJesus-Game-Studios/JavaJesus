@@ -2,7 +2,10 @@ FOR CHESTS:
 ID of the LOOT TABLE to use
 
 For GANG MEMBERS:
-0 = TRIAD, 1 = RUSSIAN
+0 = TRIAD, 1 = RUSSIAN, 2 = Mean Streets
+
+For Demons
+0 = Imp, 1 = Demon Warrior (Original Demon)
 
 For SPAWNERS:
 ID of the ENTITY it will spawn

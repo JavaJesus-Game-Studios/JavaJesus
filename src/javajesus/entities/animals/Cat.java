@@ -9,8 +9,8 @@ import javajesus.level.Level;
  */
 public class Cat extends Animal {
 	
-	// color of the fox
-	private static final int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB, 0xFFEDC5AB };
+	// color of the cat
+	private static final int[] color = { 0xFF111111, 0xFFf3cdf6, 0xFFeaeaea, 0xFFa6a6a6, 0xFF111111 };
 
 	/**
 	 * @param level - level it is on

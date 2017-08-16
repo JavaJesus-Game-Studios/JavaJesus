@@ -12,7 +12,7 @@ import javajesus.utility.Direction;
 public class Missile extends Projectile {
 
 	// the color set for all missiles
-	private static final int[] color = { 0xFF000000, 0xFF5B5B5B, 0xFFFFEA02 };
+	private static final int[] color = { 0xFFa1a1a1, 0xFF2b6e0f, 0xFFffcd03 };
 
 	/**
 	 * Creates a missile with a single direction

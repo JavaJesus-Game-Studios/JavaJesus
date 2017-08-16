@@ -12,7 +12,7 @@ import javajesus.utility.Direction;
 public class Cow extends Animal {
 
 	// color of the fox
-	private static final int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB };
+	private static final int[] color = { 0xFF111111, 0xFFdbbeac, 0xFF6c452c, 0xFFece2b3, 0xFF583824 };
 
 	// how fast the npcs toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;

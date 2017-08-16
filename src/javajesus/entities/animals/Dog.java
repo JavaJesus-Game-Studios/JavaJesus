@@ -10,7 +10,7 @@ import javajesus.level.Level;
 public class Dog extends Animal {
 
 	// color of the fox
-	private static final int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB, 0xFFEDC5AB, 0xFFEDC5AB };
+	private static final int[] color = { 0xFF111111, 0xFFc1aa6b, 0xFFf2eabb, 0xFFab975f, 0xFF544835 };
 
 	/**
 	 * @param level - level it is on

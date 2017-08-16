@@ -26,7 +26,7 @@ public class Skeleton extends Monster {
 	 * @param y - y coordinate
 	 */
 	public Skeleton(Level level, int x, int y) {
-		super(level, "Skeleton", x, y, 1, WIDTH, HEIGHT, 26, 100, 100);
+		super(level, "Skeleton", x, y, 1, WIDTH, HEIGHT, 10, 100, 100);
 	}
 	
 	/**

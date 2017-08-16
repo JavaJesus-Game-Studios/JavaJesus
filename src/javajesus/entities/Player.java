@@ -60,7 +60,7 @@ public class Player extends Mob implements Type {
 	private ArrayList<Quest> completedQuests = new ArrayList<Quest>();
 
 	// the spritesheet to use when the player is shooting
-	private SpriteSheet gunSheet = SpriteSheet.playerGuns_male;
+	private SpriteSheet gunSheet = SpriteSheet.playerGuns_male_noarmor;
 
 	// the size of the sprite
 	private static final int SIZE = 16;
@@ -308,7 +308,7 @@ public class Player extends Mob implements Type {
 			this.gunSheet = equippedArmor.getGunSpritesheet();
 		} else {
 			this.yTile = 0;
-			this.gunSheet = SpriteSheet.playerGuns_male;
+			this.gunSheet = SpriteSheet.playerGuns_male_noarmor;
 		}
 
 
@@ -786,7 +786,7 @@ public class Player extends Mob implements Type {
 
 		// spawns a demon
 		if (window.isKeyPressed(KeyEvent.VK_T)) {
-			getLevel().add(new Demon(getLevel(), getX(), getY(), 1, 100));
+			getLevel().add(new Demon(getLevel(), getX(), getY(), 1, 100,(byte) 1));
 			window.toggle(KeyEvent.VK_T);
 		}
 
