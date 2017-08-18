@@ -43,4 +43,9 @@ public class TheEvilFox extends Quest {
 		return "I can feel God's divine salvation blessing you. Go in Peace.";
 	}
 
+	@Override
+	public void onFinish() {
+		
+	}
+
 }

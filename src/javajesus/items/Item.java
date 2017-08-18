@@ -126,7 +126,7 @@ public class Item implements Serializable {
 	public static final Item horned = new Armor("Horned Armor", 17, 3, 2,
 			new int[] { 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.HORNED);
 	public static final Item owl = new Armor("Fancy Suit", 19, 4, 2,
-			new int[] { -1, 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.OWL);
+			new int[] { -1, 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.ISTRAHIIM);
 
 	public static final Item blackHoleGun = new Gun("Secret", 20, 0, 0,
 			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "??????", 0, 6, 10, 20, 50, Ammo.BLACKHOLE,

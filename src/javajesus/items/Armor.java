@@ -85,6 +85,10 @@ public class Armor extends Item {
 			yRow = 25;
 			sheet = SpriteSheet.playerHornedGuns_male;
 			return;
+		case ISTRAHIIM:
+			break;
+		default:
+			break;
 		}
 	}
 	
@@ -99,7 +103,7 @@ public class Armor extends Item {
 	 * Types if armor to equip
 	 */
 	public enum ArmorSet {
-		VEST, KNIGHT, HORNED, OWL
+		VEST, KNIGHT, HORNED, ISTRAHIIM
 	}
 
 }

@@ -1,7 +1,6 @@
 package javajesus.quest;
 
 import java.awt.Point;
-import java.io.Serializable;
 
 import javajesus.entities.Mob;
 
@@ -9,15 +8,13 @@ import javajesus.entities.Mob;
  * A Script is a specific action on a specific mob
  * Scripts have the highest priority in determining a mob's direction
  */
-public class Script implements Serializable {
-
-	private static final long serialVersionUID = -7841027938100196923L;
+public class Script {
 
 	// the mob that has the script
-	private Mob mob;
+	protected Mob mob;
 
 	// the destination of where to send the mob
-	private Point destination;
+	protected Point destination;
 	
 	// whether or not to move there instantaneously
 	private boolean moveNow;

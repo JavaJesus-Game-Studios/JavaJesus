@@ -9,7 +9,6 @@ import javajesus.JavaJesus;
 import javajesus.SoundHandler;
 import javajesus.entities.Chest;
 import javajesus.entities.Spawner;
-import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.transporters.Ladder;
 import javajesus.level.generation.CaveGeneration;

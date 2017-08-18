@@ -6,6 +6,7 @@ import javajesus.entities.Mob;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.npcs.NPC;
 import javajesus.quest.Quest;
+import javajesus.quest.events.Event;
 
 public class LiberateVillage extends Quest {
 	
@@ -44,6 +45,11 @@ public class LiberateVillage extends Quest {
 	@Override
 	public String getEndDialogue() {
 		return "This a a good first step in fighting back against the Demon invasion. You have my thanks.";
+	}
+
+	@Override
+	public void onFinish() {
+		Event.createEvent(Event.SWAT_EVENT, giver.getLevel());
 	}
 
 }

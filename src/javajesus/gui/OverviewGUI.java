@@ -77,9 +77,6 @@ public class OverviewGUI extends JPanel implements FocusListener {
 	// The player in the Overview GUI
 	private Player player;
 	
-	// extension of image files
-	private static final String PNG = ".png";
-	
 	// inventory panel
 	private InventoryGUI invenPanel;
 

@@ -10,7 +10,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -213,7 +212,7 @@ public class DialogueGUI extends JPanel {
 		private boolean selected;
 		
 		// the font
-		private Font font = new Font(JavaJesus.FONT_NAME, 0, 20);
+		private Font font = new Font(JavaJesus.FONT_NAME, 0, 15);
 
 		private JJSelector(String text) {
 			super(text);

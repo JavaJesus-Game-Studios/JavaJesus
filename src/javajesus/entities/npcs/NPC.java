@@ -565,7 +565,7 @@ public abstract class NPC extends Mob {
 	/**
 	 * Sets the npc to the next quest
 	 */
-	private void nextQuest() {
+	public void nextQuest() {
 		quests.remove(currentQuest);
 		currentQuest = null;
 		if (quests.size() > 0) {
