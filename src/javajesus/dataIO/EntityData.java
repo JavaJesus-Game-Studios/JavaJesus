@@ -527,7 +527,7 @@ public class EntityData {
 	        case Entity.NATIVE_AMERICAN:
 	            return new NativeAmerican(level, x, y, NativeAmerican.MALE);
 	        case Entity.POLICE_OFFICER:
-	            return new PoliceOfficer(level, x, y);
+	            return new PoliceOfficer(level, x, y, PoliceOfficer.MALE);
 	        case Entity.SWAT_OFFICER:
 	            return new SWATOfficer(level, x, y);
 	        case Entity.TECH_WARRIOR:

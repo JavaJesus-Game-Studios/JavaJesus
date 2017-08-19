@@ -52,7 +52,7 @@ public class Gorilla extends NPC {
 	 */
 	public Gorilla(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance) {
 		super(level, "Gorilla", x, y, 1, WIDTH, HEIGHT, defaultHealth, new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB },
-				0, 22, walkPath, walkDistance);
+				0, 44, walkPath, walkDistance);
 
 		// initialize the aggro radius
 		if (level != null) {

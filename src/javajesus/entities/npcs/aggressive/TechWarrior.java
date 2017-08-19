@@ -28,7 +28,7 @@ public class TechWarrior extends Shooter {
 	 */
 	public TechWarrior(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance) {
 		super(level, "Tech Warrior", x, y, 1, WIDTH, HEIGHT, defaultHealth,
-				new int[] { 0xFF111111, 0xFF42FF00, 0xFFEDC5AB }, 0, 12, walkPath, walkDistance);
+				new int[] { 0xFF111111, 0xFF42FF00, 0xFFEDC5AB }, 0, 11, walkPath, walkDistance);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class TechWarrior extends Shooter {
 	 * Dialogue options for Tech Warrior
 	 */
 	public void doDialogue() {
-		MessageHandler.displayText(getName() + ": Have you tried the latest IPear?", Color.white);
+		MessageHandler.displayText(getName() + ": We're making the world a better place.", Color.white);
 		return;
 	}
 

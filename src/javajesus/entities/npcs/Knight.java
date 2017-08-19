@@ -52,8 +52,8 @@ public class Knight extends NPC {
 	 * @param walkDistance - the length of the walking pattern
 	 */
 	public Knight(Level level, int x, int y, int health, String walkPath, int walkDistance) {
-		super(level, "Knight", x, y, 1, WIDTH, HEIGHT, health, new int[] { 0xFF111111, 0xFF888888, 0xFF111111, 0xFF111111,0xFF7E7E7E}, 0, 2,
-				walkPath, walkDistance);
+		super(level, "Knight", x, y, 1, WIDTH, HEIGHT, health, new int[] { 0xFF111111, 0xFF888888, 0xFFe8e8e8, 0xFF111111,0xFF7E7E7E},
+				0, 0, walkPath, walkDistance);
 
 		// initialize the radius
 		if (level != null) {
@@ -178,9 +178,9 @@ public class Knight extends NPC {
 		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
 
 		if (getDirection() == Direction.NORTH) {
-			xTile += 14;
+			xTile += 5;
 		} else if (getDirection() == Direction.SOUTH) {
-			xTile += 12;
+			xTile += 3;
 		} else {
 			flip = getDirection() == Direction.WEST;
 		}

@@ -1268,7 +1268,7 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.COMPANION] = new EntityGUI(new Companion(null, 0, 0, null), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.GORILLA] = new EntityGUI(new Gorilla(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 3);
 			entityList[Entity.NATIVE_AMERICAN] = new EntityGUI(new NativeAmerican(null, 0, 0, NativeAmerican.MALE), PANEL_SIZE, PANEL_SIZE, 2, 2);
-			entityList[Entity.POLICE_OFFICER] = new EntityGUI(new PoliceOfficer(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.POLICE_OFFICER] = new EntityGUI(new PoliceOfficer(null, 0, 0, PoliceOfficer.MALE), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.SWAT_OFFICER] = new EntityGUI(new SWATOfficer(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.TECH_WARRIOR] = new EntityGUI(new TechWarrior(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.CAT] = new EntityGUI(new Cat(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
@@ -1513,7 +1513,7 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			case Entity.NATIVE_AMERICAN:
                 return new EntityGUI(new NativeAmerican(null, 0, 0, NativeAmerican.MALE), 0, 0, 2, 2);
 			case Entity.POLICE_OFFICER:
-                return new EntityGUI(new PoliceOfficer(null, 0, 0), 0, 0, 2, 2);
+                return new EntityGUI(new PoliceOfficer(null, 0, 0, PoliceOfficer.MALE), 0, 0, 2, 2);
 			case Entity.SWAT_OFFICER:
                 return new EntityGUI(new SWATOfficer(null, 0, 0), 0, 0, 2, 2);
 			case Entity.TECH_WARRIOR:

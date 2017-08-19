@@ -16,7 +16,7 @@ public class NativeAmerican extends Shooter implements Type {
 	private static final int WIDTH = 16, HEIGHT = 16;
 
 	// different types of native americans
-	public static final int MALE = 0, FEMALE = 1;
+	public static final int MALE = 0, FEMALE = 1, BOY = 2, GIRL = 3;
 	
 	// the type of native american
 	private byte type;
@@ -36,8 +36,8 @@ public class NativeAmerican extends Shooter implements Type {
 	 * @param type - NativeAmerican.MALE or NativeAmerican.FEMALE
 	 */
 	public NativeAmerican(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance, int type) {
-		super(level, "Native American", x, y, 1, WIDTH, HEIGHT, defaultHealth,
-				new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0, 28, walkPath, walkDistance);
+		super(level, "Ohlone", x, y, 1, WIDTH, HEIGHT, defaultHealth,
+				new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0, 23, walkPath, walkDistance);
 		
 		// instance data
 		this.type = (byte) type;
@@ -46,8 +46,27 @@ public class NativeAmerican extends Shooter implements Type {
 	}
 	
 	private void update() {
-		// adjusts the offset if a FEMALE
-		yTile = base + type * 2;
+		switch (type) {
+		case FEMALE: {
+			xTile = 0;
+			yTile = 25;
+			break;
+		}
+		case BOY: {
+			xTile = 0;
+			yTile = 27;
+			break;
+		}
+		case GIRL: {
+			xTile = 0;
+			yTile = 29;
+			break;
+		}
+		default: // MALE
+			xTile = 0;
+			yTile = 23;
+			break;
+		}
 	}
 
 	/**
@@ -66,7 +85,7 @@ public class NativeAmerican extends Shooter implements Type {
 	 * Dialogue options for Native Americans
 	 */
 	public void doDialogue() {
-		MessageHandler.displayText(getName() + ": I belong to the wind.", Color.white);
+		MessageHandler.displayText(getName() + ": You look mischevious, were you sent by Coyote?", Color.white);
 		return;
 	}
 

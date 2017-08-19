@@ -16,7 +16,7 @@ public class Panchombre extends NPC {
 	 */
 	public Panchombre(Level level, int x, int y) {
 		super(level, "Panchombre", x, y, 1, 16, 16, 200, new int[] { 0xFF111111,
-				0xFF715B17, 0xFFEDC5AB }, 0, 37, "", 0);
+				0xFF715B17, 0xFFEDC5AB }, 0, 36, "", 0);
 	}
 
 	@Override

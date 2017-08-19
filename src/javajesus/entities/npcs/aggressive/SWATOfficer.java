@@ -28,7 +28,7 @@ public class SWATOfficer extends Shooter {
 	 */
 	public SWATOfficer(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance) {
 		super(level, "Swat Officer", x, y, 1, WIDTH, HEIGHT, defaultHealth,
-				new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0, 10, walkPath, walkDistance);
+				new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0, 7, walkPath, walkDistance);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class SWATOfficer extends Shooter {
 	 * Dialogue options for swat officers
 	 */
 	public void doDialogue() {
-		MessageHandler.displayText(getName() + ": Stop right there, Criminal Scum!", Color.red);
+		MessageHandler.displayText(getName() + ": With you all the way!", Color.red);
 		return;
 	}
 

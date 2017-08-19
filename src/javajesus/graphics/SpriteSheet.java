@@ -48,7 +48,7 @@ public class SpriteSheet implements Serializable {
       
     ///// PLAYER MALE //////
     public static SpriteSheet player_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_sheet.png", 32);
-    public static SpriteSheet playerGuns_male_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_gun_sheet.png", 24);
+    public static SpriteSheet playerGuns_male_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_male_gunsheet_noarmor.png", 24);
     public static SpriteSheet playerSwords_male_noarmor = new SpriteSheet("/VISUAL_DATA/PLAYER/player_male_swordsheet_noarmor.png", 40);
     public static SpriteSheet playerHorse_male = new SpriteSheet("/VISUAL_DATA/PLAYER/player_horse_sheet.png", 32);
 	    ////NOT IMPLEMENTED///////
@@ -69,7 +69,7 @@ public class SpriteSheet implements Serializable {
     ///// ACTORS /////
     	//FRIENDLY
     public static SpriteSheet characters = new SpriteSheet("/VISUAL_DATA/ACTORS/FRIENDLY/character_sheet.png", 32);
-    public static SpriteSheet mobFriends = new SpriteSheet("/VISUAL_DATA/ACTORS/FRIENDLY/mob_friendly_sheet.png", 40);
+    public static SpriteSheet mobFriends = new SpriteSheet("/VISUAL_DATA/ACTORS/FRIENDLY/mob_friendly_sheet.png", 56);
     
     	//ENEMY
     public static SpriteSheet mobEnemies = new SpriteSheet("/VISUAL_DATA/ACTORS/ENEMY/mob_enemy_sheet.png", 32);

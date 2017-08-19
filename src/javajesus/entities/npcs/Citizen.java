@@ -38,8 +38,8 @@ public class Citizen extends NPC implements Type {
 	 * @param walkDistance - walk distance
 	 */
 	public Citizen(Level level, int x, int y, int type, String walkPath, int walkDistance) {
-		super(level, "Citizen", x, y, 1, 16, 16, 100, new int[] { 0xFF715B17, 0xFFEDC5AB, 0xFF3e230c, 0xFF4052b0 }
-		, 0, 0, walkPath, walkDistance);
+		super(level, "Citizen", x, y, 1, 16, 16, 100, new int[] { 0xFF111111, 0xFF77a2e3, 0xFFf4cd96, 0xFF5b2a05, 0xFFd3c087 }
+		, 0, 15, walkPath, walkDistance);
 		
 		// instance data
 		this.type = (byte) type;
@@ -55,22 +55,22 @@ public class Citizen extends NPC implements Type {
 		switch (type) {
 		case FEMALE: {
 			xTile = 0;
-			yTile = 8;
+			yTile = 17;
 			break;
 		}
 		case BOY: {
 			xTile = 14;
-			yTile = 0;
+			yTile = 15;
 			break;
 		}
 		case GIRL: {
 			xTile = 14;
-			yTile = 8;
+			yTile = 17;
 			break;
 		}
 		default: // MALE
 			xTile = 0;
-			yTile = 0;
+			yTile = 15;
 			break;
 		}
 	}

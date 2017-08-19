@@ -124,7 +124,7 @@ public class Player extends Mob implements Type {
 		}
 		
 		// gives certain names certain powers
-		if (name.equals("Derek Jow") || name.equals("Stephen Northway")) {
+		if (name.equals("Derek Jow") || name.equals("Stevie") || name.equals("Andrew Leamy")) {
 			grantDevPowers();
 			System.err.println("Creating Developer");
 		}  else {
@@ -156,8 +156,10 @@ public class Player extends Mob implements Type {
 			// now assign the right spritesheet
 			if (gender == PlayerData.FEMALE) {
 				equippedSword.setSpriteSheet(PlayerData.FEMALE);
+				equippedGun.setSpriteSheet(PlayerData.FEMALE);
 			} else {
 				equippedSword.setSpriteSheet(PlayerData.MALE);
+				equippedGun.setSpriteSheet(PlayerData.FEMALE);
 			}
 			
 		} else if (obj instanceof Armor) {
@@ -468,26 +470,26 @@ public class Player extends Mob implements Type {
 			yTile = equippedGun.getPlayerOffset();
 
 			if (shootingDir == Direction.NORTH) {
-				xTile = 8;
+				xTile = 10;
 				if (equippedGun == Item.assaultRifle) {
-					xTile = 10;
+					xTile = 12;
 				}
 				if (!isMoving) {
-					xTile = 10;
+					xTile = 8;
 					if (equippedGun == Item.assaultRifle) {
-						xTile = 12;
+						xTile = 10;
 					}
 				}
 			} else if (shootingDir == Direction.SOUTH) {
-				xTile = 4;
+				xTile = 0;
 				if (equippedGun == Item.assaultRifle) {
 					xTile += flip ? 2 : 0;
 					flip = false;
 				}
 				if (!isMoving) {
-					xTile = 6;
+					xTile = 4;
 					if (equippedGun == Item.assaultRifle) {
-						xTile = 8;
+						xTile = 6;
 					}
 				}
 			} else {
