@@ -4,14 +4,8 @@ import java.util.Random;
 
 import javajesus.JavaJesus;
 import javajesus.dataIO.EntityData;
-import javajesus.entities.bosses.Cyclops;
-import javajesus.entities.monsters.Centaur;
-import javajesus.entities.monsters.Demon;
-import javajesus.entities.monsters.GangMember;
-import javajesus.entities.monsters.Monkey;
 import javajesus.graphics.Screen;
 import javajesus.graphics.Sprite;
-import javajesus.items.Item;
 import javajesus.level.Level;
 
 /*
@@ -49,42 +43,6 @@ public class Spawner extends Entity implements Type {
 		super(level, x, y);
 		this.type = (byte) type;
 
-		// infinite
-		amount = -1;
-		
-		this.setBounds(x, y, 1, 1);
-	}
-	
-	/**
-	 * Creates an invisible entity to spawn an infinite amount of entities
-	 * 
-	 * @param level - the level to place it on
-	 * @param x - the x coord on the level
-	 * @param y - the y coord on the level
-	 * @param name - Types are found in the Spawner class
-	 */
-	public Spawner(Level level, int x, int y, String name) {
-		super(level, x, y);
-		
-		switch (name){ 
-		case "Centaur":
-			this.type = CENTAUR;
-			break;
-		case "Cyclops":
-			this.type = CYCLOPS;
-			break;
-		case "Gangster":
-			this.type = GANG_MEMBER;
-			break;
-		case "Monkey":
-			this.type = MONKEY;
-			break;
-		
-		// demon is default
-		default:
-			this.type = DEMON;
-			break;
-		}
 		// infinite
 		amount = -1;
 		
@@ -159,22 +117,7 @@ public class Spawner extends Entity implements Type {
 	 * @return the Entity to spawn
 	 */
 	private Entity getEntity() {
-		switch (type) {
-		case DEMON:
-			return currentEntity = new Demon(getLevel(), getX(), getY());
-		case GANG_MEMBER:
-			return currentEntity = new GangMember(getLevel(), getX(), getY(), 1, 200, (byte) random.nextInt(2));
-		case HEALTH_PACK:
-			return currentEntity = new Pickup(getLevel(), getX(), getY(), Item.quickHealthPack, true);
-		case MONKEY:
-			return currentEntity = new Monkey(getLevel(), getX(), getY(), 200);
-		case CYCLOPS:
-			return currentEntity = new Cyclops(getLevel(), getX(), getY(), 300);
-		case CENTAUR:
-			return currentEntity = new Centaur(getLevel(), getX(), getY(), 250);
-		default:
-			return null;
-		}
+		return EntityData.getEntity(type, getLevel(), getX(), getY());
 	}
 
 	/**
