@@ -44,7 +44,7 @@ public class LiberateVillage extends Quest {
 
 	@Override
 	public String getEndDialogue() {
-		return "This a a good first step in fighting back against the Demon invasion. You have my thanks.";
+		return "We can go back to our homes now, Gracias.";
 	}
 
 	@Override
