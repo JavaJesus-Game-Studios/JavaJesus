@@ -23,31 +23,23 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
 
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-
 import javajesus.entities.Chest;
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
 import javajesus.entities.Spawner;
 import javajesus.entities.animals.Cat;
+import javajesus.entities.animals.Chicken;
 import javajesus.entities.animals.Cow;
 import javajesus.entities.animals.Dog;
+import javajesus.entities.animals.Duck;
 import javajesus.entities.animals.Fox;
+import javajesus.entities.animals.Pigeon;
 import javajesus.entities.bosses.Cyclops;
 import javajesus.entities.monsters.Bandito;
 import javajesus.entities.monsters.Centaur;
 import javajesus.entities.monsters.Demon;
+import javajesus.entities.monsters.EvilFox;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
 import javajesus.entities.monsters.Skeleton;
@@ -167,6 +159,18 @@ import javajesus.entities.vehicles.SportsCar;
 import javajesus.entities.vehicles.Truck;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
+
+import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /*
  * Driver class of the level editors
@@ -1246,6 +1250,7 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.DEMON] = new EntityGUI(new Demon(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 3);
 			entityList[Entity.GANG_MEMBER] = new EntityGUI(new GangMember(null, 0, 0, GangMember.RUSSIAN), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.MONKEY] = new EntityGUI(new Monkey(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.EVILFOX & 0x00FF] = new EntityGUI(new EvilFox(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.BAUTISTA] = new EntityGUI(new Bautista(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.DAUGHTER] = new EntityGUI(new Daughter(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.CITIZEN] = new EntityGUI(new Citizen(null, 0, 0, Citizen.MALE), PANEL_SIZE, PANEL_SIZE, 2, 2);
@@ -1270,6 +1275,9 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.COW] = new EntityGUI(new Cow(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 3);
 			entityList[Entity.DOG] = new EntityGUI(new Dog(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.FOX] = new EntityGUI(new Fox(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.CHICKEN & 0x00FF] = new EntityGUI(new Chicken(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
+			entityList[Entity.DUCK & 0x00FF] = new EntityGUI(new Duck(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 2);
+			entityList[Entity.PIGEON & 0x00FF] = new EntityGUI(new Pigeon(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 			entityList[Entity.HORSE] = new EntityGUI(new Horse(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 3);
 			entityList[Entity.CENTURY_LESABRE] = new EntityGUI(new CenturyLeSabre(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 5);
 			entityList[Entity.SPORTS_CAR] = new EntityGUI(new SportsCar(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 5);
@@ -1574,6 +1582,14 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
                 return new EntityGUI(new WhiteOak(null, 0, 0), 0, 0, 5, 7);
 			case Entity.WHITE_OAK_SMALL:
                 return new EntityGUI(new WhiteOakSmall(null, 0, 0), 0, 0, 4, 6);
+			case Entity.EVILFOX:
+				return new EntityGUI(new EvilFox(null, 0, 0),0,0,2,2);
+			case Entity.CHICKEN:
+				return new EntityGUI(new Chicken(null, 0, 0),0,0,1,1);
+			case Entity.PIGEON:
+				return new EntityGUI(new Pigeon(null, 0, 0),0,0,1,1);
+			case Entity.DUCK:
+				return new EntityGUI(new Duck(null, 0, 0),0,0,1,2);
                 
 			}
 			

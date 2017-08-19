@@ -57,7 +57,7 @@ public class GangMember extends Monster implements LongRange, Type {
 	 * @param type - the appearance, either GangMember.TRIAD or GangMember.RUSSIAN
 	 */
 	public GangMember(Level level, int x, int y, int speed, int health, byte type) {
-		super(level, "Gangster", x, y, speed, WIDTH, HEIGHT, 1, health, 100);
+		super(level, "Gangster", x, y, speed, WIDTH, HEIGHT, 13, health, 100);
 
 		// sets the appropriate y tile on the pixel sheet
 		this.type = type;
@@ -99,13 +99,13 @@ public class GangMember extends Monster implements LongRange, Type {
 	private void update(int type) {
 		switch (type) {
 		case TRIAD:
-			yTile = 12;
+			yTile = 13;
 			break;
 		case RUSSIAN:
-			yTile = 14;
+			yTile = 15;
 			break;
 		default:
-			yTile = 18;
+			yTile = 19;
 			break;
 		}
 	}

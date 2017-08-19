@@ -1,7 +1,7 @@
 package javajesus.quest.original;
 
 import javajesus.entities.Mob;
-import javajesus.entities.animals.Fox;
+import javajesus.entities.monsters.EvilFox;
 import javajesus.entities.npcs.NPC;
 import javajesus.quest.Quest;
 
@@ -28,7 +28,7 @@ public class TheEvilFox extends Quest {
 		
 		// search for the fox
 		for (Mob m: giver.getLevel().getMobs()) {
-			if (m instanceof Fox && !m.isDead()) {
+			if (m instanceof EvilFox && !m.isDead()) {
 				killed = false;
 			}
 		}
