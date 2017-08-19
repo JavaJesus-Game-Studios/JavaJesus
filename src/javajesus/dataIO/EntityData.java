@@ -17,9 +17,12 @@ import javajesus.entities.FireEntity;
 import javajesus.entities.Spawner;
 import javajesus.entities.Type;
 import javajesus.entities.animals.Cat;
+import javajesus.entities.animals.Chicken;
 import javajesus.entities.animals.Cow;
 import javajesus.entities.animals.Dog;
+import javajesus.entities.animals.Duck;
 import javajesus.entities.animals.Fox;
+import javajesus.entities.animals.Pigeon;
 import javajesus.entities.bosses.Cyclops;
 import javajesus.entities.monsters.Bandito;
 import javajesus.entities.monsters.Centaur;
@@ -334,7 +337,7 @@ public class EntityData {
 	 * @param id - the ID in the save file
 	 * @return the entity based on the ID
 	 */
-	private static final Entity getEntity(int id, Level level, short x, short y) {
+	public static final Entity getEntity(int id, Level level, short x, short y) {
 
 		try {
 		    switch (id) {
@@ -598,8 +601,15 @@ public class EntityData {
                 return new WhiteOakSmall(level, x, y);
             case Entity.EVILFOX:
             	return new EvilFox(level, x, y);
+            case Entity.CHICKEN:
+				return new Chicken(level, x, y);
+			case Entity.PIGEON:
+				return new Pigeon(level, x, y);
+			case Entity.DUCK:
+				return new Duck(level, x, y);
 
 	        default:
+	        	System.err.println("CRITICAL ERROR! CRITICAL ERROR! SAVING NULL ENTITY: " + id);
 	            return null;
 	        }
 		    

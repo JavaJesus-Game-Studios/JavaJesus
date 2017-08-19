@@ -97,7 +97,6 @@ public class Companion extends Shooter {
 
 	@Override
 	public byte getId() {
-		// TODO Auto-generated method stub
 		return Entity.COMPANION;
 	}
 }

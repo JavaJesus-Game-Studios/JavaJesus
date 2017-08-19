@@ -38,11 +38,15 @@ public class PoliceOfficer extends Shooter {
 	 */
 	public PoliceOfficer(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance, int type) {
 		super(level, "Police Officer", x, y, 1, WIDTH, HEIGHT, defaultHealth,
+<<<<<<< HEAD
 				new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0, 4, walkPath, walkDistance);
 		
 		//instance data
 		this.type = (byte) type;
 		update();
+=======
+				new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB, 0, 0 }, 0, 4, walkPath, walkDistance);
+>>>>>>> origin/master
 	}
 
 	/**

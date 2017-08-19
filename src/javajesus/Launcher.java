@@ -48,10 +48,10 @@ public class Launcher extends Canvas implements IGameLogic {
 	private static final long serialVersionUID = 1L;
 
 	// Version of the game
-	private final String VERSION = "Alpha 0.9.0";
+	private final String VERSION = "Alpha 0.9.5";
 
 	// Last known update
-	private final String LAST_UPDATED = "Last Updated 8/5/2017";
+	private final String LAST_UPDATED = "Last Updated 8/19/2017";
 	
 	// launcher font
 	private static final Font LAUNCHER_FONT = new Font(JavaJesus.FONT_NAME, 0, 15);
@@ -97,14 +97,14 @@ public class Launcher extends Canvas implements IGameLogic {
 	private int mouseX, mouseY, mouseButton;
 	
 	// IDs of the page screens
-	private static final int MAINMENU = 0, SANDBOXMENU = 1, OPTIONSMENU = 2, STORYMENU = 3, AUDIOMENU = 4, FIXEDMENU = 5, RANDOMMENU = 6, FIXEDPLAYERMENU = 7;
+	private static final int MAINMENU = 0, SANDBOXMENU = 1, OPTIONSMENU = 2, STORYMENU = 3, AUDIOMENU = 4, FIXEDPLAYERMENU = 7;
 
 	// Ids of the buttons
-	private static final int STORY = 0, SANDBOX = 1, OPTIONS = 2, CREDIT = 3, QUIT = 4, FIXED = 5, RANDOM = 6,
+	private static final int STORY = 0, SANDBOX = 1, OPTIONS = 2, CREDIT = 3, QUIT = 4,
 			BACK = 7, AUDIO = 8, VIDEO = 9, CONTROLS = 10, MUTE = 13, SLOT = 14, DELETE_1 = 15, DELETE_2 = 16, DELETE_3 = 17, FIXED_SELECTED = 18;
 
 	// Buttons on the launcher
-	private LauncherButton story, sandbox, options, credits, fixed, random, audio, video, controls, mute,
+	private LauncherButton story, sandbox, options, credits, audio, video, controls, mute,
 	back, quit, delete_1, delete_2, delete_3;
 	
 	// Slot buttons on the launcher
@@ -163,7 +163,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		level.generateLevel();
 		
 		BufferedImage story_on, story_off, sandbox_on, sandbox_off, options_on, options_off, credits_on, credits_off,
-		        fixed_on, fixed_off, random_on, random_off, audio_on, audio_off, video_on, video_off,
+		        audio_on, audio_off, video_on, video_off,
 		        controls_on, controls_off, mute_on, mute_off, back_on,
 		        back_off, quit_on, quit_off, delete_off, delete_on;
 		
@@ -186,14 +186,6 @@ public class Launcher extends Canvas implements IGameLogic {
 		credits_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/credits_on.png"));
 
 		credits_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/credits_off.png"));
-
-		fixed_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/fixed_on.png"));
-
-		fixed_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/fixed_off.png"));
-
-		random_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/random_on.png"));
-
-		random_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/random_off.png"));
 
 		audio_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/audio_on.png"));
 
@@ -227,8 +219,6 @@ public class Launcher extends Canvas implements IGameLogic {
 		sandbox = new LauncherButton(500, SANDBOX, sandbox_off, sandbox_on);
 		options = new LauncherButton(550, OPTIONS, options_off, options_on);
 		credits = new LauncherButton(600, CREDIT, credits_off, credits_on);
-		fixed = new LauncherButton(450, FIXED, fixed_off, fixed_on);
-		random = new LauncherButton(500, RANDOM, random_off, random_on);
 		audio = new LauncherButton(450, AUDIO, audio_off, audio_on);
 		video = new LauncherButton(500, VIDEO, video_off, video_on);
 		controls = new LauncherButton(550, CONTROLS, controls_off, controls_on);
@@ -306,8 +296,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		}
 		case SANDBOXMENU: {
 
-			fixed.draw(g);
-			random.draw(g);
+			sandboxPanel.draw(g);
 			break;
 
 		}
@@ -319,11 +308,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			break;
 
 		}
-		case FIXEDMENU:
-			sandboxPanel.draw(g);
-			break;
 		case FIXEDPLAYERMENU:
-		case RANDOMMENU:
 		case STORYMENU:
 			slot_1.draw(g);
 			slot_2.draw(g);
@@ -384,18 +369,8 @@ public class Launcher extends Canvas implements IGameLogic {
 			running = false;
 			return;
 		}
-		case FIXED: {
-			
-			this.pageId = FIXEDMENU;
-			return;
-		}
 		case FIXED_SELECTED: {
 			this.pageId = FIXEDPLAYERMENU;
-			return;
-		}
-		case RANDOM: {
-			
-			this.pageId = RANDOMMENU;
 			return;
 		}
 		case BACK: {
@@ -428,10 +403,8 @@ public class Launcher extends Canvas implements IGameLogic {
 			// Game Mode based on which screen
 			GameMode mode = GameMode.ADVENTURE;
 			if (pageId == FIXEDPLAYERMENU) {
-				mode = GameMode.FIXED;
-			} else if (pageId == RANDOMMENU) {
-				mode = GameMode.RANDOM;
-			}
+				mode = GameMode.SANDBOX;
+			} 
 			
 			// load if it exists
 			if (PlayerData.exists(numSlot)) {
@@ -536,15 +509,13 @@ public class Launcher extends Canvas implements IGameLogic {
 	 * @return - the level
 	 */
 	private Level getLevel(GameMode mode, int slot) {
-		switch (mode) {
-		case RANDOM:
-			return Launcher.level;
-		case FIXED:
-			return sandboxPanel.getLevel(slot);
-		default:
+		
+		if (mode == GameMode.ADVENTURE) {
 			//Level.createStoryLevels();
 			//return LordHillsboroughsDomain.level;
-			return Launcher.level;
+			return null;
+		} else {
+			return sandboxPanel.getLevel(slot);
 		}
 		
 	}
@@ -801,22 +772,22 @@ public class Launcher extends Canvas implements IGameLogic {
 	private class SandboxPanel implements Drawable {
 		
 		// level paths
-		private static final String originalPath = "/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/original.png", 
-				islandPath = "/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/island.png",
-				tileTesterPath = "/WORLD_DATA/TESTER_LEVELS/tile_tester.png",
-				roadTesterPath = "/WORLD_DATA/TESTER_LEVELS/road_tester.png";
+		private static final String originalPath = "/VISUAL_DATA/MAPS/original_map.png", 
+				islandPath = "/VISUAL_DATA/MAPS/island_map.png",
+				genericPath = "/VISUAL_DATA/MAPS/generic_map.png",
+				roadTesterPath = "/VISUAL_DATA/MAPS/road_tester_map.png";
 		
 		// dimensions of the panel
 		private static final int width = 200, height = 200;
 		
 		// possible levels
-		private BufferedImage original, island, tileTester, roadTester;
+		private BufferedImage original, island, generic, roadTester;
 		
 		// current displayed level
 		private int selected;
 		
 		// list of level displays
-		private static final int ORIGINAL = 0, ISLAND = 1, TILE_TESTER = 2, ROAD_TESTER = 3;
+		private static final int ORIGINAL = 0, ISLAND = 1, TILE_TESTER = 2, ROAD_TESTER = 3, RANDOM = 4;
 		
 		// coordinates
 		private int x, y;
@@ -847,7 +818,12 @@ public class Launcher extends Canvas implements IGameLogic {
 			
 			// load the files
 			original = ImageIO.read(Level.class.getResource(originalPath));
+<<<<<<< HEAD
 			tileTester = ImageIO.read(Level.class.getResource(tileTesterPath));
+=======
+			island = ImageIO.read(Level.class.getResource(islandPath));
+			generic = ImageIO.read(Level.class.getResource(genericPath));
+>>>>>>> origin/master
 			roadTester = ImageIO.read(Level.class.getResource(roadTesterPath));
 			
 			// sets the name
@@ -871,6 +847,8 @@ public class Launcher extends Canvas implements IGameLogic {
 					return new LevelTester(slot);
 				case ROAD_TESTER:
 					return new RoadLevel(slot);
+				case RANDOM:
+					return Launcher.level;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -886,11 +864,11 @@ public class Launcher extends Canvas implements IGameLogic {
 			
 			// loop around
 			if (selected < 0) {
-				selected = 3;
+				selected = 4;
 			}
 			
 			// loop around
-			if (selected > 3) {
+			if (selected > 4) {
 				selected = 0;
 			}
 			
@@ -907,6 +885,9 @@ public class Launcher extends Canvas implements IGameLogic {
 				break;
 			case ROAD_TESTER:
 				name = "Road Tester";
+				break;
+			case RANDOM:
+				name = "Random";
 				break;
 			}
 			
@@ -935,7 +916,8 @@ public class Launcher extends Canvas implements IGameLogic {
 				g.drawImage(island, x, y, width, height, null);
 				break;
 			case TILE_TESTER:
-				g.drawImage(tileTester, x, y, width, height, null);
+			case RANDOM:
+				g.drawImage(generic, x, y, width, height, null);
 				break;
 			case ROAD_TESTER:
 				g.drawImage(roadTester, x, y, width, height, null);
