@@ -415,6 +415,10 @@ public abstract class Level {
 	 * @param entity - the entity to add
 	 */
 	public synchronized void add(Entity entity) {
+		
+		if (entity == null) {
+			System.err.println("ERROR ADDING NULL ENTITY!");
+		}
 
 		if (entity instanceof Mob) {
 			mobs.add((Mob) entity);

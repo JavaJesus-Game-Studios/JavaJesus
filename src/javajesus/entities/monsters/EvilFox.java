@@ -92,43 +92,68 @@ public class EvilFox extends Monster {
 
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile = 10;
+			xTile = 8 + (isMoving ? 2 : 0);
+			if (isShooting) {
+				xTile = 22 + (flipAttack ? 2 : 0);
+			}
 		} else if (getDirection() == Direction.SOUTH) {
-			xTile = 2;
+			xTile = 0 + (isMoving ? 2 : 0);
+			if (isShooting) {
+				xTile = 12 + (flipAttack ? 2 : 0);
+			}
 		} else {
 			xTile = 4 + (flip ? 2 : 0);
-			flip = getDirection() == Direction.WEST;
-		}
-
-		// attacking animation
-		if (isShooting) {
-			if (getDirection() == Direction.NORTH) {
-				xTile = 18;
-			} else if (getDirection() == Direction.SOUTH) {
-				xTile = 14;
-			} else {
-				xTile = 16;
+			if (isShooting) {
+				xTile = 16 + (flipAttack ? 3 : 0);
 			}
+			flip = getDirection() == Direction.WEST;
 		}
 
 		// death image
 		if (isDead())
-			xTile = 12;
+			xTile = 26;
+		
+		// requires width of 3
+		if (isShooting && isLatitudinal()) {
+			
+			// move x offset over if west
+			if (getDirection() == Direction.WEST) {
+				xOffset -= 8;
+			}
+			
+			// iterate top to bottom
+			for (int i = 0; i < 2; i++) {
+				
+				// Left body
+				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + i * modifier, xTile, yTile + i, getSpriteSheet(), flip, color);
+				
+				// Middle body
+				screen.render(xOffset + modifier, yOffset + i * modifier, xTile + 1, yTile + i, getSpriteSheet(), flip, color);
+				
+				// Right body
+				screen.render(xOffset + (modifier * 2) - (modifier * (flip ? 2 : 0)), yOffset + i * modifier, xTile + 2, yTile + i, getSpriteSheet(), flip, color);
+				
+			}
+			
+		} else {
+			
+			// Upper body
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
 
-		// Upper body
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
+			// Upper body
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, getSpriteSheet(),
+			        flip, color);
 
-		// Upper body
-		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, getSpriteSheet(),
-		        flip, color);
+			// Lower Body
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, getSpriteSheet(),
+			        flip, color);
 
-		// Lower Body
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, getSpriteSheet(),
-		        flip, color);
+			// Lower Body
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
+			        getSpriteSheet(), flip, color);
+			
+		}
 
-		// Lower Body
-		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
-		        getSpriteSheet(), flip, color);
 	}
 
 	/**

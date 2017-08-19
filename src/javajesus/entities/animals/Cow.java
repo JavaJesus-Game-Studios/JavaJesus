@@ -59,16 +59,17 @@ public class Cow extends Animal {
 
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile += 10;
+			xTile += 13;
 			if (isMoving)
 				xTile += 2;
 		} else if (getDirection() == Direction.SOUTH) {
 			if (isMoving)
-				xTile += 2;
+				xTile = 2;
 		} else if (isLatitudinal()) {
 			xTile += 4;
-			if (isMoving)
-				xTile += (flip ? 3 : 0);
+			if (isMoving) {
+				xTile = 7 + (flip ? 3 : 0);
+			}
 			flip = getDirection() == Direction.WEST;
 		}
 
@@ -77,7 +78,7 @@ public class Cow extends Animal {
 			if (isLongitudinal()) {
 				setDirection(Direction.EAST);
 			}
-			xTile = 14;
+			xTile = 17;
 		}
 
 		// standing vertical

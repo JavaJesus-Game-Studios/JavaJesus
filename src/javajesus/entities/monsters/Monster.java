@@ -256,6 +256,9 @@ public abstract class Monster extends Mob {
 	public void remove() {
 		super.remove();
 		
+		// reset data
+		flipAttack = false;
+		
 		// drop loot on death
 		dropLoot();
 		
