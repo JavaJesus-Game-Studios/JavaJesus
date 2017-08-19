@@ -24,6 +24,7 @@ import javajesus.entities.bosses.Cyclops;
 import javajesus.entities.monsters.Bandito;
 import javajesus.entities.monsters.Centaur;
 import javajesus.entities.monsters.Demon;
+import javajesus.entities.monsters.EvilFox;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
 import javajesus.entities.monsters.Skeleton;
@@ -595,6 +596,8 @@ public class EntityData {
                 return new WhiteOak(level, x, y);
             case Entity.WHITE_OAK_SMALL:
                 return new WhiteOakSmall(level, x, y);
+            case Entity.EVILFOX:
+            	return new EvilFox(level, x, y);
 
 	        default:
 	            return null;

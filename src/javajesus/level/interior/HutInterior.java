@@ -11,12 +11,12 @@ public class HutInterior extends Interior {
 
 	public HutInterior(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Hut_Interior",
-		        new Point(248, 264), level);
+		        new Point(784, 736), level);
 	}
 
 	@Override
 	public Transporter[] getTransporters() throws IOException {
-		return new Transporter[] { new TransporterInterior(this, 252, 278, outside) };
+		return new Transporter[] { new TransporterInterior(this, 784, 736, outside) };
 	}
 
 }
