@@ -61,7 +61,7 @@ public class SWATOfficer extends Shooter {
 	 * Dialogue options for swat officers
 	 */
 	public void doDialogue() {
-		MessageHandler.displayText(getName() + ": With you all the way!", Color.red);
+		MessageHandler.displayText(getName() + ": We're with you all the way!", Color.red);
 		return;
 	}
 

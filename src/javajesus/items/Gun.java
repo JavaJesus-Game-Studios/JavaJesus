@@ -5,7 +5,6 @@ import java.util.Random;
 import javax.sound.sampled.Clip;
 
 import javajesus.SoundHandler;
-import javajesus.dataIO.PlayerData;
 import javajesus.entities.Player;
 import javajesus.entities.projectiles.Arrow;
 import javajesus.entities.projectiles.BlackHoleDetonator;
@@ -13,7 +12,6 @@ import javajesus.entities.projectiles.Bullet;
 import javajesus.entities.projectiles.FireBall;
 import javajesus.entities.projectiles.Laser;
 import javajesus.entities.projectiles.Missile;
-import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
@@ -36,8 +34,6 @@ public class Gun extends Item {
 	// whether or not the player is reloading
 	private boolean isReloading;
 	
-	//default spritesheet
-	private SpriteSheet sheet = SpriteSheet.playerGuns_male_noarmor;
 
 
 	// the reload time between bullets TODO implement it
@@ -48,7 +44,7 @@ public class Gun extends Item {
 
 	// fire rate of the gun
 	private int FIRE_RATE;
-	
+
 	// damage range
 	private static final int DAMAGE_RANGE = 5;
 	
@@ -138,6 +134,8 @@ public class Gun extends Item {
 		}
 
 	}
+	
+
 
 	/**
 	 * Reloads the gun
@@ -282,15 +280,6 @@ public class Gun extends Item {
 			return Item.assaultRifleAmmo;
 		default:
 			return null;
-		}
-	}
-
-	public void setSpriteSheet(byte type) {
-		// TODO Auto-generated method stub
-		if (type == PlayerData.FEMALE) {
-			sheet = SpriteSheet.playerGuns_female_noarmor;
-		} else {
-			sheet = SpriteSheet.playerGuns_male_noarmor;
 		}
 	}
 

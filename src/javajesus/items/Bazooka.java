@@ -23,7 +23,11 @@ public class Bazooka extends Gun {
 	 * Creates a bazooka, BOOM!
 	 */
 	public Bazooka() {
-		super("Bazooka", 28, 5, 0, new int[] { 0xFF000000, 0xFF434343, 0xFF371B09 }, "Standard Explosive Artillery", 0,
+		super("Bazooka", 28, 5, 0, new int[] { 0xFF000000, 0xFF434343, 0xFF371B09 },
+				"The HR2010 Missile Launching Platform is a state of the art killing machine."
+				+ "On one end of the machine are big holes, which is where you load the missiles,"
+				+ "on the other are slightly smaller holes, this is where the missiles are fired. This "
+				+ "\"Gun\" will kill anything that happens to cross it's path. Loads two Missiles at a time.", 0,
 				2, 10, 20, 300, Ammo.MISSILE, SoundHandler.explosion);
 	}
 
@@ -56,19 +60,19 @@ public class Bazooka extends Gun {
 
 		// adjust spritesheet offsets
 		if (shootingDir == Direction.NORTH) {
-			xTile = 15 + (flip ? 3 : 0);
+			xTile = 18 + (flip ? 3 : 0);
 			flip = false;
 			if (!player.isMoving())
-				xTile = 21;
+				xTile = 15;
 		} else if (shootingDir == Direction.SOUTH) {
-			xTile = 6 + (flip ? 3 : 0);
+			xTile = 3 + (flip ? 3 : 0);
 			flip = false;
 			if (!player.isMoving())
-				xTile = 12;
+				xTile = 0;
 		} else {
-			xTile = (flip ? 3 : 0);
+			xTile = (flip ? 9 : 12);
 			if (!player.isMoving())
-				xTile = 3;
+				xTile = 9;
 			flip = shootingDir == Direction.WEST;
 		}
 

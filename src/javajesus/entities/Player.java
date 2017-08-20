@@ -156,10 +156,9 @@ public class Player extends Mob implements Type {
 			// now assign the right spritesheet
 			if (gender == PlayerData.FEMALE) {
 				equippedSword.setSpriteSheet(PlayerData.FEMALE);
-				equippedGun.setSpriteSheet(PlayerData.FEMALE);
+
 			} else {
 				equippedSword.setSpriteSheet(PlayerData.MALE);
-				equippedGun.setSpriteSheet(PlayerData.FEMALE);
 			}
 			
 		} else if (obj instanceof Armor) {
@@ -310,7 +309,11 @@ public class Player extends Mob implements Type {
 			this.gunSheet = equippedArmor.getGunSpritesheet();
 		} else {
 			this.yTile = 0;
-			this.gunSheet = SpriteSheet.playerGuns_male_noarmor;
+			if(gender== PlayerData.FEMALE) {
+				this.gunSheet = SpriteSheet.playerGuns_female_noarmor;
+			}else {
+				this.gunSheet = SpriteSheet.playerGuns_male_noarmor;
+			}
 		}
 
 
@@ -481,23 +484,30 @@ public class Player extends Mob implements Type {
 					}
 				}
 			} else if (shootingDir == Direction.SOUTH) {
-				xTile = 0;
 				if (equippedGun == Item.assaultRifle) {
-					xTile += flip ? 2 : 0;
+					xTile = flip ? 2 : 4;
 					flip = false;
+				}else {
+					xTile = 2;
 				}
 				if (!isMoving) {
-					xTile = 4;
-					if (equippedGun == Item.assaultRifle) {
-						xTile = 6;
-					}
+					xTile = 0;
 				}
 			} else {
 				// reset the flip for horizontal movement
 				flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
-				xTile = flip ? 2 : 0;
-				if (!isMoving)
-					xTile = 2;
+				
+				if(equippedGun == Item.assaultRifle) {
+					xTile = flip ? 6 : 8;
+				}else {
+					xTile = flip ? 4 : 6;
+				}
+				if (!isMoving) {
+					xTile = 4;
+					if(equippedGun == Item.assaultRifle) {
+						xTile = 6;
+					}
+				}
 				if (shootingDir == Direction.EAST) {
 					xOffset += 3;
 				} else {

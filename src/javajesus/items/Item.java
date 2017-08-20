@@ -86,13 +86,13 @@ public class Item implements Serializable {
 			"More of a large knife than a sword, at the very least it'll give your opponent"
 			+ "a good sting.",
 			10, 40, new int[] { 7, 12, 16, 21 }, 0, Sword.SHORT, 0);
-	public static final Item longSword = new Sword("Long Sword", 10, 1, 1, 0, 3,
+	public static final Item longSword = new Sword("Long Sword", 10, 1, 1, 0, 4,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, 
 			"Now thats a sword, a fine steel blade mass produced for the Knights of The Bay, nothing"
 			+ "to write home about but will certainly give your oppoent second thoughts.",
 			40, 80, new int[] { 7, 13, 18, 23 }, 1,
 			Sword.MEDIUM, 10);
-	public static final Item claymore = new Sword("Claymore", 11, 2, 1, 0, 9,
+	public static final Item claymore = new Sword("Claymore", 11, 2, 1, 0, 10,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC },
 			"Sword of the Knights Templar, the sheer weight of the blade will make your swings"
 			+ " slow and easy to dodge but if you manage to hit anything it's going down for real.",
@@ -105,13 +105,13 @@ public class Item implements Serializable {
 			+ "your opponent will have to be quick on his feet to defeat you.",
 			15, 62, new int[] { 7, 13, 18, 23 }, 1,
 			Sword.MEDIUM, 10);
-	public static final Item heavenlySword = new Sword("Heavenly Sword", 13, 4, 1, 0, 17,
+	public static final Item heavenlySword = new Sword("Heavenly Sword", 13, 4, 1, 0, 18,
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
 			"Sword handed crafted by God himself, given to only the holiest of Saints, nothing"
 			+ "because nothing says \"brotherly love\" like righteous slaughter.",
 			35, 120, new int[] { 7, 13, 18, 23 }, 1,
 			Sword.MEDIUM, 10);
-	public static final Item kingSword = new Sword("The Sword of Kings", 18, 5, 1, 0, 21,
+	public static final Item kingSword = new Sword("The Sword of Kings", 18, 5, 1, 0, 22,
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
 			"This is the best blade in the game and \"The Sword of Kings\" is the best"
 			+ "we could come up with?",

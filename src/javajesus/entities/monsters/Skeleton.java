@@ -9,7 +9,7 @@ import javajesus.utility.Direction;
 public class Skeleton extends Monster {
 	
 	// dimensions of the bandito
-	private static final int WIDTH = 16, HEIGHT = 16;
+	private static final int WIDTH = 16, HEIGHT = 24;
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 3;
@@ -26,7 +26,7 @@ public class Skeleton extends Monster {
 	 * @param y - y coordinate
 	 */
 	public Skeleton(Level level, int x, int y) {
-		super(level, "Skeleton", x, y, 1, WIDTH, HEIGHT, 10, 100, 100);
+		super(level, "Skeleton", x, y, 1, WIDTH, HEIGHT, 10, 100, 50);
 	}
 	
 	/**
@@ -58,24 +58,25 @@ public class Skeleton extends Monster {
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
 			if (isShooting) {
-				xTile = 19;
+				xTile = 23;
 			} else {
-				xTile = 10 + (isMoving ? 2 : 0);
+				xTile = 12 + (isMoving ? 2 : 4);
+				flip = false;
 			}
 			
 		} else if (getDirection() == Direction.SOUTH) {
 			
 			if (isShooting) {
-				xTile = 14;
+				xTile = 18;
 			} else {
-				xTile = isMoving ? 2 : 0;
+				xTile = isMoving ? 2 : 4;
+				flip = false;
 			}
-			
 		} else {
-			xTile = 4 + (flip ? 3 : 0);
+			xTile = 6 + (flip ? 3 : 0);
 			
 			if (isShooting) {
-				xTile = 16;
+				xTile = 20;
 			}
 			
 			flip = getDirection() == Direction.WEST;
@@ -83,7 +84,7 @@ public class Skeleton extends Monster {
 		
 		// death image
 		if (isDead())
-			xTile = 21;
+			xTile = 25;
 		
 		// base 2x2 quadrant y-axis symmetry 
 		if (isLongitudinal() || isDead()) {
