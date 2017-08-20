@@ -17,7 +17,7 @@ public class Jobs extends NPC {
 	private static final int WIDTH = 16, HEIGHT = 16;
 
 	public Jobs(Level level, int x, int y) {
-		super(level, "Brokovsky", x, y, 1, WIDTH, HEIGHT, 500, null, 10, 0, "", 0);
+		super(level, "Brokovsky Jobs", x, y, 1, WIDTH, HEIGHT, 500, null, 12, 0, "", 0);
 		setSpriteSheet(SpriteSheet.characters);
 	}
 

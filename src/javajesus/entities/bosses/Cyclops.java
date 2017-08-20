@@ -5,7 +5,9 @@ import java.util.Random;
 import javajesus.JavaJesus;
 import javajesus.entities.Entity;
 import javajesus.entities.Pickup;
+import javajesus.entities.monsters.Monster;
 import javajesus.graphics.Screen;
+import javajesus.graphics.SpriteSheet;
 import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
@@ -13,13 +15,13 @@ import javajesus.utility.Direction;
 /*
  * A Cyclops is a powerful Boss that strikes fear into any foe
  */
-public class Cyclops extends Boss {
+public class Cyclops extends Monster {
 
 	// dimensions of the cyclops
 	private static final int WIDTH = 32, HEIGHT = 48;
 
 	// how fast the player toggles steps
-	private static final int WALKING_ANIMATION_SPEED = 5;
+	private static final int WALKING_ANIMATION_SPEED = 4;
 	
 	// base stats
 	private static final int BASE_STRENGTH = 20, BASE_DEFENSE = 10;
@@ -38,6 +40,7 @@ public class Cyclops extends Boss {
 	 */
 	public Cyclops(Level level, int x, int y, int speed, int health) {
 		super(level, "Cyclops", x, y, speed, WIDTH, HEIGHT, 4, health, 40);
+		setSpriteSheet(SpriteSheet.bosses);
 
 	}
 	
@@ -93,46 +96,36 @@ public class Cyclops extends Boss {
 
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile = 24;
-			if (flip) {
-				xTile += 4;
+			xTile = 20;
+			if (isMoving) {
+				xTile += 4 + (flip ? 4 : 0);
+				flip = false;
+			}
+			if (isShooting) {
+				xTile = 41;
 				flip = false;
 			}
 		} else if (getDirection() == Direction.SOUTH) {
-			xTile = 4;
-			if (flip) {
-				xTile += 4;
+			xTile = 0;
+			if (isMoving) {
+				xTile += 4 + (flip ? 4 : 0);
+				flip = false;
+			}
+			if (isShooting) {
+				xTile = 32;
 				flip = false;
 			}
 		} else {
-			xTile = 12 + (flip ? 4 : 0);
+			xTile = 12 + (isMoving && flip ? 4 : 0);
+			if (isShooting) {
+				xTile = 36;
+			}
 			flip = getDirection() == Direction.WEST;
 		}
 
-		// position of walking or attacking
-		int yTile = this.yTile;
-
 		// dead has an absolute position
 		if (isDead()) {
-			flip = false;
 			xTile = 45;
-			yTile = 7;
-		}
-
-		// attacking animation
-		if (isShooting) {
-			//NORTH Attack Sprite
-			if(getDirection()== Direction.NORTH){
-				xTile += 21;
-			}
-			//SOUTH Attack Sprite
-			if(getDirection()== Direction.SOUTH){
-				xTile += 32;
-			}
-			//EAST/WEST ATTACK SPRITE
-			else{
-				xTile += 24;
-			}
 		}
 
 		// draw all 6 rows

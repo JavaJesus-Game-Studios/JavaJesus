@@ -112,11 +112,14 @@ public class Centaur extends Monster {
 
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile = 12;
+			xTile = 13 + (isMoving && flip ? 2 : 0);
 		} else if (getDirection() == Direction.SOUTH) {
-			xTile = 2;
+			xTile = 0 + (isMoving && flip ? 2 : 0);
 		} else {
-			xTile = 4 + (flip ? 3 : 0);
+			xTile = 4;
+			if (isMoving) {
+				xTile += 3 + (flip ? 3 : 0);
+			}
 			flip = getDirection() == Direction.WEST;
 		}
 

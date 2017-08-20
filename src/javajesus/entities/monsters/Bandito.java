@@ -29,7 +29,7 @@ public class Bandito extends Monster {
 	 * @param y - y coordinate
 	 */
 	public Bandito(Level level, int x, int y) {
-		super(level, "Bandito", x, y, 1, WIDTH, HEIGHT, 16, 100, 100);
+		super(level, "Bandito", x, y, 1, WIDTH, HEIGHT, 17, 100, 100);
 	}
 	
 	/**

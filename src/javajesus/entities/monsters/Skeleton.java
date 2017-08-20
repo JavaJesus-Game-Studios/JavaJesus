@@ -9,7 +9,7 @@ import javajesus.utility.Direction;
 public class Skeleton extends Monster {
 	
 	// dimensions of the bandito
-	private static final int WIDTH = 16, HEIGHT = 24;
+	private static final int WIDTH = 16, HEIGHT = 16;
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 3;
@@ -57,21 +57,24 @@ public class Skeleton extends Monster {
 
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
+			xTile = 12;
+			if (isMoving) {
+				xTile += 2 + (flip ? 2 : 0);
+				flip = false;
+			}
 			if (isShooting) {
 				xTile = 23;
-			} else {
-				xTile = 12 + (isMoving ? 2 : 4);
-				flip = false;
 			}
 			
 		} else if (getDirection() == Direction.SOUTH) {
 			
-			if (isShooting) {
-				xTile = 18;
-			} else {
-				xTile = isMoving ? 2 : 4;
+			if (isMoving) {
+				xTile += 2 + (flip ? 2 : 0);
 				flip = false;
 			}
+			if (isShooting) {
+				xTile = 18;
+			} 
 		} else {
 			xTile = 6 + (flip ? 3 : 0);
 			

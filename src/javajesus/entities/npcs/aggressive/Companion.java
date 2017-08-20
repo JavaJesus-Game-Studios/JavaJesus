@@ -39,7 +39,7 @@ public class Companion extends Shooter {
 	 * @param player - the player to assist
 	 */
 	public Companion(Level level, int x, int y, Player player) {
-		super(level, "Companion", x, y, 1, WIDTH, HEIGHT, 250, new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB, 0, 0 }, 0, 4, "", 0);
+		super(level, "Companion", x, y, 1, WIDTH, HEIGHT, 250, new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB, 0, 0 }, 0, 9, "", 0);
 		
 		// initialize the player
 		this.player = player;
