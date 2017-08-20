@@ -28,11 +28,7 @@ public class TechWarrior extends Shooter {
 	 */
 	public TechWarrior(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance) {
 		super(level, "Tech Warrior", x, y, 1, WIDTH, HEIGHT, defaultHealth,
-<<<<<<< HEAD
-				new int[] { 0xFF111111, 0xFF42FF00, 0xFFEDC5AB }, 0, 11, walkPath, walkDistance);
-=======
-				new int[] { 0xFF111111, 0xFF42FF00, 0xFFEDC5AB, 0, 0}, 0, 12, walkPath, walkDistance);
->>>>>>> origin/master
+		        new int[] { 0xFF111111, 0xFF42FF00, 0xFFEDC5AB, 0, 0 }, 0, 11, walkPath, walkDistance);
 	}
 
 	/**
@@ -47,9 +43,8 @@ public class TechWarrior extends Shooter {
 	}
 
 	/**
-	 * Deals damage to another mob
-	 * Calculated by getStrength() +
-	 * a random number in the range
+	 * Deals damage to another mob Calculated by getStrength() + a random number
+	 * in the range
 	 * 
 	 * @param range - random offset to add to strength
 	 * @param other - the other mob to attack
@@ -57,8 +52,8 @@ public class TechWarrior extends Shooter {
 	@Override
 	public void attack(int range, Damageable other) {
 
-		getLevel().add(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this, getStrength() + random.nextInt(range),
-				SoundHandler.shotgun));
+		getLevel().add(new Bullet(getLevel(), getX(), getY(), target.getX(), target.getY(), this,
+		        getStrength() + random.nextInt(range), SoundHandler.shotgun));
 	}
 
 	/**

@@ -818,12 +818,8 @@ public class Launcher extends Canvas implements IGameLogic {
 			
 			// load the files
 			original = ImageIO.read(Level.class.getResource(originalPath));
-<<<<<<< HEAD
-			tileTester = ImageIO.read(Level.class.getResource(tileTesterPath));
-=======
 			island = ImageIO.read(Level.class.getResource(islandPath));
 			generic = ImageIO.read(Level.class.getResource(genericPath));
->>>>>>> origin/master
 			roadTester = ImageIO.read(Level.class.getResource(roadTesterPath));
 			
 			// sets the name
