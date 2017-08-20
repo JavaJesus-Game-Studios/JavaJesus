@@ -150,4 +150,9 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity,
 		this.sheet = Tile.tileList[type & 0x000000FF].getSpriteSheet();
 	}
 
+	@Override
+	public boolean isDead() {
+		return health <= 0;
+	}
+
 }

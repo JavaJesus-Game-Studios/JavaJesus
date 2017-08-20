@@ -22,7 +22,7 @@ public class Cyclops extends Monster {
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
-	
+
 	// base stats
 	private static final int BASE_STRENGTH = 20, BASE_DEFENSE = 10;
 
@@ -41,9 +41,9 @@ public class Cyclops extends Monster {
 	public Cyclops(Level level, int x, int y, int speed, int health) {
 		super(level, "Cyclops", x, y, speed, WIDTH, HEIGHT, 4, health, 40);
 		setSpriteSheet(SpriteSheet.bosses);
-
+		setOuterBoundsRange(4);
 	}
-	
+
 	/**
 	 * Creates a cyclops
 	 * 
@@ -55,7 +55,7 @@ public class Cyclops extends Monster {
 	public Cyclops(Level level, int x, int y, int health) {
 		this(level, x, y, 1, health);
 	}
-	
+
 	/**
 	 * Creates a cyclops
 	 * 
@@ -72,7 +72,7 @@ public class Cyclops extends Monster {
 	 */
 	public void render(Screen screen) {
 		super.render(screen);
-		
+
 		// default color
 		int[] color = Cyclops.color;
 
@@ -126,62 +126,81 @@ public class Cyclops extends Monster {
 		// dead has an absolute position
 		if (isDead()) {
 			xTile = 45;
-		}
 
-		// draw all 6 rows
-		for (int i = 0; i < 6; i++) {
+			for (int i = 3; i < 6; i++) {
+				// left left
+				screen.render(xOffset + (modifier * (flip ? 5 : 0)), yOffset + i * modifier, xTile, yTile + i,
+				        getSpriteSheet(), flip, color);
 
-			// dead display only has 2 rows
-			if (isDead() && i > 1) {
-				break;
-			}
+				// left center
+				screen.render(xOffset + modifier + (modifier * (flip ? 3 : 0)), yOffset + i * modifier, xTile + 1,
+				        yTile + i, getSpriteSheet(), flip, color);
 
-			// left
-			screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + i * modifier, xTile, yTile + i,
-			        getSpriteSheet(), flip, color);
+				// left right
+				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier, xTile + 2,
+				        yTile + i, getSpriteSheet(), flip, color);
 
-			// left center
-			screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + i * modifier, xTile + 1,
-			        yTile + i, getSpriteSheet(), flip, color);
+				// right left
+				screen.render(xOffset + 3 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier, xTile + 3,
+				        yTile + i, getSpriteSheet(), flip, color);
 
-			// right center
-			screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier, xTile + 2,
-			        yTile + i, getSpriteSheet(), flip, color);
-
-			// right
-			screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier, xTile + 3,
-			        yTile + i, getSpriteSheet(), flip, color);
-
-			if (isDead()) {
+				// right center
 				screen.render(xOffset + 4 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier, xTile + 4,
 				        yTile + i, getSpriteSheet(), flip, color);
 
-				screen.render(xOffset + 5 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier, xTile + 5,
+				// right right
+				screen.render(xOffset + 5 * modifier - (modifier * (flip ? 5 : 0)), yOffset + i * modifier, xTile + 5,
+				        yTile + i, getSpriteSheet(), flip, color);
+			}
+
+			/// normal rendering
+		} else {
+
+			// draw all 6 rows
+			for (int i = 0; i < 6; i++) {
+
+				// left
+				screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + i * modifier, xTile, yTile + i,
+				        getSpriteSheet(), flip, color);
+
+				// left center
+				screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + i * modifier, xTile + 1,
+				        yTile + i, getSpriteSheet(), flip, color);
+
+				// right center
+				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + i * modifier, xTile + 2,
+				        yTile + i, getSpriteSheet(), flip, color);
+
+				// right
+				screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + i * modifier, xTile + 3,
 				        yTile + i, getSpriteSheet(), flip, color);
 
 			}
+
 		}
 
 	}
-	
+
 	/**
 	 * Cyclops specific loot
 	 */
 	protected void dropLoot() {
-		
+
 		// drop 4x basic loot first
 		for (int i = 0; i < 4; i++) {
 			super.dropLoot();
 		}
-		
+
 		// random value for % chance
 		int value = (new Random()).nextInt(100);
-		
+
 		// 5% chance of istrahiim armor, 20% large health
 		if (value < 5) {
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(40), getY() + JavaJesus.getRandomOffset(40), Item.owl));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(40),
+			        getY() + JavaJesus.getRandomOffset(40), Item.owl));
 		} else if (value < 25) {
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(40), getY() + JavaJesus.getRandomOffset(40), Item.strongHealthPack));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(40),
+			        getY() + JavaJesus.getRandomOffset(40), Item.strongHealthPack));
 		}
 	}
 
@@ -189,7 +208,7 @@ public class Cyclops extends Monster {
 	public byte getId() {
 		return Entity.CYCLOPS;
 	}
-	
+
 	@Override
 	public int getStrength() {
 		return Math.round(BASE_STRENGTH * JavaJesus.difficulty);

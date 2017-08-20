@@ -73,7 +73,7 @@ public class SpriteSheet implements Serializable {
     
     	//ENEMY
     public static SpriteSheet mobEnemies = new SpriteSheet("/VISUAL_DATA/ACTORS/ENEMY/mob_enemy_sheet.png", 32);
-    public static SpriteSheet bosses = new SpriteSheet("/VISUAL_DATA/ACTORS/ENEMY/boss_sheet.png", 41);
+    public static SpriteSheet bosses = new SpriteSheet("/VISUAL_DATA/ACTORS/ENEMY/boss_sheet.png", 51);
     
     	//ANIMAL
     public static SpriteSheet quadrapeds = new SpriteSheet("/VISUAL_DATA/ACTORS/ANIMAL/four_legged.png", 20);

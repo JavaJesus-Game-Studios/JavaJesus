@@ -76,22 +76,35 @@ public class Gorilla extends NPC {
 	/**
 	 * Updates the targeted mob
 	 */
-	private void checkRadius() {
+	protected void checkRadius() {
 
 		// if the target is dead or out of range, reset the target
 		if (target != null && (target.isDead() || !(aggroRadius.intersects(target.getBounds())))) {
+			target.setTargeted(false);
 			target = null;
 		}
 
 		// assign a new target
 		if (target == null) {
+			// last mob in case no targetable mob
+			Mob last = null;
 			for (Mob mob : getLevel().getMobs()) {
 				if ((mob instanceof Monster) && aggroRadius.intersects(mob.getBounds()) && !mob.isDead()) {
-					target = mob;
-					mob.setTargeted(true);
-					return;
+					// target the mob if it is not being targeted already
+					if (!mob.isTargeted()) {
+						target = mob;
+						mob.setTargeted(true);
+						return;
+
+						// mob already being targetted
+					} else {
+						last = mob;
+					}
 				}
 			}
+
+			// at this point, no target has been selected
+			target = last;
 		}
 
 	}

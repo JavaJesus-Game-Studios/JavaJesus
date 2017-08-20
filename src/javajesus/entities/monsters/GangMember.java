@@ -64,7 +64,7 @@ public class GangMember extends Monster implements LongRange, Type {
 		update(type);
 
 		// creates the standing range
-		standRange = new Ellipse2D.Double(getX() - RADIUS / 4, getY() - RADIUS / 4, RADIUS / 2, RADIUS / 2);
+		this.standRange = new Ellipse2D.Double(x - (RADIUS * 8) / 4, y - (RADIUS * 8) / 4, (RADIUS * 8) / 2, (RADIUS * 8) / 2);
 
 	}
 	

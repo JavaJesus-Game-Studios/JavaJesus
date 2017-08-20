@@ -580,5 +580,9 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable,
 	public void setMaxHealth(short health) {
 		maxHealth = health;
 	}
+	
+	public boolean isDead() {
+		return health <= 0;
+	}
 
 }

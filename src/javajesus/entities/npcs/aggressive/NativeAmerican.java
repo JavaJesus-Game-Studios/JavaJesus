@@ -17,12 +17,9 @@ public class NativeAmerican extends Shooter implements Type {
 
 	// different types of native americans
 	public static final int MALE = 0, FEMALE = 1, BOY = 2, GIRL = 3;
-	
+
 	// the type of native american
 	private byte type;
-	
-	// the base ytile
-	private int base;
 
 	/**
 	 * Creates a Native American with different abilities
@@ -36,15 +33,14 @@ public class NativeAmerican extends Shooter implements Type {
 	 * @param type - NativeAmerican.MALE or NativeAmerican.FEMALE
 	 */
 	public NativeAmerican(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance, int type) {
-		super(level, "Ohlone", x, y, 1, WIDTH, HEIGHT, defaultHealth,
-				new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB }, 0, 23, walkPath, walkDistance);
-		
+		super(level, "Ohlone", x, y, 1, WIDTH, HEIGHT, defaultHealth, new int[] { 0xFF111111, 0xFF000046, 0xFFEDC5AB },
+		        0, 23, walkPath, walkDistance);
+
 		// instance data
 		this.type = (byte) type;
-		this.base = yTile;
 		update();
 	}
-	
+
 	private void update() {
 		switch (type) {
 		case FEMALE: {
@@ -91,7 +87,6 @@ public class NativeAmerican extends Shooter implements Type {
 
 	@Override
 	public byte getId() {
-		// TODO Auto-generated method stub
 		return Entity.NATIVE_AMERICAN;
 	}
 

@@ -663,9 +663,6 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 		onFire = false;
 		knockbackCooldown = false;
 		
-		// decrease the bounds
-		setBounds(getX() + getBounds().width / 2, getY() + getBounds().height / 2, 1, 1);
-
 		// renders the mob in the background
 		isBehindBuilding = true;
 	}
@@ -875,6 +872,19 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 		outerBounds = new Rectangle(getX() - OUTER_BOUNDS_RANGE, getY()
 				- OUTER_BOUNDS_RANGE, width + OUTER_BOUNDS_RANGE * 2, height
 				+ OUTER_BOUNDS_RANGE * 2);
+	}
+	
+	/**
+	 * Changes the outer bounds size
+	 * Default is 2
+	 * 
+	 * @param width - width of the mob
+	 * @param height - height of the mob
+	 */
+	protected void setOuterBoundsRange(int range) {
+		outerBounds = new Rectangle(getX() - range, getY()
+				- range, getBounds().width + range * 2, getBounds().height
+				+ range * 2);
 	}
 
 	/**

@@ -38,7 +38,7 @@ public abstract class Shooter extends NPC implements LongRange {
 
 	// the amount of ticks between attacks
 	private static final int attackDelay = 100;
-	
+
 	// range of damage
 	private static final int DAMAGE_RANGE = 4;
 
@@ -49,7 +49,7 @@ public abstract class Shooter extends NPC implements LongRange {
 	private static final int WALKING_ANIMATION_SPEED = 4;
 
 	public Shooter(Level level, String name, int x, int y, int speed, int width, int height, int defaultHealth,
-			int[] color, int xTile, int yTile, String walkPath, int walkDistance) {
+	        int[] color, int xTile, int yTile, String walkPath, int walkDistance) {
 		super(level, name, x, y, speed, width, height, defaultHealth, color, xTile, yTile, walkPath, walkDistance);
 
 		// initialize the radius
@@ -67,21 +67,35 @@ public abstract class Shooter extends NPC implements LongRange {
 
 		// if the target is dead or out of range, reset the target
 		if (target != null && (target.isDead() || !(aggroRadius.intersects(target.getBounds())))) {
+			target.setTargeted(false);
 			target = null;
 		}
 
 		// assign a new target
 		if (target == null) {
+			// last mob in case no targetable mob
+			Mob last = null;
 			for (Mob mob : getLevel().getMobs()) {
 				if ((mob instanceof Monster) && aggroRadius.intersects(mob.getBounds()) && !mob.isDead()) {
-					target = mob;
-					mob.setTargeted(true);
-					return;
+					// target the mob if it is not being targeted already
+					if (!mob.isTargeted()) {
+						target = mob;
+						mob.setTargeted(true);
+						return;
+
+						// mob already being targetted
+					} else {
+						last = mob;
+					}
 				}
 			}
+
+			// at this point, no target has been selected
+			target = last;
 		}
 
 	}
+
 
 	/**
 	 * Updates the Shooter
@@ -99,7 +113,7 @@ public abstract class Shooter extends NPC implements LongRange {
 				cooldown = false;
 			}
 		}
-		
+
 		// attack the target if given a chance
 		if (!cooldown && target != null && aggroRadius.intersects(target.getOuterBounds())) {
 			cooldown = true;
@@ -135,12 +149,12 @@ public abstract class Shooter extends NPC implements LongRange {
 			move(dx, dy);
 		}
 	}
-	
+
 	/**
 	 * Updates the direction the mob is shooting
 	 */
 	private void checkDirection() {
-		
+
 		// move towards the target horizontally
 		if (target.getX() > getX()) {
 			setDirection(Direction.EAST);
@@ -167,7 +181,7 @@ public abstract class Shooter extends NPC implements LongRange {
 			super.render(screen);
 
 		} else {
-			
+
 			// default color
 			int[] color = getColor();
 
@@ -222,10 +236,8 @@ public abstract class Shooter extends NPC implements LongRange {
 	/**
 	 * Moves a monster on the level
 	 * 
-	 * @param dx
-	 *            the total change in x
-	 * @param dy
-	 *            the total change in y
+	 * @param dx the total change in x
+	 * @param dy the total change in y
 	 */
 	@Override
 	public void move(int dx, int dy) {
@@ -233,23 +245,22 @@ public abstract class Shooter extends NPC implements LongRange {
 
 		aggroRadius.setFrame(getX() - RADIUS / 2, getY() - RADIUS / 2, RADIUS, RADIUS);
 		standRange.setFrame(getX() - RADIUS / 4, getY() - RADIUS / 4, RADIUS / 2, RADIUS / 2);
-		
+
 	}
 
 	/**
-	 * Deals damage to another mob
-	 * Calculated by getStrength() +
-	 * a random number in the range
+	 * Deals damage to another mob Calculated by getStrength() + a random number
+	 * in the range
 	 * 
 	 * @param range - random offset to add to strength
 	 * @param other - the other mob to attack
 	 */
 	@Override
 	public void attack(int range, Damageable other) {
-		
+
 		// bullet offset
 		int xOffset = 0, yOffset = 0;
-		
+
 		// offset is dependent on the direction of the shooter
 		if (getDirection() == Direction.NORTH) {
 			xOffset = 7;
@@ -263,9 +274,10 @@ public abstract class Shooter extends NPC implements LongRange {
 			yOffset = 6;
 		}
 
-		getLevel().add(new Bullet(getLevel(), getX() + xOffset, getY() + yOffset, 
-				target.getX() + (int)target.getBounds().getWidth() / 2, target.getY() + (int) target.getBounds().getHeight() / 2, 
-				this, getStrength() + random.nextInt(range), SoundHandler.revolver));
+		getLevel().add(new Bullet(getLevel(), getX() + xOffset, getY() + yOffset,
+		        target.getX() + (int) target.getBounds().getWidth() / 2,
+		        target.getY() + (int) target.getBounds().getHeight() / 2, this, getStrength() + random.nextInt(range),
+		        SoundHandler.revolver));
 	}
 
 	@Override

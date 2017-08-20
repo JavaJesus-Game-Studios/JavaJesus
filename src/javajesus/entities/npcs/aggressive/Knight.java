@@ -1,10 +1,11 @@
-package javajesus.entities.npcs;
+package javajesus.entities.npcs.aggressive;
 
 import java.awt.geom.Ellipse2D;
 
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.entities.monsters.Monster;
+import javajesus.entities.npcs.NPC;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
@@ -21,7 +22,7 @@ public class Knight extends NPC {
 	private Ellipse2D.Double aggroRadius;
 
 	// the attack range radius, 32 (number of units) * 8 (units) = 256
-	private static final int RADIUS = 256;
+	private static final int RADIUS = 8;
 	
 	// range for damage
 	private static final int DAMAGE_RANGE = 5;
@@ -54,11 +55,14 @@ public class Knight extends NPC {
 	public Knight(Level level, int x, int y, int health, String walkPath, int walkDistance) {
 		super(level, "Knight", x, y, 1, WIDTH, HEIGHT, health, new int[] { 0xFF111111, 0xFF888888, 0xFFe8e8e8, 0xFF111111,0xFF7E7E7E},
 				0, 0, walkPath, walkDistance);
+		
+		// expand the outer range a little bit
+		setOuterBoundsRange(4);
 
 		// initialize the radius
 		if (level != null) {
-			this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
-			checkRadius();
+			aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
+			findTarget();
 		}
 	}
 	
@@ -76,22 +80,50 @@ public class Knight extends NPC {
 	/**
 	 * Updates the targeted mob
 	 */
-	private void checkRadius() {
+	protected void findTarget() {
 
 		// if the target is dead or out of range, reset the target
 		if (target != null && (target.isDead() || !(aggroRadius.intersects(target.getBounds())))) {
+			target.setTargeted(false);
 			target = null;
 		}
 
 		// assign a new target
 		if (target == null) {
-			for (Mob mob : getLevel().getMobs()) {
-				if ((mob instanceof Monster) && aggroRadius.intersects(mob.getBounds()) && !mob.isDead()) {
-					target = mob;
-					mob.setTargeted(true);
-					return;
+			
+			// closest targetted mob
+			Mob closest = null;
+			
+			// grow from small radius to large radius
+			for (int i = 1; i < 20; i++) {
+				
+				// update the radius
+				aggroRadius = new Ellipse2D.Double(getX() - (i * 8) / 2, getY() - (i * 8) / 2, i * 8, i * 8);
+				
+				for (Mob mob : getLevel().getMobs()) {
+					if ((mob instanceof Monster) && aggroRadius.intersects(mob.getBounds()) && !mob.isDead()) {
+						
+						// target the mob if it is not being targeted already
+						// or if it is already within range
+						if (!mob.isTargeted() || (getOuterBounds().intersects(mob.getOuterBounds()))) {
+							target = mob;
+							mob.setTargeted(true);
+							return;
+
+							// mob already being targetted
+						} else if (closest == null){
+							closest = mob;
+						}
+					}
 				}
 			}
+			
+			// at this point, no target has been selected so default to closest
+			if (closest != null) {
+				target = closest;
+				return;
+			}
+			
 		}
 
 	}
@@ -101,12 +133,18 @@ public class Knight extends NPC {
 	 */
 	public void tick() {
 		
-		checkRadius();
+		// make sure the knight has a valid target
+		findTarget();
 		
+		// do basic npc logic
 		if (target == null) {
 			super.tick();
-		} else {
-			getHealthBar().tick();
+			return;
+		} 
+		
+		// force the mob to move around the mob collision
+		if (isCollidingWithMob()) {
+			moveAroundMobCollision();
 		}
 		
 		// attacking cooldown loop
@@ -130,7 +168,7 @@ public class Knight extends NPC {
 
 		// whether or not the monster should move
 		// check the bounds if the monster prefers long range or not
-		if (target != null && !(getOuterBounds().intersects(target.getOuterBounds()))) {
+		if (!(getBounds().intersects(target.getOuterBounds()))) {
 
 			// move towards the target horizontally
 			if (target.getX() > getX()) {

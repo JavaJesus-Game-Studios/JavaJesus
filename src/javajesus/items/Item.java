@@ -132,7 +132,7 @@ public class Item implements Serializable {
 			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "??????", 0, 6, 10, 20, 50, Ammo.BLACKHOLE,
 			SoundHandler.revolver);
 	public static final Item flameThrower = new Gun("Flamethrower", 21, 0, 0,
-			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Please apply cold water to burn", 0, 200, 1, 0, 3,
+			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Please apply cold water to burn", 0, 10000, 0.2f, 0, 3,
 			Ammo.FLAMETHROWER, SoundHandler.revolver);
 	
 

@@ -28,9 +28,9 @@ public abstract class Monster extends Mob {
 	// Range that the monster can target another
 	private Ellipse2D.Double aggroRadius;
 
-	// the global attack range radius, 32 (number of units) * 8 (units) = 256
-	protected static final int RADIUS = 256;
-	
+	// the global attack range radius
+	protected static final int RADIUS = 32;
+
 	// range of damage
 	private static final int DAMAGE_RANGE = 5;
 
@@ -48,13 +48,13 @@ public abstract class Monster extends Mob {
 
 	// how long the attack position is rendered in ticks
 	private static final int attackAnimationLength = 20;
-	
+
 	// whether or not the attack animation should update
 	protected boolean flipAttack;
 
 	// makes npcs move every other tick
 	private int moveTick;
-	
+
 	// whether or not the monster is moving
 	protected boolean isMoving;
 
@@ -73,8 +73,9 @@ public abstract class Monster extends Mob {
 	 * @param attackDelay - the amount of ticks between attacks
 	 */
 	public Monster(Level level, String name, int x, int y, int speed, int width, int height, int yTile, int health,
-			int attackDelay) {
-		super(level, name, x, y, speed, width, height, SpriteSheet.mobEnemies, Math.round(health * JavaJesus.difficulty));
+	        int attackDelay) {
+		super(level, name, x, y, speed, width, height, SpriteSheet.mobEnemies,
+		        Math.round(health * JavaJesus.difficulty));
 		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
 		this.yTile = yTile;
 		this.attackDelay = attackDelay;
@@ -82,11 +83,8 @@ public abstract class Monster extends Mob {
 		// initialize a few things
 		if (level != null) {
 			createHealthBar();
-
-			// find a target to attack
-			checkRadius();
 		}
-		
+
 	}
 
 	/**
@@ -96,15 +94,41 @@ public abstract class Monster extends Mob {
 
 		// if the target is dead or out of range, reset the target
 		if (target != null && (target.isDead() || !(aggroRadius.intersects(target.getBounds())))) {
+			target.setTargeted(false);
 			target = null;
 		}
 
 		// assign a new target
 		if (target == null) {
-			for (Mob mob : getLevel().getMobs()) {
-				if ((mob instanceof Player || mob instanceof NPC) && aggroRadius.intersects(mob.getBounds()) && !mob.isDead()) {
-					target = mob;
-					mob.setTargeted(true);
+
+			// grow from small radius to large radius
+			for (int i = 1; i < RADIUS; i++) {
+				
+				// update the radius
+				aggroRadius = new Ellipse2D.Double(getX() - (i * 8) / 2, getY() - (i * 8) / 2, i * 8, i * 8);
+
+				// last mob in case no targetable mob
+				Mob last = null;
+				for (Mob mob : getLevel().getMobs()) {
+					if ((mob instanceof Player || mob instanceof NPC) && aggroRadius.intersects(mob.getBounds())
+					        && !mob.isDead()) {
+
+						// target the mob if it is not being targeted already
+						if (!mob.isTargeted()) {
+							target = mob;
+							mob.setTargeted(true);
+							return;
+
+							// mob already being targetted
+						} else {
+							last = mob;
+						}
+					}
+				}
+
+				// at this point, no target has been selected
+				if (last != null) {
+					target = last;
 					return;
 				}
 			}
@@ -118,7 +142,7 @@ public abstract class Monster extends Mob {
 	public void tick() {
 		super.tick();
 		checkRadius();
-		
+
 		// attacking cooldown loop
 		if (cooldown) {
 			attackTickCount++;
@@ -131,8 +155,8 @@ public abstract class Monster extends Mob {
 		}
 
 		// attack the target if given a chance
-		if (!cooldown && target != null && (getOuterBounds().intersects(target.getBounds()) || (this instanceof LongRange
-		        && (((LongRange) this).getRange().intersects(target.getBounds()))))) {
+		if (!cooldown && target != null && (getOuterBounds().intersects(target.getBounds())
+		        || (this instanceof LongRange && (((LongRange) this).getRange().intersects(target.getBounds()))))) {
 			cooldown = true;
 			checkDirection();
 			this.attack(DAMAGE_RANGE, target);
@@ -143,7 +167,7 @@ public abstract class Monster extends Mob {
 
 		// whether or not the monster should move
 		boolean shouldMove = false;
-		
+
 		// check the bounds if the monster prefers long range or not
 		if (target != null) {
 			if (this instanceof LongRange) {
@@ -212,12 +236,12 @@ public abstract class Monster extends Mob {
 		}
 		}
 	}
-	
+
 	/**
 	 * Updates the direction the mob is shooting
 	 */
 	private void checkDirection() {
-		
+
 		// move towards the target horizontally
 		if (target.getX() > getX()) {
 			setDirection(Direction.EAST);
@@ -236,10 +260,8 @@ public abstract class Monster extends Mob {
 	/**
 	 * Moves a monster on the level
 	 * 
-	 * @param dx
-	 *            the total change in x
-	 * @param dy
-	 *            the total change in y
+	 * @param dx the total change in x
+	 * @param dy the total change in y
 	 */
 	public void move(int dx, int dy) {
 
@@ -249,46 +271,52 @@ public abstract class Monster extends Mob {
 			super.move(dx * (int) getSpeed(), dy * (int) getSpeed());
 		}
 	}
-	
+
 	/**
 	 * Monsters can drop stuff on death
 	 */
 	public void remove() {
 		super.remove();
-		
+
 		// reset data
 		flipAttack = false;
-		
+
 		// drop loot on death
 		dropLoot();
-		
+
 	}
-	
+
 	/**
 	 * Adds specific items to loot on death
 	 */
 	protected void dropLoot() {
-		
+
 		// randomly drop an item of any time
 		int value = (new Random()).nextInt(10);
 		switch (value) {
 		case 0:
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.arrowAmmo, 3));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
+			        getY() + JavaJesus.getRandomOffset(8), Item.arrowAmmo, 3));
 			break;
 		case 1:
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.assaultRifleAmmo, 15));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
+			        getY() + JavaJesus.getRandomOffset(8), Item.assaultRifleAmmo, 15));
 			break;
 		case 2:
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.laserAmmo, 6));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
+			        getY() + JavaJesus.getRandomOffset(8), Item.laserAmmo, 6));
 			break;
 		case 3:
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.revolverAmmo, 6));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
+			        getY() + JavaJesus.getRandomOffset(8), Item.revolverAmmo, 6));
 			break;
 		case 4:
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.shotgunAmmo, 5));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
+			        getY() + JavaJesus.getRandomOffset(8), Item.shotgunAmmo, 5));
 			break;
 		case 5:
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.quickHealthPack, true));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
+			        getY() + JavaJesus.getRandomOffset(8), Item.quickHealthPack, true));
 			break;
 
 		// drop nothing
@@ -296,7 +324,7 @@ public abstract class Monster extends Mob {
 			break;
 		}
 	}
-	
+
 	@Override
 	public long getData() {
 		return EntityData.type2(getX(), getY(), getMaxHealth());

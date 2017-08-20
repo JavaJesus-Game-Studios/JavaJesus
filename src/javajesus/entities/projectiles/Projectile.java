@@ -252,7 +252,7 @@ public abstract class Projectile extends Entity implements Hideable {
 			
 			Damageable e = getLevel().getDamageables().get(i);
 			
-			if (this.getBounds().intersects(e.getBounds()) && e != mob) {
+			if (this.getBounds().intersects(e.getBounds()) && e != mob && !e.isDead()) {
 				e.damage(damage);
 				
 				// for rendering behind buildings

@@ -16,5 +16,7 @@ public interface Damageable {
 	public void damage(int damage);
 	
 	public Rectangle getBounds();
+	
+	public boolean isDead();
 
 }
