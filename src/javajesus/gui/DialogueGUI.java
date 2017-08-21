@@ -67,7 +67,7 @@ public class DialogueGUI extends JPanel {
 		add(head = new JJPanel());
 		
 		// set up the scroll pane
-		JScrollPane pane = new JScrollPane(dialogue = new JJTextArea(JJStrings.DIALOGUE_BOX));
+		JScrollPane pane = new JScrollPane(dialogue = new JJTextArea(JJStrings.ACTOR_DIALOGUE_BOX));
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		pane.getVerticalScrollBar().setUI(new VerticalSliderUI(JJStrings.DIALOGUE_TRACK));
 		pane.setBorder(null);
@@ -84,13 +84,9 @@ public class DialogueGUI extends JPanel {
 		selector.add(option3 = new JJSelector(""));
 		option1.selected = true;
 		option1.update();
-		pane = new JScrollPane(selector);
-		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		pane.getVerticalScrollBar().setUI(new VerticalSliderUI(JJStrings.DIALOGUE_TRACK));
-		pane.setBorder(null);
 		
 		// add the selector pane
-		add(pane);
+		add(selector);
 	}
 	
 	/**

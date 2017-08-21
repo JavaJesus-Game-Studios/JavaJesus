@@ -136,6 +136,7 @@ public class GameEngine implements Runnable {
 		// initialize the window
 		window.init();
 		
+		
 		try {
 
 			// initialize game logic
@@ -151,6 +152,7 @@ public class GameEngine implements Runnable {
 			// exit the game
 			System.exit(-1);
 		}
+		
 	}
 
 	/**

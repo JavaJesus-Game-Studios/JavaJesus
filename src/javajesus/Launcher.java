@@ -236,6 +236,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		quit = new LauncherButton(650, QUIT, quit_off, quit_on);
 		
 		sandboxPanel = new SandboxPanel(400);
+		setFocusable(true);
 
 	}
 	
