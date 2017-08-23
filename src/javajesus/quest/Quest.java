@@ -10,7 +10,7 @@ import javajesus.dataIO.QuestData;
 import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
 import javajesus.quest.events.Event;
-import javajesus.quest.original.LiberateChurch;
+import javajesus.quest.original.InvestigateChurch;
 import javajesus.quest.original.LiberateFarm;
 import javajesus.quest.original.LiberateVillage;
 import javajesus.quest.original.RescueKnights;
@@ -312,7 +312,7 @@ public abstract class Quest {
 		case LIBERATE_FARM:
 			return new LiberateFarm(giver);
 		case LIBERATE_CHURCH:
-			return new LiberateChurch(giver);
+			return new InvestigateChurch(giver);
 		case RESCUE_KNIGHTS:
 			return new RescueKnights(giver);
 		default:

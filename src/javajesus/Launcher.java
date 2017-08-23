@@ -872,7 +872,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			// get the right name
 			switch (selected) {
 			case ORIGINAL:
-				name = "Original";
+				name = "ALPHA";
 				break;
 			case ISLAND:
 				name = "Island";
@@ -975,7 +975,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			x = JavaJesus.WINDOW_WIDTH / 2 - fm.stringWidth(name) / 2;
 			
 			// draw the text
-			g.setColor(Color.BLACK);
+			g.setColor(Color.WHITE);
 			g.drawString(name, x, y + height + fm.getHeight() + 5);
 
 		}

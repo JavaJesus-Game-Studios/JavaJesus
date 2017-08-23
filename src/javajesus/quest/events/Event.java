@@ -9,6 +9,7 @@ public abstract class Event {
 
 	// constants for each event
 	public static final int SWAT_EVENT = 0;
+	public static final int VILLAGEINCREASEDDIFFICULTY = 1;
 	
 	/**
 	 * @param level - level where the actions are committed
@@ -33,6 +34,8 @@ public abstract class Event {
 		switch (id) {
 		case SWAT_EVENT:
 			return new SwatOfficerEvent(level);
+		case VILLAGEINCREASEDDIFFICULTY:
+			return new VillageIncreasedDifficulty(level);
 		default:
 			return null;
 		}

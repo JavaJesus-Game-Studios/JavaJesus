@@ -34,7 +34,7 @@ public class MessageHandler {
 	protected static ArrayList<String> chatwindow = new ArrayList<String>();
 
 	// List of colors used in the text that corresponds to different
-	// circmstances
+	// circumstances
 	private static ArrayList<Color> colors = new ArrayList<Color>();
 
 	// used in counting the ticks the window has been displayed

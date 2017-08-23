@@ -52,7 +52,7 @@ public class Demon extends Monster implements LongRange, Type {
 	 * @param health - the base health
 	 */
 	public Demon(Level level, int x, int y, int speed, int health, byte type) {
-		super(level, "Demon", x, y, speed, WIDTH, HEIGHT, 0, health, 100);
+		super(level, "Demon", x, y, speed, WIDTH, HEIGHT, 0, health, 200);
 
 		// set the standing box
 		this.standRange = new Ellipse2D.Double(x - (RADIUS * 8) / 4, y - (RADIUS * 8) / 4, (RADIUS * 8) / 2, (RADIUS * 8) / 2);

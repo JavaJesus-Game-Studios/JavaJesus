@@ -379,7 +379,7 @@ public class Player extends Mob implements Type {
 			// get the contents
 			for (Item e : chest.getContents()) {
 				inventory.add(e);
-				MessageHandler.displayText("You have obtained " + e, Color.GREEN);
+				MessageHandler.displayText("You have obtained " + e, Color.YELLOW);
 			}
 		}
 	}

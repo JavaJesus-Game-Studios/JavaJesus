@@ -214,7 +214,7 @@ public class PlayerHUD {
 		// draw the ammo info if a gun
 		if (player.getEquippedGun() != null) {
 			g.setFont(font);
-			g.setColor(Color.BLACK);
+			g.setColor(Color.WHITE);
 			g.drawString((int) player.getEquippedGun().getCurrentAmmo() + " / "
 					+ player.getEquippedGun().getClipSize(), string_xOffset,
 					string_yOffset);
