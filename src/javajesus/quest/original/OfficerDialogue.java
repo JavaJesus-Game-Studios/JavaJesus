@@ -10,17 +10,7 @@ public class OfficerDialogue extends Quest {
 	}
 
 	@Override
-	public String getEndDialogue() {
-		return null;
-	}
-
-	@Override
 	protected void update() {
-		
-	}
-
-	@Override
-	public void onFinish() {
 		
 	}
 

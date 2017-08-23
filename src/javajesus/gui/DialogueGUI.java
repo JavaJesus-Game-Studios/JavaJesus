@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import javajesus.JavaJesus;
+import javajesus.dataIO.QuestData;
 import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
 import javajesus.quest.Quest;
@@ -126,11 +127,11 @@ public class DialogueGUI extends JPanel {
 		Quest quest = giver.getCurrentQuest();
 		
 		if (selected == 0) {
-			quest.selectOption(1);
+			quest.selectOption(QuestData.KEY_TRIGGERS1);
 		} else if (selected == 1) {
-			quest.selectOption(2);
+			quest.selectOption(QuestData.KEY_TRIGGERS2);
 		} else {
-			quest.selectOption(3);
+			quest.selectOption(QuestData.KEY_TRIGGERS3);
 		}
 		
 		// update the screen

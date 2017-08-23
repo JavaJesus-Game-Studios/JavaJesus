@@ -38,14 +38,4 @@ public class TheEvilFox extends Quest {
 		
 	}
 
-	@Override
-	public String getEndDialogue() {
-		return "I can feel God's divine salvation blessing you. Go in Peace.";
-	}
-
-	@Override
-	public void onFinish() {
-		
-	}
-
 }

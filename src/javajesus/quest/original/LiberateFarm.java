@@ -27,11 +27,6 @@ public class LiberateFarm extends Quest {
 	}
 
 	@Override
-	public String getEndDialogue() {
-		return null;
-	}
-
-	@Override
 	protected void update() {
 		
 		// if a demon is not found, assume true
@@ -47,11 +42,6 @@ public class LiberateFarm extends Quest {
 		
 		// update the objective
 		objectives[FARM_CLEAR] = killed;
-	}
-		
-	@Override
-	public void onFinish() {
-		
 	}
 
 }

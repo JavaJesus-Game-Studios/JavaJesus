@@ -6,7 +6,6 @@ import javajesus.entities.Mob;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.npcs.NPC;
 import javajesus.quest.Quest;
-import javajesus.quest.events.Event;
 
 public class LiberateVillage extends Quest {
 	
@@ -40,16 +39,6 @@ public class LiberateVillage extends Quest {
 		// update the objective
 		objectives[VILLAGE_CLEAR] = killed;
 		
-	}
-
-	@Override
-	public String getEndDialogue() {
-		return "We can go back to our homes now, Gracias.";
-	}
-
-	@Override
-	public void onFinish() {
-		Event.createEvent(Event.SWAT_EVENT, giver.getLevel());
 	}
 
 }

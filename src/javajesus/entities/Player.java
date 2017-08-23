@@ -378,10 +378,17 @@ public class Player extends Mob implements Type {
 
 			// get the contents
 			for (Item e : chest.getContents()) {
-				inventory.add(e);
-				MessageHandler.displayText("You have obtained " + e, Color.YELLOW);
+				addItem(e);
 			}
 		}
+	}
+	
+	/**
+	 * @param item - item to add to the player's inventory
+	 */
+	public void addItem(Item item) {
+		inventory.add(item);
+		MessageHandler.displayText("You have obtained " + item, Color.YELLOW);
 	}
 
 	/**

@@ -235,11 +235,6 @@ public class QuestEditor extends JPanel implements ActionListener {
 			// open a new quest page
 			if (e.getSource() == open) {
 				
-				//  remove existing layers
-				for (int i = 0; i < questTree.getComponentCount(); i++) {
-					removeLayer();
-				}
-				
 				// create the file chooser
 				JFileChooser fc = new JFileChooser();
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -272,6 +267,14 @@ public class QuestEditor extends JPanel implements ActionListener {
 					
 					// update the file label
 					fileLabel.setText(name);
+					
+					// the number of layers to remove
+					int layers = questTree.getComponentCount() - 1;
+					
+					// remove existing layers
+					for (int i = 0; i < layers; i++) {
+						removeLayer();
+					}
 
 					// load if the file exists
 					if (file.exists()) {

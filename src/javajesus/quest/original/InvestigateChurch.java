@@ -10,19 +10,8 @@ public class InvestigateChurch extends Quest {
 	}
 
 	@Override
-	public String getEndDialogue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	protected void update() {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFinish() {
 		
 	}
 

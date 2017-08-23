@@ -9,6 +9,7 @@ import javajesus.DialogueHandler;
 import javajesus.dataIO.QuestData;
 import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
+import javajesus.items.Item;
 import javajesus.quest.events.Event;
 import javajesus.quest.original.InvestigateChurch;
 import javajesus.quest.original.LiberateFarm;
@@ -94,13 +95,13 @@ public abstract class Quest {
 		if (isCompleted()) {
 			
 			// do post quest logic
-			onFinish();
+			selectOption(QuestData.KEY_END_TRIGGER);
 
-			return getEndDialogue();
+			return (String) data.get(state).get(QuestData.KEY_END);
 
 			// dialogue quest text
 		} else {
-
+			
 			// get the dialogue based on the state
 			JSONObject current = data.get(state);
 
@@ -109,16 +110,6 @@ public abstract class Quest {
 		}
 
 	}
-	
-	/**
-	 * Logic performed when the quest is finished
-	 */
-	public abstract void onFinish();
-
-	/**
-	 * @return dialogue at quest completion
-	 */
-	public abstract String getEndDialogue();
 
 	/**
 	 * @param num - which option to get (1, 2, 3)
@@ -144,21 +135,9 @@ public abstract class Quest {
 	}
 
 	/**
-	 * @param num - which option to select (1, 2, 3)
+	 * @param key - Use Keys found in QuestData
 	 */
-	public void selectOption(int num) {
-
-		// which key to look up
-		String key;
-
-		// get the correct key based on the num
-		if (num == 1) {
-			key = QuestData.KEY_TRIGGERS1;
-		} else if (num == 2) {
-			key = QuestData.KEY_TRIGGERS2;
-		} else {
-			key = QuestData.KEY_TRIGGERS3;
-		}
+	public void selectOption(String key) {
 
 		// now get the trigger data
 		String raw = (String) data.get(state).get(key);
@@ -232,6 +211,16 @@ public abstract class Quest {
 		} else if (trigger.contains("SKIP")) {
 			giver.nextQuest();
 			
+			// add an item to the player's inventory
+		} else if (trigger.contains("ADD")) {
+			
+			// get the ID of the item to add
+			int id = Integer.valueOf(trigger.substring(trigger.indexOf("_") + 1));
+			
+			// adds an item to the player's inventory
+			player.addItem(Item.getItem(id));
+			
+			// unknown trigger
 		} else {
 			System.err.println("UNKNOWN TRIGGER: " + trigger);
 		}
