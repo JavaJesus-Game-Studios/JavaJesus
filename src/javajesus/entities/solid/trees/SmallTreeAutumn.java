@@ -13,7 +13,7 @@ public class SmallTreeAutumn extends Tree{
      * @param y - y coordinate
      */
     public SmallTreeAutumn(Level level, int x, int y) {
-        super(level, x, y, Sprite.SMALL_TREE_AUTUMN, 9, 8, 5);
+        super(level, x, y, Sprite.SMALL_TREE_AUTUMN, 8, 8, 9);
     }
 
     @Override

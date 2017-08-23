@@ -14,7 +14,7 @@ public class RedwoodMedium extends Tree
      * @param y - y coordinate
      */
     public RedwoodMedium(Level level, int x, int y) {
-        super(level, x, y, Sprite.REDWOOD_MEDIUM, 15, 8, 16);
+        super(level, x, y, Sprite.REDWOOD_MEDIUM, 14, 12, 8);
     }
 
     // need to add in the entity ID

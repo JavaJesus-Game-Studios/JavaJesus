@@ -15,7 +15,7 @@ public class DeadSequoiaSmall extends Tree
      * @param y - y coordinate
      */
     public DeadSequoiaSmall(Level level, int x, int y) {
-        super(level, x, y, Sprite.DEAD_SEQUOIA_SMALL, 3, 8, 3);
+        super(level, x, y, Sprite.DEAD_SEQUOIA_SMALL, 4, 8, 2);
     }
 
     @Override

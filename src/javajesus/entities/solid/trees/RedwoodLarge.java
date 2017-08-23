@@ -14,7 +14,7 @@ public class RedwoodLarge extends Tree
      * @param y - y coordinate
      */
     public RedwoodLarge(Level level, int x, int y) {
-        super(level, x, y, Sprite.REDWOOD_LARGE, 15, 8, 14);
+        super(level, x, y, Sprite.REDWOOD_LARGE, 15, 16, 14);
     }
 
     // need to add in the entity ID

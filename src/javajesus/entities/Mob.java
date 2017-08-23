@@ -549,7 +549,7 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 			}
 			
 			// 10 dps
-			if (fireTickCount % 6 == 0) {
+			if (fireTickCount % 12 == 0) {
 				this.damage(1);
 			}
 			
