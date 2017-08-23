@@ -530,7 +530,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		// display the inventory
 		cardlayout.show(display, "Inventory");
 		overview.requestFocusInWindow();
-		setFocusable(true);
 	}
 
 	/**
@@ -540,7 +539,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		guiID = PAUSE_DISPLAY;
 		cardlayout.show(display, "Pause");
 		pause.requestFocusInWindow();
-		setFocusable(true);
 	}
 
 	/**
@@ -550,7 +548,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		guiID = GAME_DISPLAY;
 		cardlayout.show(display, "Main");
 		display.getComponent(GAME_DISPLAY).requestFocusInWindow();
-		setFocusable(true);
 	}
 	
 	/**
@@ -565,7 +562,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		guiID = DIALOGUE_DISPLAY;
 		cardlayout.show(display, "Dialogue");
 		display.getComponent(DIALOGUE_DISPLAY).requestFocusInWindow();
-		setFocusable(true);
 	}
 
 	/**

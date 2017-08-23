@@ -3,6 +3,7 @@ package javajesus.level.sandbox;
 import java.awt.Point;
 import java.io.IOException;
 
+import javajesus.entities.npcs.Peasant;
 import javajesus.level.Level;
 
 /*
@@ -25,6 +26,10 @@ public class SandboxOriginalLevel extends Level {
 	 */
 	public SandboxOriginalLevel(int slot) throws IOException {
 		super("/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/original", "ALPHA Level", new Point(1472, 24), slot);
+		
+		// create a peasant with a quest
+		Peasant peasant = new Peasant(this, 0, 0, Peasant.MALE);
+		peasant.addQuest(null);
 		
 		// render some text
 		addText(INS_1, 1416, 64, color, 1);

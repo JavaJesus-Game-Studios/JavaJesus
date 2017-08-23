@@ -37,9 +37,9 @@ public class QuestEditor extends JPanel implements ActionListener {
 	private final JPanel questTree;
 	
 	// elements on the right side of the panel
-	private final JLabel stateLabel;
+	private final JLabel stateLabel, fileLabel;
 	private final JJTextArea giverDialogue, objectiveSummary, response1, response2, response3, response1Triggers,
-	        response2Triggers, response3Triggers;
+	        response2Triggers, response3Triggers, endDialogue, endTriggers;
 	
 	// ids of the buttons added to the quest tree
 	private static int id;
@@ -101,6 +101,7 @@ public class QuestEditor extends JPanel implements ActionListener {
 		addLayer.addActionListener(this);
 		top.add(removeLayer = new JButton("Remove Layer"));
 		removeLayer.addActionListener(this);
+		top.add(fileLabel = new JLabel(name));
 		add(top, BorderLayout.NORTH);
 		
 		// add the center container
@@ -126,7 +127,7 @@ public class QuestEditor extends JPanel implements ActionListener {
 		rightSide.add(stateLabel = new JLabel("STATE: N/A"));
 		rightSide.add(new JLabel("Giver Dialogue:"));
 		rightSide.add(new JScrollPane(giverDialogue = new JJTextArea("N/A")));
-		rightSide.add(new JLabel("Objective Summary:"));
+		rightSide.add(new JLabel("Quest Summary:"));
 		rightSide.add(new JScrollPane(objectiveSummary = new JJTextArea("N/A")));
 		rightSide.add(new JLabel("Response 1:"));
 		rightSide.add(new JScrollPane(response1 = new JJTextArea("N/A")));
@@ -140,6 +141,10 @@ public class QuestEditor extends JPanel implements ActionListener {
 		rightSide.add(new JScrollPane(response3 = new JJTextArea("N/A")));
 		rightSide.add(new JLabel("Response 3 Triggers:"));
 		rightSide.add(new JScrollPane(response3Triggers = new JJTextArea("3")));
+		rightSide.add(new JLabel("End Dialogue:"));
+		rightSide.add(new JScrollPane(endDialogue = new JJTextArea("N/A")));
+		rightSide.add(new JLabel("End Triggers:"));
+		rightSide.add(new JScrollPane(endTriggers = new JJTextArea("")));
 		
 		// encapsulate in a scroll pane
 		JScrollPane pane = new JScrollPane(rightSide);
@@ -264,6 +269,9 @@ public class QuestEditor extends JPanel implements ActionListener {
 						// set the name
 						name = file.getName().substring(0, file.getName().length() - 5);
 					}
+					
+					// update the file label
+					fileLabel.setText(name);
 
 					// load if the file exists
 					if (file.exists()) {
@@ -329,7 +337,7 @@ public class QuestEditor extends JPanel implements ActionListener {
 
 						// wrap it and add it to the array
 						array.add(QuestData.wrap(child.giverText, child.objText, child.res1Text, child.res2Text,
-						        child.res3Text, child.trig1, child.trig2, child.trig3));
+						        child.res3Text, child.trig1, child.trig2, child.trig3, child.endText, child.endTrig));
 					}
 				}
 				
@@ -361,7 +369,7 @@ public class QuestEditor extends JPanel implements ActionListener {
 		private int id;
 		
 		// text fields of the state
-		private String giverText, objText, res1Text, res2Text, res3Text, trig1, trig2, trig3;
+		private String giverText, objText, res1Text, res2Text, res3Text, trig1, trig2, trig3, endText, endTrig;
 
 		/**
 		 * JJButton ctor()
@@ -387,9 +395,11 @@ public class QuestEditor extends JPanel implements ActionListener {
 			res1Text = response1.getText();
 			res2Text = response2.getText();
 			res3Text = response3.getText();
+			endText = endDialogue.getText();
 			trig1 = response1Triggers.getText();
 			trig2 = response2Triggers.getText();
 			trig3 = response3Triggers.getText();
+			endTrig = endTriggers.getText();
 			
 		}
 		
@@ -405,6 +415,8 @@ public class QuestEditor extends JPanel implements ActionListener {
 			trig1 = (String) obj.get(QuestData.KEY_TRIGGERS1);
 			trig2 = (String) obj.get(QuestData.KEY_TRIGGERS2);
 			trig3 = (String) obj.get(QuestData.KEY_TRIGGERS3);
+			endText = (String) obj.get(QuestData.KEY_END);
+			endTrig = (String) obj.get(QuestData.KEY_END_TRIGGER);
 		}
 		
 		/**
@@ -421,6 +433,8 @@ public class QuestEditor extends JPanel implements ActionListener {
 			response1Triggers.setText(trig1);
 			response2Triggers.setText(trig2);
 			response3Triggers.setText(trig3);
+			endDialogue.setText(endText);
+			endTriggers.setText(endTrig);
 		}
 		
 	}

@@ -72,19 +72,15 @@ public class Window extends JFrame implements WindowListener {
 		for (int i = 0 ; i < listeners.length; i++) {
 			if (listeners[i] == Input.KEY) {
 				c.addKeyListener(input);
-				setFocusable(true);
 			}
 			if (listeners[i] == Input.FOCUS) {
 				c.addFocusListener(input);
-				setFocusable(true);
 			}
 			if (listeners[i] == Input.MOUSE) {
 				c.addMouseListener(input);
-				setFocusable(true);
 			}
 			if (listeners[i] == Input.MOUSE_MOTION) {
 				c.addMouseMotionListener(input);
-				setFocusable(true);
 			}
 		}
 		
