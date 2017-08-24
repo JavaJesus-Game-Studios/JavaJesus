@@ -72,7 +72,12 @@ public abstract class Building extends Entity implements SolidEntity {
 	public void tick() {
 
 	}
-
+	
+	@Override
+	public int getLayer() {
+		return getY() + shadow.height;
+	}
+	
 	/**
 	 * Renders the building on the screen
 	 */

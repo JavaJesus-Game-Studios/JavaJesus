@@ -171,6 +171,13 @@ public abstract class Entity implements Serializable {
 	public String toString() {
 		return "Point: (" + getX() + ", " + getY() + ")";
 	}
+	
+	/**
+	 * @return - the value of the layer
+	 */
+	public int getLayer() {
+		return getY();
+	}
 
 	/**
 	 * Converts seconds to ticks

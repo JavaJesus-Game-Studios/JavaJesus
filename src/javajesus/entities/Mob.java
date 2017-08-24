@@ -3,7 +3,6 @@ package javajesus.entities;
 import java.awt.Rectangle;
 import java.util.Random;
 
-import javajesus.Hideable;
 import javajesus.dataIO.EntityData;
 import javajesus.entities.particles.HealthBar;
 import javajesus.graphics.JJFont;
@@ -17,7 +16,7 @@ import javajesus.utility.Direction;
 /*
  * A mob is an entity that has complex interactions in a level with other entities
  */
-public abstract class Mob extends Entity implements Damageable, Hideable, Skills {
+public abstract class Mob extends Entity implements Damageable, Skills {
 
 	// the name of the mob
 	private String name;
@@ -54,9 +53,6 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 
 	// the padding around each mob where other mobs can interact
 	private Rectangle outerBounds;
-
-	// renders the mob behind the building
-	protected boolean isBehindBuilding;
 
 	// determines if the mob should have the swimming animation
 	protected boolean isSwimming;
@@ -199,9 +195,6 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 			}
 		}
 		
-		// update the layer
-		updateLayer();
-
 		// move the health bar
 		if (bar != null) {
 			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
@@ -371,30 +364,6 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Updates the rendering layer of the mob
-	 */
-	private void updateLayer() {
-
-		isBehindBuilding = false;
-
-		// loop through the buildings/possible entities
-		for (Entity entity : getLevel().getEntities()) {
-
-			if (entity instanceof SolidEntity) {
-
-				// if the mob is behind a building, render in the background
-				if (getBounds().intersects(((SolidEntity) entity).getShadow())) {
-					isBehindBuilding = true;
-					return;
-				} 
-
-			} 
-
-		}
-
 	}
 
 	/**
@@ -663,8 +632,6 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 		onFire = false;
 		knockbackCooldown = false;
 		
-		// renders the mob in the background
-		isBehindBuilding = true;
 	}
 	
 	/**
@@ -993,13 +960,6 @@ public abstract class Mob extends Entity implements Damageable, Hideable, Skills
 	 */
 	public Tile getTile() {
 		return getLevel().getTileFromEntityCoords(getX(), getY());
-	}
-
-	/**
-	 * @return true if the mob is behind a solid building
-	 */
-	public boolean isBehindBuilding() {
-		return isBehindBuilding;
 	}
 
 	/**

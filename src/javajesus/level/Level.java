@@ -10,7 +10,6 @@ import java.util.List;
 import javax.sound.sampled.Clip;
 import javax.swing.filechooser.FileSystemView;
 
-import javajesus.Hideable;
 import javajesus.JavaJesus;
 import javajesus.SoundHandler;
 import javajesus.dataIO.EntityData;
@@ -23,6 +22,7 @@ import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.AnimatedTile;
 import javajesus.level.tile.Tile;
+import javajesus.utility.EntityComparator;
 import javajesus.utility.LevelText;
 
 /*
@@ -44,9 +44,6 @@ public abstract class Level {
 	// list of all things that can be damaged
 	private final List<Damageable> damageables = new ArrayList<Damageable>(JavaJesus.ENTITY_LIMIT);
 
-	// list of all mobs that are layered
-	private final List<Hideable> hideables = new ArrayList<Hideable>(JavaJesus.ENTITY_LIMIT);
-	
 	// list of text that will be rendered
 	private final List<LevelText> text = new ArrayList<LevelText>(JavaJesus.ENTITY_LIMIT);
 
@@ -55,6 +52,9 @@ public abstract class Level {
 
 	// name of the level
 	private final String name;
+	
+	// tickcount for sorting entities
+	private int tickCount;
 	
 	// gets the name add-on for entity files
 	public static final String ENTITY = "_entities";
@@ -76,6 +76,9 @@ public abstract class Level {
 
 	// global offsets for determining the range to display things
 	private int xOffset, yOffset;
+	
+	// the comparator used for sorting entities
+	private static final EntityComparator comparator = new EntityComparator();
 	
 	// data used for loading and saving levels
 	protected String path;
@@ -203,7 +206,13 @@ public abstract class Level {
 	 * Updates all entities and tiles on the map
 	 */
 	public void tick() {
-
+		
+		// layer entities twice a second
+		if (++tickCount % 30 == 0) {
+			// correctly layer entities
+			entities.sort(comparator);
+		}
+		
 		// update all entities and living mobs
 		for (int i = 0; i < getEntities().size(); i++) {
 			Entity e = getEntities().get(i);
@@ -263,27 +272,10 @@ public abstract class Level {
 		// the range around the player to display the entities
 		renderRange.setLocation(xOffset, yOffset);
 		
-		// render everything that is behind a building first
-		for (Hideable entity : hideables) {
-
-			if (entity.getBounds().intersects(renderRange) && entity.isBehindBuilding()) {
-				entity.render(screen);
-			}
-
-		}
-
-		// render all buildings
+		// render all the entities on the visible screen
 		for (Entity e : this.getEntities()) {
-			if ((e.getBounds().intersects(renderRange) && !(e instanceof Hideable))
+			if (e.getBounds().intersects(renderRange)
 			        || (e instanceof SolidEntity && ((SolidEntity) e).getShadow().intersects(renderRange))) {
-				e.render(screen);
-			}
-			
-		}
-
-		// now render everything else on top
-		for (Hideable e : hideables) {
-			if (e.getBounds().intersects(renderRange) && !e.isBehindBuilding()) {
 				e.render(screen);
 			}
 
@@ -414,14 +406,10 @@ public abstract class Level {
 	 * 
 	 * @param entity - the entity to add
 	 */
-	public synchronized void add(Entity entity) {
+	public void add(Entity entity) {
 		
 		if (entity instanceof Mob) {
 			mobs.add((Mob) entity);
-
-		}
-		if (entity instanceof Hideable) {
-			hideables.add((Hideable) entity);
 		}
 		if (entity instanceof Damageable) {
 			damageables.add((Damageable) entity);
@@ -435,13 +423,10 @@ public abstract class Level {
 	 * 
 	 * @param entity - the entity to remove
 	 */
-	public synchronized void remove(Entity entity) {
+	public void remove(Entity entity) {
 		entities.remove(entity);
 		if (entity instanceof Mob) {
 			mobs.remove(entity);
-		}
-		if (entity instanceof Hideable) {
-			hideables.remove(entity);
 		}
 		if (entity instanceof Damageable) {
 			damageables.remove(entity);

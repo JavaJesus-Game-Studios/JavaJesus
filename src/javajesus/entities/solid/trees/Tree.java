@@ -57,6 +57,11 @@ public abstract class Tree extends Entity implements SolidEntity {
 	public Rectangle getShadow() {
 		return shadow;
 	}
+	
+	@Override
+	public int getLayer() {
+		return getY() + shadow.height;
+	}
 
 	/**
 	 * Trees don't really update

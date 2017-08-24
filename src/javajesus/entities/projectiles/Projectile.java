@@ -2,12 +2,10 @@ package javajesus.entities.projectiles;
 
 import javax.sound.sampled.Clip;
 
-import javajesus.Hideable;
 import javajesus.SoundHandler;
 import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
-import javajesus.entities.SolidEntity;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
@@ -16,7 +14,7 @@ import javajesus.utility.Direction;
 /*
  * A projectile is a fleeting entity that moves very fast across the screen to deal damage
  */
-public abstract class Projectile extends Entity implements Hideable {
+public abstract class Projectile extends Entity {
 
 	// the stats of the projectile
 	private int speed, damage;
@@ -33,9 +31,6 @@ public abstract class Projectile extends Entity implements Hideable {
 	// position on the spritesheet
 	private int xTile, yTile;
 
-	// do not render if the projectile is behind a building
-	private boolean isBehindBuilding;
-	
 	// x and y coordinates should be in double precision
 	private float x, y;
 	
@@ -245,8 +240,6 @@ public abstract class Projectile extends Entity implements Hideable {
 			return;
 		}
 
-		isBehindBuilding = false;
-
 		// check for collisions
 		for (int i = 0; i < getLevel().getDamageables().size(); i++) {
 			
@@ -254,13 +247,6 @@ public abstract class Projectile extends Entity implements Hideable {
 			
 			if (this.getBounds().intersects(e.getBounds()) && e != mob && !e.isDead()) {
 				e.damage(damage);
-				
-				// for rendering behind buildings
-				if (e instanceof SolidEntity) {
-					if (this.getBounds().intersects(((SolidEntity) e).getShadow())) {
-						isBehindBuilding = true;
-					}
-				}
 				destroy();
 			}
 		}
@@ -310,13 +296,6 @@ public abstract class Projectile extends Entity implements Hideable {
 	 */
 	protected void destroy() {
 		getLevel().remove(this);
-	}
-	
-	/**
-	 * @return true if the projectile is behind a building
-	 */
-	public boolean isBehindBuilding() {
-		return isBehindBuilding;
 	}
 	
 	/**
