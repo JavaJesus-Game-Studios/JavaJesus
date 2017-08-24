@@ -65,7 +65,7 @@ import javajesus.entities.npcs.characters.Ranchero;
 import javajesus.entities.npcs.characters.Son;
 import javajesus.entities.npcs.characters.Wife;
 import javajesus.entities.npcs.characters.Zorra;
-import javajesus.entities.solid.buildings.AlphaCaveEntrance;
+import javajesus.entities.solid.buildings.AlphaCave;
 import javajesus.entities.solid.buildings.ApartmentHighRise;
 import javajesus.entities.solid.buildings.Castle;
 import javajesus.entities.solid.buildings.CastleTower;
@@ -1307,7 +1307,7 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.LARGE_TREE_WINTER & 0x00FF] = new EntityGUI(new LargeTreeWinter(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 7);
 			entityList[Entity.WHITE_OAK & 0x00FF] = new EntityGUI(new WhiteOak(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 7);
 			entityList[Entity.WHITE_OAK_SMALL & 0x00FF] = new EntityGUI(new WhiteOakSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 6);
-			entityList[Entity.ALPHA_CAVE_ENTRANCE &0x00FF] = new EntityGUI(new AlphaCaveEntrance(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 5);
+			entityList[Entity.ALPHA_CAVE_ENTRANCE &0x00FF] = new EntityGUI(new AlphaCave(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 5);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -1593,7 +1593,7 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			case Entity.DUCK:
 				return new EntityGUI(new Duck(null, 0, 0),0,0,1,2);
 			case Entity.ALPHA_CAVE_ENTRANCE:
-				return new EntityGUI(new AlphaCaveEntrance(null, 0,0),0,0,6,5);
+				return new EntityGUI(new AlphaCave(null, 0,0),0,0,6,5);
                 
 			}
 			
