@@ -124,7 +124,8 @@ public class Player extends Mob implements Type {
 		}
 		
 		// gives certain names certain powers
-		if (name.equals("Derek Jow") || name.equals("Stevie") || name.equals("Andrew Leamy")) {
+		if (name.equals("Derek Jow") || name.equals("Stevie") || name.equals("Andrew Leamy")
+				|| name.equals("Wesley")) {
 			grantDevPowers();
 			System.err.println("Creating Developer");
 		}  else {
