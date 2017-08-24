@@ -23,6 +23,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
 
+import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
 import javajesus.entities.Chest;
 import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
@@ -40,6 +52,7 @@ import javajesus.entities.monsters.Bandito;
 import javajesus.entities.monsters.Centaur;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.EvilFox;
+import javajesus.entities.monsters.EvilOrangutan;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
 import javajesus.entities.monsters.Skeleton;
@@ -51,6 +64,7 @@ import javajesus.entities.npcs.aggressive.Companion;
 import javajesus.entities.npcs.aggressive.Gorilla;
 import javajesus.entities.npcs.aggressive.Knight;
 import javajesus.entities.npcs.aggressive.NativeAmerican;
+import javajesus.entities.npcs.aggressive.Orangutan;
 import javajesus.entities.npcs.aggressive.PoliceOfficer;
 import javajesus.entities.npcs.aggressive.SWATOfficer;
 import javajesus.entities.npcs.aggressive.TechWarrior;
@@ -160,18 +174,6 @@ import javajesus.entities.vehicles.SportsCar;
 import javajesus.entities.vehicles.Truck;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
-
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 /*
  * Driver class of the level editors
@@ -1268,6 +1270,8 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.ZORRA] = new EntityGUI(new Zorra(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.COMPANION] = new EntityGUI(new Companion(null, 0, 0, null), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.GORILLA] = new EntityGUI(new Gorilla(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 3);
+			entityList[Entity.ORANGUTAN & 0x00FF] = new EntityGUI(new Orangutan(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 3);
+			entityList[Entity.EVIL_ORANGUTAN & 0x00FF] = new EntityGUI(new EvilOrangutan(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 3);
 			entityList[Entity.NATIVE_AMERICAN] = new EntityGUI(new NativeAmerican(null, 0, 0, NativeAmerican.MALE), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.POLICE_OFFICER] = new EntityGUI(new PoliceOfficer(null, 0, 0, PoliceOfficer.MALE), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.SWAT_OFFICER] = new EntityGUI(new SWATOfficer(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
@@ -1594,6 +1598,10 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 				return new EntityGUI(new Duck(null, 0, 0),0,0,1,2);
 			case Entity.ALPHA_CAVE_ENTRANCE:
 				return new EntityGUI(new AlphaCaveEntrance(null, 0,0),0,0,6,5);
+			case Entity.ORANGUTAN:
+                return new EntityGUI(new Orangutan(null, 0, 0), 0, 0, 3, 3);
+			case Entity.EVIL_ORANGUTAN:
+                return new EntityGUI(new EvilOrangutan(null, 0, 0), 0, 0, 3, 3);
                 
 			}
 			
