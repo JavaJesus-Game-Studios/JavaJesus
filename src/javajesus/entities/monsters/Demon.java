@@ -36,6 +36,9 @@ public class Demon extends Monster implements LongRange, Type {
 	//types of Demon
 	public static final byte IMP = 0, WARRIOR = 1;
 	
+	// attack range of demons
+	protected static final int RADIUS = 20 * 8;
+	
 	//which type the Demon is
 	private byte type;
 	
@@ -55,7 +58,7 @@ public class Demon extends Monster implements LongRange, Type {
 		super(level, "Demon", x, y, speed, WIDTH, HEIGHT, 0, health, 200);
 
 		// set the standing box
-		this.standRange = new Ellipse2D.Double(x - (RADIUS * 8) / 4, y - (RADIUS * 8) / 4, (RADIUS * 8) / 2, (RADIUS * 8) / 2);
+		this.standRange = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
 		
 		// set fire immunity
 		setFireImmune(true);
@@ -235,7 +238,7 @@ public class Demon extends Monster implements LongRange, Type {
 	 */
 	public void move(int dx, int dy) {
 
-		standRange.setFrame(getX() - RADIUS / 4, getY() - RADIUS / 4, RADIUS / 2, RADIUS / 2);
+		standRange.setFrame(getX() - RADIUS / 2, getY() - RADIUS / 2, RADIUS, RADIUS);
 
 		super.move(dx, dy);
 	}
