@@ -1597,15 +1597,11 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			case Entity.DUCK:
 				return new EntityGUI(new Duck(null, 0, 0),0,0,1,2);
 			case Entity.ALPHA_CAVE_ENTRANCE:
-<<<<<<< HEAD
-				return new EntityGUI(new AlphaCaveEntrance(null, 0,0),0,0,6,5);
+				return new EntityGUI(new AlphaCave(null, 0,0),0,0,6,5);
 			case Entity.ORANGUTAN:
                 return new EntityGUI(new Orangutan(null, 0, 0), 0, 0, 3, 3);
 			case Entity.EVIL_ORANGUTAN:
                 return new EntityGUI(new EvilOrangutan(null, 0, 0), 0, 0, 3, 3);
-=======
-				return new EntityGUI(new AlphaCave(null, 0,0),0,0,6,5);
->>>>>>> origin/master
                 
 			}
 			
