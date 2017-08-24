@@ -28,6 +28,7 @@ import javajesus.entities.monsters.Bandito;
 import javajesus.entities.monsters.Centaur;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.EvilFox;
+import javajesus.entities.monsters.EvilOrangutan;
 import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
 import javajesus.entities.monsters.Skeleton;
@@ -39,6 +40,7 @@ import javajesus.entities.npcs.aggressive.Companion;
 import javajesus.entities.npcs.aggressive.Gorilla;
 import javajesus.entities.npcs.aggressive.Knight;
 import javajesus.entities.npcs.aggressive.NativeAmerican;
+import javajesus.entities.npcs.aggressive.Orangutan;
 import javajesus.entities.npcs.aggressive.PoliceOfficer;
 import javajesus.entities.npcs.aggressive.SWATOfficer;
 import javajesus.entities.npcs.aggressive.TechWarrior;
@@ -53,6 +55,7 @@ import javajesus.entities.npcs.characters.Ranchero;
 import javajesus.entities.npcs.characters.Son;
 import javajesus.entities.npcs.characters.Wife;
 import javajesus.entities.npcs.characters.Zorra;
+import javajesus.entities.solid.buildings.AlphaCave;
 import javajesus.entities.solid.buildings.ApartmentHighRise;
 import javajesus.entities.solid.buildings.Castle;
 import javajesus.entities.solid.buildings.CastleTower;
@@ -607,9 +610,15 @@ public class EntityData {
 				return new Pigeon(level, x, y);
 			case Entity.DUCK:
 				return new Duck(level, x, y);
-
+			case Entity.ALPHA_CAVE_ENTRANCE:
+				return new AlphaCave(level, x, y);
+			case Entity.EVIL_ORANGUTAN:
+				return new EvilOrangutan(level, x, y);
+			case Entity.ORANGUTAN:
+				return new Orangutan(level, x, y);
 	        default:
 	        	System.err.println("CRITICAL ERROR! CRITICAL ERROR! SAVING NULL ENTITY: " + id);
+	        	System.err.println("MAKE SURE TO ADD ENTITY CASE IN ENTITYDATA.JAVA IN DATAIO");
 	            return null;
 	        }
 		    
