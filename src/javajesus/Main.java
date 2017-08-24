@@ -30,7 +30,7 @@ public class Main {
 			// error checking
 			if (splash == null) {
 				System.err.println("Splash is null");
-				System.err.println("Add VM Arg in Run Configurations: -splash:res/VISUAL_DATA/GUI/CREDITS/logo.png");
+				System.err.println("Add VM Arg in Run Configurations: -splash:res/VISUAL_DATA/GUI/CREDITS/logo.gif");
 				return;
 			}
 			
