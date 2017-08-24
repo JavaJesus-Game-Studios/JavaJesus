@@ -11,6 +11,8 @@ import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
 import javajesus.items.Item;
 import javajesus.quest.events.Event;
+import javajesus.quest.original.AlphaMissingCow;
+import javajesus.quest.original.AlphaTurningTheTide;
 import javajesus.quest.original.InvestigateChurch;
 import javajesus.quest.original.LiberateFarm;
 import javajesus.quest.original.LiberateVillage;
@@ -47,7 +49,8 @@ public abstract class Quest {
 	private Player player;
 
 	// IDS used for getting quests
-	private static final int EVIL_FOX = 0, LIBERATE_VILLAGE = 1, LIBERATE_FARM = 2, RESCUE_KNIGHTS = 3, LIBERATE_CHURCH = 4;
+	private static final int EVIL_FOX = 0, LIBERATE_VILLAGE = 1, LIBERATE_FARM = 2,
+			RESCUE_KNIGHTS = 3, LIBERATE_CHURCH = 4, MISSING_COW =5, TURNTIDE=6;
 
 	/**
 	 * Quest ctor() Creates a quest object that loads information from a .json
@@ -304,6 +307,10 @@ public abstract class Quest {
 			return new InvestigateChurch(giver);
 		case RESCUE_KNIGHTS:
 			return new RescueKnights(giver);
+		case MISSING_COW:
+			return new AlphaMissingCow(giver);
+		case TURNTIDE:
+			return new AlphaTurningTheTide(giver);
 		default:
 			return null;
 		}

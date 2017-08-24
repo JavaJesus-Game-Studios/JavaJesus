@@ -27,8 +27,8 @@ public class RussianClub extends Building {
 		super(level, x, y, new int[] { 0xFFFFEB0A, 0xFF80004B, 0xFFE934F9 }, Sprite.russian_club);
 
 		if (level != null) {
-		level.add(new Door(level, x + 38, y + 45, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
-		level.add(new Door(level, x + 51, y + 45, level));
+		level.add(new Door(level, x + 38, y + 45, new PoorHouseInterior(new Point(x + 40, y + 67), level),0,0));
+		level.add(new Door(level, x + 51, y + 45, level,0,0));
 		}
 	}
 	

@@ -26,7 +26,7 @@ public class Prison extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFAB0, 0xFFABD3FF }, Sprite.prison);
 
 		if (level != null)
-		level.add(new Door(level, x + 60, y + 64, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
+		level.add(new Door(level, x + 60, y + 64, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel()),0,0));
 	}
 
 	@Override

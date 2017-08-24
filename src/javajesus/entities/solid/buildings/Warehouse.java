@@ -26,7 +26,7 @@ public class Warehouse extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF8D1919, 0xFF545454 }, Sprite.warehouse);
 
 		if (level != null)
-		level.add(new Door(level, x + 77, y + 48, new WarehouseInterior(new Point(x + 83, y + 54), level)));
+		level.add(new Door(level, x + 77, y + 48, new WarehouseInterior(new Point(x + 83, y + 54), level),0,0));
 	}
 
 	@Override

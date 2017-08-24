@@ -30,7 +30,7 @@ public class Hotel extends Building {
 		super(level, x, y, getColor(), Sprite.hotel);
 
 		if (level != null)
-		level.add(new Door(level, x + 24, y + 64, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
+		level.add(new Door(level, x + 24, y + 64, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel()),0,0));
 	}
 
 	/**

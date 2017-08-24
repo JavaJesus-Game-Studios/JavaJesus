@@ -30,7 +30,7 @@ public class TreeHouse extends Building {
 		setBounds(getBounds().x + 18, getBounds().y, getBounds().width - 36, getBounds().height);
 
 		if (level != null)
-		level.add(new Door(level, x + 18, y + 30, new TreeHouseInterior(new Point(x + 24, y + 42), level)));
+		level.add(new Door(level, x + 18, y + 30, new TreeHouseInterior(new Point(x + 24, y + 42), level),0,0));
 	}
 
 	@Override

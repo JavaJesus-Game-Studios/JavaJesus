@@ -11,6 +11,8 @@ public abstract class Event {
 	public static final int SWAT_EVENT = 0;
 	public static final int VILLAGEINCREASEDDIFFICULTY = 1;
 	public static final int ALPHAPEASANTFARMSPAWNER = 2;
+	public static final int KNIGHTSPAWNER = 3;
+	public static final int KENBECOMESEVIL = 4;
 	
 	/**
 	 * @param level - level where the actions are committed
@@ -39,6 +41,10 @@ public abstract class Event {
 			return new VillageIncreasedDifficulty(level);
 		case ALPHAPEASANTFARMSPAWNER:
 			return new AlphaPeasantFarmSpawn(level);
+		case KNIGHTSPAWNER:
+			return new KnightSpawner(level);
+		case KENBECOMESEVIL:
+			return new KenBecomesEvil(level);
 		default:
 			return null;
 		}

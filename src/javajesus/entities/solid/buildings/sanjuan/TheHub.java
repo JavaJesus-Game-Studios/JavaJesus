@@ -27,7 +27,7 @@ public class TheHub extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF86868D, 0xFF4D4DFF }, Sprite.theHub);
 
 		if (level != null)
-		level.add(new Door(level, x + 46, y + 148, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		level.add(new Door(level, x + 46, y + 148, new PoorHouseInterior(new Point(x + 40, y + 67), level),0,0));
 	}
 
 	@Override

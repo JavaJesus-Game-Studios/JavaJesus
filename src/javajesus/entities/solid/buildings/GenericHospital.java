@@ -21,7 +21,7 @@ public class GenericHospital extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFFFF, 0xFF496787 }, Sprite.generic_hospital);
 
 		if (level != null)
-		level.add(new Door(level, x + 43, y + 64, getLevel()));
+		level.add(new Door(level, x + 43, y + 64, getLevel(),0,0));
 	}
 
 	@Override

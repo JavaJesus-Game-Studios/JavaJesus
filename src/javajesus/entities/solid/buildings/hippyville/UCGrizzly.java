@@ -27,8 +27,8 @@ public class UCGrizzly extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFFB2, 0xFF6D6D61 }, Sprite.grizzly);
 
 		if (level != null) {
-		level.add(new Door(level, x + 82, y + 45, new UCGrizzlyInterior(new Point(x + 88, y + 57), level)));
-		level.add(new Door(level, x + 106, y + 45, new UCGrizzlyInterior(new Point(x + 112, y + 57), level)));
+		level.add(new Door(level, x + 82, y + 45, new UCGrizzlyInterior(new Point(x + 88, y + 57), level),0,0));
+		level.add(new Door(level, x + 106, y + 45, new UCGrizzlyInterior(new Point(x + 112, y + 57), level),0,0));
 		}
 	}
 	

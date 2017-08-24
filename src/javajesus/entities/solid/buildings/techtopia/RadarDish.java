@@ -30,7 +30,7 @@ public class RadarDish extends Building {
 		setBounds(getBounds().x + 6, getBounds().y, getBounds().width - 12, getBounds().height);
 
 		if (level != null)
-		level.add(new Door(level, x + 37, y + 117, new RadarDishInterior(new Point(x + 43, y + 125), level)));
+		level.add(new Door(level, x + 37, y + 117, new RadarDishInterior(new Point(x + 43, y + 125), level),0,0));
 	}
 
 	@Override

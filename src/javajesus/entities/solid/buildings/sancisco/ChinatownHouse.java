@@ -31,7 +31,7 @@ public class ChinatownHouse extends Building {
 
 		if (level != null)
 		level.add(new Door(level, x + 26, y + 41,
-		        new ChinatownHouseInterior(new Point(x + 32, y + 53), getLevel())));
+		        new ChinatownHouseInterior(new Point(x + 32, y + 53), getLevel()),0,0));
 	}
 
 	@Override

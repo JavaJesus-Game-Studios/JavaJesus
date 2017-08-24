@@ -27,7 +27,7 @@ public class SequoiaSchool extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF8D1919, 0xFF4D4DFF }, Sprite.sequoiaSchool);
 
 		if (level != null)
-		level.add(new Door(level, x + 60, y + 99, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		level.add(new Door(level, x + 60, y + 99, new PoorHouseInterior(new Point(x + 40, y + 67), level),0,0));
 	}
 
 	@Override

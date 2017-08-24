@@ -28,7 +28,7 @@ public class OakwoodCityHall extends Building {
 
 		if (level != null)
 		level.add(
-		        new Door(level, x + 48, y + 104, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
+		        new Door(level, x + 48, y + 104, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel()),0,0));
 	}
 	
 	@Override

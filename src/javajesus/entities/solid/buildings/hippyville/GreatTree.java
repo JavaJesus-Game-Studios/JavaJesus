@@ -30,7 +30,7 @@ public class GreatTree extends Building {
 		setBounds(getBounds().x + 13, getBounds().y, getBounds().width - 26, getBounds().height);
 
 		if (level != null)
-		level.add(new Door(level, x + 22, y + 30, new PoorHouseInterior(new Point(x + 28, y + 42), getLevel())));
+		level.add(new Door(level, x + 22, y + 30, new PoorHouseInterior(new Point(x + 28, y + 42), getLevel()),0,0));
 	}
 	
 	@Override

@@ -27,8 +27,8 @@ public class CardinalUniversity extends Building {
 		super(level, x, y, new int[] { 0xFFFF1111, 0xFFFFFFB2, 0xFFFFFFFF }, Sprite.cardinalUniversity);
 
 		if (level != null) {
-		level.add(new Door(level, x + 82, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
-		level.add(new Door(level, x + 106, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		level.add(new Door(level, x + 82, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level),0,0));
+		level.add(new Door(level, x + 106, y + 40, new PoorHouseInterior(new Point(x + 40, y + 67), level),0,0));
 		}
 	}
 	

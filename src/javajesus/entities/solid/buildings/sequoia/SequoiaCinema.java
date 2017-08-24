@@ -30,7 +30,7 @@ public class SequoiaCinema extends Building {
 		setBounds(getBounds().x + 14, getBounds().y, getBounds().width - 14, getBounds().height);
 
 		if (level != null)
-		level.add(new Door(level, x + 59, y + 99, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		level.add(new Door(level, x + 59, y + 99, new PoorHouseInterior(new Point(x + 40, y + 67), level),0,0));
 	}
 	
 	@Override

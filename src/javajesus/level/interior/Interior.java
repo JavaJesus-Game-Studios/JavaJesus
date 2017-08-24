@@ -22,7 +22,7 @@ public abstract class Interior extends Level {
 	 * 
 	 * @param path - file path
 	 * @param spawn - where the player enters the interior
-	 * @param next - the level that was exited
+	 * @param outside - the level that was exited
 	 * @throws IOException 
 	 */
 	public Interior(final String path, final Point spawn, final Level outside) throws IOException {

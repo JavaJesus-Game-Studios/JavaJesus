@@ -30,7 +30,7 @@ public class SanJuanCityHall extends Building {
 		setBounds(getBounds().x, getBounds().y, getBounds().width - 33, getBounds().height);
 
 		if (level != null)
-		level.add(new Door(level, x + 67, y + 104, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		level.add(new Door(level, x + 67, y + 104, new PoorHouseInterior(new Point(x + 40, y + 67), level),0,0));
 	}
 
 	@Override

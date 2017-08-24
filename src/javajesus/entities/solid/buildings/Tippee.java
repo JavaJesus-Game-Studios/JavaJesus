@@ -26,7 +26,7 @@ public class Tippee extends Building {
 		super(level, x, y, new int[] { 0xFF522900, 0xFF977F66, 0xFF335C33 }, Sprite.tippee);
 
 		if (level != null)
-		level.add(new Door(level, x + 10, y + 32, new TippeeInterior(new Point(x + 16, y + 45), level)));
+		level.add(new Door(level, x + 10, y + 32, new TippeeInterior(new Point(x + 16, y + 45), level),0,0));
 	}
 
 	@Override

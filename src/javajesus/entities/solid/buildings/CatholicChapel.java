@@ -27,7 +27,7 @@ public class CatholicChapel extends Building {
 
 		if (level != null)
 		level.add(new Door(level, x + 22, y + 47,
-		        new CatholicChapelInterior(new Point(x + 27, y + 57), getLevel())));
+		        new CatholicChapelInterior(new Point(x + 27, y + 57), getLevel()),0,0));
 	}
 
 	@Override

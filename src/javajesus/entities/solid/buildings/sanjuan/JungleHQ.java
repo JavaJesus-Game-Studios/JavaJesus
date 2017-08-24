@@ -27,8 +27,8 @@ public class JungleHQ extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF248F24, 0xFF4D4DFF }, Sprite.jugle_hq);
 
 		if (level != null) {
-		level.add(new Door(level, x + 61, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
-		level.add(new Door(level, x + 75, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel())));
+		level.add(new Door(level, x + 61, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel()),0,0));
+		level.add(new Door(level, x + 75, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), getLevel()),0,0));
 		}
 	}
 

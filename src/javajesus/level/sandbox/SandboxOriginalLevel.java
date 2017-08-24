@@ -4,20 +4,20 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.entities.npcs.Peasant;
+import javajesus.entities.npcs.aggressive.Orangutan;
 import javajesus.level.Level;
+import javajesus.level.interior.AlphaCave;
+import javajesus.level.interior.Interior;
+import javajesus.quest.original.AlphaTurningTheTide;
+import javajesus.quest.original.LiberateFarm;
 
 /*
  * Fixed level for sandbox mode
  */
 public class SandboxOriginalLevel extends Level {
 	
-	// lines of text
-	private static final String INS_1 = "WASD - Move", INS_2 = "Arrow Keys - Shoot", INS_3 = "Space - Swing", INS_4 = "I - Inventory",
-			INS_5 = "E - Action/Interact";
-	
-	// color set of text
-	private static final int[] color = { 0xFF000000, 0xFF000000, 0xFFFFCC00 };
-
+	//Instance of the Souther Cave interior, used in the Liberate Church Quest
+	public static Interior churchQuestCave;
 	/**
 	 * SandboxOriginalLevel ctor()
 	 * 
@@ -27,16 +27,14 @@ public class SandboxOriginalLevel extends Level {
 	public SandboxOriginalLevel(int slot) throws IOException {
 		super("/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/original", "ALPHA Level", new Point(1472, 24), slot);
 		
-		// create a peasant with a quest
-		Peasant peasant = new Peasant(this, 0, 0, Peasant.MALE);
-		peasant.addQuest(null);
-		
-		// render some text
-		addText(INS_1, 1416, 64, color, 1);
-		addText(INS_2, 1416, 72, color, 1);
-		addText(INS_3, 1416, 80, color, 1);
-		addText(INS_4, 1416, 88, color, 1);
-		addText(INS_5, 1416, 96, color, 1);
+		// creates the scared Peasant the gives the liberate farm quest
+		Peasant scaredPeasant = new Peasant(this, 832, 112, 1);
+		scaredPeasant.addQuest(new LiberateFarm(scaredPeasant));
+		//initializes cave interior to be the Alpha Cave Interior
+		churchQuestCave = new AlphaCave(new Point(0,0), this);
+		//Adds wise Orangutan with the "Turning the Tide" Quest inside the cave
+		Orangutan ken = new  Orangutan(SandboxOriginalLevel.churchQuestCave, 1464, 16);
+		ken.addQuest(new AlphaTurningTheTide(ken));
 	}
 
 }

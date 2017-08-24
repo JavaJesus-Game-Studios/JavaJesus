@@ -30,7 +30,7 @@ public class TechTopiaCityHall extends Building {
 		setBounds(getBounds().x + 15, getBounds().y, getBounds().width - 28, getBounds().height);
 
 		if (level != null)
-		level.add(new Door(level, x + 42, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		level.add(new Door(level, x + 42, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), level),0,0));
 	}
 	
 	@Override

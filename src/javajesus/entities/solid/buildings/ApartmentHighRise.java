@@ -26,7 +26,7 @@ public class ApartmentHighRise extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF673101, 0xFFABD3FF }, Sprite.apartment);
 
 		if (level != null)
-		getLevel().add(new Door(level, x + 31, y + 208, new ApartmentLobby(new Point(x + 36, y + 216), level)));
+		getLevel().add(new Door(level, x + 31, y + 208, new ApartmentLobby(new Point(x + 36, y + 216), level),0,0));
 	}
 
     @Override

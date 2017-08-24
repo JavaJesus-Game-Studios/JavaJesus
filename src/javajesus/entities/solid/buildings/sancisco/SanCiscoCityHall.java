@@ -22,7 +22,7 @@ public class SanCiscoCityHall extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFFFF, 0xFFFFBC02 }, Sprite.san_cisco_city_hall);
 
 		if (level != null)
-		level.add(new Door(level, x + 90, y + 104, level));
+		level.add(new Door(level, x + 90, y + 104, level,0,0));
 	}
 
 	@Override

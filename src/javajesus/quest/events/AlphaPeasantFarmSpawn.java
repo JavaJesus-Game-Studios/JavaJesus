@@ -2,7 +2,7 @@ package javajesus.quest.events;
 
 import javajesus.entities.npcs.Peasant;
 import javajesus.level.Level;
-import javajesus.quest.original.LiberateFarm;
+import javajesus.quest.original.AlphaMissingCow;
 /**
  * 
  * @author shtevay
@@ -16,8 +16,8 @@ public class AlphaPeasantFarmSpawn extends Event{
 
 	@Override
 	protected void init(Level level) {
-		Peasant scaredPeasant = new Peasant(level, 832, 112, 1);
-		scaredPeasant.addQuest(new LiberateFarm(scaredPeasant));
+		Peasant hiddenPeasant = new Peasant(level, 832, 112, 1);
+		hiddenPeasant.addQuest(new AlphaMissingCow(hiddenPeasant));
 	}
 
 }

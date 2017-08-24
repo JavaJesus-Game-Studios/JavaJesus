@@ -27,7 +27,7 @@ public class WeirdTechBuilding2 extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFF919192, 0xFF4D4DFF }, Sprite.weirdTechBuilding2);
 
 		if (level != null)
-		level.add(new Door(level, x + 17, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), level)));
+		level.add(new Door(level, x + 17, y + 80, new PoorHouseInterior(new Point(x + 40, y + 67), level),0,0));
 	}
 
 	@Override
