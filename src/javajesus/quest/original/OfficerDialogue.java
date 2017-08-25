@@ -10,7 +10,7 @@ public class OfficerDialogue extends Quest {
 	}
 
 	@Override
-	protected void update() {
+	public void update() {
 		
 	}
 

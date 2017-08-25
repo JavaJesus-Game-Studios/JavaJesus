@@ -261,7 +261,7 @@ public abstract class Quest {
 	/**
 	 * Updates the conditions for the quest
 	 */
-	protected abstract void update();
+	public abstract void update();
 
 	/**
 	 * @return The summary of the objectives that appears in the overview screen

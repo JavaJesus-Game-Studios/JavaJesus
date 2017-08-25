@@ -242,6 +242,11 @@ public class Player extends Mob implements Type {
 
 		// do basic checks
 		super.tick();
+		
+		// update the active quest
+		for (Quest q: activeQuests) {
+			q.update();
+		}
 
 		// update the gun
 		if (equippedGun != null) {

@@ -28,7 +28,7 @@ public class LiberateFarm extends Quest {
 	}
 
 	@Override
-	protected void update() {
+	public void update() {
 		
 		// if a demon is not found, assume true
 		boolean killed = true;

@@ -10,7 +10,7 @@ public class AlphaMissingCow  extends Quest{
 	}
 
 	@Override
-	protected void update() {
+	public void update() {
 		// TODO Auto-generated method stub
 		
 	}

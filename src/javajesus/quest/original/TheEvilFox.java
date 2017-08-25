@@ -21,7 +21,7 @@ public class TheEvilFox extends Quest {
 	}
 	
 	@Override
-	protected void update() {
+	public void update() {
 		
 		// if fox is not found, assume it is killed
 		boolean killed = true;
