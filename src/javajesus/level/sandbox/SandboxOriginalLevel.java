@@ -3,6 +3,9 @@ package javajesus.level.sandbox;
 import java.awt.Point;
 import java.io.IOException;
 
+import javax.sound.sampled.Clip;
+
+import javajesus.SoundHandler;
 import javajesus.entities.npcs.Peasant;
 import javajesus.level.Level;
 import javajesus.quest.original.LiberateFarm;
@@ -27,5 +30,13 @@ public class SandboxOriginalLevel extends Level {
 		add(scaredPeasant);
 		
 	}
+	/**
+	 * @return a clip of the  background music
+	 */
+	@Override
+	public Clip getBackgroundMusic() {
+		return SoundHandler.explorationMusic;
+	}
+
 
 }

@@ -3,6 +3,9 @@ package javajesus.level.interior;
 import java.awt.Point;
 import java.io.IOException;
 
+import javax.sound.sampled.Clip;
+
+import javajesus.SoundHandler;
 import javajesus.entities.npcs.aggressive.Orangutan;
 import javajesus.entities.transporters.Transporter;
 import javajesus.entities.transporters.TransporterInterior;
@@ -32,5 +35,13 @@ public class AlphaCaveInterior extends Interior {
 	public Transporter[] getTransporters() throws IOException {
 		return new Transporter[] { new TransporterInterior(this, 912, 1392, outside) };
 	}
+	/**
+	 * @return a clip of the  background music
+	 */
+	@Override
+	public Clip getBackgroundMusic() {
+		return SoundHandler.combatMusic;
+	}
+
 	
 }

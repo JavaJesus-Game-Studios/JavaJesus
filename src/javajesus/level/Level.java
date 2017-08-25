@@ -438,7 +438,7 @@ public abstract class Level {
 	 * @return a clip of the  background music
 	 */
 	public Clip getBackgroundMusic() {
-		return SoundHandler.background1;
+		return SoundHandler.explorationMusic;
 	}
 
 	/**

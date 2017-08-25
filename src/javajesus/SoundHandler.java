@@ -19,7 +19,8 @@ public class SoundHandler {
 	private static Clip current;
 
 	// audio clips that can be opened from the sound stream
-	public static Clip sheathe, background1, chest, chimpanzee, click, demon,
+	public static Clip sheathe, alphaTheme, explorationMusic, combatMusic,
+			deathDirge, chest, questAccepted, chimpanzee, click, demon,
 			fireball, footsteps1, footstepsDirt, footstepsFarmland,
 			footstepsGrass, footstepsRoad, footstepsWood, assaultRifle, revolver,
 			shotgun, levelup, shortSword1, shortSword2, swimming, walking,
@@ -36,7 +37,8 @@ public class SoundHandler {
 	public static void initialize() {
 
 		// all the different audio streams that will be played at some point in the game
-		AudioInputStream sheathe, background1, chest, chimpanzee, click, demon, 
+		AudioInputStream sheathe, alphaTheme, explorationMusic, combatMusic, deathDirge, 
+		chest, questAccepted, chimpanzee, click, demon, 
 		fireball, footsteps1, footstepsDirt, footstepsFarmland, footstepsGrass, 
 		footstepsRoad, footstepsWaterSand, footstepsWood, assaultRifle, revolver, shotgun,
 		levelup, shortSword1, shortSword2, swimming, walking, background2, 
@@ -52,15 +54,20 @@ public class SoundHandler {
 			background2 = AudioSystem.getAudioInputStream(SoundHandler.class
 					.getResource("/AUDIO_DATA/MUSIC/Freaks.wav"));
 
-			background1 = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/AUDIO_DATA/MUSIC/Background1_v2.wav"));
-			/**
-			 * WAS SIDD'S SOUND HAD TO DELETE
-			 * 
-			chest = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/8-bit_Sounds/Chest_Opening_v2.wav"));
-			*/
+			alphaTheme = AudioSystem.getAudioInputStream(SoundHandler.class
+					.getResource("/AUDIO_DATA/MUSIC/AlphaTheme.wav"));
+			explorationMusic = AudioSystem.getAudioInputStream(SoundHandler.class
+					.getResource("/AUDIO_DATA/MUSIC/village_roam.wav"));
+			combatMusic = AudioSystem.getAudioInputStream(SoundHandler.class.getResource
+					("/Audio_DATA/MUSIC/combat_1.wav"));
+			deathDirge = AudioSystem.getAudioInputStream(SoundHandler.class.getResource
+					("/AUDIO_DATA/MUSIC/DeathDirge.wav"));
 			
+			chest = AudioSystem.getAudioInputStream(SoundHandler.class
+					.getResource("/AUDIO_DATA/GUI/ChestOpened.wav"));
+			
+			questAccepted = AudioSystem.getAudioInputStream(SoundHandler.class.getResource
+					("/AUDIO_DATA/GUI/QuestAccepted.wav"));
 			chimpanzee = AudioSystem
 					.getAudioInputStream(SoundHandler.class
 							.getResource("/AUDIO_DATA/ACTOR/ENEMY/Chimpanzee_Voice_v2.wav"));
@@ -113,12 +120,6 @@ public class SoundHandler {
 			laser = AudioSystem
 					.getAudioInputStream(SoundHandler.class
 							.getResource("/AUDIO_DATA/WEAPONS/FIREARMS/Laser_Gun_Sound.wav"));
-			/**
-			 * 
-			 * ANOTHER OF SID's SOUNDS
-			levelup = AudioSystem.getAudioInputStream(SoundHandler.class
-					.getResource("/Sound/8-bit_Sounds/Level_Up_v2.wav"));
-			*/
 
 			shortSword1 = AudioSystem
 					.getAudioInputStream(SoundHandler.class
@@ -147,8 +148,12 @@ public class SoundHandler {
 					.getResource("/AUDIO_DATA/VEHICLES/CAR/Car_Start_up.wav"));
 
 			SoundHandler.sheathe = AudioSystem.getClip();
-			SoundHandler.background1 = AudioSystem.getClip();
+			SoundHandler.alphaTheme = AudioSystem.getClip();
 			SoundHandler.background2 = AudioSystem.getClip();
+			SoundHandler.explorationMusic = AudioSystem.getClip();
+			SoundHandler.combatMusic = AudioSystem.getClip();
+			SoundHandler.deathDirge = AudioSystem.getClip();
+			SoundHandler.questAccepted = AudioSystem.getClip();
 			SoundHandler.chest = AudioSystem.getClip();
 			SoundHandler.chimpanzee = AudioSystem.getClip();
 			SoundHandler.click = AudioSystem.getClip();
@@ -183,7 +188,7 @@ public class SoundHandler {
 			SoundHandler.assaultRifle.open(assaultRifle);
 			SoundHandler.revolver.open(revolver);
 			SoundHandler.shotgun.open(shotgun);
-			SoundHandler.background1.open(background1);
+			SoundHandler.alphaTheme.open(alphaTheme);
 			SoundHandler.background2.open(background2);
 			SoundHandler.sheathe.open(sheathe);
 			SoundHandler.swimming.open(swimming);
@@ -326,7 +331,11 @@ public class SoundHandler {
 		SoundHandler.assaultRifle.close();
 		SoundHandler.revolver.close();
 		SoundHandler.shotgun.close();
-		SoundHandler.background1.close();
+		SoundHandler.alphaTheme.close();
+		SoundHandler.explorationMusic.close();
+		SoundHandler.combatMusic.close();
+		SoundHandler.deathDirge.close();
+		SoundHandler.questAccepted.close();
 		SoundHandler.background2.close();
 		SoundHandler.sheathe.close();
 		SoundHandler.swimming.close();

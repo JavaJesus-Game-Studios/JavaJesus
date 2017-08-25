@@ -24,7 +24,7 @@ public class Cyclops extends Monster {
 	private static final int WALKING_ANIMATION_SPEED = 4;
 
 	// base stats
-	private static final int BASE_STRENGTH = 20, BASE_DEFENSE = 10;
+	private static final int BASE_STRENGTH = 55, BASE_DEFENSE = 10;
 
 	// color set of a cyclops
 	private static final int[] color = { 0xFF111111, 0xFFe8c094, 0xFFFFFFFF, 0xFF3c2b1b, 0xFF663501 };
