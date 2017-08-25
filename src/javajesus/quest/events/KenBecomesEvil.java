@@ -20,7 +20,7 @@ public class KenBecomesEvil extends Event{
 		for (Mob m: level.getMobs()) {
 			if (m instanceof Orangutan) {
 				//replace friendly Orangutan with the Evil Orangutan
-				m = new EvilOrangutan(level, 1464, 16);
+				m = new EvilOrangutan(level, 944, 192);
 				break;
 			}
 		}

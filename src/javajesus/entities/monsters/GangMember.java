@@ -234,7 +234,7 @@ public class GangMember extends Monster implements LongRange, Type {
 		
 		// 10% chance of vest, 10% health
 		if (value < 1) {
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.vest));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.revolverAmmo,36));
 		} 
 	}
 

@@ -20,16 +20,17 @@ public class AlphaCaveInterior extends Interior {
 	 * @throws IOException
 	 */
 	public AlphaCaveInterior(Point point, Level level) throws IOException {
-		super("/WORLD_DATA/INTERIOR_DATA/AlphaCaveInterior", new Point(832, 776), level);
+		super("/WORLD_DATA/INTERIOR_DATA/AlphaCaveInterior", new Point(912, 1392), level);
 		
 		// Adds wise Orangutan with the "Turning the Tide" Quest inside the cave
-		Orangutan ken = new Orangutan(this, 1464, 16);
+		Orangutan ken = new Orangutan(this, 944, 192);
 		ken.addQuest(new AlphaTurningTheTide(ken));
+		add(ken);
 	}
 
 	@Override
 	public Transporter[] getTransporters() throws IOException {
-		return new Transporter[] { new TransporterInterior(this, 832, 776, outside) };
+		return new Transporter[] { new TransporterInterior(this, 912, 1392, outside) };
 	}
 	
 }

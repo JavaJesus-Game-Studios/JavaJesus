@@ -12,7 +12,7 @@ public class KnightSpawner extends Event{
 
 	@Override
 	protected void init(Level level) {
-		Knight runner = new Knight(level, 0, 0);
+		Knight runner = new Knight(level, 1208, 1464);
 		runner.addQuest(new RescueKnights(runner));
 		
 	}

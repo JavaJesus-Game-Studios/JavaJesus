@@ -57,27 +57,27 @@ public class Item implements Serializable {
 	// guns
 	public static final Item revolver = new Gun("Revolver", 4, 0, 0, new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 },
 			"Standard Six Shooter, more powerful than it should be, known to cause tinnitus and Dirty Harritus."
-			, 0, 6, 5, 20, 50, Ammo.REVOLVER, SoundHandler.revolver);
+			, 0, 6, 5, 20, 60, Ammo.REVOLVER, SoundHandler.revolver);
 	public static final Item laserRevolver = new Gun("Laser Revolver", 5, 1, 0,
 			new int[] { 0xFF111111, 0xFF4D2607, 0xFFFFAE00 }, 
 			"The new revolutionary Laser Revolver. Simply kills. Battery life lasts for one to six discharges."
-			, 2, 6, 10, 21, 80, Ammo.LASER,
+			, 2, 6, 10, 21, 90, Ammo.LASER,
 			SoundHandler.laser);
 	public static final Item assaultRifle = new Gun("M239 Assault Rifle", 7, 2, 0,
 			new int[] { 0xFF111111, 0xFFCFCFCF, 0xFF000000 },
 			"This M239 US Army Assault Rifle, can clear a room of people in 2.5 seconds, reload in 1 second."
 			+ " Main uses include hunting deer and target practice. Available at your local Gunstore, God Bless America.",
-			4, 36, 1, 5, 25, Ammo.RIFLE,
+			4, 36, 1, 5, 55, Ammo.RIFLE,
 			SoundHandler.assaultRifle);
 	public static final Item shotgun = new Gun("Shotgun", 6, 3, 0, new int[] { 0xFF111111, 0xFF4D2607, 0xFFCFCFCF },
 			"The gun that allowed these United States to \"liberate\" the west. Put two bullets in, point in your "
 			+ "target's general direction and watch them dissapear.",
-			6, 2, 5, 15, 150, Ammo.SHELL, SoundHandler.shotgun);
+			6, 2, 5, 15, 200, Ammo.SHELL, SoundHandler.shotgun);
 	public static final Item crossBow = new Gun("Crossbow", 8, 4, 0, new int[] { 0xFF111111, 0xFF4D2607, 0xFFCFCFCF },
 			"Useful in defending Castles from the English in 1400, now useful for driving a stake "
 			+ "through the hearts of the armies of Hell. One arrow at a time, slow to reload but packs"
 			+ "a hell of a punch.",
-			8, 1, 3, 30, 125, Ammo.ARROW, SoundHandler.revolver);
+			8, 1, 3, 30, 200, Ammo.ARROW, SoundHandler.revolver);
 	public static final Item bazooka = new Bazooka();
 
 	// swords
@@ -85,40 +85,43 @@ public class Item implements Serializable {
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, 
 			"More of a large knife than a sword, at the very least it'll give your opponent"
 			+ "a good sting.",
-			10, 40, new int[] { 7, 12, 16, 21 }, 0, Sword.SHORT, 0);
+			15, 30, new int[] { 7, 12, 16, 21 }, 0, Sword.SHORT, 0);
 	public static final Item longSword = new Sword("Long Sword", 10, 1, 1, 0, 4,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, 
 			"Now thats a sword, a fine steel blade mass produced for the Knights of The Bay, nothing"
 			+ "to write home about but will certainly give your oppoent second thoughts.",
-			40, 80, new int[] { 7, 13, 18, 23 }, 1,
+			40, 60, new int[] { 7, 13, 18, 23 }, 1,
 			Sword.MEDIUM, 10);
 	public static final Item claymore = new Sword("Claymore", 11, 2, 1, 0, 10,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC },
 			"Sword of the Knights Templar, the sheer weight of the blade will make your swings"
 			+ " slow and easy to dodge but if you manage to hit anything it's going down for real.",
-			80, 175, new int[] { 8, 16, 24, 32 }, 2,
+			60, 85, new int[] { 8, 16, 24, 32 }, 2,
 			Sword.LONG, 20);
 	public static final Item sabre = new Sword("Sabre", 12, 3, 1, 0, 14,
 			new int[] { 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC },
 			"The Dueling Blade, a more elegant weapon from a more civilized time,"
 			+ " this is a sword made for defending a fair maiden's honor. A quick stabbing blade"
 			+ "your opponent will have to be quick on his feet to defeat you.",
-			15, 62, new int[] { 7, 13, 18, 23 }, 1,
+			20, 50, new int[] { 7, 13, 18, 23 }, 1,
 			Sword.MEDIUM, 10);
 	public static final Item heavenlySword = new Sword("Heavenly Sword", 13, 4, 1, 0, 18,
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
 			"Sword handed crafted by God himself, given to only the holiest of Saints, nothing"
 			+ "because nothing says \"brotherly love\" like righteous slaughter.",
-			35, 120, new int[] { 7, 13, 18, 23 }, 1,
+			35, 70, new int[] { 7, 13, 18, 23 }, 1,
 			Sword.MEDIUM, 10);
 	public static final Item kingSword = new Sword("The Sword of Kings", 18, 5, 1, 0, 22,
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
 			"This is the best blade in the game and \"The Sword of Kings\" is the best"
 			+ "we could come up with?",
-			30, 150, new int[] { 7, 13, 18, 23 }, 1,
+			25, 80, new int[] { 7, 13, 18, 23 }, 1,
 			Sword.MEDIUM, 20);
 
 	 // armor
+	/**
+	 * CURRENTLY NOT IMPLEMENTED
+	 * 
 	public static final Item vest = new Armor("Simple Vest", 15, 1, 2, new int[] { 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC },
 			"", ArmorSet.VEST);
 	public static final Item knight = new Armor("Knight Gear", 16, 2, 2,
@@ -127,6 +130,7 @@ public class Item implements Serializable {
 			new int[] { 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.HORNED);
 	public static final Item owl = new Armor("Fancy Suit", 19, 4, 2,
 			new int[] { -1, 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.ISTRAHIIM);
+			*/
 
 	public static final Item blackHoleGun = new Gun("Secret", 20, 0, 0,
 			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "??????", 0, 6, 10, 20, 50, Ammo.BLACKHOLE,
@@ -134,6 +138,7 @@ public class Item implements Serializable {
 	public static final Item flameThrower = new Gun("Flamethrower", 21, 0, 0,
 			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Please apply cold water to burn", 0, 10000, 0.2f, 0, 3,
 			Ammo.FLAMETHROWER, SoundHandler.revolver);
+			
 	
 
 	// ammo

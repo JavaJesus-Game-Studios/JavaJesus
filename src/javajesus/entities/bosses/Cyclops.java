@@ -64,7 +64,7 @@ public class Cyclops extends Monster {
 	 * @param y - the y coord
 	 */
 	public Cyclops(Level level, int x, int y) {
-		this(level, x, y, 1, 250);
+		this(level, x, y, 1, 3000);
 	}
 
 	/**
@@ -197,7 +197,7 @@ public class Cyclops extends Monster {
 		// 5% chance of istrahiim armor, 20% large health
 		if (value < 5) {
 			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(40),
-			        getY() + JavaJesus.getRandomOffset(40), Item.owl));
+			        getY() + JavaJesus.getRandomOffset(40), Item.arrowAmmo));
 		} else if (value < 25) {
 			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(40),
 			        getY() + JavaJesus.getRandomOffset(40), Item.strongHealthPack));
