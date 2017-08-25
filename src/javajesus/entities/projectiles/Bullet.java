@@ -1,6 +1,6 @@
 package javajesus.entities.projectiles;
 
-import javax.sound.sampled.Clip;
+import java.net.URL;
 
 import javajesus.entities.Mob;
 import javajesus.level.Level;
@@ -27,7 +27,7 @@ public class Bullet extends Projectile {
 	 * @param damage - the damage this projectile should do on impact
 	 * @param clip - the sound this projectile makes on fire
 	 */
-	public Bullet(Level level, int x, int y, Direction direction, Mob mob, int damage, final Clip clip) {
+	public Bullet(Level level, int x, int y, Direction direction, Mob mob, int damage, final URL clip) {
 		super(level, x, y, 2, 1, 1, 2, 1, 0, 3, direction, mob, damage, color, clip);
 	}
 
@@ -45,7 +45,7 @@ public class Bullet extends Projectile {
 	 * @param damage - the damage this projectile should do on impact
 	 * @param clip - the sound this projectile makes on fire
 	 */
-	public Bullet(Level level, int x, int y, int xPos, int yPos, Mob mob, int damage, final Clip clip) {
+	public Bullet(Level level, int x, int y, int xPos, int yPos, Mob mob, int damage, final URL clip) {
 		super(level, x, y, 2, 1, 1, 2, 1, 0, 3, xPos, yPos, mob, damage, color, clip);
 
 	}

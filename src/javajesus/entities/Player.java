@@ -329,7 +329,7 @@ public class Player extends Mob implements Type {
 
 		// play swimming sound
 		if (isSwimming) {
-			SoundHandler.playSmoothly(SoundHandler.swimming);
+			SoundHandler.playAmbience(SoundHandler.swimming);
 
 			// shift sprints, can't sprint in water
 		} else if (isSprinting && stamina > 0 && isMoving
@@ -365,6 +365,36 @@ public class Player extends Mob implements Type {
 		}
 
 		tickCount++;
+
+	}
+	
+	/**
+	 * Play the appropriate sound for the tile
+	 */
+	private void playTileSound() {
+
+		// get the current tile
+		Tile currentTile = getLevel().getTileFromEntityCoords(getX(), getY());
+
+		// Grass sound
+		if (Tile.isGrass(currentTile.getId())) {
+			SoundHandler.playAmbience(SoundHandler.footstepsGrass);
+
+			// wood sound
+		} else if (Tile.isWood(currentTile.getId())) {
+			SoundHandler.playAmbience(SoundHandler.footstepsWood);
+
+			// Road sounds
+		} else if (Tile.isRoad(currentTile.getId())) {
+			SoundHandler.playAmbience(SoundHandler.footstepsRoad);
+
+		} else if (Tile.isFarmalnd(currentTile.getId())) {
+			SoundHandler.playAmbience(SoundHandler.footstepsFarmland);
+
+			// dirt sound effect
+		} else if (Tile.isDirt(currentTile.getId())) {
+			SoundHandler.playAmbience(SoundHandler.footstepsDirt);
+		}
 
 	}
 
@@ -571,33 +601,6 @@ public class Player extends Mob implements Type {
 	}
 
 	/**
-	 * Play the appropriate sound for the tile
-	 */
-	public void playTileSound() {
-
-		// get the current tile
-		Tile currentTile = getLevel().getTile(getX() >> 3, getY() >> 3);
-
-		// Grass sound
-		if (currentTile == Tile.GRASS0) {
-			SoundHandler.playSmoothly(SoundHandler.footstepsGrass);
-
-			// Mud sound
-		} else if (currentTile == Tile.MUD) {
-			SoundHandler.playSmoothly(SoundHandler.footstepsWood);
-
-			// Road sounds
-		} else if (currentTile == Tile.CAR_ROAD || currentTile == Tile.SIDEWALK_MID) {
-			SoundHandler.playSmoothly(SoundHandler.footstepsRoad);
-
-			// Dirt road sound
-		} else if (currentTile == Tile.DIRTROAD) {
-			SoundHandler.playSmoothly(SoundHandler.footstepsDirt);
-		}
-
-	}
-
-	/**
 	 * Sets the shirt color
 	 * 
 	 * @param num - the shirt color in hexadecimal
@@ -646,6 +649,9 @@ public class Player extends Mob implements Type {
 		inventory.add(Item.blackHoleGun);
 		inventory.add(Item.bazooka);
 		inventory.add(Item.flameThrower);
+		inventory.add(Item.assaultRifle);
+		Item.assaultRifleAmmo.setQuanity(500);
+		inventory.add(Item.assaultRifleAmmo);
 	}
 
 	/**

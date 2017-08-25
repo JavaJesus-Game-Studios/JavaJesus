@@ -449,11 +449,6 @@ public class Launcher extends Canvas implements IGameLogic {
 			return;
 		case MUTE: {
 			SoundHandler.toggleMute();
-			if (!SoundHandler.isMuted()) {
-				SoundHandler.alphaTheme.stop();
-			} else {
-				SoundHandler.play(SoundHandler.alphaTheme);
-			}
 			return;
 		}
 		default: {
@@ -483,6 +478,9 @@ public class Launcher extends Canvas implements IGameLogic {
 		
 		// level to set the player
 		Level level = getLevel(mode, slot);
+		
+		// load the music!
+		SoundHandler.playLoop(level.getBackgroundMusic());
 		
 		// load the level
 		if (!level.isLoaded()) {

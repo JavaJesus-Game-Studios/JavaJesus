@@ -1,8 +1,7 @@
 package javajesus.items;
 
+import java.net.URL;
 import java.util.Random;
-
-import javax.sound.sampled.Clip;
 
 import javajesus.SoundHandler;
 import javajesus.entities.Player;
@@ -65,7 +64,7 @@ public class Gun extends Item {
 	private Ammo type;
 
 	// sound the gun will make
-	private transient Clip clip;
+	private URL clip;
 
 	/*
 	 * The different types of ammo available
@@ -92,7 +91,7 @@ public class Gun extends Item {
 	 * @param clip - the clip sound
 	 */
 	public Gun(String name, int id, int xTile, int yTile, int[] color, String description, int yPlayerSheet,
-			int clipSize, float rate, int reload, int damage, Ammo type, Clip clip) {
+			int clipSize, float rate, int reload, int damage, Ammo type, URL clip) {
 		super(name, id, xTile, yTile, color, description, true);
 		this.playerOffset = yPlayerSheet;
 		this.clipSize = clipSize;
@@ -227,7 +226,7 @@ public class Gun extends Item {
 	/**
 	 * @return the audio clip used
 	 */
-	public final Clip getClip() {
+	public final URL getClip() {
 		return clip;
 	}
 
