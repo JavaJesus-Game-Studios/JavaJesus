@@ -16,7 +16,7 @@ public class HutInterior extends Interior {
 
 	@Override
 	public Transporter[] getTransporters() throws IOException {
-		return new Transporter[] { new TransporterInterior(this, 784, 736, outside) };
+		return new Transporter[] { new TransporterInterior(this, 784, 760, outside) };
 	}
 
 }

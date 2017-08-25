@@ -1587,7 +1587,8 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			case Entity.WHITE_OAK:
                 return new EntityGUI(new WhiteOak(null, 0, 0), 0, 0, 5, 7);
 			case Entity.WHITE_OAK_SMALL:
-                return new EntityGUI(new WhiteOakSmall(null, 0, 0), 0, 0, 4, 6);
+                return new EntityGUI(new WhiteOakSmall(null, 0, 0), 0, 0, +
+                		4, 6);
 			case Entity.EVILFOX:
 				return new EntityGUI(new EvilFox(null, 0, 0),0,0,2,2);
 			case Entity.CHICKEN:

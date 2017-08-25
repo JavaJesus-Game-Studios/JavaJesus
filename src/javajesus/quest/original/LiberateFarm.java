@@ -43,9 +43,6 @@ public class LiberateFarm extends Quest {
 	
 		// update the objective
 		objectives[FARM_CLEAR] = killed;
-		if(killed){
-			Event.createEvent(Event.ALPHAPEASANTFARMSPAWNER, giver.getLevel());
-		}
 	}
 
 }

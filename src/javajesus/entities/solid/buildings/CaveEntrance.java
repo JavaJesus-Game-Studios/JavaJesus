@@ -13,7 +13,7 @@ import javajesus.level.Level;
 public class CaveEntrance extends Building {
 
 	// color set
-	private static final int[] color = { 0xFF301E01, 0xFF474645, 0xFF000000 };
+	private static final int[] color = { 0xFF301E01, 0xFF474645, 0xFF000000,0,0 };
 
 	/**
 	 * Creates a cave entrance
