@@ -3,6 +3,7 @@ package javajesus.entities;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import javajesus.SoundHandler;
 import javajesus.dataIO.EntityData;
 import javajesus.entities.particles.HealthBar;
 import javajesus.graphics.JJFont;
@@ -210,7 +211,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		}
 
 	}
-
+	
 	/**
 	 * Determines the shortest path to reach a certain point while avoiding
 	 * obstacles
@@ -568,7 +569,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		}
 
 		// force the mob to move around the mob collision
-		if (isCollidingWithMob() && !collisionImmune && target == null) {
+		if (isCollidingWithMob() && !collisionImmune) {
 			moveAroundMobCollision();
 			return;
 		}

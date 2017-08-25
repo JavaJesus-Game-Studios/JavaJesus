@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 
+import javax.sound.sampled.Clip;
+
 import javajesus.dataIO.EntityData;
 import javajesus.dataIO.LevelData;
 import javajesus.entities.transporters.Transporter;
@@ -54,6 +56,13 @@ public abstract class Interior extends Level {
 		for (Transporter t : getTransporters()) {
 			add(t);
 		}
+	}
+	
+	/**
+	 * @return a clip of the background music
+	 */
+	public Clip getBackgroundMusic() {
+		return outside.getBackgroundMusic();
 	}
 	
 	/**

@@ -781,9 +781,27 @@ public class Tile {
 	 * @return true if the ID is a grass tile
 	 */
 	public static boolean isGrass(int num) {
-		return num == Tile.GRASS0.getId() || num == Tile.GRASS1.getId()|| num == Tile.GRASS2.getId() 
-				|| num == Tile.GRASS3.getId() || num == Tile.GRASS4.getId() ||
-				num == Tile.GRASS5.getId() || num == Tile.GRASS6.getId();
+		return (num >= 1 && num <= 12) || (num >= 17 && num <= 48);
+	}
+	
+	/**
+	 * Determines if an id is a dirt tile
+	 * 
+	 * @param num - the id to check
+	 * @return true if the ID is dirt
+	 */
+	public static boolean isDirt(byte num) {
+		return num >= 49 && num <=  81;
+	}
+	
+	/**
+	 * Determines if an id is farmalnd
+	 * 
+	 * @param num - the id to check
+	 * @return true if the ID is farmland
+	 */
+	public static boolean isFarmalnd(byte num) {
+		return num >= 13 && num <=  16;
 	}
 	
 	/**
@@ -793,9 +811,27 @@ public class Tile {
 	 * @return true if the ID is a water tile
 	 */
 	public static boolean isWater(byte num) {
-		return num == Tile.SEA1.getId() || num == Tile.SEA2.getId() || num == Tile.SEA3.getId()
-		        || num == Tile.SEA4.getId() || num == Tile.SHORE1.getId() || num == Tile.SHORE2.getId()
-		        || num == Tile.SHORE3.getId() || num == Tile.SHORE4.getId();
+		return num >= (byte) 240 && num <= (byte) 255;
+	}
+	
+	/**
+	 * Determines if an id is a road tile
+	 * 
+	 * @param num - the id to check
+	 * @return true if the ID is a road tile
+	 */
+	public static boolean isRoad(byte num) {
+		return num >= (byte) 112 && num <= (byte) 140;
+	}
+	
+	/**
+	 * Determines if an id is a wood tile
+	 * 
+	 * @param num - the id to check
+	 * @return true if the ID is a wood tile
+	 */
+	public static boolean isWood(byte num) {
+		return num >= (byte) 181 && num <= (byte) 184;
 	}
 	
 	/**

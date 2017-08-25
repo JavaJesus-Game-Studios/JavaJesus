@@ -1,6 +1,6 @@
 package javajesus.entities.projectiles;
 
-import javax.sound.sampled.Clip;
+import java.net.URL;
 
 import javajesus.SoundHandler;
 import javajesus.entities.Damageable;
@@ -58,11 +58,11 @@ public abstract class Projectile extends Entity {
 	 */
 	public Projectile(final Level level, int x, int y, int lateralWidth, int lateralHeight, int longitudinalWidth,
 	        int longitudinalHeight, int xTile, int yTile, int speed, Direction direction, final Mob mob, int damage,
-	        final int[] color, final Clip clip) {
+	        final int[] color, final URL clip) {
 		super(level, x, y);
 		
 		// play a sound
-		SoundHandler.fire(clip);
+		SoundHandler.play(clip);
 		
 		// instance data
 		this.x = x;
@@ -105,11 +105,11 @@ public abstract class Projectile extends Entity {
 	 */
 	public Projectile(final Level level, int x, int y, int lateralWidth, int lateralHeight, int longitudinalWidth,
 	        int longitudinalHeight, int xTile, int yTile, int speed, int xPos, int yPos, final Mob mob, int damage,
-	        final int[] color, final Clip clip) {
+	        final int[] color, final URL clip) {
 		super(level, x, y);
 		
 		// play a sound
-		SoundHandler.fire(clip);
+		SoundHandler.play(clip);
 		
 		// instance data
 		this.x = x;

@@ -54,9 +54,9 @@ public abstract class Car extends Vehicle {
 		// plays sound
 		if (isUsed()) {
 			if (!isMoving()) {
-				SoundHandler.playSmoothly(SoundHandler.carIdle);
+				SoundHandler.playAmbience(SoundHandler.carIdle);
 			} else {
-				SoundHandler.playSmoothly(SoundHandler.carDriving);
+				SoundHandler.playAmbience(SoundHandler.carDriving);
 			}
 		}
 
