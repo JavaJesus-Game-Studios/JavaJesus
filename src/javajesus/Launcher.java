@@ -393,7 +393,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			return;
 		}
 		case CONTROLS: {
-			System.out.println("Controls Coming Soon");
+			System.out.println("Controls IMPLEMENT TODO");
 			return;
 		}
 		case SLOT: {

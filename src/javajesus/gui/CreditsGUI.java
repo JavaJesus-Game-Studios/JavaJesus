@@ -65,22 +65,25 @@ public class CreditsGUI extends JPanel implements ActionListener {
 		add(Box.createVerticalGlue());
 		
 		// now add labels
-		add(new JJLabel("Technical Lead: Derek Jow", bigFont));
-		add(new JJLabel("Creative Lead: Stephen Northway", bigFont));
+		add(new JJLabel("Technical Director: Derek Jow", bigFont));
+		add(new JJLabel("Creative Director: Stephen Northway", bigFont));
 		add(Box.createVerticalStrut(10));
-		add(new JJLabel("Programmers:", bigFont));
-		add(new JJLabel("Random Generation/Pathfinding: Stephen Pacwa", smallFont));
-		add(new JJLabel("Everything else: Derek Jow", smallFont));
-		add(new JJLabel("Miscellanious: Andrew Leamy", smallFont));
+		add(new JJLabel("Programming:", bigFont));
+		add(new JJLabel("Derek Jow", smallFont));
+		add(new JJLabel("Stephen Pacwa", smallFont));
+		add(new JJLabel("Andrew Leamy", smallFont));
 		add(Box.createVerticalStrut(10));
-		add(new JJLabel("Artists:", bigFont));
+		add(new JJLabel("Art:", bigFont));
 		add(new JJLabel("Stephen Northway", smallFont));
+		add(new JJLabel("Wesley Partridge", smallFont));
 		add(Box.createVerticalStrut(10));
-		add(new JJLabel("Level/Story Design:", bigFont));
+		add(new JJLabel("Level/Quest Design:", bigFont));
 		add(new JJLabel("Stephen Northway", smallFont));
 		add(new JJLabel("Derek Jow", smallFont));
+		add(new JJLabel("Composer:", bigFont));
+		add(new JJLabel("Kyler Gleason", smallFont));
 		add(Box.createVerticalStrut(10));
-		add(new JJLabel("Shoutout to Jeffrey Dalli & Sidd V", smallFont));
+		add(new JJLabel("Created by JavaJesus Game Studios ©2015", smallFont));
 		add(Box.createVerticalStrut(10));
 		
 		// now add a single button
