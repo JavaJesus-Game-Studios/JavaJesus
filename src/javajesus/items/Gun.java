@@ -33,8 +33,6 @@ public class Gun extends Item {
 
 	// whether or not the player is reloading
 	private boolean isReloading;
-	
-
 
 	// the reload time between bullets TODO implement it
 	private int RELOAD_TIME = 10;
@@ -208,12 +206,16 @@ public class Gun extends Item {
 				level.add(new BlackHoleDetonator(level, x, y, dir, player, damage));
 				break;
 			case FLAMETHROWER:
-				level.add(new FireBall(level, x, y, dir, player, damage));
+				
+				for (int i = 0; i < 3; i++) {
+					level.add(new FireBall(level, x + random.nextInt(8) - 4, y + random.nextInt(8) - 4, dir, player, damage));
+				}
+				
 				break;
 			case SHELL:
-				level.add(new Bullet(player.getLevel(), x, y, dir, player, damage, clip));
-				level.add(new Bullet(player.getLevel(), x + 2, y + 2, dir, player, damage, clip));
-				level.add(new Bullet(player.getLevel(), x - 2, y - 2, dir, player, damage, clip));
+				for (int i = 0; i < 3; i++) {
+					level.add(new Bullet(level, x + random.nextInt(4) - 2, y + random.nextInt(4) - 2, dir, player, damage, clip));
+				}
 				break;
 			}
 			ammo--;

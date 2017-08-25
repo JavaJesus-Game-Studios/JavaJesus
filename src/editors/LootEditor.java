@@ -170,10 +170,10 @@ public class LootEditor extends JPanel implements ActionListener {
 
 		// iterate over all items
 		for (int i = 0; i < Item.getNumItems(); i++) {
-
-			// no more items available
+			
+			// skip empty items
 			if (Item.getItem(i) == null) {
-				break;
+				continue;
 			}
 
 			// add the item panel

@@ -644,6 +644,7 @@ public class Player extends Mob implements Type {
 		heal(-1);
 		inventory.add(Item.blackHoleGun);
 		inventory.add(Item.bazooka);
+		inventory.add(Item.flameThrower);
 	}
 
 	/**
