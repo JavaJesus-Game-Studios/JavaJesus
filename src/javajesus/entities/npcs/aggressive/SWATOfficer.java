@@ -67,7 +67,7 @@ public class SWATOfficer extends Shooter {
 
 	@Override
 	public int getStrength() {
-		return 7;
+		return 30;
 	}
 	
 	@Override

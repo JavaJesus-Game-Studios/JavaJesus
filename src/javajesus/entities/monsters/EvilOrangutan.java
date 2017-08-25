@@ -53,7 +53,7 @@ public class EvilOrangutan extends Monster {
 	 * @param walkDistance the walk distance
 	 */
 	public EvilOrangutan(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance) {
-		super(level, "EvilOrangutan", x, y, 1, WIDTH, HEIGHT, 23, 400, 20);
+		super(level, "EvilOrangutan", x, y, 1, WIDTH, HEIGHT, 23, 400, 30);
 
 		// initialize the aggro radius
 		if (level != null) {
@@ -250,7 +250,7 @@ public class EvilOrangutan extends Monster {
 	@Override
 	public int getStrength() {
 		// TODO Auto-generated method stub
-		return 30;
+		return 40;
 	}
 
 	@Override

@@ -16,10 +16,10 @@ public class Knight extends NPC {
 	private static final int WIDTH = 16, HEIGHT = 16;
 
 	// Range that the monster can target another
-	private final Ellipse2D.Double aggroRadius;
+	private Ellipse2D.Double aggroRadius;
 
 	// the attack range radius, 32 (number of units) * 8 (units) = 256
-	private static final int RADIUS = 20;
+	private static final int RADIUS = 8;
 	
 	// range for damage
 	private static final int DAMAGE_RANGE = 5;
@@ -55,12 +55,10 @@ public class Knight extends NPC {
 		
 		// expand the outer range a little bit
 		setOuterBoundsRange(4);
-		
-		// create the radius
-		aggroRadius = new Ellipse2D.Double(x - (RADIUS * 8) / 2, y - (RADIUS * 8) / 2, RADIUS * 8, RADIUS * 8);
 
-		// find a target
+		// initialize the radius
 		if (level != null) {
+			aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
 			findTarget();
 		}
 	}
@@ -85,7 +83,6 @@ public class Knight extends NPC {
 		if (target != null && (target.isDead() || !(aggroRadius.intersects(target.getBounds())))) {
 			target.setTargeted(false);
 			target = null;
-			clearPath();
 		}
 
 		// assign a new target
@@ -95,16 +92,17 @@ public class Knight extends NPC {
 			Mob closest = null;
 			
 			// grow from small radius to large radius
-			for (int i = 1; i < RADIUS; i++) {
+			for (int i = 1; i < 20; i++) {
 				
 				// update the radius
-				Ellipse2D.Double perimeter = new Ellipse2D.Double(getX() - (i * 8) / 2, getY() - (i * 8) / 2, i * 8, i * 8);
+				aggroRadius = new Ellipse2D.Double(getX() - (i * 8) / 2, getY() - (i * 8) / 2, i * 8, i * 8);
 				
 				for (Mob mob : getLevel().getMobs()) {
-					if ((mob instanceof Monster) && perimeter.intersects(mob.getBounds()) && !mob.isDead()) {
+					if ((mob instanceof Monster) && aggroRadius.intersects(mob.getBounds()) && !mob.isDead()) {
 						
 						// target the mob if it is not being targeted already
-						if (!mob.isTargeted()) {
+						// or if it is already within range
+						if (!mob.isTargeted() || (getOuterBounds().intersects(mob.getOuterBounds()))) {
 							target = mob;
 							mob.setTargeted(true);
 							return;
@@ -141,6 +139,11 @@ public class Knight extends NPC {
 			return;
 		} 
 		
+		// force the mob to move around the mob collision
+		if (isCollidingWithMob()) {
+			moveAroundMobCollision();
+		}
+		
 		// attacking cooldown loop
 		if (cooldown) {
 			attackTickCount++;
@@ -156,61 +159,40 @@ public class Knight extends NPC {
 			cooldown = true;
 			this.attack(DAMAGE_RANGE, target);
 		}
-		
-		// path find to the target
-		if (!getOuterBounds().intersects(target.getBounds()) && (getPath() == null || !getPath().exists())) {
-			setPath(target);
-		}
-		
-		// automate movement with a script
-		if (path != null && path.exists()) {
 
-			// first update the path
-			path.update();
+		// change in x and y
+		int dx = 0, dy = 0;
 
-			// now make sure it exists after updating
-			if (path.exists()) {
-				
-				// change in x and y
-				int dx = 0, dy = 0;
+		// whether or not the monster should move
+		// check the bounds if the monster prefers long range or not
+		if (!(getBounds().intersects(target.getOuterBounds()))) {
 
-				if (path.next().getDestination().getX() > getX()) {
-					dx++;
-				} else if (path.next().getDestination().getX() < getX()) {
-					dx--;
-				}
+			// move towards the target horizontally
+			if (target.getX() > getX()) {
+				dx++;
+			} else if (target.getX() < getX()) {
+				dx--;
+			}
 
-				if (path.next().getDestination().getY() > getY()) {
-					dy++;
-				} else if (path.next().getDestination().getY() < getY()) {
-					dy--;
-				}
-				if (dx != 0 || dy != 0) {
-					move(dx, dy);
-					isMoving = true;
-					return;
-				}
+			// move towards the target vertically
+			if (target.getY() > getY()) {
+				dy++;
+			} else if (target.getY() < getY()) {
+				dy--;
 			}
 
 		}
-		
-		// force the mob to move around the mob collision
-		if (isCollidingWithMob()) {
-			moveAroundMobCollision();
-		}
 
+		// move the monster towards the target
+		if ((dx != 0 || dy != 0) && !isMobCollision(dx, dy)) {
+			move(dx, dy);
+		}
 	}
 
 	/**
 	 * Displays the Knight to the screen
 	 */
 	public void render(Screen screen) {
-
-		// if not attacking, render normally
-		if (!isShooting || isSwimming) {
-			super.render(screen);
-			return;
-		}
 
 		// modifier used for rendering in different scales/directions
 		int modifier = UNIT_SIZE;
@@ -219,51 +201,96 @@ public class Knight extends NPC {
 		int xOffset = getX(), yOffset = getY();
 
 		// the horizontal position on the spritesheet
-		int xTile = 14;
+		int xTile = 0;
 
 		// whether or not to render backwards
 		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
 
+		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile += 5;
+			xTile = 12;
+			if (isMoving) {
+				xTile += 2 + (flip ? 2 : 0);
+				flip = false;
+			}
+			if (isShooting) {
+				xTile = 23;
+			}
+			
 		} else if (getDirection() == Direction.SOUTH) {
-			xTile += 3;
+			
+			if (isMoving) {
+				xTile += 2 + (flip ? 2 : 0);
+				flip = false;
+			}
+			if (isShooting) {
+				xTile = 18;
+			} 
 		} else {
+			xTile = 6 + (flip ? 3 : 0);
+			
+			if (isShooting) {
+				xTile = 20;
+			}
+			
 			flip = getDirection() == Direction.WEST;
 		}
+		
+		// death image
+		if (isDead())
+			xTile = 25;
+		
+		// base 2x2 quadrant y-axis symmetry 
+		if (isLongitudinal() || isDead()) {
 
-		// attacking left right
-		if (isLatitudinal()) {
-			// iterate by rows
-			for (int i = 0; i < 2; i++) {
+			// Upper body
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip);
 
-				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i), xTile, yTile + i,
-				        getSpriteSheet(), flip, getColor());
+			// Upper body
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, getSpriteSheet(),
+			        flip);
 
-				screen.render(xOffset + modifier, yOffset + (modifier * i), xTile + 1, yTile + i, getSpriteSheet(),
-				        flip, getColor());
+			// Lower Body
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, getSpriteSheet(),
+			        flip);
 
-				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i), xTile + 2,
-				        yTile + i, getSpriteSheet(), flip, getColor());
-			}
-
-			// attacking up down
-		} else {
-
-			// iterate by rows
-			for (int i = 0; i < 3; i++) {
-
-				// Left body 1
-				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier * i, xTile, yTile + i,
-				        getSpriteSheet(), flip, getColor());
-
-				// Right body 2
-				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier * i, xTile + 1,
-				        yTile + i, getSpriteSheet(), flip, getColor());
-			}
-
+			// Lower Body
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
+			        getSpriteSheet(), flip);
 		}
+		
+		// render the extra sword chunks
+		if (isShooting && isLongitudinal()) {
+			
+			// Lower sword
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile, yTile + 2, getSpriteSheet(),
+			        flip);
 
+			// Lower sword
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile + 1, yTile + 2,
+			        getSpriteSheet(), flip);
+		} else if (isLatitudinal() && !isDead()) {
+			
+			// move x offset over if west
+			if (getDirection() == Direction.WEST) {
+				xOffset -= 8;
+			}
+			
+			// iterate top to bottom
+			for (int i = 0; i < 2; i++) {
+				
+				// Left body
+				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + i * modifier, xTile, yTile + i, getSpriteSheet(), flip);
+				
+				// Middle body
+				screen.render(xOffset + modifier, yOffset + i * modifier, xTile + 1, yTile + i, getSpriteSheet(), flip);
+				
+				// Right body
+				screen.render(xOffset + (modifier * 2) - (modifier * (flip ? 2 : 0)), yOffset + i * modifier, xTile + 2, yTile + i, getSpriteSheet(), flip);
+				
+			}
+			
+		}
 	}
 
 	/**
@@ -276,7 +303,7 @@ public class Knight extends NPC {
 	public void move(int dx, int dy) {
 		super.move(dx, dy);
 
-		aggroRadius.setFrame(getX() - RADIUS * 8 / 2, getY() - RADIUS * 8 / 2, RADIUS * 8, RADIUS * 8);
+		aggroRadius.setFrame(getX() - RADIUS / 2, getY() - RADIUS / 2, RADIUS, RADIUS);
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public abstract class Shooter extends NPC implements LongRange {
 	private static final int DAMAGE_RANGE = 4;
 
 	// how long the attack position is rendered in ticks
-	private static final int attackAnimationLength = 20;
+	private static final int attackAnimationLength = 15;
 
 	// how fast the npcs toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
@@ -285,7 +285,7 @@ public abstract class Shooter extends NPC implements LongRange {
 	@Override
 	public int getStrength() {
 		// TODO Auto-generated method stub
-		return 5;
+		return 30;
 	}
 
 	@Override

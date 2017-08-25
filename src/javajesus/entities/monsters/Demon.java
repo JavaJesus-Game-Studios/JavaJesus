@@ -28,7 +28,7 @@ public class Demon extends Monster implements LongRange, Type {
 	private static final int WALKING_ANIMATION_SPEED = 3;
 	
 	// base stats
-	private static final int BASE_STRENGTH = 4, BASE_DEFENSE = 0;
+	private static final int BASE_STRENGTH = 20, BASE_DEFENSE = 0;
 
 	// color set of a demon
 	private static final int[] color = { 0xFF111111, 0xFF700000, 0xFFDBA800, 0 , 0 };
@@ -55,7 +55,7 @@ public class Demon extends Monster implements LongRange, Type {
 	 * @param health - the base health
 	 */
 	public Demon(Level level, int x, int y, int speed, int health, byte type) {
-		super(level, "Demon", x, y, speed, WIDTH, HEIGHT, 0, health, 200);
+		super(level, "Demon", x, y, speed, WIDTH, HEIGHT, 0, health, 100);
 
 		// set the standing box
 		this.standRange = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);

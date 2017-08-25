@@ -15,7 +15,7 @@ public class Skeleton extends Monster {
 	private static final int WALKING_ANIMATION_SPEED = 3;
 		
 	// base stats
-	private static final int BASE_STRENGTH = 7, BASE_DEFENSE = 5;
+	private static final int BASE_STRENGTH = 15, BASE_DEFENSE = 5;
 	
 	// color set of skeleton
 	private static final int[] color =  { 0xFF111111, 0xFF700000, 0xFFDBA800, 0, 0 };
@@ -26,7 +26,7 @@ public class Skeleton extends Monster {
 	 * @param y - y coordinate
 	 */
 	public Skeleton(Level level, int x, int y) {
-		super(level, "Skeleton", x, y, 1, WIDTH, HEIGHT, 10, 100, 50);
+		super(level, "Skeleton", x, y, 1, WIDTH, HEIGHT, 10, 100, 20);
 	}
 	
 	/**

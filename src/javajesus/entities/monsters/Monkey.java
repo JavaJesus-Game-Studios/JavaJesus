@@ -22,7 +22,7 @@ public class Monkey extends Monster {
 	private static final int WALKING_ANIMATION_SPEED = 4;
 	
 	// base stats
-	private static final int BASE_STRENGTH = 7, BASE_DEFENSE = 5;
+	private static final int BASE_STRENGTH = 30, BASE_DEFENSE = 5;
 
 	// color set of a monkey
 	private static final int[] color = { 0xFF111111, 0xFF2c2417, 0xFF4c412e, 0xFF3f3626, 0xFF1e1911 };
@@ -37,7 +37,7 @@ public class Monkey extends Monster {
 	 * @param health - the base health
 	 */
 	public Monkey(Level level, int x, int y, int speed, int health) {
-		super(level, "Monkey", x, y, speed, WIDTH, HEIGHT, 8, health, 40);
+		super(level, "Evil Chimpanzee", x, y, speed, WIDTH, HEIGHT, 8, health, 30);
 	}
 	
 	/**

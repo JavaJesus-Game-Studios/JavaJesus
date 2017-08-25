@@ -141,7 +141,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		
 		// map pixels
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-		SoundHandler.playLoop(SoundHandler.background1);
+		SoundHandler.playLoop(SoundHandler.alphaTheme);
 		
 		// initialize JSwing stuff
 		display = new JPanel(cardLayout = new CardLayout(0, 0));
@@ -450,9 +450,9 @@ public class Launcher extends Canvas implements IGameLogic {
 		case MUTE: {
 			SoundHandler.toggleMute();
 			if (!SoundHandler.isMuted()) {
-				SoundHandler.background1.stop();
+				SoundHandler.alphaTheme.stop();
 			} else {
-				SoundHandler.play(SoundHandler.background1);
+				SoundHandler.play(SoundHandler.alphaTheme);
 			}
 			return;
 		}

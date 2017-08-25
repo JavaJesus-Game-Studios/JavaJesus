@@ -23,7 +23,7 @@ public class EvilFox extends Monster {
 	private static final int WALKING_ANIMATION_SPEED = 4;
 	
 	// base stats
-	private static final int BASE_STRENGTH = 7, BASE_DEFENSE = 5;
+	private static final int BASE_STRENGTH = 20, BASE_DEFENSE = 5;
 
 	// color set of a EvilFox
 	private static final int[] color = { 0xFF111111, 0xFF2c2417, 0xFF4c412e, 0xFF3f3626, 0xFF1e1911 };
@@ -38,7 +38,7 @@ public class EvilFox extends Monster {
 	 * @param health - the base health
 	 */
 	public EvilFox(Level level, int x, int y, int speed, int health) {
-		super(level, "EvilFox", x, y, speed, WIDTH, HEIGHT, 21, health, 20);
+		super(level, "EvilFox", x, y, speed, WIDTH, HEIGHT, 21, health, 50);
 	}
 	
 	/**
