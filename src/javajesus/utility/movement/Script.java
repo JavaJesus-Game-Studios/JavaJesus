@@ -1,4 +1,4 @@
-package javajesus.quest;
+package javajesus.utility.movement;
 
 import java.awt.Point;
 
@@ -57,7 +57,7 @@ public class Script {
 	 * @return True if the script has been completed
 	 */
 	public boolean isCompleted() {
-		return destination.getX() == mob.getX() && destination.getY() == mob.getY();
+		return destination.x >> 3 == mob.getX() >> 3 && destination.y >> 3 == mob.getY() >> 3;
 	}
 
 }

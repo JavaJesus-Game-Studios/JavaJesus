@@ -10,8 +10,9 @@ import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
-import javajesus.quest.Script;
 import javajesus.utility.Direction;
+import javajesus.utility.movement.Path;
+import javajesus.utility.movement.Script;
 
 /*
  * A mob is an entity that has complex interactions in a level with other entities
@@ -97,8 +98,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	protected int tickCount = 0;
 	private int fireTickCount = 0;
 
-	// an action script a mob might follow
-	private Script script;
+	// the path for the mob to follow
+	private Path path;
 
 	// the extra space, or padding, around each mob
 	public static final int OUTER_BOUNDS_RANGE = 2;
@@ -534,20 +535,23 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		}
 
 		// automate movement with a script
-		if (script != null && !script.isCompleted()) {
+		if (path != null && path.exists()) {
+			
+			// first update the path
+			path.update();
 
 			// change in x and y
 			int dx = 0, dy = 0;
 
-			if (script.getDestination().getX() > getX()) {
+			if (path.next().getDestination().getX() > getX()) {
 				dx++;
-			} else if (script.getDestination().getX() < getX()) {
+			} else if (path.next().getDestination().getX() < getX()) {
 				dx--;
 			}
 
-			if (script.getDestination().getY() > getY()) {
+			if (path.next().getDestination().getY() > getY()) {
 				dy++;
-			} else if (script.getDestination().getY() < getY()) {
+			} else if (path.next().getDestination().getY() < getY()) {
 				dy--;
 			}
 			if (dx != 0 || dy != 0) {
@@ -1003,18 +1007,24 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	}
 
 	/**
-	 * @return the mob's script
+	 * @param dest - destination mob
 	 */
-	public Script getScript() {
-		return script;
+	public void setPath(Mob dest) {
+		this.path = new Path(this, dest);
 	}
-
+	
 	/**
-	 * @param script
-	 * the new script for the mob
+	 * @return the path it is following
 	 */
-	public void setScript(Script script) {
-		this.script = script;
+	public Path getPath() {
+		return path;
+	}
+	
+	/**
+	 * @param script - a single node
+	 */
+	public void setPath(Script script) {
+		this.path = new Path(script);
 	}
 
 	/**

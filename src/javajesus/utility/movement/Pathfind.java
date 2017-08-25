@@ -1,4 +1,4 @@
-package javajesus.entities;
+package javajesus.utility.movement;
 
 import java.util.ArrayList;
 import java.util.List;

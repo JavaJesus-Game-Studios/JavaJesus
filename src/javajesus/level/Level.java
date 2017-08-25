@@ -493,5 +493,12 @@ public abstract class Level {
 	public void setSpawnPoint(int x, int y) {
 		spawnPoint.setLocation(x, y);
 	}
+	
+	/**
+	 * @return the level tiles
+	 */
+	public int[] getTiles() {
+		return levelTiles;
+	}
 
 }

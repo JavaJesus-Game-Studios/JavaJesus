@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import javajesus.entities.Mob;
 import javajesus.entities.Player;
+import javajesus.utility.movement.Script;
 
 /*
  * Simple logic script that makes the mob follow the player

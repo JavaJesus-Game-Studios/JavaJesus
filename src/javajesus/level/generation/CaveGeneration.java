@@ -3,7 +3,7 @@ package javajesus.level.generation;
 import java.util.Random;
 
 import javajesus.level.Level;
-import javajesus.entities.Pathfind;
+import javajesus.utility.movement.Pathfind;
 
 /**
  *	Utility class for generating tile maps using cell automata 

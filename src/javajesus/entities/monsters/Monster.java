@@ -172,36 +172,39 @@ public abstract class Monster extends Mob {
 		if (target != null) {
 			if (this instanceof LongRange) {
 				shouldMove = !((LongRange) this).getRange().intersects(target.getBounds());
+				if (shouldMove) {
+
+					// move towards the target horizontally
+					if (target.getX() > getX()) {
+						dx++;
+					} else if (target.getX() < getX()) {
+						dx--;
+					}
+
+					// move towards the target vertically
+					if (target.getY() > getY()) {
+						dy++;
+					} else if (target.getY() < getY()) {
+						dy--;
+					}
+
+				}
+
+				// move the monster towards the target
+				if ((dx != 0 || dy != 0) && !isMobCollision(dx, dy)) {
+					isMoving = true;
+					move(dx, dy);
+				} else {
+					isMoving = false;
+				}
 			} else {
-				shouldMove = !getOuterBounds().intersects(target.getBounds());
+				shouldMove = isMoving = !getOuterBounds().intersects(target.getBounds());
+				if (shouldMove && (getPath() == null || !getPath().exists())) {
+					//setPath(target);
+				}
 			}
 		}
 
-		if (shouldMove) {
-
-			// move towards the target horizontally
-			if (target.getX() > getX()) {
-				dx++;
-			} else if (target.getX() < getX()) {
-				dx--;
-			}
-
-			// move towards the target vertically
-			if (target.getY() > getY()) {
-				dy++;
-			} else if (target.getY() < getY()) {
-				dy--;
-			}
-
-		}
-
-		// move the monster towards the target
-		if ((dx != 0 || dy != 0) && !isMobCollision(dx, dy)) {
-			isMoving = true;
-			move(dx, dy);
-		} else {
-			isMoving = false;
-		}
 	}
 
 	/**
