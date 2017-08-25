@@ -26,7 +26,7 @@ public class RancheroHouse extends Building {
 		super(level, x, y, new int[] { 0xFF111111, 0xFFFFFAB0, 0xFFD30000 }, Sprite.ranchero_house);
 
 		if (level != null)
-		level.add(new Door(level, x + 42, y + 48, new RancheroHouseInterior(new Point(x + 50, y + 56), level),0,0));
+		level.add(new Door(level, x + 43, y + 48, new RancheroHouseInterior(new Point(x + 50, y + 56), level),0,0));
 	}
 
 	@Override

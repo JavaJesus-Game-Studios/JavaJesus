@@ -29,8 +29,8 @@ public class CastleTower extends Building {
 		setBounds(getBounds().x + 11, getBounds().y, getBounds().width - 22, getBounds().height);
 
 		if (level != null)
-		level.add(new Door(level, x + 42, y + 160,
-		        new CastleTowerInterior(new Point(x + 44, y + 168), level),0,2));
+		level.add(new Door(level, x + 42, y + 157,
+		        new CastleTowerInterior(new Point(x + 44, y + 168), level),0,0));
 
 	}
 	
