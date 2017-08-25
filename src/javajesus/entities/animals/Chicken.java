@@ -23,7 +23,7 @@ public class Chicken extends Animal {
 	 * @param y - y coord
 	 */
 	public Chicken(Level level, int x, int y) {
-		super(level, "Chicken", x, y, 8, 8, SpriteSheet.bipeds, 3, color, true);
+		super(level, "Chicken", x, y, 8, 8, SpriteSheet.bipeds, 0, color, true);
 	}
 
 	/**

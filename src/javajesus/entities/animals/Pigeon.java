@@ -23,7 +23,7 @@ public class Pigeon extends Animal {
 	 * @param y - y coord
 	 */
 	public Pigeon(Level level, int x, int y) {
-		super(level, "Pigeon", x, y, 8, 8, SpriteSheet.bipeds, 0, color, true);
+		super(level, "Pigeon", x, y, 8, 8, SpriteSheet.bipeds, 3, color, true);
 	}
 
 	/**

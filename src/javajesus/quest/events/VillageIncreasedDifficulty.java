@@ -15,7 +15,7 @@ public class VillageIncreasedDifficulty extends Event{
 
 	@Override
 	protected void init(Level level) {
-		level.add( new Demon(level, 1400, 520));
+		level.add(new Demon(level, 1400, 520));
 		level.add(new Demon(level, 1480, 424));
 		level.add(new Demon(level, 1368, 376));
 		level.add(new Demon(level, 1176, 512));

@@ -206,11 +206,11 @@ public class Demon extends Monster implements LongRange, Type {
 		
 		// 40% chance of revolver, 15% health, 3% horned armor
 		if (value < 40) {
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16),Item.revolverAmmo, 6));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16),Item.revolverAmmo, 24));
 		} else if (value < 65) {
 			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16), Item.quickHealthPack, true));
 		} else if (value < 68) {
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16), Item.horned));
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16), Item.shotgunAmmo,12));
 		}
 	}
 	
