@@ -159,18 +159,22 @@ public class Pathfind {
 		// This should be self explanatory
 		if (isValidPoint(matrix, node.x - 1, node.y)) {
 			neighbors.add(new Node(node.x - 1, node.y));
+			matrix[(node.x - 1) + ((node.y) * Level.LEVEL_WIDTH)] = '0';
 		}
 
 		if (isValidPoint(matrix, node.x + 1, node.y)) {
 			neighbors.add(new Node(node.x + 1, node.y));
+			matrix[(node.x + 1) + ((node.y) * Level.LEVEL_WIDTH)] = '0';
 		}
 
 		if (isValidPoint(matrix, node.x, node.y - 1)) {
 			neighbors.add(new Node(node.x, node.y - 1));
+			matrix[(node.x) + ((node.y - 1) * Level.LEVEL_WIDTH)] = '0';
 		}
 
 		if (isValidPoint(matrix, node.x, node.y + 1)) {
 			neighbors.add(new Node(node.x, node.y + 1));
+			matrix[(node.x) + ((node.y + 1) * Level.LEVEL_WIDTH)] = '0';
 		}
 
 		return neighbors;
