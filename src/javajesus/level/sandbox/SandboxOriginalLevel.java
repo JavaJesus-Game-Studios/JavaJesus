@@ -14,7 +14,8 @@ import javajesus.quest.original.LiberateFarm;
  * Fixed level for sandbox mode
  */
 public class SandboxOriginalLevel extends Level {
-	
+	public static SandboxOriginalLevel alpha;
+		
 	/**
 	 * SandboxOriginalLevel ctor()
 	 * 

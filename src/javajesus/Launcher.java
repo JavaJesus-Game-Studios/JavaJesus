@@ -837,7 +837,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			try {
 				switch (selected) {
 				case ORIGINAL:
-					return new SandboxOriginalLevel(slot);
+					return  SandboxOriginalLevel.alpha = new SandboxOriginalLevel(slot);
 				case ISLAND:
 					return new SandboxIslandLevel(slot);
 				case TILE_TESTER:
