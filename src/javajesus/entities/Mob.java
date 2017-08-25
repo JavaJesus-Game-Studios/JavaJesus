@@ -309,6 +309,11 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 			if (entity instanceof SolidEntity
 					&& temp.intersects(entity.getBounds())) {
+				
+				// fire collision
+				if (entity instanceof FireEntity) {
+					this.ignite();
+				}
 				return true;
 			} 
 

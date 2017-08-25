@@ -1,5 +1,7 @@
 package javajesus.entities;
 
+import java.awt.Rectangle;
+
 import javajesus.dataIO.EntityData;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
@@ -9,7 +11,7 @@ import javajesus.level.tile.Tile;
 /*
  * A pseudo animated tile that damages the player over time
  */
-public class FireEntity extends Entity  {
+public class FireEntity extends Entity implements SolidEntity {
 
 	// last iteration time in milliseconds
 	private static long lastIterationTime;
@@ -28,6 +30,9 @@ public class FireEntity extends Entity  {
 	
 	// the number of animated tiles on spritesheet
 	private static final int NUM_TILES = 5;
+	
+	// dummy bounds of the fire
+	private static final Rectangle shadow = new Rectangle();
 	
 	/**
 	 * Creates a fire entity that damages the player
@@ -52,18 +57,7 @@ public class FireEntity extends Entity  {
 	 * update fire logic
 	 */
 	public void tick() {
-		
 		update();
-		
-		// check for collisions
-		for (int i = 0; i < getLevel().getMobs().size(); i++) {
-			
-			// collision if on the same tile
-			if (getLevel().getMobs().get(i).getBounds().intersects(this.getBounds())) {
-				getLevel().getMobs().get(i).ignite();
-			}
-			
-		}
 	}
 	
 	/**
@@ -93,6 +87,11 @@ public class FireEntity extends Entity  {
 	@Override
 	public long getData() {
 		return EntityData.type1(getX(), getY());
+	}
+
+	@Override
+	public Rectangle getShadow() {
+		return shadow;
 	}
 
 }
