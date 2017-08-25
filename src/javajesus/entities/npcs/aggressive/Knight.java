@@ -15,9 +15,6 @@ public class Knight extends NPC {
 	// dimensions of the knight
 	private static final int WIDTH = 16, HEIGHT = 16;
 
-	// the target of this mob
-	private Mob target;
-
 	// Range that the monster can target another
 	private final Ellipse2D.Double aggroRadius;
 

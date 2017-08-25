@@ -21,9 +21,6 @@ public abstract class Shooter extends NPC implements LongRange {
 	// the range the shooter will stand back when shooting
 	private Ellipse2D.Double standRange;
 
-	// the target of this mob
-	protected Mob target;
-
 	// Range that the monster can target another
 	private Ellipse2D.Double aggroRadius;
 

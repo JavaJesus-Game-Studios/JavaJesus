@@ -22,9 +22,6 @@ import javajesus.utility.Direction;
  */
 public abstract class Monster extends Mob {
 
-	// the target of this mob
-	protected Mob target;
-
 	// Range that the monster can target another
 	private final Ellipse2D.Double aggroRadius;
 

@@ -117,6 +117,7 @@ public class Player extends Mob implements Type {
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
 		this.gender = gender;
+		this.collisionImmune = true;
 		
 		// use the female spritesheet if female
 		if (gender == PlayerData.FEMALE) {

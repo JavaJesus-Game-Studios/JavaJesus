@@ -88,6 +88,9 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	// determines if the mob was recently damaged (for displaying damage
 	// indicators)
 	protected boolean isHit;
+	
+	//the target of the mob, used for attacking other mobs
+	protected Mob target;
 
 	// damage cooldown
 	private int isHitTicks;
@@ -106,6 +109,9 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 	// whether or not the mob can clip through bounds
 	private boolean clip;
+	
+	// whether or not mobs can push the player around
+	protected boolean collisionImmune;
 
 	// color of water
 	private static final int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
@@ -562,7 +568,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		}
 
 		// force the mob to move around the mob collision
-		if (isCollidingWithMob()) {
+		if (isCollidingWithMob() && !collisionImmune && target == null) {
 			moveAroundMobCollision();
 			return;
 		}
@@ -1020,6 +1026,13 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 */
 	public void setPath(Script script) {
 		this.path = new Path(script);
+	}
+	
+	/**
+	 * @return the target of this mob
+	 */
+	public Mob getTarget() {
+		return target;
 	}
 
 	/**
