@@ -26,7 +26,7 @@ public abstract class Monster extends Mob {
 	protected Mob target;
 
 	// Range that the monster can target another
-	private Ellipse2D.Double aggroRadius;
+	private final Ellipse2D.Double aggroRadius;
 
 	// the global attack range radius
 	protected static final int RADIUS = 32;
@@ -76,7 +76,7 @@ public abstract class Monster extends Mob {
 	        int attackDelay) {
 		super(level, name, x, y, speed, width, height, SpriteSheet.mobEnemies,
 		        Math.round(health * JavaJesus.difficulty));
-		this.aggroRadius = new Ellipse2D.Double(x - RADIUS / 2, y - RADIUS / 2, RADIUS, RADIUS);
+		this.aggroRadius = new Ellipse2D.Double(x - (RADIUS * 8) / 2, y - (RADIUS * 8) / 2, RADIUS * 8, RADIUS * 8);
 		this.yTile = yTile;
 		this.attackDelay = attackDelay;
 
@@ -96,6 +96,7 @@ public abstract class Monster extends Mob {
 		if (target != null && (target.isDead() || !(aggroRadius.intersects(target.getBounds())))) {
 			target.setTargeted(false);
 			target = null;
+			clearPath();
 		}
 
 		// assign a new target
@@ -105,12 +106,12 @@ public abstract class Monster extends Mob {
 			for (int i = 1; i < RADIUS; i++) {
 				
 				// update the radius
-				aggroRadius = new Ellipse2D.Double(getX() - (i * 8) / 2, getY() - (i * 8) / 2, i * 8, i * 8);
+				Ellipse2D.Double perimeter = new Ellipse2D.Double(getX() - (i * 8) / 2, getY() - (i * 8) / 2, i * 8, i * 8);
 
 				// last mob in case no targetable mob
 				Mob last = null;
 				for (Mob mob : getLevel().getMobs()) {
-					if ((mob instanceof Player || mob instanceof NPC) && aggroRadius.intersects(mob.getBounds())
+					if ((mob instanceof Player || mob instanceof NPC) && perimeter.intersects(mob.getBounds())
 					        && !mob.isDead()) {
 
 						// target the mob if it is not being targeted already
@@ -165,14 +166,12 @@ public abstract class Monster extends Mob {
 		// change in x and y
 		int dx = 0, dy = 0;
 
-		// whether or not the monster should move
-		boolean shouldMove = false;
-
 		// check the bounds if the monster prefers long range or not
 		if (target != null) {
+			
+			// simple path finding for long range shooters
 			if (this instanceof LongRange) {
-				shouldMove = !((LongRange) this).getRange().intersects(target.getBounds());
-				if (shouldMove) {
+				if ( !((LongRange) this).getRange().intersects(target.getBounds())) {
 
 					// move towards the target horizontally
 					if (target.getX() > getX()) {
@@ -197,10 +196,12 @@ public abstract class Monster extends Mob {
 				} else {
 					isMoving = false;
 				}
+				
+				// close combat has pathfinding
 			} else {
-				shouldMove = isMoving = !getOuterBounds().intersects(target.getBounds());
-				if (shouldMove && (getPath() == null || !getPath().exists())) {
-					//setPath(target);
+				isMoving = !getOuterBounds().intersects(target.getBounds());
+				if (isMoving && (getPath() == null || !getPath().exists())) {
+					setPath(target);
 				}
 			}
 		}
@@ -268,7 +269,7 @@ public abstract class Monster extends Mob {
 	 */
 	public void move(int dx, int dy) {
 
-		aggroRadius.setFrame(getX() - RADIUS / 2, getY() - RADIUS / 2, RADIUS, RADIUS);
+		aggroRadius.setFrame(getX() - (RADIUS * 8) / 2, getY() - (RADIUS * 8) / 2, RADIUS * 8, RADIUS * 8);
 
 		if (moveTick++ % 2 == 0) {
 			super.move(dx * (int) getSpeed(), dy * (int) getSpeed());

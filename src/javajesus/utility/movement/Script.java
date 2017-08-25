@@ -14,6 +14,7 @@ public class Script {
 	protected Mob mob;
 
 	// the destination of where to send the mob
+	// scaled from Tile to Entity coords automatically
 	protected Point destination;
 	
 	// whether or not to move there instantaneously
@@ -21,11 +22,13 @@ public class Script {
 
 	/**
 	 * @param mob - The targeted mob
-	 * @param first - The first location to which the mob will travel
+	 * @param point - in tile coordinates
 	 */
-	public Script(Mob mob, Point first) {
+	public Script(Mob mob, Point tileCoord) {
 		this.mob = mob;
-		destination = first;
+		tileCoord.x = (int) ((tileCoord.x << 3) + 4 - (mob.getBounds().getWidth() / 2));
+		tileCoord.y = (int) ((tileCoord.y << 3) + 8 - mob.getBounds().getHeight());
+		destination = tileCoord;
 	}
 	
 	/**
@@ -57,7 +60,7 @@ public class Script {
 	 * @return True if the script has been completed
 	 */
 	public boolean isCompleted() {
-		return destination.x >> 3 == mob.getX() >> 3 && destination.y >> 3 == mob.getY() >> 3;
+		return destination.x == mob.getX() && destination.y == mob.getY();
 	}
 
 }

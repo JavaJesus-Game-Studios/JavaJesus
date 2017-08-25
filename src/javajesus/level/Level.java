@@ -346,7 +346,7 @@ public abstract class Level {
 	 * @param newTile - the tile to replace it with
 	 */
 	public void alterTile(int x, int y, Tile newTile) {
-		this.levelTiles[x + y * LEVEL_WIDTH] = newTile.getId();
+		this.levelTiles[x + y * LEVEL_WIDTH] = newTile.getId() & 0x00FF;
 	}
 
 	/**

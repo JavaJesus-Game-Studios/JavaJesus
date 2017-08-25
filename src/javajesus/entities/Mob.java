@@ -72,7 +72,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 	// the talking cooldown in ticks
 	private static final int TALKING_COOLDOWN = secondsToTicks(5);
-	
+
 	// hit color of mob
 	protected static final int[] mobHitColor = { 0xFFDBA800, 0xFFDBA800, 0xFFDBA800, 0, 0 };
 
@@ -99,22 +99,22 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	private int fireTickCount = 0;
 
 	// the path for the mob to follow
-	private Path path;
+	protected Path path;
 
 	// the extra space, or padding, around each mob
 	public static final int OUTER_BOUNDS_RANGE = 2;
 
 	// whether or not the mob can clip through bounds
 	private boolean clip;
-	
+
 	// color of water
 	private static final int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
-	
+
 	// for knockback color flicker
 	protected boolean knockbackCooldown;
 	private int knockbackTicks;
 	private int knockbackLength = 10;
-	
+
 	// whether or not this mob is immune to fire
 	private boolean fireImmune;
 
@@ -131,8 +131,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * @param sheet the spritesheet that contains the image of the mob
 	 * @param defaultHealth the starting highest health value
 	 */
-	public Mob(Level level, String name, int x, int y, double speed, int width, int height,
-			SpriteSheet sheet, int defaultHealth) {
+	public Mob(Level level, String name, int x, int y, double speed, int width, int height, SpriteSheet sheet,
+	        int defaultHealth) {
 		super(level, x, y);
 
 		// instance data
@@ -149,11 +149,11 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	/**
 	 * Moves a mob on the level
 	 * 
-	 * @param dx  - the total change in x
+	 * @param dx - the total change in x
 	 * @param dy - the total change in y
 	 */
 	public void move(int dx, int dy) {
-		
+
 		// move animation proportional to speed
 		numSteps++;
 
@@ -173,6 +173,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 				super.move(1 * sign, 0);
 				this.moveOuterBounds(1 * sign, 0);
 			} else {
+				clearPath();
 				break;
 			}
 		}
@@ -192,22 +193,27 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 				super.move(0, 1 * sign);
 				this.moveOuterBounds(0, 1 * sign);
 			} else {
+				clearPath();
 				break;
 			}
 		}
-		
+
 		// move the health bar
 		if (bar != null) {
 			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
 		}
 
 	}
-	
+
 	/**
-	 * Determines the shortest path to reach a certain point while avoiding obstacles
+	 * Determines the shortest path to reach a certain point while avoiding
+	 * obstacles
+	 * 
 	 * @param dx The number of steps on x-coordinate (-dx is west, +dx is east)
-	 * @param dy The number of steps on y-coordinate (-dy is south, +dy is north)
-	 * @return An array that determines the steps that must be taken in order to reach the goal<br>
+	 * @param dy The number of steps on y-coordinate (-dy is south, +dy is
+	 * north)
+	 * @return An array that determines the steps that must be taken in order to
+	 * reach the goal<br>
 	 * 
 	 * <b>The return types are as specified.</b>
 	 * <ul>
@@ -224,51 +230,50 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 */
 	public int[] findPath(int dx, int dy) {
 		int[] stepInst = new int[100];
-		
+
 		// If no change is requested then the terminated array is returned.
-		if(dx==0 && dy==0) {
+		if (dx == 0 && dy == 0) {
 			stepInst[0] = 8;
 		}
-		
+
 		// If the path is straight, will check for collisions
 		// East Only
 		boolean collision = false;
-		if(dx > 0 && dy == 0) {
+		if (dx > 0 && dy == 0) {
 			// Check for solid tiles
-			for(int i = 0; i < dx; i++) {
-				if(this.getLevel().getTile(getX() >> 3, getY() >> 3).isSolid()) {
+			for (int i = 0; i < dx; i++) {
+				if (this.getLevel().getTile(getX() >> 3, getY() >> 3).isSolid()) {
 					collision = true;
 				}
 			}
-			
-			//If no solid, returns simple movement
-			if(collision) {
-				for(int i = 0; i < dx; i++)
+
+			// If no solid, returns simple movement
+			if (collision) {
+				for (int i = 0; i < dx; i++)
 					stepInst[i] = 2;
 				stepInst[dx] = 8;
 				return stepInst;
 			}
 		}
-		
+
 		// West Only
-		if(dx < 0 && dy == 0) {
+		if (dx < 0 && dy == 0) {
 			// Check for solid tiles
-			for(int i = 0; i > dx; i--) {
-				if(this.getLevel().getTile(getX() >> 3, getY() >> 3).isSolid()) {
+			for (int i = 0; i > dx; i--) {
+				if (this.getLevel().getTile(getX() >> 3, getY() >> 3).isSolid()) {
 					collision = true;
 				}
 			}
-					
-			//If no solid, returns simple movement
-			if(collision) {
-				for(int i = 0; i > dx; i--)
+
+			// If no solid, returns simple movement
+			if (collision) {
+				for (int i = 0; i > dx; i--)
 					stepInst[i] = 6;
 				stepInst[dx] = 8;
 				return stepInst;
 			}
 		}
 
-		
 		return stepInst;
 	}
 
@@ -296,8 +301,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		int yMax = getBounds().height - 1;
 
 		// check for solid tile collisions at the 4 corners
-		if (isSolidTile(xMin, yMin, dx, dy) || isSolidTile(xMin, yMax, dx, dy)
-				|| isSolidTile(xMax, yMin, dx, dy) || isSolidTile(xMax, yMax, dx, dy)) {
+		if (isSolidTile(xMin, yMin, dx, dy) || isSolidTile(xMin, yMax, dx, dy) || isSolidTile(xMax, yMin, dx, dy)
+		        || isSolidTile(xMax, yMax, dx, dy)) {
 			return true;
 		}
 
@@ -308,15 +313,14 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		// loop through all entities
 		for (Entity entity : getLevel().getEntities()) {
 
-			if (entity instanceof SolidEntity
-					&& temp.intersects(entity.getBounds())) {
-				
+			if (entity instanceof SolidEntity && temp.intersects(entity.getBounds())) {
+
 				// fire collision
 				if (entity instanceof FireEntity) {
 					this.ignite();
 				}
 				return true;
-			} 
+			}
 
 		}
 		return false;
@@ -334,7 +338,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	protected boolean isSolidTile(int x, int y, int dx, int dy) {
 		return getLevel().getTileFromEntityCoords(getX() + x + dx, getY() + y + dy).isSolid();
 	}
-	
+
 	/**
 	 * Checks the type of tile at a current offset
 	 * 
@@ -358,12 +362,10 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	protected boolean isWaterTile(int dx, int dy, int x, int y) {
 
 		// tile the mob is on (bottom half)
-		Tile lastTile = getLevel().getTile((getX() + x) / Tile.SIZE,
-				(getY() + y) / Tile.SIZE);
+		Tile lastTile = getLevel().getTile((getX() + x) / Tile.SIZE, (getY() + y) / Tile.SIZE);
 
 		// tile the mob will move to
-		Tile newTile = getLevel().getTile((getX() + x + dx) / Tile.SIZE,
-				(getY() + y + dy) / Tile.SIZE);
+		Tile newTile = getLevel().getTile((getX() + x + dx) / Tile.SIZE, (getY() + y + dy) / Tile.SIZE);
 
 		// water entry looks a bit jumpy TODO
 		if (!lastTile.equals(newTile) && newTile.equals(Tile.SEA1)) {
@@ -401,12 +403,10 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	public boolean isMobCollision(int dx, int dy) {
 
 		// create a temporary range box shifted by dx and dy
-		Rectangle range = new Rectangle(getX() + dx, getY() + dy,
-				getBounds().width, getBounds().height);
+		Rectangle range = new Rectangle(getX() + dx, getY() + dy, getBounds().width, getBounds().height);
 
 		for (Mob mob : getLevel().getMobs()) {
-			if (range.intersects(mob.getBounds()) && mob != this
-					&& !mob.isDead())
+			if (range.intersects(mob.getBounds()) && mob != this && !mob.isDead())
 				return true;
 		}
 
@@ -458,7 +458,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	public void tick() {
 
 		tickCount++;
-		
+
 		if (knockbackCooldown) {
 			if (knockbackTicks++ > knockbackLength) {
 				knockbackCooldown = false;
@@ -485,15 +485,11 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		}
 
 		// checks if the mob is on water
-		isSwimming = getLevel().getTile((getX() + UNIT_SIZE) >> 3,
-				(getY() + getBounds().height) >> 3).equals(Tile.SEA1)
-				||getLevel().getTile((getX() + UNIT_SIZE) >> 3,
-						(getY() + getBounds().height) >> 3).equals(Tile.SEA2)
-				||getLevel().getTile((getX() + UNIT_SIZE) >> 3,
-						(getY() + getBounds().height) >> 3).equals(Tile.SEA3)
-				||getLevel().getTile((getX() + UNIT_SIZE) >> 3,
-						(getY() + getBounds().height) >> 3).equals(Tile.SEA4);
-		
+		isSwimming = getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA1)
+		        || getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA2)
+		        || getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA3)
+		        || getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA4);
+
 		// animate bobbing water color
 		if (isSwimming) {
 			if (tickCount % 60 < 15) {
@@ -514,20 +510,20 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 				waterColor[2] = 0xFF000000;
 			}
 		}
-		
+
 		// take damage for being on fire
 		if (onFire) {
-			
-			if(++fireTickCount > secondsToTicks(3) ) {
+
+			if (++fireTickCount > secondsToTicks(3)) {
 				fireTickCount = 0;
 				onFire = false;
 			}
-			
+
 			// 10 dps
 			if (fireTickCount % 12 == 0) {
 				this.damage(1);
 			}
-			
+
 		}
 
 		if (onFire && isSwimming) {
@@ -536,28 +532,33 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// automate movement with a script
 		if (path != null && path.exists()) {
-			
+
 			// first update the path
 			path.update();
 
-			// change in x and y
-			int dx = 0, dy = 0;
+			// now make sure it exists after updating
+			if (path.exists()) {
+				
+				// change in x and y
+				int dx = 0, dy = 0;
 
-			if (path.next().getDestination().getX() > getX()) {
-				dx++;
-			} else if (path.next().getDestination().getX() < getX()) {
-				dx--;
+				if (path.next().getDestination().getX() > getX()) {
+					dx++;
+				} else if (path.next().getDestination().getX() < getX()) {
+					dx--;
+				}
+
+				if (path.next().getDestination().getY() > getY()) {
+					dy++;
+				} else if (path.next().getDestination().getY() < getY()) {
+					dy--;
+				}
+				if (dx != 0 || dy != 0) {
+					move(dx, dy);
+					return;
+				}
 			}
 
-			if (path.next().getDestination().getY() > getY()) {
-				dy++;
-			} else if (path.next().getDestination().getY() < getY()) {
-				dy--;
-			}
-			if (dx != 0 || dy != 0) {
-				move(dx, dy);
-			}
-			return;
 		}
 
 		// force the mob to move around the mob collision
@@ -581,10 +582,10 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// render only the water animation down the bottom half
 		if (isSwimming) {
-			
+
 			// depth effect to water
 			yOffset += 4 + ((tickCount % 60 < 30) ? -1 : 0);
-			
+
 			// water rings
 			screen.render(xOffset, yOffset + modifier, 0, 0, SpriteSheet.dynamic, false, waterColor);
 			screen.render(xOffset + modifier, yOffset + modifier, 0, 0, SpriteSheet.dynamic, true, waterColor);
@@ -597,20 +598,18 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 			FireEntity.update();
 			screen.render(xOffset, yOffset, FireEntity.xTile, FireEntity.yTile, SpriteSheet.fireSmall, firecolor, 2);
-			
+
 		}
 
 		// displays text overhead
 		if (isTalking) {
-			JJFont.render(name, screen,
-					xOffset - (name.length() * 4 - 8), yOffset - modifier,
-					new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
+			JJFont.render(name, screen, xOffset - (name.length() * 4 - 8), yOffset - modifier,
+			        new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
 		}
 
 		// displays damage indicators overhead
 		if (isHit) {
-			JJFont.render(damageTaken, screen, xOffset + isHitX,
-					yOffset - modifier + isHitY, isHitColor, 1);
+			JJFont.render(damageTaken, screen, xOffset + isHitX, yOffset - modifier + isHitY, isHitColor, 1);
 		}
 	}
 
@@ -640,9 +639,9 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		setTargeted(false);
 		onFire = false;
 		knockbackCooldown = false;
-		
+
 	}
-	
+
 	/**
 	 * Sets a mob on fire
 	 */
@@ -651,59 +650,58 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 			onFire = true;
 		}
 	}
-	
+
 	/**
 	 * @param val - whether or not the mob can be ignited
 	 */
 	public void setFireImmune(boolean val) {
 		fireImmune = val;
 	}
-	
+
 	/**
 	 * Replenishes the mob health
 	 * 
-	 * @param num - the amount to heal
-	 * -1 to fully heal
+	 * @param num - the amount to heal -1 to fully heal
 	 */
 	public void heal(int num) {
-		
+
 		// heal to full
 		if (num == -1) {
 			health = maxHealth;
-			
+
 			// heal by a certain amount
 		} else {
 			health += num;
-			
+
 			// cant go over max and check for overflow
 			if (health > maxHealth || health < -1000) {
 				health = maxHealth;
 			}
 		}
-		
+
 	}
-	
+
 	/**
 	 * Knocks back a mob
 	 * 
 	 * @param strength - strength of the knockback
-	 * @param dir - direction from incoming damage
-	 * (Mob will move OPPOSITE to this value)
+	 * @param dir - direction from incoming damage (Mob will move OPPOSITE to
+	 * this value)
 	 */
 	public void knockback(int strength, Direction dir) {
-		
+
 		if (knockbackCooldown || isDead()) {
 			return;
 		}
-		
+
 		// opposite direction
 		Direction next = dir;
-		
+
 		// change in movement
 		int dx = 0, dy = 0;
-		
+
 		// calculate movement
-		switch(dir) {
+		switch (dir) {
 		case NORTH:
 			dy -= strength;
 			next = Direction.SOUTH;
@@ -723,21 +721,20 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		default:
 			break;
 		}
-		
+
 		// move the mob (TODO moves every other)
 		move(dx, dy);
-		
+
 		// set the direction towards the player
 		setDirection(next);
-		
+
 		knockbackCooldown = true;
-		
+
 	}
 
 	/**
-	 * Deals damage to another mob
-	 * Calculated by getStrength() +
-	 * a random number in the range
+	 * Deals damage to another mob Calculated by getStrength() + a random number
+	 * in the range
 	 * 
 	 * @param range - random offset to add to strength
 	 * @param other - the other thing to attack
@@ -747,8 +744,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	}
 
 	/**
-	 * Inflicts damage to this mob
-	 * Displays an indicator
+	 * Inflicts damage to this mob Displays an indicator
 	 * 
 	 * @param damage - the damage inflicted to THIS mob
 	 */
@@ -758,7 +754,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		if (isDead()) {
 			return;
 		}
-		
+
 		// subtract from defense
 		damage -= getDefense();
 		if (damage <= 0) {
@@ -783,7 +779,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	}
 
 	/**
-	 * Decreases a mob's health 
+	 * Decreases a mob's health
 	 * 
 	 * @param damage - the value of damage
 	 */
@@ -810,16 +806,14 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * @return true if the mob is aligned horizontally
 	 */
 	public boolean isLatitudinal() {
-		return getDirection() == Direction.EAST
-				|| getDirection() == Direction.WEST;
+		return getDirection() == Direction.EAST || getDirection() == Direction.WEST;
 	}
 
 	/**
 	 * @return true if the mob is aligned vertically
 	 */
 	public boolean isLongitudinal() {
-		return getDirection() == Direction.NORTH
-				|| getDirection() == Direction.SOUTH;
+		return getDirection() == Direction.NORTH || getDirection() == Direction.SOUTH;
 	}
 
 	/**
@@ -845,22 +839,19 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * @param height - height of the mob
 	 */
 	protected void setOuterBounds(int width, int height) {
-		outerBounds = new Rectangle(getX() - OUTER_BOUNDS_RANGE, getY()
-				- OUTER_BOUNDS_RANGE, width + OUTER_BOUNDS_RANGE * 2, height
-				+ OUTER_BOUNDS_RANGE * 2);
+		outerBounds = new Rectangle(getX() - OUTER_BOUNDS_RANGE, getY() - OUTER_BOUNDS_RANGE,
+		        width + OUTER_BOUNDS_RANGE * 2, height + OUTER_BOUNDS_RANGE * 2);
 	}
-	
+
 	/**
-	 * Changes the outer bounds size
-	 * Default is 2
+	 * Changes the outer bounds size Default is 2
 	 * 
 	 * @param width - width of the mob
 	 * @param height - height of the mob
 	 */
 	protected void setOuterBoundsRange(int range) {
-		outerBounds = new Rectangle(getX() - range, getY()
-				- range, getBounds().width + range * 2, getBounds().height
-				+ range * 2);
+		outerBounds = new Rectangle(getX() - range, getY() - range, getBounds().width + range * 2,
+		        getBounds().height + range * 2);
 	}
 
 	/**
@@ -915,8 +906,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	/**
 	 * Changes the mob's name
 	 * 
-	 * @param s
-	 * the new name
+	 * @param s the new name
 	 */
 	public void setName(String s) {
 		this.name = new String(s);
@@ -932,8 +922,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	/**
 	 * Changes the mob's speed
 	 * 
-	 * @param speed
-	 * the new speed
+	 * @param speed the new speed
 	 */
 	protected void setSpeed(double speed) {
 		this.speed = speed;
@@ -959,11 +948,10 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * @return create the mob's health bar
 	 */
 	public void createHealthBar() {
-		bar = new HealthBar(getLevel(), getX(), getY()
-				+ (int) getBounds().getHeight() + 2, this);
+		bar = new HealthBar(getLevel(), getX(), getY() + (int) getBounds().getHeight() + 2, this);
 		getLevel().add(bar);
 	}
-	
+
 	/**
 	 * @return the tile the mob is on
 	 */
@@ -1014,12 +1002,19 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	}
 	
 	/**
+	 * Sets the path to null
+	 */
+	public void clearPath() {
+		path = null;
+	}
+
+	/**
 	 * @return the path it is following
 	 */
 	public Path getPath() {
 		return path;
 	}
-	
+
 	/**
 	 * @param script - a single node
 	 */
@@ -1033,14 +1028,14 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	protected boolean isCollidingWithMob() {
 		return getMobCollision() != null;
 	}
-	
+
 	/**
 	 * Toggles whether or not the mob should clip solids
 	 */
 	protected void toggleClip() {
 		clip = !clip;
 	}
-	
+
 	@Override
 	public long getData() {
 		return EntityData.type2(getX(), getY(), getMaxHealth());

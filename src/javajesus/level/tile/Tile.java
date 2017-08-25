@@ -787,6 +787,18 @@ public class Tile {
 	}
 	
 	/**
+	 * Determines if an id is a water tile
+	 * 
+	 * @param num - the id to check
+	 * @return true if the ID is a water tile
+	 */
+	public static boolean isWater(byte num) {
+		return num == Tile.SEA1.getId() || num == Tile.SEA2.getId() || num == Tile.SEA3.getId()
+		        || num == Tile.SEA4.getId() || num == Tile.SHORE1.getId() || num == Tile.SHORE2.getId()
+		        || num == Tile.SHORE3.getId() || num == Tile.SHORE4.getId();
+	}
+	
+	/**
 	 * Renders the tile to the screen
 	 * in the upper left corner
 	 * 
