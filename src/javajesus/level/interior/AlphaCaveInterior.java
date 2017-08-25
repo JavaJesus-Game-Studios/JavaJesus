@@ -33,7 +33,7 @@ public class AlphaCaveInterior extends Interior {
 
 	@Override
 	public Transporter[] getTransporters() throws IOException {
-		return new Transporter[] { new TransporterInterior(this, 912, 1392, outside) };
+		return new Transporter[] { new TransporterInterior(this, 920, 1400, outside) };
 	}
 	/**
 	 * @return a clip of the  background music

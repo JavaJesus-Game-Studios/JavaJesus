@@ -46,7 +46,7 @@ public class Jesus extends NPC {
 
 	@Override
 	public int getDefense() {
-		return 100;
+		return 0;
 	}
 
 	@Override

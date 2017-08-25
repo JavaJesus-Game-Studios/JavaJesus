@@ -15,7 +15,7 @@ import javajesus.level.interior.AlphaCaveInterior;
 public class AlphaCave extends Building {
 
 	// color set
-	private static final int[] color = { 0xFF301E01, 0xFF632a06, 0xFF000000 };
+	private static final int[] color = { 0xFF301E01, 0xFF632a06, 0xFF000000,0,0 };
 
 	// Instance of the alpha Cave interior, used in the Liberate Church Quest
 	public static AlphaCaveInterior interior;
