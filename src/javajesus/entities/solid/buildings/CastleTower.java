@@ -23,7 +23,7 @@ public class CastleTower extends Building {
 	 * @throws IOException 
 	 */
 	public CastleTower(Level level, int x, int y) throws IOException {
-		super(level, x, y, new int[] { 0xFF111111, 0xFF8D8D8D, 0xFFEEFEFF }, Sprite.castle_tower);
+		super(level, x, y, null, Sprite.castle_tower);
 		
 		// change bounds
 		setBounds(getBounds().x + 11, getBounds().y, getBounds().width - 22, getBounds().height);
