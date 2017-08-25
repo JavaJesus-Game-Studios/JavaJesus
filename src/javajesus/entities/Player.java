@@ -389,7 +389,7 @@ public class Player extends Mob implements Type {
 	 */
 	public void addItem(Item item) {
 		inventory.add(item);
-		MessageHandler.displayText("You have obtained " + item, Color.YELLOW);
+		MessageHandler.displayText("You have obtained " + item.getName(), Color.YELLOW);
 	}
 
 	/**

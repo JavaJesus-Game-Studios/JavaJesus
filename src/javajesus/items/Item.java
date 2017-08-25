@@ -184,7 +184,7 @@ public class Item implements Serializable {
 		this.yTile = yTile;
 		this.description = description;
 		this.equipable = equipable;
-
+		
 		// make sure each ID is unique
 		if (items[id] != null)
 			throw new RuntimeException("Duplicate item id on " + id);
