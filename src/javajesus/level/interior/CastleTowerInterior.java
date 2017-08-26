@@ -16,7 +16,7 @@ public class CastleTowerInterior extends Interior {
 
 	@Override
 	public Transporter[] getTransporters() throws IOException {
-		return new Transporter[] { new TransporterInterior(this, 100, 100, outside) };
+		return new Transporter[] { new TransporterInterior(this, 772, 752, outside) };
 	}
 
 }
