@@ -794,6 +794,9 @@ public class Player extends Mob implements Type {
 		
 		// reset data fields
 		isSwinging = isShooting = isMoving = false;
+		
+		// play death sound
+		SoundHandler.play(SoundHandler.deathDirge);
 	}
 
 	/**
