@@ -472,6 +472,14 @@ public abstract class NPC extends Mob {
 	public void setQuest(int num) {
 		this.currentQuest = quests.get(num);
 	}
+	
+	/**
+	 * @param quest - quest to bring to focus
+	 */
+	public void addQuestAndSet(Quest quest) {
+	      addQuest(quest);
+	      setQuest(quests.indexOf(quest));
+	}
 
 	/**
 	 * Dialogue options that can easily be overridden
@@ -526,7 +534,7 @@ public abstract class NPC extends Mob {
 			break;
 		}
 		}
-
+		
 		// do quest dialogue
 		if (currentQuest != null) {
 			

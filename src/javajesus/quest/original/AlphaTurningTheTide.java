@@ -1,51 +1,63 @@
 package javajesus.quest.original;
 
-import java.util.Iterator;
-import java.util.List;
-
 import javajesus.entities.Mob;
-import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.EvilOrangutan;
 import javajesus.entities.npcs.NPC;
 import javajesus.entities.npcs.characters.Jesus;
 import javajesus.level.sandbox.SandboxOriginalLevel;
 import javajesus.quest.Quest;
 
-public class AlphaTurningTheTide extends Quest{
-	
-	//The two lists of mobs to iterate through
-	List<Mob> list1=giver.getLevel().getMobs();
-	List<Mob> list2=SandboxOriginalLevel.alpha.getMobs();
-	
-	//Mob instance
-	Mob m;
-	
-	//Iterates that will iterate through the lists
-	Iterator<Mob> it1 = list1.iterator();
-	Iterator<Mob> it2 = list2.iterator();
-	
+public class AlphaTurningTheTide extends Quest {
+
+	// objective
 	private static final int ISDEAD = 0;
 
+	// whether or not jesus/orang is dead
+	private boolean killedKen, killedJesus;
 
-	public AlphaTurningTheTide(NPC giver){
+	// instance of jesus
+	private Jesus jesus;
+
+	public AlphaTurningTheTide(NPC giver) {
 		super(giver, "/WORLD_DATA/QUEST_DATA/ALPHA_TURNING_THE_TIDE.json", 1);
 	}
 
 	@Override
 	public void update() {
-		// if a demon is not found, assume true
-				boolean killed = true;
-				
-				//If either a Jesus or an EvilOrangutan instance is killed, the quest updates
-				while(it1.hasNext() && it2.hasNext()) {
-					if (m instanceof Jesus && !m.isDead() || m instanceof EvilOrangutan && !m.isDead()) {
-						killed = false;
-						break;
+
+		// check if orangutan is dead
+		if (!killedKen) {
+			for (Mob m : giver.getLevel().getMobs()) {
+				if (m instanceof EvilOrangutan && m.isDead()) {
+					killedKen = true;
+				}
+			}
+		}
+
+		if (killedKen) {
+			// find jesus
+			if (jesus == null) {
+				for (Mob m : SandboxOriginalLevel.alpha.getMobs()) {
+					if (m instanceof Jesus) {
+						jesus = (Jesus) m;
+						this.giver = jesus;
+						jesus.addQuestAndSet(this);
 					}
 				}
-			
-				// update the objective
-				objectives[ISDEAD] = killed;
+			}
+		}
+
+		// check if orangutan is dead
+		if (!killedJesus) {
+			for (Mob m : SandboxOriginalLevel.alpha.getMobs()) {
+				if (m instanceof Jesus && m.isDead()) {
+					killedJesus = true;
+				}
+			}
+		}
+
+		// update the objective
+		objectives[ISDEAD] = killedJesus || killedKen;
 	}
-	
+
 }

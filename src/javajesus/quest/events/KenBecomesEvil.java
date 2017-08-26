@@ -26,14 +26,11 @@ public class KenBecomesEvil extends Event{
 			// check if it is an orangutan
 			if (m instanceof Orangutan) {
 				
-				// remove the healthbar
-				m.remove();
-				
-				// now remove it
-				level.remove(m);
-				
 				//replace friendly Orangutan with the Evil Orangutan
 				level.add(new EvilOrangutan(level, m.getX(), m.getY()));
+				
+				// now hide him
+				m.moveTo(0, 0);
 
 				break;
 			}

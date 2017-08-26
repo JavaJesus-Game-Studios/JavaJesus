@@ -183,7 +183,7 @@ public abstract class Quest {
 			// exits from dialogue
 		} else if (trigger.contains("EXIT")) {
 			finished = true;
-
+			
 			// reset the quest if it was not accepted
 			if (!accepted) {
 				state = 0;
