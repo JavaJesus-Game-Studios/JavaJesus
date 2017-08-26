@@ -3,9 +3,9 @@ package javajesus.dataIO;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.List;
 
@@ -259,13 +259,13 @@ public class EntityData {
 	 * into the level
 	 * 
 	 * @param level - the level to add the entities into
-	 * @param file - the file to load
+	 * @param fileData - the file stream to load
 	 * @throws IOException
 	 */
-	public static final void load(Level level, File file) throws IOException {
+	public static final void load(Level level, InputStream fileData) throws IOException {
 		
 		// create an input stream for entities
-		BufferedInputStream is = new BufferedInputStream(new FileInputStream(file));
+		BufferedInputStream is = new BufferedInputStream(fileData);
 		
 		// read in chunks of 9 bytes
 		while (is.available() >= 9) {

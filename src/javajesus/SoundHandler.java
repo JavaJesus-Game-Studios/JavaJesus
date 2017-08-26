@@ -54,7 +54,7 @@ public class SoundHandler {
 			explorationMusic = AudioSystem
 			        .getAudioInputStream(SoundHandler.class.getResource("/AUDIO_DATA/MUSIC/village_roam.wav"));
 			combatMusic = AudioSystem
-			        .getAudioInputStream(SoundHandler.class.getResource("/Audio_DATA/MUSIC/combat_1.wav"));
+			        .getAudioInputStream(SoundHandler.class.getResource("/AUDIO_DATA/MUSIC/combat_1.wav"));
 			deathDirge = SoundHandler.class.getResource("/AUDIO_DATA/MUSIC/DeathDirge.wav");
 
 			chest = SoundHandler.class.getResource("/AUDIO_DATA/GUI/ChestOpened.wav");

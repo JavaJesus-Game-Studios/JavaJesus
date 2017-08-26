@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -280,7 +282,12 @@ public class QuestEditor extends JPanel implements ActionListener {
 					if (file.exists()) {
 
 						// load the JSON
-						JSONArray data = QuestData.load(file);
+						JSONArray data = null;
+						try {
+							data = QuestData.load(new FileInputStream(file));
+						} catch (FileNotFoundException e1) {
+							e1.printStackTrace();
+						}
 
 						// make sure it parsed
 						if (data != null) {

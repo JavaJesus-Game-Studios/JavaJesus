@@ -19,7 +19,7 @@ public class AlphaTurningTheTide extends Quest {
 	private Jesus jesus;
 
 	public AlphaTurningTheTide(NPC giver) {
-		super(giver, "/WORLD_DATA/QUEST_DATA/ALPHA_TURNING_THE_TIDE.json", 1);
+		super(giver, "Turning the Tide", "/WORLD_DATA/QUEST_DATA/ALPHA_TURNING_THE_TIDE.json", 1);
 	}
 
 	@Override

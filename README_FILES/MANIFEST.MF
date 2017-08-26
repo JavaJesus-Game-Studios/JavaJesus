@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Class-Path: .
 Main-Class: javajesus.Main
-SplashScreen-Image: GUI/logo.gif
+SplashScreen-Image: VISUAL_DATA/GUI/CREDITS/logo.gif

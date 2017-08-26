@@ -6,7 +6,7 @@ import javajesus.quest.Quest;
 public class AlphaMissingCow  extends Quest{
 
 	public AlphaMissingCow(NPC giver){
-		super(giver, "WORLD_DATA/QUEST_DATA/ALPHA_MISSING_COW.json", 1);
+		super(giver, "Missing Cow", "WORLD_DATA/QUEST_DATA/ALPHA_MISSING_COW.json", 1);
 	}
 
 	@Override

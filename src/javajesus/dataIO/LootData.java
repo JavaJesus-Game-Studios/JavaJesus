@@ -1,7 +1,6 @@
 package javajesus.dataIO;
 
 import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,8 +27,7 @@ public class LootData {
 	public static final void load(byte type, ArrayList<Item> contents) {
 
 		// create the input stream from class path loot table
-		try (BufferedInputStream in = new BufferedInputStream(
-		        new FileInputStream(LootData.class.getResource(DIR + type).getFile()))) {
+		try (BufferedInputStream in = new BufferedInputStream(LootData.class.getResourceAsStream(DIR + type))) {
 
 			// now load in the Items
 			while (in.available() >= 3) {

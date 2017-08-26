@@ -17,7 +17,7 @@ public class TheEvilFox extends Quest {
 	 * @param giver - the NPC who is giving the quest
 	 */
 	public TheEvilFox(NPC giver) {
-		super(giver, "/WORLD_DATA/QUEST_DATA/TheEvilFox.json", 1);
+		super(giver, "Evil Fox", "/WORLD_DATA/QUEST_DATA/TheEvilFox.json", 1);
 	}
 	
 	@Override

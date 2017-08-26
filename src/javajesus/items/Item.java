@@ -6,7 +6,6 @@ import javajesus.SoundHandler;
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
-import javajesus.items.Armor.ArmorSet;
 import javajesus.items.Gun.Ammo;
 
 /*

@@ -24,7 +24,7 @@ public class RescueKnights extends Quest {
 	private static final Rectangle battlefield = new Rectangle(0, 1216, 456, 384);
 
 	public RescueKnights(NPC giver) {
-		super(giver, "/WORLD_DATA/QUEST_DATA/Rescue_Knights.json", 3);
+		super(giver, "Rescue Knights", "/WORLD_DATA/QUEST_DATA/Rescue_Knights.json", 3);
 	}
 
 	@Override

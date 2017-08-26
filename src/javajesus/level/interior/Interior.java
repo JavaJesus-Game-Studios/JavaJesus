@@ -1,7 +1,6 @@
 package javajesus.level.interior;
 
 import java.awt.Point;
-import java.io.File;
 import java.io.IOException;
 
 import javax.sound.sampled.Clip;
@@ -47,10 +46,10 @@ public abstract class Interior extends Level {
 		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
 		
 		// load the tiles from the path
-		LevelData.load(new File(Interior.class.getResource(path).getFile()), levelTiles);
+		LevelData.load(Interior.class.getResourceAsStream(path), levelTiles);
 
 		// load the entity data
-		EntityData.load(this, new File(Interior.class.getResource(path + ENTITY).getFile()));
+		EntityData.load(this, Interior.class.getResourceAsStream(path + ENTITY));
 
 		// add all the transporters
 		for (Transporter t : getTransporters()) {

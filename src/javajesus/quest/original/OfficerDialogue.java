@@ -6,7 +6,7 @@ import javajesus.quest.Quest;
 public class OfficerDialogue extends Quest {
 
 	public OfficerDialogue(NPC giver) {
-		super(giver, "/WORLD_DATA/QUEST_DATA/Officer_Quest.json", 1);
+		super(giver, "Officer Dialogue", "/WORLD_DATA/QUEST_DATA/Officer_Quest.json", 1);
 	}
 
 	@Override

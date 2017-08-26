@@ -6,7 +6,6 @@ import javajesus.entities.Mob;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.npcs.NPC;
 import javajesus.quest.Quest;
-import javajesus.quest.events.Event;
 /**
  * 
  * @author shtevay
@@ -24,7 +23,7 @@ public class LiberateFarm extends Quest {
 	private static final Rectangle farmBounds = new Rectangle(32, 144, 696, 280);
 
 	public LiberateFarm(NPC giver) {
-		super(giver, "/WORLD_DATA/QUEST_DATA/Liberate_Farm.json", 1);
+		super(giver, "Liberate  Farm", "/WORLD_DATA/QUEST_DATA/Liberate_Farm.json", 1);
 	}
 
 	@Override

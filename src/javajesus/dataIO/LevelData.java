@@ -3,9 +3,9 @@ package javajesus.dataIO;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /*
  * Loads and Saves Level data
@@ -15,14 +15,14 @@ public class LevelData {
 	/**
 	 * Loads a level file from path into
 	 * the tile array tiles
-	 * @param File - the file to load
+	 * @param fileData - the file input stream to load
 	 * @param tiles - the tile list to be filled
 	 * @throws IOException
 	 */
-	public static final void load(File file, int[] tiles) throws IOException {
+	public static final void load(InputStream fileData, int[] tiles) throws IOException {
 		
 		// open the output stream
-		BufferedInputStream is = new BufferedInputStream(new FileInputStream(file));
+		BufferedInputStream is = new BufferedInputStream(fileData);
 		
 		// loads all the data into a byte stream
 		byte data[] = new byte[tiles.length];

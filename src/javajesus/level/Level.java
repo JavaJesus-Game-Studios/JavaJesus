@@ -3,7 +3,9 @@ package javajesus.level;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -171,15 +173,15 @@ public abstract class Level {
 	private void load(String path, boolean classpath) throws IOException {
 		
 		// files to load
-		File level, entities;
+		InputStream level, entities;
 		
 		// load with or without classpath
 		if (classpath) {
-			level = new File(Level.class.getResource(path).getFile());
-			entities = new File(Level.class.getResource(path + ENTITY).getFile());
+			level = Level.class.getResourceAsStream(path);
+			entities = Level.class.getResourceAsStream(path + ENTITY);
 		} else {
-			level = new File(path);
-			entities = new File(path + ENTITY);
+			level = new FileInputStream(new File(path));
+			entities = new FileInputStream(new File(path + ENTITY));
 		}
 		
 		// load  the tiles

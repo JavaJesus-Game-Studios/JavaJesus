@@ -19,7 +19,7 @@ public class LiberateVillage extends Quest {
 	 * @param giver - the NPC who is giving the quest
 	 */
 	public LiberateVillage(NPC giver) {
-		super(giver, "/WORLD_DATA/QUEST_DATA/Liberate_Village.json", 1);
+		super(giver, "Liberate Village", "/WORLD_DATA/QUEST_DATA/Liberate_Village.json", 1);
 	}
 	
 	@Override

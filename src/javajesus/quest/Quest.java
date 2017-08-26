@@ -1,6 +1,5 @@
 package javajesus.quest;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
@@ -61,7 +60,7 @@ public abstract class Quest {
 	 * @param numObjectives - the number of objectives to complete
 	 */
 	@SuppressWarnings("unchecked")
-	public Quest(NPC giver, String path, int numObjectives) {
+	public Quest(NPC giver, String name, String path, int numObjectives) {
 
 		// instance data
 		this.giver = giver;
@@ -73,14 +72,11 @@ public abstract class Quest {
 			System.err.println("WARNING QUEST " + path + " HAS 0 OBJECTIVES");
 		}
 
-		// get the file from the path
-		File file = new File(Quest.class.getResource(path).getFile());
-
 		// the name of the file is the title
-		this.title = file.getName().substring(0, file.getName().length() - 5);
+		this.title = name;
 
 		// load the data from the JSON file
-		data = QuestData.load(file);
+		data = QuestData.load(Quest.class.getResourceAsStream(path));
 
 	}
 

@@ -3,7 +3,6 @@ package javajesus.entities;
 import java.awt.Rectangle;
 import java.util.Random;
 
-import javajesus.SoundHandler;
 import javajesus.dataIO.EntityData;
 import javajesus.entities.particles.HealthBar;
 import javajesus.graphics.JJFont;

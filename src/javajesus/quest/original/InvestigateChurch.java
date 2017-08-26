@@ -19,7 +19,7 @@ public class InvestigateChurch extends Quest {
 	 * @param giver - npc who gives the quest
 	 */
 	public InvestigateChurch(NPC giver) {
-		super(giver, "/WORLD_DATA/QUEST_DATA/Liberate_Church.json", 1);
+		super(giver, "Investigate Church", "/WORLD_DATA/QUEST_DATA/Liberate_Church.json", 1);
 	}
 
 	@Override
