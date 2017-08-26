@@ -185,7 +185,7 @@ public abstract class Quest {
 				state = 0;
 				finished = false;
 			}
-
+			
 			DialogueHandler.endDialogue();
 		} else if (trigger.contains("ACCEPT")) {
 			accepted = true;

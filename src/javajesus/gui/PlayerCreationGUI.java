@@ -87,6 +87,7 @@ public class PlayerCreationGUI extends JPanel implements ActionListener {
 		// create the components in the middle slot
 		leftSide.add(pScreen = new PlayerGUI(LEFT_SIDE_WIDTH, JavaJesus.WINDOW_HEIGHT - ENTER_NAME_HEIGHT));
 		leftSide.add(name = new JJTextField());
+		name.setText("ENTER_NAME");
 		
 		// create the right side
 		JPanel rightSide = new JPanel();

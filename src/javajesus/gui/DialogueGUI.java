@@ -175,6 +175,11 @@ public class DialogueGUI extends JPanel {
 	 */
 	public void update(NPC character, Player player) {
 		
+		// return if either the character or quest is null
+		if (character == null || character.getCurrentQuest() == null) {
+			return;
+		}
+		
 		// set the npc
 		this.giver = character;
 		
