@@ -21,6 +21,7 @@ import engine.Window;
 import javajesus.dataIO.PlayerData;
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
+import javajesus.gui.ControlsGUI;
 import javajesus.gui.CreditsGUI;
 import javajesus.gui.PlayerCreationGUI;
 import javajesus.items.Item;
@@ -48,10 +49,10 @@ public class Launcher extends Canvas implements IGameLogic {
 	private static final long serialVersionUID = 1L;
 
 	// Version of the game
-	private final String VERSION = "Alpha 0.9.5";
+	private final String VERSION = "Alpha 1.0.0";
 
 	// Last known update
-	private final String LAST_UPDATED = "Last Updated 8/19/2017";
+	private final String LAST_UPDATED = "Last Updated 8/25/2017";
 	
 	// launcher font
 	private static final Font LAUNCHER_FONT = new Font(JavaJesus.FONT_NAME, 0, 15);
@@ -126,7 +127,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	private CardLayout cardLayout;
 	
 	// IDs for the cardlayout
-	public static final String MAIN = "Main", CREATION = "Creation", CREDITS = "Credits";
+	public static final String MAIN = "Main", CREATION = "Creation", CREDITS = "Credits", CONTROLGUI = "Controls";
 	
 	// JPanel of the player creation GUI
 	private PlayerCreationGUI playerCreationGUI;
@@ -148,6 +149,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		display.add(this, MAIN);
 		display.add(playerCreationGUI = new PlayerCreationGUI(this), CREATION);
 		display.add(new CreditsGUI(this), CREDITS);
+		display.add(new ControlsGUI(this), CONTROLGUI);
 		
 		// show the main display
 		cardLayout.show(display, MAIN);
@@ -393,7 +395,7 @@ public class Launcher extends Canvas implements IGameLogic {
 			return;
 		}
 		case CONTROLS: {
-			System.out.println("Controls IMPLEMENT TODO");
+			cardLayout.show(display, CONTROLGUI);
 			return;
 		}
 		case SLOT: {
