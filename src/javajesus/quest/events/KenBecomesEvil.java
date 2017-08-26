@@ -16,12 +16,24 @@ public class KenBecomesEvil extends Event{
 	 */
 	@Override
 	protected void init(Level level) {
+		
 		// search for the Orangutan
-		for (Mob m: level.getMobs()) {
+		for (int i = 0; i < level.getMobs().size(); i++) {
+			
+			// mob at index i
+			Mob m = level.getMobs().get(i);
+			
+			// check if it is an orangutan
 			if (m instanceof Orangutan) {
+				
+				// remove the healthbar
+				m.remove();
+				
+				// now remove it
+				level.remove(m);
+				
 				//replace friendly Orangutan with the Evil Orangutan
 				level.add(new EvilOrangutan(level, m.getX(), m.getY()));
-				level.remove(m);
 
 				break;
 			}
