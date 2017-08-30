@@ -15,7 +15,7 @@ public class Skeleton extends Monster {
 	private static final int WALKING_ANIMATION_SPEED = 3;
 		
 	// base stats
-	private static final int BASE_STRENGTH = 5, BASE_DEFENSE = 5;
+	private static final int BASE_STRENGTH = 3, BASE_DEFENSE = 5;
 	
 	// color set of skeleton
 	private static final int[] color =  { 0xFF111111, 0xFF700000, 0xFFDBA800, 0, 0 };

@@ -28,7 +28,7 @@ public class Demon extends Monster implements LongRange, Type {
 	private static final int WALKING_ANIMATION_SPEED = 3;
 	
 	// base stats
-	private static final int BASE_STRENGTH = 8, BASE_DEFENSE = 0;
+	private static final int BASE_STRENGTH = 5, BASE_DEFENSE = 0;
 
 	// color set of a demon
 	private static final int[] color = { 0xFF111111, 0xFF700000, 0xFFDBA800, 0 , 0 };
