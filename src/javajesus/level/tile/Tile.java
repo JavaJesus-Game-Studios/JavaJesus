@@ -148,20 +148,20 @@ public class Tile {
 		public static final Tile DIRTROAD2 = new Tile(54, false, 0xFFA06202, 1, 3, SpriteSheet.dirt,
 				new int[] { 0xFF935409, 0xFF000000, 0xFF000000 });
 	
-		public static final Tile CAVEFLOOR = new Tile(55, false, 0xFFC3BEB7, 7, 3, SpriteSheet.dirt,
+		public static final Tile CAVEFLOOR = new Tile(55, true, 0xFFC3BEB7, 7, 3, SpriteSheet.dirt,
 				new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
 		public static final Tile CAVEFLOOR1 = new Tile(56, false, 0xFFC3BEB8, 8, 3, SpriteSheet.dirt,
 				new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile CAVEFLOOR_ROCK = new Tile(57, false, 0xFFC3BEB9, 6, 3, SpriteSheet.dirt,
+		public static final Tile CAVEFLOOR_ROCK = new Tile(57, true, 0xFFC3BEB9, 6, 3, SpriteSheet.dirt,
 				new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
 		
-		public static final Tile MOUNTAIN_ENTRANCE_TOP = new Tile(58, false, 0xFFC8BEC1, 2, 3,
+		public static final Tile MOUNTAIN_ENTRANCE_TOP = new Tile(58, true, 0xFFC8BEC1, 2, 3,
 				SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile MOUNTAIN_ENTRANCE_BTM = new Tile(59, false, 0xFFC8BEC2, 3, 3, 
+		public static final Tile MOUNTAIN_ENTRANCE_BTM = new Tile(59, true, 0xFFC8BEC2, 3, 3, 
 				SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile MOUNTAIN_ENTRANCE_RGHT = new Tile(60, false, 0xFFC8BEC3, 4, 3,
+		public static final Tile MOUNTAIN_ENTRANCE_RGHT = new Tile(60, true, 0xFFC8BEC3, 4, 3,
 				SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile MOUNTAIN_ENTRANCE_LFT = new Tile(61, false, 0xFFC8BEC4, 5, 3, 
+		public static final Tile MOUNTAIN_ENTRANCE_LFT = new Tile(61, true, 0xFFC8BEC4, 5, 3, 
 				SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
 		
 			//TRANSITION TILES
