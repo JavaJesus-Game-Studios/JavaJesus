@@ -33,7 +33,7 @@ public class Orangutan extends NPC {
 	private int attackTickCount;
 
 	// the amount of ticks between attacks
-	private static final int attackDelay = 30;
+	private static final int attackDelay = 50;
 
 	// how long the attack position is rendered in ticks
 	private static final int attackAnimationLength = 30;
@@ -249,7 +249,7 @@ public class Orangutan extends NPC {
 	@Override
 	public int getStrength() {
 		// TODO Auto-generated method stub
-		return 40;
+		return 15;
 	}
 
 	@Override

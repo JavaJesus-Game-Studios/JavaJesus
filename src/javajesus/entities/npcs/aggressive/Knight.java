@@ -309,7 +309,7 @@ public class Knight extends NPC {
 	@Override
 	public int getStrength() {
 		// TODO Auto-generated method stub
-		return 30;
+		return 10;
 	}
 
 	@Override
