@@ -92,6 +92,9 @@ public class Player extends Mob implements Type {
 	// player stats
 	private int strength, defense;
 	
+	//determines if a player is blocking
+	private boolean isBlocking;
+	
 	// whether or not the player is sprinting
 	private boolean isSprinting;
 	
@@ -125,7 +128,7 @@ public class Player extends Mob implements Type {
 		}
 		
 		// gives certain names certain powers
-		if (name.equals("Derek Jow") || name.equals("Stevie") || name.equals("Andrew Leamy")
+		if (name.equals("Derek Jow") || name.equals("Stevie_01") || name.equals("Andrew Leamy")
 				|| name.equals("Wesley")) {
 			grantDevPowers();
 			System.err.println("Creating Developer");
@@ -354,13 +357,13 @@ public class Player extends Mob implements Type {
 
 		// regenerate stamina when not moving
 		if (!isMoving && stamina < maxStamina && !isShooting && !isSwinging) {
-			stamina += 0.5;
+			stamina += 0.6;
 		}
 
 		// regenerate stats very slowing if moving (but not sprinting)
 		if (isMoving && !isSprinting) {
 			if (stamina < maxStamina)
-				stamina += 0.1;
+				stamina += 0.2;
 		}
 
 		// move the player
@@ -582,6 +585,11 @@ public class Player extends Mob implements Type {
 			equippedSword.render(screen, xOffset, yOffset, getColor());
 			setDirection(equippedSword.getDirection());
 		}
+		//Handles Blocking Animation
+		if(isBlocking){
+			equippedSword.render(screen,xOffset,yOffset,getColor());
+			setDirection(equippedSword.getDirection());
+		}
 
 	}
 	
@@ -653,10 +661,27 @@ public class Player extends Mob implements Type {
 		heal(-1);
 		inventory.add(Item.blackHoleGun);
 		inventory.add(Item.bazooka);
+		Item.rocketAmmo.setQuanity(500);
 		inventory.add(Item.flameThrower);
 		inventory.add(Item.assaultRifle);
 		Item.assaultRifleAmmo.setQuanity(500);
 		inventory.add(Item.assaultRifleAmmo);
+		inventory.add(Item.revolver);
+		Item.revolverAmmo.setQuanity(500);
+		inventory.add(Item.laserRevolver);
+		Item.laserAmmo.setQuanity(500);
+		inventory.add(Item.shotgun);
+		Item.shotgunAmmo.setQuanity(500);
+		inventory.add(Item.crossBow);
+		Item.arrowAmmo.setQuanity(500);
+		inventory.add(Item.shortSword);
+		inventory.add(Item.longSword);
+		inventory.add(Item.claymore);
+		inventory.add(Item.sabre);
+		inventory.add(Item.heavenlySword);
+		inventory.add(Item.kingSword);
+
+
 	}
 
 	/**
@@ -877,14 +902,22 @@ public class Player extends Mob implements Type {
 				}
 			}
 		}
+		//block key
+		if(window.isKeyPressed(KeyEvent.VK_B)){
+			if(!isShooting&&!isSwimming&&!isSwinging
+				&&equippedSword!=null){
+				equippedSword.block(getLevel(),getX(),getY(),getDirection(), isBlocking, this);
+				defense += equippedSword.getStrength();
+			}
+		}
 
 		// displays names of all mobs
-		if (window.isKeyPressed(KeyEvent.VK_H)) {
+		if (window.isKeyPressed(KeyEvent.VK_N)) {
 			for (Mob m : getLevel().getMobs()) {
 				if (!m.isDead())
 					m.isTalking = true;
 			}
-			window.toggle(KeyEvent.VK_H);
+			window.toggle(KeyEvent.VK_N);
 		}
 
 		// movement

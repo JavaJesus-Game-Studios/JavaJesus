@@ -43,6 +43,9 @@ public class Sword extends Item {
 
 	// the offsets for the power swing positions
 	private int[] powerSwingOffsets;
+	
+	// the offsets of the blocking sprites
+	private int blockingOffsets;
 
 	// first powerSwingOffset position based on direction
 	private int startPos;
@@ -55,7 +58,10 @@ public class Sword extends Item {
 
 	// whether or not the sword is power swinging
 	private boolean powerSwinging;
-
+	
+	//whether or not the sword is blocking
+	private boolean blocking;
+	
 	// power swing offset modifier that changes the current position
 	// 2 = GREATSWORD (even 2 spaces extra in each)
 	// 1 = the swords with the awkward 1 space in diagonals
@@ -104,7 +110,8 @@ public class Sword extends Item {
 	 * @param length - either SHORT, MEDIUM, or LONG
 	 */
 	public Sword(String name, int id, int xTile, int yTile, int xSwingOffset, int ySwingOffset, int[] color,
-			String description, int cooldown, int damage, int[] powerSwingOffsets, int swingoffset, int length, int knockback) {
+			String description, int cooldown, int damage, int[] powerSwingOffsets, int swingoffset,
+			int blockingOffsets, int length, int knockback) {
 		super(name, id, xTile, yTile, color, description, true);
 		this.cooldownTime = cooldown;
 		this.damage = damage;
@@ -112,6 +119,7 @@ public class Sword extends Item {
 		this.ySwingOffset = ySwingOffset;
 		this.length = length;
 		this.powerSwingOffsets = powerSwingOffsets;
+		this.blockingOffsets = blockingOffsets;
 		this.powerSwingModifier = swingoffset;
 		this.knockback = knockback;
 	}
@@ -145,7 +153,7 @@ public class Sword extends Item {
 		// timer for the cooldown
 		if (cooldownTicks >= cooldownTime) {
 			cooldownTicks = 0;
-			cooldown = isSwinging = false;
+			cooldown = isSwinging = blocking = false;
 		}
 		
 		// update the area box
@@ -263,6 +271,33 @@ public class Sword extends Item {
 	}
 	
 	/**
+	 * Blocks incoming attacks with the equipped sword
+	 * 
+	 * @param x - mobs x coordinate
+	 * @param y - mobs y coordinate
+	 * @param dir - direction the mob is facing
+	 */
+	public void block(Level level, int x, int y, Direction dir, boolean isBlocking, Player player){
+		direction = dir;
+		if(blocking = isBlocking){
+			switch(dir){
+			case NORTH:
+				blockingOffsets = blockingOffsets+0;
+				break;
+			case SOUTH:
+				blockingOffsets = blockingOffsets+2;
+				break;
+			case EAST:
+				blockingOffsets = blockingOffsets+4;
+				break;
+			default:
+				blockingOffsets = blockingOffsets+4;
+				break;
+			}
+		}
+	}
+	
+	/**
 	 * Renders collision box to the screen
 	 * 
 	 * @param screen - screen to render to
@@ -327,7 +362,10 @@ public class Sword extends Item {
 		} else if (direction != Direction.SOUTH) {
 			xTile = 4;
 		}
-
+		//adjusts offsets for blocking
+		if(blocking){
+			xTile = blockingOffsets;
+		}
 		// adjsut offsets for power swinging
 		if (powerSwinging) {
 
@@ -529,6 +567,13 @@ public class Sword extends Item {
 	 */
 	public boolean isSwinging() {
 		return isSwinging;
+	}
+	/**
+	 * 
+	 * @return whether or not the sword is blocking
+	 */
+	public boolean isBlocking(){
+		return blocking;
 	}
 
 	/**
