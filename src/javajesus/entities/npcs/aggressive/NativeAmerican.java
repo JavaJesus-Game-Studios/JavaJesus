@@ -49,13 +49,13 @@ public class NativeAmerican extends Shooter implements Type {
 			break;
 		}
 		case BOY: {
-			xTile = 0;
-			yTile = 27;
+			xTile = 14;
+			yTile = 25;
 			break;
 		}
 		case GIRL: {
-			xTile = 0;
-			yTile = 29;
+			xTile = 26;
+			yTile = 25;
 			break;
 		}
 		default: // MALE
