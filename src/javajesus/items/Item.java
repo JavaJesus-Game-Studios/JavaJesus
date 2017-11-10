@@ -1,7 +1,5 @@
 package javajesus.items;
 
-import java.io.Serializable;
-
 import javajesus.SoundHandler;
 import javajesus.entities.Player;
 import javajesus.graphics.Screen;
@@ -11,10 +9,7 @@ import javajesus.items.Gun.Ammo;
 /*
  * An Item can be collected by a player and used in various ways
  */
-public class Item implements Serializable {
-
-	// serialization
-	private static final long serialVersionUID = 6019227186916064573L;
+public class Item {
 
 	// the name of the Item
 	private final String name;
@@ -134,8 +129,8 @@ public class Item implements Serializable {
 	public static final Item blackHoleGun = new Gun("Secret", 20, 0, 0,
 			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "??????", 0, 6, 10, 20, 50, Ammo.BLACKHOLE,
 			SoundHandler.revolver);
-	public static final Item flameThrower = new Gun("Flamethrower", 21, 0, 0,
-			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Please apply cold water to burn", 0, 10000, 0.2f, 0, 5,
+	public static final Item flameThrower = new Flamethrower("Flamethrower", 21, 6, 0,
+			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Please apply cold water to burn", 12, 10000, 0.2f, 0, 5,
 			Ammo.FLAMETHROWER, SoundHandler.revolver);
 			
 	

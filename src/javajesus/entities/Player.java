@@ -16,7 +16,7 @@ import javajesus.entities.vehicles.Ridable;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.items.Armor;
-import javajesus.items.Bazooka;
+import javajesus.items.DifferentOffsetItem;
 import javajesus.items.Gun;
 import javajesus.items.Inventory;
 import javajesus.items.Item;
@@ -508,9 +508,9 @@ public class Player extends Mob implements Type {
 		// Handles Shooting Animation
 		if (isShooting) {
 
-			// bazooka is special :)
-			if (equippedGun instanceof Bazooka) {
-				((Bazooka) equippedGun).renderPlayer(screen, this,
+			// bazooka and flamethrower are special :)
+			if (equippedGun instanceof DifferentOffsetItem) {
+				((DifferentOffsetItem) equippedGun).renderPlayer(screen, this,
 						gunSheet, shootingDir);
 				return;
 			}

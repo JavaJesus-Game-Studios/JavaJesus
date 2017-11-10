@@ -19,8 +19,6 @@ import javajesus.utility.Direction;
  */
 public class Gun extends Item {
 
-	private static final long serialVersionUID = 2308714802801627285L;
-
 	// max amount of ammo
 	private int clipSize;
 

@@ -9,9 +9,7 @@ import javajesus.utility.Direction;
 /*
  * A gun that fires explosive missiles!
  */
-public class Bazooka extends Gun {
-
-	private static final long serialVersionUID = -2457352828009998981L;
+public class Bazooka extends Gun implements DifferentOffsetItem{
 
 	// unit size on spritesheet
 	private static final int UNIT_SIZE = 8;
@@ -35,14 +33,9 @@ public class Bazooka extends Gun {
 	 * Some items require the player to have additional animations that aren't
 	 * available normally for the player
 	 * 
-	 * Delegate the rendering calls of the player here
-	 * 
-	 * @param screen
-	 *            the screen to display it on
-	 * @param player
-	 *            the player to display
-	 * @param sheet
-	 * 			  the spritesheet to use
+	 * @param screen - the screen to display it on
+	 * @param player - the player to display
+	 * @param sheet - the spritesheet to use
 	 */
 	public void renderPlayer(Screen screen, Player player, SpriteSheet sheet, Direction shootingDir) {
 

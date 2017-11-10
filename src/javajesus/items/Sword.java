@@ -17,9 +17,6 @@ import javajesus.utility.Direction;
  */
 public class Sword extends Item {
 
-	// serialization
-	private static final long serialVersionUID = -3339710504468683415L;
-
 	// whether or not the sword is in cooldown
 	private boolean cooldown;
 

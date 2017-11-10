@@ -7,9 +7,6 @@ import javajesus.graphics.SpriteSheet;
  */
 public class Armor extends Item {
 
-	// serialization
-	private static final long serialVersionUID = 5210600935647831893L;
-	
 	// defense to add
 	private int defense;
 	

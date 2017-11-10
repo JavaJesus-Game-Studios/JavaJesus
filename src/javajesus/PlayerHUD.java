@@ -15,9 +15,6 @@ import javajesus.graphics.SpriteSheet;
 
 /*
  * Manages the display of the current equipped item status and health bars stats
- * 
- * TODO remove transparency support by rendering directly to the SCREEN
- * See how level renders tile offsets
  */
 public class PlayerHUD {
 
