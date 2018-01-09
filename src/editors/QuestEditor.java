@@ -1,9 +1,10 @@
 package editors;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -28,36 +29,36 @@ public class QuestEditor extends JPanel implements ActionListener {
 
 	// serialization
 	private static final long serialVersionUID = 1L;
-	
+
 	// dimensions of the window
 	private static final int WIDTH = 1000, HEIGHT = 800;
-	
+
 	// buttons used
 	private final JButton open, save, addLayer, removeLayer;
-	
+
 	// container for the quest tree
 	private final JPanel questTree;
-	
+
 	// elements on the right side of the panel
 	private final JLabel stateLabel, fileLabel;
 	private final JJTextArea giverDialogue, objectiveSummary, response1, response2, response3, response1Triggers,
 	        response2Triggers, response3Triggers, endDialogue, endTriggers;
-	
+
 	// ids of the buttons added to the quest tree
 	private static int id;
-	
+
 	// the last button clicked
 	private JJButton last;
-	
+
 	// gets the top level directory
 	private static final String DIR = "res/WORLD_DATA/QUEST_DATA/";
-	
+
 	// name of the quest
 	private String name = "New";
-	
+
 	// extension
 	private static final String JSON = ".json";
-	
+
 	// filepath
 	private String filePath = new File(DIR + name + JSON).getPath();
 
@@ -67,7 +68,7 @@ public class QuestEditor extends JPanel implements ActionListener {
 	 * @param args - run time arguments
 	 */
 	public static void main(String[] args) {
-		
+
 		// construct the window
 		JFrame frame = new JFrame();
 		frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -78,21 +79,21 @@ public class QuestEditor extends JPanel implements ActionListener {
 		frame.setTitle("Quest Editor for Java Jesus by Derek Jow");
 		frame.setVisible(true);
 		frame.toFront();
-		
+
 	}
-	
+
 	/**
 	 * @param width - width of the panel
 	 * @param height - height of the panel
 	 */
 	public QuestEditor(int width, int height) {
-		
+
 		// set the size
 		setPreferredSize(new Dimension(width, height));
-		
+
 		// set up the container
 		setLayout(new BorderLayout(0, 0));
-		
+
 		// add the top layer
 		JPanel top = new JPanel();
 		top.add(open = new JButton("Open"));
@@ -105,94 +106,99 @@ public class QuestEditor extends JPanel implements ActionListener {
 		removeLayer.addActionListener(this);
 		top.add(fileLabel = new JLabel(name));
 		add(top, BorderLayout.NORTH);
-		
+
 		// add the center container
 		JPanel center = new JPanel(new BorderLayout(0, 0));
-		
+
 		// add the quest tree panel
 		questTree = new JPanel();
 		questTree.setLayout(new BoxLayout(questTree, BoxLayout.Y_AXIS));
-		questTree.setPreferredSize(new Dimension(WIDTH * 2 / 3, HEIGHT));
-		
+
 		// start with base case
-		JPanel first = new JPanel(new GridLayout(1, 1));
+		JPanel first = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		first.add(new JJButton());
+		first.setMaximumSize(new Dimension(Integer.MAX_VALUE, 85));
 		questTree.add(first);
-		
+
+		// scroll pane
+		JScrollPane scroll = new JScrollPane(questTree);
+		scroll.setPreferredSize(new Dimension(WIDTH / 2, HEIGHT));
+
 		// now incase the quest tree in a scroll pane
-		center.add(new JScrollPane(questTree), BorderLayout.CENTER);
-		
+		center.add(scroll, BorderLayout.CENTER);
+
 		// now add the information panels on the right side
 		JPanel rightSide = new JPanel();
 		rightSide.setLayout(new BoxLayout(rightSide, BoxLayout.Y_AXIS));
-		rightSide.setPreferredSize(new Dimension(WIDTH / 3, HEIGHT));
+		rightSide.setPreferredSize(new Dimension(WIDTH / 2, HEIGHT));
 		rightSide.add(stateLabel = new JLabel("STATE: N/A"));
 		rightSide.add(new JLabel("Giver Dialogue:"));
-		rightSide.add(new JScrollPane(giverDialogue = new JJTextArea("N/A")));
+		rightSide.add(new JScrollPane(giverDialogue = new JJTextArea("")));
 		rightSide.add(new JLabel("Quest Summary:"));
-		rightSide.add(new JScrollPane(objectiveSummary = new JJTextArea("N/A")));
+		rightSide.add(new JScrollPane(objectiveSummary = new JJTextArea("")));
 		rightSide.add(new JLabel("Response 1:"));
-		rightSide.add(new JScrollPane(response1 = new JJTextArea("N/A")));
+		rightSide.add(new JScrollPane(response1 = new JJTextArea("")));
 		rightSide.add(new JLabel("Response 1 Triggers:"));
-		rightSide.add(new JScrollPane(response1Triggers = new JJTextArea("1")));
+		rightSide.add(new JScrollPane(response1Triggers = new JJTextArea("")));
 		rightSide.add(new JLabel("Response 2:"));
-		rightSide.add(new JScrollPane(response2 = new JJTextArea("N/A")));
+		rightSide.add(new JScrollPane(response2 = new JJTextArea("")));
 		rightSide.add(new JLabel("Response 2 Triggers:"));
-		rightSide.add(new JScrollPane(response2Triggers = new JJTextArea("2")));
+		rightSide.add(new JScrollPane(response2Triggers = new JJTextArea("")));
 		rightSide.add(new JLabel("Response 3:"));
-		rightSide.add(new JScrollPane(response3 = new JJTextArea("N/A")));
+		rightSide.add(new JScrollPane(response3 = new JJTextArea("")));
 		rightSide.add(new JLabel("Response 3 Triggers:"));
-		rightSide.add(new JScrollPane(response3Triggers = new JJTextArea("3")));
+		rightSide.add(new JScrollPane(response3Triggers = new JJTextArea("")));
 		rightSide.add(new JLabel("End Dialogue:"));
-		rightSide.add(new JScrollPane(endDialogue = new JJTextArea("N/A")));
+		rightSide.add(new JScrollPane(endDialogue = new JJTextArea("")));
 		rightSide.add(new JLabel("End Triggers:"));
 		rightSide.add(new JScrollPane(endTriggers = new JJTextArea("")));
-		
+
 		// encapsulate in a scroll pane
 		JScrollPane pane = new JScrollPane(rightSide);
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		center.add(pane, BorderLayout.EAST);
-		
+
 		// now add the center
 		add(center, BorderLayout.CENTER);
-		
+
 	}
-	
+
 	/**
 	 * Adds another layer to the quest tree container
 	 */
 	private void addLayer() {
-		
+
 		// get the number of elements in the last row
 		int last = ((Container) questTree.getComponent(questTree.getComponentCount() - 1)).getComponentCount();
-		
+
 		// now add the next row
-		JPanel next = new JPanel(new GridLayout(1, last * 3));
-		
+		JPanel next = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
+		next.setMaximumSize(new Dimension(Integer.MAX_VALUE, 85));
+
 		// fill it with JJButtons
 		for (int i = 0; i < last * 3; i++) {
 			next.add(new JJButton());
 		}
-		
+
 		// now add the row to the quest Tree
 		questTree.add(next);
-		
+
 		// now revalidate
 		revalidate();
-		
+
 	}
-	
+
 	/**
 	 * Removes the most recent layer from the quest tree container
 	 */
 	private void removeLayer() {
-		
+
 		// only remove if there is at least 2 components
 		if (questTree.getComponentCount() > 1) {
-			
+
 			// get the number of components in the last row
 			int last = ((Container) questTree.getComponent(questTree.getComponentCount() - 1)).getComponentCount();
-			
+
 			// free up last number IDs
 			id -= last;
 
@@ -202,41 +208,41 @@ public class QuestEditor extends JPanel implements ActionListener {
 			// now revalidate
 			revalidate();
 		}
-		
+
 	}
-	
+
 	/**
 	 * Logic on button pressed
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 		// save the data of the last button
 		if (last != null) {
 			last.save();
-			
+
 			// last is null
 		} else {
 			// set it to the first button
 			last = (JJButton) ((Container) questTree.getComponent(0)).getComponent(0);
 		}
-		
+
 		// quest tree button logic first
 		if (e.getSource() instanceof JJButton) {
-			
+
 			// now set last to this one
 			last = (JJButton) e.getSource();
-			
+
 			// load its data fields
 			last.load();
-			
+
 			// buttons at top panel
 		} else {
-			
+
 			// open a new quest page
 			if (e.getSource() == open) {
-				
+
 				// create the file chooser
 				JFileChooser fc = new JFileChooser();
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -247,10 +253,10 @@ public class QuestEditor extends JPanel implements ActionListener {
 
 					// load the file!
 					File file = fc.getSelectedFile();
-					
+
 					// add the extension if it isn't there
 					if (!file.getPath().contains(JSON)) {
-						
+
 						// set file path
 						filePath = file.getPath() + JSON;
 
@@ -266,13 +272,13 @@ public class QuestEditor extends JPanel implements ActionListener {
 						// set the name
 						name = file.getName().substring(0, file.getName().length() - 5);
 					}
-					
+
 					// update the file label
 					fileLabel.setText(name);
-					
+
 					// the number of layers to remove
 					int layers = questTree.getComponentCount() - 1;
-					
+
 					// remove existing layers
 					for (int i = 0; i < layers; i++) {
 						removeLayer();
@@ -323,19 +329,19 @@ public class QuestEditor extends JPanel implements ActionListener {
 						}
 					}
 				}
-				
+
 				// save the quest tree
 			} else if (e.getSource() == save) {
-				
+
 				// save the current button
 				last.save();
-				
+
 				// construct the JSON Array
 				JSONArray array = new JSONArray();
-				
+
 				// iterate through all rows
 				for (int i = 0; i < questTree.getComponentCount(); i++) {
-					
+
 					// the quest row
 					Container row = (Container) questTree.getComponent(i);
 
@@ -350,34 +356,34 @@ public class QuestEditor extends JPanel implements ActionListener {
 						        child.res3Text, child.trig1, child.trig2, child.trig3, child.endText, child.endTrig));
 					}
 				}
-				
+
 				// now write it to the file
 				QuestData.save(filePath, array);
-				
+
 				// add a new layer to the quest tree
 			} else if (e.getSource() == addLayer) {
 				addLayer();
-				
+
 				// remove the recent layer
 			} else if (e.getSource() == removeLayer) {
 				removeLayer();
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	/*
 	 * Added functionality to JButton
 	 */
 	private class JJButton extends JButton {
-		
+
 		// serialization
 		private static final long serialVersionUID = 1L;
-		
+
 		// id of this button
 		private int id;
-		
+
 		// text fields of the state
 		private String giverText, objText, res1Text, res2Text, res3Text, trig1, trig2, trig3, endText, endTrig;
 
@@ -386,20 +392,55 @@ public class QuestEditor extends JPanel implements ActionListener {
 		 */
 		private JJButton() {
 			super(String.valueOf(QuestEditor.id));
-			
+
 			// set the id and increment it
 			this.id = QuestEditor.id++;
-			
+
 			// add action listner to quest editor
 			addActionListener(QuestEditor.this);
+
+			setPreferredSize(new Dimension(80, 80));
+			
+			setBackground(new Color(0xd5ddea));
+
 		}
-		
+
+		private void update() {
+
+			// button is empty
+			if ((giverText + objText + res1Text + res2Text + res3Text + trig1 + trig2 + trig3 + endText + endTrig)
+			        .trim().isEmpty()) {
+				setBackground(new Color(0xd5ddea));
+
+				// button is not empty
+			} else {
+
+				boolean complete = false;
+
+				try {
+					complete = !(giverText.isEmpty() || res1Text.isEmpty() || res2Text.isEmpty() || res3Text.isEmpty()
+					        || trig1.isEmpty() || trig2.isEmpty() || trig3.isEmpty());
+				} catch (NullPointerException e) {
+				}
+
+				if (complete) {
+					setBackground(new Color(0xAA00FF00));
+				} else {
+					setBackground(new Color(0xAAFF0000));
+				}
+
+			}
+
+			repaint();
+
+		}
+
 		/**
-		 * Saves the information from the information panel into
-		 * this button's fields
+		 * Saves the information from the information panel into this button's
+		 * fields
 		 */
 		private void save() {
-			
+
 			giverText = giverDialogue.getText();
 			objText = objectiveSummary.getText();
 			res1Text = response1.getText();
@@ -410,9 +451,11 @@ public class QuestEditor extends JPanel implements ActionListener {
 			trig2 = response2Triggers.getText();
 			trig3 = response3Triggers.getText();
 			endTrig = endTriggers.getText();
-			
+
+			update();
+
 		}
-		
+
 		/**
 		 * @param obj - the json object that contains the data
 		 */
@@ -427,11 +470,13 @@ public class QuestEditor extends JPanel implements ActionListener {
 			trig3 = (String) obj.get(QuestData.KEY_TRIGGERS3);
 			endText = (String) obj.get(QuestData.KEY_END);
 			endTrig = (String) obj.get(QuestData.KEY_END_TRIGGER);
+
+			update();
 		}
-		
+
 		/**
-		 * Loads the information from the button's data fields
-		 * into the the information panel
+		 * Loads the information from the button's data fields into the the
+		 * information panel
 		 */
 		private void load() {
 			stateLabel.setText("State: " + id);
@@ -446,14 +491,14 @@ public class QuestEditor extends JPanel implements ActionListener {
 			endDialogue.setText(endText);
 			endTriggers.setText(endTrig);
 		}
-		
+
 	}
-	
+
 	/*
 	 * JJTextArea with added functionality
 	 */
 	private class JJTextArea extends JTextArea {
-		
+
 		// serialization
 		private static final long serialVersionUID = 1L;
 
@@ -462,11 +507,11 @@ public class QuestEditor extends JPanel implements ActionListener {
 		 */
 		private JJTextArea(String text) {
 			super(text);
-			
+
 			setLineWrap(true);
 			setWrapStyleWord(true);
 		}
-		
+
 	}
 
 }
