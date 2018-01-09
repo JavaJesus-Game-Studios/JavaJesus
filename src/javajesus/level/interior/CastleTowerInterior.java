@@ -11,7 +11,7 @@ public class CastleTowerInterior extends Interior {
 
 	public CastleTowerInterior(Point point, Level level) throws IOException {
 		super("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/INTERIORS/Castle_Tower_Interiors/Castle_Tower_Interior",
-		        new Point(100, 100), level);
+		        new Point(772, 752), level);
 	}
 
 	@Override
