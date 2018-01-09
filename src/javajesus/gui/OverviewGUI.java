@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -172,6 +173,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			pane.getVerticalScrollBar().setUI(new VerticalSliderUI(JJStrings.DESCRIPTION_TRACK));
 			pane.setBorder(null);
+			
 			leftSide.add(pane);
 			leftSide.add(money = new JJPanel(JJStrings.INFO_CURRENCY, LEFT_SIDE_WIDTH, CURRENCY_HEIGHT, "$0"));
 
@@ -302,9 +304,7 @@ public class OverviewGUI extends JPanel implements FocusListener {
 
 				// item is null
 			} else {
-				selected.setItem(null);
-				name.setText("Empty");
-				description.setText("Nothing Selected");
+				clear();
 			}
 
 			// repaint the inventory screen
@@ -313,6 +313,19 @@ public class OverviewGUI extends JPanel implements FocusListener {
 			// bring viewing pane back into focus
 			viewing.requestFocusInWindow();
 
+		}
+		
+		private void clear() {
+			
+			// turn the last item off
+			if (last != null) {
+				last.turnOff();
+			}
+			
+			selected.setItem(null);
+			name.setText("Empty");
+			info.setText("Amount: 0");
+			description.setText("Nothing Selected");
 		}
 
 		@Override
@@ -325,6 +338,8 @@ public class OverviewGUI extends JPanel implements FocusListener {
 		 * Update the inventory when the screen is entered
 		 */
 		private void update() {
+			
+			clear();
 
 			// iterate through all the slots
 			for (int i = 0; i < INVENTORY_SPACE; i++) {

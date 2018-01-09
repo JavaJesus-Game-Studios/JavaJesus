@@ -137,7 +137,7 @@ public class Path {
 			case 0:
 				x = target.getX() >> 3;
 				y = (target.getY() + target.getBounds().height + src.getBounds().height - 8) >> 3;
-				if (tiles[x + y * Level.LEVEL_WIDTH] == '1') {
+				if (x + y * Level.LEVEL_WIDTH < tiles.length && tiles[x + y * Level.LEVEL_WIDTH] == '1') {
 					return new Point(x, y);
 				}
 				break;
@@ -146,7 +146,7 @@ public class Path {
 			case 1:
 				x = target.getX() >> 3;
 				y = (target.getY() - 8) >> 3;
-				if (tiles[x + y * Level.LEVEL_WIDTH] == '1') {
+				if (x + y * Level.LEVEL_WIDTH >= 0 && tiles[x + y * Level.LEVEL_WIDTH] == '1') {
 					return new Point(x, y);
 				}
 				break;

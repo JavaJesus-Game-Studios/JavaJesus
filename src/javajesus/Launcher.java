@@ -651,8 +651,7 @@ public class Launcher extends Canvas implements IGameLogic {
 				}
 				
 				// mouse is clicked
-				if (mouseButton == 1) {
-					mouseButton = 0;
+				if (!isClicked && mouseButton == 1) {
 					SoundHandler.play(SoundHandler.sheathe);
 					selectedButton = this;
 					isClicked = true;
@@ -749,8 +748,7 @@ public class Launcher extends Canvas implements IGameLogic {
 				}
 				
 				// mouse clicked
-				if (mouseButton == 1) {
-					mouseButton = 0;
+				if (!isClicked && mouseButton == 1) {
 					SoundHandler.play(SoundHandler.sheathe);
 					selectedButton = this;
 					isClicked = true;

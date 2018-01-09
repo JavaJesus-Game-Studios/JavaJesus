@@ -293,9 +293,19 @@ public class JavaJesus extends Canvas implements IGameLogic {
 				window.toggle(KeyEvent.VK_UP);
 			}
 			
+			if (window.isKeyPressed(KeyEvent.VK_W)) {
+				dialogue.up();
+				window.toggle(KeyEvent.VK_W);
+			}
+			
 			if (window.isKeyPressed(KeyEvent.VK_DOWN)) {
 				dialogue.down();
 				window.toggle(KeyEvent.VK_DOWN);
+			}
+			
+			if (window.isKeyPressed(KeyEvent.VK_S)) {
+				dialogue.down();
+				window.toggle(KeyEvent.VK_S);
 			}
 			
 			if (window.isKeyPressed(KeyEvent.VK_ENTER)) {
