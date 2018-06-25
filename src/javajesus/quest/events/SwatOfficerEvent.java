@@ -24,13 +24,16 @@ public class SwatOfficerEvent extends Event {
 		
 		// TODO put in correct coordinates and quest
 		SWATOfficer officer = new  SWATOfficer(level, 1464, 16);
+		SWATOfficer officer2 = new  SWATOfficer(level, 1488, 16);
+
 		officer.addQuest(new OfficerDialogue(officer));
-		officer.setPath(new FollowPlayerScript(officer));
 		
 		// TODO put correct coordinates
 		level.add(officer);
 		level.add(new SWATOfficer(level, 1488, 16));
-		
+		officer.setPath(new FollowPlayerScript(officer));
+		officer2.setPath(new FollowPlayerScript(officer));
+
 	}
 
 }
