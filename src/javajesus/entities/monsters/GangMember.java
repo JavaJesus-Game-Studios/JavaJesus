@@ -35,7 +35,7 @@ public class GangMember extends Monster implements LongRange, Type {
 	private static final int WALKING_ANIMATION_SPEED = 4;
 	
 	// base stats
-	private static final int BASE_STRENGTH = 6, BASE_DEFENSE = 2;
+	private static final int BASE_STRENGTH = 1, BASE_DEFENSE = 1;
 
 	// color set of a gang member
 	private static final int[] color = { 0xFF111111, 0xFFFFFFFF, 0xFFEDC5AB, 0xFF1c1510, 0xFF262878 };

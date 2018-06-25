@@ -66,10 +66,10 @@ public class Player extends Mob implements Type {
 	private static final int SIZE = 16;
 
 	// the starting health value
-	private static final int START_HEALTH = 100;
+	private static final int START_HEALTH = 10000;
 
 	// the starting stamina value
-	private static final int START_STAMINA = 200;
+	private static final int START_STAMINA = 2000;
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
@@ -128,8 +128,7 @@ public class Player extends Mob implements Type {
 		}
 		
 		// gives certain names certain powers
-		if (name.equals("Derek Jow") || name.equals("Stevie_01") || name.equals("Andrew Leamy")
-				|| name.equals("Wesley")) {
+		if (name.equals("Dev_Derek") || name.equals("Dev_Stevie") || name.equals("Dev_Wesley")) {
 			grantDevPowers();
 			System.err.println("Creating Developer");
 		}  else {

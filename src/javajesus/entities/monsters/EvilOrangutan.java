@@ -30,7 +30,7 @@ public class EvilOrangutan extends Monster {
 	 * @param walkDistance the walk distance
 	 */
 	public EvilOrangutan(Level level, int x, int y, int defaultHealth, String walkPath, int walkDistance) {
-		super(level, "EvilOrangutan", x, y, 1, WIDTH, HEIGHT, 23, 400, 50);
+		super(level, "EvilOrangutan", x, y, 1, WIDTH, HEIGHT, 23, 100, 50);
 
 	}
 

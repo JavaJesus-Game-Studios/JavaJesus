@@ -18,7 +18,7 @@ public class Bandito extends Monster {
 	private static final int WALKING_ANIMATION_SPEED = 4;
 		
 	// base stats
-	private static final int BASE_STRENGTH = 7, BASE_DEFENSE = 5;
+	private static final int BASE_STRENGTH = 1, BASE_DEFENSE = 1;
 	
 	// color set of bandito
 	private static final int[] color =  { 0xFF111111, 0xFF700000, 0xFFd19866, 0xFF412006, 0xFF6275b6  };

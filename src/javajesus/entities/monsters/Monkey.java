@@ -22,7 +22,7 @@ public class Monkey extends Monster {
 	private static final int WALKING_ANIMATION_SPEED = 4;
 	
 	// base stats
-	private static final int BASE_STRENGTH = 10, BASE_DEFENSE = 5;
+	private static final int BASE_STRENGTH = 1, BASE_DEFENSE = 1;
 
 	// color set of a monkey
 	private static final int[] color = { 0xFF111111, 0xFF2c2417, 0xFF4c412e, 0xFF3f3626, 0xFF1e1911 };
