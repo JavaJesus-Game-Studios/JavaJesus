@@ -40,38 +40,38 @@ public class Item {
 
 	// consumables
 	public static final Item apple = new Item("Apple", 0, 2, 3, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
-			"This red fruit will restores a moderate amount of stamina.", 10);
+			"This red fruit restores a moderate amount of stamina.", 10);
 	public static final Item banana = new Item("Banana", 1, 3, 3, new int[] { 0xFF111111, 0xFFFFF600, 0xFF000000 },
 			"Got a cramp? Eat up champ, the currency of the wild apes. Restores a lot of Stamina.", 10);
 	public static final Item orange = new Item("Orange", 2, 5, 3, new int[] { 0xFF111111, 0xFFFFAE00, 0xFF0CA101 },
-			"Be the Soccer Mom you always wanted to be, This orange fruit will restore a small amount of stamina.", 10);
+			"Be the Soccer Mom you always wanted to be, this orange fruit restores a small amount of stamina.", 10);
 	public static final Item feather = new Item("Feather", 3, 4, 3, new int[] { 0xFF111111, 0xFF79B2FF, 0xFF000000 },
 			"Why did we waste time adding an interactible feather to the game?", 0);
 
 	// guns
 	public static final Item revolver = new Gun("Revolver", 4, 0, 0, new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 },
 			"Standard Six Shooter, more powerful than it should be, known to cause tinnitus and Dirty Harritus."
-			, 0, 6, 5, 5, 25, Ammo.REVOLVER, SoundHandler.revolver);
+			, 0, 6, 5, 5, 80, Ammo.REVOLVER, SoundHandler.revolver);
 	public static final Item laserRevolver = new Gun("Laser Revolver", 5, 1, 0,
 			new int[] { 0xFF111111, 0xFF4D2607, 0xFFFFAE00 }, 
 			"The new revolutionary Laser Revolver. Simply kills. Battery life lasts for one to six discharges."
-			, 2, 6, 10, 10, 35, Ammo.LASER,
+			, 2, 6, 10, 10, 90, Ammo.LASER,
 			SoundHandler.laser);
 	public static final Item assaultRifle = new Gun("M239 Assault Rifle", 7, 2, 0,
 			new int[] { 0xFF111111, 0xFFCFCFCF, 0xFF000000 },
-			"This M239 US Army Assault Rifle, can clear a room of people in 2.5 seconds, reload in 1 second."
+			"This M239 US Army Assault Rifle, has been used of 26 of the last 30 Mass Shootings of the year."
 			+ " Main uses include hunting deer and target practice. Available at your local Gunstore, God Bless America.",
-			4, 36, 1, 5, 20, Ammo.RIFLE,
+			4, 36, 1, 5, 100, Ammo.RIFLE,
 			SoundHandler.assaultRifle);
 	public static final Item shotgun = new Gun("Shotgun", 6, 3, 0, new int[] { 0xFF111111, 0xFF4D2607, 0xFFCFCFCF },
 			"The gun that allowed these United States to \"liberate\" the west. Put two bullets in, point in your "
-			+ "target's general direction and watch them dissapear.",
-			6, 2, 5, 18, 100, Ammo.SHELL, SoundHandler.shotgun);
+			+ "target's general direction and watch them turn into minced meat.",
+			6, 2, 5, 18, 150, Ammo.SHELL, SoundHandler.shotgun);
 	public static final Item crossBow = new Gun("Crossbow", 8, 4, 0, new int[] { 0xFF111111, 0xFF4D2607, 0xFFCFCFCF },
 			"Useful in defending Castles from the English in 1400, now useful for driving a stake "
-			+ "through the hearts of the armies of Hell. One arrow at a time, slow to reload but packs"
+			+ "through the hearts of the armies of Hell, one arrow at a time. Slow to reload but packs"
 			+ "a hell of a punch.",
-			8, 1, 3, 30, 120, Ammo.ARROW, SoundHandler.revolver);
+			8, 1, 3, 30, 175, Ammo.ARROW, SoundHandler.revolver);
 	public static final Item bazooka = new Bazooka();
 
 	// swords
@@ -144,10 +144,10 @@ public class Item {
 	public static final Item assaultRifleAmmo = new Item("Assault Rifle Magazine", 22, 2, 4,
 			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"Assault Rifle Ammo, .556 Rounds capable of being fired in rapid succession, can "
-			+ "very easily kill a room full of people.", 0);
+			+ "very easily kill a room full of people in seconds.", 0);
 	public static final Item shotgunAmmo = new Item("Shotgun Ammo", 24, 3, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"Shotgun Ammo, buckshot, can take out any living thing within a 5 yard radius. No longer"
-			+ "okay to use against the Native Population.", 0);
+			+ "\"Politically Correct\" to use against the Native Population.", 0);
 	public static final Item arrowAmmo = new Item("Arrow Quiver", 26, 4, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"A quiver full of Arrows, useful for having arrows to shoot at people.", 0);
 	public static final Item rocketAmmo = new Item("Ammo", 29, 5, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
