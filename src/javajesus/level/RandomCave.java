@@ -90,18 +90,18 @@ public class RandomCave extends Level {
 				// Add in the wall tiles and entities
 				switch (caveMap[row][col]) {
 				case CaveGeneration.CAVE_WALL:
-					levelTiles[tile] = Tile.CAVEWALL_ROCK.getId();
+					levelTiles[tile] = Tile.CAVEWALL_TOP.getId();
 					
 					break;
 				case CaveGeneration.CAVE_BORDER_WALL:
-					levelTiles[tile] = Tile.CAVEWALL.getId();
+					levelTiles[tile] = Tile.CAVEWALL_RGHT.getId();
 					break;
 				case CaveGeneration.FLOOR_CHEST: 
 					levelTiles[tile] = Tile.CAVEFLOOR.getId();
 					add(new Chest(this, col * 8, row * 8, (byte) 1));
 					break;
 				case CaveGeneration.FLOOR_SPAWNER:
-					levelTiles[tile] = Tile.CAVEFLOOR1.getId();
+					levelTiles[tile] = Tile.CAVEFLOOR.getId();
 					add(new Spawner(this, col * 8, row * 8, Spawner.DEMON, 5));
 					break;
 				case CaveGeneration.SPAWN_POINT:

@@ -147,22 +147,34 @@ public class Tile {
 				new int[] { 0xFF935409, 0xFF000000, 0xFF000000 });
 		public static final Tile DIRTROAD2 = new Tile(54, false, 0xFFA06202, 1, 3, SpriteSheet.dirt,
 				new int[] { 0xFF935409, 0xFF000000, 0xFF000000 });
-	
-		public static final Tile CAVEFLOOR = new Tile(55, true, 0xFFC3BEB7, 7, 3, SpriteSheet.dirt,
-				new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile CAVEFLOOR1 = new Tile(56, false, 0xFFC3BEB8, 8, 3, SpriteSheet.dirt,
-				new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile CAVEFLOOR_ROCK = new Tile(57, true, 0xFFC3BEB9, 6, 3, SpriteSheet.dirt,
-				new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
 		
-		public static final Tile MOUNTAIN_ENTRANCE_TOP = new Tile(58, true, 0xFFC8BEC1, 2, 3,
+		public static final Tile CAVEFLOOR = new Tile(56, false, 0xFFC3BEB8, 8, 3, SpriteSheet.dirt,
+				new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+	
+		public static final Tile CAVEWALL_TOP = new Tile(106, true, 0xFF291900, 0, 2, SpriteSheet.mountain, 
+				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
+		public static final Tile CAVEWALL_BTM = new Tile(107, true, 0xFF291900, 1, 2, SpriteSheet.mountain, 
+				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
+		public static final Tile CAVEWALL_RGHT = new Tile(108, true, 0xFF291900, 2, 2, SpriteSheet.mountain, 
+				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
+		public static final Tile CAVEWALL_LFT = new Tile(109, true, 0xFF291900, 3, 2, SpriteSheet.mountain, 
+				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
+		public static final Tile CAVEWALL_TOPLFT_CORN_IN = new Tile(55, true, 0xFFC3BEB7, 7, 3, SpriteSheet.dirt,
+				new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+		public static final Tile CAVEWALL_TOPRGHT_CORN_IN = new Tile(58, true, 0xFFC8BEC1, 2, 3,
 				SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile MOUNTAIN_ENTRANCE_BTM = new Tile(59, true, 0xFFC8BEC2, 3, 3, 
+		public static final Tile CAVEWALL_BTMRGHT_CORN_IN = new Tile(59, true, 0xFFC8BEC2, 3, 3, 
 				SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile MOUNTAIN_ENTRANCE_RGHT = new Tile(60, true, 0xFFC8BEC3, 4, 3,
+		public static final Tile CAVEWALL_BTMRLFT_CORN_IN = new Tile(60, true, 0xFFC8BEC3, 4, 3,
 				SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
-		public static final Tile MOUNTAIN_ENTRANCE_LFT = new Tile(61, true, 0xFFC8BEC4, 5, 3, 
+		public static final Tile CAVEWALL_TOPRGHT_CORN_OUT = new Tile(110, true, 0xFF291900, 0, 3, SpriteSheet.mountain, 
+				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
+		public static final Tile CAVEWALL_TOPLFT_CORN_OUT = new Tile(111, true, 0xFF291900, 1, 3, SpriteSheet.mountain, 
+				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
+		public static final Tile CAVEWALL_BTMLFT_CORN_OUT = new Tile(61, true, 0xFFC8BEC4, 5, 3, 
 				SpriteSheet.dirt, new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
+		public static final Tile CAVEWALL_BTMRGHT_CORN_OUT = new Tile(57, true, 0xFFC3BEB9, 6, 3, SpriteSheet.dirt,
+				new int[] { 0xFFa7a7a7, 0xFF000000, 0xFF000000 });
 		
 			//TRANSITION TILES
 			public static final Tile SAND_DIRT_BTM_RGHT = new Tile(62, false, 0xFFFFFF10, 2, 0, 
@@ -267,21 +279,7 @@ public class Tile {
 				new int[] { 0xFF7F7F7F, 0xFFC3C3C3, 0xFF000000 });
 
 		
-		public static final Tile CAVEWALL = new Tile(106, true, 0xFF291900, 0, 2, SpriteSheet.mountain, 
-				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
-		public static final Tile CAVEWALL1 = new Tile(107, true, 0xFF291900, 1, 2, SpriteSheet.mountain, 
-				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
-		public static final Tile CAVEWALL2 = new Tile(108, true, 0xFF291900, 2, 2, SpriteSheet.mountain, 
-				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
-		public static final Tile CAVEWALL3 = new Tile(109, true, 0xFF291900, 3, 2, SpriteSheet.mountain, 
-				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
-
-		public static final Tile CAVEWALL_ROCK = new Tile(110, true, 0xFF291900, 0, 3, SpriteSheet.mountain, 
-				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
-		public static final Tile CAVEWALL_ROCK1 = new Tile(111, true, 0xFF291900, 1, 3, SpriteSheet.mountain, 
-				new int[] { 0xFF92928D, 0xFF636361, 0xFF000000 });
-
-	/////// URBAN ////////
+		/////// URBAN ////////
 	
 		//ROADS
 		public static final Tile CAR_ROAD = new Tile(112,false, 0xFF565656, 0, 0, 
