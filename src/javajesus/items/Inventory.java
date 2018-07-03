@@ -209,6 +209,27 @@ public class Inventory implements Serializable {
 		// none found
 		return null;
 	}
+	
+	/**
+	 * @return First item in inventory that restores Stamina
+	 * Returns NULL if none found
+	 */
+	public Item findStaminaItem() {
+		// iterate through Player's inventory
+		for (int i = 0; i < items.length; i++) {
+			//check item at index i
+			if(items[i] != null) {
+				//checks if item contains stamina
+				if (items[i].containsStamina()) {
+					return items[i];
+				}
+				//rest of inventory is null
+			} else {
+				break;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Sorts items alphabetically

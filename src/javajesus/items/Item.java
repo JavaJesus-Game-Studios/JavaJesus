@@ -29,8 +29,8 @@ public class Item {
 	// the amount of this item
 	private int amount = 1;
 	
-	// the amount of health the item heals on use
-	private int health;
+	// the amount of health/stamina the item heals on use
+	private int restoration;
 
 	// A set of all Items types in the game
 	private static final Item[] items = new Item[256];
@@ -40,13 +40,14 @@ public class Item {
 
 	// consumables
 	public static final Item apple = new Item("Apple", 0, 2, 3, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
-			"This red fruit restores a moderate amount of stamina.", 10);
+			"This red fruit restores a moderate amount of stamina.", 50);
 	public static final Item banana = new Item("Banana", 1, 3, 3, new int[] { 0xFF111111, 0xFFFFF600, 0xFF000000 },
-			"Got a cramp? Eat up champ, the currency of the wild apes. Restores a lot of Stamina.", 10);
+			"Got a cramp? Eat up champ, the currency of the wild apes. Restores a lot of Stamina.", 75);
 	public static final Item orange = new Item("Orange", 2, 5, 3, new int[] { 0xFF111111, 0xFFFFAE00, 0xFF0CA101 },
-			"Be the Soccer Mom you always wanted to be, this orange fruit restores a small amount of stamina.", 10);
+			"Be the Soccer Mom you always wanted to be, this orange fruit restores a small amount of stamina.", 25);
 	public static final Item feather = new Item("Feather", 3, 4, 3, new int[] { 0xFF111111, 0xFF79B2FF, 0xFF000000 },
-			"Why did we waste time adding an interactible feather to the game?", 0);
+			"Why did we waste time adding an interactible feather to the game? Restores a small amount of Health"
+			+ "by lifting your Spirits.", 5);
 
 	// guns
 	public static final Item revolver = new Gun("Revolver", 4, 0, 0, new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 },
@@ -159,7 +160,7 @@ public class Item {
 			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "This Health Pack will restore a large amount of health.", 50);
 	
 	public static final Item quickHealthPack = new Item("Quick Health", 30, 0, 3,
-			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "This Health Pack will restore a small amount of health.", 20);
+			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 }, "This Health Pack will restore a small amount of health.", 25);
 	
 	/**
 	 * Item ctor()
@@ -201,14 +202,14 @@ public class Item {
 	 * @param yTile - the vertical position on the spritesheet
 	 * @param color - the colorset
 	 * @param description - the description of this item
-	 * @param health - the amount of health this item heals on use
+	 * @param restoration - the amount of health/stamina to restore this item heals on use
 	 */
 	public Item(final String name, int id, int xTile, int yTile, final int[] color,
-			final String description, int health) {
+			final String description, int restoration) {
 		this(name, id, xTile, yTile, color, description, false);
 		
 		// instance data
-		this.health = health;
+		this.restoration = restoration;
 		
 	}
 	
@@ -267,8 +268,13 @@ public class Item {
 	public void use(Player player) {
 		
 		// heal if the item has health
-		if (health > 0) {
-			player.heal(health);
+		if ((id == 3 || id == 27 || id == 30) && restoration > 0) {
+			player.heal(restoration);
+		}
+		
+		// restores stamina if item has stamina
+		if ((id == 0 || id == 1 || id == 2) && restoration > 0) {
+			player.restore(restoration);
 		}
 		
 		// equip if equipable
@@ -347,7 +353,7 @@ public class Item {
 	 */
 	public boolean isUsable() {
 		
-		return equipable || health > 0;
+		return equipable || restoration > 0;
 		
 	}
 	
@@ -356,8 +362,16 @@ public class Item {
 	 */
 	public boolean containsHealth() {
 		
-		return health > 0;
+		return (id == 3 || id == 27 || id == 30) && restoration > 0;
 		
+	}
+	
+	/**
+	 * @return whether or not the item restores stamina
+	 */
+	public boolean containsStamina() {
+		
+		return (id == 0 || id == 1 || id == 2) && restoration > 0;
 	}
 	
 	/**
