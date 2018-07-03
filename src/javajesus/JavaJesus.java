@@ -21,6 +21,7 @@ import engine.GameEngine;
 import engine.IGameLogic;
 import engine.Input;
 import engine.Window;
+import javajesus.ai.AIManager;
 import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
 import javajesus.graphics.Screen;
@@ -114,6 +115,9 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// font used
 	private static final Font DISPLAY_FONT = new Font(FONT_NAME, 0, 20);
 	private static final Font DEATH_FONT = new Font(FONT_NAME, 0, 50);
+	
+	// manages AI
+	private AIManager aiManager;
 
 	// the in game player
 	private Player player;
@@ -191,6 +195,8 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		
 		// manage the dialogue gui with the dialogue handler
 		new DialogueHandler(this);
+		
+		aiManager = new AIManager(player, screen);
 		
 		running = true;
 		
@@ -350,8 +356,10 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		
 		// update the time screen
 		//updateTime();
+		aiManager.update();;
 
 	}
+	
 	
 	/**
 	 * Updates the time and shading factors of the screen
@@ -422,6 +430,8 @@ public class JavaJesus extends Canvas implements IGameLogic {
 
 		// render the level and everything on it
 		player.getLevel().render(screen);
+		
+		aiManager.render(screen);
 		
 		// render collision boxes
 		if (doDevOverlay) {

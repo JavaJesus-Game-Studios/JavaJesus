@@ -390,6 +390,34 @@ public abstract class Level {
 		return getTile(x >> 3, y >> 3);
 	}
 	
+	public List<Tile> getVisibleTiles(Screen screen) {
+		
+		List<Tile> tiles = new ArrayList<Tile>(1102);
+		
+		// iterate through list of tiles
+		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
+			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
+				tiles.add(this.getTile(x, y));
+			}
+		}
+		
+		return tiles;
+	}
+	
+public List<Point> getVisibleTileCoords(Screen screen) {
+		
+		List<Point> tiles = new ArrayList<Point>(1102);
+		
+		// iterate through list of tiles
+		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
+			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
+				tiles.add(new Point(x, y));
+			}
+		}
+		
+		return tiles;
+	}
+	
 	/**
 	 * Adds text to be rendered
 	 * 

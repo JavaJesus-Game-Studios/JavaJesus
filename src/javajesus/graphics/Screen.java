@@ -570,4 +570,18 @@ public class Screen {
 	public int getHeight() {
 		return height;
 	}
+
+	/**
+	 * @return the xOffset
+	 */
+	public final int getxOffset() {
+		return xOffset;
+	}
+
+	/**
+	 * @return the yOffset
+	 */
+	public final int getyOffset() {
+		return yOffset;
+	}
 }
