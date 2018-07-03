@@ -66,10 +66,10 @@ public class Player extends Mob implements Type {
 	private static final int SIZE = 16;
 
 	// the starting health value
-	private static final int START_HEALTH = 10000;
+	private static final int START_HEALTH = 150;
 
 	// the starting stamina value
-	private static final int START_STAMINA = 2000;
+	private static final int START_STAMINA = 200;
 
 	// how fast the player toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
@@ -128,10 +128,13 @@ public class Player extends Mob implements Type {
 		}
 		
 		// gives certain names certain powers
-		if (name.equals("Dev_Derek") || name.equals("Dev_Stevie") || name.equals("Dev_Wesley")) {
+		if (name.equals("Dev_Derek") || name.equals("Dev_Stevie")|| name.equals("Dev_Wesley")
+				|| name.equals("Dev_Joel") || name.equals("Dev_Andrew") || name.equals("Dev_Karl")
+				|| name.equals("Easy Mode")) {
 			grantDevPowers();
 			System.err.println("Creating Developer");
-		}  else {
+		}  
+		else {
 			System.err.println("Creating " + name);
 		}
 		
@@ -807,6 +810,29 @@ public class Player extends Mob implements Type {
 	 */
 	public boolean isMoving() {
 		return isMoving;
+	}
+	
+	/**
+	 * Replenishes the mob health
+	 * 
+	 * @param num - the amount to heal -1 to fully heal
+	 */
+	public void restore(int num) {
+
+		// heal to full
+		if (num == -1) {
+			stamina = maxStamina;
+
+			// heal by a certain amount
+		} else {
+			stamina += num;
+
+			// cant go over max and check for overflow
+			if (stamina > maxStamina || stamina < -1000) {
+				stamina = maxStamina;
+			}
+		}
+
 	}
 	
 	/**
