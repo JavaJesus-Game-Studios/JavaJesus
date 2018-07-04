@@ -25,6 +25,7 @@ public class Main {
 		try {
 			
 			// create a splash loading screen
+			/**
 			SplashScreen splash = SplashScreen.getSplashScreen();
 			
 			// error checking
@@ -37,7 +38,7 @@ public class Main {
 			// render the splash screen
 	        splash.createGraphics();
 	        splash.update();
-
+*/
 			// start the launcher and sound
 			SoundHandler.initialize();
 			
@@ -50,7 +51,7 @@ public class Main {
 			.start();
 			
 			// close the loading screen
-			splash.close();
+			//splash.close();
 
 			// report any errors
 		} catch (Exception e) {
