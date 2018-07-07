@@ -450,6 +450,7 @@ public class Player extends Mob implements Type {
 		int xTile = 0, yTile = this.yTile;
 
 		// whether or not to flip horizontally (walking animation)
+		// 2 ^ walking speed = 2 ^ 4 = 16 ~= tickcount % 16
 		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
 
 		// north direction
