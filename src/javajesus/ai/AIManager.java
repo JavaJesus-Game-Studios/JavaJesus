@@ -9,7 +9,7 @@ import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.Tile;
 
-public class AIManager {
+public class AIManager implements Runnable {
 	
 	int ticks;
 	
@@ -23,38 +23,53 @@ public class AIManager {
 		this.screen = screen;
 	}
 	
-	public void update() {
+	public void run() {
 		
-		if (ticks % Entity.secondsToTicks(5) == 0) {
-			
-			int[] reduced = process(player.getLevel().getVisibleTiles(screen), player.getLevel().getVisibleTileCoords(screen));
-			
-			computeTransitions(reduced, 1);
-			
-			policy = new MDP(computeTransitions(reduced, 1), computeTransitions(reduced, 2), computeTransitions(reduced, 3), computeTransitions(reduced, 4))
-					.computeGreedyPolicy(reduced);
-			
+		while (true) {
+		
+			if (ticks++ % Entity.secondsToTicks(2) == 0) {
+				
+				int[] reduced = process(player.getLevel().getVisibleTiles(screen), player.getLevel().getVisibleTileCoords(screen));
+				
+				policy = new MDP(computeTransitions(reduced, 1), computeTransitions(reduced, 2), computeTransitions(reduced, 3), computeTransitions(reduced, 4))
+						.computeGreedyPolicy(reduced);
+				
+			}
 		}
-		
-		ticks++;
 		
 	}
 	
 	public void render(Screen screen) {
-		/*for (int i = 0; i < policy.length; i++) {
-			JJFont.render(String.valueOf(policy[i]), screen, screen.getxOffset() + (i % 38) * 8, screen.getyOffset() + (i / 38) * 8, new int[] {0xFF0000, 0xFF0000, 0xFF0000, 0xFF0000}, 1);
-		}*/
+		int width = player.getLevel().getNumXTilesOnScreen(screen);
+		for (int i = 0; i < policy.length; i++) {
+			JJFont.render(actionToChar(policy[i]), screen, screen.getxOffset() + (i % width) * 8, screen.getyOffset() + (i / width) * 8, new int[] {0xFF0000, 0xFF0000, 0xFF0000, 0xFF0000}, 1);
+		}
+	}
+	
+	private String actionToChar(int action) {
+		switch(action) {
+		case 1: return "U";
+		case 2: return "R";
+		case 3: return "D";
+		case 4: return "L";
+		default: return ".";
+		}
 	}
 	
 	private double[][] computeTransitions(int[] tiles, int action) {
 		double[][] transitions = new double[tiles.length][tiles.length];
 		
-		System.out.println(tiles.length);
+		int height = player.getLevel().getNumYTilesOnScreen(screen);
+		int width = player.getLevel().getNumXTilesOnScreen(screen);
 		
-		for (int row = 0; row < 29; row++) {
-			for (int col = 0; col < 38; col++) {
+		for (int row = 0; row < height; row++) {
+			for (int col = 0; col < width; col++) {
 				
-				int current = col + row * 38;
+				int current = col + row * width;
+				
+				if (current >= tiles.length) {
+					continue;
+				}
 				
 				// if solid, movement is stuck in current state
 				if (tiles[current] == 3) {
@@ -66,7 +81,7 @@ public class AIManager {
 					int down = action == 3 ? 1 : 0;
 					int left = action == 4 ? -1 : 0;
 					
-					int index = (col + left + right) + (row + up + down) * 38;
+					int index = (col + left + right) + (row + up + down) * width;
 					if (index >=0 && index < 1102) {
 						
 						switch (tiles[index]) {
@@ -128,7 +143,7 @@ public class AIManager {
 				reduced[i] = 0;
 			}
 			
-			if (player.getBounds().contains(new Point(coords.get(i).x * 8, coords.get(i).y * 8))) {
+			if (player.getBounds().contains(new Point(coords.get(i).x * 8 + 8, coords.get(i).y * 8 + 8))) {
 				reduced[i] = 4;
 			}
 			

@@ -37,7 +37,7 @@ public class MDP {
 		
 		int iterations = 0;
 		
-		while (iterations++ < 2) {
+		while (iterations++ < 20) {
 			double[] temp = new double[states.length];
 			
 			for (int s = 0; s < values.length; s++) {

@@ -197,6 +197,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		new DialogueHandler(this);
 		
 		aiManager = new AIManager(player, screen);
+		new Thread(aiManager).start();
 		
 		running = true;
 		
@@ -356,8 +357,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		
 		// update the time screen
 		//updateTime();
-		aiManager.update();;
-
 	}
 	
 	
@@ -431,7 +430,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		// render the level and everything on it
 		player.getLevel().render(screen);
 		
-		aiManager.render(screen);
+		//aiManager.render(screen);
 		
 		// render collision boxes
 		if (doDevOverlay) {

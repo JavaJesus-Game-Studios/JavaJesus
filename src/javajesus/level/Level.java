@@ -404,6 +404,14 @@ public abstract class Level {
 		return tiles;
 	}
 	
+	public int getNumXTilesOnScreen(Screen screen) {
+		return ((xOffset + screen.getWidth() >> 3) + 1) - (xOffset >> 3);
+	}
+	
+	public int getNumYTilesOnScreen(Screen screen) {
+		return ((yOffset + screen.getHeight() >> 3) + 1)- (yOffset >> 3);
+	}
+	
 public List<Point> getVisibleTileCoords(Screen screen) {
 		
 		List<Point> tiles = new ArrayList<Point>(1102);
