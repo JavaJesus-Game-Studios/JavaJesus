@@ -1,6 +1,7 @@
 package javajesus.ai;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.List;
 
 import javajesus.entities.Entity;
@@ -18,16 +19,32 @@ public class AIManager implements Runnable {
 	
 	private int[] policy = {};
 	
+	private int width, height;
+	
+	private boolean running = true;
+	
 	public AIManager(Player player, Screen screen) {
 		this.player = player;
 		this.screen = screen;
 	}
 	
+	public void start() {
+		running = true;
+		new Thread(this).start();
+	}
+	
+	public void stop() {
+		running = false;
+	}
+	
 	public void run() {
 		
-		while (true) {
+		while (running) {
 		
-			if (ticks++ % Entity.secondsToTicks(2) == 0) {
+			if (ticks++ % Entity.secondsToTicks(1) == 0) {
+				
+				height = player.getLevel().getNumYTilesOnScreen(screen);
+				width = player.getLevel().getNumXTilesOnScreen(screen);
 				
 				int[] reduced = process(player.getLevel().getVisibleTiles(screen), player.getLevel().getVisibleTileCoords(screen));
 				
@@ -40,9 +57,8 @@ public class AIManager implements Runnable {
 	}
 	
 	public void render(Screen screen) {
-		int width = player.getLevel().getNumXTilesOnScreen(screen);
 		for (int i = 0; i < policy.length; i++) {
-			JJFont.render(actionToChar(policy[i]), screen, screen.getxOffset() + (i % width) * 8, screen.getyOffset() + (i / width) * 8, new int[] {0xFF0000, 0xFF0000, 0xFF0000, 0xFF0000}, 1);
+			JJFont.render(actionToChar(policy[i]), screen, screen.getxOffset() + (i % width) * 8 - 8, screen.getyOffset() + (i / width) * 8 - 8, new int[] {0xFF0000, 0xFF0000, 0xFF0000, 0xFF0000}, 1);
 		}
 	}
 	
@@ -58,9 +74,6 @@ public class AIManager implements Runnable {
 	
 	private double[][] computeTransitions(int[] tiles, int action) {
 		double[][] transitions = new double[tiles.length][tiles.length];
-		
-		int height = player.getLevel().getNumYTilesOnScreen(screen);
-		int width = player.getLevel().getNumXTilesOnScreen(screen);
 		
 		for (int row = 0; row < height; row++) {
 			for (int col = 0; col < width; col++) {
@@ -131,6 +144,8 @@ public class AIManager implements Runnable {
 	public int[] process(List<Tile> tiles, List<Point> coords) {
 		int[] reduced = new int[tiles.size()];
 		
+		Rectangle outer = new Rectangle(player.getX() - 8, player.getY() - 8, player.getBounds().width + 16, player.getBounds().height + 16);
+		
 		for (int i = 0; i < tiles.size(); i++) {
 			
 			if (tiles.get(i).isSolid()) {
@@ -143,7 +158,9 @@ public class AIManager implements Runnable {
 				reduced[i] = 0;
 			}
 			
-			if (player.getBounds().contains(new Point(coords.get(i).x * 8 + 8, coords.get(i).y * 8 + 8))) {
+			Point p = new Point(coords.get(i).x * 8, coords.get(i).y * 8);
+			
+			if (outer.contains(p) && !player.getBounds().contains(p)) {
 				reduced[i] = 4;
 			}
 			
