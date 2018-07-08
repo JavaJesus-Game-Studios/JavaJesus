@@ -24,6 +24,7 @@ import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.AnimatedTile;
 import javajesus.level.tile.Tile;
+import javajesus.level.tile.TileAdapter;
 import javajesus.utility.EntityComparator;
 import javajesus.utility.LevelText;
 
@@ -230,6 +231,16 @@ public abstract class Level {
 		}
 	}
 	
+	public List<TileAdapter> getOccupiedTiles(Entity e) {
+		List<TileAdapter> list = new ArrayList<>();
+		for (int x = e.getX(); x <= e.getX() + e.getBounds().width; x+= 8) {
+			for (int y = e.getY(); y <= e.getY() + e.getBounds().height; y += 8) {
+				list.add(new TileAdapter(getTileFromEntityCoords(x, y), x >> 3, y >> 3));
+			}
+		}
+		return list;
+	}
+	
 	/**
 	 * Renders tiles, entities, and text
 	 * to the screen
@@ -390,14 +401,29 @@ public abstract class Level {
 		return getTile(x >> 3, y >> 3);
 	}
 	
-	public List<Tile> getVisibleTiles(Screen screen) {
+	public List<TileAdapter> getVisibleTiles(Screen screen) {
 		
-		List<Tile> tiles = new ArrayList<Tile>(1102);
+		List<TileAdapter> occupied = new ArrayList<>();
+		
+		// get list of all tiles that are occupied
+		for (int i = 0; i < getEntities().size(); i++) {
+			Entity e = getEntities().get(i);
+
+			if (e.getBounds().intersects(renderRange) && (!(e instanceof Mob) || !((Mob) e).isDead())) {
+				occupied.addAll(getOccupiedTiles(e));
+			}
+		}
+		
+		List<TileAdapter> tiles = new ArrayList<>(1131);
 		
 		// iterate through list of tiles
 		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
 			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
-				tiles.add(this.getTile(x, y));
+				TileAdapter tile = new TileAdapter(getTile(x, y), x, y);
+				if (occupied.contains(tile)) {
+					tile.setOccupied(true);
+				}
+				tiles.add(tile);
 			}
 		}
 		
@@ -412,19 +438,6 @@ public abstract class Level {
 		return ((yOffset + screen.getHeight() >> 3) + 1)- (yOffset >> 3);
 	}
 	
-public List<Point> getVisibleTileCoords(Screen screen) {
-		
-		List<Point> tiles = new ArrayList<Point>(1102);
-		
-		// iterate through list of tiles
-		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
-			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
-				tiles.add(new Point(x, y));
-			}
-		}
-		
-		return tiles;
-	}
 	
 	/**
 	 * Adds text to be rendered

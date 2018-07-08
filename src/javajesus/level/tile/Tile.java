@@ -636,9 +636,6 @@ public class Tile {
 	// coordinates on spritesheet
 	protected int xTile, yTile;
 	
-	// TODO
-	public boolean hasMob;
-
 	/**
 	 * Tile ctor()
 	 * Creates a tile

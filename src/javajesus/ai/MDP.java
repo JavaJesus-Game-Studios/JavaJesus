@@ -37,7 +37,7 @@ public class MDP {
 		
 		int iterations = 0;
 		
-		while (iterations++ < 20) {
+		while (iterations++ < 30) {
 			double[] temp = new double[states.length];
 			
 			for (int s = 0; s < values.length; s++) {
@@ -55,9 +55,7 @@ public class MDP {
 			
 			for (int i = 0; i < temp.length; i++) {
 				values[i] = temp[i];
-				//System.out.print(values[i] + ", ");
 			}
-			//System.out.println();
 		}
 		
 		return values;
