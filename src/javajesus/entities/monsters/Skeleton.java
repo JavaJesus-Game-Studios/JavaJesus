@@ -65,7 +65,6 @@ public class Skeleton extends Monster {
 			if (isShooting) {
 				xTile = 23;
 			}
-			
 		} else if (getDirection() == Direction.SOUTH) {
 			
 			if (isMoving) {

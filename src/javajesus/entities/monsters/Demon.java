@@ -133,23 +133,35 @@ public class Demon extends Monster implements LongRange, Type {
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
 			xTile = 10;
+			if (isMoving) {
+				xTile += 2 + (flip ? 2 : 0);
+				flip = false;
+			}
+			// attacking animation
+			if (isShooting)
+				xTile += 14;
 		} else if (getDirection() == Direction.SOUTH) {
-			xTile = 2;
+			if (isMoving) {
+				xTile += 2 + (flip ? 2 : 0);
+				flip = false;
+			}
+			// attacking animation
+			if (isShooting)
+				xTile += 16;
 		} else {
-			xTile = 4 + (flip ? 2 : 0);
+			xTile = 6 + (flip ? 2 : 0);
 			flip = getDirection() == Direction.WEST;
+			// attacking animation
+						if (isShooting)
+							xTile += 14;
 		}
-
-		// attacking animation
-		if (isShooting)
-			xTile += 12;
 
 		// dead has an absolute position
 		if (isDead()) {
 			if (isLongitudinal()) {
 				setDirection(Direction.WEST);
 			}
-			xTile = 24;
+			xTile = 28;
 		}
 
 		// only a living demon has a top layer

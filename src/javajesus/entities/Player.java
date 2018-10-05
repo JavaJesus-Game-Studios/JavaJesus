@@ -524,17 +524,17 @@ public class Player extends Mob implements Type {
 
 			if (shootingDir == Direction.NORTH) {
 				xTile = 10;
-				if (equippedGun == Item.assaultRifle) {
+				if (equippedGun == Item.crossBow) {
 					xTile = 12;
 				}
 				if (!isMoving) {
 					xTile = 8;
-					if (equippedGun == Item.assaultRifle) {
+					if (equippedGun == Item.crossBow) {
 						xTile = 10;
 					}
 				}
 			} else if (shootingDir == Direction.SOUTH) {
-				if (equippedGun == Item.assaultRifle) {
+				if (equippedGun == Item.crossBow) {
 					xTile = flip ? 2 : 4;
 					flip = false;
 				}else {
@@ -547,14 +547,14 @@ public class Player extends Mob implements Type {
 				// reset the flip for horizontal movement
 				flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
 				
-				if(equippedGun == Item.assaultRifle) {
+				if(equippedGun == Item.crossBow) {
 					xTile = flip ? 6 : 8;
 				}else {
 					xTile = flip ? 4 : 6;
 				}
 				if (!isMoving) {
 					xTile = 4;
-					if(equippedGun == Item.assaultRifle) {
+					if(equippedGun == Item.crossBow) {
 						xTile = 6;
 					}
 				}
