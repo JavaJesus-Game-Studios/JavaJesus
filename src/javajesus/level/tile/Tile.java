@@ -575,13 +575,13 @@ public class Tile {
 	
 		//Water
 		public static final Tile SEA1 = new AnimatedTile(240, false, 0xFF0000FF, 0, SpriteSheet.waves,
-				new int[] { 0xFF2f5ed5, 0xFF7ab5d7, 0xFF000000 }, 5, 800);
+				new int[] { 0xFF2f5ed5, 0xFF2f5ed5, 0xFF7ab5d7 }, 5, 800);
 		public static final Tile SEA2 = new AnimatedTile(241, false, 0xFF0000FF, 1, SpriteSheet.waves,
-				new int[] { 0xFF2f5ed5, 0xFF7ab5d7, 0xFF000000 }, 5, 800);
+				new int[] { 0xFF2f5ed5, 0xFF2f5ed5, 0xFF7ab5d7 }, 5, 800);
 		public static final Tile SEA3 = new AnimatedTile(242, false, 0xFF0000FF, 2, SpriteSheet.waves,
-				new int[] { 0xFF2f5ed5, 0xFF7ab5d7, 0xFF000000 }, 5, 800);
+				new int[] { 0xFF2f5ed5, 0xFF2f5ed5, 0xFF7ab5d7 }, 5, 800);
 		public static final Tile SEA4 = new AnimatedTile(243, false, 0xFF0000FF, 3, SpriteSheet.waves,
-				new int[] { 0xFF2f5ed5, 0xFF7ab5d7, 0xFF000000 }, 5, 800);
+				new int[] { 0xFF2f5ed5, 0xFF2f5ed5, 0xFF7ab5d7 }, 5, 800);
 		
 		public static final Tile SHORE1 = new AnimatedTile(244, false, 0xFF64FFFF, 4, SpriteSheet.waves,
 			new int[] { 0xFFb6ffd6, 0xFF78d5e9, 0xFF000000 }, 5, 800);
