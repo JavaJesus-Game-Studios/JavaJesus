@@ -128,8 +128,8 @@ public class Item {
 			*/
 
 	public static final Item blackHoleGun = new Gun("Secret", 20, 0, 0,
-			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "??????", 0, 6, 10, 20, 50, Ammo.BLACKHOLE,
-			SoundHandler.revolver);
+			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "??????", 14, 6, 10, 20, 50, Ammo.BLACKHOLE,
+			SoundHandler.laser);
 	public static final Item flameThrower = new Flamethrower("Flamethrower", 21, 6, 0,
 			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Please apply cold water to burn", 12, 10000, 0.2f, 0, 5,
 			Ammo.FLAMETHROWER, SoundHandler.revolver);
