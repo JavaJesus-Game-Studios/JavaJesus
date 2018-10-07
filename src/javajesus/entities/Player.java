@@ -516,8 +516,16 @@ public class Player extends Mob implements Type {
 			}
 		}
 
-		//Rendering for Player
+		//Rendering for Player when they have equipped a firearm
 		if(getEquippedGun() != null) {
+			
+			// bazooka and flamethrower are special :)
+			if (equippedGun instanceof DifferentOffsetItem) {
+				((DifferentOffsetItem) equippedGun).renderPlayer(screen, this,
+						gunSheet, shootingDir);
+				return;
+			}
+			
 			// north direction
 			xTile = 0;
 			yTile = equippedGun.getPlayerOffset();
@@ -527,12 +535,12 @@ public class Player extends Mob implements Type {
 					xTile = 12;
 				}
 				if (!isMoving) {
-					if (equippedGun == Item.crossBow) {
-						xTile = 10;
-						xTile += ((tickCount % 120 <= 60) ? 20 : 0);
-					}
 					xTile = 8;
-					xTile += ((tickCount % 120 <= 60) ? 8 : 0);
+					xTile += ((tickCount % 100 <= 50) ? 8 : 0);
+					if(equippedGun == Item.crossBow) {
+						xTile = 10;
+						xTile += ((tickCount % 100 <= 50) ? 20 : 0);
+					}
 				}
 			// south direction
 			} else if (getDirection() == Direction.SOUTH) {
@@ -542,11 +550,11 @@ public class Player extends Mob implements Type {
 					flip = false;
 				} if (!isMoving) {
 					xTile = 0;
+					xTile += ((tickCount % 120 <= 60) ? 12 : 0);
 					if (equippedGun == Item.crossBow) {
+						xTile = 0;
 						xTile += ((tickCount % 120 <= 60) ? 26 : 0);
 					}
-					xTile = 0;
-					xTile += ((tickCount % 120 <= 60) ? 12 : 0);
 				}
 			// left or right
 			} else {
@@ -557,22 +565,16 @@ public class Player extends Mob implements Type {
 				if (isMoving)
 					xTile += (flip ? 2 : 0);
 				if (!isMoving) {
+					xTile += ((tickCount % 120 <= 60) ? 10 : 0);
 					if (equippedGun == Item.crossBow) {
+						xTile = 6;
 						xTile += ((tickCount % 120 <= 60) ? 22 : 0);
 					}
-					xTile += ((tickCount % 120 <= 60) ? 14 : 0);
 				}
 					flip = getDirection() == Direction.WEST;
 			}
 			// Handles Shooting Animation
 			if (isShooting) {
-
-				// bazooka and flamethrower are special :)
-				if (equippedGun instanceof DifferentOffsetItem) {
-					((DifferentOffsetItem) equippedGun).renderPlayer(screen, this,
-							gunSheet, shootingDir);
-					return;
-				}
 
 				// tile positions for player
 				xTile = 0;
@@ -630,26 +632,30 @@ public class Player extends Mob implements Type {
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, sheet, flip,
 			        color);
-
-			// Lower Body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, sheet, flip,
-			        color);
-
-			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
-			        sheet, flip, color);
+			if (!isSwimming) {
+				// Lower Body 1
+				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, sheet, flip,
+				        color);
+	
+				// Lower Body 2
+				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
+				        sheet, flip, color);
+			}
 
 		}
 		
-		// Handles Swinging Animation
-		if (isSwinging) {
-			equippedSword.render(screen, xOffset, yOffset, getColor());
-			setDirection(equippedSword.getDirection());
-		}
-		//Handles Blocking Animation
-		if(isBlocking){
-			equippedSword.render(screen,xOffset,yOffset,getColor());
-			setDirection(equippedSword.getDirection());
+		//Handles the Player when they have a sword equipped
+		if (equippedSword != null) {
+			// Handles Swinging Animation
+			if (isSwinging) {
+				equippedSword.render(screen, xOffset, yOffset, getColor());
+				setDirection(equippedSword.getDirection());
+			}
+			//Handles Blocking Animation
+			if(isBlocking){
+				equippedSword.render(screen,xOffset,yOffset,getColor());
+				setDirection(equippedSword.getDirection());
+			}
 		}
 
 	}
