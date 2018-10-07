@@ -91,10 +91,19 @@ public class Monkey extends Monster {
 
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
+			if(!isMoving) {
+				xTile += ((tickCount % 120 <= 60) ? 16 : 0);
+			}
 			xTile = 10;
 		} else if (getDirection() == Direction.SOUTH) {
+			if(!isMoving) {
+				xTile += ((tickCount % 120 <= 60) ? 20 : 0);
+			}
 			xTile = 2;
 		} else {
+			if(!isMoving) {
+				xTile += ((tickCount % 120 <= 60) ? 18 : 0);
+			}
 			xTile = 4 + (flip ? 2 : 0);
 			flip = getDirection() == Direction.WEST;
 		}

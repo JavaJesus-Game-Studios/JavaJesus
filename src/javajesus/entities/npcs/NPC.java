@@ -209,6 +209,7 @@ public abstract class NPC extends Mob {
 	/**
 	 * Displays the NPC on the screen
 	 */
+	@SuppressWarnings("deprecation")
 	public void render(Screen screen) {
 		super.render(screen);
 
@@ -245,15 +246,24 @@ public abstract class NPC extends Mob {
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
 			xTile += 8;
-			if (isMoving)
+			if (isMoving) {
 				xTile += 2;
+			}else {
+				xTile += ((tickCount % 120 <= 60) ? 23 : 0);
+			}
 		} else if (getDirection() == Direction.SOUTH) {
-			if (isMoving)
+			if (isMoving) {
 				xTile += 2;
+			} else {
+				xTile += ((tickCount % 120 <= 60) ? 27 : 0);
+			}
 		} else if (isLatitudinal()) {
 			xTile += 4;
-			if (isMoving)
+			if (isMoving) {
 				xTile += (flip ? 2 : 0);
+			} else {
+				xTile += ((tickCount % 120 <= 60) ? 25 : 0);
+			}
 			flip = getDirection() == Direction.WEST;
 		}
 

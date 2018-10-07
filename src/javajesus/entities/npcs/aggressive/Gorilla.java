@@ -185,10 +185,19 @@ public class Gorilla extends NPC {
 
 		// get spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
+			if(!isMoving) {
+				xTile += ((tickCount % 120 <= 60) ? 38 : 0);
+			}
 			xTile += 15;
 		} else if (getDirection() == Direction.SOUTH) {
+			if(!isMoving) {
+				xTile += ((tickCount % 120 <= 60) ? 44 : 0);
+			}
 			xTile += 3;
 		} else {
+			if(!isMoving) {
+				xTile += ((tickCount % 120 <= 60) ? 41 : 0);
+			}
 			xTile += 6 + (flip ? 3 : 0);
 			flip = getDirection() == Direction.WEST;
 		}

@@ -140,6 +140,9 @@ public class Demon extends Monster implements LongRange, Type {
 			// attacking animation
 			if (isShooting)
 				xTile += 14;
+			if (!isMoving && !isShooting) {
+				xTile += ((tickCount % 120 <= 60) ? 25 : 0);
+			}
 		} else if (getDirection() == Direction.SOUTH) {
 			if (isMoving) {
 				xTile += 2 + (flip ? 2 : 0);
@@ -148,12 +151,18 @@ public class Demon extends Monster implements LongRange, Type {
 			// attacking animation
 			if (isShooting)
 				xTile += 16;
+			if (!isMoving && !isShooting) {
+				xTile += ((tickCount % 120 <= 60) ? 31 : 0);
+			}
 		} else {
 			xTile = 6 + (flip ? 2 : 0);
 			flip = getDirection() == Direction.WEST;
 			// attacking animation
-						if (isShooting)
-							xTile += 14;
+			if (isShooting)
+				xTile += 14;
+			if (!isMoving && !isShooting) {
+				xTile += ((tickCount % 120 <= 60) ? 27 : 0);
+			}
 		}
 
 		// dead has an absolute position
@@ -163,17 +172,13 @@ public class Demon extends Monster implements LongRange, Type {
 			}
 			xTile = 28;
 		}
+		
+		// Upper body 1
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
 
-		// only a living demon has a top layer
-		if (!isDead()) {
-
-			// Upper body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
-
-			// Upper body 2
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-					xTile + 1, yTile, getSpriteSheet(), flip, color);
-		}
+		// Upper body 2
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
+				xTile + 1, yTile, getSpriteSheet(), flip, color);
 
 		// Middle Body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,

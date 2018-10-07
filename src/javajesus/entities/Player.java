@@ -452,24 +452,28 @@ public class Player extends Mob implements Type {
 		// whether or not to flip horizontally (walking animation)
 		// 2 ^ walking speed = 2 ^ 4 = 16 ~= tickcount % 16
 		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
-
+		
 		// north direction
 		if (getDirection() == Direction.NORTH) {
 			xTile = 10;
 			if (!isMoving) {
 				xTile = 8;
+				xTile += ((tickCount % 120 <= 60) ? 10 : 0);
 			}
 			// south direction
 		} else if (getDirection() == Direction.SOUTH) {
 			xTile = 2;
 			if (!isMoving) {
 				xTile = 0;
+				xTile += ((tickCount % 120 <= 60) ? 14 : 0);
 			}
-			// left or right
+		// left or right
 		} else {
 			xTile = 4;
 			if (isMoving)
 				xTile += (flip ? 2 : 0);
+			if (!isMoving)
+				xTile += ((tickCount % 120 <= 60) ? 12 : 0);
 			flip = getDirection() == Direction.WEST;
 		}
 		
