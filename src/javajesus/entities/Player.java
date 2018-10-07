@@ -438,6 +438,12 @@ public class Player extends Mob implements Type {
 	 */
 	public void render(Screen screen) {
 
+		// modifier used for rendering in different scales/directions
+		int modifier = UNIT_SIZE;
+
+		// no x or y offset, use the upper left corner as absolute
+		int xOffset = getX(), yOffset = getY();
+
 		// don't render if driving
 		if (vehicle != null) {
 			return;
@@ -453,123 +459,170 @@ public class Player extends Mob implements Type {
 		// 2 ^ walking speed = 2 ^ 4 = 16 ~= tickcount % 16
 		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
 		
-		// north direction
-		if (getDirection() == Direction.NORTH) {
-			xTile = 10;
-			if (!isMoving) {
-				xTile = 8;
-				xTile += ((tickCount % 120 <= 60) ? 10 : 0);
+		//Rendering for Player when no weapons are Equipped
+		if(getEquippedGun() == null && getEquippedSword() == null) {
+			// north direction
+			if (getDirection() == Direction.NORTH) {
+				xTile = 10;
+				if (!isMoving) {
+					xTile = 8;
+					xTile += ((tickCount % 120 <= 60) ? 10 : 0);
+				}
+				// south direction
+			} else if (getDirection() == Direction.SOUTH) {
+				xTile = 2;
+				if (!isMoving) {
+					xTile = 0;
+					xTile += ((tickCount % 120 <= 60) ? 14 : 0);
+				}
+			// left or right
+			} else {
+				xTile = 4;
+				if (isMoving)
+					xTile += (flip ? 2 : 0);
+				if (!isMoving)
+					xTile += ((tickCount % 120 <= 60) ? 12 : 0);
+				flip = getDirection() == Direction.WEST;
 			}
-			// south direction
-		} else if (getDirection() == Direction.SOUTH) {
-			xTile = 2;
-			if (!isMoving) {
-				xTile = 0;
-				xTile += ((tickCount % 120 <= 60) ? 14 : 0);
+			
+			// death texture
+			if (isDead()) {
+				xTile = 12;
 			}
-		// left or right
-		} else {
-			xTile = 4;
-			if (isMoving)
-				xTile += (flip ? 2 : 0);
-			if (!isMoving)
-				xTile += ((tickCount % 120 <= 60) ? 12 : 0);
-			flip = getDirection() == Direction.WEST;
-		}
-		
-		// death texture
-		if (isDead()) {
-			xTile = 12;
-		}
-
-		// modifier used for rendering in different scales/directions
-		int modifier = UNIT_SIZE;
-
-		// no x or y offset, use the upper left corner as absolute
-		int xOffset = getX(), yOffset = getY();
-
-		// Normal Player movement -- Not Attacking Anything
-		if (!isShooting && !isSwinging) {
-
-			int swimOffset = modifier * (isSwimming ? 1 : 0);
-
-			// Upper body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset
-					+ swimOffset, xTile, yTile, getSpriteSheet(), flip,
-					color);
-			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)),
-					yOffset + swimOffset, xTile + 1, yTile, getSpriteSheet(), flip, color);
-
-			if (!isSwimming) {
-				// Lower Body 1
-				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1,
-				        getSpriteSheet(), flip, color);
-				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1,
-				        yTile + 1, getSpriteSheet(), flip, color);
-
+	
+			
+			// Normal Player movement -- Not Attacking Anything
+			if (!isShooting && !isSwinging) {
+	
+				int swimOffset = modifier * (isSwimming ? 1 : 0);
+	
+				// Upper body 1
+				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset
+						+ swimOffset, xTile, yTile, getSpriteSheet(), flip,
+						color);
+				// Upper Body 2
+				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)),
+						yOffset + swimOffset, xTile + 1, yTile, getSpriteSheet(), flip, color);
+	
+				if (!isSwimming) {
+					// Lower Body 1
+					screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1,
+					        getSpriteSheet(), flip, color);
+					// Lower Body 2
+					screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1,
+					        yTile + 1, getSpriteSheet(), flip, color);
+	
+				}
 			}
 		}
 
-		// Handles Shooting Animation
-		if (isShooting) {
-
-			// bazooka and flamethrower are special :)
-			if (equippedGun instanceof DifferentOffsetItem) {
-				((DifferentOffsetItem) equippedGun).renderPlayer(screen, this,
-						gunSheet, shootingDir);
-				return;
-			}
-
-			// tile positions for player
+		//Rendering for Player
+		if(getEquippedGun() != null) {
+			// north direction
 			xTile = 0;
 			yTile = equippedGun.getPlayerOffset();
-
-			if (shootingDir == Direction.NORTH) {
+			if (getDirection() == Direction.NORTH) {
 				xTile = 10;
 				if (equippedGun == Item.crossBow) {
 					xTile = 12;
 				}
 				if (!isMoving) {
-					xTile = 8;
 					if (equippedGun == Item.crossBow) {
 						xTile = 10;
+						xTile += ((tickCount % 120 <= 60) ? 20 : 0);
 					}
+					xTile = 8;
+					xTile += ((tickCount % 120 <= 60) ? 8 : 0);
 				}
-			} else if (shootingDir == Direction.SOUTH) {
-				if (equippedGun == Item.crossBow) {
+			// south direction
+			} else if (getDirection() == Direction.SOUTH) {
+				xTile = 2;
+				if(equippedGun == Item.crossBow) {
 					xTile = flip ? 2 : 4;
 					flip = false;
-				}else {
-					xTile = 2;
-				}
-				if (!isMoving) {
+				} if (!isMoving) {
 					xTile = 0;
-				}
-			} else {
-				// reset the flip for horizontal movement
-				flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
-				
-				if(equippedGun == Item.crossBow) {
-					xTile = flip ? 6 : 8;
-				}else {
-					xTile = flip ? 4 : 6;
-				}
-				if (!isMoving) {
-					xTile = 4;
-					if(equippedGun == Item.crossBow) {
-						xTile = 6;
+					if (equippedGun == Item.crossBow) {
+						xTile += ((tickCount % 120 <= 60) ? 26 : 0);
 					}
+					xTile = 0;
+					xTile += ((tickCount % 120 <= 60) ? 12 : 0);
 				}
-				if (shootingDir == Direction.EAST) {
-					xOffset += 3;
-				} else {
-					xOffset -=3;
+			// left or right
+			} else {
+				xTile = 4;
+				if(equippedGun == Item.crossBow) {
+					xTile = 6;
 				}
-				flip = shootingDir == Direction.WEST;
+				if (isMoving)
+					xTile += (flip ? 2 : 0);
+				if (!isMoving) {
+					if (equippedGun == Item.crossBow) {
+						xTile += ((tickCount % 120 <= 60) ? 28 : 0);
+					}
+					xTile += ((tickCount % 120 <= 60) ? 12 : 0);
+				}
+					flip = getDirection() == Direction.WEST;
 			}
+			// Handles Shooting Animation
+			if (isShooting) {
 
+				// bazooka and flamethrower are special :)
+				if (equippedGun instanceof DifferentOffsetItem) {
+					((DifferentOffsetItem) equippedGun).renderPlayer(screen, this,
+							gunSheet, shootingDir);
+					return;
+				}
+
+				// tile positions for player
+				xTile = 0;
+				yTile = equippedGun.getPlayerOffset();
+
+				if (shootingDir == Direction.NORTH) {
+					xTile = 10;
+					if (equippedGun == Item.crossBow) {
+						xTile = 12;
+					}
+					if (!isMoving) {
+						xTile = 8;
+						if (equippedGun == Item.crossBow) {
+							xTile = 10;
+						}
+					}
+				} else if (shootingDir == Direction.SOUTH) {
+					if (equippedGun == Item.crossBow) {
+						xTile = flip ? 2 : 4;
+						flip = false;
+					}else {
+						xTile = 2;
+					}
+					if (!isMoving) {
+						xTile = 0;
+					}
+				} else {
+					// reset the flip for horizontal movement
+					flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
+					
+					if(equippedGun == Item.crossBow) {
+						xTile = flip ? 6 : 8;
+					}else {
+						xTile = flip ? 4 : 6;
+					}
+					if (!isMoving) {
+						xTile = 4;
+						if(equippedGun == Item.crossBow) {
+							xTile = 6;
+						}
+					}
+					if (shootingDir == Direction.EAST) {
+						xOffset += 3;
+					} else {
+						xOffset -=3;
+					}
+					flip = shootingDir == Direction.WEST;
+				}
+
+			}
 			SpriteSheet sheet = this.gunSheet;
 
 			// Upper Body 1
@@ -587,6 +640,7 @@ public class Player extends Mob implements Type {
 			        sheet, flip, color);
 
 		}
+		
 		// Handles Swinging Animation
 		if (isSwinging) {
 			equippedSword.render(screen, xOffset, yOffset, getColor());
