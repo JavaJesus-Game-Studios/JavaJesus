@@ -558,9 +558,9 @@ public class Player extends Mob implements Type {
 					xTile += (flip ? 2 : 0);
 				if (!isMoving) {
 					if (equippedGun == Item.crossBow) {
-						xTile += ((tickCount % 120 <= 60) ? 28 : 0);
+						xTile += ((tickCount % 120 <= 60) ? 22 : 0);
 					}
-					xTile += ((tickCount % 120 <= 60) ? 12 : 0);
+					xTile += ((tickCount % 120 <= 60) ? 14 : 0);
 				}
 					flip = getDirection() == Direction.WEST;
 			}
