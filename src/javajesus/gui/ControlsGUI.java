@@ -1,3 +1,7 @@
+/**
+ * @author derek
+ * Description: Displays the Controls Information Page, accessed from the Main Menu.
+ */
 package javajesus.gui;
 
 import java.awt.CardLayout;

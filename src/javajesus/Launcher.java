@@ -267,7 +267,6 @@ public class Launcher extends Canvas implements IGameLogic {
 			createBufferStrategy(3);
 			return;
 		}
-
 		// render the background tiles
 		level.render(screen);
 
@@ -340,7 +339,6 @@ public class Launcher extends Canvas implements IGameLogic {
 		g.drawString(LAST_UPDATED, 5, JavaJesus.WINDOW_HEIGHT - 30);
 		g.dispose();
 		bs.show();
-
 	}
 
 	/**
