@@ -442,7 +442,7 @@ public class Sword extends Item {
 				
 			}
 
-			// render normal east/west
+		// render normal east/west
 		} else if (direction == Direction.EAST || direction == Direction.WEST) {
 			
 			// Moves player animation to the left by 8

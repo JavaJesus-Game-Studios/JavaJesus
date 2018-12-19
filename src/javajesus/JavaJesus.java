@@ -43,7 +43,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// serialization
 	private static final long serialVersionUID = 1L;
 
-	// Window width Standard 16:9 HD
+	// Window width Standard 16:9, 1080p HD
 	public static final int WINDOW_WIDTH = 1920;
 
 	// Window height
@@ -51,11 +51,13 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	
 	// Game Screen width (Size of the In-Game Map displayed within the Actual
 	// Frame)
-	public static final int IMAGE_WIDTH = 400;
+	// NOTE: If we want/need to change this to support different resolutions, keep the
+	// Aspect ratio the same as WINDOW_WIDTH:WINDOW_HEIGHT, otherwise you will introduce distortions
+	public static final int IMAGE_WIDTH = 320;
 
 	// Game Screen height (Size of the In-Game Map displayed within the Actual
 	// Frame)
-	public static final int IMAGE_HEIGHT = 225;
+	public static final int IMAGE_HEIGHT = 180;
 	
 	// a magic number that aligns the bottom components of the HUD
 	public static final int HUD_OFFSET = 29;

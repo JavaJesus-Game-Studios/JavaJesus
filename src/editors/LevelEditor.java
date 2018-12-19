@@ -199,7 +199,7 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 	private static final String ENTITY = "_entities";
 
 	// dimensions of the window
-	private static final int WIDTH = 1000, HEIGHT = 800;
+	private static final int WIDTH = 1920, HEIGHT = 1080;
 
 	// number of tiles on level
 	private static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
