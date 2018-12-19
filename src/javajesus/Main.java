@@ -25,7 +25,6 @@ public class Main {
 		try {
 			
 			// create a splash loading screen
-			/**
 			SplashScreen splash = SplashScreen.getSplashScreen();
 			
 			// error checking
@@ -38,7 +37,7 @@ public class Main {
 			// render the splash screen
 	        splash.createGraphics();
 	        splash.update();
-*/
+
 			// start the launcher and sound
 			SoundHandler.initialize();
 			

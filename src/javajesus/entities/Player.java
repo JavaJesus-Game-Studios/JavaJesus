@@ -61,6 +61,9 @@ public class Player extends Mob implements Type {
 
 	// the spritesheet to use when the player is shooting
 	private SpriteSheet gunSheet = SpriteSheet.playerGuns_male_noarmor;
+	
+	// the spritesheet to use when the player has a sword equipped
+	private SpriteSheet swordSheet = SpriteSheet.playerSwords_male_noarmor;
 
 	// the size of the sprite
 	private static final int SIZE = 16;
@@ -332,6 +335,13 @@ public class Player extends Mob implements Type {
 		// sets the status of the sword
 		if (equippedSword != null) {
 			isSwinging = equippedSword.isSwinging();
+		} else {
+			this.yTile = 0;
+			if(gender== PlayerData.FEMALE) {
+				this.swordSheet = SpriteSheet.playerSwords_female_noarmor;
+			}else {
+				this.swordSheet = SpriteSheet.playerSwords_male_noarmor;
+			}
 		}
 
 		// determines if the player is going to move
@@ -626,26 +636,182 @@ public class Player extends Mob implements Type {
 
 			}
 			SpriteSheet sheet = this.gunSheet;
-
+			
 			// Upper Body 1
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, sheet, flip, color);
 			// Upper Body 2
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, sheet, flip,
 			        color);
-			if (!isSwimming) {
-				// Lower Body 1
-				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, sheet, flip,
-				        color);
-	
-				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
-				        sheet, flip, color);
+			// Lower Body 1
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, sheet, flip,
+			        color);
+			// Lower Body 2
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
+			        sheet, flip, color);
+			
+			if(isSwimming) {
+				this.equippedGun = null;
 			}
 
 		}
 		
 		//Handles the Player when they have a sword equipped
 		if (equippedSword != null) {
+			yTile = equippedSword.getYSwingOffset();
+			//Rendering For the ShortSword
+			if(!isSwinging) {
+				if(getDirection() == Direction.NORTH) {
+					if(isMoving) {
+						//varies between the two walking sprites
+						if(equippedSword == Item.shortSword) {
+							xTile = 43;
+							xTile += (flip ? 2 : 0);
+							flip = false;
+						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
+								|| equippedSword == Item.kingSword) {
+							xTile = 47;
+							xTile += (flip ? 2 : 0);
+							flip = false;
+						}else if (equippedSword == Item.sabre) {
+							xTile = 45;
+							xTile += (flip ? 2 : 0);
+							flip = false;
+						}else if( equippedSword == Item.claymore ){
+							xTile = 60;
+							xTile += (flip ? 2 : 0);
+							flip = false;
+						}
+					}
+					if(!isMoving) {
+						//varies between the two walking sprites
+						if(equippedSword == Item.shortSword) {
+							xTile = 41;
+							xTile += ((tickCount % 120 <= 60) ? 10 : 0);
+						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
+								|| equippedSword == Item.kingSword) {
+							xTile = 45;
+							xTile += ((tickCount % 120 <= 60) ? 11 : 0); // Handles Breath animation
+						}else if ( equippedSword == Item.sabre ) {
+							xTile = 43;
+							xTile += ((tickCount % 120 <= 60) ? 10 : 0);
+						}else if ( equippedSword == Item.claymore ){
+							xTile = 58;
+							xTile = ((tickCount % 120 <= 60) ? 62 : 58);
+							yTile += ((tickCount % 120 <= 60) ? 3 : 0);
+						}
+					}
+				}else if(getDirection() == Direction.SOUTH) {
+					//varies between the two walking sprites
+					if(isMoving) {
+						if(equippedSword == Item.shortSword) {
+							xTile = 33;
+							xTile += (flip ? 2 : 0);
+							flip = false;
+						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
+								|| equippedSword == Item.kingSword) {
+							xTile = 35;
+							xTile += (flip ? 2 : 0);
+							flip = false;
+						}else if (equippedSword == Item.sabre) {
+							xTile = 35;
+							xTile += (flip ? 2 : 0);
+							flip = false;
+						}else if( equippedSword == Item.claymore ) {
+							xTile += 48;
+							xTile += (flip ? 2 : 0);
+							flip = false;
+						}
+					}
+					if(!isMoving) {
+						//varies between the two walking sprites
+						if(equippedSword == Item.shortSword) {
+							xTile = 31;
+							xTile += (tickCount % 120 <= 60) ? 16 : 0;
+						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
+								|| equippedSword == Item.kingSword) {
+							xTile = 33;
+							xTile += (tickCount % 120 <= 60) ? 18 : 0;
+						}else if (equippedSword == Item.sabre) {
+							xTile = 33;
+							xTile += ((tickCount % 120 <= 60) ? 16 : 0);
+						}else if( equippedSword == Item.claymore ) {
+							xTile = 46;
+							xTile = ((tickCount % 120 <= 60) ? 57 : 46);
+							yTile += ((tickCount % 120 <= 60) ? 4 : 0);
+						}
+					}
+				}else {
+					if (isMoving) {
+						if(equippedSword == Item.shortSword) {
+							xTile = 37;
+							xTile += (flip ? 2 : 0);
+							flip = false;
+						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
+								|| equippedSword == Item.kingSword) {
+							xTile = 39;
+							xTile += (flip ? 3 : 0);
+							flip = false;
+						}else if (equippedSword == Item.sabre) {
+							xTile = 39;
+							xTile += (flip ? 2 : 0);
+							flip = false;
+						}else if(equippedSword == Item.claymore) {
+							xTile = 52;
+							xTile += (flip ? 4 : 0);
+							flip = false;
+						}
+					}
+					if (!isMoving) {
+						//varies between the two walking sprites
+						if(equippedSword == Item.shortSword) {
+							xTile = 37;
+							xTile += ((tickCount % 120 <= 60) ? 12 : 0);
+						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
+								|| equippedSword == Item.kingSword) {
+							xTile = 39;
+							xTile += ((tickCount % 120 <= 60) ? 14 : 0);
+						}else if (equippedSword == Item.sabre) {
+							xTile = 39;
+							xTile += ((tickCount % 120 <= 60) ? 12 : 0);
+						}else if(equippedSword == Item.claymore) {
+							xTile = 52;
+							xTile = ((tickCount % 120 <= 60) ? 59 : 52);
+							yTile += ((tickCount % 120 <= 60) ? 4 : 0);
+						}
+					}
+					flip = getDirection() == Direction.WEST;
+				}
+				SpriteSheet sheet = this.swordSheet;
+				
+				// Upper Body 1
+				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, sheet, flip, color);
+				// Upper Body 2
+				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, sheet, flip,
+				        color);
+				// Lower Body 1
+				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, sheet, flip,
+				        color);
+				// Lower Body 2
+				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
+				        sheet, flip, color);
+			}
+			
+			//Rendering For the LongSwords
+			if(equippedSword == Item.longSword || equippedSword == Item.heavenlySword
+					|| equippedSword == Item.kingSword) {
+				
+			}
+			
+			//Rendering for the Sabre
+			if(equippedSword == Item.sabre) {
+				
+			}
+			
+			//Rendering for the Claymore) 
+			if(equippedSword == Item.claymore) {
+				
+			}
+			
 			// Handles Swinging Animation
 			if (isSwinging) {
 				equippedSword.render(screen, xOffset, yOffset, getColor());
@@ -655,6 +821,9 @@ public class Player extends Mob implements Type {
 			if(isBlocking){
 				equippedSword.render(screen,xOffset,yOffset,getColor());
 				setDirection(equippedSword.getDirection());
+			}
+			if(isSwimming) {
+				equippedSword = null;
 			}
 		}
 

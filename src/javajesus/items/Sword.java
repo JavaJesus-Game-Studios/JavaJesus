@@ -559,6 +559,9 @@ public class Sword extends Item {
 
 	}
 
+	public int getYSwingOffset() {
+		return ySwingOffset;
+	}
 	/**
 	 * @return whether or not the sword is swinging
 	 */
