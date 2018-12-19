@@ -98,6 +98,9 @@ public class Player extends Mob implements Type {
 	//determines if a player is blocking
 	private boolean isBlocking;
 	
+	//determines if player is facing a longitudinal direction
+	private boolean isLongitudinal;
+	
 	// whether or not the player is sprinting
 	private boolean isSprinting;
 	
@@ -448,11 +451,11 @@ public class Player extends Mob implements Type {
 	 */
 	public void render(Screen screen) {
 
-		// modifier used for rendering in different scales/directions
-		int modifier = UNIT_SIZE;
+		// tileSize used for rendering in different scales/directions
+		int tileSize = UNIT_SIZE;
 
 		// no x or y offset, use the upper left corner as absolute
-		int xOffset = getX(), yOffset = getY();
+		int xLocation = getX(), yLocation = getY();
 
 		// don't render if driving
 		if (vehicle != null) {
@@ -504,22 +507,22 @@ public class Player extends Mob implements Type {
 			// Normal Player movement -- Not Attacking Anything
 			if (!isShooting && !isSwinging) {
 	
-				int swimOffset = modifier * (isSwimming ? 1 : 0);
+				int swimOffset = tileSize * (isSwimming ? 1 : 0);
 	
 				// Upper body 1
-				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset
+				screen.render(xLocation + (tileSize * (flip ? 1 : 0)), yLocation
 						+ swimOffset, xTile, yTile, getSpriteSheet(), flip,
 						color);
 				// Upper Body 2
-				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)),
-						yOffset + swimOffset, xTile + 1, yTile, getSpriteSheet(), flip, color);
+				screen.render(xLocation + tileSize - (tileSize * (flip ? 1 : 0)),
+						yLocation + swimOffset, xTile + 1, yTile, getSpriteSheet(), flip, color);
 	
 				if (!isSwimming) {
 					// Lower Body 1
-					screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1,
+					screen.render(xLocation + (tileSize * (flip ? 1 : 0)), yLocation + tileSize, xTile, yTile + 1,
 					        getSpriteSheet(), flip, color);
 					// Lower Body 2
-					screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1,
+					screen.render(xLocation + tileSize - (tileSize * (flip ? 1 : 0)), yLocation + tileSize, xTile + 1,
 					        yTile + 1, getSpriteSheet(), flip, color);
 	
 				}
@@ -627,9 +630,9 @@ public class Player extends Mob implements Type {
 						}
 					}
 					if (shootingDir == Direction.EAST) {
-						xOffset += 3;
+						xLocation += 3;
 					} else {
-						xOffset -=3;
+						xLocation -=3;
 					}
 					flip = shootingDir == Direction.WEST;
 				}
@@ -638,15 +641,15 @@ public class Player extends Mob implements Type {
 			SpriteSheet sheet = this.gunSheet;
 			
 			// Upper Body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, sheet, flip, color);
+			screen.render(xLocation + (tileSize * (flip ? 1 : 0)), yLocation, xTile, yTile, sheet, flip, color);
 			// Upper Body 2
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, sheet, flip,
+			screen.render(xLocation + tileSize - (tileSize * (flip ? 1 : 0)), yLocation, xTile + 1, yTile, sheet, flip,
 			        color);
 			// Lower Body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, sheet, flip,
+			screen.render(xLocation + (tileSize * (flip ? 1 : 0)), yLocation + tileSize, xTile, yTile + 1, sheet, flip,
 			        color);
 			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
+			screen.render(xLocation + tileSize - (tileSize * (flip ? 1 : 0)), yLocation + tileSize, xTile + 1, yTile + 1,
 			        sheet, flip, color);
 			
 			if(isSwimming) {
@@ -697,7 +700,7 @@ public class Player extends Mob implements Type {
 						}else if ( equippedSword == Item.claymore ){
 							xTile = 58;
 							xTile = ((tickCount % 120 <= 60) ? 62 : 58);
-							yTile += ((tickCount % 120 <= 60) ? 3 : 0);
+							yTile += ((tickCount % 120 <= 60) ? 4 : 0);
 						}
 					}
 				}else if(getDirection() == Direction.SOUTH) {
@@ -706,20 +709,16 @@ public class Player extends Mob implements Type {
 						if(equippedSword == Item.shortSword) {
 							xTile = 33;
 							xTile += (flip ? 2 : 0);
-							flip = false;
 						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
 								|| equippedSword == Item.kingSword) {
 							xTile = 35;
 							xTile += (flip ? 2 : 0);
-							flip = false;
 						}else if (equippedSword == Item.sabre) {
 							xTile = 35;
 							xTile += (flip ? 2 : 0);
-							flip = false;
 						}else if( equippedSword == Item.claymore ) {
 							xTile += 48;
 							xTile += (flip ? 2 : 0);
-							flip = false;
 						}
 					}
 					if(!isMoving) {
@@ -757,7 +756,7 @@ public class Player extends Mob implements Type {
 							flip = false;
 						}else if(equippedSword == Item.claymore) {
 							xTile = 52;
-							xTile += (flip ? 4 : 0);
+							xTile += (flip ? 3 : 0);
 							flip = false;
 						}
 					}
@@ -779,47 +778,95 @@ public class Player extends Mob implements Type {
 							yTile += ((tickCount % 120 <= 60) ? 4 : 0);
 						}
 					}
-					flip = getDirection() == Direction.WEST;
+					flip = (getDirection() == Direction.WEST);
+					isLongitudinal = (getDirection() == Direction.WEST || getDirection() == Direction.EAST);
 				}
 				SpriteSheet sheet = this.swordSheet;
-				
-				// Upper Body 1
-				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, sheet, flip, color);
-				// Upper Body 2
-				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, sheet, flip,
-				        color);
-				// Lower Body 1
-				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, sheet, flip,
-				        color);
-				// Lower Body 2
-				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
-				        sheet, flip, color);
-			}
-			
-			//Rendering For the LongSwords
-			if(equippedSword == Item.longSword || equippedSword == Item.heavenlySword
-					|| equippedSword == Item.kingSword) {
-				
-			}
-			
-			//Rendering for the Sabre
-			if(equippedSword == Item.sabre) {
-				
-			}
-			
-			//Rendering for the Claymore) 
-			if(equippedSword == Item.claymore) {
-				
+				// Rendering for when the player faces a north or south direction
+				if( !isLongitudinal ) {
+					flip = false;
+					// If the Sword is longer than a typical 2x2 Sprite, render the upper two tiles
+					if( equippedSword == Item.longSword || equippedSword == Item.kingSword || equippedSword == Item.heavenlySword
+							|| equippedSword == Item.claymore ) {
+						// Tip of the Sword Right
+						screen.render(xLocation, yLocation - tileSize, xTile, yTile - 1, sheet, flip, color);
+						// Tip of the Sword Left
+						screen.render(xLocation + tileSize, yLocation - tileSize, xTile + 1, yTile - 1, sheet, flip, color);
+						// Upper Body 1
+						screen.render(xLocation, yLocation, xTile, yTile, sheet, flip, color);
+						// Upper Body 2
+						screen.render(xLocation + tileSize, yLocation, xTile + 1, yTile, sheet, flip,
+						        color);
+						// Lower Body 1
+						screen.render(xLocation, yLocation + tileSize, xTile, yTile + 1, sheet, flip,
+						        color);
+						// Lower Body 2
+						screen.render(xLocation + tileSize, yLocation + tileSize, xTile + 1, yTile + 1,
+						        sheet, flip, color);
+					}else {
+						// Upper Body 1
+						screen.render(xLocation, yLocation, xTile, yTile, sheet, flip, color);
+						// Upper Body 2
+						screen.render(xLocation + tileSize, yLocation, xTile + 1, yTile, sheet, flip,
+						        color);
+						// Lower Body 1
+						screen.render(xLocation, yLocation + tileSize, xTile, yTile + 1, sheet, flip,
+						        color);
+						// Lower Body 2
+						screen.render(xLocation + tileSize, yLocation + tileSize, xTile + 1, yTile + 1,
+						        sheet, flip, color);
+					}
+				/** EAST WEST Direction **/
+				} else {
+					/** If the Sword is a 3x3 Sprite **/
+					if( equippedSword == Item.longSword || equippedSword == Item.kingSword || equippedSword == Item.heavenlySword
+							|| equippedSword == Item.claymore ) {
+						// Top of Sprite Right
+						screen.render(xLocation + (tileSize * (flip ? 2 : 0)), yLocation - tileSize, xTile, yTile - 1, sheet,
+								flip, color);
+						// Top of Sprite Middle
+						screen.render(xLocation + tileSize, yLocation - tileSize, xTile + 1, yTile - 1, sheet, flip, color);
+						// Top of Sprite Left
+						screen.render(xLocation + 2*tileSize - (tileSize * (flip ? 2 : 0)), yLocation - tileSize, xTile + 2, yTile - 1, 
+								sheet, flip, color);
+						// Middle of Sprite Right
+						screen.render(xLocation + (tileSize * (flip ? 2 : 0)), yLocation, xTile, yTile, sheet, flip, color);
+						// Middle of Sprite Middle
+						screen.render(xLocation + tileSize, yLocation, xTile + 1, yTile, sheet, flip, color);
+						// Middle of Sprite Left
+						screen.render(xLocation + 2*tileSize - (tileSize * (flip ? 2 : 0)), yLocation, xTile + 2, yTile, 
+								sheet, flip, color);	
+						// Bottom of Sprite Right
+						screen.render(xLocation + (tileSize * (flip ? 2 : 0)), yLocation + tileSize, xTile, yTile + 1, sheet, flip, color);
+						// Bottom of Sprite Middle
+						screen.render(xLocation + tileSize, yLocation + tileSize, xTile + 1, yTile + 1, sheet, flip, color);
+						// Bottom of Sprite Left
+						screen.render(xLocation + 2*tileSize - (tileSize * (flip ? 2 : 0)), yLocation + tileSize, xTile + 2, yTile + 1, 
+								sheet, flip, color);
+					}else {
+						// Upper Body 1
+						screen.render(xLocation + (tileSize * (flip ? 1 : 0)), yLocation, xTile, yTile, sheet, flip, color);
+						// Upper Body 2
+						screen.render(xLocation + tileSize - (tileSize * (flip ? 1 : 0)), yLocation, xTile + 1, yTile, 
+								sheet, flip, color);
+						// Lower Body 1
+						screen.render(xLocation + (tileSize * (flip ? 1 : 0)), yLocation + tileSize, xTile, yTile + 1, sheet, flip, color);
+						// Lower Body 2
+						screen.render(xLocation + tileSize - (tileSize * (flip ? 1 : 0)), yLocation + tileSize, xTile + 1, yTile + 1, 
+								sheet, flip, color);
+					}
+					isLongitudinal = false;
+				}
 			}
 			
 			// Handles Swinging Animation
 			if (isSwinging) {
-				equippedSword.render(screen, xOffset, yOffset, getColor());
+				equippedSword.render(screen, xLocation, yLocation, getColor());
 				setDirection(equippedSword.getDirection());
 			}
 			//Handles Blocking Animation
 			if(isBlocking){
-				equippedSword.render(screen,xOffset,yOffset,getColor());
+				equippedSword.render(screen, xLocation, yLocation,getColor());
 				setDirection(equippedSword.getDirection());
 			}
 			if(isSwimming) {

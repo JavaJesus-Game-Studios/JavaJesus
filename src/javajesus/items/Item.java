@@ -98,7 +98,7 @@ public class Item {
 			"The Dueling Blade, a more elegant weapon from a more civilized time,"
 			+ " this is a sword made for defending a fair maiden's honor. A quick stabbing blade"
 			+ "your opponent will have to be quick on his feet to defeat you.",
-			20, 25, new int[] { 7, 13, 18, 23 }, 1, 27,
+			20, 25, new int[] { 7, 13, 18, 23 }, 0, 27,
 			Sword.MEDIUM, 10);
 	public static final Item heavenlySword = new Sword("Heavenly Sword", 13, 4, 1, 0, 18,
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },

@@ -60,8 +60,9 @@ public class Sword extends Item {
 	private boolean blocking;
 	
 	// power swing offset modifier that changes the current position
-	// 2 = GREATSWORD (even 2 spaces extra in each)
-	// 1 = the swords with the awkward 1 space in diagonals
+	// 2 = Claymore
+	// 1 = Longswords
+	// 0 = Shortswords
 	private int powerSwingModifier;
 
 	// TODO should fix in spritesheet
@@ -168,7 +169,7 @@ public class Sword extends Item {
 				// spritesheet
 				currentPowerOffset += 2;
 
-				// long sword will always have two extra boxes
+				// claymore will always have two extra boxes
 				if (powerSwingModifier == 2) {
 					currentPowerOffset += 2;
 
@@ -363,9 +364,9 @@ public class Sword extends Item {
 		if(blocking){
 			xTile = blockingOffsets;
 		}
-		// adjsut offsets for power swinging
+		// adjust offsets for power swinging
 		if (powerSwinging) {
-
+			
 			// if the sword is long
 			if (powerSwingModifier == 2) {
 
@@ -399,7 +400,7 @@ public class Sword extends Item {
 			} else if (xTile < powerSwingOffsets[2]) {
 				direction = Direction.SOUTH;
 				
-				// centers sprite for long swords
+				// centers sprite for claymores
 				if (powerSwingModifier == 2) {
 					xOffset -= modifier;
 				}
@@ -407,7 +408,7 @@ public class Sword extends Item {
 			} else {
 				direction = Direction.NORTH;
 				
-				// centers sprite for long swords
+				// centers sprite for claymores
 				if (powerSwingModifier == 2) {
 					xOffset -= modifier;
 				}
@@ -424,10 +425,10 @@ public class Sword extends Item {
 
 		}
 
-		// render the long sword power swinging animation
+		// render the claymore power swinging animation
 		if (powerSwingModifier == 2 && powerSwinging) {
 
-			// long sword
+			// claymore
 			for (int i = 0; i < 4; i++) {
 				screen.render(xOffset, yOffset + i * modifier, xTile, yTile + i, sheet, false, color);
 
@@ -466,16 +467,14 @@ public class Sword extends Item {
 
 				}
 				
-				// long swords
+			// claymores
 			} else {
 				
 				// Moves player animation to the left by 8 again
 				if (direction == Direction.WEST) {
 					xOffset -= modifier;
 				}
-				
-				System.out.println("HERE");
-				
+								
 				// top to bottom
 				for (int i = 0; i < 2; i++) {
 
@@ -495,7 +494,7 @@ public class Sword extends Item {
 				
 			}
 
-			// north south display
+		// north south display
 		} else {
 
 			// render the awkward diagonals with an extra space
@@ -535,7 +534,7 @@ public class Sword extends Item {
 					screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile + 1,
 					        yTile + 2, sheet, flip, color);
 					
-					// long swords have extra south tip
+					// claymores have extra south tip
 					if (length == LONG) {
 						screen.render(xOffset, yOffset + 3 * modifier, xTile, yTile + 3, sheet, flip, color);
 

@@ -43,15 +43,15 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// serialization
 	private static final long serialVersionUID = 1L;
 
-	// Window width 12:9
-	public static final int WINDOW_WIDTH = 960;
+	// Window width Standard 16:9 HD
+	public static final int WINDOW_WIDTH = 1920;
 
 	// Window height
-	public static final int WINDOW_HEIGHT = 720;
+	public static final int WINDOW_HEIGHT = 1080;
 	
 	// Game Screen width (Size of the In-Game Map displayed within the Actual
 	// Frame)
-	public static final int IMAGE_WIDTH = 300;
+	public static final int IMAGE_WIDTH = 400;
 
 	// Game Screen height (Size of the In-Game Map displayed within the Actual
 	// Frame)
