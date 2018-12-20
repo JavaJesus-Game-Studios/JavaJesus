@@ -23,8 +23,8 @@ public class Storyteller extends NPC {
 	 * @param y the y coord
 	 */
 	public Storyteller(Level level, int x, int y) {
-		super(level, "Storyteller", x, y, 1, WIDTH, HEIGHT, 500, null, 0, 16, "", 0);
-		setSpriteSheet(SpriteSheet.characters);
+		super(level, "Storyteller", x, y, 1, WIDTH, HEIGHT, 500, null, 0, 25, "", 0);
+		setSpriteSheet(SpriteSheet.mobFriends);
 	}
 
 	/**
