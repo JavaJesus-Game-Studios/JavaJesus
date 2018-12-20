@@ -499,7 +499,7 @@ public class Sword extends Item {
 
 			// render the awkward diagonals with an extra space
 			if (diagonal && powerSwingModifier > 0) {
-				for (int i = 0; i < 2; i++) {
+				for (int i = 0; i < 3; i++) {
 
 					screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
 							xTile, yTile + i, sheet, flip, color);

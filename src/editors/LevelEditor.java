@@ -77,6 +77,7 @@ import javajesus.entities.npcs.characters.LordHillsborough;
 import javajesus.entities.npcs.characters.Octavius;
 import javajesus.entities.npcs.characters.Ranchero;
 import javajesus.entities.npcs.characters.Son;
+import javajesus.entities.npcs.characters.Storyteller;
 import javajesus.entities.npcs.characters.Wife;
 import javajesus.entities.npcs.characters.Zorra;
 import javajesus.entities.solid.buildings.AlphaCave;
@@ -1292,6 +1293,7 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.PANCHOMBRE] = new EntityGUI(new Panchombre(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.SKELETON] = new EntityGUI(new Skeleton(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.BANDITO] = new EntityGUI(new Bandito(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.STORYTELLER] = new EntityGUI(new Storyteller(null,0,0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.CARD_TABLE] = new EntityGUI(new CardTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 4);
 			entityList[Entity.BAR] = new EntityGUI(new Bar(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 6);
 			entityList[Entity.DEAD_SEQUOIA_SMALL] = new EntityGUI(new DeadSequoiaSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 4);

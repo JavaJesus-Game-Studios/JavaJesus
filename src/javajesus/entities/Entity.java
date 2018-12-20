@@ -35,10 +35,10 @@ public abstract class Entity implements Serializable {
 	        REDWOOD_LARGE = 118, REDWOOD_MEDIUM = 119, REDWOOD_SMALL = 120, SEQUOIA_EXTRA_LARGE = 121,SEQUOIA_EXTRA_SMALL = 122,
 	        SMALL_TREE_AUTUMN = 123, SMALL_TREE_WINTER = 124, MEDIUM_TREE = 125,MEDIUM_TREE_AUTUMN = 126, MEDIUM_TREE_WINTER = 127,
 	        LARGE_TREE = -128,LARGE_TREE_AUTUMN = -127,LARGE_TREE_WINTER = -126, WHITE_OAK = -125, WHITE_OAK_SMALL = -124, EVILFOX=-123,
-	        ORANGUTAN=-122, ALPHA_CAVE_ENTRANCE=-121,EVIL_ORANGUTAN=-120;
+	        ORANGUTAN=-122, ALPHA_CAVE_ENTRANCE=-121,EVIL_ORANGUTAN=-120,STORYTELLER=-119;
 
 	// number of unique entities worth saving
-	public static final int NUM_ENTITIES = 106;
+	public static final int NUM_ENTITIES = 107;
 
 	// position on the screen
 	private short x, y;
