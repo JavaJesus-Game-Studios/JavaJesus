@@ -32,7 +32,7 @@ public class Gun extends Item {
 	private boolean isReloading;
 
 	// the reload time between bullets TODO implement it
-	private int RELOAD_TIME = 10;
+	private int RELOAD_TIME = 1;
 
 	// ticks inbetween each reload
 	private int reloadTicks;
@@ -94,7 +94,7 @@ public class Gun extends Item {
 		this.playerOffset = yPlayerSheet;
 		this.clipSize = clipSize;
 		this.ammo = clipSize;
-		this.RELOAD_TIME = 10;
+		this.RELOAD_TIME = reload;
 		this.FIRE_RATE = (int) (rate * 10);
 		this.damage = damage;
 		this.type = type;
