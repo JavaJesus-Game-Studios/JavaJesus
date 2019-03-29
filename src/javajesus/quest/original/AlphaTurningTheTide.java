@@ -2,7 +2,6 @@ package javajesus.quest.original;
 
 import javajesus.entities.Mob;
 import javajesus.entities.monsters.EvilOrangutan;
-import javajesus.entities.npcs.NPC;
 import javajesus.entities.npcs.characters.Jesus;
 import javajesus.level.sandbox.SandboxOriginalLevel;
 import javajesus.quest.Quest;
@@ -18,8 +17,8 @@ public class AlphaTurningTheTide extends Quest {
 	// instance of jesus
 	private Jesus jesus;
 
-	public AlphaTurningTheTide(NPC giver) {
-		super(giver, "Turning the Tide", "/WORLD_DATA/QUEST_DATA/ALPHA_TURNING_THE_TIDE.json", 1);
+	public AlphaTurningTheTide() {
+		super("Turning the Tide", "/WORLD_DATA/QUEST_DATA/ALPHA_TURNING_THE_TIDE.json", 1);
 	}
 
 	@Override

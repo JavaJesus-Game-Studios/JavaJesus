@@ -3,7 +3,6 @@ package javajesus.entities.npcs.characters;
 import javajesus.entities.Entity;
 import javajesus.entities.npcs.NPC;
 import javajesus.level.Level;
-import javajesus.quest.original.TheEvilFox;
 
 /*
  * Jesus
@@ -34,9 +33,6 @@ public class Jesus extends NPC {
 	public Jesus(Level level, int x, int y, String walkPath, int walkDistance) {
 		super(level, "Jesus", x, y, 1, WIDTH, HEIGHT, 9000, new int[] { 0xFF111111, 0xFFFFFFFF, 0xFFFFD89B, 0xFF4b2700 },
 				0, 13, walkPath, walkDistance);
-		
-		// add the evil fox quest
-		addQuest(new TheEvilFox(this));
 	}
 
 	@Override

@@ -26,7 +26,7 @@ public class SwatOfficerEvent extends Event {
 		SWATOfficer officer = new  SWATOfficer(level, 1464, 16);
 		SWATOfficer officer2 = new  SWATOfficer(level, 1488, 16);
 
-		officer.addQuest(new OfficerDialogue(officer));
+		officer.addQuest(new OfficerDialogue());
 		
 		// TODO put correct coordinates
 		level.add(officer);

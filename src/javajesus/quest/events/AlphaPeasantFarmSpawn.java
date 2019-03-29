@@ -17,7 +17,7 @@ public class AlphaPeasantFarmSpawn extends Event{
 	@Override
 	protected void init(Level level) {
 		Peasant hiddenPeasant = new Peasant(level, 512, 296, 0);
-		hiddenPeasant.addQuest(new AlphaMissingCow(hiddenPeasant));
+		hiddenPeasant.addQuest(new AlphaMissingCow());
 	}
 
 }

@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 
 import javajesus.entities.Mob;
 import javajesus.entities.monsters.Demon;
-import javajesus.entities.npcs.NPC;
 import javajesus.quest.Quest;
 
 public class LiberateVillage extends Quest {
@@ -18,8 +17,8 @@ public class LiberateVillage extends Quest {
 	/**
 	 * @param giver - the NPC who is giving the quest
 	 */
-	public LiberateVillage(NPC giver) {
-		super(giver, "Liberate Village", "/WORLD_DATA/QUEST_DATA/Liberate_Village.json", 1);
+	public LiberateVillage() {
+		super("Liberate Village", "/WORLD_DATA/QUEST_DATA/Liberate_Village.json", 1);
 	}
 	
 	@Override

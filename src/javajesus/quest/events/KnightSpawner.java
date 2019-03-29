@@ -14,7 +14,7 @@ public class KnightSpawner extends Event{
 	@Override
 	protected void init(Level level) {
 		Knight runner = new Knight(SandboxOriginalLevel.alpha, 1208, 1464);
-		runner.addQuest(new RescueKnights(runner));
+		runner.addQuest(new RescueKnights());
 		SandboxOriginalLevel.alpha.add(runner);
 		
 	}

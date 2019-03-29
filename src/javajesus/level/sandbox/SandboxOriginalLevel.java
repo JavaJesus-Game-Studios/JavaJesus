@@ -27,7 +27,7 @@ public class SandboxOriginalLevel extends Level {
 		
 		// creates the scared Peasant the gives the liberate farm quest
 		Peasant scaredPeasant = new Peasant(this, 832, 112, 1);
-		scaredPeasant.addQuest(new LiberateFarm(scaredPeasant));
+		scaredPeasant.addQuest(new LiberateFarm());
 		add(scaredPeasant);
 		
 	}
