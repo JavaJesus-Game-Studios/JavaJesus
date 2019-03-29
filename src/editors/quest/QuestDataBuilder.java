@@ -18,7 +18,6 @@ public class QuestDataBuilder {
 	public QuestDataBuilder() {
 		main = new JSONObject();
 		questParts = new JSONArray();
-		main.put(QUEST_PARTS, questParts);
 	}
 	
 	public QuestDataBuilder setQuestGiver(int giver) {
@@ -36,9 +35,39 @@ public class QuestDataBuilder {
 		return this;
 	}
 	
+	public QuestDataBuilder setQuestPartArray(JSONArray arr) {
+		this.questParts = arr;
+		return this;
+	}
+	
+	public QuestDataBuilder removeQuestPart(String id) {
+		for (int i = 0; i < questParts.size(); i++) {
+			JSONObject obj = (JSONObject) questParts.get(i);
+			if (obj.get(STATE_ID).equals(id)) {
+				questParts.remove(i);
+				break;
+			}
+		}
+		return this;
+	}
+	
+	public QuestDataBuilder modifyQuestPart(String giverText, String response1, String response2,
+			String response3, String triggers1, String triggers2, String triggers3, String endText,
+			String endTriggers, String currentState, String previousState) {
+		for (int i = 0; i < questParts.size(); i++) {
+			JSONObject obj = (JSONObject) questParts.get(i);
+			if (obj.get(STATE_ID).equals(currentState)) {
+				questParts.set(i, wrap(giverText, response1, response2, response3, triggers1, triggers2, triggers3,
+						endText, endTriggers, currentState, previousState));
+				break;
+			}
+		}
+		return this;
+	}
+	
 	public QuestDataBuilder addQuestPart(String giverText, String response1, String response2,
 			String response3, String triggers1, String triggers2, String triggers3, String endText,
-			String endTriggers, int currentState, int previousState) {
+			String endTriggers, String currentState, String previousState) {
 		questParts.add(wrap(giverText, response1, response2, response3, triggers1, triggers2, triggers3,
 				endText, endTriggers, currentState, previousState));
 		return this;
@@ -55,7 +84,7 @@ public class QuestDataBuilder {
 	 */
 	private JSONObject wrap(String giverText, String response1, String response2,
 			String response3, String triggers1, String triggers2, String triggers3, String endText,
-			String endTriggers, int currentState, int previousState) {
+			String endTriggers, String currentState, String previousState) {
 		
 		JSONObject obj = new JSONObject();
 
@@ -77,6 +106,7 @@ public class QuestDataBuilder {
 	}
 	
 	public JSONObject build() {
+		main.put(QUEST_PARTS, questParts);
 		return main;
 	}
 

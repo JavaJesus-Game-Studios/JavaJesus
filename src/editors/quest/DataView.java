@@ -1,17 +1,15 @@
 package editors.quest;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -31,10 +29,10 @@ import org.json.simple.JSONObject;
 
 import javajesus.dataIO.JSONData;
 
-public class DataView implements ActionListener, ItemListener {
+public class DataView implements ActionListener {
 
 	// buttons used
-	private final JButton open, save, addNode, removeNode, createNode;
+	private final JButton open, save, addNode, removeNode, createNode, modifyNode;
 
 	// elements on the right side of the panel
 	private final JLabel fileLabel;
@@ -42,14 +40,13 @@ public class DataView implements ActionListener, ItemListener {
 			response2Triggers, response3Triggers, endDialogue, endTriggers, npcGiver, currentState, previousState;
 	private final JCheckBox initial;
 
-	// ids of the buttons added to the quest tree
-	private static int id;
-	
 	// gets the top level directory
 	private static final String DIR = "res/WORLD_DATA/QUEST_DATA/";
 
 	// name of the quest
-	private String name = "New";
+	private String name = "New Quest";
+
+	private static int id = 1;
 
 	// extension
 	private static final String JSON = ".json";
@@ -58,19 +55,22 @@ public class DataView implements ActionListener, ItemListener {
 	private String filePath = new File(DIR + name + JSON).getPath();
 
 	private JPanel panel;
-	
+
 	private QuestDataBuilder builder;
-	
+
 	private IDataLoaded iface;
-	
+
 	private HashMap<String, QuestNodeAdapter> nodeData;
+
+	private CardLayout cardLayout;
+	private JPanel overlay;
 
 	/**
 	 * @param width  - width of the panel
 	 * @param height - height of the panel
 	 */
 	public DataView() {
-		
+
 		builder = new QuestDataBuilder();
 		nodeData = new HashMap<>();
 
@@ -81,9 +81,12 @@ public class DataView implements ActionListener, ItemListener {
 		addNode = new JButton("Add Part");
 		addNode.addActionListener(this);
 		removeNode = new JButton("Remove This Part");
+		removeNode.addActionListener(this);
 		createNode = new JButton("Create This Part");
 		createNode.addActionListener(this);
 		fileLabel = new JLabel(name);
+		modifyNode = new JButton("Modify Part");
+		modifyNode.addActionListener(this);
 
 		currentState = new JJTextArea("");
 		currentState.setPreferredSize(new Dimension(150, 15));
@@ -104,11 +107,13 @@ public class DataView implements ActionListener, ItemListener {
 		npcGiver.setPreferredSize(new Dimension(200, 15));
 
 		initial = new JCheckBox("First NPC quest?");
-		initial.addItemListener(this);
+
+		cardLayout = new CardLayout(0, 0);
+		overlay = new JPanel(cardLayout);
 
 		make();
 	}
-	
+
 	public void setDataLoaded(IDataLoaded iface) {
 		this.iface = iface;
 	}
@@ -136,33 +141,37 @@ public class DataView implements ActionListener, ItemListener {
 		rightTop.add(new JLabel("NPC Giver ID:"));
 		rightTop.add(aligned(npcGiver, initial));
 		rightSide.add(rightTop);
-		rightSide.add(new JSeparator(SwingConstants.HORIZONTAL));
-
-		rightSide.add(aligned(new JLabel("Giver Dialogue:"), giverDialogue));
 		rightSide.add(aligned(new JLabel("Quest Summary:"), objectiveSummary));
 		rightSide.add(new JSeparator(SwingConstants.HORIZONTAL));
-		
+
 		rightSide.add(aligned(aligned(new JLabel("State ID:"), currentState),
 				aligned(new JLabel("Prev State ID:"), previousState)));
+		rightSide.add(aligned(new JLabel("Giver Dialogue:"), giverDialogue));
 		rightSide.add(aligned(new JLabel("Response 1:"), response1));
 		rightSide.add(aligned(new JLabel("Response 1 Triggers:"), response1Triggers));
 		rightSide.add(aligned(new JLabel("Response 2:"), response2));
 		rightSide.add(aligned(new JLabel("Response 2 Triggers:"), response2Triggers));
 		rightSide.add(aligned(new JLabel("Response 3:"), response3));
 		rightSide.add(aligned(new JLabel("Response 3 Triggers:"), response3Triggers));
+		rightSide.add(new JSeparator(SwingConstants.HORIZONTAL));
 		rightSide.add(aligned(new JLabel("End Dialogue:"), endDialogue));
 		rightSide.add(aligned(new JLabel("End Triggers:"), endTriggers));
 		rightSide.add(new JSeparator(SwingConstants.HORIZONTAL));
 
 		JPanel bottom = new JPanel();
 		bottom.add(createNode);
+		bottom.add(modifyNode);
 		bottom.add(removeNode);
 		// removeLayer.addActionListener(this);
 		rightSide.add(bottom);
 
 		// encapsulate in a scroll pane
-		JScrollPane pane = new JScrollPane(rightSide);
+		JScrollPane pane = new JScrollPane(overlay);
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+		JPanel plain = new JPanel();
+		overlay.add(plain, "plain");
+		overlay.add(rightSide, "main");
 
 		// now add the center
 		panel.add(pane, BorderLayout.CENTER);
@@ -240,10 +249,13 @@ public class DataView implements ActionListener, ItemListener {
 
 					// make sure it parsed
 					if (data != null) {
-						
-						initial.setSelected((boolean) data.get(QuestDataBuilder.INITIAL_QUEST)); 
-						npcGiver.setText((String) data.get(QuestDataBuilder.NPC_ID));
+
+						initial.setSelected((boolean) data.get(QuestDataBuilder.INITIAL_QUEST));
+						npcGiver.setText(String.valueOf(data.get(QuestDataBuilder.NPC_ID)));
 						objectiveSummary.setText((String) data.get(QuestDataBuilder.KEY_OBJECTIVE));
+						
+						builder.setQuestPartArray((JSONArray) data.get(QuestDataBuilder.QUEST_PARTS));
+						id = 0;
 						
 						nodeData = new HashMap<>();
 						iface.onLoaded(data);
@@ -257,19 +269,52 @@ public class DataView implements ActionListener, ItemListener {
 			builder.setNPCFirstQuest(initial.isSelected());
 			builder.setObjectiveText(objectiveSummary.getText());
 			builder.setQuestGiver(Integer.valueOf(npcGiver.getText()));
-
+			
 			// now write it to the file
 			JSONData.save(filePath, builder.build());
 
 			// add a new layer to the quest tree
 		} else if (e.getSource() == addNode) {
-			// addLayer();
+			currentState.setText(id + "");
+			previousState.setText("");
+			giverDialogue.setText("");
+			response1.setText("");
+			response2.setText("");
+			response3.setText("");
+			response1Triggers.setText("");
+			response2Triggers.setText("");
+			response3Triggers.setText("");
+			endDialogue.setText("");
+			endTriggers.setText("");
+			
+			modifyNode.setEnabled(false);
+			createNode.setEnabled(true);
+			removeNode.setEnabled(false);
+			currentState.setEnabled(true);
+			
+			cardLayout.show(overlay, "main");
 
 			// remove the recent layer
 		} else if (e.getSource() == removeNode) {
-			// removeLayer();
+			iface.onNodeRemoved(currentState.getText());
+			nodeData.remove(currentState.getText());
+			builder.removeQuestPart(currentState.getText());
+			cardLayout.show(overlay, "plain");
 		} else if (e.getSource() == createNode) {
 			iface.onNodeCreated(currentState.getText(), previousState.getText());
+			builder.addQuestPart(giverDialogue.getText(), response1.getText(), response2.getText(), response3.getText(),
+					response1Triggers.getText(), response2Triggers.getText(), response3Triggers.getText(),
+					endDialogue.getText(), endTriggers.getText(), currentState.getText(), previousState.getText());
+			cardLayout.show(overlay, "plain");
+		} else if (e.getSource() == modifyNode) {
+			builder.modifyQuestPart(giverDialogue.getText(), response1.getText(), response2.getText(), response3.getText(),
+					response1Triggers.getText(), response2Triggers.getText(), response3Triggers.getText(),
+					endDialogue.getText(), endTriggers.getText(), currentState.getText(), previousState.getText());
+			
+			QuestNodeAdapter node = nodeData.get(currentState.getText());
+			node.save();
+			iface.onNodeModified(currentState.getText(), previousState.getText());
+			cardLayout.show(overlay, "plain");
 		}
 
 	}
@@ -278,24 +323,23 @@ public class DataView implements ActionListener, ItemListener {
 	 * Added functionality to JButton
 	 */
 	private class QuestNodeAdapter {
-		
+
 		private Node n;
 
-		// id of this button
-		private int currState, prevState;
-
 		// text fields of the state
-		private String giverText, res1Text, res2Text, res3Text, trig1, trig2, trig3, endText, endTrig;
+		private String giverText, res1Text, res2Text, res3Text, trig1, trig2, trig3, endText, endTrig, currState,
+				prevState;
 		
 		public QuestNodeAdapter(Node n) {
 			this.n = n;
+			this.currState = n.getId();
 		}
 
 		private void update() {
-
+			
 			// button is empty
-			if ((giverText + res1Text + res2Text + res3Text + trig1 + trig2 + trig3 + endText + endTrig)
-					.trim().isEmpty()) {
+			if ((giverText + res1Text + res2Text + res3Text + trig1 + trig2 + trig3 + endText + endTrig).trim()
+					.isEmpty()) {
 				n.setAttribute("ui.class", "incomplete");
 
 				// button is not empty
@@ -333,9 +377,9 @@ public class DataView implements ActionListener, ItemListener {
 			trig2 = response2Triggers.getText();
 			trig3 = response3Triggers.getText();
 			endTrig = endTriggers.getText();
-			currState = Integer.valueOf(currentState.getText());
-			prevState = Integer.valueOf(previousState.getText());
-
+			currState = currentState.getText();
+			prevState = previousState.getText();
+			
 			update();
 
 		}
@@ -344,7 +388,7 @@ public class DataView implements ActionListener, ItemListener {
 		 * @param obj - the json object that contains the data
 		 */
 		private void loadJSON(JSONObject obj) {
-			
+
 			giverText = (String) obj.get(QuestDataBuilder.KEY_GIVER);
 			res1Text = (String) obj.get(QuestDataBuilder.KEY_RESPONSE1);
 			res2Text = (String) obj.get(QuestDataBuilder.KEY_RESPONSE2);
@@ -354,8 +398,8 @@ public class DataView implements ActionListener, ItemListener {
 			trig3 = (String) obj.get(QuestDataBuilder.KEY_TRIGGERS3);
 			endText = (String) obj.get(QuestDataBuilder.KEY_END);
 			endTrig = (String) obj.get(QuestDataBuilder.KEY_END_TRIGGER);
-			currState = Integer.valueOf((String) obj.get(QuestDataBuilder.STATE_ID));
-			prevState = Integer.valueOf((String) obj.get(QuestDataBuilder.PREV_STATE_ID));
+			currState = (String) obj.get(QuestDataBuilder.STATE_ID);
+			prevState = (String) obj.get(QuestDataBuilder.PREV_STATE_ID);
 
 			update();
 		}
@@ -365,6 +409,7 @@ public class DataView implements ActionListener, ItemListener {
 		 * panel
 		 */
 		private void displayDataToPanel() {
+
 			giverDialogue.setText(giverText);
 			response1.setText(res1Text);
 			response2.setText(res2Text);
@@ -374,8 +419,8 @@ public class DataView implements ActionListener, ItemListener {
 			response3Triggers.setText(trig3);
 			endDialogue.setText(endText);
 			endTriggers.setText(endTrig);
-			currentState.setText(currentState + "");
-			previousState.setText(prevState + "");
+			currentState.setText(currState);
+			previousState.setText(prevState);
 		}
 
 	}
@@ -402,27 +447,41 @@ public class DataView implements ActionListener, ItemListener {
 
 	}
 
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		if (e.getItemSelectable() == initial) {
-			boolean selected = e.getStateChange() == ItemEvent.SELECTED;
-		}
-
-	}
-	
 	public void nodeLoaded(Node n, JSONObject obj) {
-		
+
 		QuestNodeAdapter a = new QuestNodeAdapter(n);
 		nodeData.put(n.getId(), a);
-		
+
 		a.loadJSON(obj);
+		id++;
 	}
-	
+
 	public void nodeLoaded(Node n) {
 		QuestNodeAdapter a = new QuestNodeAdapter(n);
 		nodeData.put(n.getId(), a);
-		
+		currentState.setText(n.getId());
 		a.save();
+		id++;
 	}
 
+	public void select(String id) {
+		QuestNodeAdapter node = nodeData.get(id);
+		node.displayDataToPanel();
+		cardLayout.show(overlay, "main");
+		
+		modifyNode.setEnabled(true);
+		createNode.setEnabled(false);
+		removeNode.setEnabled(true);
+		currentState.setEnabled(false);
+	}
+	
+	public void rootLoaded(Node n) {
+		QuestNodeAdapter a = new QuestNodeAdapter(n);
+		nodeData.put(n.getId(), a);
+		a.displayDataToPanel();
+		builder.addQuestPart(giverDialogue.getText(), response1.getText(), response2.getText(), response3.getText(),
+				response1Triggers.getText(), response2Triggers.getText(), response3Triggers.getText(),
+				endDialogue.getText(), endTriggers.getText(), currentState.getText(), previousState.getText());
+	}
+	
 }
