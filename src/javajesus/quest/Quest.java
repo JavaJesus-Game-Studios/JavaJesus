@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 
+import editors.quest.QuestDataBuilder;
 import javajesus.DialogueHandler;
-import javajesus.dataIO.QuestData;
+import javajesus.dataIO.JSONData;
 import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
 import javajesus.items.Item;
@@ -42,10 +43,12 @@ public abstract class Quest {
 	private boolean finished;
 
 	// the different states containing information of the quest
-	protected final ArrayList<JSONObject> data;
+	protected ArrayList<JSONObject> data;
 
 	// instance of the player taking the quest
 	private Player player;
+	
+	public boolean initial;
 
 	// IDS used for getting quests
 	private static final int EVIL_FOX = 0, LIBERATE_VILLAGE = 1, LIBERATE_FARM = 2,
@@ -76,7 +79,7 @@ public abstract class Quest {
 		this.title = name;
 
 		// load the data from the JSON file
-		data = QuestData.load(Quest.class.getResourceAsStream(path));
+		//data = JSONData.load(Quest.class.getResourceAsStream(path));
 
 	}
 
@@ -94,9 +97,9 @@ public abstract class Quest {
 		if (isCompleted()) {
 			
 			// do post quest logic
-			selectOption(QuestData.KEY_END_TRIGGER);
+			selectOption(QuestDataBuilder.KEY_END_TRIGGER);
 
-			return (String) data.get(state).get(QuestData.KEY_END);
+			return (String) data.get(state).get(QuestDataBuilder.KEY_END);
 
 			// dialogue quest text
 		} else {
@@ -105,7 +108,7 @@ public abstract class Quest {
 			JSONObject current = data.get(state);
 
 			// return the giver text
-			return (String) current.get(QuestData.KEY_GIVER);
+			return (String) current.get(QuestDataBuilder.KEY_GIVER);
 		}
 
 	}
@@ -121,11 +124,11 @@ public abstract class Quest {
 
 		// get the correct key based on the num
 		if (num == 1) {
-			key = QuestData.KEY_RESPONSE1;
+			key = QuestDataBuilder.KEY_RESPONSE1;
 		} else if (num == 2) {
-			key = QuestData.KEY_RESPONSE2;
+			key = QuestDataBuilder.KEY_RESPONSE2;
 		} else {
-			key = QuestData.KEY_RESPONSE3;
+			key = QuestDataBuilder.KEY_RESPONSE3;
 		}
 
 		// now return that option data
@@ -265,7 +268,7 @@ public abstract class Quest {
 	public final String getSummary() {
 
 		// get the summary based on the state
-		String sum = (String) data.get(state).get(QuestData.KEY_OBJECTIVE);
+		String sum = (String) data.get(state).get(QuestDataBuilder.KEY_OBJECTIVE);
 
 		return "Title: " + title + "\nGiver: " + giver.getName() + "\n" + sum;
 	}

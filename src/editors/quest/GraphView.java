@@ -2,8 +2,10 @@ package editors.quest;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.util.Iterator;
 
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.view.Viewer;
 import org.graphstream.ui.view.ViewerListener;
@@ -50,8 +52,16 @@ public class GraphView {
 		pipe.addViewerListener(listener);
 	}
 	
+	public Node addNode(String id) {
+		return graph.addNode(id);
+	}
+	
 	public void addEdge(String id, String u, String v) {
 		graph.addEdge(id, u, v, true);
+	}
+	
+	public Iterator<Node> getNodes() {
+		return graph.getNodeIterator();
 	}
 	
 	public Component getComponent(int width, int height) {

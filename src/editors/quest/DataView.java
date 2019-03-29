@@ -1,44 +1,50 @@
 package editors.quest;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
+import org.graphstream.graph.Node;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import javajesus.dataIO.QuestData;
+import javajesus.dataIO.JSONData;
 
-public class DataView implements ActionListener {
+public class DataView implements ActionListener, ItemListener {
 
 	// buttons used
 	private final JButton open, save, addNode, removeNode, createNode;
 
 	// elements on the right side of the panel
-	private final JLabel stateLabel, fileLabel;
+	private final JLabel fileLabel;
 	private final JJTextArea giverDialogue, objectiveSummary, response1, response2, response3, response1Triggers,
-			response2Triggers, response3Triggers, endDialogue, endTriggers;
+			response2Triggers, response3Triggers, endDialogue, endTriggers, npcGiver, currentState, previousState;
+	private final JCheckBox initial;
 
 	// ids of the buttons added to the quest tree
 	private static int id;
-
-	// the last button clicked
-	private JJButton last;
-
+	
 	// gets the top level directory
 	private static final String DIR = "res/WORLD_DATA/QUEST_DATA/";
 
@@ -52,21 +58,38 @@ public class DataView implements ActionListener {
 	private String filePath = new File(DIR + name + JSON).getPath();
 
 	private JPanel panel;
+	
+	private QuestDataBuilder builder;
+	
+	private IDataLoaded iface;
+	
+	private HashMap<String, QuestNodeAdapter> nodeData;
 
 	/**
 	 * @param width  - width of the panel
 	 * @param height - height of the panel
 	 */
 	public DataView() {
+		
+		builder = new QuestDataBuilder();
+		nodeData = new HashMap<>();
 
 		open = new JButton("Open");
+		open.addActionListener(this);
 		save = new JButton("Save");
+		save.addActionListener(this);
 		addNode = new JButton("Add Part");
+		addNode.addActionListener(this);
 		removeNode = new JButton("Remove This Part");
 		createNode = new JButton("Create This Part");
+		createNode.addActionListener(this);
 		fileLabel = new JLabel(name);
 
-		stateLabel = new JLabel("STATE: N/A");
+		currentState = new JJTextArea("");
+		currentState.setPreferredSize(new Dimension(150, 15));
+		previousState = new JJTextArea("");
+		previousState.setPreferredSize(new Dimension(150, 15));
+
 		giverDialogue = new JJTextArea("");
 		objectiveSummary = new JJTextArea("");
 		response1 = new JJTextArea("");
@@ -77,8 +100,17 @@ public class DataView implements ActionListener {
 		response3Triggers = new JJTextArea("");
 		endDialogue = new JJTextArea("");
 		endTriggers = new JJTextArea("");
+		npcGiver = new JJTextArea("");
+		npcGiver.setPreferredSize(new Dimension(200, 15));
+
+		initial = new JCheckBox("First NPC quest?");
+		initial.addItemListener(this);
 
 		make();
+	}
+	
+	public void setDataLoaded(IDataLoaded iface) {
+		this.iface = iface;
 	}
 
 	private void make() {
@@ -90,44 +122,42 @@ public class DataView implements ActionListener {
 		// add the top layer
 		JPanel top = new JPanel();
 		top.add(open);
-		open.addActionListener(this);
 		top.add(save);
-		save.addActionListener(this);
 		top.add(addNode);
-		addNode.addActionListener(this);
-		
+
 		top.add(fileLabel);
 		panel.add(top, BorderLayout.NORTH);
 
 		// now add the information panels on the right side
 		JPanel rightSide = new JPanel();
 		rightSide.setLayout(new BoxLayout(rightSide, BoxLayout.Y_AXIS));
-		rightSide.add(stateLabel);
-		rightSide.add(new JLabel("Giver Dialogue:"));
-		rightSide.add(new JScrollPane(giverDialogue));
-		rightSide.add(new JLabel("Quest Summary:"));
-		rightSide.add(new JScrollPane(objectiveSummary));
-		rightSide.add(new JLabel("Response 1:"));
-		rightSide.add(new JScrollPane(response1));
-		rightSide.add(new JLabel("Response 1 Triggers:"));
-		rightSide.add(new JScrollPane(response1Triggers));
-		rightSide.add(new JLabel("Response 2:"));
-		rightSide.add(new JScrollPane(response2));
-		rightSide.add(new JLabel("Response 2 Triggers:"));
-		rightSide.add(new JScrollPane(response2Triggers));
-		rightSide.add(new JLabel("Response 3:"));
-		rightSide.add(new JScrollPane(response3));
-		rightSide.add(new JLabel("Response 3 Triggers:"));
-		rightSide.add(new JScrollPane(response3Triggers));
-		rightSide.add(new JLabel("End Dialogue:"));
-		rightSide.add(new JScrollPane(endDialogue));
-		rightSide.add(new JLabel("End Triggers:"));
-		rightSide.add(new JScrollPane(endTriggers));
+
+		JPanel rightTop = new JPanel();
+		rightTop.add(new JLabel("NPC Giver ID:"));
+		rightTop.add(aligned(npcGiver, initial));
+		rightSide.add(rightTop);
+		rightSide.add(new JSeparator(SwingConstants.HORIZONTAL));
+
+		rightSide.add(aligned(new JLabel("Giver Dialogue:"), giverDialogue));
+		rightSide.add(aligned(new JLabel("Quest Summary:"), objectiveSummary));
+		rightSide.add(new JSeparator(SwingConstants.HORIZONTAL));
 		
+		rightSide.add(aligned(aligned(new JLabel("State ID:"), currentState),
+				aligned(new JLabel("Prev State ID:"), previousState)));
+		rightSide.add(aligned(new JLabel("Response 1:"), response1));
+		rightSide.add(aligned(new JLabel("Response 1 Triggers:"), response1Triggers));
+		rightSide.add(aligned(new JLabel("Response 2:"), response2));
+		rightSide.add(aligned(new JLabel("Response 2 Triggers:"), response2Triggers));
+		rightSide.add(aligned(new JLabel("Response 3:"), response3));
+		rightSide.add(aligned(new JLabel("Response 3 Triggers:"), response3Triggers));
+		rightSide.add(aligned(new JLabel("End Dialogue:"), endDialogue));
+		rightSide.add(aligned(new JLabel("End Triggers:"), endTriggers));
+		rightSide.add(new JSeparator(SwingConstants.HORIZONTAL));
+
 		JPanel bottom = new JPanel();
 		bottom.add(createNode);
 		bottom.add(removeNode);
-		//removeLayer.addActionListener(this);
+		// removeLayer.addActionListener(this);
 		rightSide.add(bottom);
 
 		// encapsulate in a scroll pane
@@ -139,10 +169,18 @@ public class DataView implements ActionListener {
 
 	}
 
+	public Component aligned(Component first, Component second) {
+		JPanel p = new JPanel(new BorderLayout(5, 5));
+		p.add(first, BorderLayout.WEST);
+		p.add(second, BorderLayout.CENTER);
+		p.setBorder(new EmptyBorder(3, 3, 3, 3));
+		return p;
+	}
+
 	public Component getComponent(int width, int height) {
 		// set the size
 		panel.setPreferredSize(new Dimension(width, height));
-		
+
 		return panel;
 	}
 
@@ -152,158 +190,86 @@ public class DataView implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		// save the data of the last button
-		if (last != null) {
-			last.save();
+		// open a new quest page
+		if (e.getSource() == open) {
 
-			// last is null
-		} else {
-			// set it to the first button
-			//last = (JJButton) ((Container) questTree.getComponent(0)).getComponent(0);
-		}
+			// create the file chooser
+			JFileChooser fc = new JFileChooser();
+			fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			fc.setCurrentDirectory(new File(DIR));
 
-		// quest tree button logic first
-		if (e.getSource() instanceof JJButton) {
+			// open the chooser
+			if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
 
-			// now set last to this one
-			last = (JJButton) e.getSource();
+				// load the file!
+				File file = fc.getSelectedFile();
 
-			// load its data fields
-			last.load();
+				// add the extension if it isn't there
+				if (!file.getPath().contains(JSON)) {
 
-			// buttons at top panel
-		} else {
+					// set file path
+					filePath = file.getPath() + JSON;
 
-			// open a new quest page
-			if (e.getSource() == open) {
+					// set file name
+					name = file.getName();
 
-				// create the file chooser
-				JFileChooser fc = new JFileChooser();
-				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				fc.setCurrentDirectory(new File(DIR));
+					// contains JSON extension
+				} else {
 
-				// open the chooser
-				if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
+					// file path
+					filePath = file.getPath();
 
-					// load the file!
-					File file = fc.getSelectedFile();
-
-					// add the extension if it isn't there
-					if (!file.getPath().contains(JSON)) {
-
-						// set file path
-						filePath = file.getPath() + JSON;
-
-						// set file name
-						name = file.getName();
-
-						// contains JSON extension
-					} else {
-
-						// file path
-						filePath = file.getPath();
-
-						// set the name
-						name = file.getName().substring(0, file.getName().length() - 5);
-					}
-
-					// update the file label
-					fileLabel.setText(name);
-
-					// the number of layers to remove
-					/*int layers = questTree.getComponentCount() - 1;
-
-					// remove existing layers
-					for (int i = 0; i < layers; i++) {
-						removeLayer();
-					}*/
-
-					// load if the file exists
-					if (file.exists()) {
-
-						// load the JSON
-						JSONArray data = null;
-						try {
-							data = QuestData.load(new FileInputStream(file));
-						} catch (FileNotFoundException e1) {
-							e1.printStackTrace();
-						}
-
-						// make sure it parsed
-						if (data != null) {
-
-							// get the number layers to add
-							int numLayers = (int) (Math.log(data.size()) / Math.log(3));
-
-							// add the layers
-							/*for (int i = 0; i < numLayers; i++) {
-								addLayer();
-							}
-
-							// iterate through all rows
-							for (int i = 0; i < questTree.getComponentCount(); i++) {
-
-								// the quest row
-								Container row = (Container) questTree.getComponent(i);
-
-								// iterate through columns
-								for (int j = 0; j < row.getComponentCount(); j++) {
-
-									// the JJButton child
-									JJButton child = (JJButton) row.getComponent(j);
-
-									// load the JSON
-									child.loadJSON((JSONObject) data.remove(0));
-								}
-							}
-
-							// now set the display to the first element
-							((JJButton) ((Container) questTree.getComponent(0)).getComponent(0)).load();
-							*/
-
-						}
-					}
+					// set the name
+					name = file.getName().substring(0, file.getName().length() - 5);
 				}
 
-				// save the quest tree
-			} else if (e.getSource() == save) {
+				// update the file label
+				fileLabel.setText(name);
 
-				// save the current button
-				last.save();
+				// load if the file exists
+				if (file.exists()) {
 
-				// construct the JSON Array
-				JSONArray array = new JSONArray();
+					// load the JSON
+					JSONObject data = null;
 
-				// iterate through all rows
-				/*for (int i = 0; i < questTree.getComponentCount(); i++) {
-
-					// the quest row
-					Container row = (Container) questTree.getComponent(i);
-
-					// iterate through columns
-					for (int j = 0; j < row.getComponentCount(); j++) {
-
-						// the JJButton child
-						JJButton child = (JJButton) row.getComponent(j);
-
-						// wrap it and add it to the array
-						array.add(QuestData.wrap(child.giverText, child.objText, child.res1Text, child.res2Text,
-								child.res3Text, child.trig1, child.trig2, child.trig3, child.endText, child.endTrig));
+					try {
+						data = JSONData.load(new FileInputStream(file));
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace();
 					}
-				}*/
 
-				// now write it to the file
-				QuestData.save(filePath, array);
-
-				// add a new layer to the quest tree
-			} else if (e.getSource() == addNode) {
-				//addLayer();
-
-				// remove the recent layer
-			} else if (e.getSource() == removeNode) {
-				//removeLayer();
+					// make sure it parsed
+					if (data != null) {
+						
+						initial.setSelected((boolean) data.get(QuestDataBuilder.INITIAL_QUEST)); 
+						npcGiver.setText((String) data.get(QuestDataBuilder.NPC_ID));
+						objectiveSummary.setText((String) data.get(QuestDataBuilder.KEY_OBJECTIVE));
+						
+						nodeData = new HashMap<>();
+						iface.onLoaded(data);
+					}
+				}
 			}
 
+			// save the quest tree
+		} else if (e.getSource() == save) {
+
+			builder.setNPCFirstQuest(initial.isSelected());
+			builder.setObjectiveText(objectiveSummary.getText());
+			builder.setQuestGiver(Integer.valueOf(npcGiver.getText()));
+
+			// now write it to the file
+			JSONData.save(filePath, builder.build());
+
+			// add a new layer to the quest tree
+		} else if (e.getSource() == addNode) {
+			// addLayer();
+
+			// remove the recent layer
+		} else if (e.getSource() == removeNode) {
+			// removeLayer();
+		} else if (e.getSource() == createNode) {
+			iface.onNodeCreated(currentState.getText(), previousState.getText());
 		}
 
 	}
@@ -311,41 +277,26 @@ public class DataView implements ActionListener {
 	/*
 	 * Added functionality to JButton
 	 */
-	private class JJButton extends JButton {
-
-		// serialization
-		private static final long serialVersionUID = 1L;
+	private class QuestNodeAdapter {
+		
+		private Node n;
 
 		// id of this button
-		private int id;
+		private int currState, prevState;
 
 		// text fields of the state
-		private String giverText, objText, res1Text, res2Text, res3Text, trig1, trig2, trig3, endText, endTrig;
-
-		/**
-		 * JJButton ctor()
-		 */
-		private JJButton() {
-			super(String.valueOf(DataView.id));
-
-			// set the id and increment it
-			this.id = DataView.id++;
-
-			// add action listner to quest editor
-			addActionListener(DataView.this);
-
-			setPreferredSize(new Dimension(80, 80));
-
-			setBackground(new Color(0xd5ddea));
-
+		private String giverText, res1Text, res2Text, res3Text, trig1, trig2, trig3, endText, endTrig;
+		
+		public QuestNodeAdapter(Node n) {
+			this.n = n;
 		}
 
 		private void update() {
 
 			// button is empty
-			if ((giverText + objText + res1Text + res2Text + res3Text + trig1 + trig2 + trig3 + endText + endTrig)
+			if ((giverText + res1Text + res2Text + res3Text + trig1 + trig2 + trig3 + endText + endTrig)
 					.trim().isEmpty()) {
-				setBackground(new Color(0xd5ddea));
+				n.setAttribute("ui.class", "incomplete");
 
 				// button is not empty
 			} else {
@@ -359,14 +310,12 @@ public class DataView implements ActionListener {
 				}
 
 				if (complete) {
-					setBackground(new Color(0xAA00FF00));
+					n.setAttribute("ui.class", "complete");
 				} else {
-					setBackground(new Color(0xAAFF0000));
+					n.setAttribute("ui.class", "incomplete");
 				}
 
 			}
-
-			repaint();
 
 		}
 
@@ -376,7 +325,6 @@ public class DataView implements ActionListener {
 		private void save() {
 
 			giverText = giverDialogue.getText();
-			objText = objectiveSummary.getText();
 			res1Text = response1.getText();
 			res2Text = response2.getText();
 			res3Text = response3.getText();
@@ -385,6 +333,8 @@ public class DataView implements ActionListener {
 			trig2 = response2Triggers.getText();
 			trig3 = response3Triggers.getText();
 			endTrig = endTriggers.getText();
+			currState = Integer.valueOf(currentState.getText());
+			prevState = Integer.valueOf(previousState.getText());
 
 			update();
 
@@ -394,16 +344,18 @@ public class DataView implements ActionListener {
 		 * @param obj - the json object that contains the data
 		 */
 		private void loadJSON(JSONObject obj) {
-			giverText = (String) obj.get(QuestData.KEY_GIVER);
-			objText = (String) obj.get(QuestData.KEY_OBJECTIVE);
-			res1Text = (String) obj.get(QuestData.KEY_RESPONSE1);
-			res2Text = (String) obj.get(QuestData.KEY_RESPONSE2);
-			res3Text = (String) obj.get(QuestData.KEY_RESPONSE3);
-			trig1 = (String) obj.get(QuestData.KEY_TRIGGERS1);
-			trig2 = (String) obj.get(QuestData.KEY_TRIGGERS2);
-			trig3 = (String) obj.get(QuestData.KEY_TRIGGERS3);
-			endText = (String) obj.get(QuestData.KEY_END);
-			endTrig = (String) obj.get(QuestData.KEY_END_TRIGGER);
+			
+			giverText = (String) obj.get(QuestDataBuilder.KEY_GIVER);
+			res1Text = (String) obj.get(QuestDataBuilder.KEY_RESPONSE1);
+			res2Text = (String) obj.get(QuestDataBuilder.KEY_RESPONSE2);
+			res3Text = (String) obj.get(QuestDataBuilder.KEY_RESPONSE3);
+			trig1 = (String) obj.get(QuestDataBuilder.KEY_TRIGGERS1);
+			trig2 = (String) obj.get(QuestDataBuilder.KEY_TRIGGERS2);
+			trig3 = (String) obj.get(QuestDataBuilder.KEY_TRIGGERS3);
+			endText = (String) obj.get(QuestDataBuilder.KEY_END);
+			endTrig = (String) obj.get(QuestDataBuilder.KEY_END_TRIGGER);
+			currState = Integer.valueOf((String) obj.get(QuestDataBuilder.STATE_ID));
+			prevState = Integer.valueOf((String) obj.get(QuestDataBuilder.PREV_STATE_ID));
 
 			update();
 		}
@@ -412,10 +364,8 @@ public class DataView implements ActionListener {
 		 * Loads the information from the button's data fields into the the information
 		 * panel
 		 */
-		private void load() {
-			stateLabel.setText("State: " + id);
+		private void displayDataToPanel() {
 			giverDialogue.setText(giverText);
-			objectiveSummary.setText(objText);
 			response1.setText(res1Text);
 			response2.setText(res2Text);
 			response3.setText(res3Text);
@@ -424,6 +374,8 @@ public class DataView implements ActionListener {
 			response3Triggers.setText(trig3);
 			endDialogue.setText(endText);
 			endTriggers.setText(endTrig);
+			currentState.setText(currentState + "");
+			previousState.setText(prevState + "");
 		}
 
 	}
@@ -444,8 +396,33 @@ public class DataView implements ActionListener {
 
 			setLineWrap(true);
 			setWrapStyleWord(true);
+
+			this.setPreferredSize(new Dimension(300, 50));
 		}
 
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getItemSelectable() == initial) {
+			boolean selected = e.getStateChange() == ItemEvent.SELECTED;
+		}
+
+	}
+	
+	public void nodeLoaded(Node n, JSONObject obj) {
+		
+		QuestNodeAdapter a = new QuestNodeAdapter(n);
+		nodeData.put(n.getId(), a);
+		
+		a.loadJSON(obj);
+	}
+	
+	public void nodeLoaded(Node n) {
+		QuestNodeAdapter a = new QuestNodeAdapter(n);
+		nodeData.put(n.getId(), a);
+		
+		a.save();
 	}
 
 }
