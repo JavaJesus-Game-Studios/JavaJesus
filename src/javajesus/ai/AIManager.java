@@ -94,7 +94,7 @@ public class AIManager implements Runnable {
 				int left = action == 4 ? -1 : 0;
 
 				int index = (col + left + right) + (row + up + down) * width;
-				if (index >= 0 && index < tiles.length) {
+				if (index >= 0 && index < tiles.length && current < tiles.length) {
 
 					// transition probability from CURRENT to INDEX
 					switch (tiles[current]) {

@@ -194,15 +194,5 @@ public abstract class Entity implements Serializable {
 	 * @return the ID of this entity
 	 */
 	public abstract byte getId();
-	
-	@Override
-	public boolean equals(Object other) {
-		if (!(other instanceof Entity)) {
-			return false;
-		}
-		
-		Entity entity = (Entity) other;
-		return this.getId() == entity.getId();
-	}
 
 }
