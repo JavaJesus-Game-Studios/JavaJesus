@@ -630,7 +630,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * Triggers the death animation and closure
 	 */
 	public void remove() {
-
+		
 		// remove the healthbar
 		if (bar != null) {
 			getLevel().remove(bar);
@@ -760,7 +760,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		if (isDead()) {
 			return;
 		}
-
+		
 		// subtract from defense
 		damage -= getDefense();
 		if (damage <= 0) {

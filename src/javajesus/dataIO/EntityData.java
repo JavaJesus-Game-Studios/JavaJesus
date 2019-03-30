@@ -33,28 +33,12 @@ import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
 import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.npcs.Citizen;
-import javajesus.entities.npcs.Gaucho;
-import javajesus.entities.npcs.Panchombre;
-import javajesus.entities.npcs.Peasant;
-import javajesus.entities.npcs.aggressive.Companion;
 import javajesus.entities.npcs.aggressive.Gorilla;
-import javajesus.entities.npcs.aggressive.Knight;
 import javajesus.entities.npcs.aggressive.NativeAmerican;
 import javajesus.entities.npcs.aggressive.Orangutan;
 import javajesus.entities.npcs.aggressive.PoliceOfficer;
 import javajesus.entities.npcs.aggressive.SWATOfficer;
 import javajesus.entities.npcs.aggressive.TechWarrior;
-import javajesus.entities.npcs.characters.Bautista;
-import javajesus.entities.npcs.characters.Daughter;
-import javajesus.entities.npcs.characters.Jesus;
-import javajesus.entities.npcs.characters.Jobs;
-import javajesus.entities.npcs.characters.Kobe;
-import javajesus.entities.npcs.characters.LordHillsborough;
-import javajesus.entities.npcs.characters.Octavius;
-import javajesus.entities.npcs.characters.Ranchero;
-import javajesus.entities.npcs.characters.Son;
-import javajesus.entities.npcs.characters.Wife;
-import javajesus.entities.npcs.characters.Zorra;
 import javajesus.entities.solid.buildings.AlphaCave;
 import javajesus.entities.solid.buildings.ApartmentHighRise;
 import javajesus.entities.solid.buildings.Castle;
@@ -149,6 +133,7 @@ import javajesus.entities.vehicles.Horse;
 import javajesus.entities.vehicles.SportsCar;
 import javajesus.entities.vehicles.Truck;
 import javajesus.level.Level;
+import javajesus.quest.factories.CharacterFactory;
 
 /*
  * Loads and Saves Entity Data
@@ -262,7 +247,7 @@ public class EntityData {
 	 * @param fileData - the file stream to load
 	 * @throws IOException
 	 */
-	public static final void load(Level level, InputStream fileData) throws IOException {
+	public static final void load(Level level, CharacterFactory cf, InputStream fileData) throws IOException {
 		
 		// create an input stream for entities
 		BufferedInputStream is = new BufferedInputStream(fileData);
@@ -286,7 +271,7 @@ public class EntityData {
 			byte type = data[8];
 			
 			// construct the entity
-			Entity e = getEntity(id, level, x, y);
+			Entity e = getEntity(id, level, x, y, cf);
 			
 			// set health data
 			if (e instanceof Damageable) {
@@ -340,9 +325,14 @@ public class EntityData {
 	 * @param id - the ID in the save file
 	 * @return the entity based on the ID
 	 */
-	public static final Entity getEntity(int id, Level level, short x, short y) {
+	public static final Entity getEntity(int id, Level level, short x, short y, CharacterFactory characterFactory) {
 
 		try {
+			
+			if (characterFactory != null && characterFactory.setAndMake(level, id, x, y) != null) {
+				return characterFactory.make(id);
+			}
+			
 		    switch (id) {
 	        case Entity.DESTRUCTIBLE_TILE:
 	            return new DestructibleTile(level, x, y);
@@ -498,46 +488,6 @@ public class EntityData {
 	            return new GangMember(level, x, y, GangMember.RUSSIAN);
 	        case Entity.MONKEY:
 	            return new Monkey(level, x, y);
-	        case Entity.BAUTISTA:
-	            return new Bautista(level, x, y);
-	        case Entity.DAUGHTER:
-	            return new Daughter(level, x, y);
-	        case Entity.CITIZEN:
-	            return new Citizen(level, x, y, Citizen.MALE);
-	        case Entity.JESUS:
-	            return new Jesus(level, x, y);
-	        case Entity.JOBS:
-	            return new Jobs(level, x, y);
-	        case Entity.KNIGHT:
-	            return new Knight(level, x, y);
-	        case Entity.KOBE:
-	            return new Kobe(level, x, y);
-	        case Entity.LORD_HILLSBOROUGH:
-	            return new LordHillsborough(level, x, y);
-	        case Entity.OCTAVIUS:
-	            return new Octavius(level, x, y);
-	        case Entity.PEASANT:
-	            return new Peasant(level, x, y, Peasant.MALE);
-	        case Entity.RANCHERO:
-	            return new Ranchero(level, x, y);
-	        case Entity.SON:
-	            return new Son(level, x, y);
-	        case Entity.WIFE:
-	            return new Wife(level, x, y);
-	        case Entity.ZORRA:
-	            return new Zorra(level, x, y);
-	        case Entity.COMPANION:
-	            return new Companion(level, x, y, null);
-	        case Entity.GORILLA:
-	            return new Gorilla(level, x, y);
-	        case Entity.NATIVE_AMERICAN:
-	            return new NativeAmerican(level, x, y, NativeAmerican.MALE);
-	        case Entity.POLICE_OFFICER:
-	            return new PoliceOfficer(level, x, y, PoliceOfficer.MALE);
-	        case Entity.SWAT_OFFICER:
-	            return new SWATOfficer(level, x, y);
-	        case Entity.TECH_WARRIOR:
-	            return new TechWarrior(level, x, y);
 	        case Entity.COW:
 	            return new Cow(level, x, y);
 	        case Entity.CAT:
@@ -556,12 +506,8 @@ public class EntityData {
 	            return new SportsCar(level, x, y);
 	        case Entity.BOAT:
 	            return new Boat(level, x, y);
-	        case Entity.GAUCHO:
-	            return new Gaucho(level, x, y);
 	        case Entity.BANDITO:
 	            return new Bandito(level, x, y);
-	        case Entity.PANCHOMBRE:
-	            return new Panchombre(level, x, y);
 	        case Entity.SKELETON:
 	            return new Skeleton(level, x, y);
 	        case Entity.CARD_TABLE:
@@ -616,6 +562,18 @@ public class EntityData {
 				return new EvilOrangutan(level, x, y);
 			case Entity.ORANGUTAN:
 				return new Orangutan(level, x, y);
+			case Entity.GORILLA:
+				return new Gorilla(level, x, y);
+			case Entity.NATIVE_AMERICAN:
+				return new NativeAmerican(level, x, y, NativeAmerican.MALE);
+			case Entity.POLICE_OFFICER:
+				return new PoliceOfficer(level, x, y, PoliceOfficer.MALE);
+			case Entity.SWAT_OFFICER:
+				return new SWATOfficer(level, x, y);
+			case Entity.TECH_WARRIOR:
+				return new TechWarrior(level, x, y);
+			case Entity.CITIZEN:
+				return new Citizen(level, x, y, Citizen.MALE);
 	        default:
 	        	System.err.println("CRITICAL ERROR! CRITICAL ERROR! SAVING NULL ENTITY: " + id);
 	        	System.err.println("MAKE SURE TO ADD ENTITY CASE IN ENTITYDATA.JAVA IN DATAIO");

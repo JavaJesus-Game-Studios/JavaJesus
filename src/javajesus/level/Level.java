@@ -25,6 +25,7 @@ import javajesus.graphics.Screen;
 import javajesus.level.tile.AnimatedTile;
 import javajesus.level.tile.Tile;
 import javajesus.level.tile.TileAdapter;
+import javajesus.quest.factories.CharacterFactory;
 import javajesus.utility.EntityComparator;
 import javajesus.utility.LevelText;
 
@@ -66,11 +67,6 @@ public abstract class Level {
 	private static final String DIR = FileSystemView.getFileSystemView().getDefaultDirectory().getPath()
 	        + "/My Games/JavaJesus/File";
 	
-	// story level names
-	public static final String BAUTISTA = "Bautista's Domain", EDGE_MAIN = "Edge of the Woods",
-	        EDGE_TOP = "Edge of the Woods Top", HILLSBOROUGH = "Lord Hillsborough's Domain", ORCHARD = "Orchard Valley",
-	        CISCO = "San Cisco", JUAN = "San Juan", TECH = "Tech Topia";
-	
 	// size of each level
 	public static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
 
@@ -102,7 +98,6 @@ public abstract class Level {
 		this.spawnPoint = spawn;
 		this.path = path;
 		this.saveFile = saveFile;
-
 	}
 	
 	/**
@@ -126,7 +121,7 @@ public abstract class Level {
 	/**
 	 * Fill in the level Tiles
 	 */
-	public void generateLevel() throws IOException {
+	public void generateLevel(CharacterFactory cf) throws IOException {
 
 		// initialize tile array
 		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
@@ -141,7 +136,7 @@ public abstract class Level {
 			f.mkdirs();
 
 			// load the original files into memory
-			load(path, true);
+			load(path, true, cf);
 
 			// now save in the new folder
 			save(DIR + saveFile + "/" + name);
@@ -154,13 +149,13 @@ public abstract class Level {
 
 			// if it exists, load it
 			if (f.exists()) {
-				load(DIR + saveFile + "/" + name, false);
+				load(DIR + saveFile + "/" + name, false, cf);
 
 				// load from original, then save
 			} else {
 
 				// load the original files into memory
-				load(path, true);
+				load(path, true, cf);
 
 				// now save in the new folder
 				save(DIR + saveFile + "/" + name);
@@ -171,7 +166,7 @@ public abstract class Level {
 	/**
 	 * Loads an image from the file
 	 */
-	private void load(String path, boolean classpath) throws IOException {
+	private void load(String path, boolean classpath, CharacterFactory cf) throws IOException {
 		
 		// files to load
 		InputStream level, entities;
@@ -189,7 +184,7 @@ public abstract class Level {
 		LevelData.load(level, levelTiles);
 
 		// load the entity data
-		EntityData.load(this, entities);
+		EntityData.load(this, cf, entities);
 	}
 	
 	/**
@@ -291,7 +286,6 @@ public abstract class Level {
 			        || (e instanceof SolidEntity && ((SolidEntity) e).getShadow().intersects(renderRange))) {
 				e.render(screen);
 			}
-
 		}
 	}
 	

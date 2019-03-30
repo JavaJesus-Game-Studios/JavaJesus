@@ -31,6 +31,7 @@ import javajesus.level.RandomLevel;
 import javajesus.level.RoadLevel;
 import javajesus.level.sandbox.SandboxIslandLevel;
 import javajesus.level.sandbox.SandboxOriginalLevel;
+import javajesus.quest.factories.CharacterFactory;
 import javajesus.utility.Direction;
 import javajesus.utility.GameMode;
 
@@ -134,6 +135,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	
 	// the display of this launcher
 	private JPanel display;
+	private CharacterFactory characterFactory;
 
 	/**
 	 * Constructor that creates the JFrame
@@ -154,6 +156,8 @@ public class Launcher extends Canvas implements IGameLogic {
 		// show the main display
 		cardLayout.show(display, MAIN);
 		
+		characterFactory = new CharacterFactory();
+		
 	}
 
 	/**
@@ -162,7 +166,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	public void init() throws Exception {
 		
 		// load the random level
-		level.generateLevel();
+		level.generateLevel(characterFactory);
 		
 		BufferedImage story_on, story_off, sandbox_on, sandbox_off, options_on, options_off, credits_on, credits_off,
 		        audio_on, audio_off, video_on, video_off,
@@ -420,7 +424,7 @@ public class Launcher extends Canvas implements IGameLogic {
 					running = false;
 
 					// start the game
-					new JavaJesus(mode, false, player);
+					new JavaJesus(mode, false, player, characterFactory);
 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -486,7 +490,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		
 		// load the level
 		if (!level.isLoaded()) {
-			level.generateLevel();
+			level.generateLevel(characterFactory);
 		}
 		
 		// Player to create

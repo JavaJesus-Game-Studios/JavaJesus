@@ -28,8 +28,13 @@ import javajesus.graphics.Screen;
 import javajesus.gui.DialogueGUI;
 import javajesus.gui.OverviewGUI;
 import javajesus.gui.PauseGUI;
+import javajesus.level.LevelFactory;
 import javajesus.level.RandomCave;
 import javajesus.level.tile.Tile;
+import javajesus.quest.QuestCharacterLevelMediator;
+import javajesus.quest.factories.AlphaQuestFactory;
+import javajesus.quest.factories.CharacterFactory;
+import javajesus.quest.factories.QuestFactory;
 import javajesus.utility.GameMode;
 import javajesus.utility.JJStrings;
 
@@ -152,6 +157,8 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// center point, the player, on the screen in respect to level
 	private int xOffset, yOffset;
 	
+	private CharacterFactory characterFactory;
+	
 	/**
 	 * JavaJesus ctor()
 	 * Initializes the gamemode and whether or not to load
@@ -159,12 +166,13 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 * @param m - the game mode
 	 * @param load - whether or not to load
 	 */
-	public JavaJesus(final GameMode m, boolean load, final Player player) {
+	public JavaJesus(final GameMode m, boolean load, final Player player, CharacterFactory cf) {
 		
 		// instance data
 		mode = m;
 		this.load = load;
 		this.player = player;
+		this.characterFactory = cf;
 		
 		// initialize a new game
 		try {
@@ -202,6 +210,17 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		running = true;
 		
 		MessageHandler.initialize();
+		
+		QuestFactory questFactory = null;
+		switch (player.getLevel().getName()) {
+			case LevelFactory.ALPHA: questFactory = new AlphaQuestFactory(); break;
+			case LevelFactory.HILLSBOROUGH: break;
+		}
+		
+		// initialize quests
+		QuestCharacterLevelMediator mediator = new QuestCharacterLevelMediator(questFactory, characterFactory, player.getLevel());
+		mediator.initializeQuests();
+		player.setCF(characterFactory);
 
 		// do game initializations from save files
 		if (load) {

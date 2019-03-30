@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.level.Level;
+import javajesus.level.LevelFactory;
 
 public class OrchardValley extends Level {
 
@@ -12,7 +13,7 @@ public class OrchardValley extends Level {
 	 * @throws IOException 
 	 */
 	public OrchardValley(int slot) throws IOException {
-		super("/WORLD_DATA/STORY_DATA/(X)WILDERNESS_AREA/Orchard_Valley.png", Level.ORCHARD, new Point(136, 1816), slot);
+		super("/WORLD_DATA/STORY_DATA/(X)WILDERNESS_AREA/Orchard_Valley.png", LevelFactory.ORCHARD, new Point(136, 1816), slot);
 
 		System.err.println("Creating Orchard Valley");
 

@@ -8,7 +8,7 @@ import javax.sound.sampled.Clip;
 import javajesus.SoundHandler;
 import javajesus.entities.npcs.Peasant;
 import javajesus.level.Level;
-import javajesus.quest.original.LiberateFarm;
+import javajesus.level.LevelFactory;
 
 /*
  * Fixed level for sandbox mode
@@ -23,11 +23,11 @@ public class SandboxOriginalLevel extends Level {
 	 * @throws IOException 
 	 */
 	public SandboxOriginalLevel(int slot) throws IOException {
-		super("/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/original", "ALPHA Level", new Point(1472, 24), slot);
+		super("/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/original", LevelFactory.ALPHA, new Point(1472, 24), slot);
 		
 		// creates the scared Peasant the gives the liberate farm quest
 		Peasant scaredPeasant = new Peasant(this, 832, 112, 1);
-		scaredPeasant.addQuest(new LiberateFarm());
+		//scaredPeasant.addQuest(new LiberateFarm());
 		add(scaredPeasant);
 		
 	}

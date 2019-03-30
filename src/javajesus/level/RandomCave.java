@@ -13,6 +13,7 @@ import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.transporters.Ladder;
 import javajesus.level.generation.CaveGeneration;
 import javajesus.level.tile.Tile;
+import javajesus.quest.factories.CharacterFactory;
 
 /*
  * A randomly generated cave
@@ -52,7 +53,7 @@ public class RandomCave extends Level {
 	 * @param cycles - the smoothness of the generation
 	 */
 	@Override
-	public void generateLevel() throws IOException {
+	public void generateLevel(CharacterFactory cf) throws IOException {
 		
 		// initialize tile array
 		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];

@@ -27,7 +27,7 @@ public class AlphaCaveInterior extends Interior {
 		
 		// Adds wise Orangutan with the "Turning the Tide" Quest inside the cave
 		Orangutan ken = new Orangutan(this, 944, 192);
-		ken.addQuest(new AlphaTurningTheTide());
+		//ken.addQuest(new AlphaTurningTheTide());
 		add(ken);
 
 	}

@@ -10,6 +10,10 @@ public abstract class QuestFactory {
 		init();
 	}
 	
+	public Quest[] getQuests() {
+		return quests;
+	}
+	
 	protected abstract void init() ;
 	
 	/**

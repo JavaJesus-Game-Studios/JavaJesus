@@ -13,7 +13,7 @@ import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
 import javajesus.items.Item;
 import javajesus.quest.events.Event;
-import javajesus.quest.factories.AlphaQuestFactory;
+import javajesus.quest.factories.QuestFactory;
 
 /*
  * A Quest is given by a NPC that requires a set of specific dialogue and action events completed
@@ -24,7 +24,7 @@ public abstract class Quest {
 	protected NPC giver;
 
 	// npc id
-	protected int giverId;
+	public int giverId;
 
 	// The list of criteria with a boolean specified if the condition is met
 	protected boolean[] objectives;
@@ -47,8 +47,9 @@ public abstract class Quest {
 	// instance of the player taking the quest
 	private Player player;
 
-	private boolean initialQuest;
+	public boolean initialQuest;
 	private String objectiveSummary;
+	private QuestFactory questFactory;
 
 	/**
 	 * Quest ctor() Creates a quest object that loads information from a .json file
@@ -77,7 +78,7 @@ public abstract class Quest {
 		// intiial, objective, giver
 		this.initialQuest = (boolean) data.get(QuestDataBuilder.INITIAL_QUEST);
 		this.objectiveSummary = (String) data.get(QuestDataBuilder.KEY_OBJECTIVE);
-		this.giverId = (int) data.get(QuestDataBuilder.NPC_ID);
+		this.giverId = (int) ((long) data.get(QuestDataBuilder.NPC_ID));
 
 		this.questParts = new HashMap<>();
 		JSONArray arr = (JSONArray) data.get(QuestDataBuilder.QUEST_PARTS);
@@ -86,6 +87,10 @@ public abstract class Quest {
 			this.questParts.put((String) obj.get(QuestDataBuilder.STATE_ID), obj);
 		}
 
+	}
+	
+	public void setQuestFactory(QuestFactory questFactory) {
+		this.questFactory = questFactory;
 	}
 
 	/**
@@ -182,7 +187,7 @@ public abstract class Quest {
 			int id = Integer.valueOf(trigger.substring(trigger.indexOf("_") + 1));
 
 			// create and add the quest based on the ID
-			Quest q = AlphaQuestFactory.makeQuest(id);
+			Quest q = questFactory.makeQuest(id);
 			q.giver.addQuest(q);
 
 			// exits from dialogue
