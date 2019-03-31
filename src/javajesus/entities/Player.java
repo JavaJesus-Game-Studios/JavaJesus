@@ -24,7 +24,6 @@ import javajesus.items.Sword;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
 import javajesus.quest.Quest;
-import javajesus.quest.factories.CharacterFactory;
 import javajesus.utility.Direction;
 
 /*
@@ -104,8 +103,6 @@ public class Player extends Mob implements Type {
 	
 	// the gender of the player
 	private byte gender;
-	
-	private CharacterFactory cf;
 	
 	/**
 	 * Creates a new player for the game
@@ -195,11 +192,6 @@ public class Player extends Mob implements Type {
 		
 	}
 	
-	// TODO make player-level mediator
-	public void setCF(CharacterFactory cf) {
-		this.cf = cf;
-	}
-
 	/**
 	 * Transitions the player from one level to another
 	 */
@@ -220,7 +212,7 @@ public class Player extends Mob implements Type {
 		// load the level if needed
 		if (!level.isLoaded()) {
 			try {
-				level.generateLevel(cf);
+				level.generateLevel();
 			} catch (IOException e) {
 				System.err.println("Level cannot be loaded!");
 				e.printStackTrace();

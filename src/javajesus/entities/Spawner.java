@@ -117,7 +117,7 @@ public class Spawner extends Entity implements Type {
 	 * @return the Entity to spawn
 	 */
 	private Entity getEntity() {
-		return EntityData.getEntity(type, getLevel(), getX(), getY(), null);
+		return EntityData.getEntity(type, getLevel(), getX(), getY());
 	}
 
 	/**

@@ -13,7 +13,6 @@ import javajesus.entities.solid.buildings.NiceHouse;
 import javajesus.entities.solid.buildings.PoorHouse;
 import javajesus.level.generation.HeightMap;
 import javajesus.level.generation.HeightMapTile;
-import javajesus.quest.factories.CharacterFactory;
 
 public class RandomLevel extends Level {
 
@@ -44,7 +43,7 @@ public class RandomLevel extends Level {
 	}
 
 	@Override
-	public void generateLevel(CharacterFactory cf) throws IOException {
+	public void generateLevel() throws IOException {
 		
 		// initialize tile array
 		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];

@@ -4,9 +4,7 @@ import javajesus.entities.Entity;
 import javajesus.entities.npcs.Gaucho;
 import javajesus.entities.npcs.NPC;
 import javajesus.entities.npcs.Panchombre;
-import javajesus.entities.npcs.Peasant;
 import javajesus.entities.npcs.aggressive.Companion;
-import javajesus.entities.npcs.aggressive.Knight;
 import javajesus.entities.npcs.characters.Bautista;
 import javajesus.entities.npcs.characters.Daughter;
 import javajesus.entities.npcs.characters.Jesus;
@@ -20,90 +18,74 @@ import javajesus.entities.npcs.characters.Wife;
 import javajesus.entities.npcs.characters.Zorra;
 import javajesus.level.Level;
 
-public class CharacterFactory {
+public abstract class CharacterFactory {
+	
+	protected static final int UNIQUE_OFFSET = 256;
 
-	private NPC[] npcs;
+	protected static NPC[] npcs = new NPC[256];
+	
+	public abstract void setNonUniqueCharacters(Level level);
 
-	public CharacterFactory() {
-		this.npcs = new NPC[256];
+	public final boolean created(int id) {
+		NPC npc = make(id);
+		return npc != null;
 	}
 
-	public NPC setAndMake(Level level, int id, short x, short y) {
+	public boolean set(Level level, int id, short x, short y) {
 		switch (id) {
 		case Entity.BAUTISTA:
-			return npcs[Entity.BAUTISTA] = new Bautista(level, x, y);
+			npcs[Entity.BAUTISTA] = new Bautista(level, x, y);
+			return true;
 		case Entity.DAUGHTER:
-			return npcs[Entity.DAUGHTER] = new Daughter(level, x, y);
+			npcs[Entity.DAUGHTER] = new Daughter(level, x, y);
+			return true;
 		case Entity.JESUS:
-			return npcs[Entity.JESUS] = new Jesus(level, x, y);
+			npcs[Entity.JESUS] = new Jesus(level, x, y);
+			return true;
 		case Entity.JOBS:
-			return npcs[Entity.JOBS] = new Jobs(level, x, y);
-		case Entity.KNIGHT:
-			return npcs[Entity.KNIGHT] = new Knight(level, x, y);
+			npcs[Entity.JOBS] = new Jobs(level, x, y);
+			return true;
 		case Entity.KOBE:
-			return npcs[Entity.KOBE] = new Kobe(level, x, y);
+			npcs[Entity.KOBE] = new Kobe(level, x, y);
+			return true;
 		case Entity.LORD_HILLSBOROUGH:
-			return npcs[Entity.LORD_HILLSBOROUGH] = new LordHillsborough(level, x, y);
+			npcs[Entity.LORD_HILLSBOROUGH] = new LordHillsborough(level, x, y);
+			return true;
 		case Entity.OCTAVIUS:
-			return npcs[Entity.OCTAVIUS] = new Octavius(level, x, y);
-		case Entity.PEASANT:
-			return npcs[Entity.PEASANT] = new Peasant(level, x, y, Peasant.MALE);
+			npcs[Entity.OCTAVIUS] = new Octavius(level, x, y);
+			return true;
 		case Entity.RANCHERO:
-			return npcs[Entity.RANCHERO] = new Ranchero(level, x, y);
+			npcs[Entity.RANCHERO] = new Ranchero(level, x, y);
+			return true;
 		case Entity.SON:
-			return npcs[Entity.SON] = new Son(level, x, y);
+			npcs[Entity.SON] = new Son(level, x, y);
+			return true;
 		case Entity.WIFE:
-			return npcs[Entity.WIFE] = new Wife(level, x, y);
+			npcs[Entity.WIFE] = new Wife(level, x, y);
+			return true;
 		case Entity.ZORRA:
-			return npcs[Entity.ZORRA] = new Zorra(level, x, y);
+			npcs[Entity.ZORRA] = new Zorra(level, x, y);
+			return true;
 		case Entity.COMPANION:
-			return npcs[Entity.COMPANION] = new Companion(level, x, y, null);
+			npcs[Entity.COMPANION] = new Companion(level, x, y, null);
+			return true;
 		case Entity.GAUCHO:
-			return npcs[Entity.GAUCHO] = new Gaucho(level, x, y);
+			npcs[Entity.GAUCHO] = new Gaucho(level, x, y);
+			return true;
 		case Entity.PANCHOMBRE:
-			return npcs[Entity.PANCHOMBRE] = new Panchombre(level, x, y);
-		
+			npcs[Entity.PANCHOMBRE] = new Panchombre(level, x, y);
+			return true;
+
 		}
-		return null;
+		return false;
 	}
 
 	public NPC make(int id) {
-		switch (id) {
-		case Entity.BAUTISTA:
-			return npcs[Entity.BAUTISTA];
-		case Entity.DAUGHTER:
-			return npcs[Entity.DAUGHTER];
-		case Entity.JESUS:
-			return npcs[Entity.JESUS];
-		case Entity.JOBS:
-			return npcs[Entity.JOBS];
-		case Entity.KNIGHT:
-			return npcs[Entity.KNIGHT];
-		case Entity.KOBE:
-			return npcs[Entity.KOBE];
-		case Entity.LORD_HILLSBOROUGH:
-			return npcs[Entity.LORD_HILLSBOROUGH];
-		case Entity.OCTAVIUS:
-			return npcs[Entity.OCTAVIUS];
-		case Entity.PEASANT:
-			return npcs[Entity.PEASANT];
-		case Entity.RANCHERO:
-			return npcs[Entity.RANCHERO];
-		case Entity.SON:
-			return npcs[Entity.SON];
-		case Entity.WIFE:
-			return npcs[Entity.WIFE];
-		case Entity.ZORRA:
-			return npcs[Entity.ZORRA];
-		case Entity.COMPANION:
-			return npcs[Entity.COMPANION];
-		case Entity.GAUCHO:
-			return npcs[Entity.GAUCHO];
-		case Entity.PANCHOMBRE:
-			return npcs[Entity.PANCHOMBRE];
-		
+		if (id >= 0) {
+			return npcs[id];
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 }

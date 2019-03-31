@@ -26,12 +26,8 @@ import javajesus.gui.CreditsGUI;
 import javajesus.gui.PlayerCreationGUI;
 import javajesus.items.Item;
 import javajesus.level.Level;
-import javajesus.level.LevelTester;
+import javajesus.level.LevelFactory;
 import javajesus.level.RandomLevel;
-import javajesus.level.RoadLevel;
-import javajesus.level.sandbox.SandboxIslandLevel;
-import javajesus.level.sandbox.SandboxOriginalLevel;
-import javajesus.quest.factories.CharacterFactory;
 import javajesus.utility.Direction;
 import javajesus.utility.GameMode;
 
@@ -135,7 +131,6 @@ public class Launcher extends Canvas implements IGameLogic {
 	
 	// the display of this launcher
 	private JPanel display;
-	private CharacterFactory characterFactory;
 
 	/**
 	 * Constructor that creates the JFrame
@@ -156,8 +151,6 @@ public class Launcher extends Canvas implements IGameLogic {
 		// show the main display
 		cardLayout.show(display, MAIN);
 		
-		characterFactory = new CharacterFactory();
-		
 	}
 
 	/**
@@ -166,7 +159,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	public void init() throws Exception {
 		
 		// load the random level
-		level.generateLevel(characterFactory);
+		level.generateLevel();
 		
 		BufferedImage story_on, story_off, sandbox_on, sandbox_off, options_on, options_off, credits_on, credits_off,
 		        audio_on, audio_off, video_on, video_off,
@@ -424,7 +417,7 @@ public class Launcher extends Canvas implements IGameLogic {
 					running = false;
 
 					// start the game
-					new JavaJesus(mode, false, player, characterFactory);
+					new JavaJesus(mode, false, player);
 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -490,7 +483,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		
 		// load the level
 		if (!level.isLoaded()) {
-			level.generateLevel(characterFactory);
+			level.generateLevel();
 		}
 		
 		// Player to create
@@ -516,11 +509,14 @@ public class Launcher extends Canvas implements IGameLogic {
 	private Level getLevel(GameMode mode, int slot) {
 		
 		if (mode == GameMode.ADVENTURE) {
-			//Level.createStoryLevels();
-			//return LordHillsboroughsDomain.level;
 			return null;
 		} else {
-			return sandboxPanel.getLevel(slot);
+			
+			if (sandboxPanel.selected != SandboxPanel.RANDOM) {
+				return LevelFactory.make(sandboxPanel.name, slot);
+			} else {
+				return Launcher.level;
+			}
 		}
 		
 	}
@@ -829,32 +825,6 @@ public class Launcher extends Canvas implements IGameLogic {
 			update();
 			
 		}
-
-		/**
-		 * @return The level that was selected
-		 */
-		public Level getLevel(int slot) {
-
-			// get the right level
-			try {
-				switch (selected) {
-				case ORIGINAL:
-					return  SandboxOriginalLevel.alpha = new SandboxOriginalLevel(slot);
-				case ISLAND:
-					return new SandboxIslandLevel(slot);
-				case TILE_TESTER:
-					return new LevelTester(slot);
-				case ROAD_TESTER:
-					return new RoadLevel(slot);
-				case RANDOM:
-					return Launcher.level;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			return null;
-		}
 		
 		/**
 		 * Loops the levels around
@@ -874,19 +844,19 @@ public class Launcher extends Canvas implements IGameLogic {
 			// get the right name
 			switch (selected) {
 			case ORIGINAL:
-				name = "ALPHA";
+				name = LevelFactory.ALPHA;
 				break;
 			case ISLAND:
-				name = "Island";
+				name = LevelFactory.ISLAND;
 				break;
 			case TILE_TESTER:
-				name = "Tile Tester";
+				name = LevelFactory.TILE_TESTER;
 				break;
 			case ROAD_TESTER:
-				name = "Road Tester";
+				name = LevelFactory.ROAD_TESTER;
 				break;
 			case RANDOM:
-				name = "Random";
+				name = LevelFactory.RANDOM;
 				break;
 			}
 			

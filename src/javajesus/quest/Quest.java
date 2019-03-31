@@ -12,7 +12,7 @@ import javajesus.dataIO.JSONData;
 import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
 import javajesus.items.Item;
-import javajesus.quest.events.Event;
+import javajesus.quest.factories.EventFactory;
 import javajesus.quest.factories.QuestFactory;
 
 /*
@@ -208,7 +208,7 @@ public abstract class Quest {
 			int id = Integer.valueOf(trigger.substring(trigger.indexOf("_") + 1));
 
 			// trigger the event
-			Event.createEvent(id, giver.getLevel());
+			EventFactory.createEvent(id, giver.getLevel());
 
 		} else if (trigger.contains("GOTO")) {
 

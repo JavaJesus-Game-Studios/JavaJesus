@@ -25,7 +25,6 @@ import javajesus.graphics.Screen;
 import javajesus.level.tile.AnimatedTile;
 import javajesus.level.tile.Tile;
 import javajesus.level.tile.TileAdapter;
-import javajesus.quest.factories.CharacterFactory;
 import javajesus.utility.EntityComparator;
 import javajesus.utility.LevelText;
 
@@ -121,8 +120,8 @@ public abstract class Level {
 	/**
 	 * Fill in the level Tiles
 	 */
-	public void generateLevel(CharacterFactory cf) throws IOException {
-
+	public void generateLevel() throws IOException {
+		
 		// initialize tile array
 		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
 
@@ -136,7 +135,7 @@ public abstract class Level {
 			f.mkdirs();
 
 			// load the original files into memory
-			load(path, true, cf);
+			load(path, true);
 
 			// now save in the new folder
 			save(DIR + saveFile + "/" + name);
@@ -149,24 +148,27 @@ public abstract class Level {
 
 			// if it exists, load it
 			if (f.exists()) {
-				load(DIR + saveFile + "/" + name, false, cf);
+				load(DIR + saveFile + "/" + name, false);
 
 				// load from original, then save
 			} else {
 
 				// load the original files into memory
-				load(path, true, cf);
+				load(path, true);
 
 				// now save in the new folder
 				save(DIR + saveFile + "/" + name);
 			}
 		}
+		
+		// now add any non unique quest givers
+		CharacterFactoryFactory.make(this.getName()).setNonUniqueCharacters(this);
 	}
 
 	/**
 	 * Loads an image from the file
 	 */
-	private void load(String path, boolean classpath, CharacterFactory cf) throws IOException {
+	private void load(String path, boolean classpath) throws IOException {
 		
 		// files to load
 		InputStream level, entities;
@@ -184,7 +186,7 @@ public abstract class Level {
 		LevelData.load(level, levelTiles);
 
 		// load the entity data
-		EntityData.load(this, cf, entities);
+		EntityData.load(this, entities);
 	}
 	
 	/**

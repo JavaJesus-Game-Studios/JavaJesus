@@ -1,1 +1,21 @@
-{"InitialQuest":false,"QuestParts":[],"NPC_ID":0,"ObjectiveText":"This is a summary"}
+{
+  "InitialQuest": false,
+  "QuestParts": [
+    {
+      "PrevStateID": "",
+      "EndText": "",
+      "StateID": "0",
+      "EndTrigger": "",
+      "Response2": "",
+      "Response1": "",
+      "Response3": "",
+      "Triggers1": "",
+      "Triggers2": "",
+      "GiverText": "This is a broken quest",
+      "OutgoingStateID": "",
+      "ObjectiveText": "This is a broken quest",
+      "Triggers3": ""
+    }
+  ],
+  "NPC_ID": 257
+}

@@ -41,7 +41,7 @@ public abstract class Interior extends Level {
 	}
 	
 	@Override
-	public void generateLevel(CharacterFactory cf) throws IOException {
+	public void generateLevel() throws IOException {
 		
 		// initialize tile array
 		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
@@ -50,7 +50,7 @@ public abstract class Interior extends Level {
 		LevelData.load(Interior.class.getResourceAsStream(path), levelTiles);
 
 		// load the entity data
-		EntityData.load(this, cf, Interior.class.getResourceAsStream(path + ENTITY));
+		EntityData.load(this, Interior.class.getResourceAsStream(path + ENTITY));
 
 		// add all the transporters
 		for (Transporter t : getTransporters()) {

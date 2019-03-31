@@ -1,5 +1,5 @@
 {
-  "InitialQuest": false,
+  "InitialQuest": true,
   "QuestParts": [
     {
       "PrevStateID": "10",
@@ -211,5 +211,5 @@
       "Triggers3": ""
     }
   ],
-  "NPC_ID": 0
+  "NPC_ID": 256
 }

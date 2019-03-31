@@ -33,7 +33,9 @@ import javajesus.entities.monsters.GangMember;
 import javajesus.entities.monsters.Monkey;
 import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.npcs.Citizen;
+import javajesus.entities.npcs.Peasant;
 import javajesus.entities.npcs.aggressive.Gorilla;
+import javajesus.entities.npcs.aggressive.Knight;
 import javajesus.entities.npcs.aggressive.NativeAmerican;
 import javajesus.entities.npcs.aggressive.Orangutan;
 import javajesus.entities.npcs.aggressive.PoliceOfficer;
@@ -132,6 +134,7 @@ import javajesus.entities.vehicles.CenturyLeSabre;
 import javajesus.entities.vehicles.Horse;
 import javajesus.entities.vehicles.SportsCar;
 import javajesus.entities.vehicles.Truck;
+import javajesus.level.CharacterFactoryFactory;
 import javajesus.level.Level;
 import javajesus.quest.factories.CharacterFactory;
 
@@ -247,7 +250,7 @@ public class EntityData {
 	 * @param fileData - the file stream to load
 	 * @throws IOException
 	 */
-	public static final void load(Level level, CharacterFactory cf, InputStream fileData) throws IOException {
+	public static final void load(Level level, InputStream fileData) throws IOException {
 		
 		// create an input stream for entities
 		BufferedInputStream is = new BufferedInputStream(fileData);
@@ -271,7 +274,7 @@ public class EntityData {
 			byte type = data[8];
 			
 			// construct the entity
-			Entity e = getEntity(id, level, x, y, cf);
+			Entity e = getEntity(id, level, x, y);
 			
 			// set health data
 			if (e instanceof Damageable) {
@@ -325,12 +328,18 @@ public class EntityData {
 	 * @param id - the ID in the save file
 	 * @return the entity based on the ID
 	 */
-	public static final Entity getEntity(int id, Level level, short x, short y, CharacterFactory characterFactory) {
+	public static final Entity getEntity(int id, Level level, short x, short y) {
 
 		try {
-			
-			if (characterFactory != null && characterFactory.setAndMake(level, id, x, y) != null) {
-				return characterFactory.make(id);
+
+			CharacterFactory characterFactory = CharacterFactoryFactory.make(level.getName());
+			if (characterFactory != null) {
+				if (!characterFactory.created(id)) {
+					characterFactory.set(level, id, x, y);
+				}
+				if (characterFactory.created(id)) {
+					return characterFactory.make(id);
+				}
 			}
 			
 		    switch (id) {
@@ -574,6 +583,10 @@ public class EntityData {
 				return new TechWarrior(level, x, y);
 			case Entity.CITIZEN:
 				return new Citizen(level, x, y, Citizen.MALE);
+			case Entity.PEASANT:
+				return new Peasant(level, x, y, Peasant.MALE);
+			case Entity.KNIGHT:
+				return new Knight(level, x, y);
 	        default:
 	        	System.err.println("CRITICAL ERROR! CRITICAL ERROR! SAVING NULL ENTITY: " + id);
 	        	System.err.println("MAKE SURE TO ADD ENTITY CASE IN ENTITYDATA.JAVA IN DATAIO");
