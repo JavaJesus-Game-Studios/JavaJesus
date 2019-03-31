@@ -89,13 +89,12 @@ public class DataView implements ActionListener {
 		modifyNode = new JButton("Modify Part");
 		modifyNode.addActionListener(this);
 
-		Dimension d = new Dimension(50, 15);
 		currentState = new JJTextArea("");
-		currentState.setPreferredSize(d);
+		currentState.setPreferredSize(new Dimension(15, 15));
 		previousState = new JJTextArea("");
-		previousState.setPreferredSize(d);
+		previousState.setPreferredSize(new Dimension(75, 15));
 		futureState = new JJTextArea("");
-		futureState.setPreferredSize(d);
+		futureState.setPreferredSize(new Dimension(50, 15));
 
 		giverDialogue = new JJTextArea("");
 		objectiveSummary = new JJTextArea("");

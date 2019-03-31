@@ -137,6 +137,10 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 
 	}
 
+	private String getId(String parent, String child) {
+		return parent + child + child + parent;
+	}
+
 	@Override
 	public void onLoaded(JSONObject data) {
 
@@ -150,15 +154,59 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 			dView.nodeLoaded(gView.addNode(child), obj);
 
 			String rawParents = (String) obj.get(QuestDataBuilder.PREV_STATE_ID);
-			String[] parents = rawParents.split(",");
-			for (int j = 0; j < parents.length; j++) {
-				String parent = parents[j].trim();
+			if (rawParents != null) {
+				String[] parents = rawParents.split(",");
+				for (int j = 0; j < parents.length; j++) {
+					String parent = parents[j].trim();
 
-				if (!parent.isEmpty() && !gView.nodeExists(parent)) {
-					dView.nodeLoaded(gView.addNode(parent), obj);
+					if (!parent.isEmpty() && !gView.nodeExists(parent)) {
+						
+						// find the parent object
+						JSONObject other = obj;
+						for (int k = 0; k < array.size(); k++) {
+							JSONObject o = (JSONObject) array.get(k);
+							String state = (String) o.get(QuestDataBuilder.STATE_ID);
+							if (state != null && state.equals(parent)) {
+								other = o;
+								break;
+							}
+						}
+						
+						dView.nodeLoaded(gView.addNode(parent), other);
+					}
+
+					if (!parent.isEmpty() && !gView.edgeExists(getId(parent, child))) {
+						gView.addEdge(getId(parent, child), parent, child);
+					}
 				}
+			}
 
-				gView.addEdge(parent + child, parent, child);
+			String rawFuture = (String) obj.get(QuestDataBuilder.FUT_STATE_ID);
+			if (rawFuture != null) {
+				String[] outgoing = rawFuture.split(",");
+				for (int j = 0; j < outgoing.length; j++) {
+					String cchild = outgoing[j].trim();
+
+					if (!cchild.isEmpty() && !gView.nodeExists(cchild)) {
+						
+						// find the cchild object
+						JSONObject other = obj;
+						for (int k = 0; k < array.size(); k++) {
+							JSONObject o = (JSONObject) array.get(k);
+							String state = (String) o.get(QuestDataBuilder.STATE_ID);
+							if (state != null && state.equals(cchild)) {
+								other = o;
+								break;
+							}
+						}
+						
+						dView.nodeLoaded(gView.addNode(cchild), other);
+					}
+
+					if (!cchild.isEmpty() && !gView.edgeExists(getId(child, cchild))) {
+						gView.addEdge(getId(child, cchild), child, cchild);
+					}
+				}
 			}
 
 		}
@@ -178,9 +226,12 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 			if (!parent.isEmpty() && !gView.nodeExists(parent)) {
 				dView.nodeLoaded(gView.addNode(parent));
 			}
-			gView.addEdge(parent + current, parent, current);
+
+			if (!parent.isEmpty() && !gView.edgeExists(getId(parent, current))) {
+				gView.addEdge(getId(parent, current), parent, current);
+			}
 		}
-		
+
 		String[] outgoing = future.split(",");
 		for (int j = 0; j < outgoing.length; j++) {
 			String child = outgoing[j].trim();
@@ -191,7 +242,10 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 			if (!child.isEmpty() && !gView.nodeExists(child)) {
 				dView.nodeLoaded(gView.addNode(child));
 			}
-			gView.addEdge(current + child, current, child);
+
+			if (!child.isEmpty() && !gView.edgeExists(getId(current, child))) {
+				gView.addEdge(getId(current, child), current, child);
+			}
 		}
 
 	}
@@ -215,9 +269,11 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 			if (!parent.isEmpty() && !gView.nodeExists(parent)) {
 				dView.nodeLoaded(gView.addNode(parent));
 			}
-			gView.addEdge(parent + current, parent, current);
+			if (!parent.isEmpty() && !gView.edgeExists(getId(parent, current))) {
+				gView.addEdge(getId(parent, current), parent, current);
+			}
 		}
-		
+
 		String[] outgoing = future.split(",");
 		gView.removeLeavingEdges(current);
 		for (int j = 0; j < outgoing.length; j++) {
@@ -229,7 +285,9 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 			if (!child.isEmpty() && !gView.nodeExists(child)) {
 				dView.nodeLoaded(gView.addNode(child));
 			}
-			gView.addEdge(current + child, current, child);
+			if (!child.isEmpty() && !gView.edgeExists(getId(current, child))) {
+				gView.addEdge(getId(current, child), current, child);
+			}
 		}
 
 	}

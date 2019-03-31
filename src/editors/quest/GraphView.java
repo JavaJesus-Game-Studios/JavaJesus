@@ -81,6 +81,10 @@ public class GraphView {
 		}
 	}
 	
+	public boolean edgeExists(String id) {
+		return graph.getEdge(id) != null;
+	}
+	
 	public void removeEnteringEdges(String id) {
 		Node n = graph.getNode(id);
 		while (n.getEachEnteringEdge().iterator().hasNext()) {
