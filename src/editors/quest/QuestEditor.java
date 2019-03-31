@@ -162,7 +162,7 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 					if (!parent.isEmpty() && !gView.nodeExists(parent)) {
 						
 						// find the parent object
-						JSONObject other = obj;
+						JSONObject other = null;
 						for (int k = 0; k < array.size(); k++) {
 							JSONObject o = (JSONObject) array.get(k);
 							String state = (String) o.get(QuestDataBuilder.STATE_ID);
@@ -170,6 +170,11 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 								other = o;
 								break;
 							}
+						}
+						
+						if (other == null) {
+							System.err.println("Node " + parent + " doesn't exist!");
+							continue;
 						}
 						
 						dView.nodeLoaded(gView.addNode(parent), other);
@@ -190,7 +195,7 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 					if (!cchild.isEmpty() && !gView.nodeExists(cchild)) {
 						
 						// find the cchild object
-						JSONObject other = obj;
+						JSONObject other = null;
 						for (int k = 0; k < array.size(); k++) {
 							JSONObject o = (JSONObject) array.get(k);
 							String state = (String) o.get(QuestDataBuilder.STATE_ID);
@@ -198,6 +203,11 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 								other = o;
 								break;
 							}
+						}
+						
+						if (other == null) {
+							System.err.println("Node " + cchild + " doesn't exist!");
+							continue;
 						}
 						
 						dView.nodeLoaded(gView.addNode(cchild), other);
