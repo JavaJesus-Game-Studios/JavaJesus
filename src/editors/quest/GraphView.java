@@ -89,6 +89,14 @@ public class GraphView {
 		}
 	}
 	
+	public void removeLeavingEdges(String id) {
+		Node n = graph.getNode(id);
+		while (n.getEachLeavingEdge().iterator().hasNext()) {
+			Edge e = n.getEachLeavingEdge().iterator().next();
+			graph.removeEdge(e);
+		}
+	}
+	
 	public Iterator<Node> getNodes() {
 		return graph.getNodeIterator();
 	}

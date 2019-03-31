@@ -48,7 +48,6 @@ public abstract class Quest {
 	private Player player;
 
 	public boolean initialQuest;
-	private String objectiveSummary;
 	private QuestFactory questFactory;
 
 	/**
@@ -77,7 +76,6 @@ public abstract class Quest {
 
 		// intiial, objective, giver
 		this.initialQuest = (boolean) data.get(QuestDataBuilder.INITIAL_QUEST);
-		this.objectiveSummary = (String) data.get(QuestDataBuilder.KEY_OBJECTIVE);
 		this.giverId = (int) ((long) data.get(QuestDataBuilder.NPC_ID));
 
 		this.questParts = new HashMap<>();

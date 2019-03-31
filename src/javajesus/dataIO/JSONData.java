@@ -8,11 +8,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import editors.quest.QuestDataBuilder;
 
@@ -24,13 +30,18 @@ public class JSONData {
 	 * @param path  - the path to the file
 	 * @param array - the array to save
 	 */
-	public static final void save(String path, JSONObject array) {
+	public static final void save(String path, JSONObject obj) {
 
 		// open the output stream
 		try (BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(path))))) {
+			
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			JsonParser jp = new JsonParser();
+			JsonElement je = jp.parse(obj.toJSONString());
+			String prettyJsonString = gson.toJson(je);
 
 			// now write the JSON Array
-			out.write(array.toJSONString());
+			out.write(prettyJsonString);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -57,6 +68,8 @@ public class JSONData {
 			
 			// this is temporary code to deal with porting over old quests to the new quests
 			JSONArray array = (JSONArray) obj.get(QuestDataBuilder.QUEST_PARTS);
+			HashMap<String, JSONObject> map = new HashMap<>();
+			
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject next = (JSONObject) array.get(i);
 				String parent = (String) next.get(QuestDataBuilder.PREV_STATE_ID);
@@ -73,6 +86,16 @@ public class JSONData {
 					next.put(QuestDataBuilder.STATE_ID, String.valueOf(i));
 				}
 				
+			}
+			
+			for (int i = 0; i < array.size(); i++) {
+				JSONObject next = (JSONObject) array.get(i);
+				
+				String dialogue = (String) next.get(QuestDataBuilder.KEY_GIVER);
+				if (dialogue == null || dialogue.isEmpty()) {
+					array.remove(i--);
+					continue;
+				}
 			}
 
 			// return the array
