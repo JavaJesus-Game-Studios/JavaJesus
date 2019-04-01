@@ -17,18 +17,19 @@
       "Triggers3": "GOTO_3"
     },
     {
-      "Triggers1": "ACCEPT, EXIT",
-      "Triggers2": "ACCEPT, EXIT",
       "PrevStateID": "0",
-      "GiverText": "To the South! Hurry! ¡Y Gracias!",
       "EndText": "Gracias! Gracias! Here, take my family\u0027s sword, you have earned it!",
       "StateID": "1",
-      "EndTrigger": "ADD_12, TRIGGER_0",
-      "ObjectiveText": "Clear the village to the south of Demons",
+      "EndTrigger": "ADD_12, TRIGGER_0, START_6",
       "Response2": "",
       "Response1": "No problem, I\u0027m on my way.",
-      "Triggers3": "ACCEPT, EXIT",
-      "Response3": ""
+      "Response3": "",
+      "Triggers1": "ACCEPT, EXIT",
+      "Triggers2": "ACCEPT, EXIT",
+      "GiverText": "To the South! Hurry! ¡Y Gracias!",
+      "OutgoingStateID": "",
+      "ObjectiveText": "Clear the village to the south of Demons",
+      "Triggers3": "ACCEPT, EXIT"
     },
     {
       "PrevStateID": "0",
@@ -132,5 +133,6 @@
       "Response3": ""
     }
   ],
-  "NPC_ID": 19
+  "NPC_ID": 19,
+  "LevelID": 8
 }

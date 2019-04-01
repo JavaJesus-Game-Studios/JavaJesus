@@ -27,7 +27,7 @@ public class SwatOfficerEvent extends Event {
 		// TODO put in correct coordinates and quest
 		SWATOfficer officer2 = new  SWATOfficer(level, 1488, 16);
 		
-		CharacterFactory cf = CharacterFactoryFactory.make(level.getName());
+		CharacterFactory cf = CharacterFactoryFactory.make(level.getLevelId());
 		
 		SWATOfficer officer = (SWATOfficer) cf.make(AlphaCharacterFactory.OFFICER);
 		

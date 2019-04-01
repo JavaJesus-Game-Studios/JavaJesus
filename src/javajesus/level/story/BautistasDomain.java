@@ -18,7 +18,7 @@ public class BautistasDomain extends Level {
 	 * @throws IOException 
 	 */
 	public BautistasDomain(int slot) throws IOException {
-		super("/WORLD_DATA/STORY_DATA/(X)CITY_LEVELS/Domain_of_Ranchero_Bautista.png", LevelFactory.BAUTISTA, new Point(2896, 64), slot);
+		super("/WORLD_DATA/STORY_DATA/(X)CITY_LEVELS/Domain_of_Ranchero_Bautista.png", "Bautista's Domain", new Point(2896, 64), slot, LevelFactory.BAUTISTA);
 
 		System.err.println("Creating Bautistas Domain");
 	}

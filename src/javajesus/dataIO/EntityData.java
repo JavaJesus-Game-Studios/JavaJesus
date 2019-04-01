@@ -332,7 +332,7 @@ public class EntityData {
 
 		try {
 
-			CharacterFactory characterFactory = CharacterFactoryFactory.make(level.getName());
+			CharacterFactory characterFactory = CharacterFactoryFactory.make(level.getLevelId());
 			if (characterFactory != null) {
 				if (!characterFactory.created(id)) {
 					characterFactory.set(level, id, x, y);

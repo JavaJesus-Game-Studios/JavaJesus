@@ -48,7 +48,12 @@ public abstract class Quest {
 	private Player player;
 
 	public boolean initialQuest;
-	private QuestFactory questFactory;
+	
+	// whether or not the quest should start when giver is loaded
+	private boolean startOnLoad;
+	
+	// levelid of the giver of the quest
+	private int levelId;
 
 	/**
 	 * Quest ctor() Creates a quest object that loads information from a .json file
@@ -77,6 +82,7 @@ public abstract class Quest {
 		// intiial, objective, giver
 		this.initialQuest = (boolean) data.get(QuestDataBuilder.INITIAL_QUEST);
 		this.giverId = (int) ((long) data.get(QuestDataBuilder.NPC_ID));
+		this.levelId = (int) ((long) data.get(QuestDataBuilder.LEVEL_ID));
 
 		this.questParts = new HashMap<>();
 		JSONArray arr = (JSONArray) data.get(QuestDataBuilder.QUEST_PARTS);
@@ -87,10 +93,6 @@ public abstract class Quest {
 
 	}
 	
-	public void setQuestFactory(QuestFactory questFactory) {
-		this.questFactory = questFactory;
-	}
-
 	/**
 	 * @return - the dialogue for the quest
 	 */
@@ -172,6 +174,17 @@ public abstract class Quest {
 			doAction(trig);
 		}
 	}
+	
+	public void load(NPC giver) {
+		this.giver = giver;
+		if (startOnLoad || initialQuest) {
+			giver.addQuest(this);
+		}
+	}
+	
+	public int getLevelId() {
+		return this.levelId;
+	}
 
 	/**
 	 * @param trigger - key of the trigger action
@@ -185,8 +198,12 @@ public abstract class Quest {
 			int id = Integer.valueOf(trigger.substring(trigger.indexOf("_") + 1));
 
 			// create and add the quest based on the ID
-			Quest q = questFactory.makeQuest(id);
-			q.giver.addQuest(q);
+			Quest q = QuestFactory.makeQuest(id);
+			if (q.giver == null) {
+				q.startOnLoad = true;
+			} else {
+				q.giver.addQuest(q);
+			}
 
 			// exits from dialogue
 		} else if (trigger.contains("EXIT")) {

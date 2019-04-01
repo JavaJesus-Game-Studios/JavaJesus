@@ -38,7 +38,7 @@ public class DataView implements ActionListener {
 	private final JLabel fileLabel;
 	private final JJTextArea giverDialogue, objectiveSummary, response1, response2, response3, response1Triggers,
 			response2Triggers, response3Triggers, endDialogue, endTriggers, npcGiver, currentState, previousState,
-			futureState;
+			futureState, levelId;
 	private final JCheckBox initial;
 
 	// gets the top level directory
@@ -107,7 +107,9 @@ public class DataView implements ActionListener {
 		endDialogue = new JJTextArea("");
 		endTriggers = new JJTextArea("");
 		npcGiver = new JJTextArea("");
-		npcGiver.setPreferredSize(new Dimension(200, 15));
+		npcGiver.setPreferredSize(new Dimension(60, 15));
+		levelId = new JJTextArea("");
+		levelId.setPreferredSize(new Dimension(60, 15));
 
 		initial = new JCheckBox("First NPC quest?");
 
@@ -142,7 +144,10 @@ public class DataView implements ActionListener {
 
 		JPanel rightTop = new JPanel();
 		rightTop.add(new JLabel("NPC Giver ID:"));
-		rightTop.add(aligned(npcGiver, initial));
+		rightTop.add(npcGiver);
+		rightTop.add(new JLabel("Level ID:"));
+		rightTop.add(levelId);
+		rightTop.add(initial);
 		rightSide.add(rightTop);
 		rightSide.add(new JSeparator(SwingConstants.HORIZONTAL));
 
@@ -258,6 +263,7 @@ public class DataView implements ActionListener {
 
 						initial.setSelected((boolean) data.get(QuestDataBuilder.INITIAL_QUEST));
 						npcGiver.setText(String.valueOf(data.get(QuestDataBuilder.NPC_ID)));
+						levelId.setText(String.valueOf(data.get(QuestDataBuilder.LEVEL_ID)));
 
 						builder.setQuestPartArray((JSONArray) data.get(QuestDataBuilder.QUEST_PARTS));
 						id = 0;
@@ -273,6 +279,7 @@ public class DataView implements ActionListener {
 
 			builder.setNPCFirstQuest(initial.isSelected());
 			builder.setQuestGiver(Integer.valueOf(npcGiver.getText()));
+			builder.setLevelId(Integer.valueOf(levelId.getText()));
 
 			// now write it to the file
 			JSONData.save(filePath, builder.build());

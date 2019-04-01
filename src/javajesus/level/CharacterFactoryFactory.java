@@ -2,20 +2,21 @@ package javajesus.level;
 
 import java.util.HashMap;
 
+import javajesus.quest.factories.AlphaCaveCharacterFactory;
 import javajesus.quest.factories.AlphaCharacterFactory;
 import javajesus.quest.factories.CharacterFactory;
 
 public class CharacterFactoryFactory {
-	private static HashMap<String, CharacterFactory> factoryMap = new HashMap<>();
+	private static HashMap<Integer, CharacterFactory> factoryMap = new HashMap<>();
 
-	public static CharacterFactory make(String levelName) {
+	public static CharacterFactory make(int levelId) {
 
-		if (factoryMap.get(levelName) != null) {
-			return factoryMap.get(levelName);
+		if (factoryMap.get(levelId) != null) {
+			return factoryMap.get(levelId);
 		}
 
 		CharacterFactory cf = null;
-		switch (levelName) {
+		switch (levelId) {
 		case LevelFactory.BAUTISTA:
 		case LevelFactory.EDGE_MAIN:
 		case LevelFactory.EDGE_TOP:
@@ -27,12 +28,15 @@ public class CharacterFactoryFactory {
 		case LevelFactory.ALPHA:
 			cf = new AlphaCharacterFactory();
 			break;
+		case LevelFactory.ALPHA_CAVE_INTERIOR:
+			cf = new AlphaCaveCharacterFactory();
+			break;
 		case LevelFactory.ISLAND:
 		case LevelFactory.TILE_TESTER:
 		case LevelFactory.ROAD_TESTER:
 		}
 
-		factoryMap.put(levelName, cf);
+		factoryMap.put(levelId, cf);
 		return cf;
 
 	}

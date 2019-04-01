@@ -21,7 +21,7 @@ public class SandboxOriginalLevel extends Level {
 	 * @throws IOException 
 	 */
 	public SandboxOriginalLevel(int slot) throws IOException {
-		super("/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/original", LevelFactory.ALPHA, new Point(1472, 24), slot);
+		super("/WORLD_DATA/SANDBOX_DATA/TEST_LEVELS/original", "Alpha Level", new Point(1472, 24), slot, LevelFactory.ALPHA);
 		
 	}
 	/**

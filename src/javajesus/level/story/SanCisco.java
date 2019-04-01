@@ -16,7 +16,7 @@ public class SanCisco extends Level {
 	 * @throws IOException 
 	 */
 	public SanCisco(int slot) throws IOException {
-		super("/WORLD_DATA/STORY_DATA/(X)CITY_LEVELS/San_Cisco.png", LevelFactory.CISCO, new Point(3400, 2688), slot);
+		super("/WORLD_DATA/STORY_DATA/(X)CITY_LEVELS/San_Cisco.png", "San Cisco", new Point(3400, 2688), slot, LevelFactory.CISCO);
 
 		System.err.println("Creating San Cisco");
 	}

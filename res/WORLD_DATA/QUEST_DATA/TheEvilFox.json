@@ -137,5 +137,6 @@
       "Response3": "Cool, by the way I may kill you when I get back."
     }
   ],
-  "NPC_ID": 12
+  "NPC_ID": 12,
+  "LevelID": 8
 }

@@ -398,5 +398,6 @@
       "Response3": ""
     }
   ],
-  "NPC_ID": 0
+  "NPC_ID": 256,
+  "LevelID": 13
 }

@@ -13,7 +13,7 @@ public class TechTopia extends Level {
 	 * @throws IOException 
 	 */
 	public TechTopia(int slot) throws IOException {
-		super("/WORLD_DATA/STORY_DATA/(X)CITY_LEVELS/Tech_Topia.png", LevelFactory.TECH, new Point(1512, 584), slot);
+		super("/WORLD_DATA/STORY_DATA/(X)CITY_LEVELS/Tech_Topia.png", "Tech Topia", new Point(1512, 584), slot, LevelFactory.TECH);
 
 		System.err.println("Creating Tech Topia");
 	}

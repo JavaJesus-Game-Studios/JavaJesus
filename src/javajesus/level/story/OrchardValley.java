@@ -13,7 +13,7 @@ public class OrchardValley extends Level {
 	 * @throws IOException 
 	 */
 	public OrchardValley(int slot) throws IOException {
-		super("/WORLD_DATA/STORY_DATA/(X)WILDERNESS_AREA/Orchard_Valley.png", LevelFactory.ORCHARD, new Point(136, 1816), slot);
+		super("/WORLD_DATA/STORY_DATA/(X)WILDERNESS_AREA/Orchard_Valley.png", "Orchard Valley", new Point(136, 1816), slot, LevelFactory.ORCHARD);
 
 		System.err.println("Creating Orchard Valley");
 

@@ -211,5 +211,6 @@
       "Triggers3": ""
     }
   ],
-  "NPC_ID": 256
+  "NPC_ID": 256,
+  "LevelID": 8
 }

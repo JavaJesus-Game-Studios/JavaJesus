@@ -13,7 +13,7 @@ public class EdgeOfTheWoods extends Level {
 	 * @throws IOException 
 	 */
 	public EdgeOfTheWoods(int slot) throws IOException {
-		super("/WORLD_DATA/STORY_DATA/(X)WILDERNESS_AREA/Edge_of_the_Woods_Main.png", LevelFactory.EDGE_MAIN, new Point(2704, 552), slot);
+		super("/WORLD_DATA/STORY_DATA/(X)WILDERNESS_AREA/Edge_of_the_Woods_Main.png", "Edge of the Woods", new Point(2704, 552), slot, LevelFactory.EDGE_MAIN);
 
 		System.err.println("Creating Edge Of The Woods");
 	}

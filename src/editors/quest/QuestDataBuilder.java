@@ -11,7 +11,7 @@ public class QuestDataBuilder {
 			KEY_RESPONSE2 = "Response2", KEY_RESPONSE3 = "Response3", KEY_TRIGGERS1 = "Triggers1", PREV_STATE_ID = "PrevStateID",
 			KEY_TRIGGERS2 = "Triggers2", KEY_TRIGGERS3 = "Triggers3", KEY_END = "EndText", QUEST_PARTS="QuestParts",
 			KEY_END_TRIGGER = "EndTrigger", NPC_ID = "NPC_ID", INITIAL_QUEST = "InitialQuest", STATE_ID = "StateID",
-			FUT_STATE_ID = "OutgoingStateID";
+			FUT_STATE_ID = "OutgoingStateID", LEVEL_ID ="LevelID";
 	
 	private JSONObject main;
 	private JSONArray questParts;
@@ -23,6 +23,11 @@ public class QuestDataBuilder {
 	
 	public QuestDataBuilder setQuestGiver(int giver) {
 		main.put(NPC_ID, giver);
+		return this;
+	}
+	
+	public QuestDataBuilder setLevelId(int id) {
+		main.put(LEVEL_ID, id);
 		return this;
 	}
 	

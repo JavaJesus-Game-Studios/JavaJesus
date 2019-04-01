@@ -367,5 +367,6 @@
       "Response3": ""
     }
   ],
-  "NPC_ID": 0
+  "NPC_ID": 12,
+  "LevelID": 8
 }

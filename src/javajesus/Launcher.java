@@ -513,7 +513,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		} else {
 			
 			if (sandboxPanel.selected != SandboxPanel.RANDOM) {
-				return LevelFactory.make(sandboxPanel.name, slot);
+				return LevelFactory.make(sandboxPanel.levelId, slot);
 			} else {
 				return Launcher.level;
 			}
@@ -800,6 +800,8 @@ public class Launcher extends Canvas implements IGameLogic {
 		// Text to render
 		private String name;
 		
+		private int levelId;
+		
 		// back and next arrows
 		private final String back = "<", next = ">";
 		
@@ -844,19 +846,24 @@ public class Launcher extends Canvas implements IGameLogic {
 			// get the right name
 			switch (selected) {
 			case ORIGINAL:
-				name = LevelFactory.ALPHA;
+				name = "The Alpha Level";
+				levelId = LevelFactory.ALPHA;
 				break;
 			case ISLAND:
-				name = LevelFactory.ISLAND;
+				name = "The Island Level";
+				levelId = LevelFactory.ISLAND;
 				break;
 			case TILE_TESTER:
-				name = LevelFactory.TILE_TESTER;
+				name = "The Tile Tester";
+				levelId = LevelFactory.TILE_TESTER;
 				break;
 			case ROAD_TESTER:
-				name = LevelFactory.ROAD_TESTER;
+				name = "The Road Tester";
+				levelId = LevelFactory.ROAD_TESTER;
 				break;
 			case RANDOM:
-				name = LevelFactory.RANDOM;
+				name = "The Random Level";
+				levelId = LevelFactory.RANDOM;
 				break;
 			}
 			

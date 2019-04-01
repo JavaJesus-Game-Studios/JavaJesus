@@ -28,13 +28,8 @@ import javajesus.graphics.Screen;
 import javajesus.gui.DialogueGUI;
 import javajesus.gui.OverviewGUI;
 import javajesus.gui.PauseGUI;
-import javajesus.level.CharacterFactoryFactory;
-import javajesus.level.LevelFactory;
 import javajesus.level.RandomCave;
 import javajesus.level.tile.Tile;
-import javajesus.quest.QuestCharacterLevelMediator;
-import javajesus.quest.factories.AlphaQuestFactory;
-import javajesus.quest.factories.QuestFactory;
 import javajesus.utility.GameMode;
 import javajesus.utility.JJStrings;
 
@@ -208,16 +203,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		
 		MessageHandler.initialize();
 		
-		QuestFactory questFactory = null;
-		switch (player.getLevel().getName()) {
-			case LevelFactory.ALPHA: questFactory = new AlphaQuestFactory(); break;
-			case LevelFactory.HILLSBOROUGH: break;
-		}
-		
-		// initialize quests
-		QuestCharacterLevelMediator mediator = new QuestCharacterLevelMediator(questFactory, CharacterFactoryFactory.make(player.getLevel().getName()), player.getLevel());
-		mediator.initializeQuests();
-
 		// do game initializations from save files
 		if (load) {
 			
