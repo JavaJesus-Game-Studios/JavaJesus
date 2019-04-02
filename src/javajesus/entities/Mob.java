@@ -3,6 +3,7 @@ package javajesus.entities;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import javajesus.ai.AIManager;
 import javajesus.dataIO.EntityData;
 import javajesus.entities.particles.HealthBar;
 import javajesus.graphics.JJFont;
@@ -547,7 +548,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 				
 				// change in x and y
 				int dx = 0, dy = 0;
-
+				
 				if (path.next().getDestination().getX() > getX()) {
 					dx++;
 				} else if (path.next().getDestination().getX() < getX()) {
@@ -955,9 +956,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 */
 	public void createHealthBar() {
 		bar = new HealthBar(getLevel(), getX(), getY() + (int) getBounds().getHeight() + 2, this);
-		getLevel().add(bar);
 	}
-
+	
 	/**
 	 * @return the tile the mob is on
 	 */
@@ -1004,6 +1004,11 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * @param dest - destination mob
 	 */
 	public void setPath(Mob dest) {
+		/*if (dest instanceof Player) {
+			this.path = new Path(new Script((Player) dest, AIManager.bestPointToMoveTo(this)));
+		} else {
+			
+		}*/
 		this.path = new Path(this, dest);
 	}
 	

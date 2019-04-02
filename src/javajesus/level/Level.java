@@ -20,6 +20,8 @@ import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.entities.SolidEntity;
+import javajesus.entities.monsters.Monster;
+import javajesus.entities.npcs.NPC;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.AnimatedTile;
@@ -444,6 +446,20 @@ public abstract class Level {
 
 		return tiles;
 	}
+	
+	public int getVisibleTileIndexFromTileCoord(int xTile, int yTile, Screen screen) {
+		// iterate through list of tiles
+		int index = 0;
+		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
+			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
+				if (xTile == x && yTile == y) {
+					return index;
+				}
+				index++;
+			}
+		}
+		return -1;
+	}
 
 	public int getNumXTilesOnScreen(Screen screen) {
 		return ((xOffset + screen.getWidth() >> 3) + 1) - (xOffset >> 3);
@@ -475,6 +491,10 @@ public abstract class Level {
 
 		if (entity instanceof Mob) {
 			mobs.add((Mob) entity);
+			
+			if (entity instanceof Monster || entity instanceof NPC) {
+				entities.add(((Mob) entity).getHealthBar());
+			}
 		}
 		if (entity instanceof Damageable) {
 			damageables.add((Damageable) entity);
