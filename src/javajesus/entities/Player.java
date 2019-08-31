@@ -125,7 +125,6 @@ public class Player extends Mob implements Type {
 		inventory = new Inventory();
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
-		this.gender = gender;
 		this.collisionImmune = true;
 		
 		// use the female spritesheet if female
@@ -661,202 +660,116 @@ public class Player extends Mob implements Type {
 		//Handles the Player when they have a sword equipped
 		if (equippedSword != null) {
 			yTile = equippedSword.getYSwingOffset();
-			//Rendering For the ShortSword
+			//Rendering for walking with a sword
 			if(!isSwinging) {
 				if(getDirection() == Direction.NORTH) {
 					if(isMoving) {
-						//varies between the two walking sprites
-						if(equippedSword == Item.shortSword) {
-							xTile = 43;
-							xTile += (flip ? 2 : 0);
-							flip = false;
-						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
-								|| equippedSword == Item.kingSword) {
-							xTile = 47;
-							xTile += (flip ? 2 : 0);
-							flip = false;
-						}else if (equippedSword == Item.sabre) {
-							xTile = 45;
-							xTile += (flip ? 2 : 0);
-							flip = false;
-						}else if( equippedSword == Item.claymore ){
-							xTile = 60;
-							xTile += (flip ? 2 : 0);
-							flip = false;
-						}
+						//varies between the two walking sprites, every sword has the same offsets
+						xTile = 58;
+						xTile += (flip ? 2 : 0);
+						flip = false;
 					}
 					if(!isMoving) {
-						//varies between the two walking sprites
-						if(equippedSword == Item.shortSword) {
-							xTile = 41;
-							xTile += ((tickCount % 120 <= 60) ? 10 : 0);
-						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
-								|| equippedSword == Item.kingSword) {
-							xTile = 45;
-							xTile += ((tickCount % 120 <= 60) ? 11 : 0); // Handles Breath animation
-						}else if ( equippedSword == Item.sabre ) {
-							xTile = 43;
-							xTile += ((tickCount % 120 <= 60) ? 10 : 0);
-						}else if ( equippedSword == Item.claymore ){
-							xTile = 58;
-							xTile = ((tickCount % 120 <= 60) ? 62 : 58);
-							yTile += ((tickCount % 120 <= 60) ? 4 : 0);
-						}
+						//varies between standing and head bob sprite to give illusion of breathing
+						//every sword has the same offsets
+						xTile = 56;
+						//head bob sprite at tile 70
+						xTile += ((tickCount % 120 <= 60) ? 14 : 0);
 					}
 				}else if(getDirection() == Direction.SOUTH) {
 					//varies between the two walking sprites
 					if(isMoving) {
-						if(equippedSword == Item.shortSword) {
-							xTile = 33;
-							xTile += (flip ? 2 : 0);
-						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
-								|| equippedSword == Item.kingSword) {
-							xTile = 35;
-							xTile += (flip ? 2 : 0);
-						}else if (equippedSword == Item.sabre) {
-							xTile = 35;
-							xTile += (flip ? 2 : 0);
-						}else if( equippedSword == Item.claymore ) {
-							xTile += 48;
-							xTile += (flip ? 2 : 0);
-						}
+						xTile = 40;
+						xTile += (flip ? 2 : 0);
+						flip = false;
 					}
 					if(!isMoving) {
-						//varies between the two walking sprites
-						if(equippedSword == Item.shortSword) {
-							xTile = 31;
-							xTile += (tickCount % 120 <= 60) ? 16 : 0;
-						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
-								|| equippedSword == Item.kingSword) {
-							xTile = 33;
-							xTile += (tickCount % 120 <= 60) ? 18 : 0;
-						}else if (equippedSword == Item.sabre) {
-							xTile = 33;
-							xTile += ((tickCount % 120 <= 60) ? 16 : 0);
-						}else if( equippedSword == Item.claymore ) {
-							xTile = 46;
-							xTile = ((tickCount % 120 <= 60) ? 57 : 46);
-							yTile += ((tickCount % 120 <= 60) ? 4 : 0);
-						}
+						//varies between standing and head bob sprite to give illusion of breathing
+						//every sword has the same offsets
+						xTile = 38;
+						//head bob sprite at 62
+						xTile += (tickCount % 120 <= 60) ? 24 : 0;
 					}
-				}else {
-					if (isMoving) {
-						if(equippedSword == Item.shortSword) {
-							xTile = 37;
-							xTile += (flip ? 2 : 0);
-							flip = false;
-						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
-								|| equippedSword == Item.kingSword) {
-							xTile = 39;
-							xTile += (flip ? 3 : 0);
-							flip = false;
-						}else if (equippedSword == Item.sabre) {
-							xTile = 39;
-							xTile += (flip ? 2 : 0);
-							flip = false;
-						}else if(equippedSword == Item.claymore) {
-							xTile = 52;
-							xTile += (flip ? 3 : 0);
-							flip = false;
-						}
+				}else if(getDirection() == Direction.EAST) {
+					//varies between the two walking sprites
+					if(isMoving) {
+						xTile = 44;
+						xTile += (flip ? 3 : 0);
+						flip = false;
 					}
-					if (!isMoving) {
-						//varies between the two walking sprites
-						if(equippedSword == Item.shortSword) {
-							xTile = 37;
-							xTile += ((tickCount % 120 <= 60) ? 12 : 0);
-						}else if (equippedSword == Item.longSword || equippedSword == Item.heavenlySword
-								|| equippedSword == Item.kingSword) {
-							xTile = 39;
-							xTile += ((tickCount % 120 <= 60) ? 14 : 0);
-						}else if (equippedSword == Item.sabre) {
-							xTile = 39;
-							xTile += ((tickCount % 120 <= 60) ? 12 : 0);
-						}else if(equippedSword == Item.claymore) {
-							xTile = 52;
-							xTile = ((tickCount % 120 <= 60) ? 59 : 52);
-							yTile += ((tickCount % 120 <= 60) ? 4 : 0);
-						}
+					if(!isMoving) {
+						//varies between standing and head bob sprite to give illusion of breathing
+						//every sword has the same offsets
+						xTile = 44;
+						//head bob sprite at 64
+						xTile += (tickCount % 120 <= 60) ? 20 : 0;
 					}
-					flip = (getDirection() == Direction.WEST);
-					isLongitudinal = (getDirection() == Direction.WEST || getDirection() == Direction.EAST);
+				}else if(getDirection() == Direction.WEST) {
+					//varies between the two walking sprites
+					if(isMoving) {
+						xTile = 50;
+						xTile += (flip ? 3 : 0);
+						flip = true;
+					}
+					if(!isMoving) {
+						//varies between standing and head bob sprite to give illusion of breathing
+						//every sword has the same offsets
+						xTile = 50;
+						//head bob sprite at 67
+						xTile += (tickCount % 120 <= 60) ? 17 : 0;
+					}
 				}
+				isLongitudinal = (getDirection() == Direction.WEST || getDirection() == Direction.EAST);
 				SpriteSheet sheet = this.swordSheet;
 				// Rendering for when the player faces a north or south direction
 				if( !isLongitudinal ) {
 					flip = false;
-					// If the Sword is longer than a typical 2x2 Sprite, render the upper two tiles
-					if( equippedSword == Item.longSword || equippedSword == Item.kingSword || equippedSword == Item.heavenlySword
-							|| equippedSword == Item.claymore ) {
-						// Tip of the Sword Right
-						screen.render(xLocation, yLocation - tileSize, xTile, yTile - 1, sheet, flip, color);
-						// Tip of the Sword Left
-						screen.render(xLocation + tileSize, yLocation - tileSize, xTile + 1, yTile - 1, sheet, flip, color);
-						// Upper Body 1
-						screen.render(xLocation, yLocation, xTile, yTile, sheet, flip, color);
-						// Upper Body 2
-						screen.render(xLocation + tileSize, yLocation, xTile + 1, yTile, sheet, flip,
-						        color);
-						// Lower Body 1
-						screen.render(xLocation, yLocation + tileSize, xTile, yTile + 1, sheet, flip,
-						        color);
-						// Lower Body 2
-						screen.render(xLocation + tileSize, yLocation + tileSize, xTile + 1, yTile + 1,
+					// Tip of the Sword Right
+					screen.render(xLocation, yLocation - tileSize, xTile, yTile - 1, sheet, flip, color);
+					// Tip of the Sword Left
+					screen.render(xLocation + tileSize, yLocation - tileSize, xTile + 1, yTile - 1, sheet, flip, color);
+					// Upper Body 1
+					screen.render(xLocation, yLocation, xTile, yTile, sheet, flip, color);
+					// Upper Body 2
+					screen.render(xLocation + tileSize, yLocation, xTile + 1, yTile, sheet, flip, color);
+					// Lower Body 1
+					screen.render(xLocation, yLocation + tileSize, xTile, yTile + 1, sheet, flip, color);
+					// Lower Body 2
+					screen.render(xLocation + tileSize, yLocation + tileSize, xTile + 1, yTile + 1,
 						        sheet, flip, color);
-					}else {
-						// Upper Body 1
-						screen.render(xLocation, yLocation, xTile, yTile, sheet, flip, color);
-						// Upper Body 2
-						screen.render(xLocation + tileSize, yLocation, xTile + 1, yTile, sheet, flip,
-						        color);
-						// Lower Body 1
-						screen.render(xLocation, yLocation + tileSize, xTile, yTile + 1, sheet, flip,
-						        color);
-						// Lower Body 2
-						screen.render(xLocation + tileSize, yLocation + tileSize, xTile + 1, yTile + 1,
-						        sheet, flip, color);
-					}
-				/** EAST WEST Direction **/
-				} else {
-					/** If the Sword is a 3x3 Sprite **/
-					if( equippedSword == Item.longSword || equippedSword == Item.kingSword || equippedSword == Item.heavenlySword
-							|| equippedSword == Item.claymore ) {
-						// Top of Sprite Right
-						screen.render(xLocation + (tileSize * (flip ? 2 : 0)), yLocation - tileSize, xTile, yTile - 1, sheet,
-								flip, color);
-						// Top of Sprite Middle
-						screen.render(xLocation + tileSize, yLocation - tileSize, xTile + 1, yTile - 1, sheet, flip, color);
-						// Top of Sprite Left
-						screen.render(xLocation + 2*tileSize - (tileSize * (flip ? 2 : 0)), yLocation - tileSize, xTile + 2, yTile - 1, 
-								sheet, flip, color);
-						// Middle of Sprite Right
-						screen.render(xLocation + (tileSize * (flip ? 2 : 0)), yLocation, xTile, yTile, sheet, flip, color);
-						// Middle of Sprite Middle
-						screen.render(xLocation + tileSize, yLocation, xTile + 1, yTile, sheet, flip, color);
-						// Middle of Sprite Left
-						screen.render(xLocation + 2*tileSize - (tileSize * (flip ? 2 : 0)), yLocation, xTile + 2, yTile, 
-								sheet, flip, color);	
-						// Bottom of Sprite Right
-						screen.render(xLocation + (tileSize * (flip ? 2 : 0)), yLocation + tileSize, xTile, yTile + 1, sheet, flip, color);
-						// Bottom of Sprite Middle
-						screen.render(xLocation + tileSize, yLocation + tileSize, xTile + 1, yTile + 1, sheet, flip, color);
-						// Bottom of Sprite Left
-						screen.render(xLocation + 2*tileSize - (tileSize * (flip ? 2 : 0)), yLocation + tileSize, xTile + 2, yTile + 1, 
-								sheet, flip, color);
-					}else {
-						// Upper Body 1
-						screen.render(xLocation + (tileSize * (flip ? 1 : 0)), yLocation, xTile, yTile, sheet, flip, color);
-						// Upper Body 2
-						screen.render(xLocation + tileSize - (tileSize * (flip ? 1 : 0)), yLocation, xTile + 1, yTile, 
-								sheet, flip, color);
-						// Lower Body 1
-						screen.render(xLocation + (tileSize * (flip ? 1 : 0)), yLocation + tileSize, xTile, yTile + 1, sheet, flip, color);
-						// Lower Body 2
-						screen.render(xLocation + tileSize - (tileSize * (flip ? 1 : 0)), yLocation + tileSize, xTile + 1, yTile + 1, 
-								sheet, flip, color);
-					}
-					isLongitudinal = false;
 				}
+				/** EAST/WEST Directions **/
+				else {
+					flip = false;
+					
+					//Player coords tracked from head position, move by 1 tile to accommodate extra tile on left
+					if( getDirection() == Direction.WEST )
+						xLocation -= 8;
+					
+					// Top of Sprite Right
+					screen.render(xLocation + (tileSize * (flip ? 2 : 0)), yLocation - tileSize, xTile, yTile - 1, sheet,
+							flip, color);
+					// Top of Sprite Middle
+					screen.render(xLocation + tileSize, yLocation - tileSize, xTile + 1, yTile - 1, sheet, flip, color);
+					// Top of Sprite Left
+					screen.render(xLocation + 2*tileSize - (tileSize * (flip ? 2 : 0)), yLocation - tileSize, xTile + 2, yTile - 1, 
+							sheet, flip, color);
+					// Middle of Sprite Right
+					screen.render(xLocation + (tileSize * (flip ? 2 : 0)), yLocation, xTile, yTile, sheet, flip, color);
+					// Middle of Sprite Middle
+					screen.render(xLocation + tileSize, yLocation, xTile + 1, yTile, sheet, flip, color);
+					// Middle of Sprite Left
+					screen.render(xLocation + 2*tileSize - (tileSize * (flip ? 2 : 0)), yLocation, xTile + 2, yTile, 
+							sheet, flip, color);	
+					// Bottom of Sprite Right
+					screen.render(xLocation + (tileSize * (flip ? 2 : 0)), yLocation + tileSize, xTile, yTile + 1, sheet, flip, color);
+					// Bottom of Sprite Middle
+					screen.render(xLocation + tileSize, yLocation + tileSize, xTile + 1, yTile + 1, sheet, flip, color);
+					// Bottom of Sprite Left
+					screen.render(xLocation + 2*tileSize - (tileSize * (flip ? 2 : 0)), yLocation + tileSize, xTile + 2, yTile + 1, 
+							sheet, flip, color);
+					}
+				isLongitudinal = false;
 			}
 			
 			// Handles Swinging Animation

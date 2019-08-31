@@ -76,41 +76,41 @@ public class Item {
 	public static final Item bazooka = new Bazooka();
 
 	// swords
-	public static final Item shortSword = new Sword("Cutlass", 9, 0, 1, 0, 0,
+	public static final Item shortSword = new Sword("Cutlass", 9, 0, 1, 0, 1,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, 
-			"More of a large knife than a sword, at the very least it'll give your opponent"
+			"More of a large knife than a sword, at the very least it'll give your opponent "
 			+ "a good sting.",
-			15, 10, new int[] { 7, 12, 16, 21 },0, 25, Sword.SHORT, 0);
-	public static final Item longSword = new Sword("Long Sword", 10, 1, 1, 0, 4,
+			15, 10, new int[] { 8, 15, 20, 27 }, 25, Sword.SHORT, 0);
+	public static final Item longSword = new Sword("Long Sword", 10, 1, 1, 0, 5,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC }, 
-			"Now thats a sword, a fine steel blade mass produced for the Knights of The Bay, nothing"
+			"Now thats a sword, a fine steel blade mass produced for the Knights of The Bay, nothing "
 			+ "to write home about but will certainly give your oppoent second thoughts.",
-			40, 25, new int[] { 7, 13, 18, 23 }, 1,27,
+			40, 25, new int[] { 8, 15, 20, 27 }, 27,
 			Sword.MEDIUM, 10);
-	public static final Item claymore = new Sword("Claymore", 11, 2, 1, 0, 10,
+	public static final Item claymore = new Sword("Claymore", 11, 2, 1, 0, 9,
 			new int[] { 0xFFF2F3F9, 0xFF000000, 0xFFD6D7DC },
-			"Sword of the Knights Templar, the sheer weight of the blade will make your swings"
+			"Sword of the Knights Templar, the sheer weight of the blade will make your swings "
 			+ " slow and easy to dodge but if you manage to hit anything it's going down for real.",
-			60, 35, new int[] { 8, 16, 24, 32 }, 2, 40,
+			60, 35, new int[] { 8, 15, 20, 27 }, 40,
 			Sword.LONG, 20);
-	public static final Item sabre = new Sword("Sabre", 12, 3, 1, 0, 14,
+	public static final Item sabre = new Sword("Sabre", 12, 3, 1, 0, 13,
 			new int[] { 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC },
-			"The Dueling Blade, a more elegant weapon from a more civilized time,"
-			+ " this is a sword made for defending a fair maiden's honor. A quick stabbing blade"
+			"The Dueling Blade, a more elegant weapon from a more civilized time, "
+			+ " this is a sword made for defending a fair maiden's honor. A quick stabbing blade "
 			+ "your opponent will have to be quick on his feet to defeat you.",
-			20, 25, new int[] { 7, 13, 18, 23 }, 0, 27,
+			20, 25, new int[] { 8, 15, 20, 27 }, 27,
 			Sword.MEDIUM, 10);
-	public static final Item heavenlySword = new Sword("Heavenly Sword", 13, 4, 1, 0, 18,
+	public static final Item heavenlySword = new Sword("Heavenly Sword", 13, 4, 1, 0, 17,
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
-			"Sword handed crafted by God himself, given to only the holiest of Saints, nothing"
+			"Sword handed crafted by God himself, given to only the holiest of Saints, nothing "
 			+ "because nothing says \"brotherly love\" like righteous slaughter.",
-			35, 30, new int[] { 7, 13, 18, 23 }, 1, 27,
+			35, 30, new int[] { 8, 15, 20, 27 }, 27,
 			Sword.MEDIUM, 10);
-	public static final Item kingSword = new Sword("The Sword of Kings", 18, 5, 1, 0, 22,
+	public static final Item kingSword = new Sword("The Sword of Kings", 18, 5, 1, 0, 21,
 			new int[] { 0xFFEBCD00, 0xFF000000, 0xFF2568FF },
-			"This is the best blade in the game and \"The Sword of Kings\" is the best"
+			"This is the best blade in the game and \"The Sword of Kings\" is the best "
 			+ "we could come up with?",
-			25, 35, new int[] { 7, 13, 18, 23 }, 1, 27,
+			25, 35, new int[] { 8, 15, 20, 27 }, 27,
 			Sword.MEDIUM, 20);
 
 	 // armor
