@@ -17,6 +17,9 @@ public class StylesheetFactory {
 				"    }" +
 				"    node.incomplete {" + 
 				"        fill-color: red;" + 
+				"    }" +
+				"    node.selected {" + 
+				"        fill-color: yellow;" + 
 				"    }";
 		
 		return ss;

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.BoxLayout;
@@ -65,6 +66,10 @@ public class DataView implements ActionListener {
 
 	private CardLayout cardLayout;
 	private JPanel overlay;
+	
+	private QuestNodeAdapter selectedNode;
+	
+	private final static String[] VALID_TRIGGERS = {"GOTO_\\d+", "ACCEPT",  "EXIT", "SKIP", "START_\\d+", "TRIGGER_\\d+" };
 
 	/**
 	 * @param width  - width of the panel
@@ -313,26 +318,94 @@ public class DataView implements ActionListener {
 			builder.removeQuestPart(currentState.getText());
 			cardLayout.show(overlay, "plain");
 		} else if (e.getSource() == createNode) {
+			this.outgoingErrorCheck();
 			iface.onNodeCreated(currentState.getText(), previousState.getText(), futureState.getText());
-			builder.addQuestPart(giverDialogue.getText(), response1.getText(), response2.getText(), response3.getText(),
-					response1Triggers.getText(), response2Triggers.getText(), response3Triggers.getText(),
-					endDialogue.getText(), endTriggers.getText(), currentState.getText(), previousState.getText(),
-					objectiveSummary.getText(), futureState.getText());
 			cardLayout.show(overlay, "plain");
 		} else if (e.getSource() == modifyNode) {
+			QuestNodeAdapter node = nodeData.get(currentState.getText());
+			this.outgoingErrorCheck();
+			node.fieldTextToNode();
+			node.colorByError();
 			builder.modifyQuestPart(giverDialogue.getText(), response1.getText(), response2.getText(),
 					response3.getText(), response1Triggers.getText(), response2Triggers.getText(),
 					response3Triggers.getText(), endDialogue.getText(), endTriggers.getText(), currentState.getText(),
 					previousState.getText(), objectiveSummary.getText(), futureState.getText());
-
-			QuestNodeAdapter node = nodeData.get(currentState.getText());
-			node.save();
-			iface.onNodeModified(currentState.getText(), previousState.getText(), futureState.getText());
+			String cur = currentState.getText(), prev = previousState.getText(), fut = futureState.getText();
+			this.clearFields();
+			iface.onNodeModified(cur, prev, fut);
 			cardLayout.show(overlay, "plain");
 		}
 
 	}
 
+	private void clearFields() {
+
+		giverDialogue.setText("");
+		response1.setText("");
+		response2.setText("");
+		response3.setText("");
+		response1Triggers.setText("");
+		response2Triggers.setText("");
+		response3Triggers.setText("");
+		endDialogue.setText("");
+		endTriggers.setText("");
+		currentState.setText("");
+		previousState.setText("");
+		objectiveSummary.setText("");
+		futureState.setText("");
+	}
+
+	private void outgoingErrorCheck() {
+		
+		// auto update outgoing ID
+		ArrayList<String> outgoing = new ArrayList<String>();
+
+		String trig1 = response1Triggers.getText();
+		if (trig1.toUpperCase().contains("GOTO_")) {
+			String next = trig1.substring(trig1.indexOf("GOTO_") + 5);
+			if (trig1.contains(",")) {
+				next = next.substring(0, next.indexOf(","));
+			}
+			outgoing.add(next);
+		}
+
+		String trig2 = response2Triggers.getText();
+		if (trig2.toUpperCase().contains("GOTO_")) {
+			String next = trig2.substring(trig2.indexOf("GOTO_") + 5);
+			if (trig2.contains(",")) {
+				next = next.substring(0, next.indexOf(","));
+			}
+			outgoing.add(next);
+		}
+
+		String trig3 = response3Triggers.getText();
+		if (trig3.toUpperCase().contains("GOTO_")) {
+			String next = trig3.substring(trig3.indexOf("GOTO_") + 5);
+			if (trig3.contains(",")) {
+				next = next.substring(0, next.indexOf(","));
+			}
+			outgoing.add(next);
+		}
+
+		String futState = futureState.getText();
+		if (outgoing.size() > 0) {
+			boolean complete = true;
+			for (String next : outgoing) {
+				if (!futState.contains(next)) {
+					complete = false;
+					break;
+				}
+			}
+			if (!complete) {
+				futState = outgoing.get(0);
+				for (int i = 1; i < outgoing.size(); i++) {
+					futState += "," + outgoing.get(i);
+				}
+				futureState.setText(futState);
+			}
+		}
+	}
+	
 	/*
 	 * Added functionality to JButton
 	 */
@@ -341,38 +414,77 @@ public class DataView implements ActionListener {
 		private Node n;
 
 		// text fields of the state
-		private String giverText, res1Text, res2Text, res3Text, trig1, trig2, trig3, endText, endTrig, currState,
-				prevState, objSummary, futState;
+		private String giverText = "", res1Text = "", res2Text = "", res3Text = "", trig1 = "", trig2 = "", trig3 = "",
+				endText = "", endTrig = "", currState = "", prevState = "", objSummary = "", futState = "";
 
 		public QuestNodeAdapter(Node n) {
 			this.n = n;
 			this.currState = n.getId();
 		}
+		
+		private void setSelected() {
+			n.setAttribute("ui.class", "selected");
+		}
+		
+		public boolean triggerErrorCheck(String triggerText) {
+			
+			// clean up the raw data
+			String raw = triggerText.trim().toUpperCase().replace(" ", "");
 
-		private void update() {
+			// list of trigger commands
+			ArrayList<String> triggers = new ArrayList<String>();
 
-			// button is empty
-			if ((giverText + res1Text + res2Text + res3Text + trig1 + trig2 + trig3 + endText + endTrig + objSummary)
-					.trim().isEmpty()) {
-				n.setAttribute("ui.class", "incomplete");
+			// now parse the triggers
+			while (raw.indexOf(",") != -1) {
+				triggers.add(raw.substring(0, raw.indexOf(",")));
+				raw = raw.substring(raw.indexOf(",") + 1);
+			}
 
-				// button is not empty
+			// get the last trigger
+			triggers.add(raw);
+
+			boolean all_match = true;
+			for (String keyword: triggers) {
+				boolean match = false;
+				for (String pattern: VALID_TRIGGERS) {
+					if (keyword.matches(pattern)) {
+						match = true;
+						break;
+					}
+				}
+				if (!match) {
+					all_match = false;
+					break;
+				}
+			}
+			return all_match;
+		}
+
+		private void colorByError() {
+
+			// completeness check
+
+			boolean complete = true;
+
+			if (giverText.isEmpty() || res1Text.isEmpty() || res2Text.isEmpty() || res3Text.isEmpty() || trig1.isEmpty()
+					|| trig2.isEmpty() || trig3.isEmpty()) {
+				complete = false;
+			}
+
+			if ((trig1 + trig2 + trig3).toUpperCase().contains("ACCEPT")) {
+				if (endText.isEmpty() || endTrig.isEmpty() || objSummary.isEmpty()) {
+					complete = false;
+				}
+			}
+			
+			if (!triggerErrorCheck(trig1) || !triggerErrorCheck(trig2) || !triggerErrorCheck(trig3)) {
+				complete = false;
+			}
+
+			if (complete) {
+				n.setAttribute("ui.class", "complete");
 			} else {
-
-				boolean complete = false;
-
-				try {
-					complete = !(giverText.isEmpty() || res1Text.isEmpty() || res2Text.isEmpty() || res3Text.isEmpty()
-							|| trig1.isEmpty() || trig2.isEmpty() || trig3.isEmpty() || objSummary.isEmpty());
-				} catch (NullPointerException e) {
-				}
-
-				if (complete) {
-					n.setAttribute("ui.class", "complete");
-				} else {
-					n.setAttribute("ui.class", "incomplete");
-				}
-
+				n.setAttribute("ui.class", "incomplete");
 			}
 
 		}
@@ -380,7 +492,7 @@ public class DataView implements ActionListener {
 		/**
 		 * Saves the information from the information panel into this button's fields
 		 */
-		private void save() {
+		private void fieldTextToNode() {
 
 			giverText = giverDialogue.getText();
 			res1Text = response1.getText();
@@ -395,8 +507,6 @@ public class DataView implements ActionListener {
 			prevState = previousState.getText();
 			objSummary = objectiveSummary.getText();
 			futState = futureState.getText();
-
-			update();
 
 		}
 
@@ -419,7 +529,47 @@ public class DataView implements ActionListener {
 			objSummary = (String) obj.get(QuestDataBuilder.KEY_OBJECTIVE);
 			futState = (String) obj.get(QuestDataBuilder.FUT_STATE_ID);
 
-			update();
+			if (giverText == null) {
+				giverText = "";
+			}
+			if (res1Text == null) {
+				res1Text = "";
+			}
+			if (res2Text == null) {
+				res2Text = "";
+			}
+			if (res3Text == null) {
+				res3Text = "";
+			}
+			if (trig1 == null) {
+				trig1 = "";
+			}
+			if (trig2 == null) {
+				trig2 = "";
+			}
+			if (trig3 == null) {
+				trig3 = "";
+			}
+			if (endText == null) {
+				endText = "";
+			}
+			if (endTrig == null) {
+				endTrig = "";
+			}
+			if (currState == null) {
+				currState = "";
+			}
+			if (prevState == null) {
+				prevState = "";
+			}
+			if (objSummary == null) {
+				objSummary = "";
+			}
+			if (futState == null) {
+				futState = "";
+			}
+
+			colorByError();
 		}
 
 		/**
@@ -476,23 +626,73 @@ public class DataView implements ActionListener {
 		id++;
 	}
 
-	public void nodeLoaded(Node n) {
+	public void nodeLoaded(Node n, String incoming, String outgoing) {
 		QuestNodeAdapter a = new QuestNodeAdapter(n);
 		nodeData.put(n.getId(), a);
+
 		currentState.setText(n.getId());
-		a.save();
+		previousState.setText(incoming);
+		futureState.setText(outgoing);
+		
+		a.fieldTextToNode();
+		a.colorByError();
+		builder.addQuestPart(giverDialogue.getText(), response1.getText(), response2.getText(), response3.getText(),
+				response1Triggers.getText(), response2Triggers.getText(), response3Triggers.getText(),
+				endDialogue.getText(), endTriggers.getText(), currentState.getText(), previousState.getText(),
+				objectiveSummary.getText(), futureState.getText());
+		clearFields();
 		id++;
+	}
+	
+	public void addIncomingEdgeToNode(String id, String incoming) {
+		
+		QuestNodeAdapter a = nodeData.get(id);
+		a.displayDataToPanel();
+		
+		String updated = "";
+		
+		if (previousState.getText().isEmpty() || previousState.getText().equals(incoming)) {
+			updated = incoming;
+		} else {
+			
+			ArrayList<String> edges = new ArrayList<>();
+			edges.add(incoming);
+			for (String inc: previousState.getText().split(",")) {
+				if (!edges.contains(inc)) {
+					edges.add(inc);
+				}
+			}
+			updated = edges.get(0);
+			for (int i = 1; i < edges.size(); i++) {
+				updated += "," + edges.get(i);
+			}
+		}
+		
+		previousState.setText(updated);
+		a.fieldTextToNode();
+		a.colorByError();
+		builder.modifyQuestPart(giverDialogue.getText(), response1.getText(), response2.getText(),
+				response3.getText(), response1Triggers.getText(), response2Triggers.getText(),
+				response3Triggers.getText(), endDialogue.getText(), endTriggers.getText(), currentState.getText(),
+				previousState.getText(), objectiveSummary.getText(), futureState.getText());
+		this.clearFields();
 	}
 
 	public void select(String id) {
-		QuestNodeAdapter node = nodeData.get(id);
+		QuestNodeAdapter node = selectedNode = nodeData.get(id);
 		node.displayDataToPanel();
+		node.setSelected();
 		cardLayout.show(overlay, "main");
 
 		modifyNode.setEnabled(true);
 		createNode.setEnabled(false);
 		removeNode.setEnabled(true);
 		currentState.setEnabled(false);
+	}
+	
+	public void deselect() {
+		if (selectedNode != null)
+			selectedNode.colorByError();
 	}
 
 	public void rootLoaded(Node n) {

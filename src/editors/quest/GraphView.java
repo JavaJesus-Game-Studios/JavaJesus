@@ -81,6 +81,7 @@ public class GraphView {
 		}
 	}
 	
+	// TODO for some reason this isn't working
 	public boolean edgeExists(String id) {
 		return graph.getEdge(id) != null;
 	}

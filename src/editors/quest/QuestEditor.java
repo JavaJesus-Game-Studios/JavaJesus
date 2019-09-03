@@ -122,6 +122,7 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 
 	@Override
 	public void buttonPushed(String id) {
+		dView.deselect();
 		dView.select(id);
 
 	}
@@ -225,16 +226,17 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 
 	@Override
 	public void onNodeCreated(String current, String previous, String future) {
+		
+		if (!gView.nodeExists(current)) {
+			dView.nodeLoaded(gView.addNode(current), previous, future);
+		}
 
 		String[] parents = previous.split(",");
 		for (int j = 0; j < parents.length; j++) {
 			String parent = parents[j].trim();
 
-			if (!gView.nodeExists(current)) {
-				dView.nodeLoaded(gView.addNode(current));
-			}
 			if (!parent.isEmpty() && !gView.nodeExists(parent)) {
-				dView.nodeLoaded(gView.addNode(parent));
+				dView.nodeLoaded(gView.addNode(parent), "", current);
 			}
 
 			if (!parent.isEmpty() && !gView.edgeExists(getId(parent, current))) {
@@ -246,15 +248,13 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 		for (int j = 0; j < outgoing.length; j++) {
 			String child = outgoing[j].trim();
 
-			if (!gView.nodeExists(current)) {
-				dView.nodeLoaded(gView.addNode(current));
-			}
 			if (!child.isEmpty() && !gView.nodeExists(child)) {
-				dView.nodeLoaded(gView.addNode(child));
+				dView.nodeLoaded(gView.addNode(child), current, "");
 			}
 
 			if (!child.isEmpty() && !gView.edgeExists(getId(current, child))) {
 				gView.addEdge(getId(current, child), current, child);
+				dView.addIncomingEdgeToNode(child, current);
 			}
 		}
 
@@ -268,16 +268,18 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 
 	@Override
 	public void onNodeModified(String current, String previous, String future) {
+		
+		if (!gView.nodeExists(current)) {
+			dView.nodeLoaded(gView.addNode(current), previous, future);
+		}
+		
 		String[] parents = previous.split(",");
 		gView.removeEnteringEdges(current);
 		for (int j = 0; j < parents.length; j++) {
 			String parent = parents[j].trim();
 
-			if (!gView.nodeExists(current)) {
-				dView.nodeLoaded(gView.addNode(current));
-			}
 			if (!parent.isEmpty() && !gView.nodeExists(parent)) {
-				dView.nodeLoaded(gView.addNode(parent));
+				dView.nodeLoaded(gView.addNode(parent), "", current);
 			}
 			if (!parent.isEmpty() && !gView.edgeExists(getId(parent, current))) {
 				gView.addEdge(getId(parent, current), parent, current);
@@ -289,14 +291,12 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 		for (int j = 0; j < outgoing.length; j++) {
 			String child = outgoing[j].trim();
 
-			if (!gView.nodeExists(current)) {
-				dView.nodeLoaded(gView.addNode(current));
-			}
 			if (!child.isEmpty() && !gView.nodeExists(child)) {
-				dView.nodeLoaded(gView.addNode(child));
+				dView.nodeLoaded(gView.addNode(child), current, "");
 			}
 			if (!child.isEmpty() && !gView.edgeExists(getId(current, child))) {
 				gView.addEdge(getId(current, child), current, child);
+				dView.addIncomingEdgeToNode(child, current);
 			}
 		}
 
