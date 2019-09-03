@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.io.IOException;
 
 import javajesus.level.Level;
+import javajesus.level.LevelFactory;
 
 /*
  * A Parody of San Jose
@@ -15,7 +16,7 @@ public class SanJuan extends Level {
 	 * @throws IOException 
 	 */
 	public SanJuan(int slot) throws IOException {
-		super("/WORLD_DATA/STORY_DATA/(X)CITY_LEVELS/San_Juan.png", Level.JUAN, new Point(1680, 2648), slot);
+		super("/WORLD_DATA/STORY_DATA/(X)CITY_LEVELS/San_Juan.png", "San Juan", new Point(1680, 2648), slot, LevelFactory.JUAN);
 
 		System.err.println("Creating San Juan");
 

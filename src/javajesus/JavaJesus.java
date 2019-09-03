@@ -117,7 +117,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	private static final Font DEATH_FONT = new Font(FONT_NAME, 0, 50);
 	
 	// manages AI
-	private static AIManager aiManager;
+	//private static AIManager aiManager;
 
 	// the in game player
 	private Player player;
@@ -196,13 +196,13 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		// manage the dialogue gui with the dialogue handler
 		new DialogueHandler(this);
 		
-		aiManager = new AIManager(player, screen);
-		aiManager.start();
+		//aiManager = new AIManager(player, screen);
+		//aiManager.start();
 		
 		running = true;
 		
 		MessageHandler.initialize();
-
+		
 		// do game initializations from save files
 		if (load) {
 			
@@ -603,7 +603,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 * Stops the game loop
 	 */
 	public static void stop() {
-		aiManager.stop();
+		//aiManager.stop();
 		running = false;
 	}
 

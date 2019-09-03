@@ -20,11 +20,15 @@ import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.entities.SolidEntity;
+import javajesus.entities.monsters.Monster;
+import javajesus.entities.npcs.NPC;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.AnimatedTile;
 import javajesus.level.tile.Tile;
 import javajesus.level.tile.TileAdapter;
+import javajesus.quest.QuestLoader;
+import javajesus.quest.factories.CharacterFactory;
 import javajesus.utility.EntityComparator;
 import javajesus.utility.LevelText;
 
@@ -43,7 +47,7 @@ public abstract class Level {
 
 	// list of all mobs on the map
 	private final List<Mob> mobs = new ArrayList<Mob>(JavaJesus.ENTITY_LIMIT);
-	
+
 	// list of all things that can be damaged
 	private final List<Damageable> damageables = new ArrayList<Damageable>(JavaJesus.ENTITY_LIMIT);
 
@@ -55,22 +59,17 @@ public abstract class Level {
 
 	// name of the level
 	private final String name;
-	
+
 	// tickcount for sorting entities
 	private int tickCount;
-	
+
 	// gets the name add-on for entity files
 	public static final String ENTITY = "_entities";
-	
+
 	// gets the home directory
 	private static final String DIR = FileSystemView.getFileSystemView().getDefaultDirectory().getPath()
-	        + "/My Games/JavaJesus/File";
-	
-	// story level names
-	public static final String BAUTISTA = "Bautista's Domain", EDGE_MAIN = "Edge of the Woods",
-	        EDGE_TOP = "Edge of the Woods Top", HILLSBOROUGH = "Lord Hillsborough's Domain", ORCHARD = "Orchard Valley",
-	        CISCO = "San Cisco", JUAN = "San Juan", TECH = "Tech Topia";
-	
+			+ "/My Games/JavaJesus/File";
+
 	// size of each level
 	public static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
 
@@ -79,50 +78,61 @@ public abstract class Level {
 
 	// global offsets for determining the range to display things
 	private int xOffset, yOffset;
-	
+
 	// the comparator used for sorting entities
 	private static final EntityComparator comparator = new EntityComparator();
-	
+
 	// data used for loading and saving levels
 	protected String path;
 	private int saveFile;
-	
+	private int levelId;
+
 	/**
 	 * Creates a level from the specified image path for the first time
 	 * 
 	 * @param imagePath - the image path of the original file
-	 * @param loadNow - whether or not to load it now
-	 * @param name - the name of this level
-	 * @param saveFile - the destination of the save file in My Games
+	 * @param loadNow   - whether or not to load it now
+	 * @param name      - the name of this level
+	 * @param saveFile  - the destination of the save file in My Games
 	 */
 	public Level(final String path, final String name, final Point spawn, int saveFile) {
-		
+		this(path, name, spawn, saveFile, -1);
+	}
+
+	public Level(final String path, final String name, final Point spawn, int saveFile, int levelId) {
+
 		// instance data
 		this.name = name;
 		this.spawnPoint = spawn;
 		this.path = path;
 		this.saveFile = saveFile;
-
+		this.levelId = levelId;
 	}
-	
+
 	/**
 	 * A default level for random generation
+	 * 
 	 * @param name
 	 */
 	public Level(String name, Point spawn) {
-		
+
 		// instance data
 		this.name = name;
 		this.spawnPoint = spawn;
+		this.levelId = -1;
 	}
-	
+
+	public int getLevelId() {
+		return this.levelId;
+	}
+
 	/**
 	 * @return whether or not the level tiles have been loaded into memory
 	 */
 	public boolean isLoaded() {
 		return levelTiles != null;
 	}
-	
+
 	/**
 	 * Fill in the level Tiles
 	 */
@@ -166,16 +176,23 @@ public abstract class Level {
 				save(DIR + saveFile + "/" + name);
 			}
 		}
+
+		// now add any non unique quest givers
+		CharacterFactory cf = CharacterFactoryFactory.make(this.getLevelId());
+		if (cf != null) {
+			cf.setNonUniqueCharacters(this);
+			QuestLoader.initializeQuests(this);
+		}
 	}
 
 	/**
 	 * Loads an image from the file
 	 */
 	private void load(String path, boolean classpath) throws IOException {
-		
+
 		// files to load
 		InputStream level, entities;
-		
+
 		// load with or without classpath
 		if (classpath) {
 			level = Level.class.getResourceAsStream(path);
@@ -184,38 +201,38 @@ public abstract class Level {
 			level = new FileInputStream(new File(path));
 			entities = new FileInputStream(new File(path + ENTITY));
 		}
-		
-		// load  the tiles
+
+		// load the tiles
 		LevelData.load(level, levelTiles);
 
 		// load the entity data
 		EntityData.load(this, entities);
 	}
-	
+
 	/**
 	 * Saves the level data to the specified path
 	 */
 	private void save(String path) throws IOException {
-		
+
 		// save the tile data
 		LevelData.save(path, levelTiles);
-		
+
 		// save the entity data
 		EntityData.save(path + ENTITY, entities);
-		
+
 	}
 
 	/**
 	 * Updates all entities and tiles on the map
 	 */
 	public void tick() {
-		
+
 		// layer entities twice a second
 		if (++tickCount % 30 == 0) {
 			// correctly layer entities
 			entities.sort(comparator);
 		}
-		
+
 		// update all entities and living mobs
 		for (int i = 0; i < getEntities().size(); i++) {
 			Entity e = getEntities().get(i);
@@ -230,24 +247,24 @@ public abstract class Level {
 			t.tick();
 		}
 	}
-	
+
 	public List<TileAdapter> getOccupiedTiles(Entity e) {
 		List<TileAdapter> list = new ArrayList<>();
-		for (int x = e.getX(); x <= e.getX() + e.getBounds().width; x+= 8) {
+		for (int x = e.getX(); x <= e.getX() + e.getBounds().width; x += 8) {
 			for (int y = e.getY(); y <= e.getY() + e.getBounds().height; y += 8) {
 				list.add(new TileAdapter(getTileFromEntityCoords(x, y), x >> 3, y >> 3));
 			}
 		}
 		return list;
 	}
-	
+
 	/**
-	 * Renders tiles, entities, and text
-	 * to the screen
+	 * Renders tiles, entities, and text to the screen
+	 * 
 	 * @param screen - screen to render on
 	 */
 	public void render(Screen screen) {
-		
+
 		// render tiles and entities and text
 		renderTile(screen);
 		renderEntities(screen);
@@ -257,15 +274,15 @@ public abstract class Level {
 	/**
 	 * Renders a tile on the screen
 	 * 
-	 * @param screen - the screen to display it on
+	 * @param screen  - the screen to display it on
 	 * @param xOffset - the xoffset on the screen
 	 * @param yOffset - the yoffset on the screen
 	 */
 	private void renderTile(Screen screen) {
-		
+
 		// set the screen offsets
 		screen.setOffset(xOffset, yOffset);
-		
+
 		// render the tiles visible on the screen
 		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
 			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
@@ -274,7 +291,7 @@ public abstract class Level {
 
 		}
 	}
-	
+
 	/**
 	 * Displays the entities of the level on the screen
 	 * 
@@ -284,58 +301,58 @@ public abstract class Level {
 
 		// the range around the player to display the entities
 		renderRange.setLocation(xOffset, yOffset);
-		
+
 		// render all the entities on the visible screen
 		for (Entity e : this.getEntities()) {
 			if (e.getBounds().intersects(renderRange)
-			        || (e instanceof SolidEntity && ((SolidEntity) e).getShadow().intersects(renderRange))) {
+					|| (e instanceof SolidEntity && ((SolidEntity) e).getShadow().intersects(renderRange))) {
 				e.render(screen);
 			}
-
 		}
 	}
-	
+
 	/**
 	 * Renders text on the screen
 	 * 
-	 * @param msg - message to display
+	 * @param msg    - message to display
 	 * @param screen - the screen to display it on
-	 * @param x - the x offset
-	 * @param y - the y offset
-	 * @param color - the color of the message
-	 * @param scale - how big to render it
+	 * @param x      - the x offset
+	 * @param y      - the y offset
+	 * @param color  - the color of the message
+	 * @param scale  - how big to render it
 	 */
 	public void renderText(Screen screen) {
-		
+
 		// render all the text
-		for (LevelText t: text) {
+		for (LevelText t : text) {
 			JJFont.render(t.getMessage(), screen, t.getX(), t.getY(), t.getColor(), t.getScale());
 		}
 	}
-	
+
 	/**
 	 * Renders collision boxes onto the screen
 	 * 
 	 * @param screen - screen to render pixels
 	 */
 	public void renderCollisionBoxes(Screen screen) {
-		
-		for (Entity e: this.getEntities()) {
+
+		for (Entity e : this.getEntities()) {
 			screen.renderCollisionBox(e.getBounds());
 		}
 	}
-	
+
 	/**
 	 * Sets offsets for tile and entity rendering
+	 * 
 	 * @param xOffset - x offset
 	 * @param yOffset - y offset
 	 */
 	public void setOffset(int xOffset, int yOffset) {
-		
+
 		// base offsets
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
-		
+
 		// if the player moves off-screen, fix the tiles in place
 		if (xOffset < 0)
 			this.xOffset = 0;
@@ -348,14 +365,14 @@ public abstract class Level {
 
 		if (yOffset > ((LEVEL_HEIGHT << 3) - JavaJesus.IMAGE_HEIGHT))
 			this.yOffset = ((LEVEL_HEIGHT << 3) - JavaJesus.IMAGE_HEIGHT);
-		
+
 	}
-	
+
 	/**
 	 * Changes a tile on the map
 	 * 
-	 * @param x - the x coord of the tile
-	 * @param y - the y coord of the tile
+	 * @param x       - the x coord of the tile
+	 * @param y       - the y coord of the tile
 	 * @param newTile - the tile to replace it with
 	 */
 	public void alterTile(int x, int y, Tile newTile) {
@@ -385,11 +402,11 @@ public abstract class Level {
 	public Tile getTile(int x, int y) {
 		if (x < 0 || x >= LEVEL_WIDTH || y < 0 || y >= LEVEL_HEIGHT)
 			return Tile.VOID;
-		
+
 		return Tile.tileList[levelTiles[x + y * LEVEL_WIDTH]];
 
 	}
-	
+
 	/**
 	 * Gets the tile type from the entity coordinates
 	 * 
@@ -400,11 +417,11 @@ public abstract class Level {
 	public Tile getTileFromEntityCoords(int x, int y) {
 		return getTile(x >> 3, y >> 3);
 	}
-	
+
 	public List<TileAdapter> getVisibleTiles(Screen screen) {
-		
+
 		List<TileAdapter> occupied = new ArrayList<>();
-		
+
 		// get list of all tiles that are occupied
 		for (int i = 0; i < getEntities().size(); i++) {
 			Entity e = getEntities().get(i);
@@ -413,9 +430,9 @@ public abstract class Level {
 				occupied.addAll(getOccupiedTiles(e));
 			}
 		}
-		
+
 		List<TileAdapter> tiles = new ArrayList<>(1131);
-		
+
 		// iterate through list of tiles
 		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
 			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
@@ -426,27 +443,40 @@ public abstract class Level {
 				tiles.add(tile);
 			}
 		}
-		
+
 		return tiles;
 	}
 	
+	public int getVisibleTileIndexFromTileCoord(int xTile, int yTile, Screen screen) {
+		// iterate through list of tiles
+		int index = 0;
+		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
+			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
+				if (xTile == x && yTile == y) {
+					return index;
+				}
+				index++;
+			}
+		}
+		return -1;
+	}
+
 	public int getNumXTilesOnScreen(Screen screen) {
 		return ((xOffset + screen.getWidth() >> 3) + 1) - (xOffset >> 3);
 	}
-	
+
 	public int getNumYTilesOnScreen(Screen screen) {
-		return ((yOffset + screen.getHeight() >> 3) + 1)- (yOffset >> 3);
+		return ((yOffset + screen.getHeight() >> 3) + 1) - (yOffset >> 3);
 	}
-	
-	
+
 	/**
 	 * Adds text to be rendered
 	 * 
 	 * @param message - message to display
-	 * @param x - x coordinate
-	 * @param y - y coordinate
-	 * @param color - color set
-	 * @param scale - scale of the text
+	 * @param x       - x coordinate
+	 * @param y       - y coordinate
+	 * @param color   - color set
+	 * @param scale   - scale of the text
 	 */
 	public void addText(String message, int x, int y, int[] color, int scale) {
 		text.add(new LevelText(message, x, y, color, scale));
@@ -458,9 +488,13 @@ public abstract class Level {
 	 * @param entity - the entity to add
 	 */
 	public void add(Entity entity) {
-		
+
 		if (entity instanceof Mob) {
 			mobs.add((Mob) entity);
+			
+			if (entity instanceof Monster || entity instanceof NPC) {
+				entities.add(((Mob) entity).getHealthBar());
+			}
 		}
 		if (entity instanceof Damageable) {
 			damageables.add((Damageable) entity);
@@ -484,9 +518,9 @@ public abstract class Level {
 		}
 
 	}
-	
+
 	/**
-	 * @return a clip of the  background music
+	 * @return a clip of the background music
 	 */
 	public Clip getBackgroundMusic() {
 		return SoundHandler.explorationMusic;
@@ -505,7 +539,7 @@ public abstract class Level {
 	public List<Mob> getMobs() {
 		return mobs;
 	}
-	
+
 	/**
 	 * @return a list of all damageables on this map
 	 */
@@ -526,17 +560,16 @@ public abstract class Level {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * @return the spawnpoint on this level
 	 */
 	public Point getSpawnPoint() {
 		return spawnPoint;
 	}
-	
+
 	/**
-	 * Sets the spawn point on this level
-	 * in entity coordinates
+	 * Sets the spawn point on this level in entity coordinates
 	 * 
 	 * @param x - the x coordinate
 	 * @param y - the y coordinate
@@ -544,7 +577,7 @@ public abstract class Level {
 	public void setSpawnPoint(int x, int y) {
 		spawnPoint.setLocation(x, y);
 	}
-	
+
 	/**
 	 * @return the level tiles
 	 */

@@ -9,7 +9,7 @@ public class VillageIncreasedDifficulty extends Event{
 	 * 
 	 * @param level level where even takes place
 	 */
-	protected VillageIncreasedDifficulty(Level level) {
+	public VillageIncreasedDifficulty(Level level) {
 		super(level);
 	}
 

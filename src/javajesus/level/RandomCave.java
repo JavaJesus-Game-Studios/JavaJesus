@@ -13,6 +13,8 @@ import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.transporters.Ladder;
 import javajesus.level.generation.CaveGeneration;
 import javajesus.level.tile.Tile;
+import javajesus.quest.QuestLoader;
+import javajesus.quest.factories.CharacterFactory;
 
 /*
  * A randomly generated cave
@@ -21,31 +23,31 @@ public class RandomCave extends Level {
 
 	// unfiltered tile list of the cave
 	private int[][] caveMap;
-	
+
 	// the level before entering this cave
 	private Level prevLevel;
 
 	// the number of caves there currently are
 	private static int numCaves;
-	
+
 	// the optimal number of cycles for random cave gen
 	private static final int CYCLES = 3;
 
 	/**
 	 * Generates a random cave level
 	 * 
-	 * @param cycles - the cycles
+	 * @param cycles    - the cycles
 	 * @param prevLevel - the previous level
-	 * @param spawn - the spawn point in this random cave
+	 * @param spawn     - the spawn point in this random cave
 	 */
 	public RandomCave(Level prevLevel, Point spawn) {
 		super("Random Cave " + numCaves++, spawn);
-		
+
 		// instance data
 		this.prevLevel = prevLevel;
-		
+
 	}
-	
+
 	/**
 	 * Fills the cave map tiles with real tiles
 	 * 
@@ -53,7 +55,7 @@ public class RandomCave extends Level {
 	 */
 	@Override
 	public void generateLevel() throws IOException {
-		
+
 		// initialize tile array
 		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
 
@@ -61,15 +63,15 @@ public class RandomCave extends Level {
 		caveMap = CaveGeneration.generateCave(CYCLES);
 
 		// whether or not a proper spawn point is found
-		//boolean spawnFound = false;
-		
+		// boolean spawnFound = false;
+
 		// iterate through the tiles
 		for (int row = 0; row < Level.LEVEL_HEIGHT; row++) {
 			for (int col = 0; col < Level.LEVEL_WIDTH; col++) {
-				
+
 				// get the current tile
 				int tile = col + row * Level.LEVEL_WIDTH;
-				
+
 				// Set the spawn point to a location where the player can move
 				if (caveMap[row][col] == CaveGeneration.FLOOR) {
 					levelTiles[tile] = Tile.CAVEFLOOR.getId();
@@ -80,23 +82,23 @@ public class RandomCave extends Level {
 //							spawnFound = true;
 //						}
 //					}
-					
+
 					// chance of spawning enemies in cave to fight
 					if (Math.random() < (JavaJesus.difficulty / 1000)) {
 						add(new Skeleton(this, col * 8, row * 8));
 					}
 				}
-					
+
 				// Add in the wall tiles and entities
 				switch (caveMap[row][col]) {
 				case CaveGeneration.CAVE_WALL:
 					levelTiles[tile] = Tile.CAVEWALL_TOP.getId();
-					
+
 					break;
 				case CaveGeneration.CAVE_BORDER_WALL:
 					levelTiles[tile] = Tile.CAVEWALL_RGHT.getId();
 					break;
-				case CaveGeneration.FLOOR_CHEST: 
+				case CaveGeneration.FLOOR_CHEST:
 					levelTiles[tile] = Tile.CAVEFLOOR.getId();
 					add(new Chest(this, col * 8, row * 8, (byte) 1));
 					break;
@@ -112,18 +114,16 @@ public class RandomCave extends Level {
 					break;
 				case CaveGeneration.EXIT_POINT:
 					levelTiles[tile] = Tile.CAVEFLOOR.getId();
-					add(new Ladder(this, col * 8, row * 8,
-							new RandomCave(this, new Point(0, 0))));
+					add(new Ladder(this, col * 8, row * 8, new RandomCave(this, new Point(0, 0))));
 					System.out.println("Exit at " + (col * 8) + " " + (row * 8));
-					
+
 					// every new exit point increases difficulty
 					JavaJesus.difficulty += 0.001f;
 					break;
 				default:
 					break;
 				}
-					
-				
+
 //				else if (caveMap[row][col] == 6) {
 //					levelTiles[tile] = Tile.CAVEFLOOR_ROCK.getId();
 //					add(new Ladder(this, col * 8, row * 8,
@@ -132,8 +132,15 @@ public class RandomCave extends Level {
 //				}
 			}
 		}
+
+		// now add any non unique quest givers
+		CharacterFactory cf = CharacterFactoryFactory.make(this.getLevelId());
+		if (cf != null) {
+			cf.setNonUniqueCharacters(this);
+			QuestLoader.initializeQuests(this);
+		}
 	}
-	
+
 	@Override
 	public Clip getBackgroundMusic() {
 		return SoundHandler.background2;

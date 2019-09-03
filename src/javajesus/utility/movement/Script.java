@@ -3,6 +3,7 @@ package javajesus.utility.movement;
 import java.awt.Point;
 
 import javajesus.entities.Mob;
+import javajesus.entities.Player;
 
 /*
  * A Script is a specific action on a specific mob
@@ -29,6 +30,11 @@ public class Script {
 		tileCoord.x = (int) ((tileCoord.x << 3) + 4 - (mob.getBounds().getWidth() / 2));
 		tileCoord.y = (int) ((tileCoord.y << 3) + 8 - mob.getBounds().getHeight());
 		destination = tileCoord;
+	}
+	
+	public Script(Player mob, Point entityCoord) {
+		this.mob = mob;
+		destination = entityCoord;
 	}
 	
 	/**

@@ -15,8 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
+import editors.quest.QuestDataBuilder;
 import javajesus.JavaJesus;
-import javajesus.dataIO.QuestData;
 import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
 import javajesus.quest.Quest;
@@ -128,11 +128,11 @@ public class DialogueGUI extends JPanel {
 		Quest quest = giver.getCurrentQuest();
 
 		if (selected == 0) {
-			quest.selectOption(QuestData.KEY_TRIGGERS1);
+			quest.selectOption(QuestDataBuilder.KEY_TRIGGERS1);
 		} else if (selected == 1) {
-			quest.selectOption(QuestData.KEY_TRIGGERS2);
+			quest.selectOption(QuestDataBuilder.KEY_TRIGGERS2);
 		} else {
-			quest.selectOption(QuestData.KEY_TRIGGERS3);
+			quest.selectOption(QuestDataBuilder.KEY_TRIGGERS3);
 		}
 
 		// reset selected

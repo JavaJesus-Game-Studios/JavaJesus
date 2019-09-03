@@ -7,7 +7,8 @@ import javajesus.entities.Entity;
 import javajesus.entities.transporters.Door;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
-import javajesus.level.interior.AlphaCaveInterior;
+import javajesus.level.LevelFactory;
+import javajesus.level.interior.Interior;
 
 /*
  * The cave structure front
@@ -16,9 +17,6 @@ public class AlphaCave extends Building {
 
 	// color set
 	private static final int[] color = { 0xFF301E01, 0xFF632a06, 0xFF000000,0,0 };
-
-	// Instance of the alpha Cave interior, used in the Liberate Church Quest
-	public static AlphaCaveInterior interior;
 
 	/**
 	 * Creates a cave entrance
@@ -31,7 +29,7 @@ public class AlphaCave extends Building {
 		super(level, x, y, color, Sprite.cave_entrance);
 
 		// initialize the interior
-		interior = new AlphaCaveInterior(new Point(x + 43, y + 167), level);
+		Interior interior = LevelFactory.make(LevelFactory.ALPHA_CAVE_INTERIOR, new Point(x + 43, y + 167), level);
 
 		if (level != null)
 			level.add(new Door(level, x + 18, y + 16, interior, 4, 0));

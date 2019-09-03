@@ -2,9 +2,9 @@ package javajesus.quest.original;
 
 import javajesus.entities.Mob;
 import javajesus.entities.monsters.EvilOrangutan;
-import javajesus.entities.npcs.NPC;
 import javajesus.entities.npcs.characters.Jesus;
-import javajesus.level.sandbox.SandboxOriginalLevel;
+import javajesus.level.Level;
+import javajesus.level.LevelFactory;
 import javajesus.quest.Quest;
 
 public class AlphaTurningTheTide extends Quest {
@@ -17,14 +17,18 @@ public class AlphaTurningTheTide extends Quest {
 
 	// instance of jesus
 	private Jesus jesus;
+	
+	private Level alpha;
 
-	public AlphaTurningTheTide(NPC giver) {
-		super(giver, "Turning the Tide", "/WORLD_DATA/QUEST_DATA/ALPHA_TURNING_THE_TIDE.json", 1);
+	public AlphaTurningTheTide() {
+		super("Turning the Tide", "/WORLD_DATA/QUEST_DATA/ALPHA_TURNING_THE_TIDE.json", 1);
+		
+		alpha = LevelFactory.get(LevelFactory.ALPHA);
 	}
 
 	@Override
 	public void update() {
-
+		
 		// check if orangutan is dead
 		if (!killedKen) {
 			for (Mob m : giver.getLevel().getMobs()) {
@@ -37,7 +41,7 @@ public class AlphaTurningTheTide extends Quest {
 		if (killedKen) {
 			// find jesus
 			if (jesus == null) {
-				for (Mob m : SandboxOriginalLevel.alpha.getMobs()) {
+				for (Mob m : alpha.getMobs()) {
 					if (m instanceof Jesus) {
 						jesus = (Jesus) m;
 						this.giver = jesus;
@@ -49,7 +53,7 @@ public class AlphaTurningTheTide extends Quest {
 
 		// check if orangutan is dead
 		if (!killedJesus) {
-			for (Mob m : SandboxOriginalLevel.alpha.getMobs()) {
+			for (Mob m : alpha.getMobs()) {
 				if (m instanceof Jesus && m.isDead()) {
 					killedJesus = true;
 				}

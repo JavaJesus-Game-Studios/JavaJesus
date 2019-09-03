@@ -10,7 +10,7 @@ import engine.Window;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.dataIO.PlayerData;
-import javajesus.entities.monsters.Demon;
+import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.transporters.Transporter;
 import javajesus.entities.vehicles.Ridable;
 import javajesus.graphics.Screen;
@@ -191,7 +191,7 @@ public class Player extends Mob implements Type {
 		}
 		
 	}
-
+	
 	/**
 	 * Transitions the player from one level to another
 	 */
@@ -445,7 +445,7 @@ public class Player extends Mob implements Type {
 
 		// do basic rendering
 		super.render(screen);
-
+		
 		// x and y tile on spritesheet
 		int xTile = 0, yTile = this.yTile;
 
@@ -873,7 +873,7 @@ public class Player extends Mob implements Type {
 
 		// spawns a demon
 		if (window.isKeyPressed(KeyEvent.VK_T)) {
-			getLevel().add(new Demon(getLevel(), getX(), getY(), 1, 100,(byte) 1));
+			getLevel().add(new Skeleton(getLevel(), getX(), getY()));
 			window.toggle(KeyEvent.VK_T);
 		}
 

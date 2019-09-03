@@ -2,7 +2,6 @@ package javajesus.quest.original;
 
 import javajesus.entities.Mob;
 import javajesus.entities.monsters.EvilFox;
-import javajesus.entities.npcs.NPC;
 import javajesus.quest.Quest;
 
 /*
@@ -16,8 +15,8 @@ public class TheEvilFox extends Quest {
 	/**
 	 * @param giver - the NPC who is giving the quest
 	 */
-	public TheEvilFox(NPC giver) {
-		super(giver, "Evil Fox", "/WORLD_DATA/QUEST_DATA/TheEvilFox.json", 1);
+	public TheEvilFox() {
+		super("Evil Fox", "/WORLD_DATA/QUEST_DATA/TheEvilFox.json", 1);
 	}
 	
 	@Override

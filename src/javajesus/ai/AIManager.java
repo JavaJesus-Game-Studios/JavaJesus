@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
 
+import javajesus.entities.Mob;
 import javajesus.entities.Player;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
@@ -14,14 +15,16 @@ public class AIManager implements Runnable {
 	int ticks;
 
 	private Player player;
-	private Screen screen;
+	private static Screen screen;
 
-	private int[] policy = {};
+	private static int[] policy = {};
 
-	private int width, height;
+	private static int width;
+
+	private int height;
 
 	private boolean running = true;
-
+	
 	public AIManager(Player player, Screen screen) {
 		this.player = player;
 		this.screen = screen;
@@ -57,11 +60,40 @@ public class AIManager implements Runnable {
 		}
 
 	}
+	
+	private static int test = 0;
+	
+	public static Point bestPointToMoveTo(Mob m) {
+		Point best = new Point(m.getX(), m.getY());
+		int tileIndex = m.getLevel().getVisibleTileIndexFromTileCoord(m.getX() >> 3, m.getY() >> 3, screen);
+		if (tileIndex != -1) {
+			int action = policy[tileIndex];
+			test = tileIndex;
+			switch (action) {
+			case 1:
+				best.translate(0, -8); break;
+			case 2:
+				best.translate(8, 0); break;
+			case 3:
+				best.translate(0, 8); break;
+			case 4:
+				best.translate(-8, 0); break;
+			}
+		}
+		return best;
+	}
 
 	public void render(Screen screen) {
+		if (test < policy.length)
+			policy[test] = 6;
 		for (int i = 0; i < policy.length; i++) {
-			JJFont.render(actionToChar(policy[i]), screen, screen.getxOffset() + (i % width) * 8,
-			        screen.getyOffset() + (i / width) * 8, new int[] { 0xFF0000, 0xFF0000, 0xFF0000, 0xFF0000 }, 1);
+			if (policy[i] == 6) {
+				JJFont.render(actionToChar(policy[i]), screen, screen.getxOffset() + (i % width) * 8,
+				        screen.getyOffset() + (i / width) * 8, new int[] { 0x0000FF, 0x0000FF, 0x0000FF, 0x0000FF }, 1);
+			} else {
+				JJFont.render(actionToChar(policy[i]), screen, screen.getxOffset() + (i % width) * 8,
+				        screen.getyOffset() + (i / width) * 8, new int[] { 0xFF0000, 0xFF0000, 0xFF0000, 0xFF0000 }, 1);
+			}
 		}
 	}
 
@@ -75,6 +107,8 @@ public class AIManager implements Runnable {
 			return "D";
 		case 4:
 			return "L";
+		case 6:
+			return "!";
 		default:
 			return ".";
 		}
@@ -94,7 +128,7 @@ public class AIManager implements Runnable {
 				int left = action == 4 ? -1 : 0;
 
 				int index = (col + left + right) + (row + up + down) * width;
-				if (index >= 0 && index < tiles.length) {
+				if (index >= 0 && index < tiles.length && current < tiles.length) {
 
 					// transition probability from CURRENT to INDEX
 					switch (tiles[current]) {
@@ -219,7 +253,11 @@ public class AIManager implements Runnable {
 				} else {
 
 					// no viable movement in this direction
-					transitions[current][current] = 1;
+					if (current < transitions.length) {
+						transitions[current][current] = 1;
+					} else {
+						System.err.println("Unknown transition probability");
+					}
 				}
 
 				// System.out.print(tiles[current] + " ");

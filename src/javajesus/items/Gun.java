@@ -95,6 +95,12 @@ public class Gun extends Item {
 		this.clipSize = clipSize;
 		this.ammo = clipSize;
 		this.RELOAD_TIME = reload;
+		
+		// TODO
+		if (reload == 0) {
+			this.RELOAD_TIME = 1;
+		}
+		
 		this.FIRE_RATE = (int) (rate * 10);
 		this.damage = damage;
 		this.type = type;
