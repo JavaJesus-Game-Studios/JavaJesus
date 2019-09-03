@@ -466,6 +466,12 @@ public class Sword extends Item {
 	public boolean isSwinging() {
 		return isSwinging;
 	}
+	
+	public void reset() {
+		isSwinging = false;
+		cooldown = false;
+	}
+	
 	/**
 	 * 
 	 * @return whether or not the sword is blocking

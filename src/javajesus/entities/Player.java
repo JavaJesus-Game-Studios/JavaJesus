@@ -91,6 +91,8 @@ public class Player extends Mob implements Type {
 	
 	// currently equipped Armor
 	private Armor equippedArmor;
+	
+	private Object lastEquip;
 
 	// player stats
 	private int strength, defense;
@@ -352,20 +354,44 @@ public class Player extends Mob implements Type {
 		// play swimming sound
 		if (isSwimming) {
 			SoundHandler.playAmbience(SoundHandler.swimming);
-
+			
+			// remove equip in water
+			if (lastEquip == null) {
+				if (equippedGun != null) {
+					lastEquip = equippedGun;
+				} else if (equippedSword != null) {
+					lastEquip = equippedSword;
+					equippedSword.reset();
+				}
+			}
+			equippedGun = null;
+			equippedSword = null;
+			
+			isShooting = isSwinging = false;
+			
 			// shift sprints, can't sprint in water
-		} else if (isSprinting && stamina > 0 && isMoving
-				&& !isShooting && !isSwinging) {
+		} else {
+			if (lastEquip != null) {
+				if (lastEquip instanceof Gun) {
+					equippedGun = (Gun) lastEquip;
+				} else {
+					equippedSword = (Sword) lastEquip;
+				}
+				lastEquip = null;
+			}
+			
+			if (isSprinting && stamina > 0 && isMoving && !isShooting && !isSwinging) {
 
-			// shift doubles the speed
-			dx *= 2;
-			dy *= 2;
+				// shift doubles the speed
+				dx *= 2;
+				dy *= 2;
 
-			// make a faster step animation
-			numSteps++;
+				// make a faster step animation
+				numSteps++;
 
-			// reduce stamina
-			stamina--;
+				// reduce stamina
+				stamina--;
+			}
 
 		}
 
@@ -650,10 +676,6 @@ public class Player extends Mob implements Type {
 			// Lower Body 2
 			screen.render(xLocation + tileSize - (tileSize * (flip ? 1 : 0)), yLocation + tileSize, xTile + 1, yTile + 1,
 			        sheet, flip, color);
-			
-			if(isSwimming) {
-				this.equippedGun = null;
-			}
 
 		}
 		
@@ -781,9 +803,6 @@ public class Player extends Mob implements Type {
 			if(isBlocking){
 				equippedSword.render(screen, xLocation, yLocation,getColor());
 				setDirection(equippedSword.getDirection());
-			}
-			if(isSwimming) {
-				equippedSword = null;
 			}
 		}
 
