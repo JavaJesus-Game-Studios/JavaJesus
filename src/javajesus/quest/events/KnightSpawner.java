@@ -1,9 +1,10 @@
 package javajesus.quest.events;
 
 import javajesus.entities.npcs.aggressive.Knight;
+import javajesus.level.CharacterFactoryFactory;
 import javajesus.level.Level;
-import javajesus.level.sandbox.SandboxOriginalLevel;
-import javajesus.quest.original.RescueKnights;
+import javajesus.level.LevelFactory;
+import javajesus.quest.factories.AlphaCharacterFactory;
 
 public class KnightSpawner extends Event{
 
@@ -13,9 +14,11 @@ public class KnightSpawner extends Event{
 
 	@Override
 	protected void init(Level level) {
-		Knight runner = new Knight(SandboxOriginalLevel.alpha, 1208, 1464);
-		runner.addQuest(new RescueKnights(runner));
-		SandboxOriginalLevel.alpha.add(runner);
+		
+		Level target = LevelFactory.get(LevelFactory.ALPHA);
+		Knight runner = (Knight) CharacterFactoryFactory.make(target.getLevelId()).make(AlphaCharacterFactory.KNIGHT);
+		//runner.addQuest(new RescueKnights());
+		target.add(runner);
 		
 	}
 

@@ -6,7 +6,6 @@ import javajesus.entities.Mob;
 import javajesus.entities.bosses.Cyclops;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.Skeleton;
-import javajesus.entities.npcs.NPC;
 import javajesus.level.Level;
 import javajesus.quest.Quest;
 
@@ -23,8 +22,8 @@ public class RescueKnights extends Quest {
 	// size of the battlefield
 	private static final Rectangle battlefield = new Rectangle(0, 1216, 456, 384);
 
-	public RescueKnights(NPC giver) {
-		super(giver, "Rescue Knights", "/WORLD_DATA/QUEST_DATA/Rescue_Knights.json", 3);
+	public RescueKnights() {
+		super("Rescue Knights", "/WORLD_DATA/QUEST_DATA/Rescue_Knights.json", 3);
 	}
 
 	@Override

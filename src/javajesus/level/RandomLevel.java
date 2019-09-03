@@ -13,6 +13,8 @@ import javajesus.entities.solid.buildings.NiceHouse;
 import javajesus.entities.solid.buildings.PoorHouse;
 import javajesus.level.generation.HeightMap;
 import javajesus.level.generation.HeightMapTile;
+import javajesus.quest.QuestLoader;
+import javajesus.quest.factories.CharacterFactory;
 
 public class RandomLevel extends Level {
 
@@ -20,13 +22,13 @@ public class RandomLevel extends Level {
 
 	// number of random levels
 	private static int numLevels;
-	
+
 	// random generator
 	private static final Random random = new Random();
 
 	/**
-	 * Generates a random level with smooth terrain based on a simple array
-	 * noise map
+	 * Generates a random level with smooth terrain based on a simple array noise
+	 * map
 	 * 
 	 * @param spawn - the entrance point
 	 */
@@ -44,7 +46,7 @@ public class RandomLevel extends Level {
 
 	@Override
 	public void generateLevel() throws IOException {
-		
+
 		// initialize tile array
 		levelTiles = new int[LEVEL_WIDTH * LEVEL_HEIGHT];
 
@@ -84,17 +86,24 @@ public class RandomLevel extends Level {
 				}
 			}
 		}
+
+		// now add any non unique quest givers
+		CharacterFactory cf = CharacterFactoryFactory.make(this.getLevelId());
+		if (cf != null) {
+			cf.setNonUniqueCharacters(this);
+			QuestLoader.initializeQuests(this);
+		}
 	}
 
 	private Building getBuilding(int x, int y) throws IOException {
-			switch (random.nextInt(10)) {
-			case 1:
-				return new NiceHouse(this, x, y);
-			case 2:
-				return new Hut(this, x, y);
-			default:
-				return new PoorHouse(this, x, y);
-			}
+		switch (random.nextInt(10)) {
+		case 1:
+			return new NiceHouse(this, x, y);
+		case 2:
+			return new Hut(this, x, y);
+		default:
+			return new PoorHouse(this, x, y);
+		}
 	}
 
 }

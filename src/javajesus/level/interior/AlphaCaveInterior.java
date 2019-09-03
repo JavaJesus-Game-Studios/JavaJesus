@@ -6,11 +6,10 @@ import java.io.IOException;
 import javax.sound.sampled.Clip;
 
 import javajesus.SoundHandler;
-import javajesus.entities.npcs.aggressive.Orangutan;
 import javajesus.entities.transporters.Transporter;
 import javajesus.entities.transporters.TransporterInterior;
 import javajesus.level.Level;
-import javajesus.quest.original.AlphaTurningTheTide;
+import javajesus.level.LevelFactory;
 
 /*
  * Custom cave for the alpha level
@@ -23,13 +22,7 @@ public class AlphaCaveInterior extends Interior {
 	 * @throws IOException
 	 */
 	public AlphaCaveInterior(Point point, Level level) throws IOException {
-		super("/WORLD_DATA/INTERIOR_DATA/AlphaCaveInterior", new Point(912, 1392), level);
-		
-		// Adds wise Orangutan with the "Turning the Tide" Quest inside the cave
-		Orangutan ken = new Orangutan(this, 944, 192);
-		ken.addQuest(new AlphaTurningTheTide(ken));
-		add(ken);
-
+		super("/WORLD_DATA/INTERIOR_DATA/AlphaCaveInterior", new Point(912, 1392), level, LevelFactory.ALPHA_CAVE_INTERIOR);
 	}
 
 	@Override

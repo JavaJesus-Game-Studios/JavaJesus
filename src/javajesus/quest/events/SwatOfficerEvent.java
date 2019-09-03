@@ -1,9 +1,11 @@
 package javajesus.quest.events;
 
 import javajesus.entities.npcs.aggressive.SWATOfficer;
+import javajesus.level.CharacterFactoryFactory;
 import javajesus.level.Level;
 import javajesus.quest.FollowPlayerScript;
-import javajesus.quest.original.OfficerDialogue;
+import javajesus.quest.factories.AlphaCharacterFactory;
+import javajesus.quest.factories.CharacterFactory;
 
 /*
  * Spawns two swat officers, one of which has a quest for the player
@@ -13,7 +15,7 @@ public class SwatOfficerEvent extends Event {
 	/**
 	 * @param level - level to do the event
 	 */
-	protected SwatOfficerEvent(Level level) {
+	public SwatOfficerEvent(Level level) {
 		super(level);
 	}
 
@@ -23,14 +25,17 @@ public class SwatOfficerEvent extends Event {
 	protected void init(Level level) {
 		
 		// TODO put in correct coordinates and quest
-		SWATOfficer officer = new  SWATOfficer(level, 1464, 16);
 		SWATOfficer officer2 = new  SWATOfficer(level, 1488, 16);
-
-		officer.addQuest(new OfficerDialogue(officer));
+		
+		CharacterFactory cf = CharacterFactoryFactory.make(level.getLevelId());
+		
+		SWATOfficer officer = (SWATOfficer) cf.make(AlphaCharacterFactory.OFFICER);
+		
+		//officer.addQuest(new OfficerDialogue());
 		
 		// TODO put correct coordinates
 		level.add(officer);
-		level.add(new SWATOfficer(level, 1488, 16));
+		level.add(officer2);
 		officer.setPath(new FollowPlayerScript(officer));
 		officer2.setPath(new FollowPlayerScript(officer));
 

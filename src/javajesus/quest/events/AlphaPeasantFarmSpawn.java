@@ -10,14 +10,14 @@ import javajesus.quest.original.AlphaMissingCow;
  */
 public class AlphaPeasantFarmSpawn extends Event{
 
-	protected AlphaPeasantFarmSpawn(Level level) {
+	public AlphaPeasantFarmSpawn(Level level) {
 		super(level);
 	}
 
 	@Override
 	protected void init(Level level) {
 		Peasant hiddenPeasant = new Peasant(level, 512, 296, 0);
-		hiddenPeasant.addQuest(new AlphaMissingCow(hiddenPeasant));
+		hiddenPeasant.addQuest(new AlphaMissingCow());
 	}
 
 }

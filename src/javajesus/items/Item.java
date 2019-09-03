@@ -52,27 +52,27 @@ public class Item {
 	// guns
 	public static final Item revolver = new Gun("Revolver", 4, 0, 0, new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 },
 			"Standard Six Shooter, more powerful than it should be, known to cause tinnitus and Dirty Harritus."
-			, 0, 6, 5, 5, 80, Ammo.REVOLVER, SoundHandler.revolver);
+			, 0, 6, 1, 10, 80, Ammo.REVOLVER, SoundHandler.revolver);
 	public static final Item laserRevolver = new Gun("Laser Revolver", 5, 1, 0,
 			new int[] { 0xFF111111, 0xFF4D2607, 0xFFFFAE00 }, 
 			"The new revolutionary Laser Revolver. Simply kills. Battery life lasts for one to six discharges."
-			, 2, 6, 10, 10, 90, Ammo.LASER,
+			, 2, 6, 1, 5, 90, Ammo.LASER,
 			SoundHandler.laser);
 	public static final Item assaultRifle = new Gun("M239 Assault Rifle", 7, 2, 0,
 			new int[] { 0xFF111111, 0xFFCFCFCF, 0xFF000000 },
 			"This M239 US Army Assault Rifle, has been used of 26 of the last 30 Mass Shootings of the year."
 			+ " Main uses include hunting deer and target practice. Available at your local Gunstore, God Bless America.",
-			4, 36, 1, 5, 100, Ammo.RIFLE,
+			4, 60, (float) 0.90, 2, 55, Ammo.RIFLE,
 			SoundHandler.assaultRifle);
 	public static final Item shotgun = new Gun("Shotgun", 6, 3, 0, new int[] { 0xFF111111, 0xFF4D2607, 0xFFCFCFCF },
 			"The gun that allowed these United States to \"liberate\" the west. Put two bullets in, point in your "
 			+ "target's general direction and watch them turn into minced meat.",
-			6, 2, 5, 18, 150, Ammo.SHELL, SoundHandler.shotgun);
+			6, 2, 2, 5, 150, Ammo.SHELL, SoundHandler.shotgun);
 	public static final Item crossBow = new Gun("Crossbow", 8, 4, 0, new int[] { 0xFF111111, 0xFF4D2607, 0xFFCFCFCF },
 			"Useful in defending Castles from the English in 1400, now useful for driving a stake "
 			+ "through the hearts of the armies of Hell, one arrow at a time. Slow to reload but packs"
 			+ "a hell of a punch.",
-			8, 1, 3, 30, 175, Ammo.ARROW, SoundHandler.revolver);
+			8, 1, 1, 20, 175, Ammo.ARROW, SoundHandler.revolver);
 	public static final Item bazooka = new Bazooka();
 
 	// swords

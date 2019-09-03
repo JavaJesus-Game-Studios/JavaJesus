@@ -26,7 +26,7 @@ public class Arrow extends Projectile {
 	 * @param damage - the damage this projectile should do on impact
 	 */
 	public Arrow(Level level, int x, int y, Direction direction, Mob mob, int damage) {
-		super(level, x, y, 8, 5, 5, 8, 2, 0, 3, direction, mob, damage, color, SoundHandler.laser);
+		super(level, x, y, 8, 5, 5, 8, 2, 0, 3, direction, mob, damage, color, SoundHandler.click);
 
 	}
 
