@@ -216,7 +216,9 @@ public class Knight extends NPC {
 			if (isShooting) {
 				xTile = 23;
 			}
-			
+			if (!isMoving && !isShooting) {
+				xTile += ((tickCount % 120 <= 60) ? 19 : 0);
+			}
 		} else if (getDirection() == Direction.SOUTH) {
 			
 			if (isMoving) {
@@ -226,11 +228,17 @@ public class Knight extends NPC {
 			if (isShooting) {
 				xTile = 18;
 			} 
+			if (!isMoving && !isShooting) {
+				xTile += ((tickCount % 120 <= 60) ? 27 : 0);
+			}
 		} else {
 			xTile = 6 + (flip ? 3 : 0);
 			
 			if (isShooting) {
 				xTile = 20;
+			}
+			if (!isMoving && !isShooting) {
+				xTile += ((tickCount % 120 <= 60) ? 23 : 0);
 			}
 			
 			flip = getDirection() == Direction.WEST;
@@ -257,10 +265,6 @@ public class Knight extends NPC {
 			// Lower Body
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
 			        getSpriteSheet(), flip);
-		}
-		
-		// render the extra sword chunks
-		if (isShooting && isLongitudinal()) {
 			
 			// Lower sword
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile, yTile + 2, getSpriteSheet(),
@@ -287,7 +291,7 @@ public class Knight extends NPC {
 				
 				// Right body
 				screen.render(xOffset + (modifier * 2) - (modifier * (flip ? 2 : 0)), yOffset + i * modifier, xTile + 2, yTile + i, getSpriteSheet(), flip);
-				
+						
 			}
 			
 		}

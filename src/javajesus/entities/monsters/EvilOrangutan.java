@@ -64,14 +64,26 @@ public class EvilOrangutan extends Monster {
 
 		// get spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile += 15;
-		} else if (getDirection() == Direction.SOUTH) {
-			xTile += 3;
-		} else {
-			xTile += 6 + (flip ? 3 : 0);
-			flip = getDirection() == Direction.WEST;
-		}
-
+			if (!isMoving) {
+				xTile += 15;
+				xTile += ((tickCount % 120 <= 60) ? 24 : 0);
+			}else {
+				xTile += 18;
+			}
+			} else if (getDirection() == Direction.SOUTH) {
+				if (!isMoving) {
+					xTile += ((tickCount % 120 <= 60) ? 30 : 0);
+				}
+				else {
+					xTile += 3;
+				}
+			} else {
+				xTile += 6 + (flip ? 3 : 0);
+				if (!isMoving)
+					xTile += ((tickCount % 120 <= 60) ? 27 : 0);
+				flip = getDirection() == Direction.WEST;
+			}
+		
 		// attacking animation
 		if (isShooting) {
 			if (getDirection() == Direction.NORTH) {
@@ -90,7 +102,6 @@ public class EvilOrangutan extends Monster {
 
 		// render by row
 		for (int i = 0; i < 3; i++) {
-
 			screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i), xTile, yTile + i,
 			        getSpriteSheet(), flip, color);
 

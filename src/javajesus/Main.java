@@ -25,20 +25,19 @@ public class Main {
 		try {
 			
 			// create a splash loading screen
-			/**
 			SplashScreen splash = SplashScreen.getSplashScreen();
-			
+			/**
 			// error checking
 			if (splash == null) {
 				System.err.println("Splash is null");
 				System.err.println("Add VM Arg in Run Configurations: -splash:res/VISUAL_DATA/GUI/CREDITS/logo.gif");
 				return;
 			}
-			
+
 			// render the splash screen
 	        splash.createGraphics();
 	        splash.update();
-*/
+			*/
 			// start the launcher and sound
 			SoundHandler.initialize();
 			

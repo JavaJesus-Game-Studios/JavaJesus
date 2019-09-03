@@ -185,10 +185,25 @@ public class Orangutan extends NPC {
 
 		// get spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile += 15;
+			if (!isMoving) {
+				xTile = 12;
+				xTile += ((tickCount % 120 <= 60) ? 24 : 0);
+			}else {
+				xTile = 15;
+			}
 		} else if (getDirection() == Direction.SOUTH) {
-			xTile += 3;
+			if (!isMoving) {
+				xTile = 0;
+				xTile += ((tickCount % 120 <= 60) ? 30 : 0);
+			}
+			else {
+				xTile = 3;
+			}
 		} else {
+			if (!isMoving) {
+				xTile = 6;
+				xTile += ((tickCount % 120 <= 60) ? 27 : 0);
+			}
 			xTile += 6 + (flip ? 3 : 0);
 			flip = getDirection() == Direction.WEST;
 		}

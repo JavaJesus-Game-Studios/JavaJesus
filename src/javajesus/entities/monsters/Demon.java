@@ -133,35 +133,52 @@ public class Demon extends Monster implements LongRange, Type {
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
 			xTile = 10;
+			if (isMoving) {
+				xTile += 2 + (flip ? 2 : 0);
+				flip = false;
+			}
+			// attacking animation
+			if (isShooting)
+				xTile += 14;
+			if (!isMoving && !isShooting) {
+				xTile += ((tickCount % 120 <= 60) ? 25 : 0);
+			}
 		} else if (getDirection() == Direction.SOUTH) {
-			xTile = 2;
+			if (isMoving) {
+				xTile += 2 + (flip ? 2 : 0);
+				flip = false;
+			}
+			// attacking animation
+			if (isShooting)
+				xTile += 16;
+			if (!isMoving && !isShooting) {
+				xTile += ((tickCount % 120 <= 60) ? 31 : 0);
+			}
 		} else {
-			xTile = 4 + (flip ? 2 : 0);
+			xTile = 6 + (flip ? 2 : 0);
 			flip = getDirection() == Direction.WEST;
+			// attacking animation
+			if (isShooting)
+				xTile += 14;
+			if (!isMoving && !isShooting) {
+				xTile += ((tickCount % 120 <= 60) ? 27 : 0);
+			}
 		}
-
-		// attacking animation
-		if (isShooting)
-			xTile += 12;
 
 		// dead has an absolute position
 		if (isDead()) {
 			if (isLongitudinal()) {
 				setDirection(Direction.WEST);
 			}
-			xTile = 24;
+			xTile = 28;
 		}
+		
+		// Upper body 1
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
 
-		// only a living demon has a top layer
-		if (!isDead()) {
-
-			// Upper body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
-
-			// Upper body 2
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-					xTile + 1, yTile, getSpriteSheet(), flip, color);
-		}
+		// Upper body 2
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
+				xTile + 1, yTile, getSpriteSheet(), flip, color);
 
 		// Middle Body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,

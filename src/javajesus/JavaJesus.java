@@ -43,19 +43,21 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// serialization
 	private static final long serialVersionUID = 1L;
 
-	// Window width 12:9
-	public static final int WINDOW_WIDTH = 960;
+	// Window width Standard 16:9, 1080p HD
+	public static final int WINDOW_WIDTH = 1280;
 
 	// Window height
 	public static final int WINDOW_HEIGHT = 720;
 	
 	// Game Screen width (Size of the In-Game Map displayed within the Actual
 	// Frame)
-	public static final int IMAGE_WIDTH = 300;
+	// NOTE: If we want/need to change this to support different resolutions, keep the
+	// Aspect ratio the same as WINDOW_WIDTH:WINDOW_HEIGHT, otherwise you will introduce distortions
+	public static final int IMAGE_WIDTH = WINDOW_WIDTH/4;
 
 	// Game Screen height (Size of the In-Game Map displayed within the Actual
 	// Frame)
-	public static final int IMAGE_HEIGHT = 225;
+	public static final int IMAGE_HEIGHT = WINDOW_HEIGHT/4;
 	
 	// a magic number that aligns the bottom components of the HUD
 	public static final int HUD_OFFSET = 29;
@@ -223,7 +225,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			player.initSound(); 
 			
 			// hud is not saved in save file
-			hud = new PlayerHUD(player);
+			//hud = new PlayerHUD(player);
 			
 			// skip the player selection intro gui screen
 			display.add(overview, "Inventory");
@@ -339,7 +341,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			player.getLevel().tick();
 			
 			// update the hud
-			hud.update();
+			//hud.update();
 			
 			// update the global offsets
 			xOffset = player.getX() - (IMAGE_WIDTH / 2) + 8;
@@ -493,7 +495,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		}
 		
 		// draw additional displays on the screen
-		hud.draw(g);
+		//hud.draw(g);
 		MessageHandler.drawWindow(g);
 		
 		// draw death screen if player died

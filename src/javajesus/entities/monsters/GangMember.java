@@ -139,11 +139,20 @@ public class GangMember extends Monster implements LongRange, Type {
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
 			xTile = 8;
+			if (!isMoving) {
+				xTile += ((tickCount % 120 <= 60) ? 22 : 0);
+			}
 		} else if (getDirection() == Direction.SOUTH) {
 			xTile = 0;
+			if (!isMoving) {
+				xTile += ((tickCount % 120 <= 60) ? 26 : 0);
+			}
 		} else {
 			xTile = 4 + (flip ? 2 : 0);
 			flip = getDirection() == Direction.WEST;
+			if (!isMoving) {
+				xTile += ((tickCount % 120 <= 60) ? 24 : 0);
+			}
 		}
 
 		// dead has an absolute position
@@ -153,12 +162,22 @@ public class GangMember extends Monster implements LongRange, Type {
 
 		// shooting has an absolute position
 		if (isShooting) {
-			xTile = 14;
 			if (getDirection() == Direction.NORTH) {
-				xTile += 12;
-			}
-			if (getDirection() == Direction.SOUTH) {
-				xTile += 6;
+				xTile = 22;
+				if (!isMoving) {
+					xTile += ((tickCount % 120 <= 60) ? 14 : 0);
+				}
+			} else if (getDirection() == Direction.SOUTH) {
+				xTile = 14;
+				if (!isMoving) {
+					xTile += ((tickCount % 120 <= 60) ? 18 : 0);
+				}
+			} else {
+				xTile = 18 + (flip ? 2 : 0);
+				flip = getDirection() == Direction.WEST;
+				if (!isMoving) {
+					xTile += ((tickCount % 120 <= 60) ? 16 : 0);
+				}
 			}
 		}
 

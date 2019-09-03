@@ -65,7 +65,6 @@ public class Skeleton extends Monster {
 			if (isShooting) {
 				xTile = 23;
 			}
-			
 		} else if (getDirection() == Direction.SOUTH) {
 			
 			if (isMoving) {
@@ -106,10 +105,6 @@ public class Skeleton extends Monster {
 			// Lower Body
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
 			        getSpriteSheet(), flip, color);
-		}
-		
-		// render the extra sword chunks
-		if (isShooting && isLongitudinal()) {
 			
 			// Lower sword
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile, yTile + 2, getSpriteSheet(),
@@ -126,7 +121,7 @@ public class Skeleton extends Monster {
 			}
 			
 			// iterate top to bottom
-			for (int i = 0; i < 2; i++) {
+			for (int i = 0; i < 3; i++) {
 				
 				// Left body
 				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + i * modifier, xTile, yTile + i, getSpriteSheet(), flip, color);

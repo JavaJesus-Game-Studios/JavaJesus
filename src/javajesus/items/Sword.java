@@ -58,13 +58,7 @@ public class Sword extends Item {
 	
 	//whether or not the sword is blocking
 	private boolean blocking;
-	
-	// power swing offset modifier that changes the current position
-	// 2 = GREATSWORD (even 2 spaces extra in each)
-	// 1 = the swords with the awkward 1 space in diagonals
-	private int powerSwingModifier;
 
-	// TODO should fix in spritesheet
 	// there is an extra offset when diagonal and facing south
 	private boolean diagonal;
 
@@ -107,8 +101,8 @@ public class Sword extends Item {
 	 * @param length - either SHORT, MEDIUM, or LONG
 	 */
 	public Sword(String name, int id, int xTile, int yTile, int xSwingOffset, int ySwingOffset, int[] color,
-			String description, int cooldown, int damage, int[] powerSwingOffsets, int swingoffset,
-			int blockingOffsets, int length, int knockback) {
+			String description, int cooldown, int damage, int[] powerSwingOffsets, int blockingOffsets,
+			int length, int knockback) {
 		super(name, id, xTile, yTile, color, description, true);
 		this.cooldownTime = cooldown;
 		this.damage = damage;
@@ -117,7 +111,6 @@ public class Sword extends Item {
 		this.length = length;
 		this.powerSwingOffsets = powerSwingOffsets;
 		this.blockingOffsets = blockingOffsets;
-		this.powerSwingModifier = swingoffset;
 		this.knockback = knockback;
 	}
 	
@@ -164,26 +157,23 @@ public class Sword extends Item {
 
 			if (++powerSwingTicks % (cooldownTime / 5) == 0) {
 
-				// increment the current phase by at least 2 (always) on the
-				// spritesheet
+				// Always increment by at least 2
 				currentPowerOffset += 2;
-
-				// long sword will always have two extra boxes
-				if (powerSwingModifier == 2) {
+				
+				// If facing EAST/WEST add an additional 2 to the offset
+				if( direction == Direction.EAST || direction == Direction.WEST )
 					currentPowerOffset += 2;
-
-					// east/west always has an extra box, while some medium
-					// diagonal downwardfacing sprites also have an extra box
-				} else if (direction == Direction.EAST || direction == Direction.WEST
-						|| (diagonal && powerSwingModifier == 1)) {
+				// If facing diagonally add an additional 1 to the offset
+				else if( diagonal )
 					currentPowerOffset++;
-				}
+				
 
 				// power swing timer
 				if (powerSwingTicks >= cooldownTime) {
 					currentPowerOffset = 0;
 					powerSwingTicks = 0;
 					powerSwinging = false;
+					diagonal = false;
 				}
 			}
 		}
@@ -352,6 +342,8 @@ public class Sword extends Item {
 
 		// base modifier size
 		int modifier = UNIT_SIZE;
+		
+		diagonal = false;
 
 		// sprite offset for SIMPLE swing in one direction
 		if (direction == Direction.NORTH) {
@@ -363,20 +355,11 @@ public class Sword extends Item {
 		if(blocking){
 			xTile = blockingOffsets;
 		}
-		// adjsut offsets for power swinging
+		// adjust offsets for power swinging
 		if (powerSwinging) {
-
-			// if the sword is long
-			if (powerSwingModifier == 2) {
-
-				// if the swing animation is over, roll back
-				if (startPos + currentPowerOffset > powerSwingOffsets[3] + 5) {
-					startPos = powerSwingOffsets[0];
-					currentPowerOffset = 0;
-				}
-
-				// short or medium swords, roll back
-			} else if (startPos + currentPowerOffset > powerSwingOffsets[3] + 3) {
+			
+			// if the swing animation is over, roll back
+			if (startPos + currentPowerOffset > powerSwingOffsets[3] + 4) {
 				startPos = powerSwingOffsets[0];
 				currentPowerOffset = 0;
 			}
@@ -390,175 +373,93 @@ public class Sword extends Item {
 			// update the direction
 			if (xTile == powerSwingOffsets[0]) {
 				direction = Direction.WEST;
-				
-				// center sprite
-				xOffset -= modifier * powerSwingModifier;
-				
-			} else if (xTile == powerSwingOffsets[2]) {
+			} else if (xTile == powerSwingOffsets[2])
 				direction = Direction.EAST;
-			} else if (xTile < powerSwingOffsets[2]) {
+			else if (xTile < powerSwingOffsets[2])
 				direction = Direction.SOUTH;
-				
-				// centers sprite for long swords
-				if (powerSwingModifier == 2) {
-					xOffset -= modifier;
-				}
-				
-			} else {
+			else
 				direction = Direction.NORTH;
-				
-				// centers sprite for long swords
-				if (powerSwingModifier == 2) {
-					xOffset -= modifier;
-				}
-			}
 
-			// set diagonal
-			diagonal = direction == Direction.SOUTH && ((xTile < powerSwingOffsets[2] && xTile > powerSwingOffsets[1])
-					|| (xTile > powerSwingOffsets[0] && xTile < powerSwingOffsets[1]));
+			// Set diagonal, TRUE only if SOUTH or NORTH at specified locations
+			diagonal =  ( (xTile > powerSwingOffsets[0] && xTile < powerSwingOffsets[1])
+					|| (xTile > powerSwingOffsets[1] && xTile < powerSwingOffsets[2]) )
+					|| ( (xTile > powerSwingOffsets[2] && xTile < powerSwingOffsets[3])
+					|| (xTile > powerSwingOffsets[3]) );
 			
-			// diagonal is off by one size
-			if (diagonal && powerSwingModifier == 1 && currentPowerOffset == 3) {
+			// center the first south diagonal
+			if ( diagonal && direction == Direction.SOUTH && xTile < powerSwingOffsets[1]
+					|| diagonal && direction == Direction.NORTH && xTile > powerSwingOffsets[3]) {
 				xOffset -= modifier;
 			}
 
 		}
-
-		// render the long sword power swinging animation
-		if (powerSwingModifier == 2 && powerSwinging) {
-
-			// long sword
-			for (int i = 0; i < 4; i++) {
-				screen.render(xOffset, yOffset + i * modifier, xTile, yTile + i, sheet, false, color);
-
-				screen.render(xOffset + modifier, yOffset + i * modifier, xTile + 1, yTile + i, sheet, false, color);
-
-				screen.render(xOffset + 2 * modifier, yOffset + i * modifier, xTile + 2, yTile + i, sheet, false,
-				        color);
-
-				screen.render(xOffset + 3 * modifier, yOffset + i * modifier, xTile + 3, yTile + i, sheet, false,
-				        color);
-				
-			}
-
-			// render normal east/west
-		} else if (direction == Direction.EAST || direction == Direction.WEST) {
-			
-			// Moves player animation to the left by 8
-			if (direction == Direction.WEST && (!powerSwinging || powerSwingModifier == 0)) {
-				xOffset -= modifier;
-			}
-
-			// render short or medium swords
-			if (powerSwingModifier < 2) {
-				
-				// top to bottom
-				for (int i = 0; i < 2; i++) {
-
-					screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i), xTile, yTile + i,
-					        sheet, flip, color);
-
-					screen.render(xOffset + modifier, yOffset + (modifier * i), xTile + 1, yTile + i, sheet, flip,
-					        color);
-
-					screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-					        xTile + 2, yTile + i, sheet, flip, color);
-
+		// Render normal NORTH: 2*3 (x*y)
+		if( direction == Direction.NORTH ) {
+			if( !diagonal ) {
+			for (int i = 0; i < 3; i++) {
+					// Left Half
+					screen.render(xOffset, yOffset + (i - 1) * modifier, xTile, yTile - 1 + i, sheet, false, color);
+					// Right Half
+					screen.render(xOffset + modifier, yOffset + (i - 1) * modifier, xTile + 1, yTile - 1 + i, sheet, false, color);
 				}
-				
-				// long swords
 			} else {
-				
-				// Moves player animation to the left by 8 again
-				if (direction == Direction.WEST) {
-					xOffset -= modifier;
+				// Diagonal Rendering NORTH: 3*3 (x*y)
+				for (int i = 0; i < 3; i++) {
+					// Left
+					screen.render(xOffset, yOffset + (i - 1) * modifier, xTile, yTile - 1 + i, sheet, false, color);
+					// Middle
+					screen.render(xOffset + modifier, yOffset + (i - 1) * modifier, xTile + 1, yTile - 1 + i, sheet, false, color);
+					// Right
+					screen.render(xOffset + modifier*2, yOffset + (i - 1) * modifier, xTile + 2, yTile - 1 + i, sheet, false, color);
 				}
-				
-				System.out.println("HERE");
-				
-				// top to bottom
-				for (int i = 0; i < 2; i++) {
-
-					screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
-					        xTile, yTile + i, sheet, flip, color);
-
-					screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
-					        xTile + 1, yTile + i, sheet, flip, color);
-
-					screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
-					        xTile + 2, yTile + i, sheet, flip, color);
-					
-					screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
-					        xTile + 3, yTile + i, sheet, flip, color);
-
-				}
-				
-			}
-
-			// north south display
-		} else {
-
-			// render the awkward diagonals with an extra space
-			if (diagonal && powerSwingModifier > 0) {
-				for (int i = 0; i < 2; i++) {
-
-					screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-							xTile, yTile + i, sheet, flip, color);
-
-					screen.render(xOffset + modifier, yOffset + (modifier * i), xTile + 1, yTile + i, sheet, flip, color);
-
-					screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i),
-							xTile + 2, yTile + i, sheet, flip, color);
-				}
-
-				// render the normal up down
-			} else {
-
-				// render the core body 2x2
-				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, sheet, flip, color);
-
-				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset,
-						xTile + 1, yTile, sheet, flip, color);
-
-				screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-						xTile, yTile + 1, sheet, flip, color);
-
-				screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-						xTile + 1, yTile + 1, sheet, flip, color);
-
-				// render the extra tip for swords
-				if (direction == Direction.SOUTH) {
-
-					screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile, yTile + 2,
-					        sheet, flip, color);
-
-					screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile + 1,
-					        yTile + 2, sheet, flip, color);
-					
-					// long swords have extra south tip
-					if (length == LONG) {
-						screen.render(xOffset, yOffset + 3 * modifier, xTile, yTile + 3, sheet, flip, color);
-
-						screen.render(xOffset + modifier, yOffset + 3 * modifier, xTile + 1, yTile + 3, sheet, flip,
-						        color);
-					}
-
-					// render the extra tip for north
-				} else if (length > SHORT && direction == Direction.NORTH) {
-
-					screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset - modifier, xTile, yTile - 1, sheet,
-					        flip, color);
-
-					screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset - modifier, xTile + 1,
-					        yTile - 1, sheet, flip, color);
-
-				}
-
 			}
 		}
-
+		// Render SOUTH: 2*3 (x*y)
+		if( direction == Direction.SOUTH) {
+			if(!diagonal) {
+				for (int i = 0; i < 3; i++) {
+					// Left Half
+					screen.render(xOffset, yOffset + i * modifier, xTile, yTile + i, sheet, false, color);
+					// Right Half
+					screen.render(xOffset + modifier, yOffset + i * modifier, xTile + 1, yTile + i, sheet, false, color);
+				}
+			} else {
+				// Diagonal Rendering SOUTH: 3*3 (x*y)
+				for (int i = 0; i < 3; i++) {
+					// Left
+					screen.render(xOffset, yOffset + i * modifier, xTile, yTile + i, sheet, false, color);
+					// Middle
+					screen.render(xOffset + modifier, yOffset + i * modifier, xTile + 1, yTile + i, sheet, false, color);
+					// Right
+					screen.render(xOffset + modifier*2, yOffset + i * modifier, xTile + 2, yTile + i, sheet, false, color);
+				}
+			}
+		}
+		// Render EAST/WEST: 4*2 (x*y)
+		if (direction == Direction.EAST || direction == Direction.WEST) {
+			if(direction == Direction.WEST)
+				xOffset -= modifier*2;
+			for (int i = 0; i < 2; i++) {
+				// Left
+				screen.render(xOffset + (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
+				        xTile, yTile + i, sheet, flip, color);
+				// Left Middle
+				screen.render(xOffset + modifier + (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
+				        xTile + 1, yTile + i, sheet, flip, color);
+				// Right Middle
+				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 1 : 0)), yOffset + (modifier * i),
+				        xTile + 2, yTile + i, sheet, flip, color);
+				// Right
+				screen.render(xOffset + 3 * modifier - (modifier * (flip ? 3 : 0)), yOffset + (modifier * i),
+				        xTile + 3, yTile + i, sheet, flip, color);
+			}
+		}
+			
 	}
 
+	public int getYSwingOffset() {
+		return ySwingOffset;
+	}
 	/**
 	 * @return whether or not the sword is swinging
 	 */
