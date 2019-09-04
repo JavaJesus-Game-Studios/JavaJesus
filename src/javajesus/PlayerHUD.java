@@ -1,8 +1,10 @@
 package javajesus;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
@@ -22,7 +24,7 @@ public class PlayerHUD {
 	private Player player;
 
 	// the different item elements on the HUD
-	private BufferedImage item, box;
+	private BufferedImage item, box, testh, tests;
 
 	// number of heart/stamina states
 	private static final int NUM_STATES = 8;
@@ -48,13 +50,12 @@ public class PlayerHUD {
 
 	// bar offsets
 	private final static int BAR_XOFFSET = 810, BAR_YOFFSET = -50;
-	
+
 	// offsets for heart inside of stamina bar
 	private final static int BAR_XSPACE = 38, BAR_VSPACE = 40;
 
 	// offsets of various HUD elements
-	private static int box_yOffset, gun_xOffset, gun_yOffset, string_xOffset,
-			string_yOffset;
+	private static int box_yOffset, gun_xOffset, gun_yOffset, string_xOffset, string_yOffset;
 
 	// font of ammo string
 	private static final Font font = new Font(JavaJesus.FONT_NAME, 0, 20);
@@ -76,8 +77,9 @@ public class PlayerHUD {
 		// initialize all the images into memory that will be rendered on the
 		// screen
 		try {
-			box = ImageIO.read(PlayerHUD.class
-					.getResource("/VISUAL_DATA/GUI/HUD/IN_GAME/box.png"));
+			box = ImageIO.read(PlayerHUD.class.getResource("/VISUAL_DATA/GUI/HUD/IN_GAME/box.png"));
+			testh = ImageIO.read(PlayerHUD.class.getResource("/VISUAL_DATA/GUI/HUD/IN_GAME/test_heart.png"));
+			tests = ImageIO.read(PlayerHUD.class.getResource("/VISUAL_DATA/GUI/HUD/IN_GAME/test_ring.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -89,12 +91,10 @@ public class PlayerHUD {
 		for (int i = 0; i < NUM_STATES; i++) {
 
 			// create the buffered images
-			hearts[i] = new BufferedImage(SIZE, SIZE,
-					BufferedImage.TYPE_INT_ARGB);
+			hearts[i] = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_ARGB);
 
 			// get heart and stamina pixels
-			int[] hp = ((DataBufferInt) hearts[i].getRaster().getDataBuffer())
-					.getData();
+			int[] hp = ((DataBufferInt) hearts[i].getRaster().getDataBuffer()).getData();
 
 			// render the different states to screen first
 			tempH.render24bit(i, 2, SpriteSheet.hudWeapons);
@@ -107,17 +107,12 @@ public class PlayerHUD {
 					// color of the pixel with alpha
 					int colH = tempH.getPixels()[x + y * tempH.getWidth()];
 
-					// if not black, make it opaque
-					if (colH != 0) {
-						colH = colH | 0xFF000000;
-					}
-
 					// set the buffered image pixels
 					hp[x + y * tempH.getWidth()] = colH;
 				}
 
 			}
-
+			
 			// clear the screens
 			tempH.clear();
 		}
@@ -130,16 +125,12 @@ public class PlayerHUD {
 		for (int i = 0; i < NUM_STATES / 2; i++) {
 
 			// create the buffered images
-			stamina[i] = new BufferedImage(SIZE * 2, SIZE * 2,
-					BufferedImage.TYPE_INT_ARGB);
-			stamina[i + NUM_STATES / 2] = new BufferedImage(SIZE * 2, SIZE * 2,
-					BufferedImage.TYPE_INT_ARGB);
+			stamina[i] = new BufferedImage(SIZE * 2, SIZE * 2, BufferedImage.TYPE_INT_ARGB);
+			stamina[i + NUM_STATES / 2] = new BufferedImage(SIZE * 2, SIZE * 2, BufferedImage.TYPE_INT_ARGB);
 
 			// get heart and stamina pixels
-			int[] s1 = ((DataBufferInt) stamina[i].getRaster().getDataBuffer())
-					.getData();
-			int[] s2 = ((DataBufferInt) stamina[i + NUM_STATES / 2].getRaster().getDataBuffer())
-					.getData();
+			int[] s1 = ((DataBufferInt) stamina[i].getRaster().getDataBuffer()).getData();
+			int[] s2 = ((DataBufferInt) stamina[i + NUM_STATES / 2].getRaster().getDataBuffer()).getData();
 
 			// render the different states to screen first
 			tempS1.render48bit(i, 2, SpriteSheet.hudWeapons);
@@ -154,14 +145,6 @@ public class PlayerHUD {
 					int colS1 = tempS1.getPixels()[x + y * tempS1.getWidth()];
 					int colS2 = tempS2.getPixels()[x + y * tempS2.getWidth()];
 
-					// if not black, make it opaque
-					if (colS1 != 0) {
-						colS1 = colS1 | 0xFF000000;
-					}
-					if (colS2 != 0) {
-						colS2 = colS2 | 0xFF000000;
-					}
-
 					// set the buffered image pixels
 					s1[x + y * tempS1.getWidth()] = colS1;
 					s2[x + y * tempS2.getWidth()] = colS2;
@@ -175,9 +158,8 @@ public class PlayerHUD {
 		}
 
 		// initialize box offset
-		box_yOffset = JavaJesus.WINDOW_HEIGHT - (box.getHeight() * MODIFIER)
-				- JavaJesus.HUD_OFFSET;
-		
+		box_yOffset = JavaJesus.WINDOW_HEIGHT - (box.getHeight() * MODIFIER) - JavaJesus.HUD_OFFSET;
+
 		// give default buffered images
 		heart = hearts[0];
 		bar = stamina[0];
@@ -188,16 +170,12 @@ public class PlayerHUD {
 	 * Draws the sprites and stat bars
 	 */
 	public void draw(Graphics g) {
-
 		// draws a box to display the gun in
-		g.drawImage(box, 0, box_yOffset, box.getWidth() * MODIFIER,
-				box.getHeight() * MODIFIER, null);
+		g.drawImage(box, 0, box_yOffset, box.getWidth() * MODIFIER, box.getHeight() * MODIFIER, null);
 
 		// initialize offsets
-		gun_xOffset = (box.getWidth() * MODIFIER) / 2
-				- (item.getWidth() * MODIFIER) / 2;
-		gun_yOffset = (box.getHeight() * MODIFIER) / 2
-				- (item.getHeight() * MODIFIER) / 2 + box_yOffset;
+		gun_xOffset = (box.getWidth() * MODIFIER) / 2 - (item.getWidth() * MODIFIER) / 2;
+		gun_yOffset = (box.getHeight() * MODIFIER) / 2 - (item.getHeight() * MODIFIER) / 2 + box_yOffset;
 		string_xOffset = gun_xOffset;
 		string_yOffset = gun_yOffset;
 
@@ -205,24 +183,27 @@ public class PlayerHUD {
 		renderItem();
 
 		// draw the item
-		g.drawImage(item, gun_xOffset, gun_yOffset, item.getWidth() * MODIFIER,
-				item.getHeight() * MODIFIER, null);
+		g.drawImage(item, gun_xOffset, gun_yOffset, item.getWidth() * MODIFIER, item.getHeight() * MODIFIER, null);
 
 		// draw the ammo info if a gun
 		if (player.getEquippedGun() != null) {
 			g.setFont(font);
 			g.setColor(Color.WHITE);
-			g.drawString((int) player.getEquippedGun().getCurrentAmmo() + " / "
-					+ player.getEquippedGun().getClipSize(), string_xOffset,
-					string_yOffset);
+			g.drawString((int) player.getEquippedGun().getCurrentAmmo() + " / " + player.getEquippedGun().getClipSize(),
+					string_xOffset, string_yOffset);
 		}
 		
-		g.drawImage(bar, BAR_XOFFSET, box_yOffset
-				+ BAR_YOFFSET, STAMINA_SIZE, STAMINA_SIZE, null);
+		g.drawImage(bar, BAR_XOFFSET, box_yOffset + BAR_YOFFSET, STAMINA_SIZE, STAMINA_SIZE, null);
 
-		g.drawImage(heart, BAR_XOFFSET + BAR_XSPACE, box_yOffset + BAR_YOFFSET + BAR_VSPACE,
-				HEART_SIZE, HEART_SIZE, null);
+		g.drawImage(heart, BAR_XOFFSET + BAR_XSPACE, box_yOffset + BAR_YOFFSET + BAR_VSPACE, HEART_SIZE, HEART_SIZE,
+				null);
+		
+		/*
+		 * g.drawImage(tests, BAR_XOFFSET, box_yOffset + BAR_YOFFSET, STAMINA_SIZE, STAMINA_SIZE, null);
 
+		g.drawImage(testh, BAR_XOFFSET + BAR_XSPACE, box_yOffset + BAR_YOFFSET + BAR_VSPACE, HEART_SIZE, HEART_SIZE,
+				null);
+		 */
 	}
 
 	/**
@@ -253,11 +234,6 @@ public class PlayerHUD {
 				// color of the pixel with alpha
 				int col = screen.getPixels()[x + y * screen.getWidth()];
 
-				// if not black, make it opaque
-				if (col != 0) {
-					col = col | 0xFF000000;
-				}
-
 				// set the buffered image pixels
 				pixels[x + y * screen.getWidth()] = col;
 			}
@@ -268,12 +244,12 @@ public class PlayerHUD {
 		screen.clear();
 
 	}
-	
+
 	/**
 	 * Logic of the hud display
 	 */
 	protected void update() {
-		
+
 		// used for calculating which stamina bar to draw
 		double remainingStamina = player.getCurrentStamina();
 
@@ -323,7 +299,7 @@ public class PlayerHUD {
 		} else {
 			heart = hearts[7];
 		}
-		
+
 	}
 
 }

@@ -225,7 +225,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			player.initSound(); 
 			
 			// hud is not saved in save file
-			//hud = new PlayerHUD(player);
+			hud = new PlayerHUD(player);
 			
 			// skip the player selection intro gui screen
 			display.add(overview, "Inventory");
@@ -341,7 +341,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			player.getLevel().tick();
 			
 			// update the hud
-			//hud.update();
+			hud.update();
 			
 			// update the global offsets
 			xOffset = player.getX() - (IMAGE_WIDTH / 2) + 8;
@@ -495,7 +495,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		}
 		
 		// draw additional displays on the screen
-		//hud.draw(g);
+		hud.draw(g);
 		MessageHandler.drawWindow(g);
 		
 		// draw death screen if player died

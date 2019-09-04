@@ -166,8 +166,7 @@ public class Screen {
 				int col = sheet.getPixels()[((xTile << SHIFT) + xSheet + ((yTile << SHIFT) + y) * sheet.getWidth())];
 
 				// only render if color is not pure black and in pixel bounds
-				if (col != 0xFF000000 && yPixel >= 0 && yPixel < height
-						&& xPixel >= 0 && xPixel < width) {
+				if (col != 0xFF000000) {
 
 					// assign the color to the pixel array
 					pixels[xPixel + yPixel * width] = col;
