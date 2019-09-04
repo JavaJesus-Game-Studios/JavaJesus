@@ -31,32 +31,34 @@
       "Response3": ""
     },
     {
-      "Triggers1": "GOTO_7",
-      "Triggers2": "GOTO_8",
-      "PrevStateID": "0",
-      "GiverText": "Alone in cave I have no name. Long time ago, when I had tribe, they called me... Ken.",
+      "PrevStateID": "3,0",
       "EndText": "",
       "StateID": "2",
       "EndTrigger": "",
-      "ObjectiveText": "",
       "Response2": "Alright \"Ken\", maybe you\u0027d like to explain to me why I found you\u0027re cave full of Demons?",
       "Response1": "Well, Ken, it\u0027s nice to meet you, how\u0027d you end up all alone in this cave?",
-      "Triggers3": "GOTO_9",
-      "Response3": "Can I pet you?"
+      "Response3": "Can I pet you?",
+      "Triggers1": "GOTO_7",
+      "Triggers2": "GOTO_8",
+      "GiverText": "Alone in cave I have no name. Long time ago, when I had tribe, they called me... Ken.",
+      "OutgoingStateID": "",
+      "ObjectiveText": "",
+      "Triggers3": "GOTO_9"
     },
     {
-      "Triggers1": "TRIGGER_3,TRIGGER_4,ACCEPT,EXIT",
-      "Triggers2": "GOTO_10",
       "PrevStateID": "0",
-      "GiverText": "For me? I thought I was forgotten by every one else.",
       "EndText": "",
       "StateID": "3",
       "EndTrigger": "",
-      "ObjectiveText": "Kill the Orangutan.",
       "Response2": "Nah you right, I\u0027m messing with you, what are you doing here bud? You get lost? Need a Banana?",
       "Response1": "Not by me laddie. Time to die!",
-      "Triggers3": "GOTO_2",
-      "Response3": "They did, I had no idea you\u0027d be here who are you?"
+      "Response3": "They did, I had no idea you\u0027d be here who are you?",
+      "Triggers1": "TRIGGER_3,TRIGGER_4,ACCEPT,EXIT",
+      "Triggers2": "GOTO_10",
+      "GiverText": "For me? I thought I was forgotten by every one else.",
+      "OutgoingStateID": "10,2",
+      "ObjectiveText": "Kill the Orangutan.",
+      "Triggers3": "GOTO_2"
     },
     {
       "Triggers1": "GOTO_13",
@@ -129,18 +131,19 @@
       "Response3": ""
     },
     {
-      "Triggers1": "GOTO_7",
-      "Triggers2": "TRIGGER_3,TRIGGER_4,ACCEPT,EXIT",
       "PrevStateID": "3",
-      "GiverText": "I, do not like, bananas. Has human come to help Ape? To help me?",
       "EndText": "",
       "StateID": "10",
       "EndTrigger": "",
-      "ObjectiveText": "Kill the Orangutan for snubbing your generosity.",
       "Response2": "You reject my gift Monkey? Just like the rest of your kind, time do prove who the real superior species is here!",
       "Response1": "Yeah, I came to help you. What happened here?",
-      "Triggers3": "",
-      "Response3": ""
+      "Response3": "",
+      "Triggers1": "GOTO_7",
+      "Triggers2": "TRIGGER_3,TRIGGER_4,ACCEPT,EXIT",
+      "GiverText": "I, do not like, bananas. Has human come to help Ape? To help me?",
+      "OutgoingStateID": "",
+      "ObjectiveText": "Kill the Orangutan for snubbing your generosity.",
+      "Triggers3": ""
     },
     {
       "Triggers1": "GOTO_40",

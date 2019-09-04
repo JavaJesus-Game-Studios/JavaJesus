@@ -13,8 +13,6 @@ import org.graphstream.ui.view.ViewerListener;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import org.graphstream.graph.Node;
-
 public class QuestEditor implements ViewerListener, IDataLoaded {
 
 	// dimensions of the window
@@ -77,7 +75,7 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				int confirmed = JOptionPane.showConfirmDialog(null, "Did you save the quest first?", "Exit message",
+				int confirmed = JOptionPane.showConfirmDialog(null, "Are you sure you want to leave without saving?", "Exit message",
 						JOptionPane.YES_NO_OPTION);
 
 				if (confirmed == JOptionPane.YES_OPTION) {
@@ -115,8 +113,8 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 
 		});
 
-		Node root = gView.addNode("0");
-		dView.rootLoaded(root);
+		//Node root = gView.addNode("0");
+		//dView.rootLoaded(root);
 
 	}
 
@@ -146,9 +144,13 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 	public void onLoaded(JSONObject data) {
 
 		gView.reset();
+		
+		if (data == null) {
+			return;
+		}
 
 		JSONArray array = (JSONArray) data.get(QuestDataBuilder.QUEST_PARTS);
-
+		
 		for (int i = 0; i < array.size(); i++) {
 			JSONObject obj = (JSONObject) array.get(i);
 			String child = (String) obj.get(QuestDataBuilder.STATE_ID);

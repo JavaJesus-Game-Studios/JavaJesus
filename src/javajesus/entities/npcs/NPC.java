@@ -85,7 +85,7 @@ public abstract class NPC extends Mob {
 		super(level, name, x, y, speed, width, height, SpriteSheet.mobFriends, health);
 
 		// instance data
-		this.color = color;
+		this.setColor(color);
 		this.xTile = xTile;
 		this.yTile = yTile;
 		this.walkPath = walkPath;
@@ -209,7 +209,6 @@ public abstract class NPC extends Mob {
 	/**
 	 * Displays the NPC on the screen
 	 */
-	@SuppressWarnings("deprecation")
 	public void render(Screen screen) {
 		super.render(screen);
 
@@ -277,20 +276,20 @@ public abstract class NPC extends Mob {
 		
 		// Upper body 1
 		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
-				xTile + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+				xTile, yTile, getSpriteSheet(), flip, color);
 
 		// Upper Body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
-				(xTile + 1) + yTile * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+				(xTile + 1), yTile, getSpriteSheet(), flip, color);
 
 		if (!isSwimming) {
 
 			// Lower Body 1
 			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					xTile + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+					xTile, (yTile + 1), getSpriteSheet(), flip, color);
 			// Lower Body 2
 			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					(xTile + 1) + (yTile + 1) * getSpriteSheet().getTilesPerRow(), color, flip, getSpriteSheet());
+					(xTile + 1), (yTile + 1), getSpriteSheet(), flip, color);
 
 		}
 
@@ -640,7 +639,11 @@ public abstract class NPC extends Mob {
 	 *            the new color
 	 */
 	protected void setColor(int[] color) {
+		if (color.length < 5) {
+			color = new int[] {color[0], color[1], color[2], 0, 0};
+		}
 		this.color = color;
+
 	}
 
 	/**

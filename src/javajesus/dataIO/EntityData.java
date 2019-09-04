@@ -588,7 +588,7 @@ public class EntityData {
 			case Entity.KNIGHT:
 				return new Knight(level, x, y);
 	        default:
-	        	System.err.println("CRITICAL ERROR! CRITICAL ERROR! SAVING NULL ENTITY: " + id);
+	        	System.err.println("CRITICAL ERROR! CRITICAL ERROR! RETRIEVING NULL ENTITY: " + id);
 	        	System.err.println("MAKE SURE TO ADD ENTITY CASE IN ENTITYDATA.JAVA IN DATAIO");
 	            return null;
 	        }

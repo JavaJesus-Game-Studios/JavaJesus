@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -19,8 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-
-import editors.quest.QuestDataBuilder;
 
 public class JSONData {
 	
@@ -65,38 +61,6 @@ public class JSONData {
 
 			// now parse the data
 			JSONObject obj = (JSONObject) parser.parse(in);
-			
-			// this is temporary code to deal with porting over old quests to the new quests
-			JSONArray array = (JSONArray) obj.get(QuestDataBuilder.QUEST_PARTS);
-			HashMap<String, JSONObject> map = new HashMap<>();
-			
-			for (int i = 0; i < array.size(); i++) {
-				JSONObject next = (JSONObject) array.get(i);
-				String parent = (String) next.get(QuestDataBuilder.PREV_STATE_ID);
-				String child = (String) next.get(QuestDataBuilder.STATE_ID);
-				
-				if (parent == null) {
-					int prev = 0;
-					if (i > 0) {
-						prev = (i - 1) / 3;
-					}
-					next.put(QuestDataBuilder.PREV_STATE_ID, String.valueOf(prev));
-				}
-				if (child == null) {
-					next.put(QuestDataBuilder.STATE_ID, String.valueOf(i));
-				}
-				
-			}
-			
-			for (int i = 0; i < array.size(); i++) {
-				JSONObject next = (JSONObject) array.get(i);
-				
-				String dialogue = (String) next.get(QuestDataBuilder.KEY_GIVER);
-				if (dialogue == null || dialogue.isEmpty()) {
-					array.remove(i--);
-					continue;
-				}
-			}
 
 			// return the array
 			return obj;

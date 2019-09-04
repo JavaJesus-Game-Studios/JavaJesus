@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -33,7 +34,7 @@ import javajesus.dataIO.JSONData;
 public class DataView implements ActionListener {
 
 	// buttons used
-	private final JButton open, save, addNode, removeNode, createNode, modifyNode;
+	private final JButton open, save, addNode, removeNode, createNode, modifyNode, newQuest;
 
 	// elements on the right side of the panel
 	private final JLabel fileLabel;
@@ -46,7 +47,7 @@ public class DataView implements ActionListener {
 	private static final String DIR = "res/WORLD_DATA/QUEST_DATA/";
 
 	// name of the quest
-	private String name = "New Quest";
+	private String name = "Please select new or open quest";
 
 	private static int id = 1;
 
@@ -66,10 +67,11 @@ public class DataView implements ActionListener {
 
 	private CardLayout cardLayout;
 	private JPanel overlay;
-	
+
 	private QuestNodeAdapter selectedNode;
-	
-	private final static String[] VALID_TRIGGERS = {"GOTO_\\d+", "ACCEPT",  "EXIT", "SKIP", "START_\\d+", "TRIGGER_\\d+" };
+
+	private final static String[] VALID_TRIGGERS = { "GOTO_\\d+", "ACCEPT", "EXIT", "SKIP", "START_\\d+",
+			"TRIGGER_\\d+" };
 
 	/**
 	 * @param width  - width of the panel
@@ -80,11 +82,13 @@ public class DataView implements ActionListener {
 		builder = new QuestDataBuilder();
 		nodeData = new HashMap<>();
 
-		open = new JButton("Open");
+		newQuest = new JButton("New Quest");
+		newQuest.addActionListener(this);
+		open = new JButton("Open Quest");
 		open.addActionListener(this);
-		save = new JButton("Save");
+		save = new JButton("Save Quest");
 		save.addActionListener(this);
-		addNode = new JButton("Add Part");
+		addNode = new JButton("Add Node");
 		addNode.addActionListener(this);
 		removeNode = new JButton("Remove This Part");
 		removeNode.addActionListener(this);
@@ -136,6 +140,7 @@ public class DataView implements ActionListener {
 
 		// add the top layer
 		JPanel top = new JPanel();
+		top.add(newQuest);
 		top.add(open);
 		top.add(save);
 		top.add(addNode);
@@ -215,8 +220,38 @@ public class DataView implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		// open a new quest page
-		if (e.getSource() == open) {
+		// open new quest page
+		if (e.getSource() == newQuest) {
+
+			String name = (String) JOptionPane.showInputDialog(panel, "Please enter a file name:", "New Quest Creation",
+					JOptionPane.PLAIN_MESSAGE, null, null, "New Quest");
+			
+			if (name != null) {
+				// update the file label]
+				this.name = name;
+				fileLabel.setText(name);
+				filePath = new File(DIR + name + JSON).getPath();
+				
+				this.clearFields();
+				initial.setSelected(false);
+				npcGiver.setText("0");
+				levelId.setText("0");
+
+				id = 0;
+
+				builder = new QuestDataBuilder();
+				nodeData = new HashMap<>();
+				
+				cardLayout.show(overlay, "plain");
+				
+				iface.onLoaded(null);
+			}
+
+		}
+		// load a new quest page
+		else if (e.getSource() == open)
+
+		{
 
 			// create the file chooser
 			JFileChooser fc = new JFileChooser();
@@ -272,9 +307,10 @@ public class DataView implements ActionListener {
 
 						builder.setQuestPartArray((JSONArray) data.get(QuestDataBuilder.QUEST_PARTS));
 						id = 0;
-
+						
 						nodeData = new HashMap<>();
 						iface.onLoaded(data);
+						cardLayout.show(overlay, "plain");
 					}
 				}
 			}
@@ -356,7 +392,7 @@ public class DataView implements ActionListener {
 	}
 
 	private void outgoingErrorCheck() {
-		
+
 		// auto update outgoing ID
 		ArrayList<String> outgoing = new ArrayList<String>();
 
@@ -405,7 +441,7 @@ public class DataView implements ActionListener {
 			}
 		}
 	}
-	
+
 	/*
 	 * Added functionality to JButton
 	 */
@@ -421,13 +457,13 @@ public class DataView implements ActionListener {
 			this.n = n;
 			this.currState = n.getId();
 		}
-		
+
 		private void setSelected() {
 			n.setAttribute("ui.class", "selected");
 		}
-		
+
 		public boolean triggerErrorCheck(String triggerText) {
-			
+
 			// clean up the raw data
 			String raw = triggerText.trim().toUpperCase().replace(" ", "");
 
@@ -444,9 +480,9 @@ public class DataView implements ActionListener {
 			triggers.add(raw);
 
 			boolean all_match = true;
-			for (String keyword: triggers) {
+			for (String keyword : triggers) {
 				boolean match = false;
-				for (String pattern: VALID_TRIGGERS) {
+				for (String pattern : VALID_TRIGGERS) {
 					if (keyword.matches(pattern)) {
 						match = true;
 						break;
@@ -476,7 +512,7 @@ public class DataView implements ActionListener {
 					complete = false;
 				}
 			}
-			
+
 			if (!triggerErrorCheck(trig1) || !triggerErrorCheck(trig2) || !triggerErrorCheck(trig3)) {
 				complete = false;
 			}
@@ -633,7 +669,7 @@ public class DataView implements ActionListener {
 		currentState.setText(n.getId());
 		previousState.setText(incoming);
 		futureState.setText(outgoing);
-		
+
 		a.fieldTextToNode();
 		a.colorByError();
 		builder.addQuestPart(giverDialogue.getText(), response1.getText(), response2.getText(), response3.getText(),
@@ -641,23 +677,25 @@ public class DataView implements ActionListener {
 				endDialogue.getText(), endTriggers.getText(), currentState.getText(), previousState.getText(),
 				objectiveSummary.getText(), futureState.getText());
 		clearFields();
+		
+		System.out.println(n.getId());
 		id++;
 	}
-	
+
 	public void addIncomingEdgeToNode(String id, String incoming) {
-		
+
 		QuestNodeAdapter a = nodeData.get(id);
 		a.displayDataToPanel();
-		
+
 		String updated = "";
-		
+
 		if (previousState.getText().isEmpty() || previousState.getText().equals(incoming)) {
 			updated = incoming;
 		} else {
-			
+
 			ArrayList<String> edges = new ArrayList<>();
 			edges.add(incoming);
-			for (String inc: previousState.getText().split(",")) {
+			for (String inc : previousState.getText().split(",")) {
 				if (!edges.contains(inc)) {
 					edges.add(inc);
 				}
@@ -667,14 +705,14 @@ public class DataView implements ActionListener {
 				updated += "," + edges.get(i);
 			}
 		}
-		
+
 		previousState.setText(updated);
 		a.fieldTextToNode();
 		a.colorByError();
-		builder.modifyQuestPart(giverDialogue.getText(), response1.getText(), response2.getText(),
-				response3.getText(), response1Triggers.getText(), response2Triggers.getText(),
-				response3Triggers.getText(), endDialogue.getText(), endTriggers.getText(), currentState.getText(),
-				previousState.getText(), objectiveSummary.getText(), futureState.getText());
+		builder.modifyQuestPart(giverDialogue.getText(), response1.getText(), response2.getText(), response3.getText(),
+				response1Triggers.getText(), response2Triggers.getText(), response3Triggers.getText(),
+				endDialogue.getText(), endTriggers.getText(), currentState.getText(), previousState.getText(),
+				objectiveSummary.getText(), futureState.getText());
 		this.clearFields();
 	}
 
@@ -689,7 +727,7 @@ public class DataView implements ActionListener {
 		removeNode.setEnabled(true);
 		currentState.setEnabled(false);
 	}
-	
+
 	public void deselect() {
 		if (selectedNode != null)
 			selectedNode.colorByError();
