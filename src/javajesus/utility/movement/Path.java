@@ -93,6 +93,15 @@ public class Path {
 		}
 
 	}
+	
+	/**
+	 */
+	public Path() {
+	}
+	
+	public void add(Script script) {
+		scripts.add(script);
+	}
 
 	/**
 	 * @param tiles - list of valid tiles in 0/1 format
@@ -186,12 +195,6 @@ public class Path {
 		return destination.getX() == origin.x && destination.getY() == origin.y;
 	}
 
-	/**
-	 * @param script - single node to visit
-	 */
-	public Path(Script script) {
-		scripts.add(script);
-	}
 
 	/**
 	 * @return whether or not the path exists

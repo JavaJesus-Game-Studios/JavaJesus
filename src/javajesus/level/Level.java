@@ -22,6 +22,7 @@ import javajesus.entities.Mob;
 import javajesus.entities.SolidEntity;
 import javajesus.entities.monsters.Monster;
 import javajesus.entities.npcs.NPC;
+import javajesus.entities.projectiles.Projectile;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.AnimatedTile;
@@ -250,8 +251,8 @@ public abstract class Level {
 
 	public List<TileAdapter> getOccupiedTiles(Entity e) {
 		List<TileAdapter> list = new ArrayList<>();
-		for (int x = e.getX(); x <= e.getX() + e.getBounds().width; x += 8) {
-			for (int y = e.getY(); y <= e.getY() + e.getBounds().height; y += 8) {
+		for (int x = e.getX(); x < e.getX() + e.getBounds().width; x += 8) {
+			for (int y = e.getY(); y < e.getY() + e.getBounds().height; y += 8) {
 				list.add(new TileAdapter(getTileFromEntityCoords(x, y), x >> 3, y >> 3));
 			}
 		}
@@ -426,7 +427,7 @@ public abstract class Level {
 		for (int i = 0; i < getEntities().size(); i++) {
 			Entity e = getEntities().get(i);
 
-			if (e.getBounds().intersects(renderRange) && (!(e instanceof Mob) || !((Mob) e).isDead())) {
+			if (e.getBounds().intersects(renderRange) && !(e instanceof Projectile) && (!(e instanceof Mob) || !((Mob) e).isDead())) {
 				occupied.addAll(getOccupiedTiles(e));
 			}
 		}
@@ -445,28 +446,6 @@ public abstract class Level {
 		}
 
 		return tiles;
-	}
-	
-	public int getVisibleTileIndexFromTileCoord(int xTile, int yTile, Screen screen) {
-		// iterate through list of tiles
-		int index = 0;
-		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
-			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
-				if (xTile == x && yTile == y) {
-					return index;
-				}
-				index++;
-			}
-		}
-		return -1;
-	}
-
-	public int getNumXTilesOnScreen(Screen screen) {
-		return ((xOffset + screen.getWidth() >> 3) + 1) - (xOffset >> 3);
-	}
-
-	public int getNumYTilesOnScreen(Screen screen) {
-		return ((yOffset + screen.getHeight() >> 3) + 1) - (yOffset >> 3);
 	}
 
 	/**

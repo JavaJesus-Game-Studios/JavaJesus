@@ -19,15 +19,16 @@ public class AIManager implements Runnable {
 
 	private static int[] policy = {};
 
-	private static int width;
+	private static int width, height, currX, currY;
 
-	private int height;
+	private boolean running;
 
-	private boolean running = true;
-	
 	public AIManager(Player player, Screen screen) {
 		this.player = player;
-		this.screen = screen;
+		AIManager.screen = screen;
+
+		width = (screen.getWidth() >> 3) + 1;
+		height = screen.getHeight() >> 3;
 	}
 
 	public void start() {
@@ -45,55 +46,82 @@ public class AIManager implements Runnable {
 
 		while (running) {
 
-			if (System.currentTimeMillis() - lastTime > 1000) {
+			if (System.currentTimeMillis() - lastTime > 500) {
 				lastTime = System.currentTimeMillis();
 
-				height = player.getLevel().getNumYTilesOnScreen(screen);
-				width = player.getLevel().getNumXTilesOnScreen(screen);
-
 				int[] reduced = process(player.getLevel().getVisibleTiles(screen));
+				currX = screen.getxOffset();
+				currY = screen.getyOffset();
 
 				policy = new MDP(computeTransitions(reduced, 1), computeTransitions(reduced, 2),
-				        computeTransitions(reduced, 3), computeTransitions(reduced, 4)).computeGreedyPolicy(reduced);
+						computeTransitions(reduced, 3), computeTransitions(reduced, 4)).computeGreedyPolicy(reduced);
+
 			}
 
 		}
 
 	}
-	
-	private static int test = 0;
-	
+
 	public static Point bestPointToMoveTo(Mob m) {
 		Point best = new Point(m.getX(), m.getY());
-		int tileIndex = m.getLevel().getVisibleTileIndexFromTileCoord(m.getX() >> 3, m.getY() >> 3, screen);
-		if (tileIndex != -1) {
-			int action = policy[tileIndex];
-			test = tileIndex;
-			switch (action) {
-			case 1:
-				best.translate(0, -8); break;
-			case 2:
-				best.translate(8, 0); break;
-			case 3:
-				best.translate(0, 8); break;
-			case 4:
-				best.translate(-8, 0); break;
+		int zx = (m.getX() - currX) >> 3;
+		int zy = (m.getY() - currY) >> 3;
+
+		// take a vote for a policy based on all tiles occupied
+		int xTiles = (m.getBounds().width + 7) >> 3;
+		int yTiles = (m.getBounds().height + 7) >> 3;
+		int tiles[] = new int[xTiles * yTiles];
+
+		for (int i = 0; i < yTiles; i++) {
+			for (int j = 0; j < xTiles; j++) {
+				tiles[i * xTiles + j] = (zy + i) * width + (zx + j);
 			}
 		}
+
+		int dx = 0, dy = 0;
+		for (int i = 0; i < tiles.length; i++) {
+			
+			int tileIndex = tiles[i];
+
+			if (tileIndex >= 0 && tileIndex < policy.length) {
+				int action = policy[tileIndex];
+				switch (action) {
+				case 1:
+					dy -= 8;
+					break;
+				case 2:
+					dx += 8;
+					break;
+				case 3:
+					dy += 8;
+					break;
+				case 4:
+					dx -= 8;
+					break;
+				}
+
+			}
+		}
+		if (dx > 8) {
+			dx = 8;
+		}
+		if (dy > 8) {
+			dy = 8;
+		}
+		if (dx < -8) {
+			dx = -8;
+		}
+		if (dy < -8) {
+			dy = -8;
+		}
+		best.translate(dx, dy);
 		return best;
 	}
 
 	public void render(Screen screen) {
-		if (test < policy.length)
-			policy[test] = 6;
 		for (int i = 0; i < policy.length; i++) {
-			if (policy[i] == 6) {
-				JJFont.render(actionToChar(policy[i]), screen, screen.getxOffset() + (i % width) * 8,
-				        screen.getyOffset() + (i / width) * 8, new int[] { 0x0000FF, 0x0000FF, 0x0000FF, 0x0000FF }, 1);
-			} else {
-				JJFont.render(actionToChar(policy[i]), screen, screen.getxOffset() + (i % width) * 8,
-				        screen.getyOffset() + (i / width) * 8, new int[] { 0xFF0000, 0xFF0000, 0xFF0000, 0xFF0000 }, 1);
-			}
+			JJFont.render(actionToChar(policy[i]), screen, screen.getxOffset() + (i % width) * 8,
+					screen.getyOffset() + (i / width) * 8, new int[] { 0xFF0000, 0xFF0000, 0xFF0000, 0xFF0000 }, 1);
 		}
 	}
 
@@ -107,8 +135,6 @@ public class AIManager implements Runnable {
 			return "D";
 		case 4:
 			return "L";
-		case 6:
-			return "!";
 		default:
 			return ".";
 		}
@@ -139,20 +165,18 @@ public class AIManager implements Runnable {
 						// from OPEN to OPEN
 						case 0:
 							transitions[current][index] = .95;
-							transitions[current][current] = .05;
+							transitions[current][current] = 0.05;
 							break;
 						// from OPEN to WATER
 						case 1:
-							transitions[current][index] = .95;
-							transitions[current][current] = .05;
+							transitions[current][index] = .8;
+							transitions[current][current] = .2;
 							break;
 
 						// from OPEN to OCCUPIED
-						// temporarily not possible to move to occupied, change
-						// to .2 later
 						case 2:
-							transitions[current][index] = 0;
-							transitions[current][current] = 1;
+							transitions[current][index] = .1;
+							transitions[current][current] = .9;
 							break;
 
 						// from OPEN TO SOLID
@@ -177,16 +201,14 @@ public class AIManager implements Runnable {
 							break;
 						// from WATER to WATER
 						case 1:
-							transitions[current][index] = .95;
-							transitions[current][current] = .05;
+							transitions[current][index] = .90;
+							transitions[current][current] = .1;
 							break;
 
 						// from WATER to OCCUPIED
-						// temporarily not possible to move to occupied, change
-						// to .2 later
 						case 2:
-							transitions[current][index] = 0;
-							transitions[current][current] = 1;
+							transitions[current][index] = .2;
+							transitions[current][current] = .8;
 							break;
 
 						// from WATER TO SOLID
@@ -205,24 +227,20 @@ public class AIManager implements Runnable {
 					case 2:
 						switch (tiles[index]) {
 						// from OCCUPIED to OPEN
-						// temporarily set to 1 to make nicer rendering on
-						// screen
 						case 0:
-							transitions[current][index] = 0;
-							transitions[current][current] = 1;
+							transitions[current][index] = .99;
+							transitions[current][current] = .01;
 							break;
 						// from OCCUPIED to WATER
 						case 1:
-							transitions[current][index] = 0;
-							transitions[current][current] = 1;
+							transitions[current][index] = .99;
+							transitions[current][current] = .01;
 							break;
 
 						// from OCCUPIED to OCCUPIED
-						// temporarily not possible to move to occupied, change
-						// to .2 later
 						case 2:
-							transitions[current][index] = 0;
-							transitions[current][current] = 1;
+							transitions[current][index] = 0.2;
+							transitions[current][current] = 0.8;
 							break;
 
 						// from OCCUPIED TO SOLID
@@ -274,8 +292,8 @@ public class AIManager implements Runnable {
 	public int[] process(List<TileAdapter> tiles) {
 		int[] reduced = new int[tiles.size()];
 
-		Rectangle outer = new Rectangle(player.getX() - 8, player.getY() - 8, player.getBounds().width + 16,
-		        player.getBounds().height + 16);
+		Rectangle outer = new Rectangle(player.getX() - 8, player.getY() - 8, player.getBounds().width + 8,
+				player.getBounds().height + 12);
 
 		for (int i = 0; i < tiles.size(); i++) {
 
@@ -289,14 +307,21 @@ public class AIManager implements Runnable {
 				reduced[i] = 0;
 			}
 
-			Point p = new Point(tiles.get(i).getX() * 8, tiles.get(i).getY() * 8);
+			Rectangle rec = new Rectangle(tiles.get(i).getX() * 8, tiles.get(i).getY() * 8, 8, 8);
 
-			if (outer.contains(p) && !player.getBounds().contains(p) && 
-					reduced[i] != 3 && reduced[i] != 2) {
+			if (outer.intersects(rec) && reduced[i] != 3 && reduced[i] != 2) {
 				reduced[i] = 4;
 			}
 
 		}
+
+		/*
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				System.out.print(reduced[i * width + j]);
+			}
+			System.out.println();
+		}*/
 
 		return reduced;
 	}

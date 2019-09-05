@@ -14,7 +14,7 @@ public class Screen {
 	private int xOffset, yOffset;
 
 	// the dimensions of the screen
-	private int width, height;
+	private final int width, height;
 
 	// base size of a unit tile on the spritesheet
 	private static final int SIZE = 8;
@@ -167,9 +167,13 @@ public class Screen {
 
 				// only render if color is not pure black and in pixel bounds
 				if (col != 0xFF000000) {
+					
+					int coord = xPixel + yPixel * width;
 
-					// assign the color to the pixel array
-					pixels[xPixel + yPixel * width] = col;
+					if (coord >=0 && coord < pixels.length) {
+						// assign the color to the pixel array
+						pixels[coord] = col;
+					}
 
 				}
 

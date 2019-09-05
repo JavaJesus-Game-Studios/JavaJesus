@@ -3,7 +3,6 @@ package javajesus.utility.movement;
 import java.awt.Point;
 
 import javajesus.entities.Mob;
-import javajesus.entities.Player;
 
 /*
  * A Script is a specific action on a specific mob
@@ -16,11 +15,11 @@ public class Script {
 
 	// the destination of where to send the mob
 	// scaled from Tile to Entity coords automatically
-	protected Point destination;
+	protected final Point destination;
 	
 	// whether or not to move there instantaneously
 	private boolean moveNow;
-
+	
 	/**
 	 * @param mob - The targeted mob
 	 * @param point - in tile coordinates
@@ -32,7 +31,7 @@ public class Script {
 		destination = tileCoord;
 	}
 	
-	public Script(Player mob, Point entityCoord) {
+	public Script(Mob mob, Point entityCoord, int random) {
 		this.mob = mob;
 		destination = entityCoord;
 	}
@@ -61,11 +60,13 @@ public class Script {
 	public boolean isInstantaneous() {
 		return moveNow;
 	}
+	
 
 	/**
 	 * @return True if the script has been completed
 	 */
 	public boolean isCompleted() {
+		
 		return destination.x == mob.getX() && destination.y == mob.getY();
 	}
 

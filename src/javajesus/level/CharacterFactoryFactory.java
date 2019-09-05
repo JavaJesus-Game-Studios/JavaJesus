@@ -34,6 +34,8 @@ public class CharacterFactoryFactory {
 		case LevelFactory.ISLAND:
 		case LevelFactory.TILE_TESTER:
 		case LevelFactory.ROAD_TESTER:
+			cf = new AlphaCharacterFactory();
+			break;
 		}
 
 		factoryMap.put(levelId, cf);

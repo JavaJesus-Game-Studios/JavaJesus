@@ -10,7 +10,7 @@ public class MDP {
 	private double[][] up, right, down, left;
 	
 	// rewards for being in each tile type
-	public static final int[] REWARDS = {0, 0, -1, -1, 1};
+	public static final int[] REWARDS = {0, 0, 0, -1, 1};
 	
 	// weight of long term investment vs short term investment
 	// 0 = all short term

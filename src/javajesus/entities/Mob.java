@@ -14,6 +14,7 @@ import javajesus.level.tile.Tile;
 import javajesus.utility.Direction;
 import javajesus.utility.movement.Path;
 import javajesus.utility.movement.Script;
+import javajesus.utility.movement.ScriptFactory;
 
 /*
  * A mob is an entity that has complex interactions in a level with other entities
@@ -539,10 +540,10 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// automate movement with a script
 		if (path != null && path.exists()) {
-
+			
 			// first update the path
 			path.update();
-
+			
 			// now make sure it exists after updating
 			if (path.exists()) {
 				
@@ -564,7 +565,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 					move(dx, dy);
 					return;
 				}
-			}
+			} 
 
 		}
 
@@ -1004,12 +1005,13 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * @param dest - destination mob
 	 */
 	public void setPath(Mob dest) {
-		/*if (dest instanceof Player) {
-			this.path = new Path(new Script((Player) dest, AIManager.bestPointToMoveTo(this)));
+		if (dest instanceof Player) {
+			this.path = new Path();
+			//path.add(ScriptFactory.make(this, dest, ScriptFactory.TILE_ALIGNMENT));
+			path.add(ScriptFactory.make(this, dest, ScriptFactory.MDP));
 		} else {
-			
-		}*/
-		this.path = new Path(this, dest);
+			this.path = new Path(this, dest);
+		}
 	}
 	
 	/**
@@ -1026,11 +1028,9 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		return path;
 	}
 
-	/**
-	 * @param script - a single node
-	 */
 	public void setPath(Script script) {
-		this.path = new Path(script);
+		this.path = new Path();
+		path.add(script);
 	}
 	
 	/**
