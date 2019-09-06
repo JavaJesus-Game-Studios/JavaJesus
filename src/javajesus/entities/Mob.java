@@ -97,7 +97,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	// damage cooldown
 	private int isHitTicks;
 	private int isHitX, isHitY;
-	private static final int[] isHitColor = { 0xFF000000, 0xFF000000, 0xFFFF0000 };
+	private static final int[] damageIndicatorColor = { 0xFF000000, 0xFF000000, 0xFF03dbfc };
 
 	// internal timers
 	protected int tickCount = 0;
@@ -617,7 +617,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// displays damage indicators overhead
 		if (isHit) {
-			JJFont.render(damageTaken, screen, xOffset + isHitX, yOffset - modifier + isHitY, isHitColor, 1);
+			int scale = isHitTicks / 8 + 1;
+			JJFont.render(damageTaken, screen, xOffset + isHitX - (int) (0.5 * modifier * scale), yOffset - modifier + isHitY - (int) (0.5 * modifier * scale), damageIndicatorColor, scale);
 		}
 	}
 
@@ -701,7 +702,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		if (knockbackCooldown || isDead()) {
 			return;
 		}
-
+		
 		// opposite direction
 		Direction next = dir;
 

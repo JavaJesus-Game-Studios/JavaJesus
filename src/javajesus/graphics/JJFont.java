@@ -28,7 +28,7 @@ public class JJFont {
 		for (int i = 0; i < msg.length(); i++) {
 			int charIndex = chars.indexOf(msg.charAt(i));
 			if (charIndex >= 0)
-				screen.render(x + (i * 8), y, charIndex % sheet.getTilesPerRow(), charIndex / sheet.getTilesPerRow(), sheet, false, color);
+				screen.render(x + (i * 8 * scale), y, charIndex % sheet.getTilesPerRow(), charIndex / sheet.getTilesPerRow(), sheet, color, scale);
 
 		}
 
