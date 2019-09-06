@@ -3,7 +3,6 @@ package javajesus.quest.events;
 import javajesus.entities.npcs.aggressive.SWATOfficer;
 import javajesus.level.CharacterFactoryFactory;
 import javajesus.level.Level;
-import javajesus.quest.FollowPlayerScript;
 import javajesus.quest.factories.AlphaCharacterFactory;
 import javajesus.quest.factories.CharacterFactory;
 
@@ -31,13 +30,9 @@ public class SwatOfficerEvent extends Event {
 		
 		SWATOfficer officer = (SWATOfficer) cf.make(AlphaCharacterFactory.OFFICER);
 		
-		//officer.addQuest(new OfficerDialogue());
-		
 		// TODO put correct coordinates
 		level.add(officer);
 		level.add(officer2);
-		officer.setPath(new FollowPlayerScript(officer));
-		officer2.setPath(new FollowPlayerScript(officer));
 
 	}
 

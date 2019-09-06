@@ -8,7 +8,7 @@ import javajesus.entities.Mob;
  * A Script is a specific action on a specific mob
  * Scripts have the highest priority in determining a mob's direction
  */
-public class Script {
+public class MovementVector {
 
 	// the mob that has the script
 	protected Mob mob;
@@ -24,14 +24,14 @@ public class Script {
 	 * @param mob - The targeted mob
 	 * @param point - in tile coordinates
 	 */
-	public Script(Mob mob, Point tileCoord) {
+	public MovementVector(Mob mob, Point tileCoord) {
 		this.mob = mob;
 		tileCoord.x = (int) ((tileCoord.x << 3) + 4 - (mob.getBounds().getWidth() / 2));
 		tileCoord.y = (int) ((tileCoord.y << 3) + 8 - mob.getBounds().getHeight());
 		destination = tileCoord;
 	}
 	
-	public Script(Mob mob, Point entityCoord, int random) {
+	public MovementVector(Mob mob, Point entityCoord, int random) {
 		this.mob = mob;
 		destination = entityCoord;
 	}
@@ -41,7 +41,7 @@ public class Script {
 	 * @param dx - the change in x
 	 * @param dy - the change in y
 	 */
-	public Script(Mob mob, int dx, int dy, boolean instant) {
+	public MovementVector(Mob mob, int dx, int dy, boolean instant) {
 		this.mob = mob;
 		destination = new Point(mob.getX() + dx, mob.getY() + dy);
 		moveNow = instant;

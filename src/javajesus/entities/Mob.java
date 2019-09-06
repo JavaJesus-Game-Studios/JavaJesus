@@ -3,7 +3,6 @@ package javajesus.entities;
 import java.awt.Rectangle;
 import java.util.Random;
 
-import javajesus.ai.AIManager;
 import javajesus.dataIO.EntityData;
 import javajesus.entities.particles.HealthBar;
 import javajesus.graphics.JJFont;
@@ -12,9 +11,9 @@ import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
 import javajesus.utility.Direction;
+import javajesus.utility.movement.MovementVector;
 import javajesus.utility.movement.Path;
-import javajesus.utility.movement.Script;
-import javajesus.utility.movement.ScriptFactory;
+import javajesus.utility.movement.PathFactory;
 
 /*
  * A mob is an entity that has complex interactions in a level with other entities
@@ -90,8 +89,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	// determines if the mob was recently damaged (for displaying damage
 	// indicators)
 	protected boolean isHit;
-	
-	//the target of the mob, used for attacking other mobs
+
+	// the target of the mob, used for attacking other mobs
 	protected Mob target;
 
 	// damage cooldown
@@ -111,7 +110,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 	// whether or not the mob can clip through bounds
 	private boolean clip;
-	
+
 	// whether or not mobs can push the player around
 	protected boolean collisionImmune;
 
@@ -129,18 +128,18 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	/**
 	 * Creates a mob that can interact with other entities on a level
 	 * 
-	 * @param level the level to place it on
-	 * @param name the name of the mob
-	 * @param x the x coordinate on the map
-	 * @param y the y coordinate on the map
-	 * @param speed the base speed of the mob (usually 1)
-	 * @param width the horizontal space of the mob
-	 * @param height the vertical space of the mob
-	 * @param sheet the spritesheet that contains the image of the mob
+	 * @param level         the level to place it on
+	 * @param name          the name of the mob
+	 * @param x             the x coordinate on the map
+	 * @param y             the y coordinate on the map
+	 * @param speed         the base speed of the mob (usually 1)
+	 * @param width         the horizontal space of the mob
+	 * @param height        the vertical space of the mob
+	 * @param sheet         the spritesheet that contains the image of the mob
 	 * @param defaultHealth the starting highest health value
 	 */
 	public Mob(Level level, String name, int x, int y, double speed, int width, int height, SpriteSheet sheet,
-	        int defaultHealth) {
+			int defaultHealth) {
 		super(level, x, y);
 
 		// instance data
@@ -212,29 +211,28 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		}
 
 	}
-	
+
 	/**
 	 * Determines the shortest path to reach a certain point while avoiding
 	 * obstacles
 	 * 
 	 * @param dx The number of steps on x-coordinate (-dx is west, +dx is east)
-	 * @param dy The number of steps on y-coordinate (-dy is south, +dy is
-	 * north)
+	 * @param dy The number of steps on y-coordinate (-dy is south, +dy is north)
 	 * @return An array that determines the steps that must be taken in order to
-	 * reach the goal<br>
+	 *         reach the goal<br>
 	 * 
-	 * <b>The return types are as specified.</b>
-	 * <ul>
-	 * <li>0 - North</li>
-	 * <li>1 - North-East</li>
-	 * <li>2 - East</li>
-	 * <li>3 - South-East</li>
-	 * <li>4 - South</li>
-	 * <li>5 - South-West</li>
-	 * <li>6 - West</li>
-	 * <li>7 - North-West</li>
-	 * <li>8 - Terminator</li>
-	 * </ul>
+	 *         <b>The return types are as specified.</b>
+	 *         <ul>
+	 *         <li>0 - North</li>
+	 *         <li>1 - North-East</li>
+	 *         <li>2 - East</li>
+	 *         <li>3 - South-East</li>
+	 *         <li>4 - South</li>
+	 *         <li>5 - South-West</li>
+	 *         <li>6 - West</li>
+	 *         <li>7 - North-West</li>
+	 *         <li>8 - Terminator</li>
+	 *         </ul>
 	 */
 	public int[] findPath(int dx, int dy) {
 		int[] stepInst = new int[100];
@@ -290,8 +288,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * 
 	 * @param dx - the change in x
 	 * @param dy - the change in y
-	 * @return true if the change in coordinates results in a solid tile
-	 * collision
+	 * @return true if the change in coordinates results in a solid tile collision
 	 */
 	protected boolean hasCollided(int dx, int dy) {
 
@@ -310,13 +307,13 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// check for solid tile collisions at the 4 corners
 		if (isSolidTile(xMin, yMin, dx, dy) || isSolidTile(xMin, yMax, dx, dy) || isSolidTile(xMax, yMin, dx, dy)
-		        || isSolidTile(xMax, yMax, dx, dy)) {
+				|| isSolidTile(xMax, yMax, dx, dy)) {
 			return true;
 		}
 
 		// check for solid entity collisions
 		Rectangle temp = new Rectangle((int) getBounds().getX() + xMin + dx, (int) getBounds().getY() + yMin + dy,
-		        xMax - xMin, yMax - yMin);
+				xMax - xMin, yMax - yMin);
 
 		// loop through all entities
 		for (Entity entity : getLevel().getEntities()) {
@@ -337,8 +334,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	/**
 	 * Checks the type of tile in a new position
 	 * 
-	 * @param x - the x offset from current value
-	 * @param y - the y offset from current value
+	 * @param x  - the x offset from current value
+	 * @param y  - the y offset from current value
 	 * @param dx - the change in x
 	 * @param dy - the change in y
 	 * @return true if the new tile is solid
@@ -363,8 +360,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * 
 	 * @param dx - the new x
 	 * @param dy - the new y
-	 * @param x - the x offset
-	 * @param y - the y offset
+	 * @param x  - the x offset
+	 * @param y  - the y offset
 	 * @return true if the new tile is water
 	 */
 	protected boolean isWaterTile(int dx, int dy, int x, int y) {
@@ -383,11 +380,10 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	}
 
 	/**
-	 * Determines if a mob's bounds are intersecting another mob's bounds as it
-	 * is
+	 * Determines if a mob's bounds are intersecting another mob's bounds as it is
 	 * 
-	 * @return the other mob that is colliding with this mob, null if there
-	 * isn't one
+	 * @return the other mob that is colliding with this mob, null if there isn't
+	 *         one
 	 */
 	protected Mob getMobCollision() {
 
@@ -494,9 +490,9 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// checks if the mob is on water
 		isSwimming = getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA1)
-		        || getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA2)
-		        || getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA3)
-		        || getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA4);
+				|| getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA2)
+				|| getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA3)
+				|| getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA4);
 
 		// animate bobbing water color
 		if (isSwimming) {
@@ -539,17 +535,17 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		}
 
 		// automate movement with a script
-		if (path != null && path.exists()) {
-			
+		if (path != null && path.isNotEmpty()) {
+
 			// first update the path
 			path.update();
-			
+
 			// now make sure it exists after updating
-			if (path.exists()) {
-				
+			if (path.isNotEmpty()) {
+
 				// change in x and y
 				int dx = 0, dy = 0;
-				
+
 				if (path.next().getDestination().getX() > getX()) {
 					dx++;
 				} else if (path.next().getDestination().getX() < getX()) {
@@ -565,7 +561,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 					move(dx, dy);
 					return;
 				}
-			} 
+			}
 
 		}
 
@@ -612,13 +608,14 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		// displays text overhead
 		if (isTalking) {
 			JJFont.render(name, screen, xOffset - (name.length() * 4 - 8), yOffset - modifier,
-			        new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
+					new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
 		}
 
 		// displays damage indicators overhead
 		if (isHit) {
 			int scale = isHitTicks / 8 + 1;
-			JJFont.render(damageTaken, screen, xOffset + isHitX - (int) (0.5 * modifier * scale), yOffset - modifier + isHitY - (int) (0.5 * modifier * scale), damageIndicatorColor, scale);
+			JJFont.render(damageTaken, screen, xOffset + isHitX - (int) (0.5 * modifier * scale),
+					yOffset - modifier + isHitY - (int) (0.5 * modifier * scale), damageIndicatorColor, scale);
 		}
 	}
 
@@ -633,7 +630,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * Triggers the death animation and closure
 	 */
 	public void remove() {
-		
+
 		// remove the healthbar
 		if (bar != null) {
 			getLevel().remove(bar);
@@ -694,15 +691,15 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * Knocks back a mob
 	 * 
 	 * @param strength - strength of the knockback
-	 * @param dir - direction from incoming damage (Mob will move OPPOSITE to
-	 * this value)
+	 * @param dir      - direction from incoming damage (Mob will move OPPOSITE to
+	 *                 this value)
 	 */
 	public void knockback(int strength, Direction dir) {
 
 		if (knockbackCooldown || isDead()) {
 			return;
 		}
-		
+
 		// opposite direction
 		Direction next = dir;
 
@@ -742,8 +739,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	}
 
 	/**
-	 * Deals damage to another mob Calculated by getStrength() + a random number
-	 * in the range
+	 * Deals damage to another mob Calculated by getStrength() + a random number in
+	 * the range
 	 * 
 	 * @param range - random offset to add to strength
 	 * @param other - the other thing to attack
@@ -763,7 +760,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		if (isDead()) {
 			return;
 		}
-		
+
 		// subtract from defense
 		damage -= getDefense();
 		if (damage <= 0) {
@@ -844,23 +841,23 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	/**
 	 * Changes the outer bounds range
 	 * 
-	 * @param width - width of the mob
+	 * @param width  - width of the mob
 	 * @param height - height of the mob
 	 */
 	protected void setOuterBounds(int width, int height) {
 		outerBounds = new Rectangle(getX() - OUTER_BOUNDS_RANGE, getY() - OUTER_BOUNDS_RANGE,
-		        width + OUTER_BOUNDS_RANGE * 2, height + OUTER_BOUNDS_RANGE * 2);
+				width + OUTER_BOUNDS_RANGE * 2, height + OUTER_BOUNDS_RANGE * 2);
 	}
 
 	/**
 	 * Changes the outer bounds size Default is 2
 	 * 
-	 * @param width - width of the mob
+	 * @param width  - width of the mob
 	 * @param height - height of the mob
 	 */
 	protected void setOuterBoundsRange(int range) {
 		outerBounds = new Rectangle(getX() - range, getY() - range, getBounds().width + range * 2,
-		        getBounds().height + range * 2);
+				getBounds().height + range * 2);
 	}
 
 	/**
@@ -959,7 +956,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	public void createHealthBar() {
 		bar = new HealthBar(getLevel(), getX(), getY() + (int) getBounds().getHeight() + 2, this);
 	}
-	
+
 	/**
 	 * @return the tile the mob is on
 	 */
@@ -1007,14 +1004,12 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 */
 	public void setPath(Mob dest) {
 		if (dest instanceof Player) {
-			this.path = new Path();
-			//path.add(ScriptFactory.make(this, dest, ScriptFactory.TILE_ALIGNMENT));
-			path.add(ScriptFactory.make(this, dest, ScriptFactory.MDP));
+			this.path = PathFactory.make(this, dest, PathFactory.MDP);
 		} else {
-			this.path = new Path(this, dest);
+			this.path = PathFactory.make(this, dest, PathFactory.DIJKSTRA);
 		}
 	}
-	
+
 	/**
 	 * Sets the path to null
 	 */
@@ -1029,11 +1024,6 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		return path;
 	}
 
-	public void setPath(Script script) {
-		this.path = new Path();
-		path.add(script);
-	}
-	
 	/**
 	 * @return the target of this mob
 	 */

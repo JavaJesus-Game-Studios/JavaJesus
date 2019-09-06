@@ -197,8 +197,21 @@ public abstract class Monster extends Mob {
 				// close combat has pathfinding
 			} else {
 				isMoving = !getOuterBounds().intersects(target.getBounds());
-				if (isMoving && (getPath() == null || !getPath().exists())) {
+				if (isMoving && (getPath() == null || !getPath().isNotEmpty())) {
+					collisionImmune = false;
 					setPath(target);
+				} else if (!isMoving && getPath() != null){
+					path.clear();
+					if (!getBounds().intersects(target.getBounds())) {
+						if (target == JavaJesus.getPlayer()) {
+							collisionImmune = !JavaJesus.getPlayer().isMoving();
+						} else {
+							collisionImmune = true;
+						}
+					} else {
+						collisionImmune = false;
+					}
+					
 				}
 			}
 		}

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import javajesus.DialogueHandler;
+import javajesus.JavaJesus;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.entities.Entity;
@@ -51,32 +52,35 @@ public abstract class NPC extends Mob {
 
 	// determines if the npc is moving in any direction
 	protected boolean isMoving;
-	
+
 	// whether or not to render the npc
 	private boolean customRender;
 
 	// allows npcs to move every other tick
 	private int moveTick;
-	
+
+	// whether or not this NPC should follow the player
+	private boolean followingPlayer;
+
 	// hit color of the npc
 	protected static final int[] mobHitColor = { 0xFF700000, 0xFF700000, 0xFF700000, 0, 0 };
-	protected static final int[] questColor = {0xFFFFFF00, 0xFFFFFF00, 0xFFFFFF00};
+	protected static final int[] questColor = { 0xFFFFFF00, 0xFFFFFF00, 0xFFFFFF00 };
 
 	/**
 	 * Creates a NPC that interacts with the environment
 	 * 
-	 * @param level - the level to place it on
-	 * @param name - the name of the NPC
-	 * @param x - the X coord
-	 * @param y - the Y coord
-	 * @param speed - the base speed
-	 * @param width - the width in pixels
-	 * @param height - the height in pixels
-	 * @param health - the base health
-	 * @param color - the color set
-	 * @param xTile - the column on the spritesheet
-	 * @param yTile - the row on the spritesheet
-	 * @param walkPath - the type of idle formation
+	 * @param level        - the level to place it on
+	 * @param name         - the name of the NPC
+	 * @param x            - the X coord
+	 * @param y            - the Y coord
+	 * @param speed        - the base speed
+	 * @param width        - the width in pixels
+	 * @param height       - the height in pixels
+	 * @param health       - the base health
+	 * @param color        - the color set
+	 * @param xTile        - the column on the spritesheet
+	 * @param yTile        - the row on the spritesheet
+	 * @param walkPath     - the type of idle formation
 	 * @param walkDistance - the distance of each idle formation
 	 * @param customRender - whether or not to render the npc
 	 */
@@ -101,22 +105,22 @@ public abstract class NPC extends Mob {
 		}
 
 	}
-	
+
 	/**
 	 * Creates a NPC that interacts with the environment
 	 * 
-	 * @param level - the level to place it on
-	 * @param name - the name of the NPC
-	 * @param x - the X coord
-	 * @param y - the Y coord
-	 * @param speed - the base speed
-	 * @param width - the width in pixels
-	 * @param height - the height in pixels
-	 * @param health - the base health
-	 * @param color - the color set
-	 * @param xTile - the column on the spritesheet
-	 * @param yTile - the row on the spritesheet
-	 * @param walkPath - the type of idle formation
+	 * @param level        - the level to place it on
+	 * @param name         - the name of the NPC
+	 * @param x            - the X coord
+	 * @param y            - the Y coord
+	 * @param speed        - the base speed
+	 * @param width        - the width in pixels
+	 * @param height       - the height in pixels
+	 * @param health       - the base health
+	 * @param color        - the color set
+	 * @param xTile        - the column on the spritesheet
+	 * @param yTile        - the row on the spritesheet
+	 * @param walkPath     - the type of idle formation
 	 * @param walkDistance - the distance of each idle formation
 	 */
 	public NPC(Level level, String name, int x, int y, int speed, int width, int height, int health, int[] color,
@@ -129,24 +133,30 @@ public abstract class NPC extends Mob {
 	 */
 	public void tick() {
 		super.tick();
-
-		// will move the NPC back to the origin
-		if (tickCount % MOVE_TO_ORIGIN_TIMEOUT == 0) {
-			movingToOrigin = getX() != xPos || getY() != yPos;
-		}
-
+		
 		// NPC's are always moving unless they are just standing
 		isMoving = true;
+		
+		if (followingPlayer) {
+			if ((path == null || !path.isNotEmpty()) && !getOuterBounds().intersects(JavaJesus.getPlayer().getBounds())) {
+				setPath(JavaJesus.getPlayer()); 
+			}
+		} else {
+			// will move the NPC back to the origin
+			if (tickCount % MOVE_TO_ORIGIN_TIMEOUT == 0) {
+				movingToOrigin = getX() != xPos || getY() != yPos;
+			}
 
-		// move if not colliding
-		if (!isCollidingWithMob()) {
+			// move if not colliding
+			if (!isCollidingWithMob()) {
 
-			// simple pathfinding for the NPC
-			if (movingToOrigin)
-				findOrigin();
-			else
-				findPath();
-		} 
+				// simple pathfinding for the NPC
+				if (movingToOrigin)
+					findOrigin();
+				else
+					findPath();
+			} 
+		}
 
 	}
 
@@ -170,7 +180,7 @@ public abstract class NPC extends Mob {
 
 		// move the NPC
 		move(dx, dy);
-		
+
 		movingToOrigin = getX() != xPos || getY() != yPos;
 	}
 
@@ -216,12 +226,12 @@ public abstract class NPC extends Mob {
 		if (currentQuest != null && !isTalking) {
 			JJFont.render("?", screen, getX() + 4, getY() - 10, questColor, 1);
 		}
-		
-		// don't  render if class is overriding render
+
+		// don't render if class is overriding render
 		if (customRender) {
 			return;
 		}
-		
+
 		// default color
 		int[] color = this.color;
 
@@ -247,7 +257,7 @@ public abstract class NPC extends Mob {
 			xTile += 8;
 			if (isMoving) {
 				xTile += 2;
-			}else {
+			} else {
 				xTile += ((tickCount % 120 <= 60) ? 23 : 0);
 			}
 		} else if (getDirection() == Direction.SOUTH) {
@@ -273,23 +283,23 @@ public abstract class NPC extends Mob {
 
 		// depth effect when swimming
 		int swimOffset = modifier * (isSwimming ? 1 : 0);
-		
+
 		// Upper body 1
-		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
-				xTile, yTile, getSpriteSheet(), flip, color);
+		screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + swimOffset, xTile, yTile, getSpriteSheet(), flip,
+				color);
 
 		// Upper Body 2
-		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + swimOffset,
-				(xTile + 1), yTile, getSpriteSheet(), flip, color);
+		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + swimOffset, (xTile + 1), yTile,
+				getSpriteSheet(), flip, color);
 
 		if (!isSwimming) {
 
 			// Lower Body 1
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					xTile, (yTile + 1), getSpriteSheet(), flip, color);
+			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, (yTile + 1),
+					getSpriteSheet(), flip, color);
 			// Lower Body 2
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier,
-					(xTile + 1), (yTile + 1), getSpriteSheet(), flip, color);
+			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, (xTile + 1),
+					(yTile + 1), getSpriteSheet(), flip, color);
 
 		}
 
@@ -461,13 +471,13 @@ public abstract class NPC extends Mob {
 	 */
 	public void addQuest(Quest quest) {
 		quests.add(quest);
-		
+
 		// now make it active
 		if (currentQuest == null) {
 			currentQuest = quest;
 		}
 	}
-	
+
 	/**
 	 * @return the current quest
 	 */
@@ -481,13 +491,13 @@ public abstract class NPC extends Mob {
 	public void setQuest(int num) {
 		this.currentQuest = quests.get(num);
 	}
-	
+
 	/**
 	 * @param quest - quest to bring to focus
 	 */
 	public void addQuestAndSet(Quest quest) {
-	      addQuest(quest);
-	      setQuest(quests.indexOf(quest));
+		addQuest(quest);
+		setQuest(quests.indexOf(quest));
 	}
 
 	/**
@@ -499,20 +509,34 @@ public abstract class NPC extends Mob {
 
 		// choose one at random
 		switch (random.nextInt(13)) {
-		case 0:	return "I used to be an adventurer too!";
-		case 1:	return ": Nice shirt!";
-		case 2:	return "Are you Jesus?";
-		case 3:	return "This is some nice weather we've been having.";
-		case 4:	return "You are not from around here are you!";
-		case 5: return "Hello Officer!";
-		case 6: return "Who goes there!";
-		case 7: return "Have you been to San Cisco? I hear they're having lovely weather.";
-		case 8:	return "It's you! It really is! All Hail the Hero of the Bay!";
-		case 9:	return "I'm not racist but when you're driving in the East Bay, roll up your windows and lock your doors.";
-		case 10: return "Have you seen my friend Bob? He's a peasant and he seems to have" + "literally dissapeared!";
-		case 11: return "Nasty business it is with those Apes in the North!" + " Nasty business indeed.";
-		case 12: return "Hola, mi nombre es Esteban Norteruta!";
-		default:return "Hello!";
+		case 0:
+			return "I used to be an adventurer too!";
+		case 1:
+			return ": Nice shirt!";
+		case 2:
+			return "Are you Jesus?";
+		case 3:
+			return "This is some nice weather we've been having.";
+		case 4:
+			return "You are not from around here are you!";
+		case 5:
+			return "Hello Officer!";
+		case 6:
+			return "Who goes there!";
+		case 7:
+			return "Have you been to San Cisco? I hear they're having lovely weather.";
+		case 8:
+			return "It's you! It really is! All Hail the Hero of the Bay!";
+		case 9:
+			return "I'm not racist but when you're driving in the East Bay, roll up your windows and lock your doors.";
+		case 10:
+			return "Have you seen my friend Bob? He's a peasant and he seems to have" + "literally dissapeared!";
+		case 11:
+			return "Nasty business it is with those Apes in the North!" + " Nasty business indeed.";
+		case 12:
+			return "Hola, mi nombre es Esteban Norteruta!";
+		default:
+			return "Hello!";
 		}
 	}
 
@@ -520,11 +544,11 @@ public abstract class NPC extends Mob {
 	 * Text to player
 	 */
 	public void speak(Player player) {
-		
+
 		// set the talking effect
 		isTalking = true;
 
-		// generally the NPC will face the opposite direction of the player when talking 
+		// generally the NPC will face the opposite direction of the player when talking
 		switch (player.getDirection()) {
 		case NORTH: {
 			setDirection(Direction.SOUTH);
@@ -543,19 +567,19 @@ public abstract class NPC extends Mob {
 			break;
 		}
 		}
-		
+
 		// do quest dialogue
 		if (currentQuest != null) {
-			
+
 			// continue action dialogue
 			if (!currentQuest.isDialogueFinished()) {
-				
+
 				// delegate to dialogue gui
 				DialogueHandler.startDialogue(this);
-				
+
 				// do the simple chat
 			} else {
-				
+
 				// do normal dialogue
 				MessageHandler.displayText(getName() + ": " + currentQuest.getDialogue(), Color.WHITE);
 			}
@@ -565,7 +589,7 @@ public abstract class NPC extends Mob {
 
 				// quest completed sound
 				SoundHandler.play(SoundHandler.chest);
-				
+
 				// update the player
 				player.finishQuest(currentQuest);
 
@@ -589,14 +613,14 @@ public abstract class NPC extends Mob {
 			currentQuest = quests.get(0);
 		}
 	}
-	
+
 	/**
 	 * Logic on mob death
 	 */
 	@Override
 	public void remove() {
 		super.remove();
-		
+
 		// now remove the quest
 		if (currentQuest != null) {
 			quests.remove(currentQuest);
@@ -616,7 +640,7 @@ public abstract class NPC extends Mob {
 			super.move(dx * (int) getSpeed(), dy * (int) getSpeed());
 		}
 	}
-	
+
 	/**
 	 * Moves a npc every tick (will cause faster movement)
 	 * 
@@ -635,12 +659,11 @@ public abstract class NPC extends Mob {
 	}
 
 	/**
-	 * @param color
-	 *            the new color
+	 * @param color the new color
 	 */
 	protected void setColor(int[] color) {
 		if (color.length < 5) {
-			color = new int[] {color[0], color[1], color[2], 0, 0};
+			color = new int[] { color[0], color[1], color[2], 0, 0 };
 		}
 		this.color = color;
 
@@ -650,12 +673,12 @@ public abstract class NPC extends Mob {
 	 * Gets a random NPC
 	 * 
 	 * @param level - level to place it on
-	 * @param x - its x coord
-	 * @param y - its y coord
+	 * @param x     - its x coord
+	 * @param y     - its y coord
 	 * @return the NPC
 	 */
 	public static Entity getRandomNPC(Level level, int x, int y) {
-		
+
 		// randomly generated a type of peasant
 		int type = random.nextInt(4);
 		return new Peasant(level, x, y, type);
@@ -674,12 +697,16 @@ public abstract class NPC extends Mob {
 	public final int getYTile() {
 		return yTile;
 	}
-	
+
 	/**
 	 * @return the path to the NPC dialogue head
 	 */
 	public String getHeadPath() {
 		return "/VISUAL_DATA/GUI/HUD/DIALOGUE/actor_dialogue-m.png";
+	}
+
+	public void setFollowingPlayer(boolean follow) {
+		this.followingPlayer = follow;
 	}
 
 }
