@@ -5,6 +5,7 @@ import javajesus.quest.events.AlphaPeasantFarmSpawn;
 import javajesus.quest.events.Event;
 import javajesus.quest.events.KenBecomesEvil;
 import javajesus.quest.events.KnightSpawner;
+import javajesus.quest.events.OfficerBecomesCompanion;
 import javajesus.quest.events.SwatOfficerEvent;
 import javajesus.quest.events.VillageIncreasedDifficulty;
 
@@ -16,6 +17,7 @@ public class EventFactory {
 	public static final int ALPHAPEASANTFARMSPAWNER = 2;
 	public static final int KNIGHTSPAWNER = 3;
 	public static final int KENBECOMESEVIL = 4;
+	public static final int OFFICER_FOLLOWS_PLAYER = 5;
 	
 	/**
 	 * @param id    - trigger id for the event
@@ -36,6 +38,8 @@ public class EventFactory {
 			return new KnightSpawner(level);
 		case KENBECOMESEVIL:
 			return new KenBecomesEvil(level);
+		case OFFICER_FOLLOWS_PLAYER:
+			return new OfficerBecomesCompanion(level);
 		default:
 			return null;
 		}

@@ -122,7 +122,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	private static AIManager aiManager;
 
 	// the in game player
-	private Player player;
+	private static Player player;
 	
 	// whether or not to load from a file
 	private boolean load;
@@ -626,6 +626,10 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 */
 	private boolean inGame() {
 		return guiID == GAME_DISPLAY;
+	}
+	
+	public static Player getPlayer() {
+		return player;
 	}
 
 }
