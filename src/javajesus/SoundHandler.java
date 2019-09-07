@@ -28,7 +28,8 @@ public class SoundHandler {
 
 	// audio clips that can be opened as needed
 	public static URL sheathe, deathDirge, chest, questAccepted, chimpanzee, click, demon, fireball, assaultRifle,
-	        revolver, shotgun, levelup, shortSword1, shortSword2, walking, explosion, carStartUp, laser;
+	        revolver, shotgun, levelup, longSword1, longSword2, shortSword1, shortSword2, shortSword3, walking, explosion, carStartUp, laser,
+	        gash1, gash2;
 
 	/**
 	 * Initializes the sounds for the game
@@ -93,9 +94,19 @@ public class SoundHandler {
 
 			laser = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/FIREARMS/Laser_Gun_Sound.wav");
 
-			shortSword1 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/Short_Sword_Swoosh_1.wav");
+			longSword1 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/Short_Sword_Swoosh_1.wav");
 
-			shortSword2 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/Short_Sword_Swoosh_2.wav");
+			longSword2 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/Short_Sword_Swoosh_2.wav");
+			
+			shortSword1 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/knife_slash1.wav");
+
+			shortSword2 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/knife_slash2.wav");
+
+			shortSword3 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/knife_slash3.wav");
+			
+			gash1 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/gash1.wav");
+			
+			gash2 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/gash2.wav");
 
 			swimming = AudioSystem
 			        .getAudioInputStream(SoundHandler.class.getResource("/AUDIO_DATA/ACTOR/FOOTSTEPS/Swimming.wav"));
@@ -198,12 +209,53 @@ public class SoundHandler {
 		// make sure game is not muted
 		if (!muted) {
 			Random random = new Random();
-			switch (random.nextInt(2)) {
+			switch (random.nextInt(3)) {
 			case 0:
 				play(shortSword1);
 				break;
+			case 1:
+				play(shortSword1);
+				break;
 			default:
-				play(shortSword2);
+				play(shortSword3);
+				break;
+			}
+		}
+	}
+	
+	/**
+	 * Randomly selects a short sword sound to play
+	 */
+	public static void playLongSword() {
+
+		// make sure game is not muted
+		if (!muted) {
+			Random random = new Random();
+			switch (random.nextInt(2)) {
+			case 0:
+				play(longSword1);
+				break;
+			default:
+				play(longSword2);
+				break;
+			}
+		}
+	}
+	
+	/**
+	 * Randomly selects a short sword sound to play
+	 */
+	public static void playGash() {
+
+		// make sure game is not muted
+		if (!muted) {
+			Random random = new Random();
+			switch (random.nextInt(2)) {
+			case 0:
+				play(gash1);
+				break;
+			default:
+				play(gash2);
 				break;
 			}
 		}
