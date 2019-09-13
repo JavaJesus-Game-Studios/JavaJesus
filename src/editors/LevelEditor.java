@@ -80,6 +80,8 @@ import javajesus.entities.npcs.characters.Son;
 import javajesus.entities.npcs.characters.Storyteller;
 import javajesus.entities.npcs.characters.Wife;
 import javajesus.entities.npcs.characters.Zorra;
+import javajesus.entities.plant.GrassGold;
+import javajesus.entities.plant.GrassGreen;
 import javajesus.entities.solid.buildings.AlphaCave;
 import javajesus.entities.solid.buildings.ApartmentHighRise;
 import javajesus.entities.solid.buildings.Castle;
@@ -1293,7 +1295,7 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.PANCHOMBRE] = new EntityGUI(new Panchombre(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.SKELETON] = new EntityGUI(new Skeleton(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.BANDITO] = new EntityGUI(new Bandito(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
-			entityList[Entity.STORYTELLER] = new EntityGUI(new Storyteller(null,0,0), PANEL_SIZE, PANEL_SIZE, 2, 2);
+			entityList[Entity.STORYTELLER & 0x00FF] = new EntityGUI(new Storyteller(null,0,0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 			entityList[Entity.CARD_TABLE] = new EntityGUI(new CardTable(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 4);
 			entityList[Entity.BAR] = new EntityGUI(new Bar(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 6);
 			entityList[Entity.DEAD_SEQUOIA_SMALL] = new EntityGUI(new DeadSequoiaSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 4);
@@ -1314,7 +1316,9 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.WHITE_OAK & 0x00FF] = new EntityGUI(new WhiteOak(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 7);
 			entityList[Entity.WHITE_OAK_SMALL & 0x00FF] = new EntityGUI(new WhiteOakSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 6);
 			entityList[Entity.ALPHA_CAVE_ENTRANCE &0x00FF] = new EntityGUI(new AlphaCave(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 5);
-			
+			entityList[Entity.GRASS_GREEN &0x00FF] = new EntityGUI(new GrassGreen(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
+			entityList[Entity.GRASS_GOLD &0x00FF] = new EntityGUI(new GrassGold(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1518,6 +1522,8 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
                 return new EntityGUI(new Companion(null, 0, 0, null), 0, 0, 2, 2);
 			case Entity.GORILLA:
                 return new EntityGUI(new Gorilla(null, 0, 0), 0, 0, 3, 3);
+			case Entity.STORYTELLER:
+				return new EntityGUI(new Storyteller(null, 0, 0), 0, 0, 2, 2);
 			case Entity.NATIVE_AMERICAN:
                 return new EntityGUI(new NativeAmerican(null, 0, 0, NativeAmerican.MALE), 0, 0, 2, 2);
 			case Entity.POLICE_OFFICER:
@@ -1605,7 +1611,10 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
                 return new EntityGUI(new Orangutan(null, 0, 0), 0, 0, 3, 3);
 			case Entity.EVIL_ORANGUTAN:
                 return new EntityGUI(new EvilOrangutan(null, 0, 0), 0, 0, 3, 3);
-                
+			case Entity.GRASS_GREEN:
+				return new EntityGUI(new GrassGreen(null, 0, 0), 0, 0, 1, 1);
+			case Entity.GRASS_GOLD:
+				return new EntityGUI(new GrassGold(null, 0, 0), 0, 0, 1, 1);    
 			}
 			
 		} catch (IOException e) {

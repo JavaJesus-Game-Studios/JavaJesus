@@ -66,7 +66,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	public final static String FONT_NAME = "Press Start 2P";
 
 	// Maximum amount of entities rendered at once
-	public final static int ENTITY_LIMIT = 1000;
+	public final static int ENTITY_LIMIT = 10000;
 
 	// Maximum amount of mobs rendered at once
 	public final static int MOB_LIMIT = 300;

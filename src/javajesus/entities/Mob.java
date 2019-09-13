@@ -5,6 +5,8 @@ import java.util.Random;
 
 import javajesus.dataIO.EntityData;
 import javajesus.entities.particles.HealthBar;
+import javajesus.entities.plant.Grass;
+import javajesus.entities.plant.GrassGold;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
@@ -55,6 +57,9 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 	// the padding around each mob where other mobs can interact
 	private Rectangle outerBounds;
+	
+	// determines if the mob is standing on grass
+	protected boolean onGrass;
 
 	// determines if the mob should have the swimming animation
 	protected boolean isSwimming;
@@ -116,6 +121,12 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 	// color of water
 	private static final int[] waterColor = { 0xFF5A52FF, 0xFF000000, 0xFF000000 };
+	
+	// color of fire
+	private static final int[] firecolor = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
+	
+	// color of grass, will be updated depending on grass type
+	private static final int[] grassColor = { 0xFF3fa235, 0xFF277c1d, 0xFF000000 };
 
 	// for knockback color flicker
 	protected boolean knockbackCooldown;
@@ -292,8 +303,9 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 */
 	protected boolean hasCollided(int dx, int dy) {
 
-		// the left bound of the mob
 		// TODO These offsets are for player specifically
+		
+		// the left bound of the mob
 		int xMin = 4;
 
 		// the right bound of the mob
@@ -326,8 +338,22 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 				}
 				return true;
 			}
-
+			// Grass Collision
+			if( entity instanceof Grass && temp.intersects(entity.getBounds())) {
+				grassColor[0] = 0xFF3fa235;
+				grassColor[1] = 0xFF277c1d;
+				this.moveGrass();
+				// If dead grass change the color
+				if ( entity instanceof GrassGold ) {
+					grassColor[0] = 0xFFa7a951;
+					grassColor[1] = 0xFF777b3a;
+				}
+				// Grass isn't solid
+				return false;
+			}
 		}
+		// If mob hasn't collided with grass, mob not on grass
+		this.onGrass = false;
 		return false;
 	}
 
@@ -527,6 +553,25 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 			if (fireTickCount % 12 == 0) {
 				this.damage(1);
 			}
+			
+			// Animates the fire color
+			if (tickCount % 60 < 15) {
+				firecolor[0] = 0xFFffc403;
+				firecolor[1] = 0xFFF7790A;
+				firecolor[2] = 0xFFF72808;
+			} else if (tickCount % 60 < 30) {
+				firecolor[1] = 0xFFffc403;
+				firecolor[2] = 0xFFF7790A;
+				firecolor[0] = 0xFFF72808;
+			} else if (tickCount % 60 < 45) {
+				firecolor[2] = 0xFFffc403;
+				firecolor[0] = 0xFFF7790A;
+				firecolor[1] = 0xFFF72808;
+			} else {
+				firecolor[0] = 0xFFffc403;
+				firecolor[1] = 0xFFF7790A;
+				firecolor[2] = 0xFF000000;
+			}
 
 		}
 
@@ -588,7 +633,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		if (isSwimming) {
 
 			// depth effect to water
-			yOffset += 4 + ((tickCount % 60 < 30) ? -1 : 0);
+			yOffset += 4 + ((tickCount % 120 <= 60) ? 1 : 0);
 
 			// water rings
 			screen.render(xOffset, yOffset + modifier, 0, 0, SpriteSheet.dynamic, false, waterColor);
@@ -598,11 +643,25 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		// Handles fire animation
 		if (onFire) {
 
-			int[] firecolor = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
+			screen.render(xOffset, yOffset, 0, 1, SpriteSheet.dynamic, false, firecolor);
+			screen.render(xOffset + modifier, yOffset, 0, 1, SpriteSheet.dynamic, true, firecolor);
 
-			FireEntity.update();
-			screen.render(xOffset, yOffset, FireEntity.xTile, FireEntity.yTile, SpriteSheet.fireSmall, firecolor, 2);
-
+		}
+		
+		if (onGrass) {
+			int feetHeight = this.getBounds().height - modifier;
+			if( this.getDirection() == Direction.NORTH || this.getDirection() == Direction.SOUTH ) {
+				screen.render(xOffset, yOffset + feetHeight, 0, 2, SpriteSheet.dynamic, false, grassColor);
+				screen.render(xOffset + modifier, yOffset + feetHeight, 1, 2, SpriteSheet.dynamic, false, grassColor);
+			} else {
+				screen.render(xOffset, yOffset + feetHeight, 0, 3, SpriteSheet.dynamic, false, grassColor);
+				screen.render(xOffset + modifier, yOffset + feetHeight, 1, 3, SpriteSheet.dynamic, false, grassColor);
+			}
+			if( this.isDead() ) {
+				screen.render(xOffset, yOffset + feetHeight, 2, 3, SpriteSheet.dynamic, false, grassColor);
+				screen.render(xOffset + modifier, yOffset + feetHeight, 3, 3, SpriteSheet.dynamic, false, grassColor);
+			}
+			
 		}
 
 		// displays text overhead
@@ -610,13 +669,14 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 			JJFont.render(name, screen, xOffset - (name.length() * 4 - 8), yOffset - modifier,
 					new int[] { 0xFF000000, 0xFF000000, 0xFFFFCC00 }, 1);
 		}
-
+		/**
 		// displays damage indicators overhead
 		if (isHit) {
 			int scale = isHitTicks / 8 + 1;
 			JJFont.render(damageTaken, screen, xOffset + isHitX - (int) (0.5 * modifier * scale),
 					yOffset - modifier + isHitY - (int) (0.5 * modifier * scale), damageIndicatorColor, scale);
 		}
+		*/
 	}
 
 	/**
@@ -656,12 +716,21 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 			onFire = true;
 		}
 	}
+	
 
 	/**
 	 * @param val - whether or not the mob can be ignited
 	 */
 	public void setFireImmune(boolean val) {
 		fireImmune = val;
+	}
+	
+	/**
+	 * Sets onGrass to be true so that the grass animation can be rendered
+	 * Over the mob's feet
+	 */
+	public void moveGrass() {
+		onGrass = true;
 	}
 
 	/**
