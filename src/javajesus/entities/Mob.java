@@ -11,7 +11,6 @@ import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
 import javajesus.utility.Direction;
-import javajesus.utility.movement.MovementVector;
 import javajesus.utility.movement.Path;
 import javajesus.utility.movement.PathFactory;
 
@@ -176,7 +175,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// move pixel by pixel for maximum accuracy
 		for (int i = 0; i < Math.abs(dx); i++) {
-			if (!hasCollided(1 * sign, 0) || clip) {
+			if (!willCollide(1 * sign, 0) || clip) {
 				super.move(1 * sign, 0);
 				this.moveOuterBounds(1 * sign, 0);
 			} else {
@@ -196,7 +195,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// move pixel by pixel for maximum accuracy
 		for (int i = 0; i < Math.abs(dy); i++) {
-			if (!hasCollided(0, 1 * sign) || clip) {
+			if (!willCollide(0, 1 * sign) || clip) {
 				super.move(0, 1 * sign);
 				this.moveOuterBounds(0, 1 * sign);
 			} else {
@@ -290,30 +289,34 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * @param dy - the change in y
 	 * @return true if the change in coordinates results in a solid tile collision
 	 */
-	protected boolean hasCollided(int dx, int dy) {
+	protected boolean willCollide(int dx, int dy) {
+		
+		// the clipping offset when facing east/west
+		int clip_xoffset = 5;
+		int clip_yoffset = 2;
 
 		// the left bound of the mob
-		// TODO These offsets are for player specifically
-		int xMin = 4;
+		int xMin = getX() + dx + clip_xoffset;
 
 		// the right bound of the mob
-		int xMax = getBounds().width - 5;
+		int xMax = getX() + getBounds().width + dx - clip_xoffset;
 
 		// the top bound of the mob
-		int yMin = getBounds().height / 2;
+		int yMin = getY() + getBounds().height / 2 + dy;
 
 		// the bottom bound of the mob
-		int yMax = getBounds().height - 1;
+		int yMax = getY() + getBounds().height + dy - clip_yoffset;
 
 		// check for solid tile collisions at the 4 corners
-		if (isSolidTile(xMin, yMin, dx, dy) || isSolidTile(xMin, yMax, dx, dy) || isSolidTile(xMax, yMin, dx, dy)
-				|| isSolidTile(xMax, yMax, dx, dy)) {
+		if (getLevel().getTileFromEntityCoords(xMin, yMin).isSolid()
+				|| getLevel().getTileFromEntityCoords(xMax, yMin).isSolid()
+				|| getLevel().getTileFromEntityCoords(xMin, yMax).isSolid()
+				|| getLevel().getTileFromEntityCoords(xMax, yMax).isSolid()) {
 			return true;
 		}
 
 		// check for solid entity collisions
-		Rectangle temp = new Rectangle((int) getBounds().getX() + xMin + dx, (int) getBounds().getY() + yMin + dy,
-				xMax - xMin, yMax - yMin);
+		Rectangle temp = new Rectangle(xMin, yMin, getBounds().width - 2 * clip_xoffset, getBounds().height / 2 - clip_yoffset);
 
 		// loop through all entities
 		for (Entity entity : getLevel().getEntities()) {
@@ -327,54 +330,6 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 				return true;
 			}
 
-		}
-		return false;
-	}
-
-	/**
-	 * Checks the type of tile in a new position
-	 * 
-	 * @param x  - the x offset from current value
-	 * @param y  - the y offset from current value
-	 * @param dx - the change in x
-	 * @param dy - the change in y
-	 * @return true if the new tile is solid
-	 */
-	protected boolean isSolidTile(int x, int y, int dx, int dy) {
-		return getLevel().getTileFromEntityCoords(getX() + x + dx, getY() + y + dy).isSolid();
-	}
-
-	/**
-	 * Checks the type of tile at a current offset
-	 * 
-	 * @param x - the x offset from current value
-	 * @param y - the y offset from current value
-	 * @return true if the new tile is solid
-	 */
-	protected boolean isSolidTile(int x, int y) {
-		return getLevel().getTileFromEntityCoords(getX() + x, getY() + y).isSolid();
-	}
-
-	/**
-	 * Checks if the position is a water tile
-	 * 
-	 * @param dx - the new x
-	 * @param dy - the new y
-	 * @param x  - the x offset
-	 * @param y  - the y offset
-	 * @return true if the new tile is water
-	 */
-	protected boolean isWaterTile(int dx, int dy, int x, int y) {
-
-		// tile the mob is on (bottom half)
-		Tile lastTile = getLevel().getTile((getX() + x) / Tile.SIZE, (getY() + y) / Tile.SIZE);
-
-		// tile the mob will move to
-		Tile newTile = getLevel().getTile((getX() + x + dx) / Tile.SIZE, (getY() + y + dy) / Tile.SIZE);
-
-		// water entry looks a bit jumpy TODO
-		if (!lastTile.equals(newTile) && newTile.equals(Tile.SEA1)) {
-			return true;
 		}
 		return false;
 	}
@@ -728,13 +683,73 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 			break;
 		}
 
-		// move the mob (TODO moves every other)
-		move(dx, dy);
+		// uses move method with different name to avoid a bug
+		knockbackMove(dx, dy);
 
 		// set the direction towards the player
 		setDirection(next);
 
 		knockbackCooldown = true;
+
+	}
+
+	/**
+	 * Special duplicate of move to avoid namespace issue with regular move method
+	 * that leads to missed method calls with knockback
+	 * 
+	 * @param dx
+	 * @param dy
+	 */
+	public void knockbackMove(int dx, int dy) {
+
+		// move animation proportional to speed
+		numSteps++;
+
+		// sign of movement along x axis
+		int sign = 0;
+		if (dx < 0) {
+			setDirection(Direction.WEST);
+			sign = -1;
+		} else if (dx > 0) {
+			setDirection(Direction.EAST);
+			sign = 1;
+		}
+
+		// move pixel by pixel for maximum accuracy
+		for (int i = 0; i < Math.abs(dx); i++) {
+			if (!willCollide(1 * sign, 0) || clip) {
+				super.move(1 * sign, 0);
+				this.moveOuterBounds(1 * sign, 0);
+			} else {
+				clearPath();
+				break;
+			}
+		}
+
+		// sign of movement along y axis
+		if (dy < 0) {
+			setDirection(Direction.NORTH);
+			sign = -1;
+		} else if (dy > 0) {
+			setDirection(Direction.SOUTH);
+			sign = 1;
+		}
+
+		// move pixel by pixel for maximum accuracy
+		for (int i = 0; i < Math.abs(dy); i++) {
+			if (!willCollide(0, 1 * sign) || clip) {
+				super.move(0, 1 * sign);
+				this.moveOuterBounds(0, 1 * sign);
+			} else {
+				clearPath();
+				break;
+			}
+		}
+
+		// move the health bar
+		if (bar != null) {
+			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
+		}
 
 	}
 
