@@ -24,7 +24,7 @@ public class SoundHandler {
 	// only looping clips will have their own audio thread
 	public static Clip alphaTheme, explorationMusic, combatMusic, background2, footstepsDirt,
 	        footstepsFarmland, footstepsGrass, footstepsRoad, footstepsWood, carAcceleration, carDriving, carIdle,
-	        swimming;
+	        swimming, bump;
 
 	// audio clips that can be opened as needed
 	public static URL sheathe, deathDirge, chest, questAccepted, chimpanzee, click, demon, fireball, assaultRifle,
@@ -40,7 +40,7 @@ public class SoundHandler {
 		// the game
 		AudioInputStream alphaTheme, explorationMusic, combatMusic, background2, footstepsDirt,
 		        footstepsFarmland, footstepsGrass, footstepsRoad, footstepsWood, carAcceleration, carDriving, carIdle,
-		        swimming;
+		        swimming, bump;
 
 		try {
 
@@ -107,9 +107,12 @@ public class SoundHandler {
 			gash1 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/gash1.wav");
 			
 			gash2 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/gash2.wav");
-
+			
 			swimming = AudioSystem
 			        .getAudioInputStream(SoundHandler.class.getResource("/AUDIO_DATA/ACTOR/FOOTSTEPS/Swimming.wav"));
+			
+			bump = AudioSystem
+			        .getAudioInputStream(SoundHandler.class.getResource("/AUDIO_DATA/ACTOR/bump.wav"));
 
 			carAcceleration = AudioSystem.getAudioInputStream(
 			        SoundHandler.class.getResource("/AUDIO_DATA/VEHICLES/CAR/Car_Acceleration.wav"));
@@ -132,6 +135,7 @@ public class SoundHandler {
 			SoundHandler.footstepsRoad = AudioSystem.getClip();
 			SoundHandler.footstepsWood = AudioSystem.getClip();
 			SoundHandler.swimming = AudioSystem.getClip();
+			SoundHandler.bump = AudioSystem.getClip();
 
 			SoundHandler.carAcceleration = AudioSystem.getClip();
 			SoundHandler.carDriving = AudioSystem.getClip();
@@ -148,7 +152,8 @@ public class SoundHandler {
 			SoundHandler.footstepsRoad.open(footstepsRoad);
 			SoundHandler.footstepsWood.open(footstepsWood);
 			SoundHandler.swimming.open(swimming);
-
+			SoundHandler.bump.open(bump);
+			
 			SoundHandler.carAcceleration.open(carAcceleration);
 			SoundHandler.carDriving.open(carDriving);
 			SoundHandler.carIdle.open(carIdle);

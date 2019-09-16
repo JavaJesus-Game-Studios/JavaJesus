@@ -1237,6 +1237,15 @@ public class Player extends Mob implements Type {
 		
 	}
 	
+	@Override
+	protected boolean willCollide(int dx, int dy) {
+		boolean willCollide = super.willCollide(dx, dy);
+		if (willCollide) {
+			SoundHandler.playAmbience(SoundHandler.bump);
+		}
+		return willCollide;
+	}
+	
 	/**
 	 * @return the color of the shirt
 	 */
