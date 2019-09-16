@@ -142,7 +142,7 @@ public abstract class Shooter extends NPC implements LongRange {
 		}
 
 		// move the shooter towards the target
-		if ((dx != 0 || dy != 0) && !isMobCollision(dx, dy)) {
+		if ((dx != 0 || dy != 0) && !collisionStrategy.isMobCollision(dx, dy)) {
 			move(dx, dy);
 		}
 	}

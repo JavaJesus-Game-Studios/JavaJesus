@@ -148,7 +148,7 @@ public abstract class NPC extends Mob {
 			}
 
 			// move if not colliding
-			if (!isCollidingWithMob()) {
+			if (!collisionStrategy.isMobCollision(0, 0)) {
 
 				// simple pathfinding for the NPC
 				if (movingToOrigin)

@@ -11,6 +11,7 @@ import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.dataIO.PlayerData;
 import javajesus.entities.monsters.Skeleton;
+import javajesus.entities.strategies.StrictCollisionStrategy;
 import javajesus.entities.transporters.Transporter;
 import javajesus.entities.vehicles.Ridable;
 import javajesus.graphics.Screen;
@@ -127,7 +128,7 @@ public class Player extends Mob implements Type {
 		inventory = new Inventory();
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
-		this.collisionImmune = true;
+		this.collisionStrategy = new StrictCollisionStrategy(this);
 		
 		// use the female spritesheet if female
 		if (gender == PlayerData.FEMALE) {
@@ -1235,15 +1236,6 @@ public class Player extends Mob implements Type {
 			window.toggle(KeyEvent.VK_V);
 		}
 		
-	}
-	
-	@Override
-	protected boolean willCollide(int dx, int dy) {
-		boolean willCollide = super.willCollide(dx, dy);
-		if (willCollide) {
-			SoundHandler.playAmbience(SoundHandler.bump);
-		}
-		return willCollide;
 	}
 	
 	/**

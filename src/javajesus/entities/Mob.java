@@ -5,6 +5,8 @@ import java.util.Random;
 
 import javajesus.dataIO.EntityData;
 import javajesus.entities.particles.HealthBar;
+import javajesus.entities.strategies.CollisionStrategy;
+import javajesus.entities.strategies.LooseCollisionStrategy;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
@@ -123,6 +125,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 	// whether or not this mob is immune to fire
 	private boolean fireImmune;
+	
+	protected CollisionStrategy collisionStrategy;
 
 	/**
 	 * Creates a mob that can interact with other entities on a level
@@ -149,6 +153,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		this.setBounds(x, y, width, height);
 		this.setOuterBounds(width, height);
 		this.sheet = sheet;
+		collisionStrategy = new LooseCollisionStrategy(this);
 
 	}
 
@@ -175,7 +180,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// move pixel by pixel for maximum accuracy
 		for (int i = 0; i < Math.abs(dx); i++) {
-			if (!willCollide(1 * sign, 0) || clip) {
+			if (!collisionStrategy.willCollide(1 * sign, 0) || clip) {
 				super.move(1 * sign, 0);
 				this.moveOuterBounds(1 * sign, 0);
 			} else {
@@ -195,7 +200,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// move pixel by pixel for maximum accuracy
 		for (int i = 0; i < Math.abs(dy); i++) {
-			if (!willCollide(0, 1 * sign) || clip) {
+			if (!collisionStrategy.willCollide(0, 1 * sign) || clip) {
 				super.move(0, 1 * sign);
 				this.moveOuterBounds(0, 1 * sign);
 			} else {
@@ -282,102 +287,13 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		return stepInst;
 	}
 
-	/**
-	 * Determines if the change in x or y results in a solid collision
-	 * 
-	 * @param dx - the change in x
-	 * @param dy - the change in y
-	 * @return true if the change in coordinates results in a solid tile collision
-	 */
-	protected boolean willCollide(int dx, int dy) {
-		
-		// the clipping offset when facing east/west
-		int clip_xoffset = 5;
-		int clip_yoffset = 2;
-
-		// the left bound of the mob
-		int xMin = getX() + dx + clip_xoffset;
-
-		// the right bound of the mob
-		int xMax = getX() + getBounds().width + dx - clip_xoffset;
-
-		// the top bound of the mob
-		int yMin = getY() + getBounds().height / 2 + dy;
-
-		// the bottom bound of the mob
-		int yMax = getY() + getBounds().height + dy - clip_yoffset;
-
-		// check for solid tile collisions at the 4 corners
-		if (getLevel().getTileFromEntityCoords(xMin, yMin).isSolid()
-				|| getLevel().getTileFromEntityCoords(xMax, yMin).isSolid()
-				|| getLevel().getTileFromEntityCoords(xMin, yMax).isSolid()
-				|| getLevel().getTileFromEntityCoords(xMax, yMax).isSolid()) {
-			return true;
-		}
-
-		// check for solid entity collisions
-		Rectangle temp = new Rectangle(xMin, yMin, getBounds().width - 2 * clip_xoffset, getBounds().height / 2 - clip_yoffset);
-
-		// loop through all entities
-		for (Entity entity : getLevel().getEntities()) {
-
-			if (entity instanceof SolidEntity && temp.intersects(entity.getBounds())) {
-
-				// fire collision
-				if (entity instanceof FireEntity) {
-					this.ignite();
-				}
-				return true;
-			}
-
-		}
-		return false;
-	}
-
-	/**
-	 * Determines if a mob's bounds are intersecting another mob's bounds as it is
-	 * 
-	 * @return the other mob that is colliding with this mob, null if there isn't
-	 *         one
-	 */
-	protected Mob getMobCollision() {
-
-		// loop through the list of mobs
-		for (Mob mob : getLevel().getMobs()) {
-			if (mob == this)
-				continue;
-			if (this.getBounds().intersects(mob.getBounds()) && !mob.isDead())
-				return mob;
-		}
-		return null;
-	}
-
-	/**
-	 * Checks if a mob will collide with another mob at the new location
-	 * 
-	 * @param dx - the change in x
-	 * @param dy - the change in y
-	 * @return true if a mob is already occupying that space
-	 */
-	public boolean isMobCollision(int dx, int dy) {
-
-		// create a temporary range box shifted by dx and dy
-		Rectangle range = new Rectangle(getX() + dx, getY() + dy, getBounds().width, getBounds().height);
-
-		for (Mob mob : getLevel().getMobs()) {
-			if (range.intersects(mob.getBounds()) && mob != this && !mob.isDead())
-				return true;
-		}
-
-		return false;
-	}
 
 	/**
 	 * Forces a mob to move out of a collision
 	 */
 	protected void moveAroundMobCollision() {
 
-		Mob other = getMobCollision();
+		Mob other = collisionStrategy.getMobCollision();
 
 		// if there is no collision, do nothing
 		if (other == null)
@@ -521,7 +437,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		}
 
 		// force the mob to move around the mob collision
-		if (isCollidingWithMob() && !collisionImmune) {
+		if (!collisionImmune && collisionStrategy.isMobCollision(0, 0)) {
 			moveAroundMobCollision();
 			return;
 		}
@@ -717,7 +633,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// move pixel by pixel for maximum accuracy
 		for (int i = 0; i < Math.abs(dx); i++) {
-			if (!willCollide(1 * sign, 0) || clip) {
+			if (!collisionStrategy.willCollide(1 * sign, 0) || clip) {
 				super.move(1 * sign, 0);
 				this.moveOuterBounds(1 * sign, 0);
 			} else {
@@ -737,7 +653,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// move pixel by pixel for maximum accuracy
 		for (int i = 0; i < Math.abs(dy); i++) {
-			if (!willCollide(0, 1 * sign) || clip) {
+			if (!collisionStrategy.willCollide(0, 1 * sign) || clip) {
 				super.move(0, 1 * sign);
 				this.moveOuterBounds(0, 1 * sign);
 			} else {
@@ -1044,13 +960,6 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 */
 	public Mob getTarget() {
 		return target;
-	}
-
-	/**
-	 * @return true if colliding with a mob
-	 */
-	protected boolean isCollidingWithMob() {
-		return getMobCollision() != null;
 	}
 
 	/**
