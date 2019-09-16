@@ -46,10 +46,10 @@ public class Launcher extends Canvas implements IGameLogic {
 	private static final long serialVersionUID = 1L;
 
 	// Version of the game
-	private final String VERSION = "Alpha 1.0.1";
+	private final String VERSION = "Alpha 1.0.2";
 
 	// Last known update
-	private final String LAST_UPDATED = "Last Updated 7/02/2018";
+	private final String LAST_UPDATED = "Last Updated 9/10/2019";
 	
 	// launcher font
 	private static final Font LAUNCHER_FONT = new Font(JavaJesus.FONT_NAME, 0, 15);
@@ -410,10 +410,10 @@ public class Launcher extends Canvas implements IGameLogic {
 				try {
 					// create the player
 					Player player = createPlayer(numSlot, mode);
+					System.out.println("After createPlayer, gender is: " + player.getType());
 					
 					// stop the launcher
 					running = false;
-
 					// start the game
 					new JavaJesus(mode, false, player);
 

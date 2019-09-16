@@ -128,6 +128,7 @@ public class Player extends Mob implements Type {
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
 		this.collisionImmune = true;
+		this.gender = gender; // DO NOT DELETE AGAIN!
 		
 		// use the female spritesheet if female
 		if (gender == PlayerData.FEMALE) {
@@ -680,19 +681,19 @@ public class Player extends Mob implements Type {
 				// EAST WEST there is an offset of 3 pixels
 				for( int i = 0; i < 2; i++) {
 					// Left
-					screen.render(xLocation + 3 + (tileSize * (flip ? 1 : 0)), yLocation + i * tileSize,
+					screen.render(xLocation - 4 + (tileSize * (flip ? 1 : 0)), yLocation + i * tileSize,
 							xTile, yTile + i, sheet, flip, color);
 					// Right
-					screen.render(xLocation + 3+ tileSize - (tileSize * (flip ? 1 : 0)), yLocation + i* tileSize,
+					screen.render(xLocation - 4 + tileSize - (tileSize * (flip ? 1 : 0)), yLocation + i* tileSize,
 							xTile + 1, yTile + i, sheet, flip, color);
 				}
 			} else {
 				for( int i = 0; i < 2; i++) {
 					// Left
-					screen.render(xLocation - 3 + (tileSize * (flip ? 1 : 0)), yLocation + i * tileSize,
+					screen.render(xLocation + 4 + (tileSize * (flip ? 1 : 0)), yLocation + i * tileSize,
 							xTile, yTile + i, sheet, flip, color);
 					// Right
-					screen.render(xLocation - 3+ tileSize - (tileSize * (flip ? 1 : 0)), yLocation + i* tileSize,
+					screen.render(xLocation + 4 + tileSize - (tileSize * (flip ? 1 : 0)), yLocation + i* tileSize,
 							xTile + 1, yTile + i, sheet, flip, color);
 				}
 			}
