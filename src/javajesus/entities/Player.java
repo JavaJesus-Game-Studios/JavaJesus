@@ -488,7 +488,9 @@ public class Player extends Mob implements Type {
 		if (vehicle != null) {
 			return;
 		}
-
+		
+		// do basic rendering
+		super.render(screen);
 		
 		// x and y tile on spritesheet
 		int xTile = 0, yTile = this.yTile;
@@ -822,8 +824,6 @@ public class Player extends Mob implements Type {
 				setDirection(equippedSword.getDirection());
 			}
 		}
-		// do basic rendering
-		super.render(screen);
 
 	}
 	

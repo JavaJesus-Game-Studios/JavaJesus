@@ -220,6 +220,8 @@ public abstract class NPC extends Mob {
 	 * Displays the NPC on the screen
 	 */
 	public void render(Screen screen) {
+		
+		super.render(screen);
 
 		// notifies the player this NPC has a quest
 		if (currentQuest != null && !isTalking) {
@@ -301,7 +303,6 @@ public abstract class NPC extends Mob {
 					(yTile + 1), getSpriteSheet(), flip, color);
 
 		}
-		super.render(screen);
 
 	}
 

@@ -125,7 +125,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	private static final int[] firecolor = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
 	
 	// color of grass, will be updated depending on grass type
-	private static final int[] grassColor = { 0xFF3fa235, 0xFF277c1d, 0xFF000000 };
+	private final int[] grassColor = { 0xFF3fa235, 0xFF277c1d, 0xFF000000 };
 
 	// for knockback color flicker
 	protected boolean knockbackCooldown;
@@ -341,6 +341,15 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	public void tick() {
 
 		tickCount++;
+		
+		// check for grass
+		Tile t = getLevel().getTileFromEntityCoords(getX() + getBounds().width / 2, getY() + getBounds().height / 2);
+		if (t.getGrass() != null) {
+			setOnGrass(true);
+			setGrassColor(t.getGrass().getCol1(), t.getGrass().getCol2());
+		} else {
+			setOnGrass(false);
+		}
 
 		if (knockbackCooldown) {
 			if (knockbackTicks++ > knockbackLength) {

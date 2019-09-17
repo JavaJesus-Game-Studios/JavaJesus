@@ -2,6 +2,7 @@ package javajesus.level.tile;
 
 import java.util.Random;
 
+import javajesus.entities.plant.Grass;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
@@ -636,6 +637,8 @@ public class Tile {
 	// coordinates on spritesheet
 	protected int xTile, yTile;
 	
+	private Grass grass;
+	
 	/**
 	 * Tile ctor()
 	 * Creates a tile
@@ -661,6 +664,14 @@ public class Tile {
 		
 		// Add to global tile IDs
 		tileList[id] = this;
+	}
+	
+	public void setGrass(Grass g) {
+		this.grass = g;
+	}
+	
+	public Grass getGrass() {
+		return grass;
 	}
 
 	/**

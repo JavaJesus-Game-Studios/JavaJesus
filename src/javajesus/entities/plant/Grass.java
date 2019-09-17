@@ -2,7 +2,6 @@ package javajesus.entities.plant;
 
 import javajesus.dataIO.EntityData;
 import javajesus.entities.Entity;
-import javajesus.entities.Mob;
 import javajesus.graphics.Screen;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -42,24 +41,21 @@ public abstract class Grass extends Entity {
 
 	@Override
 	public int getLayer() {
-		return -1;
+		return Integer.MAX_VALUE;
 	}
 
 	public void tick() {
 
-		for (Mob mob : getLevel().getMobs()) {
-
-			mob.setOnGrass(false);
-
-			// Grass Collision
-			if (mob.getBounds().intersects(this.getBounds()) && !mob.isDead()) {
-				mob.setOnGrass(true);
-				mob.setGrassColor(col1, col2);
-			}
-		}
-
 	}
-
+	
+	public int getCol1() {
+		return col1;
+	}
+	
+	public int getCol2() {
+		return col2;
+	}
+	
 	@Override
 	public long getData() {
 		return EntityData.type1(getX(), getY());
