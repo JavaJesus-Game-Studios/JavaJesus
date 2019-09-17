@@ -43,6 +43,12 @@ public class Sprite {
 	public static Sprite WHITE_OAK = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/White_Oak.png");
 	public static Sprite WHITE_OAK_SMALL = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/White_Oak_Small.png");
 	
+	//Grass
+	public static Sprite GRASS_GREEN = new Sprite("/VISUAL_DATA/STATICS/NATURAL/BUSHES/grass_green.png");
+	public static Sprite GRASS_GOLD = new Sprite("/VISUAL_DATA/STATICS/NATURAL/BUSHES/grass_gold.png");
+
+	//Grass Effects
+	
 	//Generic STATICS
 	public static Sprite castle_tower = new Sprite("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/EXTERIORS/Generic_Castle_Tower.png");
 	public static Sprite catholic_church = new Sprite("/VISUAL_DATA/STATICS/ARCHITECTURE/GENERIC/EXTERIORS/Generic_Catholic_Church.png");

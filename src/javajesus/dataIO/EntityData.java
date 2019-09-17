@@ -41,6 +41,9 @@ import javajesus.entities.npcs.aggressive.Orangutan;
 import javajesus.entities.npcs.aggressive.PoliceOfficer;
 import javajesus.entities.npcs.aggressive.SWATOfficer;
 import javajesus.entities.npcs.aggressive.TechWarrior;
+import javajesus.entities.npcs.characters.Storyteller;
+import javajesus.entities.plant.GrassGold;
+import javajesus.entities.plant.GrassGreen;
 import javajesus.entities.solid.buildings.AlphaCave;
 import javajesus.entities.solid.buildings.ApartmentHighRise;
 import javajesus.entities.solid.buildings.Castle;
@@ -497,6 +500,8 @@ public class EntityData {
 	            return new GangMember(level, x, y, GangMember.RUSSIAN);
 	        case Entity.MONKEY:
 	            return new Monkey(level, x, y);
+	        case Entity.STORYTELLER:
+	        	return new Storyteller(level,x,y);
 	        case Entity.COW:
 	            return new Cow(level, x, y);
 	        case Entity.CAT:
@@ -587,6 +592,10 @@ public class EntityData {
 				return new Peasant(level, x, y, Peasant.MALE);
 			case Entity.KNIGHT:
 				return new Knight(level, x, y);
+			case Entity.GRASS_GREEN:
+				return new GrassGreen(level, x, y);
+			case Entity.GRASS_GOLD:
+				return new GrassGold(level, x, y);
 	        default:
 	        	System.err.println("CRITICAL ERROR! CRITICAL ERROR! RETRIEVING NULL ENTITY: " + id);
 	        	System.err.println("MAKE SURE TO ADD ENTITY CASE IN ENTITYDATA.JAVA IN DATAIO");

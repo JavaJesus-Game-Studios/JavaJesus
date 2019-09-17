@@ -129,6 +129,7 @@ public class Player extends Mob implements Type {
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
 		this.collisionStrategy = new StrictCollisionStrategy(this);
+		this.gender = gender; // DO NOT DELETE AGAIN!
 		
 		// use the female spritesheet if female
 		if (gender == PlayerData.FEMALE) {
@@ -488,8 +489,6 @@ public class Player extends Mob implements Type {
 			return;
 		}
 
-		// do basic rendering
-		super.render(screen);
 		
 		// x and y tile on spritesheet
 		int xTile = 0, yTile = this.yTile;
@@ -665,19 +664,36 @@ public class Player extends Mob implements Type {
 
 			}
 			SpriteSheet sheet = this.gunSheet;
-			
-			// Upper Body 1
-			screen.render(xLocation + (tileSize * (flip ? 1 : 0)), yLocation, xTile, yTile, sheet, flip, color);
-			// Upper Body 2
-			screen.render(xLocation + tileSize - (tileSize * (flip ? 1 : 0)), yLocation, xTile + 1, yTile, sheet, flip,
-			        color);
-			// Lower Body 1
-			screen.render(xLocation + (tileSize * (flip ? 1 : 0)), yLocation + tileSize, xTile, yTile + 1, sheet, flip,
-			        color);
-			// Lower Body 2
-			screen.render(xLocation + tileSize - (tileSize * (flip ? 1 : 0)), yLocation + tileSize, xTile + 1, yTile + 1,
-			        sheet, flip, color);
-
+			if ( getDirection() == Direction.NORTH || getDirection() == Direction.SOUTH ) {
+				// Render from top to bottom
+				for( int i = 0; i < 2; i++) {
+					// Left
+					screen.render(xLocation + (tileSize * (flip ? 1 : 0)), yLocation + i * tileSize,
+							xTile, yTile + i, sheet, flip, color);
+					// Right
+					screen.render(xLocation + tileSize - (tileSize * (flip ? 1 : 0)), yLocation + i* tileSize,
+							xTile + 1, yTile + i, sheet, flip, color);
+				}
+			}else if( getDirection() == Direction.EAST ) {
+				// EAST WEST there is an offset of 3 pixels
+				for( int i = 0; i < 2; i++) {
+					// Left
+					screen.render(xLocation - 4 + (tileSize * (flip ? 1 : 0)), yLocation + i * tileSize,
+							xTile, yTile + i, sheet, flip, color);
+					// Right
+					screen.render(xLocation - 4 + tileSize - (tileSize * (flip ? 1 : 0)), yLocation + i* tileSize,
+							xTile + 1, yTile + i, sheet, flip, color);
+				}
+			} else {
+				for( int i = 0; i < 2; i++) {
+					// Left
+					screen.render(xLocation + 4 + (tileSize * (flip ? 1 : 0)), yLocation + i * tileSize,
+							xTile, yTile + i, sheet, flip, color);
+					// Right
+					screen.render(xLocation + 4 + tileSize - (tileSize * (flip ? 1 : 0)), yLocation + i* tileSize,
+							xTile + 1, yTile + i, sheet, flip, color);
+				}
+			}
 		}
 		
 		//Handles the Player when they have a sword equipped
@@ -806,6 +822,8 @@ public class Player extends Mob implements Type {
 				setDirection(equippedSword.getDirection());
 			}
 		}
+		// do basic rendering
+		super.render(screen);
 
 	}
 	

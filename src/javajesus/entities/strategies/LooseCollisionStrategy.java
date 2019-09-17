@@ -64,6 +64,7 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 				if (entity instanceof FireEntity) {
 					mob.ignite();
 				}
+				
 				return true;
 			}
 

@@ -10,7 +10,7 @@ import javajesus.level.Level;
 public class DeadSequoia extends Tree {
 
 	/**
-	 * DeadSequoia ctor()
+	 * DeadSequoia constructor()
 	 * 
 	 * @param level - level it is on
 	 * @param x - x coordinate

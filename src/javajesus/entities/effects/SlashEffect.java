@@ -22,7 +22,7 @@ public class SlashEffect extends Entity {
 	// color set of the explosion
 	private static final int[] color = { 0xFF737373, 0xFF404040, 0xFF0000FF };
 
-	private static final int xTile = 0, yTile = 2;
+	private static final int xTile = 3, yTile = 0;
 
 	private boolean mirror;
 
