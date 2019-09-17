@@ -12,6 +12,7 @@ import javajesus.entities.Mob;
 import javajesus.entities.Pickup;
 import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
+import javajesus.entities.strategies.MonsterCollisionStrategy;
 import javajesus.graphics.SpriteSheet;
 import javajesus.items.Item;
 import javajesus.level.Level;
@@ -76,6 +77,7 @@ public abstract class Monster extends Mob {
 		this.aggroRadius = new Ellipse2D.Double(x - (RADIUS * 8) / 2, y - (RADIUS * 8) / 2, RADIUS * 8, RADIUS * 8);
 		this.yTile = yTile;
 		this.attackDelay = attackDelay;
+		this.collisionStrategy = new MonsterCollisionStrategy(this);
 
 		// initialize a few things
 		if (level != null) {

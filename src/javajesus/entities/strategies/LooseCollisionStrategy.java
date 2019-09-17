@@ -14,6 +14,9 @@ import javajesus.entities.SolidEntity;
 public class LooseCollisionStrategy implements CollisionStrategy {
 
 	protected Mob mob;
+	// the clipping offset when facing east/west
+	protected int clip_xoffset = 5;
+	protected int clip_yoffset = 2;
 
 	public LooseCollisionStrategy(Mob m) {
 		this.mob = m;
@@ -27,10 +30,6 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 	 * @return true if the change in coordinates results in a solid tile collision
 	 */
 	public boolean willCollide(int dx, int dy) {
-
-		// the clipping offset when facing east/west
-		int clip_xoffset = 5;
-		int clip_yoffset = 2;
 
 		// the left bound of the mob
 		int xMin = mob.getX() + dx + clip_xoffset;

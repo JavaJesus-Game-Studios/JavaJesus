@@ -691,27 +691,30 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		if (isDead()) {
 			return;
 		}
+		
+		if (!isHit) {
 
-		// subtract from defense
-		damage -= getDefense();
-		if (damage <= 0) {
-			damage = 0;
-		}
+			// subtract from defense
+			damage -= getDefense();
+			if (damage <= 0) {
+				damage = 0;
+			}
 
-		// hurt this mob
-		hurt(damage);
+			// hurt this mob
+			hurt(damage);
 
-		// for displaying indicators
-		damageTaken = String.valueOf(damage);
-		isHit = true;
+			// for displaying indicators
+			damageTaken = String.valueOf(damage);
+			isHit = true;
 
-		// random offsets for damage indicators
-		isHitX = random.nextInt(12) - 6 + 4;
-		isHitY = random.nextInt(6) - 3;
+			// random offsets for damage indicators
+			isHitX = random.nextInt(12) - 6 + 4;
+			isHitY = random.nextInt(6) - 3;
 
-		// remove a dead mob
-		if (health <= 0) {
-			remove();
+			// remove a dead mob
+			if (health <= 0) {
+				remove();
+			}
 		}
 	}
 
