@@ -166,8 +166,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		// instance data
 		mode = m;
 		this.load = load;
-		this.player = player;
-		
+		JavaJesus.player = player;
 		// initialize a new game
 		try {
 			new GameEngine(JJStrings.NAME, WINDOW_WIDTH, WINDOW_HEIGHT, this).start();

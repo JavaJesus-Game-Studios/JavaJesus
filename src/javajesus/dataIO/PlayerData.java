@@ -99,16 +99,16 @@ public class PlayerData {
 				DIR + numSlot + NAME))) {
 			
 			// skin color is first 4 bytes
-			int skinColor = in.readInt();
+			Integer skinColor = in.readInt();
 			
 			// hair color is first 4 bytes
-			int hairColor = in.readInt();
+			Integer hairColor = in.readInt();
 			
 			// shirt color is second 4 bytes
-			int shirtColor = in.readInt();
+			Integer shirtColor = in.readInt();
 			
 			// pants color is second 4 bytes
-			int pantsColor = in.readInt();
+			Integer pantsColor = in.readInt();
 			
 			// next byte is male or female
 			byte gender = in.readByte();
@@ -133,7 +133,7 @@ public class PlayerData {
 			}
 			
 			// return the objects
-			return new Object[] {new Integer(skinColor), new Integer(hairColor), new Integer(shirtColor), new Integer(pantsColor), gender, weapon, playerName};
+			return new Object[] {skinColor, hairColor, shirtColor, pantsColor, gender, weapon, playerName};
 			
 
 		} catch (IOException e) {

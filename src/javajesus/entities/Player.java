@@ -308,21 +308,25 @@ public class Player extends Mob implements Type {
 		// upwards movement
 		if (movingUp) {
 			dy--;
+			dx = 0;
 		}
 
 		// downwards movement
 		if (movingDown) {
 			dy++;
+			dx = 0;
 		}
 
 		// left movement
 		if (movingLeft) {
 			dx--;
+			dy = 0;
 		}
 
 		// right movement
 		if (movingRight) {
 			dx++;
+			dy = 0;
 		}
 
 		// change offsets if wearing armor
@@ -490,8 +494,6 @@ public class Player extends Mob implements Type {
 			return;
 		}
 		
-		// do basic rendering
-		super.render(screen);
 		
 		// x and y tile on spritesheet
 		int xTile = 0, yTile = this.yTile;
@@ -768,6 +770,9 @@ public class Player extends Mob implements Type {
 				setDirection(equippedSword.getDirection());
 			}
 		}
+		// do basic rendering
+		super.render(screen);
+				
 	}
 	
 	/**

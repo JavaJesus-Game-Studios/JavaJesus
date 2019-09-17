@@ -26,7 +26,7 @@ public class Main {
 			
 			// create a splash loading screen
 			SplashScreen splash = SplashScreen.getSplashScreen();
-			/**
+			
 			// error checking
 			if (splash == null) {
 				System.err.println("Splash is null");
@@ -37,7 +37,7 @@ public class Main {
 			// render the splash screen
 	        splash.createGraphics();
 	        splash.update();
-			*/
+			
 			// start the launcher and sound
 			SoundHandler.initialize();
 			
