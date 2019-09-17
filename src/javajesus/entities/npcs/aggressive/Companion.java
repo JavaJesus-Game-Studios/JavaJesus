@@ -76,7 +76,7 @@ public class Companion extends Shooter {
 			} else if (player.getY() < getY()) {
 				dy--;
 			}
-			if ((dx != 0 || dy != 0) && !isMobCollision(dx, dy)) {
+			if ((dx != 0 || dy != 0) && !collisionStrategy.isMobCollision(dx, dy)) {
 				isMoving = true;
 				move(dx, dy);
 			}

@@ -2,16 +2,16 @@ package javajesus.entities.vehicles;
 
 import java.awt.event.KeyEvent;
 
+import engine.Window;
 import javajesus.dataIO.EntityData;
 import javajesus.entities.Entity;
-import javajesus.entities.Mob;
 import javajesus.entities.Player;
 import javajesus.entities.npcs.NPC;
+import javajesus.entities.strategies.RideableCollisionStrategy;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
-import engine.Window;
 
 /*
  * A horse is a npc that can be ridden by the player
@@ -54,6 +54,7 @@ public class Horse extends NPC implements Ridable {
 		super(level, "Horse", x, y, 1, SHORT_SIDE, LONG_SIDE, defaultHealth, new int[] {0, 0, 0}, NOT_USED_XTILE, type, walkPath,
 				walkDistance);
 		setSpriteSheet(SpriteSheet.playerHorse_male);
+		this.collisionStrategy = new RideableCollisionStrategy(this);
 
 	}
 
@@ -234,30 +235,11 @@ public class Horse extends NPC implements Ridable {
 		}
 
 	}
-	
-	/**
-	 * Determines if a mob's bounds are intersecting another mob's bounds as it
-	 * is
-	 * 
-	 * @return the other mob that is colliding with this mob, null if there
-	 *         isn't one
-	 */
-	@Override
-	protected Mob getMobCollision() {
-
-		// loop through the list of mobs
-		for (Mob mob : getLevel().getMobs()) {
-			if (mob == this)
-				continue;
-			if (this.getBounds().intersects(mob.getBounds()) && !mob.isDead() && (!isUsed() || mob != player))
-				return mob;
-		}
-		return null;
-	}
 
 	@Override
 	public void drive(Player player) {
 		this.player = player;
+		((RideableCollisionStrategy) collisionStrategy).setUsed(true);
 		this.setColor(player.getColor());
 		xTile = 0;
 		this.setSpeed(HORSE_SPEED);
@@ -267,6 +249,7 @@ public class Horse extends NPC implements Ridable {
 	public void exit() {
 		player.exitVehicle();
 		player = null;
+		((RideableCollisionStrategy) collisionStrategy).setUsed(false);
 		xTile = NOT_USED_XTILE;
 		this.setSpeed(1);
 	}

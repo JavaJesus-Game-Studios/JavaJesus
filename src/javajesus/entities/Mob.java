@@ -5,15 +5,14 @@ import java.util.Random;
 
 import javajesus.dataIO.EntityData;
 import javajesus.entities.particles.HealthBar;
-import javajesus.entities.plant.Grass;
-import javajesus.entities.plant.GrassGold;
+import javajesus.entities.strategies.CollisionStrategy;
+import javajesus.entities.strategies.LooseCollisionStrategy;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
 import javajesus.level.tile.Tile;
 import javajesus.utility.Direction;
-import javajesus.utility.movement.MovementVector;
 import javajesus.utility.movement.Path;
 import javajesus.utility.movement.PathFactory;
 
@@ -80,7 +79,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	private static final int TALKING_COOLDOWN = secondsToTicks(5);
 
 	// hit color of mob
-	protected static final int[] mobHitColor = { 0xFFDBA800, 0xFFDBA800, 0xFFDBA800, 0, 0 };
+	public static final int[] mobHitColor = { 0xFFDBA800, 0xFFDBA800, 0xFFDBA800, 0, 0 };
 
 	// the base unit of each box on the spritesheet
 	protected static final int UNIT_SIZE = 8;
@@ -126,7 +125,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	private static final int[] firecolor = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
 	
 	// color of grass, will be updated depending on grass type
-	private static final int[] grassColor = { 0xFF3fa235, 0xFF277c1d, 0xFF000000 };
+	private final int[] grassColor = { 0xFF3fa235, 0xFF277c1d, 0xFF000000 };
 
 	// for knockback color flicker
 	protected boolean knockbackCooldown;
@@ -135,6 +134,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 	// whether or not this mob is immune to fire
 	private boolean fireImmune;
+	
+	protected CollisionStrategy collisionStrategy;
 
 	/**
 	 * Creates a mob that can interact with other entities on a level
@@ -161,6 +162,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		this.setBounds(x, y, width, height);
 		this.setOuterBounds(width, height);
 		this.sheet = sheet;
+		collisionStrategy = new LooseCollisionStrategy(this);
 
 	}
 
@@ -187,7 +189,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// move pixel by pixel for maximum accuracy
 		for (int i = 0; i < Math.abs(dx); i++) {
-			if (!hasCollided(1 * sign, 0) || clip) {
+			if (!collisionStrategy.willCollide(1 * sign, 0) || clip) {
 				super.move(1 * sign, 0);
 				this.moveOuterBounds(1 * sign, 0);
 			} else {
@@ -207,7 +209,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// move pixel by pixel for maximum accuracy
 		for (int i = 0; i < Math.abs(dy); i++) {
-			if (!hasCollided(0, 1 * sign) || clip) {
+			if (!collisionStrategy.willCollide(0, 1 * sign) || clip) {
 				super.move(0, 1 * sign);
 				this.moveOuterBounds(0, 1 * sign);
 			} else {
@@ -295,160 +297,11 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	}
 
 	/**
-	 * Determines if the change in x or y results in a solid collision
-	 * 
-	 * @param dx - the change in x
-	 * @param dy - the change in y
-	 * @return true if the change in coordinates results in a solid tile collision
-	 */
-	protected boolean hasCollided(int dx, int dy) {
-
-		// TODO These offsets are for player specifically
-		
-		// the left bound of the mob
-		int xMin = 4;
-
-		// the right bound of the mob
-		int xMax = getBounds().width - 5;
-
-		// the top bound of the mob
-		int yMin = getBounds().height / 2;
-
-		// the bottom bound of the mob
-		int yMax = getBounds().height - 1;
-
-		// check for solid tile collisions at the 4 corners
-		if (isSolidTile(xMin, yMin, dx, dy) || isSolidTile(xMin, yMax, dx, dy) || isSolidTile(xMax, yMin, dx, dy)
-				|| isSolidTile(xMax, yMax, dx, dy)) {
-			return true;
-		}
-
-		// check for solid entity collisions
-		Rectangle temp = new Rectangle((int) getBounds().getX() + xMin + dx, (int) getBounds().getY() + yMin + dy,
-				xMax - xMin, yMax - yMin);
-
-		// loop through all entities
-		for (Entity entity : getLevel().getEntities()) {
-
-			if (entity instanceof SolidEntity && temp.intersects(entity.getBounds())) {
-
-				// fire collision
-				if (entity instanceof FireEntity) {
-					this.ignite();
-				}
-				return true;
-			}
-			// Grass Collision
-			if( entity instanceof Grass && temp.intersects(entity.getBounds())) {
-				grassColor[0] = 0xFF3fa235;
-				grassColor[1] = 0xFF277c1d;
-				this.moveGrass();
-				// If dead grass change the color
-				if ( entity instanceof GrassGold ) {
-					grassColor[0] = 0xFFa7a951;
-					grassColor[1] = 0xFF777b3a;
-				}
-				// Grass isn't solid
-				return false;
-			}
-		}
-		// If mob hasn't collided with grass, mob not on grass
-		this.onGrass = false;
-		return false;
-	}
-
-	/**
-	 * Checks the type of tile in a new position
-	 * 
-	 * @param x  - the x offset from current value
-	 * @param y  - the y offset from current value
-	 * @param dx - the change in x
-	 * @param dy - the change in y
-	 * @return true if the new tile is solid
-	 */
-	protected boolean isSolidTile(int x, int y, int dx, int dy) {
-		return getLevel().getTileFromEntityCoords(getX() + x + dx, getY() + y + dy).isSolid();
-	}
-
-	/**
-	 * Checks the type of tile at a current offset
-	 * 
-	 * @param x - the x offset from current value
-	 * @param y - the y offset from current value
-	 * @return true if the new tile is solid
-	 */
-	protected boolean isSolidTile(int x, int y) {
-		return getLevel().getTileFromEntityCoords(getX() + x, getY() + y).isSolid();
-	}
-
-	/**
-	 * Checks if the position is a water tile
-	 * 
-	 * @param dx - the new x
-	 * @param dy - the new y
-	 * @param x  - the x offset
-	 * @param y  - the y offset
-	 * @return true if the new tile is water
-	 */
-	protected boolean isWaterTile(int dx, int dy, int x, int y) {
-
-		// tile the mob is on (bottom half)
-		Tile lastTile = getLevel().getTile((getX() + x) / Tile.SIZE, (getY() + y) / Tile.SIZE);
-
-		// tile the mob will move to
-		Tile newTile = getLevel().getTile((getX() + x + dx) / Tile.SIZE, (getY() + y + dy) / Tile.SIZE);
-
-		// water entry looks a bit jumpy TODO
-		if (!lastTile.equals(newTile) && newTile.equals(Tile.SEA1)) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Determines if a mob's bounds are intersecting another mob's bounds as it is
-	 * 
-	 * @return the other mob that is colliding with this mob, null if there isn't
-	 *         one
-	 */
-	protected Mob getMobCollision() {
-
-		// loop through the list of mobs
-		for (Mob mob : getLevel().getMobs()) {
-			if (mob == this)
-				continue;
-			if (this.getBounds().intersects(mob.getBounds()) && !mob.isDead())
-				return mob;
-		}
-		return null;
-	}
-
-	/**
-	 * Checks if a mob will collide with another mob at the new location
-	 * 
-	 * @param dx - the change in x
-	 * @param dy - the change in y
-	 * @return true if a mob is already occupying that space
-	 */
-	public boolean isMobCollision(int dx, int dy) {
-
-		// create a temporary range box shifted by dx and dy
-		Rectangle range = new Rectangle(getX() + dx, getY() + dy, getBounds().width, getBounds().height);
-
-		for (Mob mob : getLevel().getMobs()) {
-			if (range.intersects(mob.getBounds()) && mob != this && !mob.isDead())
-				return true;
-		}
-
-		return false;
-	}
-
-	/**
 	 * Forces a mob to move out of a collision
 	 */
 	protected void moveAroundMobCollision() {
 
-		Mob other = getMobCollision();
+		Mob other = collisionStrategy.getMobCollision();
 
 		// if there is no collision, do nothing
 		if (other == null)
@@ -488,6 +341,15 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	public void tick() {
 
 		tickCount++;
+		
+		// check for grass
+		Tile t = getLevel().getTileFromEntityCoords(getX() + getBounds().width / 2, getY() + getBounds().height / 2);
+		if (t.getGrass() != null) {
+			setOnGrass(true);
+			setGrassColor(t.getGrass().getCol1(), t.getGrass().getCol2());
+		} else {
+			setOnGrass(false);
+		}
 
 		if (knockbackCooldown) {
 			if (knockbackTicks++ > knockbackLength) {
@@ -611,7 +473,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		}
 
 		// force the mob to move around the mob collision
-		if (isCollidingWithMob() && !collisionImmune) {
+		if (!collisionImmune && collisionStrategy.isMobCollision(0, 0)) {
 			moveAroundMobCollision();
 			return;
 		}
@@ -729,8 +591,13 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * Sets onGrass to be true so that the grass animation can be rendered
 	 * Over the mob's feet
 	 */
-	public void moveGrass() {
-		onGrass = true;
+	public void setOnGrass(boolean val) {
+		onGrass = val;
+	}
+	
+	public void setGrassColor(int col1, int col2) {
+		grassColor[0] = col1;
+		grassColor[1] = col2;
 	}
 
 	/**
@@ -797,13 +664,73 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 			break;
 		}
 
-		// move the mob (TODO moves every other)
-		move(dx, dy);
+		// uses move method with different name to avoid a bug
+		knockbackMove(dx, dy);
 
 		// set the direction towards the player
 		setDirection(next);
 
 		knockbackCooldown = true;
+
+	}
+
+	/**
+	 * Special duplicate of move to avoid namespace issue with regular move method
+	 * that leads to missed method calls with knockback
+	 * 
+	 * @param dx
+	 * @param dy
+	 */
+	public void knockbackMove(int dx, int dy) {
+
+		// move animation proportional to speed
+		numSteps++;
+
+		// sign of movement along x axis
+		int sign = 0;
+		if (dx < 0) {
+			setDirection(Direction.WEST);
+			sign = -1;
+		} else if (dx > 0) {
+			setDirection(Direction.EAST);
+			sign = 1;
+		}
+
+		// move pixel by pixel for maximum accuracy
+		for (int i = 0; i < Math.abs(dx); i++) {
+			if (!collisionStrategy.willCollide(1 * sign, 0) || clip) {
+				super.move(1 * sign, 0);
+				this.moveOuterBounds(1 * sign, 0);
+			} else {
+				clearPath();
+				break;
+			}
+		}
+
+		// sign of movement along y axis
+		if (dy < 0) {
+			setDirection(Direction.NORTH);
+			sign = -1;
+		} else if (dy > 0) {
+			setDirection(Direction.SOUTH);
+			sign = 1;
+		}
+
+		// move pixel by pixel for maximum accuracy
+		for (int i = 0; i < Math.abs(dy); i++) {
+			if (!collisionStrategy.willCollide(0, 1 * sign) || clip) {
+				super.move(0, 1 * sign);
+				this.moveOuterBounds(0, 1 * sign);
+			} else {
+				clearPath();
+				break;
+			}
+		}
+
+		// move the health bar
+		if (bar != null) {
+			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
+		}
 
 	}
 
@@ -829,27 +756,30 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		if (isDead()) {
 			return;
 		}
+		
+		if (!isHit) {
 
-		// subtract from defense
-		damage -= getDefense();
-		if (damage <= 0) {
-			damage = 0;
-		}
+			// subtract from defense
+			damage -= getDefense();
+			if (damage <= 0) {
+				damage = 0;
+			}
 
-		// hurt this mob
-		hurt(damage);
+			// hurt this mob
+			hurt(damage);
 
-		// for displaying indicators
-		damageTaken = String.valueOf(damage);
-		isHit = true;
+			// for displaying indicators
+			damageTaken = String.valueOf(damage);
+			isHit = true;
 
-		// random offsets for damage indicators
-		isHitX = random.nextInt(12) - 6 + 4;
-		isHitY = random.nextInt(6) - 3;
+			// random offsets for damage indicators
+			isHitX = random.nextInt(12) - 6 + 4;
+			isHitY = random.nextInt(6) - 3;
 
-		// remove a dead mob
-		if (health <= 0) {
-			remove();
+			// remove a dead mob
+			if (health <= 0) {
+				remove();
+			}
 		}
 	}
 
@@ -1098,13 +1028,6 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 */
 	public Mob getTarget() {
 		return target;
-	}
-
-	/**
-	 * @return true if colliding with a mob
-	 */
-	protected boolean isCollidingWithMob() {
-		return getMobCollision() != null;
 	}
 
 	/**

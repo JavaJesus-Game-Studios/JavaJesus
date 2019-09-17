@@ -109,6 +109,8 @@ public class Demon extends Monster implements LongRange, Type {
 	 */
 	public void render(Screen screen) {
 		
+		super.render(screen);
+		
 		// default color
 		int[] color = Demon.color;
 		
@@ -209,7 +211,6 @@ public class Demon extends Monster implements LongRange, Type {
 					xTile + 2, yTile + 2, getSpriteSheet(), flip, color);
 
 		}
-		super.render(screen);
 
 
 	}

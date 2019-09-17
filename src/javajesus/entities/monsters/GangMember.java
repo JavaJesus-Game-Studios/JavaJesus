@@ -115,6 +115,8 @@ public class GangMember extends Monster implements LongRange, Type {
 	 */
 	public void render(Screen screen) {
 		
+		super.render(screen);
+		
 		// default color
 		int[] color = GangMember.color;
 
@@ -194,7 +196,6 @@ public class GangMember extends Monster implements LongRange, Type {
 		// Lower Body 2
 		screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
 		        getSpriteSheet(), flip, color);
-		super.render(screen);
 
 
 	}

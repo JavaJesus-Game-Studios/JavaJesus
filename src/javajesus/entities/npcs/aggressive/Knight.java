@@ -140,7 +140,7 @@ public class Knight extends NPC {
 		} 
 		
 		// force the mob to move around the mob collision
-		if (isCollidingWithMob()) {
+		if (collisionStrategy.isMobCollision(0, 0)) {
 			moveAroundMobCollision();
 		}
 		
@@ -184,7 +184,7 @@ public class Knight extends NPC {
 		}
 
 		// move the monster towards the target
-		if ((dx != 0 || dy != 0) && !isMobCollision(dx, dy)) {
+		if ((dx != 0 || dy != 0) && !collisionStrategy.isMobCollision(dx, dy)) {
 			move(dx, dy);
 		}
 	}

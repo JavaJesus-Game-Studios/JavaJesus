@@ -24,11 +24,12 @@ public class SoundHandler {
 	// only looping clips will have their own audio thread
 	public static Clip alphaTheme, explorationMusic, combatMusic, background2, footstepsDirt,
 	        footstepsFarmland, footstepsGrass, footstepsRoad, footstepsWood, carAcceleration, carDriving, carIdle,
-	        swimming;
+	        swimming, bump;
 
 	// audio clips that can be opened as needed
 	public static URL sheathe, deathDirge, chest, questAccepted, chimpanzee, click, demon, fireball, assaultRifle,
-	        revolver, shotgun, levelup, shortSword1, shortSword2, walking, explosion, carStartUp, laser;
+	        revolver, shotgun, levelup, longSword1, longSword2, shortSword1, shortSword2, shortSword3, walking, explosion, carStartUp, laser,
+	        gash1, gash2;
 
 	/**
 	 * Initializes the sounds for the game
@@ -39,7 +40,7 @@ public class SoundHandler {
 		// the game
 		AudioInputStream alphaTheme, explorationMusic, combatMusic, background2, footstepsDirt,
 		        footstepsFarmland, footstepsGrass, footstepsRoad, footstepsWood, carAcceleration, carDriving, carIdle,
-		        swimming;
+		        swimming, bump;
 
 		try {
 
@@ -93,12 +94,25 @@ public class SoundHandler {
 
 			laser = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/FIREARMS/Laser_Gun_Sound.wav");
 
-			shortSword1 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/Short_Sword_Swoosh_1.wav");
+			longSword1 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/Short_Sword_Swoosh_1.wav");
 
-			shortSword2 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/Short_Sword_Swoosh_2.wav");
+			longSword2 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/Short_Sword_Swoosh_2.wav");
+			
+			shortSword1 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/knife_slash1.wav");
 
+			shortSword2 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/knife_slash2.wav");
+
+			shortSword3 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/knife_slash3.wav");
+			
+			gash1 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/gash1.wav");
+			
+			gash2 = SoundHandler.class.getResource("/AUDIO_DATA/WEAPONS/SWORDS/gash2.wav");
+			
 			swimming = AudioSystem
 			        .getAudioInputStream(SoundHandler.class.getResource("/AUDIO_DATA/ACTOR/FOOTSTEPS/Swimming.wav"));
+			
+			bump = AudioSystem
+			        .getAudioInputStream(SoundHandler.class.getResource("/AUDIO_DATA/ACTOR/bump.wav"));
 
 			carAcceleration = AudioSystem.getAudioInputStream(
 			        SoundHandler.class.getResource("/AUDIO_DATA/VEHICLES/CAR/Car_Acceleration.wav"));
@@ -121,6 +135,7 @@ public class SoundHandler {
 			SoundHandler.footstepsRoad = AudioSystem.getClip();
 			SoundHandler.footstepsWood = AudioSystem.getClip();
 			SoundHandler.swimming = AudioSystem.getClip();
+			SoundHandler.bump = AudioSystem.getClip();
 
 			SoundHandler.carAcceleration = AudioSystem.getClip();
 			SoundHandler.carDriving = AudioSystem.getClip();
@@ -137,7 +152,8 @@ public class SoundHandler {
 			SoundHandler.footstepsRoad.open(footstepsRoad);
 			SoundHandler.footstepsWood.open(footstepsWood);
 			SoundHandler.swimming.open(swimming);
-
+			SoundHandler.bump.open(bump);
+			
 			SoundHandler.carAcceleration.open(carAcceleration);
 			SoundHandler.carDriving.open(carDriving);
 			SoundHandler.carIdle.open(carIdle);
@@ -159,8 +175,8 @@ public class SoundHandler {
 		if (!muted) {
 			try {
 
-				//AudioClip clip = new AudioClip(url.toString());
-				//clip.play();
+				AudioClip clip = new AudioClip(url.toString());
+				clip.play();
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -198,12 +214,53 @@ public class SoundHandler {
 		// make sure game is not muted
 		if (!muted) {
 			Random random = new Random();
-			switch (random.nextInt(2)) {
+			switch (random.nextInt(3)) {
 			case 0:
 				play(shortSword1);
 				break;
+			case 1:
+				play(shortSword1);
+				break;
 			default:
-				play(shortSword2);
+				play(shortSword3);
+				break;
+			}
+		}
+	}
+	
+	/**
+	 * Randomly selects a short sword sound to play
+	 */
+	public static void playLongSword() {
+
+		// make sure game is not muted
+		if (!muted) {
+			Random random = new Random();
+			switch (random.nextInt(2)) {
+			case 0:
+				play(longSword1);
+				break;
+			default:
+				play(longSword2);
+				break;
+			}
+		}
+	}
+	
+	/**
+	 * Randomly selects a short sword sound to play
+	 */
+	public static void playGash() {
+
+		// make sure game is not muted
+		if (!muted) {
+			Random random = new Random();
+			switch (random.nextInt(2)) {
+			case 0:
+				play(gash1);
+				break;
+			default:
+				play(gash2);
 				break;
 			}
 		}

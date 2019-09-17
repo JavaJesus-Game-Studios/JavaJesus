@@ -22,6 +22,7 @@ import javajesus.entities.Mob;
 import javajesus.entities.SolidEntity;
 import javajesus.entities.monsters.Monster;
 import javajesus.entities.npcs.NPC;
+import javajesus.entities.plant.Grass;
 import javajesus.entities.projectiles.Projectile;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
@@ -478,6 +479,10 @@ public abstract class Level {
 		if (entity instanceof Damageable) {
 			damageables.add((Damageable) entity);
 		}
+		
+		if (entity instanceof Grass) {
+			this.getTileFromEntityCoords(entity.getX(), entity.getY()).setGrass((Grass) entity);
+		}
 
 		entities.add(entity);
 	}
@@ -490,10 +495,10 @@ public abstract class Level {
 	public void remove(Entity entity) {
 		entities.remove(entity);
 		if (entity instanceof Mob) {
-			mobs.remove(entity);
+			mobs.remove((Mob) entity);
 		}
 		if (entity instanceof Damageable) {
-			damageables.remove(entity);
+			damageables.remove((Damageable) entity);
 		}
 
 	}

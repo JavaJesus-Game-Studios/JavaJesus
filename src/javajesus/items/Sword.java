@@ -7,6 +7,7 @@ import javajesus.dataIO.PlayerData;
 import javajesus.entities.Damageable;
 import javajesus.entities.Mob;
 import javajesus.entities.Player;
+import javajesus.entities.effects.SlashEffect;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
@@ -250,9 +251,12 @@ public class Sword extends Item {
 
 			cooldown = isSwinging = true;
 
-			// TODO implement different sounds
-			SoundHandler.playShortSword();
-
+			// play different sounds
+			if (length == SHORT) {
+				SoundHandler.playShortSword();
+			} else {
+				SoundHandler.playLongSword();
+			}
 		}
 
 	}
@@ -305,8 +309,13 @@ public class Sword extends Item {
 			if (bounds.intersects(m.getBounds())) {
 				
 				if (m instanceof Mob) {
-					// inflict knockback
-					((Mob) m).knockback(knockback, direction);
+					
+					Mob mob = (Mob) m;
+					if (!m.isDead()) {
+						mob.knockback(knockback, direction);
+						
+						level.add(new SlashEffect(level, mob.getX(), mob.getY() - 8, mob.getDirection() == Direction.WEST));
+					}
 				}
 				
 				// damage the mob

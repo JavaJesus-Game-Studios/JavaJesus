@@ -2,6 +2,8 @@ package javajesus.graphics;
 
 import java.awt.Rectangle;
 
+import javajesus.entities.Mob;
+
 /*
  * Handles the pixel manipulation and data that is displayed on the screen elsewhere
  */
@@ -110,10 +112,15 @@ public class Screen {
 					break;
 				}
 				}
-
+				
 				// only render if color is not pure black and in pixel bounds
 				if (col != 0xFF000000 && yPixel >= 0 && yPixel < height
 						&& xPixel >= 0 && xPixel < width) {
+					
+					// red shader effect when hit
+					if (color[0] == Mob.mobHitColor[0] && color[1] == Mob.mobHitColor[1]) {
+						col = JJColor.blend(col, 0xFFFF0000, 0.5);
+					}
 
 					// assign the color to the pixel array
 					pixels[xPixel + yPixel * width] = col;

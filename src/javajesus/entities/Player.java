@@ -11,6 +11,7 @@ import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.dataIO.PlayerData;
 import javajesus.entities.monsters.Skeleton;
+import javajesus.entities.strategies.StrictCollisionStrategy;
 import javajesus.entities.transporters.Transporter;
 import javajesus.entities.vehicles.Ridable;
 import javajesus.graphics.Screen;
@@ -128,7 +129,7 @@ public class Player extends Mob implements Type {
 		inventory = new Inventory();
 		maxStamina = START_STAMINA;
 		stamina = maxStamina;
-		this.collisionImmune = true;
+		this.collisionStrategy = new StrictCollisionStrategy(this);
 		this.gender = gender; // DO NOT DELETE AGAIN!
 		
 		// use the female spritesheet if female
@@ -307,25 +308,21 @@ public class Player extends Mob implements Type {
 		// upwards movement
 		if (movingUp) {
 			dy--;
-			dx=0;
 		}
 
 		// downwards movement
 		if (movingDown) {
 			dy++;
-			dx=0;
 		}
 
 		// left movement
 		if (movingLeft) {
 			dx--;
-			dy=0;
 		}
 
 		// right movement
 		if (movingRight) {
 			dx++;
-			dy=0;
 		}
 
 		// change offsets if wearing armor
@@ -492,7 +489,9 @@ public class Player extends Mob implements Type {
 		if (vehicle != null) {
 			return;
 		}
-
+		
+		// do basic rendering
+		super.render(screen);
 		
 		// x and y tile on spritesheet
 		int xTile = 0, yTile = this.yTile;
@@ -769,8 +768,6 @@ public class Player extends Mob implements Type {
 				setDirection(equippedSword.getDirection());
 			}
 		}
-		// do basic rendering
-		super.render(screen);
 	}
 	
 	/**
