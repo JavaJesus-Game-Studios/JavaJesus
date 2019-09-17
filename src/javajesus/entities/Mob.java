@@ -76,7 +76,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	private static final int TALKING_COOLDOWN = secondsToTicks(5);
 
 	// hit color of mob
-	protected static final int[] mobHitColor = { 0xFFDBA800, 0xFFDBA800, 0xFFDBA800, 0, 0 };
+	public static final int[] mobHitColor = { 0xFFDBA800, 0xFFDBA800, 0xFFDBA800, 0, 0 };
 
 	// the base unit of each box on the spritesheet
 	protected static final int UNIT_SIZE = 8;
