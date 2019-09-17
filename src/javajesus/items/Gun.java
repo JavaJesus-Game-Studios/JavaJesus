@@ -32,7 +32,7 @@ public class Gun extends Item {
 	private boolean isReloading;
 
 	// the reload time between bullets TODO implement it
-	private int RELOAD_TIME = 1;
+	private boolean doesReload;
 
 	// ticks inbetween each reload
 	private int reloadTicks;
@@ -57,6 +57,9 @@ public class Gun extends Item {
 
 	// offset on the spritesheet for player animation
 	private int playerOffset;
+	
+	// offset of the reload animation on the player spritesheet
+	private int[] reloadOffsets = { 42, 48, 54};
 
 	// type of ammo
 	private Ammo type;
@@ -89,18 +92,12 @@ public class Gun extends Item {
 	 * @param clip - the clip sound
 	 */
 	public Gun(String name, int id, int xTile, int yTile, int[] color, String description, int yPlayerSheet,
-			int clipSize, float rate, int reload, int damage, Ammo type, URL clip) {
+			int clipSize, float rate, boolean doesReload, int damage, Ammo type, URL clip) {
 		super(name, id, xTile, yTile, color, description, true);
 		this.playerOffset = yPlayerSheet;
 		this.clipSize = clipSize;
 		this.ammo = clipSize;
-		this.RELOAD_TIME = reload;
-		
-		// TODO
-		if (reload == 0) {
-			this.RELOAD_TIME = 1;
-		}
-		
+		this.doesReload = doesReload;
 		this.FIRE_RATE = (int) (rate * 10);
 		this.damage = damage;
 		this.type = type;
@@ -115,7 +112,7 @@ public class Gun extends Item {
 		fireTicks++;
 
 		// increase the count displayed while reloading
-		if (isReloading && reloadTicks % RELOAD_TIME == 0) {
+		if (isReloading && reloadTicks % 15 == 0) {
 			if (ammo < clipSize && availableAmmo > 0) {
 				ammo++;
 				availableAmmo--;
@@ -145,12 +142,12 @@ public class Gun extends Item {
 	 * @return number of bullets used
 	 */
 	public int reload(int bullets) {
-
 		isReloading = true;
-		availableAmmo = bullets;
-		return clipSize - ammo;
+		this.availableAmmo = bullets;
+		return this.clipSize - this.ammo;
 	}
-
+	
+	
 	/**
 	 * Initializes the sounds of the gun
 	 */
@@ -209,11 +206,7 @@ public class Gun extends Item {
 				level.add(new BlackHoleDetonator(level, x, y, dir, player, damage));
 				break;
 			case FLAMETHROWER:
-				
-				for (int i = 0; i < 3; i++) {
-					level.add(new FireBall(level, x + random.nextInt(8) - 4, y + random.nextInt(8) - 4, dir, player, damage));
-				}
-				
+				level.add(new FireBall(level, x, y, dir, player, damage));
 				break;
 			case SHELL:
 				for (int i = 0; i < 3; i++) {
@@ -254,6 +247,12 @@ public class Gun extends Item {
 	public boolean isReloading() {
 		return isReloading;
 	}
+	/**
+	 * @return true if this gun reloads
+	 */
+	public boolean reloads() {
+		return doesReload;
+	}
 
 	/**
 	 * @return the player offset in the spritesheet
@@ -274,7 +273,7 @@ public class Gun extends Item {
 		case LASER:
 			return Item.laserAmmo;
 		case MISSILE:
-			return Item.revolverAmmo;
+			return Item.rocketAmmo;
 		case BLACKHOLE:
 			return Item.revolverAmmo;
 		case FLAMETHROWER:

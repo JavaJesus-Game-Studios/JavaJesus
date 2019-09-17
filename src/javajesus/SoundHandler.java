@@ -159,8 +159,8 @@ public class SoundHandler {
 		if (!muted) {
 			try {
 
-				AudioClip clip = new AudioClip(url.toString());
-				clip.play();
+				//AudioClip clip = new AudioClip(url.toString());
+				//clip.play();
 
 			} catch (Exception e) {
 				e.printStackTrace();
