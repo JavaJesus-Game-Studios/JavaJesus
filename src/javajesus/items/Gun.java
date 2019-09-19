@@ -257,8 +257,55 @@ public class Gun extends Item {
 	/**
 	 * @return the player offset in the spritesheet
 	 */
-	public int getPlayerOffset() {
+	public int getYOffset() {
 		return playerOffset;
+	}
+	/**
+	 * 
+	 * @param shootingDir Direction Player is shooting in
+	 * @param movingDir Direction Player is moving in
+	 * @param isShooting if the Player is shooting
+	 * @param isMoving if the Player is Moving
+	 * @param flip Whether we need to flip the Player sprite
+	 * @param tickCount Current Tick Count
+	 * @return
+	 */
+	public int getXOffset(Direction shootingDir, Direction movingDir, boolean isShooting, boolean isMoving,
+			boolean flip, int tickCount) {
+		int xTile = 0;
+		//NORTH
+		if ( (shootingDir == Direction.NORTH && isShooting) || 
+				(movingDir == Direction.NORTH && !isShooting)) {
+			xTile = 24 + (flip ? 0 : 3);
+			// Handles standing still and breathing animations
+			if (!isMoving)
+				xTile = ((tickCount % 120 <= 60) ? 21 : 39);
+		} 
+		//SOUTH
+		else if ( (shootingDir == Direction.SOUTH && isShooting) || 
+				(movingDir == Direction.SOUTH && !isShooting) ) {
+			xTile = 3 + (flip ? 0 : 3);
+			// Handles standing still and breathing animations
+			if (!isMoving)
+				xTile = ((tickCount % 120 <= 60) ? 0 : 30);
+		}
+		// EAST
+		else if( (shootingDir == Direction.EAST && isShooting) || 
+				(movingDir == Direction.EAST && !isShooting) ){
+			xTile = 9 + (flip ? 0 : 3);
+			// Handles standing still and breathing animations
+			if (!isMoving)
+				xTile = ((tickCount % 120 <= 60) ? 9 : 33);
+		}
+		// WEST
+		else if( (shootingDir == Direction.WEST && isShooting) || 
+				(movingDir == Direction.WEST && !isShooting) ){
+			xTile = 15 + (flip ? 0 : 3);
+			// Handles standing still and breathing animations
+			if (!isMoving)
+				xTile = ((tickCount % 120 <= 60) ? 15 : 36);
+		}
+		return xTile;
 	}
 	
 	/**
