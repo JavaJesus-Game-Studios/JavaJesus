@@ -21,6 +21,9 @@ public class SpriteSheet implements Serializable {
 	
 	////// TILES ///////
     	//NATURAL
+    public static SpriteSheet natureTiles = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/natureTiles.png", 16);
+    public static SpriteSheet urbanTiles = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/urbanTiles.png", 16);
+
     public static SpriteSheet dirt = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/NATURAL/dirt.png", 10);
     public static SpriteSheet grass = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/NATURAL/grass.png", 8);
     public static SpriteSheet mountain = new SpriteSheet("/VISUAL_DATA/TILES/OVERWORLD/NATURAL/mountain.png", 8);

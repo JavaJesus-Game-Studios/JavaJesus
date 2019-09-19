@@ -62,7 +62,7 @@ public class Item {
 			new int[] { 0xFF111111, 0xFFCFCFCF, 0xFF000000 },
 			"This M239 US Army Assault Rifle, has been used of 26 of the last 30 Mass Shootings of the year."
 			+ " Main uses include hunting deer and target practice. Available at your local Gunstore, God Bless America.",
-			4, 60, (float) 0.90, false, 55, Ammo.RIFLE,
+			4, 60, 10, false, 55, Ammo.RIFLE,
 			SoundHandler.assaultRifle);
 	public static final Item shotgun = new Gun("Shotgun", 6, 3, 0, new int[] { 0xFF111111, 0xFF4D2607, 0xFFCFCFCF },
 			"The gun that allowed these United States to \"liberate\" the west. Put two bullets in, point in your "
@@ -80,7 +80,7 @@ public class Item {
 			+ "\"Gun\" will kill anything that happens to cross it's path. Loads two Missiles at a time.", 10,
 			2, 10, false, 300, Ammo.MISSILE, SoundHandler.explosion);
 	public static final Item flameThrower = new Gun("Flamethrower", 21, 6, 0,
-			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Please apply cold water to burn", 12, 10000, 0.2f, false, 5,
+			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Please apply cold water to burn", 12, 10000, 8, false, 25,
 			Ammo.FLAMETHROWER, SoundHandler.fireball);
 	public static final Item blackHoleGun = new Gun("Secret", 20, 0, 0,
 			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "??????", 14, 6, 10, false, 50, Ammo.BLACKHOLE,

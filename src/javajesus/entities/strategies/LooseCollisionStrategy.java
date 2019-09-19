@@ -6,6 +6,7 @@ import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
 import javajesus.entities.Mob;
 import javajesus.entities.SolidEntity;
+import javajesus.entities.plant.Grass;
 
 /**
  * Loose Collision Strategy collides with solid tiles and solid entities but not
@@ -102,6 +103,36 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 				return true;
 		}
 
+		return false;
+	}
+	/**
+	 * Checks if a mob will collide with a grass entity at the new location
+	 * 
+	 * @param dx - the change in x
+	 * @param dy - the change in y
+	 * @return true if a mob will collide with a grass entity
+	 */
+	public boolean isGrassCollision(int dx, int dy) { 
+		// the left bound of the mob
+		int xMin = mob.getX() + dx + clip_xoffset;
+
+
+		// the top bound of the mob
+		int yMin = mob.getY() + mob.getBounds().height / 2 + dy;
+
+		
+		// check for solid entity collisions
+		Rectangle temp = new Rectangle(xMin, yMin, mob.getBounds().width - 2 * clip_xoffset,
+				mob.getBounds().height / 2 - clip_yoffset);
+		
+		// loop through all entities
+		for (Entity entity : mob.getLevel().getEntities()) {
+			if (entity instanceof Grass && temp.intersects(entity.getBounds())) {
+				mob.setGrassColor(((Grass) entity).getColor());
+				return true;
+			}
+		}
+		
 		return false;
 	}
 

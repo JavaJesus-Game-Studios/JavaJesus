@@ -92,13 +92,13 @@ public class Gun extends Item {
 	 * @param clip - the clip sound
 	 */
 	public Gun(String name, int id, int xTile, int yTile, int[] color, String description, int yPlayerSheet,
-			int clipSize, float rate, boolean doesReload, int damage, Ammo type, URL clip) {
+			int clipSize, int rate, boolean doesReload, int damage, Ammo type, URL clip) {
 		super(name, id, xTile, yTile, color, description, true);
 		this.playerOffset = yPlayerSheet;
 		this.clipSize = clipSize;
 		this.ammo = clipSize;
 		this.doesReload = doesReload;
-		this.FIRE_RATE = (int) (rate * 10);
+		this.FIRE_RATE = rate;
 		this.damage = damage;
 		this.type = type;
 		this.clip = clip;

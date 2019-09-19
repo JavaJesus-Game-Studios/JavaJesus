@@ -9,8 +9,7 @@ import javajesus.level.Level;
 public abstract class Grass extends Entity {
 
 	private Sprite sprite;
-	protected int col1;
-	protected int col2;
+	protected int[] color;
 
 	/**
 	 * Creates a plant from a specified sprite
@@ -20,12 +19,11 @@ public abstract class Grass extends Entity {
 	 * @param y      - the y coord
 	 * @param sprite - the sprite to use
 	 */
-	public Grass(Level level, int x, int y, int width, int height, Sprite sprite) {
+	public Grass(Level level, int x, int y, int width, int height, Sprite sprite, int[] color) {
 		super(level, x, y);
 
 		this.sprite = sprite;
-		this.col1 = 0xFF3fa235;
-		this.col2 = 0xFF277c1d;
+		this.color = color;
 
 		// makes smoother collision points for the player
 		setBounds(getX(), getY(), width, height);
@@ -41,21 +39,17 @@ public abstract class Grass extends Entity {
 
 	@Override
 	public int getLayer() {
-		return Integer.MAX_VALUE;
+		return -1;
 	}
 
 	public void tick() {
 
 	}
 	
-	public int getCol1() {
-		return col1;
+	public int[] getColor() {
+		return color;
 	}
-	
-	public int getCol2() {
-		return col2;
-	}
-	
+
 	@Override
 	public long getData() {
 		return EntityData.type1(getX(), getY());
