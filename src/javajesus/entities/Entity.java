@@ -3,13 +3,14 @@ package javajesus.entities;
 import java.awt.Rectangle;
 
 import javajesus.dataIO.Serializable;
+import javajesus.entities.collision.CollisionListener;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
 
 /*
  * Something that is rendered on the screen on a level with an x and y coordinate
  */
-public abstract class Entity implements Serializable {
+public abstract class Entity implements Serializable,CollisionListener {
 
 	// IDs used in saving and loading
 	public static final byte DESTRUCTIBLE_TILE = 0, FIRE_ENTITY = 1, GAUCHO = 2, SPAWNER = 3, CENTAUR = 4, CYCLOPS = 5,
@@ -194,5 +195,9 @@ public abstract class Entity implements Serializable {
 	 * @return the ID of this entity
 	 */
 	public abstract byte getId();
+	
+	public Entity getEntity() {
+		return this;
+	}
 
 }
