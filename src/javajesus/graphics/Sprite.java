@@ -19,6 +19,10 @@ public class Sprite {
 	// the sprite sheet it was loaded from
 	private SpriteSheet sheet;
 	
+	// Shadows
+	public static Sprite SHADOW_2X2 = new Sprite("/VISUAL_DATA/EFFECTS/shadow2x2.png");
+
+	
 	// Trees
 	public static Sprite DEAD_SEQUOIA = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Dead_Sequoia.png");
 	public static Sprite SMALL_SEQUOIA = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Sequoia_Small.png");

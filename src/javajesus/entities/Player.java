@@ -10,11 +10,13 @@ import engine.Window;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.dataIO.PlayerData;
+import javajesus.entities.effects.Shadow;
 import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.strategies.StrictCollisionStrategy;
 import javajesus.entities.transporters.Transporter;
 import javajesus.entities.vehicles.Ridable;
 import javajesus.graphics.Screen;
+import javajesus.graphics.Sprite;
 import javajesus.graphics.SpriteSheet;
 import javajesus.graphics.render_strategies.Render2x2;
 import javajesus.items.Armor;
@@ -491,6 +493,9 @@ public class Player extends Mob implements Type {
 
 		// no x or y offset, use the upper left corner as absolute
 		int xLocation = getX(), yLocation = getY();
+		
+		Shadow playerShadow = getShadow();
+		playerShadow.render(screen, xLocation, yLocation + playerShadow.getY());
 
 		// don't render if driving
 		if (vehicle != null)
@@ -700,6 +705,12 @@ public class Player extends Mob implements Type {
 	 */
 	public int[] getColor() {
 		return color;
+	}
+	
+	public Shadow getShadow() {
+		Sprite sprite = Sprite.SHADOW_2X2;
+		Shadow playerShadow = new Shadow(getLevel(), 2, 8, sprite);
+		return playerShadow;
 	}
 
 	/**
