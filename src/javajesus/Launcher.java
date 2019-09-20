@@ -410,7 +410,6 @@ public class Launcher extends Canvas implements IGameLogic {
 				try {
 					// create the player
 					Player player = createPlayer(numSlot, mode);
-					System.out.println("After createPlayer, gender is: " + player.getType());
 					
 					// stop the launcher
 					running = false;

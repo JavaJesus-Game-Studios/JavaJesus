@@ -80,6 +80,8 @@ public class Player extends Mob implements Type {
 	
 	// damage range for swords
 	public static final int DAMAGE_RANGE = 10;
+	
+	private static final int MAX_TICK = 61;
 
 	// determines if a player is moving in any direction
 	private boolean isMoving;
@@ -421,6 +423,9 @@ public class Player extends Mob implements Type {
 		}
 
 		tickCount++;
+		
+		if(tickCount % MAX_TICK == 0)
+			tickCount = 0;
 
 	}
 	
