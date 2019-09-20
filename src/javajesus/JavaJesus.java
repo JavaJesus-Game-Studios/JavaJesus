@@ -357,7 +357,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		}
 		
 		// update the time screen
-		//updateTime();
+		updateTime();
 	}
 	
 	
@@ -369,7 +369,14 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		// check for rain every segment
 		if (time % TIME_LENGTH == 0) {
 			if (Math.random() < CHANCE_OF_RAIN) {
-				raining = !raining;
+				if (!raining) {
+					raining = true;
+					SoundHandler.playLoop(SoundHandler.rain);
+				} else {
+					raining = false;
+					SoundHandler.stopLoop(SoundHandler.rain);
+					SoundHandler.playLoop(player.getLevel().getBackgroundMusic());
+				}
 			}
 		}
 		
@@ -464,12 +471,12 @@ public class JavaJesus extends Canvas implements IGameLogic {
 			
 			// draw the time of day shader
 		} else if (!raining) {
-			/*((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, overlayOpacity));
+			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, overlayOpacity));
 			g.setColor(new Color(overlayRed, 0, 0));
 			g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 			
 			// back to full opacity
-			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));*/
+			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 			
 			// draw the raining animation
 		} else {

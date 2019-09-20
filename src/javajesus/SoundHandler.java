@@ -24,7 +24,7 @@ public class SoundHandler {
 	// only looping clips will have their own audio thread
 	public static Clip alphaTheme, explorationMusic, combatMusic, background2, footstepsDirt,
 	        footstepsFarmland, footstepsGrass, footstepsRoad, footstepsWood, carAcceleration, carDriving, carIdle,
-	        swimming, bump;
+	        swimming, bump, rain;
 
 	// audio clips that can be opened as needed
 	public static URL sheathe, deathDirge, chest, questAccepted, chimpanzee, click, demon, fireball, assaultRifle,
@@ -40,7 +40,7 @@ public class SoundHandler {
 		// the game
 		AudioInputStream alphaTheme, explorationMusic, combatMusic, background2, footstepsDirt,
 		        footstepsFarmland, footstepsGrass, footstepsRoad, footstepsWood, carAcceleration, carDriving, carIdle,
-		        swimming, bump;
+		        swimming, bump, rain;
 
 		try {
 
@@ -113,6 +113,9 @@ public class SoundHandler {
 			
 			bump = AudioSystem
 			        .getAudioInputStream(SoundHandler.class.getResource("/AUDIO_DATA/ACTOR/bump.wav"));
+			
+			rain = AudioSystem
+			        .getAudioInputStream(SoundHandler.class.getResource("/AUDIO_DATA/AMBIENCE/rain.wav"));
 
 			carAcceleration = AudioSystem.getAudioInputStream(
 			        SoundHandler.class.getResource("/AUDIO_DATA/VEHICLES/CAR/Car_Acceleration.wav"));
@@ -136,6 +139,7 @@ public class SoundHandler {
 			SoundHandler.footstepsWood = AudioSystem.getClip();
 			SoundHandler.swimming = AudioSystem.getClip();
 			SoundHandler.bump = AudioSystem.getClip();
+			SoundHandler.rain = AudioSystem.getClip();
 
 			SoundHandler.carAcceleration = AudioSystem.getClip();
 			SoundHandler.carDriving = AudioSystem.getClip();
@@ -153,6 +157,7 @@ public class SoundHandler {
 			SoundHandler.footstepsWood.open(footstepsWood);
 			SoundHandler.swimming.open(swimming);
 			SoundHandler.bump.open(bump);
+			SoundHandler.rain.open(rain);
 			
 			SoundHandler.carAcceleration.open(carAcceleration);
 			SoundHandler.carDriving.open(carDriving);
@@ -289,6 +294,10 @@ public class SoundHandler {
 			clip.setFramePosition(0);
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
 		}
+	}
+	
+	public static void stopLoop(Clip clip) {
+		clip.stop();
 	}
 
 	/**
