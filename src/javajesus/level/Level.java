@@ -62,8 +62,7 @@ public abstract class Level {
 	// name of the level
 	private final String name;
 
-	// tickcount for sorting entities
-	private int tickCount;
+
 
 	// gets the name add-on for entity files
 	public static final String ENTITY = "_entities";
@@ -228,12 +227,7 @@ public abstract class Level {
 	 * Updates all entities and tiles on the map
 	 */
 	public void tick() {
-
-		// layer entities twice a second
-		if (++tickCount % 30 == 0) {
-			// correctly layer entities
-			entities.sort(comparator);
-		}
+		entities.sort(comparator);
 
 		// update all entities and living mobs
 		for (int i = 0; i < getEntities().size(); i++) {
