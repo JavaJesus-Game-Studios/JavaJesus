@@ -1,6 +1,6 @@
 JavaJesus
 =========
-This is a Coders of Anarchy creation.
+This is a JavaJesus Game Studios Production.
 Official team development took a hiatus in 2015-2016, but resumed development in Summer 2017
 
 There are two different game modes:
@@ -39,4 +39,3 @@ Basic Controls and How to Play:
 
 Other Notes:
 - Save files are stored in ~/Documents/My Games/JavaJesus
-- This game is made as a project to get coding experience and for fun, not intended to be a serious independent contender
