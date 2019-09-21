@@ -342,7 +342,85 @@ public class Screen {
 			}
 		}
 	}
+	/**
+	 * Rendering for shadows where there is only one color to display
+	 * 
+	 * @param xOffset the x coordinate on the level
+	 * @param yOffset the y coordinate on the level
+	 * @param color the color set
+	 * @param sprite the sprite to use
+	 */
+	public void renderBlend(int xOffset, int yOffset, int[] color, float alpha, Sprite sprite) {
 
+		// shifts the position of the screen by the global offset
+		xOffset -= this.xOffset;
+		yOffset -= this.yOffset;
+		
+		int colToBlend;
+
+		// loop top to bottom
+		for (int y = 0; y < sprite.ySize; y++) {
+
+			// y coord in the pixel array
+			int yPixel = y + yOffset;
+
+			// loop left to right
+			for (int x = 0; x < sprite.xSize; x++) {
+
+				// x coord in the pixel array
+				int xPixel = x + xOffset;
+
+				// make sure the pixel is in bounds
+				if (xPixel >= 0 && yPixel >= 0 && xPixel < width
+						&& yPixel < height) {
+
+					// get the color from the sprite
+					int col = sprite.pixels[x + y * sprite.xSize];
+
+					// assign the color value
+					if (color != null)
+						switch (col) {
+						case 0xFF555555: {
+							col = color[0];
+							colToBlend = pixels[xPixel + yPixel * width];
+							col = JJColor.blend(col, colToBlend, alpha);
+							break;
+						}
+						case 0xFFAAAAAA: {
+							col = color[1];
+							colToBlend = pixels[xPixel + yPixel * width];
+							col = JJColor.blend(col, colToBlend, alpha);
+							break;
+						}
+						case 0xFFFFFFFF: {
+							col = color[2];
+							colToBlend = pixels[xPixel + yPixel * width];
+							col = JJColor.blend(col, colToBlend, alpha);
+							break;
+						}
+						case 0xFFE0E0E0: {
+							col = color[3];
+							colToBlend = pixels[xPixel + yPixel * width];
+							col = JJColor.blend(col, colToBlend, alpha);
+							break;
+						}
+						case 0xFF7A7A7A: {
+							col = color[4];
+							colToBlend = pixels[xPixel + yPixel * width];
+							col = JJColor.blend(col, colToBlend, alpha);
+							break;
+						}
+						}
+
+					// set the color value if not black
+					if (col != 0xFF000000) {
+						pixels[xPixel + yPixel * width] = col;
+					}
+				}
+
+			}
+		}
+	}
 	/**
 	 * Renders a collision box to the screen
 	 * 

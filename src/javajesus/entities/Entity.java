@@ -3,6 +3,7 @@ package javajesus.entities;
 import java.awt.Rectangle;
 
 import javajesus.dataIO.Serializable;
+import javajesus.entities.effects.Shadow;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
 
@@ -48,7 +49,7 @@ public abstract class Entity implements Serializable {
 
 	// the dimensions to damage this entity
 	private Rectangle bounds;
-
+	
 	/**
 	 * Creates a new entity that can be manipulated on the screen
 	 * 
@@ -178,6 +179,14 @@ public abstract class Entity implements Serializable {
 	 */
 	public int getLayer() {
 		return getY();
+	}
+	
+	/**
+	 * 
+	 * @return the shadow for the entity
+	 */
+	public Shadow getSpriteShadow() {
+		return new Shadow(getLevel(), getBounds().width);
 	}
 
 	/**

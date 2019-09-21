@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import javajesus.dataIO.EntityData;
+import javajesus.entities.effects.Shadow;
 import javajesus.entities.particles.HealthBar;
 import javajesus.entities.strategies.CollisionStrategy;
 import javajesus.entities.strategies.LooseCollisionStrategy;
@@ -101,6 +102,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	private int isHitTicks;
 	private int isHitX, isHitY;
 	private static final int[] damageIndicatorColor = { 0xFF000000, 0xFF000000, 0xFF03dbfc };
+	
+	private static final int TILE_SIZE = 8;
 
 	// internal timers
 	protected int tickCount = 0;
@@ -837,6 +840,23 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 */
 	public Rectangle getOuterBounds() {
 		return outerBounds;
+	}
+	
+	/**
+	 * 
+	 * @return the shadow for the mob
+	 */
+	public Shadow getSpriteShadow() {
+		// TODO: Add isChild() method
+		return new Shadow(getLevel(), getBounds().width, isDead(), false);
+	}
+	
+	/**
+	 * 
+	 * @return whether the mob is swimming or not
+	 */
+	public boolean getIsSwimming() {
+		return isSwimming;
 	}
 
 	/**

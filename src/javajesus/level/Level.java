@@ -17,13 +17,21 @@ import javajesus.SoundHandler;
 import javajesus.dataIO.EntityData;
 import javajesus.dataIO.LevelData;
 import javajesus.entities.Damageable;
+import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
+import javajesus.entities.FireEntity;
 import javajesus.entities.Mob;
 import javajesus.entities.SolidEntity;
+import javajesus.entities.Spawner;
+import javajesus.entities.effects.Shadow;
 import javajesus.entities.monsters.Monster;
 import javajesus.entities.npcs.NPC;
+import javajesus.entities.particles.HealthBar;
+import javajesus.entities.particles.Particle;
 import javajesus.entities.plant.Grass;
 import javajesus.entities.projectiles.Projectile;
+import javajesus.entities.solid.buildings.Building;
+import javajesus.entities.solid.trees.Tree;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.AnimatedTile;
@@ -64,6 +72,9 @@ public abstract class Level {
 
 	// tickcount for sorting entities
 	private int tickCount;
+	
+	//Size of a tile
+	private static final int TILE_SIZE = 8;
 
 	// gets the name add-on for entity files
 	public static final String ENTITY = "_entities";
@@ -269,6 +280,7 @@ public abstract class Level {
 
 		// render tiles and entities and text
 		renderTile(screen);
+		renderShadow(screen);
 		renderEntities(screen);
 		renderText(screen);
 	}
@@ -310,6 +322,55 @@ public abstract class Level {
 					|| (e instanceof SolidEntity && ((SolidEntity) e).getShadow().intersects(renderRange))) {
 				e.render(screen);
 			}
+		}
+	}
+	/**
+	 * Displays the shadows of every Entity on Screen
+	 * @param screen - the screen to display it on
+	 */
+	private void renderShadow(Screen screen) {
+		
+		renderRange.setLocation(xOffset, yOffset);
+		
+		int shadowHeight = 0;
+		Shadow entityShadow;
+		Mob m = null;
+		
+		for( Entity e : this.getEntities()) {
+			// Check to see if the entity is a mob
+			if( e instanceof Mob ) {
+				m = (Mob) e;
+			}
+			// Check to see we should not make a shadow for this entity
+			if( e instanceof FireEntity || (e == m && m.getIsSwimming()) || e instanceof Spawner
+					|| e instanceof DestructibleTile || e instanceof Particle 
+					|| e instanceof HealthBar || e instanceof Projectile ||
+					e instanceof Building) {
+				continue;
+			}
+			// otherwise get the shadow
+			entityShadow = e.getSpriteShadow();
+			// Set the y value for where we will render the shadow at
+			if( e instanceof Tree) {
+				shadowHeight = e.getBounds().y + e.getBounds().height - TILE_SIZE;
+				entityShadow.render(screen, e.getX(), shadowHeight);
+				continue;
+			}
+			if( e.getBounds().height == TILE_SIZE)
+				shadowHeight = 1;
+			else
+				shadowHeight = e.getBounds().height - TILE_SIZE;
+			// Check to see if the entity is grass to do custom alpha
+			if( e instanceof Grass ) {
+				entityShadow.render(screen, e.getX(), e.getY() + shadowHeight, 0.2f);
+				continue;
+			}
+
+			// Otherwise render shadow normally
+			else {
+				entityShadow.render(screen, e.getX(), e.getY() + shadowHeight);
+			}
+
 		}
 	}
 

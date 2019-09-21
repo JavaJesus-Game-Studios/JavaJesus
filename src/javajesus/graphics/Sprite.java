@@ -20,7 +20,13 @@ public class Sprite {
 	private SpriteSheet sheet;
 	
 	// Shadows
-	public static Sprite SHADOW_2X2 = new Sprite("/VISUAL_DATA/EFFECTS/shadow2x2.png");
+	public static Sprite SHADOW_2X2 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow2x2.png");
+	public static Sprite SHADOW_DEAD2X2 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow_dead2x2.png");
+	public static Sprite SHADOW_1X1 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow1x1.png");
+	public static Sprite SHADOW_SMALL2X2 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow_small2x2.png");
+	public static Sprite SHADOW_3X3 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow3x3.png");
+	public static Sprite SHADOW_DEAD3X3 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow_dead3x3.png");
+	public static Sprite SHADOW_4X4 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow4x4.png");
 
 	
 	// Trees

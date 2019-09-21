@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import javajesus.dataIO.EntityData;
 import javajesus.entities.Entity;
 import javajesus.entities.SolidEntity;
+import javajesus.entities.effects.Shadow;
 import javajesus.graphics.Screen;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
@@ -56,6 +57,10 @@ public abstract class Tree extends Entity implements SolidEntity {
 	 */
 	public Rectangle getShadow() {
 		return shadow;
+	}
+	
+	public Shadow getSpriteShadow() {
+		return new Shadow(getLevel(), sprite.getWidth());
 	}
 	
 	@Override
