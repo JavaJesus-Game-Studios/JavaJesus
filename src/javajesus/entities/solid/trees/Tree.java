@@ -60,7 +60,7 @@ public abstract class Tree extends Entity implements SolidEntity {
 	}
 	
 	public Shadow getSpriteShadow() {
-		return new Shadow(getLevel(), sprite.getWidth());
+		return new Shadow(getLevel(), sprite.getWidth(), getBounds().height);
 	}
 	
 	@Override

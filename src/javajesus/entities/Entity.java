@@ -186,7 +186,7 @@ public abstract class Entity implements Serializable {
 	 * @return the shadow for the entity
 	 */
 	public Shadow getSpriteShadow() {
-		return new Shadow(getLevel(), getBounds().width);
+		return new Shadow(getLevel(), getBounds().width, getBounds().height);
 	}
 
 	/**
