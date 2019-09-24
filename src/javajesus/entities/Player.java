@@ -11,6 +11,7 @@ import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.dataIO.PlayerData;
 import javajesus.entities.monsters.Skeleton;
+import javajesus.entities.npcs.NPC;
 import javajesus.entities.strategies.StrictCollisionStrategy;
 import javajesus.entities.transporters.Transporter;
 import javajesus.entities.vehicles.Ridable;
@@ -150,7 +151,7 @@ public class Player extends Mob implements Type {
 		else {
 			System.err.println("Creating " + name);
 		}
-		
+				
 	}
 	
 	/**
@@ -251,7 +252,7 @@ public class Player extends Mob implements Type {
 	 * Internal tick clock that updates the player
 	 */
 	public void tick() {
-
+		
 		// do not update if driving
 		if (vehicle != null) {
 			moveTo(vehicle.getX(), vehicle.getY());
@@ -969,8 +970,9 @@ public class Player extends Mob implements Type {
 		// action button
 		if (window.isKeyPressed(KeyEvent.VK_E)) {
 			window.toggle(KeyEvent.VK_E);
+			Entity entity;
 			for (int i = 0; i < getLevel().getEntities().size(); i++) {
-				Entity entity = getLevel().getEntities().get(i);
+				entity = getLevel().getEntities().get(i);
 				// enter a vehicle
 				if (entity instanceof Ridable) {
 

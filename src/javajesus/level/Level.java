@@ -331,8 +331,6 @@ public abstract class Level {
 	private void renderShadow(Screen screen) {
 		
 		renderRange.setLocation(xOffset, yOffset);
-		
-		int shadowHeight = 0;
 		Shadow entityShadow;
 		Mob m = null;
 		
@@ -352,23 +350,19 @@ public abstract class Level {
 			entityShadow = e.getSpriteShadow();
 			// Set the y value for where we will render the shadow at
 			if( e instanceof Tree) {
-				shadowHeight = e.getBounds().y + e.getBounds().height - TILE_SIZE;
-				entityShadow.render(screen, e.getX(), shadowHeight);
+				entityShadow.render(screen, e.getX(), e.getBounds().y);
 				continue;
 			}
-			if( e.getBounds().height == TILE_SIZE)
-				shadowHeight = 1;
-			else
-				shadowHeight = e.getBounds().height - TILE_SIZE;
+
 			// Check to see if the entity is grass to do custom alpha
 			if( e instanceof Grass ) {
-				entityShadow.render(screen, e.getX(), e.getY() + shadowHeight, 0.2f);
+				entityShadow.render(screen, e.getX(), e.getBounds().y, 0.2f);
 				continue;
 			}
 
 			// Otherwise render shadow normally
 			else {
-				entityShadow.render(screen, e.getX(), e.getY() + shadowHeight);
+				entityShadow.render(screen, e.getX(), e.getBounds().y);
 			}
 
 		}

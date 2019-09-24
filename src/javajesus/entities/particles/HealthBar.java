@@ -27,7 +27,7 @@ public class HealthBar extends Entity {
 	private final static SpriteSheet sheet = SpriteSheet.statusBars;
 
 	// color of the healthbar
-	private final int[] color = { 0xFF111111, 0xFF000000, 0xFFDD0000 };
+	private final int[] color = { 0xFF111111, 0xFF000000, 0xFFFF0000 };
 
 	/**
 	 * Creates a health bar
@@ -67,7 +67,7 @@ public class HealthBar extends Entity {
 		// divide the healthbar into 13 chunks with a different color
 		if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1) {
 			xOffset = 0;
-			color[2] = 0xFF0079E0;
+			color[2] = 0xFFFF0000;
 		} else if ((double) entity.getCurrentHealth() / entity.getMaxHealth() >= 1 - SEGMENT) {
 			xOffset = 2;
 			color[2] = 0xFF0079E0;

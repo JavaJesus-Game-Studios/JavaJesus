@@ -100,10 +100,6 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 	// damage cooldown
 	private int isHitTicks;
-	private int isHitX, isHitY;
-	private static final int[] damageIndicatorColor = { 0xFF000000, 0xFF000000, 0xFF03dbfc };
-	
-	private static final int TILE_SIZE = 8;
 
 	// internal timers
 	protected int tickCount = 0;
@@ -223,7 +219,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// move the health bar
 		if (bar != null) {
-			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
+			bar.moveTo(getX(), getY() - 8);
 		}
 
 	}
@@ -734,7 +730,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// move the health bar
 		if (bar != null) {
-			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
+			bar.moveTo(getX(), getY() - 8);
 		}
 
 	}
@@ -776,10 +772,6 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 			// for displaying indicators
 			damageTaken = String.valueOf(damage);
 			isHit = true;
-
-			// random offsets for damage indicators
-			isHitX = random.nextInt(12) - 6 + 4;
-			isHitY = random.nextInt(6) - 3;
 
 			// remove a dead mob
 			if (health <= 0) {
@@ -848,7 +840,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 */
 	public Shadow getSpriteShadow() {
 		// TODO: Add isChild() method
-		return new Shadow(getLevel(), getBounds().width, isDead(), false);
+		return new Shadow(getLevel(), getBounds().width, getBounds().height, isDead(), false);
 	}
 	
 	/**
@@ -903,7 +895,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		outerBounds.setLocation(x - OUTER_BOUNDS_RANGE, y - OUTER_BOUNDS_RANGE);
 
 		if (bar != null) {
-			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
+			bar.moveTo(getX(), getY() - 8);
 		}
 	}
 
@@ -975,7 +967,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * @return create the mob's health bar
 	 */
 	public void createHealthBar() {
-		bar = new HealthBar(getLevel(), getX(), getY() + (int) getBounds().getHeight() + 2, this);
+		bar = new HealthBar(getLevel(), getX(), getY() - 8, this);
 	}
 
 	/**
