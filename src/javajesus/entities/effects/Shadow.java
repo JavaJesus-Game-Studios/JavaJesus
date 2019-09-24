@@ -104,9 +104,8 @@ public class Shadow {
 				height -= (2 * TILE_SIZE);
 				break;
 			case (TILE_SIZE * 5):
-				sprite = Sprite.SHADOW_4X4;
+				sprite = Sprite.SHADOW_5X5;
 				height -= (2 * TILE_SIZE);
-				width = 3*TILE_SIZE;
 				break;
 			default:
 				sprite = Sprite.SHADOW_2X2;
