@@ -104,9 +104,9 @@ public class Spawner extends Entity implements Type {
 
 		if (amount > 0) {
 			amount--;
-			getLevel().add(getEntity());
+			getLevel().add(getSpawnerEntity());
 		} else if (amount == -1) {
-			getLevel().add(getEntity());
+			getLevel().add(getSpawnerEntity());
 		}
 
 	}
@@ -116,7 +116,7 @@ public class Spawner extends Entity implements Type {
 	 * 
 	 * @return the Entity to spawn
 	 */
-	private Entity getEntity() {
+	private Entity getSpawnerEntity() {
 		return EntityData.getEntity(type, getLevel(), getX(), getY());
 	}
 
@@ -149,6 +149,17 @@ public class Spawner extends Entity implements Type {
 	@Override
 	public void setType(byte type) {
 		this.type = type;
+	}
+
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		return;
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		return;
 	}
 
 }

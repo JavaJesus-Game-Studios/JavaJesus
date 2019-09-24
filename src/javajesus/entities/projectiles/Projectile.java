@@ -259,7 +259,7 @@ public abstract class Projectile extends Entity {
 	private void move() {
 		x += speed * dx;
 		y += speed * dy;
-		getBounds().setLocation(getX(), getY());
+		getLevel().getCanvas().move(getBounds(), (int) (speed * dx), (int) (speed * dy));
 	}
 
 	/**
@@ -309,6 +309,17 @@ public abstract class Projectile extends Entity {
 	@Override
 	public long getData() {
 		return 0;
+	}
+	
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		return;
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		return;
 	}
 
 }

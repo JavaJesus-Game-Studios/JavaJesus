@@ -1,12 +1,12 @@
 package javajesus.entities.strategies;
 
-import java.awt.Rectangle;
+import java.util.ArrayList;
 
-import javajesus.entities.Entity;
-import javajesus.entities.FireEntity;
 import javajesus.entities.Mob;
 import javajesus.entities.SolidEntity;
-import javajesus.entities.plant.Grass;
+import javajesus.entities.collision.CollisionBox;
+import javajesus.entities.collision.Coordinate;
+import javajesus.entities.collision.CoordinateObserver;
 
 /**
  * Loose Collision Strategy collides with solid tiles and solid entities but not
@@ -53,34 +53,30 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 		}
 
 		// check for solid entity collisions
-		Rectangle temp = new Rectangle(xMin, yMin, mob.getBounds().width - 2 * clip_xoffset,
-				mob.getBounds().height / 2 - clip_yoffset);
+		CollisionBox temp = new CollisionBox(xMin - dx, yMin - dy, mob.getBounds().width - 2 * clip_xoffset,
+				mob.getBounds().height / 2 - clip_yoffset, null);
 
-		// loop through all entities
-		for (Entity entity : mob.getLevel().getEntities()) {
+		ArrayList<Coordinate> coords = mob.getLevel().getCanvas().getNewCoordinates(temp, dx, dy);
 
-			if (entity instanceof SolidEntity && temp.intersects(entity.getBounds())) {
-
-				// fire collision
-				if (entity instanceof FireEntity) {
-					mob.ignite();
+		for (Coordinate c : coords) {
+			for (CoordinateObserver o : c.getCollisions()) {
+				CollisionBox b = (CollisionBox) o;
+				if (b.getEntity() instanceof SolidEntity) {
+					return true;
 				}
-				
-				return true;
 			}
-
 		}
+
 		return false;
 	}
 
 	public Mob getMobCollision() {
 
-		// loop through the list of mobs
-		for (Mob mob : mob.getLevel().getMobs()) {
-			if (mob == this.mob)
-				continue;
-			if (!mob.isDead() && mob.getBounds().intersects(this.mob.getBounds()))
-				return mob;
+		ArrayList<CollisionBox> others = mob.getBounds().getCollisions();
+		for (CollisionBox b: others) {
+			if (b.getEntity() instanceof Mob) {
+				return (Mob) b.getEntity();
+			}
 		}
 		return null;
 	}
@@ -94,45 +90,21 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 	 */
 	public boolean isMobCollision(int dx, int dy) {
 
-		// create a temporary range box shifted by dx and dy
-		Rectangle range = new Rectangle(mob.getX() + dx, mob.getY() + dy, mob.getBounds().width,
-				mob.getBounds().height);
-
-		for (Mob mob : mob.getLevel().getMobs()) {
-			if (range.intersects(mob.getBounds()) && mob != this.mob && !mob.isDead())
-				return true;
-		}
-
-		return false;
-	}
-	/**
-	 * Checks if a mob will collide with a grass entity at the new location
-	 * 
-	 * @param dx - the change in x
-	 * @param dy - the change in y
-	 * @return true if a mob will collide with a grass entity
-	 */
-	public boolean isGrassCollision(int dx, int dy) { 
-		// the left bound of the mob
-		int xMin = mob.getX() + dx + clip_xoffset;
-
-
-		// the top bound of the mob
-		int yMin = mob.getY() + mob.getBounds().height / 2 + dy;
-
-		
 		// check for solid entity collisions
-		Rectangle temp = new Rectangle(xMin, yMin, mob.getBounds().width - 2 * clip_xoffset,
-				mob.getBounds().height / 2 - clip_yoffset);
-		
-		// loop through all entities
-		for (Entity entity : mob.getLevel().getEntities()) {
-			if (entity instanceof Grass && temp.intersects(entity.getBounds())) {
-				mob.setGrassColor(((Grass) entity).getColor());
-				return true;
+		CollisionBox temp = new CollisionBox(mob.getX() + dx, mob.getY() + dy, mob.getBounds().width,
+				mob.getBounds().height, null);
+
+		ArrayList<Coordinate> coords = mob.getLevel().getCanvas().getNewCoordinates(temp, dx, dy);
+
+		for (Coordinate c : coords) {
+			for (CoordinateObserver o : c.getCollisions()) {
+				CollisionBox b = (CollisionBox) o;
+				if (b.getEntity() instanceof Mob) {
+					return true;
+				}
 			}
 		}
-		
+
 		return false;
 	}
 

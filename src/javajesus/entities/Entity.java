@@ -3,6 +3,7 @@ package javajesus.entities;
 import java.awt.Rectangle;
 
 import javajesus.dataIO.Serializable;
+import javajesus.entities.collision.CollisionBox;
 import javajesus.entities.collision.CollisionListener;
 import javajesus.graphics.Screen;
 import javajesus.level.Level;
@@ -48,7 +49,7 @@ public abstract class Entity implements Serializable,CollisionListener {
 	private Level level;
 
 	// the dimensions to damage this entity
-	private Rectangle bounds;
+	private CollisionBox bounds;
 
 	/**
 	 * Creates a new entity that can be manipulated on the screen
@@ -113,7 +114,7 @@ public abstract class Entity implements Serializable,CollisionListener {
 	/**
 	 * @return the bounds of the entity
 	 */
-	public final Rectangle getBounds() {
+	public final CollisionBox getBounds() {
 		return bounds;
 	}
 
@@ -127,7 +128,7 @@ public abstract class Entity implements Serializable,CollisionListener {
 	protected void move(int dx, int dy) {
 		setX(getX() + dx);
 		setY(getY() + dy);
-		bounds.translate(dx, dy);
+		getLevel().getCanvas().move(bounds, dx, dy);
 	}
 
 	/**
@@ -139,7 +140,7 @@ public abstract class Entity implements Serializable,CollisionListener {
 	public void moveTo(int x, int y) {
 		setX(x);
 		setY(y);
-		bounds.setLocation(getX(), getY());
+		getLevel().getCanvas().moveTo(bounds, x, y);
 	}
 
 	/**
@@ -152,7 +153,7 @@ public abstract class Entity implements Serializable,CollisionListener {
 	 * @param height the height of the bounds
 	 */
 	public void setBounds(int xPos, int yPos, int width, int height) {
-		bounds = new Rectangle(xPos, yPos, width, height);
+		bounds = new CollisionBox(xPos, yPos, width, height, this);
 	}
 
 	/**

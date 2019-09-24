@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import javajesus.dataIO.EntityData;
+import javajesus.entities.collision.CollisionBox;
 import javajesus.entities.particles.HealthBar;
 import javajesus.entities.strategies.CollisionStrategy;
 import javajesus.entities.strategies.LooseCollisionStrategy;
@@ -55,7 +56,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	protected static final Random random = new Random();
 
 	// the padding around each mob where other mobs can interact
-	private Rectangle outerBounds;
+	private CollisionBox outerBounds;
 	
 	// determines if the mob is standing on grass
 	protected boolean onGrass;
@@ -295,40 +296,38 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		return stepInst;
 	}
+	
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		return;
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		return;
+	}
 
 	/**
 	 * Forces a mob to move out of a collision
 	 */
-	protected void moveAroundMobCollision() {
-
-		Mob other = collisionStrategy.getMobCollision();
-
-		// if there is no collision, do nothing
-		if (other == null)
-			return;
+	protected void moveAroundCollision(Mob other) {
 
 		// the direction the mob should go to escape
 		int dx = 0;
 		int dy = 0;
 
-		// where the two mobs are colliding
-		Rectangle intersection = getBounds().intersection(other.getBounds());
-
-		// the center intersection points
-		double xx = intersection.getCenterX();
-		double yy = intersection.getCenterY();
-
 		// get the optimal direction to escape
-		if (xx >= this.getBounds().getCenterX()) {
+		if (other.getBounds().getCenterX() >= this.getBounds().getCenterX()) {
 			dx--;
 		}
-		if (xx < this.getBounds().getCenterX()) {
+		if (other.getBounds().getCenterX() < this.getBounds().getCenterX()) {
 			dx++;
 		}
-		if (yy >= this.getBounds().getCenterY()) {
+		if (other.getBounds().getCenterY() >= this.getBounds().getCenterY()) {
 			dy--;
 		}
-		if (yy < this.getBounds().getCenterY()) {
+		if (other.getBounds().getCenterY() < this.getBounds().getCenterY()) {
 			dy++;
 		}
 
@@ -341,12 +340,6 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	public void tick() {
 
 		tickCount++;
-		
-		// check for grass
-		if( collisionStrategy.isGrassCollision(0, 0))
-			setOnGrass(true);
-		else
-			setOnGrass(false);
 
 		if (knockbackCooldown) {
 			if (knockbackTicks++ > knockbackLength) {
@@ -374,10 +367,10 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		}
 
 		// checks if the mob is on water
-		isSwimming = getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA1)
-				|| getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA2)
-				|| getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA3)
-				|| getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().height) >> 3).equals(Tile.SEA4);
+		isSwimming = getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().getHeight()) >> 3).equals(Tile.SEA1)
+				|| getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().getHeight()) >> 3).equals(Tile.SEA2)
+				|| getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().getHeight()) >> 3).equals(Tile.SEA3)
+				|| getLevel().getTile((getX() + UNIT_SIZE) >> 3, (getY() + getBounds().getHeight()) >> 3).equals(Tile.SEA4);
 
 		// animate bobbing water color
 		if (isSwimming) {
@@ -472,7 +465,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// force the mob to move around the mob collision
 		if (!collisionImmune && collisionStrategy.isMobCollision(0, 0)) {
-			moveAroundMobCollision();
+			moveAroundCollision(collisionStrategy.getMobCollision());
 			return;
 		}
 
@@ -509,7 +502,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		}
 		
 		if (onGrass) {
-			int feetHeight = this.getBounds().height - modifier;
+			int feetHeight = this.getBounds().getHeight() - modifier;
 			if( this.getDirection() == Direction.NORTH || this.getDirection() == Direction.SOUTH ) {
 				screen.render(xOffset, yOffset + feetHeight, 0, 2, SpriteSheet.dynamic, false, grassColor);
 				screen.render(xOffset + modifier, yOffset + feetHeight, 1, 2, SpriteSheet.dynamic, false, grassColor);
@@ -835,7 +828,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	/**
 	 * @return the outer range of interaction
 	 */
-	public Rectangle getOuterBounds() {
+	public CollisionBox getOuterBounds() {
 		return outerBounds;
 	}
 
@@ -857,8 +850,8 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 	 * @param height - height of the mob
 	 */
 	protected void setOuterBoundsRange(int range) {
-		outerBounds = new Rectangle(getX() - range, getY() - range, getBounds().width + range * 2,
-				getBounds().height + range * 2);
+		outerBounds = new Rectangle(getX() - range, getY() - range, getBounds().getWidth() + range * 2,
+				getBounds().getHeight() + range * 2);
 	}
 
 	/**

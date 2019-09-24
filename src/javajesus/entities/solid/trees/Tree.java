@@ -72,5 +72,16 @@ public abstract class Tree extends Entity implements SolidEntity {
 	public long getData() {
 		return EntityData.type1(getX(), getY());
 	}
+	
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		return;
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		return;
+	}
 
 }

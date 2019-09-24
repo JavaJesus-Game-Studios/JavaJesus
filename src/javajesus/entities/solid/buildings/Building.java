@@ -91,4 +91,15 @@ public abstract class Building extends Entity implements SolidEntity {
 		return EntityData.type1(getX(), getY());
 	}
 	
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		return;
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		return;
+	}
+	
 }

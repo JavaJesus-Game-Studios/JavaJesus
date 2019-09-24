@@ -1,9 +1,8 @@
 package javajesus.entities.vehicles;
 
-import java.awt.Rectangle;
-
 import engine.Window;
 import javajesus.entities.Player;
+import javajesus.entities.collision.CollisionBox;
 
 public interface Ridable {
 	
@@ -33,7 +32,7 @@ public interface Ridable {
 	 * Enforces the ridable object is an entity
 	 * @return the bounds of this object
 	 */
-	public Rectangle getBounds();
+	public CollisionBox getBounds();
 	
 	/**
 	 * @return true if in use

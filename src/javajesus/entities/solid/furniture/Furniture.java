@@ -89,5 +89,16 @@ public abstract class Furniture extends Entity implements SolidEntity, Type{
 	public long getData() {
 		return EntityData.type3(getX(), getY(), type);
 	}
+	
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		return;
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		return;
+	}
 
 }

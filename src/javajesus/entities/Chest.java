@@ -162,4 +162,16 @@ public class Chest extends Entity implements SolidEntity, Type {
 		LootData.load(type, contents);
 	}
 
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

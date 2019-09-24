@@ -143,4 +143,34 @@ public class Pickup extends Entity {
 		return 0;
 	}
 
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		if (e instanceof Player) {
+			
+			Player player = (Player)e;
+			
+			// should we use it on collision?
+			if (this.isInstantaneous()) {
+				
+				// use the item
+				this.getItem().use(player);
+				
+				// now remove it
+				this.remove();
+				
+			} else {
+				
+				// add the pickup item to the inventory
+				player.addItem(this.getItem());
+			}
+		}
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

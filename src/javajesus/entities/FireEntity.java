@@ -94,4 +94,18 @@ public class FireEntity extends Entity implements SolidEntity {
 		return shadow;
 	}
 
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		if (e instanceof Mob) {
+			((Mob) e).ignite();
+		}
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

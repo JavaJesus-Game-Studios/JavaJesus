@@ -16,7 +16,5 @@ public interface CollisionStrategy {
 	
 	public boolean isMobCollision(int dx, int dy);
 
-	public boolean isGrassCollision(int dx, int dy);
-	
 
 }

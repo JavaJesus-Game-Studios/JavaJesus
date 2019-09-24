@@ -54,4 +54,15 @@ public abstract class Grass extends Entity {
 	public long getData() {
 		return EntityData.type1(getX(), getY());
 	}
+	
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		return;
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		return;
+	}
 }

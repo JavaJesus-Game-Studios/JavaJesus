@@ -10,6 +10,8 @@ import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.Player;
 import javajesus.entities.SolidEntity;
+import javajesus.entities.strategies.CollisionStrategy;
+import javajesus.entities.strategies.RideableCollisionStrategy;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
@@ -69,6 +71,8 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 
 	// width and height based on direction
 	protected int xWidth, xHeight, yWidth, yHeight;
+	
+	private CollisionStrategy collisionStrategy;
 
 	/**
 	 * Creates a Vehicle
@@ -96,6 +100,8 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 		this.xHeight = xHeight;
 		this.yWidth = yWidth;
 		this.yHeight = yHeight;
+		
+		//this.collisionStrategy = new RideableCollisionStrategy(this);
 
 		// set default bounds
 		setBounds(getX(), getY(), yWidth, yHeight);
@@ -126,6 +132,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 	 * @return true if the change in coordinates results in a solid tile
 	 * collision
 	 */
+	/* TODO strategy for vehicles
 	private boolean hasCollided(int dx, int dy) {
 
 		// the left bound of the mob
@@ -166,7 +173,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 
 		}
 		return false;
-	}
+	}*/
 
 	/**
 	 * Determines if the change in bounds collides
@@ -175,6 +182,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 	 * @param height - the new height
 	 * @return true if the change in bounds results in a solid tile collision
 	 */
+	/* TODO strat for vehicles
 	private boolean hasBoundsCollided(int width, int height) {
 
 		// the left bound of the mob
@@ -214,7 +222,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 
 		}
 		return false;
-	}
+	}*/
 
 	/**
 	 * Checks the type of tile in a new position
@@ -349,7 +357,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 	 * @param dy - the total change in y
 	 */
 	public void move(int dx, int dy) {
-
+		/*
 		// set the direction based on dominant movement
 		if (acceleration.y >= Math.abs(acceleration.x)) {
 
@@ -420,7 +428,7 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 				break;
 			}
 		}
-
+*/
 	}
 
 	/**
@@ -540,6 +548,17 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 
 	public boolean isDead() {
 		return health <= 0;
+	}
+	
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		return;
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		return;
 	}
 
 }

@@ -6,7 +6,7 @@ import javajesus.entities.Entity;
 
 public class CollisionBox implements CoordinateObserver {
 	
-	private int x, y, width, height;
+	public int x, y, width, height;
 	
 	private CollisionListener listener;
 	
@@ -58,6 +58,28 @@ public class CollisionBox implements CoordinateObserver {
 	
 	public int getHeight() {
 		return height;
+	}
+	
+	public int getCenterX() {
+		return x + width / 2;
+	}
+	
+	public int getCenterY() {
+		return y + height / 2;
+	}
+	
+	public ArrayList<CollisionBox> getCollisions() {
+		return collisions;
+	}
+	
+	public void setSize(int width, int height) {
+		this.width = width;
+		this.height = height;
+	}
+	
+	public boolean intersects(CollisionBox other) {
+		return x <= other.x + other.width && x + width >= other.x &&
+				y <= other.y + other.height && y + height >= other.y;
 	}
 
 

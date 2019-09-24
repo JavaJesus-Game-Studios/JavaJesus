@@ -20,6 +20,7 @@ import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.entities.SolidEntity;
+import javajesus.entities.collision.CollisionCanvas;
 import javajesus.entities.monsters.Monster;
 import javajesus.entities.npcs.NPC;
 import javajesus.entities.plant.Grass;
@@ -46,12 +47,9 @@ public abstract class Level {
 
 	// list of all entities on the map
 	private final List<Entity> entities = new ArrayList<Entity>(JavaJesus.ENTITY_LIMIT);
-
-	// list of all mobs on the map
-	private final List<Mob> mobs = new ArrayList<Mob>(JavaJesus.ENTITY_LIMIT);
-
-	// list of all things that can be damaged
-	private final List<Damageable> damageables = new ArrayList<Damageable>(JavaJesus.ENTITY_LIMIT);
+	
+	// the collision space on the level
+	private final CollisionCanvas canvas;
 
 	// list of text that will be rendered
 	private final List<LevelText> text = new ArrayList<LevelText>(JavaJesus.ENTITY_LIMIT);
@@ -108,6 +106,7 @@ public abstract class Level {
 		this.path = path;
 		this.saveFile = saveFile;
 		this.levelId = levelId;
+		canvas = new CollisionCanvas(LEVEL_WIDTH, LEVEL_HEIGHT);
 	}
 
 	/**
@@ -121,6 +120,11 @@ public abstract class Level {
 		this.name = name;
 		this.spawnPoint = spawn;
 		this.levelId = -1;
+		canvas = new CollisionCanvas(LEVEL_WIDTH, LEVEL_HEIGHT);
+	}
+	
+	public CollisionCanvas getCanvas() {
+		return canvas;
 	}
 
 	public int getLevelId() {

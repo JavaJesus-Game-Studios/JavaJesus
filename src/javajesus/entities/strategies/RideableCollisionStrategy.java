@@ -1,7 +1,10 @@
 package javajesus.entities.strategies;
 
+import java.util.ArrayList;
+
 import javajesus.JavaJesus;
 import javajesus.entities.Mob;
+import javajesus.entities.collision.CollisionBox;
 
 public class RideableCollisionStrategy extends LooseCollisionStrategy {
 	
@@ -13,13 +16,12 @@ public class RideableCollisionStrategy extends LooseCollisionStrategy {
 	
 	@Override
 	public Mob getMobCollision() {
-
-		// loop through the list of mobs
-		for (Mob mob : mob.getLevel().getMobs()) {
-			if (mob == this.mob)
-				continue;
-			if (mob.getBounds().intersects(this.mob.getBounds()) && !mob.isDead() && (!isUsed || mob != JavaJesus.getPlayer()))
-				return mob;
+		
+		ArrayList<CollisionBox> others = mob.getBounds().getCollisions();
+		for (CollisionBox b: others) {
+			if (b.getEntity() instanceof Mob && (!isUsed || b.getEntity() != JavaJesus.getPlayer())) {
+				return (Mob) b.getEntity();
+			}
 		}
 		return null;
 	}

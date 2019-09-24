@@ -155,4 +155,16 @@ public class DestructibleTile extends Entity implements Damageable, SolidEntity,
 		return health <= 0;
 	}
 
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

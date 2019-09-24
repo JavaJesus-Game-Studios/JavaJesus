@@ -10,6 +10,7 @@ import engine.Window;
 import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.dataIO.PlayerData;
+import javajesus.entities.collision.CollisionBox;
 import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.strategies.StrictCollisionStrategy;
 import javajesus.entities.transporters.Transporter;
@@ -272,34 +273,6 @@ public class Player extends Mob implements Type {
 		if (equippedSword != null) {
 			equippedSword.tick(getLevel(), getX(), getY(), this);
 			// sdsetDirection(equippedSword.getDirection());
-		}
-		
-		// check for pickups
-		for (int i = 0; i < getLevel().getEntities().size(); i++) {
-			if (getLevel().getEntities().get(i) instanceof Pickup
-			        && getBounds().intersects(getLevel().getEntities().get(i).getBounds())) {
-				
-				// instance of the pickup
-				Pickup p = (Pickup) getLevel().getEntities().get(i);
-				
-				// should we use it on collision?
-				if (p.isInstantaneous()) {
-					
-					// use the item
-					p.getItem().use(this);
-					
-					// now remove it
-					p.remove();
-					
-				} else {
-					
-					// add the pickup item to the inventory
-					inventory.add(p);
-				}
-				
-				// the pickup was removed from the list so adjust index
-				i--;
-			}
 		}
 
 		// the change in x and y (movement)
@@ -1147,8 +1120,8 @@ public class Player extends Mob implements Type {
 		// action button
 		if (window.isKeyPressed(KeyEvent.VK_E)) {
 			window.toggle(KeyEvent.VK_E);
-			for (int i = 0; i < getLevel().getEntities().size(); i++) {
-				Entity entity = getLevel().getEntities().get(i);
+			for (CollisionBox b: this.getBounds().getCollisions()) {
+				Entity entity = b.getEntity();
 				// enter a vehicle
 				if (entity instanceof Ridable) {
 
@@ -1166,8 +1139,8 @@ public class Player extends Mob implements Type {
 				}
 
 				// open a chest
-				if (entity instanceof Chest
-						&& getOuterBounds().intersects(entity.getBounds())) {
+				// TODO will need to compare with outer bounds
+				if (entity instanceof Chest) {
 					openChest((Chest) entity);
 					break;
 				}
@@ -1187,8 +1160,7 @@ public class Player extends Mob implements Type {
 				}
 
 				// handles transporters
-				if (entity instanceof Transporter
-						&& getBounds().intersects(entity.getBounds())) {
+				if (entity instanceof Transporter) {
 
 					getLevel().setSpawnPoint(getX(), getY());
 

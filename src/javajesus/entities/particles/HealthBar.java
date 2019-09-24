@@ -119,5 +119,16 @@ public class HealthBar extends Entity {
 	public long getData() {
 		return 0;
 	}
+	
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		return;
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		return;
+	}
 
 }

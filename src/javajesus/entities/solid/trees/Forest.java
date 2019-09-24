@@ -1,10 +1,10 @@
 package javajesus.entities.solid.trees;
 
-import java.awt.Rectangle;
 import java.util.Random;
 
 import javajesus.entities.Entity;
 import javajesus.entities.SolidEntity;
+import javajesus.entities.collision.CollisionBox;
 import javajesus.level.Level;
 import javajesus.level.tile.AnimatedTile;
 import javajesus.level.tile.Tile;
@@ -47,7 +47,7 @@ public class Forest {
 		// don't place a tree in a building
 		for (Entity e : level.getEntities()) {
 			if (e instanceof SolidEntity) {
-				if (e.getBounds().intersects(new Rectangle(x, y, HORIZONTAL_SPACING, treeHeight))) {
+				if (e.getBounds().intersects(new CollisionBox(x, y, HORIZONTAL_SPACING, treeHeight, null))) {
 					return false;
 				}
 			}

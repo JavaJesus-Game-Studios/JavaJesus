@@ -1,6 +1,6 @@
 package javajesus.entities;
 
-import java.awt.Rectangle;
+import javajesus.entities.collision.CollisionBox;
 
 /*
  * Anything that can be destroyed via a health system
@@ -15,7 +15,7 @@ public interface Damageable {
 	
 	public void damage(int damage);
 	
-	public Rectangle getBounds();
+	public CollisionBox getBounds();
 	
 	public boolean isDead();
 

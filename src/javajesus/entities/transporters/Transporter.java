@@ -62,5 +62,16 @@ public abstract class Transporter extends Entity {
 	public long getData() {
 		return EntityData.type3(getX(), getY(), (byte) 0);
 	}
+	
+	@Override
+	public void onCollisionWithEntity(Entity e) {
+		return;
+		
+	}
+
+	@Override
+	public void onRemovedCollisionWithEntity(Entity e) {
+		return;
+	}
 
 }

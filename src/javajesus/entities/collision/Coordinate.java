@@ -34,10 +34,22 @@ public class Coordinate implements CoordinateSubject {
 		observers.remove(o);
 
 	}
+	
+	public ArrayList<CoordinateObserver> getCollisions() {
+		return observers;
+	}
 
 	@Override
 	public void notifyObservers() {
 
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
 	}
 
 }
