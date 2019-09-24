@@ -104,11 +104,11 @@ public class GameEngine implements Runnable {
 				delta--;
 			}
 
+			// render a frame
+			render();
+			
 			// each time frame is rendered
 			frames++;
-
-			// display things on the screen
-			render();
 
 			// display the fps
 			if (System.currentTimeMillis() - lastTimer >= 1000) {

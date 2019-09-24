@@ -219,7 +219,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// move the health bar
 		if (bar != null) {
-			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
+			bar.moveTo(getX(), getY() - 8);
 		}
 
 	}
@@ -730,7 +730,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 
 		// move the health bar
 		if (bar != null) {
-			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
+			bar.moveTo(getX(), getY() - 8);
 		}
 
 	}
@@ -895,7 +895,7 @@ public abstract class Mob extends Entity implements Damageable, Skills {
 		outerBounds.setLocation(x - OUTER_BOUNDS_RANGE, y - OUTER_BOUNDS_RANGE);
 
 		if (bar != null) {
-			bar.moveTo(getX(), getY() + (int) getBounds().getHeight() + 2);
+			bar.moveTo(getX(), getY() - 8);
 		}
 	}
 
