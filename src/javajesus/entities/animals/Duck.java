@@ -73,8 +73,12 @@ public class Duck extends Animal {
 		}
 
 		// render the squares
-		screen.render(xOffset, yOffset, xTile, yTile, getSpriteSheet(), flip, color);
-		screen.render(xOffset, yOffset + modifier, xTile, yTile + 1, getSpriteSheet(), flip, color);
+		if(isSwimming)
+			screen.render(xOffset, yOffset + 8, xTile, yTile, getSpriteSheet(), flip, color);
+		else {
+			screen.render(xOffset, yOffset, xTile, yTile, getSpriteSheet(), flip, color);
+			screen.render(xOffset, yOffset + modifier, xTile, yTile + 1, getSpriteSheet(), flip, color);
+		}
 
 	}
 
