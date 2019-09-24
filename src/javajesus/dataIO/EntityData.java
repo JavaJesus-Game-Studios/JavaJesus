@@ -122,9 +122,6 @@ import javajesus.entities.solid.trees.MediumSequoia;
 import javajesus.entities.solid.trees.MediumTree;
 import javajesus.entities.solid.trees.MediumTreeAutumn;
 import javajesus.entities.solid.trees.MediumTreeWinter;
-import javajesus.entities.solid.trees.RedwoodLarge;
-import javajesus.entities.solid.trees.RedwoodMedium;
-import javajesus.entities.solid.trees.RedwoodSmall;
 import javajesus.entities.solid.trees.SequoiaExtraLarge;
 import javajesus.entities.solid.trees.SequoiaExtraSmall;
 import javajesus.entities.solid.trees.SmallSequoia;
@@ -532,12 +529,6 @@ public class EntityData {
                 return new DeadSequoiaSmall(level, x, y);
             case Entity.DEAD_SEQUOIA_MEDIUM:
                 return new DeadSequoiaMedium(level, x, y);
-            case Entity.REDWOOD_LARGE:
-                return new RedwoodLarge(level, x, y);
-            case Entity.REDWOOD_MEDIUM:
-                return new RedwoodMedium(level, x, y);
-            case Entity.REDWOOD_SMALL:
-                return new RedwoodSmall(level, x, y);
             case Entity.SEQUOIA_EXTRA_LARGE:
                 return new SequoiaExtraLarge(level, x, y);
             case Entity.SEQUOIA_EXTRA_SMALL:

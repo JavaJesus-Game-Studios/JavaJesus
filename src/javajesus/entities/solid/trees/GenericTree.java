@@ -17,7 +17,7 @@ public class GenericTree extends Tree {
 	 * @param y - y coordinate
 	 */
 	public GenericTree(Level level, int x, int y) {
-		super(level, x, y, Sprite.SMALL_DECIDUOUS, 8, 12, 8);
+		super(level, x, y, Sprite.SMALL_DECIDUOUS, 8, 8, 8);
 	}
 
 	@Override

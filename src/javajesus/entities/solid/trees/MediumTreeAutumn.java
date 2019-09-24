@@ -13,7 +13,7 @@ public class MediumTreeAutumn extends Tree {
      * @param y - y coordinate
      */
     public MediumTreeAutumn(Level level, int x, int y) {
-        super(level, x, y, Sprite.MEDIUM_TREE_AUTUMN, 12, 10, 11);
+        super(level, x, y, Sprite.MEDIUM_TREE_AUTUMN, 12, 8, 10);
     }
 
     @Override
