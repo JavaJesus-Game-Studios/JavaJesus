@@ -19,6 +19,17 @@ public class Sprite {
 	// the sprite sheet it was loaded from
 	private SpriteSheet sheet;
 	
+	// Shadows
+	public static Sprite SHADOW_2X2 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow2x2.png");
+	public static Sprite SHADOW_DEAD2X2 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow_dead2x2.png");
+	public static Sprite SHADOW_1X1 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow1x1.png");
+	public static Sprite SHADOW_SMALL2X2 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow_small2x2.png");
+	public static Sprite SHADOW_3X3 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow3x3.png");
+	public static Sprite SHADOW_DEAD3X3 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow_dead3x3.png");
+	public static Sprite SHADOW_4X4 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow4x4.png");
+	public static Sprite SHADOW_5X5 = new Sprite("/VISUAL_DATA/EFFECTS/SHADOWS/shadow5x5.png");
+
+	
 	// Trees
 	public static Sprite DEAD_SEQUOIA = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Dead_Sequoia.png");
 	public static Sprite SMALL_SEQUOIA = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Sequoia_Small.png");
@@ -27,9 +38,6 @@ public class Sprite {
 	public static Sprite SMALL_DECIDUOUS = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Small_Tree.png");
 	public static Sprite DEAD_SEQUOIA_SMALL = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Dead_Sequoia_Small.png");
 	public static Sprite DEAD_SEQUOIA_MEDIUM = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Dead_Sequoia_Medium.png");
-	public static Sprite REDWOOD_LARGE = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Redwood_Large.png");
-	public static Sprite REDWOOD_MEDIUM = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Redwood_Medium.png");
-	public static Sprite REDWOOD_SMALL = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Redwood_Small.png");
 	public static Sprite SEQUOIA_EXTRA_LARGE = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Sequoia_Extra_Large.png");
 	public static Sprite SEQUOIA_EXTRA_SMALL = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/CONIFEROUS/Sequoia_Extra_Small.png");
 	public static Sprite SMALL_TREE_AUTUMN = new Sprite("/VISUAL_DATA/STATICS/NATURAL/TREES/DECIDUOUS/Small_Tree_Autumn.png");

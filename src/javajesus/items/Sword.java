@@ -465,9 +465,77 @@ public class Sword extends Item {
 		}
 			
 	}
-
+	/**
+	 * 
+	 * @return the ySwingOffset of the Sword
+	 */
 	public int getYSwingOffset() {
 		return ySwingOffset;
+	}
+	/**
+	 * 
+	 * @param movingDir Direction Player is facing
+	 * @param isMoving If the Player is moving
+	 * @param flip Whether or not the Player sprite needs to be flipped
+	 * @param tickCount The current tickCount
+	 * @return
+	 */
+	public int getXWalkOffset(Direction movingDir, boolean isMoving, boolean flip, int tickCount) {
+		int xTile = 0;
+		if(movingDir == Direction.NORTH) {
+			if(isMoving) {
+				//varies between the two walking sprites, every sword has the same offsets
+				xTile = 58;
+				xTile += (flip ? 2 : 0);
+			}
+			if(!isMoving) {
+				//varies between standing and head bob sprite to give illusion of breathing
+				//every sword has the same offsets
+				xTile = 56;
+				//head bob sprite at tile 70
+				xTile += ((tickCount % 120 <= 60) ? 14 : 0);
+			}
+		}else if(movingDir == Direction.SOUTH) {
+			//varies between the two walking sprites
+			if(isMoving) {
+				xTile = 40;
+				xTile += (flip ? 2 : 0);
+			}
+			if(!isMoving) {
+				//varies between standing and head bob sprite to give illusion of breathing
+				//every sword has the same offsets
+				xTile = 38;
+				//head bob sprite at 62
+				xTile += (tickCount % 120 <= 60) ? 24 : 0;
+			}
+		}else if(movingDir == Direction.EAST) {
+			//varies between the two walking sprites
+			if(isMoving) {
+				xTile = 44;
+				xTile += (flip ? 3 : 0);
+			}
+			if(!isMoving) {
+				//varies between standing and head bob sprite to give illusion of breathing
+				//every sword has the same offsets
+				xTile = 44;
+				//head bob sprite at 64
+				xTile += (tickCount % 120 <= 60) ? 20 : 0;
+			}
+		}else if(movingDir == Direction.WEST) {
+			//varies between the two walking sprites
+			if(isMoving) {
+				xTile = 50;
+				xTile += (flip ? 3 : 0);
+			}
+			if(!isMoving) {
+				//varies between standing and head bob sprite to give illusion of breathing
+				//every sword has the same offsets
+				xTile = 50;
+				//head bob sprite at 67
+				xTile += (tickCount % 120 <= 60) ? 17 : 0;
+			}
+		}
+		return xTile;
 	}
 	/**
 	 * @return whether or not the sword is swinging
