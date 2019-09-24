@@ -160,9 +160,6 @@ import javajesus.entities.solid.trees.MediumSequoia;
 import javajesus.entities.solid.trees.MediumTree;
 import javajesus.entities.solid.trees.MediumTreeAutumn;
 import javajesus.entities.solid.trees.MediumTreeWinter;
-import javajesus.entities.solid.trees.RedwoodLarge;
-import javajesus.entities.solid.trees.RedwoodMedium;
-import javajesus.entities.solid.trees.RedwoodSmall;
 import javajesus.entities.solid.trees.SequoiaExtraLarge;
 import javajesus.entities.solid.trees.SequoiaExtraSmall;
 import javajesus.entities.solid.trees.SmallSequoia;
@@ -1300,9 +1297,6 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.BAR] = new EntityGUI(new Bar(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 6, 6);
 			entityList[Entity.DEAD_SEQUOIA_SMALL] = new EntityGUI(new DeadSequoiaSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 4);
 			entityList[Entity.DEAD_SEQUOIA_MEDIUM] = new EntityGUI(new DeadSequoiaMedium(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 6);
-			entityList[Entity.REDWOOD_LARGE] = new EntityGUI(new RedwoodLarge(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 5, 12);
-			entityList[Entity.REDWOOD_MEDIUM] = new EntityGUI(new RedwoodMedium(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 10);
-			entityList[Entity.REDWOOD_SMALL] = new EntityGUI(new RedwoodSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 9);
 			entityList[Entity.SEQUOIA_EXTRA_LARGE] = new EntityGUI(new SequoiaExtraLarge(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 3, 8);
 			entityList[Entity.SEQUOIA_EXTRA_SMALL] = new EntityGUI(new SequoiaExtraSmall(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 3);
 			entityList[Entity.SMALL_TREE_AUTUMN] = new EntityGUI(new SmallTreeAutumn(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 4);
@@ -1566,12 +1560,6 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			    return new EntityGUI(new DeadSequoiaSmall(null, 0, 0), 0, 0, 1, 4);
 			case Entity.DEAD_SEQUOIA_MEDIUM:
                 return new EntityGUI(new DeadSequoiaMedium(null, 0, 0), 0, 0, 2, 6);
-			case Entity.REDWOOD_LARGE:
-                return new EntityGUI(new RedwoodLarge(null, 0, 0), 0, 0, 5, 12);
-			case Entity.REDWOOD_MEDIUM:
-                return new EntityGUI(new RedwoodMedium(null, 0, 0), 0, 0, 4, 10);
-			case Entity.REDWOOD_SMALL:
-                return new EntityGUI(new RedwoodSmall(null, 0, 0), 0, 0, 4, 9);
 			case Entity.SEQUOIA_EXTRA_LARGE:
                 return new EntityGUI(new SequoiaExtraLarge(null, 0, 0), 0, 0, 3, 8);
 			case Entity.SEQUOIA_EXTRA_SMALL:

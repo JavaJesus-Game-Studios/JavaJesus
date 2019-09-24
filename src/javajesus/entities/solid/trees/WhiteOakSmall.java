@@ -13,7 +13,7 @@ public class WhiteOakSmall extends Tree {
      * @param y - y coordinate
      */
     public WhiteOakSmall(Level level, int x, int y) {
-        super(level, x, y, Sprite.WHITE_OAK_SMALL, 10, 9, 12);
+        super(level, x, y, Sprite.WHITE_OAK_SMALL, 12, 8, 10);
     }
 
     @Override

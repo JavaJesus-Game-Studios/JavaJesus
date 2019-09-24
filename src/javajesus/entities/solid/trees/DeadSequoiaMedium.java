@@ -14,7 +14,7 @@ public class DeadSequoiaMedium extends Tree
      * @param y - y coordinate
      */
     public DeadSequoiaMedium(Level level, int x, int y) {
-        super(level, x, y, Sprite.DEAD_SEQUOIA_MEDIUM, 6, 10, 5);
+        super(level, x, y, Sprite.DEAD_SEQUOIA_MEDIUM, 8, 8, 4);
     }
 
     // need to add in the entity ID

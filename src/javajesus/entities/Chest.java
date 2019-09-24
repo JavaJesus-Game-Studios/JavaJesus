@@ -60,7 +60,7 @@ public class Chest extends Entity implements SolidEntity, Type {
 		for (Item e: items) {
 			contents.add(e);
 		}
-		setBounds(getX(), getY(), SIZE + 2, SIZE);
+		setBounds(getX() + 3, getY(), SIZE + 2, SIZE);
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class Chest extends Entity implements SolidEntity, Type {
 		// load from a loot table
 		LootData.load(lootTableId, contents);
 
-		setBounds(getX(), getY(), SIZE + 2, SIZE);
+		setBounds(getX() + 3, getY(), SIZE + 2, SIZE);
 	}
 
 	/**

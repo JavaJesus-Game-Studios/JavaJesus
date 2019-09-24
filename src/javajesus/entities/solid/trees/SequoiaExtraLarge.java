@@ -14,7 +14,7 @@ public class SequoiaExtraLarge extends Tree {
 	 * @param y - y coordinate
 	 */
 	public SequoiaExtraLarge(Level level, int x, int y) {
-		super(level, x, y, Sprite.SEQUOIA_EXTRA_LARGE, 10, 8, 15);
+		super(level, x, y, Sprite.SEQUOIA_EXTRA_LARGE, 12, 8, 11);
 	}
 
 	// need to add in the entity ID

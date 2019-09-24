@@ -112,7 +112,7 @@ public class Launcher extends Canvas implements IGameLogic {
 	private SandboxPanel sandboxPanel;
 
 	// buffered images that are displayed on the screen
-	private BufferedImage background, sword_selector;
+	private BufferedImage background, sword_selector, map;
 	
 	// direction the level moves
 	private Direction dir = Direction.SOUTH_EAST;
@@ -158,9 +158,6 @@ public class Launcher extends Canvas implements IGameLogic {
 	 */
 	public void init() throws Exception {
 		
-		// load the random level
-		level.generateLevel();
-		
 		BufferedImage story_on, story_off, sandbox_on, sandbox_off, options_on, options_off, credits_on, credits_off,
 		        audio_on, audio_off, video_on, video_off,
 		        controls_on, controls_off, mute_on, mute_off, back_on,
@@ -170,6 +167,8 @@ public class Launcher extends Canvas implements IGameLogic {
 
 		sword_selector = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/sword_selector.png"));
 
+		map = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/MENUS/GUI_Menu_Background.png"));
+		
 		story_on = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/story_on.png"));
 
 		story_off = ImageIO.read(Launcher.class.getResource("/VISUAL_DATA/GUI/BUTTONS/MENU_BUTTONS/story_off.png"));
@@ -264,8 +263,6 @@ public class Launcher extends Canvas implements IGameLogic {
 			createBufferStrategy(3);
 			return;
 		}
-		// render the background tiles
-		level.render(screen);
 
 		// set the pixels of the buffered image
 		for (int y = 0; y < screen.getHeight(); y++) {
@@ -279,6 +276,7 @@ public class Launcher extends Canvas implements IGameLogic {
 		// draw the images
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		g.drawImage(map, 0, 0, getWidth(), getHeight(), null);
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
 
 		switch (pageId) {
@@ -410,7 +408,6 @@ public class Launcher extends Canvas implements IGameLogic {
 				try {
 					// create the player
 					Player player = createPlayer(numSlot, mode);
-					System.out.println("After createPlayer, gender is: " + player.getType());
 					
 					// stop the launcher
 					running = false;
