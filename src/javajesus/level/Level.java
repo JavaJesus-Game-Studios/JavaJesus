@@ -70,12 +70,6 @@ public abstract class Level {
 	// name of the level
 	private final String name;
 
-	// tickcount for sorting entities
-	private int tickCount;
-	
-	//Size of a tile
-	private static final int TILE_SIZE = 8;
-
 	// gets the name add-on for entity files
 	public static final String ENTITY = "_entities";
 

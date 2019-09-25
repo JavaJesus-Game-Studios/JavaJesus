@@ -8,7 +8,7 @@ import javajesus.entities.Entity;
 
 /**
  * 
- * @author shtevay
+ * @author JavaJesus Game Studios
  * 9/20/2019
  * QuadTree Data Structure to be used in Collision Detection
  */
@@ -108,15 +108,15 @@ public class QuadTree {
 	 */
 	public ArrayList<Entity> retrieve(ArrayList <Entity> boxes, Rectangle queryRect) {
 		// Base Case return smallest quadrant
-		if( children[0] == null )
-			boxes.addAll(entities);
 		int index = getIndex(queryRect);
 		// If the box fits in a quadrant and the tree has children
 		if (index != -1 && children[0] != null) {
 			children[index].retrieve(boxes, queryRect);
 		}
+		boxes.addAll(entities);
 		return boxes;
 	}
+
 	
 	/**
 	 * Method that determines which node the entity is in. Return -1 if it is not in any node.
@@ -147,5 +147,18 @@ public class QuadTree {
 		}
 		return index;
 	}
-
+	/**
+	 * 
+	 * @return Quad Tree Width
+	 */
+	public int getWidth() {
+		return bounds.width;
+	}
+	/**
+	 * 
+	 * @return Quad Tree Height
+	 */
+	public int getHeight() {
+		return bounds.width;
+	}
 }
