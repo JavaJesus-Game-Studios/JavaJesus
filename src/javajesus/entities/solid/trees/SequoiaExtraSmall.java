@@ -1,6 +1,7 @@
 package javajesus.entities.solid.trees;
 
 import javajesus.entities.Entity;
+import javajesus.entities.effects.Shadow;
 import javajesus.graphics.Sprite;
 import javajesus.level.Level;
 
@@ -22,5 +23,9 @@ public class SequoiaExtraSmall extends Tree
     public byte getId(){
         return Entity.SEQUOIA_EXTRA_SMALL;
     }
+    
+    public Shadow getSpriteShadow() {
+		return new Shadow(getLevel(), getBounds().width, getBounds().height);
+	}
 
 }
