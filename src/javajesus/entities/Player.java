@@ -312,25 +312,21 @@ public class Player extends Mob implements Type {
 		// upwards movement
 		if (movingUp) {
 			dy--;
-			dx = 0;
 		}
 
 		// downwards movement
 		if (movingDown) {
 			dy++;
-			dx = 0;
 		}
 
 		// left movement
 		if (movingLeft) {
 			dx--;
-			dy = 0;
 		}
 
 		// right movement
 		if (movingRight) {
 			dx++;
-			dy = 0;
 		}
 
 		// change offsets if wearing armor
