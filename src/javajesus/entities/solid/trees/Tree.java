@@ -59,8 +59,18 @@ public abstract class Tree extends Entity implements SolidEntity {
 		return shadow;
 	}
 	
+	/**
+	 * @return the bounds used to get the shadow sprite for this tree
+	 */
 	public Shadow getSpriteShadow() {
 		return new Shadow(getLevel(), sprite.getWidth(), getBounds().height + 2);
+	}
+	
+	/**
+	 * @return the bounds of the sprite, used for knowing when to render sprite
+	 */
+	public Rectangle getSpriteBounds() {
+		return new Rectangle(getX(),getY(),sprite.getWidth(),sprite.getHeight());
 	}
 	
 	@Override

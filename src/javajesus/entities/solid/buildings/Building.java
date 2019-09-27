@@ -85,6 +85,12 @@ public abstract class Building extends Entity implements SolidEntity {
 		screen.render(getX(), getY(), color, sprite);
 
 	}
+	/**
+	 * @return the bounds of the sprite, used for knowing when to render sprite
+	 */
+	public Rectangle getSpriteBounds() {
+		return new Rectangle(getX(),getY(),sprite.getWidth(),sprite.getHeight());
+	}
 	
 	@Override
 	public long getData() {

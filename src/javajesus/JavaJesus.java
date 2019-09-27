@@ -53,11 +53,11 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	// Frame)
 	// NOTE: If we want/need to change this to support different resolutions, keep the
 	// Aspect ratio the same as WINDOW_WIDTH:WINDOW_HEIGHT, otherwise you will introduce distortions
-	public static final int IMAGE_WIDTH = WINDOW_WIDTH/4;
+	public static final int IMAGE_WIDTH = WINDOW_WIDTH/6;
 
 	// Game Screen height (Size of the In-Game Map displayed within the Actual
 	// Frame)
-	public static final int IMAGE_HEIGHT = WINDOW_HEIGHT/4;
+	public static final int IMAGE_HEIGHT = WINDOW_HEIGHT/6;
 	
 	// a magic number that aligns the bottom components of the HUD
 	public static final int HUD_OFFSET = 29;

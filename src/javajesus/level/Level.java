@@ -21,7 +21,6 @@ import javajesus.entities.DestructibleTile;
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
 import javajesus.entities.Mob;
-import javajesus.entities.SolidEntity;
 import javajesus.entities.Spawner;
 import javajesus.entities.effects.Shadow;
 import javajesus.entities.monsters.Monster;
@@ -240,17 +239,15 @@ public abstract class Level {
 	 * Updates all entities and tiles on the map
 	 */
 	public void tick() {
+		// the range around the player to display the entities
+		renderRange.setLocation(xOffset, yOffset);
+		
 		entities.sort(comparator);
 		// clear the QuadTree
 		collisionTree.clear();
 		tempEntities.clear();
 		// Get all entities currently in the render range
-		for( Entity e: entities) {
-			if( e.getBounds().intersects(renderRange)){
-				collisionTree.insert(e);
-				tempEntities.add(e);
-			}
-		}
+		getEntitiesInRange();
 		// Update the entities in the render range
 		for( Entity e: tempEntities ) {
 			if( !(e instanceof Mob) || !((Mob)e).isDead()) {
@@ -298,9 +295,10 @@ public abstract class Level {
 	 */
 	private void renderTile(Screen screen) {
 
+
 		// render the tiles visible on the screen
-		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
-			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
+		for (int y = (yOffset >> 3); y < (yOffset + renderRange.height >> 3) + 1; y++) {
+			for (int x = (xOffset >> 3); x < (xOffset + renderRange.width >> 3) + 1; x++) {
 				getTile(x, y).render(screen, this, x << 3, y << 3);
 			}
 
@@ -367,6 +365,34 @@ public abstract class Level {
 			return false;
 		}
 		return true;
+	}
+	/**
+	 * Helper Method to fill the CollisionTree and the tempEntities array
+	 * With only the Entities in Range
+	 */
+	private void getEntitiesInRange() {
+		for( Entity e: entities) {
+			if( e instanceof Tree ) {
+				if(((Tree) e).getSpriteBounds().intersects(renderRange)) {
+					tempEntities.add(e);
+					if(((Tree) e).getBounds().intersects(renderRange))
+						collisionTree.insert(e);
+				}
+				continue;
+			}
+			if( e instanceof Building ) {
+				if(((Building) e).getSpriteBounds().intersects(renderRange)) {
+					tempEntities.add(e);
+					if(((Building) e).getBounds().intersects(renderRange))
+						collisionTree.insert(e);
+				}
+				continue;
+			}
+			if( e.getBounds().intersects(renderRange)){
+				collisionTree.insert(e);
+				tempEntities.add(e);
+			}
+		}
 	}
 
 	/**

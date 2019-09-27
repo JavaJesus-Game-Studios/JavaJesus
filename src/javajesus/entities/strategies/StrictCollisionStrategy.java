@@ -1,8 +1,11 @@
 package javajesus.entities.strategies;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
+import javajesus.JavaJesus;
 import javajesus.SoundHandler;
+import javajesus.entities.Entity;
 import javajesus.entities.Mob;
 import javajesus.entities.monsters.Monster;
 
@@ -11,6 +14,8 @@ import javajesus.entities.monsters.Monster;
  * mobs
  */
 public class StrictCollisionStrategy extends LooseCollisionStrategy {
+	
+	private ArrayList<Entity> tempEntities = new ArrayList<Entity>(JavaJesus.ENTITY_LIMIT);
 
 	public StrictCollisionStrategy(Mob m) {
 		super(m);
@@ -39,13 +44,20 @@ public class StrictCollisionStrategy extends LooseCollisionStrategy {
 		// create a temporary range box shifted by dx and dy
 		Rectangle range = new Rectangle(mob.getX() + dx, mob.getY() + dy, mob.getBounds().width,
 				mob.getBounds().height);
-
-		for (Mob mob : mob.getLevel().getMobs()) {
-			if (mob instanceof Monster) {
-				Rectangle other = new Rectangle(mob.getX() + clip_xoffset, mob.getY() + mob.getBounds().height / 2,
-						mob.getBounds().width - 2 * clip_xoffset, mob.getBounds().height / 2 - clip_yoffset);
-				if (other.intersects(range.getBounds()) && mob != this.mob && !mob.isDead())
-					return true;
+		
+		// Get list of nearby Entities
+		tempEntities.clear();
+		mob.getLevel().getCollisionTree().retrieve(tempEntities, range);
+		Mob mob;
+		for (Entity e : tempEntities) {
+			if( e instanceof Mob ) {
+				mob = (Mob)e;
+				if (mob instanceof Monster) {
+					Rectangle other = new Rectangle(mob.getX() + clip_xoffset, mob.getY() + mob.getBounds().height / 2,
+							mob.getBounds().width - 2 * clip_xoffset, mob.getBounds().height / 2 - clip_yoffset);
+					if (other.intersects(range.getBounds()) && mob != this.mob && !mob.isDead())
+						return true;
+				}
 			}
 		}
 

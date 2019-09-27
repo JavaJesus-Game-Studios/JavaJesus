@@ -769,8 +769,8 @@ public class Tile {
 	 * 
 	 * @param screen - screen to render on
 	 * @param level - the level the tile is on
-	 * @param x - the x offset
-	 * @param y - the y offset
+	 * @param x - the x coordinate top left corner
+	 * @param y - the y coordinate top left corner
 	 */
 	public void render(Screen screen, Level level, int x, int y) {
 		screen.render(x, y, xTile, yTile, sheet, false, color);

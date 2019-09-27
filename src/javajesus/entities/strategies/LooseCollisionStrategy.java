@@ -18,7 +18,7 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 
 	protected Mob mob;
 	// the clipping offset when facing east/west
-	protected int clip_xoffset = 5;
+	protected int clip_xoffset = 4;
 	protected int clip_yoffset = 2;
 	
 	private ArrayList<Entity> tempEntities = new ArrayList<Entity>(JavaJesus.ENTITY_LIMIT);
@@ -59,9 +59,12 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 		// check for solid entity collisions
 		Rectangle temp = new Rectangle(xMin, yMin, mob.getBounds().width - 2 * clip_xoffset,
 				mob.getBounds().height / 2 - clip_yoffset);
+		
+		// Get list of nearby Entities
 		tempEntities.clear();
 		mob.getLevel().getCollisionTree().retrieve(tempEntities, temp);
-		// loop through all entities
+		
+		// loop through all entities we could collide with
 		for (Entity entity : tempEntities) {
 
 			if (entity instanceof SolidEntity && temp.intersects(entity.getBounds())) {
@@ -80,12 +83,19 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 
 	public Mob getMobCollision() {
 
-		// loop through the list of mobs
-		for (Mob mob : mob.getLevel().getMobs()) {
-			if (mob == this.mob)
-				continue;
-			if (!mob.isDead() && mob.getBounds().intersects(this.mob.getBounds()))
-				return mob;
+		// Get list of nearby Entities
+		tempEntities.clear();
+		mob.getLevel().getCollisionTree().retrieve(tempEntities, this.mob.getBounds());
+		Mob mob;
+		// loop through the list of nearby mobs
+		for (Entity e: tempEntities) {
+			if(e instanceof Mob) {
+				mob = (Mob)e;
+				if (mob == this.mob)
+					continue;
+				if (!mob.isDead())
+					return mob;
+			}
 		}
 		return null;
 	}
@@ -103,6 +113,7 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 		Rectangle range = new Rectangle(mob.getX() + dx, mob.getY() + dy, mob.getBounds().width,
 				mob.getBounds().height);
 		
+		// Get list of nearby Entities
 		tempEntities.clear();
 		mob.getLevel().getCollisionTree().retrieve(tempEntities, range);
 
@@ -123,17 +134,16 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 	 * @return true if a mob will collide with a grass entity
 	 */
 	public boolean isGrassCollision(int dx, int dy) { 
+		
 		// the left bound of the mob
 		int xMin = mob.getX() + dx + clip_xoffset;
-
-
 		// the top bound of the mob
 		int yMin = mob.getY() + mob.getBounds().height / 2 + dy;
 
 		
 		// check for solid entity collisions
-		Rectangle temp = new Rectangle(xMin, yMin, mob.getBounds().width - 2 * clip_xoffset,
-				mob.getBounds().height / 2 - clip_yoffset);
+		Rectangle temp = new Rectangle(xMin, yMin + 3, mob.getBounds().width - 2 * clip_xoffset,
+				mob.getBounds().height / 2 - clip_yoffset - 3);
 		
 		tempEntities.clear();
 		mob.getLevel().getCollisionTree().retrieve(tempEntities, temp);

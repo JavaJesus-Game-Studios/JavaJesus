@@ -117,10 +117,8 @@ public class QuadTree {
 		// If the box fits in a quadrant and the tree has children
 		if (index != -1 && children[0] != null) {
 			children[index].retrieve(retrievedEntities, queryRect);
-		}else if( children[0] != null ){
-			for( int i = 0; i < children.length; i++)
-				children[i].retrieve(retrievedEntities, queryRect);
 		}
+
 		retrievedEntities.addAll(entities);
 		return retrievedEntities;
 	}
