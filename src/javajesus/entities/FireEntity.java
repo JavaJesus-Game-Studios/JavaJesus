@@ -3,6 +3,7 @@ package javajesus.entities;
 import java.awt.Rectangle;
 
 import javajesus.dataIO.EntityData;
+import javajesus.graphics.Animation;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.level.Level;
@@ -12,12 +13,6 @@ import javajesus.level.tile.Tile;
  * A pseudo animated tile that damages the player over time
  */
 public class FireEntity extends Entity implements SolidEntity {
-
-	// last iteration time in milliseconds
-	private static long lastIterationTime;
-	
-	// the delay between animations
-	private static final int delay = 100;
 	
 	// horizontal x position on sprite sheet
 	public static int xTile;
@@ -28,11 +23,12 @@ public class FireEntity extends Entity implements SolidEntity {
 	// colors of the flames
 	private static final int[] color = { 0xFFF7790A, 0xFFF72808, 0xFF000000 };
 	
-	// the number of animated tiles on spritesheet
-	private static final int NUM_TILES = 5;
 	
 	// dummy bounds of the fire
 	private static final Rectangle shadow = new Rectangle();
+	
+	private Animation animation = new Animation();
+	private int[] frames = {0,1,2,3,4};
 	
 	/**
 	 * Creates a fire entity that damages the player
@@ -46,37 +42,16 @@ public class FireEntity extends Entity implements SolidEntity {
 	 */
 	public FireEntity(Level level, int x, int y) {
 		super(level, Tile.snapToCorner(x), Tile.snapToCorner(y));
-		lastIterationTime = System.currentTimeMillis();
-		
 		// set the bounds
 		setBounds(getX(), getY(), Tile.SIZE, Tile.SIZE);
 		
 	}
 
 	/**
-	 * update fire logic
-	 */
-	public void tick() {
-		update();
-	}
-	
-	/**
-	 * Updates the fire animation
-	 */
-	public static final void update() {
-		// update the animation
-		if ((System.currentTimeMillis() - lastIterationTime) >= (delay)) {
-			lastIterationTime = System.currentTimeMillis();
-			xTile = ++xTile % NUM_TILES;
-		}
-	}
-
-	/**
 	 * Displays the pixels on the screen
 	 */
 	public void render(Screen screen) {
-		
-		screen.render(getX(), getY(), xTile, yTile, SpriteSheet.fireSmall, false, color);
+		animation.renderAnimation(screen, getX(), getY(), frames, yTile, 1, 1, 5, SpriteSheet.fireSmall, color);
 	}
 
 	@Override
@@ -92,6 +67,12 @@ public class FireEntity extends Entity implements SolidEntity {
 	@Override
 	public Rectangle getShadow() {
 		return shadow;
+	}
+
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

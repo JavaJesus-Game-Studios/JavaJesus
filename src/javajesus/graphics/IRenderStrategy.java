@@ -2,7 +2,7 @@ package javajesus.graphics;
 
 public interface IRenderStrategy {
 	
-	public final int tileSize = 8;
+	public final int TILE_SIZE = 8;
 
 	/**
 	 * @param screen - the screen to render on

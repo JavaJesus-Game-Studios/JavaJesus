@@ -75,7 +75,7 @@ public class GameEngine implements Runnable {
 		long lastTime = System.nanoTime();
 		
 		// allows framerate capping 0: uncapped, 0.5: 120fps, 1: 60fps, 2: 30fps
-		int framerate = 0;
+		int framerate = 1;
 
 		// time in between rendering
 		double nsPerTick = 1000000000 / 60.0;

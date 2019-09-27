@@ -564,7 +564,7 @@ public class Player extends Mob implements Type {
 			// get gun offsets
 			yTile = equippedGun.getYOffset();			
 			xTile = equippedGun.getXOffset(shootingDir, movingDir, isShooting, isMoving, flip, tickCount);			
-			// All gun sprites are 3x2 (x*y)
+			// render shooting sprites
 			render2x2.renderShooting(screen, xLocation, yLocation, xTile, yTile, false, isShooting,
 					movingDir, shootingDir, sheet, color);
 		}
