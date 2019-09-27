@@ -54,8 +54,8 @@ public abstract class Level {
 	// all tiles on each level
 	protected int[] levelTiles;
 
-	// QuadTree to help speed up entity collision
-	private final QuadTree collisionTree = new QuadTree(0,  LEVEL_RECTANGLE);
+	// QuadTree to help speed up entity collision, only contains Entities in the renderRange
+	private final QuadTree collisionTree = new QuadTree(0,  renderRange);
 	// list of all entities on the map
 	private final List<Entity> entities = new ArrayList<Entity>(JavaJesus.ENTITY_LIMIT);
 	
@@ -87,8 +87,6 @@ public abstract class Level {
 	// size of each level
 	public static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
 	
-	public static final Rectangle LEVEL_RECTANGLE = new Rectangle(LEVEL_WIDTH * 8, LEVEL_HEIGHT * 8);
-
 	// the range of how many entities to render/tick on the screen
 	public static final Rectangle renderRange = new Rectangle(JavaJesus.IMAGE_WIDTH, JavaJesus.IMAGE_HEIGHT);
 
@@ -245,12 +243,15 @@ public abstract class Level {
 		entities.sort(comparator);
 		// clear the QuadTree
 		collisionTree.clear();
-		// update all entities and living mobs
-		for( Entity e: entities) {
-			collisionTree.insert(e);
-		}
 		tempEntities.clear();
-		collisionTree.retrieve(tempEntities, renderRange);
+		// Get all entities currently in the render range
+		for( Entity e: entities) {
+			if( e.getBounds().intersects(renderRange)){
+				collisionTree.insert(e);
+				tempEntities.add(e);
+			}
+		}
+		// Update the entities in the render range
 		for( Entity e: tempEntities ) {
 			if( !(e instanceof Mob) || !((Mob)e).isDead()) {
 				e.tick();
@@ -297,7 +298,6 @@ public abstract class Level {
 	 */
 	private void renderTile(Screen screen) {
 
-
 		// render the tiles visible on the screen
 		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
 			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
@@ -313,11 +313,6 @@ public abstract class Level {
 	 * @param screen - the screen to display it on
 	 */
 	private void renderEntities(Screen screen) {
-
-		// the range around the player to display the entities
-		renderRange.setLocation(xOffset, yOffset);
-		tempEntities.clear();
-		collisionTree.retrieve(tempEntities, renderRange);
 		// render all the entities on the visible screen
 		for (Entity e : tempEntities) {
 			e.render(screen);
@@ -328,54 +323,50 @@ public abstract class Level {
 	 * @param screen - the screen to display it on
 	 */
 	private void renderShadow(Screen screen) {
-		renderRange.setLocation(xOffset, yOffset);
 		Shadow entityShadow;
 		Mob m = null;
-		setShadowEntities();
 		for( Entity e : tempEntities ) {
-
-			// Check to see if the entity is a mob
-			if( e instanceof Mob ) {
-				m = (Mob) e;
-				if( (e == m && m.getIsSwimming())) {
+			if( hasShadow(e) ) {
+				// Check to see if the entity is a mob
+				if( e instanceof Mob ) {
+					m = (Mob) e;
+					if( (e == m && m.getIsSwimming())) {
+						continue;
+					}
+				}
+				// otherwise get the shadow
+				entityShadow = e.getSpriteShadow();
+				// Set the y value for where we will render the shadow at
+				if( e instanceof Tree) {
+					entityShadow.render(screen, e.getX(), e.getBounds().y);
 					continue;
 				}
+				// Check to see if the entity is grass to do custom alpha
+				if( e instanceof Grass ) {
+					entityShadow.render(screen, e.getX(), e.getBounds().y, 0.2f);
+					continue;
+				}
+				// Otherwise render shadow normally
+				else {
+					entityShadow.render(screen, e.getX(), e.getBounds().y);
+				}
+	
 			}
-			// otherwise get the shadow
-			entityShadow = e.getSpriteShadow();
-			// Set the y value for where we will render the shadow at
-			if( e instanceof Tree) {
-				entityShadow.render(screen, e.getX(), e.getBounds().y);
-				continue;
-			}
-			// Check to see if the entity is grass to do custom alpha
-			if( e instanceof Grass ) {
-				entityShadow.render(screen, e.getX(), e.getBounds().y, 0.2f);
-				continue;
-			}
-			// Otherwise render shadow normally
-			else {
-				entityShadow.render(screen, e.getX(), e.getBounds().y);
-			}
-
 		}
 	}
-	
-	private void setShadowEntities() {
+	/**
+	 * Helper method to determine whether to render a shadow or not
+	 * @param entity the entity to check
+	 * @return true if we render a shadow for this entity, false if we don't
+	 */
+	private boolean hasShadow(Entity entity) {
 		// Check to see we should not make a shadow for this entity
-		tempEntities.clear();
-		Entity entity;
-		collisionTree.retrieve(tempEntities,renderRange);
-		for( int i = 0; i < tempEntities.size(); i++) {
-			entity = tempEntities.get(i);
-			if( entity instanceof FireEntity  || entity instanceof Spawner || entity instanceof DestructibleTile 
-					|| entity instanceof Particle || entity instanceof HealthBar || entity instanceof Projectile 
-					|| entity instanceof Building || entity instanceof Transporter ) {
-				tempEntities.remove(i);
-				i--;
-			}
+		if( entity instanceof FireEntity  || entity instanceof Spawner || entity instanceof DestructibleTile 
+				|| entity instanceof Particle || entity instanceof HealthBar || entity instanceof Projectile 
+				|| entity instanceof Building || entity instanceof Transporter ) {
+			return false;
 		}
-
+		return true;
 	}
 
 	/**
@@ -402,9 +393,6 @@ public abstract class Level {
 	 * @param screen - screen to render pixels
 	 */
 	public void renderCollisionBoxes(Screen screen) {
-		renderRange.setLocation(xOffset, yOffset);
-		tempEntities.clear();
-		collisionTree.retrieve(tempEntities,renderRange);
 		for (Entity e : tempEntities) {
 			screen.renderCollisionBox(e.getBounds());
 		}
@@ -583,13 +571,6 @@ public abstract class Level {
 	 */
 	public List<Entity> getEntities() {
 		return entities;
-	}
-	/**
-	 * 
-	 * @return a list of all shadowEntities
-	 */
-	public List<Entity> getShadowEntities() {
-		return tempEntities;
 	}
 
 	/**
