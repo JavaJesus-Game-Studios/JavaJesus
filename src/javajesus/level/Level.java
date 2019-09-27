@@ -32,6 +32,7 @@ import javajesus.entities.plant.Grass;
 import javajesus.entities.projectiles.Projectile;
 import javajesus.entities.solid.buildings.Building;
 import javajesus.entities.solid.trees.Tree;
+import javajesus.entities.transporters.Transporter;
 import javajesus.graphics.JJFont;
 import javajesus.graphics.Screen;
 import javajesus.level.tile.AnimatedTile;
@@ -41,6 +42,7 @@ import javajesus.quest.QuestLoader;
 import javajesus.quest.factories.CharacterFactory;
 import javajesus.utility.EntityComparator;
 import javajesus.utility.LevelText;
+import javajesus.utility.QuadTree;
 
 /*
  * A level contains a set of tiles and set of entities that
@@ -52,8 +54,13 @@ public abstract class Level {
 	// all tiles on each level
 	protected int[] levelTiles;
 
+	// QuadTree to help speed up entity collision
+	private final QuadTree collisionTree = new QuadTree(0,  LEVEL_RECTANGLE);
 	// list of all entities on the map
 	private final List<Entity> entities = new ArrayList<Entity>(JavaJesus.ENTITY_LIMIT);
+	
+	// list of all entities that need shadows so we don't iterate over everything every frame
+	private final ArrayList<Entity> tempEntities = new ArrayList<Entity>(JavaJesus.ENTITY_LIMIT);
 
 	// list of all mobs on the map
 	private final List<Mob> mobs = new ArrayList<Mob>(JavaJesus.ENTITY_LIMIT);
@@ -79,6 +86,8 @@ public abstract class Level {
 
 	// size of each level
 	public static final int LEVEL_WIDTH = 200, LEVEL_HEIGHT = 200;
+	
+	public static final Rectangle LEVEL_RECTANGLE = new Rectangle(LEVEL_WIDTH * 8, LEVEL_HEIGHT * 8);
 
 	// the range of how many entities to render/tick on the screen
 	public static final Rectangle renderRange = new Rectangle(JavaJesus.IMAGE_WIDTH, JavaJesus.IMAGE_HEIGHT);
@@ -234,12 +243,16 @@ public abstract class Level {
 	 */
 	public void tick() {
 		entities.sort(comparator);
-
+		// clear the QuadTree
+		collisionTree.clear();
 		// update all entities and living mobs
-		for (int i = 0; i < getEntities().size(); i++) {
-			Entity e = getEntities().get(i);
-
-			if (e.getBounds().intersects(renderRange) && (!(e instanceof Mob) || !((Mob) e).isDead())) {
+		for( Entity e: entities) {
+			collisionTree.insert(e);
+		}
+		tempEntities.clear();
+		collisionTree.retrieve(tempEntities, renderRange);
+		for( Entity e: tempEntities ) {
+			if( !(e instanceof Mob) || !((Mob)e).isDead()) {
 				e.tick();
 			}
 		}
@@ -266,7 +279,8 @@ public abstract class Level {
 	 * @param screen - screen to render on
 	 */
 	public void render(Screen screen) {
-
+		// set the screen offsets
+		screen.setOffset(xOffset, yOffset);
 		// render tiles and entities and text
 		renderTile(screen);
 		renderShadow(screen);
@@ -283,8 +297,6 @@ public abstract class Level {
 	 */
 	private void renderTile(Screen screen) {
 
-		// set the screen offsets
-		screen.setOffset(xOffset, yOffset);
 
 		// render the tiles visible on the screen
 		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
@@ -304,13 +316,11 @@ public abstract class Level {
 
 		// the range around the player to display the entities
 		renderRange.setLocation(xOffset, yOffset);
-
+		tempEntities.clear();
+		collisionTree.retrieve(tempEntities, renderRange);
 		// render all the entities on the visible screen
-		for (Entity e : this.getEntities()) {
-			if (e.getBounds().intersects(renderRange)
-					|| (e instanceof SolidEntity && ((SolidEntity) e).getShadow().intersects(renderRange))) {
-				e.render(screen);
-			}
+		for (Entity e : tempEntities) {
+			e.render(screen);
 		}
 	}
 	/**
@@ -318,22 +328,18 @@ public abstract class Level {
 	 * @param screen - the screen to display it on
 	 */
 	private void renderShadow(Screen screen) {
-		
 		renderRange.setLocation(xOffset, yOffset);
 		Shadow entityShadow;
 		Mob m = null;
-		
-		for( Entity e : this.getEntities()) {
+		setShadowEntities();
+		for( Entity e : tempEntities ) {
+
 			// Check to see if the entity is a mob
 			if( e instanceof Mob ) {
 				m = (Mob) e;
-			}
-			// Check to see we should not make a shadow for this entity
-			if( e instanceof FireEntity || (e == m && m.getIsSwimming()) || e instanceof Spawner
-					|| e instanceof DestructibleTile || e instanceof Particle 
-					|| e instanceof HealthBar || e instanceof Projectile ||
-					e instanceof Building) {
-				continue;
+				if( (e == m && m.getIsSwimming())) {
+					continue;
+				}
 			}
 			// otherwise get the shadow
 			entityShadow = e.getSpriteShadow();
@@ -342,19 +348,34 @@ public abstract class Level {
 				entityShadow.render(screen, e.getX(), e.getBounds().y);
 				continue;
 			}
-
 			// Check to see if the entity is grass to do custom alpha
 			if( e instanceof Grass ) {
 				entityShadow.render(screen, e.getX(), e.getBounds().y, 0.2f);
 				continue;
 			}
-
 			// Otherwise render shadow normally
 			else {
 				entityShadow.render(screen, e.getX(), e.getBounds().y);
 			}
 
 		}
+	}
+	
+	private void setShadowEntities() {
+		// Check to see we should not make a shadow for this entity
+		tempEntities.clear();
+		Entity entity;
+		collisionTree.retrieve(tempEntities,renderRange);
+		for( int i = 0; i < tempEntities.size(); i++) {
+			entity = tempEntities.get(i);
+			if( entity instanceof FireEntity  || entity instanceof Spawner || entity instanceof DestructibleTile 
+					|| entity instanceof Particle || entity instanceof HealthBar || entity instanceof Projectile 
+					|| entity instanceof Building || entity instanceof Transporter ) {
+				tempEntities.remove(i);
+				i--;
+			}
+		}
+
 	}
 
 	/**
@@ -381,8 +402,10 @@ public abstract class Level {
 	 * @param screen - screen to render pixels
 	 */
 	public void renderCollisionBoxes(Screen screen) {
-
-		for (Entity e : this.getEntities()) {
+		renderRange.setLocation(xOffset, yOffset);
+		tempEntities.clear();
+		collisionTree.retrieve(tempEntities,renderRange);
+		for (Entity e : tempEntities) {
 			screen.renderCollisionBox(e.getBounds());
 		}
 	}
@@ -527,7 +550,8 @@ public abstract class Level {
 		if (entity instanceof Grass) {
 			this.getTileFromEntityCoords(entity.getX(), entity.getY()).setGrass((Grass) entity);
 		}
-
+		
+		
 		entities.add(entity);
 	}
 
@@ -560,6 +584,13 @@ public abstract class Level {
 	public List<Entity> getEntities() {
 		return entities;
 	}
+	/**
+	 * 
+	 * @return a list of all shadowEntities
+	 */
+	public List<Entity> getShadowEntities() {
+		return tempEntities;
+	}
 
 	/**
 	 * @return a list of all mobs on this map
@@ -573,6 +604,10 @@ public abstract class Level {
 	 */
 	public List<Damageable> getDamageables() {
 		return damageables;
+	}
+	
+	public QuadTree getCollisionTree() {
+		return collisionTree;
 	}
 
 	/**

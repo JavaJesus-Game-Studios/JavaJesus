@@ -73,6 +73,9 @@ public class GameEngine implements Runnable {
 
 		// set up the internal clock
 		long lastTime = System.nanoTime();
+		
+		// allows framerate capping 0: uncapped, 0.5: 120fps, 1: 60fps, 2: 30fps
+		int framerate = 0;
 
 		// time in between rendering
 		double nsPerTick = 1000000000 / 60.0;
@@ -85,6 +88,7 @@ public class GameEngine implements Runnable {
 
 		// difference from last time to current
 		double delta = 0;
+		double frameDelta = 0;
 
 		// run while the window is open
 		while (logic.running() && !window.isClosed()) {
@@ -92,6 +96,7 @@ public class GameEngine implements Runnable {
 			// get difference in time
 			long now = System.nanoTime();
 			delta += (now - lastTime) / nsPerTick;
+			frameDelta += (now - lastTime) / nsPerTick;
 			lastTime = now;
 
 			// tick when time threshold is met
@@ -99,17 +104,27 @@ public class GameEngine implements Runnable {
 
 				// check for events
 				update();
+				
 
 				// restart the difference between the times
-				delta--;
+				delta = 0;
 			}
-
-			// render a frame
-			render();
+			// Framerate Capping 0: unlocked, 0.5: 120fps, 1: 60fps, 2: 30fps
+			if( framerate == 0 ) {
+				// render a frame
+				render();
+				// each time frame is rendered
+				frames++;			
+			} else {
+				while( frameDelta >= framerate) {
+					// render a frame
+					render();
+					// each time frame is rendered
+					frames++;
+					frameDelta = 0;
+				}
+			}
 			
-			// each time frame is rendered
-			frames++;
-
 			// display the fps
 			if (System.currentTimeMillis() - lastTimer >= 1000) {
 				lastTimer += 1000;

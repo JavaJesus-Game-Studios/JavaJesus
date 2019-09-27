@@ -1,7 +1,9 @@
 package javajesus.entities.strategies;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
+import javajesus.JavaJesus;
 import javajesus.entities.Entity;
 import javajesus.entities.FireEntity;
 import javajesus.entities.Mob;
@@ -18,6 +20,8 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 	// the clipping offset when facing east/west
 	protected int clip_xoffset = 5;
 	protected int clip_yoffset = 2;
+	
+	private ArrayList<Entity> tempEntities = new ArrayList<Entity>(JavaJesus.ENTITY_LIMIT);
 
 	public LooseCollisionStrategy(Mob m) {
 		this.mob = m;
@@ -55,9 +59,10 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 		// check for solid entity collisions
 		Rectangle temp = new Rectangle(xMin, yMin, mob.getBounds().width - 2 * clip_xoffset,
 				mob.getBounds().height / 2 - clip_yoffset);
-
+		tempEntities.clear();
+		mob.getLevel().getCollisionTree().retrieve(tempEntities, temp);
 		// loop through all entities
-		for (Entity entity : mob.getLevel().getEntities()) {
+		for (Entity entity : tempEntities) {
 
 			if (entity instanceof SolidEntity && temp.intersects(entity.getBounds())) {
 
@@ -97,10 +102,15 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 		// create a temporary range box shifted by dx and dy
 		Rectangle range = new Rectangle(mob.getX() + dx, mob.getY() + dy, mob.getBounds().width,
 				mob.getBounds().height);
+		
+		tempEntities.clear();
+		mob.getLevel().getCollisionTree().retrieve(tempEntities, range);
 
-		for (Mob mob : mob.getLevel().getMobs()) {
-			if (range.intersects(mob.getBounds()) && mob != this.mob && !mob.isDead())
-				return true;
+		for (Entity mob : tempEntities ) {
+			if( mob instanceof Mob ) {
+				if (range.intersects(mob.getBounds()) && (Mob)mob != this.mob && !((Mob) mob).isDead())
+					return true;
+			}
 		}
 
 		return false;
@@ -125,8 +135,12 @@ public class LooseCollisionStrategy implements CollisionStrategy {
 		Rectangle temp = new Rectangle(xMin, yMin, mob.getBounds().width - 2 * clip_xoffset,
 				mob.getBounds().height / 2 - clip_yoffset);
 		
+		tempEntities.clear();
+		mob.getLevel().getCollisionTree().retrieve(tempEntities, temp);
+
+		
 		// loop through all entities
-		for (Entity entity : mob.getLevel().getEntities()) {
+		for (Entity entity : tempEntities) {
 			if (entity instanceof Grass && temp.intersects(entity.getBounds())) {
 				mob.setGrassColor(((Grass) entity).getColor());
 				return true;

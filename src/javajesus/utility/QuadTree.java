@@ -17,7 +17,8 @@ public class QuadTree {
 	private int MAX_ENTITIES = 10;
 	// Maximum children per level
 	private int MAX_CHILDREN = 4;
-	private int MAX_HEIGHT = 6;
+	// Mac Level of the QuadTree
+	private int MAX_HEIGHT = 5;
 
 	
 	private int height;
@@ -55,22 +56,25 @@ public class QuadTree {
 	 * Method to split the QuadTree into 4 new subchildren
 	 */
 	public void split() {
-		int newWidth = (int)(bounds.getWidth() / 2);
-		int newHeight = (int)(bounds.getHeight() / 2);
-		int x = (int)bounds.getX();
-		int y = (int)bounds.getY();
+		int newWidth = (getWidth() / 2);
+		int newHeight = (getHeight() / 2);
+		int x = (int) bounds.getX();
+		int y = (int) bounds.getY();
 		
-		for( int i = 0; i < MAX_CHILDREN; i++ ) {
-			children[i] = new QuadTree(height + 1, new Rectangle(x + ((i == 0 || i == 3) ? newWidth : 0),
-					y + ((i == 2 || i == 3) ? newHeight : 0),newWidth,newHeight));
-		}
+		// New Nodes
+		children[0] = new QuadTree( height+ 1, new Rectangle(newWidth, y, newWidth, newHeight));
+		children[1] = new QuadTree( height+ 1, new Rectangle(x, y, newWidth, newHeight));
+		children[2] = new QuadTree( height+ 1, new Rectangle(x, newHeight, newWidth, newHeight));
+		children[3] = new QuadTree( height+ 1, new Rectangle(newWidth, newHeight, newWidth, newHeight));
+
 	}
 	/**
-	 * Method handles inserting new collsion boxes into the tree, splits if need be
+	 * Method handles inserting new collision boxes into the tree, splits if need be
 	 * @param newRect the rectangle that is being added to the Tree
 	 */
 	public void insert( Entity newEntity ) {
 		Rectangle newRect = newEntity.getBounds();
+
 		// If node has children, add it to them
 		if( children[0] != null ) {
 			int index = getIndex( newRect );
@@ -79,7 +83,7 @@ public class QuadTree {
 				children[index].insert(newEntity);
 				return;
 			}
-			// Else add the game to the Parent
+			// Else add the entity to the Parent
 		}
 		entities.add(newEntity);
 		
@@ -88,15 +92,16 @@ public class QuadTree {
 			// If there are no children split
 			if( children[0] == null ) {
 				split();
-			}
-			// Fill the children up as much as possible
-			int i = 0;
-			while( i < entities.size() ) {
-				int index = getIndex(entities.get(i).getBounds());
-				if(index != -1)
-					children[index].insert(entities.remove(i));
-				else
-					i++;
+				// Fill the children up as much as possible
+				int i = 0;
+				while( i < entities.size() ) {
+					int index = getIndex(entities.get(i).getBounds());
+					if(index != -1) {
+						children[index].insert(entities.get(i));
+						entities.remove(i);
+					} else
+						i++;
+				}
 			}
 		}
 	}
@@ -106,15 +111,18 @@ public class QuadTree {
 	 * @param queryRect the box that we are checking collisions for
 	 * @return
 	 */
-	public ArrayList<Entity> retrieve(ArrayList <Entity> boxes, Rectangle queryRect) {
+	public ArrayList<Entity> retrieve(ArrayList <Entity> retrievedEntities, Rectangle queryRect) {
 		// Base Case return smallest quadrant
 		int index = getIndex(queryRect);
 		// If the box fits in a quadrant and the tree has children
 		if (index != -1 && children[0] != null) {
-			children[index].retrieve(boxes, queryRect);
+			children[index].retrieve(retrievedEntities, queryRect);
+		}else if( children[0] != null ){
+			for( int i = 0; i < children.length; i++)
+				children[i].retrieve(retrievedEntities, queryRect);
 		}
-		boxes.addAll(entities);
-		return boxes;
+		retrievedEntities.addAll(entities);
+		return retrievedEntities;
 	}
 
 	
@@ -125,24 +133,27 @@ public class QuadTree {
 	 */
 	public int getIndex(Rectangle queryRect) {
 		int index = -1;
-		double xMid = bounds.getX() + (bounds.getWidth() / 2);
-		double yMid = bounds.getY() + (bounds.getHeight() / 2);
+		double xMid = (getWidth() / 2);
+		double yMid = (getHeight() / 2);
+		
+		boolean topHalf = queryRect.getY() < yMid && (queryRect.getY() + queryRect.getHeight()) < yMid;
+		boolean bottomHalf = queryRect.getY() > yMid;
 		
 		// If the Rectangle is on the left Half of the Vertical Midpoint
-		if( queryRect.getX() + queryRect.getWidth() < xMid) {
+		if( queryRect.getX() < xMid && queryRect.getX() + queryRect.getWidth() < xMid) {
 			// Top Left
-			if( queryRect.getY() + queryRect.getHeight() < yMid )
+			if( topHalf )
 				index = 1;
 			// Bottom Left
-			if( queryRect.getY() > yMid )
+			if( bottomHalf )
 				index = 2;
 		// Right Half of the Vertical Midpoint
 		} else if( queryRect.getX() > xMid ) {
 			// Top Right
-			if( queryRect.getX() + queryRect.getHeight() < yMid )
+			if( topHalf )
 				index = 0;
 			// Bottom Right
-			if( queryRect.getX() > yMid )
+			if( bottomHalf )
 				index = 3;
 		}
 		return index;
