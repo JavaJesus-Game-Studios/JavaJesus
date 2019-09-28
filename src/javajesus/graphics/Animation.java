@@ -19,13 +19,13 @@ public class Animation {
 	private int xTile;
 	
 	private Render1x1 render1x1 = new Render1x1();
-	private Render2x2 render2x2;
-	private Render2x3 render2x3;
-	private Render2x4 render2x4;
-	private Render3x3 render3x3;
-	private Render3x4 render3x4;
-	private Render4x2 render4x2;
-	private Render4x4 render4x4;
+	private Render2x2 render2x2 = new Render2x2();
+	private Render2x3 render2x3 = new Render2x3();
+	private Render2x4 render2x4 = new Render2x4();
+	private Render3x3 render3x3 = new Render3x3();
+	private Render3x4 render3x4 = new Render3x4();
+	private Render4x2 render4x2 = new Render4x2();
+	private Render4x4 render4x4 = new Render4x4();
 
 	
 	/**

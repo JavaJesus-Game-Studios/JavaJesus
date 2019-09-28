@@ -1,6 +1,7 @@
 package javajesus.entities;
 
 import java.awt.Rectangle;
+import java.util.Random;
 
 import javajesus.dataIO.EntityData;
 import javajesus.graphics.Animation;
@@ -29,7 +30,7 @@ public class FireEntity extends Entity implements SolidEntity {
 	
 	private Animation animation = new Animation();
 	private int[] frames = {0,1,2,3,4};
-	
+	private int rate;
 	/**
 	 * Creates a fire entity that damages the player
 	 * 
@@ -42,6 +43,10 @@ public class FireEntity extends Entity implements SolidEntity {
 	 */
 	public FireEntity(Level level, int x, int y) {
 		super(level, Tile.snapToCorner(x), Tile.snapToCorner(y));
+		Random randInt = new Random();
+		this.rate = randInt.nextInt(6);
+		this.rate += 4;
+
 		// set the bounds
 		setBounds(getX(), getY(), Tile.SIZE, Tile.SIZE);
 		
@@ -51,7 +56,7 @@ public class FireEntity extends Entity implements SolidEntity {
 	 * Displays the pixels on the screen
 	 */
 	public void render(Screen screen) {
-		animation.renderAnimation(screen, getX(), getY(), frames, yTile, 1, 1, 5, SpriteSheet.fireSmall, color);
+		animation.renderAnimation(screen, getX(), getY(), frames, yTile, 1, 1, rate, SpriteSheet.fireSmall, color);
 	}
 
 	@Override
