@@ -350,7 +350,7 @@ public class Screen {
 	 * @param color the color set
 	 * @param sprite the sprite to use
 	 */
-	public void renderBlend(int xOffset, int yOffset, int[] color, float alpha, Sprite sprite) {
+	public void renderTransparency(int xOffset, int yOffset, int[] color, float alpha, Sprite sprite) {
 
 		// shifts the position of the screen by the global offset
 		xOffset -= this.xOffset;

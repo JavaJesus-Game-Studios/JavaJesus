@@ -54,14 +54,14 @@ public class Shadow {
 	 */
 	public void render(Screen screen, int x, int y) {
 		// Blend the Colors to create transparent shadow
-		screen.renderBlend(x + width, y + height, shadowColor, alpha, sprite);
+		screen.renderTransparency(x + width, y + height, shadowColor, alpha, sprite);
 	}
 	/**
 	 * Displays the shadow on the screen, allows custom alpha
 	 */
 	public void render(Screen screen, int x, int y, float alpha) {
 		// Blend the Colors to create transparent shadow
-		screen.renderBlend(x + width, y + height, shadowColor, alpha, sprite);
+		screen.renderTransparency(x + width, y + height, shadowColor, alpha, sprite);
 	}
 	/**
 	 * 
