@@ -21,7 +21,7 @@ import javajesus.utility.Direction;
  * A vehicle can be ridden by the player
  * Vehicles must continue the render() method
  */
-public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Damageable {
+public abstract class Vehicle extends Entity implements SolidEntity, Rideable, Damageable {
 
 	// the player that is in the vehicle
 	private Player player;
@@ -541,5 +541,8 @@ public abstract class Vehicle extends Entity implements SolidEntity, Ridable, Da
 	public boolean isDead() {
 		return health <= 0;
 	}
-
+	
+	public boolean canRide() {
+		return true;
+	}
 }

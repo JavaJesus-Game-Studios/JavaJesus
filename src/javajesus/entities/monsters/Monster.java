@@ -55,6 +55,10 @@ public abstract class Monster extends Mob {
 
 	// whether or not the monster is moving
 	protected boolean isMoving;
+	
+	// 
+	protected static int[] color;
+	
 
 	/**
 	 * Creates a Monster that attacks other mobs
@@ -78,7 +82,8 @@ public abstract class Monster extends Mob {
 		this.yTile = yTile;
 		this.attackDelay = attackDelay;
 		this.collisionStrategy = new MonsterCollisionStrategy(this);
-
+		this.setColor(color);
+		
 		// initialize a few things
 		if (level != null) {
 			createHealthBar();
@@ -196,7 +201,7 @@ public abstract class Monster extends Mob {
 					isMoving = false;
 				}
 				
-				// close combat has pathfinding
+			// close combat has pathfinding
 			} else {
 				isMoving = !getOuterBounds().intersects(target.getBounds());
 				if (isMoving && (getPath() == null || !getPath().isNotEmpty())) {
@@ -287,6 +292,10 @@ public abstract class Monster extends Mob {
 			super.move(dx * (int) getSpeed(), dy * (int) getSpeed());
 		}
 	}
+	
+	public void moveSmoothly(int dx, int dy){
+		super.move(dx * (int) getSpeed(), dy * (int) getSpeed());
+	}
 
 	/**
 	 * Monsters can drop stuff on death
@@ -345,5 +354,14 @@ public abstract class Monster extends Mob {
 	public long getData() {
 		return EntityData.type2(getX(), getY(), getMaxHealth());
 	}
+	
+	protected void setColor(int[] color) {
+		if( color == null )
+			color = new int[] {0,0,0,0,0};
+		if (color.length < 5)
+			color = new int[] { color[0], color[1], color[2], 0, 0 };
+		this.color = color;
+	}
+	
 
 }

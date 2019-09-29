@@ -14,7 +14,7 @@ import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.npcs.NPC;
 import javajesus.entities.strategies.StrictCollisionStrategy;
 import javajesus.entities.transporters.Transporter;
-import javajesus.entities.vehicles.Ridable;
+import javajesus.entities.vehicles.Rideable;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
 import javajesus.graphics.render_strategies.Render2x2;
@@ -38,7 +38,7 @@ public class Player extends Mob implements Type {
 	private final int[] color = { 0xFF000001, 0xFFFF0000, 0xFFFFCC99, 0xFF343434, 0xFF343434};
 
 	// the vehicle the player is in, null if not driving
-	private Ridable vehicle;
+	private Rideable vehicle;
 
 	// direction the player is shooting
 	private Direction shootingDir;
@@ -726,7 +726,7 @@ public class Player extends Mob implements Type {
 	 * @return The vehicle the player is driving Null if the player is not
 	 *         riding anything
 	 */
-	public Ridable getVehicle() {
+	public Rideable getVehicle() {
 		return vehicle;
 	}
 
@@ -967,21 +967,24 @@ public class Player extends Mob implements Type {
 		if (window.isKeyPressed(KeyEvent.VK_E)) {
 			window.toggle(KeyEvent.VK_E);
 			Entity entity;
+			Rideable vehicle;
 			for (int i = 0; i < getLevel().getEntities().size(); i++) {
 				entity = getLevel().getEntities().get(i);
 				// enter a vehicle
-				if (entity instanceof Ridable) {
+				if (entity instanceof Rideable) {
+						
+					vehicle = (Rideable) entity;
 
-					Ridable vehicle = (Ridable) entity;
-
-					// TODO check if vehicle is destroyed
-					if (getOuterBounds().intersects(vehicle.getBounds())) {
-						this.vehicle = vehicle;
-						moveTo(vehicle.getX(), vehicle.getY());
-						vehicle.drive(this);
-						// hide player bounds
-						getBounds().setSize(0, 0);
-						return;
+					if (vehicle.canRide()) {
+						// TODO check if vehicle is destroyed
+						if (getOuterBounds().intersects(vehicle.getBounds())) {
+							this.vehicle = vehicle;
+							moveTo(vehicle.getX(), vehicle.getY());
+							vehicle.drive(this);
+							// hide player bounds
+							getBounds().setSize(0, 0);
+							return;
+						}
 					}
 				}
 

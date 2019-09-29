@@ -5,7 +5,13 @@ import java.awt.Rectangle;
 import engine.Window;
 import javajesus.entities.Player;
 
-public interface Ridable {
+public interface Rideable {
+	
+	/**
+	 * 
+	 * @return true if player can ride this vehicle
+	 */
+	public boolean canRide();
 	
 	/**
 	 * Handles what happens when the player enters
@@ -41,9 +47,10 @@ public interface Ridable {
 	public boolean isUsed();
 
 	/**
-	 * Input listener for the new ridable
+	 * Input listener for the new rideable
 	 * @param window - window to check for input
 	 */
 	public void input(Window window);
+	
 
 }

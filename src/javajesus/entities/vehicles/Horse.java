@@ -16,7 +16,7 @@ import javajesus.utility.Direction;
 /*
  * A horse is a npc that can be ridden by the player
  */
-public class Horse extends NPC implements Ridable {
+public class Horse extends NPC implements Rideable {
 
 	// the player that is on the horse
 	private Player player;
@@ -277,6 +277,10 @@ public class Horse extends NPC implements Ridable {
 	@Override
 	public byte getId() {
 		return Entity.HORSE;
+	}
+	
+	public boolean canRide() {
+		return true;
 	}
 
 }

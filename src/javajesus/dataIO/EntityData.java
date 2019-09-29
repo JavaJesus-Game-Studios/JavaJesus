@@ -26,6 +26,7 @@ import javajesus.entities.animals.Pigeon;
 import javajesus.entities.bosses.Cyclops;
 import javajesus.entities.monsters.Bandito;
 import javajesus.entities.monsters.Centaur;
+import javajesus.entities.monsters.Chungus;
 import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.EvilFox;
 import javajesus.entities.monsters.EvilOrangutan;
@@ -587,6 +588,8 @@ public class EntityData {
 				return new GrassGreen(level, x, y);
 			case Entity.GRASS_GOLD:
 				return new GrassGold(level, x, y);
+			case Entity.CHUNGUS:
+				return new Chungus(level, x, y);
 	        default:
 	        	System.err.println("CRITICAL ERROR! CRITICAL ERROR! RETRIEVING NULL ENTITY: " + id);
 	        	System.err.println("MAKE SURE TO ADD ENTITY CASE IN ENTITYDATA.JAVA IN DATAIO");
