@@ -12,10 +12,10 @@ public class Render3x3 implements IRenderStrategy {
 			int[] color) {
 		for(int i = 0; i < 3; i++) {
 			// Left
-			screen.render(xLocation + (TILE_SIZE * (flip ? 1: 0)), yLocation + i * TILE_SIZE, xTile,
+			screen.render(xLocation + (TILE_SIZE * (flip ? 2: 0)), yLocation + i * TILE_SIZE, xTile,
 					yTile + i, sheet, flip, color);
 			// Middle
-			screen.render(xLocation + (TILE_SIZE * (flip ? 0: 1)), yLocation + i * TILE_SIZE, xTile + 1,
+			screen.render(xLocation + (TILE_SIZE * (flip ? 1: 1)), yLocation + i * TILE_SIZE, xTile + 1,
 					yTile + i, sheet, flip, color);
 			// Right
 			screen.render(xLocation + (TILE_SIZE * (flip ? 0: 2)), yLocation + i * TILE_SIZE, xTile + 2,

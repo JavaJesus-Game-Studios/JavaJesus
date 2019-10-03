@@ -197,7 +197,7 @@ public class PlayerHUD {
 				null);
 		*/
 		
-		 g.drawImage(tests, BAR_XOFFSET, box_yOffset + BAR_YOFFSET, STAMINA_SIZE, STAMINA_SIZE, null);
+		g.drawImage(tests, BAR_XOFFSET, box_yOffset + BAR_YOFFSET, STAMINA_SIZE, STAMINA_SIZE, null);
 
 		g.drawImage(testh, BAR_XOFFSET + BAR_XSPACE, box_yOffset + BAR_YOFFSET + BAR_VSPACE, HEART_SIZE, HEART_SIZE,
 				null);

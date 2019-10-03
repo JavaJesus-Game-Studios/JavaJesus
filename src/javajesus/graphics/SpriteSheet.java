@@ -80,7 +80,7 @@ public class SpriteSheet implements Serializable {
     public static SpriteSheet chungus = new SpriteSheet("/VISUAL_DATA/ACTORS/ENEMY/chungus_sheet.png", 48);
     
     	//ANIMAL
-    public static SpriteSheet quadrapeds = new SpriteSheet("/VISUAL_DATA/ACTORS/ANIMAL/four_legged.png", 20);
+    public static SpriteSheet quadrapeds = new SpriteSheet("/VISUAL_DATA/ACTORS/ANIMAL/four_legged.png", 24);
     public static SpriteSheet bipeds = new SpriteSheet("/VISUAL_DATA/ACTORS/ANIMAL/two_legged.png", 7);
 
 

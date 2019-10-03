@@ -100,18 +100,18 @@ public class GameEngine implements Runnable {
 			// Time elapsed in ns
 			delta = now - lastTime;
 			lastTime = now;
-			/**
+			
 			// If we updated and rendered before we finished a tick
 			if( delta < nsPerTick) {
 				// Sleep to limit CPU usage
-				sleepTime = (long) ((nsPerTick - delta)/1000000) *2;
+				sleepTime = (long) ((nsPerTick - delta)/1000000)*2;
 				try {
 					Thread.sleep(sleepTime);
 				} catch(InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
-			**/
+			
 			// render a frame
 			// each time frame is rendered
 			update();

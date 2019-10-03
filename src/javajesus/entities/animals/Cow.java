@@ -3,6 +3,8 @@ package javajesus.entities.animals;
 import javajesus.entities.Entity;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
+import javajesus.graphics.render_strategies.Render2x3;
+import javajesus.graphics.render_strategies.Render3x3;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
@@ -16,6 +18,10 @@ public class Cow extends Animal {
 
 	// how fast the npcs toggles steps
 	private static final int WALKING_ANIMATION_SPEED = 4;
+	
+	// Render Strategies
+	Render2x3 renderNS = new Render2x3();
+	Render3x3 renderEW = new Render3x3();
 
 	/**
 	 * @param level - level it is on
@@ -23,7 +29,7 @@ public class Cow extends Animal {
 	 * @param y - y coord
 	 */
 	public Cow(Level level, int x, int y) {
-		super(level, "Cow", x, y, 24, 20, SpriteSheet.quadrapeds, 3, color, true);
+		super(level, "Cow", x, y, 24, 24, SpriteSheet.quadrapeds, 3, color, true);
 	}
 
 	@Override
@@ -45,11 +51,8 @@ public class Cow extends Animal {
 			color = mobHitColor;
 		}
 
-		// modifier used for rendering in different scales/directions
-		int modifier = UNIT_SIZE;
-
 		// no x or y offset, use the upper left corner as absolute
-		int xOffset = getX(), yOffset = getY();
+		int xCoordinate = getX(), yCoordinate = getY();
 
 		// the horizontal position on the spritesheet
 		int xTile = 0;
@@ -59,71 +62,29 @@ public class Cow extends Animal {
 
 		// adjust spritesheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile += 13;
+			xTile = 15;
 			if (isMoving)
-				xTile += 2;
+				xTile = flip? 17: 19;
 		} else if (getDirection() == Direction.SOUTH) {
+			xTile = 0;
 			if (isMoving)
-				xTile = 2;
+				xTile = flip ? 2:4;
 		} else if (isLatitudinal()) {
-			xTile += 4;
+			xTile = 6;
 			if (isMoving) {
-				xTile = 7 + (flip ? 3 : 0);
+				xTile = flip ? 9 : 12;
 			}
 			flip = getDirection() == Direction.WEST;
 		}
 
 		// the dead sprite has a certain location
 		if (isDead()) {
-			if (isLongitudinal()) {
-				setDirection(Direction.EAST);
-			}
-			xTile = 17;
+			xTile = 21;
 		}
-
-		// standing vertical
-		if (isLongitudinal()) {
-			// Upper body
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
-
-			// Upper body
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, getSpriteSheet(),
-			        flip, color);
-
-			// Middle Body
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, getSpriteSheet(),
-			        flip, color);
-
-			// Middle Body
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
-			        getSpriteSheet(), flip, color);
-
-			// Lower Body
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile, yTile + 2,
-			        getSpriteSheet(), flip, color);
-
-			// Lower Body
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile + 1,
-			        yTile + 2, getSpriteSheet(), flip, color);
-		}
-		// standing horizontal
-		else {
-
-			// loop through top to bottom
-			for (int i = 0; i < 3; i++) {
-
-				// left
-				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + (modifier * i), xTile, yTile + i,
-				        getSpriteSheet(), flip, color);
-
-				// middle
-				screen.render(xOffset + modifier, yOffset + (modifier * i), xTile + 1, yTile + i, getSpriteSheet(),
-				        flip, color);
-
-				// right
-				screen.render(xOffset + 2 * modifier - (modifier * (flip ? 2 : 0)), yOffset + (modifier * i), xTile + 2,
-				        yTile + i, getSpriteSheet(), flip, color);
-			}
+		if( isLatitudinal() || isDead()) {
+			renderEW.renderNormal(screen, xCoordinate, yCoordinate, xTile, yTile, flip, getSpriteSheet(), color);
+		} else {
+			renderNS.renderNormal(screen, xCoordinate, yCoordinate, xTile, yTile, false, getSpriteSheet(), color);
 		}
 
 	}

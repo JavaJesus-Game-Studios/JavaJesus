@@ -8,6 +8,9 @@ import javajesus.level.Level;
  * An animal is just a little creature that has a unique movement pattern
  */
 public abstract class Animal extends NPC {
+	
+	// how fast the npcs toggles steps
+	protected static final int WALKING_ANIMATION_SPEED = 5;
 
 	/**
 	 * Creates an animal
