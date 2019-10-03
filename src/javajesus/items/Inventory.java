@@ -1,6 +1,7 @@
 package javajesus.items;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javajesus.SoundHandler;
 import javajesus.entities.Pickup;
@@ -58,7 +59,7 @@ public class Inventory implements Serializable {
 					return;
 				}
 				
-				// first null space in inventory
+			// first null space in inventory
 			} else {
 				items[i] = item;
 				return;
@@ -111,7 +112,6 @@ public class Inventory implements Serializable {
 	 * @param num - quantity to remove
 	 */
 	public void remove(Item item, int num) {
-		
 		// remove the item num times
 		for (int i = 0; i < num; i++) {
 			remove(item);
@@ -208,6 +208,16 @@ public class Inventory implements Serializable {
 		
 		// none found
 		return null;
+	}
+	
+	public ArrayList<Gun> getGuns() {
+		ArrayList<Gun> guns = new ArrayList<>(8);
+		for(Item i: items) {
+			if( i instanceof Gun ) {
+				guns.add((Gun) i);
+			}
+		}
+		return guns;
 	}
 	
 	/**

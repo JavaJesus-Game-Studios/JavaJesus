@@ -61,29 +61,14 @@ public class Pickup extends Entity {
 	 * @param item - the Item it holds
 	 * @param quantity - the amount of item in this pickup
 	 */
-	public Pickup(Level level, int x, int y, Item item, int quantity) {
+	public Pickup(Level level, int x, int y, Item item, boolean use, int quantity) {
 		this(level, x, y, item);
 		
 		// instance data
 		amount = quantity;
-	}
-	
-	/**
-	 * Pickup ctor()
-	 * Creates a pickup that is used instantaneously
-	 * 
-	 * @param level - the level it is on
-	 * @param x - the x coord
-	 * @param y - the y coord
-	 * @param item - the Item it holds
-	 * @param use - whether or not to use it instantaneously
-	 */
-	public Pickup(Level level, int x, int y, Item item, boolean use) {
-		this(level, x, y, item);
-		
-		// instance data
 		useOnPickup = use;
 	}
+	
 	
 	/**
 	 * @return the item in the pickup

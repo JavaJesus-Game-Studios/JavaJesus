@@ -2,17 +2,14 @@ package javajesus.entities.monsters;
 
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Ellipse2D.Double;
-import java.util.Random;
 
 import javajesus.JavaJesus;
 import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.LongRange;
-import javajesus.entities.Pickup;
 import javajesus.entities.Type;
 import javajesus.entities.projectiles.FireBall;
 import javajesus.graphics.Screen;
-import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
@@ -219,18 +216,7 @@ public class Demon extends Monster implements LongRange, Type {
 	 * Demon specific loot
 	 */
 	protected void dropLoot() {
-		
-		// random value for % chance
-		int value = (new Random()).nextInt(100);
-		
-		// 40% chance of revolver, 15% health, 3% horned armor
-		if (value < 40) {
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16),Item.revolverAmmo, 24));
-		} else if (value < 65) {
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16), Item.quickHealthPack, true));
-		} else if (value < 68) {
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(16), Item.shotgunAmmo,12));
-		}
+		super.dropLoot();
 	}
 	
 	/**

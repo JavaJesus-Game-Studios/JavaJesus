@@ -317,31 +317,39 @@ public abstract class Monster extends Mob {
 	protected void dropLoot() {
 
 		// randomly drop an item of any time
-		int value = (new Random()).nextInt(10);
+		int value = (new Random()).nextInt(7);
 		switch (value) {
 		case 0:
 			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
-			        getY() + JavaJesus.getRandomOffset(8), Item.arrowAmmo, 3));
+			        getY() + JavaJesus.getRandomOffset(8), Item.arrowAmmo, false, 4));
 			break;
 		case 1:
 			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
-			        getY() + JavaJesus.getRandomOffset(8), Item.assaultRifleAmmo, 15));
+			        getY() + JavaJesus.getRandomOffset(8), Item.assaultRifleAmmo, false, 60));
 			break;
 		case 2:
 			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
-			        getY() + JavaJesus.getRandomOffset(8), Item.laserAmmo, 6));
+			        getY() + JavaJesus.getRandomOffset(8), Item.laserAmmo, false, 30));
 			break;
 		case 3:
 			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
-			        getY() + JavaJesus.getRandomOffset(8), Item.revolverAmmo, 6));
+			        getY() + JavaJesus.getRandomOffset(8), Item.revolverAmmo, false, 24));
 			break;
 		case 4:
 			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
-			        getY() + JavaJesus.getRandomOffset(8), Item.shotgunAmmo, 5));
+			        getY() + JavaJesus.getRandomOffset(8), Item.revolverAmmo, false, 24));
 			break;
 		case 5:
 			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
-			        getY() + JavaJesus.getRandomOffset(8), Item.quickHealthPack, true));
+			        getY() + JavaJesus.getRandomOffset(8), Item.revolverAmmo, false, 24));
+			break;
+		case 6:
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
+			        getY() + JavaJesus.getRandomOffset(8), Item.shotgunAmmo, false, 8));
+			break;
+		case 7:
+			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8),
+			        getY() + JavaJesus.getRandomOffset(8), Item.quickHealthPack, true, 1));
 			break;
 
 		// drop nothing

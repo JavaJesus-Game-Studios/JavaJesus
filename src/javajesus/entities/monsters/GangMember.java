@@ -2,7 +2,6 @@ package javajesus.entities.monsters;
 
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
-import java.util.Random;
 
 import javajesus.JavaJesus;
 import javajesus.MessageHandler;
@@ -11,12 +10,10 @@ import javajesus.dataIO.EntityData;
 import javajesus.entities.Damageable;
 import javajesus.entities.Entity;
 import javajesus.entities.LongRange;
-import javajesus.entities.Pickup;
 import javajesus.entities.Player;
 import javajesus.entities.Type;
 import javajesus.entities.projectiles.Bullet;
 import javajesus.graphics.Screen;
-import javajesus.items.Item;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
@@ -246,17 +243,8 @@ public class GangMember extends Monster implements LongRange, Type {
 	 * Gang member specific loot
 	 */
 	protected void dropLoot() {
-		
 		// drop basic loot first
 		super.dropLoot();
-		
-		// random value for % chance
-		int value = (new Random()).nextInt(10);
-		
-		// 10% chance of vest, 10% health
-		if (value < 1) {
-			getLevel().add(new Pickup(getLevel(), getX() + JavaJesus.getRandomOffset(8), getY() + JavaJesus.getRandomOffset(8), Item.revolverAmmo,36));
-		} 
 	}
 
 	@Override

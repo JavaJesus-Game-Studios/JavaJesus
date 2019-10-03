@@ -11,12 +11,13 @@ import javajesus.MessageHandler;
 import javajesus.SoundHandler;
 import javajesus.dataIO.PlayerData;
 import javajesus.entities.monsters.Skeleton;
-import javajesus.entities.npcs.NPC;
 import javajesus.entities.strategies.StrictCollisionStrategy;
 import javajesus.entities.transporters.Transporter;
 import javajesus.entities.vehicles.Rideable;
+import javajesus.graphics.Animation;
 import javajesus.graphics.Screen;
 import javajesus.graphics.SpriteSheet;
+import javajesus.graphics.render_strategies.Render1x1;
 import javajesus.graphics.render_strategies.Render2x2;
 import javajesus.items.Armor;
 import javajesus.items.Gun;
@@ -101,6 +102,11 @@ public class Player extends Mob implements Type {
 	// player stats
 	private int strength, defense;
 	
+	// The offsets for the separate Player leg sprites
+	int yLegTile = 2;
+	int[] xLegTiles = {6,7,8,9};
+	int X_LEG_RENDEROFFSET = 4;
+	
 	//determines if a player is blocking
 	private boolean isBlocking;
 	
@@ -115,9 +121,12 @@ public class Player extends Mob implements Type {
 	
 	// if the player is in Jesus mode, renders surprise sprite :)
 	private boolean jesusMode;
+	private boolean isDeveloper = false;
 	
 	//Render Strategies
 	private Render2x2 render2x2 = new Render2x2();
+	private Render1x1 renderLegs = new Render1x1();
+	private Animation playerAnimations = new Animation();
 	/**
 	 * Creates a new player for the game
 	 * 
@@ -147,6 +156,7 @@ public class Player extends Mob implements Type {
 				|| name.equals("Easy Mode")) {
 			grantDevPowers();
 			System.err.println("Creating Developer");
+			this.isDeveloper = true;
 		}  
 		else {
 			System.err.println("Creating " + name);
@@ -278,6 +288,7 @@ public class Player extends Mob implements Type {
 			// sdsetDirection(equippedSword.getDirection());
 		}
 		
+		
 		// check for pickups
 		for (int i = 0; i < getLevel().getEntities().size(); i++) {
 			if (getLevel().getEntities().get(i) instanceof Pickup
@@ -305,6 +316,20 @@ public class Player extends Mob implements Type {
 				i--;
 			}
 		}
+		// Increment need to increment Guns ammo
+		for(Gun g: inventory.getGuns()) {
+			if(inventory.getAmmoAmount(g.getAmmo()) > 0)
+				setGunsAmmo(g);
+			// Dev's get infinite ammo
+			if(isDeveloper) {
+				// If we don't have max ammo
+				if(inventory.getAmmoAmount(g.getAmmo()) <= g.getClipSize()) {
+					g.setCurrentAmmo(g.getClipSize());
+				}
+			}
+		}
+		
+
 
 		// the change in x and y (movement)
 		int dx = 0, dy = 0;
@@ -561,12 +586,29 @@ public class Player extends Mob implements Type {
 		//Rendering for Player when they have equipped a firearm
 		if(getEquippedGun() != null) {	
 			SpriteSheet sheet = this.gunSheet;
-			// get gun offsets
+			boolean isDone = false;
 			yTile = equippedGun.getYOffset();			
-			xTile = equippedGun.getXOffset(shootingDir, movingDir, isShooting, isMoving, flip, tickCount);			
-			// render shooting sprites
-			render2x2.renderShooting(screen, xLocation, yLocation, xTile, yTile, false, isShooting,
-					movingDir, shootingDir, sheet, color);
+			
+			// get gun offsets
+			if( !equippedGun.isReloading() ) {
+				xTile = equippedGun.getXOffset(shootingDir, movingDir, isShooting, isMoving, flip, tickCount);			
+				// render shooting sprites
+				render2x2.renderShooting(screen, xLocation, yLocation, xTile, yTile, false, isShooting,
+						movingDir, shootingDir, sheet, color);
+			}
+			if( equippedGun.isReloading() ) {
+				boolean westFlip = movingDir == Direction.WEST;
+				// Render Legs
+				renderLegs.renderNormal(screen, xLocation + X_LEG_RENDEROFFSET, yLocation + UNIT_SIZE,
+						renderLegsHelper((isMoving ? movingDir: shootingDir), isMoving, flip), 
+						yLegTile, (westFlip ? westFlip : flip), getSpriteSheet(), color);
+				// Render the reload animation
+				isDone = playerAnimations.renderAnimationLoops(screen, xLocation, yLocation,
+						equippedGun.getReloadOffsets(movingDir), yTile, 3, 2, 20, sheet, color, westFlip, 1);
+			}
+			if(isDone)
+				equippedGun.setIsReloading(false);
+			
 		}
 		
 		//Handles the Player when they have a sword equipped
@@ -604,6 +646,23 @@ public class Player extends Mob implements Type {
 			equippedSword.renderBounds(screen);
 		}
 	}
+	
+	public int renderLegsHelper(Direction movingDir, boolean isMoving, boolean flip) {
+		int xTile = 0;
+		if(isMoving) {
+			if(movingDir == Direction.SOUTH || movingDir == Direction.NORTH)
+				xTile = xLegTiles[1];
+			if(movingDir == Direction.EAST || movingDir == Direction.WEST) 
+				xTile = xLegTiles[(flip ? 2 : 3)];
+		}
+		if(!isMoving) {
+			if(movingDir == Direction.SOUTH || movingDir == Direction.NORTH)
+				xTile = xLegTiles[0];
+			if(movingDir == Direction.EAST || movingDir == Direction.WEST)
+				xTile =  xLegTiles[2];
+		}
+		return xTile;
+	}
 
 	/**
 	 * Makes a player exit vehicle
@@ -613,6 +672,13 @@ public class Player extends Mob implements Type {
 		moveTo(vehicle.getX() - SIZE, vehicle.getY());
 		vehicle = null;
 	}
+	
+	public void setGunsAmmo(Gun g) {
+		int ammoInInventory = inventory.getAmmoAmount(g.getAmmo());
+		g.setCurrentAmmo(ammoInInventory);
+		inventory.remove(g.getAmmo(), ammoInInventory);
+	}
+	
 
 	/**
 	 * Sets the shirt color
@@ -951,17 +1017,6 @@ public class Player extends Mob implements Type {
 		movingLeft = window.isKeyPressed(KeyEvent.VK_A);
 		movingRight = window.isKeyPressed(KeyEvent.VK_D);
 		
-		// reload
-		if (window.isKeyPressed(KeyEvent.VK_R)) {
-			if (equippedGun != null && equippedGun.reloads() && !equippedGun.isReloading()
-					&& equippedGun.getAmmo() != null) {
-
-				inventory.remove(equippedGun.getAmmo(),
-				        equippedGun.reload(inventory.getAmmoAmount(equippedGun.getAmmo())));
-
-			}
-			window.toggle(KeyEvent.VK_R);
-		}
 
 		// action button
 		if (window.isKeyPressed(KeyEvent.VK_E)) {

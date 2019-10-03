@@ -75,9 +75,9 @@ public class GameEngine implements Runnable {
 		long lastTime = System.nanoTime();
 		
 		// allows framerate capping 0: uncapped, 0.5: 120fps, 1: 60fps, 2: 30fps
-		int framerate = 0;
+		//int framerate = 0;
 
-		// time in between rendering
+		// time in between rendering in ns
 		double nsPerTick = 1000000000 / 60.0;
 
 		// for measuring fps
@@ -85,45 +85,38 @@ public class GameEngine implements Runnable {
 
 		// time in between ticks
 		long lastTimer = System.currentTimeMillis();
+		
+		// The current time to be updated each loop iteration
+		long now = 0;
 
 		// difference from last time to current
 		double delta = 0;
-		double frameDelta = 0;
-
+		long sleepTime = 0;
 		// run while the window is open
 		while (logic.running() && !window.isClosed()) {
 
 			// get difference in time
-			long now = System.nanoTime();
-			delta += (now - lastTime) / nsPerTick;
-			frameDelta += (now - lastTime) / nsPerTick;
+			now = System.nanoTime();
+			// Time elapsed in ns
+			delta = now - lastTime;
 			lastTime = now;
-
-			// tick when time threshold is met
-			while (delta >= 1) {
-
-				// check for events
-				update();
-				
-
-				// restart the difference between the times
-				delta = 0;
-			}
-			// Framerate Capping 0: unlocked, 0.5: 120fps, 1: 60fps, 2: 30fps
-			if( framerate == 0 ) {
-				// render a frame
-				render();
-				// each time frame is rendered
-				frames++;			
-			} else {
-				while( frameDelta >= framerate) {
-					// render a frame
-					render();
-					// each time frame is rendered
-					frames++;
-					frameDelta = 0;
+			/**
+			// If we updated and rendered before we finished a tick
+			if( delta < nsPerTick) {
+				// Sleep to limit CPU usage
+				sleepTime = (long) ((nsPerTick - delta)/1000000) *2;
+				try {
+					Thread.sleep(sleepTime);
+				} catch(InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
+			**/
+			// render a frame
+			// each time frame is rendered
+			update();
+			render();
+			frames++;			
 			
 			// display the fps
 			if (System.currentTimeMillis() - lastTimer >= 1000) {

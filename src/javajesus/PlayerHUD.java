@@ -1,10 +1,8 @@
 package javajesus;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
@@ -192,18 +190,18 @@ public class PlayerHUD {
 			g.drawString((int) player.getEquippedGun().getCurrentAmmo() + " / " + player.getEquippedGun().getClipSize(),
 					string_xOffset, string_yOffset);
 		}
-		
+		/**
 		g.drawImage(bar, BAR_XOFFSET, box_yOffset + BAR_YOFFSET, STAMINA_SIZE, STAMINA_SIZE, null);
 
 		g.drawImage(heart, BAR_XOFFSET + BAR_XSPACE, box_yOffset + BAR_YOFFSET + BAR_VSPACE, HEART_SIZE, HEART_SIZE,
 				null);
+		*/
 		
-		/*
-		 * g.drawImage(tests, BAR_XOFFSET, box_yOffset + BAR_YOFFSET, STAMINA_SIZE, STAMINA_SIZE, null);
+		 g.drawImage(tests, BAR_XOFFSET, box_yOffset + BAR_YOFFSET, STAMINA_SIZE, STAMINA_SIZE, null);
 
 		g.drawImage(testh, BAR_XOFFSET + BAR_XSPACE, box_yOffset + BAR_YOFFSET + BAR_VSPACE, HEART_SIZE, HEART_SIZE,
 				null);
-		 */
+		 
 	}
 
 	/**

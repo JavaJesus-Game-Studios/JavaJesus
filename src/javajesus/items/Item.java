@@ -51,39 +51,37 @@ public class Item {
 
 	// guns
 	public static final Item revolver = new Gun("Revolver", 4, 0, 0, new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 },
-			"Standard Six Shooter, more powerful than it should be, known to cause tinnitus and Dirty Harritus."
-			, 0, 6, 1, false, 80, Ammo.REVOLVER, SoundHandler.revolver);
+			"Standard Six Shooter, more powerful than it should be, known to cause tinnitus and Dirty Harritus.",
+			0, 120, 30, false, 80, Ammo.REVOLVER, SoundHandler.revolver);
 	public static final Item laserRevolver = new Gun("Laser Revolver", 5, 1, 0,
 			new int[] { 0xFF111111, 0xFF4D2607, 0xFFFFAE00 }, 
-			"The new revolutionary Laser Revolver. Simply kills. Battery life lasts for one to six discharges."
-			, 2, 6, 1, false, 90, Ammo.LASER,
-			SoundHandler.laser);
+			"The new revolutionary Laser Revolver. Simply kills. Battery life lasts for one to six discharges.",
+			2, 150, 25, false, 90, Ammo.LASER, SoundHandler.laser);
 	public static final Item assaultRifle = new Gun("M239 Assault Rifle", 7, 2, 0,
 			new int[] { 0xFF111111, 0xFFCFCFCF, 0xFF000000 },
 			"This M239 US Army Assault Rifle, has been used of 26 of the last 30 Mass Shootings of the year."
 			+ " Main uses include hunting deer and target practice. Available at your local Gunstore, God Bless America.",
-			4, 60, 10, false, 55, Ammo.RIFLE,
-			SoundHandler.assaultRifle);
+			4, 240, 10, false, 55, Ammo.RIFLE, SoundHandler.assaultRifle);
 	public static final Item shotgun = new Gun("Shotgun", 6, 3, 0, new int[] { 0xFF111111, 0xFF4D2607, 0xFFCFCFCF },
 			"The gun that allowed these United States to \"liberate\" the west. Put two bullets in, point in your "
 			+ "target's general direction and watch them turn into minced meat.",
-			6, 1, 1, true, 150, Ammo.SHELL, SoundHandler.shotgun);
+			6, 40, 30, true, 150, Ammo.SHELL, SoundHandler.shotgun);
 	public static final Item crossBow = new Gun("Crossbow", 8, 4, 0, new int[] { 0xFF111111, 0xFF4D2607, 0xFFCFCFCF },
 			"Useful in defending Castles from the English in 1400, now useful for driving a stake "
 			+ "through the hearts of the armies of Hell, one arrow at a time. Slow to reload but packs"
 			+ "a hell of a punch.",
-			8, 1, 1, true, 175, Ammo.ARROW, SoundHandler.revolver);
+			8, 20, 30, true, 175, Ammo.ARROW, SoundHandler.revolver);
 	public static final Item bazooka = new Gun("Bazooka", 28, 5, 0, new int[] { 0xFF000000, 0xFF434343, 0xFF371B09 },
 			"The HR2010 Missile Launching Platform is a state of the art killing machine."
 			+ "On one end of the machine are big holes, which is where you load the missiles,"
 			+ "on the other are slightly smaller holes, this is where the missiles are fired. This "
 			+ "\"Gun\" will kill anything that happens to cross it's path. Loads two Missiles at a time.", 10,
-			2, 10, false, 300, Ammo.MISSILE, SoundHandler.explosion);
+			10, 60, false, 300, Ammo.MISSILE, SoundHandler.explosion);
 	public static final Item flameThrower = new Gun("Flamethrower", 21, 6, 0,
-			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Please apply cold water to burn", 12, 10000, 8, false, 25,
+			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "Please apply cold water to burn", 12, 500, 10, false, 15,
 			Ammo.FLAMETHROWER, SoundHandler.fireball);
 	public static final Item blackHoleGun = new Gun("Secret", 20, 0, 0,
-			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "??????", 14, 6, 10, false, 50, Ammo.BLACKHOLE,
+			new int[] { 0xFF4D2607, 0xFFCFCFCF, 0xFFF7F7F7 }, "??????", 14, 6, 100, false, 100, Ammo.BLACKHOLE,
 			SoundHandler.laser);
 	// swords
 	public static final Item shortSword = new Sword("Cutlass", 9, 0, 1, 0, 1,
@@ -137,28 +135,24 @@ public class Item {
 			new int[] { -1, 0xFF000000, 0xFFEBCD00, 0xFFD6D7DC }, "", ArmorSet.ISTRAHIIM);
 			*/
 
-	
-			
-	
-
 	// ammo
 	public static final Item revolverAmmo = new Item("Revolver Ammo", 23, 0, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"Revolver Ammo, .375 Magnum Round, the kind movies love to talk about."
-			+ " Can tear a hole through anything in a 10 yard radius.", 0);
+			+ " Can tear a hole through anything in a 10 yard radius.", 12);
 	public static final Item laserAmmo = new Item("BatteryPack", 25, 1, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"Laser Ammo, Contains enough charge to perform one to six discharges.", 0);
 	public static final Item assaultRifleAmmo = new Item("Assault Rifle Magazine", 22, 2, 4,
 			new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"Assault Rifle Ammo, .556 Rounds capable of being fired in rapid succession, can "
-			+ "very easily kill a room full of people in seconds.", 0);
+			+ "very easily kill a room full of people in seconds.", 20);
 	public static final Item shotgunAmmo = new Item("Shotgun Ammo", 24, 3, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"Shotgun Ammo, buckshot, can take out any living thing within a 5 yard radius. No longer"
-			+ "\"Politically Correct\" to use against the Native Population.", 0);
+			+ "\"Politically Correct\" to use against the Native Population.", 8);
 	public static final Item arrowAmmo = new Item("Arrow Quiver", 26, 4, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
-			"A quiver full of Arrows, useful for having arrows to shoot at people.", 0);
+			"A quiver full of Arrows, useful for having arrows to shoot at people.", 4);
 	public static final Item rocketAmmo = new Item("Ammo", 29, 5, 4, new int[] { 0xFF111111, 0xFFFF0000, 0xFF0CA101 },
 			"This is a rocket, you put it in a Rocket Launcher, then you shoot it. Once the rocket"
-			+ "hits what you were aiming at it explodes. That's how it works.", 0);
+			+ "hits what you were aiming at it explodes. That's how it works.", 2);
 
 	// restores health
 	public static final Item strongHealthPack = new Item("Health", 27, 1, 3,
@@ -289,6 +283,10 @@ public class Item {
 			// keeps the item in the inventory
 			amount++;
 		}
+	}
+	
+	public int getRestoration() {
+		return restoration;
 	}
 	
 	/**

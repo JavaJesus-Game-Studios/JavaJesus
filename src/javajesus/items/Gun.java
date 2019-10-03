@@ -19,26 +19,24 @@ import javajesus.utility.Direction;
  */
 public class Gun extends Item {
 
-	// max amount of ammo
-	private int clipSize;
+	// max amount of ammo the gun can have
+	private int ammoCapacity;
 
-	// current amount of ammo in clip
-	private int ammo;
+	// current amount of ammo the gun has
+	private int ammoAmount;
 
-	// spare bullets in inventory
-	private int availableAmmo;
 
 	// whether or not the player is reloading
 	private boolean isReloading;
 
-	// the reload time between bullets TODO implement it
+	// whether the gun has a reload animation
 	private boolean doesReload;
 
-	// ticks inbetween each reload
-	private int reloadTicks;
+	// ticks between each reload
+	//private int reloadTicks;
 
 	// fire rate of the gun
-	private int FIRE_RATE;
+	private int fireRate;
 
 	// damage range
 	private static final int DAMAGE_RANGE = 5;
@@ -48,6 +46,11 @@ public class Gun extends Item {
 
 	// ticks between each shot fired
 	private int fireTicks = 1;
+	
+	// cooldown ticks before and after a reload
+	private int reloadTicks = 0;
+	private int reloadRate;
+	private boolean startReload = false;
 
 	// whether or not the gun can be fired
 	private boolean canFire;
@@ -59,7 +62,7 @@ public class Gun extends Item {
 	private int playerOffset;
 	
 	// offset of the reload animation on the player spritesheet
-	private int[] reloadOffsets = { 42, 48, 54};
+	private int[] reloadOffsets;
 
 	// type of ammo
 	private Ammo type;
@@ -84,68 +87,53 @@ public class Gun extends Item {
 	 * @param color - the color of the gun
 	 * @param description - the description of the gun
 	 * @param yPlayerSheet - the y tile on the PLAYER spritesheet
-	 * @param clipSize - the maximum ammo clip size
-	 * @param rate - the rate of fire
+	 * @param ammoLimit - the maximum ammunition the gun can carry
+	 * @param fireRate - the rate of fire, 1: can shoot every tick, 2: can shoot every other, etc.
 	 * @param reload - the rate of reload
 	 * @param damage - the damage per shot
 	 * @param type - the type of ammo used
 	 * @param clip - the clip sound
 	 */
 	public Gun(String name, int id, int xTile, int yTile, int[] color, String description, int yPlayerSheet,
-			int clipSize, int rate, boolean doesReload, int damage, Ammo type, URL clip) {
+			int ammoCapacity, int fireRate, boolean doesReload, int damage, Ammo type, URL clip) {
 		super(name, id, xTile, yTile, color, description, true);
 		this.playerOffset = yPlayerSheet;
-		this.clipSize = clipSize;
-		this.ammo = clipSize;
+		this.ammoCapacity = ammoCapacity;
+		this.ammoAmount = 0;
 		this.doesReload = doesReload;
-		this.FIRE_RATE = rate;
+		this.fireRate = fireRate;
 		this.damage = damage;
 		this.type = type;
 		this.clip = clip;
+		
+		if(doesReload)
+			reloadRate = fireRate / 2;
 	}
 
 	/**
 	 * Updates the gun
 	 */
 	public void tick() {
-
-		fireTicks++;
-
-		// increase the count displayed while reloading
-		if (isReloading && reloadTicks % 15 == 0) {
-			if (ammo < clipSize && availableAmmo > 0) {
-				ammo++;
-				availableAmmo--;
-			} else {
-				isReloading = false;
-				reloadTicks = 0;
-				return;
-			}
-		}
-
-		if (isReloading) {
+		// Only increment fireTicks if we're not reloading
+		if(startReload || isReloading()) {
 			reloadTicks++;
+			// Begins reload animation after cooldown
+			if(reloadTicks % reloadRate == 0) {
+				isReloading = true;
+				reloadTicks = 0;
+				startReload = false;
+			}
+		} else {
+			fireTicks++;
 		}
-
-		if (fireTicks % FIRE_RATE == 0) {
+		
+		// Allows firing after cooldown period
+		if (fireTicks % fireRate == 0) {
 			canFire = true;
 		}
 
 	}
 	
-
-
-	/**
-	 * Reloads the gun
-	 * 
-	 * @param bullets - number of bullets in player inventory
-	 * @return number of bullets used
-	 */
-	public int reload(int bullets) {
-		isReloading = true;
-		this.availableAmmo = bullets;
-		return this.clipSize - this.ammo;
-	}
 	
 	
 	/**
@@ -184,7 +172,7 @@ public class Gun extends Item {
 		// get random damage based on player strength
 		int damage = player.getStrength() + this.damage + random.nextInt(DAMAGE_RANGE);
 
-		if (ammo > 0 && !isReloading && canFire) {
+		if (ammoAmount > 0 && !isReloading && canFire) {
 			switch (type) {
 			case REVOLVER:
 			case RIFLE:
@@ -214,9 +202,12 @@ public class Gun extends Item {
 				}
 				break;
 			}
-			ammo--;
+			ammoAmount--;
 			canFire = false;
-			fireTicks = 0;
+			fireTicks = 1;
+			if( doesReload ) {
+				startReload = true;
+			}
 		}
 	}
 
@@ -231,14 +222,23 @@ public class Gun extends Item {
 	 * @return the current ammo
 	 */
 	public final int getCurrentAmmo() {
-		return ammo;
+		return ammoAmount;
+	}
+	
+	public void setCurrentAmmo(int ammoInInventory) {
+		// If we have more than the max ammo, set ammo to max
+		if( ammoInInventory + ammoAmount > ammoCapacity)
+			ammoAmount = ammoCapacity;
+		// If we are in range, put more ammo in 
+		if( ammoInInventory + ammoAmount <= ammoCapacity)
+			ammoAmount += ammoInInventory;
 	}
 
 	/**
 	 * @return the max ammo
 	 */
 	public final int getClipSize() {
-		return clipSize;
+		return ammoCapacity;
 	}
 
 	/**
@@ -247,18 +247,44 @@ public class Gun extends Item {
 	public boolean isReloading() {
 		return isReloading;
 	}
-	/**
-	 * @return true if this gun reloads
-	 */
-	public boolean reloads() {
-		return doesReload;
-	}
 
 	/**
 	 * @return the player offset in the spritesheet
 	 */
 	public int getYOffset() {
 		return playerOffset;
+	}
+	/**
+	 * 
+	 * @return the player x offsets for reload animations
+	 */
+	public int[] getReloadOffsets(Direction movingDir) {
+		if(movingDir == Direction.SOUTH)
+			reloadOffsets = new int[]{42, 45};
+		if(movingDir == Direction.EAST)
+			reloadOffsets = new int[]{48, 51};
+		if(movingDir == Direction.WEST)
+			reloadOffsets = new int[]{48, 51};
+		if( movingDir == Direction.NORTH)
+			reloadOffsets = new int[]{54, 57};
+		return reloadOffsets;
+	}
+	/**
+	 * 
+	 * @param isMoving whether the player is moving or not
+	 * @return the yOffsets for moving
+	 */
+	public int getReloadYTile(boolean isMoving) {
+		if(isMoving)
+			return playerOffset + 2;
+		return playerOffset;
+	}
+	/**
+	 * 
+	 * @param isReloading the condition of whether we are reloading or not
+	 */
+	public void setIsReloading(boolean isReloading) {
+		this.isReloading = isReloading;
 	}
 	/**
 	 * 
