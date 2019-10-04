@@ -2,13 +2,17 @@ package javajesus.entities.monsters;
 
 import javajesus.JavaJesus;
 import javajesus.entities.Entity;
+import javajesus.graphics.IRenderStrategy;
 import javajesus.graphics.Screen;
+import javajesus.graphics.render_strategies.Render2x2;
+import javajesus.graphics.render_strategies.Render2x3;
+import javajesus.graphics.render_strategies.Render3x2;
 import javajesus.level.Level;
 import javajesus.utility.Direction;
 
 public class Skeleton extends Monster {
 	
-	// dimensions of the bandito
+	// dimensions of the skeleton
 	private static final int WIDTH = 16, HEIGHT = 16;
 
 	// how fast the player toggles steps
@@ -19,7 +23,14 @@ public class Skeleton extends Monster {
 	
 	// color set of skeleton
 	private static final int[] color =  { 0xFF111111, 0xFF700000, 0xFFDBA800, 0, 0 };
+	
+	// Render Strategies needed
+	private IRenderStrategy renderSkeleton;
+	private Render2x2 renderNormal;
+	private Render2x3 renderSSwing;
+	private Render3x2 renderEWSwing;
 
+	
 	/**
 	 * @param level - level it is on
 	 * @param x - x coordinate
@@ -27,6 +38,11 @@ public class Skeleton extends Monster {
 	 */
 	public Skeleton(Level level, int x, int y) {
 		super(level, "Skeleton", x, y, 1, WIDTH, HEIGHT, 10, 100, 50);
+		
+		// Initialize Render Strategies
+		renderNormal = new Render2x2();
+		renderSSwing = new Render2x3();
+		renderEWSwing = new Render3x2();
 	}
 	
 	/**
@@ -34,7 +50,6 @@ public class Skeleton extends Monster {
 	 */
 	public void render(Screen screen) {
 		super.render(screen);
-		
 		// default color
 		int[] color = Skeleton.color;
 
@@ -43,98 +58,78 @@ public class Skeleton extends Monster {
 			color = mobHitColor;
 		}
 
-		// modifier used for rendering in different scales/directions
-		int modifier = UNIT_SIZE;
-
 		// no x or y offset, use the upper left corner as absolute
-		int xOffset = getX(), yOffset = getY();
+		int xCoordinate = getX(), yCoordinate = getY();
 
 		// the horizontal position on the spritesheet
 		int xTile = 0;
 
 		// whether or not to render backwards
 		boolean flip = ((numSteps >> WALKING_ANIMATION_SPEED) & 1) == 1;
-
-		// adjust spritesheet offsets
+		
+		xTile = this.renderHelper(xTile, flip);
+		
+		renderSkeleton.renderNormal(screen, xCoordinate, yCoordinate - 1, xTile, yTile, flip, getSpriteSheet(), color);
+	}
+	/**
+	 * Helper method that sets the correct render strategy and finds the correct xTile for the Sprite
+	 * @param xTile the xTile to find
+	 * @param flip determines which xTile to use whilst walking
+	 */
+	private int renderHelper(int xTile, boolean flip) {
+		// adjust sprite sheet offsets
 		if (getDirection() == Direction.NORTH) {
-			xTile = 12;
-			if (isMoving) {
-				xTile += 2 + (flip ? 2 : 0);
-				flip = false;
-			}
-			if (isShooting) {
-				xTile = 23;
-			}
+			if(!isShooting) {
+				xTile = 14;
+				if (isMoving) {
+					xTile = (flip ? 16 :18);
+					flip = false;
+				}
+			} else
+				xTile = 28;
+			renderSkeleton = renderNormal;
 		} else if (getDirection() == Direction.SOUTH) {
-			
-			if (isMoving) {
-				xTile += 2 + (flip ? 2 : 0);
-				flip = false;
-			}
-			if (isShooting) {
-				xTile = 18;
-			} 
-		} else {
-			xTile = 6 + (flip ? 3 : 0);
-			
-			if (isShooting) {
+			if( !isShooting ) {
+			xTile = 0;
+				if (isMoving) {
+					xTile = (flip ? 2 : 4);
+					flip = false;
+				}
+				renderSkeleton = renderNormal;
+			} else {
 				xTile = 20;
+				renderSkeleton = renderSSwing;
 			}
-			
-			flip = getDirection() == Direction.WEST;
+		} if( getDirection() == Direction.EAST) {
+			if( !isSwinging ) {
+				xTile = 6;
+				if(isMoving) {
+					xTile = (flip ? 6:8);
+					flip = false;
+				}
+			}else {
+				xTile = 22;
+				renderSkeleton = renderEWSwing;
+			}
+		} if( getDirection() == Direction.WEST) {
+			if( !isSwinging ) {
+				xTile = 10;
+				if(isMoving) {
+					xTile = (flip ? 10:12);
+					flip = false;
+				}
+			}else {
+				xTile = 25;
+				renderSkeleton = renderEWSwing;
+			}
 		}
 		
 		// death image
-		if (isDead())
-			xTile = 25;
-		
-		// base 2x2 quadrant y-axis symmetry 
-		if (isLongitudinal() || isDead()) {
-
-			// Upper body
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset, xTile, yTile, getSpriteSheet(), flip, color);
-
-			// Upper body
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset, xTile + 1, yTile, getSpriteSheet(),
-			        flip, color);
-
-			// Lower Body
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile, yTile + 1, getSpriteSheet(),
-			        flip, color);
-
-			// Lower Body
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + modifier, xTile + 1, yTile + 1,
-			        getSpriteSheet(), flip, color);
-			
-			// Lower sword
-			screen.render(xOffset + (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile, yTile + 2, getSpriteSheet(),
-			        flip, color);
-
-			// Lower sword
-			screen.render(xOffset + modifier - (modifier * (flip ? 1 : 0)), yOffset + 2 * modifier, xTile + 1, yTile + 2,
-			        getSpriteSheet(), flip, color);
-		} else if (isLatitudinal() && !isDead()) {
-			
-			// move x offset over if west
-			if (getDirection() == Direction.WEST) {
-				xOffset -= 8;
-			}
-			
-			// iterate top to bottom
-			for (int i = 0; i < 3; i++) {
-				
-				// Left body
-				screen.render(xOffset + (modifier * (flip ? 2 : 0)), yOffset + i * modifier, xTile, yTile + i, getSpriteSheet(), flip, color);
-				
-				// Middle body
-				screen.render(xOffset + modifier, yOffset + i * modifier, xTile + 1, yTile + i, getSpriteSheet(), flip, color);
-				
-				// Right body
-				screen.render(xOffset + (modifier * 2) - (modifier * (flip ? 2 : 0)), yOffset + i * modifier, xTile + 2, yTile + i, getSpriteSheet(), flip, color);
-				
-			}
-			
+		if (isDead()) {
+			xTile = 30;
+			renderSkeleton = renderNormal;
 		}
+		return xTile;
 	}
 
 	@Override

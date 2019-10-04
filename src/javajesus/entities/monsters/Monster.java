@@ -180,15 +180,19 @@ public abstract class Monster extends Mob {
 					// move towards the target horizontally
 					if (target.getX() > getX()) {
 						dx++;
+						dy = 0;
 					} else if (target.getX() < getX()) {
 						dx--;
+						dy = 0;
 					}
 
 					// move towards the target vertically
 					if (target.getY() > getY()) {
 						dy++;
+						dx = 0;
 					} else if (target.getY() < getY()) {
 						dy--;
+						dx = 0;
 					}
 
 				}
@@ -203,7 +207,7 @@ public abstract class Monster extends Mob {
 				
 			// close combat has pathfinding
 			} else {
-				isMoving = !getOuterBounds().intersects(target.getBounds());
+				isMoving = !getBounds().intersects(target.getBounds());
 				if (isMoving && (getPath() == null || !getPath().isNotEmpty())) {
 					collisionImmune = false;
 					setPath(target);
@@ -288,8 +292,9 @@ public abstract class Monster extends Mob {
 
 		aggroRadius.setFrame(getX() - (RADIUS * 8) / 2, getY() - (RADIUS * 8) / 2, RADIUS * 8, RADIUS * 8);
 
-		if (moveTick++ % 2 == 0) {
+		if (++moveTick % 2 == 0) {
 			super.move(dx * (int) getSpeed(), dy * (int) getSpeed());
+			moveTick = 0;
 		}
 	}
 	
@@ -368,7 +373,7 @@ public abstract class Monster extends Mob {
 			color = new int[] {0,0,0,0,0};
 		if (color.length < 5)
 			color = new int[] { color[0], color[1], color[2], 0, 0 };
-		this.color = color;
+		Monster.color = color;
 	}
 	
 

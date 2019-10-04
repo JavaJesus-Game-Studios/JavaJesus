@@ -276,7 +276,7 @@ public class Player extends Mob implements Type {
 		for (Quest q: activeQuests) {
 			q.update();
 		}
-
+		
 		// update the gun
 		if (equippedGun != null) {
 			equippedGun.tick();
@@ -647,6 +647,13 @@ public class Player extends Mob implements Type {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param movingDir direction player is moving in
+	 * @param isMoving whether the player is moving or not
+	 * @param flip whether to flip the sprite
+	 * @return the xTile of the legs to render
+	 */
 	public int renderLegsHelper(Direction movingDir, boolean isMoving, boolean flip) {
 		int xTile = 0;
 		if(isMoving) {
@@ -728,27 +735,19 @@ public class Player extends Mob implements Type {
 		heal(-1);
 		inventory.add(Item.blackHoleGun);
 		inventory.add(Item.bazooka);
-		Item.rocketAmmo.setQuanity(500);
 		inventory.add(Item.flameThrower);
 		inventory.add(Item.assaultRifle);
-		Item.assaultRifleAmmo.setQuanity(500);
 		inventory.add(Item.assaultRifleAmmo);
 		inventory.add(Item.revolver);
-		Item.revolverAmmo.setQuanity(500);
 		inventory.add(Item.laserRevolver);
-		Item.laserAmmo.setQuanity(500);
 		inventory.add(Item.shotgun);
-		Item.shotgunAmmo.setQuanity(500);
 		inventory.add(Item.crossBow);
-		Item.arrowAmmo.setQuanity(500);
 		inventory.add(Item.shortSword);
 		inventory.add(Item.longSword);
 		inventory.add(Item.claymore);
 		inventory.add(Item.sabre);
 		inventory.add(Item.heavenlySword);
 		inventory.add(Item.kingSword);
-
-
 	}
 
 	/**
@@ -892,7 +891,7 @@ public class Player extends Mob implements Type {
 		} else {
 			stamina += num;
 
-			// cant go over max and check for overflow
+			// can't go over max and check for overflow
 			if (stamina > maxStamina || stamina < -1000) {
 				stamina = maxStamina;
 			}

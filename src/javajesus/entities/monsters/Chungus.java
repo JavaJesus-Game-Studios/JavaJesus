@@ -2,13 +2,10 @@ package javajesus.entities.monsters;
 
 import java.awt.event.KeyEvent;
 
-import com.sun.prism.paint.Color;
-
 import engine.Window;
 import javajesus.entities.Entity;
 import javajesus.entities.Player;
 import javajesus.entities.strategies.CollisionStrategy;
-import javajesus.entities.strategies.MonsterCollisionStrategy;
 import javajesus.entities.strategies.RideableCollisionStrategy;
 import javajesus.entities.vehicles.Rideable;
 import javajesus.graphics.Screen;
@@ -47,6 +44,8 @@ public class Chungus extends Monster implements Rideable{
 		setSpriteSheet(SpriteSheet.chungus);
 		originalStrategy = this.collisionStrategy;
 		rideableStrategy = new RideableCollisionStrategy(this);
+		//Chungus gets up close and personal
+		this.setOuterBoundsRange(0);
 		// TODO Auto-generated constructor stub
 	}
 	
