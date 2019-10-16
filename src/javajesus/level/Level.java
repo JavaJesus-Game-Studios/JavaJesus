@@ -294,8 +294,6 @@ public abstract class Level {
 	 * @param yOffset - the yoffset on the screen
 	 */
 	private void renderTile(Screen screen) {
-
-
 		// render the tiles visible on the screen
 		for (int y = (yOffset >> 3); y < (yOffset + renderRange.height >> 3) + 1; y++) {
 			for (int x = (xOffset >> 3); x < (xOffset + renderRange.width >> 3) + 1; x++) {
@@ -503,30 +501,31 @@ public abstract class Level {
 
 	public List<TileAdapter> getVisibleTiles(Screen screen) {
 
-		List<TileAdapter> occupied = new ArrayList<>();
+		List<TileAdapter> occupied = new ArrayList<>(500);
+		List<TileAdapter> tiles = new ArrayList<>(500);
+		TileAdapter tile;
+		Entity e;
+
 
 		// get list of all tiles that are occupied
-		for (int i = 0; i < getEntities().size(); i++) {
-			Entity e = getEntities().get(i);
-
-			if (e.getBounds().intersects(renderRange) && !(e instanceof Projectile) && (!(e instanceof Mob) || !((Mob) e).isDead())) {
+		for (int i = 0; i < tempEntities.size(); i++) {
+			e = tempEntities.get(i);
+			if (e.getBounds().intersects(renderRange) && !(e instanceof Projectile) 
+					&& (!(e instanceof Mob) || !((Mob) e).isDead())) {
 				occupied.addAll(getOccupiedTiles(e));
 			}
 		}
 
-		List<TileAdapter> tiles = new ArrayList<>(1131);
-
-		// iterate through list of tiles
-		for (int y = (yOffset >> 3); y < (yOffset + screen.getHeight() >> 3) + 1; y++) {
-			for (int x = (xOffset >> 3); x < (xOffset + screen.getWidth() >> 3) + 1; x++) {
-				TileAdapter tile = new TileAdapter(getTile(x, y), x, y);
+		// only check the tiles visible on the screen
+		for (int y = (yOffset >> 3); y < (yOffset + renderRange.height >> 3) + 1; y++) {
+			for (int x = (xOffset >> 3); x < (xOffset + renderRange.width >> 3) + 1; x++) {
+				tile = new TileAdapter(getTile(x, y), x, y);
 				if (occupied.contains(tile)) {
 					tile.setOccupied(true);
 				}
-				tiles.add(tile);
+				tiles.add(tile);			
 			}
 		}
-
 		return tiles;
 	}
 
