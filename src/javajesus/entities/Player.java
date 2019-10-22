@@ -122,6 +122,7 @@ public class Player extends Mob implements Type {
 	// if the player is in Jesus mode, renders surprise sprite :)
 	private boolean jesusMode;
 	private boolean isDeveloper = false;
+	private boolean swingKeyPressed = false;
 	
 	//Render Strategies
 	private Render2x2 render2x2 = new Render2x2();
@@ -986,11 +987,14 @@ public class Player extends Mob implements Type {
 					stamina -= 20;
 					equippedSword.swing(getLevel(), getX(), getY(),
 							getDirection(), true, this);
-				} else {
+				} else if(!swingKeyPressed) {
+					swingKeyPressed = true;
 					equippedSword.swing(getLevel(), getX(), getY(),
 							getDirection(), false, this);
 				}
 			}
+		} else {
+			swingKeyPressed = false;
 		}
 		//block key
 		if(window.isKeyPressed(KeyEvent.VK_B)){
