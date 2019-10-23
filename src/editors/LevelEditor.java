@@ -55,6 +55,7 @@ import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.EvilFox;
 import javajesus.entities.monsters.EvilOrangutan;
 import javajesus.entities.monsters.GangMember;
+import javajesus.entities.monsters.Goose;
 import javajesus.entities.monsters.Monkey;
 import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.npcs.Citizen;
@@ -1314,6 +1315,7 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 			entityList[Entity.GRASS_GREEN &0x00FF] = new EntityGUI(new GrassGreen(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 			entityList[Entity.GRASS_GOLD &0x00FF] = new EntityGUI(new GrassGold(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 1, 1);
 			entityList[Entity.CHUNGUS &0x00FF] = new EntityGUI(new Chungus(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 4, 4);
+			entityList[Entity.GOOSE &0x00FF] = new EntityGUI(new Goose(null, 0, 0), PANEL_SIZE, PANEL_SIZE, 2, 2);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -1607,6 +1609,8 @@ public class LevelEditor extends JPanel implements MouseListener, ActionListener
 				return new EntityGUI(new GrassGold(null, 0, 0), 0, 0, 1, 1); 
 			case Entity.CHUNGUS:
 				return new EntityGUI(new Chungus(null, 0, 0), 0, 0, 4, 4);
+			case Entity.GOOSE:
+				return new EntityGUI(new Goose(null, 0, 0), 0, 0, 2, 2);
 			}
 			
 		} catch (IOException e) {

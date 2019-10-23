@@ -31,6 +31,7 @@ import javajesus.entities.monsters.Demon;
 import javajesus.entities.monsters.EvilFox;
 import javajesus.entities.monsters.EvilOrangutan;
 import javajesus.entities.monsters.GangMember;
+import javajesus.entities.monsters.Goose;
 import javajesus.entities.monsters.Monkey;
 import javajesus.entities.monsters.Skeleton;
 import javajesus.entities.npcs.Citizen;
@@ -590,6 +591,8 @@ public class EntityData {
 				return new GrassGold(level, x, y);
 			case Entity.CHUNGUS:
 				return new Chungus(level, x, y);
+			case Entity.GOOSE:
+				return new Goose(level, x, y);
 	        default:
 	        	System.err.println("CRITICAL ERROR! CRITICAL ERROR! RETRIEVING NULL ENTITY: " + id);
 	        	System.err.println("MAKE SURE TO ADD ENTITY CASE IN ENTITYDATA.JAVA IN DATAIO");
