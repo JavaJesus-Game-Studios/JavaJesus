@@ -1,4 +1,4 @@
-package editors.quest;
+package editors.dialogue;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -13,13 +13,18 @@ import org.graphstream.ui.view.ViewerListener;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class QuestEditor implements ViewerListener, IDataLoaded {
+import editors.dialogue.DialogueUIComponents;
+import editors.quest.GraphView;
+import editors.quest.IDataLoaded;
+import editors.dialogue.DialogueDataBuilder;
+
+public class DialogueEditor implements ViewerListener, IDataLoaded {
 
 	// dimensions of the window
 	private static final int WIDTH = 960, HEIGHT = 540;
 
 	private GraphView gView;
-	private DataView dView;
+	private DialogueUIComponents dView;
 
 	/**
 	 * First method called in the editor
@@ -27,15 +32,15 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 	 * @param args - run time arguments
 	 */
 	public static void main(String[] args) {
-		QuestEditor qe = new QuestEditor();
-		qe.present();
+		DialogueEditor de = new DialogueEditor();
+		de.present();
 	}
 
-	public QuestEditor() {
+	public DialogueEditor() {
 		gView = new GraphView();
 		gView.register(this);
 
-		dView = new DataView();
+		dView = new DialogueUIComponents();
 		dView.setDataLoaded(this);
 	}
 
@@ -55,10 +60,9 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 		frame.pack();
 
 		frame.setLocationRelativeTo(null);
-		frame.setTitle("Quest Editor for Java Jesus");
+		frame.setTitle("Juice Dialogue Editor");
 		frame.setVisible(true);
 		frame.toFront();
-
 		frame.addWindowListener(new WindowListener() {
 
 			@Override
@@ -149,14 +153,14 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 			return;
 		}
 
-		JSONArray array = (JSONArray) data.get(QuestDataBuilder.QUEST_PARTS);
+		JSONArray array = (JSONArray) data.get(DialogueDataBuilder.DIALOGUE_SCENE);
 		
 		for (int i = 0; i < array.size(); i++) {
 			JSONObject obj = (JSONObject) array.get(i);
-			String child = (String) obj.get(QuestDataBuilder.STATE_ID);
+			String child = (String) obj.get(DialogueDataBuilder.NODE_ID);
 			dView.nodeLoaded(gView.addNode(child), obj);
 
-			String rawParents = (String) obj.get(QuestDataBuilder.PREV_STATE_ID);
+			String rawParents = (String) obj.get(DialogueDataBuilder.PREV_NODE_ID);
 			if (rawParents != null) {
 				String[] parents = rawParents.split(",");
 				for (int j = 0; j < parents.length; j++) {
@@ -168,7 +172,7 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 						JSONObject other = null;
 						for (int k = 0; k < array.size(); k++) {
 							JSONObject o = (JSONObject) array.get(k);
-							String state = (String) o.get(QuestDataBuilder.STATE_ID);
+							String state = (String) o.get(DialogueDataBuilder.NODE_ID);
 							if (state != null && state.equals(parent)) {
 								other = o;
 								break;
@@ -189,7 +193,7 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 				}
 			}
 
-			String rawFuture = (String) obj.get(QuestDataBuilder.FUT_STATE_ID);
+			String rawFuture = (String) obj.get(DialogueDataBuilder.NEXT_NODE_ID);
 			if (rawFuture != null) {
 				String[] outgoing = rawFuture.split(",");
 				for (int j = 0; j < outgoing.length; j++) {
@@ -201,7 +205,7 @@ public class QuestEditor implements ViewerListener, IDataLoaded {
 						JSONObject other = null;
 						for (int k = 0; k < array.size(); k++) {
 							JSONObject o = (JSONObject) array.get(k);
-							String state = (String) o.get(QuestDataBuilder.STATE_ID);
+							String state = (String) o.get(DialogueDataBuilder.NODE_ID);
 							if (state != null && state.equals(cchild)) {
 								other = o;
 								break;

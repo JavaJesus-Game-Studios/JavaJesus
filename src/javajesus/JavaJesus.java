@@ -259,7 +259,6 @@ public class JavaJesus extends Canvas implements IGameLogic {
 	 */
 	public void input(Window window) {
 		
-		// most input is managed by the player
 		player.input(window);
 		
 		// toggle developer mode
@@ -494,7 +493,7 @@ public class JavaJesus extends Canvas implements IGameLogic {
 		}
 		
 		// draw additional displays on the screen
-		hud.draw(g);
+		//hud.draw(g);
 		MessageHandler.drawWindow(g);
 		
 		// draw death screen if player died
