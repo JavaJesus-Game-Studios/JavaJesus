@@ -21,7 +21,7 @@ public class GraphView {
 	
 	public GraphView() {
 
-		System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+		System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
 
 		graph = new SingleGraph("Quest Graph");
 		graph.addAttribute("ui.stylesheet", StylesheetFactory.makeStylesheet());

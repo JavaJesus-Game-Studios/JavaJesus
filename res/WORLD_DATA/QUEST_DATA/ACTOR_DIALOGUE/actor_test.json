@@ -1,0 +1,20 @@
+{
+  "DialogueScene": [
+    {
+      "Triggers1": "",
+      "Triggers2": "",
+      "EndText": "",
+      "PrevNodeID": "",
+      "NodeID": "0",
+      "EndTrigger": "",
+      "Response2": "",
+      "ActorText": "",
+      "Response1": "",
+      "Triggers3": "",
+      "OutgoingNodeID": "",
+      "Response3": ""
+    }
+  ],
+  "QuestID": -1,
+  "ActorID": 1
+}

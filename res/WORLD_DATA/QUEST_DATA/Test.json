@@ -1,0 +1,62 @@
+{
+  "DialogueScene": [
+    {
+      "Triggers1": "GOTO_1",
+      "Triggers2": "GOTO_2",
+      "EndText": "",
+      "PrevNodeID": "",
+      "NodeID": "0",
+      "EndTrigger": "",
+      "Response2": "Test.",
+      "ActorText": "Test.",
+      "Response1": "Test.",
+      "Triggers3": "GOTO_3",
+      "OutgoingNodeID": "1,2,3",
+      "Response3": "TEST."
+    },
+    {
+      "Triggers1": "GOTO_2",
+      "Triggers2": "GOTO_3",
+      "EndText": "",
+      "PrevNodeID": "0",
+      "NodeID": "1",
+      "EndTrigger": "",
+      "Response2": "test",
+      "ActorText": "TEST",
+      "Response1": "tes",
+      "Triggers3": "exit",
+      "OutgoingNodeID": "2,3",
+      "Response3": "test"
+    },
+    {
+      "Triggers1": "EXIT",
+      "Triggers2": "GOTO_3",
+      "EndText": "Leave",
+      "PrevNodeID": "1,0",
+      "NodeID": "2",
+      "EndTrigger": "EXIT",
+      "Response2": "by",
+      "ActorText": "Bye.",
+      "Response1": "by.",
+      "Triggers3": "EXIT",
+      "OutgoingNodeID": "3",
+      "Response3": "by"
+    },
+    {
+      "Triggers1": "EXIT",
+      "Triggers2": "exit",
+      "EndText": "",
+      "PrevNodeID": "2,1,0",
+      "NodeID": "3",
+      "EndTrigger": "",
+      "Response2": "f",
+      "ActorText": "F",
+      "Response1": "f",
+      "Triggers3": "exit",
+      "OutgoingNodeID": "",
+      "Response3": "f"
+    }
+  ],
+  "QuestID": 0,
+  "ActorID": 0
+}
